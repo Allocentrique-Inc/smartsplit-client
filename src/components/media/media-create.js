@@ -43,15 +43,14 @@ export default class MediaCreate extends Component {
 
         console.log('fetch() avec options',options)
 
-        fetch('http://localhost:8080/v1/media', options).then((response) => {
+        fetch('http://127.0.0.1:8080/v1/media', options).then((response) => {
             return response.json()
         })
-        .then((jsonObject) => {
-            alert('Biquette est sortie du trou!')
+        .then((jsonObject) => {            
             cb()
         })
         .catch((error) => {
-            alert('Biquette veut pas sortir du trou...')
+            alert(error)
             throw(error)
         })
     }

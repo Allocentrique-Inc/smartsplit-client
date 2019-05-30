@@ -10,7 +10,7 @@ class App extends Component {
       <div className="App">
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2>SmartSplit Client - Alpha</h2>
+          <h2>SmartSplit Alpha - Client</h2>
         </div>
         <p className="App-intro">
           <code>Création de média</code>          

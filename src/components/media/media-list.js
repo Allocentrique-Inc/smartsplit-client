@@ -27,7 +27,7 @@ export default class MediaList extends Component {
             }
         }        
 
-        fetch('http://localhost:8080/v1/media', options).then((response) => {
+        fetch('http://127.0.0.1:8080/v1/media', options).then((response) => {
             return response.json()
         })
         .then((jsonObject) => {
@@ -35,7 +35,7 @@ export default class MediaList extends Component {
             this.setState({donnees: jsonObject})
         })
         .catch((error) => {
-            alert('Biquette veut pas sortir du trou...' + error)
+            alert(error)
             throw(error)
         })
     }
