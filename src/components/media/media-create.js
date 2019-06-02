@@ -43,14 +43,13 @@ export default class MediaCreate extends Component {
 
         console.log('fetch() avec options',options)
 
-        fetch('http://127.0.0.1:8080/v1/media', options).then((response) => {
+        fetch('http://api.smartsplit.org:8080/v1/media', options).then((response) => {
             return response.json()
         })
         .then((jsonObject) => {            
             cb()
         })
         .catch((error) => {
-            alert(error)
             throw(error)
         })
     }

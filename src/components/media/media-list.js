@@ -27,7 +27,7 @@ export default class MediaList extends Component {
             }
         }        
 
-        fetch('http://127.0.0.1:8080/v1/media', options).then((response) => {
+        fetch('http://api.smartsplit.org:8080/v1/media', options).then((response) => {
             return response.json()
         })
         .then((jsonObject) => {
@@ -35,7 +35,6 @@ export default class MediaList extends Component {
             this.setState({donnees: jsonObject})
         })
         .catch((error) => {
-            alert(error)
             throw(error)
         })
     }
