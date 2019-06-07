@@ -5,7 +5,8 @@
 import React from "react"
 import { Wizard } from "semantic-ui-react-formik"
 import { required } from './utils'
-import { Form } from "semantic-ui-react";
+import { Form } from "semantic-ui-react"
+import { Translation } from "react-i18next"
 
 const genreOptions = [
     {key: 'G1', text: 'Punk', value: 'G01'},
@@ -15,42 +16,48 @@ const genreOptions = [
 ]
 
 const Page = (props) => (
-    <React.Fragment>
 
-        <h2>Quel est le genre de ton oeuvre ?</h2> 
+    <Translation>
+        {
+            (t) =>
+                <React.Fragment>
 
-        <p>Genre, style, comme ... ?</p>
-
-        <Wizard.Field
-        name="oeuvre.genre1"
-        component={Form.Dropdown}
-        componentProps={{
-            label: "Le genre primaire",
-            placeholder: "Recherche et sélectionne le genre principal de ton oeuvre",
-            required: true,
-            autoFocus: true,
-            fluid: true,            
-            search: true,
-            options: genreOptions
-        }}
-        validate={required}
-        />
-
-        <Wizard.Field
-        name="oeuvre.genre2"
-        component={Form.Dropdown}
-        componentProps={{
-            label: "Le genre secondaire",
-            placeholder: "Recherche et sélectionne le genre secondaire de ton oeuvre",
-            required: false,
-            autoFocus: false,
-            fluid: true,            
-            search: true,
-            options: genreOptions
-        }}
-        />
-
-    </React.Fragment>
+                    <h2>{t('flot.genre.titre')}</h2> 
+            
+                    <p>{t('flot.genre.preambule')}</p>
+            
+                    <Wizard.Field
+                    name="oeuvre.genre1"
+                    component={Form.Dropdown}
+                    componentProps={{
+                        label: t('oeuvre.attribut.etiquette.genre'),
+                        placeholder: t('oeuvre.attribut.indication.genre'),
+                        required: true,
+                        autoFocus: true,
+                        fluid: true,            
+                        search: true,
+                        options: genreOptions
+                    }}
+                    validate={required}
+                    />
+            
+                    <Wizard.Field
+                    name="oeuvre.genre2"
+                    component={Form.Dropdown}
+                    componentProps={{
+                        label: t('oeuvre.attribut.etiquette.genre2'),
+                        placeholder: t('oeuvre.attribut.indication.genre2'),
+                        required: false,
+                        autoFocus: false,
+                        fluid: true,            
+                        search: true,
+                        options: genreOptions
+                    }}
+                    />
+            
+                </React.Fragment>
+        }
+    </Translation>
 )
 
 export default Page

@@ -10,17 +10,10 @@ import Page1 from './page1-embarquement'
 
 const AssistantOeuvreEmbarquement = ({onSubmit}) => (
     <Wizard
-        initialValues={{
-            titre: "",
-            fichierUUID: "",
-            collaborateurs: "",
-            paroles: "",
-            liensWeb: "",
-            genres: "",
-            liensCommerciaux: "",
-            iswc: "",
-            isrc: ""
-        }}
+        initialValues={
+            {
+            }
+        }
         onSubmit={onSubmit}
     >
         <Wizard.Page>

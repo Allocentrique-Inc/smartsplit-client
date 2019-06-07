@@ -6,6 +6,7 @@ import React from "react"
 import { Wizard } from "semantic-ui-react-formik"
 import { required } from './utils'
 import { Form } from "semantic-ui-react";
+import { Translation } from "react-i18next"
 
 const languesOptions = [
     {key: 'L1', text: 'Français', value: 'LO1'},
@@ -15,42 +16,49 @@ const languesOptions = [
 ]
 
 const Page = (props) => (
-    <React.Fragment>
 
-        <h2>Inscrivez les paroles (lyrics) de votre oeuvre musicale </h2> 
+    <Translation>
+        {
+            (t) => 
+                <React.Fragment>
 
-        <p>Lorem ipsium, on explique ici l'importance d'un point de vu copyright ainsi que SEO de mettre les paroles afin de permettre la découvrabilité.</p>
+                    <h2>{t('flot.paroles.titre')}</h2> 
 
-        <Wizard.Field
-        name="oeuvre.paroles.texte"
-        component={Form.TextArea}
-        componentProps={{
-            label: "Les paroles de ton oeuvre",
-            placeholder: "Écris ici les paroles de ta chanson",
-            required: true,
-            autoFocus: true
-        }}
-        validate={required}
-        />
+                    <p>{t('flot.paroles.preambule')}</p>
 
-        <Wizard.Field
-        name="oeuvre.paroles.langues"
-        component={Form.Dropdown}
-        componentProps={{
-            label: "La langue de tes paroles",
-            placeholder: "Quelles langues dans ton oeuvre ?",
-            required: true,
-            autoFocus: true,
-            fluid: true,
-            multiple: true,
-            search: true,
-            selection: true,
-            options: languesOptions
-        }}
-        validate={required}
-        />        
+                    <Wizard.Field
+                    name="oeuvre.paroles.texte"
+                    component={Form.TextArea}
+                    componentProps={{
+                        label: t('oeuvre.attribut.etiquette.paroles'),
+                        placeholder: t('oeuvre.attribut.indication.paroles'),
+                        required: true,
+                        autoFocus: true
+                    }}
+                    validate={required}
+                    />
 
-    </React.Fragment>
+                    <Wizard.Field
+                    name="oeuvre.paroles.langues"
+                    component={Form.Dropdown}
+                    componentProps={{
+                        label: t('oeuvre.attribut.etiquette.langueParoles'),
+                        placeholder: t('oeuvre.attribut.indication.langueParoles'),
+                        required: true,
+                        autoFocus: true,
+                        fluid: true,
+                        multiple: true,
+                        search: true,
+                        selection: true,
+                        options: languesOptions
+                    }}
+                    validate={required}
+                    />        
+
+                </React.Fragment>
+        }
+    </Translation>
+    
 )
 
 export default Page

@@ -9,77 +9,69 @@ import { FormField } from "semantic-ui-react-ext"
 import { Wizard } from "semantic-ui-react-formik"
 import { required } from './utils'
 
+// Traduction
+import { Translation } from 'react-i18next';
+
 // Image de méditation
 import image from '../../assets/images/meditation-ecouteurs-femme.jpg'
 
 import Dropzone from 'react-dropzone'
 
-let dropZone = (
-    <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
-        {({getRootProps, getInputProps}) => (
-            <section>
-                <div className="drop-zone" {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <p>Glissez et déposez des fichiers ici pour les envoyer, ou cliquez ici pour choisir et envoyer.</p>
-                </div>
-            </section>
-        )}
-    </Dropzone>
-)
-
 const Page = (props) => (
   <React.Fragment>
- 
-    <table>
-      <tbody>
-        <tr>
-          <td>
-            <div>
-              Bonjour Joe ! Nous allons t'aider à documenter ton oeuvre.
-            </div>
+    <Translation>
+      {
+        (t) =>
+          <table>
+          <tbody>
+            <tr>
+              <td>
+                <div>
+                  {t('flot.documente-ton-oeuvre.preambule')}
+                </div>
 
-            <h1>
-              ÉTAPE 1
-            </h1>
+                <h1>
+                  {t('flot.documente-ton-oeuvre.titre')}
+                </h1>
 
-            <Wizard.Field
-              name="oeuvre.titre"
-              component={FormField}
-              componentProps={{
-                label: "Quel est le titre de ta pièce musicale ?",
-                placeholder: "Titre de l'oeuvre",
-                required: true,
-                autoFocus: true
-              }}
-              validate={required}
-            />
+                <Wizard.Field
+                  name="oeuvre.titre"
+                  component={FormField}
+                  componentProps={{
+                    label: t('oeuvre.attribut.etiquette.titre'),
+                    placeholder: t('oeuvre.attribut.indication.titre'),
+                    required: true,
+                    autoFocus: true
+                  }}
+                  validate={required}
+                />
 
-            <h2>Téléversez vos fichiers sources</h2>
+                <h2>{t('composant.televersement.titre')}</h2>
 
-            <p>
-                Lorem ipsium, ici vous pouvez téléverser vos fichiers sources. 
-                Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. 
-                Vous pourrez ainsi partager vos fichiers directement aux radios, télédiffuseurs, etc.  
-                Ce ne sont pas des liens pour le public.
-            </p>
+                <p>
+                  {t('composant.televersement.preambule')}
+                </p>
 
-            {dropZone}
+                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+                    {({getRootProps, getInputProps}) => (
+                        <section>
+                            <div className="drop-zone" {...getRootProps()}>
+                                <input {...getInputProps()} />
+                                <p>{t('composant.televersement.indication')}</p>
+                            </div>
+                        </section>
+                    )}
+                </Dropzone>
 
-          </td>
-          <td>
-            <img src={image} alt="Femme en méditation avec des écouteurs" />
-          </td>
-        </tr>
-      </tbody>      
-    </table>
-
-    <div className="ui float left">
-      
-    </div>
-    <div className="ui float right">
-        
-    </div>
-    
+              </td>
+              <td>
+                <img src={image} alt={t('image.embarquement.alt')} />
+              </td>
+            </tr>
+          </tbody>      
+        </table>
+      }      
+    </Translation>    
   </React.Fragment>
 )
 

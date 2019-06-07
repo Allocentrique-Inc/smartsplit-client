@@ -1,0 +1,115 @@
+{
+    "titre": {
+        "principal": "Bienvenue sur SmartSplit Alpha - Client",
+        "accueil": "Accueil",
+        "liste-media": "Liste des médias retournés de l'API"
+    },
+    "collaborateur": {
+        "attribut": {
+            "etiquette": {
+                "nom": "Nom de famille",
+                "prenom": "Prénom",
+                "artiste": "Nom d'artiste",
+                "role": "Rôle dans l'oeuvre"
+            },
+            "indication": {
+                "nom": "Indique ton nom de famille",
+                "prenom": "Indique ton prénom",
+                "artiste": "Indique ton nom d'artiste",
+                "role": "Choisis 1 ou plusieurs rôles"
+            }
+        }
+    },
+    "oeuvre": {
+        "attribut": {
+            "etiquette": {
+                "titre": "Titre",
+                "album": "Album",
+                "reprise": "Reprise",
+                "artiste": "Artiste",
+                "juridiction": "Juridiction",
+                "ayantDroit": "Collaborateurs",
+                "genre": "Style musical principal",
+                "genre2": "Style musical secondaire",
+                "paroles": "Paroles",
+                "langueParoles": "Langue des paroles",
+                "isrc": "# ISRC",
+                "upc": "# UPC",
+                "dureeMs": "Durée (millisecondes)",
+                "liensSociaux": "Liens vers médias sociaux",
+                "liensServices": "Liens vers services de diffusion",
+                "liensPresse": "Liens de la revue de presse",
+                "liensListes": "Liens vers les listes de lecture",
+                "dateCreation": "Date de création",
+                "dateModification": "Date de modification",
+                "datePublication": "Date de publication",
+                "editeur": "Éditeur",
+                "repartition": "Répartition des droits (%)"
+            },
+            "indication": {
+                "titre": "Titre de l'oeuvre",
+                "album": "Album sur lequel figure l'oeuvre",
+                "reprise": "",
+                "artiste": "Qui est l'artiste principal ?",
+                "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
+                "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
+                "genre": "Sélectionne le genre principal de l'oeuvre",
+                "genre2": "Sélectionne le genre secondaire de l'oeuvre",
+                "paroles": "Inscrit les paroles",
+                "langueParoles": "Sélectionne la ou les langues pour les paroles",
+                "isrc": "Numéro d'enregistrement international",
+                "upc": "Numéro de produit unique",
+                "dureeMs": "Indique la durée en millisecondes",
+                "liensSociaux": "URL complet vers un lien social",
+                "liensServices": "URL complet vers un lien commercial",
+                "liensPresse": "URL complet vers un article de presse",
+                "liensListes": "URL complet vers une liste de lecture",
+                "dateCreation": "Quand a été créé l'oeuvre ?",
+                "dateModification": "Quand l'oeuvre a-t-elle été modifiée ?",
+                "datePublication": "Quand l'oeuvre a-t-elle été publiée ?",
+                "editeur": "Qui est l'éditeur de l'oeuvre ?",
+                "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
+            }            
+        }
+    },
+    "navigation": {
+        "suivant": "Suivant",
+        "soumettre": "Soumettre",
+        "precedent": "Précédent",
+        "reinitialiser": "Réinitialiser"
+    },
+    "validation": {
+        "requis": "Requis"
+    },
+    "composant": {
+        "televersement":  {
+            "titre": "Téléversez vos fichiers sources",
+            "indication": "Glissez et déposez des fichiers ici pour les envoyer, ou cliquez ici pour choisir et envoyer.",
+            "preambule": "Lorem ipsium, ici vous pouvez téléverser vos fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Vous pourrez ainsi partager vos fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
+        }
+    },
+    "image": {
+        "embarquement": {
+            "alt": "Femme en méditation avec des écouteurs"
+        }
+    },
+    "flot": {
+        "documente-ton-oeuvre": {
+            "titre": "ÉTAPE 1 - Documente ton oeuvre",
+            "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton oeuvre."
+        },
+        "collaborateurs": {
+            "titre": "Qui sont les créateur et collaborateurs de ton oeuvre musicale? ",
+            "preambule": "Commençons par toi ...",
+            "role": "Joe, définissez votre rôle ?"
+        },
+        "paroles": {
+            "titre": "Inscrivez les paroles de votre oeuvre musicale",
+            "preambule": ""
+        },
+        "genre": {
+            "titre": "Quel est le genre de ton oeuvre ?",
+            "preambule": "Genre, style, comme ... ?"
+        }
+    }
+}
