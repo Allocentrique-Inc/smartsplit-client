@@ -21,7 +21,6 @@ const Page = (props) => (
                 <React.Fragment>
 
                     <h2>{t('flot.collaborateurs.titre')}</h2>
-
                     <p>{t('flot.collaborateurs.preambule')}</p>
 
                     <ChampTexteAssistant 
@@ -37,7 +36,6 @@ const Page = (props) => (
                         modele="collaborateur.artiste" requis={false} autoFocus={false} />
 
                     <p>{t('flot.collaborateurs.role')}</p>
-
                     <ChampListeAssistant
                         etiquette={t('collaborateur.attribut.etiquette.role')} indication={t('collaborateur.attribut.indication.role')}
                         modele="collaborateur.role" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}

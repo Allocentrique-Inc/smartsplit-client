@@ -6,14 +6,11 @@ import React from 'react'
 import { Wizard } from "semantic-ui-react-formik"
 
 // Pages de l'assistant
-import Page1 from './page1-embarquement'
+import Page1 from './assistant-oeuvre-embarquement'
 
 const AssistantOeuvreEmbarquement = ({onSubmit}) => (
     <Wizard
-        initialValues={
-            {
-            }
-        }
+        initialValues={{}}
         onSubmit={onSubmit}
     >
         <Wizard.Page>

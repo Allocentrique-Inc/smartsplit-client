@@ -14,7 +14,7 @@ import { createBrowserHistory } from 'history'
 
 // Composantes navigables
 import AssistantOeuvreEmbarquement from './components/oeuvre/oeuvre-assistant-embarquement'
-import AssistantOeuvreDescription from './components/oeuvre/oeuvre-assistant-description'
+import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import TestCreerOeuvre from './components/media/media-create'
 import ListeOeuvres from './components/media/media-list'
 
@@ -26,7 +26,7 @@ const renderRoutes = () => (
         <Switch>
           <Route exact path="/" component={App}/>
           <Route exact path="/nouvelle-oeuvre" component={AssistantOeuvreEmbarquement}/>
-          <Route exact path="/decrire-oeuvre" component={AssistantOeuvreDescription}/>
+          <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
           <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
           <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} />
         </Switch>

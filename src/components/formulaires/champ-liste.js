@@ -23,7 +23,6 @@ export class ChampListeAssistant extends Component {
             selection: props.selection,
             options: props.options
         }
-        console.log("Champ liste assistant créé", props)
     }
 
     componentWillReceiveProps(nextProps) {

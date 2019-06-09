@@ -33,8 +33,8 @@
                 "genre2": "Style musical secondaire",
                 "paroles": "Paroles",
                 "langueParoles": "Langue des paroles",
-                "isrc": "# ISRC",
-                "upc": "# UPC",
+                "isrc": "Numéro ISRC",
+                "iswc": "Numéro ISWC",                
                 "dureeMs": "Durée (millisecondes)",
                 "liensSociaux": "Liens vers médias sociaux",
                 "liensServices": "Liens vers services de diffusion",
@@ -57,8 +57,8 @@
                 "genre2": "Sélectionne le genre secondaire de l'oeuvre",
                 "paroles": "Inscrit les paroles",
                 "langueParoles": "Sélectionne la ou les langues pour les paroles",
-                "isrc": "Numéro d'enregistrement international",
-                "upc": "Numéro de produit unique",
+                "isrc": "Identifiant unique de l'enregistrement",
+                "iswc": "Identifiant unique de l'oeuvre",
                 "dureeMs": "Indique la durée en millisecondes",
                 "liensSociaux": "URL complet vers un lien social",
                 "liensServices": "URL complet vers un lien commercial",
@@ -110,6 +110,10 @@
         "genre": {
             "titre": "Quel est le genre de ton oeuvre ?",
             "preambule": "Genre, style, comme ... ?"
+        },
+        "pro": {
+            "titre": "Es-tu pro. ?",
+            "preambule": "Ta propriété intellectuelle se matérialise par des numéros ISWC et ISRC (si enregistrement). Relie-les à ton oeuvre ici !"
         }
     }
 }

@@ -34,7 +34,7 @@
                 "paroles": "Lyrics",
                 "langueParoles": "Lyric's languages",
                 "isrc": "ISRC #",
-                "upc": "UPC #",
+                "iswc": "ISWC #",
                 "dureeMs": "Duration (milliseconds)",
                 "liensSociaux": "Social links",
                 "liensServices": "Streaming links",
@@ -57,8 +57,8 @@
                 "genre2": "Select the secondary work genre",
                 "paroles": "Type in the lyrics",
                 "langueParoles": "Select one or more lyrics language",
-                "isrc": "International recording number",
-                "upc": "Unique product number",
+                "isrc": "Recording unique identified",
+                "iswc": "Work unique identifier",
                 "dureeMs": "Type in the duration (in milliseconds)",
                 "liensSociaux": "URL for social link",
                 "liensServices": "URL for commercial link",
@@ -110,6 +110,10 @@
         "genre": {
             "titre": "What are the genres of the work ?",
             "preambule": "Genre, style, kind of ... ?"
+        },
+        "pro": {
+            "titre": "Are you a professional ?",
+            "preambule": "Your intellectual property is identified with two numbers: ISWC and ISRC (if recorded). Link them here."
         }
     }
 }
