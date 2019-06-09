@@ -3,10 +3,8 @@
  */
 
 import React from "react"
-import { Wizard } from "semantic-ui-react-formik"
-import { required } from './utils'
-import { Form } from "semantic-ui-react"
 import { Translation } from "react-i18next"
+import { ChampListeAssistant } from "../formulaires/champ-liste"
 
 const genreOptions = [
     {key: 'G1', text: 'Punk', value: 'G01'},
@@ -22,38 +20,18 @@ const Page = (props) => (
             (t) =>
                 <React.Fragment>
 
-                    <h2>{t('flot.genre.titre')}</h2> 
-            
+                    <h2>{t('flot.genre.titre')}</h2>            
                     <p>{t('flot.genre.preambule')}</p>
-            
-                    <Wizard.Field
-                    name="oeuvre.genre1"
-                    component={Form.Dropdown}
-                    componentProps={{
-                        label: t('oeuvre.attribut.etiquette.genre'),
-                        placeholder: t('oeuvre.attribut.indication.genre'),
-                        required: true,
-                        autoFocus: true,
-                        fluid: true,            
-                        search: true,
-                        options: genreOptions
-                    }}
-                    validate={required}
-                    />
-            
-                    <Wizard.Field
-                    name="oeuvre.genre2"
-                    component={Form.Dropdown}
-                    componentProps={{
-                        label: t('oeuvre.attribut.etiquette.genre2'),
-                        placeholder: t('oeuvre.attribut.indication.genre2'),
-                        required: false,
-                        autoFocus: false,
-                        fluid: true,            
-                        search: true,
-                        options: genreOptions
-                    }}
-                    />
+
+                    <ChampListeAssistant
+                        etiquette={t('oeuvre.attribut.etiquette.genre')} indication={t('oeuvre.attribut.indication.genre')}
+                        modele="oeuvre.genre1" requis={true} fluid={true} multiple={false} recherche={true} selection={false} autoFocus={true}
+                        options={genreOptions} />
+
+                    <ChampListeAssistant
+                        etiquette={t('oeuvre.attribut.etiquette.genre2')} indication={t('oeuvre.attribut.indication.genre2')}
+                        modele="oeuvre.genre2" requis={false} fluid={true} multiple={false} recherche={true} selection={false} autoFocus={false}
+                        options={genreOptions} />                           
             
                 </React.Fragment>
         }

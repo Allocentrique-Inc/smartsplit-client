@@ -3,11 +3,9 @@
  */
 
 import React from "react"
-import { FormField } from "semantic-ui-react-ext"
-import { Wizard } from "semantic-ui-react-formik"
-import { required } from './utils'
-import { Form } from "semantic-ui-react"
 import { Translation } from 'react-i18next'
+import { ChampTexteAssistant } from "../formulaires/champ-texte";
+import { ChampListeAssistant } from "../formulaires/champ-liste";
 
 const rolesOptions = [
     {key: 'R1', text: 'Compositeur', value: 'RO1'},
@@ -26,59 +24,24 @@ const Page = (props) => (
 
                     <p>{t('flot.collaborateurs.preambule')}</p>
 
-                    <Wizard.Field
-                        name="collaborateur.nom"
-                        component={FormField}
-                        componentProps={{
-                            label: t('collaborateur.attribut.etiquette.nom'),
-                            placeholder: t('collaborateur.attribut.indication.nom'),
-                            required: true,
-                            autoFocus: true
-                        }}
-                        validate={required}
-                    />
+                    <ChampTexteAssistant 
+                        etiquette={t('collaborateur.attribut.etiquette.nom')} indication={t('collaborateur.attribut.indication.nom')} 
+                        modele="collaborateur.nom" requis={true} autoFocus={true} />
 
-                    <Wizard.Field
-                        name="collaborateur.prenom"
-                        component={FormField}
-                        componentProps={{
-                            label: t('collaborateur.attribut.etiquette.prenom'),
-                            placeholder: t('collaborateur.attribut.indication.prenom'),
-                            required: true,
-                            autoFocus: false
-                        }}
-                        validate={required}
-                    />
+                    <ChampTexteAssistant 
+                        etiquette={t('collaborateur.attribut.etiquette.prenom')} indication={t('collaborateur.attribut.indication.prenom')} 
+                        modele="collaborateur.prenom" requis={true} autoFocus={false} />
 
-                    <Wizard.Field
-                        name="collaborateur.artiste"
-                        component={FormField}
-                        componentProps={{
-                            label: t('collaborateur.attribut.etiquette.artiste'),
-                            placeholder: t('collaborateur.attribut.indication.artiste'),
-                            required: false,
-                            autoFocus: false
-                        }}
-                    />
+                    <ChampTexteAssistant 
+                        etiquette={t('collaborateur.attribut.etiquette.artiste')} indication={t('collaborateur.attribut.indication.artiste')} 
+                        modele="collaborateur.artiste" requis={false} autoFocus={false} />
 
                     <p>{t('flot.collaborateurs.role')}</p>
 
-                    <Wizard.Field
-                        name="collaborateur.role"
-                        component={Form.Dropdown}
-                        componentProps={{
-                            label: t('collaborateur.attribut.etiquette.role'),
-                            placeholder: t('collaborateur.attribut.indication.role'),
-                            required: true,
-                            autoFocus: true,
-                            fluid: true,
-                            multiple: true,
-                            search: true,
-                            selection: true,
-                            options: rolesOptions
-                        }} 
-                        validate={required}
-                    />            
+                    <ChampListeAssistant
+                        etiquette={t('collaborateur.attribut.etiquette.role')} indication={t('collaborateur.attribut.indication.role')}
+                        modele="collaborateur.role" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
+                        options={rolesOptions} />
 
                 </React.Fragment>
         }

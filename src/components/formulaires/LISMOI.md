@@ -1,0 +1,1 @@
+Ce répertoire contient les composants d'entrée de formulaire généralisés.

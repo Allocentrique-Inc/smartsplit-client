@@ -3,10 +3,9 @@
  */
 
 import React from "react"
-import { Wizard } from "semantic-ui-react-formik"
-import { required } from './utils'
-import { Form } from "semantic-ui-react";
 import { Translation } from "react-i18next"
+import { ChampTexteLongAssistant } from "../formulaires/champ-texte"
+import { ChampListeAssistant } from "../formulaires/champ-liste"
 
 const languesOptions = [
     {key: 'L1', text: 'Français', value: 'LO1'},
@@ -26,34 +25,14 @@ const Page = (props) => (
 
                     <p>{t('flot.paroles.preambule')}</p>
 
-                    <Wizard.Field
-                    name="oeuvre.paroles.texte"
-                    component={Form.TextArea}
-                    componentProps={{
-                        label: t('oeuvre.attribut.etiquette.paroles'),
-                        placeholder: t('oeuvre.attribut.indication.paroles'),
-                        required: true,
-                        autoFocus: true
-                    }}
-                    validate={required}
-                    />
+                    <ChampTexteLongAssistant 
+                        etiquette={t('oeuvre.attribut.etiquette.paroles')} indication={t('oeuvre.attribut.indication.paroles')}
+                        modele="oeuvre.paroles.texte" requis={true} autoFocus={true} />
 
-                    <Wizard.Field
-                    name="oeuvre.paroles.langues"
-                    component={Form.Dropdown}
-                    componentProps={{
-                        label: t('oeuvre.attribut.etiquette.langueParoles'),
-                        placeholder: t('oeuvre.attribut.indication.langueParoles'),
-                        required: true,
-                        autoFocus: true,
-                        fluid: true,
-                        multiple: true,
-                        search: true,
-                        selection: true,
-                        options: languesOptions
-                    }}
-                    validate={required}
-                    />        
+                    <ChampListeAssistant
+                        etiquette={t('oeuvre.attribut.etiquette.langueParoles')} indication={t('oeuvre.attribut.indication.langueParoles')}
+                        modele="oeuvre.paroles.langue" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
+                        options={languesOptions} />
 
                 </React.Fragment>
         }

@@ -4,18 +4,17 @@
  * Cet écran apparaît sans progression au-dessus.
  */
 
-import React from "react"
-import { FormField } from "semantic-ui-react-ext"
-import { Wizard } from "semantic-ui-react-formik"
-import { required } from './utils'
+import React from 'react'
 
 // Traduction
-import { Translation } from 'react-i18next';
+import { Translation } from 'react-i18next'
+
+// Champs de formulaire
+import {ChampTexteAssistant} from '../formulaires/champ-texte'
+import {ChampTeleversement} from '../formulaires/champ-televersement'
 
 // Image de méditation
 import image from '../../assets/images/meditation-ecouteurs-femme.jpg'
-
-import Dropzone from 'react-dropzone'
 
 const Page = (props) => (
   <React.Fragment>
@@ -34,17 +33,9 @@ const Page = (props) => (
                   {t('flot.documente-ton-oeuvre.titre')}
                 </h1>
 
-                <Wizard.Field
-                  name="oeuvre.titre"
-                  component={FormField}
-                  componentProps={{
-                    label: t('oeuvre.attribut.etiquette.titre'),
-                    placeholder: t('oeuvre.attribut.indication.titre'),
-                    required: true,
-                    autoFocus: true
-                  }}
-                  validate={required}
-                />
+                <ChampTexteAssistant 
+                  etiquette={t('oeuvre.attribut.etiquette.titre')} indication={t('oeuvre.attribut.indication.titre')} 
+                  modele="oeuvre.titre" requis={true} autoFocus={true} />
 
                 <h2>{t('composant.televersement.titre')}</h2>
 
@@ -52,17 +43,8 @@ const Page = (props) => (
                   {t('composant.televersement.preambule')}
                 </p>
 
-                <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
-                    {({getRootProps, getInputProps}) => (
-                        <section>
-                            <div className="drop-zone" {...getRootProps()}>
-                                <input {...getInputProps()} />
-                                <p>{t('composant.televersement.indication')}</p>
-                            </div>
-                        </section>
-                    )}
-                </Dropzone>
-
+                <ChampTeleversement indication={t('composant.televersement.indication')} />
+          
               </td>
               <td>
                 <img src={image} alt={t('image.embarquement.alt')} />
