@@ -114,6 +114,10 @@
         "pro": {
             "titre": "Are you a professional ?",
             "preambule": "Your intellectual property is identified with two numbers: UPC and ISRC (if recorded). Link them here."
+        },
+        "envoi": {
+            "reussi": "Transfer successful !",
+            "echec": "Transfer failed"
         }
     }
 }
