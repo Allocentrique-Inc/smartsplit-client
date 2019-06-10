@@ -26,11 +26,11 @@ export default class MediaCreate extends Component {
         // creationDate, modificationDate, submissionDate, publisher, rightHolders, rightsType, split        
         donnees.creationDate = moment.utc().format()
         donnees.modificationDate = moment.utc().format()
-        donnees.publishedDate = moment.utc().format()
+        donnees.publishDate = moment.utc().format()
         donnees.publisher = 'Vincent de Grandpré'
-        donnees.rightHolders = []
-        donnees.rightsType = []
-        donnees.rightsSplit = []
+        donnees.rightHolders = {}
+        donnees.rightsType = {}
+        donnees.rightsSplit = {}
 
         // Ajout données         
         donnees.secondaryGenre = 'Genre secondaire - test'
@@ -38,11 +38,11 @@ export default class MediaCreate extends Component {
         donnees.isrc = 'ISRC - test'
         donnees.upc = 'UPC - test'
         donnees.msDuration = "1234"
-        donnees.lyricsLanguages = ['Mandarin', 'Instrumental']
-        donnees.socialMediaLinks = ['http://gnu.org','http://iptoki.com']
-        donnees.streamingServiceLinks = ['http://gnu.org/service','http://iptoki.com/service']
-        donnees.pressArticleLinks = ['http://gnu.org/press','http://iptoki.com/press']
-        donnees.playlistLinks = ['http://gnu.org/playlist', 'http://iptoki.com/playlist']
+        donnees.inLanguages = ['Mandarin', 'Instrumental']
+        donnees.socialMediaLinks = {facebook: "https://facebook.com/ex", twitter: "https://twitter.com/ex", youtube: "https://youtube.com/ex"}
+        donnees.streamingServiceLinks = {spotify: "https://open.spotify.com/track/asdgj4qhfasd", apple: "https://twitter.com/ex"}
+        donnees.pressArticleLinks = {medium: "https://medium.com/ex", metro: "https://metro.ca/ex"}
+        donnees.playlistLinks = {spotify: "https://open.spotify.com/playlist/37i9dQZEVXbKfIuOAZrk7G", youtube: "https://www.youtube.com/playlist?list=PLgzTt0k8mXzEk586ze4BjvDXR7c-TUSnx"}
 
         // Création d'un objet Media afin de valider le modèle
         const media = new Oeuvre(donnees)
@@ -50,9 +50,12 @@ export default class MediaCreate extends Component {
         // Transmettre à l'API (configuration locale statique)
         const options = {
             method: 'POST',
-            data: media.get(),
+            mode: 'no-cors', // TODO Remove patch
+            body: media.get(),
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Origin": "http://localhost:3000",
+                "Accept": "application/json"
             }
         }
 

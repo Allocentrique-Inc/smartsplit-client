@@ -6,7 +6,7 @@ export default class Oeuvre {
         
         // Validation des intrans
         check(mediaDefinition)
-            .hasNumber('mediaId')
+            // .hasNumber('mediaId')
             .hasString('title')
             .hasString('album')
             .hasString('artist')
@@ -16,13 +16,13 @@ export default class Oeuvre {
             .hasString('lyrics')
             .hasString('creationDate')
             .hasString('modificationDate')
-            .hasString('publishedDate')
+            .hasString('publishDate')
             .hasString('publisher')
             .hasString('isrc')
             .hasString('upc')
             .hasString('msDuration')
             .hasBoolean('cover')
-            .hasObject('lyricsLanguages')
+            .hasObject('inLanguages')
             .hasObject('socialMediaLinks')
             .hasObject('streamingServiceLinks')
             .hasObject('pressArticleLinks')
@@ -33,7 +33,7 @@ export default class Oeuvre {
             .assert()
 
         // Construction
-        this.mediaId = mediaDefinition.mediaId
+        // this.mediaId = mediaDefinition.mediaId
         this.title = mediaDefinition.title
         this.album = mediaDefinition.album
         this.artist = mediaDefinition.artist
@@ -44,7 +44,7 @@ export default class Oeuvre {
         this.genre = mediaDefinition.genre
         this.secondaryGenre = mediaDefinition.secondaryGenre
         this.lyrics = mediaDefinition.lyrics
-        this.lyricsLanguages = mediaDefinition.lyricsLanguages
+        this.inLanguages = mediaDefinition.inLanguages
         this.isrc = mediaDefinition.isrc
         this.upc = mediaDefinition.upc
         this.msDuration = mediaDefinition.msDuration
@@ -54,14 +54,14 @@ export default class Oeuvre {
         this.playlistLinks = mediaDefinition.playlistLinks
         this.creationDate = mediaDefinition.creationDate
         this.modificationDate = mediaDefinition.modificationDate
-        this.publishedDate = mediaDefinition.publishedDate
+        this.publishDate = mediaDefinition.publishDate
         this.publisher = mediaDefinition.publisher
         this.rightsSplit = mediaDefinition.rightsSplit
     }
 
     get = function() {
-        return {
-            mediaId: this.mediaId,
+        return [{
+            // mediaId: this.mediaId,
             title: this.title,
             album: this.album,
             artist: this.artist,
@@ -72,7 +72,7 @@ export default class Oeuvre {
             genre: this.genre,
             secondaryGenre: this.secondaryGenre,
             lyrics: this.lyrics,
-            lyricsLanguages: this.lyricsLanguages,
+            inLanguages: this.inLanguages,
             isrc: this.isrc,
             upc: this.upc,
             msDuration: this.msDuration,
@@ -82,10 +82,10 @@ export default class Oeuvre {
             playlistLinks: this.playlistLinks,
             creationDate: this.creationDate,
             modificationDate: this.modificationDate,
-            publishedDate: this.publishedDate,
+            publishDate: this.publishDate,
             publisher: this.publisher,
             rightsSplit: this.rightsSplit
-        }
+        }]
     }
 
 }

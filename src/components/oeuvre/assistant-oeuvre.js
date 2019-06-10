@@ -24,30 +24,30 @@ const AssistantOeuvre = () => (
                 <Wizard      
                         initialValues={
                             {
-                                mediaId: 0,
+                                // mediaId: 0,
                                 title: "",
                                 album: "",
                                 artist: "",
                                 cover: false,
-                                rightHolders: [],
+                                rightHolders: {},
                                 jurisdiction: "",
-                                rightsType: [],
+                                rightsType: {},
                                 genre: "",
                                 secondaryGenre: "",
                                 lyrics: "",
-                                lyricsLanguages: [],
+                                inLanguages: [],
                                 isrc: "",
                                 upc: "",
                                 msDuration: "",
-                                socialMediaLinks: [],
-                                streamingServiceLinks: [],
-                                pressArticleLinks: [],
-                                playlistLinks: [],
+                                socialMediaLinks: {},
+                                streamingServiceLinks: {},
+                                pressArticleLinks: {},
+                                playlistLinks: {},
                                 creationDate: "",
                                 modificationDate: "",
-                                publishedDate: "",
+                                publishDate: "",
                                 publisher: "",
-                                rightsSplit: []
+                                rightsSplit: {}
                             }
                         }  
                         onSubmit={(values, actions) => {
