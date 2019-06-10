@@ -1,6 +1,6 @@
 const check = require('check')
 
-export default class Media {
+export default class Oeuvre {
 
     constructor(mediaDefinition) {
         

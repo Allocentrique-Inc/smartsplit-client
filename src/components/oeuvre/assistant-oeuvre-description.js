@@ -25,20 +25,20 @@ const Page = (props) => (
 
                     <ChampTexteAssistant 
                         etiquette={t('collaborateur.attribut.etiquette.nom')} indication={t('collaborateur.attribut.indication.nom')} 
-                        modele="collaborateur.nom" requis={true} autoFocus={true} />
+                        modele="rightHolders[0].nom" requis={true} autoFocus={true} />
 
                     <ChampTexteAssistant 
                         etiquette={t('collaborateur.attribut.etiquette.prenom')} indication={t('collaborateur.attribut.indication.prenom')} 
-                        modele="collaborateur.prenom" requis={true} autoFocus={false} />
+                        modele="rightHolders[0].prenom" requis={true} autoFocus={false} />
 
                     <ChampTexteAssistant 
                         etiquette={t('collaborateur.attribut.etiquette.artiste')} indication={t('collaborateur.attribut.indication.artiste')} 
-                        modele="collaborateur.artiste" requis={false} autoFocus={false} />
+                        modele="rightHolders[0].artiste" requis={false} autoFocus={false} />
 
                     <p>{t('flot.collaborateurs.role')}</p>
                     <ChampListeAssistant
                         etiquette={t('collaborateur.attribut.etiquette.role')} indication={t('collaborateur.attribut.indication.role')}
-                        modele="collaborateur.role" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
+                        modele="rightHolders[0].role" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
                         options={rolesOptions} />
 
                 </React.Fragment>

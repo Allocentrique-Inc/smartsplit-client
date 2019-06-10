@@ -56,7 +56,7 @@ export class ChampListeAssistant extends Component {
                     selection: this.state.selection,
                     options: this.state.options
                 }}
-                validate={required}
+                validate={this.state.requis && required}
             />
         )        
     }

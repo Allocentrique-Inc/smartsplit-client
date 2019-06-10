@@ -34,7 +34,7 @@
                 "paroles": "Lyrics",
                 "langueParoles": "Lyric's languages",
                 "isrc": "ISRC #",
-                "iswc": "ISWC #",
+                "upc": "UPC #",
                 "dureeMs": "Duration (milliseconds)",
                 "liensSociaux": "Social links",
                 "liensServices": "Streaming links",
@@ -58,7 +58,7 @@
                 "paroles": "Type in the lyrics",
                 "langueParoles": "Select one or more lyrics language",
                 "isrc": "Recording unique identified",
-                "iswc": "Work unique identifier",
+                "upc": "Product unique identifier",
                 "dureeMs": "Type in the duration (in milliseconds)",
                 "liensSociaux": "URL for social link",
                 "liensServices": "URL for commercial link",
@@ -113,7 +113,7 @@
         },
         "pro": {
             "titre": "Are you a professional ?",
-            "preambule": "Your intellectual property is identified with two numbers: ISWC and ISRC (if recorded). Link them here."
+            "preambule": "Your intellectual property is identified with two numbers: UPC and ISRC (if recorded). Link them here."
         }
     }
 }

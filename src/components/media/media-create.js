@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import { Translation } from 'react-i18next';
 
 // Modèle
-import Media from '../../model/media/Media'
+import Oeuvre from '../../model/oeuvre/oeuvre'
 
 // CSS
 import ('./media.css')
@@ -45,7 +45,7 @@ export default class MediaCreate extends Component {
         donnees.playlistLinks = ['http://gnu.org/playlist', 'http://iptoki.com/playlist']
 
         // Création d'un objet Media afin de valider le modèle
-        const media = new Media(donnees)
+        const media = new Oeuvre(donnees)
 
         // Transmettre à l'API (configuration locale statique)
         const options = {

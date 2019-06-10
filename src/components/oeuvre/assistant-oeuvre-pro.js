@@ -17,11 +17,11 @@ const Page = (props) => (
                     <p>{t('flot.pro.preambule')}</p>
 
                     <ChampTexteAssistant
-                        etiquette={t('oeuvre.attribut.etiquette.iswc')} indication={t('oeuvre.attribut.indication.iswc')} 
-                        modele="oeuvre.iswc" requis={false} autoFocus={false} />
+                        etiquette={t('oeuvre.attribut.etiquette.upc')} indication={t('oeuvre.attribut.indication.upc')} 
+                        modele="upc" requis={false} autoFocus={false} />
                     <ChampTexteAssistant 
                         etiquette={t('oeuvre.attribut.etiquette.isrc')} indication={t('oeuvre.attribut.indication.isrc')} 
-                        modele="oeuvre.isrc" requis={false} autoFocus={true} />
+                        modele="isrc" requis={false} autoFocus={true} />
 
                 </React.Fragment>
         }

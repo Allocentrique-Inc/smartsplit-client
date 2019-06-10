@@ -34,7 +34,7 @@
                 "paroles": "Paroles",
                 "langueParoles": "Langue des paroles",
                 "isrc": "Numéro ISRC",
-                "iswc": "Numéro ISWC",                
+                "upc": "Numéro UPC",                
                 "dureeMs": "Durée (millisecondes)",
                 "liensSociaux": "Liens vers médias sociaux",
                 "liensServices": "Liens vers services de diffusion",
@@ -58,7 +58,7 @@
                 "paroles": "Inscrit les paroles",
                 "langueParoles": "Sélectionne la ou les langues pour les paroles",
                 "isrc": "Identifiant unique de l'enregistrement",
-                "iswc": "Identifiant unique de l'oeuvre",
+                "upc": "Identifiant unique de produit",
                 "dureeMs": "Indique la durée en millisecondes",
                 "liensSociaux": "URL complet vers un lien social",
                 "liensServices": "URL complet vers un lien commercial",
@@ -113,7 +113,7 @@
         },
         "pro": {
             "titre": "Es-tu pro. ?",
-            "preambule": "Ta propriété intellectuelle se matérialise par des numéros ISWC et ISRC (si enregistrement). Relie-les à ton oeuvre ici !"
+            "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton oeuvre ici !"
         }
     }
 }

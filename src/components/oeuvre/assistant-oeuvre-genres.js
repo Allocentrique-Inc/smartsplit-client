@@ -14,10 +14,10 @@ const genreOptions = [
 ]
 
 const genreSecondaireOptions = [
-    {key: 'GS1', text: 'Punk', value: 'G01'},
-    {key: 'GS2', text: 'Rock', value: 'GO2'},
-    {key: 'GS3', text: 'Pop', value: 'GO3'},
-    {key: 'GS4', text: 'Classique et instrumental', value: 'GO4'}
+    {key: 'GS1', text: 'Punk', value: 'GS01'},
+    {key: 'GS2', text: 'Rock', value: 'GSO2'},
+    {key: 'GS3', text: 'Pop', value: 'GSO3'},
+    {key: 'GS4', text: 'Classique et instrumental', value: 'GSO4'}
 ]
 
 const Page = (props) => (
@@ -32,12 +32,12 @@ const Page = (props) => (
 
                     <ChampListeAssistant
                         etiquette={t('oeuvre.attribut.etiquette.genre')} indication={t('oeuvre.attribut.indication.genre')}
-                        modele="oeuvre.genre1" requis={true} fluid={true} multiple={false} recherche={true} selection={false} autoFocus={true}
+                        modele="genre" requis={true} fluid={true} multiple={false} recherche={true} selection={false} autoFocus={true}
                         options={genreOptions} />
 
                     <ChampListeAssistant
                         etiquette={t('oeuvre.attribut.etiquette.genre2')} indication={t('oeuvre.attribut.indication.genre2')}
-                        modele="oeuvre.genre2" requis={false} fluid={true} multiple={false} recherche={true} selection={false} autoFocus={false}
+                        modele="secondaryGenre" requis={false} fluid={true} multiple={false} recherche={true} selection={false} autoFocus={false}
                         options={genreSecondaireOptions} />                           
             
                 </React.Fragment>

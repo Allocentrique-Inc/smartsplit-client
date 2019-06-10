@@ -19,7 +19,7 @@ class App extends Component {
               <br/>
             </div>
             <p className="App-intro">
-              <code>{t('titre.accueil')}</code>          
+              <code>{t('titre.accueil')}</code>
             </p>
             <p>
               <a href="/nouvelle-oeuvre">Liens vers "Nouvelle oeuvre" (embarquement étape 1)</a><br/>

@@ -14,13 +14,72 @@ import PagePro from './assistant-oeuvre-pro'
 // Traduction
 import { Translation } from 'react-i18next'
 
-const AssistantOeuvre = ({onSubmit}) => (
+// Modèle
+import Oeuvre from '../../model/oeuvre/oeuvre'
+
+const AssistantOeuvre = () => (
     <Translation>
         {
             (t) =>
-                <Wizard        
-                        onSubmit={onSubmit}
-                        buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
+                <Wizard      
+                        initialValues={
+                            {
+                                mediaId: 0,
+                                title: "",
+                                album: "",
+                                artist: "",
+                                cover: false,
+                                rightHolders: [],
+                                jurisdiction: "",
+                                rightsType: [],
+                                genre: "",
+                                secondaryGenre: "",
+                                lyrics: "",
+                                lyricsLanguages: [],
+                                isrc: "",
+                                upc: "",
+                                msDuration: "",
+                                socialMediaLinks: [],
+                                streamingServiceLinks: [],
+                                pressArticleLinks: [],
+                                playlistLinks: [],
+                                creationDate: "",
+                                modificationDate: "",
+                                publishedDate: "",
+                                publisher: "",
+                                rightsSplit: []
+                            }
+                        }  
+                        onSubmit={(values, actions) => {
+                            
+                            console.log("Envoi des champs à l'API", values)
+                            let oeuvre = new Oeuvre(values)
+
+                            // Transmettre à l'API
+                            const options = {
+                                method: 'POST',
+                                data: oeuvre.get(),
+                                headers: {
+                                    "Content-Type": "application/json"
+                                }
+                            }
+
+                            fetch('http://api.smartsplit.org:8080/v1/media', options).then((response) => {
+                                return response.json()
+                            })
+                            .then((jsonObject) => {            
+                                actions.setSubmitting(false)
+                            })
+                            .catch((error) => {
+                                throw(error)
+                            })
+
+                        }}
+                        onPageChanged={(page)=>{
+                            console.log("# page", page)
+                        }}
+                        buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}                        
+                        debug={false}
                     >
                         <Wizard.Page>            
                             <PageDescription /> 

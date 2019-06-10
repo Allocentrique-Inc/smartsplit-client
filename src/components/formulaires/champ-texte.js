@@ -98,7 +98,7 @@ export class ChampTexteLongAssistant extends Component {
                     required: this.state.requis,
                     autoFocus: this.state.autoFocus
                 }}
-                validate={required}
+                validate={this.state.requis && required}
             />
         )        
     }

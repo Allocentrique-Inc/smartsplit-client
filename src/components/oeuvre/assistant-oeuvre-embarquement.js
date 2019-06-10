@@ -35,7 +35,7 @@ const Page = (props) => (
 
                 <ChampTexteAssistant 
                   etiquette={t('oeuvre.attribut.etiquette.titre')} indication={t('oeuvre.attribut.indication.titre')} 
-                  modele="oeuvre.titre" requis={true} autoFocus={true} />
+                  modele="title" requis={true} autoFocus={true} />
 
                 <h2>{t('composant.televersement.titre')}</h2>
 

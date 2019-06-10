@@ -23,16 +23,16 @@ const Page = (props) => (
 
                     <h2>{t('flot.paroles.titre')}</h2> 
 
-                    <p>{t('flot.paroles.preambule')}</p>
-
-                    <ChampTexteLongAssistant 
-                        etiquette={t('oeuvre.attribut.etiquette.paroles')} indication={t('oeuvre.attribut.indication.paroles')}
-                        modele="oeuvre.paroles.texte" requis={true} autoFocus={true} />
+                    <p>{t('flot.paroles.preambule')}</p>                    
 
                     <ChampListeAssistant
                         etiquette={t('oeuvre.attribut.etiquette.langueParoles')} indication={t('oeuvre.attribut.indication.langueParoles')}
-                        modele="oeuvre.paroles.langue" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
+                        modele="lyricsLanguages" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
                         options={languesOptions} />
+
+                    <ChampTexteLongAssistant 
+                        etiquette={t('oeuvre.attribut.etiquette.paroles')} indication={t('oeuvre.attribut.indication.paroles')}
+                        modele="lyrics" requis={false} autoFocus={false} />
 
                 </React.Fragment>
         }
