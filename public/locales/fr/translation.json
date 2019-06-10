@@ -114,6 +114,10 @@
         "pro": {
             "titre": "Es-tu pro. ?",
             "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton oeuvre ici !"
+        },
+        "envoi": {
+            "reussi": "Envoi réussi!",
+            "echec": "Envoi en échec"
         }
     }
 }

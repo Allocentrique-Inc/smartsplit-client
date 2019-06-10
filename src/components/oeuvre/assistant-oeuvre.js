@@ -4,6 +4,7 @@
 import './oeuvre.css'
 import React from 'react'
 import { Wizard } from "semantic-ui-react-formik"
+import axios from 'axios'
 
 // Pages de l'assistant
 import PageDescription from './assistant-oeuvre-description'
@@ -11,13 +12,16 @@ import PageParoles from './assistant-oeuvre-paroles'
 import PageGenres from './assistant-oeuvre-genres'
 import PagePro from './assistant-oeuvre-pro'
 
+// Alertes
+import { toast } from 'react-toastify'
+
 // Traduction
 import { Translation } from 'react-i18next'
 
 // Modèle
 import Oeuvre from '../../model/oeuvre/oeuvre'
 
-const AssistantOeuvre = () => (
+const AssistantOeuvre = () => (    
     <Translation>
         {
             (t) =>
@@ -35,7 +39,7 @@ const AssistantOeuvre = () => (
                                 genre: "",
                                 secondaryGenre: "",
                                 lyrics: "",
-                                lyricsLanguages: [],
+                                lyricsLanguages: null,
                                 isrc: "",
                                 upc: "",
                                 msDuration: "",
@@ -52,26 +56,25 @@ const AssistantOeuvre = () => (
                         }  
                         onSubmit={(values, actions) => {
                             
-                            console.log("Envoi des champs à l'API", values)
-                            let oeuvre = new Oeuvre(values)
+                            console.log("Envoi des champs à l'API", values)                            
+                            let oeuvre = new Oeuvre(values)                            
 
                             // Transmettre à l'API
                             const options = {
                                 method: 'POST',
-                                data: oeuvre.get(),
-                                headers: {
-                                    "Content-Type": "application/json"
-                                }
+                                data: [oeuvre.get()],
+                                url: 'http://api.smartsplit.org:8080/v1/media'
                             }
 
-                            fetch('http://api.smartsplit.org:8080/v1/media', options).then((response) => {
-                                return response.json()
-                            })
-                            .then((jsonObject) => {            
+                            axios(options)
+                            .then((response) => {                                
                                 actions.setSubmitting(false)
-                            })
+                                toast(t('flot.envoi.reussi'))
+                            })                            
                             .catch((error) => {
                                 throw(error)
+                            })
+                            .finally(()=>{                                
                             })
 
                         }}

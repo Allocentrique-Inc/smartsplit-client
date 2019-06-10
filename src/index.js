@@ -12,6 +12,10 @@ import { I18nextProvider } from "react-i18next"
 import { Router, Route, Switch } from 'react-router'
 import { createBrowserHistory } from 'history'
 
+// Alertes utlisateur
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 // Composantes navigables
 import AssistantOeuvreEmbarquement from './components/oeuvre/oeuvre-assistant-embarquement'
 import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
@@ -23,15 +27,21 @@ const browserHistory = createBrowserHistory()
 const renderRoutes = () => (
   <I18nextProvider i18n={i18n}>
     <Router history={browserHistory}>
-        <Switch>
-          <Route exact path="/" component={App}/>
-          <Route exact path="/nouvelle-oeuvre" component={AssistantOeuvreEmbarquement}/>
-          <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
-          <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
-          <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} />
-        </Switch>
-      </Router>
+      <Switch>
+        <Route exact path="/" component={App}/>
+        <Route exact path="/nouvelle-oeuvre" component={AssistantOeuvreEmbarquement}/>
+        <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
+        <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
+        <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} />
+      </Switch>
+    </Router>
   </I18nextProvider>  
 )
+
+// Configuration des alertes utilisateur
+toast.configure({
+  autoClose: 8000,
+  draggable: true
+})
 
 ReactDOM.render( renderRoutes(), document.getElementById('root') )
