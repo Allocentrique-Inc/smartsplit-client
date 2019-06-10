@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Formik } from 'formik'
 import moment from 'moment'
 import * as Yup from 'yup'
+import axios from 'axios'
 
 // Traduction
 import { Translation } from 'react-i18next';
@@ -45,31 +46,16 @@ export default class MediaCreate extends Component {
         donnees.playlistLinks = {spotify: "https://open.spotify.com/playlist/37i9dQZEVXbKfIuOAZrk7G", youtube: "https://www.youtube.com/playlist?list=PLgzTt0k8mXzEk586ze4BjvDXR7c-TUSnx"}
 
         // Création d'un objet Media afin de valider le modèle
-        const media = new Oeuvre(donnees)
+        const media = new Oeuvre(donnees);
+        const body = media.get();
 
-        // Transmettre à l'API (configuration locale statique)
-        const options = {
-            method: 'POST',
-            mode: 'no-cors', // TODO Remove patch
-            body: media.get(),
-            headers: {
-                "Content-Type": "application/json",
-                "Origin": "http://localhost:3000",
-                "Accept": "application/json"
-            }
-        }
-
-        console.log('fetch() avec options',options)
-
-        fetch('http://api.smartsplit.org:8080/v1/media', options).then((response) => {
-            return response.json()
-        })
-        .then((jsonObject) => {            
-            cb()
-        })
-        .catch((error) => {
-            throw(error)
-        })
+        axios.post('http://api.smartsplit.org:8080/v1/media', body)
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
     }
 
     render() {
