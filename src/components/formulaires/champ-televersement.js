@@ -49,15 +49,15 @@ export class ChampTeleversement extends Component {
                                         fd.append('file', fichier)
                                         axios
                                             .post('http://envoi.smartsplit.org:3033/envoi', fd)
-                                            .then(res=>{              
-                                                console.log(res)                                  
+                                            .then(res=>{                                          
                                                 toast(t('flot.envoifichier.reussi') + ` ${res.data.nom}`)
+                                                this.props.apres(res.data)
                                             })
                                             .catch(err=>{
                                                 toast.error(t('flot.envoifichier.echec') + ` ${fichier.name}`)
                                             })
                                             .finally(()=>{
-                                                this.bloquerDebloquer()
+                                                this.bloquerDebloquer()                                                
                                             })
                                     })
                                 }}>

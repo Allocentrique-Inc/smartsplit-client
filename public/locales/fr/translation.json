@@ -84,9 +84,9 @@
     },
     "composant": {
         "televersement":  {
-            "titre": "Téléversez vos fichiers sources",
-            "indication": "Glissez et déposez des fichiers ici pour les envoyer, ou cliquez ici pour choisir et envoyer.",
-            "preambule": "Lorem ipsium, ici vous pouvez téléverser vos fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Vous pourrez ainsi partager vos fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
+            "titre": "Téléverse tes fichiers sources",
+            "indication": "Glissez et déposez des fichiers ou cliquez ici pour envoyer.",
+            "preambule": "Lorem ipsium, ici tu peux envoyer tes fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Vous pourrez ainsi partager tes fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
         }
     },
     "image": {
