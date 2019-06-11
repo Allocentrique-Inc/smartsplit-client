@@ -17,7 +17,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 // Composantes navigables
-import AssistantOeuvreEmbarquement from './components/oeuvre/oeuvre-assistant-embarquement'
+import NouvelleOeuvre from './components/oeuvre/oeuvre-nouvelle'
 import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import TestCreerOeuvre from './components/media/media-create'
 import ListeOeuvres from './components/media/media-list'
@@ -25,11 +25,11 @@ import ListeOeuvres from './components/media/media-list'
 const browserHistory = createBrowserHistory()
 
 const renderRoutes = () => (
-  <I18nextProvider i18n={i18n}>
+  <I18nextProvider i18n={i18n}>    
     <Router history={browserHistory}>
       <Switch>
         <Route exact path="/" component={App}/>
-        <Route exact path="/nouvelle-oeuvre" component={AssistantOeuvreEmbarquement}/>
+        <Route exact path="/nouvelle-oeuvre" component={NouvelleOeuvre}/>
         <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
         <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} />

@@ -76,7 +76,8 @@
         "suivant": "Next",
         "envoi": "Submit",
         "precedent": "Previous",
-        "reinitialiser": "Reset"
+        "reinitialiser": "Reset",
+        "transfertEnCours": "Data transfer in progress, please be patient."
     },
     "validation": {
         "requis": "Required"
@@ -118,6 +119,10 @@
         "envoi": {
             "reussi": "Transfer successful !",
             "echec": "Transfer failed"
+        },
+        "envoifichier": {
+            "reussi": "File transfer successful !",
+            "echec": "File transfer failed"
         }
     }
 }
