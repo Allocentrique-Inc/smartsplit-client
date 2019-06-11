@@ -33,7 +33,7 @@ const AssistantOeuvre = () => (
                                 album: "",
                                 artist: "",
                                 cover: false,
-                                rightHolders: {},
+                                rightHolders: [],
                                 jurisdiction: "",
                                 rightsType: {},
                                 genre: "",
