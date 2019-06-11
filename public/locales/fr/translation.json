@@ -76,7 +76,8 @@
         "suivant": "Suivant",
         "envoi": "Soumettre",
         "precedent": "Précédent",
-        "reinitialiser": "Réinitialiser"
+        "reinitialiser": "Réinitialiser",
+        "transfertEnCours": "Transfert de données en cours. Merci d'être patient."
     },
     "validation": {
         "requis": "Requis"
@@ -118,6 +119,10 @@
         "envoi": {
             "reussi": "Envoi réussi!",
             "echec": "Envoi en échec"
+        },
+        "envoifichier": {
+            "reussi": "Envoi de fichier réussi!",
+            "echec": "Envoi de fichier en échec"
         }
     }
 }
