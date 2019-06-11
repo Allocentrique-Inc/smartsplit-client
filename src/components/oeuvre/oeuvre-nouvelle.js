@@ -6,17 +6,25 @@ import React from 'react'
 import { Wizard } from "semantic-ui-react-formik"
 
 // Pages de l'assistant
-import Page1 from './assistant-oeuvre-embarquement'
+import Embarquement from './assistant-oeuvre-embarquement'
+import { Translation } from 'react-i18next';
 
 const AssistantOeuvreEmbarquement = ({onSubmit}) => (
-    <Wizard
-        initialValues={{}}
-        onSubmit={onSubmit}
-    >
-        <Wizard.Page>
-            <Page1 />
-        </Wizard.Page>
-  </Wizard>
+    <Translation>
+        {
+            (t) =>
+                <Wizard
+                        initialValues={{}}
+                        onSubmit={onSubmit}
+                        debug={false}
+                        buttonLabels={{submit: t('navigation.envoi')}}
+                    >
+                        <Wizard.Page>
+                            <Embarquement />
+                        </Wizard.Page>
+                </Wizard>
+        }
+    </Translation>    
 )
 
 export default AssistantOeuvreEmbarquement

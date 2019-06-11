@@ -10,8 +10,8 @@ import React from 'react'
 import { Translation } from 'react-i18next'
 
 // Champs de formulaire
-import {ChampTexteAssistant} from '../formulaires/champ-texte'
-import {ChampTeleversement} from '../formulaires/champ-televersement'
+import { ChampTexteAssistant } from '../formulaires/champ-texte'
+import { ChampTeleversement } from '../formulaires/champ-televersement'
 
 // Image de méditation
 import image from '../../assets/images/meditation-ecouteurs-femme.jpg'
@@ -43,7 +43,10 @@ const Page = (props) => (
                   {t('composant.televersement.preambule')}
                 </p>
 
-                <ChampTeleversement indication={t('composant.televersement.indication')} />
+                <ChampTeleversement indication={t('composant.televersement.indication')} apres={ (f) => {
+                  props.setFieldValue('fichier', f, false)
+                  props.setFieldTouched('fichier', false, false)
+                }}/>
           
               </td>
               <td>
