@@ -27,7 +27,7 @@ const Page = (props) => (
 
                     <ChampListeAssistant
                         etiquette={t('oeuvre.attribut.etiquette.langueParoles')} indication={t('oeuvre.attribut.indication.langueParoles')}
-                        modele="lyricsLanguages" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
+                        modele="inLanguages" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
                         options={languesOptions} />
 
                     <ChampTexteLongAssistant 
