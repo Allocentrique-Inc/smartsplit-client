@@ -102,7 +102,8 @@
         "collaborateurs": {
             "titre": "Who are the creators and the collaborators on the work ?",
             "preambule": "Let's begin with yourself ...",
-            "role": "Joe, what is your role in the work ?"
+            "role": "Joe, what is your role in the work ?",
+            "ajout": "Add a first collaborator"
         },
         "paroles": {
             "titre": "Type in the lyrics of your work",

@@ -55,8 +55,7 @@ const AssistantOeuvre = () => (
                             }
                         }  
                         onSubmit={(values, actions) => {
-                            
-                            console.log("Envoi des champs à l'API", values)                            
+                                               
                             let oeuvre = new Oeuvre(values)                            
 
                             // Transmettre à l'API
@@ -79,7 +78,7 @@ const AssistantOeuvre = () => (
 
                         }}
                         onPageChanged={(page)=>{
-                            console.log("# page", page)
+                            
                         }}
                         buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}                        
                         debug={false}

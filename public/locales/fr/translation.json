@@ -102,7 +102,8 @@
         "collaborateurs": {
             "titre": "Qui sont les créateur et collaborateurs de ton oeuvre musicale? ",
             "preambule": "Commençons par toi ...",
-            "role": "Joe, définissez votre rôle ?"
+            "role": "Joe, définissez votre rôle ?",
+            "ajout": "Ajouter un premier collaborateur"
         },
         "paroles": {
             "titre": "Inscrivez les paroles de votre oeuvre musicale",

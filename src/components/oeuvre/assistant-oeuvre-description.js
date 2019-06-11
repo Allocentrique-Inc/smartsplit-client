@@ -7,6 +7,8 @@ import { Translation } from 'react-i18next'
 import { ChampTexteAssistant } from "../formulaires/champ-texte";
 import { ChampListeAssistant } from "../formulaires/champ-liste";
 
+import { FieldArray } from 'formik'
+
 const rolesOptions = [
     {key: 'R1', text: 'Compositeur', value: 'RO1'},
     {key: 'R2', text: 'Chanteur', value: 'RO2'},
@@ -20,26 +22,59 @@ const Page = (props) => (
             (t) =>
                 <React.Fragment>
 
-                    <h2>{t('flot.collaborateurs.titre')}</h2>
-                    <p>{t('flot.collaborateurs.preambule')}</p>
+                    <h2>{t('flot.collaborateurs.titre')}</h2>                    
 
-                    <ChampTexteAssistant 
-                        etiquette={t('collaborateur.attribut.etiquette.nom')} indication={t('collaborateur.attribut.indication.nom')} 
-                        modele="rightHolders[0].nom" requis={true} autoFocus={true} />
+                    <FieldArray
+                        name="rightHolders"
+                        render={arrayHelpers => (
+                        <div>                            
 
-                    <ChampTexteAssistant 
-                        etiquette={t('collaborateur.attribut.etiquette.prenom')} indication={t('collaborateur.attribut.indication.prenom')} 
-                        modele="rightHolders[0].prenom" requis={true} autoFocus={false} />
+                            {props.values.rightHolders && props.values.rightHolders.length > 0 ? (
+                            props.values.rightHolders.map((collaborateur, index) => (
 
-                    <ChampTexteAssistant 
-                        etiquette={t('collaborateur.attribut.etiquette.artiste')} indication={t('collaborateur.attribut.indication.artiste')} 
-                        modele="rightHolders[0].artiste" requis={false} autoFocus={false} />
+                                <div key={`collaborateur.${index}`}>
+                                    <ChampTexteAssistant 
+                                        etiquette={t('collaborateur.attribut.etiquette.nom')} indication={t('collaborateur.attribut.indication.nom')} 
+                                        modele={`rightHolders[${index}].nom`} requis={true} autoFocus={true} />
 
-                    <p>{t('flot.collaborateurs.role')}</p>
-                    <ChampListeAssistant
-                        etiquette={t('collaborateur.attribut.etiquette.role')} indication={t('collaborateur.attribut.indication.role')}
-                        modele="rightHolders[0].role" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
-                        options={rolesOptions} />
+                                    <ChampTexteAssistant 
+                                        etiquette={t('collaborateur.attribut.etiquette.prenom')} indication={t('collaborateur.attribut.indication.prenom')} 
+                                        modele={`rightHolders[${index}].prenom`} requis={true} autoFocus={false} />
+
+                                    <ChampTexteAssistant 
+                                        etiquette={t('collaborateur.attribut.etiquette.artiste')} indication={t('collaborateur.attribut.indication.artiste')} 
+                                        modele={`rightHolders[${index}].artiste`} requis={false} autoFocus={false} />
+
+                                    <p>{t('flot.collaborateurs.role')}</p>
+                                    <ChampListeAssistant
+                                        etiquette={t('collaborateur.attribut.etiquette.role')} indication={t('collaborateur.attribut.indication.role')}
+                                        modele={`rightHolders[${index}].role`} requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
+                                        options={rolesOptions} />
+
+                                    <button
+                                        type="button"
+                                        onClick={() => arrayHelpers.remove(index)}
+                                    >
+                                        -
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => arrayHelpers.insert(index, {})}
+                                    >
+                                        +
+                                    </button>
+                                
+                                </div>
+                            ))
+                            ) : (
+                            <button type="button" onClick={() => arrayHelpers.push('')}>
+                                {/* show this when user has removed all friends from the list */}
+                                {t('flot.collaborateurs.preambule')}
+                            </button>
+                            )}                            
+                        </div>
+                        )}
+                    />                    
 
                 </React.Fragment>
         }
