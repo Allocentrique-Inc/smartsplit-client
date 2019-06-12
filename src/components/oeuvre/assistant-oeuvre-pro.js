@@ -16,12 +16,13 @@ const Page = (props) => (
                     <h2>{t('flot.pro.titre')}</h2>
                     <p>{t('flot.pro.preambule')}</p>
 
-                    <ChampTexteAssistant
-                        etiquette={t('oeuvre.attribut.etiquette.upc')} indication={t('oeuvre.attribut.indication.upc')} 
-                        modele="upc" requis={false} autoFocus={false} />
                     <ChampTexteAssistant 
                         etiquette={t('oeuvre.attribut.etiquette.isrc')} indication={t('oeuvre.attribut.indication.isrc')} 
                         modele="isrc" requis={false} autoFocus={true} />
+
+                    <ChampTexteAssistant
+                        etiquette={t('oeuvre.attribut.etiquette.upc')} indication={t('oeuvre.attribut.indication.upc')} 
+                        modele="upc" requis={false} autoFocus={false} />                    
 
                 </React.Fragment>
         }

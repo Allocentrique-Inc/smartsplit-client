@@ -25,7 +25,6 @@ class App extends Component {
               <a href="/nouvelle-oeuvre">Liens vers "Nouvelle oeuvre" (embarquement étape 1)</a><br/>
               <a href="/decrire-oeuvre">Liens vers "Décrire mon oeuvre (description d'un oeuvre créée, suite étape 1 + étape 3)"</a><br/>
               <a href="/liste-oeuvres">Liens vers "Liste des oeuvre (appel API GET /media)"</a><br/>
-              <a href="/test-ajout-oeuvre">Liens vers "Ajouter une oeuvre - TEST (appel API POST /media)"</a><br/>
             </p>
         </div>
         }

@@ -15,9 +15,9 @@ const AssistantOeuvreEmbarquement = ({onSubmit}) => (
             (t) =>
                 <Wizard
                         initialValues={{}}
-                        onSubmit={onSubmit}
-                        debug={false}
+                        onSubmit={onSubmit}                        
                         buttonLabels={{submit: t('navigation.envoi')}}
+                        debug={true}
                     >
                         <Wizard.Page>
                             <Embarquement />

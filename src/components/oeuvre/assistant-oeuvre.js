@@ -79,7 +79,7 @@ const AssistantOeuvre = () => (
                         }}
                         onPageChanged={(page)=>{}}
                         buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}                        
-                        debug={false}
+                        debug={true}
                     >
                         <Wizard.Page>            
                             <PageDescription /> 

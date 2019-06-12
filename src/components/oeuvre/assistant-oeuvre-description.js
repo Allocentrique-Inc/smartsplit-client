@@ -68,7 +68,6 @@ const Page = (props) => (
                             ))
                             ) : (
                             <button type="button" onClick={() => arrayHelpers.push('')}>
-                                {/* show this when user has removed all friends from the list */}
                                 {t('flot.collaborateurs.preambule')}
                             </button>
                             )}                            
