@@ -56,16 +56,10 @@ const AssistantOeuvre = () => (
                         }  
                         onSubmit={(values, actions) => {
                                                
-                            let oeuvre = new Oeuvre(values)                            
+                            let oeuvre = new Oeuvre(values)
+                            let body = oeuvre.get()
 
-                            // Transmettre à l'API
-                            const options = {
-                                method: 'POST',
-                                data: [oeuvre.get()],
-                                url: 'http://api.smartsplit.org:8080/v1/media'
-                            }
-
-                            axios(options)
+                            axios.post('http://api.smartsplit.org:8080/v1/media',body)
                             .then((response) => {                                
                                 actions.setSubmitting(false)
                                 toast(t('flot.envoi.reussi'))
