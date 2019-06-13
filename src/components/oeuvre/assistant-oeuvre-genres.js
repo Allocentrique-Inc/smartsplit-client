@@ -6,19 +6,21 @@ import React from "react"
 import { Translation } from "react-i18next"
 import { ChampListeAssistant } from "../formulaires/champ-liste"
 
-const genreOptions = [
-    {key: 'G1', text: 'Punk', value: 'G01'},
-    {key: 'G2', text: 'Rock', value: 'GO2'},
-    {key: 'G3', text: 'Pop', value: 'GO3'},
-    {key: 'G4', text: 'Classique et instrumental', value: 'GO4'}
-]
+const listeGenres = require('../../assets/listes/genres.json')
 
-const genreSecondaireOptions = [
-    {key: 'GS1', text: 'Punk', value: 'GS01'},
-    {key: 'GS2', text: 'Rock', value: 'GSO2'},
-    {key: 'GS3', text: 'Pop', value: 'GSO3'},
-    {key: 'GS4', text: 'Classique et instrumental', value: 'GSO4'}
-]
+function genererGenres(secondaire = false) { // secondaire est booléen
+    return listeGenres.map(elem=>{
+        let prefixe = secondaire ? 'GS' : 'G'
+        return {
+            key: `${prefixe}${elem.genre_id}`,
+            text: elem.value,
+            value: `${prefixe}${elem.genre_id}`
+        }
+    })
+}
+
+const genreOptions = genererGenres()
+const genreSecondaireOptions = genererGenres(true)
 
 const Page = (props) => (
 
