@@ -6,6 +6,9 @@ import React from "react"
 import { Translation } from "react-i18next"
 import { ChampListeAssistant } from "../formulaires/champ-liste"
 
+// Progression
+import { Progress } from 'semantic-ui-react'
+
 const listeGenres = require('../../assets/listes/genres.json')
 
 function genererGenres(secondaire = false) { // secondaire est booléen
@@ -28,18 +31,18 @@ const Page = (props) => (
         {
             (t) =>
                 <React.Fragment>
-
+                    <Progress percent={60} indicating></Progress>
                     <h2>{t('flot.genre.titre')}</h2>            
                     <p>{t('flot.genre.preambule')}</p>
 
                     <ChampListeAssistant
                         etiquette={t('oeuvre.attribut.etiquette.genre')} indication={t('oeuvre.attribut.indication.genre')}
-                        modele="genre" requis={true} fluid={true} multiple={false} recherche={true} selection={false} autoFocus={true}
+                        modele="genre" requis={true} fluid={true} multiple={false} recherche={true} selection={true} autoFocus={true}
                         options={genreOptions} />
 
                     <ChampListeAssistant
                         etiquette={t('oeuvre.attribut.etiquette.genre2')} indication={t('oeuvre.attribut.indication.genre2')}
-                        modele="secondaryGenre" requis={false} fluid={true} multiple={false} recherche={true} selection={false} autoFocus={false}
+                        modele="secondaryGenre" requis={false} fluid={true} multiple={false} recherche={true} selection={true} autoFocus={false}
                         options={genreSecondaireOptions} />                           
             
                 </React.Fragment>

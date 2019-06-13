@@ -8,24 +8,6 @@ function required(value) {
     return result
 }
 
-export class ChampTexte extends Component {
-
-    constructor(props) {
-        super(props)
-        let t = this.props.t
-        this.state = {
-            etiquette: t('oeuvre.attribut.etiquette.titre'), 
-            indication: t('oeuvre.attribut.indication.titre'),
-            modele: props.modele
-        }
-    }
-
-    render() {
-        return (<div></div>)
-    }
-
-}
-
 export class ChampTexteAssistant extends Component {
 
     constructor(props) {
@@ -50,17 +32,20 @@ export class ChampTexteAssistant extends Component {
 
     render() {
         return(
-            <Wizard.Field
-                name={this.state.modele}
-                component={FormField}
-                componentProps={{
-                    label: this.state.etiquette,
-                    placeholder: this.state.indication,
-                    required: this.state.requis,
-                    autoFocus: this.state.autoFocus
-                }}
-                validate={this.state.requis && required}
-            />
+            <div>                
+                <Wizard.Field
+                    name={this.state.modele}
+                    component={FormField}
+                    componentProps={{
+                        label: this.state.etiquette,
+                        placeholder: this.state.indication,
+                        required: this.state.requis,
+                        autoFocus: this.state.autoFocus                        
+                    }}
+                    validate={this.state.requis && required}
+                />
+                <i className="right info circle icon blue"></i>
+            </div>
         )        
     }
 }
@@ -89,17 +74,20 @@ export class ChampTexteLongAssistant extends Component {
 
     render() {
         return(
-            <Wizard.Field
-                name={this.state.modele}
-                component={Form.TextArea}
-                componentProps={{
-                    label: this.state.etiquette,
-                    placeholder: this.state.indication,
-                    required: this.state.requis,
-                    autoFocus: this.state.autoFocus
-                }}
-                validate={this.state.requis && required}
-            />
+            <div>
+                <Wizard.Field
+                    name={this.state.modele}
+                    component={Form.TextArea}
+                    componentProps={{
+                        label: this.state.etiquette,
+                        placeholder: this.state.indication,
+                        required: this.state.requis,
+                        autoFocus: this.state.autoFocus
+                    }}
+                    validate={this.state.requis && required}
+                />
+                <i className="right info circle icon blue"></i>
+            </div>
         )        
     }
 }

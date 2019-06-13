@@ -25,7 +25,8 @@
             "etiquette": {
                 "titre": "Title",
                 "album": "Album",
-                "reprise": "Cover",
+                "reprise": "This work is a cover",
+                "instrumental": "This work is instrumental",
                 "artiste": "Artist",
                 "juridiction": "Jurisdiction",
                 "ayantDroit": "Collaborators",

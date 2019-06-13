@@ -7,13 +7,12 @@ import { Translation } from 'react-i18next'
 import { ChampTexteAssistant } from "../formulaires/champ-texte";
 import { ChampListeAssistant } from "../formulaires/champ-liste";
 
+// Progression
+import { Progress } from 'semantic-ui-react'
+
 import { FieldArray } from 'formik'
 
-const rolesOptions = [
-    {key: 'R1', text: 'Compositeur', value: 'RO1'},
-    {key: 'R2', text: 'Chanteur', value: 'RO2'},
-    {key: 'R3', text: 'Instrumentiste', value: 'RO3'}
-]
+const rolesOptions = require('../../assets/listes/roles.json')
 
 const Page = (props) => (
 
@@ -21,7 +20,7 @@ const Page = (props) => (
         {
             (t) =>
                 <React.Fragment>
-
+                    <Progress percent={20} indicating></Progress>
                     <h2>{t('flot.collaborateurs.titre')}</h2>                    
 
                     <FieldArray
@@ -36,11 +35,11 @@ const Page = (props) => (
 
                                     <ChampTexteAssistant 
                                         etiquette={t('collaborateur.attribut.etiquette.prenom')} indication={t('collaborateur.attribut.indication.prenom')} 
-                                        modele={`rightHolders[${index}].prenom`} requis={true} autoFocus={false} />
+                                        modele={`rightHolders[${index}].prenom`} requis={true} autoFocus={true} />
 
                                     <ChampTexteAssistant 
                                         etiquette={t('collaborateur.attribut.etiquette.nom')} indication={t('collaborateur.attribut.indication.nom')} 
-                                        modele={`rightHolders[${index}].nom`} requis={true} autoFocus={true} />
+                                        modele={`rightHolders[${index}].nom`} requis={true} autoFocus={false} />
 
                                     <ChampTexteAssistant 
                                         etiquette={t('collaborateur.attribut.etiquette.artiste')} indication={t('collaborateur.attribut.indication.artiste')} 

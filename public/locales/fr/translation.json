@@ -10,7 +10,7 @@
                 "nom": "Nom de famille",
                 "prenom": "Prénom",
                 "artiste": "Nom d'artiste",
-                "role": "Rôle dans l'oeuvre"
+                "role": "Rôle dans l'œuvre"
             },
             "indication": {
                 "nom": "Indique ton nom de famille",
@@ -25,7 +25,8 @@
             "etiquette": {
                 "titre": "Titre",
                 "album": "Album",
-                "reprise": "Reprise",
+                "reprise": "Cette œuvre est une reprise",
+                "instrumental": "Cette œuvre est instrumentale",
                 "artiste": "Artiste",
                 "juridiction": "Juridiction",
                 "ayantDroit": "Collaborateurs",
@@ -47,14 +48,14 @@
                 "repartition": "Répartition des droits (%)"
             },
             "indication": {
-                "titre": "Titre de l'oeuvre",
-                "album": "Album sur lequel figure l'oeuvre",
+                "titre": "Titre de l'œuvre",
+                "album": "Album sur lequel figure l'œuvre",
                 "reprise": "",
                 "artiste": "Qui est l'artiste principal ?",
                 "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
                 "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
-                "genre": "Sélectionne le genre principal de l'oeuvre",
-                "genre2": "Sélectionne le genre secondaire de l'oeuvre",
+                "genre": "Sélectionne le genre principal de l'œuvre",
+                "genre2": "Sélectionne le genre secondaire de l'œuvre",
                 "paroles": "Inscrit les paroles",
                 "langueParoles": "Sélectionne la ou les langues pour les paroles",
                 "isrc": "Identifiant unique de l'enregistrement",
@@ -64,10 +65,10 @@
                 "liensServices": "URL complet vers un lien commercial",
                 "liensPresse": "URL complet vers un article de presse",
                 "liensListes": "URL complet vers une liste de lecture",
-                "dateCreation": "Quand a été créé l'oeuvre ?",
-                "dateModification": "Quand l'oeuvre a-t-elle été modifiée ?",
-                "datePublication": "Quand l'oeuvre a-t-elle été publiée ?",
-                "editeur": "Qui est l'éditeur de l'oeuvre ?",
+                "dateCreation": "Quand a été créé l'œuvre ?",
+                "dateModification": "Quand l'œuvre a-t-elle été modifiée ?",
+                "datePublication": "Quand l'œuvre a-t-elle été publiée ?",
+                "editeur": "Qui est l'éditeur de l'œuvre ?",
                 "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
             }            
         }
@@ -96,26 +97,26 @@
     },
     "flot": {
         "documente-ton-oeuvre": {
-            "titre": "ÉTAPE 1 - Documente ton oeuvre",
-            "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton oeuvre."
+            "titre": "ÉTAPE 1 - Documente ton œuvre",
+            "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton œuvre."
         },
         "collaborateurs": {
-            "titre": "Qui sont les créateur et collaborateurs de ton oeuvre musicale? ",
+            "titre": "Qui sont les créateurs et collaborateurs de ton œuvre musicale? ",
             "preambule": "Commençons par toi ...",
             "role": "Joe, définis ton rôle ?",
             "ajout": "Ajouter un premier collaborateur"
         },
         "paroles": {
-            "titre": "Inscris les paroles de ton oeuvre musicale",
+            "titre": "Inscris les paroles de ton œuvre musicale",
             "preambule": ""
         },
         "genre": {
-            "titre": "Quel est le genre de ton oeuvre ?",
+            "titre": "Quel est le genre de ton œuvre ?",
             "preambule": "Genre, style, comme ... ?"
         },
         "pro": {
-            "titre": "Es-tu pro. ?",
-            "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton oeuvre ici !"
+            "titre": "Es-tu pro ?",
+            "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton œuvre ici !"
         },
         "envoi": {
             "reussi": "Envoi réussi!",

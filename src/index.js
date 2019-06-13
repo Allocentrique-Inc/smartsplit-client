@@ -17,7 +17,6 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 // Composantes navigables
-import NouvelleOeuvre from './components/oeuvre/oeuvre-nouvelle'
 import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import ListeOeuvres from './components/media/media-list'
 
@@ -28,7 +27,6 @@ const renderRoutes = () => (
     <Router history={browserHistory}>
       <Switch>
         <Route exact path="/" component={App}/>
-        <Route exact path="/nouvelle-oeuvre" component={NouvelleOeuvre}/>
         <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
       </Switch>

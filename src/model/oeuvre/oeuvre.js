@@ -22,7 +22,7 @@ export default class Oeuvre {
             .hasString('isrc')
             .hasString('upc')
             .hasString('msDuration')
-            .hasBoolean('cover')
+            .hasString('cover')
             .hasArray('inLanguages')
             .hasObject('socialMediaLinks')
             .hasObject('streamingServiceLinks')
