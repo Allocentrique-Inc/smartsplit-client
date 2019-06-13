@@ -24,7 +24,7 @@ import Oeuvre from '../../model/oeuvre/oeuvre'
 const AssistantOeuvre = () => (    
     <Translation>
         {
-            (t) =>
+            (t, i18n) =>
                 <Wizard      
                         initialValues={
                             {
@@ -79,7 +79,7 @@ const AssistantOeuvre = () => (
                             <PageDescription /> 
                         </Wizard.Page>
                         <Wizard.Page>
-                            <PageParoles />
+                            <PageParoles i18n={i18n} />
                         </Wizard.Page>
                         <Wizard.Page>
                             <PageGenres />

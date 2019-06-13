@@ -24,7 +24,7 @@ import ListeOeuvres from './components/media/media-list'
 const browserHistory = createBrowserHistory()
 
 const renderRoutes = () => (
-  <I18nextProvider i18n={i18n}>    
+  <I18nextProvider i18n={i18n}>
     <Router history={browserHistory}>
       <Switch>
         <Route exact path="/" component={App}/>

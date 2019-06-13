@@ -19,7 +19,7 @@ export class ChampListeAssistant extends Component {
             requis: props.requis,
             fluid: props.fluid,
             multiple: props.multiple,
-            search: props.recherche,
+            recherche: props.recherche,
             selection: props.selection,
             options: props.options
         }

@@ -1,0 +1,2437 @@
+[
+  {
+    "key": "aar",
+    "text": "afar",
+    "value": "aar"
+  },
+  {
+    "key": "abk",
+    "text": "abkhaze",
+    "value": "abk"
+  },
+  {
+    "key": "ace",
+    "text": "aceh",
+    "value": "ace"
+  },
+  {
+    "key": "ach",
+    "text": "acoli",
+    "value": "ach"
+  },
+  {
+    "key": "ada",
+    "text": "adangme",
+    "value": "ada"
+  },
+  {
+    "key": "ady",
+    "text": "adyghé",
+    "value": "ady"
+  },
+  {
+    "key": "afa",
+    "text": "afro-asiatiques, langues",
+    "value": "afa"
+  },
+  {
+    "key": "afh",
+    "text": "afrihili",
+    "value": "afh"
+  },
+  {
+    "key": "afr",
+    "text": "afrikaans",
+    "value": "afr"
+  },
+  {
+    "key": "ain",
+    "text": "aïnou",
+    "value": "ain"
+  },
+  {
+    "key": "aka",
+    "text": "akan",
+    "value": "aka"
+  },
+  {
+    "key": "akk",
+    "text": "akkadien",
+    "value": "akk"
+  },
+  {
+    "key": "alb",
+    "text": "albanais",
+    "value": "alb"
+  },
+  {
+    "key": "ale",
+    "text": "aléoute",
+    "value": "ale"
+  },
+  {
+    "key": "alg",
+    "text": "algonquines, langues",
+    "value": "alg"
+  },
+  {
+    "key": "alt",
+    "text": "altai du Sud",
+    "value": "alt"
+  },
+  {
+    "key": "amh",
+    "text": "amharique",
+    "value": "amh"
+  },
+  {
+    "key": "ang",
+    "text": "anglo-saxon (ca.450-1100)",
+    "value": "ang"
+  },
+  {
+    "key": "anp",
+    "text": "angika",
+    "value": "anp"
+  },
+  {
+    "key": "apa",
+    "text": "apaches, langues",
+    "value": "apa"
+  },
+  {
+    "key": "ara",
+    "text": "arabe",
+    "value": "ara"
+  },
+  {
+    "key": "arc",
+    "text": "araméen d'empire (700-300 BCE)",
+    "value": "arc"
+  },
+  {
+    "key": "arg",
+    "text": "aragonais",
+    "value": "arg"
+  },
+  {
+    "key": "arm",
+    "text": "arménien",
+    "value": "arm"
+  },
+  {
+    "key": "arn",
+    "text": "mapudungun; mapuche; mapuce",
+    "value": "arn"
+  },
+  {
+    "key": "arp",
+    "text": "arapaho",
+    "value": "arp"
+  },
+  {
+    "key": "art",
+    "text": "artificielles, langues",
+    "value": "art"
+  },
+  {
+    "key": "arw",
+    "text": "arawak",
+    "value": "arw"
+  },
+  {
+    "key": "asm",
+    "text": "assamais",
+    "value": "asm"
+  },
+  {
+    "key": "ast",
+    "text": "asturien; bable; léonais; asturoléonais",
+    "value": "ast"
+  },
+  {
+    "key": "ath",
+    "text": "athapascanes, langues",
+    "value": "ath"
+  },
+  {
+    "key": "aus",
+    "text": "australiennes, langues",
+    "value": "aus"
+  },
+  {
+    "key": "ava",
+    "text": "avar",
+    "value": "ava"
+  },
+  {
+    "key": "ave",
+    "text": "avestique",
+    "value": "ave"
+  },
+  {
+    "key": "awa",
+    "text": "awadhi",
+    "value": "awa"
+  },
+  {
+    "key": "aym",
+    "text": "aymara",
+    "value": "aym"
+  },
+  {
+    "key": "aze",
+    "text": "azéri",
+    "value": "aze"
+  },
+  {
+    "key": "bad",
+    "text": "banda, langues",
+    "value": "bad"
+  },
+  {
+    "key": "bai",
+    "text": "bamiléké, langues",
+    "value": "bai"
+  },
+  {
+    "key": "bak",
+    "text": "bachkir",
+    "value": "bak"
+  },
+  {
+    "key": "bal",
+    "text": "baloutchi",
+    "value": "bal"
+  },
+  {
+    "key": "bam",
+    "text": "bambara",
+    "value": "bam"
+  },
+  {
+    "key": "ban",
+    "text": "balinais",
+    "value": "ban"
+  },
+  {
+    "key": "baq",
+    "text": "basque",
+    "value": "baq"
+  },
+  {
+    "key": "bas",
+    "text": "basa",
+    "value": "bas"
+  },
+  {
+    "key": "bat",
+    "text": "baltes, langues",
+    "value": "bat"
+  },
+  {
+    "key": "bej",
+    "text": "bedja",
+    "value": "bej"
+  },
+  {
+    "key": "bel",
+    "text": "biélorusse",
+    "value": "bel"
+  },
+  {
+    "key": "bem",
+    "text": "bemba",
+    "value": "bem"
+  },
+  {
+    "key": "ben",
+    "text": "bengali",
+    "value": "ben"
+  },
+  {
+    "key": "ber",
+    "text": "berbères, langues",
+    "value": "ber"
+  },
+  {
+    "key": "bho",
+    "text": "bhojpuri",
+    "value": "bho"
+  },
+  {
+    "key": "bih",
+    "text": "langues biharis",
+    "value": "bih"
+  },
+  {
+    "key": "bik",
+    "text": "bikol",
+    "value": "bik"
+  },
+  {
+    "key": "bin",
+    "text": "bini; edo",
+    "value": "bin"
+  },
+  {
+    "key": "bis",
+    "text": "bichlamar",
+    "value": "bis"
+  },
+  {
+    "key": "bla",
+    "text": "blackfoot",
+    "value": "bla"
+  },
+  {
+    "key": "bnt",
+    "text": "bantoues, autres langues",
+    "value": "bnt"
+  },
+  {
+    "key": "bos",
+    "text": "bosniaque",
+    "value": "bos"
+  },
+  {
+    "key": "bra",
+    "text": "braj",
+    "value": "bra"
+  },
+  {
+    "key": "bre",
+    "text": "breton",
+    "value": "bre"
+  },
+  {
+    "key": "btk",
+    "text": "batak, langues",
+    "value": "btk"
+  },
+  {
+    "key": "bua",
+    "text": "bouriate",
+    "value": "bua"
+  },
+  {
+    "key": "bug",
+    "text": "bugi",
+    "value": "bug"
+  },
+  {
+    "key": "bul",
+    "text": "bulgare",
+    "value": "bul"
+  },
+  {
+    "key": "bur",
+    "text": "birman",
+    "value": "bur"
+  },
+  {
+    "key": "byn",
+    "text": "blin; bilen",
+    "value": "byn"
+  },
+  {
+    "key": "cad",
+    "text": "caddo",
+    "value": "cad"
+  },
+  {
+    "key": "cai",
+    "text": "amérindiennes de L'Amérique centrale, langues",
+    "value": "cai"
+  },
+  {
+    "key": "car",
+    "text": "karib; galibi; carib",
+    "value": "car"
+  },
+  {
+    "key": "cat",
+    "text": "catalan; valencien",
+    "value": "cat"
+  },
+  {
+    "key": "cau",
+    "text": "caucasiennes, langues",
+    "value": "cau"
+  },
+  {
+    "key": "ceb",
+    "text": "cebuano",
+    "value": "ceb"
+  },
+  {
+    "key": "cel",
+    "text": "celtiques, langues; celtes, langues",
+    "value": "cel"
+  },
+  {
+    "key": "cha",
+    "text": "chamorro",
+    "value": "cha"
+  },
+  {
+    "key": "chb",
+    "text": "chibcha",
+    "value": "chb"
+  },
+  {
+    "key": "che",
+    "text": "tchétchène",
+    "value": "che"
+  },
+  {
+    "key": "chg",
+    "text": "djaghataï",
+    "value": "chg"
+  },
+  {
+    "key": "chi",
+    "text": "chinois",
+    "value": "chi"
+  },
+  {
+    "key": "chk",
+    "text": "chuuk",
+    "value": "chk"
+  },
+  {
+    "key": "chm",
+    "text": "mari",
+    "value": "chm"
+  },
+  {
+    "key": "chn",
+    "text": "chinook, jargon",
+    "value": "chn"
+  },
+  {
+    "key": "cho",
+    "text": "choctaw",
+    "value": "cho"
+  },
+  {
+    "key": "chp",
+    "text": "chipewyan",
+    "value": "chp"
+  },
+  {
+    "key": "chr",
+    "text": "cherokee",
+    "value": "chr"
+  },
+  {
+    "key": "chu",
+    "text": "slavon d'église; vieux slave; slavon liturgique; vieux bulgare",
+    "value": "chu"
+  },
+  {
+    "key": "chv",
+    "text": "tchouvache",
+    "value": "chv"
+  },
+  {
+    "key": "chy",
+    "text": "cheyenne",
+    "value": "chy"
+  },
+  {
+    "key": "cmc",
+    "text": "chames, langues",
+    "value": "cmc"
+  },
+  {
+    "key": "cnr",
+    "text": "monténégrin",
+    "value": "cnr"
+  },
+  {
+    "key": "cop",
+    "text": "copte",
+    "value": "cop"
+  },
+  {
+    "key": "cor",
+    "text": "cornique",
+    "value": "cor"
+  },
+  {
+    "key": "cos",
+    "text": "corse",
+    "value": "cos"
+  },
+  {
+    "key": "cpe",
+    "text": "créoles et pidgins basés sur l'anglais",
+    "value": "cpe"
+  },
+  {
+    "key": "cpf",
+    "text": "créoles et pidgins basés sur le français",
+    "value": "cpf"
+  },
+  {
+    "key": "cpp",
+    "text": "créoles et pidgins basés sur le portugais",
+    "value": "cpp"
+  },
+  {
+    "key": "cre",
+    "text": "cree",
+    "value": "cre"
+  },
+  {
+    "key": "crh",
+    "text": "tatar de Crimé",
+    "value": "crh"
+  },
+  {
+    "key": "crp",
+    "text": "créoles et pidgins",
+    "value": "crp"
+  },
+  {
+    "key": "csb",
+    "text": "kachoube",
+    "value": "csb"
+  },
+  {
+    "key": "cus",
+    "text": "couchitiques, langues",
+    "value": "cus"
+  },
+  {
+    "key": "cze",
+    "text": "tchèque",
+    "value": "cze"
+  },
+  {
+    "key": "dak",
+    "text": "dakota",
+    "value": "dak"
+  },
+  {
+    "key": "dan",
+    "text": "danois",
+    "value": "dan"
+  },
+  {
+    "key": "dar",
+    "text": "dargwa",
+    "value": "dar"
+  },
+  {
+    "key": "day",
+    "text": "dayak, langues",
+    "value": "day"
+  },
+  {
+    "key": "del",
+    "text": "delaware",
+    "value": "del"
+  },
+  {
+    "key": "den",
+    "text": "esclave (athapascan)",
+    "value": "den"
+  },
+  {
+    "key": "dgr",
+    "text": "dogrib",
+    "value": "dgr"
+  },
+  {
+    "key": "din",
+    "text": "dinka",
+    "value": "din"
+  },
+  {
+    "key": "div",
+    "text": "maldivien",
+    "value": "div"
+  },
+  {
+    "key": "doi",
+    "text": "dogri",
+    "value": "doi"
+  },
+  {
+    "key": "dra",
+    "text": "dravidiennes, langues",
+    "value": "dra"
+  },
+  {
+    "key": "dsb",
+    "text": "bas-sorabe",
+    "value": "dsb"
+  },
+  {
+    "key": "dua",
+    "text": "douala",
+    "value": "dua"
+  },
+  {
+    "key": "dum",
+    "text": "néerlandais moyen (ca. 1050-1350)",
+    "value": "dum"
+  },
+  {
+    "key": "dut",
+    "text": "néerlandais; flamand",
+    "value": "dut"
+  },
+  {
+    "key": "dyu",
+    "text": "dioula",
+    "value": "dyu"
+  },
+  {
+    "key": "dzo",
+    "text": "dzongkha",
+    "value": "dzo"
+  },
+  {
+    "key": "efi",
+    "text": "efik",
+    "value": "efi"
+  },
+  {
+    "key": "egy",
+    "text": "égyptien",
+    "value": "egy"
+  },
+  {
+    "key": "eka",
+    "text": "ekajuk",
+    "value": "eka"
+  },
+  {
+    "key": "elx",
+    "text": "élamite",
+    "value": "elx"
+  },
+  {
+    "key": "eng",
+    "text": "anglais",
+    "value": "eng"
+  },
+  {
+    "key": "enm",
+    "text": "anglais moyen (1100-1500)",
+    "value": "enm"
+  },
+  {
+    "key": "epo",
+    "text": "espéranto",
+    "value": "epo"
+  },
+  {
+    "key": "est",
+    "text": "estonien",
+    "value": "est"
+  },
+  {
+    "key": "ewe",
+    "text": "éwé",
+    "value": "ewe"
+  },
+  {
+    "key": "ewo",
+    "text": "éwondo",
+    "value": "ewo"
+  },
+  {
+    "key": "fan",
+    "text": "fang",
+    "value": "fan"
+  },
+  {
+    "key": "fao",
+    "text": "féroïen",
+    "value": "fao"
+  },
+  {
+    "key": "fat",
+    "text": "fanti",
+    "value": "fat"
+  },
+  {
+    "key": "fij",
+    "text": "fidjien",
+    "value": "fij"
+  },
+  {
+    "key": "fil",
+    "text": "filipino; pilipino",
+    "value": "fil"
+  },
+  {
+    "key": "fin",
+    "text": "finnois",
+    "value": "fin"
+  },
+  {
+    "key": "fiu",
+    "text": "finno-ougriennes, langues",
+    "value": "fiu"
+  },
+  {
+    "key": "fon",
+    "text": "fon",
+    "value": "fon"
+  },
+  {
+    "key": "fre",
+    "text": "français",
+    "value": "fre"
+  },
+  {
+    "key": "frm",
+    "text": "français moyen (1400-1600)",
+    "value": "frm"
+  },
+  {
+    "key": "fro",
+    "text": "français ancien (842-ca.1400)",
+    "value": "fro"
+  },
+  {
+    "key": "frr",
+    "text": "frison septentrional",
+    "value": "frr"
+  },
+  {
+    "key": "frs",
+    "text": "frison oriental",
+    "value": "frs"
+  },
+  {
+    "key": "fry",
+    "text": "frison occidental",
+    "value": "fry"
+  },
+  {
+    "key": "ful",
+    "text": "peul",
+    "value": "ful"
+  },
+  {
+    "key": "fur",
+    "text": "frioulan",
+    "value": "fur"
+  },
+  {
+    "key": "gaa",
+    "text": "ga",
+    "value": "gaa"
+  },
+  {
+    "key": "gay",
+    "text": "gayo",
+    "value": "gay"
+  },
+  {
+    "key": "gba",
+    "text": "gbaya",
+    "value": "gba"
+  },
+  {
+    "key": "gem",
+    "text": "germaniques, langues",
+    "value": "gem"
+  },
+  {
+    "key": "geo",
+    "text": "géorgien",
+    "value": "geo"
+  },
+  {
+    "key": "ger",
+    "text": "allemand",
+    "value": "ger"
+  },
+  {
+    "key": "gez",
+    "text": "guèze",
+    "value": "gez"
+  },
+  {
+    "key": "gil",
+    "text": "kiribati",
+    "value": "gil"
+  },
+  {
+    "key": "gla",
+    "text": "gaélique; gaélique écossais",
+    "value": "gla"
+  },
+  {
+    "key": "gle",
+    "text": "irlandais",
+    "value": "gle"
+  },
+  {
+    "key": "glg",
+    "text": "galicien",
+    "value": "glg"
+  },
+  {
+    "key": "glv",
+    "text": "manx; mannois",
+    "value": "glv"
+  },
+  {
+    "key": "gmh",
+    "text": "allemand, moyen haut (ca. 1050-1500)",
+    "value": "gmh"
+  },
+  {
+    "key": "goh",
+    "text": "allemand, vieux haut (ca. 750-1050)",
+    "value": "goh"
+  },
+  {
+    "key": "gon",
+    "text": "gond",
+    "value": "gon"
+  },
+  {
+    "key": "gor",
+    "text": "gorontalo",
+    "value": "gor"
+  },
+  {
+    "key": "got",
+    "text": "gothique",
+    "value": "got"
+  },
+  {
+    "key": "grb",
+    "text": "grebo",
+    "value": "grb"
+  },
+  {
+    "key": "grc",
+    "text": "grec ancien (jusqu'à 1453)",
+    "value": "grc"
+  },
+  {
+    "key": "gre",
+    "text": "grec moderne (après 1453)",
+    "value": "gre"
+  },
+  {
+    "key": "grn",
+    "text": "guarani",
+    "value": "grn"
+  },
+  {
+    "key": "gsw",
+    "text": "suisse alémanique; alémanique; alsacien",
+    "value": "gsw"
+  },
+  {
+    "key": "guj",
+    "text": "goudjrati",
+    "value": "guj"
+  },
+  {
+    "key": "gwi",
+    "text": "gwich'in",
+    "value": "gwi"
+  },
+  {
+    "key": "hai",
+    "text": "haida",
+    "value": "hai"
+  },
+  {
+    "key": "hat",
+    "text": "haïtien; créole haïtien",
+    "value": "hat"
+  },
+  {
+    "key": "hau",
+    "text": "haoussa",
+    "value": "hau"
+  },
+  {
+    "key": "haw",
+    "text": "hawaïen",
+    "value": "haw"
+  },
+  {
+    "key": "heb",
+    "text": "hébreu",
+    "value": "heb"
+  },
+  {
+    "key": "her",
+    "text": "herero",
+    "value": "her"
+  },
+  {
+    "key": "hil",
+    "text": "hiligaynon",
+    "value": "hil"
+  },
+  {
+    "key": "him",
+    "text": "langues himachalis; langues paharis occidentales",
+    "value": "him"
+  },
+  {
+    "key": "hin",
+    "text": "hindi",
+    "value": "hin"
+  },
+  {
+    "key": "hit",
+    "text": "hittite",
+    "value": "hit"
+  },
+  {
+    "key": "hmn",
+    "text": "hmong",
+    "value": "hmn"
+  },
+  {
+    "key": "hmo",
+    "text": "hiri motu",
+    "value": "hmo"
+  },
+  {
+    "key": "hrv",
+    "text": "croate",
+    "value": "hrv"
+  },
+  {
+    "key": "hsb",
+    "text": "haut-sorabe",
+    "value": "hsb"
+  },
+  {
+    "key": "hun",
+    "text": "hongrois",
+    "value": "hun"
+  },
+  {
+    "key": "hup",
+    "text": "hupa",
+    "value": "hup"
+  },
+  {
+    "key": "iba",
+    "text": "iban",
+    "value": "iba"
+  },
+  {
+    "key": "ibo",
+    "text": "igbo",
+    "value": "ibo"
+  },
+  {
+    "key": "ice",
+    "text": "islandais",
+    "value": "ice"
+  },
+  {
+    "key": "ido",
+    "text": "ido",
+    "value": "ido"
+  },
+  {
+    "key": "iii",
+    "text": "yi de Sichuan",
+    "value": "iii"
+  },
+  {
+    "key": "ijo",
+    "text": "ijo, langues",
+    "value": "ijo"
+  },
+  {
+    "key": "iku",
+    "text": "inuktitut",
+    "value": "iku"
+  },
+  {
+    "key": "ile",
+    "text": "interlingue",
+    "value": "ile"
+  },
+  {
+    "key": "ilo",
+    "text": "ilocano",
+    "value": "ilo"
+  },
+  {
+    "key": "ina",
+    "text": "interlingua (langue auxiliaire internationale)",
+    "value": "ina"
+  },
+  {
+    "key": "inc",
+    "text": "indo-aryennes, langues",
+    "value": "inc"
+  },
+  {
+    "key": "ind",
+    "text": "indonésien",
+    "value": "ind"
+  },
+  {
+    "key": "ine",
+    "text": "indo-européennes, langues",
+    "value": "ine"
+  },
+  {
+    "key": "inh",
+    "text": "ingouche",
+    "value": "inh"
+  },
+  {
+    "key": "ipk",
+    "text": "inupiaq",
+    "value": "ipk"
+  },
+  {
+    "key": "ira",
+    "text": "iraniennes, langues",
+    "value": "ira"
+  },
+  {
+    "key": "iro",
+    "text": "iroquoises, langues",
+    "value": "iro"
+  },
+  {
+    "key": "ita",
+    "text": "italien",
+    "value": "ita"
+  },
+  {
+    "key": "jav",
+    "text": "javanais",
+    "value": "jav"
+  },
+  {
+    "key": "jbo",
+    "text": "lojban",
+    "value": "jbo"
+  },
+  {
+    "key": "jpn",
+    "text": "japonais",
+    "value": "jpn"
+  },
+  {
+    "key": "jpr",
+    "text": "judéo-persan",
+    "value": "jpr"
+  },
+  {
+    "key": "jrb",
+    "text": "judéo-arabe",
+    "value": "jrb"
+  },
+  {
+    "key": "kaa",
+    "text": "karakalpak",
+    "value": "kaa"
+  },
+  {
+    "key": "kab",
+    "text": "kabyle",
+    "value": "kab"
+  },
+  {
+    "key": "kac",
+    "text": "kachin; jingpho",
+    "value": "kac"
+  },
+  {
+    "key": "kal",
+    "text": "groenlandais",
+    "value": "kal"
+  },
+  {
+    "key": "kam",
+    "text": "kamba",
+    "value": "kam"
+  },
+  {
+    "key": "kan",
+    "text": "kannada",
+    "value": "kan"
+  },
+  {
+    "key": "kar",
+    "text": "karen, langues",
+    "value": "kar"
+  },
+  {
+    "key": "kas",
+    "text": "kashmiri",
+    "value": "kas"
+  },
+  {
+    "key": "kau",
+    "text": "kanouri",
+    "value": "kau"
+  },
+  {
+    "key": "kaw",
+    "text": "kawi",
+    "value": "kaw"
+  },
+  {
+    "key": "kaz",
+    "text": "kazakh",
+    "value": "kaz"
+  },
+  {
+    "key": "kbd",
+    "text": "kabardien",
+    "value": "kbd"
+  },
+  {
+    "key": "kha",
+    "text": "khasi",
+    "value": "kha"
+  },
+  {
+    "key": "khi",
+    "text": "khoïsan, langues",
+    "value": "khi"
+  },
+  {
+    "key": "khm",
+    "text": "khmer central",
+    "value": "khm"
+  },
+  {
+    "key": "kho",
+    "text": "khotanais; sakan",
+    "value": "kho"
+  },
+  {
+    "key": "kik",
+    "text": "kikuyu",
+    "value": "kik"
+  },
+  {
+    "key": "kin",
+    "text": "rwanda",
+    "value": "kin"
+  },
+  {
+    "key": "kir",
+    "text": "kirghiz",
+    "value": "kir"
+  },
+  {
+    "key": "kmb",
+    "text": "kimbundu",
+    "value": "kmb"
+  },
+  {
+    "key": "kok",
+    "text": "konkani",
+    "value": "kok"
+  },
+  {
+    "key": "kom",
+    "text": "kom",
+    "value": "kom"
+  },
+  {
+    "key": "kon",
+    "text": "kongo",
+    "value": "kon"
+  },
+  {
+    "key": "kor",
+    "text": "coréen",
+    "value": "kor"
+  },
+  {
+    "key": "kos",
+    "text": "kosrae",
+    "value": "kos"
+  },
+  {
+    "key": "kpe",
+    "text": "kpellé",
+    "value": "kpe"
+  },
+  {
+    "key": "krc",
+    "text": "karatchai balkar",
+    "value": "krc"
+  },
+  {
+    "key": "krl",
+    "text": "carélien",
+    "value": "krl"
+  },
+  {
+    "key": "kro",
+    "text": "krou, langues",
+    "value": "kro"
+  },
+  {
+    "key": "kru",
+    "text": "kurukh",
+    "value": "kru"
+  },
+  {
+    "key": "kua",
+    "text": "kuanyama; kwanyama",
+    "value": "kua"
+  },
+  {
+    "key": "kum",
+    "text": "koumyk",
+    "value": "kum"
+  },
+  {
+    "key": "kur",
+    "text": "kurde",
+    "value": "kur"
+  },
+  {
+    "key": "kut",
+    "text": "kutenai",
+    "value": "kut"
+  },
+  {
+    "key": "lad",
+    "text": "judéo-espagnol",
+    "value": "lad"
+  },
+  {
+    "key": "lah",
+    "text": "lahnda",
+    "value": "lah"
+  },
+  {
+    "key": "lam",
+    "text": "lamba",
+    "value": "lam"
+  },
+  {
+    "key": "lao",
+    "text": "lao",
+    "value": "lao"
+  },
+  {
+    "key": "lat",
+    "text": "latin",
+    "value": "lat"
+  },
+  {
+    "key": "lav",
+    "text": "letton",
+    "value": "lav"
+  },
+  {
+    "key": "lez",
+    "text": "lezghien",
+    "value": "lez"
+  },
+  {
+    "key": "lim",
+    "text": "limbourgeois",
+    "value": "lim"
+  },
+  {
+    "key": "lin",
+    "text": "lingala",
+    "value": "lin"
+  },
+  {
+    "key": "lit",
+    "text": "lituanien",
+    "value": "lit"
+  },
+  {
+    "key": "lol",
+    "text": "mongo",
+    "value": "lol"
+  },
+  {
+    "key": "loz",
+    "text": "lozi",
+    "value": "loz"
+  },
+  {
+    "key": "ltz",
+    "text": "luxembourgeois",
+    "value": "ltz"
+  },
+  {
+    "key": "lua",
+    "text": "luba-lulua",
+    "value": "lua"
+  },
+  {
+    "key": "lub",
+    "text": "luba-katanga",
+    "value": "lub"
+  },
+  {
+    "key": "lug",
+    "text": "ganda",
+    "value": "lug"
+  },
+  {
+    "key": "lui",
+    "text": "luiseno",
+    "value": "lui"
+  },
+  {
+    "key": "lun",
+    "text": "lunda",
+    "value": "lun"
+  },
+  {
+    "key": "luo",
+    "text": "luo (Kenya et Tanzanie)",
+    "value": "luo"
+  },
+  {
+    "key": "lus",
+    "text": "lushai",
+    "value": "lus"
+  },
+  {
+    "key": "mac",
+    "text": "macédonien",
+    "value": "mac"
+  },
+  {
+    "key": "mad",
+    "text": "madourais",
+    "value": "mad"
+  },
+  {
+    "key": "mag",
+    "text": "magahi",
+    "value": "mag"
+  },
+  {
+    "key": "mah",
+    "text": "marshall",
+    "value": "mah"
+  },
+  {
+    "key": "mai",
+    "text": "maithili",
+    "value": "mai"
+  },
+  {
+    "key": "mak",
+    "text": "makassar",
+    "value": "mak"
+  },
+  {
+    "key": "mal",
+    "text": "malayalam",
+    "value": "mal"
+  },
+  {
+    "key": "man",
+    "text": "mandingue",
+    "value": "man"
+  },
+  {
+    "key": "mao",
+    "text": "maori",
+    "value": "mao"
+  },
+  {
+    "key": "map",
+    "text": "austronésiennes, langues",
+    "value": "map"
+  },
+  {
+    "key": "mar",
+    "text": "marathe",
+    "value": "mar"
+  },
+  {
+    "key": "mas",
+    "text": "massaï",
+    "value": "mas"
+  },
+  {
+    "key": "may",
+    "text": "malais",
+    "value": "may"
+  },
+  {
+    "key": "mdf",
+    "text": "moksa",
+    "value": "mdf"
+  },
+  {
+    "key": "mdr",
+    "text": "mandar",
+    "value": "mdr"
+  },
+  {
+    "key": "men",
+    "text": "mendé",
+    "value": "men"
+  },
+  {
+    "key": "mga",
+    "text": "irlandais moyen (900-1200)",
+    "value": "mga"
+  },
+  {
+    "key": "mic",
+    "text": "mi'kmaq; micmac",
+    "value": "mic"
+  },
+  {
+    "key": "min",
+    "text": "minangkabau",
+    "value": "min"
+  },
+  {
+    "key": "mis",
+    "text": "langues non codées",
+    "value": "mis"
+  },
+  {
+    "key": "mkh",
+    "text": "môn-khmer, langues",
+    "value": "mkh"
+  },
+  {
+    "key": "mlg",
+    "text": "malgache",
+    "value": "mlg"
+  },
+  {
+    "key": "mlt",
+    "text": "maltais",
+    "value": "mlt"
+  },
+  {
+    "key": "mnc",
+    "text": "mandchou",
+    "value": "mnc"
+  },
+  {
+    "key": "mni",
+    "text": "manipuri",
+    "value": "mni"
+  },
+  {
+    "key": "mno",
+    "text": "manobo, langues",
+    "value": "mno"
+  },
+  {
+    "key": "moh",
+    "text": "mohawk",
+    "value": "moh"
+  },
+  {
+    "key": "mon",
+    "text": "mongol",
+    "value": "mon"
+  },
+  {
+    "key": "mos",
+    "text": "moré",
+    "value": "mos"
+  },
+  {
+    "key": "mul",
+    "text": "multilingue",
+    "value": "mul"
+  },
+  {
+    "key": "mun",
+    "text": "mounda, langues",
+    "value": "mun"
+  },
+  {
+    "key": "mus",
+    "text": "muskogee",
+    "value": "mus"
+  },
+  {
+    "key": "mwl",
+    "text": "mirandais",
+    "value": "mwl"
+  },
+  {
+    "key": "mwr",
+    "text": "marvari",
+    "value": "mwr"
+  },
+  {
+    "key": "myn",
+    "text": "maya, langues",
+    "value": "myn"
+  },
+  {
+    "key": "myv",
+    "text": "erza",
+    "value": "myv"
+  },
+  {
+    "key": "nah",
+    "text": "nahuatl, langues",
+    "value": "nah"
+  },
+  {
+    "key": "nai",
+    "text": "nord-amérindiennes, langues",
+    "value": "nai"
+  },
+  {
+    "key": "nap",
+    "text": "napolitain",
+    "value": "nap"
+  },
+  {
+    "key": "nau",
+    "text": "nauruan",
+    "value": "nau"
+  },
+  {
+    "key": "nav",
+    "text": "navaho",
+    "value": "nav"
+  },
+  {
+    "key": "nbl",
+    "text": "ndébélé du Sud",
+    "value": "nbl"
+  },
+  {
+    "key": "nde",
+    "text": "ndébélé du Nord",
+    "value": "nde"
+  },
+  {
+    "key": "ndo",
+    "text": "ndonga",
+    "value": "ndo"
+  },
+  {
+    "key": "nds",
+    "text": "bas allemand; bas saxon; allemand, bas; saxon, bas",
+    "value": "nds"
+  },
+  {
+    "key": "nep",
+    "text": "népalais",
+    "value": "nep"
+  },
+  {
+    "key": "new",
+    "text": "nepal bhasa; newari",
+    "value": "new"
+  },
+  {
+    "key": "nia",
+    "text": "nias",
+    "value": "nia"
+  },
+  {
+    "key": "nic",
+    "text": "nigéro-kordofaniennes, langues",
+    "value": "nic"
+  },
+  {
+    "key": "niu",
+    "text": "niué",
+    "value": "niu"
+  },
+  {
+    "key": "nno",
+    "text": "norvégien nynorsk; nynorsk, norvégien",
+    "value": "nno"
+  },
+  {
+    "key": "nob",
+    "text": "norvégien bokmål",
+    "value": "nob"
+  },
+  {
+    "key": "nog",
+    "text": "nogaï; nogay",
+    "value": "nog"
+  },
+  {
+    "key": "non",
+    "text": "norrois, vieux",
+    "value": "non"
+  },
+  {
+    "key": "nor",
+    "text": "norvégien",
+    "value": "nor"
+  },
+  {
+    "key": "nqo",
+    "text": "n'ko",
+    "value": "nqo"
+  },
+  {
+    "key": "nso",
+    "text": "pedi; sepedi; sotho du Nord",
+    "value": "nso"
+  },
+  {
+    "key": "nub",
+    "text": "nubiennes, langues",
+    "value": "nub"
+  },
+  {
+    "key": "nwc",
+    "text": "newari classique",
+    "value": "nwc"
+  },
+  {
+    "key": "nya",
+    "text": "chichewa; chewa; nyanja",
+    "value": "nya"
+  },
+  {
+    "key": "nym",
+    "text": "nyamwezi",
+    "value": "nym"
+  },
+  {
+    "key": "nyn",
+    "text": "nyankolé",
+    "value": "nyn"
+  },
+  {
+    "key": "nyo",
+    "text": "nyoro",
+    "value": "nyo"
+  },
+  {
+    "key": "nzi",
+    "text": "nzema",
+    "value": "nzi"
+  },
+  {
+    "key": "oci",
+    "text": "occitan (après 1500); provençal",
+    "value": "oci"
+  },
+  {
+    "key": "oji",
+    "text": "ojibwa",
+    "value": "oji"
+  },
+  {
+    "key": "ori",
+    "text": "oriya",
+    "value": "ori"
+  },
+  {
+    "key": "orm",
+    "text": "galla",
+    "value": "orm"
+  },
+  {
+    "key": "osa",
+    "text": "osage",
+    "value": "osa"
+  },
+  {
+    "key": "oss",
+    "text": "ossète",
+    "value": "oss"
+  },
+  {
+    "key": "ota",
+    "text": "turc ottoman (1500-1928)",
+    "value": "ota"
+  },
+  {
+    "key": "oto",
+    "text": "otomi, langues",
+    "value": "oto"
+  },
+  {
+    "key": "paa",
+    "text": "papoues, langues",
+    "value": "paa"
+  },
+  {
+    "key": "pag",
+    "text": "pangasinan",
+    "value": "pag"
+  },
+  {
+    "key": "pal",
+    "text": "pahlavi",
+    "value": "pal"
+  },
+  {
+    "key": "pam",
+    "text": "pampangan",
+    "value": "pam"
+  },
+  {
+    "key": "pan",
+    "text": "pendjabi",
+    "value": "pan"
+  },
+  {
+    "key": "pap",
+    "text": "papiamento",
+    "value": "pap"
+  },
+  {
+    "key": "pau",
+    "text": "palau",
+    "value": "pau"
+  },
+  {
+    "key": "peo",
+    "text": "perse, vieux (ca. 600-400 av. J.-C.)",
+    "value": "peo"
+  },
+  {
+    "key": "per",
+    "text": "persan",
+    "value": "per"
+  },
+  {
+    "key": "phi",
+    "text": "philippines, langues",
+    "value": "phi"
+  },
+  {
+    "key": "phn",
+    "text": "phénicien",
+    "value": "phn"
+  },
+  {
+    "key": "pli",
+    "text": "pali",
+    "value": "pli"
+  },
+  {
+    "key": "pol",
+    "text": "polonais",
+    "value": "pol"
+  },
+  {
+    "key": "pon",
+    "text": "pohnpei",
+    "value": "pon"
+  },
+  {
+    "key": "por",
+    "text": "portugais",
+    "value": "por"
+  },
+  {
+    "key": "pra",
+    "text": "prâkrit, langues",
+    "value": "pra"
+  },
+  {
+    "key": "pro",
+    "text": "provençal ancien (jusqu'à 1500)",
+    "value": "pro"
+  },
+  {
+    "key": "pus",
+    "text": "pachto",
+    "value": "pus"
+  },
+  {
+    "key": "qaa-qtz",
+    "text": "réservée à l'usage local",
+    "value": "qaa-qtz"
+  },
+  {
+    "key": "que",
+    "text": "quechua",
+    "value": "que"
+  },
+  {
+    "key": "raj",
+    "text": "rajasthani",
+    "value": "raj"
+  },
+  {
+    "key": "rap",
+    "text": "rapanui",
+    "value": "rap"
+  },
+  {
+    "key": "rar",
+    "text": "rarotonga; maori des îles Cook",
+    "value": "rar"
+  },
+  {
+    "key": "roa",
+    "text": "romanes, langues",
+    "value": "roa"
+  },
+  {
+    "key": "roh",
+    "text": "romanche",
+    "value": "roh"
+  },
+  {
+    "key": "rom",
+    "text": "tsigane",
+    "value": "rom"
+  },
+  {
+    "key": "rum",
+    "text": "roumain; moldave",
+    "value": "rum"
+  },
+  {
+    "key": "run",
+    "text": "rundi",
+    "value": "run"
+  },
+  {
+    "key": "rup",
+    "text": "aroumain; macédo-roumain",
+    "value": "rup"
+  },
+  {
+    "key": "rus",
+    "text": "russe",
+    "value": "rus"
+  },
+  {
+    "key": "sad",
+    "text": "sandawe",
+    "value": "sad"
+  },
+  {
+    "key": "sag",
+    "text": "sango",
+    "value": "sag"
+  },
+  {
+    "key": "sah",
+    "text": "iakoute",
+    "value": "sah"
+  },
+  {
+    "key": "sai",
+    "text": "indiennes d'Amérique du Sud, autres langues",
+    "value": "sai"
+  },
+  {
+    "key": "sal",
+    "text": "salishennes, langues",
+    "value": "sal"
+  },
+  {
+    "key": "sam",
+    "text": "samaritain",
+    "value": "sam"
+  },
+  {
+    "key": "san",
+    "text": "sanskrit",
+    "value": "san"
+  },
+  {
+    "key": "sas",
+    "text": "sasak",
+    "value": "sas"
+  },
+  {
+    "key": "sat",
+    "text": "santal",
+    "value": "sat"
+  },
+  {
+    "key": "scn",
+    "text": "sicilien",
+    "value": "scn"
+  },
+  {
+    "key": "sco",
+    "text": "écossais",
+    "value": "sco"
+  },
+  {
+    "key": "sel",
+    "text": "selkoupe",
+    "value": "sel"
+  },
+  {
+    "key": "sem",
+    "text": "sémitiques, langues",
+    "value": "sem"
+  },
+  {
+    "key": "sga",
+    "text": "irlandais ancien (jusqu'à 900)",
+    "value": "sga"
+  },
+  {
+    "key": "sgn",
+    "text": "langues des signes",
+    "value": "sgn"
+  },
+  {
+    "key": "shn",
+    "text": "chan",
+    "value": "shn"
+  },
+  {
+    "key": "sid",
+    "text": "sidamo",
+    "value": "sid"
+  },
+  {
+    "key": "sin",
+    "text": "singhalais",
+    "value": "sin"
+  },
+  {
+    "key": "sio",
+    "text": "sioux, langues",
+    "value": "sio"
+  },
+  {
+    "key": "sit",
+    "text": "sino-tibétaines, langues",
+    "value": "sit"
+  },
+  {
+    "key": "sla",
+    "text": "slaves, langues",
+    "value": "sla"
+  },
+  {
+    "key": "slo",
+    "text": "slovaque",
+    "value": "slo"
+  },
+  {
+    "key": "slv",
+    "text": "slovène",
+    "value": "slv"
+  },
+  {
+    "key": "sma",
+    "text": "sami du Sud",
+    "value": "sma"
+  },
+  {
+    "key": "sme",
+    "text": "sami du Nord",
+    "value": "sme"
+  },
+  {
+    "key": "smi",
+    "text": "sames, langues",
+    "value": "smi"
+  },
+  {
+    "key": "smj",
+    "text": "sami de Lule",
+    "value": "smj"
+  },
+  {
+    "key": "smn",
+    "text": "sami d'Inari",
+    "value": "smn"
+  },
+  {
+    "key": "smo",
+    "text": "samoan",
+    "value": "smo"
+  },
+  {
+    "key": "sms",
+    "text": "sami skolt",
+    "value": "sms"
+  },
+  {
+    "key": "sna",
+    "text": "shona",
+    "value": "sna"
+  },
+  {
+    "key": "snd",
+    "text": "sindhi",
+    "value": "snd"
+  },
+  {
+    "key": "snk",
+    "text": "soninké",
+    "value": "snk"
+  },
+  {
+    "key": "sog",
+    "text": "sogdien",
+    "value": "sog"
+  },
+  {
+    "key": "som",
+    "text": "somali",
+    "value": "som"
+  },
+  {
+    "key": "son",
+    "text": "songhai, langues",
+    "value": "son"
+  },
+  {
+    "key": "sot",
+    "text": "sotho du Sud",
+    "value": "sot"
+  },
+  {
+    "key": "spa",
+    "text": "espagnol; castillan",
+    "value": "spa"
+  },
+  {
+    "key": "srd",
+    "text": "sarde",
+    "value": "srd"
+  },
+  {
+    "key": "srn",
+    "text": "sranan tongo",
+    "value": "srn"
+  },
+  {
+    "key": "srp",
+    "text": "serbe",
+    "value": "srp"
+  },
+  {
+    "key": "srr",
+    "text": "sérère",
+    "value": "srr"
+  },
+  {
+    "key": "ssa",
+    "text": "nilo-sahariennes, langues",
+    "value": "ssa"
+  },
+  {
+    "key": "ssw",
+    "text": "swati",
+    "value": "ssw"
+  },
+  {
+    "key": "suk",
+    "text": "sukuma",
+    "value": "suk"
+  },
+  {
+    "key": "sun",
+    "text": "soundanais",
+    "value": "sun"
+  },
+  {
+    "key": "sus",
+    "text": "soussou",
+    "value": "sus"
+  },
+  {
+    "key": "sux",
+    "text": "sumérien",
+    "value": "sux"
+  },
+  {
+    "key": "swa",
+    "text": "swahili",
+    "value": "swa"
+  },
+  {
+    "key": "swe",
+    "text": "suédois",
+    "value": "swe"
+  },
+  {
+    "key": "syc",
+    "text": "syriaque classique",
+    "value": "syc"
+  },
+  {
+    "key": "syr",
+    "text": "syriaque",
+    "value": "syr"
+  },
+  {
+    "key": "tah",
+    "text": "tahitien",
+    "value": "tah"
+  },
+  {
+    "key": "tai",
+    "text": "tai, langues",
+    "value": "tai"
+  },
+  {
+    "key": "tam",
+    "text": "tamoul",
+    "value": "tam"
+  },
+  {
+    "key": "tat",
+    "text": "tatar",
+    "value": "tat"
+  },
+  {
+    "key": "tel",
+    "text": "télougou",
+    "value": "tel"
+  },
+  {
+    "key": "tem",
+    "text": "temne",
+    "value": "tem"
+  },
+  {
+    "key": "ter",
+    "text": "tereno",
+    "value": "ter"
+  },
+  {
+    "key": "tet",
+    "text": "tetum",
+    "value": "tet"
+  },
+  {
+    "key": "tgk",
+    "text": "tadjik",
+    "value": "tgk"
+  },
+  {
+    "key": "tgl",
+    "text": "tagalog",
+    "value": "tgl"
+  },
+  {
+    "key": "tha",
+    "text": "thaï",
+    "value": "tha"
+  },
+  {
+    "key": "tib",
+    "text": "tibétain",
+    "value": "tib"
+  },
+  {
+    "key": "tig",
+    "text": "tigré",
+    "value": "tig"
+  },
+  {
+    "key": "tir",
+    "text": "tigrigna",
+    "value": "tir"
+  },
+  {
+    "key": "tiv",
+    "text": "tiv",
+    "value": "tiv"
+  },
+  {
+    "key": "tkl",
+    "text": "tokelau",
+    "value": "tkl"
+  },
+  {
+    "key": "tlh",
+    "text": "klingon",
+    "value": "tlh"
+  },
+  {
+    "key": "tli",
+    "text": "tlingit",
+    "value": "tli"
+  },
+  {
+    "key": "tmh",
+    "text": "tamacheq",
+    "value": "tmh"
+  },
+  {
+    "key": "tog",
+    "text": "tonga (Nyasa)",
+    "value": "tog"
+  },
+  {
+    "key": "ton",
+    "text": "tongan (Îles Tonga)",
+    "value": "ton"
+  },
+  {
+    "key": "tpi",
+    "text": "tok pisin",
+    "value": "tpi"
+  },
+  {
+    "key": "tsi",
+    "text": "tsimshian",
+    "value": "tsi"
+  },
+  {
+    "key": "tsn",
+    "text": "tswana",
+    "value": "tsn"
+  },
+  {
+    "key": "tso",
+    "text": "tsonga",
+    "value": "tso"
+  },
+  {
+    "key": "tuk",
+    "text": "turkmène",
+    "value": "tuk"
+  },
+  {
+    "key": "tum",
+    "text": "tumbuka",
+    "value": "tum"
+  },
+  {
+    "key": "tup",
+    "text": "tupi, langues",
+    "value": "tup"
+  },
+  {
+    "key": "tur",
+    "text": "turc",
+    "value": "tur"
+  },
+  {
+    "key": "tut",
+    "text": "altaïques, langues",
+    "value": "tut"
+  },
+  {
+    "key": "tvl",
+    "text": "tuvalu",
+    "value": "tvl"
+  },
+  {
+    "key": "twi",
+    "text": "twi",
+    "value": "twi"
+  },
+  {
+    "key": "tyv",
+    "text": "touva",
+    "value": "tyv"
+  },
+  {
+    "key": "udm",
+    "text": "oudmourte",
+    "value": "udm"
+  },
+  {
+    "key": "uga",
+    "text": "ougaritique",
+    "value": "uga"
+  },
+  {
+    "key": "uig",
+    "text": "ouïgour",
+    "value": "uig"
+  },
+  {
+    "key": "ukr",
+    "text": "ukrainien",
+    "value": "ukr"
+  },
+  {
+    "key": "umb",
+    "text": "umbundu",
+    "value": "umb"
+  },
+  {
+    "key": "und",
+    "text": "indéterminée",
+    "value": "und"
+  },
+  {
+    "key": "urd",
+    "text": "ourdou",
+    "value": "urd"
+  },
+  {
+    "key": "uzb",
+    "text": "ouszbek",
+    "value": "uzb"
+  },
+  {
+    "key": "vai",
+    "text": "vaï",
+    "value": "vai"
+  },
+  {
+    "key": "ven",
+    "text": "venda",
+    "value": "ven"
+  },
+  {
+    "key": "vie",
+    "text": "vietnamien",
+    "value": "vie"
+  },
+  {
+    "key": "vol",
+    "text": "volapük",
+    "value": "vol"
+  },
+  {
+    "key": "vot",
+    "text": "vote",
+    "value": "vot"
+  },
+  {
+    "key": "wak",
+    "text": "wakashanes, langues",
+    "value": "wak"
+  },
+  {
+    "key": "wal",
+    "text": "walamo",
+    "value": "wal"
+  },
+  {
+    "key": "war",
+    "text": "waray",
+    "value": "war"
+  },
+  {
+    "key": "was",
+    "text": "washo",
+    "value": "was"
+  },
+  {
+    "key": "wel",
+    "text": "gallois",
+    "value": "wel"
+  },
+  {
+    "key": "wen",
+    "text": "sorabes, langues",
+    "value": "wen"
+  },
+  {
+    "key": "wln",
+    "text": "wallon",
+    "value": "wln"
+  },
+  {
+    "key": "wol",
+    "text": "wolof",
+    "value": "wol"
+  },
+  {
+    "key": "xal",
+    "text": "kalmouk; oïrat",
+    "value": "xal"
+  },
+  {
+    "key": "xho",
+    "text": "xhosa",
+    "value": "xho"
+  },
+  {
+    "key": "yao",
+    "text": "yao",
+    "value": "yao"
+  },
+  {
+    "key": "yap",
+    "text": "yapois",
+    "value": "yap"
+  },
+  {
+    "key": "yid",
+    "text": "yiddish",
+    "value": "yid"
+  },
+  {
+    "key": "yor",
+    "text": "yoruba",
+    "value": "yor"
+  },
+  {
+    "key": "ypk",
+    "text": "yupik, langues",
+    "value": "ypk"
+  },
+  {
+    "key": "zap",
+    "text": "zapotèque",
+    "value": "zap"
+  },
+  {
+    "key": "zbl",
+    "text": "symboles Bliss; Bliss",
+    "value": "zbl"
+  },
+  {
+    "key": "zen",
+    "text": "zenaga",
+    "value": "zen"
+  },
+  {
+    "key": "zgh",
+    "text": "amazighe standard marocain",
+    "value": "zgh"
+  },
+  {
+    "key": "zha",
+    "text": "zhuang; chuang",
+    "value": "zha"
+  },
+  {
+    "key": "znd",
+    "text": "zandé, langues",
+    "value": "znd"
+  },
+  {
+    "key": "zul",
+    "text": "zoulou",
+    "value": "zul"
+  },
+  {
+    "key": "zun",
+    "text": "zuni",
+    "value": "zun"
+  },
+  {
+    "key": "zxx",
+    "text": "pas de contenu linguistique; non applicable",
+    "value": "zxx"
+  },
+  {
+    "key": "zza",
+    "text": "zaza; dimili; dimli; kirdki; kirmanjki; zazaki",
+    "value": "zza"
+  }
+]

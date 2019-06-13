@@ -32,14 +32,15 @@ const Page = (props) => (
                             {props.values.rightHolders && props.values.rightHolders.length > 0 ? (
                             props.values.rightHolders.map((collaborateur, index) => (
 
-                                <div key={`collaborateur.${index}`}>
-                                    <ChampTexteAssistant 
-                                        etiquette={t('collaborateur.attribut.etiquette.nom')} indication={t('collaborateur.attribut.indication.nom')} 
-                                        modele={`rightHolders[${index}].nom`} requis={true} autoFocus={true} />
+                                <div key={`collaborateur.${index}`}>                                    
 
                                     <ChampTexteAssistant 
                                         etiquette={t('collaborateur.attribut.etiquette.prenom')} indication={t('collaborateur.attribut.indication.prenom')} 
                                         modele={`rightHolders[${index}].prenom`} requis={true} autoFocus={false} />
+
+                                    <ChampTexteAssistant 
+                                        etiquette={t('collaborateur.attribut.etiquette.nom')} indication={t('collaborateur.attribut.indication.nom')} 
+                                        modele={`rightHolders[${index}].nom`} requis={true} autoFocus={true} />
 
                                     <ChampTexteAssistant 
                                         etiquette={t('collaborateur.attribut.etiquette.artiste')} indication={t('collaborateur.attribut.indication.artiste')} 
