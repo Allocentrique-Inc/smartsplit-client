@@ -4,7 +4,7 @@
  * Cet écran apparaît sans progression au-dessus.
  */
 
-import React from 'react'
+import React, { Component } from 'react'
 import { confirmAlert } from 'react-confirm-alert'
 
 // Traduction
@@ -24,84 +24,110 @@ import image from '../../assets/images/meditation-ecouteurs-femme.jpg'
 // CSS
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
-const Page = (props) => (
-  <React.Fragment>
-    <Progress percent={0} indicating></Progress>
-    <Translation>
-      {
-        (t) =>
-          <table>
-          <tbody>
-            <tr>
-              <td>
-                <div>
-                  {t('flot.documente-ton-oeuvre.preambule')}
-                </div>
+class PageAssistantOeuvreEmbarquement extends Component {
+  
+  constructor(props){
+    super(props)
+    this.state = {
+      pctProgression: props.pctProgression
+    }
+  }
 
-                <h1>
-                  {t('flot.documente-ton-oeuvre.titre')}
-                </h1>
+  componentWillReceiveProps(nextProps) {
+    if(this.props.pctProgression !== nextProps.pctProgression) {
+        this.setState({pctProgression: nextProps.pctProgression})
+    }
+  }
+  
+  render (){
+    
+    return (
+      <React.Fragment>
+        <Progress percent={this.state.pctProgression} indicating></Progress>
+        <Translation>
+          {
+            (t) =>
+              <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <div>
+                      {t('flot.documente-ton-oeuvre.preambule')}
+                    </div>
 
-                <ChampTexteAssistant 
-                  etiquette={t('oeuvre.attribut.etiquette.titre')} indication={t('oeuvre.attribut.indication.titre')} 
-                  modele="title" requis={true} autoFocus={true} />
+                    <h1>
+                      {t('flot.documente-ton-oeuvre.titre')}
+                    </h1>
 
-                <br/>
-        
-                <ChampInterrupteurAssistant modele="cover" etiquette={t('oeuvre.attribut.etiquette.reprise')} changement={ (a) => {
-                  props.setFieldValue('cover', `${a}`, false)
-                }}/>                
+                    <ChampTexteAssistant 
+                      etiquette={t('oeuvre.attribut.etiquette.titre')} indication={t('oeuvre.attribut.indication.titre')} 
+                      modele="title" requis={true} autoFocus={true} info={true} />
 
-                <h2>{t('composant.televersement.titre')}</h2>
+                    <br/>
+            
+                    <ChampInterrupteurAssistant modele="cover" etiquette={t('oeuvre.attribut.etiquette.reprise')} changement={ (a) => {
+                      this.props.setFieldValue('cover', `${a}`, false)
+                    }}/>                
 
-                <p>
-                  {t('composant.televersement.preambule')}
-                </p>
+                    <h2>{t('composant.televersement.titre')}</h2>
 
-                <ChampTeleversement indication={t('composant.televersement.indication')} apres={ (f) => {
-                  props.setFieldValue('fichier', f, false)
+                    <p>
+                      {t('composant.televersement.preambule')}
+                    </p>
 
-                  let analyse = f.music[0] // Il peut y avoir plus d'un résultat
+                    <ChampTeleversement values={this.props.values} indication={t('composant.televersement.indication')} 
+                      chargement={ (f) => {
+                        this.props.setFieldValue('fichiers', f, false)                        
+                        this.props.setFieldValue('title', f[0].path, false)
+                      }}
+                      apres={ (f) => {
+                        this.props.setFieldValue('fichiers', f, false)
 
-                  if(props.values.title !== analyse.title) {
-                    confirmAlert({
-                      title: `Un résultat d'enregistrement est détecté pour votre œuvre!`,
-                      message: `Voulez-vous remplir les champs avec les valeurs découvertes?`,
-                      buttons: [
-                        {
-                          label: 'Oui, je le veux',
-                          onClick: () => {
-                            props.setFieldValue('title', analyse.title, false)
-                            props.setFieldValue('publisher', analyse.label, false)
-                            props.setFieldValue('artist', analyse.artist[0].name, false)
-                            props.setFieldValue('album', analyse.album.name, false)
-                            props.setFieldValue('durationMs', `${analyse.duration_ms}`, false)
-                            props.setFieldValue('isrc', analyse.external_ids.isrc, false)
-                            props.setFieldValue('upc', analyse.external_ids.upc, false)
-                            props.setFieldValue('publishDate', analyse.release_date, false)
-                          }
-                        },
-                        {
-                          label: 'Non, je le ferai moi-même',
-                          onClick: () => {
+                        if(f){
+                          let analyse = f.music[0] // Il peut y avoir plus d'un résultat
+
+                          if(this.props.values.title !== analyse.title) {
+                            confirmAlert({
+                              title: `Un résultat d'enregistrement est détecté pour ton œuvre!`,
+                              message: `Veux-tu que je remplisse tous les champs, pour voir ce que ça donne ?`,
+                              buttons: [
+                                {
+                                  label: 'Oui, je le veux !!',
+                                  onClick: () => {
+                                    this.props.setFieldValue('title', analyse.title, false)
+                                    this.props.setFieldValue('publisher', analyse.label, false)
+                                    this.props.setFieldValue('artist', analyse.artist[0].name, false)
+                                    this.props.setFieldValue('album', analyse.album.name, false)
+                                    this.props.setFieldValue('durationMs', `${analyse.duration_ms}`, false)
+                                    this.props.setFieldValue('isrc', analyse.external_ids.isrc, false)
+                                    this.props.setFieldValue('upc', analyse.external_ids.upc, false)
+                                    this.props.setFieldValue('publishDate', analyse.release_date, false)
+                                  }
+                                },
+                                {
+                                  label: 'Non, je vais les remplir moi-même.',
+                                  onClick: () => {
+                                  }
+                                }
+                              ]
+                            })
                           }
                         }
-                      ]
-                    })
-                  }
+                      }                  
+                    }
+                  />
+                  </td>
+                  <td>
+                    <img src={image} alt={t('image.embarquement.alt')} />
+                  </td>
+                </tr>
+              </tbody>      
+            </table>
+          }      
+        </Translation>    
+      </React.Fragment>
+    )
+  }
+}
 
-                }}/>                
-          
-              </td>
-              <td>
-                <img src={image} alt={t('image.embarquement.alt')} />
-              </td>
-            </tr>
-          </tbody>      
-        </table>
-      }      
-    </Translation>    
-  </React.Fragment>
-)
-
-export default Page
+export default PageAssistantOeuvreEmbarquement

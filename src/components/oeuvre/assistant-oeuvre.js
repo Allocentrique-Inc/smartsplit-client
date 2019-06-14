@@ -12,6 +12,7 @@ import PageDescription from './assistant-oeuvre-description'
 import PageParoles from './assistant-oeuvre-paroles'
 import PageGenres from './assistant-oeuvre-genres'
 import PagePro from './assistant-oeuvre-pro'
+import PageLiens from './assistant-oeuvre-liens'
 
 // Alertes
 import { toast } from 'react-toastify'
@@ -48,7 +49,7 @@ class AssistantOeuvre extends Component {
                                             cover: "false",
                                             rightHolders: [{}],
                                             jurisdiction: "",
-                                            rightsType: {},
+                                            rightsType: [],
                                             genre: "",
                                             secondaryGenre: "",
                                             lyrics: "",
@@ -56,10 +57,10 @@ class AssistantOeuvre extends Component {
                                             isrc: "",
                                             upc: "",
                                             msDuration: "",
-                                            socialMediaLinks: {},
-                                            streamingServiceLinks: {},
-                                            pressArticleLinks: {},
-                                            playlistLinks: {},
+                                            socialMediaLinks: [],
+                                            streamingServiceLinks: [],
+                                            pressArticleLinks: [],
+                                            playlistLinks: [],
                                             creationDate: "",
                                             modificationDate: "",
                                             publishDate: "",
@@ -87,27 +88,31 @@ class AssistantOeuvre extends Component {
                                         })
 
                                     }}
-                                    onPageChanged={(page)=>{                                        
+                                    onPageChanged={(page)=>{                                   
                                     }}
                                     buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}                        
                                     debug={true}
                                 >                            
 
-                                    <Wizard.Page>                                    
-                                        <Embarquement />
+                                    <Wizard.Page>
+                                        <Embarquement pctProgression={5} />
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <PageDescription /> 
+                                        <PageDescription pctProgression={15} /> 
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <PageParoles i18n={i18n} />
+                                        <PageParoles i18n={i18n} pctProgression={55} />
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <PageGenres />
+                                        <PageGenres pctProgression={75} />
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <PagePro />
-                                    </Wizard.Page>                                        
+                                        <PagePro pctProgression={85} />
+                                    </Wizard.Page>
+                                    <Wizard.Page>
+                                        <PageLiens pctProgression={97} />
+                                    </Wizard.Page>
+
                             </Wizard>
                     }
                 </Translation>

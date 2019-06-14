@@ -73,5 +73,10 @@
         "key": "R15",
         "text": "Instrument - Autre",
         "value": "R15"
+    },
+    {
+        "key": "R99",
+        "text": "Instrument - Soliste",
+        "value": "R99"
     }
 ]

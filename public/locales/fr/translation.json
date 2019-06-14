@@ -13,9 +13,9 @@
                 "role": "Rôle dans l'œuvre"
             },
             "indication": {
-                "nom": "Indique ton nom de famille",
-                "prenom": "Indique ton prénom",
-                "artiste": "Indique ton nom d'artiste",
+                "nom": "Indique un nom de famille",
+                "prenom": "Indique un prénom",
+                "artiste": "Indique un nom d'artiste",
                 "role": "Choisis 1 ou plusieurs rôles"
             }
         }
@@ -37,10 +37,10 @@
                 "isrc": "Numéro ISRC",
                 "upc": "Numéro UPC",                
                 "dureeMs": "Durée (millisecondes)",
-                "liensSociaux": "Liens vers médias sociaux",
-                "liensServices": "Liens vers services de diffusion",
-                "liensPresse": "Liens de la revue de presse",
-                "liensListes": "Liens vers les listes de lecture",
+                "liensSociaux": "Lien vers un média social",
+                "liensServices": "Lien vers un service d'achat",
+                "liensPresse": "Lien vers une revue de presse",
+                "liensListes": "Lien vers une liste de lecture",
                 "dateCreation": "Date de création",
                 "dateModification": "Date de modification",
                 "datePublication": "Date de publication",
@@ -101,7 +101,7 @@
             "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton œuvre."
         },
         "collaborateurs": {
-            "titre": "Qui sont les créateurs et collaborateurs de ton œuvre musicale? ",
+            "titre": "Qui sont les créateurs de ton œuvre ? ",
             "preambule": "Commençons par toi ...",
             "role": "Joe, définis ton rôle ?",
             "ajout": "Ajouter un premier collaborateur"
@@ -125,6 +125,20 @@
         "envoifichier": {
             "reussi": "Envoi de fichier réussi!",
             "echec": "Envoi de fichier en échec"
+        },
+        "lien": {
+            "sociaux": {
+                "titre": "Liens vers les médias sociaux"
+            },
+            "commercial": {
+                "titre": "Liens vers les services d'achat"
+            },
+            "presse": {
+                "titre": "Liens vers les revues de presse"
+            },
+            "liste": {
+                "titre": "Liens vers les listes de lecture"
+            }
         }
     }
 }

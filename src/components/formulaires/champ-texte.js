@@ -44,7 +44,7 @@ export class ChampTexteAssistant extends Component {
                     }}
                     validate={this.state.requis && required}
                 />
-                <i className="right info circle icon blue"></i>
+                {this.props.info && (<i className="right info circle icon blue"></i>)}                
             </div>
         )        
     }

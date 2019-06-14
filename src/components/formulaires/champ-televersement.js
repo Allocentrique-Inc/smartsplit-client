@@ -39,12 +39,11 @@ export class ChampTeleversement extends Component {
                     (t) =>
                         <BlockUi tag="div" blocking={this.state.bloquer}>
                             <Dropzone onDrop={
-                                (acceptedFiles) => {
-                                    console.log(acceptedFiles)
+                                (fichiers) => {
                                     toast.info(t('navigation.transfertEnCours'))
                                     this.bloquerDebloquer()
-                                    // Création du fichier
-                                    acceptedFiles.forEach(fichier=>{
+                                    this.props.chargement(fichiers)                                    
+                                    fichiers.forEach(fichier=>{                                        
                                         let fd = new FormData()
                                         fd.append('file', fichier)
                                         axios

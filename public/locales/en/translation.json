@@ -13,10 +13,10 @@
                 "role": "Role in the work"
             },
             "indication": {
-                "nom": "What is your last name ?",
-                "prenom": "What is your first name ?",
-                "artiste": "What is you artist name ?",
-                "role": "Choose one or more role for you"
+                "nom": "Last name",
+                "prenom": "First name",
+                "artiste": "Artist name",
+                "role": "Choose one or more role"
             }
         }
     },
@@ -125,6 +125,20 @@
         "envoifichier": {
             "reussi": "File transfer successful !",
             "echec": "File transfer failed"
+        },
+        "lien": {
+            "sociaux": {
+                "titre": "Social media links"
+            },
+            "commercial": {
+                "titre": "Commercial links"
+            },
+            "presse": {
+                "titre": "Press review links"
+            },
+            "liste": {
+                "titre": "Playlist links"
+            }
         }
     }
 }

@@ -1,51 +1,51 @@
 [
     {
         "value": "Americana /Roots",
-        "genre_id": 59
+        "genre_id": 1
     },
     {
         "value": "Blues",
-        "genre_id": 65
+        "genre_id": 2
     },
     {
         "value": "Christian",
-        "genre_id": 75
+        "genre_id": 3
     },
     {
         "value": "Classical",
-        "genre_id": 77
+        "genre_id": 4
     },
     {
         "value": "Country",
-        "genre_id": 81
+        "genre_id": 5
     },
     {
         "value": "Country-Pop",
-        "genre_id": 84
+        "genre_id": 6
     },
     {
         "value": "Disco",
-        "genre_id": 89
+        "genre_id": 7
     },
     {
         "value": "Easy Listening /Adult Contemporary",
-        "genre_id": 92
+        "genre_id": 8
     },
     {
         "value": "Folk",
-        "genre_id": 99
+        "genre_id": 9
     },
     {
         "value": "Hard Rock",
-        "genre_id": 113
+        "genre_id": 10
     },
     {
         "value": "Heavy Metal",
-        "genre_id": 116
+        "genre_id": 11
     },
     {
         "value": "Hip-Hop",
-        "genre_id": 118
+        "genre_id": 12
     },
     {
         "value": "Indie Rock",
@@ -53,842 +53,91 @@
     },
     {
         "value": "Instrumental",
-        "genre_id": 123
+        "genre_id": 13
     },
     {
         "value": "Jazz",
-        "genre_id": 128
-    },
-    {
-        "value": "Latin",
-        "genre_id": 131
-    },
-    {
-        "value": "Pop",
-        "genre_id": 147
-    },
-    {
-        "value": "R&B",
-        "genre_id": 160
-    },
-    {
-        "value": "Rap",
-        "genre_id": 161
-    },
-    {
-        "value": "Reggae",
-        "genre_id": 163
-    },
-    {
-        "value": "Rock",
-        "genre_id": 165
-    },
-    {
-        "value": "Rock and Roll",
-        "genre_id": 166
-    },
-    {
-        "value": "Singer /Songwriter",
-        "genre_id": 171
-    },
-    {
-        "value": "Soul",
-        "genre_id": 173
-    },
-    {
-        "value": "Worship",
-        "genre_id": 243
-    },
-    {
-        "value": "Dance",
-        "genre_id": 86
-    },
-    {
-        "value": "Alternative Country",
-        "genre_id": 55
-    },
-    {
-        "value": "Alternative Rock",
-        "genre_id": 56
-    },
-    {
-        "value": "Alternative Pop",
-        "genre_id": 57
-    },
-    {
-        "value": "Indie Pop",
-        "genre_id": 120
-    },
-    {
-        "value": "New Wave",
-        "genre_id": 140
-    },
-    {
-        "value": "Pop-Punk",
-        "genre_id": 148
-    },
-    {
-        "value": "Pop-Rock",
-        "genre_id": 149
-    },
-    {
-        "value": "Pop-Soul",
-        "genre_id": 150
-    },
-    {
-        "value": "Punk",
-        "genre_id": 159
-    },
-    {
-        "value": "Synth-Pop",
-        "genre_id": 181
-    },
-    {
-        "value": "Funk",
-        "genre_id": 104
-    },
-    {
-        "value": "Honky-Tonk",
-        "genre_id": 119
-    },
-    {
-        "value": "Power Pop",
-        "genre_id": 153
-    },
-    {
-        "value": "Prog-Rock",
-        "genre_id": 156
-    },
-    {
-        "value": "Bluegrass",
-        "genre_id": 64
-    },
-    {
-        "value": "Christian Rock",
-        "genre_id": 76
-    },
-    {
-        "value": "Jazz-Blues",
-        "genre_id": 129
-    },
-    {
-        "value": "Modern Blues",
-        "genre_id": 135
-    },
-    {
-        "value": "Modern Country",
-        "genre_id": 136
-    },
-    {
-        "value": "Modern Folk",
-        "genre_id": 137
-    },
-    {
-        "value": "Modern Jazz",
-        "genre_id": 138
-    },
-    {
-        "value": "Children's Music",
-        "genre_id": 242
-    },
-    {
-        "value": "Ambient",
-        "genre_id": 58
-    },
-    {
-        "value": "Appalachian /Mountain",
-        "genre_id": 60
-    },
-    {
-        "value": "Blues-Pop",
-        "genre_id": 66
-    },
-    {
-        "value": "Blues-Rock",
-        "genre_id": 67
-    },
-    {
-        "value": "Country-Rock",
-        "genre_id": 85
-    },
-    {
-        "value": "Death Metal",
-        "genre_id": 87
-    },
-    {
-        "value": "Electronica",
-        "genre_id": 93
-    },
-    {
-        "value": "Garage Rock",
-        "genre_id": 106
-    },
-    {
-        "value": "Jazz-Pop",
-        "genre_id": 130
-    },
-    {
-        "value": "Rap-Rock",
-        "genre_id": 162
-    },
-    {
-        "value": "Religious /Spiritual /Gospel",
-        "genre_id": 164
-    },
-    {
-        "value": "Rockabilly",
-        "genre_id": 167
-    },
-    {
-        "value": "Southern Rock",
-        "genre_id": 174
-    },
-    {
-        "value": "Symphony",
-        "genre_id": 180
-    },
-    {
-        "value": "Techno",
-        "genre_id": 182
-    },
-    {
-        "value": "Traditional Country",
-        "genre_id": 186
-    },
-    {
-        "value": "A Cappella",
-        "genre_id": 50
-    },
-    {
-        "value": "Album Rock",
-        "genre_id": 54
-    },
-    {
-        "value": "Broadway /Showtune",
-        "genre_id": 70
-    },
-    {
-        "value": "Country-Blues",
-        "genre_id": 82
-    },
-    {
-        "value": "Delta Blues",
-        "genre_id": 88
-    },
-    {
-        "value": "Folk-Blues",
-        "genre_id": 100
-    },
-    {
-        "value": "Folk-Pop",
-        "genre_id": 101
-    },
-    {
-        "value": "Folk-Rock",
-        "genre_id": 102
-    },
-    {
-        "value": "Gospel",
-        "genre_id": 108
-    },
-    {
-        "value": "Grunge",
-        "genre_id": 110
-    },
-    {
-        "value": "Opera",
-        "genre_id": 144
-    },
-    {
-        "value": "Orchestral Rock",
-        "genre_id": 145
-    },
-    {
-        "value": "Showtune /Broadway",
-        "genre_id": 170
-    },
-    {
-        "value": "Spanish",
-        "genre_id": 175
-    },
-    {
-        "value": "Texas Country",
-        "genre_id": 183
-    },
-    {
-        "value": "Traditional Folk",
-        "genre_id": 187
-    },
-    {
-        "value": "Traditional Jazz",
-        "genre_id": 188
-    },
-    {
-        "value": "Western /Cowboy",
-        "genre_id": 195
-    },
-    {
-        "value": "General",
-        "genre_id": 241
-    },
-    {
-        "value": "Freestyle",
-        "genre_id": 103
-    },
-    {
-        "value": "20s",
-        "genre_id": 42
-    },
-    {
-        "value": "30s",
-        "genre_id": 43
-    },
-    {
-        "value": "40s",
-        "genre_id": 44
-    },
-    {
-        "value": "50s",
-        "genre_id": 45
+        "genre_id": 14
+    }
+    ,
+    {
+        "value": "Autre",
+        "genre_id": 15
     },
     {
         "value": "60s",
-        "genre_id": 46
+        "genre_id": 16
     },
     {
         "value": "70s",
-        "genre_id": 47
+        "genre_id": 17
     },
     {
         "value": "80s",
-        "genre_id": 48
+        "genre_id": 18
     },
     {
         "value": "90s",
-        "genre_id": 49
+        "genre_id": 19
     },
     {
         "value": "Cabaret",
-        "genre_id": 71
+        "genre_id": 20
     },
     {
         "value": "College Rock",
-        "genre_id": 78
+        "genre_id": 21
     },
     {
         "value": "Comedy",
-        "genre_id": 80
+        "genre_id": 22
     },
     {
         "value": "Experimental Jazz",
-        "genre_id": 95
+        "genre_id": 23
     },
     {
         "value": "Experimental Rock",
-        "genre_id": 96
+        "genre_id": 24
     },
     {
         "value": "Fiddle Tunes",
-        "genre_id": 97
+        "genre_id": 25
     },
     {
         "value": "Funk-Rock",
-        "genre_id": 105
+        "genre_id": 26
     },
     {
         "value": "Hawaiian",
-        "genre_id": 115
+        "genre_id": 27
     },
     {
         "value": "Hill-Country Blues",
-        "genre_id": 117
+        "genre_id": 28
     },
     {
         "value": "Irish Folk",
-        "genre_id": 124
+        "genre_id": 29
     },
     {
         "value": "Island",
-        "genre_id": 125
+        "genre_id": 30
     },
     {
         "value": "Progressive Classical",
-        "genre_id": 155
+        "genre_id": 31
     },
     {
         "value": "Psychedelic Rock",
-        "genre_id": 158
+        "genre_id": 32
     },
     {
         "value": "Traditional Blues",
-        "genre_id": 185
+        "genre_id": 3
     },
     {
         "value": "Urban",
-        "genre_id": 191
-    },
-    {
-        "value": "Waltz",
-        "genre_id": 192
-    },
-    {
-        "value": "Western Swing",
-        "genre_id": 194
-    },
-    {
-        "value": "World",
-        "genre_id": 196
-    },
-    {
-        "value": "Glam Rock",
-        "genre_id": 107
-    },
-    {
-        "value": "Swamp Blues",
-        "genre_id": 179
-    },
-    {
-        "value": "Grime",
-        "genre_id": 256
-    },
-    {
-        "value": "Orchestral",
-        "genre_id": 257
-    },
-    {
-        "value": "Alternative",
-        "genre_id": 258
-    },
-    {
-        "value": "Electronic",
-        "genre_id": 259
-    },
-    {
-        "value": "Trap",
-        "genre_id": 260
-    },
-    {
-        "value": "Indie Folk",
-        "genre_id": 261
-    },
-    {
-        "value": "Metal",
-        "genre_id": 262
-    },
-    {
-        "value": "Electro Pop",
-        "genre_id": 263
-    },
-    {
-        "value": "Hip-Hop /Rap",
-        "genre_id": 264
-    },
-    {
-        "value": "Dub",
-        "genre_id": 265
-    },
-    {
-        "value": "Soft Rock",
-        "genre_id": 266
-    },
-    {
-        "value": "Teen Pop",
-        "genre_id": 267
-    },
-    {
-        "value": "Alternative Folk",
-        "genre_id": 268
-    },
-    {
-        "value": "Neo-Soul",
-        "genre_id": 269
-    },
-    {
-        "value": "Electronic Rock",
-        "genre_id": 270
-    },
-    {
-        "value": "Psychedelic",
-        "genre_id": 271
-    },
-    {
-        "value": "New Age",
-        "genre_id": 272
-    },
-    {
-        "value": "R&B /Soul",
-        "genre_id": 273
-    },
-    {
-        "value": "Adult Alternative",
-        "genre_id": 274
-    },
-    {
-        "value": "Breakbeat",
-        "genre_id": 275
-    },
-    {
-        "value": "K-Pop",
-        "genre_id": 276
-    },
-    {
-        "value": "Smooth Jazz",
-        "genre_id": 277
-    },
-    {
-        "value": "Middle East",
-        "genre_id": 278
-    },
-    {
-        "value": "Salsa",
-        "genre_id": 279
-    },
-    {
-        "value": "Garage",
-        "genre_id": 280
-    },
-    {
-        "value": "Calypso",
-        "genre_id": 281
-    },
-    {
-        "value": "J-Pop",
-        "genre_id": 282
-    },
-    {
-        "value": "Fitness & Workout",
-        "genre_id": 283
-    },
-    {
-        "value": "Latin Pop",
-        "genre_id": 284
-    },
-    {
-        "value": "Electro House",
-        "genre_id": 285
-    },
-    {
-        "value": "Electro",
-        "genre_id": 286
-    },
-    {
-        "value": "Latin Jazz",
-        "genre_id": 287
-    },
-    {
-        "value": "Downtempo",
-        "genre_id": 288
-    },
-    {
-        "value": "Christian Pop",
-        "genre_id": 289
-    },
-    {
-        "value": "Swing",
-        "genre_id": 290
-    },
-    {
-        "value": "Dubstep",
-        "genre_id": 291
-    },
-    {
-        "value": "Vocal",
-        "genre_id": 292
-    },
-    {
-        "value": "Caribbean",
-        "genre_id": 293
-    },
-    {
-        "value": "Fusion",
-        "genre_id": 294
-    },
-    {
-        "value": "Crunk",
-        "genre_id": 295
-    },
-    {
-        "value": "Reggaeton",
-        "genre_id": 296
-    },
-    {
-        "value": "Latin Rock",
-        "genre_id": 297
-    },
-    {
-        "value": "Country Rock",
-        "genre_id": 298
-    },
-    {
-        "value": "Adult Contemporary ",
-        "genre_id": 299
-    },
-    {
-        "value": "Easy Listening",
-        "genre_id": 300
-    },
-    {
-        "value": "Christian & Gospel",
-        "genre_id": 301
-    },
-    {
-        "value": "Alternative R&B",
-        "genre_id": 302
-    },
-    {
-        "value": "Ragga",
-        "genre_id": 303
-    },
-    {
-        "value": "Other",
-        "genre_id": 304
-    },
-    {
-        "value": "Chillwave",
-        "genre_id": 305
-    },
-    {
-        "value": "Future Bass",
-        "genre_id": 306
-    },
-    {
-        "value": "T.V Show",
-        "genre_id": 307
-    },
-    {
-        "value": "2000s",
-        "genre_id": 308
-    },
-    {
-        "value": "Bakersfield /West Coast Country",
-        "genre_id": 62
-    },
-    {
-        "value": "Big Band",
-        "genre_id": 63
-    },
-    {
-        "value": "Boogie-Woogie",
-        "genre_id": 68
-    },
-    {
-        "value": "Cajun /Zydeco",
-        "genre_id": 72
-    },
-    {
-        "value": "Celtic",
-        "genre_id": 73
-    },
-    {
-        "value": "Chamber-Pop",
-        "genre_id": 74
-    },
-    {
-        "value": "Goth",
-        "genre_id": 109
-    },
-    {
-        "value": "Hardcore /Thrash",
-        "genre_id": 114
-    },
-    {
-        "value": "Industrial",
-        "genre_id": 122
-    },
-    {
-        "value": "Jamband /Groove",
-        "genre_id": 126
-    },
-    {
-        "value": "Jangle Pop /Rock",
-        "genre_id": 127
-    },
-    {
-        "value": "Lounge /Cabaret",
-        "genre_id": 132
-    },
-    {
-        "value": "Old-Timey /Jugband",
-        "genre_id": 143
-    },
-    {
-        "value": "Polka",
-        "genre_id": 146
-    },
-    {
-        "value": "Sensipop",
-        "genre_id": 169
-    },
-    {
-        "value": "Surf",
-        "genre_id": 178
-    },
-    {
-        "value": "Holiday",
-        "genre_id": 244
-    },
-    {
-        "value": "Soundtrack",
-        "genre_id": 246
-    },
-    {
-        "value": "EDM (Electronic Dance Music)",
-        "genre_id": 247
-    },
-    {
-        "value": "IDM (Intelligent Dance Music)",
-        "genre_id": 248
-    },
-    {
-        "value": "Fantasy Pop",
-        "genre_id": 249
-    },
-    {
-        "value": "Dream Pop",
-        "genre_id": 250
-    },
-    {
-        "value": "Classic Rock",
-        "genre_id": 251
-    },
-    {
-        "value": "House",
-        "genre_id": 252
-    },
-    {
-        "value": "Deep House",
-        "genre_id": 253
-    },
-    {
-        "value": "Brazilian",
-        "genre_id": 254
-    },
-    {
-        "value": "Samba",
-        "genre_id": 255
-    },
-    {
-        "value": "Afro-Beat",
-        "genre_id": 52
-    },
-    {
-        "value": "Countrypolitan",
-        "genre_id": 83
-    },
-    {
-        "value": "Doo-Wop",
-        "genre_id": 90
-    },
-    {
-        "value": "Drum & Bass",
-        "genre_id": 91
-    },
-    {
-        "value": "Emo",
-        "genre_id": 94
-    },
-    {
-        "value": "Flamenco",
-        "genre_id": 98
-    },
-    {
-        "value": "Gypsy",
-        "genre_id": 111
-    },
-    {
-        "value": "Hair Metal",
-        "genre_id": 112
-    },
-    {
-        "value": "Novelty",
-        "genre_id": 141
-    },
-    {
-        "value": "Post-Punk",
-        "genre_id": 152
-    },
-    {
-        "value": "Psych /Freak-Folk",
-        "genre_id": 157
-    },
-    {
-        "value": "Scottish Folk",
-        "genre_id": 168
-    },
-    {
-        "value": "Ska",
-        "genre_id": 172
-    },
-    {
-        "value": "Stride Piano /Ragtime",
-        "genre_id": 177
-    },
-    {
-        "value": "Tin Pan Alley",
-        "genre_id": 184
-    },
-    {
-        "value": "Trance",
-        "genre_id": 189
-    },
-    {
-        "value": "Trip-Hop",
-        "genre_id": 190
-    },
-    {
-        "value": "Wartime",
-        "genre_id": 193
-    },
-    {
-        "value": "African /Tribal",
-        "genre_id": 51
-    },
-    {
-        "value": "Afro-Cuban",
-        "genre_id": 53
-    },
-    {
-        "value": "Bossa Nova",
-        "genre_id": 69
-    },
-    {
-        "value": "Colonial America",
-        "genre_id": 79
-    },
-    {
-        "value": "Nu Metal",
-        "genre_id": 142
-    },
-    {
-        "value": "Post-Civil War era",
-        "genre_id": 151
-    },
-    {
-        "value": "Pre-Civil War era",
-        "genre_id": 154
-    },
-    {
-        "value": "Audiobooks",
-        "genre_id": 245
-    },
-    {
-        "value": "Marching Band",
-        "genre_id": 133
-    },
-    {
-        "value": "Asian",
-        "genre_id": 61
-    },
-    {
-        "value": "Military /Field Music",
-        "genre_id": 134
-    },
-    {
-        "value": "Monk /Chant",
-        "genre_id": 139
-    },
-    {
-        "value": "Spoken Word /Poetry",
-        "genre_id": 176
+        "genre_id": 34
     }
 ]

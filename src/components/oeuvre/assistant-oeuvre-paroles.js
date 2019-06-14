@@ -11,18 +11,29 @@ import { ChampInterrupteurAssistant } from '../formulaires/champ-interrupteur';
 // Progression
 import { Progress } from 'semantic-ui-react'
 
-class PageAssistantParoles extends Component {
+class PageAssistantOeuvreParoles extends Component {
+    
     constructor(props){
         super(props)
+        this.state = {
+            pctProgression: props.pctProgression
+        }
         this.languesOptions = require(`../../assets/listes/${props.i18n.lng}/codes_langues.json`)                
-    }    
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.pctProgression !== nextProps.pctProgression) {
+            this.setState({pctProgression: nextProps.pctProgression})
+        }
+    }
+
     render() {
         return (
             <Translation>
                 {
                     (t) => 
                         <React.Fragment>
-                            <Progress percent={40} indicating></Progress>
+                            <Progress percent={this.state.pctProgression} indicating></Progress>
                             <h2>{t('flot.paroles.titre')}</h2> 
                             <p>{t('flot.paroles.preambule')}</p>
 
@@ -46,4 +57,4 @@ class PageAssistantParoles extends Component {
     }
 }
 
-export default PageAssistantParoles
+export default PageAssistantOeuvreParoles
