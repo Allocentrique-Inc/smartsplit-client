@@ -18,7 +18,7 @@ class PageAssistantOeuvreParoles extends Component {
         this.state = {
             pctProgression: props.pctProgression
         }
-        this.languesOptions = require(`../../assets/listes/${props.i18n.lng}/codes_langues.json`)                
+        this.languesOptions = require(`../../assets/listes/${props.i18n.lng.substring(0,2)}/codes_langues.json`)                
     }
 
     componentWillReceiveProps(nextProps) {
