@@ -37,15 +37,35 @@ export class ChampTeleversement extends Component {
             <Translation>
                 {
                     (t) =>
-                        <BlockUi tag="div" blocking={this.state.bloquer}>
+                        <BlockUi tag="div" blocking={this.state.bloquer}>                            
                             <Dropzone onDrop={
                                 (fichiers) => {
                                     toast.info(t('navigation.transfertEnCours'))
                                     this.bloquerDebloquer()
-                                    this.props.chargement(fichiers)                                    
-                                    fichiers.forEach(fichier=>{                                        
+                                    this.props.chargement(fichiers)
+
+                                    fichiers.forEach(fichier=>{
                                         let fd = new FormData()
-                                        fd.append('file', fichier)
+                                        fd.append('file', fichier)                                    
+
+                                        // Jouer la musique en attendant
+                                        let context = new AudioContext()
+                                        let playSound = function(buffer) {
+                                            var source = context.createBufferSource()
+                                            source.buffer = buffer
+                                            source.connect(context.destination)                                            
+                                            source.start(0)
+                                        }
+
+                                        var reader = new FileReader()
+                                        reader.addEventListener('load', function(e) {
+                                            var data = e.target.result
+                                            context.decodeAudioData(data, function(buffer) {
+                                                playSound(buffer)
+                                            })
+                                        })
+                                        reader.readAsArrayBuffer(fichier)
+
                                         axios
                                             .post('http://envoi.smartsplit.org:3033/envoi', fd)
                                             .then(res=>{                                          
