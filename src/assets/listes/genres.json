@@ -49,95 +49,94 @@
     },
     {
         "value": "Indie Rock",
-        "genre_id": 121
-    },
-    {
-        "value": "Instrumental",
         "genre_id": 13
     },
     {
-        "value": "Jazz",
+        "value": "Instrumental",
         "genre_id": 14
-    }
-    ,
+    },
     {
-        "value": "Autre",
+        "value": "Jazz",
         "genre_id": 15
     },
     {
-        "value": "60s",
+        "value": "Autre",
         "genre_id": 16
     },
     {
-        "value": "70s",
+        "value": "60s",
         "genre_id": 17
     },
     {
-        "value": "80s",
+        "value": "70s",
         "genre_id": 18
     },
     {
-        "value": "90s",
+        "value": "80s",
         "genre_id": 19
     },
     {
-        "value": "Cabaret",
+        "value": "90s",
         "genre_id": 20
     },
     {
-        "value": "College Rock",
+        "value": "Cabaret",
         "genre_id": 21
     },
     {
-        "value": "Comedy",
+        "value": "College Rock",
         "genre_id": 22
     },
     {
-        "value": "Experimental Jazz",
+        "value": "Comedy",
         "genre_id": 23
     },
     {
-        "value": "Experimental Rock",
+        "value": "Experimental Jazz",
         "genre_id": 24
     },
     {
-        "value": "Fiddle Tunes",
+        "value": "Experimental Rock",
         "genre_id": 25
     },
     {
-        "value": "Funk-Rock",
+        "value": "Fiddle Tunes",
         "genre_id": 26
     },
     {
-        "value": "Hawaiian",
+        "value": "Funk-Rock",
         "genre_id": 27
     },
     {
-        "value": "Hill-Country Blues",
+        "value": "Hawaiian",
         "genre_id": 28
     },
     {
-        "value": "Irish Folk",
+        "value": "Hill-Country Blues",
         "genre_id": 29
     },
     {
-        "value": "Island",
+        "value": "Irish Folk",
         "genre_id": 30
     },
     {
-        "value": "Progressive Classical",
+        "value": "Island",
         "genre_id": 31
     },
     {
-        "value": "Psychedelic Rock",
+        "value": "Progressive Classical",
         "genre_id": 32
     },
     {
+        "value": "Psychedelic Rock",
+        "genre_id": 33
+    },
+    {
         "value": "Traditional Blues",
-        "genre_id": 3
+        "genre_id": 34
     },
     {
         "value": "Urban",
-        "genre_id": 34
+        "genre_id": 35
     }
 ]
