@@ -96,7 +96,7 @@ class PageAssistantOeuvreEmbarquement extends Component {
                                   onClick: () => {
                                     this.props.setFieldValue('title', analyse.title, false)
                                     this.props.setFieldValue('publisher', analyse.label, false)
-                                    this.props.setFieldValue('artist', analyse.artist[0].name, false)
+                                    this.props.setFieldValue('artist', analyse.artists[0].name, false)
                                     this.props.setFieldValue('album', analyse.album.name, false)
                                     this.props.setFieldValue('durationMs', `${analyse.duration_ms}`, false)
                                     this.props.setFieldValue('isrc', analyse.external_ids.isrc, false)
