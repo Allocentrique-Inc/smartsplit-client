@@ -10,7 +10,6 @@ export default class Oeuvre {
             .hasString('title')
             .hasString('album')
             .hasString('artist')
-            .hasString('jurisdiction')
             .hasString('genre')
             .hasString('secondaryGenre')
             .hasString('lyrics')
@@ -27,9 +26,7 @@ export default class Oeuvre {
             .hasObject('streamingServiceLinks')
             .hasObject('pressArticleLinks')
             .hasObject('playlistLinks')
-            .hasObject('rightHolders')
-            .hasObject('rightsType')
-            .hasObject('rightsSplit')
+            .hasObject('s3Etag')
             .assert()
 
         // Construction
@@ -38,9 +35,6 @@ export default class Oeuvre {
         this.album = mediaDefinition.album
         this.artist = mediaDefinition.artist
         this.cover = mediaDefinition.cover
-        this.rightHolders = mediaDefinition.rightHolders
-        this.jurisdiction = mediaDefinition.jurisdiction
-        this.rightsType = mediaDefinition.rightsType
         this.genre = mediaDefinition.genre
         this.secondaryGenre = mediaDefinition.secondaryGenre
         this.lyrics = mediaDefinition.lyrics
@@ -56,7 +50,7 @@ export default class Oeuvre {
         this.modificationDate = mediaDefinition.modificationDate
         this.publishDate = mediaDefinition.publishDate
         this.publisher = mediaDefinition.publisher
-        this.rightsSplit = mediaDefinition.rightsSplit
+        this.s3Etag = mediaDefinition.s3Etag
     }
 
     get = function() {
@@ -66,9 +60,6 @@ export default class Oeuvre {
             album: this.album,
             artist: this.artist,
             cover: this.cover,
-            rightHolders: this.rightHolders,
-            jurisdiction: this.jurisdiction,
-            rightsType: this.rightsType,
             genre: this.genre,
             secondaryGenre: this.secondaryGenre,
             lyrics: this.lyrics,
@@ -84,7 +75,7 @@ export default class Oeuvre {
             modificationDate: this.modificationDate,
             publishDate: this.publishDate,
             publisher: this.publisher,
-            rightsSplit: this.rightsSplit
+            s3Etag: this.s3Etag
         }]
     }
 

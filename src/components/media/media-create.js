@@ -29,9 +29,7 @@ export default class MediaCreate extends Component {
         donnees.modificationDate = moment.utc().format()
         donnees.publishDate = moment.utc().format()
         donnees.publisher = 'Vincent de Grandpré'
-        donnees.rightHolders = {}
-        donnees.rightsType = {}
-        donnees.rightsSplit = {}
+        donnees.s3Etag = '2f03d99fbf37d8d585285fd4cce27feb'
 
         // Ajout données         
         donnees.secondaryGenre = 'Genre secondaire - test'
@@ -80,7 +78,6 @@ export default class MediaCreate extends Component {
                                     title: Yup.string().required(t('validation.requis')),
                                     album: Yup.string().required(t('validation.requis')),
                                     artist: Yup.string().required(t('validation.requis')),
-                                    jurisdiction: Yup.string().required(t('validation.requis')),
                                     genre: Yup.string().required(t('validation.requis')),                        
                                     cover: Yup.boolean().required(t('validation.requis'))                        
                                 })
@@ -144,21 +141,6 @@ export default class MediaCreate extends Component {
                                 />
                                 {errors.artist && touched.artist && (
                                     <div className="input-feedback">{errors.artist}</div>
-                                )}
-                                <label htmlFor="jurisdiction" style={{ display: 'block' }}>{t('oeuvre.attribut.etiquette.juridiction')}</label>
-                                <input
-                                    id="jurisdiction"
-                                    placeholder={t('oeuvre.attribut.indication.juridiction')}
-                                    type="text"
-                                    value={values.jurisdiction}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={
-                                    errors.jurisdiction && touched.jurisdiction ? 'text-input error' : 'text-input'
-                                    }
-                                />
-                                {errors.jurisdiction && touched.jurisdiction && (
-                                    <div className="input-feedback">{errors.jurisdiction}</div>
                                 )}
                                 <label htmlFor="genre" style={{ display: 'block' }}>{t('oeuvre.attribut.etiquette.genre')}</label>
                                 <input

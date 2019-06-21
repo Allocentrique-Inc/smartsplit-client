@@ -29,9 +29,6 @@ const AssistantOeuvre = () => (
                                 album: "",
                                 artist: "",
                                 cover: false,
-                                rightHolders: {},
-                                jurisdiction: "",
-                                rightsType: {},
                                 genre: "",
                                 secondaryGenre: "",
                                 lyrics: "",
@@ -47,7 +44,6 @@ const AssistantOeuvre = () => (
                                 modificationDate: "",
                                 publishDate: "",
                                 publisher: "",
-                                rightsSplit: {}
                             }
                         }  
                         onSubmit={(values, actions) => {
