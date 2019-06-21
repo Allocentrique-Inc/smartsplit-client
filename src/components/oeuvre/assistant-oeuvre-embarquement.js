@@ -120,10 +120,10 @@ class PageAssistantOeuvreEmbarquement extends Component {
                                   // Création des ayant-droits
                                   let ayantDroits = []
                                   analyse.artists.forEach((artiste, idx)=>{
-                                    let role = idx === 0 ? ['R1','R2'] : ['R15']
+                                    let role = idx === 0 ? ['R1','R2'] : ['R15']                                                                          
                                     ayantDroits.push({
-                                      nom: artiste.lastname,
-                                      prenom: artiste.firstname,
+                                      nom: artiste.name.split[0],
+                                      prenom: artiste.name.split[1],
                                       artiste: artiste.name,
                                       role: role
                                     })
