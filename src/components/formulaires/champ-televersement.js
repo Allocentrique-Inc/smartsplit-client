@@ -68,8 +68,7 @@ export class ChampTeleversement extends Component {
 
                                         axios
                                             .post('http://envoi.smartsplit.org:3033/envoi', fd)
-                                            .then(res=>{                                          
-                                                toast(t('flot.envoifichier.reussi') + ` ${res.data.nom}`)
+                                            .then(res=>{                                                
                                                 this.props.apres(res.data)
                                             })
                                             .catch(err=>{

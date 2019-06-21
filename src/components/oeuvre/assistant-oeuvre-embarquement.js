@@ -10,6 +10,9 @@ import { confirmAlert } from 'react-confirm-alert'
 // Traduction
 import { Translation } from 'react-i18next'
 
+// Alertes
+import { toast } from 'react-toastify'
+
 // Progression
 import { Progress } from 'semantic-ui-react'
 
@@ -81,37 +84,67 @@ class PageAssistantOeuvreEmbarquement extends Component {
                         this.props.setFieldValue('title', f[0].path, false)
                       }}
                       apres={ (f) => {
-                        this.props.setFieldValue('fichiers', f, false)
 
-                        if(f){
+                        if(f.music.err) {
+                          switch(f.music.err) {
+                            case "AUDIO-MAUVAISE-LECTURE":
+                                toast.warn(t('traitement.acr.erreur-mauvaise-lecture'))
+                              break;
+                            case "AUDIO-INCONNU":
+                              toast.warn(t('traitement.acr.erreur-inconnu'))
+                              break;
+                            default:
+                              toast.warn(f.music.err)
+                          }
+                        }                        
+
+                        if(f && !f.music.err){
+
+                          this.props.setFieldValue('fichiers', f, false)
+
                           let analyse = f.music[0] // Il peut y avoir plus d'un résultat
 
-                          if(this.props.values.title !== analyse.title) {
-                            confirmAlert({
-                              title: `Un résultat d'enregistrement est détecté pour ton œuvre!`,
-                              message: `Veux-tu que je remplisse tous les champs, pour voir ce que ça donne ?`,
-                              buttons: [
-                                {
-                                  label: 'Oui, je le veux !!',
-                                  onClick: () => {
-                                    this.props.setFieldValue('title', analyse.title, false)
-                                    this.props.setFieldValue('publisher', analyse.label, false)
-                                    this.props.setFieldValue('artist', analyse.artists[0].name, false)
-                                    this.props.setFieldValue('album', analyse.album.name, false)
-                                    this.props.setFieldValue('durationMs', `${analyse.duration_ms}`, false)
-                                    this.props.setFieldValue('isrc', analyse.external_ids.isrc, false)
-                                    this.props.setFieldValue('upc', analyse.external_ids.upc, false)
-                                    this.props.setFieldValue('publishDate', analyse.release_date, false)
-                                  }
-                                },
-                                {
-                                  label: 'Non, je vais les remplir moi-même.',
-                                  onClick: () => {
-                                  }
+                          toast(t('flot.envoifichier.reussi') + ` ${f.nom}`)
+                          
+                          confirmAlert({
+                            title: `Un résultat d'enregistrement est détecté pour ton œuvre!`,
+                            message: `Veux-tu que je remplisse tous les champs, pour voir ce que ça donne ?`,
+                            buttons: [
+                              {
+                                label: 'Oui, je le veux !!',
+                                onClick: () => {
+                                  this.props.setFieldValue('title', analyse.title, false)
+                                  this.props.setFieldValue('publisher', analyse.label ? analyse.label : analyse.artists[0].name, false)                                    
+                                  this.props.setFieldValue('artist', analyse.artists[0].name, false)
+
+                                  // Création des ayant-droits
+                                  let ayantDroits = []
+                                  analyse.artists.forEach((artiste, idx)=>{
+                                    let role = idx === 0 ? ['R1','R2'] : ['R15']
+                                    ayantDroits.push({
+                                      nom: artiste.lastname,
+                                      prenom: artiste.firstname,
+                                      artiste: artiste.name,
+                                      role: role
+                                    })
+                                  })
+                                  this.props.setFieldValue('rightHolders', ayantDroits, false)
+                                  this.props.setFieldValue('instrumental', true, false)
+                                  this.props.setFieldValue('album', analyse.album.name, false)
+                                  this.props.setFieldValue('durationMs', `${analyse.duration_ms}`, false)
+                                  this.props.setFieldValue('isrc', analyse.external_ids.isrc, false)
+                                  this.props.setFieldValue('upc', analyse.external_ids.upc, false)
+                                  this.props.setFieldValue('publishDate', analyse.release_date, false)                                    
                                 }
-                              ]
-                            })
-                          }
+                              },
+                              {
+                                label: 'Non, je vais les remplir moi-même.',
+                                onClick: () => {
+                                }
+                              }
+                            ]
+                          })
+                          
                         }
                       }                  
                     }

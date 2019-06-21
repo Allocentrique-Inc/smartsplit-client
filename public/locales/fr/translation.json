@@ -140,5 +140,11 @@
                 "titre": "Liens vers les listes de lecture"
             }
         }
+    },
+    "traitement": {
+        "acr": {
+            "erreur-mauvaise-lecture": "Mauvaise lecture du média. Essayez un nouvel échantillon.",
+            "erreur-inconnu": "Aucune correspondance pour le média soumis."
+        }
     }
 }

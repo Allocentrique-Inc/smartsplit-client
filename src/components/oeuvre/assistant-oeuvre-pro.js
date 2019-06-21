@@ -30,7 +30,7 @@ class PageAssistantOeuvrePro extends Component {
 
                             <ChampTexteAssistant 
                                 etiquette={t('oeuvre.attribut.etiquette.editeur')} indication={t('oeuvre.attribut.indication.editeur')} 
-                                modele="publisher" requis={false} autoFocus={true} info={true}  />
+                                modele="publisher" requis={true} autoFocus={true} info={true}  />
 
                             <ChampTexteAssistant 
                                 etiquette={t('oeuvre.attribut.etiquette.isrc')} indication={t('oeuvre.attribut.indication.isrc')} 

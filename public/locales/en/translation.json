@@ -140,5 +140,11 @@
                 "titre": "Playlist links"
             }
         }
+    },
+    "traitement": {
+        "acr": {
+            "erreur-mauvaise-lecture": "Bad media. Try another sample.",
+            "erreur-inconnu": "No match found for the submitted file."
+        }
     }
 }
