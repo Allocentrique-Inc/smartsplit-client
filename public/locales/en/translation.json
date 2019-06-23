@@ -62,7 +62,7 @@
                 "upc": "Product unique identifier",
                 "dureeMs": "Type in the duration (in milliseconds)",
                 "liensSociaux": "URL for social link",
-                "liensServices": "URL for commercial link",
+                "liensServices": "URL for streaming link",
                 "liensPresse": "URL for press review",
                 "liensListes": "URL for playlist",
                 "dateCreation": "When was the work created or composed ?",
@@ -131,7 +131,7 @@
                 "titre": "Social media links"
             },
             "commercial": {
-                "titre": "Commercial links"
+                "titre": "Streaming links"
             },
             "presse": {
                 "titre": "Press review links"

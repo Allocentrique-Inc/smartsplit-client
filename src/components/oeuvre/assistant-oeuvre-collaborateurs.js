@@ -4,22 +4,38 @@
 
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
-import { ChampTexteAssistant } from "../formulaires/champ-texte";
-import { ChampListeAssistant } from "../formulaires/champ-liste";
+import { ChampTexteAssistant } from "../formulaires/champ-texte"
+import { ChampListeAssistant } from "../formulaires/champ-liste"
 
 // Progression
 import { Progress } from 'semantic-ui-react'
 
 import { FieldArray } from 'formik'
 
-const rolesOptions = require('../../assets/listes/roles.json')
-
 class PageAssistantOeuvreDescription extends Component {
 
     constructor(props) {
         super(props)
+
+        const ROLES = require('../../assets/listes/roles.json')
+        const INSTRUMENTS = require(`../../assets/listes/${props.i18n.lng.substring(0,2)}/instruments.json`).instruments
+        
+        let _roles = ROLES
+
+        // Charger la liste des instruments dans les rôles
+        // Structure d'un élément d'option de liste Formik : [Clé|key;Texte|text;Valeur|value]
+        INSTRUMENTS.forEach((elem)=>{
+            let id = `R${ROLES.length+1}`
+            _roles.push({
+                key: id,
+                text: elem.nom,
+                value: id
+            })
+        })
+        
         this.state = {
-            pctProgression: props.pctProgression
+            pctProgression: props.pctProgression,
+            roles: _roles
         }
     }
 
@@ -42,7 +58,7 @@ class PageAssistantOeuvreDescription extends Component {
                                 name="rightHolders"
                                 render={arrayHelpers => (
                                 <div>                            
-                                    {                                        
+                                    {
                                         this.props.values.rightHolders.map((collaborateur, index) => (
                                             <div key={`collaborateur.${index}`}>
                                                 <div className="fields">
@@ -72,7 +88,7 @@ class PageAssistantOeuvreDescription extends Component {
                                                         <ChampListeAssistant
                                                         etiquette={t('collaborateur.attribut.etiquette.role')} indication={t('collaborateur.attribut.indication.role')}
                                                         modele={`rightHolders[${index}].role`} requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
-                                                        options={rolesOptions} />
+                                                        options={this.state.roles} />
                                                     </div>
                                                 </div>                                                                                                
                                             

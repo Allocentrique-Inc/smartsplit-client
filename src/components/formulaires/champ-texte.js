@@ -17,8 +17,10 @@ export class ChampTexteAssistant extends Component {
             indication: props.indication,
             modele: props.modele,
             autoFocus: props.autoFocus,
-            requis: props.requis
-        }
+            requis: props.requis,
+            lien: props.lien,
+            typeLien: props.typeLien
+        }     
     }
 
     componentWillReceiveProps(nextProps) {
@@ -28,23 +30,45 @@ export class ChampTexteAssistant extends Component {
         if (this.props.indication !== nextProps.indication) {
             this.setState({indication: nextProps.indication})
         }
+        if (this.props.lien !== nextProps.lien) {
+            this.setState({estLien: nextProps.estLien})
+        }
+        if (this.props.lien !== nextProps.lien) {
+            this.setState({typeLien: nextProps.typeLien})
+        }
     }
 
     render() {
+
+        let classType
+
+        switch (this.state.typeLien) {
+            case "spotify":
+                classType = "spotify"
+                break;
+            case "youtube":
+                classType = "youtube"
+                break;
+            default:
+                classType = "external alternate"
+                break;
+        }
+
         return(
             <div>                
                 <Wizard.Field
                     name={this.state.modele}
                     component={FormField}
                     componentProps={{
-                        label: this.state.etiquette,
+                        label: !this.state.lien && this.state.etiquette,
                         placeholder: this.state.indication,
                         required: this.state.requis,
                         autoFocus: this.state.autoFocus                        
                     }}
                     validate={this.state.requis && required}
                 />
-                {this.props.info && (<i className="right info circle icon blue"></i>)}                
+                {this.state.lien && (<a href={this.state.lien} target={`lien--${classType}`}><i className={`right ${classType} icon big`}></i></a>)}
+                {this.props.info && (<i className="right info circle icon blue"></i>)}
             </div>
         )        
     }

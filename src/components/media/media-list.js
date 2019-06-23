@@ -32,7 +32,6 @@ export default class MediaList extends Component {
             return response.json()
         })
         .then((jsonObject) => {
-            console.log("Liste des médias reçue", jsonObject)
             this.setState({donnees: jsonObject})
         })
         .catch((error) => {
