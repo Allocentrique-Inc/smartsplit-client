@@ -150,6 +150,10 @@ class PageAssistantOeuvreEmbarquement extends Component {
                                       let _url = `https://open.spotify.com/track/${analyse.external_metadata.spotify.track.id}`
                                       liensCommerciaux.push({lien: _url, type: "spotify"})
                                   }
+                                  if(analyse.external_metadata.youtube) {
+                                    let _url = `https://www.youtube.com/watch?v=${analyse.external_metadata.youtube.vid}`
+                                    liensCommerciaux.push({lien: _url, type: "youtube"})
+                                  }
                                   
                                   this.props.setFieldValue('streamingServiceLinks', liensCommerciaux)
 
