@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "amplify": "0.0.11",
     "aws-amplify": "^1.1.29",
     "aws-param-env": "^1.2.0",
     "aws-param-store": "^3.0.0",

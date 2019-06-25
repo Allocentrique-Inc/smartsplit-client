@@ -3,9 +3,15 @@ import ReactDOM from 'react-dom'
 import App from './components/app/app'
 import 'semantic-ui-css/semantic.min.css'
 import './index.css'
-import Amplify from 'aws-amplify';
+
+// Amplify + Auth
+import Route53 from 'aws-sdk/clients/route53';
+import Amplify, { Auth } from 'aws-amplify';
 import awsParamStore from 'aws-param-store';
 import AWS from 'aws-sdk';
+import utils from './utils/utils';
+import config from "./config";
+
 
 // Traduction
 import i18n from './utils/i18n'
@@ -31,23 +37,149 @@ import ChangePassword from './components/auth/ChangePassword';
 import ChangePasswordConfirm from './components/auth/ChangePasswordConfirm';
 import Welcome from './components/auth/Welcome';
 
+
+// *******************************************************************************************************
+// 1. UTILs method with Secrets Manager
+// *******************************************************************************************************
+
 // Get SSM Parametors
-const REGION = 'us-east-2';
-AWS.config.update({region: REGION})
+// const REGION = 'us-east-2';
+// AWS.config.update({
+//   region: REGION,
+//   accessKeyId: utils.getParameter('ACCESS_KEY'),
+//   secretAccessKey: utils.getParameter('SECRET_ACCESS_KEY')
+// });
 
-awsParamStore.getParameters(['USER_POOL_ID', 'APP_CLIENT_ID'], { region: REGION } )
-.then( (data) => {
-  AWS.config.update({accessKeyId:process.env.REACT_APP_ACCESS_KEY, secretAccessKey:process.env.REACT_APP_SECRET_ACCESS_KEY, region: REGION})
+// // Load the AWS SDK
+// let secretName = "smartsplit/cognito",
+//     secret,
+//     decodedBinarySecret;
 
-  Amplify.configure({
-    Auth: {
-      mandatorySignIn: true,
-      region: REGION,
-      userPoolId: data.Parameters[1].Value,
-      userPoolWebClientId: data.Parameters[0].Value
-    }
-  });
-});
+// // Create a Secrets Manager client
+// let client = new AWS.SecretsManager({
+//     region: REGION
+// });
+
+// // 'GetSecretValue' API.
+// client.getSecretValue({SecretId: secretName}, function(err, data) {
+//     if (err) {
+//         if (err.code === 'DecryptionFailureException')
+//             // Secrets Manager can't decrypt the protected secret text using the provided KMS key.
+//             throw err;
+//         else if (err.code === 'InternalServiceErrorException')
+//             // An error occurred on the server side.
+//             throw err;
+//         else if (err.code === 'InvalidParameterException')
+//             // You provided an invalid value for a parameter.
+//             throw err;
+//         else if (err.code === 'InvalidRequestException')
+//             // You provided a parameter value that is not valid for the current state of the resource.
+//             throw err;
+//         else if (err.code === 'ResourceNotFoundException')
+//             // We can't find the resource that you asked for.
+//             throw err;
+//         else 
+//             throw err;
+//     }
+//     else {
+//         // Decrypts secret using the associated KMS CMK.
+//         if ('SecretString' in data) {
+//             secret = JSON.parse(data.SecretString);
+//             AWS.config.update({region: REGION, accessKeyId: secret.ACCESS_KEY, secretAccessKey: secret.SECRET_ACCESS_KEY});
+//             Amplify.configure({
+//               Auth: {
+//                 mandatorySignIn: true,
+//                 region: REGION,
+//                 userPoolId: secret.USER_POOL_ID,
+//                 userPoolWebClientId: secret.APP_CLIENT_ID
+//               }
+//             });
+//         } else {
+//             let buff = new Buffer(data.SecretBinary, 'base64');
+//             decodedBinarySecret = buff.toString('ascii');
+//             console.log(decodedBinarySecret);
+//         }
+//     }  
+// });
+// *******************************************************************************************************
+
+
+
+// *******************************************************************************************************
+// 2. Callback SSM getParameters method with System Manager
+// *******************************************************************************************************
+
+// const   ssm = new AWS.SSM()
+
+// // Fonction de récupération du paramètre par SSN
+// function getParameterFromSSM(param, cb) {
+    
+//   let _p = {
+//       Name: param,
+//       WithDecryption: false
+//   };
+//   ssm.getParameter(_p, function(err, data) {
+//       if (err) {
+//           console.log(err, err.stack)
+//       } else {
+//           cb(data.Parameter.Value)
+//       }        
+//   });
+// }
+
+// getParameterFromSSM("ACCESS_KEY", (_accessKey)=>{
+//   console.log(`Une clé d'accès est récupérée`)
+//   getParameterFromSSM("SECRET_ACCESS_KEY", (_secretKey)=>{
+//       if(_secretKey !== '') {
+//           console.log(`Un secret est récupéré`, _accessKey, _secretKey)
+//       }
+//       AWS.config.update({region: REGION, accessKeyId: _accessKey, secretAccessKey: _secretKey});
+
+//   })
+// })
+// *******************************************************************************************************
+
+
+
+// *******************************************************************************************************
+// 3. Route53 method
+// *******************************************************************************************************
+
+// Auth.currentCredentials()
+//   .then(credentials => {
+
+//     const route53 = new Route53({
+//       apiVersion: '2013-04-01',
+//       credentials: Auth.essentialCredentials(credentials)
+//     });
+
+
+//     // more code working with route53 object
+//     // route53.changeResourceRecordSets();
+//     // Amplify.configure({
+//     //   Auth: {
+//     //     mandatorySignIn: true,
+//     //     region: REGION,
+//     //     userPoolId: '',
+//     //     userPoolWebClientId: '',
+//     //     identityPoolId: ''
+//     //   }
+//     // });
+
+//   })
+// *******************************************************************************************************
+
+
+
+// *******************************************************************************************************
+// 4. aws-param-store module method
+// *******************************************************************************************************
+
+// awsParamStore.getParameters(['ACCESS_KEY', 'SECRET_ACCESS_KEY'] { region: REGION } )
+// .then( (data) => {
+//   console.log(data)
+//   AWS.config.update({accessKeyId:data.Parameters[1].value, secretAccessKey: data.Parameters[2].value, region: REGION})
+// });
 
 // const ssm = new AWS.SSM()
 
@@ -92,9 +224,26 @@ awsParamStore.getParameters(['USER_POOL_ID', 'APP_CLIENT_ID'], { region: REGION 
 //           }
 //         });
 //       });
-
 //   })
 // })
+// *******************************************************************************************************
+
+
+// *******************************************************************************************************
+// 5. Config file method
+// *******************************************************************************************************
+const REGION = 'us-east-2';
+
+Amplify.configure({
+  Auth: {
+    mandatorySignIn: true,
+    region: REGION,
+    userPoolId: config.cognito.USER_POOL_ID,
+    userPoolWebClientId: config.cognito.APP_CLIENT_ID
+  }
+});
+// *******************************************************************************************************
+
 
 const browserHistory = createBrowserHistory()
 
