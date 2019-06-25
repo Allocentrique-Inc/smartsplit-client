@@ -96,6 +96,11 @@
         }
     },
     "flot": {
+        "split": {
+            "sommaire": {
+                "titre": "Split's Summary"
+            }
+        },
         "documente-ton-oeuvre": {
             "titre": "STEP 1 - Describe your work",
             "preambule": "Hi Joe ! We will help you describe your work."

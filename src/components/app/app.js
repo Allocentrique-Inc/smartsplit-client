@@ -22,9 +22,13 @@ class App extends Component {
               <code>{t('titre.accueil')}</code>
             </p>
             <p>
-              <a href="/decrire-oeuvre">Liens vers "ÉTAPE 1 - Décrire mon oeuvre"</a><br/>
-              <br />
+              <h2>SPRINT 0</h2>
               <a href="/liste-oeuvres">Liens vers "Liste des oeuvre (appel API GET /media)"</a><br/>
+              <h2>SPRINT 1</h2>
+              <a href="/decrire-oeuvre">Liens vers "SPRINT 1 - Décrire mon oeuvre"</a><br/>
+              <h2>SPRINT 2</h2>
+              <a href="/approuver-split/1">Liens vers "SPRINT 2 - Approuver un split (droits d'auteur et droits voisins)"</a><br/>
+              <a href="/approuver-split/2">Liens vers "SPRINT 2 - Approuver un split (droits d'auteur seulement)"</a><br/>
             </p>
         </div>
         }

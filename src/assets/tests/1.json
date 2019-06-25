@@ -1,0 +1,136 @@
+{
+	"media": {
+		"uuid": "1",
+		"title": "Trésor auditif"
+	},
+	"initiateur": {
+		"uuid": "1",
+		"name": "Vincent de Grandpré"
+	},
+	"workCopyrightSplit": {		
+		"splitType": "workCopyrightSplit",
+		"emailToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+		"uuid": "45745c60-7b1a-11e8-9c9c-2d42b21b1a3e",
+		"rightsSplit": [
+			{
+				"contributorRole": {
+					"12345c60-7b1a-11e8-9c9c-2d42b21b1a3e": "guitarist",
+					"45745c60-7b1a-11e8-9c9c-2d42b21b1a3i": "writer"
+				},
+				"id": 1,
+				"rightHolder": {
+					"uuid": "1",
+					"email": "vincent@iptoki.com",
+					"name": "Vincent de Grandpré"
+				},
+				"splitPct": 50,
+				"splitUuid": "45745c60-7b1a-11e8-9c9c-2d42b21b1a3e",
+				"state": "active"
+			},
+			{
+				"contributorRole": {
+					"12345c60-7b1a-11e8-9c9c-2d42b21b1a3f": "flutist",
+					"45745c60-7b1a-11e8-9c9c-2d42b21b1a3i": "writer"
+				},
+				"id": 2,
+				"rightHolder": {
+					"uuid": "2",
+					"email": "david@iptoki.com",
+					"name": "David Wawryko"
+				},
+				"splitPct": 25,
+				"splitUuid": "45745c60-7b1a-11e8-9c9c-2d42b21b1a3e",
+				"state": "active"
+			},
+			{
+				"contributorRole": {
+					"12345c60-7b1a-11e8-9c9c-2d42b21b1a4g": "composer"
+				},
+				"id": 3,
+				"rightHolder": {
+					"uuid": "3",
+					"email": "mario@iptoki.com",
+					"name": "Mario Perron"
+				},
+				"splitPct": 25,
+				"splitUuid": "45745c60-7b1a-11e8-9c9c-2d42b21b1a3e",
+				"state": "active"
+			}
+		]
+	},
+	"performanceNeighboringRightSplit": {
+		"splitType": "performanceNeighboringRightSplit",
+		"emailToken": "eyJhaaaabbbbbbbbbbbbaaaaaaaaa",
+		"uuid": "abababab-7b1a-11e8-9c9c-2d42b21b1a3e",
+		"rightsSplit": [
+			{
+				"contributorRole": {
+					"12345c60-7b1a-11e8-9c9c-2d42b21b1a3e": "guitarist",
+					"45745c60-7b1a-11e8-9c9c-2d42b21b1a3i": "writer"
+				},
+				"id": 4,
+				"rightHolder": {
+					"uuid": "1",
+					"email": "vincent@iptoki.com",
+					"name": "Vincent de Grandpré"
+				},
+				"splitPct": 50,
+				"splitUuid": "abababab-7b1a-11e8-9c9c-2d42b21b1a3e",
+				"state": "active"
+			},
+			{
+				"contributorRole": {
+					"12345c60-7b1a-11e8-9c9c-2d42b21b1a3f": "flutist",
+					"45745c60-7b1a-11e8-9c9c-2d42b21b1a3i": "writer"
+				},
+				"id": 5,
+				"rightHolder": {
+					"uuid": "2",
+					"email": "david@iptoki.com",
+					"name": "David Wawryko"
+				},
+				"splitPct": 50,
+				"splitUuid": "abababab-7b1a-11e8-9c9c-2d42b21b1a3e",
+				"state": "active"
+			}
+		]
+	},
+	"masterNeighboringRightSplit": {
+		"splitType": "masterNeighboringRightSplit",
+		"emailToken": "eyJhbbbbbbbbbbbbbbbbccccccccc",
+		"uuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
+		"rightsSplit": [
+			{
+				"contributorRole": {
+					"12345c60-7b1a-11e8-9c9c-2d42b21b1a3e": "guitarist",
+					"45745c60-7b1a-11e8-9c9c-2d42b21b1a3i": "writer"
+				},
+				"id": 4,
+				"rightHolder": {
+					"uuid": "1",
+					"email": "vincent@iptoki.com",
+					"name": "Vincent de Grandpré"
+				},
+				"splitPct": 70,
+				"splitUuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
+				"state": "active"
+			},
+			{
+				"contributorRole": {
+					"12345c60-7b1a-11e8-9c9c-2d42b21b1a3f": "flutist",
+					"45745c60-7b1a-11e8-9c9c-2d42b21b1a3i": "writer"
+				},
+				"id": 5,
+				"rightHolder": {
+					"uuid": "3",
+					"email": "mario@iptoki.com",
+					"name": "Mario Perron"
+				},
+				"splitPct": 30,
+				"splitUuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
+				"state": "active"
+			}
+		]
+	}
+}
+

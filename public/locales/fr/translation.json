@@ -96,6 +96,12 @@
         }
     },
     "flot": {
+        "split": {
+            "sommaire": {
+                "titre": "Sommaire du Split",
+                "soustitre": "Départ : un split initial créé par"
+            }
+        },
         "documente-ton-oeuvre": {
             "titre": "ÉTAPE 1 - Documente ton œuvre",
             "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton œuvre."
