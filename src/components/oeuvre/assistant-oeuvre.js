@@ -58,7 +58,7 @@ class AssistantOeuvre extends Component {
                                             jurisdiction: "",
                                             rightsType: [],
                                             genre: "",
-                                            secondaryGenre: "",
+                                            secondaryGenre: [],
                                             lyrics: "",
                                             inLanguages: [],
                                             isrc: "",
@@ -111,7 +111,7 @@ class AssistantOeuvre extends Component {
                                         <PageParoles i18n={i18n} pctProgression={55} />
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <PageGenres pctProgression={75} />
+                                        <PageGenres i18n={i18n} pctProgression={75} />
                                     </Wizard.Page>
                                     <Wizard.Page>
                                         <PagePro pctProgression={85} />

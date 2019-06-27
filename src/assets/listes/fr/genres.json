@@ -1,0 +1,2768 @@
+{
+    "genres": [
+        {
+            "lien": "http://fr.wikipedia.org/wiki/2-step_garage",
+            "nom": "2-step garage"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/2_tone_(musique)",
+            "nom": "2 tone (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/A_cappella",
+            "nom": "A cappella"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Acid_blues",
+            "nom": "Acid blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Acid_breaks",
+            "nom": "Acid breaks"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Acid_house",
+            "nom": "Acid house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Acid_jazz",
+            "nom": "Acid jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Acid_rock",
+            "nom": "Acid rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Acid_techno",
+            "nom": "Acid techno"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Acid_trance",
+            "nom": "Acid trance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Acidcore",
+            "nom": "Acidcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Adult_contemporary",
+            "nom": "Adult contemporary"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Afrobeat",
+            "nom": "Afrobeat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Afropop",
+            "nom": "Afropop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Afrotrap",
+            "nom": "Afrotrap"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Allaoui",
+            "nom": "Allaoui"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ambient",
+            "nom": "Ambient"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ambient_house",
+            "nom": "Ambient house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ambient_jungle",
+            "nom": "Ambient jungle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ambient_techno",
+            "nom": "Ambient techno"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Americana_(musique)",
+            "nom": "Americana (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Anarcho-punk",
+            "nom": "Anarcho-punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Anti-folk",
+            "nom": "Anti-folk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Arena_rock",
+            "nom": "Arena rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ars_antiqua",
+            "nom": "Ars antiqua"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ars_nova",
+            "nom": "Ars nova"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Art_punk",
+            "nom": "Art punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Art_rock",
+            "nom": "Art rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ars_subtilior",
+            "nom": "Ars subtilior"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Austropop",
+            "nom": "Austropop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Avant-funk",
+            "nom": "Avant-funk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Avant-garde_jazz",
+            "nom": "Avant-garde jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Avant-prog",
+            "nom": "Avant-prog"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Avanthop",
+            "nom": "Avanthop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ax%C3%A9",
+            "nom": "Axé"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bachata",
+            "nom": "Bachata"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bachatango",
+            "nom": "Bachatango"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Baggy_(musique)",
+            "nom": "Baggy (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Baguala",
+            "nom": "Baguala"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bai%C3%A3o_(musique)",
+            "nom": "Baião (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Baila",
+            "nom": "Baila"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Baile_funk",
+            "nom": "Baile funk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bakersfield_sound",
+            "nom": "Bakersfield sound"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Balearic_beat",
+            "nom": "Balearic beat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Balearic_trance",
+            "nom": "Balearic trance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ballade",
+            "nom": "Ballade"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ballet",
+            "nom": "Ballet"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Baltimore_club",
+            "nom": "Baltimore club"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bambuco",
+            "nom": "Bambuco"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Barbershop",
+            "nom": "Barbershop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bass_music",
+            "nom": "Bass music"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bassline",
+            "nom": "Bassline"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Batucada",
+            "nom": "Batucada"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bay_Area_thrash_metal",
+            "nom": "Bay Area thrash metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Beat_(musique)",
+            "nom": "Beat (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Benga_(musique)",
+            "nom": "Benga (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bebop",
+            "nom": "Bebop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Berceuse",
+            "nom": "Berceuse"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Big_band",
+            "nom": "Big band"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Big_beat",
+            "nom": "Big beat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Big_room_house",
+            "nom": "Big room house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Biguine",
+            "nom": "Biguine"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bikutsi",
+            "nom": "Bikutsi"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Black_metal",
+            "nom": "Black metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Black_metal_d%C3%A9pressif",
+            "nom": "Black metal dépressif"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Black_metal_norv%C3%A9gien",
+            "nom": "Black metal norvégien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Black_metal_symphonique",
+            "nom": "Black metal symphonique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bluegrass",
+            "nom": "Bluegrass"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Blues",
+            "nom": "Blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Blues_africain",
+            "nom": "Blues africain"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Blues_%C3%A9lectrique",
+            "nom": "Blues électrique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Blues_rock",
+            "nom": "Blues rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Blues_touareg",
+            "nom": "Blues touareg"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Blues_traditionnel",
+            "nom": "Blues traditionnel"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bol%C3%A9ro",
+            "nom": "Boléro"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bongo_Flava",
+            "nom": "Bongo Flava"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Boogaloo",
+            "nom": "Boogaloo"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Boogie-woogie_(musique)",
+            "nom": "Boogie-woogie (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bossa_nova",
+            "nom": "Bossa nova"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bounce_music",
+            "nom": "Bounce music"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Brass_band",
+            "nom": "Brass band"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Breakbeat",
+            "nom": "Breakbeat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Breakbeat_hardcore",
+            "nom": "Breakbeat hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Breakcore",
+            "nom": "Breakcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Britpop",
+            "nom": "Britpop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Broken_beat",
+            "nom": "Broken beat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Brutal_death_metal",
+            "nom": "Brutal death metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bubblegum_pop",
+            "nom": "Bubblegum pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bubblegum_dance",
+            "nom": "Bubblegum dance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/C86",
+            "nom": "C86"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/C-pop",
+            "nom": "C-pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Calypso_(musique)",
+            "nom": "Calypso (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cantopop",
+            "nom": "Cantopop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cello_rock",
+            "nom": "Cello rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cha-cha-cha",
+            "nom": "Cha-cha-cha"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cha%C3%A2bi_alg%C3%A9rien",
+            "nom": "Chaâbi algérien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cha%C3%A2bi_marocain",
+            "nom": "Chaâbi marocain"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chang%C3%BC%C3%AD",
+            "nom": "Changüí"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chanson_fran%C3%A7aise",
+            "nom": "Chanson française"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chant_gr%C3%A9gorien",
+            "nom": "Chant grégorien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chicago_blues",
+            "nom": "Chicago blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chicago_house",
+            "nom": "Chicago house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chill-out",
+            "nom": "Chill-out"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chillstep",
+            "nom": "Chillstep"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chillwave",
+            "nom": "Chillwave"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Chiptune",
+            "nom": "Chiptune"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Classic_rag",
+            "nom": "Classic rag"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cloud_rap",
+            "nom": "Cloud rap"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cold_wave",
+            "nom": "Cold wave"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/College_rock",
+            "nom": "College rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Complextro",
+            "nom": "Complextro"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Concerto",
+            "nom": "Concerto"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Contradanza",
+            "nom": "Contradanza"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cool_jazz",
+            "nom": "Cool jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_country",
+            "nom": "Musique country"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Country_alternative",
+            "nom": "Country alternative"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Country_folk",
+            "nom": "Country folk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Country_n%C3%A9o_traditionnelle",
+            "nom": "Country néo traditionnelle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Country_pop",
+            "nom": "Country pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Country_rap",
+            "nom": "Country rap"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Country_rock",
+            "nom": "Country rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Country_soul",
+            "nom": "Country soul"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Coup%C3%A9-d%C3%A9cal%C3%A9",
+            "nom": "Coupé-décalé"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cowpunk",
+            "nom": "Cowpunk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Crossover_(musique)",
+            "nom": "Crossover (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Crossover_thrash",
+            "nom": "Crossover thrash"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Crunk",
+            "nom": "Crunk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Crunk%27n%27b",
+            "nom": "Crunk&#39;n&#39;b"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Crunkcore",
+            "nom": "Crunkcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Crust_punk",
+            "nom": "Crust punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Cumbia",
+            "nom": "Cumbia"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/D-beat",
+            "nom": "D-beat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dance",
+            "nom": "Dance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dance-pop",
+            "nom": "Dance-pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dance-punk",
+            "nom": "Dance-punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dance-rock",
+            "nom": "Dance-rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dancehall",
+            "nom": "Dancehall"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dangdut",
+            "nom": "Dangdut"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Danz%C3%B3n",
+            "nom": "Danzón"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dark_ambient",
+            "nom": "Dark ambient"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dark_metal",
+            "nom": "Dark metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dark_psytrance",
+            "nom": "Dark psytrance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dark_wave",
+            "nom": "Dark wave"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dark_wave_n%C3%A9o-classique",
+            "nom": "Dark wave néo-classique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Darkcore_(drum_and_bass)",
+            "nom": "Darkcore (drum and bass)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Darkcore",
+            "nom": "Darkcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Darkstep",
+            "nom": "Darkstep"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Death-doom",
+            "nom": "Death-doom"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Death_metal",
+            "nom": "Death metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Death_metal_m%C3%A9lodique",
+            "nom": "Death metal mélodique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Death_metal_technique",
+            "nom": "Death metal technique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Death_%27n%27_roll",
+            "nom": "Death &#39;n&#39; roll"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Death_rock",
+            "nom": "Death rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Deathcore",
+            "nom": "Deathcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Deathcountry",
+            "nom": "Deathcountry"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Deathgrind",
+            "nom": "Deathgrind"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Deep_house",
+            "nom": "Deep house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Deepkho",
+            "nom": "Deepkho"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Delta_blues",
+            "nom": "Delta blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Detroit_blues",
+            "nom": "Detroit blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Digital_hardcore",
+            "nom": "Digital hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dirty_South",
+            "nom": "Dirty South"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Disco",
+            "nom": "Disco"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Disco_house",
+            "nom": "Disco house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Disco_polo",
+            "nom": "Disco polo"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Diva_house",
+            "nom": "Diva house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dixieland",
+            "nom": "Dixieland"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Djent",
+            "nom": "Djent"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Doo-wop",
+            "nom": "Doo-wop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Doom_metal",
+            "nom": "Doom metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Downtempo",
+            "nom": "Downtempo"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dream_pop",
+            "nom": "Dream pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dream_trance",
+            "nom": "Dream trance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Drill_(musique)",
+            "nom": "Drill (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Drill_and_bass",
+            "nom": "Drill and bass"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Drone_(musique)",
+            "nom": "Drone (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Drum_and_bass",
+            "nom": "Drum and bass"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Drumfunk",
+            "nom": "Drumfunk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Drumstep",
+            "nom": "Drumstep"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dub",
+            "nom": "Dub"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dub_poetry",
+            "nom": "Dub poetry"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dub_techno",
+            "nom": "Dub techno"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dubstep",
+            "nom": "Dubstep"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dubstyle",
+            "nom": "Dubstyle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dunedin_sound",
+            "nom": "Dunedin sound"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Dutch_house",
+            "nom": "Dutch house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Early_hardcore",
+            "nom": "Early hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Easycore",
+            "nom": "Easycore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Electro",
+            "nom": "Electro"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Electro_house",
+            "nom": "Electro house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Electro_swing",
+            "nom": "Electro swing"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Electroclash",
+            "nom": "Electroclash"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Electronic_body_music",
+            "nom": "Electronic body music"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Electronica",
+            "nom": "Electronica"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Electronicore",
+            "nom": "Electronicore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Emo",
+            "nom": "Emo"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Emo_pop",
+            "nom": "Emo pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/%C3%89thio-jazz",
+            "nom": "Éthio-jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ethno-jazz",
+            "nom": "Ethno-jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Euro_disco",
+            "nom": "Euro disco"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Eurobeat",
+            "nom": "Eurobeat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Eurodance",
+            "nom": "Eurodance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Europop",
+            "nom": "Europop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Extratone",
+            "nom": "Extratone"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Fado",
+            "nom": "Fado"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Fanfare",
+            "nom": "Fanfare"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Fidget_house",
+            "nom": "Fidget house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Filin",
+            "nom": "Filin"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Flamenco",
+            "nom": "Flamenco"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_folk",
+            "nom": "Musique folk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Folk_metal",
+            "nom": "Folk metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Folk_progressif",
+            "nom": "Folk progressif"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Folk_psych%C3%A9d%C3%A9lique",
+            "nom": "Folk psychédélique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Folk_rock",
+            "nom": "Folk rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Freakbeat",
+            "nom": "Freakbeat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Free_jazz",
+            "nom": "Free jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Freeform_hardcore",
+            "nom": "Freeform hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/French_touch_(musique)",
+            "nom": "French touch (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Frenchcore",
+            "nom": "Frenchcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Fun-punk",
+            "nom": "Fun-punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Funk",
+            "nom": "Funk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Funk_rock",
+            "nom": "Funk rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Funk_metal",
+            "nom": "Funk metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Funktronica",
+            "nom": "Funktronica"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Funky_house",
+            "nom": "Funky house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Future_bass",
+            "nom": "Future bass"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Future_garage",
+            "nom": "Future garage"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Future_house",
+            "nom": "Future house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/G-funk",
+            "nom": "G-funk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Gabber_(musique)",
+            "nom": "Gabber (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Gaelic_punk",
+            "nom": "Gaelic punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Gangsta_rap",
+            "nom": "Gangsta rap"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Garage_house",
+            "nom": "Garage house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Garage_punk",
+            "nom": "Garage punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Garage_rock",
+            "nom": "Garage rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Geek_rock",
+            "nom": "Geek rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ghetto_house",
+            "nom": "Ghetto house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ghettotech",
+            "nom": "Ghettotech"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Glam_metal",
+            "nom": "Glam metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Glam_punk",
+            "nom": "Glam punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Glam_rock",
+            "nom": "Glam rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Glitch_(musique)",
+            "nom": "Glitch (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Glitch-hop",
+            "nom": "Glitch-hop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Goregrind",
+            "nom": "Goregrind"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Gospel",
+            "nom": "Gospel"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Gospel_blues",
+            "nom": "Gospel blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Gothabilly",
+            "nom": "Gothabilly"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Gqom",
+            "nom": "Gqom"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Grebo_(musique)",
+            "nom": "Grebo (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Grime",
+            "nom": "Grime"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Grindcore",
+            "nom": "Grindcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Grindie",
+            "nom": "Grindie"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Groove_metal",
+            "nom": "Groove metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Grunge",
+            "nom": "Grunge"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Guajira",
+            "nom": "Guajira"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Guaracha",
+            "nom": "Guaracha"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Gypsy_punk",
+            "nom": "Gypsy punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Handsup",
+            "nom": "Handsup"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Happy_gabber",
+            "nom": "Happy gabber"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Happy_hardcore",
+            "nom": "Happy hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hard_bop",
+            "nom": "Hard bop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hard_house",
+            "nom": "Hard house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hard_rock",
+            "nom": "Hard rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hard_trance",
+            "nom": "Hard trance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hardbag",
+            "nom": "Hardbag"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hardbass",
+            "nom": "Hardbass"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hardcore_chr%C3%A9tien",
+            "nom": "Hardcore chrétien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hardcore_m%C3%A9lodique",
+            "nom": "Hardcore mélodique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hardstep",
+            "nom": "Hardstep"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hardstyle",
+            "nom": "Hardstyle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hardtechno",
+            "nom": "Hardtechno"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Heartland_rock",
+            "nom": "Heartland rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Heavy_metal",
+            "nom": "Heavy metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Heavy_metal_traditionnel",
+            "nom": "Heavy metal traditionnel"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hi-NRG",
+            "nom": "Hi-NRG"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop",
+            "nom": "Hip-hop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop_alternatif",
+            "nom": "Hip-hop alternatif"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop_australien",
+            "nom": "Hip-hop australien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop_chr%C3%A9tien",
+            "nom": "Hip-hop chrétien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop_exp%C3%A9rimental",
+            "nom": "Hip-hop expérimental"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop_old-school",
+            "nom": "Hip-hop old-school"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop_orchestral",
+            "nom": "Hip-hop orchestral"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop_psych%C3%A9d%C3%A9lique",
+            "nom": "Hip-hop psychédélique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-hop_sud-cor%C3%A9en",
+            "nom": "Hip-hop sud-coréen"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hip-house",
+            "nom": "Hip-house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hiplife",
+            "nom": "Hiplife"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Hipster-hop",
+            "nom": "Hipster-hop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Honky_tonk_(musique)",
+            "nom": "Honky tonk (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Horror_punk",
+            "nom": "Horror punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Horrorcore",
+            "nom": "Horrorcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/House_music",
+            "nom": "House music"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/House_progressive",
+            "nom": "House progressive"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Illbient",
+            "nom": "Illbient"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Indie_dance",
+            "nom": "Indie dance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Indie_folk",
+            "nom": "Indie folk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Indie_pop",
+            "nom": "Indie pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Industrial_hardcore",
+            "nom": "Industrial hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Intelligent_dance_music",
+            "nom": "Intelligent dance music"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Italo_dance",
+            "nom": "Italo dance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Italo_disco",
+            "nom": "Italo disco"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Italo_house",
+            "nom": "Italo house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/J-core",
+            "nom": "J-core"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/J-pop",
+            "nom": "J-pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_japonais",
+            "nom": "Rock japonais"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jangle_pop",
+            "nom": "Jangle pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz",
+            "nom": "Jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_afro-cubain",
+            "nom": "Jazz afro-cubain"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_blues",
+            "nom": "Jazz blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz-funk",
+            "nom": "Jazz-funk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_fusion",
+            "nom": "Jazz fusion"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_manouche",
+            "nom": "Jazz manouche"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_modal",
+            "nom": "Jazz modal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_Nouvelle-Orl%C3%A9ans",
+            "nom": "Jazz Nouvelle-Orléans"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_punk",
+            "nom": "Jazz punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_rap",
+            "nom": "Jazz rap"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_vocal",
+            "nom": "Jazz vocal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazz_West_Coast",
+            "nom": "Jazz West Coast"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jazzstep",
+            "nom": "Jazzstep"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jump_blues",
+            "nom": "Jump blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jump-up",
+            "nom": "Jump-up"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jumpstyle",
+            "nom": "Jumpstyle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Jungle_(musique)",
+            "nom": "Jungle (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/K-pop",
+            "nom": "K-pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Kaneka",
+            "nom": "Kaneka"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Kansas_City_blues",
+            "nom": "Kansas City blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Kas%C3%A9k%C3%B2",
+            "nom": "Kasékò"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Kawaii_metal",
+            "nom": "Kawaii metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Kizomba",
+            "nom": "Kizomba"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Klezmer",
+            "nom": "Klezmer"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Kompa",
+            "nom": "Kompa"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Krautrock",
+            "nom": "Krautrock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Kuduro",
+            "nom": "Kuduro"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Kwaito",
+            "nom": "Kwaito"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Latin_house",
+            "nom": "Latin house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Latin_jazz",
+            "nom": "Latin jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Latin_metal",
+            "nom": "Latin metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Lento_violento",
+            "nom": "Lento violento"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/L%C3%A9r%C3%B2l",
+            "nom": "Léròl"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Liquid_funk",
+            "nom": "Liquid funk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Livetronica",
+            "nom": "Livetronica"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Lo-fi",
+            "nom": "Lo-fi"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Logobi",
+            "nom": "Logobi"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Louisiana_blues",
+            "nom": "Louisiana blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Lounge_(musique)",
+            "nom": "Lounge (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Luk_thung",
+            "nom": "Luk thung"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Madchester",
+            "nom": "Madchester"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mainstream",
+            "nom": "Mainstream"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mainstream_hardcore",
+            "nom": "Mainstream hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Makina",
+            "nom": "Makina"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Makossa",
+            "nom": "Makossa"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Maloya",
+            "nom": "Maloya"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mambo",
+            "nom": "Mambo"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mandopop",
+            "nom": "Mandopop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mangue_beat",
+            "nom": "Mangue beat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Marche_(musique)",
+            "nom": "Marche (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mashup_(musique)",
+            "nom": "Mashup (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Math_rock",
+            "nom": "Math rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mathcore",
+            "nom": "Mathcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mbalax",
+            "nom": "Mbalax"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Medieval_rock",
+            "nom": "Medieval rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Memphis_blues",
+            "nom": "Memphis blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Merengue",
+            "nom": "Merengue"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Merenhouse",
+            "nom": "Merenhouse"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_alternatif",
+            "nom": "Metal alternatif"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_avant-gardiste",
+            "nom": "Metal avant-gardiste"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_celtique",
+            "nom": "Metal celtique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_chr%C3%A9tien",
+            "nom": "Metal chrétien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_extr%C3%AAme",
+            "nom": "Metal extrême"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_gothique",
+            "nom": "Metal gothique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_industriel",
+            "nom": "Metal industriel"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_n%C3%A9o-classique",
+            "nom": "Metal néo-classique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_oriental",
+            "nom": "Metal oriental"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_progressif",
+            "nom": "Metal progressif"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metal_symphonique",
+            "nom": "Metal symphonique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metalcore",
+            "nom": "Metalcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Metalcore_m%C3%A9lodique",
+            "nom": "Metalcore mélodique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Miami_bass",
+            "nom": "Miami bass"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Microhouse",
+            "nom": "Microhouse"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Midwest_rap",
+            "nom": "Midwest rap"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Milonga_pampeana",
+            "nom": "Milonga pampeana"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Minneapolis_Sound",
+            "nom": "Minneapolis Sound"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Moombahcore",
+            "nom": "Moombahcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Moombahton",
+            "nom": "Moombahton"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Mozambique_(musique)",
+            "nom": "Mozambique (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Murga_(musique)",
+            "nom": "Murga (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Bal_musette",
+            "nom": "Bal musette"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/M%C3%BAsica_popular_brasileira",
+            "nom": "Música popular brasileira"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_acoustique",
+            "nom": "Musique acoustique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_al%C3%A9atoire",
+            "nom": "Musique aléatoire"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_alternative",
+            "nom": "Musique alternative"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_ancienne",
+            "nom": "Musique ancienne"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_arabo-andalouse",
+            "nom": "Musique arabo-andalouse"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_baroque",
+            "nom": "Musique baroque"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_bretonne",
+            "nom": "Musique bretonne"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_bruitiste",
+            "nom": "Musique bruitiste"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_cadienne",
+            "nom": "Musique cadienne"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_celtique",
+            "nom": "Musique celtique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_chr%C3%A9tienne_contemporaine",
+            "nom": "Musique chrétienne contemporaine"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_classique",
+            "nom": "Musique classique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_concr%C3%A8te",
+            "nom": "Musique concrète"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_cubaine",
+            "nom": "Musique cubaine"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_de_jeu_vid%C3%A9o",
+            "nom": "Musique de jeu vidéo"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_de_vari%C3%A9t%C3%A9s",
+            "nom": "Musique de variétés"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musiques_du_monde",
+            "nom": "Musiques du monde"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_%C3%A9lectroacoustique",
+            "nom": "Musique électroacoustique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_%C3%A9lectronique",
+            "nom": "Musique électronique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_%C3%A9mergente",
+            "nom": "Musique émergente"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_exp%C3%A9rimentale",
+            "nom": "Musique expérimentale"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_gothique",
+            "nom": "Musique gothique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_industrielle",
+            "nom": "Musique industrielle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_instrumentale",
+            "nom": "Musique instrumentale"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_irlandaise",
+            "nom": "Musique irlandaise"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_latine",
+            "nom": "Musique latine"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_LGBT",
+            "nom": "Musique LGBT"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_minimaliste",
+            "nom": "Musique minimaliste"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_post-industrielle",
+            "nom": "Musique post-industrielle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_progressive",
+            "nom": "Musique progressive"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_romantique",
+            "nom": "Musique romantique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_spectrale",
+            "nom": "Musique spectrale"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nardcore",
+            "nom": "Nardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nashville_sound",
+            "nom": "Nashville sound"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/National_socialist_black_metal",
+            "nom": "National socialist black metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nazi_punk",
+            "nom": "Nazi punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nederpop",
+            "nom": "Nederpop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Negro_spiritual",
+            "nom": "Negro spiritual"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/N%C3%A9o-bop",
+            "nom": "Néo-bop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/N%C3%A9o-classicisme_(musique)",
+            "nom": "Néo-classicisme (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Neo-psychedelia",
+            "nom": "Neo-psychedelia"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Neo_soul",
+            "nom": "Neo soul"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/N%C3%A9o-trad",
+            "nom": "Néo-trad"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/N%C3%A9ofolk",
+            "nom": "Néofolk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nerdcore",
+            "nom": "Nerdcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Neue_Deutsche_H%C3%A4rte",
+            "nom": "Neue Deutsche Härte"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Neue_Deutsche_Welle",
+            "nom": "Neue Deutsche Welle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Neurofunk",
+            "nom": "Neurofunk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/New_age_(musique)",
+            "nom": "New age (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/New_beat",
+            "nom": "New beat"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/New_jack_swing",
+            "nom": "New jack swing"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/New_prog",
+            "nom": "New prog"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/New_wave",
+            "nom": "New wave"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/New_wave_of_American_heavy_metal",
+            "nom": "New wave of American heavy metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/New_wave_of_British_heavy_metal",
+            "nom": "New wave of British heavy metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/New_York_blues",
+            "nom": "New York blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Sc%C3%A8ne_hardcore_de_New_York",
+            "nom": "Scène hardcore de New York"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nightcore_(style)",
+            "nom": "Nightcore (style)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nintendocore",
+            "nom": "Nintendocore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nocturne_(musique)",
+            "nom": "Nocturne (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/No_wave",
+            "nom": "No wave"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Noise_pop",
+            "nom": "Noise pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Noise_rock",
+            "nom": "Noise rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Northern_soul",
+            "nom": "Northern soul"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nu-disco",
+            "nom": "Nu-disco"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nu-NRG",
+            "nom": "Nu-NRG"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nu_jazz",
+            "nom": "Nu jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nu_metal",
+            "nom": "Nu metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Nueva_trova",
+            "nom": "Nueva trova"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Oi!",
+            "nom": "Oi!"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Old-time_music",
+            "nom": "Old-time music"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Op%C3%A9ra",
+            "nom": "Opéra"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Op%C3%A9ra-rock",
+            "nom": "Opéra-rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Oratorio",
+            "nom": "Oratorio"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Outlaw_country",
+            "nom": "Outlaw country"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pachanga",
+            "nom": "Pachanga"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Paisley_Underground",
+            "nom": "Paisley Underground"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Paso_doble",
+            "nom": "Paso doble"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Piano_blues",
+            "nom": "Piano blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Piano_rock",
+            "nom": "Piano rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Piano_stride",
+            "nom": "Piano stride"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Piedmont_blues",
+            "nom": "Piedmont blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pirate_metal",
+            "nom": "Pirate metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Polonaise_(musique)",
+            "nom": "Polonaise (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop_(musique)",
+            "nom": "Pop (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop_baroque",
+            "nom": "Pop baroque"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop_latino",
+            "nom": "Pop latino"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop_metal",
+            "nom": "Pop metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop_progressive",
+            "nom": "Pop progressive"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop_psych%C3%A9d%C3%A9lique",
+            "nom": "Pop psychédélique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop_punk",
+            "nom": "Pop punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop-rap",
+            "nom": "Pop-rap"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pop_rock",
+            "nom": "Pop rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pornogrind",
+            "nom": "Pornogrind"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Post-bop",
+            "nom": "Post-bop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Post-disco",
+            "nom": "Post-disco"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Post-grunge",
+            "nom": "Post-grunge"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Post-hardcore",
+            "nom": "Post-hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Post-metal",
+            "nom": "Post-metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Post-punk",
+            "nom": "Post-punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Post-rock",
+            "nom": "Post-rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Power_ballad",
+            "nom": "Power ballad"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Power_metal",
+            "nom": "Power metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Power_pop",
+            "nom": "Power pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Powerviolence",
+            "nom": "Powerviolence"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pr%C3%A9lude",
+            "nom": "Prélude"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Progressive_psytrance",
+            "nom": "Progressive psytrance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Protopunk",
+            "nom": "Protopunk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Psychobilly",
+            "nom": "Psychobilly"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Pub_rock",
+            "nom": "Pub rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Punk_blues",
+            "nom": "Punk blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Punk_celtique",
+            "nom": "Punk celtique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Punk_chr%C3%A9tien",
+            "nom": "Punk chrétien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Punk_folk",
+            "nom": "Punk folk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Punk_hardcore",
+            "nom": "Punk hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Punk_rock",
+            "nom": "Punk rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Punta_rock",
+            "nom": "Punta rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Punto_guajiro",
+            "nom": "Punto guajiro"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Queercore",
+            "nom": "Queercore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Quiet_storm",
+            "nom": "Quiet storm"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rabiz",
+            "nom": "Rabiz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Raga_rock",
+            "nom": "Raga rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ragga",
+            "nom": "Ragga"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ragtime",
+            "nom": "Ragtime"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ra%C3%AF",
+            "nom": "Raï"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ra%C3%AF%27n%27B",
+            "nom": "Raï&#39;n&#39;B"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rap_East_Coast",
+            "nom": "Rap East Coast"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rap_hardcore",
+            "nom": "Rap hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rap_metal",
+            "nom": "Rap metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rap_politique",
+            "nom": "Rap politique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rap_rock",
+            "nom": "Rap rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rap_West_Coast",
+            "nom": "Rap West Coast"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rapcore",
+            "nom": "Rapcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rave_(musique)",
+            "nom": "Rave (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rawstyle",
+            "nom": "Rawstyle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rebetiko",
+            "nom": "Rebetiko"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Red_dirt_(musique)",
+            "nom": "Red dirt (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Reggae",
+            "nom": "Reggae"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Reggae_fusion",
+            "nom": "Reggae fusion"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Reggaecrunk",
+            "nom": "Reggaecrunk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Reggaeton",
+            "nom": "Reggaeton"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rhapsodie",
+            "nom": "Rhapsodie"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rhythm_and_blues",
+            "nom": "Rhythm and blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Riot_grrrl",
+            "nom": "Riot grrrl"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/RnB_contemporain",
+            "nom": "RnB contemporain"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock",
+            "nom": "Rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_alternatif",
+            "nom": "Rock alternatif"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_alternatif_latino",
+            "nom": "Rock alternatif latino"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_anticommuniste",
+            "nom": "Rock anticommuniste"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_argentin",
+            "nom": "Rock argentin"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_br%C3%A9silien",
+            "nom": "Rock brésilien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_canadien",
+            "nom": "Rock canadien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_celtique",
+            "nom": "Rock celtique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_chilien",
+            "nom": "Rock chilien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_chinois",
+            "nom": "Rock chinois"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_chr%C3%A9tien",
+            "nom": "Rock chrétien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_communiste",
+            "nom": "Rock communiste"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_%C3%A9lectronique",
+            "nom": "Rock électronique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_en_espagnol",
+            "nom": "Rock en espagnol"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_exp%C3%A9rimental",
+            "nom": "Rock expérimental"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_gothique",
+            "nom": "Rock gothique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_in_opposition",
+            "nom": "Rock in opposition"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_ind%C3%A9pendant",
+            "nom": "Rock indépendant"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_industriel",
+            "nom": "Rock industriel"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_instrumental",
+            "nom": "Rock instrumental"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_%27n%27_roll",
+            "nom": "Rock &#39;n&#39; roll"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_n%C3%A9o-progressif",
+            "nom": "Rock néo-progressif"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_progressif",
+            "nom": "Rock progressif"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_progressif_espagnol",
+            "nom": "Rock progressif espagnol"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_progressif_fran%C3%A7ais",
+            "nom": "Rock progressif français"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_progressif_italien",
+            "nom": "Rock progressif italien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_psych%C3%A9d%C3%A9lique",
+            "nom": "Rock psychédélique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_sudiste",
+            "nom": "Rock sudiste"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_su%C3%A9dois",
+            "nom": "Rock suédois"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_symphonique",
+            "nom": "Rock symphonique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_turc",
+            "nom": "Rock turc"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rock_wagn%C3%A9rien",
+            "nom": "Rock wagnérien"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rockabilly",
+            "nom": "Rockabilly"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rocksteady",
+            "nom": "Rocksteady"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rondo_(musique)",
+            "nom": "Rondo (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Roots_rock",
+            "nom": "Roots rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rumba",
+            "nom": "Rumba"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rumba#Rumba_catalane",
+            "nom": "Rumba"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rumba_congolaise",
+            "nom": "Rumba congolaise"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Rumba_flamenca",
+            "nom": "Rumba flamenca"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Sadcore",
+            "nom": "Sadcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Saint_Louis_blues",
+            "nom": "Saint Louis blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Salegy",
+            "nom": "Salegy"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Salsa",
+            "nom": "Salsa"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Salsa-ragga_et_salsaton",
+            "nom": "Salsa-ragga et salsaton"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Salsa-ragga_et_salsaton",
+            "nom": "Salsa-ragga et salsaton"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Samba_(musique)",
+            "nom": "Samba (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Samba_rock",
+            "nom": "Samba rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Sambass",
+            "nom": "Sambass"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Scherzo",
+            "nom": "Scherzo"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Schlager",
+            "nom": "Schlager"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Schranz",
+            "nom": "Schranz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Screamo",
+            "nom": "Screamo"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/S%C3%A9ga",
+            "nom": "Séga"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Seggae",
+            "nom": "Seggae"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Semba_(musique)",
+            "nom": "Semba (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Shibuya-kei",
+            "nom": "Shibuya-kei"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Shock_rock",
+            "nom": "Shock rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Shoegazing",
+            "nom": "Shoegazing"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ska",
+            "nom": "Ska"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ska-jazz",
+            "nom": "Ska-jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ska_punk",
+            "nom": "Ska punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Skate_punk",
+            "nom": "Skate punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Skiffle",
+            "nom": "Skiffle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Slam_(po%C3%A9sie)",
+            "nom": "Slam (poésie)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Slow",
+            "nom": "Slow"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Slow_fox",
+            "nom": "Slow fox"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Slowcore",
+            "nom": "Slowcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Sludge_metal",
+            "nom": "Sludge metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Smooth_jazz",
+            "nom": "Smooth jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Snap_(musique)",
+            "nom": "Snap (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Soca",
+            "nom": "Soca"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Soft_rock",
+            "nom": "Soft rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Son_cubain",
+            "nom": "Son cubain"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Sonate",
+            "nom": "Sonate"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Songo_(musique)",
+            "nom": "Songo (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Sophisti-pop",
+            "nom": "Sophisti-pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Soukous",
+            "nom": "Soukous"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Musique_soul",
+            "nom": "Musique soul"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Soul_blues",
+            "nom": "Soul blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Soul_jazz",
+            "nom": "Soul jazz"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Soul_psych%C3%A9d%C3%A9lique",
+            "nom": "Soul psychédélique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Southern_gospel",
+            "nom": "Southern gospel"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Space_rock",
+            "nom": "Space rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Speed_garage",
+            "nom": "Speed garage"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Speed_metal",
+            "nom": "Speed metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Speedcore",
+            "nom": "Speedcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Splittercore",
+            "nom": "Splittercore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Stoner_rock",
+            "nom": "Stoner rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Street_punk",
+            "nom": "Street punk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Subground",
+            "nom": "Subground"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Sunshine_pop",
+            "nom": "Sunshine pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Surf_music",
+            "nom": "Surf music"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Swamp_blues",
+            "nom": "Swamp blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Swamp_pop",
+            "nom": "Swamp pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Swing_(musique)",
+            "nom": "Swing (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Symphonie",
+            "nom": "Symphonie"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Synthpop",
+            "nom": "Synthpop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Synthpunk",
+            "nom": "Synthpunk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Synthwave",
+            "nom": "Synthwave"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/T-pop",
+            "nom": "T-pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tango_(musique)",
+            "nom": "Tango (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Taqwacore",
+            "nom": "Taqwacore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tarentelle",
+            "nom": "Tarentelle"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tech_house",
+            "nom": "Tech house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tech_trance",
+            "nom": "Tech trance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Techno",
+            "nom": "Techno"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Techno_de_D%C3%A9troit",
+            "nom": "Techno de Détroit"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Techno_hardcore",
+            "nom": "Techno hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Techno_minimale",
+            "nom": "Techno minimale"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Techstep",
+            "nom": "Techstep"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tecno-brega",
+            "nom": "Tecno-brega"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Teen_pop",
+            "nom": "Teen pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Terrorcore",
+            "nom": "Terrorcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Texas_blues",
+            "nom": "Texas blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Thrash_metal",
+            "nom": "Thrash metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Thrash_metal_allemand",
+            "nom": "Thrash metal allemand"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Thrashcore",
+            "nom": "Thrashcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Timba",
+            "nom": "Timba"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Toccata",
+            "nom": "Toccata"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Trallpunk",
+            "nom": "Trallpunk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Trance",
+            "nom": "Trance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Trance_Goa",
+            "nom": "Trance Goa"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Trance_psych%C3%A9d%C3%A9lique",
+            "nom": "Trance psychédélique"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Trance_vocale",
+            "nom": "Trance vocale"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Trap_(musique)",
+            "nom": "Trap (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tribal_house",
+            "nom": "Tribal house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tribe_(musique)",
+            "nom": "Tribe (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Trip_hop",
+            "nom": "Trip hop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tropical_house",
+            "nom": "Tropical house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tropipop",
+            "nom": "Tropipop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Tumba_francesa",
+            "nom": "Tumba francesa"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Twee_pop",
+            "nom": "Twee pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/UK_garage",
+            "nom": "UK garage"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/UK_hardcore",
+            "nom": "UK hardcore"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Unblack_metal",
+            "nom": "Unblack metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Uplifting_trance",
+            "nom": "Uplifting trance"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Vaporwave",
+            "nom": "Vaporwave"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Viking_metal",
+            "nom": "Viking metal"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Visual_kei",
+            "nom": "Visual kei"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Vocal_house",
+            "nom": "Vocal house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/West_Coast_blues",
+            "nom": "West Coast blues"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Western_Swing",
+            "nom": "Western Swing"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Witch_house",
+            "nom": "Witch house"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Wizard_rock",
+            "nom": "Wizard rock"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Wonky",
+            "nom": "Wonky"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Wonky_pop",
+            "nom": "Wonky pop"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/World_music",
+            "nom": "World music"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Y%C3%A9la_(musique)",
+            "nom": "Yéla (musique)"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Y%C3%A9y%C3%A9",
+            "nom": "Y��yé"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Youth_crew",
+            "nom": "Youth crew"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Zarico",
+            "nom": "Zarico"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Zeuhl",
+            "nom": "Zeuhl"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Ziglibithy",
+            "nom": "Ziglibithy"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Zouglou",
+            "nom": "Zouglou"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Zouk",
+            "nom": "Zouk"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/Zumba",
+            "nom": "Zumba"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/2-step_garage",
+            "nom": "2-step garage"
+        },
+        {
+            "lien": "http://fr.wikipedia.org/wiki/2_tone_(musique)",
+            "nom": "2 tone (musique)"
+        }
+    ]
+}

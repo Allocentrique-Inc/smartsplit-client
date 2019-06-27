@@ -1,0 +1,3048 @@
+{
+    "genres": [
+        {
+            "lien": "http://en.wikipedia.org/wiki/African_heavy_metal",
+            "nom": "African heavy metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/African_hip_hop",
+            "nom": "African hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Afrobeat",
+            "nom": "Afrobeat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Apala",
+            "nom": "Apala"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Benga_music",
+            "nom": "Benga music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bongo_flava",
+            "nom": "Bongo flava"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bikutsi",
+            "nom": "Bikutsi"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cape_Jazz",
+            "nom": "Cape Jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chimurenga_music",
+            "nom": "Chimurenga music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Congolese_rumba",
+            "nom": "Congolese rumba"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Coup%C3%A9-D%C3%A9cal%C3%A9",
+            "nom": "Coupé-Décalé"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Fuji_music",
+            "nom": "Fuji music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Genge",
+            "nom": "Genge"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gqom",
+            "nom": "Gqom"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Highlife",
+            "nom": "Highlife"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hiplife",
+            "nom": "Hiplife"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Igbo_highlife",
+            "nom": "Igbo highlife"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Igbo_rap",
+            "nom": "Igbo rap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Isicathamiya",
+            "nom": "Isicathamiya"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jit",
+            "nom": "Jit"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/J%C3%B9j%C3%BA_music",
+            "nom": "Jùjú music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Boomba_music",
+            "nom": "Boomba music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kadongo_Kamu",
+            "nom": "Kadongo Kamu"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kizomba",
+            "nom": "Kizomba"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kuduro",
+            "nom": "Kuduro"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kwaito",
+            "nom": "Kwaito"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kwela",
+            "nom": "Kwela"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Makossa",
+            "nom": "Makossa"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Maloya",
+            "nom": "Maloya"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Marrabenta",
+            "nom": "Marrabenta"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mbalax",
+            "nom": "Mbalax"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mbaqanga",
+            "nom": "Mbaqanga"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mbube_(genre)",
+            "nom": "Mbube (genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Morna_(music)",
+            "nom": "Morna (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ndombolo",
+            "nom": "Ndombolo"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Palm-wine_music",
+            "nom": "Palm-wine music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ra%C3%AF",
+            "nom": "Raï"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sakara_music",
+            "nom": "Sakara music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sega_music",
+            "nom": "Sega music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Seggae",
+            "nom": "Seggae"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Semba",
+            "nom": "Semba"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Shangaan_electro",
+            "nom": "Shangaan electro"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kwassa_kwassa",
+            "nom": "Kwassa kwassa"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Taarab",
+            "nom": "Taarab"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Zouglou",
+            "nom": "Zouglou"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Fann_at-Tanbura",
+            "nom": "Fann at-Tanbura"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Fijiri",
+            "nom": "Fijiri"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Khaliji_(music)",
+            "nom": "Khaliji (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Liwa_(music)",
+            "nom": "Liwa (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sawt_(music)",
+            "nom": "Sawt (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Anison",
+            "nom": "Anison"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cantopop",
+            "nom": "Cantopop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/C-pop",
+            "nom": "C-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Enka",
+            "nom": "Enka"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hong_Kong_English_pop",
+            "nom": "Hong Kong English pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/J-pop",
+            "nom": "J-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kay%C5%8Dkyoku",
+            "nom": "Kayōkyoku"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/K-pop",
+            "nom": "K-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mandopop",
+            "nom": "Mandopop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Onkyokei",
+            "nom": "Onkyokei"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/P-pop",
+            "nom": "P-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Taiwanese_pop",
+            "nom": "Taiwanese pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/V-pop",
+            "nom": "V-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kawaii_metal",
+            "nom": "Kawaii metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Baila",
+            "nom": "Baila"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Baul",
+            "nom": "Baul"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bhangra_(music)",
+            "nom": "Bhangra (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dangdut",
+            "nom": "Dangdut"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Filmi",
+            "nom": "Filmi"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Indian_pop",
+            "nom": "Indian pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Lavani",
+            "nom": "Lavani"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Luk_Krung",
+            "nom": "Luk Krung"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Original_Pilipino_Music",
+            "nom": "Original Pilipino Music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/V-pop",
+            "nom": "V-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Morlam",
+            "nom": "Morlam"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Pinoy_pop",
+            "nom": "Pinoy pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Pop_sunda",
+            "nom": "Pop sunda"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/String_(Thai_pop)",
+            "nom": "String (Thai pop)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Raga",
+            "nom": "Raga"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Keroncong",
+            "nom": "Keroncong"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gamelan",
+            "nom": "Gamelan"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Experimental_music",
+            "nom": "Experimental music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Noise_(music)",
+            "nom": "Noise (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Lo-fi_music",
+            "nom": "Lo-fi music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Musique_concr%C3%A8te",
+            "nom": "Musique concrète"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electroacoustic_music",
+            "nom": "Electroacoustic music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/African_blues",
+            "nom": "African blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Blues_rock",
+            "nom": "Blues rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Blues_shouter",
+            "nom": "Blues shouter"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/British_blues",
+            "nom": "British blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Canadian_blues",
+            "nom": "Canadian blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chicago_blues",
+            "nom": "Chicago blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Classic_female_blues",
+            "nom": "Classic female blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Contemporary_R%26B",
+            "nom": "Contemporary R&amp;B"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Country_blues",
+            "nom": "Country blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Delta_blues",
+            "nom": "Delta blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Detroit_blues",
+            "nom": "Detroit blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electric_blues",
+            "nom": "Electric blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gospel_blues",
+            "nom": "Gospel blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hill_country_blues",
+            "nom": "Hill country blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hokum",
+            "nom": "Hokum"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jump_blues",
+            "nom": "Jump blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kansas_City_blues",
+            "nom": "Kansas City blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Louisiana_blues",
+            "nom": "Louisiana blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Memphis_blues",
+            "nom": "Memphis blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Piedmont_blues",
+            "nom": "Piedmont blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Punk_blues",
+            "nom": "Punk blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rhythm_and_blues",
+            "nom": "Rhythm and blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Soul_blues",
+            "nom": "Soul blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/St._Louis_blues_(music)",
+            "nom": "St. Louis blues (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Swamp_blues",
+            "nom": "Swamp blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Texas_blues",
+            "nom": "Texas blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/West_Coast_blues",
+            "nom": "West Coast blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Baithak_Gana",
+            "nom": "Baithak Gana"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dancehall_Music",
+            "nom": "Dancehall Music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bouyon_music",
+            "nom": "Bouyon music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cadence-lypso",
+            "nom": "Cadence-lypso"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Calypso_music",
+            "nom": "Calypso music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cha-cha-ch%C3%A1_(music)",
+            "nom": "Cha-cha-chá (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chutney_soca",
+            "nom": "Chutney soca"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chutney_parang",
+            "nom": "Chutney parang"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Compas",
+            "nom": "Compas"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mambo_(music)",
+            "nom": "Mambo (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mento",
+            "nom": "Mento"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Merengue_music",
+            "nom": "Merengue music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/M%C3%A9ringue",
+            "nom": "Méringue"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mozambique_(music)",
+            "nom": "Mozambique (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Pichakaree",
+            "nom": "Pichakaree"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Punta",
+            "nom": "Punta"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Punta_rock",
+            "nom": "Punta rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rasin",
+            "nom": "Rasin"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dub_music",
+            "nom": "Dub music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Lovers_rock",
+            "nom": "Lovers rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ragga",
+            "nom": "Ragga"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ragga_jungle",
+            "nom": "Ragga jungle"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Reggae_fusion",
+            "nom": "Reggae fusion"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rocksteady",
+            "nom": "Rocksteady"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rhumba",
+            "nom": "Rhumba"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/2_Tone_(music_genre)",
+            "nom": "2 Tone (music genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ska_punk",
+            "nom": "Ska punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Salsa_music",
+            "nom": "Salsa music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Son_cubano",
+            "nom": "Son cubano"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Songo_music",
+            "nom": "Songo music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Soca_music",
+            "nom": "Soca music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Timba",
+            "nom": "Timba"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Twoubadou",
+            "nom": "Twoubadou"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Zouk",
+            "nom": "Zouk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Comedy_music",
+            "nom": "Comedy music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Comedy_rock",
+            "nom": "Comedy rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Novelty_song",
+            "nom": "Novelty song"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Parody_music",
+            "nom": "Parody music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cowpunk",
+            "nom": "Cowpunk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Americana_(music)",
+            "nom": "Americana (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Australian_country_music",
+            "nom": "Australian country music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bakersfield_sound",
+            "nom": "Bakersfield sound"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Progressive_bluegrass",
+            "nom": "Progressive bluegrass"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bluegrass_music",
+            "nom": "Bluegrass music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Country_blues",
+            "nom": "Country blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Country_pop",
+            "nom": "Country pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Country_rap",
+            "nom": "Country rap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Country_rock",
+            "nom": "Country rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cajun_fiddle",
+            "nom": "Cajun fiddle"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Christian_country_music",
+            "nom": "Christian country music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Classic_country",
+            "nom": "Classic country"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Close_harmony",
+            "nom": "Close harmony"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dansband",
+            "nom": "Dansband"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hokum",
+            "nom": "Hokum"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Honky-tonk",
+            "nom": "Honky-tonk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Country_music",
+            "nom": "Country music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nashville_sound",
+            "nom": "Nashville sound"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neotraditional_country",
+            "nom": "Neotraditional country"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_Mexico_music",
+            "nom": "New Mexico music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Outlaw_country",
+            "nom": "Outlaw country"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Progressive_country",
+            "nom": "Progressive country"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Red_dirt_(music)",
+            "nom": "Red dirt (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hellbilly_music",
+            "nom": "Hellbilly music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Psychobilly",
+            "nom": "Psychobilly"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/M%C3%BAsica_sertaneja",
+            "nom": "Música sertaneja"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tejano_music",
+            "nom": "Tejano music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Texas_country_music",
+            "nom": "Texas country music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Traditional_country_music",
+            "nom": "Traditional country music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Truck-driving_country",
+            "nom": "Truck-driving country"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Western_music_(North_America)",
+            "nom": "Western music (North America)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Western_swing",
+            "nom": "Western swing"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Zydeco",
+            "nom": "Zydeco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Background_music",
+            "nom": "Background music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Beautiful_music",
+            "nom": "Beautiful music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Muzak",
+            "nom": "Muzak"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Furniture_music",
+            "nom": "Furniture music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Lounge_music",
+            "nom": "Lounge music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Middle_of_the_road_(music)",
+            "nom": "Middle of the road (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New-age_music",
+            "nom": "New-age music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ambient_dub",
+            "nom": "Ambient dub"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dark_ambient",
+            "nom": "Dark ambient"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Drone_music",
+            "nom": "Drone music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Space_music",
+            "nom": "Space music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Illbient",
+            "nom": "Illbient"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Psybient",
+            "nom": "Psybient"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Isolationism_(music)",
+            "nom": "Isolationism (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Asian_Underground",
+            "nom": "Asian Underground"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Acid_breaks",
+            "nom": "Acid breaks"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Baltimore_club",
+            "nom": "Baltimore club"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Big_beat",
+            "nom": "Big beat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Broken_beat",
+            "nom": "Broken beat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nu-funk",
+            "nom": "Nu-funk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Miami_bass",
+            "nom": "Miami bass"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jersey_club",
+            "nom": "Jersey club"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nu_skool_breaks",
+            "nom": "Nu skool breaks"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Afro/Cosmic_music",
+            "nom": "Afro/Cosmic music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Disco_polo",
+            "nom": "Disco polo"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Euro_disco",
+            "nom": "Euro disco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Italo_disco",
+            "nom": "Italo disco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nu-disco",
+            "nom": "Nu-disco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Space_disco",
+            "nom": "Space disco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Acid_jazz",
+            "nom": "Acid jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chill-out_music",
+            "nom": "Chill-out music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Space_music",
+            "nom": "Space music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Trip_hop",
+            "nom": "Trip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Liquid_funk",
+            "nom": "Liquid funk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neurohop",
+            "nom": "Neurohop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jump-up_(drum_and_bass)",
+            "nom": "Jump-up (drum and bass)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Darkstep",
+            "nom": "Darkstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Drumstep",
+            "nom": "Drumstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Funkstep",
+            "nom": "Funkstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hardstep",
+            "nom": "Hardstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sambass",
+            "nom": "Sambass"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Techstep",
+            "nom": "Techstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ambient_dub",
+            "nom": "Ambient dub"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dancehall",
+            "nom": "Dancehall"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dub_poetry",
+            "nom": "Dub poetry"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dub_reggae",
+            "nom": "Dub reggae"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dub_techno",
+            "nom": "Dub techno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dubstep",
+            "nom": "Dubstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dubtronica",
+            "nom": "Dubtronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Freestyle_music",
+            "nom": "Freestyle music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Acousmatic_music",
+            "nom": "Acousmatic music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Musique_concr%C3%A8te",
+            "nom": "Musique concrète"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Indietronica",
+            "nom": "Indietronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Coldwave",
+            "nom": "Coldwave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dance-punk",
+            "nom": "Dance-punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dark_wave",
+            "nom": "Dark wave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electroclash",
+            "nom": "Electroclash"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electronicore",
+            "nom": "Electronicore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electropunk",
+            "nom": "Electropunk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ethereal_wave",
+            "nom": "Ethereal wave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Krautrock",
+            "nom": "Krautrock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Minimal_wave",
+            "nom": "Minimal wave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_rave",
+            "nom": "New rave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nu-gaze",
+            "nom": "Nu-gaze"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Space_rock",
+            "nom": "Space rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Synthpop",
+            "nom": "Synthpop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Berlin_School_of_electronic_music",
+            "nom": "Berlin School of electronic music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dubtronica",
+            "nom": "Dubtronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ethnic_electronica",
+            "nom": "Ethnic electronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Folktronica",
+            "nom": "Folktronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Funktronica",
+            "nom": "Funktronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Laptronica",
+            "nom": "Laptronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Livetronica",
+            "nom": "Livetronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gabber",
+            "nom": "Gabber"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/4-beat",
+            "nom": "4-beat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Breakbeat_hardcore",
+            "nom": "Breakbeat hardcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bouncy_techno",
+            "nom": "Bouncy techno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Breakcore",
+            "nom": "Breakcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Digital_hardcore",
+            "nom": "Digital hardcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Darkcore",
+            "nom": "Darkcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Happy_hardcore",
+            "nom": "Happy hardcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/M%C3%A1kina",
+            "nom": "Mákina"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Speedcore",
+            "nom": "Speedcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/UK_hardcore",
+            "nom": "UK hardcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Doomcore",
+            "nom": "Doomcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dubstyle",
+            "nom": "Dubstyle"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jumpstyle",
+            "nom": "Jumpstyle"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Lento_violento",
+            "nom": "Lento violento"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hardbass",
+            "nom": "Hardbass"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Eurobeat",
+            "nom": "Eurobeat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bubblegum_dance",
+            "nom": "Bubblegum dance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Italo_dance",
+            "nom": "Italo dance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Acid_house",
+            "nom": "Acid house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ambient_house",
+            "nom": "Ambient house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Balearic_beat",
+            "nom": "Balearic beat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chicago_house",
+            "nom": "Chicago house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Future_house",
+            "nom": "Future house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tropical_house",
+            "nom": "Tropical house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Diva_house",
+            "nom": "Diva house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Big_room_house",
+            "nom": "Big room house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Complextro",
+            "nom": "Complextro"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Fidget_house",
+            "nom": "Fidget house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dutch_house",
+            "nom": "Dutch house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Moombahcore",
+            "nom": "Moombahcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/French_house",
+            "nom": "French house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Funky_house",
+            "nom": "Funky house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Garage_house",
+            "nom": "Garage house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ghettotech",
+            "nom": "Ghettotech"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hardbag",
+            "nom": "Hardbag"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hard_dance",
+            "nom": "Hard dance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hard_NRG",
+            "nom": "Hard NRG"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hip_house",
+            "nom": "Hip house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Italo_house",
+            "nom": "Italo house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nu_jazz",
+            "nom": "Nu jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kidandali",
+            "nom": "Kidandali"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kwaito",
+            "nom": "Kwaito"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_house",
+            "nom": "Latin house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Microhouse",
+            "nom": "Microhouse"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_beat",
+            "nom": "New beat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Outsider_house",
+            "nom": "Outsider house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Progressive_house",
+            "nom": "Progressive house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rara_tech",
+            "nom": "Rara tech"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tech_house",
+            "nom": "Tech house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tribal_house",
+            "nom": "Tribal house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Trival",
+            "nom": "Trival"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Witch_house_(music_genre)",
+            "nom": "Witch house (music genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Aggrotech",
+            "nom": "Aggrotech"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electrogrind",
+            "nom": "Electrogrind"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electro-industrial",
+            "nom": "Electro-industrial"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dark_electro",
+            "nom": "Dark electro"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electronic_body_music",
+            "nom": "Electronic body music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Futurepop",
+            "nom": "Futurepop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Industrial_metal",
+            "nom": "Industrial metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Industrial_rock",
+            "nom": "Industrial rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Japanoise",
+            "nom": "Japanoise"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Martial_industrial",
+            "nom": "Martial industrial"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neue_Deutsche_H%C3%A4rte",
+            "nom": "Neue Deutsche Härte"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Death_industrial",
+            "nom": "Death industrial"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Power_noise",
+            "nom": "Power noise"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Glitch_hop",
+            "nom": "Glitch hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Wonky_(music)",
+            "nom": "Wonky (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Darkcore_(drum_and_bass_genre)",
+            "nom": "Darkcore (drum and bass genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Raggacore",
+            "nom": "Raggacore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Boogie_(genre)",
+            "nom": "Boogie (genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chillwave",
+            "nom": "Chillwave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Vaporwave",
+            "nom": "Vaporwave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dance-pop",
+            "nom": "Dance-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dance-rock",
+            "nom": "Dance-rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Acid_techno",
+            "nom": "Acid techno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Detroit_techno",
+            "nom": "Detroit techno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dub_techno",
+            "nom": "Dub techno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Free_tekno",
+            "nom": "Free tekno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Minimal_techno",
+            "nom": "Minimal techno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nortec",
+            "nom": "Nortec"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tecno_brega",
+            "nom": "Tecno brega"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Acid_trance",
+            "nom": "Acid trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Balearic_trance",
+            "nom": "Balearic trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dream_trance",
+            "nom": "Dream trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Euro-trance",
+            "nom": "Euro-trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hard_trance",
+            "nom": "Hard trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nitzhonot",
+            "nom": "Nitzhonot"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Full_on",
+            "nom": "Full on"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Suomisaundi",
+            "nom": "Suomisaundi"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Goa_trance",
+            "nom": "Goa trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Progressive_trance",
+            "nom": "Progressive trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tech_trance",
+            "nom": "Tech trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Uplifting_trance",
+            "nom": "Uplifting trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Vocal_trance",
+            "nom": "Vocal trance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Brostep",
+            "nom": "Brostep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chillstep",
+            "nom": "Chillstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Drumstep",
+            "nom": "Drumstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Reggaestep",
+            "nom": "Reggaestep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Trapstep",
+            "nom": "Trapstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Metalstep",
+            "nom": "Metalstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Breakstep",
+            "nom": "Breakstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Future_garage",
+            "nom": "Future garage"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Grindie",
+            "nom": "Grindie"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bassline_(music_genre)",
+            "nom": "Bassline (music genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/UK_funky",
+            "nom": "UK funky"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Vaporwave",
+            "nom": "Vaporwave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bitpop",
+            "nom": "Bitpop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Game_Boy_music",
+            "nom": "Game Boy music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Skweee",
+            "nom": "Skweee"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/American_folk_revival",
+            "nom": "American folk revival"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Americana_(music)",
+            "nom": "Americana (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Anti-folk",
+            "nom": "Anti-folk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/British_folk_revival",
+            "nom": "British folk revival"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Celtic_music",
+            "nom": "Celtic music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chalga",
+            "nom": "Chalga"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Contemporary_folk_music",
+            "nom": "Contemporary folk music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Corrido",
+            "nom": "Corrido"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Filk_music",
+            "nom": "Filk music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Folk_rock",
+            "nom": "Folk rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Folktronica",
+            "nom": "Folktronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Freak_folk",
+            "nom": "Freak folk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Indie_folk",
+            "nom": "Indie folk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Industrial_folk_music",
+            "nom": "Industrial folk music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neofolk",
+            "nom": "Neofolk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ranchera",
+            "nom": "Ranchera"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Progressive_folk_music",
+            "nom": "Progressive folk music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Protest_song",
+            "nom": "Protest song"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Psychedelic_folk",
+            "nom": "Psychedelic folk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Singer-songwriter",
+            "nom": "Singer-songwriter"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Skiffle",
+            "nom": "Skiffle"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sung_poetry",
+            "nom": "Sung poetry"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Red_Dirt_(music)",
+            "nom": "Red Dirt (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_Mexico_music",
+            "nom": "New Mexico music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Texas_country_music",
+            "nom": "Texas country music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tejano_music",
+            "nom": "Tejano music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Alternative_hip_hop",
+            "nom": "Alternative hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Australian_hip_hop",
+            "nom": "Australian hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bongo_flava",
+            "nom": "Bongo flava"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Boom_bap",
+            "nom": "Boom bap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/British_hip_hop",
+            "nom": "British hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chap_hop",
+            "nom": "Chap hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chopper_(rap)",
+            "nom": "Chopper (rap)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Christian_hip_hop",
+            "nom": "Christian hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cloud_rap",
+            "nom": "Cloud rap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Conscious_hip_hop",
+            "nom": "Conscious hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Crunk",
+            "nom": "Crunk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Crunkcore",
+            "nom": "Crunkcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Drill_(music_genre)",
+            "nom": "Drill (music genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electro_music",
+            "nom": "Electro music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Experimental_hip_hop",
+            "nom": "Experimental hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/G-funk",
+            "nom": "G-funk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gangsta_rap",
+            "nom": "Gangsta rap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ghetto_house",
+            "nom": "Ghetto house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ghettotech",
+            "nom": "Ghettotech"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Golden_age_hip_hop",
+            "nom": "Golden age hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Grime_(music)",
+            "nom": "Grime (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hardcore_hip_hop",
+            "nom": "Hardcore hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hip_house",
+            "nom": "Hip house"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hiplife",
+            "nom": "Hiplife"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hip_pop",
+            "nom": "Hip pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hyphy",
+            "nom": "Hyphy"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Industrial_hip_hop",
+            "nom": "Industrial hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Instrumental_hip_hop",
+            "nom": "Instrumental hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jazz_rap",
+            "nom": "Jazz rap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jersey_club",
+            "nom": "Jersey club"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kwaito",
+            "nom": "Kwaito"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Lyrical_hip_hop",
+            "nom": "Lyrical hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Low_Bap",
+            "nom": "Low Bap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Merenrap",
+            "nom": "Merenrap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Motswako",
+            "nom": "Motswako"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mumble_rap",
+            "nom": "Mumble rap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nerdcore",
+            "nom": "Nerdcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_jack_swing",
+            "nom": "New jack swing"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_school_hip_hop",
+            "nom": "New school hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Old_school_hip_hop",
+            "nom": "Old school hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Political_hip_hop",
+            "nom": "Political hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ragga",
+            "nom": "Ragga"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Reggaeton",
+            "nom": "Reggaeton"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jerkin%27",
+            "nom": "Jerkin&#39;"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Trap_music_(hip_hop)",
+            "nom": "Trap music (hip hop)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Urban_Pasifika",
+            "nom": "Urban Pasifika"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/West_Coast_hip_hop",
+            "nom": "West Coast hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Acid_jazz",
+            "nom": "Acid jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Afro-Cuban_jazz",
+            "nom": "Afro-Cuban jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Alt-jazz",
+            "nom": "Alt-jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Avant-garde_jazz",
+            "nom": "Avant-garde jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bebop",
+            "nom": "Bebop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Boogie-woogie",
+            "nom": "Boogie-woogie"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bossa_nova",
+            "nom": "Bossa nova"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/British_dance_band",
+            "nom": "British dance band"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cape_jazz",
+            "nom": "Cape jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chamber_jazz",
+            "nom": "Chamber jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Continental_jazz",
+            "nom": "Continental jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cool_jazz",
+            "nom": "Cool jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dixieland",
+            "nom": "Dixieland"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ethno_jazz",
+            "nom": "Ethno jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/European_free_jazz",
+            "nom": "European free jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Free_funk",
+            "nom": "Free funk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Free_improvisation",
+            "nom": "Free improvisation"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Free_jazz",
+            "nom": "Free jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gypsy_jazz",
+            "nom": "Gypsy jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hard_bop",
+            "nom": "Hard bop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jazz_blues",
+            "nom": "Jazz blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jazz-funk",
+            "nom": "Jazz-funk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jazz_fusion",
+            "nom": "Jazz fusion"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jazz_rap",
+            "nom": "Jazz rap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jazz_rock",
+            "nom": "Jazz rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kansas_City_blues",
+            "nom": "Kansas City blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kansas_City_jazz",
+            "nom": "Kansas City jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_jazz",
+            "nom": "Latin jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Livetronica",
+            "nom": "Livetronica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/M-Base",
+            "nom": "M-Base"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mainstream_jazz",
+            "nom": "Mainstream jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Modal_jazz",
+            "nom": "Modal jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neo-bop_jazz",
+            "nom": "Neo-bop jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neo-swing",
+            "nom": "Neo-swing"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Novelty_ragtime",
+            "nom": "Novelty ragtime"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nu_jazz",
+            "nom": "Nu jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Orchestral_jazz",
+            "nom": "Orchestral jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Post-bop",
+            "nom": "Post-bop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Punk_jazz",
+            "nom": "Punk jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ragtime",
+            "nom": "Ragtime"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Shibuya-kei",
+            "nom": "Shibuya-kei"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ska_jazz",
+            "nom": "Ska jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Smooth_jazz",
+            "nom": "Smooth jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Soul_jazz",
+            "nom": "Soul jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Stride_jazz",
+            "nom": "Stride jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Straight-ahead_jazz",
+            "nom": "Straight-ahead jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Swing_music",
+            "nom": "Swing music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Third_stream",
+            "nom": "Third stream"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Trad_jazz",
+            "nom": "Trad jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Vocal_jazz",
+            "nom": "Vocal jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/West_Coast_jazz",
+            "nom": "West Coast jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ax%C3%A9_music",
+            "nom": "Axé music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Brazilian_rock",
+            "nom": "Brazilian rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tecnobrega",
+            "nom": "Tecnobrega"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Choro",
+            "nom": "Choro"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Forr%C3%B3",
+            "nom": "Forró"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Frevo",
+            "nom": "Frevo"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Funk_carioca",
+            "nom": "Funk carioca"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Maracatu",
+            "nom": "Maracatu"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tropicalia",
+            "nom": "Tropicalia"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/M%C3%BAsica_sertaneja",
+            "nom": "Música sertaneja"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_Mexico_music",
+            "nom": "New Mexico music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Pagode",
+            "nom": "Pagode"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Samba_rock",
+            "nom": "Samba rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_Christian_music",
+            "nom": "Latin Christian music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Afro-Cuban_jazz",
+            "nom": "Afro-Cuban jazz"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bossa_Nova",
+            "nom": "Bossa Nova"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_ballad",
+            "nom": "Latin ballad"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_alternative",
+            "nom": "Latin alternative"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rock_en_Espa%C3%B1ol",
+            "nom": "Rock en Español"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_trap",
+            "nom": "Latin trap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Banda_(music)",
+            "nom": "Banda (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Norte%C3%B1o_(music)",
+            "nom": "Norteño (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Flamenco",
+            "nom": "Flamenco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tango_music",
+            "nom": "Tango music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bullerengue",
+            "nom": "Bullerengue"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Fado",
+            "nom": "Fado"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Grupera",
+            "nom": "Grupera"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Huayno",
+            "nom": "Huayno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ranchera",
+            "nom": "Ranchera"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mexican_son_music",
+            "nom": "Mexican son music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/M%C3%BAsica_criolla",
+            "nom": "Música criolla"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nueva_canci%C3%B3n",
+            "nom": "Nueva canción"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bachata_(music)",
+            "nom": "Bachata (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bolero",
+            "nom": "Bolero"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Criolla",
+            "nom": "Criolla"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Porro",
+            "nom": "Porro"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Guajira_(music)",
+            "nom": "Guajira (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mambo_(music)",
+            "nom": "Mambo (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Merengue_music",
+            "nom": "Merengue music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cuban_rumba",
+            "nom": "Cuban rumba"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Salsa_rom%C3%A1ntica",
+            "nom": "Salsa romántica"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Son_(music)",
+            "nom": "Son (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tejano_music",
+            "nom": "Tejano music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Timba",
+            "nom": "Timba"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Tropipop",
+            "nom": "Tropipop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Vallenato",
+            "nom": "Vallenato"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Adult_contemporary",
+            "nom": "Adult contemporary"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Arabic_pop_music",
+            "nom": "Arabic pop music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Baroque_pop",
+            "nom": "Baroque pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Brill_Building_(genre)",
+            "nom": "Brill Building (genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Britpop",
+            "nom": "Britpop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Bubblegum_pop",
+            "nom": "Bubblegum pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Canci%C3%B3n",
+            "nom": "Canción"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Canzone",
+            "nom": "Canzone"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chalga",
+            "nom": "Chalga"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Chanson",
+            "nom": "Chanson"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Christian_pop",
+            "nom": "Christian pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Classical_crossover",
+            "nom": "Classical crossover"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Country_pop",
+            "nom": "Country pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hokkien_pop",
+            "nom": "Hokkien pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mandopop",
+            "nom": "Mandopop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dance-pop",
+            "nom": "Dance-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Disco_polo",
+            "nom": "Disco polo"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electropop",
+            "nom": "Electropop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Austropop",
+            "nom": "Austropop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Eurobeat",
+            "nom": "Eurobeat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/French_pop_music",
+            "nom": "French pop music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Italo_dance",
+            "nom": "Italo dance"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Italo_disco",
+            "nom": "Italo disco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/La%C3%AFk%C3%B3",
+            "nom": "Laïkó"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_pop",
+            "nom": "Latin pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nederpop",
+            "nom": "Nederpop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Russian_pop",
+            "nom": "Russian pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Fado",
+            "nom": "Fado"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Folk_pop",
+            "nom": "Folk pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Iranian_pop",
+            "nom": "Iranian pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Indie_pop",
+            "nom": "Indie pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/J-pop",
+            "nom": "J-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jangle_pop",
+            "nom": "Jangle pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Korean_hip_hop",
+            "nom": "Korean hip hop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Korean_rock",
+            "nom": "Korean rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/T%27ong_guitar",
+            "nom": "T&#39;ong guitar"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Trot_(music)",
+            "nom": "Trot (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_ballad",
+            "nom": "Latin ballad"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Swamp_pop",
+            "nom": "Swamp pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mexican_pop_music",
+            "nom": "Mexican pop music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_Romantic",
+            "nom": "New Romantic"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Operatic_pop",
+            "nom": "Operatic pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Pop_rap",
+            "nom": "Pop rap"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Power_pop",
+            "nom": "Power pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Soft_rock",
+            "nom": "Soft rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neon_pop",
+            "nom": "Neon pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Emo_pop",
+            "nom": "Emo pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Pop_soul",
+            "nom": "Pop soul"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Progressive_pop",
+            "nom": "Progressive pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Psychedelic_pop",
+            "nom": "Psychedelic pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rebetiko",
+            "nom": "Rebetiko"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Schlager_music",
+            "nom": "Schlager music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sophisti-pop",
+            "nom": "Sophisti-pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Space_age_pop",
+            "nom": "Space age pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sunshine_pop",
+            "nom": "Sunshine pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Surf_music#Vocal_surf_pop",
+            "nom": "Surf music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Synthpop",
+            "nom": "Synthpop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Teen_pop",
+            "nom": "Teen pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Traditional_pop_music",
+            "nom": "Traditional pop music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Turkish_pop_music",
+            "nom": "Turkish pop music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Vispop",
+            "nom": "Vispop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Wonky_pop",
+            "nom": "Wonky pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Worldbeat",
+            "nom": "Worldbeat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Contemporary_R%26B",
+            "nom": "Contemporary R&amp;B"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Disco",
+            "nom": "Disco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Deep_funk",
+            "nom": "Deep funk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Go-go",
+            "nom": "Go-go"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/P-Funk",
+            "nom": "P-Funk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Post-disco",
+            "nom": "Post-disco"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Boogie_(genre)",
+            "nom": "Boogie (genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/PBR%26B",
+            "nom": "PBR&amp;B"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gospel_music",
+            "nom": "Gospel music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_jack_swing",
+            "nom": "New jack swing"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rhythm_and_blues",
+            "nom": "Rhythm and blues"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Blue-eyed_soul",
+            "nom": "Blue-eyed soul"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hip_hop_soul",
+            "nom": "Hip hop soul"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Northern_soul",
+            "nom": "Northern soul"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neo_soul",
+            "nom": "Neo soul"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Southern_soul",
+            "nom": "Southern soul"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Post-grunge",
+            "nom": "Post-grunge"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dunedin_sound",
+            "nom": "Dunedin sound"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Math_rock",
+            "nom": "Math rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Post-punk_revival",
+            "nom": "Post-punk revival"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sadcore",
+            "nom": "Sadcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Shoegaze",
+            "nom": "Shoegaze"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Slowcore",
+            "nom": "Slowcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Beat_music",
+            "nom": "Beat music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Christian_rock",
+            "nom": "Christian rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dark_cabaret",
+            "nom": "Dark cabaret"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electronicore",
+            "nom": "Electronicore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Art_rock",
+            "nom": "Art rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Industrial_rock",
+            "nom": "Industrial rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gothic_rock",
+            "nom": "Gothic rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/No_wave",
+            "nom": "No wave"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Noise_rock",
+            "nom": "Noise rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Post-metal",
+            "nom": "Post-metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Folk_rock",
+            "nom": "Folk rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Garage_rock",
+            "nom": "Garage rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Glam_rock",
+            "nom": "Glam rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hard_rock",
+            "nom": "Hard rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Funk_Metal",
+            "nom": "Funk Metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nu_Metal",
+            "nom": "Nu Metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rap_Metal",
+            "nom": "Rap Metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Avant-garde_metal",
+            "nom": "Avant-garde metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Symphonic_black_metal",
+            "nom": "Symphonic black metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Viking_metal",
+            "nom": "Viking metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/National_Socialist_Black_Metal",
+            "nom": "National Socialist Black Metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Atmospheric_Black_Metal",
+            "nom": "Atmospheric Black Metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Melodic_Black_Metal",
+            "nom": "Melodic Black Metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/War_metal",
+            "nom": "War metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Unblack_metal",
+            "nom": "Unblack metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Death_%27n%27_roll",
+            "nom": "Death &#39;n&#39; roll"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Melodic_death_metal",
+            "nom": "Melodic death metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Technical_death_metal",
+            "nom": "Technical death metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Deathgrind",
+            "nom": "Deathgrind"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Death-doom",
+            "nom": "Death-doom"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Drone_metal",
+            "nom": "Drone metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Celtic_metal",
+            "nom": "Celtic metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Medieval_metal",
+            "nom": "Medieval metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Pagan_metal",
+            "nom": "Pagan metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Glam_metal",
+            "nom": "Glam metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gothic_metal",
+            "nom": "Gothic metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Industrial_metal",
+            "nom": "Industrial metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Kawaii_metal",
+            "nom": "Kawaii metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Latin_metal",
+            "nom": "Latin metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Melodic_metalcore",
+            "nom": "Melodic metalcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Deathcore",
+            "nom": "Deathcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Mathcore",
+            "nom": "Mathcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Metalstep",
+            "nom": "Metalstep"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neoclassical_metal",
+            "nom": "Neoclassical metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neue_Deutsche_H%C3%A4rte",
+            "nom": "Neue Deutsche Härte"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Post-metal",
+            "nom": "Post-metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Power_metal",
+            "nom": "Power metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Djent",
+            "nom": "Djent"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sludge_metal",
+            "nom": "Sludge metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Speed_metal",
+            "nom": "Speed metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Symphonic_metal",
+            "nom": "Symphonic metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Crossover_thrash",
+            "nom": "Crossover thrash"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Groove_metal",
+            "nom": "Groove metal"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Jazz_rock",
+            "nom": "Jazz rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/World_fusion",
+            "nom": "World fusion"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Paisley_Underground",
+            "nom": "Paisley Underground"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Palm_Desert_Scene",
+            "nom": "Palm Desert Scene"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Soft_rock",
+            "nom": "Soft rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Canterbury_scene",
+            "nom": "Canterbury scene"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Krautrock",
+            "nom": "Krautrock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/New_prog",
+            "nom": "New prog"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rock_in_Opposition",
+            "nom": "Rock in Opposition"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Space_rock",
+            "nom": "Space rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Acid_rock",
+            "nom": "Acid rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Freakbeat",
+            "nom": "Freakbeat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neo-psychedelia",
+            "nom": "Neo-psychedelia"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Raga_rock",
+            "nom": "Raga rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/D-beat",
+            "nom": "D-beat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Art_punk",
+            "nom": "Art punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Christian_punk",
+            "nom": "Christian punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Deathrock",
+            "nom": "Deathrock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Digital_hardcore",
+            "nom": "Digital hardcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Celtic_punk",
+            "nom": "Celtic punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cowpunk",
+            "nom": "Cowpunk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Gypsy_punk",
+            "nom": "Gypsy punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Garage_punk_(fusion_genre)",
+            "nom": "Garage punk (fusion genre)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Crustgrind",
+            "nom": "Crustgrind"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Noisegrind",
+            "nom": "Noisegrind"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Goregrind",
+            "nom": "Goregrind"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Emo_pop",
+            "nom": "Emo pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Screamo",
+            "nom": "Screamo"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Thrashcore",
+            "nom": "Thrashcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Crossover_thrash",
+            "nom": "Crossover thrash"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Powerviolence",
+            "nom": "Powerviolence"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Street_punk",
+            "nom": "Street punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Horror_punk",
+            "nom": "Horror punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neon_pop",
+            "nom": "Neon pop"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nazi_punk",
+            "nom": "Nazi punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Psychobilly",
+            "nom": "Psychobilly"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Riot_grrrl",
+            "nom": "Riot grrrl"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ska_punk",
+            "nom": "Ska punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Skate_punk",
+            "nom": "Skate punk"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rapcore",
+            "nom": "Rapcore"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Eric_Lewis_(pianist)#Later_career_and_&quot;Rockjazz&quot;",
+            "nom": "Eric Lewis (pianist)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Rock_and_roll",
+            "nom": "Rock and roll"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Southern_rock",
+            "nom": "Southern rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Stoner_rock",
+            "nom": "Stoner rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Sufi_rock",
+            "nom": "Sufi rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Surf_rock",
+            "nom": "Surf rock"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Nagoya_kei",
+            "nom": "Nagoya kei"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Worldbeat",
+            "nom": "Worldbeat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ancient_music",
+            "nom": "Ancient music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ars_antiqua",
+            "nom": "Ars antiqua"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ars_nova",
+            "nom": "Ars nova"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ars_subtilior",
+            "nom": "Ars subtilior"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Renaissance_music",
+            "nom": "Renaissance music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Baroque_music",
+            "nom": "Baroque music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Galant_music",
+            "nom": "Galant music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Baroque_music",
+            "nom": "Baroque music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Galant_music",
+            "nom": "Galant music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Classical_period_(music)",
+            "nom": "Classical period (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Romantic_music",
+            "nom": "Romantic music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Modernism_(music)",
+            "nom": "Modernism (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Neoclassicism_(music)",
+            "nom": "Neoclassicism (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/High_modernism",
+            "nom": "High modernism"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Postmodern_music",
+            "nom": "Postmodern music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Experimental_music",
+            "nom": "Experimental music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Contemporary_classical_music",
+            "nom": "Contemporary classical music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Dance_music",
+            "nom": "Dance music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Show_tune",
+            "nom": "Show tune"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Cha-cha-cha_(music)",
+            "nom": "Cha-cha-cha (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hymn",
+            "nom": "Hymn"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/National_anthem",
+            "nom": "National anthem"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/World_music",
+            "nom": "World music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Simon_Frith",
+            "nom": "Simon Frith"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/List_of_musical_movements",
+            "nom": "List of musical movements"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Ambient_music",
+            "nom": "Ambient music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Breakbeat",
+            "nom": "Breakbeat"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electro_(music)",
+            "nom": "Electro (music)"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Electronic_dance_music",
+            "nom": "Electronic dance music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Hardstyle",
+            "nom": "Hardstyle"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/House_music",
+            "nom": "House music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Industrial_music",
+            "nom": "Industrial music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Techno",
+            "nom": "Techno"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Trance_music",
+            "nom": "Trance music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Progressive_music",
+            "nom": "Progressive music"
+        },
+        {
+            "lien": "http://en.wikipedia.org/wiki/Psychedelic_music",
+            "nom": "Psychedelic music"
+        }
+    ]
+}
