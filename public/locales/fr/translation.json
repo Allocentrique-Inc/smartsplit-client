@@ -100,6 +100,10 @@
             "sommaire": {
                 "titre": "Sommaire du Split",
                 "soustitre": "Départ : un split initial créé par"
+            },
+            "valider": {
+                "titre": "Valide ton Split",
+                "soustitre": "Invite tes collaborateurs à valider ce Split"
             }
         },
         "documente-ton-oeuvre": {

@@ -8,6 +8,60 @@ function required(value) {
     return result
 }
 
+export class ChampCourrielAssistant extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            etiquette: props.etiquette,
+            indication: props.indication,
+            modele: props.modele,
+            autoFocus: props.autoFocus,
+            requis: props.requis
+        }     
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.etiquette !== nextProps.etiquette) {
+            this.setState({etiquette: nextProps.etiquette})
+        }
+        if (this.props.indication !== nextProps.indication) {
+            this.setState({indication: nextProps.indication})
+        }        
+    }
+
+    validerCourriel(valeur) {
+        let erreur;
+        if (!valeur) {
+          erreur = 'Requis';
+        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i.test(valeur)) {
+          erreur = 'Adresse invalide';
+        }
+        return erreur;
+    }
+
+    render() {
+
+        return(
+            <div>                
+                <Wizard.Field
+                    name={this.state.modele}
+                    component={FormField}
+                    componentProps={{
+                        label: this.state.etiquette,
+                        placeholder: this.state.indication,
+                        required: this.state.requis,
+                        autoFocus: this.state.autoFocus,
+                        type: "email"
+                    }}
+                    validate={this.validerCourriel}
+                />                
+                {this.props.info && (<i className="right info circle icon blue"></i>)}
+            </div>
+        )        
+    }
+}
+
 export class ChampTexteAssistant extends Component {
 
     constructor(props) {

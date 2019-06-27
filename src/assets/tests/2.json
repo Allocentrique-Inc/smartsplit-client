@@ -1,4 +1,5 @@
 {
+	"uuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
 	"media": {
 		"uuid": "2",
 		"title": "Trésor non enregistré"
@@ -9,7 +10,6 @@
 	},
 	"workCopyrightSplit": {		
 		"splitType": "workCopyrightSplit",
-		"emailToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
 		"uuid": "45745c60-7b1a-11e8-9c9c-2d42b21b1a3e",
 		"rightsSplit": [
 			{

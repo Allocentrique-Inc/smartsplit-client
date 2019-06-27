@@ -98,7 +98,12 @@
     "flot": {
         "split": {
             "sommaire": {
-                "titre": "Split's Summary"
+                "titre": "Split's Summary",
+                "soustitre": "Begin : an initial Split created by"
+            },
+            "valider": {
+                "titre": "Valide ton Split",
+                "soustitre": "Invite tes collaborateurs à valider ce Split"
             }
         },
         "documente-ton-oeuvre": {
