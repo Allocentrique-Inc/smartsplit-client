@@ -22,9 +22,6 @@ import ListeOeuvres from './components/media/media-list'
 import ValiderSplit from './components/split/assistant-split'
 import VotationSplit from './components/split/votation-split'
 
-// Utilitaires
-import GenerateurJeton from './utils/generateur-jetons'
-
 const browserHistory = createBrowserHistory()
 
 const renderRoutes = () => (
@@ -36,49 +33,39 @@ const renderRoutes = () => (
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
         <Route exact path="/approuver-split/:mediaId" component={ApprouverSplit} />
         <Route exact path="/split/voter/:jeton" component={VoterSplit} />
+        <Route exact path="/split/confirmer-courriel" component={ConfirmerCourriel} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
 
+function ConfirmerCourriel() {
+  return (
+    <div>
+      <h1>Un courriel va arriver sous peu afin que tu puisses voter</h1>
+    </div>
+  )
+}
+
 function VoterSplit(match) {
-  let jeton = match.params.jeton
 
-  // Récupérer le splitId et le rightHolderId associé au jeton
-  // depuis le distributeur de jeton
+  let jeton
+  
+  if(match.match.params) {
+    jeton = match.match.params.jeton
+  }
 
-  let generateurJeton = new GenerateurJeton()
-
-  try {
-    let capsule = generateurJeton.decoder(jeton)
-
-    return (
-      <VotationSplit splitId={capsule.splitId} rightHolder={capsule.rightHolderId} />
-    )
-
-  } catch (err) {
-    return (
-      <div>
-        Oupppssse ! Erreur de jeton de sécurité ! 
-        {JSON.stringify(err)}
-      </div>
-    )
-  }  
+  return (
+    <VotationSplit jeton={jeton} />
+  )
 
 }
 
 function ApprouverSplit({match}) {
   let mediaId = match.params.mediaId
-  let split = null
 
-  // Cas de test
-  if (mediaId === "1") {
-    // Droits d'auteur, droit d'interprétation et droit d'enregistrement
-    split = require('./assets/tests/1')
-  } else if (mediaId === "2") {
-    // Droit d'auteur seulement
-    split = require('./assets/tests/2')
-  }
+  // Cursus de test
+  let split = require(`./assets/tests/${mediaId}`)
 
   return (
     <ValiderSplit split={split} />

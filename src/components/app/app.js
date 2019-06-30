@@ -29,6 +29,7 @@ class App extends Component {
               <h2>SPRINT 2</h2>
               <a href="/approuver-split/1">Liens vers "SPRINT 2 - Approuver un split (droits d'auteur et droits voisins)"</a><br/>
               <a href="/approuver-split/2">Liens vers "SPRINT 2 - Approuver un split (droits d'auteur seulement)"</a><br/>
+              <a href="/approuver-split/3">Liens vers "SPRINT 2 - Approuver un split (droits d'auteur, un seul collaborateur seulement)"</a><br/>
             </p>
         </div>
         }

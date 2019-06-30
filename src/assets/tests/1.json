@@ -20,7 +20,7 @@
 				"id": 1,
 				"rightHolder": {
 					"uuid": "1",
-					"email": "vincent@iptoki.com",
+					"email": "vincent@smartsplit.org",
 					"name": "Vincent de Grandpré"
 				},
 				"splitPct": 50,
@@ -35,7 +35,7 @@
 				"id": 2,
 				"rightHolder": {
 					"uuid": "2",
-					"email": "david@iptoki.com",
+					"email": "david@smartsplit.org",
 					"name": "David Wawryko"
 				},
 				"splitPct": 25,
@@ -49,7 +49,7 @@
 				"id": 3,
 				"rightHolder": {
 					"uuid": "3",
-					"email": "mario@iptoki.com",
+					"email": "mario@smartsplit.org",
 					"name": "Mario Perron"
 				},
 				"splitPct": 25,
@@ -70,7 +70,7 @@
 				"id": 4,
 				"rightHolder": {
 					"uuid": "1",
-					"email": "vincent@iptoki.com",
+					"email": "vincent@smartsplit.org",
 					"name": "Vincent de Grandpré"
 				},
 				"splitPct": 50,
@@ -85,7 +85,7 @@
 				"id": 5,
 				"rightHolder": {
 					"uuid": "2",
-					"email": "david@iptoki.com",
+					"email": "david@smartsplit.org",
 					"name": "David Wawryko"
 				},
 				"splitPct": 50,
@@ -106,7 +106,7 @@
 				"id": 4,
 				"rightHolder": {
 					"uuid": "1",
-					"email": "vincent@iptoki.com",
+					"email": "vincent@smartsplit.org",
 					"name": "Vincent de Grandpré"
 				},
 				"splitPct": 70,
@@ -121,7 +121,7 @@
 				"id": 5,
 				"rightHolder": {
 					"uuid": "3",
-					"email": "mario@iptoki.com",
+					"email": "mario@smartsplit.org",
 					"name": "Mario Perron"
 				},
 				"splitPct": 30,

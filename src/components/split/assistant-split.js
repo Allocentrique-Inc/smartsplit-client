@@ -13,9 +13,6 @@ import TableauSommaireSplit from './tableau-sommaire'
 // Pages de l'assistant
 import PageAssistantSplitCourrielsCollaborateurs from './assistant-split-courriel-collaborateurs'
 
-// Utilitaire
-import GenerateurJeton from '../../utils/generateur-jetons'
-
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
 class ValiderSplit extends Component {
@@ -52,28 +49,26 @@ class ValiderSplit extends Component {
     }
 
     transmettreInvitation(modele) {
-        
-        let generateurJeton = new GenerateurJeton()
 
         // Envoyer le courriel de création de slipt aux ayant droits
         Object.keys(modele.ayantDroits).forEach(id=>{
             let _c = modele.ayantDroits[id]
-            // Créer un jeton JWT pour le split et l'ayant droit
-            let _j = generateurJeton.genererJetonVotation(this.props.split.uuid, _c.uuid)
             
-            let body = [
-                {
-                    "template": "splitCreated",
-                    "firstName": _c.name.split(" ")[0],
-                    "splitInitiator": this.props.split.initiateur.name,
-                    "workTitle": this.props.split.media.title,
-                    "callbackURL": `http://proto.smartsplit.org:3000/split/voter/${_j}`
-                }
-            ]
-            
-            console.log(body)
+            let body = {
+                "splitId": this.props.split.uuid,
+                "rightHolderId": _c.uuid,
+                "nom": _c.name.split(" ")[0],
+                "courriel": _c.email,
+                "initiateur": this.props.split.initiateur.name,
+                "initiateurId": this.props.split.initiateur.uuid,
+                "titre": this.props.split.media.title                    
+            }          
 
-            axios.post('http://courriel.smartsplit.org:3034', body)
+            axios.post('http://api.smartsplit.org:8080/v1/splits/invite', body)
+            .then(()=>{
+                console.log(body, "Envoyé")
+                setTimeout(()=>{window.location.href="/split/confirmer-courriel"}, 1000)
+            })
 
         })
     }

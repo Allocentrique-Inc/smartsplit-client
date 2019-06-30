@@ -1,12 +1,12 @@
 {
-	"uuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
+	"uuid": "ababafgdfgfdgsdb-dddd-11e8-9c9c-2d42b21b1a3e",
 	"media": {
 		"uuid": "2",
 		"title": "Trésor non enregistré"
 	},
 	"initiateur": {
-		"uuid": "1",
-		"name": "Vincent de Grandpré"
+		"uuid": "2",
+		"name": "David Wayryco"
 	},
 	"workCopyrightSplit": {		
 		"splitType": "workCopyrightSplit",
@@ -20,7 +20,7 @@
 				"id": 1,
 				"rightHolder": {
 					"uuid": "1",
-					"email": "vincent@iptoki.com",
+					"email": "vincent@smartsplit.org",
 					"name": "Vincent de Grandpré"
 				},
 				"splitPct": 50,
@@ -35,7 +35,7 @@
 				"id": 2,
 				"rightHolder": {
 					"uuid": "2",
-					"email": "david@iptoki.com",
+					"email": "david@smartsplit.org",
 					"name": "David Wawryko"
 				},
 				"splitPct": 25,
@@ -49,7 +49,7 @@
 				"id": 3,
 				"rightHolder": {
 					"uuid": "3",
-					"email": "mario@iptoki.com",
+					"email": "mario@smartsplit.org",
 					"name": "Mario Perron"
 				},
 				"splitPct": 25,
