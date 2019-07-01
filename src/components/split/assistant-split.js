@@ -65,9 +65,10 @@ class ValiderSplit extends Component {
             }          
 
             axios.post('http://api.smartsplit.org:8080/v1/splits/invite', body)
-            .then(()=>{
-                console.log(body, "Envoyé")
-                setTimeout(()=>{window.location.href="/split/confirmer-courriel"}, 1000)
+            .then((resp)=>{
+                if(resp.data !== '') {
+                    window.location.href=`/split/voter/${resp.data}`
+                }                
             })
 
         })

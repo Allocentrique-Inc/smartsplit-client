@@ -88,15 +88,19 @@ class VotationSplit extends Component {
             .then((resp)=>{
                 this.setState({votes: resp.data})
             })
-        }, 3000)        
+        }, 2311)
     }
 
     render() {
 
-        let titre
-        
-        if(this.state.split)
+        let titre, peutVoter = false
+
+        if(this.state.split) {
             titre = this.state.split.media.title
+        }
+        if(this.state.votes) {
+            peutVoter = !this.state.votes.estClos
+        }
 
         return (            
             <Translation>
@@ -105,7 +109,7 @@ class VotationSplit extends Component {
                         <div>
                             <h1>Salut, voici la page de votation pour les contributeurs dans l'oeuvre : </h1>
                             <h2>{titre}</h2>
-                            {this.state.droits && (<TableauSommaireSplit votes={this.state.votes} droits={this.state.droits} jeton={this.state.jeton} jetonAPI={this.state.jetonAPI}/>)}
+                            {this.state.droits && (<TableauSommaireSplit peutVoter={peutVoter} votes={this.state.votes} droits={this.state.droits} jeton={this.state.jeton} jetonAPI={this.state.jetonAPI}/>)}
                         </div>
                 }
             </Translation>                                
