@@ -23,13 +23,14 @@ class App extends Component {
             </p>
             <p>
               <h2>SPRINT 0</h2>
-              <a href="/liste-oeuvres">Liens vers "Liste des oeuvre (appel API GET /media)"</a><br/>
+              <a href="/liste-oeuvres">Liste des oeuvres</a><br/>
               <h2>SPRINT 1</h2>
-              <a href="/decrire-oeuvre">Liens vers "SPRINT 1 - Décrire mon oeuvre"</a><br/>
+              <a href="/decrire-oeuvre">Décrire mon oeuvre</a><br/>
               <h2>SPRINT 2</h2>
-              <a href="/approuver-split/1">Liens vers "SPRINT 2 - Approuver un split (droits d'auteur et droits voisins)"</a><br/>
-              <a href="/approuver-split/2">Liens vers "SPRINT 2 - Approuver un split (droits d'auteur seulement)"</a><br/>
-              <a href="/approuver-split/3">Liens vers "SPRINT 2 - Approuver un split (droits d'auteur, un seul collaborateur seulement)"</a><br/>
+              <a href="/approuver-split/1">Approuver un split - droits d'auteur et droits voisins</a><br/>
+              <a href="/approuver-split/2">Approuver un split - droits d'auteur seulement</a><br/>
+              <a href="/approuver-split/3">Approuver un split - droits d'auteur, un seul collaborateur seulement</a><br/>
+              <a href="/approuver-split/4">Approuver un split - droits d'auteur et droits voisins (avec Georges)</a><br/>
             </p>
         </div>
         }

@@ -40,6 +40,11 @@ const renderRoutes = () => (
 )
 
 function ConfirmerCourriel() {
+
+  setTimeout(()=>{
+    window.location.href="/"
+  },3000)
+
   return (
     <div>
       <h1>Un courriel va arriver sous peu afin que tu puisses voter</h1>

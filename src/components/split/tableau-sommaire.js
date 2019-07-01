@@ -41,24 +41,20 @@ class TableauSommaireSplit extends Component {
 
     boutonAccepter (droit) {
         return this.state.jeton && (
-            <i className="thumbs up outline icon huge green" onClick={()=>{
+            <i className="thumbs up outline icon huge green" style={{cursor: "pointer"}} onClick={()=>{
                 let body = {
                     userId: this.state.jeton.rightHolderId, // Temporaire le temps de connecter le système d'identités
                     droit: droit,
                     jeton: this.state.jetonAPI
                 }
                 confirmAlert({
-                    title: `Tu acceptes la proposition!`,
-                    message: `As-tu certain ?`,
+                    title: `Tu acceptes la proposition !`,
+                    message: `Es-tu certain ?`,
                     buttons: [
                       {
                         label: 'Oui, mets-en !!',
                         onClick: () => {
-                            axios.post('http://api.smartsplit.org:8080/v1/splits/accepter', body)
-                            .then((err, resp)=>{
-                                console.log('Acceptation !', body)
-                                window.location.reload()
-                            })
+                            axios.post('http://api.smartsplit.org:8080/v1/splits/accepter', body)                            
                             .catch(err=>{console.log(err)})                          
                         }
                       },
@@ -75,32 +71,65 @@ class TableauSommaireSplit extends Component {
 
     boutonRefuser (droit) {            
         return this.state.jeton && (
-            <i className="thumbs down outline icon big red" onClick={()=>{
+            <i className="thumbs down outline icon big red" style={{cursor: "pointer"}} onClick={()=>{
                 let body = {
                     userId: this.state.jeton.rightHolderId, // Temporaire le temps de connecter le système d'identités
                     droit: droit,
                     jeton: this.state.jetonAPI
                 }
-                confirmAlert({
-                    title: `Tu refuses la proposition!`,
-                    message: `As-tu certain ? Tu devras en proposer une nouvelle.`,
-                    buttons: [
-                      {
-                        label: 'Oui, je le veux !!',
-                        onClick: () => {
-                            axios.post('http://api.smartsplit.org:8080/v1/splits/refuser', body)
-                            .then((err, resp)=>{
-                                window.location.href="/approuver-split/2"
-                            })
-                            .catch(err=>{console.log(err)})                          
-                        }
-                      },
-                      {
-                        label: 'Non, merci mais ça va être correct.',
-                        onClick: () => {                            
-                        }
-                      }
-                    ]
+                axios.post('http://api.smartsplit.org:8080/v1/splits/refuser', body)
+                .then(()=>{
+                    confirmAlert({
+                        title: `Tu refuses la proposition !`,
+                        message: `Es-tu certain ?`,
+                        style: {
+                                position: "relative",
+                                width: "640px",
+                                height: "660px",
+                                margin: "0 auto",
+                                background: "#FFFFFF",
+                                border: "1px solid rgba(0, 0, 0, 0.5)",
+                                boxSizing: "border-box",
+                                boxShadow: "inset 0px -1px 0px #DCDFE1"
+                            },
+                        customUI: ({ onClose }) => 
+                            <div>         
+                                <h3>Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.</h3>               
+                                <textarea cols={40} rows={5} id="raison" placeholder="Pourquoi refuses-tu le split (optionel)" style={{
+                                    width: "546px",
+                                    height: "253px",
+                                    left: "436px",
+                                    top: "429px",                              
+                                    background: "#FFFFFF",
+                                    border: "1px solid rgba(0, 0, 0, 0.5)",
+                                    boxSizing: "border-box",
+                                    boxShadow: "inset 0px -1px 0px #DCDFE1"
+                                }}></textarea><p/>
+                                <button style={{
+                                    background: "rgb(45, 168, 79)",
+                                    borderRadius: "2px",
+                                    width: "100%",                                
+                                    fontWeight: "bold",
+                                    fontSize: "1.2rem"
+                                }}
+                                onClick={()=>{
+
+                                    let refus = {
+                                        userId: this.state.jeton.rightHolderId, // Temporaire le temps de connecter le système d'identités
+                                        jeton: this.state.jetonAPI,
+                                        droit: droit,
+                                        raison: document.getElementById('raison').value
+                                    }
+
+                                    axios.post('http://api.smartsplit.org:8080/v1/splits/justifier-refus', refus)
+                                    .catch(err=>{console.log(err)})
+                                
+                                    onClose()
+                                }                                
+                                }
+                                >Refuser ce partage</button>
+                            </div>
+                    })
                 })                
             }}></i>
         )
@@ -120,11 +149,12 @@ class TableauSommaireSplit extends Component {
         function genererAffichage(_e, droit) {
             let voterPour 
             let voterContre
-            let etat
+            let etat, raison
             let votes = that.state.votes
             
             if(votes) {
-                etat = votes.parts[_e.rightHolder.uuid].etat                
+                etat = votes.parts[droit][_e.rightHolder.uuid].etat
+                raison = votes.parts[droit][_e.rightHolder.uuid].raison
             }
 
             if(that.state.jeton && _e.rightHolder.uuid === that.state.jeton.rightHolderId && etat === 'ATTENTE') {
@@ -142,24 +172,24 @@ class TableauSommaireSplit extends Component {
 
             return (
                 <td>
-                    {_e.rightHolder.name} : {_e.splitPct}% {voterPour} {voterContre} {etat}
+                    {_e.rightHolder.name} : {_e.splitPct}% {voterPour} {voterContre} {etat} {raison && (votes.parts[droit][_e.rightHolder.uuid].raison)}
                 </td>
             )
         }
 
         if(this.state.droits) {
             Object.keys(this.state.droits[DROITS.auteur]).forEach((elem) => {
-                let _e = this.state.droits[DROITS.auteur][elem]                            
+                let _e = this.state.droits[DROITS.auteur][elem]  
                 droitAuteur.push(genererAffichage(_e, DROITS.auteur))
             })
     
             Object.keys(this.state.droits[DROITS.interpretaion]).forEach((elem) => {
-                let _e = this.state.droits[DROITS.interpretaion][elem]                
+                let _e = this.state.droits[DROITS.interpretaion][elem]                               
                 droitInterpretation.push(genererAffichage(_e, DROITS.interpretaion))
             })
     
             Object.keys(this.state.droits[DROITS.enregistrement]).forEach((elem) => {
-                let _e = this.state.droits[DROITS.enregistrement][elem]                
+                let _e = this.state.droits[DROITS.enregistrement][elem]
                 droitEnregistrement.push(genererAffichage(_e, DROITS.enregistrement))
             })
     
@@ -168,9 +198,9 @@ class TableauSommaireSplit extends Component {
             for(let i = 0; i < tailleMax; i++) {
                 tableau.push(
                     <tr key={`tableau--rang--${i}`}>                        
-                        {droitAuteur[i]}
-                        {droitInterpretation[i]}
-                        {droitEnregistrement[i]}
+                        {droitAuteur[i] || <td></td>}
+                        {droitInterpretation[i] || <td></td>}
+                        {droitEnregistrement[i] || <td></td>}
                     </tr>
                 )
             }
@@ -180,9 +210,9 @@ class TableauSommaireSplit extends Component {
             <table style={{width: "100%"}}>
                 <thead>
                     <tr>
-                        <th><i className="copyright outline icon huge"></i></th>
-                        <th><i className="star outline icon huge"></i></th>
-                        <th><i className="product hunt icon huge"></i></th>
+                        {droitAuteur.length > 0 && (<th><i className="copyright outline icon huge"></i></th>)}
+                        {droitInterpretation.length > 0 && (<th><i className="star outline icon huge"></i></th>)}
+                        {droitEnregistrement.length > 0 && (<th><i className="product hunt icon huge"></i></th>)}
                     </tr>
                 </thead>
                 <tbody>

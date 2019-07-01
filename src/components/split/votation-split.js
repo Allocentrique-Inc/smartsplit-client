@@ -27,14 +27,18 @@ class VotationSplit extends Component {
         axios.post('http://api.smartsplit.org:8080/v1/splits/decode', body)
         .then((resp)=>{
             let _s = resp.data
+            
+            // TEMPORAIRE
             // Calcul des droits et ayants-droits
             let split
             if(_s.splitId === "abababab-dddd-11e8-9c9c-2d42b21b1a3e") {
                 split = require("../../assets/tests/1.json")
             } else if (_s.splitId === "ababafgdfgfdgsdb-dddd-11e8-9c9c-2d42b21b1a3e") {
                 split = require("../../assets/tests/2.json")
-            } else {
+            } else if (_s.splitId === "abababab-dddd-11e8-9c9c-2d42basdsaoid223e") {
                 split = require("../../assets/tests/3.json")
+            } else {
+                split = require("../../assets/tests/4.json")
             }
 
             // Construction de la structure des données de l'assistant
@@ -62,26 +66,45 @@ class VotationSplit extends Component {
             this.setState({                
                 droits: rights
             }, ()=>{
-                this.setState({jeton: _s})
+                this.setState({jeton: _s},()=>{
+                    this.setState({split: split})
+                })
             })
 
-            // Récupère l'état de la votation courante
-            axios.post('http://api.smartsplit.org:8080/v1/splits/liste-votes', {splitId: _s.splitId})
-            .then((resp)=>{
-                this.setState({votes: resp.data})
-            })
+            this.majListeVotes(_s.splitId)            
 
         })
 
     }
 
+    majListeVotes(splitId) {
+        // Récupère l'état de la votation courante
+        axios.post('http://api.smartsplit.org:8080/v1/splits/liste-votes', {splitId: splitId})
+        .then((resp)=>{
+            this.setState({votes: resp.data})
+        })
+        setInterval(()=>{            
+            axios.post('http://api.smartsplit.org:8080/v1/splits/liste-votes', {splitId: splitId})
+            .then((resp)=>{
+                this.setState({votes: resp.data})
+            })
+        }, 3000)        
+    }
+
     render() {
+
+        let titre
+        
+        if(this.state.split)
+            titre = this.state.split.media.title
 
         return (            
             <Translation>
                 {
                     (t, i18n)=>
-                        <div>                            
+                        <div>
+                            <h1>Salut, voici la page de votation pour les contributeurs dans l'oeuvre : </h1>
+                            <h2>{titre}</h2>
                             {this.state.droits && (<TableauSommaireSplit votes={this.state.votes} droits={this.state.droits} jeton={this.state.jeton} jetonAPI={this.state.jetonAPI}/>)}
                         </div>
                 }

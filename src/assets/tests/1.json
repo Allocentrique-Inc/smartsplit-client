@@ -2,7 +2,7 @@
 	"uuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
 	"media": {
 		"uuid": "1",
-		"title": "Trésor auditif"
+		"title": "Biquette va prendre l'air"
 	},
 	"initiateur": {
 		"uuid": "1",
@@ -69,9 +69,9 @@
 				},
 				"id": 4,
 				"rightHolder": {
-					"uuid": "1",
-					"email": "vincent@smartsplit.org",
-					"name": "Vincent de Grandpré"
+					"uuid": "4",
+					"email": "guillaume@smartsplit.org",
+					"name": "Guillaume Déziel"
 				},
 				"splitPct": 50,
 				"splitUuid": "abababab-7b1a-11e8-9c9c-2d42b21b1a3e",
@@ -84,9 +84,9 @@
 				},
 				"id": 5,
 				"rightHolder": {
-					"uuid": "2",
-					"email": "david@smartsplit.org",
-					"name": "David Wawryko"
+					"uuid": "5",
+					"email": "natalya@smartsplit.org",
+					"name": "Natalya"
 				},
 				"splitPct": 50,
 				"splitUuid": "abababab-7b1a-11e8-9c9c-2d42b21b1a3e",
@@ -97,38 +97,22 @@
 	"masterNeighboringRightSplit": {
 		"splitType": "masterNeighboringRightSplit",
 		"uuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
-		"rightsSplit": [
-			{
-				"contributorRole": {
-					"12345c60-7b1a-11e8-9c9c-2d42b21b1a3e": "guitarist",
-					"45745c60-7b1a-11e8-9c9c-2d42b21b1a3i": "writer"
-				},
-				"id": 4,
-				"rightHolder": {
-					"uuid": "1",
-					"email": "vincent@smartsplit.org",
-					"name": "Vincent de Grandpré"
-				},
-				"splitPct": 70,
-				"splitUuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
-				"state": "active"
-			},
+		"rightsSplit": [			
 			{
 				"contributorRole": {
 					"12345c60-7b1a-11e8-9c9c-2d42b21b1a3f": "flutist",
 					"45745c60-7b1a-11e8-9c9c-2d42b21b1a3i": "writer"
 				},
-				"id": 5,
+				"id": 3,
 				"rightHolder": {
 					"uuid": "3",
 					"email": "mario@smartsplit.org",
 					"name": "Mario Perron"
 				},
-				"splitPct": 30,
+				"splitPct": 100,
 				"splitUuid": "abababab-dddd-11e8-9c9c-2d42b21b1a3e",
 				"state": "active"
 			}
 		]
 	}
 }
-
