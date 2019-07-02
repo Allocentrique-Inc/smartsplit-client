@@ -10,12 +10,12 @@
                 "nom": "Nom de famille",
                 "prenom": "Prénom",
                 "artiste": "Nom d'artiste",
-                "role": "Rôle dans l'oeuvre"
+                "role": "Rôle dans l'œuvre"
             },
             "indication": {
-                "nom": "Indique ton nom de famille",
-                "prenom": "Indique ton prénom",
-                "artiste": "Indique ton nom d'artiste",
+                "nom": "Indique un nom de famille",
+                "prenom": "Indique un prénom",
+                "artiste": "Indique un nom d'artiste",
                 "role": "Choisis 1 ou plusieurs rôles"
             }
         }
@@ -25,7 +25,8 @@
             "etiquette": {
                 "titre": "Titre",
                 "album": "Album",
-                "reprise": "Reprise",
+                "reprise": "Cette œuvre est une reprise",
+                "instrumental": "Cette œuvre est instrumentale",
                 "artiste": "Artiste",
                 "juridiction": "Juridiction",
                 "ayantDroit": "Collaborateurs",
@@ -36,10 +37,10 @@
                 "isrc": "Numéro ISRC",
                 "upc": "Numéro UPC",                
                 "dureeMs": "Durée (millisecondes)",
-                "liensSociaux": "Liens vers médias sociaux",
-                "liensServices": "Liens vers services de diffusion",
-                "liensPresse": "Liens de la revue de presse",
-                "liensListes": "Liens vers les listes de lecture",
+                "liensSociaux": "Lien vers un média social",
+                "liensServices": "Lien vers un service d'achat",
+                "liensPresse": "Lien vers une revue de presse",
+                "liensListes": "Lien vers une liste de lecture",
                 "dateCreation": "Date de création",
                 "dateModification": "Date de modification",
                 "datePublication": "Date de publication",
@@ -47,14 +48,14 @@
                 "repartition": "Répartition des droits (%)"
             },
             "indication": {
-                "titre": "Titre de l'oeuvre",
-                "album": "Album sur lequel figure l'oeuvre",
+                "titre": "Titre de l'œuvre",
+                "album": "Album sur lequel figure l'œuvre",
                 "reprise": "",
                 "artiste": "Qui est l'artiste principal ?",
                 "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
                 "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
-                "genre": "Sélectionne le genre principal de l'oeuvre",
-                "genre2": "Sélectionne le genre secondaire de l'oeuvre",
+                "genre": "Sélectionne le genre principal de l'œuvre",
+                "genre2": "Sélectionne le genre secondaire de l'œuvre",
                 "paroles": "Inscrit les paroles",
                 "langueParoles": "Sélectionne la ou les langues pour les paroles",
                 "isrc": "Identifiant unique de l'enregistrement",
@@ -64,10 +65,10 @@
                 "liensServices": "URL complet vers un lien commercial",
                 "liensPresse": "URL complet vers un article de presse",
                 "liensListes": "URL complet vers une liste de lecture",
-                "dateCreation": "Quand a été créé l'oeuvre ?",
-                "dateModification": "Quand l'oeuvre a-t-elle été modifiée ?",
-                "datePublication": "Quand l'oeuvre a-t-elle été publiée ?",
-                "editeur": "Qui est l'éditeur de l'oeuvre ?",
+                "dateCreation": "Quand a été créé l'œuvre ?",
+                "dateModification": "Quand l'œuvre a-t-elle été modifiée ?",
+                "datePublication": "Quand l'œuvre a-t-elle été publiée ?",
+                "editeur": "Qui est l'éditeur de l'œuvre ?",
                 "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
             }            
         }
@@ -76,16 +77,17 @@
         "suivant": "Suivant",
         "envoi": "Soumettre",
         "precedent": "Précédent",
-        "reinitialiser": "Réinitialiser"
+        "reinitialiser": "Réinitialiser",
+        "transfertEnCours": "Transfert de données en cours. Merci d'être patient."
     },
     "validation": {
         "requis": "Requis"
     },
     "composant": {
         "televersement":  {
-            "titre": "Téléversez vos fichiers sources",
-            "indication": "Glissez et déposez des fichiers ici pour les envoyer, ou cliquez ici pour choisir et envoyer.",
-            "preambule": "Lorem ipsium, ici vous pouvez téléverser vos fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Vous pourrez ainsi partager vos fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
+            "titre": "Téléverse tes fichiers sources",
+            "indication": "Glisse et dépose des fichiers ou clique ici pour envoyer.",
+            "preambule": "Lorem ipsium, ici tu peux envoyer tes fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Tu peux ainsi partager tes fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
         }
     },
     "image": {
@@ -95,25 +97,54 @@
     },
     "flot": {
         "documente-ton-oeuvre": {
-            "titre": "ÉTAPE 1 - Documente ton oeuvre",
-            "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton oeuvre."
+            "titre": "ÉTAPE 1 - Documente ton œuvre",
+            "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton œuvre."
         },
         "collaborateurs": {
-            "titre": "Qui sont les créateur et collaborateurs de ton oeuvre musicale? ",
+            "titre": "Qui sont les créateurs de ton œuvre ? ",
             "preambule": "Commençons par toi ...",
-            "role": "Joe, définissez votre rôle ?"
+            "role": "Joe, définis ton rôle ?",
+            "ajout": "Ajouter un premier collaborateur"
         },
         "paroles": {
-            "titre": "Inscrivez les paroles de votre oeuvre musicale",
+            "titre": "Inscris les paroles de ton œuvre musicale",
             "preambule": ""
         },
         "genre": {
-            "titre": "Quel est le genre de ton oeuvre ?",
+            "titre": "Quel est le genre de ton œuvre ?",
             "preambule": "Genre, style, comme ... ?"
         },
         "pro": {
-            "titre": "Es-tu pro. ?",
-            "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton oeuvre ici !"
+            "titre": "Es-tu pro ?",
+            "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton œuvre ici !"
+        },
+        "envoi": {
+            "reussi": "Envoi réussi!",
+            "echec": "Envoi en échec"
+        },
+        "envoifichier": {
+            "reussi": "Envoi de fichier réussi!",
+            "echec": "Envoi de fichier en échec"
+        },
+        "lien": {
+            "sociaux": {
+                "titre": "Liens vers les médias sociaux"
+            },
+            "commercial": {
+                "titre": "Liens vers les services d'achat"
+            },
+            "presse": {
+                "titre": "Liens vers les revues de presse"
+            },
+            "liste": {
+                "titre": "Liens vers les listes de lecture"
+            }
+        }
+    },
+    "traitement": {
+        "acr": {
+            "erreur-mauvaise-lecture": "Mauvaise lecture du média. Essayez un nouvel échantillon.",
+            "erreur-inconnu": "Aucune correspondance pour le média soumis."
         }
     },
     "auth": {

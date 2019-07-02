@@ -22,10 +22,12 @@ import { I18nextProvider } from "react-i18next"
 import { Router, Route, Switch } from 'react-router'
 import { createBrowserHistory } from 'history'
 
+// Alertes utlisateur
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 // Composantes navigables
-import AssistantOeuvreEmbarquement from './components/oeuvre/oeuvre-assistant-embarquement'
 import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
-import TestCreerOeuvre from './components/media/media-create'
 import ListeOeuvres from './components/media/media-list'
 
 // Composantes auth
@@ -303,20 +305,25 @@ const renderRoutes = () => (
   <I18nextProvider i18n={i18n}>
     <Router history={browserHistory}>
         {/* <Navbar auth={authProps} /> */}
-        <Switch>
-          <Route exact path="/" component={App}/>
-          <Route exact path="/nouvelle-oeuvre" component={AssistantOeuvreEmbarquement}/>
-          <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
-          <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
-          <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/forgot-password" component={ForgotPassword} />
-          <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
-          <Route exact path="/welcome" component={Welcome} />
-        </Switch>
-      </Router>
+      <Switch>
+        <Route exact path="/" component={App}/>
+        <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
+        <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
+        <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/forgot-password" component={ForgotPassword} />
+        <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
+        <Route exact path="/welcome" component={Welcome} />
+      </Switch>
+    </Router>
   </I18nextProvider>  
 )
+
+// Configuration des alertes utilisateur
+toast.configure({
+  autoClose: 8000,
+  draggable: true
+})
 
 ReactDOM.render( renderRoutes(), document.getElementById('root') )

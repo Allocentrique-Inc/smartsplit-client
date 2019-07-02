@@ -13,10 +13,10 @@
                 "role": "Role in the work"
             },
             "indication": {
-                "nom": "What is your last name ?",
-                "prenom": "What is your first name ?",
-                "artiste": "What is you artist name ?",
-                "role": "Choose one or more role for you"
+                "nom": "Last name",
+                "prenom": "First name",
+                "artiste": "Artist name",
+                "role": "Choose one or more role"
             }
         }
     },
@@ -25,7 +25,8 @@
             "etiquette": {
                 "titre": "Title",
                 "album": "Album",
-                "reprise": "Cover",
+                "reprise": "This work is a cover",
+                "instrumental": "This work is instrumental",
                 "artiste": "Artist",
                 "juridiction": "Jurisdiction",
                 "ayantDroit": "Collaborators",
@@ -76,7 +77,8 @@
         "suivant": "Next",
         "envoi": "Submit",
         "precedent": "Previous",
-        "reinitialiser": "Reset"
+        "reinitialiser": "Reset",
+        "transfertEnCours": "Data transfer in progress, please be patient."
     },
     "validation": {
         "requis": "Required"
@@ -101,7 +103,8 @@
         "collaborateurs": {
             "titre": "Who are the creators and the collaborators on the work ?",
             "preambule": "Let's begin with yourself ...",
-            "role": "Joe, what is your role in the work ?"
+            "role": "Joe, what is your role in the work ?",
+            "ajout": "Add a first collaborator"
         },
         "paroles": {
             "titre": "Type in the lyrics of your work",
@@ -114,6 +117,34 @@
         "pro": {
             "titre": "Are you a professional ?",
             "preambule": "Your intellectual property is identified with two numbers: UPC and ISRC (if recorded). Link them here."
+        },
+        "envoi": {
+            "reussi": "Transfer successful !",
+            "echec": "Transfer failed"
+        },
+        "envoifichier": {
+            "reussi": "File transfer successful !",
+            "echec": "File transfer failed"
+        },
+        "lien": {
+            "sociaux": {
+                "titre": "Social media links"
+            },
+            "commercial": {
+                "titre": "Commercial links"
+            },
+            "presse": {
+                "titre": "Press review links"
+            },
+            "liste": {
+                "titre": "Playlist links"
+            }
+        }
+    },
+    "traitement": {
+        "acr": {
+            "erreur-mauvaise-lecture": "Bad media. Try another sample.",
+            "erreur-inconnu": "No match found for the submitted file."
         }
     },
     "auth": {

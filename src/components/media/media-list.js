@@ -10,7 +10,7 @@ export default class MediaList extends Component {
         super(props)
         this.state = {
             donnees: []
-        }        
+        }
     }
 
     componentDidMount() {
@@ -20,7 +20,7 @@ export default class MediaList extends Component {
 
     listeMedias() {
 
-        // Récupérer la liste des médias depuis l'API// Transmettre à l'API (configuration locale statique)
+        // Récupérer la liste des médias depuis l'API
         const options = {
             method: 'GET',
             credentials: 'omit',
@@ -32,7 +32,7 @@ export default class MediaList extends Component {
             return response.json()
         })
         .then((jsonObject) => {
-            console.log(jsonObject)
+            console.log("Liste des médias reçue", jsonObject)
             this.setState({donnees: jsonObject})
         })
         .catch((error) => {

@@ -5,3 +5,7 @@ body {
   text-align: center;
   margin: 2rem;
 }
+
+.right {
+  float: right;
+}

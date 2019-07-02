@@ -2,42 +2,59 @@
  * Saisie des paroles de l'oeuvre
  */
 
-import React from "react"
+import React, { Component } from 'react'
 import { Translation } from "react-i18next"
 import { ChampTexteLongAssistant } from "../formulaires/champ-texte"
 import { ChampListeAssistant } from "../formulaires/champ-liste"
+import { ChampInterrupteurAssistant } from '../formulaires/champ-interrupteur';
 
-const languesOptions = [
-    {key: 'L1', text: 'Français', value: 'LO1'},
-    {key: 'L2', text: 'Anglais', value: 'LO2'},
-    {key: 'L3', text: 'Espagnol', value: 'LO3'},
-    {key: 'L4', text: 'Instrumental', value: 'LO4'}
-]
+// Progression
+import { Progress } from 'semantic-ui-react'
 
-const Page = (props) => (
-
-    <Translation>
-        {
-            (t) => 
-                <React.Fragment>
-
-                    <h2>{t('flot.paroles.titre')}</h2> 
-
-                    <p>{t('flot.paroles.preambule')}</p>                    
-
-                    <ChampListeAssistant
-                        etiquette={t('oeuvre.attribut.etiquette.langueParoles')} indication={t('oeuvre.attribut.indication.langueParoles')}
-                        modele="lyricsLanguages" requis={true} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={true}
-                        options={languesOptions} />
-
-                    <ChampTexteLongAssistant 
-                        etiquette={t('oeuvre.attribut.etiquette.paroles')} indication={t('oeuvre.attribut.indication.paroles')}
-                        modele="lyrics" requis={false} autoFocus={false} />
-
-                </React.Fragment>
-        }
-    </Translation>
+class PageAssistantOeuvreParoles extends Component {
     
-)
+    constructor(props){
+        super(props)
+        this.state = {
+            pctProgression: props.pctProgression
+        }
+        this.languesOptions = require(`../../assets/listes/${props.i18n.lng.substring(0,2)}/codes_langues.json`)                
+    }
 
-export default Page
+    componentWillReceiveProps(nextProps) {
+        if(this.props.pctProgression !== nextProps.pctProgression) {
+            this.setState({pctProgression: nextProps.pctProgression})
+        }
+    }
+
+    render() {
+        return (
+            <Translation>
+                {
+                    (t) => 
+                        <React.Fragment>
+                            <Progress percent={this.state.pctProgression} indicating></Progress>
+                            <h2>{t('flot.paroles.titre')}</h2> 
+                            <p>{t('flot.paroles.preambule')}</p>
+
+                            <ChampInterrupteurAssistant modele="instrumental" etiquette={t('oeuvre.attribut.etiquette.instrumental')} changement={ (a) => {
+                              this.props.setFieldValue('instrumental', `${a}`, false)
+                            }}/>
+
+                            <ChampTexteLongAssistant 
+                                etiquette={t('oeuvre.attribut.etiquette.paroles')} indication={t('oeuvre.attribut.indication.paroles')}
+                                modele="lyrics" requis={false} autoFocus={true} />
+
+                            <ChampListeAssistant
+                                etiquette={t('oeuvre.attribut.etiquette.langueParoles')} indication={t('oeuvre.attribut.indication.langueParoles')}
+                                modele="inLanguages" requis={false} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={false}
+                                options={this.languesOptions} />
+
+                        </React.Fragment>
+                }
+            </Translation>
+        )
+    }
+}
+
+export default PageAssistantOeuvreParoles

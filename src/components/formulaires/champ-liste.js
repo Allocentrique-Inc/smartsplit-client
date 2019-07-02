@@ -19,7 +19,7 @@ export class ChampListeAssistant extends Component {
             requis: props.requis,
             fluid: props.fluid,
             multiple: props.multiple,
-            search: props.recherche,
+            recherche: props.recherche,
             selection: props.selection,
             options: props.options
         }
@@ -42,22 +42,25 @@ export class ChampListeAssistant extends Component {
 
     render() {
         return(
-            <Wizard.Field
-                name={this.state.modele}
-                component={Form.Dropdown}                
-                componentProps={{
-                    label: this.state.etiquette,
-                    placeholder: this.state.indication,
-                    required: this.state.requis,
-                    autoFocus: this.state.autoFocus,
-                    fluid: this.state.fluid,
-                    multiple: this.state.multiple,
-                    search: this.state.recherche,
-                    selection: this.state.selection,
-                    options: this.state.options
-                }}
-                validate={this.state.requis && required}
-            />
+            <div>
+                <Wizard.Field
+                    name={this.state.modele}
+                    component={Form.Dropdown}                
+                    componentProps={{
+                        label: this.state.etiquette,
+                        placeholder: this.state.indication,
+                        required: this.state.requis,
+                        autoFocus: this.state.autoFocus,
+                        fluid: this.state.fluid,
+                        multiple: this.state.multiple,
+                        search: this.state.recherche,
+                        selection: this.state.selection,
+                        options: this.state.options
+                    }}
+                    validate={this.state.requis && required}
+                />
+                <i className="right info circle icon blue"></i>
+            </div>
         )        
     }
 

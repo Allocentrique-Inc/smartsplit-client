@@ -1,0 +1,82 @@
+[
+    {
+        "key": "R1",
+        "text": "Auteur",
+        "value": "R1"
+    },
+    {
+        "key": "R2",
+        "text": "Compositeur",
+        "value": "R2"
+    },
+    {
+        "key": "R3",
+        "text": "Chanteur - Soliste",
+        "value": "R3"
+    },
+    {
+        "key": "R4",
+        "text": "Chanteur - Duetiste",
+        "value": "R4"
+    },
+    {
+        "key": "R5",
+        "text": "Chanteur - Choriste",
+        "value": "R5"
+    },
+    {
+        "key": "R6",
+        "text": "Chanteur - Rythme vocal",
+        "value": "R6"
+    },
+    {
+        "key": "R7",
+        "text": "Instrument - Batterie",
+        "value": "R7"
+    },
+    {
+        "key": "R8",
+        "text": "Instrument - Basse",
+        "value": "R8"
+    },
+    {
+        "key": "R9",
+        "text": "Instrument - Guitare",
+        "value": "R9"
+    },
+    {
+        "key": "R10",
+        "text": "Instrument - Clavier",
+        "value": "R10"
+    },
+    {
+        "key": "R11",
+        "text": "Instrument - Cuivre",
+        "value": "R11"
+    },
+    {
+        "key": "R12",
+        "text": "Instrument - Bois",
+        "value": "R12"
+    },
+    {
+        "key": "R13",
+        "text": "Instrument - Cordes",
+        "value": "R13"
+    },
+    {
+        "key": "R14",
+        "text": "Instrument - Percussions",
+        "value": "R14"
+    },
+    {
+        "key": "R15",
+        "text": "Instrument - Autre",
+        "value": "R15"
+    },
+    {
+        "key": "R99",
+        "text": "Instrument - Soliste",
+        "value": "R99"
+    }
+]

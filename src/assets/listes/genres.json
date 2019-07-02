@@ -1,0 +1,142 @@
+[
+    {
+        "value": "Americana /Roots",
+        "genre_id": 1
+    },
+    {
+        "value": "Blues",
+        "genre_id": 2
+    },
+    {
+        "value": "Christian",
+        "genre_id": 3
+    },
+    {
+        "value": "Classical",
+        "genre_id": 4
+    },
+    {
+        "value": "Country",
+        "genre_id": 5
+    },
+    {
+        "value": "Country-Pop",
+        "genre_id": 6
+    },
+    {
+        "value": "Disco",
+        "genre_id": 7
+    },
+    {
+        "value": "Easy Listening /Adult Contemporary",
+        "genre_id": 8
+    },
+    {
+        "value": "Folk",
+        "genre_id": 9
+    },
+    {
+        "value": "Hard Rock",
+        "genre_id": 10
+    },
+    {
+        "value": "Heavy Metal",
+        "genre_id": 11
+    },
+    {
+        "value": "Hip-Hop",
+        "genre_id": 12
+    },
+    {
+        "value": "Indie Rock",
+        "genre_id": 13
+    },
+    {
+        "value": "Instrumental",
+        "genre_id": 14
+    },
+    {
+        "value": "Jazz",
+        "genre_id": 15
+    },
+    {
+        "value": "Autre",
+        "genre_id": 16
+    },
+    {
+        "value": "60s",
+        "genre_id": 17
+    },
+    {
+        "value": "70s",
+        "genre_id": 18
+    },
+    {
+        "value": "80s",
+        "genre_id": 19
+    },
+    {
+        "value": "90s",
+        "genre_id": 20
+    },
+    {
+        "value": "Cabaret",
+        "genre_id": 21
+    },
+    {
+        "value": "College Rock",
+        "genre_id": 22
+    },
+    {
+        "value": "Comedy",
+        "genre_id": 23
+    },
+    {
+        "value": "Experimental Jazz",
+        "genre_id": 24
+    },
+    {
+        "value": "Experimental Rock",
+        "genre_id": 25
+    },
+    {
+        "value": "Fiddle Tunes",
+        "genre_id": 26
+    },
+    {
+        "value": "Funk-Rock",
+        "genre_id": 27
+    },
+    {
+        "value": "Hawaiian",
+        "genre_id": 28
+    },
+    {
+        "value": "Hill-Country Blues",
+        "genre_id": 29
+    },
+    {
+        "value": "Irish Folk",
+        "genre_id": 30
+    },
+    {
+        "value": "Island",
+        "genre_id": 31
+    },
+    {
+        "value": "Progressive Classical",
+        "genre_id": 32
+    },
+    {
+        "value": "Psychedelic Rock",
+        "genre_id": 33
+    },
+    {
+        "value": "Traditional Blues",
+        "genre_id": 34
+    },
+    {
+        "value": "Urban",
+        "genre_id": 35
+    }
+]
