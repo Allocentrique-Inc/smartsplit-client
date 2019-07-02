@@ -2,7 +2,7 @@ import React from 'react'
 import { Formik } from 'formik'
 import validate from './validate-yup'
 import getValidationSchema from './getValidationSchema-yup'
-import './SignUp.css'
+//import './SignUp.css'
 
 const initialValues = {
   email: '',

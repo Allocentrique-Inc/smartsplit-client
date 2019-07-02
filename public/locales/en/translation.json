@@ -149,6 +149,10 @@
             "liste": {
                 "titre": "Playlist links"
             }
+        },
+        "voter": {
+            "connexion": "You shall be connected to access the vote page",
+            "soustitre": "Hi, here is the voting page for the work: "
         }
     },
     "traitement": {
@@ -163,12 +167,17 @@
             "preambule": "You have successfully registered a new account.", 
             "indication": "We've sent you a email. Please click on the confirmation link to verify your account."
         },
+        "titre": "Connexion à SmartSplit",
+        "err": {
+            "username": "Le nom d'utilisateur est un courriel invalide",
+            "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
+        },
         "oublier": {
             "titre": "Forgot your password?",
             "preambule": "Please enter the email address associated with your account and we'll email you a password reset link.",
             "indication": {
                 "email": "Enter email",
-               "password": "Forgot password" 
+                "password": "Forgot password" 
             }
         }
     }

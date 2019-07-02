@@ -149,6 +149,10 @@
             "liste": {
                 "titre": "Liens vers les listes de lecture"
             }
+        },
+        "voter": {
+            "connexion": "Tu dois te connecter afin d'accéder à la page de votation !",
+            "soustitre": "Salut, voici la page de votation pour les contributeurs dans l'oeuvre : "
         }
     },
     "traitement": {
@@ -162,6 +166,14 @@
             "titre": "Bienvenue!",
             "preambule": "Succès, vous avez enregistré un nouveau compte.",
             "indication": "Nous vous avons envoyé un email. Veuillez cliquer sur le lien de confirmation pour vérifier votre compte."
+        },
+        "titre": "Connexion à SmartSplit",
+        "err": {
+            "username": "Le nom d'utilisateur est un courriel invalide",
+            "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
+        },
+        "oublier": {
+            "titre": "Mot de passe oublié ?"
         }
     }
 }

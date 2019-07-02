@@ -9,6 +9,7 @@ import axios from 'axios'
 
 // Composantes
 import TableauSommaireSplit from './tableau-sommaire'
+import Login from '../auth/Login'
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
@@ -93,27 +94,41 @@ class VotationSplit extends Component {
 
     render() {
 
-        let titre, peutVoter = false
+        if(this.props.auth.isAuthenticated()) {
+            let titre, peutVoter = false
+            if(this.state.split) {
+                titre = this.state.split.media.title
+            }
+            if(this.state.votes) {
+                peutVoter = !this.state.votes.estClos
+            }
 
-        if(this.state.split) {
-            titre = this.state.split.media.title
+            return (            
+                <Translation>
+                    {
+                        (t, i18n)=>
+                            <div>
+                                <h1>{t('flox.voter.soustitre')}</h1>
+                                <h2>{titre}</h2>
+                                {this.state.droits && (<TableauSommaireSplit peutVoter={peutVoter} votes={this.state.votes} droits={this.state.droits} jeton={this.state.jeton} jetonAPI={this.state.jetonAPI}/>)}
+                            </div>
+                    }
+                </Translation>
+            )
+        } else {
+            return (
+                <Translation>
+                    {
+                        (t, i18n)=>
+                            <div>
+                                <h1>{t('flot.voter.connexion')}</h1>
+                                <Login auth={this.props.auth}/>
+                            </div>
+                    }
+                </Translation>                
+            )
         }
-        if(this.state.votes) {
-            peutVoter = !this.state.votes.estClos
-        }
-
-        return (            
-            <Translation>
-                {
-                    (t, i18n)=>
-                        <div>
-                            <h1>Salut, voici la page de votation pour les contributeurs dans l'oeuvre : </h1>
-                            <h2>{titre}</h2>
-                            {this.state.droits && (<TableauSommaireSplit peutVoter={peutVoter} votes={this.state.votes} droits={this.state.droits} jeton={this.state.jeton} jetonAPI={this.state.jetonAPI}/>)}
-                        </div>
-                }
-            </Translation>                                
-        )
+        
     }
 }
 
