@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './Register.css'
+import { Formik } from 'formik'
+import * as Yup from 'yup'
+// Traduction
+import { Translation } from 'react-i18next';
 
 // import FormErrors from "../FormErrors";
 // import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
-import { Translation } from 'react-i18next'
-// import { Formik } from 'formik'
-import validate from './validate-yup'
-import getValidationSchema from './getValidationSchema-yup'
 
 import { Wizard } from 'semantic-ui-react-formik'
 import { Form } from 'semantic-ui-react';
@@ -226,11 +226,6 @@ class Register extends Component {
                 <span className="icon is-small is-left">
                   <i className="fas fa-lock"></i>
                 </span>
-              </p>
-            </div>
-            <div className="field">
-              <p className="control">
-                <a href="/forgot-password">Forgot password?</a>
               </p>
             </div>
             <div className="field">
