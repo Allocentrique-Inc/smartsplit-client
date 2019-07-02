@@ -108,7 +108,7 @@ class VotationSplit extends Component {
                     {
                         (t, i18n)=>
                             <div>
-                                <h1>{t('fltx.voter.soustitre')}</h1>
+                                <h1>{t('flot.voter.soustitre')}</h1>
                                 <h2>{titre}</h2>
                                 {this.state.droits && (<TableauSommaireSplit peutVoter={peutVoter} votes={this.state.votes} droits={this.state.droits} jeton={this.state.jeton} jetonAPI={this.state.jetonAPI}/>)}
                             </div>
