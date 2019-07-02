@@ -38,7 +38,7 @@
                 "upc": "Numéro UPC",                
                 "dureeMs": "Durée (millisecondes)",
                 "liensSociaux": "Lien vers un média social",
-                "liensServices": "Lien vers un service d'achat",
+                "liensServices": "Lien direct de diffusion",
                 "liensPresse": "Lien vers une revue de presse",
                 "liensListes": "Lien vers une liste de lecture",
                 "dateCreation": "Date de création",
@@ -62,7 +62,7 @@
                 "upc": "Identifiant unique de produit",
                 "dureeMs": "Indique la durée en millisecondes",
                 "liensSociaux": "URL complet vers un lien social",
-                "liensServices": "URL complet vers un lien commercial",
+                "liensServices": "URL complet vers un lien de diffusion",
                 "liensPresse": "URL complet vers un article de presse",
                 "liensListes": "URL complet vers une liste de lecture",
                 "dateCreation": "Quand a été créé l'œuvre ?",
@@ -96,6 +96,16 @@
         }
     },
     "flot": {
+        "split": {
+            "sommaire": {
+                "titre": "Sommaire du Split",
+                "soustitre": "Départ : un split initial créé par"
+            },
+            "valider": {
+                "titre": "Valide ton Split",
+                "soustitre": "Invite tes collaborateurs à valider ce Split"
+            }
+        },
         "documente-ton-oeuvre": {
             "titre": "ÉTAPE 1 - Documente ton œuvre",
             "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton œuvre."
@@ -131,7 +141,7 @@
                 "titre": "Liens vers les médias sociaux"
             },
             "commercial": {
-                "titre": "Liens vers les services d'achat"
+                "titre": "Liens de diffusion"
             },
             "presse": {
                 "titre": "Liens vers les revues de presse"

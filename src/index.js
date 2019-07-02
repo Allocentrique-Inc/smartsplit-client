@@ -29,6 +29,8 @@ import 'react-toastify/dist/ReactToastify.css'
 // Composantes navigables
 import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import ListeOeuvres from './components/media/media-list'
+import ValiderSplit from './components/split/assistant-split'
+import VotationSplit from './components/split/votation-split'
 
 // Composantes auth
 import Navbar from './components/app/navbar';
@@ -310,10 +312,51 @@ const renderRoutes = () => (
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
         <Route exact path="/welcome" component={Welcome} />
+        <Route exact path="/approuver-split/:mediaId" component={ApprouverSplit} />
+        <Route exact path="/split/voter/:jeton" component={VoterSplit} />
+        <Route exact path="/split/confirmer-courriel" component={ConfirmerCourriel} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function ConfirmerCourriel() {
+
+  setTimeout(()=>{
+    window.location.href="/"
+  },3000)
+
+  return (
+    <div>
+      <h1>Un courriel va arriver sous peu afin que tu puisses voter</h1>
+    </div>
+  )
+}
+
+function VoterSplit(match) {
+
+  let jeton
+  
+  if(match.match.params) {
+    jeton = match.match.params.jeton
+  }
+
+  return (
+    <VotationSplit jeton={jeton} />
+  )
+
+}
+
+function ApprouverSplit({match}) {
+  let mediaId = match.params.mediaId
+
+  // Cursus de test
+  let split = require(`./assets/tests/${mediaId}`)
+
+  return (
+    <ValiderSplit split={split} />
+  )
+}
 
 // Configuration des alertes utilisateur
 toast.configure({

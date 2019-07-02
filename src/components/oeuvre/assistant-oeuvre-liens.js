@@ -4,7 +4,7 @@
 
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
-import { ChampTexteAssistant } from "../formulaires/champ-texte";
+import { ChampTexteAssistant } from "../formulaires/champ-texte"
 
 // Progression
 import { Progress } from 'semantic-ui-react'
@@ -50,7 +50,7 @@ class PageAssistantOeuvreLiens extends Component {
                                                                 <div className="twelve wide field">
                                                                     <ChampTexteAssistant 
                                                                         etiquette={t('oeuvre.attribut.etiquette.liensSociaux')} indication={t('oeuvre.attribut.indication.liensSociaux')} 
-                                                                        modele={`socialMediaLinks[${index}].lien`} requis={false} autoFocus={true} />
+                                                                         requis={false} autoFocus={true} />
                                                                 </div>                                                            
                                                             </div>                                                                                                                                                    
                                                         </div>
@@ -83,11 +83,11 @@ class PageAssistantOeuvreLiens extends Component {
                                                                         <i className="remove icon"></i>
                                                                     </button>
                                                                 </div>
-                                                                <div className="twelve wide field">
+                                                                <div className="nine wide field">
                                                                     <ChampTexteAssistant 
                                                                         etiquette={t('oeuvre.attribut.etiquette.liensServices')} indication={t('oeuvre.attribut.indication.liensServices')} 
-                                                                        modele={`streamingServiceLinks[${index}].lien`} requis={false} autoFocus={true} />
-                                                                </div>                                                            
+                                                                        modele={`streamingServiceLinks[${index}].lien`} requis={false} autoFocus={true} lien={lien && lien.lien} typeLien={lien && lien.type}/>
+                                                                </div>                                                                
                                                             </div>                                                                                                                                                    
                                                         </div>
                                                     ))

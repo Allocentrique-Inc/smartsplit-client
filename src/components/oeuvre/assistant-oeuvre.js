@@ -41,7 +41,11 @@ class AssistantOeuvre extends Component {
 
     render(){
 
+<<<<<<< HEAD
         return (                
+=======
+        return (                
+>>>>>>> bf0a87fc8ff1ad8d810b8ce5cdc68d995a6f36cf
             <Translation>                
                 {
                     (t, i18n) =>

@@ -9,29 +9,28 @@ import { ChampListeAssistant } from "../formulaires/champ-liste"
 // Progression
 import { Progress } from 'semantic-ui-react'
 
-const listeGenres = require('../../assets/listes/genres.json')
-
-function genererGenres(secondaire = false) { // secondaire est booléen
-    return listeGenres.map(elem=>{
-        let prefixe = secondaire ? 'GS' : 'G'
-        return {
-            key: `${prefixe}${elem.genre_id}`,
-            text: elem.value,
-            value: `${prefixe}${elem.genre_id}`
-        }
-    })
-}
-
-const genreOptions = genererGenres()
-const genreSecondaireOptions = genererGenres(true)
-
 class PageAssistantOeuvreGenre extends Component {
-    
+
     constructor(props){
         super(props)
+        const GENRES = require(`../../assets/listes/${this.props.i18n.lng.substring(0,2)}/genres.json`).genres
+        this.genreOptions = this.genererGenres(GENRES)
+        this.genreSecondaireOptions = this.genererGenres(GENRES, true)
         this.state = {
             pctProgression: props.pctProgression
         }
+    }
+
+    genererGenres(GENRES, secondaire = false) { // secondaire est booléen        
+    
+        return GENRES.map((elem, idx)=>{
+            let prefixe = secondaire ? 'GS' : 'G'
+            return {
+                key: `${prefixe}${idx}`,
+                text: elem.nom,
+                value: `${prefixe}${idx}`
+            }
+        })
     }
 
     componentWillReceiveProps(nextProps) {
@@ -55,12 +54,12 @@ class PageAssistantOeuvreGenre extends Component {
                             <ChampListeAssistant
                                 etiquette={t('oeuvre.attribut.etiquette.genre')} indication={t('oeuvre.attribut.indication.genre')}
                                 modele="genre" requis={true} fluid={true} multiple={false} recherche={true} selection={true} autoFocus={true}
-                                options={genreOptions} />
+                                options={this.genreOptions} />
 
                             <ChampListeAssistant
                                 etiquette={t('oeuvre.attribut.etiquette.genre2')} indication={t('oeuvre.attribut.indication.genre2')}
-                                modele="secondaryGenre" requis={false} fluid={true} multiple={false} recherche={true} selection={true} autoFocus={false}
-                                options={genreSecondaireOptions} />                           
+                                modele="secondaryGenre" requis={false} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={false} ajout={true}
+                                options={this.genreSecondaireOptions} />                           
                     
                         </React.Fragment>
                 }

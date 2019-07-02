@@ -30,15 +30,17 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 class PageAssistantOeuvreEmbarquement extends Component {
   
   constructor(props){
-    super(props)
+    super(props)    
     this.state = {
       pctProgression: props.pctProgression
     }
   }
-
   componentWillReceiveProps(nextProps) {
     if(this.props.pctProgression !== nextProps.pctProgression) {
         this.setState({pctProgression: nextProps.pctProgression})
+    }
+    if(this.props.audio !== nextProps.audio) {
+      this.setState({audio: nextProps.audio})
     }
   }
   
@@ -78,7 +80,7 @@ class PageAssistantOeuvreEmbarquement extends Component {
                       {t('composant.televersement.preambule')}
                     </p>
 
-                    <ChampTeleversement values={this.props.values} indication={t('composant.televersement.indication')} 
+                    <ChampTeleversement audio={this.props.audio} values={this.props.values} indication={t('composant.televersement.indication')} 
                       chargement={ (f) => {
                         this.props.setFieldValue('fichiers', f, false)                        
                         this.props.setFieldValue('title', f[0].path, false)
@@ -120,10 +122,12 @@ class PageAssistantOeuvreEmbarquement extends Component {
                                   // Création des ayant-droits
                                   let ayantDroits = []
                                   analyse.artists.forEach((artiste, idx)=>{
-                                    let role = idx === 0 ? ['R1','R2'] : ['R15']                                                                          
+                                    let role = idx === 0 ? ['R1','R2'] : []
+                                    let prenom = artiste.name.split(" ").length === 2 ? artiste.name.split(" ")[0] : ""
+                                    let nom = artiste.name.split(" ").length === 2 ? artiste.name.split(" ")[1] : ""
                                     ayantDroits.push({
-                                      nom: artiste.name.split[0],
-                                      prenom: artiste.name.split[1],
+                                      prenom: prenom,
+                                      nom: nom,
                                       artiste: artiste.name,
                                       role: role
                                     })
@@ -134,11 +138,29 @@ class PageAssistantOeuvreEmbarquement extends Component {
                                   this.props.setFieldValue('durationMs', `${analyse.duration_ms}`, false)
                                   this.props.setFieldValue('isrc', analyse.external_ids.isrc, false)
                                   this.props.setFieldValue('upc', analyse.external_ids.upc, false)
-                                  this.props.setFieldValue('publishDate', analyse.release_date, false)                                    
+                                  this.props.setFieldValue('publishDate', analyse.release_date, false)
+
+                                  // Liens commerciaux
+                                  let liensCommerciaux = []
+                                  if (analyse.external_metadata.deezer) {                                    
+                                    let _url = `https://www.deezer.com/${this.props.i18n.lng.substring(0,2)}/album/${analyse.external_metadata.deezer.album.id}`
+                                    liensCommerciaux.push({lien: _url, type: "deezer"})
+                                  }                                  
+                                  if(analyse.external_metadata.spotify) {
+                                      let _url = `https://open.spotify.com/track/${analyse.external_metadata.spotify.track.id}`
+                                      liensCommerciaux.push({lien: _url, type: "spotify"})
+                                  }
+                                  if(analyse.external_metadata.youtube) {
+                                    let _url = `https://www.youtube.com/watch?v=${analyse.external_metadata.youtube.vid}`
+                                    liensCommerciaux.push({lien: _url, type: "youtube"})
+                                  }
+                                  
+                                  this.props.setFieldValue('streamingServiceLinks', liensCommerciaux)
+
                                 }
                               },
                               {
-                                label: 'Non, je vais les remplir moi-même.',
+                                label: 'Non, merci mais ça va être correct.',
                                 onClick: () => {
                                 }
                               }

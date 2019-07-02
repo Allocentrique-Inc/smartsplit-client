@@ -21,7 +21,8 @@ export class ChampListeAssistant extends Component {
             multiple: props.multiple,
             recherche: props.recherche,
             selection: props.selection,
-            options: props.options
+            options: props.options,
+            ajout: props.ajout
         }
     }
 
@@ -55,7 +56,9 @@ export class ChampListeAssistant extends Component {
                         multiple: this.state.multiple,
                         search: this.state.recherche,
                         selection: this.state.selection,
-                        options: this.state.options
+                        options: this.state.options,
+                        allowAdditions: this.state.ajout,
+                        clearable: true
                     }}
                     validate={this.state.requis && required}
                 />

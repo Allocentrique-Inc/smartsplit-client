@@ -16,8 +16,7 @@ export class ChampTeleversement extends Component {
     constructor(props){
         super(props)
         this.bloquerDebloquer = this.bloquerDebloquer.bind(this)
-        this.stopEtJouer = this.stopEtJouer.bind(this)
-        this.stop = this.stop.bind(this)
+        
         this.state = {
             indication: props.indication,
             bloquer: false
@@ -32,37 +31,9 @@ export class ChampTeleversement extends Component {
         if(this.props.indication !== nextProps.indication) {
             this.setState({indication: nextProps.indication})
         }
-    }
-
-    stop() {
-        if(this.state.context) {
-            this.state.context.close()
-            this.setState({context: null})
+        if(this.props.audio !== nextProps.audio) {
+            this.setState({audio: nextProps.audio})
         }
-    }
-
-    stopEtJouer(fichier) {
-        this.stop()        
-        this.setState({context: new AudioContext()}, ()=>{
-            let reader = new FileReader()
-            let that = this
-            reader.addEventListener('load', function(e) {
-                let data = e.target.result
-                let contexte = that.state.context
-                contexte.decodeAudioData(data, function(buffer) {                    
-                    playSound(contexte, buffer)
-                })
-            })
-            reader.readAsArrayBuffer(fichier)
-        })
-        
-        let playSound = function(contexte, buffer) {
-            var source = contexte.createBufferSource()
-            source.buffer = buffer
-            source.connect(contexte.destination)
-            source.start(0)
-        }
-        
     }
 
     render() {
@@ -82,7 +53,7 @@ export class ChampTeleversement extends Component {
                                         fichiers.forEach(fichier=>{
 
                                             // Redémarre le lecteur audio
-                                            this.stopEtJouer(fichier)
+                                            this.props.audio.stopEtJouer(fichier)
 
                                             let fd = new FormData()
                                             fd.append('file', fichier)
@@ -111,15 +82,6 @@ export class ChampTeleversement extends Component {
                                     )}
                                 </Dropzone>                            
                             </BlockUi>
-                            <div style={{position: 'absolute', margin: '0 auto'}}>
-                            {
-                                this.state.context && (
-                                    <div onClick={this.stop}>
-                                        <i className="stop circle outline icon huge grey" style={{cursor: 'pointer'}} ></i> Stop Audio
-                                    </div>
-                                )
-                            }                             
-                            </div>
                         </div>
                 }    
             </Translation>            

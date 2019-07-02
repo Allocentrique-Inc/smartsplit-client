@@ -68,15 +68,20 @@ class App extends Component {
               <code>{t('titre.accueil')}</code>
             </p>
             <p>
-              <a href="/decrire-oeuvre">Liens vers "ÉTAPE 1 - Décrire mon oeuvre"</a><br/>
-              <br />
-              <a href="/liste-oeuvres">Liens vers "Liste des oeuvre (appel API GET /media)"</a><br/>
-              <a href="/test-ajout-oeuvre">Liens vers "Ajouter une oeuvre - TEST (appel API POST /media)"</a><br/>
-              {/* <a href="/login">Login</a><br/>
+              <h2>SPRINT 0</h2>
+              <a href="/liste-oeuvres">Liste des oeuvres</a><br/>
+              <h2>SPRINT 1</h2>
+              <a href="/decrire-oeuvre">Décrire mon oeuvre</a><br/>
+              <h2>SPRINT 2</h2>
+              <a href="/approuver-split/1">Approuver un split - droits d'auteur et droits voisins</a><br/>
+              <a href="/approuver-split/2">Approuver un split - droits d'auteur seulement</a><br/>
+              <a href="/approuver-split/3">Approuver un split - droits d'auteur, un seul collaborateur seulement</a><br/>
+              <a href="/approuver-split/4">Approuver un split - droits d'auteur et droits voisins (avec Georges)</a><br/>
+              <a href="/login">Login</a><br/>
               <a href="/register">Register</a><br/>
               <a href="/forgot-password">Forgot Password</a><br/>
               <a href="/forgot-password-verification">Password Verification</a><br/>
-              <a href="/welcome">Welcome</a><br/> */}
+              <a href="/welcome">Welcome</a><br/>
             </p>
         </div>
         }

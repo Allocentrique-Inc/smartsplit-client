@@ -62,7 +62,7 @@
                 "upc": "Product unique identifier",
                 "dureeMs": "Type in the duration (in milliseconds)",
                 "liensSociaux": "URL for social link",
-                "liensServices": "URL for commercial link",
+                "liensServices": "URL for streaming link",
                 "liensPresse": "URL for press review",
                 "liensListes": "URL for playlist",
                 "dateCreation": "When was the work created or composed ?",
@@ -96,6 +96,16 @@
         }
     },
     "flot": {
+        "split": {
+            "sommaire": {
+                "titre": "Split's Summary",
+                "soustitre": "Begin : an initial Split created by"
+            },
+            "valider": {
+                "titre": "Valide ton Split",
+                "soustitre": "Invite tes collaborateurs à valider ce Split"
+            }
+        },
         "documente-ton-oeuvre": {
             "titre": "STEP 1 - Describe your work",
             "preambule": "Hi Joe ! We will help you describe your work."
@@ -131,7 +141,7 @@
                 "titre": "Social media links"
             },
             "commercial": {
-                "titre": "Commercial links"
+                "titre": "Streaming links"
             },
             "presse": {
                 "titre": "Press review links"
