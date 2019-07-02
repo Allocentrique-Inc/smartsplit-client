@@ -266,11 +266,6 @@ Amplify.configure({
 });
 
 
-core_1.AWS.config.update({
-  region: REGION,
-  credentials: credentials
-});
-
 // *******************************************************************************************************
 
 // *******************************************************************************************************
@@ -309,7 +304,7 @@ const renderRoutes = () => (
         <Route exact path="/" component={App}/>
         <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
-        <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} />
+        {/* <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} /> */}
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
