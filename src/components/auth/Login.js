@@ -89,7 +89,7 @@ class LogIn extends Component {
               initialValues={ 
                       {
                         username: this.state.username,
-                        password: this.state.password
+                        password: "Aa@34567"
                       } 
                   }
               onSubmit={
