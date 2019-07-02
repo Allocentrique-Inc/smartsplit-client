@@ -1,8 +1,16 @@
 import React, { Component } from 'react';
+import './Register.css'
+
 // import FormErrors from "../FormErrors";
 // import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
 import { Translation } from 'react-i18next'
+// import { Formik } from 'formik'
+import validate from './validate-yup'
+import getValidationSchema from './getValidationSchema-yup'
+
+import { Wizard } from 'semantic-ui-react-formik'
+import { Form } from 'semantic-ui-react';
 
 class Register extends Component {
   state = {
@@ -11,12 +19,29 @@ class Register extends Component {
     firstName: "",
     lastName: "",
     password: "",
+    hidden: true,
     confirmpassword: "",
     errors: {
       cognito: null,
       blankfield: false,
       passwordmatch: false
     }
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hidden: true,
+      confirmhidden: true,
+      password: "",
+      confirmpassword: ""
+    };
+
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
+    this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+    this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
   }
 
   clearErrorState = () => {
@@ -67,11 +92,36 @@ class Register extends Component {
     }
   }
 
+  handlePasswordChange(e) {
+    this.setState({ password: e.target.value });
+  }
+
+  handleConfirmPasswordChange(e) {
+    this.setState({ confirmpassword: e.target.value });
+  }
+
+  toggleShow() {
+    this.setState({ hidden: !this.state.hidden });
+  }
+
+  toggleConfirmShow() {
+    this.setState({ confirmhidden: !this.state.confirmhidden });
+  }
+
   onInputChange = event => {
     this.setState({
       [event.target.id]: event.target.value
     });
     document.getElementById(event.target.id).classList.remove("is-danger");
+  }
+
+  componentDidMount() {
+    if (this.props.password) {
+      this.setState({ password: this.props.password });
+    }
+    if (this.props.confirmpassword) {
+      this.setState({ confirmpassword: this.props.confirmpassword });
+    }
   }
 
   render() {
@@ -148,12 +198,14 @@ class Register extends Component {
               <p className="control has-icons-left">
                 <input 
                   className="input" 
-                  type="password"
+                  type={this.state.hidden ? "password" : "text"}
                   id="password"
                   placeholder="Password"
                   value={this.state.password}
+                  onChange={this.handlePasswordChange}
                   onChange={this.onInputChange}
                 />
+                <button id="hide" onClick={this.toggleShow}>👁️</button>
                 <span className="icon is-small is-left">
                   <i className="fas fa-lock"></i>
                 </span>
@@ -163,12 +215,14 @@ class Register extends Component {
               <p className="control has-icons-left">
                 <input 
                   className="input" 
-                  type="password"
+                  type={this.state.confirmhidden ? "password" : "text"}
                   id="confirmpassword"
                   placeholder="Confirm password"
                   value={this.state.confirmpassword}
+                  onChange={this.handleConfirmPasswordChange}
                   onChange={this.onInputChange}
                 />
+                <button id="hide" onClick={this.toggleConfirmShow}>👁️</button>
                 <span className="icon is-small is-left">
                   <i className="fas fa-lock"></i>
                 </span>

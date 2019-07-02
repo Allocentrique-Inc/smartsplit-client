@@ -35,6 +35,7 @@ import VotationSplit from './components/split/votation-split'
 // Composantes auth
 import Navbar from './components/app/navbar';
 import Login from './components/auth/Login';
+import SignUp from './components/auth/SignUp';
 import Register from './components/auth/Register';
 import ForgotPassword from './components/auth/ForgotPassword';
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification';
@@ -309,6 +310,7 @@ const renderRoutes = () => (
         {/* <Route exact path="/test-ajout-oeuvre" component={TestCreerOeuvre} /> */}
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/signup" component={SignUp} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
         <Route exact path="/welcome" component={Welcome} />

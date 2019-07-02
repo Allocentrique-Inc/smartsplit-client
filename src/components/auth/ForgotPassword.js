@@ -36,7 +36,7 @@ class ForgotPassword extends Component {
     // AWS Cognito integration here
     try {
       await Auth.forgotPassword(this.state.email);
-      this.props.history.push('/forgotpasswordverification');
+      this.props.history.push('/forgot-password-verification');
     }catch(error) {
       console.log(error);
     }

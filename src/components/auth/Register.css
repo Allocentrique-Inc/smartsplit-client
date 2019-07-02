@@ -1,0 +1,28 @@
+input[id="password"] {
+    padding-right: 50px;
+    width: 200px;
+}
+
+input[id="confirmpassword"] {
+    padding-right: 50px;
+    width: 200px;
+}
+
+input{
+    width: 250px;
+    display: inline;
+}
+
+button {
+    margin: 0em;
+}
+
+button[id="hide"] {
+    width: 50px;
+    height: 32px;
+    padding: 0;
+    color: white;
+    background-color: Transparent;
+    border: 0;
+    -webkit-appearance: none;
+}

@@ -2,11 +2,6 @@ import React, { Component } from 'react'
 import logo from '../../assets/images/logo.svg'
 import './app.css'
 import Navbar from './navbar';
-// import Login from '../auth/LogIn';
-// import Register from '../auth/Register';
-// import ForgotPassword from '../auth/ForgotPassword';
-// import ForgotPasswordVerification from '../auth/ForgotPasswordVerification';
-// import Welcome from '../auth/Welcome';
 import { Auth } from 'aws-amplify';
 
 
@@ -79,6 +74,7 @@ class App extends Component {
               <a href="/approuver-split/4">Approuver un split - droits d'auteur et droits voisins (avec Georges)</a><br/>
               <a href="/login">Login</a><br/>
               <a href="/register">Register</a><br/>
+              <a href="/signup">SignUp</a><br/>
               <a href="/forgot-password">Forgot Password</a><br/>
               <a href="/forgot-password-verification">Password Verification</a><br/>
               <a href="/welcome">Welcome</a><br/>

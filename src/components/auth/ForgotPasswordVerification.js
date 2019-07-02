@@ -42,7 +42,7 @@ class ForgotPasswordVerification extends Component {
         this.state.verificationcode,
         this.state.newpassword
       );
-      this.props.history.push("/changepasswordconfirmation");
+      this.props.history.push("/change-password-confirmation");
     }catch(error) {
       console.log(error);
     }
