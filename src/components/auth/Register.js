@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 // import FormErrors from "../FormErrors";
 // import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
+import { Translation } from 'react-i18next'
 
 class Register extends Component {
   state = {
-    username: "",
     email: "",
+    username: "",
     firstName: "",
     lastName: "",
     password: "",
@@ -81,36 +82,7 @@ class Register extends Component {
           {/* <FormErrors formerrors={this.state.errors} /> */}
 
           <form onSubmit={this.handleSubmit}>
-            <div className="field">
-              <p className="control">
-                <input 
-                  className="input" 
-                  type="text"
-                  id="username"
-                  aria-describedby="userNameHelp"
-                  placeholder="Enter username"
-                  value={this.state.username}
-                  onChange={this.onInputChange}
-                />
-              </p>
-            </div>
-            <div className="field">
-              <p className="control has-icons-left has-icons-right">
-                <input 
-                  className="input" 
-                  type="email"
-                  id="email"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                  value={this.state.email}
-                  onChange={this.onInputChange}
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
-                </span>
-              </p>
-            </div>
-            <div className="field">
+          <div className="field">
               <p className="control has-icons-left has-icons-right">
                 <input 
                   className="input" 
@@ -140,6 +112,36 @@ class Register extends Component {
                 <span className="icon is-small is-left">
                   <i className="fas fa-envelope"></i>
                 </span>
+              </p>
+            </div>
+            <div className="field">
+              <p className="control has-icons-left has-icons-right">
+                <input 
+                  className="input" 
+                  type="email"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter Email"
+                  value={this.state.email}
+                  onChange={this.onInputChange}
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-envelope"></i>
+                </span>
+              </p>
+            </div>
+            <div className="field">
+              <p className="control">
+                <input 
+                  className="input" 
+                  type="text"
+                  id="username"
+                  aria-describedby="userNameHelp"
+                  placeholder="Enter username"
+                  value={this.state.email}
+                  onChange={this.onInputChange}
+                  style={{display: 'none'}} 
+                />
               </p>
             </div>
             <div className="field">

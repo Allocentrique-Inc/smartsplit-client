@@ -5,9 +5,9 @@
   "dependencies": {
     "amplify": "0.0.11",
     "aws-amplify": "^1.1.29",
-    "aws-param-env": "^1.2.0",
+    "aws-amplify-react": "^2.3.9",
     "aws-param-store": "^3.0.0",
-    "aws-sdk": "^2.479.0",
+    "aws-sdk": "^2.482.0",
     "axios": "^0.19.0",
     "chai": "^4.2.0",
     "check": "^1.0.0",

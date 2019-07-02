@@ -1,13 +1,34 @@
 import React from 'react';
+import { Translation } from 'react-i18next'
 
-export default function Welcome() {
-  return (
-    <section className="section auth">
-      <div className="container">
-        <h1>Welcome!</h1>
-        <p>You have successfully registered a new account.</p>
-        <p>We've sent you a email. Please click on the confirmation link to verify your account.</p>
-      </div>
-    </section>
-  )
-}
+const Welcome = () => (
+  <React.Fragment>
+    <Translation>
+      {
+        (t) =>
+        <section className="section auth">
+         <div className="container">
+          <tbody>
+            <tr>
+              <td>
+                <h2>{t('auth.bienvenue.titre')}</h2>
+
+                <p>
+                  {t('auth.bienvenue.preambule')}
+                </p>
+
+                <p>
+                  {t('auth.bienvenue.indication')}
+                </p>
+
+              </td>
+            </tr>
+          </tbody>    
+         </div>
+      </section>
+      }      
+    </Translation>    
+  </React.Fragment>
+)
+
+export default Welcome

@@ -7,6 +7,7 @@ import './index.css'
 // Amplify + Auth
 import Route53 from 'aws-sdk/clients/route53';
 import Amplify, { Auth } from 'aws-amplify';
+import { withAuthenticator } from 'aws-amplify-react';
 import awsParamStore from 'aws-param-store';
 import AWS from 'aws-sdk';
 import utils from './utils/utils';
@@ -33,9 +34,8 @@ import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import ForgotPassword from './components/auth/ForgotPassword';
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification';
-import ChangePassword from './components/auth/ChangePassword';
-import ChangePasswordConfirm from './components/auth/ChangePasswordConfirm';
 import Welcome from './components/auth/Welcome';
+import { ConsoleLogger } from '@aws-amplify/core';
 
 
 // *******************************************************************************************************
@@ -109,7 +109,36 @@ import Welcome from './components/auth/Welcome';
 // 2. Callback SSM getParameters method with System Manager
 // *******************************************************************************************************
 
+// AWS.config.loadFromPath('./~aws/credentials'); 
+// AWS_SDK_LOAD_CONFIG=1
+
+// let REGION = 'us-east-2';
+// AWS.config.update({region: REGION});
+
 // const   ssm = new AWS.SSM()
+
+// getParameterFromSSM("ACCESS_KEY", (_accessKey)=>{
+//   console.log(`Une clé d'accès est récupérée`)
+//   getParameterFromSSM("SECRET_ACCESS_KEY", (_secretKey)=>{
+//       // if(_secretKey !== '') {
+//       //     console.log(`Un secret est récupéré`, _accessKey, _secretKey)
+//       // }
+//       getParameterFromSSM("USER_POOL_ID", (_userPoolId)=>{
+//           getParameterFromSSM("APP_CLIENT_ID", (_appClientId)=>{
+//             console.log(_accessKey, _secretKey, _userPoolId, _appClientId);
+//             AWS.config.update({region: 'us-east-2', accessKeyId: _accessKey, secretAccessKey: _secretKey, userPoolId: _userPoolId, userPoolWebClientId: _appClientId});
+//             // Amplify.configure({
+//             //   Auth: {
+//             //     mandatorySignIn: true,
+//             //     region: 'us-east-2',
+//             //     userPoolId: _userPoolId,
+//             //     userPoolWebClientId: _appClientId
+//             //   }
+//             // });
+//           })
+//       })
+//   })
+// })
 
 // // Fonction de récupération du paramètre par SSN
 // function getParameterFromSSM(param, cb) {
@@ -127,16 +156,7 @@ import Welcome from './components/auth/Welcome';
 //   });
 // }
 
-// getParameterFromSSM("ACCESS_KEY", (_accessKey)=>{
-//   console.log(`Une clé d'accès est récupérée`)
-//   getParameterFromSSM("SECRET_ACCESS_KEY", (_secretKey)=>{
-//       if(_secretKey !== '') {
-//           console.log(`Un secret est récupéré`, _accessKey, _secretKey)
-//       }
-//       AWS.config.update({region: REGION, accessKeyId: _accessKey, secretAccessKey: _secretKey});
 
-//   })
-// })
 // *******************************************************************************************************
 
 
@@ -242,7 +262,39 @@ Amplify.configure({
     userPoolWebClientId: config.cognito.APP_CLIENT_ID
   }
 });
+
+
+core_1.AWS.config.update({
+  region: REGION,
+  credentials: credentials
+});
+
 // *******************************************************************************************************
+
+// *******************************************************************************************************
+// 6. ssm params
+// *******************************************************************************************************
+// const { ssmToObjByPath } = require('ssm-params');
+
+// // AWS.config.update({ region: 'us-east-2' });
+// AWS.config.update({accessKeyId:config.api.ACCESS_KEY, secretAccessKey:config.api.SECRET_ACCESS_KEY, region: REGION})
+
+// ssmToObjByPath({
+//   Path: 'USER_POOL_ID',
+//   nestObject: true,
+// }, (err, obj) => {
+//   if (err) {
+//     throw err;
+//   }
+
+//   /*
+//    * Result: {"baz":"hunter2"}
+//    */
+//   console.log("### Enable nestObject.\n%j", obj);
+// });
+// *******************************************************************************************************
+
+
 
 
 const browserHistory = createBrowserHistory()
@@ -261,8 +313,6 @@ const renderRoutes = () => (
           <Route exact path="/register" component={Register} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
-          <Route exact path="/change-password" component={ChangePassword} />
-          <Route exact path="/change-password-confirmation" component={ChangePasswordConfirm} />
           <Route exact path="/welcome" component={Welcome} />
         </Switch>
       </Router>

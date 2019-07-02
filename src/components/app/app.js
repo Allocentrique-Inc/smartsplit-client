@@ -6,8 +6,6 @@ import Navbar from './navbar';
 // import Register from '../auth/Register';
 // import ForgotPassword from '../auth/ForgotPassword';
 // import ForgotPasswordVerification from '../auth/ForgotPasswordVerification';
-// import ChangePassword from '../auth/ChangePassword';
-// import ChangePasswordConfirm from '../auth/ChangePasswordConfirm';
 // import Welcome from '../auth/Welcome';
 import { Auth } from 'aws-amplify';
 
@@ -74,13 +72,11 @@ class App extends Component {
               <a href="/decrire-oeuvre">Liens vers "Décrire mon oeuvre (description d'un oeuvre créée, suite étape 1 + étape 3)"</a><br/>
               <a href="/liste-oeuvres">Liens vers "Liste des oeuvre (appel API GET /media)"</a><br/>
               <a href="/test-ajout-oeuvre">Liens vers "Ajouter une oeuvre - TEST (appel API POST /media)"</a><br/>
-              <a href="/login">Login</a><br/>
+              {/* <a href="/login">Login</a><br/>
               <a href="/register">Register</a><br/>
               <a href="/forgot-password">Forgot Password</a><br/>
               <a href="/forgot-password-verification">Password Verification</a><br/>
-              <a href="/change-password">Change Password</a><br/>
-              <a href="/change-password-confirmation">Change Password Confirmation</a><br/>
-              <a href="/welcome">Welcome</a><br/>
+              <a href="/welcome">Welcome</a><br/> */}
             </p>
         </div>
         }

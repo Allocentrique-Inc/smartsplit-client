@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import FormErrors from "../FormErrors";
 // import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
+import { Translation } from 'react-i18next'
 
 class LogIn extends Component {
   state = {

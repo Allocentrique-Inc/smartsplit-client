@@ -115,5 +115,12 @@
             "titre": "Es-tu pro. ?",
             "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton oeuvre ici !"
         }
+    },
+    "auth": {
+        "bienvenue": {
+            "titre": "Bienvenue!",
+            "preambule": "Succès, vous avez enregistré un nouveau compte.",
+            "indication": "Nous vous avons envoyé un email. Veuillez cliquer sur le lien de confirmation pour vérifier votre compte."
+        }
     }
 }
