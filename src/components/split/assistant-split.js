@@ -96,7 +96,7 @@ class ValiderSplit extends Component {
                                         <p/>
                                         <p/>
                                         <h3>{t('flot.split.sommaire.soustitre')} {this.props.split.initiateur.name} : </h3>
-                                        <TableauSommaireSplit droits={this.state.rights} />                                       
+                                        <TableauSommaireSplit init={true} droits={this.state.rights} />
                                     </React.Fragment>
                                 </Wizard.Page>
 

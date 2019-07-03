@@ -55,9 +55,10 @@ class LogIn extends Component {
     // AWS Cognito integration here    
     Auth.signIn(values.username, values.password)
     .then(user=>{
-      toast.success(`Biquette ${user.username} !`)
+      toast.success(`Biquette#${user.username} !`)
       this.props.auth.setAuthStatus(true)
       this.props.auth.setUser(user.username)
+      this.props.fn()
     })
     .catch((err)=>{
       toast.error(err.message)
@@ -81,73 +82,70 @@ class LogIn extends Component {
   }
 
   render() {
+    
     return (
-      <Translation>
-        {
-          t=>
-            <Formik
-              initialValues={ 
-                      {
-                        username: this.state.username,
-                        password: "Aa@34567"
-                      } 
-                  }
-              onSubmit={
-                  (values, { setSubmitting }) => {
-                      this.handleSubmit(values, ()=>{setSubmitting(false)})
-              }}
-              >
-                {({ errors, touched, isValidating }) => (
-                  <Form>
-                    <section className="section auth">
-                      <div className="container">
-                        <h1>{t('auth.titre')}</h1>
-                          <div className="field">
-                            <div className="control">
-                              <Field 
-                                validate={this.validateUsername}
-                                name="username"
-                                aria-describedby="usernameHelp"
-                                placeholder="Enter email"
-                                required={true}
-                              />
-                              {errors.username && touched.username && <div style={{color: "red"}}>{t('auth.err.username')}</div>}
-                            </div>                    
-                          </div>
-                          <div className="field">
-                            <div className="control has-icons-left">
-                              <Field 
-                                validate={this.validatePassword} 
-                                type={this.state.hidden ? "password" : "text"}
-                                name="password"
-                                placeholder="Password"
-                                required={true}
-                              />
-                              <button id="hide" onClick={this.toggleShow}>
-                                <i className="eye icon white"></i>
-                              </button>                              
-                            </div>                            
-                            {errors.password && touched.password && <div style={{color: "red"}}>{t('auth.err.mdp')}</div>}
-                          </div>
-                          <div className="field">
-                            <p className="control">
-                              <a href="/forgot-password">{t('auth.oublier.titre')}</a>
-                            </p>
-                          </div>
-                          <div className="field">
-                            <p className="control">
-                              <button className="button is-success">
-                                Login
-                              </button>
-                            </p>
-                          </div>
-                      </div>
-                    </section>
-                  </Form>
-                )}        
-            </Formik>
-        }
-      </Translation>      
+      
+      <Formik
+        initialValues={ 
+                {
+                  username: this.state.username,
+                  password: "Aa@34567"
+                } 
+            }
+        onSubmit={
+            (values, { setSubmitting }) => {
+                this.handleSubmit(values, ()=>{setSubmitting(false)})
+          }}
+        >
+          {({ errors, touched, isValidating }) => (
+            <Form>
+              <section className="section auth">
+                <div className="container">
+                  <h1> Connecte-toi afin de voter </h1>
+                    <div className="field">
+                      <div className="control">
+                        <Field 
+                          validate={this.validateUsername}
+                          name="username"
+                          aria-describedby="usernameHelp"
+                          placeholder="Enter email"
+                          required={true}
+                        />
+                        {errors.username && touched.username && <div style={{color: "red"}}> Courriel invalide </div>}
+                      </div>                    
+                    </div>
+                    <div className="field">
+                      <div className="control has-icons-left">
+                        <Field 
+                          validate={this.validatePassword} 
+                          type={this.state.hidden ? "password" : "text"}
+                          name="password"
+                          placeholder="Password"
+                          required={true}
+                        />
+                        <button id="hide" onClick={this.toggleShow}>
+                          <i className="eye icon white"></i>
+                        </button>                              
+                      </div>                            
+                      {errors.password && touched.password && <div style={{color: "red"}}> Mot de passe invalide </div>}
+                    </div>
+                    <div className="field">
+                      <p className="control">
+                        <a href="/forgot-password"> Mot de passe oublié ? </a>
+                      </p>
+                    </div>
+                    <div className="field">
+                      <p className="control">
+                        <button className="button is-success">
+                          Login
+                        </button>
+                      </p>
+                    </div>
+                </div>
+              </section>
+            </Form>
+          )}
+      </Formik>           
     )
   }
 }
