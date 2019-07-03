@@ -58,7 +58,9 @@ class LogIn extends Component {
       toast.success(`Biquette#${user.username} !`)
       this.props.auth.setAuthStatus(true)
       this.props.auth.setUser(user.username)
-      this.props.fn()
+      if(this.props.fn) {
+        this.props.fn()
+      }
     })
     .catch((err)=>{
       toast.error(err.message)
