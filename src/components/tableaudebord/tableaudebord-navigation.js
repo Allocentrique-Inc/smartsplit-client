@@ -11,9 +11,7 @@ export default class Navigation extends Component {
         super(props)
         this.state = {
             selection: PIECES
-        }
-        this.naviguer = this.naviguer.bind(this)
-        this.genererLien = this.genererLien.bind(this)
+        }        
     }
 
     naviguer(choix) {
