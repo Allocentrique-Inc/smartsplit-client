@@ -180,5 +180,13 @@
                 "password": "Forgot password" 
             }
         }
+    },
+    "tableaudebord": {
+        "bonjour": "Here is the SmartSplit dashboard.",
+        "navigation": {
+            "0": "My musical works",
+            "1": "My public profile",
+            "2": "My collaborators"
+        }
     }
 }

@@ -175,5 +175,13 @@
         "oublier": {
             "titre": "Mot de passe oublié ?"
         }
+    },
+    "tableaudebord": {
+        "bonjour": "Ici le panneau du tableau de bord SmartSplit.",
+        "navigation": {
+            "0": "Mes pièces musicales",
+            "1": "Mon profil public",
+            "2": "Mes collaborateurs"
+        }
     }
 }

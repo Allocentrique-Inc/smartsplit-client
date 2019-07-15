@@ -25,6 +25,9 @@ import ListeOeuvres from './components/media/media-list'
 import ValiderSplit from './components/split/assistant-split'
 import VotationSplit from './components/split/votation-split'
 
+// Tableau de bord
+import TableauDeBord from './components/tableaudebord/tableaudebord'
+
 // Composantes auth
 import Login from './components/auth/Login'
 import SignUp from './components/auth/SignUp'
@@ -80,10 +83,17 @@ const renderRoutes = () => (
         <Route exact path="/approuver-split/:mediaId" component={ApprouverSplit} />
         <Route exact path="/split/voter/:jeton" component={VoterSplit} />
         <Route exact path="/split/confirmer-courriel" component={ConfirmerCourriel} />
+        <Route exact path="/accueil" component={Accueil} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function Accueil() {
+  return(
+    <TableauDeBord />
+  )
+}
 
 function ConfirmerCourriel() {
 

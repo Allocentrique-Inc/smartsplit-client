@@ -79,7 +79,9 @@ class App extends Component {
               <a href="/forgot-password">Forgot Password</a><br/>
               <a href="/forgot-password-verification">Password Verification</a><br/>
               <a href="/welcome">Welcome</a><br/>
-            </div>
+              <h2>SPRINT 3</h2>
+              <a href="/accueil">Tableau de bord</a><br/>
+            </div>            
         </div>
         }
       </Translation>
