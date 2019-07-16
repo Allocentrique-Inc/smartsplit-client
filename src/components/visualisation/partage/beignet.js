@@ -120,6 +120,8 @@ export default class Beignet extends Component {
 
     render(){        
 
+        // Ajoute la génération de beignet comme prochaine exécution de la pile JavaScript
+        // alors que l'élément my_dataviz est accessible dans le navigateur du client.
         setTimeout(()=>{
             this.genererBeignet()
         }, 0)
@@ -130,7 +132,7 @@ export default class Beignet extends Component {
                     {
                         (t, i18n) =>
                             <div>
-                                <div id="my_dataviz">                                    
+                                <div id="my_dataviz">
                                 </div>                                
                             </div>
                     }
