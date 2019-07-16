@@ -86,10 +86,13 @@ const renderRoutes = () => (
         <Route exact path="/split/confirmer-courriel" component={ConfirmerCourriel} />
         <Route exact path="/accueil" component={Accueil} />
         <Route exact path="/visualisation/beignet" component={Beignet} />
+        <Route exact path="/bonjournat" component={Bonjour} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
 
 function Accueil() {
   return(
