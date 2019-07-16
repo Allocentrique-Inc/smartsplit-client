@@ -17,10 +17,11 @@ export default class Beignet extends Component {
         this.state = {
             width: 450,
             height: 450,
-            margin: 125
+            margin: 125,
+            rendu: false
         }
 
-        this.genererBeignet = this.genererBeignet.bind(this)
+        //this.genererBeignet = this.genererBeignet.bind(this)
     }
 
     genererBeignet() {
@@ -114,9 +115,14 @@ export default class Beignet extends Component {
             let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
             return (midangle < Math.PI ? 'start' : 'end')
         })
+
     }
 
     render(){        
+
+        setTimeout(()=>{
+            this.genererBeignet()
+        }, 0)
 
         return (    
             <div>                
@@ -125,8 +131,7 @@ export default class Beignet extends Component {
                         (t, i18n) =>
                             <div>
                                 <div id="my_dataviz">                                    
-                                </div>
-                                {this.genererBeignet()}
+                                </div>                                
                             </div>
                     }
                 </Translation>
