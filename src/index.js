@@ -35,6 +35,7 @@ import Register from './components/auth/Register'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
 import Welcome from './components/auth/Welcome'
+import Beignet from './components/visualisation/partage/beignet';
 
 const REGION = 'us-east-2';
 
@@ -84,6 +85,7 @@ const renderRoutes = () => (
         <Route exact path="/split/voter/:jeton" component={VoterSplit} />
         <Route exact path="/split/confirmer-courriel" component={ConfirmerCourriel} />
         <Route exact path="/accueil" component={Accueil} />
+        <Route exact path="/visualisation/beignet" component={Beignet} />
       </Switch>
     </Router>
   </I18nextProvider>  

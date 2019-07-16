@@ -97,7 +97,7 @@ class TableauSommaireSplit extends Component {
 
     majListeVotes() {
         // Récupère l'état de la votation courante
-        axios.post('http://api.smartsplit.org:8080/v1/splits/liste-votes', {splitId: this.state.jeton.splitId})
+        axios.post('http://api.smartsplit.org:8080/v1/proposal/liste-votes', {splitId: this.state.jeton.splitId})
         .then((resp)=>{
             let _v = resp.data
             this.setState({votes: _v})
@@ -178,7 +178,7 @@ class TableauSommaireSplit extends Component {
                             raison: document.getElementById('raison').value
                         }                                                                
                 
-                        axios.post('http://api.smartsplit.org:8080/v1/splits/justifier-refus', refus)
+                        axios.post('http://api.smartsplit.org:8080/v1/proposal/justifier-refus', refus)
                         .catch(err=>{console.log(err)})
                         .then(()=>{
                             this.transmettre()                            
@@ -244,7 +244,7 @@ class TableauSommaireSplit extends Component {
                                 jeton: this.state.jetonAPI
                             }
                     
-                            axios.post('http://api.smartsplit.org:8080/v1/splits/voter', body)
+                            axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
                             .then(()=>{
                                 this.majListeVotes()
                             })

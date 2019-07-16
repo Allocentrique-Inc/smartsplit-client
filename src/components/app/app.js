@@ -73,15 +73,11 @@ class App extends Component {
               <a href="/approuver-split/4">Approuver un split - droits d'auteur et droits voisins (avec Georges)</a><br/>
               <p/>
               <h3>Connexion et création de compte</h3>
-              <a href="/login">Login</a><br/>
-              <a href="/register">Register</a><br/>
-              <a href="/signup">SignUp</a><br/>
-              <a href="/forgot-password">Forgot Password</a><br/>
-              <a href="/forgot-password-verification">Password Verification</a><br/>
-              <a href="/welcome">Welcome</a><br/>
+              <a href="/login">Login</a> <a href="/register">Register</a> <a href="/signup">SignUp</a> <a href="/forgot-password">Forgot Password</a> <a href="/forgot-password-verification">Password Verification</a> <a href="/welcome">Welcome</a><br/>
               <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
-            </div>            
+              <a href="/visualisation/beignet">Beignet</a><br/>
+            </div>
         </div>
         }
       </Translation>

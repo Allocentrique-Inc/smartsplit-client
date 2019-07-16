@@ -24,7 +24,7 @@ class VotationSplit extends Component {
 
         // Décoder le jeton
         let body = {jeton: this.props.jeton}
-        axios.post('http://api.smartsplit.org:8080/v1/splits/decode', body)
+        axios.post('http://api.smartsplit.org:8080/v1/proposal/decode', body)
         .then((resp)=>{
             let _s = resp.data                                    
             this.setState({jeton: _s})            

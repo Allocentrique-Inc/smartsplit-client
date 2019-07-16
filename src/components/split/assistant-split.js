@@ -64,7 +64,7 @@ class ValiderSplit extends Component {
                 "titre": this.props.split.media.title                    
             }          
 
-            axios.post('http://api.smartsplit.org:8080/v1/splits/invite', body)
+            axios.post('http://api.smartsplit.org:8080/v1/proposal/invite', body)
             .then((resp)=>{
                 if(resp.data !== '') {
                     window.location.href=`/split/voter/${resp.data}`
