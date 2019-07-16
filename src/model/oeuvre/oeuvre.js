@@ -1,4 +1,3 @@
-import moment from 'moment'
 const check = require('check')
 
 export default class Oeuvre {

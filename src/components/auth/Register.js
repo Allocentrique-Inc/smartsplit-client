@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Register.css'
+//import './Register.css'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 // Traduction

@@ -54,7 +54,7 @@ export class ChampCourrielAssistant extends Component {
                         autoFocus: this.state.autoFocus,
                         type: "email"
                     }}
-                    validate={this.validerCourriel}
+                    validate={this.validerCourriel}                    
                 />                
                 {this.props.info && (<i className="right info circle icon blue"></i>)}
             </div>

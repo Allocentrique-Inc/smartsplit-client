@@ -35,7 +35,7 @@
 				"id": 2,
 				"rightHolder": {
 					"uuid": "2",
-					"email": "david@smartsplit.org",
+					"email": "vincent@smartsplit.org",
 					"name": "David Wawryko"
 				},
 				"splitPct": 25,
@@ -49,7 +49,7 @@
 				"id": 3,
 				"rightHolder": {
 					"uuid": "3",
-					"email": "mario@smartsplit.org",
+					"email": "vincent@smartsplit.org",
 					"name": "Mario Perron"
 				},
 				"splitPct": 25,
