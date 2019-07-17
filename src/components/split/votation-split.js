@@ -10,8 +10,6 @@ import axios from 'axios'
 // Composantes
 import TableauSommaireSplit from './tableau-sommaire'
 
-const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
-
 class VotationSplit extends Component {
     
     constructor(props) {

@@ -81,9 +81,9 @@ const renderRoutes = () => (
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
         <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/approuver-split/:mediaId" component={ApprouverSplit} />
-        <Route exact path="/split/voter/:jeton" component={VoterSplit} />
-        <Route exact path="/split/confirmer-courriel" component={ConfirmerCourriel} />
+        <Route exact path="/approuver-proposition/:propositionId" component={ApprouverSplit} />
+        <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
+        <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
         <Route exact path="/accueil" component={Accueil} />
         <Route exact path="/visualisation/beignet" component={Beignet} />
         <Route exact path="/bonjournat" component={Bonjour} />
@@ -136,13 +136,10 @@ function VoterSplit(match) {
 }
 
 function ApprouverSplit({match}) {
-  let mediaId = match.params.mediaId
-
-  // Cursus de test
-  let split = require(`./assets/tests/${mediaId}`)
+  let propositionId = match.params.propositionId
 
   return (
-    <ValiderSplit split={split} />
+    <ValiderSplit proposition={propositionId} />
   )
 }
 

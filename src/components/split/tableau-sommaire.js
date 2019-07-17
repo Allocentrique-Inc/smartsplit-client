@@ -15,72 +15,11 @@ class TableauSommaireSplit extends Component {
 
     constructor(props){
         super(props)
-       
-        this.boutonAccepter = this.boutonAccepter.bind(this)
-        this.boutonRefuser = this.boutonRefuser.bind(this)
-        this.genererAffichage = this.genererAffichage.bind(this)
-        this.changerVote = this.changerVote.bind(this)
-        this.activerBoutonVote = this.activerBoutonVote.bind(this)
-        this.preEnvoi = this.preEnvoi.bind(this)
-        this.estVoteTermine = this.estVoteTermine.bind(this)
-        this.transmettre = this.transmettre.bind(this)
-
-        // Construction de la structure des données de l'assistant
-        let rightHolders = {}
-        let rights = this.props.droits ? this.props.droits : {}
-
-        // TEMPORAIRE
-        // Calcul des droits et ayants-droits
-        let split, _s
-        let sommaire = {}
-        
-        if (this.props.jeton) {            
-            _s = this.props.jeton.splitId
-            
-            if(_s === "abababab-dddd-11e8-9c9c-2d42b21b1a3e") {
-                split = require("../../assets/tests/1.json")
-            } else if (_s === "ababafgdfgfdgsdb-dddd-11e8-9c9c-2d42b21b1a3e") {                                      
-                split = require("../../assets/tests/2.json")
-            } else if (_s === "abababab-dddd-11e8-9c9c-2d42basdsaoid223e") {
-                split = require("../../assets/tests/3.json")
-            } else {                
-                split = require("../../assets/tests/4.json")                
-            }            
-
-            // Extraire les différents ayant-droits et ordonnancement dans un tableau
-            Object.keys(DROITS).forEach(type=>{
-                if(!rights[DROITS[type]]) {
-                    rights[DROITS[type]] = {}
-                }
-                if(split[DROITS[type]]) {
-                    let rightsSplit = split[DROITS[type]].rightsSplit
-                    rightsSplit.forEach(droit=>{
-                        if(!rightHolders[droit.rightHolder.uuid]) {
-                            rightHolders[droit.rightHolder.uuid] = droit.rightHolder
-                        }
-                        rights[DROITS[type]][droit.rightHolder.uuid] = droit
-
-                        // Ajout dans le sommaire
-                        if(!sommaire[droit.rightHolder.uuid]) {
-                            sommaire[droit.rightHolder.uuid] = { nom: rightHolders[droit.rightHolder.uuid].name, droits: {} }
-                        }
-                        if (droit.rightHolder.uuid === split.initiateur.uuid) {
-                            sommaire[droit.rightHolder.uuid].droits[DROITS[type]] = "ACCEPTE"
-                        } else {
-                            sommaire[droit.rightHolder.uuid].droits[DROITS[type]] = "ATTENTE"
-                        }
-                    })                
-                }
-            })
-        }            
 
         this.state = {
-            droits: rights,
-            jeton: props.jeton,
-            split: split,
-            jetonAPI: props.jetonAPI, // Le jeton encodé
-            votes: props.votes,
-            sommaire: sommaire,
+            jeton: this.props.jeton,            
+            jetonAPI: this.props.jetonAPI, // Le jeton encodé
+            votes: this.props.votes,
             transmis: false,
             modifierVote: {
                 workCopyrightSplit: false,
@@ -89,15 +28,83 @@ class TableauSommaireSplit extends Component {
             }
         }
        
-        if(this.props.jeton) {
-            this.majListeVotes()
-        }        
+        this.boutonAccepter = this.boutonAccepter.bind(this)
+        this.boutonRefuser = this.boutonRefuser.bind(this)
+        this.genererAffichage = this.genererAffichage.bind(this)
+        this.changerVote = this.changerVote.bind(this)
+        this.activerBoutonVote = this.activerBoutonVote.bind(this)
+        this.preEnvoi = this.preEnvoi.bind(this)
+        this.estVoteTermine = this.estVoteTermine.bind(this)
+        this.transmettre = this.transmettre.bind(this)        
 
+    }
+
+    componentWillMount() {
+        // Construction de la structure des données de l'assistant
+        let rightHolders = {}
+        let rights = this.props.droits ? this.props.droits : {}
+
+        // Calcul des droits et ayants-droits
+        let proposal, propositionId
+        let sommaire = {}
+        
+        if (this.props.jeton) {            
+            propositionId = this.props.jeton.proposalId
+            
+            // Récupère la prposition
+            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${propositionId}`)
+            .then((res)=>{
+                proposal = res.data.Item
+
+                // Extraire les différents ayant-droits et ordonnancement dans un tableau
+                Object.keys(DROITS).forEach(type=>{
+                    if(!rights[DROITS[type]]) {
+                        rights[DROITS[type]] = {}
+                    }
+                    if(proposal[DROITS[type]]) {
+                        let rightsSplit = proposal.rightSplits[DROITS[type]]
+
+                        Object.keys(rightsSplit).forEach(droit=>{
+                            let _r = rightsSplit[droit].rightHolder
+                            if(!rightHolders[_r.uuid]) {
+                                rightHolders[_r.uuid] = _r
+                            }
+                            rights[DROITS[type]][_r.uuid] = rightsSplit[droit]
+
+                            // Ajout dans le sommaire
+                            if(!sommaire[_r.uuid]) {
+                                sommaire[_r.uuid] = { nom: rightHolders[_r.uuid].name, droits: {} }
+                            }
+                            if (_r.uuid === proposal.initiateur.uuid) {
+                                sommaire[_r.uuid].droits[DROITS[type]] = "ACCEPTE"
+                            } else {
+                                sommaire[_r.uuid].droits[DROITS[type]] = "ATTENTE"
+                            }
+                        })                
+                    }
+                })
+
+                this.setState({sommaire: sommaire})
+                this.setState({droits: rights})
+                this.setState({split: proposal})
+               
+                if(this.props.jeton) {
+                    this.majListeVotes()
+                }
+
+                 // Récupère le titre du média
+                axios.get(`http://api.smartsplit.org:8080/v1/media/${proposal.mediaId}`)
+                .then(res=>{
+                    let media = res.data.Item
+                    this.setState({mediaTitle: media.title})
+                })
+            })
+        }
     }
 
     majListeVotes() {
         // Récupère l'état de la votation courante
-        axios.post('http://api.smartsplit.org:8080/v1/proposal/liste-votes', {splitId: this.state.jeton.splitId})
+        axios.post('http://api.smartsplit.org:8080/v1/proposal/liste-votes', {proposalId: this.state.jeton.proposalId})
         .then((resp)=>{
             let _v = resp.data
             this.setState({votes: _v})
@@ -111,7 +118,7 @@ class TableauSommaireSplit extends Component {
                     })
                 })
                 this.setState(sommaire)
-            }            
+            }
         })        
     }
 
@@ -437,7 +444,8 @@ class TableauSommaireSplit extends Component {
     }
 
     render() {
-            
+
+        
         // Déclaration des structures de tri pour l'affichage
 
         let titre, voteClos = false
@@ -452,13 +460,16 @@ class TableauSommaireSplit extends Component {
 
         let _initiateur
         if(this.state.split) {
-            titre = this.state.split.media.title
-            _initiateur = this.state.split.initiateur.uuid === this.state.jeton.rightHolderId
+            titre = this.state.mediaTitle
+            _initiateur = this.state.split.initiator.id === this.state.jeton.rightHolderId
         }        
 
         if(this.state.votes) {
             // Ne peut pas voter si le vote est clos ou si initiateur
-            voteClos = this.state.votes.transmis[this.state.jeton.rightHolderId] || _initiateur
+            
+            // VDEG: Tester si le vote est clos pour l'utilisateur (s'il a déjà voté ou non)
+
+            //voteClos = this.state.votes.transmis[this.state.jeton.rightHolderId] || _initiateur
         }
 
         // STRUCTURE DU TABLEAU D'AFFICHAGE
@@ -539,7 +550,7 @@ class TableauSommaireSplit extends Component {
                     </div>
                 )}
             </div>            
-        )
+        )                           
     }
 }
 
