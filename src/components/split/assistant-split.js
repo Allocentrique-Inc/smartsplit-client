@@ -75,7 +75,7 @@ class ValiderSplit extends Component {
                             traitementDroit(rightsSplit.accompaniment, type)
                             break
                         case 'masterNeighboringRightSplit':
-                            traitementDroit(rightsSplit, type)
+                            traitementDroit(rightsSplit.split, type)
                             break
                         default:
                     }
