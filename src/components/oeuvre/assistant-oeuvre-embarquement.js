@@ -19,7 +19,7 @@ import { Progress } from 'semantic-ui-react'
 // Champs de formulaire
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 import { ChampTeleversement } from '../formulaires/champ-televersement'
-import { ChampInterrupteurAssistant } from '../formulaires/champ-interrupteur';
+import { ChampInterrupteurAssistant } from '../formulaires/champ-interrupteur'
 
 // Image de méditation
 import image from '../../assets/images/meditation-ecouteurs-femme.jpg'
@@ -43,9 +43,9 @@ class PageAssistantOeuvreEmbarquement extends Component {
       this.setState({audio: nextProps.audio})
     }
   }
-  
+
   render (){
-    
+
     return (
       <React.Fragment>
         <Progress percent={this.state.pctProgression} indicating></Progress>
@@ -90,7 +90,7 @@ class PageAssistantOeuvreEmbarquement extends Component {
                         if(f.music.err) {
                           switch(f.music.err) {
                             case "AUDIO-MAUVAISE-LECTURE":
-                                toast.warn(t('traitement.acr.erreur-mauvaise-lecture'))
+                              toast.warn(t('traitement.acr.erreur-mauvaise-lecture'))
                               break;
                             case "AUDIO-INCONNU":
                               toast.warn(t('traitement.acr.erreur-inconnu'))

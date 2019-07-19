@@ -14,7 +14,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             ayantDroits: props.ayantDroits,
             titre: props.titre
         }
-    }    
+    }
     
     render() {
 
@@ -24,7 +24,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             ayantDroits.push( 
                 (
                     <ChampCourrielAssistant 
-                        key={`champ--courriel__split-${elem}`} modele={`ayantDroits[${elem}].email`} requis={true} etiquette={this.state.ayantDroits[elem].name} indication="courriel@domain.extension"
+                        key={`champ--courriel__split-${elem}`} modele={`rightHolders[${elem}].email`} requis={true} etiquette={this.state.ayantDroits[elem].name} indication="courriel@domain.extension"
                     />
                 )
             )

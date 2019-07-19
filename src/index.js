@@ -25,6 +25,9 @@ import ListeOeuvres from './components/media/media-list'
 import ValiderSplit from './components/split/assistant-split'
 import VotationSplit from './components/split/votation-split'
 
+// Tableau de bord
+import TableauDeBord from './components/tableaudebord/tableaudebord'
+
 // Composantes auth
 import Login from './components/auth/Login'
 import SignUp from './components/auth/SignUp'
@@ -32,6 +35,7 @@ import Register from './components/auth/Register'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
 import Welcome from './components/auth/Welcome'
+import Beignet from './components/visualisation/partage/beignet';
 
 const REGION = 'us-east-2';
 
@@ -77,13 +81,24 @@ const renderRoutes = () => (
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
         <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/approuver-split/:mediaId" component={ApprouverSplit} />
-        <Route exact path="/split/voter/:jeton" component={VoterSplit} />
-        <Route exact path="/split/confirmer-courriel" component={ConfirmerCourriel} />
+        <Route exact path="/approuver-proposition/:propositionId" component={ApprouverSplit} />
+        <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
+        <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
+        <Route exact path="/accueil" component={Accueil} />
+        <Route exact path="/visualisation/beignet" component={Beignet} />
+        <Route exact path="/bonjournat" component={Bonjour} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
+
+function Accueil() {
+  return(
+    <TableauDeBord />
+  )
+}
 
 function ConfirmerCourriel() {
 
@@ -121,13 +136,10 @@ function VoterSplit(match) {
 }
 
 function ApprouverSplit({match}) {
-  let mediaId = match.params.mediaId
-
-  // Cursus de test
-  let split = require(`./assets/tests/${mediaId}`)
+  let propositionId = match.params.propositionId
 
   return (
-    <ValiderSplit split={split} />
+    <ValiderSplit proposition={propositionId} />
   )
 }
 

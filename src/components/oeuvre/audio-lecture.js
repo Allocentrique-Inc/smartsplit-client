@@ -6,7 +6,6 @@ class AudioLecture extends Component {
         super(props)
         props.onRef(this)
         this.stopEtJouer = this.stopEtJouer.bind(this)
-        this.stop = this.stop.bind(this)
         this.state = {
             context: null
         }
@@ -50,7 +49,7 @@ class AudioLecture extends Component {
             <div style={{position: 'absolute', margin: '0 auto'}}>
             {
                 this.state.context && (
-                    <div onClick={this.stop}>
+                    <div onClick={()=>{this.stop()}}>
                         <i className="stop circle outline icon huge grey" style={{cursor: 'pointer'}} ></i> Stop Audio
                     </div>
                 )

@@ -15,6 +15,18 @@ class TableauSommaireSplit extends Component {
 
     constructor(props){
         super(props)
+
+        this.state = {
+            jeton: this.props.jeton,            
+            jetonAPI: this.props.jetonAPI, // Le jeton encodé
+            votes: this.props.votes,
+            transmis: false,
+            modifierVote: {
+                workCopyrightSplit: {music: false, lyrics: false},
+                performanceNeighboringRightSplit: {principal: false, accompaniment: false},
+                masterNeighboringRightSplit: {split: false}
+            }
+        }
        
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
@@ -23,96 +35,107 @@ class TableauSommaireSplit extends Component {
         this.activerBoutonVote = this.activerBoutonVote.bind(this)
         this.preEnvoi = this.preEnvoi.bind(this)
         this.estVoteTermine = this.estVoteTermine.bind(this)
-        this.transmettre = this.transmettre.bind(this)
-
-        // Construction de la structure des données de l'assistant
-        let rightHolders = {}
-        let rights = this.props.droits ? this.props.droits : {}
-
-        // TEMPORAIRE
-        // Calcul des droits et ayants-droits
-        let split, _s
-        let sommaire = {}
-        
-        if (this.props.jeton) {            
-            _s = this.props.jeton.splitId
-            
-            if(_s === "abababab-dddd-11e8-9c9c-2d42b21b1a3e") {
-                split = require("../../assets/tests/1.json")
-            } else if (_s === "ababafgdfgfdgsdb-dddd-11e8-9c9c-2d42b21b1a3e") {                                      
-                split = require("../../assets/tests/2.json")
-            } else if (_s === "abababab-dddd-11e8-9c9c-2d42basdsaoid223e") {
-                split = require("../../assets/tests/3.json")
-            } else {                
-                split = require("../../assets/tests/4.json")                
-            }            
-
-            // Extraire les différents ayant-droits et ordonnancement dans un tableau
-            Object.keys(DROITS).forEach(type=>{
-                if(!rights[DROITS[type]]) {
-                    rights[DROITS[type]] = {}
-                }
-                if(split[DROITS[type]]) {
-                    let rightsSplit = split[DROITS[type]].rightsSplit
-                    rightsSplit.forEach(droit=>{
-                        if(!rightHolders[droit.rightHolder.uuid]) {
-                            rightHolders[droit.rightHolder.uuid] = droit.rightHolder
-                        }
-                        rights[DROITS[type]][droit.rightHolder.uuid] = droit
-
-                        // Ajout dans le sommaire
-                        if(!sommaire[droit.rightHolder.uuid]) {
-                            sommaire[droit.rightHolder.uuid] = { nom: rightHolders[droit.rightHolder.uuid].name, droits: {} }
-                        }
-                        if (droit.rightHolder.uuid === split.initiateur.uuid) {
-                            sommaire[droit.rightHolder.uuid].droits[DROITS[type]] = "ACCEPTE"
-                        } else {
-                            sommaire[droit.rightHolder.uuid].droits[DROITS[type]] = "ATTENTE"
-                        }
-                    })                
-                }
-            })
-        }            
-
-        this.state = {
-            droits: rights,
-            jeton: props.jeton,
-            split: split,
-            jetonAPI: props.jetonAPI, // Le jeton encodé
-            votes: props.votes,
-            sommaire: sommaire,
-            transmis: false,
-            modifierVote: {
-                workCopyrightSplit: false,
-                performanceNeighboringRightSplit: false,
-                masterNeighboringRightSplit: false
-            }
-        }
-       
-        if(this.props.jeton) {
-            this.majListeVotes()
-        }        
+        this.transmettre = this.transmettre.bind(this)        
 
     }
 
+    componentWillMount() {
+        if(this.state.jeton) {
+            this.majListeVotes()
+        }
+    }
+
     majListeVotes() {
-        // Récupère l'état de la votation courante
-        axios.post('http://api.smartsplit.org:8080/v1/splits/liste-votes', {splitId: this.state.jeton.splitId})
-        .then((resp)=>{
-            let _v = resp.data
-            this.setState({votes: _v})
-            let sommaire = this.state.sommaire
-            // Ajuste le sommaire avec les votes reçus
-            if(_v.parts) {
-                Object.keys(_v.parts).forEach(type=>{
-                    Object.keys(_v.parts[type]).forEach(id=>{
-                        let etat = _v.parts[type][id].etat
-                        sommaire[id].droits[type] = etat
-                    })
+
+        console.log('Mise à jour de la proposition')
+
+        // Construction de la structure des données
+        let rightHolders = {}
+        let rights = this.props.droits ? this.props.droits : {}
+
+        // Calcul des droits et ayants-droits
+        let proposal, propositionId
+        let sommaire = {}        
+        
+        if (this.props.jeton) {            
+            propositionId = this.props.jeton.proposalId            
+            
+            // Récupère la prposition
+            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${propositionId}`)
+            .then((res)=>{
+                proposal = res.data.Item
+
+                function extraireDroit (famille, type, partages) {
+                    partages.forEach(part=>{
+                        let _r = part.rightHolder
+                        if(!rightHolders[_r.rightHolderId]) {
+                            rightHolders[_r.rightHolderId] = _r
+                        }
+
+                        if(!rights[famille]) {
+                            rights[famille] = {}
+                        }
+
+                        if (!rights[famille][type]) {
+                            rights[famille][type] = {}
+                        }
+
+                        rights[famille][type][_r.rightHolderId] = part
+
+                        // Ajout dans le sommaire
+                        if(!sommaire[_r.rightHolderId]) {
+                            sommaire[_r.rightHolderId] = { nom: rightHolders[_r.rightHolderId].name, droits: {} }
+                        }
+                        if (_r.uuid === proposal.initiator.id) {
+                            sommaire[_r.rightHolderId].droits[DROITS[type]] = "accept"
+                        } else {
+                            sommaire[_r.rightHolderId].droits[DROITS[type]] = "active"
+                        }
+                    })  
+                }
+
+                // Extraire les différents ayant-droits et ordonnancement dans un tableau
+                Object.keys(DROITS).forEach(type=>{
+                    if(!rights[DROITS[type]]) {
+                        rights[DROITS[type]] = {}
+                    }                    
+                    if(proposal.rightsSplits[DROITS[type]]) {
+                        let familleDroit = proposal.rightsSplits[DROITS[type]]
+                        switch(DROITS[type]) {
+                            case DROITS.auteur:
+                                // musique
+                                extraireDroit(DROITS[type], 'music', familleDroit.music)
+                                // paroles
+                                extraireDroit(DROITS[type], 'lyrics', familleDroit.lyrics)
+                                break;
+                            case DROITS.interpretaion:
+                                // principal
+                                extraireDroit(DROITS[type], 'principal', familleDroit.principal)                                
+                                // accompagnement
+                                extraireDroit(DROITS[type], 'accompaniment', familleDroit.accompaniment)
+                                break
+                            case DROITS.enregistrement:
+                                // split
+                                extraireDroit(DROITS[type], 'split', familleDroit.split)
+                                break
+                        }                                      
+                    }
                 })
-                this.setState(sommaire)
-            }            
-        })        
+
+                this.setState({sommaire: sommaire})
+                this.setState({droits: rights})
+                this.setState({proposition: proposal})
+                               
+                 // Récupère le titre du média
+                axios.get(`http://api.smartsplit.org:8080/v1/media/${proposal.mediaId}`)
+                .then(res=>{
+                    let media = res.data.Item
+                    this.setState({mediaTitle: media.title},()=>{
+                        console.log('majProposition', this.state.proposition, this.state.droits, this.state.sommaire, rightHolders)
+                    })
+                })                
+            })
+        }      
     }
 
     activerBoutonVote() {
@@ -178,7 +201,7 @@ class TableauSommaireSplit extends Component {
                             raison: document.getElementById('raison').value
                         }                                                                
                 
-                        axios.post('http://api.smartsplit.org:8080/v1/splits/justifier-refus', refus)
+                        axios.post('http://api.smartsplit.org:8080/v1/proposal/justifier-refus', refus)
                         .catch(err=>{console.log(err)})
                         .then(()=>{
                             this.transmettre()                            
@@ -244,7 +267,7 @@ class TableauSommaireSplit extends Component {
                                 jeton: this.state.jetonAPI
                             }
                     
-                            axios.post('http://api.smartsplit.org:8080/v1/splits/voter', body)
+                            axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
                             .then(()=>{
                                 this.majListeVotes()
                             })
@@ -290,53 +313,70 @@ class TableauSommaireSplit extends Component {
         )
     }
 
-    genererAffichage(_e, droit, voteClos) {
+    genererAffichage(droits, type, voteClos) {
+
+        // Générer l'affichage pour chaque droit
+        // Doit gérer les partitions en sous-droits
+
         let voterPour 
         let voterContre
         let etat, estInitiateur = false
-        let votes = this.state.votes
+        let proposition = this.state.proposition
 
-        if(_e) {
+        let elementsAffichage = []
 
-            // Récupère l'état du vote
-            if(votes) {
-                etat = votes.parts[droit][_e.rightHolder.uuid].etat
-                estInitiateur = (votes.initiateur.uuid === this.state.jeton.rightHolderId)
-            }
+        if(droits && proposition) {
+            
+            estInitiateur = (proposition.initiator.id === this.state.jeton.rightHolderId)
 
             // Affichage des boutons de votation
             let aVote = false, // A déjà voté ?            
-                peutVoter = true
+                peutVoter = true,
+                controleModification = false
 
-            if(this.state.jeton 
-                && _e.rightHolder.uuid === this.state.jeton.rightHolderId) {  // Est l'utilisateur enregistré
-                if ( 
-                    etat === 'ATTENTE' // Vote pour la première fois
-                    || // ou
-                    (this.state.modifierVote && this.state.modifierVote[droit])) { // Modifie son vote
-                    voterPour = ( !voteClos && this.boutonAccepter(droit))
-                    voterContre = ( !voteClos && this.boutonRefuser(droit))
+            console.log('droits', droits)
+            Object.keys(droits).forEach(_d=>{
+                let droit = droits[_d]                
+                etat = droit.votingState
+                console.log('droit',droit, etat)
+                if(droit.rightHolder.rightHolderId === this.state.jeton.rightHolderId) {  // Est l'utilisateur enregistré
+                    if ( 
+                        etat === 'ATTENTE' // Vote pour la première fois
+                        || // ou
+                        this.state.modifierVote[type][droit]) { // Modifie son vote
+                        voterPour = ( !voteClos && this.boutonAccepter(type, droit))
+                        voterContre = ( !voteClos && this.boutonRefuser(type, droit))
+                    }
+                    aVote = (etat === 'ACCEPTE' || etat === 'REFUSE')
                 }
-                aVote = (etat === 'ACCEPTE' || etat === 'REFUSE')
-            }
 
-            let controleModification
-            if (!voteClos && aVote && !this.state.modifierVote[droit] && !estInitiateur) {
-                controleModification = (!this.state.modifierVote[droit] && 
-                    (<i className="pencil alternate icon big blue" style={{cursor: "pointer"}} onClick={()=>{this.changerVote(droit)}}></i>))
-            }
-    
-            if(etat === "ACCEPTE") {
-                etat = (<span style={{color: "green"}}>ACCEPTÉ</span>)
-            } else if(etat === "REFUSE") {
-                etat = (<span style={{color: "red"}}>REFUSÉ</span>)
-            } else {
-                etat = (<span style={{color: "grey"}}>ATTENTE</span>)
-            }
+                
+                if (!voteClos && aVote && !this.state.modifierVote[type][droit] && !estInitiateur) {
+                    controleModification = (!this.state.modifierVote[type][droit] && 
+                        (<i className="pencil alternate icon big blue" style={{cursor: "pointer"}} onClick={()=>{this.changerVote(type, droit)}}></i>))
+                }
+        
+                if(etat === "ACCEPTE") {
+                    etat = (<span style={{color: "green"}}>ACCEPTÉ</span>)
+                } else if(etat === "REFUSE") {
+                    etat = (<span style={{color: "red"}}>REFUSÉ</span>)
+                } else {
+                    etat = (<span style={{color: "grey"}}>ATTENTE</span>)
+                }
+
+                if(droit) {
+                    elementsAffichage.push( (
+                        <span key={`droit_${droit.rightHolder.name}_${droit}_${type}`}>
+                            {droit.rightHolder.name} : {droit.splitPct}% {voterPour} {voterContre} {etat} {peutVoter && controleModification}
+                        </span>) 
+                    )
+                }                
+
+            })            
 
             return (
                 <td>
-                    {_e.rightHolder.name} : {_e.splitPct}% {voterPour} {voterContre} {etat} {peutVoter && controleModification}
+                    {elementsAffichage}
                 </td>
             )
         } else {
@@ -437,7 +477,8 @@ class TableauSommaireSplit extends Component {
     }
 
     render() {
-            
+
+        
         // Déclaration des structures de tri pour l'affichage
 
         let titre, voteClos = false
@@ -452,13 +493,16 @@ class TableauSommaireSplit extends Component {
 
         let _initiateur
         if(this.state.split) {
-            titre = this.state.split.media.title
-            _initiateur = this.state.split.initiateur.uuid === this.state.jeton.rightHolderId
+            titre = this.state.mediaTitle
+            _initiateur = this.state.split.initiator.id === this.state.jeton.rightHolderId
         }        
 
         if(this.state.votes) {
             // Ne peut pas voter si le vote est clos ou si initiateur
-            voteClos = this.state.votes.transmis[this.state.jeton.rightHolderId] || _initiateur
+            
+            // VDEG: Tester si le vote est clos pour l'utilisateur (s'il a déjà voté ou non)
+
+            //voteClos = this.state.votes.transmis[this.state.jeton.rightHolderId] || _initiateur
         }
 
         // STRUCTURE DU TABLEAU D'AFFICHAGE
@@ -466,8 +510,9 @@ class TableauSommaireSplit extends Component {
             if(this.state.droits[DROITS.auteur]) {
                 Object.keys(this.state.droits[DROITS.auteur]).forEach((elem) => {
                     let _e = this.state.droits[DROITS.auteur][elem]
+                    console.log('_e', _e, this.state.droits)
                     if(_e) {
-                        droitAuteur.push(this.genererAffichage(_e, DROITS.auteur, voteClos))                        
+                        droitAuteur.push(this.genererAffichage(_e, DROITS.auteur, voteClos))
                     }
                 })
             }            
@@ -539,7 +584,7 @@ class TableauSommaireSplit extends Component {
                     </div>
                 )}
             </div>            
-        )
+        )                           
     }
 }
 

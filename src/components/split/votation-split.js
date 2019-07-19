@@ -10,8 +10,6 @@ import axios from 'axios'
 // Composantes
 import TableauSommaireSplit from './tableau-sommaire'
 
-const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
-
 class VotationSplit extends Component {
     
     constructor(props) {
@@ -24,7 +22,7 @@ class VotationSplit extends Component {
 
         // Décoder le jeton
         let body = {jeton: this.props.jeton}
-        axios.post('http://api.smartsplit.org:8080/v1/splits/decode', body)
+        axios.post('http://api.smartsplit.org:8080/v1/proposal/decode', body)
         .then((resp)=>{
             let _s = resp.data                                    
             this.setState({jeton: _s})            
