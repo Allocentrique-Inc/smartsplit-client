@@ -152,7 +152,7 @@
         },
         "voter": {
             "connexion": "Tu dois te connecter afin d'accéder à la page de votation !",
-            "soustitre": "Salut, voici la page de votation pour les contributeurs dans l'oeuvre : "
+            "soustitre": "Salut, {{nom}}, voici la page de votation pour les contributeurs dans l'oeuvre : "
         }
     },
     "traitement": {
