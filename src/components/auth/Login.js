@@ -51,21 +51,27 @@ class LogIn extends Component {
     }
   }
 
-  handleSubmit = values => {  
-    // AWS Cognito integration here    
-    Auth.signIn(values.username, values.password)
-    .then(user=>{
-      toast.success(`Biquette#${user.username} !`)
-      this.props.auth.setAuthStatus(true)
-      this.props.auth.setUser(user.username)
-      if(this.props.fn) {
-        this.props.fn()
-      }
-    })
-    .catch((err)=>{
-      toast.error(err.message)
+  handleSubmit = values => { 
+    // AWS Cognito integration here 
+    try {
+      Auth.signIn(values.username, values.password)
+      .then(user=>{
+        toast.success(`Biquette#${user.username} !`)
+        this.props.auth.setAuthStatus(true)
+        this.props.auth.setUser(user.username)        
+      })
+      .catch((err)=>{
+        toast.error(err.message)
+        console.log(err)
+      })
+      .finally(()=>{
+        if(this.props.fn) {
+          this.props.fn()
+        }
+      })
+    } catch (err) {
       console.log(err)
-    })
+    }
   }
 
   handlePasswordChange(e) {
