@@ -27,6 +27,8 @@ import VotationSplit from './components/split/votation-split'
 
 // Tableau de bord
 import TableauDeBord from './components/tableaudebord/tableaudebord'
+import TableauSommaireSplit from './components/split/tableau-sommaire'
+
 
 // Composantes auth
 import Login from './components/auth/Login'
@@ -92,7 +94,12 @@ const renderRoutes = () => (
   </I18nextProvider>  
 )
 
-function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
+function Bonjour(){
+  return(
+    <div>
+      <h1>Bonjour Nat</h1>
+    </div>)
+}
 
 function Accueil() {
   return(
