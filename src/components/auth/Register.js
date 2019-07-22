@@ -65,8 +65,10 @@ class Register extends Component {
     //     errors: { ...this.state.errors, ...error }
     //   });
     // }
+    console.log("ENTER HANDLE SUBMIT");
 
     // AWS Cognito integration here
+    // const { username, email, firstName, lastName, password } = this.state;
     const { username, email, firstName, lastName, password } = this.state;
     try {
       const signUpResponse = await Auth.signUp({
@@ -188,9 +190,9 @@ class Register extends Component {
                   id="username"
                   aria-describedby="userNameHelp"
                   placeholder="Enter username"
-                  value={this.state.email}
+                  value={this.state.username}
                   onChange={this.onInputChange}
-                  style={{display: 'none'}} 
+                  // style={{display: 'none'}} 
                 />
               </p>
             </div>
