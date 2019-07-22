@@ -14,7 +14,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             ayantDroits: props.ayantDroits,
             titre: props.titre
         }
-    }    
+    }
     
     render() {
 
@@ -24,7 +24,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             ayantDroits.push( 
                 (
                     <ChampCourrielAssistant 
-                        key={`champ--courriel__split-${elem}`} modele={`ayantDroits[${elem}].email`} requis={true} etiquette={this.state.ayantDroits[elem].name} indication="courriel@domain.extension"
+                        key={`champ--courriel__split-${elem}`} modele={`rightHolders[${elem}].email`} requis={true} etiquette={this.state.ayantDroits[elem].name} indication="courriel@domain.extension"
                     />
                 )
             )
@@ -35,14 +35,12 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
                 {
                     (t) =>
                         <React.Fragment>                            
-                            <React.Fragment>
-                                <h1>{t('flot.split.valider.titre')}</h1>
-                                <h2>{this.state.titre}</h2>
-                                <p/>
-                                <p/>
-                                <h3>{t('flot.split.valider.soustitre')}</h3>
-                                {ayantDroits}
-                            </React.Fragment>
+                            <h1>{t('flot.split.valider.titre')}</h1>
+                            <h2>{this.state.titre}</h2>
+                            <p/>
+                            <p/>
+                            <h3>{t('flot.split.valider.soustitre')}</h3>
+                            {ayantDroits}
                         </React.Fragment>
                 }
             </Translation>    

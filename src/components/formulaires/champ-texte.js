@@ -40,7 +40,7 @@ export class ChampCourrielAssistant extends Component {
         return erreur;
     }
 
-    render() {
+    render() {    
 
         return(
             <div>                

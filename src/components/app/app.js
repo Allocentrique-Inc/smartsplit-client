@@ -3,7 +3,6 @@ import logo from '../../assets/images/logo.svg'
 import './app.css'
 import { Auth } from 'aws-amplify';
 
-
 import { Translation } from 'react-i18next'
 
 class App extends Component {   
@@ -67,16 +66,18 @@ class App extends Component {
               <h2>SPRINT 1</h2>
               <a href="/decrire-oeuvre">Décrire mon oeuvre</a><br/>
               <h2>SPRINT 2</h2>
-              <a href="/approuver-split/1">Approuver un split - droits d'auteur et droits voisins</a><br/>
-              <a href="/approuver-split/2">Approuver un split - droits d'auteur seulement</a><br/>
-              <a href="/approuver-split/3">Approuver un split - droits d'auteur, un seul collaborateur seulement</a><br/>
-              <a href="/approuver-split/4">Approuver un split - droits d'auteur et droits voisins (avec Georges)</a><br/>
+              <a href="/approuver-proposition/12c4b4a0-a70f-11e9-b844-5df68dc2fde4">Soumettre au vote #1</a><br/>
+              <a href="/approuver-proposition/3fa033e0-a657-11e9-a258-31a39dbe4719">Soumettre au vote #2</a><br/>
+              <a href="/approuver-proposition/45745c60-7b1a-11e8-9c9c-2d42b21b1a3e">Soumettre au vote #3</a><br/>
+              <a href="/approuver-proposition/7ca75f20-a657-11e9-a258-31a39dbe4719">Soumettre au vote #4</a><br/>
+              <a href="/approuver-proposition/d8fd3d50-a709-11e9-aa93-97e5b25f771d">Soumettre au vote #5</a><br/>
               <p/>
               <h3>Connexion et création de compte</h3>
               <a href="/login">Login</a> <a href="/register">Register</a> <a href="/signup">SignUp</a> <a href="/forgot-password">Forgot Password</a> <a href="/forgot-password-verification">Password Verification</a> <a href="/welcome">Welcome</a><br/>
               <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
-              <a href="/visualisation/beignet">Beignet</a><br/>
+              <a href="/visualisation/troissplits">Trois splits</a><br/>
+              Partager les droits pour media # : <a href="/partager/1">1</a>   <a href="/partager/2">2</a>   <a href="/partager/3">3</a> 
             </div>
         </div>
         }

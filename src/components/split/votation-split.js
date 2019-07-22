@@ -10,8 +10,6 @@ import axios from 'axios'
 // Composantes
 import TableauSommaireSplit from './tableau-sommaire'
 
-const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
-
 class VotationSplit extends Component {
     
     constructor(props) {
@@ -27,8 +25,15 @@ class VotationSplit extends Component {
         axios.post('http://api.smartsplit.org:8080/v1/proposal/decode', body)
         .then((resp)=>{
             let _s = resp.data                                    
-            this.setState({jeton: _s})            
+            this.setState({jeton: _s})
+            // Récupère le nom de l'ayant-droit, pour affichage
+            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders/${_s.rightHolderId}`)
+            .then(res=>{
+                let _rH = res.data.Item
+                this.setState({nomUsager: `${_rH.firstName} ${_rH.lastName}` })
+            })
         })
+
     }    
 
     render() {           
@@ -38,7 +43,7 @@ class VotationSplit extends Component {
                     {
                         (t, i18n)=>
                             <div>
-                                <h1>{t('flot.voter.soustitre')}</h1>
+                                <h1>{t('flot.voter.soustitre', {nom: this.state.nomUsager})}</h1>
                                 {this.state.jeton && (<TableauSommaireSplit auth={this.props.auth} jeton={this.state.jeton} jetonAPI={this.state.jetonAPI}/>)}
                             </div>
                     }

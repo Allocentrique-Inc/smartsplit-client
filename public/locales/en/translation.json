@@ -152,7 +152,12 @@
         },
         "voter": {
             "connexion": "You shall be connected to access the vote page",
-            "soustitre": "Hi, here is the voting page for the work: "
+            "soustitre": "Hi, {{nom}}, here is the voting page for your work: "
+        },
+        "etape": {            
+            "partage-etape": "Step 2",
+            "partage-titre": "Share the rights",
+            "enregistrerEtQuitter": "Save and quit"
         }
     },
     "traitement": {

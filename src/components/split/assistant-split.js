@@ -19,71 +19,139 @@ class ValiderSplit extends Component {
     
     constructor(props) {
         super(props)
+        this.state = {
+            rightHolders: {},
+            rights: {},
+            mediaTitle: "",
+            initiateur: ""
+        }
+    }
 
-        // Construction de la structure des données de l'assistant
-        let rightHolders = {}
-        let rights = {}
+    componentWillMount() {
 
-        // Extraire les différents ayant-droits et ordonnancement dans un tableau
-        TYPE_SPLIT.forEach(type=>{
-            if(!rights[type]) {
-                rights[type] = {}
+        // Récupère la proposition
+        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.props.proposition}`)
+        .then((data)=>{
+            // Construction de la structure des données de l'assistant
+            let proposition = data.data.Item
+
+            let rightHolders = {}
+            let rights = {}
+
+            function traitementDroit(objDroit, type) {
+                console.log('traitement droit', objDroit, type)
+                if (objDroit) {
+                    objDroit.forEach(droit=>{
+                        if(!rightHolders[droit.rightHolder.rightHolderId]) {
+                            // Ajout du titulaire dans la table des ayant droits
+                            rightHolders[droit.rightHolder.rightHolderId] = droit.rightHolder
+                        }
+                        // Ajout du droit à l'ayant droit
+                        rights[type][droit.rightHolder.rightHolderId] = droit
+                    })
+                }                
             }
-            if(this.props.split[type]) {
-                let rightsSplit = this.props.split[type].rightsSplit
-                rightsSplit.forEach(droit=>{
-                    if(!rightHolders[droit.rightHolder.uuid]) {
-                        // Ajout du titulaire dans la table des ayant droits
-                        rightHolders[droit.rightHolder.uuid] = droit.rightHolder
+
+            // Extraire les différents ayant-droits et ordonnancement dans un tableau
+            TYPE_SPLIT.forEach(type=>{
+                if(!rights[type]) {
+                    rights[type] = {}
+                }
+                if(proposition.rightsSplits[type]) {
+                    let rightsSplit = proposition.rightsSplits[type]
+                    console.log(rightsSplit)
+                    // Séparation de la structure des droits
+                    switch(type) {
+                        case 'workCopyrightSplit':
+                            // lyrics
+                            traitementDroit(rightsSplit.lyrics, type)
+                            // music
+                            traitementDroit(rightsSplit.music, type)
+                            break
+                        case 'performanceNeighboringRightSplit':
+                            //principal
+                            traitementDroit(rightsSplit.principal, type)
+                            //accompaniment
+                            traitementDroit(rightsSplit.accompaniment, type)
+                            break
+                        case 'masterNeighboringRightSplit':
+                            traitementDroit(rightsSplit.split, type)
+                            break
+                        default:
                     }
-                    // Ajout du droit à l'ayant droit
-                    rights[type][droit.rightHolder.uuid] = droit
-                })                
+                                        
+                }
+            })            
+
+            // Affecte les objets construits
+            this.setState({rights: rights})
+            this.setState({initiateur: proposition.initiator.name})
+
+            // Récupère le titre du média
+            // Temporaire, devrait déjà être fourni dans le client à ce stade
+            axios.get(`http://api.smartsplit.org:8080/v1/media/${proposition.mediaId}`)
+            .then(res=>{
+                let media = res.data.Item
+                this.setState({mediaTitle: media.title})
+            })
+
+            // Récupération du courriel de l'ayant-droit
+            // Récupère le courriel des ayants-droits
+            let reqs = {} // Suivi des requêtes asynchrones
+            function aToutRecu() {
+                let _r = false                
+                Object.keys(reqs).forEach(e=>{                    
+                    if (reqs[e] === '-->') {
+                        _r = true
+                        return
+                    }
+                })
+                return !_r
             }
+            Object.keys(rightHolders).forEach((idx)=>{
+                reqs[idx] = '-->' // Marque comme envoyé
+                axios.get(`http://api.smartsplit.org:8080/v1/rightHolders/${rightHolders[idx].rightHolderId}`)
+                .then(res=>{
+                    rightHolders[idx].email = res.data.Item.email                    
+                    reqs[idx] = '---'
+                    if(aToutRecu()) {
+                        this.setState({rightHolders: rightHolders},()=>{
+                            console.log('Proposition - invitation\n', rightHolders, rights, proposition)
+                        })                        
+                    }
+                })                
+            })            
+            
         })
 
-        this.state = {
-            rightHolders: rightHolders,
-            rights: rights
-        }
     }
 
     transmettreInvitation(modele) {
 
-        // Envoyer le courriel de création de slipt aux ayant droits
-        Object.keys(modele.ayantDroits).forEach(id=>{
-            let _c = modele.ayantDroits[id]
-            
-            let body = {
-                "splitId": this.props.split.uuid,
-                "rightHolderId": _c.uuid,
-                "nom": _c.name.split(" ")[0],
-                "courriel": _c.email,
-                "initiateur": this.props.split.initiateur.name,
-                "initiateurId": this.props.split.initiateur.uuid,
-                "titre": this.props.split.media.title                    
-            }          
+        let body = {
+            "proposalId": this.props.proposition,
+            "rightHolders": modele.rightHolders
+        }
 
-            axios.post('http://api.smartsplit.org:8080/v1/proposal/invite', body)
-            .then((resp)=>{
-                if(resp.data !== '') {
-                    window.location.href=`/split/voter/${resp.data}`
-                }                
-            })
-
+        axios.post('http://api.smartsplit.org:8080/v1/proposal/invite', body)
+        .then((resp)=>{
+            if(resp.data !== '') {
+                window.location.href=`/proposition/vote/${resp.data}`
+            }                
         })
+
     }
 
     render() {
 
-        return (            
+        return ( Object.keys(this.state.rightHolders).length > 0 &&         
             <Translation>
                 {
                     (t, i18n)=>
                         <div>
                             <Wizard
                                 initialValues={{
-                                    ayantDroits: this.state.rightHolders
+                                    rightHolders: this.state.rightHolders
                                 }}
                                 buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                 debug={false}
@@ -92,16 +160,16 @@ class ValiderSplit extends Component {
                                 <Wizard.Page>
                                     <React.Fragment>
                                         <h1>{t('flot.split.sommaire.titre')}</h1>
-                                        <h2>{this.props.split.media.title}</h2>
+                                        <h2>{this.state.mediaTitle}</h2>
                                         <p/>
                                         <p/>
-                                        <h3>{t('flot.split.sommaire.soustitre')} {this.props.split.initiateur.name} : </h3>
+                                        <h3>{t('flot.split.sommaire.soustitre')} {this.state.initiateur} : </h3>
                                         <TableauSommaireSplit init={true} droits={this.state.rights} />
                                     </React.Fragment>
                                 </Wizard.Page>
 
                                 <Wizard.Page>
-                                    <PageAssistantSplitCourrielsCollaborateurs ayantDroits={this.state.rightHolders} titre={this.props.split.media.title}/>                                    
+                                    <PageAssistantSplitCourrielsCollaborateurs ayantDroits={this.state.rightHolders} titre={this.state.mediaTitle}/>
                                 </Wizard.Page>
 
                             </Wizard>
