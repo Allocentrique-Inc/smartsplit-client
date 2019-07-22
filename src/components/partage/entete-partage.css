@@ -1,0 +1,17 @@
+.entete--partage {
+    position: relative;
+    width: 100%;
+    height: 72px;
+}
+
+.entete--partage__media {
+    float: left;
+}
+
+.entete--partage__ariane {
+
+}
+
+.entete--partage__enregistrerEtQuitter {
+    float: right;
+}

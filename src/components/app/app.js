@@ -77,6 +77,7 @@ class App extends Component {
               <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
               <a href="/visualisation/troissplits">Trois splits</a><br/>
+              Partager les droits pour media # : <a href="/partager/1">1</a>   <a href="/partager/2">2</a>   <a href="/partager/3">3</a> 
             </div>
         </div>
         }

@@ -153,6 +153,11 @@
         "voter": {
             "connexion": "Tu dois te connecter afin d'accéder à la page de votation !",
             "soustitre": "Salut, {{nom}}, voici la page de votation pour les contributeurs dans l'oeuvre : "
+        },
+        "etape": {
+            "partage-etape": "Étape 2",
+            "partage-titre": "Partage des droits",
+            "enregistrerEtQuitter": "Enregistrer et quitter"
         }
     },
     "traitement": {

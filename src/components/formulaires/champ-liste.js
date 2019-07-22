@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik'
-import { Form } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react'
+import axios from 'axios'
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"
@@ -67,4 +68,72 @@ export class ChampListeAssistant extends Component {
         )        
     }
 
+}
+
+export class ChampListeCollaborateurAssistant extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            etiquette: props.etiquette,
+            indication: props.indication,
+            modele: props.modele,
+            autoFocus: props.autoFocus,
+            requis: props.requis,
+            fluid: props.fluid,
+            multiple: props.multiple,
+            recherche: props.recherche,
+            selection: props.selection,
+            ajout: props.ajout
+        }
+    }
+
+    componentWillMount() {
+        // Récupérer la liste des ayant-droits
+        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        .then(res=>{            
+            let _options = res.data.map(elem=>{
+                return {key: `${elem.rightHolderId}`,text: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
+            })
+            this.setState({options: _options}, ()=>{console.log(this.state.options)})
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.etiquette !== nextProps.etiquette) {
+            this.setState({etiquette: nextProps.etiquette})
+        }
+        if (this.props.indication !== nextProps.indication) {
+            this.setState({indication: nextProps.indication})
+        }
+        if (this.props.options !== nextProps.options) {
+            this.setState({options: nextProps.options})
+        }
+        if (this.props.requis !== nextProps.requis) {
+            this.setState({requis: nextProps.requis})
+        }
+    }
+
+    render() {
+        return(
+            <div>
+                <Wizard.Field
+                    name={this.state.modele}
+                    component={Form.Dropdown}
+                    componentProps={{
+                        label: this.state.etiquette,
+                        placeholder: this.state.indication,
+                        required: this.state.requis,
+                        autoFocus: this.state.autoFocus,
+                        fluid: true,
+                        search: true,
+                        selection: this.state.selection,
+                        options: this.state.options
+                    }}
+                    validate={this.state.requis && required}
+                />
+                <i className="right info circle icon blue"></i>
+            </div>
+        )        
+    }
 }

@@ -18,19 +18,30 @@ export default class Beignet extends Component {
             width: 450,
             height: 450,
             margin: 125,
-            data: props.data
+            data: props.data,
+            uuid: props.key
         }
 
         //this.genererBeignet = this.genererBeignet.bind(this)
-    }
+    } 
 
-    genererBeignet() {
+    genererBeignet() {           
+
+        // Remettre à zéro le conteneur du beignet
+        let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
+        if(conteneur) {
+            console.log(`nb. de beignets`, conteneur.childNodes.length)
+            let enfants = conteneur.childNodes
+            enfants.forEach(_e=>{
+                conteneur.removeChild(_e)
+            })
+        }
 
         // The radius of the pieplot is half the width or half the height (smallest one). I substract a bit of margin.
         let radius = Math.min(this.state.width, this.state.height) / 2 - this.state.margin
 
         // append the svg object to the div called 'my_dataviz'
-        let svg = d3.select("#my_dataviz")
+        let svg = d3.select(`#my_dataviz_${this.state.uuid}`)
             .append("svg")
             .attr("width", this.state.width)
             .attr("height", this.state.height)
@@ -96,7 +107,7 @@ export default class Beignet extends Component {
             .data(data_ready)
             .enter()
             .append('text')
-            .text( function(d) { console.log(d.data.key) ; return d.data.key + " " + d.data.value + "%" } )
+            .text( function(d) { return d.data.key + " " + d.data.value + "%" } )
             .attr('transform', function(d) {
         let pos = outerArc.centroid(d);
         let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
@@ -124,7 +135,7 @@ export default class Beignet extends Component {
                     {
                         (t, i18n) =>
                             <div>
-                                <div id="my_dataviz">
+                                <div id={`my_dataviz_${this.state.uuid}`}>
                                 </div>                                
                             </div>
                     }

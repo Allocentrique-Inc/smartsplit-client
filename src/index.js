@@ -24,6 +24,7 @@ import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import ListeOeuvres from './components/media/media-list'
 import ValiderSplit from './components/split/assistant-split'
 import VotationSplit from './components/split/votation-split'
+import AssistantPartage from './components/partage/assistant-partage'
 
 // Tableau de bord
 import TableauDeBord from './components/tableaudebord/tableaudebord'
@@ -91,10 +92,16 @@ const renderRoutes = () => (
         <Route exact path="/visualisation/histogramme" component={Histogramme} />
         <Route exact path="/visualisation/troissplits" component={Troissplits} />
         <Route exact path="/bonjournat" component={Bonjour} />
+        <Route exact path="/partager/:mediaId" component={Partager} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function Partager(match) {
+  let mediaId = match.match.params.mediaId
+  return (<AssistantPartage mediaId={mediaId} />)
+}
 
 function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
 
