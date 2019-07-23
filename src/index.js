@@ -28,7 +28,11 @@ import AssistantPartage from './components/partage/assistant-partage'
 
 // Tableau de bord
 import TableauDeBord from './components/tableaudebord/tableaudebord'
+
+// Visualisation
 import Beignet from './components/visualisation/partage/beignet';
+import Histogramme from './components/visualisation/partage/histogramme';
+import Troissplits from './components/visualisation/partage/troissplits';
 
 // Composantes auth
 import Login from './components/auth/Login'
@@ -36,9 +40,6 @@ import Register from './components/auth/Register'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
 import Welcome from './components/auth/Welcome'
-import Beignet from './components/visualisation/partage/beignet';
-import Histogramme from './components/visualisation/partage/histogramme';
-import Troissplits from './components/visualisation/partage/troissplits';
 
 const REGION = 'us-east-2';
 
