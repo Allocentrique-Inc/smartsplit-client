@@ -2,7 +2,8 @@ import React from 'react';
 import { Translation } from 'react-i18next'
 
 const Welcome = () => (
-  <React.Fragment>
+  
+  // <React.Fragment>
     <Translation>
       {
         (t) =>
@@ -28,7 +29,7 @@ const Welcome = () => (
       </section>
       }      
     </Translation>    
-  </React.Fragment>
+  // </React.Fragment>
 )
 
 export default Welcome

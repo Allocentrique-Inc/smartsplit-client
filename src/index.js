@@ -28,10 +28,10 @@ import AssistantPartage from './components/partage/assistant-partage'
 
 // Tableau de bord
 import TableauDeBord from './components/tableaudebord/tableaudebord'
+import Beignet from './components/visualisation/partage/beignet';
 
 // Composantes auth
 import Login from './components/auth/Login'
-import SignUp from './components/auth/SignUp'
 import Register from './components/auth/Register'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
@@ -80,7 +80,6 @@ const renderRoutes = () => (
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
         <Route exact path="/login" onRef={auth} component={renderLogin} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/signup" component={SignUp} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
         <Route exact path="/welcome" component={Welcome} />
