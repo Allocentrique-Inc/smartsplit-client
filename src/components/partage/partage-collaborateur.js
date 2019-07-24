@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import { ChampCourrielAssistant } from '../formulaires/champ-texte';
-import { ChampListeCollaborateurAssistant } from '../formulaires/champ-liste';
+
+import { ChampListeCollaborateurAssistant } from '../formulaires/champ-liste'
 
 export default class PartageCollaborateur extends Component {
 

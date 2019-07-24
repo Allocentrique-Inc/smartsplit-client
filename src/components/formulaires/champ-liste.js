@@ -95,7 +95,7 @@ export class ChampListeCollaborateurAssistant extends Component {
             let _options = res.data.map(elem=>{
                 return {key: `${elem.rightHolderId}`,text: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
             })
-            this.setState({options: _options}, ()=>{console.log(this.state.options)})
+            this.setState({options: _options})
         })
     }
 
@@ -117,22 +117,26 @@ export class ChampListeCollaborateurAssistant extends Component {
     render() {
         return(
             <div>
-                <Wizard.Field
-                    name={this.state.modele}
-                    component={Form.Dropdown}
-                    componentProps={{
-                        label: this.state.etiquette,
-                        placeholder: this.state.indication,
-                        required: this.state.requis,
-                        autoFocus: this.state.autoFocus,
-                        fluid: true,
-                        search: true,
-                        selection: this.state.selection,
-                        options: this.state.options
-                    }}
-                    validate={this.state.requis && required}
-                />
-                <i className="right info circle icon blue"></i>
+                {
+                    this.state.options && (
+                        <Wizard.Field                
+                            name={this.state.modele}
+                            component={Form.Dropdown}
+                            componentProps={{
+                                id: "collaborateur",
+                                label: this.state.etiquette,
+                                placeholder: this.state.indication,
+                                required: this.state.requis,
+                                autoFocus: this.state.autoFocus,
+                                fluid: true,
+                                search: true,
+                                selection: this.state.selection,
+                                options: this.state.options
+                            }}
+                            validate={this.state.requis && required}
+                        />
+                    )
+                }                
             </div>
         )        
     }

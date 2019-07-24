@@ -15,22 +15,31 @@ export default class Beignet extends Component {
     constructor(props){
         super(props)
         this.state = {
-            width: 450,
+            width: 800,
             height: 450,
             margin: 125,
             data: props.data,
-            uuid: props.key
-        }
-
-        //this.genererBeignet = this.genererBeignet.bind(this)
+            uuid: props.uuid
+        }        
     } 
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.data !== nextProps.data) {
+            let _d = {}
+            nextProps.data.forEach(elem=>{
+                if(elem) {
+                    _d[elem.nom] = elem.pourcent
+                }
+            })
+            this.setState({data: _d})
+        }
+    }
 
     genererBeignet() {           
 
         // Remettre à zéro le conteneur du beignet
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
         if(conteneur) {
-            console.log(`nb. de beignets`, conteneur.childNodes.length)
             let enfants = conteneur.childNodes
             enfants.forEach(_e=>{
                 conteneur.removeChild(_e)
@@ -129,18 +138,13 @@ export default class Beignet extends Component {
             this.genererBeignet()
         }, 0)
 
-        return (    
-            <div>                
-                <Translation>                
-                    {
-                        (t, i18n) =>
-                            <div>
-                                <div id={`my_dataviz_${this.state.uuid}`}>
-                                </div>                                
-                            </div>
-                    }
-                </Translation>
-            </div>            
+        return (                
+            <Translation>                
+                {
+                    (t, i18n) =>
+                        <div id={`my_dataviz_${this.state.uuid}`} className="beignet" />
+                }
+            </Translation>          
         )
     }
 }

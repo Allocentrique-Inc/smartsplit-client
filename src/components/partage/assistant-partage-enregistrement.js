@@ -1,7 +1,3 @@
-/**
- * Saisie du collaborateur principal de l'oeuvre
- */
-
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
@@ -10,7 +6,9 @@ import Beignet from '../visualisation/partage/beignet'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 
 import { FieldArray } from "formik";
-import PartageCollaborateur from "./partage-collaborateur";
+
+import axios from 'axios'
+import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste";
 
 const MODES = {manuel: 0, egal: 1}
 
@@ -19,11 +17,37 @@ class PageAssistantPartageEnregistrement extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            parts: {vincent: 100},
+            parts: {},
             mode: MODES.egal
         }
+        this.pourcentRestant = this.pourcentRestant.bind(this)
     }
-    
+
+    componentWillMount() {
+        // Récupérer la liste des ayant-droits
+        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        .then(res=>{            
+            let _options = res.data.map(elem=>{
+                return {key: `${elem.rightHolderId}`,text: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
+            })
+            this.setState({options: _options})
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(this.props.values.droitEnregistrement !== nextProps.values.droitEnregistrement) {
+            this.setState({parts: nextProps.values.droitEnregistrement})
+        }
+    }
+
+    pourcentRestant() {
+        let _pctDelta = 100
+        this.props.values.droitEnregistrement.forEach(elem=>{
+            _pctDelta = _pctDelta - parseFloat(elem.pourcent)
+        })
+        return `${_pctDelta < 0 ? 0 : _pctDelta}`
+    }
+
     render() {
 
         return (
@@ -55,29 +79,47 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                 </button>
                                                             </div>
                                                             <div className="twelve wide field">
-                                                                <PartageCollaborateur modele={`droitEnregistrement[${index}]`} />
-                                                                <ChampGradateurAssistant modele={`droitEnregistrement[${index}].pourcent`} pourcent={100} changement={()=>{
-                                                                    console.log('Changement du gradateur...')
-                                                                }}/>
-                                                            </div>                                                            
-                                                        </div>                                                                                                                                                    
+                                                                <ChampGradateurAssistant etiquette={part.nom} modele={`droitEnregistrement[${index}].pourcent`}/>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 )
                                             })
                                         }
-                                        <button
-                                            type="button"                                                
-                                            onClick={
-                                                () => {
-                                                    arrayHelpers.insert()
-                                                    // Crééer un objet convenable
-                                                    let idx = this.props.values.droitEnregistrement.length - 1
-                                                    this.props.values.droitEnregistrement[idx] = {nom: "", pourcent: 50}
-                                                }
-                                            }
-                                        >
-                                            <i className="plus circle icon big green"></i>
-                                        </button>
+                                        <div style={{width: "30%", margin: "0 auto", height: "100px"}}>
+                                            <div>
+                                                <button
+                                                    className="btnCollaborateur"
+                                                    onClick={
+                                                        (e) => {
+                                                            e.preventDefault()
+                                                            arrayHelpers.insert()
+                                                            // Crééer un objet convenable
+                                                            //let idx = this.props.values.droitEnregistrement.length > 0 ? this.props.values.droitEnregistrement.length - 1 : 0
+                                                            // setFieldValue() déclenche un rafraichissement du formulaire
+                                                            console.log('champ droitEnregistrement', this.props.values.droitEnregistrement)
+                                                            this.props.setFieldValue(`droitEnregistrement[0]`, {nom: this.props.values.collaborateur, pourcent: this.pourcentRestant()})
+                                                            this.props.setFieldValue('collaborateur', "")
+                                                        }
+                                                    }
+                                                >
+                                                    <i className="plus circle icon big green"></i>                                                    
+                                                </button>
+                                            </div>                                    
+                                            <div>
+                                                <ChampListeCollaborateurAssistant
+                                                    indication={t('flot.collaborateurs.ajout')}
+                                                    modele="collaborateur"
+                                                    autoFocus={false}
+                                                    requis={false}
+                                                    fluid={true}
+                                                    multiple={false}
+                                                    recherche={true}
+                                                    selection={true}
+                                                    ajout={false}
+                                                />                                               
+                                            </div>
+                                        </div>
                                     </div>
                                 )}
                             />

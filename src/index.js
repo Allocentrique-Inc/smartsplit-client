@@ -28,11 +28,9 @@ import AssistantPartage from './components/partage/assistant-partage'
 
 // Tableau de bord
 import TableauDeBord from './components/tableaudebord/tableaudebord'
-
-// Visualisation
-import Beignet from './components/visualisation/partage/beignet';
-import Histogramme from './components/visualisation/partage/histogramme';
-import Troissplits from './components/visualisation/partage/troissplits';
+import Beignet from './components/visualisation/partage/beignet'
+import Histogramme from './components/visualisation/partage/histogramme'
+import Troissplits from './components/visualisation/partage/troissplits'
 
 // Composantes auth
 import Login from './components/auth/Login'
