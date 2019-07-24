@@ -59,9 +59,9 @@ export default class Troissplits extends Component {
     render() {
         return (
             <div className="tdb--cadre">
-                <Beignet key="1" parent={this} data={this.state.data1}/>
-                <Beignet key="2" parent={this} data={this.state.data2}/>
-                <Beignet key="3" parent={this} data={this.state.data3}/>
+                <Beignet uuid={1} parent={this} data={this.state.data1}/>
+                <Beignet uuid={2} parent={this} data={this.state.data2}/>
+                <Beignet uuid={3} parent={this} data={this.state.data3}/>
             </div>
         )
     }

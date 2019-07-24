@@ -8,10 +8,10 @@
     float: left;
 }
 
-.entete--partage__ariane {
-
-}
-
 .entete--partage__enregistrerEtQuitter {
     float: right;
+}
+
+.btnCollaborateur {
+    width: 250px;
 }
