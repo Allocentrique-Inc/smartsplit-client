@@ -167,6 +167,10 @@
             "preambule": "Succès, vous avez enregistré un nouveau compte.",
             "indication": "Nous vous avons envoyé un email. Veuillez cliquer sur le lien de confirmation pour vérifier votre compte."
         },
+        "passwordchanged":{
+            "titre": "Mot de passe changé",
+            "indication": "Votre mot de passe a été changé avec succès."
+        },
         "titre": "Connexion à SmartSplit",
         "err": {
             "username": "Le nom d'utilisateur est un courriel invalide",

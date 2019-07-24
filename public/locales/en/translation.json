@@ -167,6 +167,10 @@
             "preambule": "You have successfully registered a new account.", 
             "indication": "We've sent you a email. Please click on the confirmation link to verify your account."
         },
+        "passwordchanged":{
+            "titre": "Password Reset",
+            "indication": "Your password has been changed successfully."
+        },
         "titre": "Connexion à SmartSplit",
         "err": {
             "username": "Le nom d'utilisateur est un courriel invalide",
