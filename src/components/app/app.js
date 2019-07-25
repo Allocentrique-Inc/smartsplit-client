@@ -3,7 +3,6 @@ import logo from '../../assets/images/logo.svg'
 import './app.css'
 import { Auth } from 'aws-amplify';
 
-
 import { Translation } from 'react-i18next'
 
 class App extends Component {   
@@ -77,7 +76,7 @@ class App extends Component {
               <a href="/login">Login</a> <a href="/register">Register</a> <a href="/signup">SignUp</a> <a href="/forgot-password">Forgot Password</a> <a href="/forgot-password-verification">Password Verification</a> <a href="/welcome">Welcome</a><br/>
               <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
-              <a href="/visualisation/beignet">Beignet</a><br/>
+              <a href="/visualisation/troissplits">Trois splits</a><br/>
             </div>
         </div>
         }

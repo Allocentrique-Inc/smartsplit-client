@@ -18,7 +18,7 @@ export default class Beignet extends Component {
             width: 450,
             height: 450,
             margin: 125,
-            rendu: false
+            data: props.data
         }
 
         //this.genererBeignet = this.genererBeignet.bind(this)
@@ -37,26 +37,18 @@ export default class Beignet extends Component {
             .append("g")
             .attr("transform", "translate(" + this.state.width / 2 + "," + this.state.height / 2 + ")");
 
-        // Create some data
-        let data = {
-            "Guillaume": 30,
-            "Natalya": 20,
-            "David": 20,
-            "Vincent": 15,
-            "Mario": 15
-        }
-
         // set the color scale
         let color = d3.scaleOrdinal()
-            .domain(["a", "b", "c", "d", "e"])
-            .range(d3. schemeSet1
+            .domain(["Guillaume", "Natalya", "David", "Vincent", "Mario"])
+            .range(d3. schemePaired
         );
 
         // Compute the position of each group on the pie:
         let pie = d3.pie()
             .sort(null) // Do not sort group by size
             .value(function(d) {return d.value; })
-        let data_ready = pie(d3.entries(data))
+        
+        let data_ready = pie(d3.entries(this.state.data))
 
         // The arc generator
         let arc = d3.arc()
@@ -90,13 +82,13 @@ export default class Beignet extends Component {
             .style("fill", "none")
             .attr("stroke-width", 1)
             .attr('points', function(d) {
-        let posA = arc.centroid(d) // line insertion in the slice
-        let posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
-        let posC = outerArc.centroid(d); // Label position = almost the same as posB
-        let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
-            posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
-            return [posA, posB, posC]
-        })
+                let posA = arc.centroid(d) // line insertion in the slice
+                let posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
+                let posC = outerArc.centroid(d); // Label position = almost the same as posB
+                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
+                posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
+                return [posA, posB, posC]
+            })
 
         // Add the polylines between chart and labels:
         svg
@@ -104,7 +96,7 @@ export default class Beignet extends Component {
             .data(data_ready)
             .enter()
             .append('text')
-            .text( function(d) { console.log(d.data.key) ; return d.data.key } )
+            .text( function(d) { console.log(d.data.key) ; return d.data.key + " " + d.data.value + "%" } )
             .attr('transform', function(d) {
         let pos = outerArc.centroid(d);
         let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
