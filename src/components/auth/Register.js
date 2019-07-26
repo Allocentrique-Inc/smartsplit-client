@@ -1,32 +1,31 @@
 import React, { Component } from 'react';
-//import './Register.css'
-import { Formik } from 'formik'
-import * as Yup from 'yup'
+import './Register.css'
+import { Formik , Form, Field } from 'formik'
+import { toast } from 'react-toastify'
+// import * as Yup from 'yup'
 // Traduction
-import { Translation } from 'react-i18next';
+// import { Translation } from 'react-i18next';
 
 // import FormErrors from "../FormErrors";
 // import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
 
-import { Wizard } from 'semantic-ui-react-formik'
-import { Form } from 'semantic-ui-react';
 
 class Register extends Component {
-  state = {
-    email: "",
-    username: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-    hidden: true,
-    confirmpassword: "",
-    errors: {
-      cognito: null,
-      blankfield: false,
-      passwordmatch: false
-    }
-  }
+  // state = {
+  //   email: "",
+  //   username: "",
+  //   firstName: "",
+  //   lastName: "",
+  //   password: "",
+  //   hidden: true,
+  //   confirmpassword: "",
+  //   errors: {
+  //     cognito: null,
+  //     blankfield: false,
+  //     passwordmatch: false
+  //   }
+  // }
 
   constructor(props) {
     super(props);
@@ -42,6 +41,9 @@ class Register extends Component {
     this.toggleShow = this.toggleShow.bind(this);
     this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
     this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
+    this.validateUsername = this.validateUsername.bind(this)
+    this.validatePassword = this.validatePassword.bind(this)
+    this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
   }
 
   clearErrorState = () => {
@@ -54,47 +56,113 @@ class Register extends Component {
     });
   }
 
-  handleSubmit = async event => {
-    event.preventDefault();
+  validateUsername(value) {
+    if (!value) {
+      return "Required"
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
+      return "Invalid username"
+    }
+  }
+  
+  validatePassword(value) {
+    if (!value) {
+      return "Required"
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
+      console.log("VALUE", value)
+      return "Invalid password"
+    }
+  }
 
-    // Form validation
-    // this.clearErrorState();
-    // const error = Validate(event, this.state);
-    // if (error) {
-    //   this.setState({
-    //     errors: { ...this.state.errors, ...error }
-    //   });
-    // }
-    console.log("ENTER HANDLE SUBMIT");
+  validateConfirmPassword(value) {
+    if (!value) {
+      return "Required"
+    } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
+      console.log("VALUE confirm", value)
+      return "Passwords do not match"
+    }
+  }
 
-    // AWS Cognito integration here
-    // const { username, email, firstName, lastName, password } = this.state;
-    const { username, email, firstName, lastName, password } = this.state;
+  // handleSubmit = async event => {
+  //   event.preventDefault();
+
+  //   // Form validation
+  //   // this.clearErrorState();
+  //   // const error = Validate(event, this.state);
+  //   // if (error) {
+  //   //   this.setState({
+  //   //     errors: { ...this.state.errors, ...error }
+  //   //   });
+  //   // }
+  
+  //   // AWS Cognito integration here
+  //   const { username, email, firstName, lastName, password } = this.state;
+  //   try {
+  //     const signUpResponse = await Auth.signUp({
+  //       username,
+  //       password,
+  //       attributes: {
+  //         email: email,
+  //         name: firstName,
+  //         family_name: lastName
+  //       }
+  //     });
+  //     this.props.history.push("/welcome");
+  //     console.log(signUpResponse);
+  //   } catch (error) {
+  //     let err = null;
+  //     !error.message ? err = { "message": error } : err = error;
+  //     this.setState({
+  //       errors: {
+  //         ...this.state.errors,
+  //         cognito: err
+  //       }
+  //     });
+  //   }
+  // }
+
+  handleSubmit = values => { 
+    // AWS Cogni"to integration here 
+    console.log("Enter handleSubmit ======")
+    const username = values.username;
+    const email = values.email;
+    const firstName = values.firstName;
+    const lastName = values.lastName;
+    const password = this.state.password;
+    console.log(password, username, email, firstName, lastName)
     try {
-      const signUpResponse = await Auth.signUp({
+      Auth.signUp({
         username,
         password,
         attributes: {
           email: email,
           name: firstName,
-          family_name: lastName
+          family_name: lastName 
         }
-      });
-      this.props.history.push("/welcome");
-      console.log(signUpResponse);
-    } catch (error) {
-      let err = null;
-      !error.message ? err = { "message": error } : err = error;
-      this.setState({
-        errors: {
-          ...this.state.errors,
-          cognito: err
+      })
+      // this.props.history.push("/welcome")
+      .then(
+        // toast.success(`Biquette#${user.username} !`)
+        // this.props.auth.setAuthStatus(true)
+        // this.props.auth.setUser(user.username)    
+        this.props.history.push("/welcome")
+    
+      )
+      .catch((err)=>{
+        // toast.error(err.message)
+        console.log(err)
+      })
+      .finally(()=>{
+        if(this.props.fn) {
+          this.props.fn()
         }
-      });
+      })
+    } catch (err) {
+      console.log(err)
     }
   }
 
   handlePasswordChange(e) {
+    console.log("hpc",e);
     this.setState({ password: e.target.value });
   }
 
@@ -106,16 +174,22 @@ class Register extends Component {
     this.setState({ hidden: !this.state.hidden });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props.password !== nextProps.password) {
+      this.setState({ password: nextProps.password });
+    }
+  }
+
   toggleConfirmShow() {
     this.setState({ confirmhidden: !this.state.confirmhidden });
   }
 
-  onInputChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
-    document.getElementById(event.target.id).classList.remove("is-danger");
-  }
+  // onInputChange = event => {
+  //   this.setState({
+  //     [event.target.id]: event.target.value
+  //   });
+  //   document.getElementById(event.target.id).classList.remove("is-danger");
+  // }
 
   componentDidMount() {
     if (this.props.password) {
@@ -128,118 +202,154 @@ class Register extends Component {
 
   render() {
     return (
+
+      <Formik
+      initialValues={ 
+              {
+                email: this.state.email,
+                username: this.state.username,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                password: this.state.password,
+                hidden: true,
+                confirmpassword: this.state.confirmpassword
+              } 
+          }
+      onSubmit={
+          (values, { setSubmitting }) => {
+            console.log("****", values);
+              this.handleSubmit(values, ()=>{setSubmitting(false)})
+        }}
+      >
+
+      {({ errors, touched, isValidating }) => (
+      <Form>
       <section className="section auth">
         <div className="container">
           <h1>Register</h1>
-          {/* <FormErrors formerrors={this.state.errors} /> */}
-
-          <form onSubmit={this.handleSubmit}>
           <div className="field">
-              <p className="control has-icons-left has-icons-right">
-                <input 
-                  className="input" 
-                  type="firstName"
+              <div className="control has-icons-left has-icons-right">
+                <Field 
+                  name="firstName"
                   id="firstName"
                   aria-describedby="firstNameHelp"
                   placeholder="Enter First Name"
                   value={this.state.firstName}
-                  onChange={this.onInputChange}
+                  // onChange={this.onInputChange}
+                  required={true}
                 />
                 <span className="icon is-small is-left">
                   <i className="fas fa-envelope"></i>
                 </span>
-              </p>
+              </div>
             </div>
             <div className="field">
-              <p className="control has-icons-left has-icons-right">
-                <input 
-                  className="input" 
-                  type="lastName"
+              <div className="control has-icons-left has-icons-right">
+                <Field
+                  name="lastName"
                   id="lastName"
                   aria-describedby="=lastNameHelp"
                   placeholder="Enter Last Name"
                   value={this.state.lastName}
-                  onChange={this.onInputChange}
+                  // onChange={this.onInputChange}
+                  required={true}
                 />
                 <span className="icon is-small is-left">
                   <i className="fas fa-envelope"></i>
                 </span>
-              </p>
+              </div>
             </div>
             <div className="field">
-              <p className="control has-icons-left has-icons-right">
-                <input 
-                  className="input" 
+              <div className="control has-icons-left has-icons-right">
+                <Field 
+                  name="email" 
                   type="email"
                   id="email"
                   aria-describedby="emailHelp"
                   placeholder="Enter Email"
                   value={this.state.email}
-                  onChange={this.onInputChange}
+                  // onChange={this.onInputChange}
+                  required={true}
                 />
                 <span className="icon is-small is-left">
                   <i className="fas fa-envelope"></i>
                 </span>
-              </p>
+              </div>
             </div>
             <div className="field">
-              <p className="control">
-                <input 
-                  className="input" 
-                  type="text"
+              <div className="control">
+                <Field
+                
+                  validate={  (val) => {this.validateUsername(val)} } 
+                  name="username"
                   id="username"
                   aria-describedby="userNameHelp"
-                  placeholder="Enter username"
+                  placeholder="Create Username (email)"
                   value={this.state.username}
-                  onChange={this.onInputChange}
+                  // onChange={this.onInputChange}
                   // style={{display: 'none'}} 
+                  required={true}
                 />
-              </p>
+                {errors.username && touched.username && <div style={{color: "red"}}> Courriel invalide </div>}
+              </div>
             </div>
             <div className="field">
-              <p className="control has-icons-left">
-                <input 
-                  className="input" 
+              <div className="control has-icons-left">
+                <Field
+                  // validate={this.validatePassword} 
+                  validate={  (val) => {this.validatePassword(val)} } 
                   type={this.state.hidden ? "password" : "text"}
                   id="password"
+                  name="password"
                   placeholder="Password"
                   value={this.state.password}
                   onChange={this.handlePasswordChange}
-                  onChange={this.onInputChange}
+                  // onChange={this.onInputChange}
+                  required={true}
                 />
-                <button id="hide" onClick={this.toggleShow}>👁️</button>
+                <button id="hide" onClick={ (e) => {e.preventDefault(); this.toggleShow()} }>
+                  <i className="eye icon black"></i>
+                </button>
+                {errors.password && touched.password && <div style={{color: "red"}}> Mot de passe invalide </div>}
                 <span className="icon is-small is-left">
                   <i className="fas fa-lock"></i>
                 </span>
-              </p>
+              </div>
             </div>
             <div className="field">
-              <p className="control has-icons-left">
-                <input 
-                  className="input" 
+              <div className="control has-icons-left">
+                <Field
+                  validate={  (val) => {this.validateConfirmPassword(val)} } 
                   type={this.state.confirmhidden ? "password" : "text"}
                   id="confirmpassword"
+                  name="confirmpassword"
                   placeholder="Confirm password"
                   value={this.state.confirmpassword}
                   onChange={this.handleConfirmPasswordChange}
-                  onChange={this.onInputChange}
+                  // onChange={this.onInputChange}
+                  required={true}
                 />
-                <button id="hide" onClick={this.toggleConfirmShow}>👁️</button>
+                <button id="hide-confirm" onClick={ (e) => {e.preventDefault(); this.toggleConfirmShow()} }>
+                  <i className="eye icon black"></i>
+                </button>
+                {errors.confirmpassword && touched.confirmpassword && <div style={{color: "red"}}> Les mots de passes ne correspondent pas</div>}
                 <span className="icon is-small is-left">
                   <i className="fas fa-lock"></i>
                 </span>
-              </p>
+              </div>
             </div>
             <div className="field">
               <p className="control">
-                <button className="button is-success">
+                <button className="button is-success" type="submit">
                   Register
                 </button>
               </p>
             </div>
-          </form>
         </div>
       </section>
+      </Form>
+      )}
+    </Formik>           
     );
   }
 }

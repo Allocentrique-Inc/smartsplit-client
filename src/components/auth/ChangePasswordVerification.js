@@ -1,7 +1,7 @@
 import React from 'react';
 import { Translation } from 'react-i18next'
 
-const Welcome = () => (
+const ChangePasswordVerification = () => (
   
   // <React.Fragment>
     <Translation>
@@ -9,22 +9,18 @@ const Welcome = () => (
         (t) =>
         <section className="section auth">
          <div className="container">
-          {/* <tbody> */}
+          <tbody>
             <tr>
               <td>
-                <h2>{t('auth.bienvenue.titre')}</h2>
+                <h2>{t('auth.passwordchanged.titre')}</h2>
 
                 <p>
-                  {t('auth.bienvenue.preambule')}
-                </p>
-
-                <p>
-                  {t('auth.bienvenue.indication')}
+                  {t('auth.passwordchanged.indication')}
                 </p>
 
               </td>
             </tr>
-          {/* </tbody>     */}
+          </tbody>    
          </div>
       </section>
       }      
@@ -32,4 +28,4 @@ const Welcome = () => (
   // </React.Fragment>
 )
 
-export default Welcome
+export default ChangePasswordVerification

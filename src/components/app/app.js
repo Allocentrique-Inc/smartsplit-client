@@ -4,6 +4,7 @@ import './app.css'
 import { Auth } from 'aws-amplify';
 
 import { Translation } from 'react-i18next'
+import axios from 'axios';
 
 class App extends Component {   
   
@@ -11,9 +12,10 @@ class App extends Component {
     isAuthenticated: false,
     isAuthenticating: true,
     user: null
-  }  
+  }
 
   componentDidMount() {
+
     try {
       Auth.currentSession().then(
         session=>{
@@ -31,11 +33,21 @@ class App extends Component {
       })
                 
     } catch(error) {
-      if (error !== 'No current user') {
+      if (error !== 'No current user.') {
         console.log(error);
       }
     }
   
+    axios.get('http://api.smartsplit.org:8080/v1/media')
+    .then(res=>{
+      let listeMedias = res.data.map((elem, idx)=>{
+        return (
+          <option key={`option_media_${idx}`} value={elem.mediaId}>{elem.title}</option>
+        )
+      })      
+      this.setState({listeMedias: listeMedias})
+    })
+
   }
 
   render() {   
@@ -73,11 +85,17 @@ class App extends Component {
               <a href="/approuver-proposition/d8fd3d50-a709-11e9-aa93-97e5b25f771d">Soumettre au vote #5</a><br/>
               <p/>
               <h3>Connexion et création de compte</h3>
-              <a href="/login">Login</a> <a href="/register">Register</a> <a href="/forgot-password">Forgot Password</a> <a href="/forgot-password-verification">Password Verification</a> <a href="/welcome">Welcome</a><br/>
+              <a href="/login">Login</a> <a href="/register">Register</a> <a href="/forgot-password">Forgot Password</a> <a href="/forgot-password-verification">Password Verification</a>  <a href="/change-password-verification">Change Verification</a> <a href="/welcome">Welcome</a><br/>
               <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
-              <a href="/visualisation/troissplits">Trois splits</a><br/>
-              Partager les droits pour media # : <a href="/partager/1">1</a>   <a href="/partager/2">2</a>   <a href="/partager/3">3</a> 
+              <a href="/visualisation/troissplits">Trois splits</a><br/>              
+              Partager les droits pour un média :
+              <select id="select-media">
+                {this.state.listeMedias}
+              </select> <button onClick={()=>{
+                let e = document.getElementById('select-media')
+                window.location.href = `/partager/${e.options[e.selectedIndex].value}`
+              }}>Partager les droits</button>
             </div>
         </div>
         }

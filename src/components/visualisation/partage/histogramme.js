@@ -15,94 +15,82 @@ export default class Histogramme extends Component {
     constructor(props){
         super(props)
         this.state = {
-            width: 1024,
-            height: 768,
-            margin: 125,
-            data: props.data,
-            data3: { 
-                "Guillaume": 30, 
-                "Natalya": 22, 
-                "David": 15, 
-                "Vincent": 10, 
-                "Georges": 9, 
-                "Mario": 5, 
-                "Steve": 3.2, 
-                "Fabien": 3.1, 
-                "Erika": 2.7, 
-                "Danielle": 2.7, 
-                "Jean-François": 2.5, 
-                "Martine": 2.2, 
-                "France": 1.9, 
-                "Maxime": 1.7, 
-                "François-Simon": 1.6, 
-                "Jonathan": 1.5, 
-                "Julien": 1.3, 
-                "Thomas": 1, 
-                "Louis-Pierre": 1
-            }
+            dataset: [25, 18, 12, 7.5, 7.5, 7.5, 4.5, 4.5, 4.5, 4.5, 4.5],
+            nameset: ["Guillaume", "Georges", "Natalya", "Vincent", "David", "Steve", "Mario", "Erica", "Martine", "Jean-François", "Danielle"]
         }
 
         //this.genererBeignet = this.genererBeignet.bind(this)
     }
 
-    genererHisto() {
+genererHisto() {
 
-        var dataArray = Object.values(this.state.data);
-        var namesArray = Object.keys(this.state.data);
-        var w = this.state.width;   
-        var h = this.state.height;
-        var barPadding = 1;    
+    console.log("genererHisto");
+    var dataset = this.state.dataset;
+    var nameset = this.state.nameset;
 
-        // append the svg object to the div called 'my_dataviz'
-        let svg = d3.select("body")
-            .append("svg")
-            .attr("width", w)
-            .attr("height", h);
-            
-        let xScale = d3.scaleLinear()
-            .range([0, w])
-            .domain([0, dataArray.length]);
-            
-        let yScale = d3.scaleLinear()
-            .range([h, 0])
-            .domain([0, d3.max(dataArray, function(d){ return d; })]);
-        
-        svg.selectAll("rect")
-            .data(dataArray)
-            .enter()
-            .append("rect")
-            //.attr("x", 0)
-            .attr("x", function(d, i) {
-                return i * (w / 29);
-            })
-            //.attr("y", 0)
-            .attr("y", function(d) {
-                 return ((h / 2) + 30) - ((w / 100) * d);
-            })
-            .attr("fill", "teal")
-            .attr("width", 20)
-            //.attr("height", 100);
-            .attr("height", function(d) {
-                return (w / 100) * d;  //Just the data value
-            });
-        
-        svg.selectAll("text")
-            .data(namesArray)
-            .enter()
-            .append("text")
-            .text(function(d, i) {
-                return d + " " + dataArray[i] + "%";
-            })   
-            .attr("x", function(d, i) {
-                return 300 + (i * (w / 40));
-            })
-            .style("fill","black")
-            .attr("text-anchor", "start")
-            .attr("transform", "rotate(45)")
-            //.attr("y", 400);
-            .attr("y", function(d, i) {
-                return 300 - (25.4 * i);
-            });
+    var margin = {top: 50, right: 140, bottom: 150, left: 60}
+    var width = window.innerWidth - 20 - margin.left - margin.right // Use the window's width 
+    var height = window.innerHeight - 20 - margin.top - margin.bottom; // Use the window's height
+    
+    var svg = d3.select('svg')  
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+            //.attr("width", width)  
+            //.attr("height", height)  
+            //.attr("class", "bar-chart");
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    var colors = d3.scaleOrdinal(d3.schemePaired);
+
+    var xScale = d3.scaleLinear()
+        .domain([0, dataset.length - 1])
+        .range([0, width]);
+
+    var yScale = d3.scaleLinear()
+        .domain([0, d3.max(d3.values(dataset))])
+        .range([height, 0]);
+
+    var barPadding = 7.2;  
+    var barWidth = (width / dataset.length);
+    var x = d3.scaleLinear().range([0, width]);
+
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(d3.axisLeft(yScale).ticks(5))
+      .selectAll("text")	
+        .text(function(d) { return d + " %"; })
+        .style("font", "16px arial");
+
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(35," + height + ")")
+        .call(d3.axisBottom(xScale).ticks(8))
+      .selectAll("text")	
+        .text(function(d, i) { return nameset[i]; })
+        .style("text-anchor", "start")
+        .style("font", "16px arial")
+        .attr("dx", ".75em")
+        .attr("dy", ".75em")
+        .attr("transform", "rotate(45)");
+
+    svg.selectAll("rect")  
+        .data(dataset)  
+        .enter()  
+        .append("rect")
+        .style("fill", function(d,i){return colors(i)})
+        .attr("y", function(d) {  
+            return height - d * 21 
+        })  
+        .attr("height", function(d) {  
+            return d * 21;  
+        })  
+        .attr("width", barWidth - barPadding)  
+        .attr("transform", function (d, i) {  
+             var translate = [5 + (barWidth + barPadding) * i, 0];  
+             return "translate("+ translate +")";  
+        });
+
     }
 
     render(){        
@@ -119,8 +107,7 @@ export default class Histogramme extends Component {
                     {
                         (t, i18n) =>
                             <div>
-                                <div id="my_dataviz">
-                                </div>                                
+                                <svg></svg>                          
                             </div>
                     }
                 </Translation>

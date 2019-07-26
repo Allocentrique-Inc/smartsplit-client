@@ -29,7 +29,7 @@ export default class ChampGradateurAssistant extends Component {
                     value: `${this.state.pourcent}`,
                     min: 0,
                     max: 100,
-                    step: 0.1,
+                    step: 1,
                     type: "range"
                 }}
             />

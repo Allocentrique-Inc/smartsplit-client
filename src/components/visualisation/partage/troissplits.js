@@ -62,6 +62,9 @@ export default class Troissplits extends Component {
                 <Beignet uuid={1} parent={this} data={this.state.data1}/>
                 <Beignet uuid={2} parent={this} data={this.state.data2}/>
                 <Beignet uuid={3} parent={this} data={this.state.data3}/>
+                <Histogramme parent={this} data={this.state.data1}/>
+                <Histogramme parent={this} data={this.state.data2}/>
+                <Histogramme parent={this} data={this.state.data3}/>
             </div>
         )
     }

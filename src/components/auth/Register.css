@@ -1,11 +1,15 @@
 input[id="password"] {
     padding-right: 50px;
     width: 200px;
+    /* display: inline; */
+
 }
 
 input[id="confirmpassword"] {
     padding-right: 50px;
-    width: 200px;
+    width: 200px;    
+    /* display: inline; */
+
 }
 
 input{
@@ -13,11 +17,19 @@ input{
     display: inline;
 }
 
-button {
+button[id="hide"] {
     margin: 0em;
+    width: 50px;
+    height: 32px;
+    padding: 0;
+    color: white;
+    background-color: Transparent;
+    border: 0;
+    -webkit-appearance: none;
 }
 
-button[id="hide"] {
+button[id="hide-confirm"] {
+    margin: 0em;
     width: 50px;
     height: 32px;
     padding: 0;
