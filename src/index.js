@@ -37,7 +37,11 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
+import ChangePasswordVerification from './components/auth/ChangePasswordVerification'
 import Welcome from './components/auth/Welcome'
+import SignInFacebook from './components/auth/SignInFacebook'
+import SignInGoogle from './components/auth/SignInGoogle'
+
 
 const REGION = 'us-east-2';
 
@@ -79,8 +83,11 @@ const renderRoutes = () => (
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
         <Route exact path="/login" onRef={auth} component={renderLogin} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/sign-in-facebook" component={SignInFacebook} />
+        <Route exact path="/sign-in-google" component={SignInGoogle} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
+        <Route exact path="/change-password-verification" component={ChangePasswordVerification} />
         <Route exact path="/welcome" component={Welcome} />
         <Route exact path="/approuver-proposition/:propositionId" component={ApprouverSplit} />
         <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />

@@ -31,7 +31,7 @@ class App extends Component {
       })
                 
     } catch(error) {
-      if (error !== 'No current user') {
+      if (error !== 'No current user.') {
         console.log(error);
       }
     }
@@ -73,7 +73,7 @@ class App extends Component {
               <a href="/approuver-proposition/d8fd3d50-a709-11e9-aa93-97e5b25f771d">Soumettre au vote #5</a><br/>
               <p/>
               <h3>Connexion et création de compte</h3>
-              <a href="/login">Login</a> <a href="/register">Register</a> <a href="/forgot-password">Forgot Password</a> <a href="/forgot-password-verification">Password Verification</a> <a href="/welcome">Welcome</a><br/>
+              <a href="/login">Login</a> <a href="/register">Register</a> <a href="/forgot-password">Forgot Password</a> <a href="/forgot-password-verification">Password Verification</a>  <a href="/change-password-verification">Change Verification</a> <a href="/welcome">Welcome</a><br/>
               <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
               <a href="/visualisation/troissplits">Trois splits</a><br/>

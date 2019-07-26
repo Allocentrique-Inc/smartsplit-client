@@ -124,6 +124,10 @@ class TableauSommaireSplit extends Component {
                                 // split
                                 extraireDroit(DROITS[type], 'split', familleDroit.split)
                                 break
+                            default:
+                                // split
+                                extraireDroit(DROITS[type], 'split', familleDroit.split)
+                                break
                         }                                      
                     }
                 })

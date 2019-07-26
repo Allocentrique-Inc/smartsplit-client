@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import './Login.css'
 import { Auth } from "aws-amplify";
 import { Translation } from 'react-i18next'
 
@@ -132,7 +133,7 @@ class LogIn extends Component {
                           required={true}
                         />
                         <button id="hide" onClick={this.toggleShow}>
-                          <i className="eye icon white"></i>
+                          <i className="eye icon black"></i>
                         </button>                              
                       </div>                            
                       {errors.password && touched.password && <div style={{color: "red"}}> Mot de passe invalide </div>}
