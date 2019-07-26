@@ -31,6 +31,7 @@ import TableauDeBord from './components/tableaudebord/tableaudebord'
 import Beignet from './components/visualisation/partage/beignet'
 import Histogramme from './components/visualisation/partage/histogramme'
 import Troissplits from './components/visualisation/partage/troissplits'
+import TableauSommaireSplit from './components/split/tableau-sommaire'
 
 // Composantes auth
 import Login from './components/auth/Login'
