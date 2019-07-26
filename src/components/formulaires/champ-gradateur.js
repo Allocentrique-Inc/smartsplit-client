@@ -11,6 +11,7 @@ export default class ChampGradateurAssistant extends Component {
             pourcent: props.pourcent,
             modele: props.modele
         }
+        this.valeur = 0
     }
 
     componentWillReceiveProps(nextProps) {
@@ -30,7 +31,13 @@ export default class ChampGradateurAssistant extends Component {
                     min: 0,
                     max: 100,
                     step: 1,
-                    type: "range"
+                    type: "range",
+                    onInput: e=>{                        
+                        this.props.changement(this.props.id, this.valeur, e.target.value)
+                    },
+                    onMouseDown: e=>{
+                        this.valeur = e.target.value
+                    }
                 }}
             />
         )        

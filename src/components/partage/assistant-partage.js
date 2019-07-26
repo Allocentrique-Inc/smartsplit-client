@@ -48,7 +48,8 @@ class AssistantPartage extends Component {
                                 }}
                                 buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                 debug={true}
-                                onSubmit={this.soumettre.bind(this)}>
+                                onSubmit={this.soumettre.bind(this)}
+                                >
 
                                 <Wizard.Page>
                                     <PageAssistantPartageDroitAuteur />
