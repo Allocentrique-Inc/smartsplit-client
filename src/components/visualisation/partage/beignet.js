@@ -57,9 +57,15 @@ export default class Beignet extends Component {
             .append("g")
             .attr("transform", "translate(" + this.state.width / 2 + "," + this.state.height / 2 + ")");
 
+        // Les étiquettes (pour les couleurs)
+        let domaineDeNoms = []
+        Object.keys(this.state.data).forEach(elem=>{
+            domaineDeNoms.push(elem)
+        })
+
         // set the color scale
         let color = d3.scaleOrdinal()
-            .domain(["Guillaume", "Natalya", "David", "Vincent", "Mario"])
+            .domain( domaineDeNoms )
             .range(d3. schemePaired
         );
 
@@ -116,7 +122,7 @@ export default class Beignet extends Component {
             .data(data_ready)
             .enter()
             .append('text')
-            .text( function(d) { return d.data.key + " " + d.data.value + "%" } )
+            .text( function(d) { return d.data.key + " " + parseFloat(d.data.value).toFixed(2) + "%" } )
             .attr('transform', function(d) {
         let pos = outerArc.centroid(d);
         let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2

@@ -40,6 +40,34 @@ class PageAssistantPartageAuteur extends Component {
         }
     }
 
+    calculParts() {
+        let pourcent = 100.00
+        switch(this.state.mode) {
+            case MODES.egal:
+                // Ajuster tous les collaborateurs au même pourcentage
+                let _vals = this.props.values.droitAuteur
+                
+                pourcent = (pourcent / (_vals.length + 1)).toFixed(4)
+
+                // Applique le pourcentage aux données existantes
+                _vals = _vals.map(elem=>{
+                    return {
+                        nom: elem.nom,
+                        pourcent: ""+pourcent
+                    }
+                })
+
+                this.props.setFieldValue("droitAuteur", _vals)
+
+                break;
+            case MODES.manuel:
+                pourcent = this.pourcentRestant()
+                break;
+            default:
+        }
+        return pourcent
+    }
+
     pourcentRestant() {
         let _pctDelta = 100
         this.props.values.droitAuteur.forEach(elem=>{
@@ -91,14 +119,11 @@ class PageAssistantPartageAuteur extends Component {
                                                 <button
                                                     className="btnCollaborateur"
                                                     onClick={
-                                                        (e) => {
+                                                        (e) => {                                                            
+                                                            let part = this.calculParts()
                                                             e.preventDefault()
-                                                            arrayHelpers.insert()
-                                                            // Crééer un objet convenable
-                                                            //let idx = this.props.values.droitAuteur.length > 0 ? this.props.values.droitAuteur.length - 1 : 0
-                                                            // setFieldValue() déclenche un rafraichissement du formulaire
-                                                            console.log('champ droitAuteur', this.props.values.droitAuteur)
-                                                            this.props.setFieldValue(`droitAuteur[0]`, {nom: this.props.values.collaborateur, pourcent: this.pourcentRestant()})
+                                                            arrayHelpers.insert()                                                            
+                                                            this.props.setFieldValue(`droitAuteur[0]`, {nom: this.props.values.collaborateur, pourcent: part})
                                                             this.props.setFieldValue('collaborateur', "")
                                                         }
                                                     }
