@@ -5,10 +5,12 @@ import { Translation } from 'react-i18next'
 import Beignet from '../visualisation/partage/beignet'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 
-import { FieldArray } from "formik";
+import { FieldArray } from "formik"
 
 import axios from 'axios'
-import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste";
+import { toast } from 'react-toastify'
+
+import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 
 const MODES = {manuel: 0, egal: 1}
 
@@ -31,6 +33,10 @@ class PageAssistantPartageAuteur extends Component {
                 return {key: `${elem.rightHolderId}`,text: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
             })
             this.setState({options: _options})
+        })
+        .catch((error) => {
+            toast.error(error)
+            
         })
     }
 

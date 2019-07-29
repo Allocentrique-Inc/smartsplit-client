@@ -32,8 +32,10 @@ export default class ChampGradateurAssistant extends Component {
                     max: 100,
                     step: 1,
                     type: "range",
-                    onInput: e=>{                        
-                        this.props.changement(this.props.id, this.valeur, e.target.value)
+                    onInput: e=>{
+                        let val = e.target.value
+                        this.props.changement(this.props.id, val - this.valeur)
+                        this.valeur=val                        
                     },
                     onMouseDown: e=>{
                         this.valeur = e.target.value

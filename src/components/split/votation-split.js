@@ -7,6 +7,8 @@ import { Translation } from 'react-i18next'
 // HTTP
 import axios from 'axios'
 
+import { toast } from 'react-toastify'
+
 // Composantes
 import TableauSommaireSplit from './tableau-sommaire'
 
@@ -32,6 +34,14 @@ class VotationSplit extends Component {
                 let _rH = res.data.Item
                 this.setState({nomUsager: `${_rH.firstName} ${_rH.lastName}` })
             })
+            .catch((error) => {
+                toast.error(error)
+                
+            })
+        })
+        .catch((error) => {
+            toast.error(error)
+            
         })
 
     }    

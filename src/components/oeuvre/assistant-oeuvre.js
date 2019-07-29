@@ -89,7 +89,8 @@ class AssistantOeuvre extends Component {
                                             }, 4000)                                
                                         })                            
                                         .catch((error) => {
-                                            throw(error)
+                                            toast.error(error)
+                                            
                                         })
                                         .finally(()=>{
                                         })
