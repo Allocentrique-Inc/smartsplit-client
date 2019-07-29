@@ -20,10 +20,11 @@ class PageAssistantPartageEnregistrement extends Component {
         super(props)
         this.state = {
             parts: {},
-            invariables: {},
-            mode: MODES.egal
+            mode: MODES.egal,
+            partsInvariables: {}
         }        
         this.changementGradateur = this.changementGradateur.bind(this)
+        this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -37,8 +38,8 @@ class PageAssistantPartageEnregistrement extends Component {
         switch(this.state.mode) {
             case MODES.egal:
                 // Calcul le pourcentage égal
-                let _vals = this.props.values.droitEnregistrement                
-                pourcent = (pourcent / (_vals.length)).toFixed(4)                
+                let _vals = this.props.values.droitEnregistrement
+                pourcent = (pourcent / (_vals.length)).toFixed(4)
                 // Applique le pourcentage aux données existantes
                 _vals = _vals.map(elem=>{
                     return {
@@ -63,25 +64,70 @@ class PageAssistantPartageEnregistrement extends Component {
     // Changement d'un gradateur
     changementGradateur(index, delta) {
         
-        let invariable = {}
+        let invariable = this.state.partsInvariables
         let droits = this.props.values.droitEnregistrement        
         
         let deltaParCollaborateurVariable = 0.0
 
-        invariable[index] = droits[index].pourcent
+        let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
+        if(!invariable[index])
+            aMisInvariable = true
+
+        invariable[index] = true // Le droit sélectionné lors de la transition est considéré invariable
         let nbModifications = droits.length - Object.keys(invariable).length
 
-        deltaParCollaborateurVariable = -(delta / nbModifications)
+        deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
     
         droits.forEach((elem, idx)=>{
-            if(!invariable[idx]) {
-                // Ajustement
+            if(!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)
             }
         })
     
         this.props.setFieldValue('droitEnregistrement', droits)
+        
+        if(aMisInvariable) // Retrait de l'index des invariables
+            delete invariable[index]
 
+    }
+
+    basculerVariable(index) {
+        let invariables = this.state.partsInvariables
+        invariables[index] = !invariables[index]
+        this.setState({partsInvariables: invariables})
+    }
+
+    ajouterCollaborateur(arrayHelpers) {
+        let _coll = this.props.values.collaborateur
+                                                            
+        _coll.forEach((elem, idx)=>{
+
+            if(this.state.mode === MODES.egal) {
+                arrayHelpers.insert(0, {
+                    nom: elem, 
+                    pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4)
+                })
+            }
+
+            if(this.state.mode === MODES.manuel) {
+                arrayHelpers.insert(0, {
+                    nom: elem, 
+                    pourcent: (
+                        this.pourcentRestant() / 
+                        (this.props.values.droitEnregistrement.length + _coll.length) )
+                        .toFixed(4)
+                })
+                // création de l'entrée dans le tableau des invariables
+                let _inv = this.state.partsInvariables
+                _inv.unshift(false)
+                this.setState({partsInvariables: _inv})
+            }
+            
+        })                                                            
+        this.props.setFieldValue('collaborateur', [])
+        this.setState({ping: true}, ()=>{
+            this.recalculerPartage()
+        })
     }
 
     render() {
@@ -125,8 +171,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                 render={arrayHelpers => (
                                     <div>
                                         {
-                                            this.props.values.droitEnregistrement.map((part, index)=>{                                                
-
+                                            this.props.values.droitEnregistrement.map((part, index)=>{
                                                 return (
                                                     <div key={`part-${index}`}>
                                                         <div className="fields">
@@ -140,9 +185,20 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                         })
                                                                     }
                                                                     }>
-                                                                    <i className="remove icon"></i>                                                                    
+                                                                    <i className="remove icon crimson"></i>
                                                                 </button>
-                                                                <span style={{position: "relative", left: "20px"}}>{part.nom}</span>
+                                                                {
+                                                                    this.state.mode == MODES.manuel && (
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={()=>{
+                                                                                this.basculerVariable(index)
+                                                                            }}
+                                                                        >
+                                                                            <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}></i>
+                                                                        </button>
+                                                                    )
+                                                                }                                                              
                                                             </div>                                                            
                                                             {                                                                
                                                                 this.state.mode == MODES.manuel && (
@@ -156,7 +212,12 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                         <ChampTexteAssistant modele={`droitEnregistrement[${index}].pourcent`} />
                                                                     </div>
                                                                 )
-                                                            }                                                                                                                            
+                                                            }
+                                                            {
+                                                                this.state.mode == MODES.egal && (
+                                                                    <span style={{position: "relative", left: "20px"}}>{part.nom}</span>
+                                                                )
+                                                            }
                                                         </div>
                                                     </div>
                                                 )
@@ -167,36 +228,9 @@ class PageAssistantPartageEnregistrement extends Component {
                                                 <button
                                                     className="btnCollaborateur"
                                                     onClick={
-                                                        (e) => {                                                            
-
+                                                        (e) => {
                                                             e.preventDefault()
-
-                                                            let _coll = this.props.values.collaborateur
-                                                            
-                                                            _coll.forEach((elem, idx)=>{
-
-                                                                if(this.state.mode === MODES.egal) {
-                                                                    arrayHelpers.insert(0, {
-                                                                        nom: elem, 
-                                                                        pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4)
-                                                                    })
-                                                                }
-
-                                                                if(this.state.mode === MODES.manuel) {
-                                                                    arrayHelpers.insert(0, {
-                                                                        nom: elem, 
-                                                                        pourcent: (
-                                                                            this.pourcentRestant() / 
-                                                                            (this.props.values.droitEnregistrement.length + _coll.length) )
-                                                                            .toFixed(4)
-                                                                    })
-                                                                }
-                                                               
-                                                            })                                                            
-                                                            this.props.setFieldValue('collaborateur', [])
-                                                            this.setState({ping: true}, ()=>{
-                                                                this.recalculerPartage()
-                                                            })
+                                                            this.ajouterCollaborateur(arrayHelpers)
                                                         }
                                                     }
                                                 >
