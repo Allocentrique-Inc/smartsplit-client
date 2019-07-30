@@ -190,7 +190,7 @@ class Register extends Component {
     // password strength meter is only visible when password is not empty
     const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
     // confirm password field is only visible when password is not empty
-    const confirmClass = ['confirmPassword', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
+    const confirmClass = ['confirmPassword', strength >= 2 ? 'visible' : 'invisible'].join(' ').trim();
 
     return (
 
