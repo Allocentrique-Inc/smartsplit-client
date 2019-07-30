@@ -38,7 +38,8 @@
     "semantic-ui-react": "^0.87.2",
     "semantic-ui-react-ext": "^1.0.6",
     "semantic-ui-react-formik": "^1.0.7",
-    "yup": "^0.27.0"
+    "yup": "^0.27.0",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {},
   "scripts": {

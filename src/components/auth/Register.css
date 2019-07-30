@@ -1,19 +1,20 @@
 input[id="password"] {
     padding-right: 50px;
-    width: 200px;
+    width: 414px;
+    margin: 5px;   
     /* display: inline; */
 
 }
 
 input[id="confirmpassword"] {
     padding-right: 50px;
-    width: 200px;    
+    width: 414px; 
+    margin: 5px;   
     /* display: inline; */
-
 }
 
 input{
-    width: 250px;
+    width: 464px;
     display: inline;
 }
 
@@ -38,3 +39,81 @@ button[id="hide-confirm"] {
     border: 0;
     -webkit-appearance: none;
 }
+
+button[id="facebook"] {
+    width: 464px;
+    margin: 4px;
+    max-width: 500px;
+    border-radius: 2px;
+    background-color: #3C5A99;
+    padding-right: 137px;
+  }
+  
+  .facebook {
+    padding-right: 135px;
+  }
+  
+  button[id="google"] {
+    margin: 4px;
+    width: 464px;
+    max-width: 500px;
+    border-radius: 2px;
+    background-color: #4285F4;
+    padding-right: 150px;
+  }
+  
+  .google {
+    padding-right: 143px;
+  }
+  
+  hr {
+    overflow: visible; /* For IE */
+    padding: 0;
+    width: 464px;
+    text-align: center;
+    border-top: 1px solid#DCDFE1;
+    border-bottom: 1px solid#DCDFE1;
+  }
+  hr:after {
+    content: "ou";
+    display: inline-block;
+    position: relative;
+    top: -0.7em;
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    color: black;
+    background: white;
+  }
+
+/* Password Strength Validator  */
+  
+  .strength-meter {
+    position: relative;
+    height: 3px;
+    width: 150px;
+    background: #DDD;
+    margin: 5px auto 5px auto;
+    border-radius: 2px; }
+  
+  .strength-meter-fill {
+    background: transparent;
+    height: inherit;
+    position: absolute;
+    width: 0;
+    border-radius: inherit;
+    transition: width 0.5s ease-in-out, background 0.25s; }
+    .strength-meter-fill[data-strength='0'] {
+      width: 20%;
+      background: darkred; }
+    .strength-meter-fill[data-strength='1'] {
+      width: 40%;
+      background: orangered; }
+    .strength-meter-fill[data-strength='2'] {
+      width: 60%;
+      background: orange; }
+    .strength-meter-fill[data-strength='3'] {
+      width: 80%;
+      background: yellowgreen; }
+    .strength-meter-fill[data-strength='4'] {
+      width: 100%;
+      background: green; }
