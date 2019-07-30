@@ -8,7 +8,9 @@ import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { FieldArray } from "formik";
 
 import axios from 'axios'
-import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste";
+import { toast } from 'react-toastify'
+
+import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 
 const MODES = {manuel: 0, egal: 1}
 
@@ -31,6 +33,10 @@ class PageAssistantPartageInterpretation extends Component {
                 return {key: `${elem.rightHolderId}`,text: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
             })
             this.setState({options: _options})
+        })
+        .catch((error) => {
+            toast.error(error)
+            
         })
     }
 
@@ -55,7 +61,8 @@ class PageAssistantPartageInterpretation extends Component {
                 {
                     (t) =>
                         <React.Fragment>                            
-                            <h1>Partage du droit d'interprétation</h1>
+                            <h1>{t('flot.partage.interprete.titre')}</h1>
+                            <h2>À venir ...</h2>
 
                             <div className="conteneur--beignet">
                                 <Beignet key="1" data={this.state.parts}/>
@@ -92,21 +99,14 @@ class PageAssistantPartageInterpretation extends Component {
                                                     className="btnCollaborateur"
                                                     onClick={
                                                         (e) => {
-                                                            e.preventDefault()
-                                                            arrayHelpers.insert()
-                                                            // Crééer un objet convenable
-                                                            //let idx = this.props.values.droitInterpretation.length > 0 ? this.props.values.droitInterpretation.length - 1 : 0
-                                                            // setFieldValue() déclenche un rafraichissement du formulaire
-                                                            console.log('champ droitInterpretation', this.props.values.droitInterpretation)
-                                                            this.props.setFieldValue(`droitInterpretation[0]`, {nom: this.props.values.collaborateur, pourcent: this.pourcentRestant()})
-                                                            this.props.setFieldValue('collaborateur', "")
+                                                            e.preventDefault()                                                            
                                                         }
                                                     }
                                                 >
                                                     <i className="plus circle icon big green"></i>                                                    
                                                 </button>
                                             </div>                                    
-                                            <div>
+                                            <div>                                                
                                                 <ChampListeCollaborateurAssistant
                                                     indication={t('flot.collaborateurs.ajout')}
                                                     modele="collaborateur"

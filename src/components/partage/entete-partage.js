@@ -6,6 +6,8 @@ import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 import axios from 'axios'
 
+import { toast } from 'react-toastify'
+
 // CSS
 import './entete-partage.css'
 import { Progress } from "semantic-ui-react";
@@ -25,6 +27,10 @@ class PageAssistantPartageAuteur extends Component {
         .then(res=>{
             let media = res.data.Item
             this.setState({media: media})
+        })
+        .catch((error) => {
+            toast.error(error)
+            
         })
     }
     

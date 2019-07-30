@@ -3,16 +3,16 @@ import { Translation } from 'react-i18next'
 
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
+import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
-import { FieldArray } from "formik";
+import { FieldArray } from "formik"
 
-import axios from 'axios'
-import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste";
+import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-const MODES = {manuel: 0, egal: 1}
+const MODES = {manuel: "0", egal: "1"}
 
 class PageAssistantPartageEnregistrement extends Component {
 
@@ -20,22 +20,11 @@ class PageAssistantPartageEnregistrement extends Component {
         super(props)
         this.state = {
             parts: {},
-            invariables: {},
-            mode: MODES.egal
-        }
-        this.calculParts = this.calculParts.bind(this)
+            mode: MODES.egal,
+            partsInvariables: []
+        }        
         this.changementGradateur = this.changementGradateur.bind(this)
-    }
-
-    componentWillMount() {
-        // Récupérer la liste des ayant-droits
-        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
-        .then(res=>{            
-            let _options = res.data.map(elem=>{
-                return {key: `${elem.rightHolderId}`,text: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
-            })
-            this.setState({options: _options})
-        })
+        this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,17 +33,13 @@ class PageAssistantPartageEnregistrement extends Component {
         }
     }
 
-    recalculParts() {
-        return this.calculParts(this.props.values.droitEnregistrement.length)        
-    }
-
-    calculParts(taille) {
-        let pourcent = 100.00
-        switch(parseInt(this.state.mode)) {
+    recalculerPartage() {
+        let pourcent = 100.00        
+        switch(this.state.mode) {
             case MODES.egal:
-                // Ajuster tous les collaborateurs au même pourcentage
-                let _vals = this.props.values.droitEnregistrement                
-                pourcent = (pourcent / (taille)).toFixed(4)
+                // Calcul le pourcentage égal
+                let _vals = this.props.values.droitEnregistrement
+                pourcent = (pourcent / (_vals.length)).toFixed(4)
                 // Applique le pourcentage aux données existantes
                 _vals = _vals.map(elem=>{
                     return {
@@ -63,14 +48,9 @@ class PageAssistantPartageEnregistrement extends Component {
                     }
                 })
                 this.props.setFieldValue("droitEnregistrement", _vals)
-
-                break;
-            case MODES.manuel:
-                pourcent = this.pourcentRestant()
-                break;
+                break            
             default:
         }
-        return pourcent
     }
 
     pourcentRestant() {
@@ -82,45 +62,72 @@ class PageAssistantPartageEnregistrement extends Component {
     }
 
     // Changement d'un gradateur
-    changementGradateur(index, valeurInitiale, valeurActuelle) {
+    changementGradateur(index, delta) {
         
-        let invariable = {}
+        let invariable = this.state.partsInvariables
         let droits = this.props.values.droitEnregistrement        
-//        let valeurActuelle = droits[index].pourcent
         
-        let delta = valeurInitiale - valeurActuelle
         let deltaParCollaborateurVariable = 0.0
 
-        invariable[index] = droits[index].pourcent
+        let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
+        if(!invariable[index])
+            aMisInvariable = true
+
+        invariable[index] = true // Le droit sélectionné lors de la transition est considéré invariable
         let nbModifications = droits.length - Object.keys(invariable).length
 
-        console.log('valeurInitiale, valeurActuelle', valeurInitiale, valeurActuelle)
-
-        if(delta < 0) {
-            deltaParCollaborateurVariable = -1 / nbModifications
-        } else if (delta > 0) {
-            deltaParCollaborateurVariable = 1 / nbModifications
-        } else {
-            deltaParCollaborateurVariable = 0
-        }              
-
-        console.log("nbCollaborateursAModifier, deltaParColaborateur", nbModifications, deltaParCollaborateurVariable)
-
-        //console.log('delta, nbmodification', delta, nbModifications, delta/nbModifications)
-
-        //console.log('invariables', invariable)
-
+        deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+    
         droits.forEach((elem, idx)=>{
-            //console.log(elem, idx)
-            if(!invariable[idx]) {
-                // Ajustement
+            if(!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)
             }
         })
     
-        //console.log('changementGradateur',deltaParCollaborateurVariable, valeurInitiale, valeurActuelle, delta, droits)
         this.props.setFieldValue('droitEnregistrement', droits)
+        
+        if(aMisInvariable) // Retrait de l'index des invariables
+            delete invariable[index]
 
+    }
+
+    basculerVariable(index) {
+        let invariables = this.state.partsInvariables
+        invariables[index] = !invariables[index]
+        this.setState({partsInvariables: invariables})
+    }
+
+    ajouterCollaborateur(arrayHelpers) {
+        let _coll = this.props.values.collaborateur
+                                                            
+        _coll.forEach((elem, idx)=>{
+
+            if(this.state.mode === MODES.egal) {
+                arrayHelpers.insert(0, {
+                    nom: elem, 
+                    pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4)
+                })
+            }
+
+            if(this.state.mode === MODES.manuel) {
+                arrayHelpers.insert(0, {
+                    nom: elem, 
+                    pourcent: (
+                        this.pourcentRestant() / 
+                        (this.props.values.droitEnregistrement.length + _coll.length) )
+                        .toFixed(4)
+                })
+                // création de l'entrée dans le tableau des invariables
+                let _inv = this.state.partsInvariables
+                _inv.unshift(false)
+                this.setState({partsInvariables: _inv})
+            }
+            
+        })                                                            
+        this.props.setFieldValue('collaborateur', [])
+        this.setState({ping: true}, ()=>{
+            this.recalculerPartage()
+        })
     }
 
     render() {
@@ -130,30 +137,33 @@ class PageAssistantPartageEnregistrement extends Component {
                 {
                     (t) =>
                         <React.Fragment>                            
-                            <h1>Partage du droit d'enregistrement</h1>
+                            <h1>{t('flot.partage.enregistrement.titre')}</h1>
 
                             <div className="mode--partage__auteur">
                                 <BoutonsRadio 
                                     actif={this.state.mode} // Attribut dynamique
                                     onClick={(e)=>{
-                                        this.setState({mode: e.target.value})
+                                        this.setState({mode: e.target.value}, ()=>{
+                                            this.recalculerPartage()
+                                        })                                        
                                     }}
                                     titre="Mode de partage"
                                     choix={[                                    
                                         {
                                             nom: 'Manuel',
-                                            valeur: MODES.manuel
+                                            valeur: ""+MODES.manuel
                                         },
                                         {
                                             nom: 'Égal',
-                                            valeur: MODES.egal
+                                            valeur: ""+MODES.egal
                                         }
                                     ]}
                                 />
                             </div>
 
                             <div className="conteneur--beignet">
-                                <Beignet key="1" data={this.state.parts}/>
+                                {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="1" data={this.state.parts}/>)}
+                                {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="1" data={this.state.parts}/>)}
                             </div>
 
                             <FieldArray
@@ -161,8 +171,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                 render={arrayHelpers => (
                                     <div>
                                         {
-                                            this.props.values.droitEnregistrement.map((part, index)=>{                                                
-
+                                            this.props.values.droitEnregistrement.map((part, index)=>{
                                                 return (
                                                     <div key={`part-${index}`}>
                                                         <div className="fields">
@@ -171,23 +180,52 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     type="button"
                                                                     onClick={() => {
                                                                         arrayHelpers.remove(index)
-                                                                        setTimeout(()=>{
-                                                                            this.recalculParts()
-                                                                        }, 0)
+                                                                        this.setState({ping: true}, ()=>{
+                                                                            this.recalculerPartage()
+                                                                        })
                                                                     }
                                                                     }>
-                                                                    <i className="remove icon"></i>                                                                    
+                                                                    <i className="remove icon crimson"></i>
                                                                 </button>
-                                                                <span style={{position: "relative", left: "20px"}}>{part.nom}</span>
+                                                                {
+                                                                    this.state.mode == MODES.manuel && (
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={()=>{
+                                                                                this.basculerVariable(index)
+                                                                            }}
+                                                                        >
+                                                                            <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}></i>
+                                                                        </button>
+                                                                    )
+                                                                }                                                              
                                                             </div>                                                            
                                                             {                                                                
                                                                 this.state.mode == MODES.manuel && (
                                                                     <div className="twelve wide field">
-                                                                        <ChampGradateurAssistant changement={(id, valInitiale, valActuelle)=>{this.changementGradateur(id, valInitiale, valActuelle)}} id={index} etiquette={part.nom} modele={`droitEnregistrement[${index}].pourcent`} />
-                                                                        <ChampTexteAssistant modele={`droitEnregistrement[${index}].pourcent`} />
+                                                                        <ChampGradateurAssistant 
+                                                                            changement={(id, delta)=>{this.changementGradateur(id, delta)}} 
+                                                                            id={`gradateur_${index}`}
+                                                                            etiquette={part.nom} 
+                                                                            modele={`droitEnregistrement[${index}].pourcent`}
+                                                                            disabled={this.state.partsInvariables[index]}
+                                                                            />
+                                                                        <ChampTexteAssistant 
+                                                                            id={`texte_${index}`}
+                                                                            changement={(id, valeur)=>{
+                                                                                this.changementGradateur(id, valeur)
+                                                                            }}
+                                                                            modele={`droitEnregistrement[${index}].pourcent`} 
+                                                                            disabled={this.state.partsInvariables[index]}
+                                                                            valeur={this.props.values.droitEnregistrement[index].pourcent} />
                                                                     </div>
                                                                 )
-                                                            }                                                                                                                            
+                                                            }
+                                                            {
+                                                                this.state.mode == MODES.egal && (
+                                                                    <span style={{position: "relative", left: "20px"}}>{part.nom}</span>
+                                                                )
+                                                            }
                                                         </div>
                                                     </div>
                                                 )
@@ -199,13 +237,8 @@ class PageAssistantPartageEnregistrement extends Component {
                                                     className="btnCollaborateur"
                                                     onClick={
                                                         (e) => {
-
-                                                            let part = this.calculParts(this.props.values.droitEnregistrement.length + 1)
-
                                                             e.preventDefault()
-                                                            arrayHelpers.insert()                                                            
-                                                            this.props.setFieldValue(`droitEnregistrement[0]`, {nom: this.props.values.collaborateur, pourcent: part})
-                                                            this.props.setFieldValue('collaborateur', "")
+                                                            this.ajouterCollaborateur(arrayHelpers)
                                                         }
                                                     }
                                                 >
@@ -223,6 +256,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                     recherche={true}
                                                     selection={true}
                                                     ajout={false}
+                                                    collaborateurs={this.props.values.droitEnregistrement}
                                                 />                                               
                                             </div>
                                         </div>

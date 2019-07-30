@@ -158,6 +158,17 @@
             "partage-etape": "Étape 2",
             "partage-titre": "Partage des droits",
             "enregistrerEtQuitter": "Enregistrer et quitter"
+        },
+        "partage": {
+            "auteur": {
+                "titre": "Partage du droit d'auteur"
+            },
+            "interprete": {
+                "titre": "Partage du droit d'interprétation"
+            },
+            "enregistrement": {
+                "titre": "Partage du droit d'enregistrement"
+            }
         }
     },
     "traitement": {

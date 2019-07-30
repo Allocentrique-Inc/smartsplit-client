@@ -148,7 +148,8 @@ export default class Beignet extends Component {
             <Translation>                
                 {
                     (t, i18n) =>
-                        <div id={`my_dataviz_${this.state.uuid}`} className="beignet" />
+                        <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
+                        </div>
                 }
             </Translation>          
         )

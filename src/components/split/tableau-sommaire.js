@@ -5,6 +5,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import axios from 'axios'
 import Login from '../auth/Login'
 
+import { toast } from 'react-toastify'
+
 const DROITS = {
     auteur: 'workCopyrightSplit', 
     interpretaion: 'performanceNeighboringRightSplit', 
@@ -141,7 +143,14 @@ class TableauSommaireSplit extends Component {
                 .then(res=>{
                     let media = res.data.Item
                     this.setState({mediaTitle: media.title})
-                })                
+                })
+                .catch((error) => {
+                    toast.error(error)
+                    
+                })              
+            })
+            .catch((error) => {
+                toast.error(error)                
             })
         }      
     }
@@ -214,6 +223,10 @@ class TableauSommaireSplit extends Component {
                         .then(()=>{
                             fn()                            
                         })
+                        .catch((error) => {
+                            toast.error(error)
+                            
+                        })
 
                         }                                
                     }
@@ -283,6 +296,10 @@ class TableauSommaireSplit extends Component {
                             .then(()=>{
                                 this.majListeVotes()
                             })
+                            .catch((error) => {
+                                toast.error(error)                                
+                            })
+
                             onClose()
                         }} />
                 </div>

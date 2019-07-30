@@ -4,7 +4,9 @@ import './app.css'
 import { Auth } from 'aws-amplify';
 
 import { Translation } from 'react-i18next'
-import axios from 'axios';
+import axios from 'axios'
+
+import { toast } from 'react-toastify'
 
 class App extends Component {   
   
@@ -46,6 +48,9 @@ class App extends Component {
         )
       })      
       this.setState({listeMedias: listeMedias})
+    })
+    .catch(err=>{
+      toast.error(err)
     })
 
   }

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik'
 import { Form } from 'semantic-ui-react'
 import axios from 'axios'
+import { toast } from 'react-toastify'
+import { truncateSync } from 'fs';
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"
@@ -86,6 +88,7 @@ export class ChampListeCollaborateurAssistant extends Component {
             selection: props.selection,
             ajout: props.ajout
         }
+        this.OPTIONS = undefined
     }
 
     componentWillMount() {
@@ -94,8 +97,14 @@ export class ChampListeCollaborateurAssistant extends Component {
         .then(res=>{            
             let _options = res.data.map(elem=>{
                 return {key: `${elem.rightHolderId}`,text: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
-            })
+            })    
+            if(!this.OPTIONS) {
+                this.OPTIONS = _options
+            }
             this.setState({options: _options})
+        })
+        .catch(err=>{
+            toast.error(err)
         })
     }
 
@@ -106,12 +115,22 @@ export class ChampListeCollaborateurAssistant extends Component {
         if (this.props.indication !== nextProps.indication) {
             this.setState({indication: nextProps.indication})
         }
-        if (this.props.options !== nextProps.options) {
-            this.setState({options: nextProps.options})
+        if (this.props.collaborateurs !== nextProps.collaborateurs) {            
+            this.recalculerOptions(nextProps.collaborateurs)
         }
-        if (this.props.requis !== nextProps.requis) {
-            this.setState({requis: nextProps.requis})
-        }
+    }
+
+    recalculerOptions(collaborateurs){
+        // Enlève les collaborateurs déjà ajoutés des options
+        let options = Object.assign([], this.OPTIONS)
+        collaborateurs.forEach(elem => {                
+            options.forEach((_e, idx)=>{
+                if (elem.nom === _e.text) {
+                    options.splice(idx, 1)
+                }
+            })
+        })
+        this.setState({options: options})
     }
 
     render() {
@@ -131,6 +150,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                                 fluid: true,
                                 search: true,
                                 selection: this.state.selection,
+                                multiple: true,
                                 options: this.state.options
                             }}
                             validate={this.state.requis && required}

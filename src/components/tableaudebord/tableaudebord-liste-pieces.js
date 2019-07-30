@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
-import { Translation } from 'react-i18next';
-import axios from 'axios';
+import { Translation } from 'react-i18next'
+import axios from 'axios'
+
+import { toast } from 'react-toastify'
 
 export default class ListePieces extends Component {
 
@@ -32,8 +34,9 @@ export default class ListePieces extends Component {
 
             console.log(tableauMedias)
         })
-        .catch(err=>{
-            console.log(err)
+        .catch((error) => {
+            toast.error(error)
+            
         })
 
         return (
