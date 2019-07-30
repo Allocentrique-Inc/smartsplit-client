@@ -21,7 +21,7 @@ class PageAssistantPartageEnregistrement extends Component {
         this.state = {
             parts: {},
             mode: MODES.egal,
-            partsInvariables: {}
+            partsInvariables: []
         }        
         this.changementGradateur = this.changementGradateur.bind(this)
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
@@ -205,11 +205,19 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     <div className="twelve wide field">
                                                                         <ChampGradateurAssistant 
                                                                             changement={(id, delta)=>{this.changementGradateur(id, delta)}} 
-                                                                            id={index} 
+                                                                            id={`gradateur_${index}`}
                                                                             etiquette={part.nom} 
-                                                                            modele={`droitEnregistrement[${index}].pourcent`} 
+                                                                            modele={`droitEnregistrement[${index}].pourcent`}
+                                                                            disabled={this.state.partsInvariables[index]}
                                                                             />
-                                                                        <ChampTexteAssistant modele={`droitEnregistrement[${index}].pourcent`} />
+                                                                        <ChampTexteAssistant 
+                                                                            id={`texte_${index}`}
+                                                                            changement={(id, valeur)=>{
+                                                                                this.changementGradateur(id, valeur)
+                                                                            }}
+                                                                            modele={`droitEnregistrement[${index}].pourcent`} 
+                                                                            disabled={this.state.partsInvariables[index]}
+                                                                            valeur={this.props.values.droitEnregistrement[index].pourcent} />
                                                                     </div>
                                                                 )
                                                             }
