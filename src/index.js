@@ -40,8 +40,8 @@ import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
 import ChangePasswordVerification from './components/auth/ChangePasswordVerification'
 import Welcome from './components/auth/Welcome'
-//import SignInFacebook from './components/auth/SignInFacebook'
-//import SignInGoogle from './components/auth/SignInGoogle'
+import SignInFacebook from './components/auth/SignInFacebook'
+import SignInGoogle from './components/auth/SignInGoogle'
 
 
 const REGION = 'us-east-2';
