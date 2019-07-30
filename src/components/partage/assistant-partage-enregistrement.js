@@ -137,7 +137,7 @@ class PageAssistantPartageEnregistrement extends Component {
                 {
                     (t) =>
                         <React.Fragment>                            
-                            <h1>Partage du droit d'enregistrement</h1>
+                            <h1>{t('flot.partage.enregistrement.titre')}</h1>
 
                             <div className="mode--partage__auteur">
                                 <BoutonsRadio 

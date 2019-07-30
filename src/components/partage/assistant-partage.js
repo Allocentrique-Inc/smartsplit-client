@@ -48,7 +48,7 @@ class AssistantPartage extends Component {
                                     collaborateur: []
                                 }}
                                 buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                debug={true}
+                                debug={false}
                                 onSubmit={this.soumettre.bind(this)}
                                 >
 

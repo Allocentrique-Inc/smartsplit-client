@@ -130,7 +130,8 @@ export default class Histogramme extends Component {
                     {
                         (t, i18n) =>
                             <div>
-                                <svg id={`histogramme_${this.state.uuid}`}></svg>
+                                <svg id={`histogramme_${this.state.uuid}`}>
+                                </svg>
                             </div>
                     }
                 </Translation>

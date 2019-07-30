@@ -158,6 +158,17 @@
             "partage-etape": "Step 2",
             "partage-titre": "Share the rights",
             "enregistrerEtQuitter": "Save and quit"
+        },
+        "partage": {
+            "auteur": {
+                "titre": "Copyright sharing"
+            },
+            "interprete": {
+                "titre": "Performance sharing"
+            },
+            "enregistrement": {
+                "titre": "Mastering sharing"
+            }
         }
     },
     "traitement": {
