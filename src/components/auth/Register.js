@@ -9,26 +9,24 @@ import zxcvbn from 'zxcvbn';
 // Traduction
 // import { Translation } from 'react-i18next';
 
-// import FormErrors from "../FormErrors";
-// import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
 
 
 class Register extends Component {
+  state = { firstName: false, username: false, lastName: false }
 
   constructor(props) {
     super(props);
     const { minStrength = 3, thresholdLength = 8 } = props;
 
+
     this.state = {
       hidden: true,
       confirmhidden: true,
-      password: "",
-      confirmpassword: "",
+      password: '',
+      confirmpassword: '',
       strength: 0
     };
-
-    // this.state = { password: '', strength: 0 };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.validatePasswordStrong = this.validatePasswordStrong.bind(this)
@@ -41,15 +39,15 @@ class Register extends Component {
     this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
   }
 
-  // clearErrorState = () => {
-  //   this.setState({
-  //     errors: {
-  //       cognito: null,
-  //       blankfield: false,
-  //       passwordmatch: false
-  //     }
-  //   });
-  // }
+  clearErrorState = () => {
+    this.setState({
+      errors: {
+        cognito: null,
+        blankfield: false,
+        passwordmatch: false
+      }
+    });
+  }
 
   validateUsername(value) {
     if (!value) {
@@ -129,8 +127,7 @@ class Register extends Component {
   }
 
   handlePasswordChange(e) {
-    console.log("PASSWORD",e.target.value);
-    console.log("STRENGTH", this.state.strength);
+    console.log("PASSWORD STRENGTH", this.state.strength);
     this.setState({ 
       password: e.target.value,
       strength: zxcvbn(e.target.value).score
@@ -181,12 +178,19 @@ class Register extends Component {
   render() {
     const { type, validator, onStateChanged, children, ...restProps } = this.props;
     const { password, strength } = this.state;
+
+    const { firstName, lastName, username } = this.state;
+
     const passwordLength = password.length;
+    console.log("password =====", password.length, "pL: ", passwordLength);
+
     const passwordStrong = strength >= this.minStrength;
     const passwordLong = passwordLength > this.thresholdLength;
 
     // password strength meter is only visible when password is not empty
     const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
+    // confirm password field is only visible when password is not empty
+    const confirmClass = ['confirmPassword', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
 
     return (
 
@@ -200,7 +204,7 @@ class Register extends Component {
                 password: this.state.password,
                 hidden: true,
                 confirmpassword: this.state.confirmpassword,
-                // strength: this.state.strength
+                strength: this.state.strength
               } 
           }
       onSubmit={
@@ -285,7 +289,7 @@ class Register extends Component {
               <div className="control has-icons-left">
                 <Field
                   validate={  (val) => {this.validatePassword(val)} } 
-                  validator={ (val) => {this.validatePasswordStrong(val)} } 
+                  validate={ (val) => {this.validatePasswordStrong(val)} } 
                   type={this.state.hidden ? "password" : "text"}
                   id="password"
                   name="password"
@@ -305,11 +309,13 @@ class Register extends Component {
                 </span>
               </div>
             </div>
+
             <div className={strengthClass}>
               <div className="strength-meter-fill" data-strength={strength}></div>  
             </div>
-            <div className="field">
-              <div className="control has-icons-left">
+
+            <div className={confirmClass}>
+              <div className="control has-icons-left confirmPassword">
                 <Field
                   validate={  (val) => {this.validateConfirmPassword(val)} } 
                   type={this.state.confirmhidden ? "password" : "text"}
@@ -328,14 +334,17 @@ class Register extends Component {
                   <i className="fas fa-lock"></i>
                 </span>
               </div>
-            </div>
-            <div className="field">
+              <div className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
               <p className="control">
                 <button className="button is-success" type="submit">
                   Register
                 </button>
               </p>
+              </div>
             </div>
+
+
+
         </div>
       </section>
       </Form>
