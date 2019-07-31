@@ -52,7 +52,7 @@ export default class MediaCreate extends Component {
             console.log(response);
           })
           .catch(function (error) {
-            console.log(error);
+            toast.error(error)
           });
     }
 

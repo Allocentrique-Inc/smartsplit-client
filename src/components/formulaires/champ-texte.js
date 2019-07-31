@@ -18,7 +18,8 @@ export class ChampCourrielAssistant extends Component {
             modele: props.modele,
             autoFocus: props.autoFocus,
             requis: props.requis
-        }     
+        }
+        this.valeur = ""
     }
 
     componentWillReceiveProps(nextProps) {
@@ -40,7 +41,7 @@ export class ChampCourrielAssistant extends Component {
         return erreur;
     }
 
-    render() {
+    render() {    
 
         return(
             <div>                
@@ -73,8 +74,10 @@ export class ChampTexteAssistant extends Component {
             autoFocus: props.autoFocus,
             requis: props.requis,
             lien: props.lien,
-            typeLien: props.typeLien
-        }     
+            typeLien: props.typeLien,
+            disabeld: props.disabled
+        }
+        this.valeur = props.valeur
     }
 
     componentWillReceiveProps(nextProps) {
@@ -89,6 +92,12 @@ export class ChampTexteAssistant extends Component {
         }
         if (this.props.lien !== nextProps.lien) {
             this.setState({typeLien: nextProps.typeLien})
+        }
+        if (this.props.disabled !== nextProps.disabled) {
+            this.setState({disabled: nextProps.disabled})
+        }
+        if (this.props.valeur !== nextProps.valeur) {
+            this.setState({valeur: nextProps.valeur})
         }
     }
 
@@ -108,17 +117,27 @@ export class ChampTexteAssistant extends Component {
                 break;
         }
 
+        let attributs = {
+            label: !this.state.lien && this.state.etiquette,
+            placeholder: this.state.indication,
+            required: this.state.requis,
+            autoFocus: this.state.autoFocus,
+            disabled: this.state.disabled
+        }
+
+        if(this.props.changement)
+            Object.assign(attributs, {onInput: e=>{
+                let val = parseInt(e.target.value)
+                this.props.changement(this.props.id, val - this.valeur)
+                this.valeur = val
+            }})
+
         return(
             <div>                
                 <Wizard.Field
                     name={this.state.modele}
                     component={FormField}
-                    componentProps={{
-                        label: !this.state.lien && this.state.etiquette,
-                        placeholder: this.state.indication,
-                        required: this.state.requis,
-                        autoFocus: this.state.autoFocus                        
-                    }}
+                    componentProps={attributs}
                     validate={this.state.requis && required}
                 />
                 {this.state.lien && (<a href={this.state.lien} target={`lien--${classType}`}><i className={`right ${classType} icon big`}></i></a>)}

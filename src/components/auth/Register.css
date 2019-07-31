@@ -13,9 +13,19 @@ input[id="confirmpassword"] {
     /* display: inline; */
 }
 
-input{
+input[id="username"]{
     width: 464px;
     display: inline;
+}
+
+input[id="firstName"]{
+  width: 464px;
+  display: inline;
+}
+
+input[id="lastName"]{
+  width: 464px;
+  display: inline;
 }
 
 .invisible {

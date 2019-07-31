@@ -5,6 +5,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import axios from 'axios'
 import Login from '../auth/Login'
 
+import { toast } from 'react-toastify'
+
 const DROITS = {
     auteur: 'workCopyrightSplit', 
     interpretaion: 'performanceNeighboringRightSplit', 
@@ -141,7 +143,14 @@ class TableauSommaireSplit extends Component {
                 .then(res=>{
                     let media = res.data.Item
                     this.setState({mediaTitle: media.title})
-                })                
+                })
+                .catch((error) => {
+                    toast.error(error)
+                    
+                })              
+            })
+            .catch((error) => {
+                toast.error(error)                
             })
         }      
     }
@@ -214,6 +223,10 @@ class TableauSommaireSplit extends Component {
                         .then(()=>{
                             fn()                            
                         })
+                        .catch((error) => {
+                            toast.error(error)
+                            
+                        })
 
                         }                                
                     }
@@ -283,6 +296,10 @@ class TableauSommaireSplit extends Component {
                             .then(()=>{
                                 this.majListeVotes()
                             })
+                            .catch((error) => {
+                                toast.error(error)                                
+                            })
+
                             onClose()
                         }} />
                 </div>
@@ -423,18 +440,15 @@ class TableauSommaireSplit extends Component {
     }
 
     afficherSommaire() {
-        console.log('affichesommaire', this.state.sommaire)
         let proposition = this.state.proposition
         let _d = Object.keys(this.state.sommaire).map((elem)=>{
             let _r = this.state.sommaire[elem]
-
             let droits = _r.droits
             let droitsAuteur = []
             Object.keys(droits[DROITS.auteur]).forEach(droit=>{
                 let __d = droits[DROITS.auteur][droit]
                 droitsAuteur.push((<span>{`${__d}`}</span>))
             })
-
             return (
                 <tr key={`tab_sommaire--${elem}`}>
                     <td>{_r.nom}</td>
@@ -615,7 +629,6 @@ class TableauSommaireSplit extends Component {
             // à chaque 5 secondes
 
             if(voteClos && !this.estVoteFinal()) {
-                console.log('va rafraîchir...')
                 this.rafraichir()
             }
         }        

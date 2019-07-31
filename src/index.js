@@ -24,10 +24,14 @@ import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import ListeOeuvres from './components/media/media-list'
 import ValiderSplit from './components/split/assistant-split'
 import VotationSplit from './components/split/votation-split'
+import AssistantPartage from './components/partage/assistant-partage'
 
 // Tableau de bord
 import TableauDeBord from './components/tableaudebord/tableaudebord'
-import Beignet from './components/visualisation/partage/beignet';
+import Beignet from './components/visualisation/partage/beignet'
+import Histogramme from './components/visualisation/partage/histogramme'
+import Troissplits from './components/visualisation/partage/troissplits'
+import TableauSommaireSplit from './components/split/tableau-sommaire'
 
 // Composantes auth
 import Login from './components/auth/Login'
@@ -91,11 +95,19 @@ const renderRoutes = () => (
         <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
         <Route exact path="/accueil" component={Accueil} />
         <Route exact path="/visualisation/beignet" component={Beignet} />
+        <Route exact path="/visualisation/histogramme" component={Histogramme} />
+        <Route exact path="/visualisation/troissplits" component={Troissplits} />
         <Route exact path="/bonjournat" component={Bonjour} />
+        <Route exact path="/partager/:mediaId" component={Partager} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function Partager(match) {
+  let mediaId = match.match.params.mediaId
+  return (<AssistantPartage mediaId={mediaId} />)
+}
 
 function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
 

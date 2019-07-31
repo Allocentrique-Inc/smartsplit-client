@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 
+import { toast } from 'react-toastify'
+
 // Assistant
 import { Wizard } from "semantic-ui-react-formik"
 
@@ -94,6 +96,10 @@ class ValiderSplit extends Component {
                 let media = res.data.Item
                 this.setState({mediaTitle: media.title})
             })
+            .catch((error) => {
+                toast.error(error)
+                
+            })
 
             // Récupération du courriel de l'ayant-droit
             // Récupère le courriel des ayants-droits
@@ -119,8 +125,15 @@ class ValiderSplit extends Component {
                             console.log('Proposition - invitation\n', rightHolders, rights, proposition)
                         })                        
                     }
-                })                
+                })
+                .catch((error) => {
+                    toast.error(error)                    
+                })
             })            
+            
+        })
+        .catch((error) => {
+            toast.error(error)
             
         })
 
@@ -138,6 +151,9 @@ class ValiderSplit extends Component {
             if(resp.data !== '') {
                 window.location.href=`/proposition/vote/${resp.data}`
             }                
+        })
+        .catch((error) => {
+            toast.error(error)            
         })
 
     }

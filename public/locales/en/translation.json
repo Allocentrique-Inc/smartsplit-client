@@ -153,6 +153,37 @@
         "voter": {
             "connexion": "You shall be connected to access the vote page",
             "soustitre": "Hi, {{nom}}, here is the voting page for your work: "
+        },
+        "etape": {            
+            "partage-etape": "Step 2",
+            "partage-titre": "Share the rights",
+            "enregistrerEtQuitter": "Save and quit"
+        },
+        "partage": {
+            "auteur": {
+                "titre": "Copyright sharing",
+                "role": {
+                    "auteur": "Author",
+                    "compositeur": "Composer",
+                    "arrangeur": "Remixer"
+                }
+            },
+            "interprete": {
+                "titre": "Performance sharing",
+                "role": {
+                    "chanteur": "Singer",
+                    "musicien": "Musician"
+                }
+            },
+            "enregistrement": {
+                "titre": "Mastering sharing",
+                "role": {
+                    "producteur": "Producer",
+                    "graphiste": "Graphics",
+                    "realisateur": "Director",
+                    "studio": "Studio"
+                }
+            }
         }
     },
     "traitement": {

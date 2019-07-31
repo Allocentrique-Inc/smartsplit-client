@@ -35,14 +35,12 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
                 {
                     (t) =>
                         <React.Fragment>                            
-                            <React.Fragment>
-                                <h1>{t('flot.split.valider.titre')}</h1>
-                                <h2>{this.state.titre}</h2>
-                                <p/>
-                                <p/>
-                                <h3>{t('flot.split.valider.soustitre')}</h3>
-                                {ayantDroits}
-                            </React.Fragment>
+                            <h1>{t('flot.split.valider.titre')}</h1>
+                            <h2>{this.state.titre}</h2>
+                            <p/>
+                            <p/>
+                            <h3>{t('flot.split.valider.soustitre')}</h3>
+                            {ayantDroits}
                         </React.Fragment>
                 }
             </Translation>    
