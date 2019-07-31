@@ -161,13 +161,28 @@
         },
         "partage": {
             "auteur": {
-                "titre": "Copyright sharing"
+                "titre": "Copyright sharing",
+                "role": {
+                    "auteur": "Author",
+                    "compositeur": "Composer",
+                    "arrangeur": "Remixer"
+                }
             },
             "interprete": {
-                "titre": "Performance sharing"
+                "titre": "Performance sharing",
+                "role": {
+                    "chanteur": "Singer",
+                    "musicien": "Musician"
+                }
             },
             "enregistrement": {
-                "titre": "Mastering sharing"
+                "titre": "Mastering sharing",
+                "role": {
+                    "producteur": "Producer",
+                    "graphiste": "Graphics",
+                    "realisateur": "Director",
+                    "studio": "Studio"
+                }
             }
         }
     },

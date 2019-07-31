@@ -440,18 +440,15 @@ class TableauSommaireSplit extends Component {
     }
 
     afficherSommaire() {
-        console.log('affichesommaire', this.state.sommaire)
         let proposition = this.state.proposition
         let _d = Object.keys(this.state.sommaire).map((elem)=>{
             let _r = this.state.sommaire[elem]
-
             let droits = _r.droits
             let droitsAuteur = []
             Object.keys(droits[DROITS.auteur]).forEach(droit=>{
                 let __d = droits[DROITS.auteur][droit]
                 droitsAuteur.push((<span>{`${__d}`}</span>))
             })
-
             return (
                 <tr key={`tab_sommaire--${elem}`}>
                     <td>{_r.nom}</td>
@@ -632,7 +629,6 @@ class TableauSommaireSplit extends Component {
             // à chaque 5 secondes
 
             if(voteClos && !this.estVoteFinal()) {
-                console.log('va rafraîchir...')
                 this.rafraichir()
             }
         }        
