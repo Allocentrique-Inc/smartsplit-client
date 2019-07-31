@@ -14,29 +14,41 @@ export default class Beignet extends Component {
 
     constructor(props){
         super(props)
+        
+        let _d = {}
+        
+        if(props.data.length > 0) {
+            props.data.forEach(elem=>{
+                if(elem && elem.pourcent !== 0) {
+                    _d[elem.nom] = elem.pourcent
+                }
+            })
+        }            
+
         this.state = {
-            width: 800,
-            height: 450,
-            margin: 125,
-            data: props.data,
+            width: 800, //550,
+            height: 250, //225,
+            margin: 0, //50,
+            data: _d,
             uuid: props.uuid
         }        
     } 
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.data !== nextProps.data) {
-            let _d = {}
+        // Le beignet rafraichit son affichage à chaque changement de propriétés.
+        // Il n'y a pas de test sur les attributes (this.props.xyz !== nextProps.xyz)
+        let _d = {}
+        if(nextProps.data.length > 0) {
             nextProps.data.forEach(elem=>{
-                if(elem) {
+                if(elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
                     _d[elem.nom] = elem.pourcent
                 }
             })
             this.setState({data: _d})
-        }
+        }        
     }
 
-    genererBeignet() {           
-
+    genererBeignet() {     
         // Remettre à zéro le conteneur du beignet
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
         if(conteneur) {
@@ -136,22 +148,24 @@ export default class Beignet extends Component {
 
     }
 
-    render(){        
-
+    render() {
         // Ajoute la génération de beignet comme prochaine exécution de la pile JavaScript
         // alors que l'élément my_dataviz est accessible dans le navigateur du client.
         setTimeout(()=>{
             this.genererBeignet()
         }, 0)
 
-        return (                
-            <Translation>                
+        return (
+            <Translation>
                 {
                     (t, i18n) =>
-                        <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
+                        <div style={{margin: "0 auto"}}>
+                            {this.props.titre && (<h4>{this.props.titre}</h4>)}
+                            <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
+                            </div>
                         </div>
                 }
-            </Translation>          
+            </Translation>
         )
     }
 }

@@ -161,13 +161,28 @@
         },
         "partage": {
             "auteur": {
-                "titre": "Partage du droit d'auteur"
+                "titre": "Partage du droit d'auteur",
+                "role": {
+                    "auteur": "Auteur",
+                    "compositeur": "Compositeur",
+                    "arrangeur": "Arrangeur"
+                }
             },
             "interprete": {
-                "titre": "Partage du droit d'interprétation"
+                "titre": "Partage du droit d'interprétation",
+                "role": {
+                    "chanteur": "Chanteur",
+                    "musicien": "Musicien"
+                }
             },
             "enregistrement": {
-                "titre": "Partage du droit d'enregistrement"
+                "titre": "Partage du droit d'enregistrement",
+                "role": {
+                    "producteur": "Producteur",
+                    "graphiste": "Graphiste",
+                    "realisateur": "Réalisateur",
+                    "studio": "Studio"
+                }
             }
         }
     },

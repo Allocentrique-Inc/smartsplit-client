@@ -13,7 +13,7 @@ input[id="confirmpassword"] {
 }
 
 input{
-    width: 250px;
+/*    width: 250px;*/ /*vdeg: conflit avec éléments input du standard*/
     display: inline;
 }
 

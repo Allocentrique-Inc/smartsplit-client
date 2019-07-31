@@ -10,32 +10,29 @@ import { Translation } from 'react-i18next'
 // D3
 const d3 = require('d3')
 
-const WIDTH_FUDGE_PCT = 0.8 // Largeur ajustée en pourcentage 
+const WIDTH_FUDGE_PCT = 0.5 // Largeur ajustée en pourcentage 
 
 export default class Histogramme extends Component {
 
     constructor(props){
         super(props)
-        console.log('Construit')
         this.state = {
             dataset: Object.keys(this.props.data).map(elem=>this.props.data[elem].pourcent),
             nameset: Object.keys(this.props.data).map(elem=>this.props.data[elem].nom),
             uuid: this.props.uuid
         }        
-    }
+    }   
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.data !== nextProps.data) {
-            console.log('...Props')
-            this.setState({dataset: Object.keys(nextProps.data).map(elem=>nextProps.data[elem].pourcent)},
+        // L'histogramme' rafraichit son affichage à chaque changement de propriétés.
+        // Il n'y a pas de test sur les attributes (this.props.xyz !== nextProps.xyz)
+        this.setState({dataset: Object.keys(nextProps.data).map(elem=>nextProps.data[elem].pourcent)},
+        ()=>{
+            this.setState({nameset: Object.keys(nextProps.data).map(elem=>nextProps.data[elem].nom)},
             ()=>{
-                this.setState({nameset: Object.keys(nextProps.data).map(elem=>nextProps.data[elem].nom)},
-                ()=>{
-                    this.genererHisto()
-                })
-            })            
-        }
-
+                this.genererHisto()
+            })
+        })
     }
 
     genererHisto() {
@@ -51,8 +48,6 @@ export default class Histogramme extends Component {
 
         var dataset = this.state.dataset
         var nameset = this.state.nameset
-
-        console.log(dataset, nameset)
 
         var margin = {top: 50, right: 140, bottom: 150, left: 60}
         var width = (window.innerWidth - 20 - margin.left - margin.right) * WIDTH_FUDGE_PCT // Use the window's width 

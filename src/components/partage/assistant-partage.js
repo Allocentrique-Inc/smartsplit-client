@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import axios from 'axios'
 
 // Assistant
 import { Wizard } from "semantic-ui-react-formik"
@@ -48,7 +47,7 @@ class AssistantPartage extends Component {
                                     collaborateur: []
                                 }}
                                 buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                debug={false}
+                                debug={true}
                                 onSubmit={this.soumettre.bind(this)}
                                 >
 

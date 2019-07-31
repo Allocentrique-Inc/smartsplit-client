@@ -66,13 +66,17 @@ export default class BoutonsRadio extends Component {
             titre: props.titre,
             id: props.id,
             onClick: props.onClick,
-            actif: props.actif
+            actif: props.actif,
+            disabled: props.disabled
         }
     }
 
     componentWillReceiveProps(nextProps) {        
         if(this.props.actif !== nextProps.actif) {
             this.setState({actif: nextProps.actif})
+        }
+        if(this.props.disabled !== nextProps.disabled) {
+            this.setState({disabled: nextProps.disabled})
         }
     }
 
@@ -81,13 +85,14 @@ export default class BoutonsRadio extends Component {
         let choix = this.state.choix.map((elem, idx)=>{
             return (
                 <Field
-                    key={`radioOption_${idx}`}
+                    key={`radioOption_${this.props.name}_${idx}`}
                     component={RadioButton}
-                    name="radioGroup"                
+                    name={this.props.name}
                     value={elem.valeur}
                     label={elem.nom}
                     checked={idx == this.state.actif}
                     onClick={this.state.onClick}
+                    disabled={this.state.disabled}
                 />
             )
         })        
