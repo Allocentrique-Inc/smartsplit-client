@@ -3,7 +3,6 @@ import { Wizard } from 'semantic-ui-react-formik'
 import { Form } from 'semantic-ui-react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { truncateSync } from 'fs';
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"

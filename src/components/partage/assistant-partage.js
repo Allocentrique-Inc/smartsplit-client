@@ -14,6 +14,9 @@ import PageAssistantPartageDroitAuteur from './assistant-partage-auteur'
 import PageAssistantPartageDroitInterpretation from './assistant-partage-interpretation'
 import PageAssistantPartageDroitEnregistrement from './assistant-partage-enregistrement'
 
+import axios from 'axios'
+import { toast } from 'react-toastify'
+
 class AssistantPartage extends Component {
     
     constructor(props) {
@@ -28,7 +31,20 @@ class AssistantPartage extends Component {
     }
 
     soumettre(values) {
-        console.log('Soumettre le partage', values)
+        console.log('Soumettre le partage', values)        
+
+        let _data = {
+
+        }
+        /*
+        axios.post('http://api.smartsplit.org:8080/v1/proposal', _data)
+        .then(res=>{
+            toast.success("Biquette#Proposition soumise !")
+        })
+        .catch(err=>{
+            toast.error(err)
+        })
+        */
     }
 
     render() {
@@ -47,7 +63,7 @@ class AssistantPartage extends Component {
                                     collaborateur: []
                                 }}
                                 buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                debug={true}
+                                debug={false}
                                 onSubmit={this.soumettre.bind(this)}
                                 >
 
