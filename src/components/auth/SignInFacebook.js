@@ -84,9 +84,7 @@ class SignInFacebook extends Component {
     render() {
         return (
             <div>
-                <button onClick={this.signIn}>Sign in with Facebook
-                    <i className="facebook icon white"></i>
-                </button>
+                <button id="facebook" onClick={this.signIn}><i className="facebook icon white"></i>Sign in with Facebook</button>
             </div>
         );
     }

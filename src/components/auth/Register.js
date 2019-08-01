@@ -2,42 +2,35 @@ import React, { Component } from 'react';
 import './Register.css'
 import { Formik , Form, Field } from 'formik'
 import { toast } from 'react-toastify'
+import SignInFacebook from './SignInFacebook';
+import SignInGoogle from './SignInGoogle';
+import zxcvbn from 'zxcvbn';
 // import * as Yup from 'yup'
 // Traduction
 // import { Translation } from 'react-i18next';
 
-// import FormErrors from "../FormErrors";
-// import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
 
 
 class Register extends Component {
-  // state = {
-  //   email: "",
-  //   username: "",
-  //   firstName: "",
-  //   lastName: "",
-  //   password: "",
-  //   hidden: true,
-  //   confirmpassword: "",
-  //   errors: {
-  //     cognito: null,
-  //     blankfield: false,
-  //     passwordmatch: false
-  //   }
-  // }
+  state = { firstName: false, username: false, lastName: false }
 
   constructor(props) {
     super(props);
+    const { minStrength = 3, thresholdLength = 8 } = props;
+
 
     this.state = {
       hidden: true,
       confirmhidden: true,
-      password: "",
-      confirmpassword: ""
+      password: '',
+      confirmpassword: '',
+      strength: 0
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.validatePasswordStrong = this.validatePasswordStrong.bind(this)
+    // this.stateChanged = this.stateChanged.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
     this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
     this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
@@ -76,59 +69,31 @@ class Register extends Component {
   validateConfirmPassword(value) {
     if (!value) {
       return "Required"
-    } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
+    // } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
+    //   console.log("VALUE confirm", value)
+    //   return "Passwords do not match"
+    } else if ((value) !== this.state.password) {
       console.log("VALUE confirm", value)
       return "Passwords do not match"
     }
   }
 
-  // handleSubmit = async event => {
-  //   event.preventDefault();
+  validatePasswordStrong = value => {
+    // ensure password is long enough
+    if (value.length <= this.thresholdLength) throw new Error("Password is short");
 
-  //   // Form validation
-  //   // this.clearErrorState();
-  //   // const error = Validate(event, this.state);
-  //   // if (error) {
-  //   //   this.setState({
-  //   //     errors: { ...this.state.errors, ...error }
-  //   //   });
-  //   // }
-  
-  //   // AWS Cognito integration here
-  //   const { username, email, firstName, lastName, password } = this.state;
-  //   try {
-  //     const signUpResponse = await Auth.signUp({
-  //       username,
-  //       password,
-  //       attributes: {
-  //         email: email,
-  //         name: firstName,
-  //         family_name: lastName
-  //       }
-  //     });
-  //     this.props.history.push("/welcome");
-  //     console.log(signUpResponse);
-  //   } catch (error) {
-  //     let err = null;
-  //     !error.message ? err = { "message": error } : err = error;
-  //     this.setState({
-  //       errors: {
-  //         ...this.state.errors,
-  //         cognito: err
-  //       }
-  //     });
-  //   }
-  // }
+    // ensure password is strong enough using the zxcvbn library
+    if (zxcvbn(value).score < this.minStrength) throw new Error("Password is weak");
+  };
 
   handleSubmit = values => { 
     // AWS Cogni"to integration here 
-    console.log("Enter handleSubmit ======")
     const username = values.username;
-    const email = values.email;
+    const email = values.username; // username is used as email
     const firstName = values.firstName;
     const lastName = values.lastName;
     const password = this.state.password;
-    console.log(password, username, email, firstName, lastName)
+    // console.log(password, username, email, firstName, lastName)
     try {
       Auth.signUp({
         username,
@@ -162,9 +127,26 @@ class Register extends Component {
   }
 
   handlePasswordChange(e) {
-    console.log("hpc",e);
-    this.setState({ password: e.target.value });
+    console.log("PASSWORD STRENGTH", this.state.strength);
+    this.setState({ 
+      password: e.target.value,
+      strength: zxcvbn(e.target.value).score
+    });
   }
+
+  // stateChanged = e => {
+
+  //   // update the internal state using the updated state from the form field
+
+  //   console.log("Target Value", e.target.value)
+  //   console.log("PPPPPPPPP", this.state.password)
+
+  //   this.setState({
+  //     password: e.target.value,
+  //     strength: zxcvbn(e.target.value).score
+  //   }, () => this.props.onStateChanged(e));
+
+  // };
 
   handleConfirmPasswordChange(e) {
     this.setState({ confirmpassword: e.target.value });
@@ -184,13 +166,6 @@ class Register extends Component {
     this.setState({ confirmhidden: !this.state.confirmhidden });
   }
 
-  // onInputChange = event => {
-  //   this.setState({
-  //     [event.target.id]: event.target.value
-  //   });
-  //   document.getElementById(event.target.id).classList.remove("is-danger");
-  // }
-
   componentDidMount() {
     if (this.props.password) {
       this.setState({ password: this.props.password });
@@ -201,29 +176,52 @@ class Register extends Component {
   }
 
   render() {
+    const { type, validator, onStateChanged, children, ...restProps } = this.props;
+    const { password, strength } = this.state;
+
+    const { firstName, lastName, username } = this.state;
+
+    const passwordLength = password.length;
+    console.log("password =====", password.length, "pL: ", passwordLength);
+
+    const passwordStrong = strength >= this.minStrength;
+    const passwordLong = passwordLength > this.thresholdLength;
+
+    // password strength meter is only visible when password is not empty
+    const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
+    // confirm password field is only visible when password is not empty
+    const confirmClass = ['confirmPassword', strength >= 2 ? 'visible' : 'invisible'].join(' ').trim();
+
     return (
 
       <Formik
       initialValues={ 
               {
-                email: this.state.email,
+                // email: this.state.email,
                 username: this.state.username,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
                 password: this.state.password,
                 hidden: true,
-                confirmpassword: this.state.confirmpassword
+                confirmpassword: this.state.confirmpassword,
+                strength: this.state.strength
               } 
           }
       onSubmit={
           (values, { setSubmitting }) => {
-            console.log("****", values);
               this.handleSubmit(values, ()=>{setSubmitting(false)})
         }}
       >
 
       {({ errors, touched, isValidating }) => (
       <Form>
+        <SignInFacebook text="Créer mon compte avec Facebook"></SignInFacebook>
+        <SignInGoogle>"Créer mon compte avec Google"</SignInGoogle>
+            <br></br>
+            <br></br>
+            <hr/>
+            <br></br>
+            <br></br>
       <section className="section auth">
         <div className="container">
           <h1>Register</h1>
@@ -235,7 +233,6 @@ class Register extends Component {
                   aria-describedby="firstNameHelp"
                   placeholder="Enter First Name"
                   value={this.state.firstName}
-                  // onChange={this.onInputChange}
                   required={true}
                 />
                 <span className="icon is-small is-left">
@@ -251,7 +248,6 @@ class Register extends Component {
                   aria-describedby="=lastNameHelp"
                   placeholder="Enter Last Name"
                   value={this.state.lastName}
-                  // onChange={this.onInputChange}
                   required={true}
                 />
                 <span className="icon is-small is-left">
@@ -259,7 +255,7 @@ class Register extends Component {
                 </span>
               </div>
             </div>
-            <div className="field">
+            {/* <div className="field">
               <div className="control has-icons-left has-icons-right">
                 <Field 
                   name="email" 
@@ -268,26 +264,22 @@ class Register extends Component {
                   aria-describedby="emailHelp"
                   placeholder="Enter Email"
                   value={this.state.email}
-                  // onChange={this.onInputChange}
                   required={true}
                 />
                 <span className="icon is-small is-left">
                   <i className="fas fa-envelope"></i>
                 </span>
               </div>
-            </div>
+            </div> */}
             <div className="field">
               <div className="control">
                 <Field
-                
                   validate={  (val) => {this.validateUsername(val)} } 
                   name="username"
                   id="username"
                   aria-describedby="userNameHelp"
-                  placeholder="Create Username (email)"
+                  placeholder="Create Username (Email)"
                   value={this.state.username}
-                  // onChange={this.onInputChange}
-                  // style={{display: 'none'}} 
                   required={true}
                 />
                 {errors.username && touched.username && <div style={{color: "red"}}> Courriel invalide </div>}
@@ -296,16 +288,17 @@ class Register extends Component {
             <div className="field">
               <div className="control has-icons-left">
                 <Field
-                  // validate={this.validatePassword} 
                   validate={  (val) => {this.validatePassword(val)} } 
+                  validate={ (val) => {this.validatePasswordStrong(val)} } 
                   type={this.state.hidden ? "password" : "text"}
                   id="password"
                   name="password"
                   placeholder="Password"
                   value={this.state.password}
                   onChange={this.handlePasswordChange}
-                  // onChange={this.onInputChange}
+                  // onChange={this.stateChanged}
                   required={true}
+                  // {...restProps}
                 />
                 <button id="hide" onClick={ (e) => {e.preventDefault(); this.toggleShow()} }>
                   <i className="eye icon black"></i>
@@ -316,8 +309,13 @@ class Register extends Component {
                 </span>
               </div>
             </div>
-            <div className="field">
-              <div className="control has-icons-left">
+
+            <div className={strengthClass}>
+              <div className="strength-meter-fill" data-strength={strength}></div>  
+            </div>
+
+            <div className={confirmClass}>
+              <div className="control has-icons-left confirmPassword">
                 <Field
                   validate={  (val) => {this.validateConfirmPassword(val)} } 
                   type={this.state.confirmhidden ? "password" : "text"}
@@ -326,7 +324,6 @@ class Register extends Component {
                   placeholder="Confirm password"
                   value={this.state.confirmpassword}
                   onChange={this.handleConfirmPasswordChange}
-                  // onChange={this.onInputChange}
                   required={true}
                 />
                 <button id="hide-confirm" onClick={ (e) => {e.preventDefault(); this.toggleConfirmShow()} }>
@@ -337,14 +334,17 @@ class Register extends Component {
                   <i className="fas fa-lock"></i>
                 </span>
               </div>
-            </div>
-            <div className="field">
+              <div className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
               <p className="control">
                 <button className="button is-success" type="submit">
                   Register
                 </button>
               </p>
+              </div>
             </div>
+
+
+
         </div>
       </section>
       </Form>

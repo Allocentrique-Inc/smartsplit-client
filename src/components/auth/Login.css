@@ -12,10 +12,59 @@ button[id="hide"] {
 
 input[id="username"] {
   padding-right: 50px;
-  width: 250px;
+  width: 464px;
 }
 
 input[name="password"] {
   padding-right: 50px;
-  width: 200px;
+  width: 414px;
+}
+
+button[id="facebook"] {
+  width: 464px;
+  margin: 4px;
+  max-width: 500px;
+  border-radius: 2px;
+  background-color: #3C5A99;
+  padding-right: 137px;
+}
+
+.facebook {
+  padding-right: 135px;
+}
+
+button[id="google"] {
+  margin: 4px;
+  width: 464px;
+  max-width: 500px;
+  border-radius: 2px;
+  background-color: #4285F4;
+  padding-right: 150px;
+}
+
+.google {
+  padding-right: 143px;
+}
+
+hr {
+  overflow: visible; /* For IE */
+  padding: 0;
+  /* border: none;
+  border-top: medium double #DCDFE1;
+  color: #DCDFE1; */
+  width: 464px;
+  /* height: 2px; */
+  text-align: center;
+  border-top: 1px solid#DCDFE1;
+  border-bottom: 1px solid#DCDFE1;
+}
+hr:after {
+  content: "ou";
+  display: inline-block;
+  position: relative;
+  top: -0.7em;
+  font-size: 1.5em;
+  padding: 0 0.25em;
+  color: black;
+  background: white;
 }

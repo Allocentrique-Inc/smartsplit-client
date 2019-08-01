@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 
 import './Login.css'
+import SignInFacebook from './SignInFacebook';
+import SignInGoogle from './SignInGoogle';
+
+
 import { Auth } from "aws-amplify";
 import { Translation } from 'react-i18next'
 
@@ -108,6 +112,13 @@ class LogIn extends Component {
         >
           {({ errors, touched, isValidating }) => (
             <Form>
+              <SignInFacebook></SignInFacebook>
+              <SignInGoogle></SignInGoogle>
+                  <br></br>
+                  <br></br>
+                  <hr/>
+                  <br></br>
+                  <br></br>
               <section className="section auth">
                 <div className="container">
                   <h1> Connecte-toi afin de voter </h1>
@@ -140,7 +151,8 @@ class LogIn extends Component {
                     </div>
                     <div className="field">
                       <p className="control">
-                        <a href="/forgot-password"> Mot de passe oublié ? </a>
+                        <a href="/forgot-password"> Mot de passe oublié ? </a>                         
+                        <a href="/register"> Créer ton compte </a>
                       </p>
                     </div>
                     <div className="field">
