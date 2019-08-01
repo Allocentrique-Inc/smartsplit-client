@@ -40,7 +40,8 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     recalculerPartage() {
-        let pourcent = 100.00        
+        let pourcent = 100.00    
+
         switch(this.state.mode) {
             case MODES.egal:
                 // Calcul le pourcentage égal
@@ -50,6 +51,8 @@ class PageAssistantPartageAuteur extends Component {
                 _parts.forEach((elem, idx)=>{
                     _parts[idx].nom = elem.nom
                     _parts[idx].pourcent = pourcent
+                    _parts[idx].pourcentMusique = (pourcent / 2)
+                    _parts[idx].pourcentParoles = (pourcent / 2)
                 })
                 this.props.setFieldValue("droitAuteur", _parts)
                 break
@@ -82,12 +85,41 @@ class PageAssistantPartageAuteur extends Component {
                         partsMusique.push({nom: elem.nom, pourcent: `${_pM}`})
                         partsParoles.push({nom: elem.nom, pourcent: `${_pP}`})
                         _parts[idx].pourcent = _pM + _pP
+                        _parts[idx].pourcentMusique = _pM
+                        _parts[idx].pourcentParoles = _pP
                     })
+                    this.props.setFieldValue("droitAuteur", _parts)
                     this.setState({parts: _parts})
                     this.setState({partsMusique: partsMusique})
-                    this.setState({partsParoles: partsParoles})
+                    this.setState({partsParoles: partsParoles})                    
                 }                
                 break;
+            case MODES.manuel:
+                if(this.state.parts.length > 0) { 
+                    let auteurs = [], compositeurs = [], arrangeurs = []
+                    this.state.parts.forEach(elem=>{
+                        if(elem.auteur) {
+                            auteurs.push(elem.nom)
+                        }
+                        if(elem.compositeur) {
+                            compositeurs.push(elem.nom)
+                        }
+                        if(elem.arrangeur) {
+                            arrangeurs.push(elem.nom)
+                        }
+                    })
+
+                    let _parts = this.state.parts
+                    this.state.parts.forEach((elem, idx)=>{
+                        let _musique = 0, _paroles = 0                        
+                        _musique = compositeurs.includes(elem.nom) || arrangeurs.includes(elem.nom)
+                        _paroles = auteurs.includes(elem.nom)
+                        _parts[idx].pourcent = elem.pourcent
+                        _parts[idx].pourcentMusique = _musique ? elem.pourcent / (_paroles ? 2 : 1) : 0
+                        _parts[idx].pourcentParoles = _paroles ? elem.pourcent / (_musique ? 2 : 1) : 0
+                    })
+                    this.props.setFieldValue("droitAuteur", _parts)
+                }
             default:
         }
         this.setState({ping: true})
@@ -315,7 +347,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                     this.props.setFieldValue(`droitAuteur[${index}][${elem.id}]`, true)
                                                                                                 }
                                                                                                 setTimeout(()=>{
-                                                                                                    this.recalculerPartage()                                                                                
+                                                                                                    this.recalculerPartage()
                                                                                                 }, 0)
                                                                                             }}
                                                                                         />
@@ -372,7 +404,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                 recherche={true}
                                                                 selection={true}
                                                                 ajout={false}
-                                                                collaborateurs={this.props.values.droitAuteur}
+                                                                collaborateurs={this.props.values.droitAuteur}                                                                
                                                             />
                                                         </div>
                                                     </div>

@@ -95,12 +95,12 @@ export class ChampListeCollaborateurAssistant extends Component {
         axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _options = res.data.map(elem=>{
-                return {key: `${elem.rightHolderId}`,text: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
-            })    
+                return {key: `${elem.rightHolderId}`,text: `${elem.firstName} ${elem.artistName ? "'"+elem.artistName+"'" : ''} ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
+            })            
             if(!this.OPTIONS) {
                 this.OPTIONS = _options
             }
-            this.setState({options: _options})
+            this.setState({options: _options})            
         })
         .catch(err=>{
             toast.error(err)
