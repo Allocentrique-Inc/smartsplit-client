@@ -25,7 +25,9 @@ class Register extends Component {
       confirmhidden: true,
       password: '',
       confirmpassword: '',
-      strength: 0
+      strength: 0,
+      passwordmatch: false,
+      // dirty: false
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -75,6 +77,8 @@ class Register extends Component {
     } else if ((value) !== this.state.password) {
       console.log("VALUE confirm", value)
       return "Passwords do not match"
+    } else {
+        this.setState({ passwordmatch: true});
     }
   }
 
@@ -149,7 +153,11 @@ class Register extends Component {
   // };
 
   handleConfirmPasswordChange(e) {
-    this.setState({ confirmpassword: e.target.value });
+    this.setState(
+      { confirmpassword: e.target.value },
+    );
+    // const value = e.target.value;
+    // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
   }
 
   toggleShow() {
@@ -177,9 +185,9 @@ class Register extends Component {
 
   render() {
     const { type, validator, onStateChanged, children, ...restProps } = this.props;
-    const { password, strength } = this.state;
+    const { password, strength, dirty } = this.state;
 
-    const { firstName, lastName, username } = this.state;
+    // const { firstName, lastName, username } = this.state;
 
     const passwordLength = password.length;
     console.log("password =====", password.length, "pL: ", passwordLength);
@@ -187,10 +195,16 @@ class Register extends Component {
     const passwordStrong = strength >= this.minStrength;
     const passwordLong = passwordLength > this.thresholdLength;
 
+    // const errors = 7;
+    // const hasErrors = this.passwordmatch;
     // password strength meter is only visible when password is not empty
     const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
     // confirm password field is only visible when password is not empty
     const confirmClass = ['confirmPassword', strength >= 2 ? 'visible' : 'invisible'].join(' ').trim();
+    console.log("PASSWORD MATCH: ", this.state.passwordmatch)
+    // const controlClass = ['form-control', this.passwordmatch ? dirty ? 'is-valid' : 'is-invalid' : ''].join(' ').trim();
+    const controlClass = ['form-control', this.passwordmatch ? 'is-valid' : 'is-invalid'].join(' ').trim();
+
 
     return (
 
@@ -325,6 +339,7 @@ class Register extends Component {
                   value={this.state.confirmpassword}
                   onChange={this.handleConfirmPasswordChange}
                   required={true}
+                  className={controlClass} 
                 />
                 <button id="hide-confirm" onClick={ (e) => {e.preventDefault(); this.toggleConfirmShow()} }>
                   <i className="eye icon black"></i>
@@ -342,8 +357,6 @@ class Register extends Component {
               </p>
               </div>
             </div>
-
-
 
         </div>
       </section>

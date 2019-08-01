@@ -97,3 +97,32 @@
     top: 0px;
     float: right;
 }
+    
+.user--img {
+    display: inline-block;
+    vertical-align:top;
+    border:1px solid #000;
+    border-radius: 90px 90px 90px;
+    width: 40px;
+    height: 40px; 
+} 
+
+.avatar--image {
+    margin: 7px;
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.initials {
+    position: absolute;
+    top: 50%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    color: black;
+    background-color: transparent;
+}
+
+.icon--img {
+    margin: 15px;
+}

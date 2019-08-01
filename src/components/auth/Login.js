@@ -127,6 +127,7 @@ class LogIn extends Component {
                         <Field 
                           validate={this.validateUsername}
                           name="username"
+                          id="username"
                           aria-describedby="usernameHelp"
                           placeholder="Enter email"
                           required={true}
