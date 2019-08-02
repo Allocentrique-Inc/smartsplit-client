@@ -193,7 +193,6 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                         <Checkbox
                                                                                             key={`coche_role_droit_interpretation_${index}_${idx}`}
                                                                                             label={elem.nom}
-                                                                                            disabled={!this.props.values.droitInterpretation[index].principal}
                                                                                             checked={this.props.values.droitInterpretation[index][elem.id]}
                                                                                             onClick={(e)=>{ 
                                                                                                 if(this.props.values.droitInterpretation[index].principal) {

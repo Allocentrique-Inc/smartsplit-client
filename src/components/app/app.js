@@ -53,6 +53,19 @@ class App extends Component {
       toast.error(err)
     })
 
+    axios.get('http://api.smartsplit.org:8080/v1/proposal')
+    .then(res=>{
+      let listePropositions = res.data.map((elem, idx)=>{
+        return (
+          <option key={`option_proposal_${idx}`} value={elem.uuid}>{elem.uuid} - {elem.initiator && elem.initiator.name}</option>
+        )
+      })      
+      this.setState({listePropositions: listePropositions})
+    })
+    .catch(err=>{
+      toast.error(err)
+    })
+
   }
 
   render() {   
@@ -93,14 +106,23 @@ class App extends Component {
               <a href="/login">Login</a> <a href="/register">Register</a> <a href="/forgot-password">ForgotPassword</a> <a href="/forgot-password-verification">PasswordVerification</a>  <a href="/change-password-verification">ChangeVerification</a> <a href="/welcome">Welcome</a><br/>
               <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
-              <a href="/visualisation/troissplits">Trois splits</a><br/>              
+              <a href="/visualisation/troissplits">Trois splits</a><br/>
+
               Partager les droits pour un média :
               <select id="select-media">
                 {this.state.listeMedias}
               </select> <button onClick={()=>{
                 let e = document.getElementById('select-media')
                 window.location.href = `/partager/${e.options[e.selectedIndex].value}`
-              }}>Partager les droits</button>
+              }}>Partager les droits</button><br/>
+
+              Sommaire d'une proposition :
+              <select id="select-proposition">
+                {this.state.listePropositions}
+              </select> <button onClick={()=>{
+                let e = document.getElementById('select-proposition')
+                window.location.href = `/proposition/sommaire/${e.options[e.selectedIndex].value}`
+              }}>Afficher le sommaire</button><br/>
             </div>
         </div>
         }
