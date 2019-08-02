@@ -22,13 +22,24 @@ class App extends Component {
       Auth.currentSession().then(
         session=>{
           this.props.auth.setAuthStatus(true)
-          console.log(session)
-          Auth.currentAuthenticatedUser().then(
-            user=>{
-              this.props.auth.setUser(user);
-              this.setState({ isAuthenticating: false })
-            }
-          )
+          console.log("AmazonCognitoUser***** ", session)
+          console.log("rightHolderId: ", session.idToken.payload.sub)
+          axios.get('http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub)
+          .then(res=>{
+            console.log(res.data.Item);
+            this.setState({user: res.data.Item})
+            console.log(this.state.user.firstName + ' ' + this.state.user.lastName + ' logged in');
+          })
+          .catch(err=>{
+            toast.error(err)
+          })
+
+          // Auth.currentAuthenticatedUser().then(
+          //   user=>{
+          //     this.props.auth.setUser(user);
+          //     this.setState({ isAuthenticating: false })
+          //   }
+          // )
         }
       ).catch((err) => {
         console.log(`Auth err: ${err}`)
@@ -56,12 +67,12 @@ class App extends Component {
   }
 
   render() {   
-    const authProps = {
-      isAuthenticated: this.state.isAuthenticated,
-      user: this.state.user,
-      setAuthStatus: this.setAuthStatus,
-      setUser: this.setUser
-    } 
+    // const authProps = {
+    //   isAuthenticated: this.state.isAuthenticated,
+    //   user: this.state.user,
+    //   setAuthStatus: this.setAuthStatus,
+    //   setUser: this.setUser
+    // } 
 
     return (
       //!this.state.isAuthenticating &&
