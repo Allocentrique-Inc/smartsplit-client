@@ -223,5 +223,18 @@
             "1": "My public profile",
             "2": "My collaborators"
         }
+    },
+    "roles": {
+        "principal": "Principal",
+        "accompaniment": "Accompaniment",
+        "producer": "Producer",
+        "director": "Director",
+        "studio": "Studio",
+        "graphist": "Graphist",
+        "arranger": "Arranger",
+        "songwriter": "songwriter",
+        "composer": "Composer",
+        "singer": "Singer",
+        "musicien": "Musician"
     }
 }

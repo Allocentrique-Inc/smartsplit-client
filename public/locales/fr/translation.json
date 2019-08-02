@@ -218,5 +218,18 @@
             "1": "Mon profil public",
             "2": "Mes collaborateurs"
         }
+    },
+    "roles": {
+        "principal": "Principal",
+        "accompaniment": "Accompagnement",
+        "producer": "Producteur",
+        "director": "Réalisateur",
+        "studio": "Studio",
+        "graphist": "Graphiste",
+        "arranger": "Arrangeur",
+        "songwriter": "Auteur",
+        "composer": "Compositeur",
+        "singer": "Chanteur",
+        "musicien": "Musicien"
     }
 }

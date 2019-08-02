@@ -42,6 +42,7 @@ import ChangePasswordVerification from './components/auth/ChangePasswordVerifica
 import Welcome from './components/auth/Welcome'
 import SignInFacebook from './components/auth/SignInFacebook'
 import SignInGoogle from './components/auth/SignInGoogle'
+import SommairePartage from './components/partage/partage-sommaire';
 
 
 const REGION = 'us-east-2';
@@ -93,6 +94,7 @@ const renderRoutes = () => (
         <Route exact path="/approuver-proposition/:propositionId" component={ApprouverSplit} />
         <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
         <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
+        <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
         <Route exact path="/accueil" component={Accueil} />
         <Route exact path="/visualisation/beignet" component={Beignet} />
         <Route exact path="/visualisation/histogramme" component={Histogramme} />
@@ -103,6 +105,11 @@ const renderRoutes = () => (
     </Router>
   </I18nextProvider>  
 )
+
+function SommaireProposition(match) {
+  let uuid = match.match.params.uuid
+  return (<SommairePartage uuid={uuid} />)
+}
 
 function Partager(match) {
   let mediaId = match.match.params.mediaId
