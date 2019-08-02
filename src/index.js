@@ -31,7 +31,6 @@ import TableauDeBord from './components/tableaudebord/tableaudebord'
 import Beignet from './components/visualisation/partage/beignet'
 import Histogramme from './components/visualisation/partage/histogramme'
 import Troissplits from './components/visualisation/partage/troissplits'
-import TableauSommaireSplit from './components/split/tableau-sommaire'
 
 // Composantes auth
 import Login from './components/auth/Login'
@@ -42,8 +41,7 @@ import ChangePasswordVerification from './components/auth/ChangePasswordVerifica
 import Welcome from './components/auth/Welcome'
 import SignInFacebook from './components/auth/SignInFacebook'
 import SignInGoogle from './components/auth/SignInGoogle'
-import SommairePartage from './components/partage/partage-sommaire';
-
+import SommairePartage from './components/partage/partage-sommaire'
 
 const REGION = 'us-east-2';
 
@@ -58,24 +56,6 @@ Amplify.configure({
 
 const browserHistory = createBrowserHistory()
 
-let isAuthenticated = false
-let user = ""
-
-const auth = {  
-  setAuthStatus: authenticated => {
-    isAuthenticated = authenticated
-  },
-  setUser:  _u => {
-    user = _u
-  },
-  getUser: () => {
-    return user
-  },
-  isAuthenticated: () => {
-    return isAuthenticated
-  }
-}
-
 const renderRoutes = () => (
   <I18nextProvider i18n={i18n}>
     <Router history={browserHistory}>
@@ -83,7 +63,7 @@ const renderRoutes = () => (
         <Route exact path="/" component={renderApp}/>
         <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
-        <Route exact path="/login" onRef={auth} component={renderLogin} />
+        <Route exact path="/login" component={renderLogin} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/sign-in-facebook" component={SignInFacebook} />
         <Route exact path="/sign-in-google" component={SignInGoogle} />
@@ -121,7 +101,7 @@ function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
 function Accueil() {
   return(
     <TableauDeBord />
-  )
+  )  
 }
 
 function ConfirmerCourriel() {
@@ -138,11 +118,11 @@ function ConfirmerCourriel() {
 }
 
 function renderApp() {
-  return (<App auth={auth} />)
+  return (<App />)
 }
 
 function renderLogin() {
-  return (<Login auth={auth} />)
+  return (<Login />)
 }
 
 function VoterSplit(match) {
@@ -154,7 +134,7 @@ function VoterSplit(match) {
   }
 
   return (
-    <VotationSplit auth={auth} jeton={jeton} />
+    <VotationSplit jeton={jeton} />
   )
 
 }
