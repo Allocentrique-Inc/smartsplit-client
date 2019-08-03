@@ -12,7 +12,7 @@ export default class BoutonConnexion extends Component {
             <Translation>
                 {
                     t=>
-                        <div>
+                        <div class="ui medium button">
                             Bouton Profil
                         </div>
                 }
