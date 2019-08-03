@@ -15,16 +15,15 @@ export default class BoutonConnexion extends Component {
     }
 
     render() {
-      
-      return (
-        <Translation>
-          {
-            t=>
-              <div>
-                Connexion
-              </div>
-          }
-        </Translation>
-      )
+        return (
+            <Translation>
+                {
+                    t=>
+                        <div class="ui medium button">
+                            Connexion
+                        </div>
+                }
+            </Translation>
+        )
     }
 }

@@ -58,7 +58,7 @@ export default class TableauDeBord extends Component {
                 },
             customUI: ({ onClose }) => 
                 <div>         
-                    <Login message="Connecte-toi pour accéder tableau de bord" auth={this.props.auth} fn={(user)=>{
+                    <Login message="Connecte-toi pour accéder au tableau de bord" auth={this.props.auth} fn={(user)=>{
                         onClose()
                         this.setState({user: user}, ()=>{
                             this.verifierConnexion()
