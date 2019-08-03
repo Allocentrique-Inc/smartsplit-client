@@ -41,7 +41,10 @@ import ChangePasswordVerification from './components/auth/ChangePasswordVerifica
 import Welcome from './components/auth/Welcome'
 import SignInFacebook from './components/auth/SignInFacebook'
 import SignInGoogle from './components/auth/SignInGoogle'
+
+// Sommaires
 import SommairePartage from './components/partage/partage-sommaire'
+import SommaireOeuvre from './components/oeuvre/oeuvre-sommaire'
 
 const REGION = 'us-east-2';
 
@@ -81,10 +84,16 @@ const renderRoutes = () => (
         <Route exact path="/visualisation/troissplits" component={Troissplits} />
         <Route exact path="/bonjournat" component={Bonjour} />
         <Route exact path="/partager/:mediaId" component={Partager} />
+        <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function sommaireOeuvre(match) {
+  let mediaId = match.match.params.mediaId
+  return (<SommaireOeuvre mediaId={mediaId} />)
+}
 
 function SommaireProposition(match) {
   let uuid = match.match.params.uuid

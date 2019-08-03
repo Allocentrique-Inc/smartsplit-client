@@ -21,8 +21,7 @@ class LogIn extends Component {
     this.state = {
       hidden: true,
       username: "",
-      password: this.props.password,
-      auth : {}
+      password: this.props.password
     }
 
     this.toggleShow = this.toggleShow.bind(this)

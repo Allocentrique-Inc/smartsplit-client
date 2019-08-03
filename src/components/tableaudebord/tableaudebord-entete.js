@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import { Translation } from 'react-i18next';
 
 // Composantes
-import MenuProfil from './tableaudebord-menu-profil'
-import BoutonConnexion from './tableaudebord-bouton-connexion'
+import MenuProfil from '../entete/menu-profil'
+import BoutonConnexion from '../entete/bouton-connexion'
 
 export default class Entete extends Component {
 

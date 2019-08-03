@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import { Translation } from 'react-i18next';
+
 import { Auth } from 'aws-amplify';
-import axios from 'axios'
+
 import { toast } from 'react-toastify'
 
 export default class BoutonConnexion extends Component {    
@@ -19,7 +20,7 @@ export default class BoutonConnexion extends Component {
             <Translation>
                 {
                     t=>
-                        <div class="ui medium button">
+                        <div className="ui medium button">
                             Connexion
                         </div>
                 }

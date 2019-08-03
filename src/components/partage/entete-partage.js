@@ -4,35 +4,18 @@
 
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
-import axios from 'axios'
 
-import { toast } from 'react-toastify'
+import MenuProfil from '../entete/menu-profil'
 
-// CSS
-import './entete-partage.css'
-import { Progress } from "semantic-ui-react";
-
-class PageAssistantPartageAuteur extends Component {
+class EntetePartage extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            mediaId: this.props.mediaId
+            media: this.props.media,
+            user: this.props.user
         }
-    }
-
-    componentWillMount() {
-        // Récupérer le média
-        axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
-        .then(res=>{
-            let media = res.data.Item
-            this.setState({media: media})
-        })
-        .catch((error) => {
-            toast.error(error)
-            
-        })
-    }
+    }   
     
     render() {
 
@@ -40,13 +23,17 @@ class PageAssistantPartageAuteur extends Component {
             <Translation>
                 {
                     (t) =>
-                        <div>
-                            <div className="entete--partage">
-                                {this.state.media && (<span className="entete--partage__media">{this.state.media.title}</span>)}
-                                <span className="entete--partage__ariane">{t('flot.etape.partage-etape')} - <strong>{t('flot.etape.partage-titre')}</strong></span>
-                                <span style={{cursor: "pointer"}} className="entete--partage__enregistrerEtQuitter">{t('flot.etape.enregistrerEtQuitter')}</span>
-                            </div>
-                            <Progress percent="10" indicating/>
+                        <div className="ui row">                                                               
+                            <div className="ui sixteen wide column">
+                                <i className="image icon huge grey"></i>
+                                {this.state.media && (<span style={{marginLeft: "15px"}} className="ui small-300">{this.state.media.title}</span>)}
+                                <span className="ui heading5" style={{marginLeft: "50px"}}>{t('flot.etape.partage-titre')}</span>
+                                <span style={{cursor: "pointer", position: "absolute", right: "100px"}} className="entete--partage__enregistrerEtQuitter">
+                                    <div style={{marginTop: "10px"}} class="ui medium button">
+                                        {t('flot.etape.enregistrerEtQuitter')}
+                                    </div> <MenuProfil user={this.state.user} />
+                                </span>
+                            </div>                            
                         </div>
                 }
             </Translation>    
@@ -54,4 +41,4 @@ class PageAssistantPartageAuteur extends Component {
     }
 }
 
-export default PageAssistantPartageAuteur
+export default EntetePartage

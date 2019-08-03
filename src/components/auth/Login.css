@@ -61,7 +61,7 @@ hr {
   border-bottom: 1px solid#DCDFE1;
 }
 hr:after {
-  content: "ou";
+  /*content: "ou";*/
   display: inline-block;
   position: relative;
   top: -0.7em;

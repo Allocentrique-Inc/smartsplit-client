@@ -19,8 +19,6 @@
   to { transform: rotate(360deg); }
 }
 
-
-
 .heading1 {
   font-family: 'IBM Plex Sans';
   font-weight: 500;
@@ -174,4 +172,12 @@
   font-size: 12px;
   line-height: 16px;
   color:#8DA0B2;
+}
+
+.cliquable {
+  cursor: pointer
+}
+
+.etape {
+  margin-top: 60px
 }
