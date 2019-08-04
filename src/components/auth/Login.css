@@ -13,11 +13,13 @@ button[id="hide"] {
 input[id="username"] {
   padding-right: 50px;
   width: 464px;
+  display: inline;
 }
 
 input[name="password"] {
   padding-right: 50px;
   width: 414px;
+  display: inline;
 }
 
 button[id="facebook"] {

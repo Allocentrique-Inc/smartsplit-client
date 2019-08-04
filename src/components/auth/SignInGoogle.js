@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Auth } from 'aws-amplify';
+// import { Auth } from 'aws-amplify';
 // To federated sign in from Google
 class SignInGoogle extends Component {
     // constructor(props) {

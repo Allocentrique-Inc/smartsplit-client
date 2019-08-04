@@ -24,7 +24,7 @@ export default class Panneau extends Component {
     render() {
         return (
             <div className="tdb--panneau">                
-                <Entete />
+                <Entete user={this.props.user} />
                 <div className="contenu">
                     {this.state.selection === 0 && (<ListePieces />)}
                     {this.state.selection === 1 && (<MonProfil />)}

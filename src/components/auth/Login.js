@@ -57,17 +57,13 @@ class LogIn extends Component {
   }
 
   handleSubmit = values => { 
-    // AWS Cognito integration here 
     try {
       Auth.signIn(values.username, values.password)
       .then(user=>{
-        toast.success(`Biquette#${user.username} !`)
-        this.props.auth.setAuthStatus(true)
-        this.props.auth.setUser(user.username)        
+        toast.success(`Biquette#${user.username} !`)        
       })
       .catch((err)=>{
         toast.error(err.message)
-        console.log(err)
       })
       .finally(()=>{
         if(this.props.fn) {
@@ -102,7 +98,7 @@ class LogIn extends Component {
         initialValues={ 
                 {
                   username: this.state.username,
-                  password: "Aa@34567"
+                  password: ""
                 } 
             }
         onSubmit={
@@ -121,12 +117,13 @@ class LogIn extends Component {
                   <br></br>
               <section className="section auth">
                 <div className="container">
-                  <h1> Connecte-toi afin de voter </h1>
+                  <h1>{this.props.message}</h1>
                     <div className="field">
                       <div className="control">
                         <Field 
                           validate={this.validateUsername}
                           name="username"
+                          id="username"
                           aria-describedby="usernameHelp"
                           placeholder="Enter email"
                           required={true}
@@ -171,130 +168,4 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn;
-
-
-// const intialState = {
-//   name: "", 
-//   email: "",
-//   password: ""
-// };
-// const userSchema = yup.object().shape({
-//   name: yup.string().required(),
-//   email: yup
-//     .string()
-//     .email()
-//     .required(),
-//   password: yup
-//     .string()
-//     .required()
-//     .max(13)
-//     .min(8)
-// });
-
-
-// function LogIn(props) {
-//   const [user, setUser] = useState(intialState);
-
-//   handleSubmit = async event => {
-//     event.preventDefault();
-  
-//     // AWS Cognito integration here
-//     try {
-//       const user = await Auth.signIn(this.state.username, this.state.password);
-//       console.log(user);
-//       this.props.auth.setAuthStatus(true);
-//       this.props.auth.setUser(user);
-//       this.props.history.push("/");
-//     }catch(error) {
-//       let err = null;
-//       !error.message ? err = { "message": error } : err = error;
-//       this.setState({
-//         errors: {
-//           ...this.state.errors,
-//           cognito: err
-//         }
-//       });
-//     }
-//   };
-
-//   return (
-//     <Fragment>
-//       <span className={`${s.output}`}>{JSON.stringify(user, null, 2)}</span>
-//       <Formik
-//         initialValues={user}
-//         onSubmit={(values, actions) => {
-//           actions.setSubmitting(true);
-//           setUser(values);
-//           setTimeout(() => {
-//             actions.setSubmitting(false);
-//           }, 2000);
-//           this.handleSubmit(values, ()=>{setSubmitting(false)})
-//         }}
-//         validationSchema={userSchema}
-//       >
-//         {props =>
-//           !props.isSubmitting ? (
-//             <form onSubmit={props.handleSubmit} className={s.form}>
-//               <Field
-//                 type="email"
-//                 placeholder="Enter email"
-//                 onChange={props.handleChange}
-//                 name="email"
-//                 value={props.values.email}
-//                 className={s.text_field}
-//               />
-
-//               {props.errors.email && props.touched.email ? (
-//                 <span className={s.field_text}>{props.errors.email}</span>
-//               ) : (
-//                 ""
-//               )}
-
-//               <Field
-//                 type="password"
-//                 onChange={props.handleChange}
-//                 name="password"
-//                 value={props.values.password}
-//                 placeholder="Password"
-//                 className={s.text_field}
-//               />
-
-//               {props.errors.password && props.touched.password ? (
-//                 <span className={s.field_text}>{props.errors.password}</span>
-//               ) : (
-//                 ""
-//               )}
-//               <button
-//                 type="submit"
-//                 disabled={!props.dirty && props.isSubmitting}
-//                 className={`${s.button} ${s.submit_button}`}
-//               >
-//                 Submit
-//               </button>
-//               <button
-//                 disabled={!props.dirty}
-//                 onClick={props.handleReset}
-//                 type="button"
-//                 className={s.button}
-//               >
-//                 Reset
-//               </button>
-//             </form>
-//           ) : (
-//             <div className={s.overlay} />
-//           )
-//         }
-//       </Formik>
-//     </Fragment>
-//   );
-// }
-
-// export default LogIn;
-
-
-
-
-
-
-
+export default LogIn

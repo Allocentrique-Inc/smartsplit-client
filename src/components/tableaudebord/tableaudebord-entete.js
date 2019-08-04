@@ -10,7 +10,7 @@ export default class Entete extends Component {
     constructor(props){
         super(props)
         this.state = {
-            auth: null
+            user: props.user
         }
     }
 
@@ -24,8 +24,8 @@ export default class Entete extends Component {
                                 Biquette !
                             </div>
                             <div className="bouton--profil">
-                                {this.state.auth && <MenuProfil auth={this.state.auth} />}
-                                {!this.state.auth && <BoutonConnexion />}
+                                {this.state.user && <MenuProfil user={this.state.user} />}
+                                {!this.state.user && <BoutonConnexion />}
                             </div>
                         </div>
                 }
