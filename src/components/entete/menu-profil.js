@@ -13,6 +13,9 @@ export default class MenuProfil extends Component {
 
     constructor(props) {
         super(props)
+        if(props.onRef) { // Permet de tenir une référence à la fonction de déconnexion dans l'en-tête qui inclut
+            props.onRef(this)
+        }
         this.state = {
             auth: props.user,
             angle: "down",

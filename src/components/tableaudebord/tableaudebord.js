@@ -26,7 +26,7 @@ export default class TableauDeBord extends Component {
     componentWillMount() {
         Auth.currentAuthenticatedUser()
         .then(res=>{
-            this.setState({user: res}, ()=>{ console.log(this.state.user)} )
+            this.setState({user: res})
         })
         .catch(err=>{
             toast.error(err.message)
@@ -52,7 +52,7 @@ export default class TableauDeBord extends Component {
                                 // Ré-exécute la vérification de la connexion
                                 Auth.currentAuthenticatedUser()
                                 .then(res=>{
-                                    this.setState({user: res}, ()=>{ console.log(this.state.user)} )
+                                    this.setState({user: res})
                                 })
                                 .catch(err=>{
                                     toast.error(err.message)
@@ -76,7 +76,7 @@ export default class TableauDeBord extends Component {
             )
         } else {
             return (
-                <div className="tdb--cadre ui row">
+                <div className="tdb--cadre ui row accueil">
                 </div>
             )
         }

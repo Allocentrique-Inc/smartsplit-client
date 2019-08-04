@@ -63,7 +63,7 @@ const renderRoutes = () => (
   <I18nextProvider i18n={i18n}>
     <Router history={browserHistory}>
       <Switch>
-        <Route exact path="/" component={renderApp}/>
+        <Route exact path="/" component={Accueil}/>
         <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
         <Route exact path="/login" component={renderLogin} />
@@ -124,10 +124,6 @@ function ConfirmerCourriel() {
       <h1>Un courriel va arriver sous peu afin que tu puisses voter</h1>
     </div>
   )
-}
-
-function renderApp() {
-  return (<App />)
 }
 
 function renderLogin() {

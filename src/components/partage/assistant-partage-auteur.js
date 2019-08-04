@@ -259,7 +259,8 @@ class PageAssistantPartageAuteur extends Component {
             <Translation>
                 {
                     (t) =>
-                        <React.Fragment>                            
+                        <React.Fragment> 
+                                                       
                             <h1>{t('flot.partage.auteur.titre')}</h1>
 
                             <div className="mode--partage__auteur">

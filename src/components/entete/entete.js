@@ -19,7 +19,7 @@ export default class Entete extends Component {
 
     render() {
 
-        let nav = this.props.navigation && (<i style={{margin: "7px"}} className="arrow left icon big grey" onClick={()=>{window.location.href = `${this.state.navigation}`}}></i>)
+        let nav = this.props.navigation && (<i style={{margin: "7px"}} className="arrow left icon big grey cliquable" onClick={()=>{window.location.href = `${this.state.navigation}`}}></i>)
 
         return (
             <Translation>

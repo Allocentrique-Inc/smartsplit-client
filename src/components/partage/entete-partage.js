@@ -14,8 +14,8 @@ class EntetePartage extends Component {
         this.state = {
             media: this.props.media,
             user: this.props.user
-        }
-    }   
+        }        
+    }
     
     render() {
 
@@ -29,9 +29,14 @@ class EntetePartage extends Component {
                                 {this.state.media && (<span style={{marginLeft: "15px"}} className="ui small-300">{this.state.media.title}</span>)}
                                 <span className="ui heading5" style={{marginLeft: "50px"}}>{t('flot.etape.partage-titre')}</span>
                                 <span style={{cursor: "pointer", position: "absolute", right: "100px"}} className="entete--partage__enregistrerEtQuitter">
-                                    <div style={{marginTop: "10px"}} class="ui medium button">
+                                    <div style={{marginTop: "10px"}} className="ui medium button" onClick={
+                                        ()=>{
+                                            console.log('soumettre')
+                                            this.props.enregistrer(this.state.menu.deconnexion)
+                                        }
+                                        }>
                                         {t('flot.etape.enregistrerEtQuitter')}
-                                    </div> <MenuProfil user={this.state.user} />
+                                    </div> <MenuProfil onRef={(menu)=>{this.setState({menu: menu})}} user={this.state.user} />
                                 </span>
                             </div>                            
                         </div>
