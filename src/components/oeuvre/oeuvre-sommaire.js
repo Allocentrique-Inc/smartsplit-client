@@ -125,7 +125,7 @@ export default class SommaireOeuvre extends Component {
                                 <div className="ui medium-400">
                                     Rends découvrable ton oeuvre sur le web grâce aux métadonnées et augmente ainsi tes chances d’apparaître dans des playlists.
                                 </div>
-                                <div className="ui medium button" style={{marginTop: "50px", marginLeft: "0px"}}>
+                                <div className="ui medium button" style={{marginTop: "50px", marginLeft: "0px"}} onClick={()=>{window.location.href=`/partager/${this.state.mediaId}`}} >
                                     Commencer
                                 </div> 
                             </div>
@@ -140,8 +140,8 @@ export default class SommaireOeuvre extends Component {
                                 </div> 
                             </div>                            
                         </div>
-                        <div className="ui five wide column" style={{padding: "50px"}}>
-                            <div style={{position: "absolute", top: "105px", left: "150px", width: "60%"}}>
+                        <div className="ui five wide column" style={{padding: "50px"}}>                        
+                            <div style={{position: "absolute", top: "85px", left: "135px", width: "60%"}}>
                                 {this.state.media.title} par {artiste}
                             </div>
                             <img src={cassette} />
