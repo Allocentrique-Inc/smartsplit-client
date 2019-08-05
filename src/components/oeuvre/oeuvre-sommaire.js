@@ -74,7 +74,7 @@ export default class SommaireOeuvre extends Component {
                 <div className="ui row">    
                     <div className="ui twelve wide column grid">
                         <div className="ui one wide column">
-                            <i className="image icon huge grey" style={{background: "#F2EFF0"}}></i>
+                            <i className="file image outline icon huge grey" style={{background: "#F2EFF0"}}></i>
                         </div>
                         <div className="ui eleven wide column">
                             <div className="ui row">

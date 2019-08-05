@@ -76,10 +76,13 @@ export default class Beignet extends Component {
         })
 
         // set the color scale
-        let color = d3.scaleOrdinal()
-            .domain( domaineDeNoms )
-            .range(d3. schemePaired
-        );
+        //let color = d3.scaleOrdinal()
+        //    .domain( domaineDeNoms )
+        //    .range(d3. schemePaired
+        //);
+        let color = d3.scaleOrdinal() // D3 Version 4
+            .domain(domaineDeNoms)
+            .range(["#EBB1DC", "#F6BCC7", "#FED2AC", "#F8EBA3", "#C6F3B6", "#AAE7E8", "#A4B7F1", "#BDBCF9"]);
 
         // Compute the position of each group on the pie:
         let pie = d3.pie()

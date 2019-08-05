@@ -283,7 +283,7 @@ class AssistantPartage extends Component {
                                     }} media={this.state.media} user={this.state.user} />
                                 <div className="ui row">                                    
                                     <div className="ui sixteen wide column">
-                                        <Progress percent="10" indicating/>
+                                        <Progress percent="10" size='tiny' indicating/>
                                     </div>                                    
                                 </div>                                
                                 <div className="ui row">
@@ -298,7 +298,8 @@ class AssistantPartage extends Component {
                                                 droitAuteur: [],
                                                 droitInterpretation : [],
                                                 droitEnregistrement: [],
-                                                collaborateur: []
+                                                collaborateur: [],
+                                                song: this.state.media.title
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                             debug={false}

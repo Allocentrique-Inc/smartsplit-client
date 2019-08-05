@@ -40,7 +40,7 @@ export default class ListePieces extends Component {
                                 <div className="ui three column grid cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}} >
                                     <div className="ui row">
                                         <div className="ui one wide column">
-                                            <i className="image icon big grey"></i>
+                                            <i className="file image outline icon big grey"></i>
                                         </div>
                                         <div className="ui fifteen wide column">
                                             <div className="song-name">{`${elem.title}`}</div>
