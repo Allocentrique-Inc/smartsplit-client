@@ -13,6 +13,9 @@ export default class MenuProfil extends Component {
 
     constructor(props) {
         super(props)
+        if(props.onRef) { // Permet de tenir une référence à la fonction de déconnexion dans l'en-tête qui inclut
+            props.onRef(this)
+        }
         this.state = {
             auth: props.user,
             angle: "down",
@@ -39,7 +42,7 @@ export default class MenuProfil extends Component {
                 toast.success("Déconnexion réussie")
                 setTimeout(() => {
                     window.location.href = '/accueil'
-                }, 3000)
+                }, 1000)
             })
             .catch(error=>toast.error("Erreur..."))
     }
@@ -49,17 +52,20 @@ export default class MenuProfil extends Component {
         let avatarLink
         let avatarImage
         let userInitials
+        let nomComplet
 
         if (this.state.user) {
             avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
             avatarImage = this.state.user.avatarS3Etag == null ? 'https://www.imsa-search.com/wp-content/uploads/2018/06/avatar.png' : avatarLink
             userInitials = this.state.user.avatarS3Etag == null ? this.state.initials : null
+            nomComplet = this.state.user.artistName ? this.state.user.artistName : `${this.state.user.firstName} ${this.state.user.lastName}`
         }
 
         let menu = (
-            <Dropdown text='' style={{color: "black"}}>
-                <Dropdown.Menu>
-                <Dropdown.Item text='Mon profil' onClick={()=>{console.log('Biquette ! Mon profil')}}/>
+            <Dropdown text='' icon="angle down big black">
+                <Dropdown.Menu icon="down big">
+                <Dropdown.Item text='Accueil' onClick={()=>{window.location.href = '/accueil'}}/>
+                <Dropdown.Item text='Mon profil' onClick={()=>{console.log('Mon profil')}}/>
                 <Dropdown.Divider />
                 <Dropdown.Item text='Déconnexion' onClick={()=>{this.deconnexion()}}/>                
                 </Dropdown.Menu>
@@ -70,10 +76,13 @@ export default class MenuProfil extends Component {
             <Translation>
                 {
                     t=>
-                        <div>
-                            <div className='avatar--image' >
-                                <div className='initials'>{userInitials}</div>
-                                <img src={avatarImage} alt='user--image' className='user--img'/>
+                        <div style={{display: "inline-block"}}>
+                            <div style={{display: "inline-block"}}>
+                                {nomComplet}
+                            </div>                            
+                            <div className='avatar--image' style={{display: "inline-block"}} >
+                                {userInitials}
+                                {!userInitials && (<img src={avatarImage} alt='user--image' className='user--img'/>)}
                                 {menu}
                             </div>
                         </div>

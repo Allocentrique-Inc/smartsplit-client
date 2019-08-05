@@ -1,8 +1,6 @@
-.tdb--cadre {
-    width: 100%;
-    background: #FFFFFF;
-    height: 100%;
-    width: 100%;
+.tdb--cadre {    
+    height: 100vh;
+    width: 100vw;
     position: absolute;
     left: 0;
     top: 0;
@@ -16,6 +14,7 @@
     left: 0px;    
     top: 0px;
     bottom: 0px;
+    position: fixed;
 }
 
 .tdb--panneau {

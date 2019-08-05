@@ -194,17 +194,15 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                             key={`coche_role_droit_interpretation_${index}_${idx}`}
                                                                                             label={elem.nom}
                                                                                             checked={this.props.values.droitInterpretation[index][elem.id]}
-                                                                                            onClick={(e)=>{ 
-                                                                                                if(this.props.values.droitInterpretation[index].principal) {
-                                                                                                    if(e.currentTarget.className.includes("checked")) {
-                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, false)
-                                                                                                    } else {
-                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, true)
-                                                                                                    }
-                                                                                                    setTimeout(()=>{
-                                                                                                        this.recalculerPartage()
-                                                                                                    }, 0)
-                                                                                                }                                                                                                
+                                                                                            onClick={(e)=>{                                                                                                 
+                                                                                                if(e.currentTarget.className.includes("checked")) {
+                                                                                                    this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, false)
+                                                                                                } else {
+                                                                                                    this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, true)
+                                                                                                }
+                                                                                                setTimeout(()=>{
+                                                                                                    this.recalculerPartage()
+                                                                                                }, 0)
                                                                                             }}
                                                                                         />
                                                                                     )
