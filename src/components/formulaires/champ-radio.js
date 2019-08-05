@@ -49,10 +49,10 @@ const RadioButtonGroup = ({
   
     return (
       <div className={classes}>
-        <fieldset>
+        <div className="grouped fields">
           <legend>{label}</legend>
           {children}
-        </fieldset>
+        </div>
       </div>
     )
 }

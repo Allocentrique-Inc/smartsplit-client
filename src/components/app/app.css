@@ -174,6 +174,22 @@
   color:#8DA0B2;
 }
 
+.wizard-title {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color:#2DA84F;
+}
+
+.who-invented-title {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+}
+
 .cliquable {
   cursor: pointer
 }

@@ -14,7 +14,7 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-const MODES = {manuel: "0", egal: "1", role: "2"}
+const MODES = {egal: "0", role: "1", manuel: "2"}
 
 class PageAssistantPartageAuteur extends Component {
 
@@ -23,7 +23,8 @@ class PageAssistantPartageAuteur extends Component {
         this.state = {
             parts: {},
             mode: MODES.egal,
-            partsInvariables: []
+            partsInvariables: [],
+            song: "Ma chanson"
         }        
         this.changementGradateur = this.changementGradateur.bind(this)
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
@@ -31,6 +32,7 @@ class PageAssistantPartageAuteur extends Component {
 
     componentDidMount() {
         this.setState({parts: this.props.values.droitAuteur})
+        this.setState({song: this.props.values.song})
     }
 
     componentWillReceiveProps(nextProps) {
@@ -261,12 +263,25 @@ class PageAssistantPartageAuteur extends Component {
                     (t) =>
                         <React.Fragment> 
                                                        
-                            <h1>{t('flot.partage.auteur.titre')}</h1>
-
-                            <div className="mode--partage__auteur">
+                        <div className="ui grid">          
+                            <div className="ui row">
+                                <div className="ui seven wide column">
+                                    <div className="wizard-title">{t('flot.partage.auteur.titre')}</div>
+                                    <br/>
+                                    <div className="mode--partage__auteur">
+                                    <div className="who-invented-title">
+                                        Who invented {this.state.song} ?
+                                    </div>
+                                    <br/>
+                                    <div className="medium-400">
+                                        Split the copyright between the creators, ie the authors of the
+                                        <strong> lyrics</strong>, the composers and arrangers of <strong> music</strong>.
+                                        It is customary to share copyright fairly.
+                                        But you can do otherwise.
+                                    </div>
 
                                 <div className="fields">
-                                    <div className="nine wide field">
+                                    <div className="field">
                                         <BoutonsRadio 
                                             name="mode_auteur"
                                             actif={this.state.mode} // Attribut dynamique
@@ -276,18 +291,18 @@ class PageAssistantPartageAuteur extends Component {
                                                 })                                        
                                             }}
                                             titre="Mode de partage"
-                                            choix={[                                    
+                                            choix={[  
                                                 {
-                                                    nom: 'Manuel',
-                                                    valeur:MODES.manuel
-                                                },
-                                                {
-                                                    nom: 'Égal',
+                                                    nom: 'Partager de façon égale',
                                                     valeur: MODES.egal
                                                 },
                                                 {
-                                                    nom: 'Rôle',
+                                                    nom: 'Partager selon les rôles',
                                                     valeur: MODES.role
+                                                },                                  
+                                                {
+                                                    nom: 'Gérer manuellement',
+                                                    valeur:MODES.manuel
                                                 }
                                             ]}
                                         />
@@ -419,6 +434,9 @@ class PageAssistantPartageAuteur extends Component {
                                 </div>
                                 
                             </div>
+                                </div>
+                            </div>
+                        </div>
                                                     
                         </React.Fragment>
                 }
