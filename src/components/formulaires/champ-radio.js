@@ -11,19 +11,19 @@ const RadioButton = ({
     ...props
 }) => {
     return (
-        <div>
-        <input
-            name={name}
-            id={id}
-            type="radio"
-            value={id}
-            checked={id === value}
-            onChange={onChange}
-            onBlur={onBlur}
-            className={classNames("radio-button")}
-            {...props}
-        />
-        <label htmlFor={id}>{label}</label>
+        <div class="ui radio checkbox">
+            <input 
+                name={name} 
+                id={id} 
+                type="radio" 
+                value={id} 
+                checked={id === value} 
+                onChange={onChange}
+                onBlur={onBlur}
+                className={classNames("radio-button")}
+                {...props}
+            />
+            <label>{label}</label>
         </div>
     )
 }

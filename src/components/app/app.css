@@ -123,6 +123,17 @@
   margin: 0px 16px 0px 16px;
 }
 
+.ui.primary.right.floated.button {
+  background-color:#2DA84F;
+  color:#FFF;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px 8px 16px;
+  margin: 0px 16px 0px 16px;
+}
+
 .ui.small.button {
   background-color:#2DA84F;
   color:#FFF;
@@ -166,6 +177,15 @@
   display: inline-block;
 }
 
+.holder-name {
+  color:#203548;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  vertical-align: top;
+}
+
 .small-400-color {
   font-family: 'IBM Plex Sans';
   font-weight: 400;
@@ -190,6 +210,16 @@
   line-height: 48px;
 }
 
+.conteneur-beignet {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.gray-fields {
+  background-color: #FAF8F9;
+}
+
 .cliquable {
   cursor: pointer
 }
@@ -200,4 +230,19 @@
 
 .accueil {  
   background-image: url('http://smartsplit.org/wp-content/uploads/2019/05/h-v02-005-test-2.jpg'); 
+}
+
+input[type='radio'] {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  color: #0000ff;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
 }
