@@ -14,7 +14,9 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-const MODES = {manuel: "0", egal: "1"}
+import avatar from "../../assets/images/elliot.jpg"
+
+const MODES = {egal: "0", manuel: "1", manuel: "2"}
 
 class PageAssistantPartageEnregistrement extends Component {
 
@@ -23,7 +25,8 @@ class PageAssistantPartageEnregistrement extends Component {
         this.state = {
             parts: {},
             mode: MODES.egal,
-            partsInvariables: []
+            partsInvariables: [],
+            song: ""
         }        
         this.changementGradateur = this.changementGradateur.bind(this)
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
@@ -31,6 +34,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
     componentDidMount() {
         this.setState({parts: this.props.values.droitEnregistrement})
+        this.setState({song: this.props.values.song})
     }
 
     componentWillReceiveProps(nextProps) {
@@ -144,15 +148,46 @@ class PageAssistantPartageEnregistrement extends Component {
 
     render() {
 
+        let descriptif
+
+        if(this.props.i18n.lng === 'en') {
+            descriptif = (<div className="medium-400">
+                Here we separate the <strong>neighboring right</strong> of <strong>producers</strong>, 
+                ie those who have invested their time and / or their money to record and 
+                finalize the product in order to be marketed.
+                <br/>
+                It is customary to share this right equally or pro rata with the investment.
+            </div>)
+        } else {
+            descriptif = (<div className="medium-400">
+                On sépare ici le <strong>droit voisin</strong> des <strong>producteurs</strong>, 
+                c’est à dire ceux qui ont investi leur temps et/ou leur argent pour enregistrer et 
+                finaliser le produit afin d’être commercialisé. <br/>
+                Il est d’usage de partager ce droit en parts égales ou au prorata de l’investissement.
+            </div>)
+        }
+
         return (
             <Translation>
                 {
                     (t) =>
                         <React.Fragment>                            
-                            <h1>{t('flot.partage.enregistrement.titre')}</h1>
+                                                       
+                        <div className="ui grid">          
+                            <div className="ui row">
+                                <div className="ui seven wide column">
+                                    <div className="wizard-title">{t('flot.partage.enregistrement.titre')}</div>
+                                    <br/>
+                                    <div className="mode--partage__auteur">
+                                    <div className="who-invented-title">
+                                        {t('partage.enregistrement.titre', {oeuvre: this.state.song})}
+                                    </div>
+                                    <br/>
+                                    {descriptif}
+                                    <br/>
 
                             <div className="fields">
-                                <div className="nine wide field">
+                                <div className="field">
                                     <BoutonsRadio 
                                         name="mode_enregistrement"
                                         actif={this.state.mode} // Attribut dynamique
@@ -161,15 +196,15 @@ class PageAssistantPartageEnregistrement extends Component {
                                                 this.recalculerPartage()
                                             })                                        
                                         }}
-                                        titre="Mode de partage"
-                                        choix={[                                    
+                                        titre=""
+                                        choix={[    
                                             {
-                                                nom: 'Manuel',
-                                                valeur: ""+MODES.manuel
-                                            },
-                                            {
-                                                nom: 'Égal',
+                                                nom: 'Partager de façon égale',
                                                 valeur: ""+MODES.egal
+                                            },                                
+                                            {
+                                                nom: 'Gérer manuellement',
+                                                valeur: ""+MODES.manuel
                                             }
                                         ]}
                                     />
@@ -188,34 +223,20 @@ class PageAssistantPartageEnregistrement extends Component {
                                                         ]
                                                         return (
                                                             <div key={`part-${index}`}>                                                                
-                                                                <div className="fields">
-                                                                    <div className="field">
-                                                                        <button
-                                                                            type="button"
-                                                                            onClick={() => {
-                                                                                arrayHelpers.remove(index)
-                                                                                this.setState({ping: true}, ()=>{
-                                                                                    this.recalculerPartage()
-                                                                                })
-                                                                            }
-                                                                            }>
-                                                                            <i className="remove icon crimson"></i>
-                                                                        </button>
-                                                                        {
-                                                                            this.state.mode === MODES.manuel && (
-                                                                                <button
-                                                                                    type="button"
-                                                                                    onClick={()=>{
-                                                                                        this.basculerVariable(index)
-                                                                                    }}
-                                                                                >
-                                                                                    <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}></i>
-                                                                                </button>
-                                                                            )
-                                                                        }                                                              
-                                                                    </div>
-                                                                    <div className="twelve wide field">
-                                                                        <h4>{part.nom}</h4>
+                                                                <div className="gray-fields">
+                                                                        <div className="twelve wide field">
+                                                                            <div className="holder-name">
+                                                                                <img className="ui spaced avatar image" src={avatar}/>
+                                                                                {part.nom}
+                                                                                <i class="delete icon" onClick={() => {
+                                                                                    arrayHelpers.remove(index)
+                                                                                    this.setState({ping: true}, ()=>{
+                                                                                        this.recalculerPartage()
+                                                                                    })
+                                                                                }
+                                                                                }></i>
+                                                                            </div>
+                                                                            <br/>
                                                                         <div className="coches--role__droit">
                                                                         {
                                                                             roles.map((elem, idx)=>{
@@ -246,6 +267,15 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                             disabled={this.state.partsInvariables[index] || this.state.mode !== MODES.manuel}
                                                                             />
                                                                         {
+                                                                            this.state.mode === MODES.manuel && (
+                                                                                <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}
+                                                                                    onClick={()=>{
+                                                                                        this.basculerVariable(index)
+                                                                                    }}>
+                                                                                </i>
+                                                                            )
+                                                                        }
+                                                                        {
                                                                             this.state.mode === MODES.manuel && (                                                                        
                                                                                 <ChampTexteAssistant 
                                                                                     id={`texte_${index}`}
@@ -259,24 +289,12 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                         }
                                                                     </div>
                                                                 </div>
+                                                                <div>&nbsp;</div>
                                                             </div>
                                                         )
                                                     })
                                                 }
-                                                <div style={{margin: "0 auto", height: "100px"}}>
-                                                    <div>
-                                                        <button
-                                                            className="btnCollaborateur"
-                                                            onClick={
-                                                                (e) => {
-                                                                    e.preventDefault()
-                                                                    this.ajouterCollaborateur(arrayHelpers)
-                                                                }
-                                                            }
-                                                        >
-                                                            <i className="plus circle icon big green"></i>                                                    
-                                                        </button>
-                                                    </div>                                    
+                                                <div style={{margin: "0 auto", height: "100px"}}>                                    
                                                     <div>
                                                         <ChampListeCollaborateurAssistant
                                                             indication={t('flot.collaborateurs.ajout')}
@@ -291,16 +309,33 @@ class PageAssistantPartageEnregistrement extends Component {
                                                             collaborateurs={this.props.values.droitEnregistrement}
                                                         />                                               
                                                     </div>
+                                                    <button 
+                                                        className="ui medium button"
+                                                        onClick={(e)=>{
+                                                        e.preventDefault()
+                                                        this.ajouterCollaborateur(arrayHelpers)
+                                                        }}>Ajouter
+                                                    </button>
                                                 </div>
                                             </div>
                                         )}
                                     />
+                                    </div>
                                 </div>
-                                <div className="nine wide field">
-                                    {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="1" data={this.state.parts}/>)}
-                                    {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="1" data={this.state.parts}/>)}
+                                
+                            </div>
+                                </div>
+                                <div className="ui seven wide column">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <div className="conteneur-beignet nine wide field">
+                                        {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="1" data={this.state.parts}/>)}
+                                        {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="1" data={this.state.parts}/>)}
+                                    </div>
                                 </div>
                             </div>
+                        </div>
                                                     
                         </React.Fragment>
                 }

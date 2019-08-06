@@ -6,11 +6,15 @@ import { Checkbox } from 'semantic-ui-react'
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
 import Histogramme from '../visualisation/partage/histogramme'
+import ChampGradateurAssistant from '../formulaires/champ-gradateur'
+import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
 import { FieldArray } from "formik";
 
-import BoutonsRadio from "../formulaires/champ-radio"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
+import BoutonsRadio from "../formulaires/champ-radio"
+
+import avatar from '../../assets/images/elliot.jpg'
 
 const MODES = {egal: "0", role: "1"}
 const TYPE = {principal: "0", accompagnement: "1"}
@@ -23,13 +27,15 @@ class PageAssistantPartageInterpretation extends Component {
             parts: {},
             mode: MODES.egal,
             principaux: [],
-            accompagnement: []
+            accompagnement: [],
+            song: ""
         }
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
     }
 
     componentDidMount() {
         this.setState({parts: this.props.values.droitInterpretation})
+        this.setState({song: this.props.values.song})
     }
 
     componentWillReceiveProps(nextProps) {
@@ -112,15 +118,47 @@ class PageAssistantPartageInterpretation extends Component {
 
     render() {
 
+        let descriptif
+
+        if(this.props.i18n.lng === 'en') {
+            descriptif = (<div className="medium-400">
+                Here we divide the <strong> neighboring right</strong> between the 
+                <strong> performers</strong>, musicians and singers alike. 
+                In the case of a <i> group</i>, all are <i> principal artists</i> 
+                and share this right equally. In the case of a <i> featured artist</i>, the artist 
+                retains 80% while the remaining 20% ​​is shared among his companions, if any.
+            </div>)
+        } else {
+            descriptif = (<div className="medium-400">
+                On sépare ici le <strong>droit voisin</strong> entre les <strong>interprètes</strong>, 
+                autant les <i>musiciens</i> que les <i>chanteurs</i>. Dans le cas d’un <i>groupe</i>, 
+                tous sont <i>Artiste principal</i> et partagent ce droit en parts égales. Dans le cas 
+                d’un <i>artiste vedette</i>, celui-ci concerve 80% tandis que le 20% restant est 
+                partagé parmi ses accompagnateurs, le cas échéant.
+            </div>)
+        }
+
         return (
             <Translation>
                 {
                     (t) =>
-                        <React.Fragment>                            
-                            <h1>{t('flot.partage.interprete.titre')}</h1>
-                            <div className="mode--partage__auteur">
+                        <React.Fragment>
+                                                       
+                        <div className="ui grid">          
+                            <div className="ui row">
+                                <div className="ui seven wide column">
+                                    <div className="wizard-title">{t('flot.partage.interprete.titre')}</div>
+                                    <br/>
+                                    <div className="mode--partage__auteur">
+                                    <div className="who-invented-title">
+                                        {t('partage.interprete.titre', {oeuvre: this.state.song})}
+                                    </div>
+                                    <br/>
+                                    {descriptif}
+                                    <br/>
+
                                 <div className="fields">
-                                    <div className="nine wide field">
+                                    <div className="field">
                                         <BoutonsRadio 
                                             name="mode_interpretation"
                                             actif={this.state.mode} // Attribut dynamique
@@ -129,14 +167,14 @@ class PageAssistantPartageInterpretation extends Component {
                                                     this.recalculerPartage()
                                                 })                                        
                                             }}
-                                            titre="Mode de partage"
+                                            titre=""
                                             choix={[
                                                 {
-                                                    nom: 'Égal',
+                                                    nom: 'Partager de façon égale',
                                                     valeur: MODES.egal
                                                 },
                                                 {
-                                                    nom: 'Rôle',
+                                                    nom: 'Partager selon les rôles',
                                                     valeur: MODES.role
                                                 }
                                             ]}
@@ -154,16 +192,20 @@ class PageAssistantPartageInterpretation extends Component {
                                                             ]
                                                             return (
                                                                 <div key={`part-${index}`}>                                                                    
-                                                                    <div className="fields">
-                                                                        <div className="field">
-                                                                            <button
-                                                                                type="button"
-                                                                                onClick={() => arrayHelpers.remove(index)}>
-                                                                                <i className="remove icon"></i>
-                                                                            </button>
-                                                                        </div>
+                                                                    <div className="gray-fields">
                                                                         <div className="twelve wide field">
-                                                                            <h4>{part.nom}</h4>
+                                                                            <div className="holder-name">
+                                                                                <img className="ui spaced avatar image" src={avatar}/>
+                                                                                {part.nom}
+                                                                                <i class="delete icon" onClick={() => {
+                                                                                    arrayHelpers.remove(index)
+                                                                                    this.setState({ping: true}, ()=>{
+                                                                                        this.recalculerPartage()
+                                                                                    })
+                                                                                }
+                                                                                }></i>
+                                                                            </div>
+                                                                            <br/>
                                                                             <BoutonsRadio                                                                             
                                                                                 name={`type_interpretation_${index}`}
                                                                                 actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
@@ -193,19 +235,16 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                         <Checkbox
                                                                                             key={`coche_role_droit_interpretation_${index}_${idx}`}
                                                                                             label={elem.nom}
-                                                                                            disabled={!this.props.values.droitInterpretation[index].principal}
                                                                                             checked={this.props.values.droitInterpretation[index][elem.id]}
-                                                                                            onClick={(e)=>{ 
-                                                                                                if(this.props.values.droitInterpretation[index].principal) {
-                                                                                                    if(e.currentTarget.className.includes("checked")) {
-                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, false)
-                                                                                                    } else {
-                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, true)
-                                                                                                    }
-                                                                                                    setTimeout(()=>{
-                                                                                                        this.recalculerPartage()
-                                                                                                    }, 0)
-                                                                                                }                                                                                                
+                                                                                            onClick={(e)=>{                                                                                                 
+                                                                                                if(e.currentTarget.className.includes("checked")) {
+                                                                                                    this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, false)
+                                                                                                } else {
+                                                                                                    this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, true)
+                                                                                                }
+                                                                                                setTimeout(()=>{
+                                                                                                    this.recalculerPartage()
+                                                                                                }, 0)
                                                                                             }}
                                                                                         />
                                                                                     )
@@ -214,24 +253,12 @@ class PageAssistantPartageInterpretation extends Component {
                                                                             </div>
                                                                         </div>                                                                        
                                                                     </div>
+                                                                    <div>&nbsp;</div>
                                                                 </div>
                                                             )
                                                         })
                                                     }
-                                                    <div style={{margin: "0 auto", height: "100px"}}>
-                                                        <div>
-                                                            <button
-                                                                className="btnCollaborateur"
-                                                                onClick={
-                                                                    (e) => {
-                                                                        e.preventDefault()
-                                                                        this.ajouterCollaborateur(arrayHelpers)                                                          
-                                                                    }
-                                                                }
-                                                            >
-                                                                <i className="plus circle icon big green"></i>                                                    
-                                                            </button>
-                                                        </div>                                    
+                                                    <div style={{margin: "0 auto", height: "100px"}}>                                 
                                                         <div>
                                                             <ChampListeCollaborateurAssistant
                                                                 indication={t('flot.collaborateurs.ajout')}
@@ -246,14 +273,30 @@ class PageAssistantPartageInterpretation extends Component {
                                                                 collaborateurs={this.props.values.droitInterpretation}
                                                             />
                                                         </div>
+                                                        <button 
+                                                            className="ui medium button"
+                                                            onClick={(e)=>{
+                                                            e.preventDefault()
+                                                            this.ajouterCollaborateur(arrayHelpers)
+                                                            }}>Ajouter
+                                                        </button>
                                                     </div>
                                                 </div>
                                             )}
                                         />
+                                        </div>
                                     </div>
-                                    <div className="nine wide field">
-                                        {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="interpretation--beignet" data={this.state.parts}/>)}
-                                        {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="interpretation--histogramme" data={this.state.parts}/>)}
+                                    
+                                </div>
+                                    </div>
+                                    <div className="ui seven wide column">
+                                        <br/>
+                                        <br/>
+                                        <br/>
+                                        <div className="conteneur-beignet nine wide field">
+                                            {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="interpretation--beignet" data={this.state.parts}/>)}
+                                            {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="interpretation--histogramme" data={this.state.parts}/>)}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

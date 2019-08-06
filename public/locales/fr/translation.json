@@ -71,7 +71,8 @@
                 "editeur": "Qui est l'éditeur de l'œuvre ?",
                 "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
             }            
-        }
+        },
+        "creePar": "Créé par"
     },
     "navigation": {
         "suivant": "Suivant",
@@ -218,5 +219,39 @@
             "1": "Mon profil public",
             "2": "Mes collaborateurs"
         }
+    },
+    "roles": {
+        "principal": "Principal",
+        "accompaniment": "Accompagnement",
+        "producer": "Producteur",
+        "director": "Réalisateur",
+        "studio": "Studio",
+        "graphist": "Graphiste",
+        "arranger": "Arrangeur",
+        "songwriter": "Auteur",
+        "composer": "Compositeur",
+        "singer": "Chanteur",
+        "musicien": "Musicien"
+    },
+    "partage": {
+        "auteur": {
+            "titre": "Qui a inventé {{oeuvre}} ?"
+        },
+        "interprete": {
+            "titre": "Qui a joué sur {{oeuvre}} ?"
+        },
+        "enregistrement": {
+            "titre": "Qui possède l'enregistrement sonore de {{oeuvre}} ?"
+        }
+    },
+    "connexion": {
+        "titre": {
+            "oeuvre": "Tu dois te connecter afin d'accéder au sommaire de l'oeuvre !",
+            "tdb": "Tu dois te connecter afin d'accéder au tableau de bord !",
+            "vote": "Tu dois te connecter afin de pouvoir voter !"
+        }
+    },
+    "action": {
+        "commencer": "Commencer"
     }
 }

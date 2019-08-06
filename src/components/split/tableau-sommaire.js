@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 
 const DROITS = {
     auteur: 'workCopyrightSplit', 
-    interpretaion: 'performanceNeighboringRightSplit', 
+    interpretation: 'performanceNeighboringRightSplit', 
     enregistrement: 'masterNeighboringRightSplit'
 }
 
@@ -116,7 +116,7 @@ class TableauSommaireSplit extends Component {
                                 // paroles
                                 extraireDroit(DROITS[type], 'lyrics', familleDroit.lyrics)
                                 break;
-                            case DROITS.interpretaion:
+                            case DROITS.interpretation:
                                 // principal
                                 extraireDroit(DROITS[type], 'principal', familleDroit.principal)                                
                                 // accompagnement
@@ -453,7 +453,7 @@ class TableauSommaireSplit extends Component {
                 <tr key={`tab_sommaire--${elem}`}>
                     <td>{_r.nom}</td>
                     <td>{_r.droits[DROITS.auteur]}</td>
-                    <td>{_r.droits[DROITS.interpretaion]}</td>
+                    <td>{_r.droits[DROITS.interpretation]}</td>
                     <td>{_r.droits[DROITS.enregistrement]}</td>
                     <td>{proposition.comments[this.state.jeton.rightHolderId]}</td>
                 </tr>
@@ -595,11 +595,11 @@ class TableauSommaireSplit extends Component {
                 })
             }            
     
-            if(this.state.droits[DROITS.interpretaion]) {
-                Object.keys(this.state.droits[DROITS.interpretaion]).forEach((elem) => {
-                    let _e = this.state.droits[DROITS.interpretaion][elem]
+            if(this.state.droits[DROITS.interpretation]) {
+                Object.keys(this.state.droits[DROITS.interpretation]).forEach((elem) => {
+                    let _e = this.state.droits[DROITS.interpretation][elem]
                     if(_e) {
-                        droitInterpretation.push(this.genererAffichage(_e, DROITS.interpretaion, elem, voteClos))
+                        droitInterpretation.push(this.genererAffichage(_e, DROITS.interpretation, elem, voteClos))
                     }
                 })
             }
@@ -635,7 +635,7 @@ class TableauSommaireSplit extends Component {
 
         return (
             <div>
-                <h1>{titre}</h1>
+                <div className="heading1">{titre}</div>
                 <table width="100%">
                     <thead>
                         <tr>
@@ -658,7 +658,7 @@ class TableauSommaireSplit extends Component {
                 )}                
                 {(this.estVoteFinal() && !this.props.init) && (
                     <div>
-                        <h1>Le vote est terminé !</h1>
+                        <div className="heading1">Le vote est terminé !</div>
                         {/*this.state.droits && this.afficherSommaire()*/}
                     </div>
                 )}

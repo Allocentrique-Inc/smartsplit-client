@@ -31,7 +31,6 @@ import TableauDeBord from './components/tableaudebord/tableaudebord'
 import Beignet from './components/visualisation/partage/beignet'
 import Histogramme from './components/visualisation/partage/histogramme'
 import Troissplits from './components/visualisation/partage/troissplits'
-import TableauSommaireSplit from './components/split/tableau-sommaire'
 
 // Composantes auth
 import Login from './components/auth/Login'
@@ -44,6 +43,9 @@ import Welcome from './components/auth/Welcome'
 import SignInFacebook from './components/auth/SignInFacebook'
 import SignInGoogle from './components/auth/SignInGoogle'
 
+// Sommaires
+import SommairePartage from './components/partage/partage-sommaire'
+import SommaireOeuvre from './components/oeuvre/oeuvre-sommaire'
 
 const REGION = 'us-east-2';
 
@@ -58,32 +60,15 @@ Amplify.configure({
 
 const browserHistory = createBrowserHistory()
 
-let isAuthenticated = false
-let user = ""
-
-const auth = {  
-  setAuthStatus: authenticated => {
-    isAuthenticated = authenticated
-  },
-  setUser:  _u => {
-    user = _u
-  },
-  getUser: () => {
-    return user
-  },
-  isAuthenticated: () => {
-    return isAuthenticated
-  }
-}
-
 const renderRoutes = () => (
   <I18nextProvider i18n={i18n}>
     <Router history={browserHistory}>
       <Switch>
-        <Route exact path="/" component={renderApp}/>
+        <Route exact path="/" component={Accueil}/>
+        <Route exact path="/documenter/:titre" component={Documenter}/>
         <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
-        <Route exact path="/login" onRef={auth} component={renderLogin} />
+        <Route exact path="/login" component={renderLogin} />
         <Route exact path="/register" component={Register} />
         <Route exact path="/register-2" component={Register2} />
         <Route exact path="/sign-in-facebook" component={SignInFacebook} />
@@ -95,16 +80,33 @@ const renderRoutes = () => (
         <Route exact path="/approuver-proposition/:propositionId" component={ApprouverSplit} />
         <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
         <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
+        <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
         <Route exact path="/accueil" component={Accueil} />
         <Route exact path="/visualisation/beignet" component={Beignet} />
         <Route exact path="/visualisation/histogramme" component={Histogramme} />
         <Route exact path="/visualisation/troissplits" component={Troissplits} />
         <Route exact path="/bonjournat" component={Bonjour} />
         <Route exact path="/partager/:mediaId" component={Partager} />
+        <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function Documenter(match) {
+  let titre = match.match.params.titre
+  return (<AssistantOeuvre titre={titre} />)
+}
+
+function sommaireOeuvre(match) {
+  let mediaId = match.match.params.mediaId
+  return (<SommaireOeuvre mediaId={mediaId} />)
+}
+
+function SommaireProposition(match) {
+  let uuid = match.match.params.uuid
+  return (<SommairePartage uuid={uuid} />)
+}
 
 function Partager(match) {
   let mediaId = match.match.params.mediaId
@@ -116,7 +118,7 @@ function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
 function Accueil() {
   return(
     <TableauDeBord />
-  )
+  )  
 }
 
 function ConfirmerCourriel() {
@@ -132,12 +134,8 @@ function ConfirmerCourriel() {
   )
 }
 
-function renderApp() {
-  return (<App auth={auth} />)
-}
-
 function renderLogin() {
-  return (<Login auth={auth} />)
+  return (<Login />)
 }
 
 function VoterSplit(match) {
@@ -149,7 +147,7 @@ function VoterSplit(match) {
   }
 
   return (
-    <VotationSplit auth={auth} jeton={jeton} />
+    <VotationSplit jeton={jeton} />
   )
 
 }

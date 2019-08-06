@@ -14,7 +14,9 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-const MODES = {manuel: "0", egal: "1", role: "2"}
+import avatar from '../../assets/images/elliot.jpg'
+
+const MODES = {egal: "0", role: "1", manuel: "2"}
 
 class PageAssistantPartageAuteur extends Component {
 
@@ -23,7 +25,8 @@ class PageAssistantPartageAuteur extends Component {
         this.state = {
             parts: {},
             mode: MODES.egal,
-            partsInvariables: []
+            partsInvariables: [],
+            song: ""
         }        
         this.changementGradateur = this.changementGradateur.bind(this)
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
@@ -31,6 +34,7 @@ class PageAssistantPartageAuteur extends Component {
 
     componentDidMount() {
         this.setState({parts: this.props.values.droitAuteur})
+        this.setState({song: this.props.values.song})
     }
 
     componentWillReceiveProps(nextProps) {
@@ -40,7 +44,8 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     recalculerPartage() {
-        let pourcent = 100.00        
+        let pourcent = 100.00    
+
         switch(this.state.mode) {
             case MODES.egal:
                 // Calcul le pourcentage égal
@@ -50,6 +55,8 @@ class PageAssistantPartageAuteur extends Component {
                 _parts.forEach((elem, idx)=>{
                     _parts[idx].nom = elem.nom
                     _parts[idx].pourcent = pourcent
+                    _parts[idx].pourcentMusique = (pourcent / 2)
+                    _parts[idx].pourcentParoles = (pourcent / 2)
                 })
                 this.props.setFieldValue("droitAuteur", _parts)
                 break
@@ -82,12 +89,41 @@ class PageAssistantPartageAuteur extends Component {
                         partsMusique.push({nom: elem.nom, pourcent: `${_pM}`})
                         partsParoles.push({nom: elem.nom, pourcent: `${_pP}`})
                         _parts[idx].pourcent = _pM + _pP
+                        _parts[idx].pourcentMusique = _pM
+                        _parts[idx].pourcentParoles = _pP
                     })
+                    this.props.setFieldValue("droitAuteur", _parts)
                     this.setState({parts: _parts})
                     this.setState({partsMusique: partsMusique})
-                    this.setState({partsParoles: partsParoles})
+                    this.setState({partsParoles: partsParoles})                    
                 }                
                 break;
+            case MODES.manuel:
+                if(this.state.parts.length > 0) { 
+                    let auteurs = [], compositeurs = [], arrangeurs = []
+                    this.state.parts.forEach(elem=>{
+                        if(elem.auteur) {
+                            auteurs.push(elem.nom)
+                        }
+                        if(elem.compositeur) {
+                            compositeurs.push(elem.nom)
+                        }
+                        if(elem.arrangeur) {
+                            arrangeurs.push(elem.nom)
+                        }
+                    })
+
+                    let _parts = this.state.parts
+                    this.state.parts.forEach((elem, idx)=>{
+                        let _musique = 0, _paroles = 0                        
+                        _musique = compositeurs.includes(elem.nom) || arrangeurs.includes(elem.nom)
+                        _paroles = auteurs.includes(elem.nom)
+                        _parts[idx].pourcent = elem.pourcent
+                        _parts[idx].pourcentMusique = _musique ? elem.pourcent / (_paroles ? 2 : 1) : 0
+                        _parts[idx].pourcentParoles = _paroles ? elem.pourcent / (_musique ? 2 : 1) : 0
+                    })
+                    this.props.setFieldValue("droitAuteur", _parts)
+                }
             default:
         }
         this.setState({ping: true})
@@ -223,17 +259,45 @@ class PageAssistantPartageAuteur extends Component {
             }
         }        
         
+        let descriptif
+
+        if(this.props.i18n.lng === 'en') {
+            descriptif = (<div className="medium-400">
+                Split the copyright between the creators, ie the authors of the
+                <strong> lyrics</strong>, the composers and arrangers of <strong> music</strong>.
+                It is customary to share copyright fairly.
+                But you can do otherwise.
+            </div>)
+        } else {
+            descriptif = (<div className="medium-400">
+                Sépare ici le droit d’auteur entre les créateurs, c’est à dire les 
+                auteurs des <strong>paroles</strong>, les compositeurs et les arrangeurs de la <strong>musique</strong>. 
+                Il est d’usage de partager le droit d’auteur équitablement. 
+                Mais tu peux faire autrement.                
+            </div>)
+        }
+
         return (
             <Translation>
                 {
                     (t) =>
-                        <React.Fragment>                            
-                            <h1>{t('flot.partage.auteur.titre')}</h1>
-
-                            <div className="mode--partage__auteur">
+                        <React.Fragment> 
+                                                       
+                        <div className="ui grid">          
+                            <div className="ui row">
+                                <div className="ui seven wide column">
+                                    <div className="wizard-title">{t('flot.partage.auteur.titre')}</div>
+                                    <br/>
+                                    <div className="mode--partage__auteur">
+                                    <div className="who-invented-title">
+                                        { t('partage.auteur.titre', {oeuvre: this.state.song}) }
+                                    </div>
+                                    <br/>
+                                    {descriptif}
+                                    <br/>
 
                                 <div className="fields">
-                                    <div className="nine wide field">
+                                    <div className="field">
                                         <BoutonsRadio 
                                             name="mode_auteur"
                                             actif={this.state.mode} // Attribut dynamique
@@ -242,19 +306,19 @@ class PageAssistantPartageAuteur extends Component {
                                                     this.recalculerPartage()
                                                 })                                        
                                             }}
-                                            titre="Mode de partage"
-                                            choix={[                                    
+                                            titre=""
+                                            choix={[  
                                                 {
-                                                    nom: 'Manuel',
-                                                    valeur:MODES.manuel
-                                                },
-                                                {
-                                                    nom: 'Égal',
+                                                    nom: 'Partager de façon égale',
                                                     valeur: MODES.egal
                                                 },
                                                 {
-                                                    nom: 'Rôle',
+                                                    nom: 'Partager selon les rôles',
                                                     valeur: MODES.role
+                                                },                                  
+                                                {
+                                                    nom: 'Gérer manuellement',
+                                                    valeur:MODES.manuel
                                                 }
                                             ]}
                                         />
@@ -272,34 +336,20 @@ class PageAssistantPartageAuteur extends Component {
                                                             ]
                                                             return (
                                                                 <div key={`part-${index}`}>                                                                    
-                                                                    <div className="fields">
-                                                                        <div className="field">
-                                                                            <button
-                                                                                type="button"
-                                                                                onClick={() => {
+                                                                    <div className="gray-fields">
+                                                                        <div className="twelve wide field">
+                                                                            <div className="holder-name">
+                                                                                <img className="ui spaced avatar image" src={avatar}/>
+                                                                                {part.nom}
+                                                                                <i class="delete icon" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
                                                                                     })
                                                                                 }
-                                                                                }>
-                                                                                <i className="remove icon crimson"></i>
-                                                                            </button>
-                                                                        {
-                                                                            this.state.mode === MODES.manuel && (
-                                                                                <button
-                                                                                    type="button"
-                                                                                    onClick={()=>{
-                                                                                        this.basculerVariable(index)
-                                                                                    }}
-                                                                                >
-                                                                                    <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}></i>
-                                                                                </button>
-                                                                            )
-                                                                        }
-                                                                        </div>
-                                                                        <div className="twelve wide field">
-                                                                            <h4>{part.nom}</h4>
+                                                                                }></i>
+                                                                            </div>
+                                                                            <br/>
                                                                             <div className="coches--role__droit">
                                                                             {
                                                                                 roles.map((elem, idx)=>{
@@ -315,7 +365,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                     this.props.setFieldValue(`droitAuteur[${index}][${elem.id}]`, true)
                                                                                                 }
                                                                                                 setTimeout(()=>{
-                                                                                                    this.recalculerPartage()                                                                                
+                                                                                                    this.recalculerPartage()
                                                                                                 }, 0)
                                                                                             }}
                                                                                         />
@@ -330,6 +380,15 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     disabled={this.state.partsInvariables[index] || this.state.mode !== MODES.manuel}
                                                                             />
                                                                         {
+                                                                                this.state.mode === MODES.manuel && (
+                                                                                    <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}
+                                                                                        onClick={()=>{
+                                                                                            this.basculerVariable(index)
+                                                                                        }}>
+                                                                                    </i>
+                                                                                )
+                                                                        }
+                                                                        {
                                                                             this.state.mode === MODES.manuel && (                                                                        
                                                                                 <ChampTexteAssistant 
                                                                                     id={`texte_${index}`}
@@ -341,26 +400,14 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     valeur={this.props.values.droitAuteur[index].pourcent} />
                                                                             )
                                                                         }
-                                                                        </div>                                                           
+                                                                        </div>                                                       
                                                                     </div>
+                                                                    <div>&nbsp;</div>
                                                                 </div>
                                                             )
                                                         })
                                                     }
-                                                    <div style={{margin: "0 auto", height: "100px"}}>
-                                                        <div>
-                                                            <button
-                                                                className="btnCollaborateur"
-                                                                onClick={
-                                                                    (e) => {
-                                                                        e.preventDefault()
-                                                                        this.ajouterCollaborateur(arrayHelpers)
-                                                                    }
-                                                                }
-                                                            >
-                                                                <i className="plus circle icon big green"></i>                                                    
-                                                            </button>
-                                                        </div>                                    
+                                                    <div style={{margin: "0 auto", height: "100px"}}>                                    
                                                         <div>
                                                             <ChampListeCollaborateurAssistant
                                                                 indication={t('flot.collaborateurs.ajout')}
@@ -372,20 +419,35 @@ class PageAssistantPartageAuteur extends Component {
                                                                 recherche={true}
                                                                 selection={true}
                                                                 ajout={false}
-                                                                collaborateurs={this.props.values.droitAuteur}
+                                                                collaborateurs={this.props.values.droitAuteur}                                                                
                                                             />
                                                         </div>
+                                                        <button 
+                                                            className="ui medium button"
+                                                            onClick={(e)=>{
+                                                            e.preventDefault()
+                                                            this.ajouterCollaborateur(arrayHelpers)
+                                                            }}>Ajouter
+                                                        </button>
                                                     </div>
                                                 </div>
                                             )}
                                         />
                                     </div>
-                                    <div className="conteneur--beignet nine wide field">
-                                        {visualisation}
-                                    </div>
                                 </div>
                                 
                             </div>
+                                </div>
+                                <div className="ui seven wide column">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <div className="conteneur-beignet nine wide field">
+                                        {visualisation}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                                                     
                         </React.Fragment>
                 }

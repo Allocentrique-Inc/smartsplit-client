@@ -14,6 +14,7 @@ import TableauSommaireSplit from './tableau-sommaire'
 
 // Pages de l'assistant
 import PageAssistantSplitCourrielsCollaborateurs from './assistant-split-courriel-collaborateurs'
+import SommairePartage from '../partage/partage-sommaire';
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
@@ -97,7 +98,7 @@ class ValiderSplit extends Component {
                 this.setState({mediaTitle: media.title})
             })
             .catch((error) => {
-                toast.error(error)
+                toast.error(error.message)
                 
             })
 
@@ -127,7 +128,7 @@ class ValiderSplit extends Component {
                     }
                 })
                 .catch((error) => {
-                    toast.error(error)                    
+                    toast.error(error.message)                    
                 })
             })            
             
@@ -175,12 +176,12 @@ class ValiderSplit extends Component {
 
                                 <Wizard.Page>
                                     <React.Fragment>
-                                        <h1>{t('flot.split.sommaire.titre')}</h1>
-                                        <h2>{this.state.mediaTitle}</h2>
+                                        <div className="heading1">{t('flot.split.sommaire.titre')}</div>
+                                        <div className="heading2">{this.state.mediaTitle}</div>
                                         <p/>
                                         <p/>
-                                        <h3>{t('flot.split.sommaire.soustitre')} {this.state.initiateur} : </h3>
-                                        <TableauSommaireSplit init={true} droits={this.state.rights} />
+                                        <div className="heading3">{t('flot.split.sommaire.soustitre')} {this.state.initiateur} : </div>
+                                        <SommairePartage uuid={this.props.proposition} />
                                     </React.Fragment>
                                 </Wizard.Page>
 

@@ -18,3 +18,231 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.heading1 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+}
+
+.heading2 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  margin: 0px 0px 0px 40px;
+}
+
+.heading3 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.heading4 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.heading5 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.medium-400 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.medium-500 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px 0px 0px 40px;
+}
+
+.medium-500-caps {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
+.small-400 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.small-500 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.small-500-color {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  color:#2DA84F;
+}
+
+.small-500-caps {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+
+.right {
+  float: right;
+}
+
+.ui.medium.button {
+  background-color:#2DA84F;
+  color:#FFF;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px 8px 16px;
+  margin: 0px 16px 0px 16px;
+}
+
+.ui.primary.right.floated.button {
+  background-color:#2DA84F;
+  color:#FFF;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px 8px 16px;
+  margin: 0px 16px 0px 16px;
+}
+
+.ui.small.button {
+  background-color:#2DA84F;
+  color:#FFF;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 4px 8px 4px 8px;
+  margin: 0px 16px 0px 16px;
+}
+
+.label {
+  background-color:#FFF;
+  color:#203548;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  vertical-align: top;
+}
+
+.field-selector {
+  background-color:#FFF;
+  color:#8DA0B2;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  vertical-align: top;
+  padding: 18px 18px 18px 40px;
+}
+
+.song-name {
+  background-color:#FFF;
+  color:#203548;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 16px;
+  vertical-align: top;
+  display: inline-block;
+}
+
+.holder-name {
+  color:#203548;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  vertical-align: top;
+}
+
+.small-400-color {
+  font-family: 'IBM Plex Sans';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color:#8DA0B2;
+}
+
+.wizard-title {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color:#2DA84F;
+}
+
+.who-invented-title {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 48px;
+}
+
+.conteneur-beignet {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.gray-fields {
+  background-color: #FAF8F9;
+}
+
+.cliquable {
+  cursor: pointer
+}
+
+.etape {
+  margin-top: 20px
+}
+
+.accueil {  
+  background-image: url('http://smartsplit.org/wp-content/uploads/2019/05/h-v02-005-test-2.jpg'); 
+}
+
+input[type='radio'] {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  background-color: #d1d3d1;
+  color: #0000ff;
+  content: '';
+  display: inline-block;
+  visibility: visible;
+  border: 2px solid white;
+}

@@ -11,19 +11,19 @@ const RadioButton = ({
     ...props
 }) => {
     return (
-        <div>
-        <input
-            name={name}
-            id={id}
-            type="radio"
-            value={id}
-            checked={id === value}
-            onChange={onChange}
-            onBlur={onBlur}
-            className={classNames("radio-button")}
-            {...props}
-        />
-        <label htmlFor={id}>{label}</label>
+        <div className="ui radio checkbox">
+            <input 
+                name={name} 
+                id={id} 
+                type="radio" 
+                value={id} 
+                checked={id === value} 
+                onChange={onChange}
+                onBlur={onBlur}
+                className={classNames("radio-button")}
+                {...props}
+            />
+            <label>{label}</label>
         </div>
     )
 }
@@ -49,10 +49,10 @@ const RadioButtonGroup = ({
   
     return (
       <div className={classes}>
-        <fieldset>
+        <div className="grouped fields">
           <legend>{label}</legend>
           {children}
-        </fieldset>
+        </div>
       </div>
     )
 }

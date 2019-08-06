@@ -59,20 +59,6 @@ class VotationSplit extends Component {
                     }
                 </Translation>
             )
-//       if(this.props.auth.isAuthenticated()) {
-    /*
-            return (
-                <Translation>
-                    {
-                        (t, i18n)=>
-                            <div>
-                                <h1>{t('flot.voter.connexion')}</h1>
-                                <Login auth={this.props.auth}/>
-                            </div>
-                    }
-                </Translation>                
-            ) */
-//      }
         
     }
 }

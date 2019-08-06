@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import logo from '../../assets/images/logo.svg'
 import './app.css'
-import { Auth } from 'aws-amplify';
 
 import { Translation } from 'react-i18next'
 import axios from 'axios'
@@ -16,40 +15,7 @@ class App extends Component {
     user: null
   }
 
-  componentDidMount() {
-
-    try {
-      Auth.currentSession().then(
-        session=>{
-          this.props.auth.setAuthStatus(true)
-          console.log("AmazonCognitoUser***** ", session)
-          console.log("rightHolderId: ", session.idToken.payload.sub)
-          axios.get('http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub)
-          .then(res=>{
-            console.log(res.data.Item);
-            this.setState({user: res.data.Item})
-            console.log(this.state.user.firstName + ' ' + this.state.user.lastName + ' logged in');
-          })
-          .catch(err=>{
-            toast.error(err)
-          })
-
-          // Auth.currentAuthenticatedUser().then(
-          //   user=>{
-          //     this.props.auth.setUser(user);
-          //     this.setState({ isAuthenticating: false })
-          //   }
-          // )
-        }
-      ).catch((err) => {
-        console.log(`Auth err: ${err}`)
-      })
-                
-    } catch(error) {
-      if (error !== 'No current user.') {
-        console.log(error);
-      }
-    }
+  componentDidMount() {          
   
     axios.get('http://api.smartsplit.org:8080/v1/media')
     .then(res=>{
@@ -64,15 +30,22 @@ class App extends Component {
       toast.error(err)
     })
 
+    axios.get('http://api.smartsplit.org:8080/v1/proposal')
+    .then(res=>{
+      let listePropositions = res.data.map((elem, idx)=>{
+        return (
+          <option key={`option_proposal_${idx}`} value={elem.uuid}>{elem.uuid} - {elem.initiator && elem.initiator.name}</option>
+        )
+      })      
+      this.setState({listePropositions: listePropositions})
+    })
+    .catch(err=>{
+      toast.error(err)
+    })
+
   }
 
   render() {   
-    // const authProps = {
-    //   isAuthenticated: this.state.isAuthenticated,
-    //   user: this.state.user,
-    //   setAuthStatus: this.setAuthStatus,
-    //   setUser: this.setUser
-    // } 
 
     return (
       //!this.state.isAuthenticating &&
@@ -89,11 +62,11 @@ class App extends Component {
               <code>{t('titre.accueil')}</code>
             </p>
             <div>
-              <h2>SPRINT 0</h2>
+              <div class="heading2">Sprint 0</div>
               <a href="/liste-oeuvres">Liste des oeuvres</a><br/>
-              <h2>SPRINT 1</h2>
+              <div class="heading2">Sprint 1</div>
               <a href="/decrire-oeuvre">Décrire mon oeuvre</a><br/>
-              <h2>SPRINT 2</h2>
+              <div class="heading2">Sprint 2</div>
               <a href="/approuver-proposition/12c4b4a0-a70f-11e9-b844-5df68dc2fde4">Soumettre au vote #1</a><br/>
               <a href="/approuver-proposition/3fa033e0-a657-11e9-a258-31a39dbe4719">Soumettre au vote #2</a><br/>
               <a href="/approuver-proposition/45745c60-7b1a-11e8-9c9c-2d42b21b1a3e">Soumettre au vote #3</a><br/>
@@ -104,14 +77,25 @@ class App extends Component {
               <a href="/login">Login</a> <a href="/register">Register</a> <a href="/register-2">Register2</a> <a href="/forgot-password">ForgotPassword</a> <a href="/forgot-password-verification">PasswordVerification</a>  <a href="/change-password-verification">ChangeVerification</a> <a href="/welcome">Welcome</a><br/>
               <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
-              <a href="/visualisation/troissplits">Trois splits</a><br/>              
-              Partager les droits pour un média :
-              <select id="select-media">
+              <a href="/visualisation/troissplits">Trois splits</a>
+              <br/>              
+              <div class="label">Partager les droits pour un média :</div>
+              <select class="field-selector" id="select-media">
                 {this.state.listeMedias}
-              </select> <button onClick={()=>{
+              </select> 
+              <button class="ui medium button" onClick={()=>{
                 let e = document.getElementById('select-media')
                 window.location.href = `/partager/${e.options[e.selectedIndex].value}`
               }}>Partager les droits</button>
+              <br/><br/>
+
+              Sommaire d'une proposition :
+              <select id="select-proposition">
+                {this.state.listePropositions}
+              </select> <button onClick={()=>{
+                let e = document.getElementById('select-proposition')
+                window.location.href = `/proposition/sommaire/${e.options[e.selectedIndex].value}`
+              }}>Afficher le sommaire</button><br/>
             </div>
         </div>
         }
