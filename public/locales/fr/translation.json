@@ -235,8 +235,13 @@
     },
     "partage": {
         "auteur": {
-            "titre": "Qui a inventé {{oeuvre}} ?",
-            "descriptif": "Split the copyright between the creators, ie the authors of the <strong>lyrics</strong>, the composers and arrangers of <strong> music</strong>. It is customary to share copyright fairly. But you can do otherwise."
+            "titre": "Qui a inventé {{oeuvre}} ?"
+        },
+        "interprete": {
+            "titre": "Qui a joué sur {{oeuvre}} ?"
+        },
+        "enregistrement": {
+            "titre": "Qui possède l'enregistrement sonore de {{oeuvre}} ?"
         }
     },
     "connexion": {
