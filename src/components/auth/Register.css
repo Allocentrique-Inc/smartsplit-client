@@ -18,6 +18,16 @@ input[id="username"]{
     display: inline;
 }
 
+input[id="artistName"]{
+  width: 464px;
+  display: inline;
+}
+
+input[id="role"]{
+  width: 464px;
+  display: inline;
+}
+
 input[id="firstName"]{
   width: 464px;
   display: inline;

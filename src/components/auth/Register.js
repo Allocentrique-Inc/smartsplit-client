@@ -113,7 +113,7 @@ class Register extends Component {
         // toast.success(`Biquette#${user.username} !`)
         // this.props.auth.setAuthStatus(true)
         // this.props.auth.setUser(user.username)    
-        this.props.history.push("/welcome")
+        this.props.history.push("/register-2")
     
       )
       .catch((err)=>{
@@ -190,8 +190,6 @@ class Register extends Component {
     // const { firstName, lastName, username } = this.state;
 
     const passwordLength = password.length;
-    console.log("password =====", password.length, "pL: ", passwordLength);
-
     const passwordStrong = strength >= this.minStrength;
     const passwordLong = passwordLength > this.thresholdLength;
 
@@ -201,7 +199,6 @@ class Register extends Component {
     const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
     // confirm password field is only visible when password is not empty
     const confirmClass = ['confirmPassword', strength >= 2 ? 'visible' : 'invisible'].join(' ').trim();
-    console.log("PASSWORD MATCH: ", this.state.passwordmatch)
     // const controlClass = ['form-control', this.passwordmatch ? dirty ? 'is-valid' : 'is-invalid' : ''].join(' ').trim();
     const controlClass = ['form-control', this.passwordmatch ? 'is-valid' : 'is-invalid'].join(' ').trim();
 

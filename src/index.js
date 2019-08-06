@@ -36,6 +36,7 @@ import TableauSommaireSplit from './components/split/tableau-sommaire'
 // Composantes auth
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import Register2 from './components/auth/Register-2'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
 import ChangePasswordVerification from './components/auth/ChangePasswordVerification'
@@ -84,6 +85,7 @@ const renderRoutes = () => (
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
         <Route exact path="/login" onRef={auth} component={renderLogin} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/register-2" component={Register2} />
         <Route exact path="/sign-in-facebook" component={SignInFacebook} />
         <Route exact path="/sign-in-google" component={SignInGoogle} />
         <Route exact path="/forgot-password" component={ForgotPassword} />

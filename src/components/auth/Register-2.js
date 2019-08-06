@@ -4,26 +4,21 @@ import { Formik , Form, Field } from 'formik'
 import { toast } from 'react-toastify'
 import { Auth } from 'aws-amplify';
 import axios from 'axios'
-import { toast } from 'react-toastify'
 // import * as Yup from 'yup'
 // Traduction
 // import { Translation } from 'react-i18next';
 
-import { Auth } from "aws-amplify";
 
-
-class Register extends Component {
+class Register2 extends Component {
   state = { firstName: false, username: false, lastName: false }
 
   constructor(props) {
     super(props);
-    const { minStrength = 3, thresholdLength = 8 } = props;
-
 
     this.state = {
-      artistName: true,
-      role: '',
-      avatar: '',
+      artistName: 'Artist',
+      role: 'Singer',
+      avatar: 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg',
     };
 
     // this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -47,13 +42,13 @@ class Register extends Component {
     });
   }
 
-  validateUsername(value) {
-    if (!value) {
-      return "Required"
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
-      return "Invalid username"
-    }
-  }
+  // validateUsername(value) {
+  //   if (!value) {
+  //     return "Required"
+  //   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
+  //     return "Invalid username"
+  //   }
+  // }
   
   // validatePassword(value) {
   //   if (!value) {
@@ -79,15 +74,33 @@ class Register extends Component {
   // }
 
   handleSubmit = values => { 
-    // AWS Cogni"to integration here 
-    const artistName = value.artistName;
-    const role = values.role; // username is used as email
-    const avatar = values.avatar;
+    // AWS Cognito integration here 
+    let artistName = values.artistName;
+    let role = values.role; // username is used as email
+    let avatar = values.avatar;
+    let body = {
+      artistName: "Artist",
+      role: {},
+      avatar: "https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
+    }
+
+    // let req = {
+    //   url,
+    //   method: 'PUT',
+    //   data: content
+    // }
+    // axios(req).then(response => {
+    //   resolve(response.data.content)
+    // }, response => {
+    //   this.handleEditError(response)
+    // })
+
+
 
     try {
       Auth.currentSession().then(
         session=>{
-          axios.patch('http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub)
+          axios.put('http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub, body)
           .then(res=>{
             console.log(res);
           })
@@ -168,14 +181,14 @@ class Register extends Component {
   //   this.setState({ confirmhidden: !this.state.confirmhidden });
   // }
 
-  // componentDidMount() {
-  //   if (this.props.password) {
-  //     this.setState({ password: this.props.password });
-  //   }
-  //   if (this.props.confirmpassword) {
-  //     this.setState({ confirmpassword: this.props.confirmpassword });
-  //   }
-  // }
+  componentDidMount() {
+    if (this.props.role) {
+      this.setState({ role: this.props.role });
+    }
+    if (this.props.artistName) {
+      this.setState({ artistName: this.props.artistName });
+    }
+  }
 
   render() {
     // const { type, validator, onStateChanged, children, ...restProps } = this.props;
@@ -224,6 +237,7 @@ class Register extends Component {
           <h1>Register</h1>
           <div className="field">
               <div className="control has-icons-left has-icons-right">
+                Artist Name:
                 <Field 
                   name="artistName"
                   id="artistName"
@@ -239,12 +253,13 @@ class Register extends Component {
             </div>
             <div className="field">
               <div className="control has-icons-left has-icons-right">
+                Role:
                 <Field
                   name="role"
                   id="role"
                   aria-describedby="=roleHelp"
                   placeholder="Enter Role"
-                  value={this.state.lastName}
+                  value={this.state.role}
                   required={true}
                 />
                 <span className="icon is-small is-left">
@@ -268,4 +283,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default Register2;
