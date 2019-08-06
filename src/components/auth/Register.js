@@ -98,6 +98,7 @@ class Register extends Component {
     const lastName = values.lastName;
     const password = this.state.password;
     // console.log(password, username, email, firstName, lastName)
+
     try {
       Auth.signUp({
         username,
@@ -108,6 +109,13 @@ class Register extends Component {
           family_name: lastName 
         }
       })
+      // Auth.currentSession().then(
+      //   session=>{
+      //     // this.props.auth.setAuthStatus(true)
+      //     console.log("AmazonCognitoUser***** ", session)
+      //     console.log("rightHolderId: ", session.idToken.payload.sub)
+      //   }
+      // )
       // this.props.history.push("/welcome")
       .then(
         // toast.success(`Biquette#${user.username} !`)
@@ -313,8 +321,9 @@ class Register extends Component {
                 />
                 <button id="hide" onClick={ (e) => {e.preventDefault(); this.toggleShow()} }>
                   <i className="eye icon black"></i>
-                  {/* <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M1 9C1 9 5 1 12 1C19 1 23 9 23 9C23 9 19 17 12 17C5 17 1 9 1 9Z" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  {/* <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg> */}
                 </button>
                 {errors.password && touched.password && <div style={{color: "red"}}> Mot de passe invalide </div>}
