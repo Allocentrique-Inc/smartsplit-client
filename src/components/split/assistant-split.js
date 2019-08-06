@@ -176,11 +176,11 @@ class ValiderSplit extends Component {
 
                                 <Wizard.Page>
                                     <React.Fragment>
-                                        <h1>{t('flot.split.sommaire.titre')}</h1>
-                                        <h2>{this.state.mediaTitle}</h2>
+                                        <div className="heading1">{t('flot.split.sommaire.titre')}</div>
+                                        <div className="heading2">{this.state.mediaTitle}</div>
                                         <p/>
                                         <p/>
-                                        <h3>{t('flot.split.sommaire.soustitre')} {this.state.initiateur} : </h3>
+                                        <div className="heading3">{t('flot.split.sommaire.soustitre')} {this.state.initiateur} : </div>
                                         <SommairePartage uuid={this.props.proposition} />
                                     </React.Fragment>
                                 </Wizard.Page>

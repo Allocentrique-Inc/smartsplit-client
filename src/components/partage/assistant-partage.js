@@ -225,13 +225,13 @@ class AssistantPartage extends Component {
                         "id": this.state.user.username
                     },
                     rightsSplits: {
-                        "performanceNeighboringRightSplit": {
-                            "principal": droitInterpretePrincipal,
-                            "accompaniment": droitInterpreteAccompagnement
-                        },
                         "workCopyrightSplit": {
                             "lyrics": droitAuteurParoles,
                             "music": droitAuteurMusique
+                        },
+                        "performanceNeighboringRightSplit": {
+                            "principal": droitInterpretePrincipal,
+                            "accompaniment": droitInterpreteAccompagnement
                         },
                         "masterNeighboringRightSplit": {
                             "split": droitEnregistrement
