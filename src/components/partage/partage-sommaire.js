@@ -105,45 +105,44 @@ class SommaireDroit extends Component {
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
             _data.push({nom: part.nom, pourcent: part.sommePct})            
-            _parts.push( (
-            <div key={`part_${uuid}`}>
+            _parts.push(
+                <div key={`part_${uuid}`}>
                 <div className="ui grid">
-                    <div className="ui row">
-                        <div className="ui two wide column">
+                <div className="ui row">
+                    <div className="ui two wide column">
+                        <div className="holder-name">
                             <img className="ui spaced avatar image" src={avatar}/>
                         </div>
-                        <div className="ui seven wide column">
-                            <div className="holder-name">
-                                {part.nom}
-                                <br/>
-                                { part.roles.map((_e, idx)=>{
-                                    return `${_e}${idx === part.roles.length - 1 ? '' : ', '}`
-                                })}
-                            </div>
-                            {_parts}
+                    </div>
+                    <div className="ui ten wide column">
+                        <div className="holder-name">
+                            {part.nom}
                         </div>
-                        <div className="ui five wide column">
-                            <Beignet uuid={`beignt_${this.state.titre}`} data={_data} />
-                        </div>
-                        <div className="ui one wide column">
-                            <div className="three wide field">
-                                <p className="big">
-                                    {parseFloat(part.sommePct).toFixed(2)} %
-                                </p>
-                                <p>
-                                    {part.vote}
-                                </p>
-                            </div>
+                        <div className="small-400-color">
+                            { part.roles.map((_e, idx)=>{
+                                return `${_e}${idx === part.roles.length - 1 ? '' : ', '}`
+                            })}
                         </div>
                     </div>
+                    <div className="ui three wide column">
+                        <p className="big">
+                            {parseFloat(part.sommePct).toFixed(2)} %
+                        </p>
+                        <p>
+                            {part.vote}
+                        </p>
+                    </div>
                 </div>
-            </div>
-            ))
+                </div>
+                    <hr/>
+                </div>
+            )
         })
 
         return (
             <div className="ui segment">
                 <div className="heading4">{titre}</div>
+                <br/><br/>
                 <div className="ui grid">
                     <div className="ui row">
                         <div className="ui one wide column">
