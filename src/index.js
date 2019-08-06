@@ -46,6 +46,7 @@ import SignInGoogle from './components/auth/SignInGoogle'
 // Sommaires
 import SommairePartage from './components/partage/partage-sommaire'
 import SommaireOeuvre from './components/oeuvre/oeuvre-sommaire'
+import AssistantPartageEditeur from './components/partage/assistant-partage-editeur';
 
 const REGION = 'us-east-2';
 
@@ -87,11 +88,17 @@ const renderRoutes = () => (
         <Route exact path="/visualisation/troissplits" component={Troissplits} />
         <Route exact path="/bonjournat" component={Bonjour} />
         <Route exact path="/partager/:mediaId" component={Partager} />
+        <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
         <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function PartageEditeur(match) {
+  let propositionId = match.match.params.propositionId
+  return (<AssistantPartageEditeur propositionId={propositionId} />)
+}
 
 function Documenter(match) {
   let titre = match.match.params.titre

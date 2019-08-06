@@ -185,6 +185,9 @@
                     "studio": "Studio"
                 }
             }
+        },
+        "editeur": {
+            "ajout": "Ajouter un éditeur"
         }
     },
     "traitement": {
@@ -242,6 +245,9 @@
         },
         "enregistrement": {
             "titre": "Qui possède l'enregistrement sonore de {{oeuvre}} ?"
+        },
+        "editeur": {
+            "titre": "Quel est le nom de ton éditeur ?"
         }
     },
     "connexion": {
