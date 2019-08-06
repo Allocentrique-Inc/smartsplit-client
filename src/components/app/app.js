@@ -73,9 +73,9 @@ class App extends Component {
               <a href="/approuver-proposition/7ca75f20-a657-11e9-a258-31a39dbe4719">Soumettre au vote #4</a><br/>
               <a href="/approuver-proposition/d8fd3d50-a709-11e9-aa93-97e5b25f771d">Soumettre au vote #5</a><br/>
               <p/>
-              <div class="heading3">Connexion et création de compte</div>
-              <a href="/login">Login</a> <a href="/register">Register</a> <a href="/forgot-password">Forgot Password</a> <a href="/forgot-password-verification">Password Verification</a>  <a href="/change-password-verification">Change Verification</a> <a href="/welcome">Welcome</a><br/>
-              <div class="heading2">Sprint 3</div>
+              <h3>Connexion et création de compte</h3>
+              <a href="/login">Login</a> <a href="/register">Register</a> <a href="/register-2">Register2</a> <a href="/forgot-password">ForgotPassword</a> <a href="/forgot-password-verification">PasswordVerification</a>  <a href="/change-password-verification">ChangeVerification</a> <a href="/welcome">Welcome</a><br/>
+              <h2>SPRINT 3</h2>
               <a href="/accueil">Tableau de bord</a><br/>
               <a href="/visualisation/troissplits">Trois splits</a>
               <br/>              
