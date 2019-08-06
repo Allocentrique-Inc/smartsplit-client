@@ -16,7 +16,7 @@ class Register2 extends Component {
     super(props);
 
     this.state = {
-      artistName: 'Artist',
+      artistName: '',
       role: 'Singer',
       avatar: 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg',
     };
@@ -25,52 +25,21 @@ class Register2 extends Component {
     // this.validatePasswordStrong = this.validatePasswordStrong.bind(this)
     // // this.stateChanged = this.stateChanged.bind(this);
     // this.toggleShow = this.toggleShow.bind(this);
-    // this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+    this.handleArtistNameChange = this.handleArtistNameChange.bind(this);
     // this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
     // this.validateUsername = this.validateUsername.bind(this)
     // this.validatePassword = this.validatePassword.bind(this)
     // this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
   }
 
-  clearErrorState = () => {
-    this.setState({
-      errors: {
-        cognito: null,
-        blankfield: false,
-        passwordmatch: false
-      }
-    });
-  }
-
-  // validateUsername(value) {
-  //   if (!value) {
-  //     return "Required"
-  //   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
-  //     return "Invalid username"
-  //   }
-  // }
-  
-  // validatePassword(value) {
-  //   if (!value) {
-  //     return "Required"
-  //   } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
-  //     console.log("VALUE", value)
-  //     return "Invalid password"
-  //   }
-  // }
-
-  // validateConfirmPassword(value) {
-  //   if (!value) {
-  //     return "Required"
-  //   // } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
-  //   //   console.log("VALUE confirm", value)
-  //   //   return "Passwords do not match"
-  //   } else if ((value) !== this.state.password) {
-  //     console.log("VALUE confirm", value)
-  //     return "Passwords do not match"
-  //   } else {
-  //       this.setState({ passwordmatch: true});
-  //   }
+  // clearErrorState = () => {
+  //   this.setState({
+  //     errors: {
+  //       cognito: null,
+  //       blankfield: false,
+  //       passwordmatch: false
+  //     }
+  //   });
   // }
 
   handleSubmit = values => { 
@@ -78,35 +47,51 @@ class Register2 extends Component {
     let artistName = values.artistName;
     let role = values.role; // username is used as email
     let avatar = values.avatar;
-    let body = {
-      artistName: "Artist",
-      role: {},
-      avatar: "https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
+    let content = {
+      firstName: "John",
+      lastName: "Smith",
+      email: "john.smith@example.com",
+      jurisdiction: "Canada",
+      ipi: "00004576",
+      wallet: "0xdd87ae15f4be97e2739c9069ddef674f907d27a8",
+      avatarS3Etag: "2f03d99fbf37d8d585285fd4cce27fea",
+      artistName: "Questlove",
+      socialMediaLinks: {
+        "facebook": "https://facebook.com/ex",
+        "twitter": "https://twitter.com/ex",
+        "youtube": "https://youtube.com/ex"
+      }
     }
-
-    // let req = {
-    //   url,
-    //   method: 'PUT',
-    //   data: content
-    // }
-    // axios(req).then(response => {
-    //   resolve(response.data.content)
-    // }, response => {
-    //   this.handleEditError(response)
-    // })
-
-
 
     try {
       Auth.currentSession().then(
         session=>{
-          axios.put('http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub, body)
+          let url = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/artistName'
+          let req = {
+            url,
+            method: 'Patch',
+            data: {artistName: this.state.artistName}
+          }
+          axios(req)
           .then(res=>{
             console.log(res);
           })
           .catch(err=>{
             toast.error(err)
           })
+          // let avatarUrl = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/avatarS3Etag'
+          // let avatarReq = {
+          //   avatarUrl,
+          //   method: 'Patch',
+          //   data: {avatarS3Etag: avatar} 
+          // }
+          // axios(avatarReq)
+          // .then(res=>{
+          //   console.log(res);
+          // })
+          // .catch(err=>{
+          //   toast.error(err)
+          // })
 
           // Auth.currentAuthenticatedUser().then(
           //   user=>{
@@ -135,6 +120,15 @@ class Register2 extends Component {
     } catch (err) {
       console.log(err)
     }
+  }
+
+
+  handleArtistNameChange(e) {
+    this.setState(
+      { artistName: e.target.value },
+    );
+    // const value = e.target.value;
+    // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
   }
 
   // handlePasswordChange(e) {
@@ -244,6 +238,7 @@ class Register2 extends Component {
                   aria-describedby="artistNameHelp"
                   placeholder="Enter Artist Name"
                   value={this.state.artistName}
+                  onChange={this.handleArtistNameChange}
                   required={true}
                 />
                 <span className="icon is-small is-left">
