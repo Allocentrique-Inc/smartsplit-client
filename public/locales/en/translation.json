@@ -71,7 +71,8 @@
                 "editeur": "Who is the publisher of the work ?",
                 "repartition": "How is the work splitted among contributors ?"
             }            
-        }
+        },
+        "creePar": "Created by"
     },
     "navigation": {
         "suivant": "Next",
@@ -236,5 +237,26 @@
         "composer": "Composer",
         "singer": "Singer",
         "musicien": "Musician"
+    },
+    "partage": {
+        "auteur": {
+            "titre": "Who invented {{oeuvre}} ?"
+        },
+        "interprete": {
+            "titre": "Who played on {{oeuvre}} ?"
+        },
+        "enregistrement": {
+            "titre": "Who owns the master for {{oeuvre}} ?"
+        }
+    },
+    "connexion": {
+        "titre": {
+            "oeuvre": "Tu dois te connecter afin d'accéder à la page de votation !",
+            "tdb": "Tu dois te connecter afin d'accéder au tableau de bord !",
+            "vote": "Tu dois te connecter afin de pouvoir voter !"
+        }
+    },
+    "action": {
+        "commencer": "Start"
     }
 }

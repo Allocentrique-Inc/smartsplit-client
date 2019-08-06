@@ -11,7 +11,7 @@ const RadioButton = ({
     ...props
 }) => {
     return (
-        <div class="ui radio checkbox">
+        <div className="ui radio checkbox">
             <input 
                 name={name} 
                 id={id} 

@@ -35,6 +35,7 @@ import Troissplits from './components/visualisation/partage/troissplits'
 // Composantes auth
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import Register2 from './components/auth/Register-2'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
 import ChangePasswordVerification from './components/auth/ChangePasswordVerification'
@@ -64,10 +65,12 @@ const renderRoutes = () => (
     <Router history={browserHistory}>
       <Switch>
         <Route exact path="/" component={Accueil}/>
+        <Route exact path="/documenter/:titre" component={Documenter}/>
         <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
         <Route exact path="/login" component={renderLogin} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/register-2" component={Register2} />
         <Route exact path="/sign-in-facebook" component={SignInFacebook} />
         <Route exact path="/sign-in-google" component={SignInGoogle} />
         <Route exact path="/forgot-password" component={ForgotPassword} />
@@ -89,6 +92,11 @@ const renderRoutes = () => (
     </Router>
   </I18nextProvider>  
 )
+
+function Documenter(match) {
+  let titre = match.match.params.titre
+  return (<AssistantOeuvre titre={titre} />)
+}
 
 function sommaireOeuvre(match) {
   let mediaId = match.match.params.mediaId

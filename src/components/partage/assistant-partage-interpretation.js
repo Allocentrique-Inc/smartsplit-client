@@ -118,6 +118,26 @@ class PageAssistantPartageInterpretation extends Component {
 
     render() {
 
+        let descriptif
+
+        if(this.props.i18n.lng === 'en') {
+            descriptif = (<div className="medium-400">
+                Here we divide the <strong> neighboring right</strong> between the 
+                <strong> performers</strong>, musicians and singers alike. 
+                In the case of a <i> group</i>, all are <i> principal artists</i> 
+                and share this right equally. In the case of a <i> featured artist</i>, the artist 
+                retains 80% while the remaining 20% ​​is shared among his companions, if any.
+            </div>)
+        } else {
+            descriptif = (<div className="medium-400">
+                On sépare ici le <strong>droit voisin</strong> entre les <strong>interprètes</strong>, 
+                autant les <i>musiciens</i> que les <i>chanteurs</i>. Dans le cas d’un <i>groupe</i>, 
+                tous sont <i>Artiste principal</i> et partagent ce droit en parts égales. Dans le cas 
+                d’un <i>artiste vedette</i>, celui-ci concerve 80% tandis que le 20% restant est 
+                partagé parmi ses accompagnateurs, le cas échéant.
+            </div>)
+        }
+
         return (
             <Translation>
                 {
@@ -131,16 +151,10 @@ class PageAssistantPartageInterpretation extends Component {
                                     <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
-                                        Who played on {this.state.song} ?
+                                        {t('partage.interprete.titre', {oeuvre: this.state.song})}
                                     </div>
                                     <br/>
-                                    <div className="medium-400">
-                                        Here we divide the <strong> neighboring right</strong> between the 
-                                        <strong> performers</strong>, musicians and singers alike. 
-                                        In the case of a <i> group</i>, all are <i> principal artists</i> 
-                                        and share this right equally. In the case of a <i> featured artist</i>, the artist 
-                                        retains 80% while the remaining 20% ​​is shared among his companions, if any.
-                                    </div>
+                                    {descriptif}
                                     <br/>
 
                                 <div className="fields">

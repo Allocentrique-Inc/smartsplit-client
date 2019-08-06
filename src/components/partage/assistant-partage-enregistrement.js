@@ -148,6 +148,25 @@ class PageAssistantPartageEnregistrement extends Component {
 
     render() {
 
+        let descriptif
+
+        if(this.props.i18n.lng === 'en') {
+            descriptif = (<div className="medium-400">
+                Here we separate the <strong>neighboring right</strong> of <strong>producers</strong>, 
+                ie those who have invested their time and / or their money to record and 
+                finalize the product in order to be marketed.
+                <br/>
+                It is customary to share this right equally or pro rata with the investment.
+            </div>)
+        } else {
+            descriptif = (<div className="medium-400">
+                On sépare ici le <strong>droit voisin</strong> des <strong>producteurs</strong>, 
+                c’est à dire ceux qui ont investi leur temps et/ou leur argent pour enregistrer et 
+                finaliser le produit afin d’être commercialisé. <br/>
+                Il est d’usage de partager ce droit en parts égales ou au prorata de l’investissement.
+            </div>)
+        }
+
         return (
             <Translation>
                 {
@@ -161,16 +180,10 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
-                                        Who owns the master for {this.state.song} ?
+                                        {t('partage.enregistrement.titre', {oeuvre: this.state.song})}
                                     </div>
                                     <br/>
-                                    <div className="medium-400">
-                                        Here we separate the <strong> neighboring right</strong> of <strong> producers</strong>, 
-                                        ie those who have invested their time and / or their money to record and 
-                                        finalize the product in order to be marketed.
-                                        <br/>
-                                        It is customary to share this right equally or pro rata with the investment.
-                                    </div>
+                                    {descriptif}
                                     <br/>
 
                             <div className="fields">

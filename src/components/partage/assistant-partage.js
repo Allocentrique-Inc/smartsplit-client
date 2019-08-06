@@ -307,15 +307,15 @@ class AssistantPartage extends Component {
                                             >                                            
             
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitAuteur />
+                                                <PageAssistantPartageDroitAuteur i18n={i18n} />
                                             </Wizard.Page>
             
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitInterpretation />
+                                                <PageAssistantPartageDroitInterpretation i18n={i18n} />
                                             </Wizard.Page>
             
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitEnregistrement />
+                                                <PageAssistantPartageDroitEnregistrement i18n={i18n} />
                                             </Wizard.Page>
             
                                         </Wizard>

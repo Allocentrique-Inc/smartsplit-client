@@ -4,96 +4,94 @@ import { Formik , Form, Field } from 'formik'
 import { toast } from 'react-toastify'
 import { Auth } from 'aws-amplify';
 import axios from 'axios'
-import { toast } from 'react-toastify'
 // import * as Yup from 'yup'
 // Traduction
 // import { Translation } from 'react-i18next';
 
-import { Auth } from "aws-amplify";
 
-
-class Register extends Component {
+class Register2 extends Component {
   state = { firstName: false, username: false, lastName: false }
 
   constructor(props) {
     super(props);
-    const { minStrength = 3, thresholdLength = 8 } = props;
-
 
     this.state = {
-      artistName: true,
-      role: '',
-      avatar: '',
+      artistName: '',
+      role: 'Singer',
+      avatar: 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg',
     };
 
     // this.handlePasswordChange = this.handlePasswordChange.bind(this);
     // this.validatePasswordStrong = this.validatePasswordStrong.bind(this)
     // // this.stateChanged = this.stateChanged.bind(this);
     // this.toggleShow = this.toggleShow.bind(this);
-    // this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
+    this.handleArtistNameChange = this.handleArtistNameChange.bind(this);
     // this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
     // this.validateUsername = this.validateUsername.bind(this)
     // this.validatePassword = this.validatePassword.bind(this)
     // this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
   }
 
-  clearErrorState = () => {
-    this.setState({
-      errors: {
-        cognito: null,
-        blankfield: false,
-        passwordmatch: false
-      }
-    });
-  }
-
-  validateUsername(value) {
-    if (!value) {
-      return "Required"
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
-      return "Invalid username"
-    }
-  }
-  
-  // validatePassword(value) {
-  //   if (!value) {
-  //     return "Required"
-  //   } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
-  //     console.log("VALUE", value)
-  //     return "Invalid password"
-  //   }
-  // }
-
-  // validateConfirmPassword(value) {
-  //   if (!value) {
-  //     return "Required"
-  //   // } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
-  //   //   console.log("VALUE confirm", value)
-  //   //   return "Passwords do not match"
-  //   } else if ((value) !== this.state.password) {
-  //     console.log("VALUE confirm", value)
-  //     return "Passwords do not match"
-  //   } else {
-  //       this.setState({ passwordmatch: true});
-  //   }
+  // clearErrorState = () => {
+  //   this.setState({
+  //     errors: {
+  //       cognito: null,
+  //       blankfield: false,
+  //       passwordmatch: false
+  //     }
+  //   });
   // }
 
   handleSubmit = values => { 
-    // AWS Cogni"to integration here 
-    const artistName = value.artistName;
-    const role = values.role; // username is used as email
-    const avatar = values.avatar;
+    // AWS Cognito integration here 
+    let artistName = values.artistName;
+    let role = values.role; // username is used as email
+    let avatar = values.avatar;
+    let content = {
+      firstName: "John",
+      lastName: "Smith",
+      email: "john.smith@example.com",
+      jurisdiction: "Canada",
+      ipi: "00004576",
+      wallet: "0xdd87ae15f4be97e2739c9069ddef674f907d27a8",
+      avatarS3Etag: "2f03d99fbf37d8d585285fd4cce27fea",
+      artistName: "Questlove",
+      socialMediaLinks: {
+        "facebook": "https://facebook.com/ex",
+        "twitter": "https://twitter.com/ex",
+        "youtube": "https://youtube.com/ex"
+      }
+    }
 
     try {
       Auth.currentSession().then(
         session=>{
-          axios.patch('http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub)
+          let url = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/artistName'
+          let req = {
+            url,
+            method: 'Patch',
+            data: {artistName: this.state.artistName}
+          }
+          axios(req)
           .then(res=>{
             console.log(res);
           })
           .catch(err=>{
             toast.error(err)
           })
+          // let avatarUrl = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/avatarS3Etag'
+          // let avatarReq = {
+          //   avatarUrl,
+          //   method: 'Patch',
+          //   data: {avatarS3Etag: avatar} 
+          // }
+          // axios(avatarReq)
+          // .then(res=>{
+          //   console.log(res);
+          // })
+          // .catch(err=>{
+          //   toast.error(err)
+          // })
 
           // Auth.currentAuthenticatedUser().then(
           //   user=>{
@@ -122,6 +120,15 @@ class Register extends Component {
     } catch (err) {
       console.log(err)
     }
+  }
+
+
+  handleArtistNameChange(e) {
+    this.setState(
+      { artistName: e.target.value },
+    );
+    // const value = e.target.value;
+    // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
   }
 
   // handlePasswordChange(e) {
@@ -168,14 +175,14 @@ class Register extends Component {
   //   this.setState({ confirmhidden: !this.state.confirmhidden });
   // }
 
-  // componentDidMount() {
-  //   if (this.props.password) {
-  //     this.setState({ password: this.props.password });
-  //   }
-  //   if (this.props.confirmpassword) {
-  //     this.setState({ confirmpassword: this.props.confirmpassword });
-  //   }
-  // }
+  componentDidMount() {
+    if (this.props.role) {
+      this.setState({ role: this.props.role });
+    }
+    if (this.props.artistName) {
+      this.setState({ artistName: this.props.artistName });
+    }
+  }
 
   render() {
     // const { type, validator, onStateChanged, children, ...restProps } = this.props;
@@ -224,12 +231,14 @@ class Register extends Component {
           <h1>Register</h1>
           <div className="field">
               <div className="control has-icons-left has-icons-right">
+                Artist Name:
                 <Field 
                   name="artistName"
                   id="artistName"
                   aria-describedby="artistNameHelp"
                   placeholder="Enter Artist Name"
                   value={this.state.artistName}
+                  onChange={this.handleArtistNameChange}
                   required={true}
                 />
                 <span className="icon is-small is-left">
@@ -239,12 +248,13 @@ class Register extends Component {
             </div>
             <div className="field">
               <div className="control has-icons-left has-icons-right">
+                Role:
                 <Field
                   name="role"
                   id="role"
                   aria-describedby="=roleHelp"
                   placeholder="Enter Role"
-                  value={this.state.lastName}
+                  value={this.state.role}
                   required={true}
                 />
                 <span className="icon is-small is-left">
@@ -268,4 +278,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default Register2;

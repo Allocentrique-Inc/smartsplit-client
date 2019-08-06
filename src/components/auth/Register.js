@@ -113,7 +113,7 @@ class Register extends Component {
         // toast.success(`Biquette#${user.username} !`)
         // this.props.auth.setAuthStatus(true)
         // this.props.auth.setUser(user.username)    
-        this.props.history.push("/welcome")
+        this.props.history.push("/register-2")
     
       )
       .catch((err)=>{
@@ -190,8 +190,6 @@ class Register extends Component {
     // const { firstName, lastName, username } = this.state;
 
     const passwordLength = password.length;
-    console.log("password =====", password.length, "pL: ", passwordLength);
-
     const passwordStrong = strength >= this.minStrength;
     const passwordLong = passwordLength > this.thresholdLength;
 
@@ -201,7 +199,6 @@ class Register extends Component {
     const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
     // confirm password field is only visible when password is not empty
     const confirmClass = ['confirmPassword', strength >= 2 ? 'visible' : 'invisible'].join(' ').trim();
-    console.log("PASSWORD MATCH: ", this.state.passwordmatch)
     // const controlClass = ['form-control', this.passwordmatch ? dirty ? 'is-valid' : 'is-invalid' : ''].join(' ').trim();
     const controlClass = ['form-control', this.passwordmatch ? 'is-valid' : 'is-invalid'].join(' ').trim();
 
@@ -316,6 +313,9 @@ class Register extends Component {
                 />
                 <button id="hide" onClick={ (e) => {e.preventDefault(); this.toggleShow()} }>
                   <i className="eye icon black"></i>
+                  {/* <svg width="24" height="18" viewBox="0 0 24 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 9C1 9 5 1 12 1C19 1 23 9 23 9C23 9 19 17 12 17C5 17 1 9 1 9Z" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg> */}
                 </button>
                 {errors.password && touched.password && <div style={{color: "red"}}> Mot de passe invalide </div>}
                 <span className="icon is-small is-left">
