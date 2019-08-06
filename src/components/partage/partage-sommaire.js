@@ -4,6 +4,8 @@ import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
 import { Translation } from 'react-i18next';
 
+import avatar from '../../assets/images/elliot.jpg'
+
 const ROLES = [
         "principal",
         "accompaniment",
@@ -17,6 +19,14 @@ const ROLES = [
         "singer",
         "musicien"
     ]
+
+const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
+
+const TITRES = {
+    workCopyrightSplit: "Droits d'auteur", 
+    performanceNeighboringRightSplit: "Interprétation", 
+    masterNeighboringRightSplit: "Enregistrement sonore"
+}
 
 class SommaireDroit extends Component {
 
@@ -89,50 +99,64 @@ class SommaireDroit extends Component {
     render() {
 
         let _parts = []
-        let _data = []        
+        let _data = []
+        let titre = TITRES[this.state.titre]       
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
             _data.push({nom: part.nom, pourcent: part.sommePct})            
             _parts.push( (
-                <div key={`part_${uuid}`}>
-                    <div className="field">
-                        <i className="user outline icon big"></i>
+            <div key={`part_${uuid}`}>
+                <div className="ui grid">
+                    <div className="ui row">
+                        <div className="ui two wide column">
+                            <img className="ui spaced avatar image" src={avatar}/>
+                        </div>
+                        <div className="ui seven wide column">
+                            <div className="holder-name">
+                                {part.nom}
+                                <br/>
+                                { part.roles.map((_e, idx)=>{
+                                    return `${_e}${idx === part.roles.length - 1 ? '' : ', '}`
+                                })}
+                            </div>
+                            {_parts}
+                        </div>
+                        <div className="ui five wide column">
+                            <Beignet uuid={`beignt_${this.state.titre}`} data={_data} />
+                        </div>
+                        <div className="ui one wide column">
+                            <div className="three wide field">
+                                <p className="big">
+                                    {parseFloat(part.sommePct).toFixed(2)} %
+                                </p>
+                                <p>
+                                    {part.vote}
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="seven wide field">
-                        <p className="big">
-                            {part.nom}
-                        </p>
-                        <p>
-                            { part.roles.map((_e, idx)=>{
-                                return `${_e}${idx === part.roles.length - 1 ? '' : ', '}`
-                            })}
-                        </p>
-                    </div>
-                    <div className="three wide field">
-                        <p className="big">
-                            {parseFloat(part.sommePct).toFixed(2)} %
-                        </p>
-                        <p>
-                            {part.vote}
-                        </p>
-                    </div>
-
-                    <p/>
-                    <hr/>
-                    <p/>
                 </div>
+            </div>
             ))
         })
 
         return (
-            <div className="fields">
-                <h2>{this.state.titre}</h2>
-                <div className="eleven wide field">
-                    {_parts}
-                </div>
-                <div className="seven wide field">
-                    <Beignet uuid={`beignt_${this.state.titre}`} data={_data} />
+            <div className="ui segment">
+                <div className="heading4">{titre}</div>
+                <div className="ui grid">
+                    <div className="ui row">
+                        <div className="ui one wide column">
+                        </div>
+                        <div className="ui seven wide column">
+                            {_parts}
+                        </div>
+                        <div className="ui five wide column">
+                            <Beignet uuid={`beignt_${this.state.titre}`} data={_data} />
+                        </div>
+                        <div className="ui one wide column">
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -165,6 +189,9 @@ export default class SommairePartage extends Component {
         axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
         .then(res=>{
             this.setState({proposition: res.data.Item})
+            Object.keys(this.state.proposition.rightsSplits).forEach(key=>{
+                console.log("Object key: "+key)
+            })
         })
         .catch(err=>{
             toast.error(err)
@@ -176,11 +203,11 @@ export default class SommairePartage extends Component {
         let droits = []
 
         if(this.state.proposition) {
-            Object.keys(this.state.proposition.rightsSplits).forEach(elem=>{
+            TYPE_SPLIT.forEach(type=>{
                 droits.push( <SommaireDroit 
-                                key={`sommaire_${elem}`}
-                                parts={this.state.proposition.rightsSplits[elem]}
-                                titre={elem}
+                                key={`sommaire_${type}`}
+                                parts={this.state.proposition.rightsSplits[type]}
+                                titre={type}
                                 icone={undefined}                                
                                 /> )
             })
