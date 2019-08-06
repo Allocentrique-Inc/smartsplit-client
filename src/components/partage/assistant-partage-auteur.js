@@ -349,7 +349,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                         <div className="ui thirteen wide column">
                                                                             <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i class="right floated ellipsis horizontal icon" onClick={() => {
+                                                                                <i class="right floated ellipsis horizontal icon delete image" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
@@ -412,32 +412,39 @@ class PageAssistantPartageAuteur extends Component {
                                                                         </div>  
                                                                         </div>                                                         
                                                                     </div>
+                                                                    <div className="blank-text">A</div>
                                                                 </div>
                                                             )
                                                         })
                                                     }
                                                     <div style={{margin: "0 auto", height: "100px"}}>                                    
-                                                        <div>
-                                                            <ChampListeCollaborateurAssistant
-                                                                indication={t('flot.collaborateurs.ajout')}
-                                                                modele="collaborateur"
-                                                                autoFocus={false}
-                                                                requis={false}
-                                                                fluid={true}
-                                                                multiple={false}
-                                                                recherche={true}
-                                                                selection={true}
-                                                                ajout={false}
-                                                                collaborateurs={this.props.values.droitAuteur}                                                                
-                                                            />
+                                                        <div classNmae="ui grid">                                 
+                                                            <div classNmae="ui row">                                 
+                                                                <div classNmae="ui ten wide column">
+                                                                    <ChampListeCollaborateurAssistant
+                                                                        indication={t('flot.collaborateurs.ajout')}
+                                                                        modele="collaborateur"
+                                                                        autoFocus={false}
+                                                                        requis={false}
+                                                                        fluid={true}
+                                                                        multiple={false}
+                                                                        recherche={true}
+                                                                        selection={true}
+                                                                        ajout={false}
+                                                                        collaborateurs={this.props.values.droitAuteur}                                                                
+                                                                    />              
+                                                                </div>                  
+                                                                <div classNmae="four wide column">
+                                                                        <button 
+                                                                            className="ui small button"
+                                                                            onClick={(e)=>{
+                                                                            e.preventDefault()
+                                                                            this.ajouterCollaborateur(arrayHelpers)
+                                                                        }   }>Ajouter
+                                                                        </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <button 
-                                                            className="ui medium button"
-                                                            onClick={(e)=>{
-                                                            e.preventDefault()
-                                                            this.ajouterCollaborateur(arrayHelpers)
-                                                            }}>Ajouter
-                                                        </button>
                                                     </div>
                                                 </div>
                                             )}

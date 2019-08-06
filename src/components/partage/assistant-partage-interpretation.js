@@ -202,7 +202,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                 <img className="ui spaced avatar image" src={avatar}/>
                                                                             </div>
                                                                         </div>
-                                                                        <div className="ui fourteen wide column">
+                                                                        <div className="ui thirteen wide column">
                                                                             <div className="holder-name">
                                                                                 {part.nom}
                                                                                 <i class="right floated ellipsis horizontal icon" onClick={() => {
@@ -263,7 +263,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                             </div>
                                                                         </div>                                                                        
                                                                     </div>
-                                                                    <div>&nbsp;</div>
+                                                                    <div className="blank-text">A</div>
                                                                 </div>
                                                             )
                                                         })
