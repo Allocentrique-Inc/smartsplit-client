@@ -259,6 +259,24 @@ class PageAssistantPartageAuteur extends Component {
             }
         }        
         
+        let descriptif
+
+        if(this.props.i18n.lng === 'en') {
+            descriptif = (<div className="medium-400">
+                Split the copyright between the creators, ie the authors of the
+                <strong> lyrics</strong>, the composers and arrangers of <strong> music</strong>.
+                It is customary to share copyright fairly.
+                But you can do otherwise.
+            </div>)
+        } else {
+            descriptif = (<div className="medium-400">
+                Sépare ici le droit d’auteur entre les créateurs, c’est à dire les 
+                auteurs des <strong>paroles</strong>, les compositeurs et les arrangeurs de la <strong>musique</strong>. 
+                Il est d’usage de partager le droit d’auteur équitablement. 
+                Mais tu peux faire autrement.                
+            </div>)
+        }
+
         return (
             <Translation>
                 {
@@ -272,15 +290,10 @@ class PageAssistantPartageAuteur extends Component {
                                     <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
-                                        Who invented {this.state.song} ?
+                                        { t('partage.auteur.titre', {oeuvre: this.state.song}) }
                                     </div>
                                     <br/>
-                                    <div className="medium-400">
-                                        Split the copyright between the creators, ie the authors of the
-                                        <strong> lyrics</strong>, the composers and arrangers of <strong> music</strong>.
-                                        It is customary to share copyright fairly.
-                                        But you can do otherwise.
-                                    </div>
+                                    {descriptif}
                                     <br/>
 
                                 <div className="fields">

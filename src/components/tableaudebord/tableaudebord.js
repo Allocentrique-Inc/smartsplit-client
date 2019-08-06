@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
+import { Translation } from 'react-i18next';
 
 export default class TableauDeBord extends Component {
 
@@ -45,21 +46,24 @@ export default class TableauDeBord extends Component {
                         boxShadow: "inset 0px -1px 0px #DCDFE1"
                     },
                 customUI: ({ onClose }) => 
-                    <div>         
-                        <Login message="Connecte-toi pour accéder au tableau de bord" fn={(user)=>{                            
-                            this.setState({user: user}, ()=>{                                
-                                onClose()
-                                // Ré-exécute la vérification de la connexion
-                                Auth.currentAuthenticatedUser()
-                                .then(res=>{
-                                    this.setState({user: res})
-                                })
-                                .catch(err=>{
-                                    toast.error(err.message)
-                                })
-                            })
-                        }} />
-                </div>
+                    <Translation>
+                        {
+                            (t) =>
+                                <Login message={t('connexion.titre.tdb')} fn={(user)=>{
+                                    this.setState({user: user}, ()=>{                                
+                                        onClose()
+                                        // Ré-exécute la vérification de la connexion
+                                        Auth.currentAuthenticatedUser()
+                                        .then(res=>{
+                                            this.setState({user: res})
+                                        })
+                                        .catch(err=>{
+                                            toast.error(err.message)
+                                        })
+                                    })
+                                }} /
+                        >}
+                    </Translation>
             })
         })
     }

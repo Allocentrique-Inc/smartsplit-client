@@ -71,7 +71,8 @@
                 "editeur": "Qui est l'éditeur de l'œuvre ?",
                 "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
             }            
-        }
+        },
+        "creePar": "Créé par"
     },
     "navigation": {
         "suivant": "Suivant",
@@ -231,5 +232,21 @@
         "composer": "Compositeur",
         "singer": "Chanteur",
         "musicien": "Musicien"
+    },
+    "partage": {
+        "auteur": {
+            "titre": "Qui a inventé {{oeuvre}} ?",
+            "descriptif": "Split the copyright between the creators, ie the authors of the <strong>lyrics</strong>, the composers and arrangers of <strong> music</strong>. It is customary to share copyright fairly. But you can do otherwise."
+        }
+    },
+    "connexion": {
+        "titre": {
+            "oeuvre": "Tu dois te connecter afin d'accéder au sommaire de l'oeuvre !",
+            "tdb": "Tu dois te connecter afin d'accéder au tableau de bord !",
+            "vote": "Tu dois te connecter afin de pouvoir voter !"
+        }
+    },
+    "action": {
+        "commencer": "Commencer"
     }
 }
