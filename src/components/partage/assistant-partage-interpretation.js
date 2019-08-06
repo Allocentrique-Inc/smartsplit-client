@@ -14,7 +14,7 @@ import { FieldArray } from "formik";
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-import avatar from '../../assets/images/elliot.jpg'
+import avatar from '../../assets/images/stevie.jpg'
 
 const MODES = {egal: "0", role: "1"}
 const TYPE = {principal: "0", accompagnement: "1"}
@@ -145,6 +145,7 @@ class PageAssistantPartageInterpretation extends Component {
 
                                 <div className="fields">
                                     <div className="field">
+                                        <div className="nine wide field">
                                         <BoutonsRadio 
                                             name="mode_interpretation"
                                             actif={this.state.mode} // Attribut dynamique
@@ -165,6 +166,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                 }
                                             ]}
                                         />
+                                        </div>
                                         <p style={{height: "30px"}} />
                                         <FieldArray
                                             name="droitInterpretation"
@@ -179,19 +181,25 @@ class PageAssistantPartageInterpretation extends Component {
                                                             return (
                                                                 <div key={`part-${index}`}>                                                                    
                                                                     <div className="gray-fields">
-                                                                        <div className="twelve wide field">
-                                                                            <div className="holder-name">
+                                                                        <div className="ui grid">
+                                                                        <div className="ui row">
+                                                                        <div className="ui two wide column">
+                                                                            <div className="avatar-image">
                                                                                 <img className="ui spaced avatar image" src={avatar}/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="ui fourteen wide column">
+                                                                            <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i class="delete icon" onClick={() => {
+                                                                                <i class="right floated ellipsis horizontal icon" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
                                                                                     })
                                                                                 }
                                                                                 }></i>
+                                                                                <div class="ui divider"></div>
                                                                             </div>
-                                                                            <br/>
                                                                             <BoutonsRadio                                                                             
                                                                                 name={`type_interpretation_${index}`}
                                                                                 actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
@@ -202,7 +210,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                     })
                                                                                 }}
                                                                                 disabled={this.state.mode !== MODES.role}
-                                                                                titre="Type d'interprétation"
+                                                                                titre=""
                                                                                 choix={[
                                                                                     {
                                                                                         nom: 'Principal',
@@ -236,6 +244,8 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                     )
                                                                                 })
                                                                             }
+                                                                            </div>
+                                                                            </div>
                                                                             </div>
                                                                         </div>                                                                        
                                                                     </div>
