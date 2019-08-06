@@ -64,6 +64,7 @@ const renderRoutes = () => (
     <Router history={browserHistory}>
       <Switch>
         <Route exact path="/" component={Accueil}/>
+        <Route exact path="/documenter/:titre" component={Documenter}/>
         <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
         <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
         <Route exact path="/login" component={renderLogin} />
@@ -89,6 +90,11 @@ const renderRoutes = () => (
     </Router>
   </I18nextProvider>  
 )
+
+function Documenter(match) {
+  let titre = match.match.params.titre
+  return (<AssistantOeuvre titre={titre} />)
+}
 
 function sommaireOeuvre(match) {
   let mediaId = match.match.params.mediaId

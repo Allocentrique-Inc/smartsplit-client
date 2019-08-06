@@ -125,7 +125,7 @@ export default class SommaireOeuvre extends Component {
                                             <div className="ui medium-400">
                                                 Rends découvrable ton oeuvre sur le web grâce aux métadonnées et augmente ainsi tes chances d’apparaître dans des playlists.
                                             </div>
-                                            <div className="ui medium button" style={{marginTop: "50px", marginLeft: "0px"}} onClick={()=>{window.location.href=`/documenter/${this.state.mediaId}`}} >
+                                            <div className="ui medium button" style={{marginTop: "50px", marginLeft: "0px"}} onClick={()=>{window.location.href=`/documenter/${this.state.media.title}`}} >
                                                 {t('action.commencer')}
                                             </div>
                                         </div>
