@@ -188,6 +188,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
                             <div className="fields">
                                 <div className="field">
+                                    <div className="nine wide field">
                                     <BoutonsRadio 
                                         name="mode_enregistrement"
                                         actif={this.state.mode} // Attribut dynamique
@@ -208,6 +209,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                             }
                                         ]}
                                     />
+                                    </div>
                                     <p style={{height: "30px"}} />
                                     <FieldArray
                                         name="droitEnregistrement"                                
@@ -224,19 +226,25 @@ class PageAssistantPartageEnregistrement extends Component {
                                                         return (
                                                             <div key={`part-${index}`}>                                                                
                                                                 <div className="gray-fields">
-                                                                        <div className="twelve wide field">
-                                                                            <div className="holder-name">
+                                                                        <div className="ui grid">
+                                                                        <div className="ui row">
+                                                                        <div className="ui two wide column">
+                                                                            <div className="avatar-image">
                                                                                 <img className="ui spaced avatar image" src={avatar}/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="ui thirteen wide column">
+                                                                            <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i class="delete icon" onClick={() => {
+                                                                                <i class="right floated ellipsis horizontal icon" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
                                                                                     })
                                                                                 }
                                                                                 }></i>
+                                                                                <div class="ui divider"></div>
                                                                             </div>
-                                                                            <br/>
                                                                         <div className="coches--role__droit">
                                                                         {
                                                                             roles.map((elem, idx)=>{
@@ -288,8 +296,10 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                             )
                                                                         }
                                                                     </div>
+                                                                    </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div>&nbsp;</div>
+                                                                    <div className="blank-text">A</div>
                                                             </div>
                                                         )
                                                     })
