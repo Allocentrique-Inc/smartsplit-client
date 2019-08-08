@@ -91,17 +91,17 @@ class AssistantPartageEditeur extends Component {
 
     soumettre(values, cb) {
         console.log("Soumettre le partage avec l'éditeur", values)
-        
         if(this.state.user) {
-
-            // À faire
-
+            toast.info("À suivre ...", values)
         }
     }
 
     render() {
 
-        if(this.state.media) { // S'il y a un média, il y a forcément une proposition ( voir componentWillMount() )
+        if(this.state.media) { // S'il y a un média, il y a forcément une proposition ( voir componentWillMount() ) et un utilisateur connecté
+
+            console.log(this.state.media.title, this.state.user.username)
+
             return (
                 <Translation>
                     {
@@ -121,9 +121,11 @@ class AssistantPartageEditeur extends Component {
                                     <div className="ui twelve wide column">
                                         <Wizard                                           
                                             initialValues={{                                                                                                
-                                                editeur: "", // uuid: ..., pourcent: Float
+                                                editeur: {},
+                                                editeurListe: "",
                                                 song: this.state.media.title,
-                                                proposition: this.state.proposition
+                                                parts: this.state.proposition.rightsSplits.workCopyrightSplit,
+                                                ayantDroit: {rightHolderId: this.state.user.username, pourcent: undefined} // Pour suivre l'utilisateur courant et son pourcentage dans le partage avec l'éditeur
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                             debug={false}

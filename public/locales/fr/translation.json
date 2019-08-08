@@ -247,7 +247,8 @@
             "titre": "Qui possède l'enregistrement sonore de {{oeuvre}} ?"
         },
         "editeur": {
-            "titre": "Quel est le nom de ton éditeur ?"
+            "titre": "Quel est le nom de ton éditeur ?",
+            "titre-part": "Combien ton éditeur devrait-il avoir ?"
         }
     },
     "connexion": {

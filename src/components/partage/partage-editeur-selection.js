@@ -1,19 +1,9 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-// Composantes
-import Beignet from '../visualisation/partage/beignet'
-
-import ChampGradateurAssistant from '../formulaires/champ-gradateur'
-import { ChampTexteAssistant } from '../formulaires/champ-texte'
-
-import { FieldArray } from "formik"
-
 import { ChampListeEditeurAssistant } from "../formulaires/champ-liste"
 
 import avatar from '../../assets/images/elliot.jpg'
-
-const MODES = {egal: "0", role: "1", manuel: "2"}
 
 class PageAssistantPartageChoixEditeur extends Component {
 
@@ -32,14 +22,15 @@ class PageAssistantPartageChoixEditeur extends Component {
 
     ajouterEditeur() {
 
-        let _ed = this.props.values.editeur
+        let _ed = this.props.values.editeurListe
                                                             
         let editeur = {
             nom: _ed, 
-            pourcent: 0
+            pourcent: "0"
         }
 
-        this.setState({editeur: editeur}, ()=>{console.log(editeur)})
+        this.props.setFieldValue('editeur', editeur)
+        this.setState({editeur: editeur})
 
     }
 
@@ -101,7 +92,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                                             <div>
                                                 <ChampListeEditeurAssistant
                                                     indication={t('flot.editeur.ajout')}
-                                                    modele="editeur"
+                                                    modele="editeurListe"
                                                     autoFocus={false}
                                                     requis={true}
                                                     fluid={true}

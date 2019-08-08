@@ -349,14 +349,14 @@ class PageAssistantPartageAuteur extends Component {
                                                                         <div className="ui thirteen wide column">
                                                                             <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i class="right floated ellipsis horizontal icon delete image" onClick={() => {
+                                                                                <i className="right floated ellipsis horizontal icon delete image" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
                                                                                     })
                                                                                 }
                                                                                 }></i>
-                                                                                <div class="ui divider"></div>
+                                                                                <div className="ui divider"></div>
                                                                             </div>
                                                                             <div className="coches--role__droit">
                                                                             {
@@ -418,9 +418,9 @@ class PageAssistantPartageAuteur extends Component {
                                                         })
                                                     }
                                                     <div style={{margin: "0 auto", height: "100px"}}>                                    
-                                                        <div classNmae="ui grid">                                 
-                                                            <div classNmae="ui row">                                 
-                                                                <div classNmae="ui ten wide column">
+                                                        <div className="ui grid">                                 
+                                                            <div className="ui row">                                 
+                                                                <div className="ui ten wide column">
                                                                     <ChampListeCollaborateurAssistant
                                                                         indication={t('flot.collaborateurs.ajout')}
                                                                         modele="collaborateur"
@@ -434,7 +434,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                         collaborateurs={this.props.values.droitAuteur}                                                                
                                                                     />              
                                                                 </div>                  
-                                                                <div classNmae="four wide column">
+                                                                <div className="four wide column">
                                                                         <button 
                                                                             className="ui small button"
                                                                             onClick={(e)=>{

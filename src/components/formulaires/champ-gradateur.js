@@ -32,15 +32,15 @@ export default class ChampGradateurAssistant extends Component {
                 componentProps={{
                     label: this.state.etiquette,
                     value: `${this.state.pourcent}`,
-                    min: 0,
-                    max: 100,
+                    min: this.props.min ? this.props.min : 0,
+                    max: this.props.max ? this.props.max : 100,
                     step: 1,
                     type: "range",
                     disabled: this.state.disabled,
                     onInput: e=>{ // Déclenché lorsque le gradateur change de valeur
                         let val = e.target.value
                         this.props.changement(this.props.id, val - this.valeur)
-                        this.valeur=val                        
+                        this.valeur=val
                     },
                     onMouseDown: e=>{
                         this.valeur = e.target.value

@@ -205,14 +205,14 @@ class PageAssistantPartageInterpretation extends Component {
                                                                         <div className="ui thirteen wide column">
                                                                             <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i class="right floated ellipsis horizontal icon" onClick={() => {
+                                                                                <i className="right floated ellipsis horizontal icon" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
                                                                                     })
                                                                                 }
                                                                                 }></i>
-                                                                                <div class="ui divider"></div>
+                                                                                <div className="ui divider"></div>
                                                                             </div>
                                                                             <BoutonsRadio                                                                             
                                                                                 name={`type_interpretation_${index}`}

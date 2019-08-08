@@ -252,7 +252,8 @@
             "titre": "Who owns the master for {{oeuvre}} ?"
         },
         "editeur": {
-            "titre": "What's your publisher's name ?"
+            "titre": "What's your publisher's name ?",
+            "titre-part": "How much should your publisher get ?"
         }
     },
     "connexion": {
