@@ -168,3 +168,34 @@ button[id="facebook"] {
   background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 }
 
+.fileUpload {
+  border: none
+}
+
+.avatarImage {
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  border-radius: 90px 90px 90px;
+  width: 100px;
+  height: 100px;
+}
+
+/* .container {
+  display: inline-block;
+  text-align: center;
+  margin: 0 auto
+}
+
+input {
+  margin: 0 auto;
+
+}
+
+.section.auth {
+  margin: 0 auto;
+}
+/* div {
+  display: inline-block;
+
+} */

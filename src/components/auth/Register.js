@@ -13,7 +13,7 @@ import { Auth } from "aws-amplify";
 
 
 class Register extends Component {
-  state = { firstName: false, username: false, lastName: false }
+  state = { firstName: false, username: false, lastName: false, artistName: false }
 
   constructor(props) {
     super(props);
@@ -96,6 +96,7 @@ class Register extends Component {
     const email = values.username; // username is used as email
     const firstName = values.firstName;
     const lastName = values.lastName;
+    const artistName = values.artistName;
     const password = this.state.password;
     // console.log(password, username, email, firstName, lastName)
 
@@ -106,7 +107,9 @@ class Register extends Component {
         attributes: {
           email: email,
           name: firstName,
-          family_name: lastName 
+          family_name: lastName,
+          'custom:artistName': artistName,
+          'custom:avatarS3Etag': 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
         }
       })
       // Auth.currentSession().then(
@@ -121,7 +124,7 @@ class Register extends Component {
         // toast.success(`Biquette#${user.username} !`)
         // this.props.auth.setAuthStatus(true)
         // this.props.auth.setUser(user.username)    
-        this.props.history.push("/register-2")
+        this.props.history.push("/welcome")
     
       )
       .catch((err)=>{
@@ -220,6 +223,7 @@ class Register extends Component {
                 username: this.state.username,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
+                artistName: this.state.artistName,
                 password: this.state.password,
                 hidden: true,
                 confirmpassword: this.state.confirmpassword,
@@ -274,22 +278,22 @@ class Register extends Component {
                 </span>
               </div>
             </div>
-            {/* <div className="field">
+            <div className="field">
               <div className="control has-icons-left has-icons-right">
                 <Field 
-                  name="email" 
-                  type="email"
-                  id="email"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter Email"
-                  value={this.state.email}
+                  name="artistName" 
+                  type="artistName"
+                  id="artistName"
+                  aria-describedby="artistNameHelp"
+                  placeholder="Enter Artist Name"
+                  value={this.state.artistName}
                   required={true}
                 />
                 <span className="icon is-small is-left">
                   <i className="fas fa-envelope"></i>
                 </span>
               </div>
-            </div> */}
+            </div>
             <div className="field">
               <div className="control">
                 <Field
