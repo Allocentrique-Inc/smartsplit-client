@@ -14,7 +14,7 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-import avatar from '../../assets/images/elliot.jpg'
+import avatar from '../../assets/images/steve.jpg'
 
 const MODES = {egal: "0", role: "1", manuel: "2"}
 
@@ -298,6 +298,7 @@ class PageAssistantPartageAuteur extends Component {
 
                                 <div className="fields">
                                     <div className="field">
+                                        <div className="nine wide field">
                                         <BoutonsRadio 
                                             name="mode_auteur"
                                             actif={this.state.mode} // Attribut dynamique
@@ -322,6 +323,7 @@ class PageAssistantPartageAuteur extends Component {
                                                 }
                                             ]}
                                         />
+                                        </div>
                                         <p style={{height: "30px"}} />
                                         <FieldArray
                                             name="droitAuteur"                                
@@ -335,21 +337,27 @@ class PageAssistantPartageAuteur extends Component {
                                                                 {id: "arrangeur", nom: t('flot.partage.auteur.role.arrangeur')}
                                                             ]
                                                             return (
-                                                                <div key={`part-${index}`}>                                                                    
+                                                                <div key={`part-${index}`}>                                                              
                                                                     <div className="gray-fields">
-                                                                        <div className="twelve wide field">
-                                                                            <div className="holder-name">
+                                                                        <div className="ui grid">
+                                                                        <div className="ui row">
+                                                                        <div className="ui two wide column">
+                                                                            <div className="avatar-image">
                                                                                 <img className="ui spaced avatar image" src={avatar}/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div className="ui thirteen wide column">
+                                                                            <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i class="delete icon" onClick={() => {
+                                                                                <i className="right floated ellipsis horizontal icon delete image" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
                                                                                     })
                                                                                 }
                                                                                 }></i>
+                                                                                <div className="ui divider"></div>
                                                                             </div>
-                                                                            <br/>
                                                                             <div className="coches--role__droit">
                                                                             {
                                                                                 roles.map((elem, idx)=>{
@@ -400,35 +408,43 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     valeur={this.props.values.droitAuteur[index].pourcent} />
                                                                             )
                                                                         }
-                                                                        </div>                                                       
+                                                                        </div>
+                                                                        </div>  
+                                                                        </div>                                                         
                                                                     </div>
-                                                                    <div>&nbsp;</div>
+                                                                    <div className="blank-text">A</div>
                                                                 </div>
                                                             )
                                                         })
                                                     }
                                                     <div style={{margin: "0 auto", height: "100px"}}>                                    
-                                                        <div>
-                                                            <ChampListeCollaborateurAssistant
-                                                                indication={t('flot.collaborateurs.ajout')}
-                                                                modele="collaborateur"
-                                                                autoFocus={false}
-                                                                requis={false}
-                                                                fluid={true}
-                                                                multiple={false}
-                                                                recherche={true}
-                                                                selection={true}
-                                                                ajout={false}
-                                                                collaborateurs={this.props.values.droitAuteur}                                                                
-                                                            />
+                                                        <div className="ui grid">                                 
+                                                            <div className="ui row">                                 
+                                                                <div className="ui ten wide column">
+                                                                    <ChampListeCollaborateurAssistant
+                                                                        indication={t('flot.collaborateurs.ajout')}
+                                                                        modele="collaborateur"
+                                                                        autoFocus={false}
+                                                                        requis={false}
+                                                                        fluid={true}
+                                                                        multiple={false}
+                                                                        recherche={true}
+                                                                        selection={true}
+                                                                        ajout={false}
+                                                                        collaborateurs={this.props.values.droitAuteur}                                                                
+                                                                    />              
+                                                                </div>                  
+                                                                <div className="four wide column">
+                                                                        <button 
+                                                                            className="ui small button"
+                                                                            onClick={(e)=>{
+                                                                            e.preventDefault()
+                                                                            this.ajouterCollaborateur(arrayHelpers)
+                                                                        }   }>Ajouter
+                                                                        </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <button 
-                                                            className="ui medium button"
-                                                            onClick={(e)=>{
-                                                            e.preventDefault()
-                                                            this.ajouterCollaborateur(arrayHelpers)
-                                                            }}>Ajouter
-                                                        </button>
                                                     </div>
                                                 </div>
                                             )}

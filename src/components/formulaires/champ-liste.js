@@ -95,7 +95,11 @@ export class ChampListeCollaborateurAssistant extends Component {
         axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _options = res.data.map(elem=>{
-                return {key: `${elem.rightHolderId}`,text: `${elem.firstName} ${elem.artistName ? "'"+elem.artistName+"'" : ''} ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
+                return {
+                    key: `${elem.rightHolderId}`, 
+                    text: `${elem.firstName} ${elem.artistName ? "'"+elem.artistName+"'" : ''} ${elem.lastName}`, 
+                    value: `${elem.firstName} ${elem.artistName ? "'"+elem.artistName+"'" : ''} ${elem.lastName}`
+                }
             })            
             if(!this.OPTIONS) {
                 this.OPTIONS = _options
@@ -150,6 +154,80 @@ export class ChampListeCollaborateurAssistant extends Component {
                                 search: true,
                                 selection: this.state.selection,
                                 multiple: true,
+                                options: this.state.options
+                            }}
+                            validate={this.state.requis && required}
+                        />
+                    )
+                }                
+            </div>
+        )        
+    }
+}
+
+export class ChampListeEditeurAssistant extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            etiquette: props.etiquette,
+            indication: props.indication,
+            modele: props.modele,
+            autoFocus: props.autoFocus,
+            requis: props.requis,
+            fluid: props.fluid,
+            multiple: props.multiple,
+            recherche: props.recherche,
+            selection: props.selection,
+            ajout: props.ajout
+        }
+        this.OPTIONS = undefined
+    }
+
+    componentWillMount() {
+        // Récupérer la liste des ayant-droits
+        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        .then(res=>{            
+            let _options = res.data.map(elem=>{
+                return {key: `${elem.rightHolderId}`,text: `${elem.firstName} ${elem.artistName ? "'"+elem.artistName+"'" : ''} ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
+            })            
+            if(!this.OPTIONS) {
+                this.OPTIONS = _options
+            }
+            this.setState({options: _options})            
+        })
+        .catch(err=>{
+            toast.error(err)
+        })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.etiquette !== nextProps.etiquette) {
+            this.setState({etiquette: nextProps.etiquette})
+        }
+        if (this.props.indication !== nextProps.indication) {
+            this.setState({indication: nextProps.indication})
+        }      
+    }
+
+    render() {
+        return(
+            <div>
+                {
+                    this.state.options && (
+                        <Wizard.Field                
+                            name={this.state.modele}
+                            component={Form.Dropdown}
+                            componentProps={{
+                                id: "collaborateur",
+                                label: this.state.etiquette,
+                                placeholder: this.state.indication,
+                                required: this.state.requis,
+                                autoFocus: this.state.autoFocus,
+                                fluid: true,
+                                search: true,
+                                selection: this.state.selection,
+                                multiple: this.state.multiple,
                                 options: this.state.options
                             }}
                             validate={this.state.requis && required}

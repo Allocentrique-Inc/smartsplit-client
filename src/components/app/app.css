@@ -246,3 +246,42 @@ input[type='radio'] {
   visibility: visible;
   border: 2px solid white;
 }
+
+.avatar-image {
+  margin: 0px 0px 0px 4px;
+}
+
+.delete-image {
+  margin: 0px 4px 0px 0px;
+}
+
+.blank-text {
+  display: block;
+  background-color:#FFF;
+  color:#203548;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 0px;
+  line-height: 32px;
+}
+
+.ui.checkbox label {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  vertical-align: center;
+  margin: 0px 8px 8px 0px;
+}
+
+.ui.checkbox input:checked~label:after {
+  background-color: #2DA84F;
+}
+
+.ui.checkbox {
+  color:#FFF;
+}
+
+.inline-select {
+  display: inline-block;
+}
