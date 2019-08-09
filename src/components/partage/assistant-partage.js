@@ -98,7 +98,10 @@ class AssistantPartage extends Component {
             axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
             .then(res=>{                                    
                 res.data.forEach(elem=>{
-                    _association[`${elem.firstName} '${elem.artistName}' ${elem.lastName}`] = elem
+
+                    let nom = `${elem.firstName}${elem.artistName ? ` '${elem.artistName}'` : ''} ${elem.lastName}`
+
+                    _association[nom] = elem
                 })                        
                 // 2. Générer la structure à envoyer à Dynamo
 

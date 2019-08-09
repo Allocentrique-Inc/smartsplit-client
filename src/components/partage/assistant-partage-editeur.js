@@ -31,22 +31,48 @@ class AssistantPartageEditeur extends Component {
             propositionId: this.props.propositionId,
             user: null
         }
+        this.charger = this.charger.bind(this)
+    }
+
+    charger(user) {
+        this.setState({user: user})
+        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.propositionId}`)
+        .then(res=>{
+            let proposition = res.data.Item
+
+            // Si l'utilisateur ne fait pas partie de la liste des ayant-droits on retourne une erreur
+            let trouve = false
+            // Paroles ...
+            proposition.rightsSplits.workCopyrightSplit.lyrics.forEach(elem=>{
+                if(elem.rightHolder.rightHolderId === user.username) {
+                    trouve = true
+                }
+            })
+            // Musique ...
+            proposition.rightsSplits.workCopyrightSplit.music.forEach(elem=>{
+                if(elem.rightHolder.rightHolderId === user.username) {
+                    trouve = true
+                }
+            })
+
+            if(trouve) {
+                this.setState({proposition: proposition}, ()=>{
+                    this.recupererOeuvre()
+                })
+            } else {
+                toast.error(`Vous ne possédez aucun droit d'auteur dans la proposition ${proposition.uuid}`)
+                setTimeout(()=>{
+                    window.location.href = '/accueil'
+                }, 3000)
+            }           
+        })
     }
 
     componentWillMount() {        
 
         Auth.currentAuthenticatedUser()
-        .then(res=>{
-            this.setState({user: res})
-
-            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.propositionId}`)
-            .then(res=>{
-                let proposition = res.data.Item
-                this.setState({proposition: proposition}, ()=>{
-                    this.recupererOeuvre()
-                })
-            })
-            
+        .then(res=>{            
+            this.charger(res)
         })
         .catch(err=>{
             toast.error(err.message)
@@ -68,9 +94,7 @@ class AssistantPartageEditeur extends Component {
                     <div>
                         <Login message="Connecte-toi pour accéder au tableau de bord" fn={(user)=>{
                             onClose()
-                            this.setState({user: user}, ()=>{
-                                this.recupererOeuvre()
-                            })
+                            this.charger(user)
                         }} />
                 </div>
             })
@@ -91,8 +115,25 @@ class AssistantPartageEditeur extends Component {
 
     soumettre(values, cb) {
         console.log("Soumettre le partage avec l'éditeur", values)
-        if(this.state.user) {
-            toast.info("À suivre ...", values)
+        if(this.state.user) {            
+
+            let body = {
+                rightHolderId: `${values.ayantDroit.rightHolderId}`,
+                shareeId: `${values.editeurs[values.editeur.nom]}`,
+                rightHolderPct: `${values.ayantDroit.pourcent}`,
+                shareePct: `${values.editeur.pourcent}`,
+                proposalId: `${this.state.propositionId}`
+            }
+
+            console.log("Envoi des données à editorsplitshare", body)
+
+            axios.post(`http://api.smartsplit.org:8080/v1/editorsplitshare`, body)
+            .then(res=>{
+                toast.success(res.data)
+            })
+            .catch(err=>{
+                toast.error(err.message)
+            })
         }
     }
 
@@ -128,7 +169,7 @@ class AssistantPartageEditeur extends Component {
                                                 ayantDroit: {rightHolderId: this.state.user.username, pourcent: undefined} // Pour suivre l'utilisateur courant et son pourcentage dans le partage avec l'éditeur
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={false}
+                                            debug={true}
                                             onSubmit={this.soumettre.bind(this)}                                            
                                             >                                            
             

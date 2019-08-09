@@ -14,6 +14,7 @@ class PageAssistantPartageChoixEditeur extends Component {
             editeur: undefined  // Éditeur sélectionné
         }        
         this.ajouterEditeur = this.ajouterEditeur.bind(this)
+        this.setEditeurs = this.setEditeurs.bind(this)
     }
 
     componentDidMount() {
@@ -32,6 +33,10 @@ class PageAssistantPartageChoixEditeur extends Component {
         this.props.setFieldValue('editeur', editeur)
         this.setState({editeur: editeur})
 
+    }
+
+    setEditeurs(editeurs) {
+        this.props.setFieldValue('editeurs', editeurs)
     }
 
     render() {        
@@ -99,7 +104,8 @@ class PageAssistantPartageChoixEditeur extends Component {
                                                     multiple={false}
                                                     recherche={true}
                                                     selection={false}
-                                                    ajout={false}                                                
+                                                    ajout={false}
+                                                    parent={this}
                                                 />
                                             </div>
                                             <button 
