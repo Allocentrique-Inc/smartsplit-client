@@ -83,7 +83,7 @@ class PageAssistantPartageEditeur extends Component {
             } else {
                 return elem
             }
-        })    
+        })
         this.setState({donnees: donnees})        
     }
 
