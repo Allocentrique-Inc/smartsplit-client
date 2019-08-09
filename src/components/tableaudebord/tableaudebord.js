@@ -56,6 +56,7 @@ export default class TableauDeBord extends Component {
                                         Auth.currentAuthenticatedUser()
                                         .then(res=>{
                                             this.setState({user: res})
+                                            console.log('**** ', res )
                                         })
                                         .catch(err=>{
                                             toast.error(err.message)
