@@ -31,7 +31,7 @@ class EntetePartage extends Component {
                                 <span style={{cursor: "pointer", position: "absolute", right: "100px"}} className="entete--partage__enregistrerEtQuitter">
                                     <div style={{marginTop: "10px"}} className="ui medium button" onClick={
                                         ()=>{
-                                            console.log('soumettre')
+                                            console.log('Exécution enregistrer et quitter ...')
                                             this.props.enregistrer(this.state.menu.deconnexion)
                                         }
                                         }>

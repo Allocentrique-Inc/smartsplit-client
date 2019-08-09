@@ -97,8 +97,8 @@ export class ChampListeCollaborateurAssistant extends Component {
             let _options = res.data.map(elem=>{
                 return {
                     key: `${elem.rightHolderId}`, 
-                    text: `${elem.firstName} ${elem.artistName ? "'"+elem.artistName+"'" : ''} ${elem.lastName}`, 
-                    value: `${elem.firstName} ${elem.artistName ? "'"+elem.artistName+"'" : ''} ${elem.lastName}`
+                    text: `${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`, 
+                    value: `${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`
                 }
             })            
             if(!this.OPTIONS) {
@@ -185,16 +185,22 @@ export class ChampListeEditeurAssistant extends Component {
     }
 
     componentWillMount() {
-        // Récupérer la liste des ayant-droits
+
+        // Conserver la structure des éditeurs classé par nom (permet au parent de retrouver le rightHolderId correspondant au nom)
+        let editeurs = {}
+
+        // Récupérer la liste des ayant-droits (éditeurs)
         axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
-            let _options = res.data.map(elem=>{
-                return {key: `${elem.rightHolderId}`,text: `${elem.firstName} ${elem.artistName ? "'"+elem.artistName+"'" : ''} ${elem.lastName}`, value: `${elem.firstName} '${elem.artistName}' ${elem.lastName}`}
+            let _options = res.data.map(elem=>{                
+                editeurs[`${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`] = elem.rightHolderId
+                return {key: `${elem.rightHolderId}`,text: `${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`, value: `${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`}
             })            
             if(!this.OPTIONS) {
                 this.OPTIONS = _options
             }
-            this.setState({options: _options})            
+            this.setState({options: _options})
+            this.props.parent.setEditeurs(editeurs) // Envoi du tableau associatif éditeur -> rightHolderId au parent
         })
         .catch(err=>{
             toast.error(err)

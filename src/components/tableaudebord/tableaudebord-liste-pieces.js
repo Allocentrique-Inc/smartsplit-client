@@ -4,10 +4,6 @@ import axios from 'axios'
 
 import { toast } from 'react-toastify'
 
-// Images de partage
-import image1 from '../../assets/images/image1.png'
-import image2 from '../../assets/images/image2.png'
-
 export default class ListePieces extends Component {
 
     constructor(props) {
@@ -36,7 +32,7 @@ export default class ListePieces extends Component {
                 <div key={_idx} style={{marginTop: "20px"}}>
                     <div className="ui three column grid">
                         <div className="ui row">
-                            <div className="ui seven wide column">
+                            <div className="ui thirteen wide column">
                                 <div className="ui three column grid cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}} >
                                     <div className="ui row">
                                         <div className="ui one wide column">
@@ -50,13 +46,7 @@ export default class ListePieces extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="ui three wide column">
-                                <img src={image1}/>
-                            </div>
-                            <div className="ui three wide column">
-                                <img src={image2}/>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>

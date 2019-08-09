@@ -141,7 +141,7 @@ export default class SommaireOeuvre extends Component {
                                         </div>
                                     </div>
                                     <div className="ui five wide column" style={{padding: "50px"}}>                        
-                                        <div style={{position: "absolute", top: "85px", left: "135px", width: "60%"}}>
+                                        <div style={{position: "absolute", top: "85px", left: "135px", width: "55%"}}>
                                             {this.state.media.title} par {artiste}
                                         </div>
                                         <img src={cassette} />

@@ -100,7 +100,7 @@ class PageAssistantPartageEditeur extends Component {
             _aD.pourcent = parseInt(_aD.pourcent) + (-1 * delta)
             this.props.setFieldValue('ayantDroit', _aD)
         }
-        this.recalculerPartage()
+        setTimeout(()=>{this.recalculerPartage()}, 0)
     }
 
     render() {
@@ -110,12 +110,12 @@ class PageAssistantPartageEditeur extends Component {
         let descriptif
         if(this.props.i18n.lng === 'en') {
             descriptif = (<div className="medium-400">
-                It's official, you own <strong>{this.state.partPrincipale}% of {this.props.values.song}'s Copyright</strong>. 
+                It's official, you own <strong>{this.state.partPrincipale.toFixed(2)}% of {this.props.values.song}'s Copyright</strong>. 
                 You must now determine how much your publisher should get from this share.
             </div>)
         } else {
             descriptif = (<div className="medium-400">
-                C’est officiel, tu possèdes <strong>{this.state.partPrincipale}% du droit d’auteur de l’oeuvre {this.props.values.song}</strong>. 
+                C’est officiel, tu possèdes <strong>{this.state.partPrincipale.toFixed(2)}% du droit d’auteur de l’oeuvre {this.props.values.song}</strong>. 
                 Tu dois maintenant indiquer combien, de cette part, sera partagé avec ton éditeur.
             </div>)
         }

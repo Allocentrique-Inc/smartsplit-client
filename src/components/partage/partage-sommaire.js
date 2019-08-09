@@ -203,7 +203,7 @@ export default class SommairePartage extends Component {
         .then(res=>{
             this.setState({proposition: res.data.Item})
             Object.keys(this.state.proposition.rightsSplits).forEach(key=>{
-                console.log("Object key: "+key)
+                //console.log("Object key: "+key)
             })
         })
         .catch(err=>{
