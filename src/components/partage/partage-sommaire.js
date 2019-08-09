@@ -20,6 +20,20 @@ const ROLES = [
         "musicien"
     ]
 
+const ROLES_NAMES = {
+        "principal":"Principal",
+        "accompaniment":"Accompaniment",
+        "producer":"Producer",
+        "director":"Director",
+        "studio":"Studio",
+        "graphist":"Graphist",
+        "arranger":"Arranger",
+        "songwriter":"Songwriter",
+        "composer":"Composer",
+        "singer":"Singer",
+        "musicien":"Musicien"
+    }
+
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
 const TITRES = {
@@ -120,7 +134,7 @@ class SommaireDroit extends Component {
                         </div>
                         <div className="small-400-color">
                             { part.roles.map((_e, idx)=>{
-                                return `${_e}${idx === part.roles.length - 1 ? '' : ', '}`
+                                return ROLES_NAMES[_e]+`${idx === part.roles.length - 1 ? '' : ', '}`
                             })}
                         </div>
                     </div>
@@ -141,7 +155,7 @@ class SommaireDroit extends Component {
 
         return (
             <div className="ui segment">
-                <div className="heading4">{titre}</div>
+                <div className="wizard-title">{titre}</div>
                 <br/><br/>
                 <div className="ui grid">
                     <div className="ui row">

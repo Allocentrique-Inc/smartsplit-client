@@ -232,6 +232,7 @@ class PageAssistantPartageAuteur extends Component {
                 case MODES.egal:
                     // 1 beignet ou histogramme dépendant du nombre de collaborateurs
                     if(Object.keys(this.state.parts).length < 9) {
+                        console.log(this.state.parts)
                         visualisation = (<Beignet uuid="auteur--beignet" data={this.state.parts}/>)
                     } else {
                         visualisation = (<Histogramme uuid="auteur--histogramme" data={this.state.parts}/>)

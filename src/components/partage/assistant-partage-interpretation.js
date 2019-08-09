@@ -268,28 +268,34 @@ class PageAssistantPartageInterpretation extends Component {
                                                             )
                                                         })
                                                     }
-                                                    <div style={{margin: "0 auto", height: "100px"}}>                                 
-                                                        <div>
-                                                            <ChampListeCollaborateurAssistant
-                                                                indication={t('flot.collaborateurs.ajout')}
-                                                                modele="collaborateur"
-                                                                autoFocus={false}
-                                                                requis={false}
-                                                                fluid={true}
-                                                                multiple={false}
-                                                                recherche={true}
-                                                                selection={true}
-                                                                ajout={false}
-                                                                collaborateurs={this.props.values.droitInterpretation}
-                                                            />
+                                                    <div style={{margin: "0 auto", height: "100px"}}>                                     
+                                                        <div className="ui grid">                                 
+                                                            <div className="ui row">                                 
+                                                                <div className="ui ten wide column">
+                                                                    <ChampListeCollaborateurAssistant
+                                                                        indication={t('flot.collaborateurs.ajout')}
+                                                                        modele="collaborateur"
+                                                                        autoFocus={false}
+                                                                        requis={false}
+                                                                        fluid={true}
+                                                                        multiple={false}
+                                                                        recherche={true}
+                                                                        selection={true}
+                                                                        ajout={false}
+                                                                        collaborateurs={this.props.values.droitInterpretation}
+                                                                    />
+                                                                </div> 
+                                                                <div className="four wide column">
+                                                                    <button 
+                                                                        className="ui small button"
+                                                                        onClick={(e)=>{
+                                                                            e.preventDefault()
+                                                                            this.ajouterCollaborateur(arrayHelpers)
+                                                                        }}>Ajouter
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <button 
-                                                            className="ui medium button"
-                                                            onClick={(e)=>{
-                                                            e.preventDefault()
-                                                            this.ajouterCollaborateur(arrayHelpers)
-                                                            }}>Ajouter
-                                                        </button>
                                                     </div>
                                                 </div>
                                             )}

@@ -176,11 +176,10 @@ class ValiderSplit extends Component {
 
                                 <Wizard.Page>
                                     <React.Fragment>
-                                        <div className="heading1">{t('flot.split.sommaire.titre')}</div>
-                                        <div className="heading2">{this.state.mediaTitle}</div>
-                                        <p/>
-                                        <p/>
-                                        <div className="heading3">{t('flot.split.sommaire.soustitre')} {this.state.initiateur} : </div>
+                                        <i className="file image outline icon huge grey"></i>
+                                        <span className="medium-400" style={{marginLeft: "15px"}}>{this.state.mediaTitle}</span>
+                                        <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.split.sommaire.titre')}</span>
+                                        <span className="medium-400" style={{marginLeft: "50px"}}>{t('flot.split.sommaire.soustitre')} {this.state.initiateur}</span>
                                         <SommairePartage uuid={this.props.proposition} />
                                     </React.Fragment>
                                 </Wizard.Page>
