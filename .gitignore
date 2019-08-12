@@ -20,6 +20,7 @@ yarn-error.log*
 /src/components/.DS_Store
 /src/components/auth/.DS_Store
 /src/config.json
+.idea
 
 #amplify
 amplify/\#current-cloud-backend
