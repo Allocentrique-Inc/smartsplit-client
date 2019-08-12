@@ -181,6 +181,15 @@ button[id="facebook"] {
   height: 100px;
 }
 
+.fileDelete {
+  margin: 0;
+  max-width: 100px;
+  max-height: 30px;
+  font-size: 16px;
+  padding: 5px 10px;
+  margin-left: 320px;
+}
+
 /* .container {
   display: inline-block;
   text-align: center;
