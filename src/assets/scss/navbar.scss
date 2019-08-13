@@ -1,26 +1,60 @@
 $color-primary: #203548;
+$color-link: #F2724A;
+$color-link-hover: #FFD0A9;
+$margin-step: 16px;
 
 .Navbar {
     height: 72px;
     width: 100%;
-    padding: 5px;
+    padding: 5px 16px;
 
     background-color: white;
     color: $color-primary;
-
-    border-bottom: 1px grey solid;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    font-size: 16px;
+
     .left,
     .right {
         flex: 1 2;
+
+        display: flex;
+        align-items: center;
+
+        & > div {
+            margin: 0 $margin-step;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
     }
 
     .right {
-        display: flex;
         justify-content: flex-end;
+    }
+}
+
+.song-image img {
+    width: 40px;
+    height: 40px;
+}
+
+.documentation-label {
+    margin-left: $margin-step * 2;
+    font-weight: bold;
+}
+
+.save-and-quit-label a {
+    font-weight: bold;
+    color: $color-link;
+    transition: color 0.2s ease;
+    will-change: color;
+
+    &:hover {
+        color: $color-link-hover;
     }
 }
