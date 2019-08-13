@@ -44,73 +44,6 @@ class PageAssistantOeuvreDescription extends Component {
         }
     }
 
-    renderFieldArray(arrayHelpers) {
-        return (
-            <div>
-                {
-                    this.props.values.rightHolders.map((collaborateur, index) => (
-                        <div key={ `collaborateur.${ index }` }>
-                            <div className="fields">
-                                <div className="field">
-                                    <button
-                                        type="button"
-                                        onClick={ () => arrayHelpers.remove(index) }>
-                                        <i className="remove icon"></i>
-                                    </button>
-                                </div>
-
-                                <div className="four wide field">
-                                    <ChampTexteAssistant
-                                        etiquette={ this.t('collaborateur.attribut.etiquette.prenom') }
-                                        indication={ this.t('collaborateur.attribut.indication.prenom') }
-                                        modele={ `rightHolders[${ index }].prenom` }
-                                        requis={ true } autoFocus={ true }
-                                    />
-                                </div>
-
-                                <div className="four wide field">
-                                    <ChampTexteAssistant
-                                        etiquette={ this.t('collaborateur.attribut.etiquette.nom') }
-                                        indication={ this.t('collaborateur.attribut.indication.nom') }
-                                        modele={ `rightHolders[${ index }].nom` }
-                                        requis={ true } autoFocus={ false }
-                                    />
-                                </div>
-
-                                <div className="four wide field">
-                                    <ChampTexteAssistant
-                                        etiquette={ this.t('collaborateur.attribut.etiquette.artiste') }
-                                        indication={ this.t('collaborateur.attribut.indication.artiste') }
-                                        modele={ `rightHolders[${ index }].artiste` }
-                                        requis={ false } autoFocus={ false }
-                                    />
-                                </div>
-
-                                <div className="four wide field">
-                                    <ChampListeAssistant
-                                        etiquette={ this.t('collaborateur.attribut.etiquette.role') }
-                                        indication={ this.t('collaborateur.attribut.indication.role') }
-                                        modele={ `rightHolders[${ index }].role` }
-                                        requis={ true } fluid={ true } multiple={ true }
-                                        recherche={ true } selection={ true } autoFocus={ true }
-                                        options={ this.state.roles }
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                }
-
-                <button
-                    type="button"
-                    onClick={ () => arrayHelpers.insert() }
-                >
-                    <i className="plus circle icon big"></i>
-                </button>
-            </div>
-        );
-    }
-
     render() {
         return (
             <Translation>
@@ -122,7 +55,66 @@ class PageAssistantOeuvreDescription extends Component {
 
                             <FieldArray
                                 name="rightHolders"
-                                render={ this.renderFieldArray }
+                                render={ arrayHelpers => (
+                                    <div>
+                                        {
+                                            this.props.values.rightHolders.map((collaborateur, index) => (
+                                                <div key={ `collaborateur.${ index }` }>
+                                                    <div className="fields">
+                                                        <div className="field">
+                                                            <button
+                                                                type="button"
+                                                                onClick={ () => arrayHelpers.remove(index) }>
+                                                                <i className="remove icon"></i>
+                                                            </button>
+                                                        </div>
+
+                                                        <div className="four wide field">
+                                                            <ChampTexteAssistant
+                                                                etiquette={ t('collaborateur.attribut.etiquette.prenom') }
+                                                                indication={ t('collaborateur.attribut.indication.prenom') }
+                                                                modele={ `rightHolders[${ index }].prenom` }
+                                                                requis={ true } autoFocus={ true }/>
+                                                        </div>
+
+                                                        <div className="four wide field">
+                                                            <ChampTexteAssistant
+                                                                etiquette={ t('collaborateur.attribut.etiquette.nom') }
+                                                                indication={ t('collaborateur.attribut.indication.nom') }
+                                                                modele={ `rightHolders[${ index }].nom` }
+                                                                requis={ true } autoFocus={ false }/>
+                                                        </div>
+
+                                                        <div className="four wide field">
+                                                            <ChampTexteAssistant
+                                                                etiquette={ t('collaborateur.attribut.etiquette.artiste') }
+                                                                indication={ t('collaborateur.attribut.indication.artiste') }
+                                                                modele={ `rightHolders[${ index }].artiste` }
+                                                                requis={ false } autoFocus={ false }/>
+                                                        </div>
+
+                                                        <div className="four wide field">
+                                                            <ChampListeAssistant
+                                                                etiquette={ t('collaborateur.attribut.etiquette.role') }
+                                                                indication={ t('collaborateur.attribut.indication.role') }
+                                                                modele={ `rightHolders[${ index }].role` }
+                                                                requis={ true } fluid={ true } multiple={ true }
+                                                                recherche={ true } selection={ true } autoFocus={ true }
+                                                                options={ this.state.roles }/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+
+                                        <button
+                                            type="button"
+                                            onClick={ () => arrayHelpers.insert() }
+                                        >
+                                            <i className="plus circle icon big"></i>
+                                        </button>
+                                    </div>
+                                ) }
                             />
                         </React.Fragment>
                 }

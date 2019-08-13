@@ -1,0 +1,26 @@
+$color-primary: #203548;
+
+.Navbar {
+    height: 72px;
+    width: 100%;
+    padding: 5px;
+
+    background-color: white;
+    color: $color-primary;
+
+    border-bottom: 1px grey solid;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .left,
+    .right {
+        flex: 1 2;
+    }
+
+    .right {
+        display: flex;
+        justify-content: flex-end;
+    }
+}

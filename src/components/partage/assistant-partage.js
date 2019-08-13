@@ -5,6 +5,7 @@ import { Wizard } from "semantic-ui-react-formik"
 import { Translation } from 'react-i18next'
 // Composantes
 import EntetePartage from './entete-partage'
+
 // Pages de l'assistant
 import PageAssistantPartageDroitAuteur from './assistant-partage-auteur'
 import PageAssistantPartageDroitInterpretation from './assistant-partage-interpretation'
