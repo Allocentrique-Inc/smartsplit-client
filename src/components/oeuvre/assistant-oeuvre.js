@@ -82,20 +82,19 @@ class AssistantOeuvre extends Component {
     }
 
     render(){
-
         if(this.state.user) {
             return (                
                 <Translation>                
                     {
                         (t, i18n) =>
                             <div className="ui grid">
-                                
                                 <div className="ui row" style={{background: "#FAF8F9", paddingTop: "30px", paddingBottom: "0px"}}>
                                     <div className="ui two wide column" />
                                     <div className="ui fourteen wide column">
                                         <Entete navigation={`/documenter/${this.state.titre}`} menu={true} profil={this.state.user} />
                                     </div>
                                 </div>
+
                                 <div className="ui row" style={{background: "#FAF8F9"}}>
                                     <div className="ui two wide column"></div>
                                     <div className="ui eleven wide column">
