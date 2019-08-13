@@ -22,7 +22,7 @@ import Oeuvre from '../../model/oeuvre/oeuvre'
 import Entete from '../entete/entete'
 
 import { Navbar } from '../navbar/navbar';
-
+import { Trackbar} from "../navbar/trackbar";
 
 import { Auth } from 'aws-amplify'
 
@@ -89,7 +89,8 @@ class AssistantOeuvre extends Component {
                     {
                         (t, i18n) =>
                             <React.Fragment>
-                                <Navbar></Navbar>
+                                <Navbar/>
+                                <Trackbar percentage={ 35 }/>
                                 <div>
                                     Classe
                                 </div>

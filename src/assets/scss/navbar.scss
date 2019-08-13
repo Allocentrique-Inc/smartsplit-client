@@ -1,6 +1,7 @@
-$color-primary: #203548;
-$color-link: #F2724A;
-$color-link-hover: #FFD0A9;
+@import "colors";
+
+$color-link: $color-orange-dark;
+$color-link-hover: $color-orange;
 $margin-step: 16px;
 
 .Navbar {

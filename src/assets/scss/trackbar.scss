@@ -1,0 +1,26 @@
+@import "colors";
+
+$color-on: $color-orange-dark;
+$color-off: $color-stroke;
+
+$trackbar-height: 2px;
+
+.Trackbar {
+    position: relative;
+
+    width: 100%;
+    height: $trackbar-height;
+
+    background-color: $color-off;
+
+    .progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 0%;
+        height: $trackbar-height;
+
+        background-color: $color-on;
+    }
+}
