@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 
 // Assistant
 import { Wizard } from "semantic-ui-react-formik"
-import { Effect } from "formik-effect"
 
 // Traduction
 import { Translation } from 'react-i18next'
@@ -23,7 +22,6 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
-import { Progress } from 'semantic-ui-react';
 
 class AssistantPartage extends Component {
     
@@ -33,15 +31,15 @@ class AssistantPartage extends Component {
             mediaId: this.props.mediaId,
             user: null     
         }
-        this.refAssistant = this.refAssistant.bind(this)
+        this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
+        this.soumettre = this.soumettre.bind(this)
     }
 
-    componentWillMount() {        
-
+    componentWillMount() {
         Auth.currentAuthenticatedUser()
         .then(res=>{
             this.setState({user: res})
-            this.recupererOeuvre()            
+            this.recupererOeuvre()
         })
         .catch(err=>{
             toast.error(err.message)
@@ -84,11 +82,7 @@ class AssistantPartage extends Component {
         })
     }
 
-    refAssistant(assistant) {
-        this.setState({assistant: assistant})
-    }
-
-    soumettre(values, cb) {
+    soumettre(values, etat, cb) {
         console.log('Soumettre le partage', values)
         
         if(this.state.user) {
@@ -216,9 +210,7 @@ class AssistantPartage extends Component {
                         "contributorRole": roles,
                         "splitPct": `${elem.pourcent}`
                     })
-                })
-
-                console.log('profil', this.state.user)
+                })            
 
                 let body = {
                     uuid: "",
@@ -240,7 +232,8 @@ class AssistantPartage extends Component {
                             "split": droitEnregistrement
                         }
                     },
-                    "comments": []
+                    "comments": [],
+                    "state": etat
                 }
                 body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split"})
                 console.log('Envoi', body)
@@ -272,6 +265,19 @@ class AssistantPartage extends Component {
         }
     }
 
+    enregistrerEtQuitter(valeurs) {
+        this.soumettre(valeurs, "BROUILLON", ()=>{
+            Auth.signOut()
+            .then(data=>{
+                toast.success("Déconnexion réussie")
+                setTimeout(() => {
+                    window.location.href = '/accueil'
+                }, 1000)
+            })
+            .catch(error=>toast.error("Erreur..."))
+        })        
+    }
+
     render() {
 
         if(this.state.media) {
@@ -280,40 +286,28 @@ class AssistantPartage extends Component {
                     {
                         (t, i18n)=>
                             <div className="ui grid" style={{padding: "10px"}}>
-                                <EntetePartage enregistrer={
-                                    (cb)=>{
-                                        this.soumettre(this.state.assistant.props.values, cb)
-                                    }} media={this.state.media} user={this.state.user} />
-                                <div className="ui row">                                    
-                                    <div className="ui sixteen wide column">
-                                        <Progress percent="10" size='tiny' indicating/>
-                                    </div>                                    
-                                </div>                                
+                                <EntetePartage media={this.state.media} user={this.state.user} />
                                 <div className="ui row">
                                 <div className="ui two wide column" />
                                     <div className="ui twelve wide column">
-                                        <Wizard
-                                            ref={(assistant)=>{
-                                                if(!this.state.assistant)
-                                                    this.refAssistant(assistant)
-                                            }}
+                                        <Wizard                                    
                                             initialValues={{
                                                 droitAuteur: [],
                                                 droitInterpretation : [],
                                                 droitEnregistrement: [],
                                                 collaborateur: [],
-                                                song: this.state.media.title
+                                                media: this.state.media
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                             debug={false}
-                                            onSubmit={this.soumettre.bind(this)}                                            
-                                            >                                            
-            
-                                            <Wizard.Page>
-                                                <PageAssistantPartageDroitAuteur i18n={i18n} />
+                                            onSubmit={()=>{this.soumettre(this.props.values, "PRET")}}
+                                            >
+
+                                            <Wizard.Page>                                                
+                                                <PageAssistantPartageDroitAuteur enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
             
-                                            <Wizard.Page>
+                                            <Wizard.Page>                                                
                                                 <PageAssistantPartageDroitInterpretation i18n={i18n} />
                                             </Wizard.Page>
             

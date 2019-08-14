@@ -156,9 +156,9 @@ class AssistantPartageEditeur extends Component {
                                     <div className="ui sixteen wide column">
                                         <Progress percent="10" size='tiny' indicating/>
                                     </div>                                    
-                                </div>                                
+                                </div>
                                 <div className="ui row">
-                                <div className="ui two wide column" />
+                                    <div className="ui two wide column" />
                                     <div className="ui twelve wide column">
                                         <Wizard                                           
                                             initialValues={{                                                                                                

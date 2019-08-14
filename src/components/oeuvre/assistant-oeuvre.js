@@ -141,7 +141,7 @@ class AssistantOeuvre extends Component {
                                                     setTimeout(()=>{
                                                         window.location.href = '/liste-oeuvres'
                                                     }, 4000)                                
-                                                })                            
+                                                })
                                                 .catch((error) => {
                                                     toast.error(error)
                                                     
@@ -150,11 +150,9 @@ class AssistantOeuvre extends Component {
                                                 })
     
                                             }}
-                                            onPageChanged={(page)=>{                                   
-                                            }}
-                                            buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}                        
+                                            buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                             debug={false}
-                                        >                            
+                                        >
     
                                             <Wizard.Page>
                                                 <Embarquement audio={this.state.audio} i18n={i18n} pctProgression={5} />

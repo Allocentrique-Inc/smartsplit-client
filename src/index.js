@@ -44,7 +44,8 @@ import SignInFacebook from './components/auth/SignInFacebook'
 import SignInGoogle from './components/auth/SignInGoogle'
 
 // Sommaires
-import SommairePartage from './components/partage/partage-sommaire'
+import SommairePartages from './components/partage/sommaire-partages' // Plusieurs partages (liste de un partage)
+import SommairePartage from './components/partage/partage-sommaire'  // Un partage
 import SommaireOeuvre from './components/oeuvre/oeuvre-sommaire'
 import AssistantPartageEditeur from './components/partage/assistant-partage-editeur';
 
@@ -117,7 +118,8 @@ function SommaireProposition(match) {
 
 function Partager(match) {
   let mediaId = match.match.params.mediaId
-  return (<AssistantPartage mediaId={mediaId} />)
+  return (<SommairePartages mediaId={mediaId} />)
+  //return (<AssistantPartage mediaId={mediaId} />)
 }
 
 function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
