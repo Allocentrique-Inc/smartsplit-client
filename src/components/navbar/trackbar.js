@@ -4,7 +4,7 @@ import '../../assets/scss/trackbar.scss';
 export class Trackbar extends React.Component {
 
     render() {
-        const progressBarStyle = { width: this.props.percentage + '%' };
+        const progressBarStyle = { width: this.props.pourcentage + '%' };
 
         return (
             <div className="Trackbar">

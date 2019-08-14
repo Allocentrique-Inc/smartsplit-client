@@ -11,8 +11,8 @@ export class Navbar extends React.Component {
                         <img src={ placeholder }/>
                     </div>
 
-                    <div className="songName">
-                        [Nom de chanson]
+                    <div className="song-title">
+                        { this.props.songTitle }
                     </div>
 
                     <div className="documentation-label">

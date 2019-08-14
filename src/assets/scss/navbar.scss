@@ -9,7 +9,7 @@ $margin-step: 16px;
     width: 100%;
     padding: 5px 16px;
 
-    background-color: white;
+    background-color: $color-background;
     color: $color-primary;
 
     display: flex;
@@ -24,14 +24,6 @@ $margin-step: 16px;
 
         display: flex;
         align-items: center;
-
-        & > div {
-            margin: 0 $margin-step;
-
-            &:first-child {
-                margin-left: 0;
-            }
-        }
     }
 
     .right {
@@ -39,13 +31,17 @@ $margin-step: 16px;
     }
 }
 
-.song-image img {
-    width: 40px;
-    height: 40px;
+.song-image {
+    margin: 0 $margin-step 0 0;
+
+    img {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 .documentation-label {
-    margin-left: $margin-step * 2;
+    margin: 0 0 0 $margin-step * 2;
     font-weight: bold;
 }
 
@@ -59,3 +55,4 @@ $margin-step: 16px;
         color: $color-link-hover;
     }
 }
+

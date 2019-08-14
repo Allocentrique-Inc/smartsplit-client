@@ -13,16 +13,15 @@ import PageGenres from './assistant-oeuvre-genres'
 import PagePro from './assistant-oeuvre-pro'
 import PageLiens from './assistant-oeuvre-liens'
 import AudioLecture from './audio-lecture'
+
 // Alertes
 import { toast } from 'react-toastify'
 // Traduction
 import { Translation } from 'react-i18next'
 // Modèle
 import Oeuvre from '../../model/oeuvre/oeuvre'
-import Entete from '../entete/entete'
 
 import { Navbar } from '../navbar/navbar';
-import { Trackbar} from "../navbar/trackbar";
 
 import { Auth } from 'aws-amplify'
 
@@ -32,7 +31,7 @@ import { confirmAlert } from 'react-confirm-alert'
 class AssistantOeuvre extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             pctProgression: 0,
             titre: props.titre
@@ -82,6 +81,53 @@ class AssistantOeuvre extends Component {
         }
     }
 
+    getInitialValues() {
+        return {
+            // mediaId: 0,
+            title: this.state.titre,
+            album: "",
+            artist: "",
+            cover: "false",
+            rightHolders: [{}],
+            jurisdiction: "",
+            rightsType: [],
+            genre: "",
+            secondaryGenre: [],
+            lyrics: "",
+            inLanguages: [],
+            isrc: "",
+            upc: "",
+            msDuration: "",
+            socialMediaLinks: [],
+            streamingServiceLinks: [],
+            pressArticleLinks: [],
+            playlistLinks: [],
+            creationDate: "",
+            modificationDate: "",
+            publishDate: "",
+            publisher: "",
+            rightsSplit: {}
+        };
+    }
+
+    onSubmit(values, actions, t) {
+        let oeuvre = new Oeuvre(values);
+        let body = oeuvre.get();
+
+        axios.post('http://api.smartsplit.org:8080/v1/media', body)
+            .then((response) => {
+                actions.setSubmitting(false);
+                toast(t('flot.envoi.reussi'));
+
+                setTimeout(() => {
+                    window.location.href = '/liste-oeuvres';
+                }, 4000);
+            })
+            .catch((error) => {
+                toast.error(error);
+            });
+    }
+
     render() {
         if (this.state.user) {
             return (
@@ -89,13 +135,50 @@ class AssistantOeuvre extends Component {
                     {
                         (t, i18n) =>
                             <React.Fragment>
-                                <Navbar/>
-                                <Trackbar percentage={ 35 }/>
-                                <div>
-                                    Classe
-                                </div>
-                            </React.Fragment>
+                                <Navbar songTitle={ this.state.titre }/>
 
+                                <Wizard
+                                    initialValues={ this.getInitialValues() }
+                                    onSubmit={ (values, actions, t) => {
+                                        this.onSubmit(values, actions, t)
+                                    } }
+                                    buttonLabels={ {
+                                        previous: t('navigation.precedent'),
+                                        next: t('navigation.suivant'),
+                                        submit: t('navigation.envoi')
+                                    } }
+                                    debug={ false }
+                                >
+                                    <Wizard.Page>
+                                        <Embarquement audio={ this.state.audio } i18n={ i18n } pctProgression={ 5 }/>
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageCollaborateurs i18n={ i18n } pctProgression={ 15 }/>
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageParoles i18n={ i18n } pctProgression={ 55 }/>
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageGenres i18n={ i18n } pctProgression={ 75 }/>
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PagePro pctProgression={ 85 }/>
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageLiens pctProgression={ 97 }/>
+                                    </Wizard.Page>
+
+                                </Wizard>
+
+                                <AudioLecture onRef={
+                                    (audio)=>{ this.setState({audio: audio}) }
+                                } />
+                            </React.Fragment>
                     }
                 </Translation>
             )
