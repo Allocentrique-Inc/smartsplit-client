@@ -4,24 +4,26 @@
  * Cet écran apparaît sans progression au-dessus.
  */
 
-import React, { Component } from 'react'
-import { confirmAlert } from 'react-confirm-alert'
+import React, { Component } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
 
 // Traduction
-import { Translation } from 'react-i18next'
-import { Trackbar } from "../navbar/trackbar";
-// Alertes
-import { toast } from 'react-toastify'
+import { Translation } from 'react-i18next';
 
-// Progression
+// Alertes
+import { toast } from 'react-toastify';
+
 // Champs de formulaire
-import { ChampTexteAssistant } from '../formulaires/champ-texte'
-import { ChampTeleversement } from '../formulaires/champ-televersement'
-import { ChampInterrupteurAssistant } from '../formulaires/champ-interrupteur'
+import { ChampTexteAssistant } from '../formulaires/champ-texte';
+import { ChampTeleversement } from '../formulaires/champ-televersement';
+import { ChampInterrupteurAssistant } from '../formulaires/champ-interrupteur';
+
 // Image de méditation
-import image from '../../assets/images/meditation-ecouteurs-femme.jpg'
+import image from '../../assets/images/meditation-ecouteurs-femme.jpg';
+
 // CSS
-import 'react-confirm-alert/src/react-confirm-alert.css'
+import 'react-confirm-alert/src/react-confirm-alert.css';
+import '../../assets/scss/assistant-form.scss';
 
 class PageAssistantOeuvreEmbarquement extends Component {
 
@@ -47,7 +49,7 @@ class PageAssistantOeuvreEmbarquement extends Component {
             <Translation>
                 { (t) =>
                     <React.Fragment>
-                        <div className="ui container">
+                        <div className="ui container assistant-container">
                             <div className="ui grid">
                                 <div
                                     className="ui sixteen wide mobile eight wide tablet eight wide computer column"

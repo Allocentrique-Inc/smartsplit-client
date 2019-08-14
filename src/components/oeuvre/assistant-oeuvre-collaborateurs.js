@@ -4,12 +4,8 @@
 
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
-import { ChampTexteAssistant } from "../formulaires/champ-texte"
-import { ChampListeAssistant } from "../formulaires/champ-liste"
-// Progression
-import { Progress } from 'semantic-ui-react'
 
-import { FieldArray } from 'formik'
+import '../../assets/scss/assistant-form.scss';
 
 class PageAssistantOeuvreDescription extends Component {
 
@@ -50,71 +46,27 @@ class PageAssistantOeuvreDescription extends Component {
                 {
                     (t) =>
                         <React.Fragment>
-                            <h2>{ t('flot.collaborateurs.titre') }</h2>
+                            <div className="ui container assistant-container">
+                                <div className="ui grid">
+                                    <div
+                                        className="ui sixteen wide mobile eight wide tablet eight wide computer column"
+                                    >
+                                        <h1 className="section-name">
+                                            <span className="section-icon"></span>
 
-                            <FieldArray
-                                name="rightHolders"
-                                render={ arrayHelpers => (
-                                    <div>
-                                        {
-                                            this.props.values.rightHolders.map((collaborateur, index) => (
-                                                <div key={ `collaborateur.${ index }` }>
-                                                    <div className="fields">
-                                                        <div className="field">
-                                                            <button
-                                                                type="button"
-                                                                onClick={ () => arrayHelpers.remove(index) }>
-                                                                <i className="remove icon"></i>
-                                                            </button>
-                                                        </div>
+                                            <span className="section-label">Création</span>
+                                        </h1>
 
-                                                        <div className="four wide field">
-                                                            <ChampTexteAssistant
-                                                                etiquette={ t('collaborateur.attribut.etiquette.prenom') }
-                                                                indication={ t('collaborateur.attribut.indication.prenom') }
-                                                                modele={ `rightHolders[${ index }].prenom` }
-                                                                requis={ true } autoFocus={ true }/>
-                                                        </div>
+                                        <h2 className="question">
+                                            Qui a participé à la création de { this.props.songTitle }
+                                        </h2>
 
-                                                        <div className="four wide field">
-                                                            <ChampTexteAssistant
-                                                                etiquette={ t('collaborateur.attribut.etiquette.nom') }
-                                                                indication={ t('collaborateur.attribut.indication.nom') }
-                                                                modele={ `rightHolders[${ index }].nom` }
-                                                                requis={ true } autoFocus={ false }/>
-                                                        </div>
-
-                                                        <div className="four wide field">
-                                                            <ChampTexteAssistant
-                                                                etiquette={ t('collaborateur.attribut.etiquette.artiste') }
-                                                                indication={ t('collaborateur.attribut.indication.artiste') }
-                                                                modele={ `rightHolders[${ index }].artiste` }
-                                                                requis={ false } autoFocus={ false }/>
-                                                        </div>
-
-                                                        <div className="four wide field">
-                                                            <ChampListeAssistant
-                                                                etiquette={ t('collaborateur.attribut.etiquette.role') }
-                                                                indication={ t('collaborateur.attribut.indication.role') }
-                                                                modele={ `rightHolders[${ index }].role` }
-                                                                requis={ true } fluid={ true } multiple={ true }
-                                                                recherche={ true } selection={ true } autoFocus={ true }
-                                                                options={ this.state.roles }/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        }
-
-                                        <button
-                                            type="button"
-                                            onClick={ () => arrayHelpers.insert() }
-                                        >
-                                            <i className="plus circle icon big"></i>
-                                        </button>
+                                        <p className="section-description">
+                                            [À reformuler] Ici, on crée les crédits qui décrivent ta pièce. Tu vas pouvoir indiquer qui a fait quoi, quand, où et avec quel instrument.
+                                        </p>
                                     </div>
-                                ) }
-                            />
+                                </div>
+                            </div>
                         </React.Fragment>
                 }
             </Translation>

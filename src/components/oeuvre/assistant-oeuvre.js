@@ -30,7 +30,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import { Trackbar } from "../navbar/trackbar";
 
 class AssistantOeuvre extends Component {
-    pageProgressPercentages = [5, 15, 55, 75, 85, 97];
+    pageProgressPercentages = [5, 15, 55, 75, 85, 97, 100];
 
     constructor(props) {
         super(props);
@@ -169,7 +169,7 @@ class AssistantOeuvre extends Component {
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageCollaborateurs i18n={ i18n } pctProgression={ 15 }/>
+                                        <PageCollaborateurs i18n={ i18n } songTitle={ this.state.titre }/>
                                     </Wizard.Page>
 
                                     <Wizard.Page>
