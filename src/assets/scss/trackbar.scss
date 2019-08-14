@@ -22,5 +22,8 @@ $trackbar-height: 2px;
         height: $trackbar-height;
 
         background-color: $color-on;
+
+        transition: width 0.5s ease;
+        will-change: width;
     }
 }

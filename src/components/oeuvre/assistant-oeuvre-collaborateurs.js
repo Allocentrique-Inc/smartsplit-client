@@ -50,7 +50,6 @@ class PageAssistantOeuvreDescription extends Component {
                 {
                     (t) =>
                         <React.Fragment>
-                            <Progress percent={ this.state.pctProgression } indicating></Progress>
                             <h2>{ t('flot.collaborateurs.titre') }</h2>
 
                             <FieldArray

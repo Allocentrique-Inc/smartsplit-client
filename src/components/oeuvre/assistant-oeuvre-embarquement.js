@@ -47,8 +47,6 @@ class PageAssistantOeuvreEmbarquement extends Component {
             <Translation>
                 { (t) =>
                     <React.Fragment>
-                        <Trackbar pourcentage={ this.state.pctProgression }/>
-
                         <div className="ui container">
                             <div className="ui grid">
                                 <div

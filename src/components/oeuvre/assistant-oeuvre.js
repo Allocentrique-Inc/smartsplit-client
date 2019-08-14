@@ -27,13 +27,15 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
+import { Trackbar } from "../navbar/trackbar";
 
 class AssistantOeuvre extends Component {
+    pageProgressPercentages = [5, 15, 55, 75, 85, 97];
 
     constructor(props) {
         super(props);
         this.state = {
-            pctProgression: 0,
+            pctProgression: this.pageProgressPercentages[0],
             titre: props.titre
         }
     }
@@ -110,6 +112,14 @@ class AssistantOeuvre extends Component {
         };
     }
 
+    onPageChanged(value) {
+        const newProgressPercentage = this.pageProgressPercentages[value] || 100;
+
+        this.setState({
+            pctProgression: newProgressPercentage
+        });
+    }
+
     onSubmit(values, actions, t) {
         let oeuvre = new Oeuvre(values);
         let body = oeuvre.get();
@@ -136,12 +146,17 @@ class AssistantOeuvre extends Component {
                         (t, i18n) =>
                             <React.Fragment>
                                 <Navbar songTitle={ this.state.titre }/>
+                                <Trackbar pourcentage={ this.state.pctProgression }/>
 
                                 <Wizard
                                     initialValues={ this.getInitialValues() }
+
+                                    onPageChanged={ this.onPageChanged.bind(this) }
+
                                     onSubmit={ (values, actions, t) => {
                                         this.onSubmit(values, actions, t)
                                     } }
+
                                     buttonLabels={ {
                                         previous: t('navigation.precedent'),
                                         next: t('navigation.suivant'),
