@@ -38,8 +38,6 @@ class AssistantOeuvre extends Component {
             pctProgression: 0,
             titre: props.titre
         }
-
-        /* commentaire */
     }
 
     componentWillMount() {
