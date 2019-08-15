@@ -62,7 +62,7 @@ class PageAssistantOeuvreDescription extends Component {
                                         </h2>
 
                                         <p className="section-description">
-                                            [À reformuler] Ici, on crée les crédits qui décrivent ta pièce. Tu vas pouvoir indiquer qui a fait quoi, quand, où et avec quel instrument.
+                                            C’est ici que tu indiques qui a contribué à la création de cette pièce.
                                         </p>
                                     </div>
                                 </div>
