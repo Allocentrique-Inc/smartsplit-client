@@ -37,7 +37,9 @@ class AssistantOeuvre extends Component {
         this.state = {
             pctProgression: 0,
             titre: props.titre
-        }        
+        }
+
+        /* commentaire */
     }
 
     componentWillMount() {
