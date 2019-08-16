@@ -6,6 +6,16 @@
     margin-top: 64px;
 }
 
+.form-column {
+    > label:first-of-type {
+        margin-top: $margin-step * 4;
+    }
+
+    > label + label {
+        margin-top: $margin-step * 2;
+    }
+}
+
 .section-title {
     display: flex;
     align-items: center;
@@ -31,3 +41,14 @@
     @extend .medium-400-style;
     color: $color-secondary;
 }
+
+.input-label {
+    @extend .medium-500-style;
+    color: $color-primary;
+}
+
+.input-description {
+    @extend .medium-400-style;
+    color: $color-secondary;
+}
+

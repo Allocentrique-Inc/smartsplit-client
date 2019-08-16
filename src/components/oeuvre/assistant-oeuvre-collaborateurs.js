@@ -75,7 +75,7 @@ class PageAssistantOeuvreDescription extends Component {
                             <div className="ui container assistant-container">
                                 <div className="ui grid">
                                     <div
-                                        className="ui sixteen wide mobile eight wide tablet eight wide computer column"
+                                        className="form-column ui sixteen wide mobile eight wide tablet eight wide computer column"
                                     >
                                         <h1 className="section-title">
                                             <span className="section-icon">
@@ -96,7 +96,7 @@ class PageAssistantOeuvreDescription extends Component {
                                         </p>
 
                                         <label>
-                                            <h3>Date de création</h3>
+                                            <div class="input-label">Date de création</div>
                                             <DateInput
                                                 name="date"
                                                 placeholder="Ajouter une date..."
@@ -106,8 +106,8 @@ class PageAssistantOeuvreDescription extends Component {
                                         </label>
 
                                         <label>
-                                            <h3>Auteurs</h3>
-                                            <p>Qui a écrit les paroles de cette pièce musicale ?</p>
+                                            <div className="input-label">Auteurs</div>
+                                            <p class="input-description">Qui a écrit les paroles de cette pièce musicale ?</p>
                                             <DateInput
                                                 name="date"
                                                 placeholder="Ajouter une date..."
