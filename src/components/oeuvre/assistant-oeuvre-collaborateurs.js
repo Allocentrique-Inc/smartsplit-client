@@ -69,9 +69,13 @@ class PageAssistantOeuvreDescription extends Component {
         return this.persons.filter(this.isUnselectedPerson);
     }
 
-    onAuthorSelection(event, { value }) {
+    onAuthorSelection = (event, { value }) => {
+        event.preventDefault();
         this.selectPerson(value);
-    }
+        this.setState({
+            selectedAuthorValue: null
+        });
+    };
 
     selectPerson(personValue) {
         const selectedAuthorValues = this.state.selectedAuthorValues;
@@ -85,21 +89,23 @@ class PageAssistantOeuvreDescription extends Component {
         });
     }
 
-    unselectPerson(person) {
+    unselectPerson(event, person) {
+        event.preventDefault();
         const selectedAuthorValues = this.state.selectedAuthorValues.filter(value => value !== person.value);
 
         this.setState({
-            selectedAuthorValues: selectedAuthorValues
+            selectedAuthorValues: selectedAuthorValues,
+            selectedAuthorValue: null
         });
     }
 
     renderSelectedPersons() {
         return this.getSelectedPersons().map(person => {
             return <div className={ 'h3-style' }
-                        onClick={ () => {
-                            this.unselectPerson(person);
+                        onClick={ (event) => {
+                            this.unselectPerson(event, person);
                         } }
-                        key={ 'person.key' }
+                        key={ person.key }
             >
                 { person.text }
             </div>;
@@ -158,8 +164,10 @@ class PageAssistantOeuvreDescription extends Component {
                                             <Dropdown
                                                 placeholder='Ajouter un auteur...'
                                                 fluid
+                                                search
                                                 selection
-                                                onChange={ this.onAuthorSelection.bind(this) }
+                                                value={ this.state.selectedAuthorValue }
+                                                onChange={ this.onAuthorSelection }
                                                 options={ this.getUnselectedPersons() }
                                             />
                                         </label>
