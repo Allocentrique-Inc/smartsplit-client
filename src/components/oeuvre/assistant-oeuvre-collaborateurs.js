@@ -5,54 +5,46 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
+import { Dropdown } from "semantic-ui-react";
 import { DateInput } from 'semantic-ui-calendar-react';
 
 import copyrightIcon from '../../assets/images/icon_copyright.png';
+import avatar1 from '../../assets/images/steve.jpg';
+import avatar2 from '../../assets/images/stevie.jpg';
+import avatar3 from '../../assets/images/elliot.jpg';
+
 import '../../assets/scss/assistant-form.scss';
 
 class PageAssistantOeuvreDescription extends Component {
+    persons = [
+        {
+            key: 1,
+            text: 'Gros Bidule',
+            value: 1,
+            image: { avatar: true, src: avatar1 }
+        },
+        {
+            key: 2,
+            text: 'Machin Chouette',
+            value: 2,
+            image: { avatar: true, src: avatar2 }
+        },
+        {
+            key: 3,
+            text: 'Souffler Danslecou',
+            value: 3,
+            image: { avatar: true, src: avatar3 }
+        },
+    ];
 
     constructor(props) {
         super(props);
 
-        const ROLES = require('../../assets/listes/roles.json');
-        const INSTRUMENTS = require(`../../assets/listes/${ props.i18n.lng.substring(0, 2) }/instruments.json`).instruments;
-
-        let _roles = ROLES;
-
-        this.persons = [
-            {
-                key: 1,
-                text: 'Gros Bidule',
-                value: 1
-            },
-            {
-                key: 2,
-                text: 'Machin Chouette',
-                value: 2
-            },
-            {
-                key: 3,
-                text: 'Souffler Danslecou',
-                value: 3
-            },
-        ];
-
-        // Charger la liste des instruments dans les rôles
-        // Structure d'un élément d'option de liste Formik : [Clé|key;Texte|text;Valeur|value]
-        INSTRUMENTS.forEach((elem) => {
-            let id = `R${ ROLES.length + 1 }`
-            _roles.push({
-                key: id,
-                text: elem.nom,
-                value: id
-            })
-        })
-
         this.state = {
             pctProgression: props.pctProgression,
-            roles: _roles,
-            dateCreation: ''
+            dateCreation: '',
+            selectedAuthorValues: [],
+            selectedAuthorValue: null
         }
     }
 
@@ -65,6 +57,54 @@ class PageAssistantOeuvreDescription extends Component {
     setDateCreation = (event, { value }) => {
         this.setState({ dateCreation: value });
     };
+
+    isSelectedPerson = person => this.state.selectedAuthorValues.includes(person.value);
+    isUnselectedPerson = person => !this.isSelectedPerson(person);
+
+    getSelectedPersons() {
+        return this.persons.filter(this.isSelectedPerson);
+    }
+
+    getUnselectedPersons() {
+        return this.persons.filter(this.isUnselectedPerson);
+    }
+
+    onAuthorSelection(event, { value }) {
+        this.selectPerson(value);
+    }
+
+    selectPerson(personValue) {
+        const selectedAuthorValues = this.state.selectedAuthorValues;
+
+        if (!selectedAuthorValues.includes(personValue)) {
+            selectedAuthorValues.push(personValue);
+        }
+
+        this.setState({
+            selectedAuthorValues: selectedAuthorValues
+        });
+    }
+
+    unselectPerson(person) {
+        const selectedAuthorValues = this.state.selectedAuthorValues.filter(value => value !== person.value);
+
+        this.setState({
+            selectedAuthorValues: selectedAuthorValues
+        });
+    }
+
+    renderSelectedPersons() {
+        return this.getSelectedPersons().map(person => {
+            return <div className={ 'h3-style' }
+                        onClick={ () => {
+                            this.unselectPerson(person);
+                        } }
+                        key={ 'person.key' }
+            >
+                { person.text }
+            </div>;
+        })
+    }
 
     render() {
         return (
@@ -79,7 +119,7 @@ class PageAssistantOeuvreDescription extends Component {
                                     >
                                         <h1 className="section-title">
                                             <span className="section-icon">
-                                                <img src={copyrightIcon} alt={'création'}/>
+                                                <img src={ copyrightIcon } alt={ 'création' }/>
                                             </span>
 
                                             <span className="section-label">
@@ -88,7 +128,7 @@ class PageAssistantOeuvreDescription extends Component {
                                         </h1>
 
                                         <h2 className="section-question">
-                                            Qui a participé à la création de { this.props.songTitle }
+                                            Qui a participé à la création de { this.props.songTitle }&#8239;?
                                         </h2>
 
                                         <p className="section-description">
@@ -96,9 +136,10 @@ class PageAssistantOeuvreDescription extends Component {
                                         </p>
 
                                         <label>
-                                            <div class="input-label">Date de création</div>
+                                            <div className="input-label">Date de création</div>
+
                                             <DateInput
-                                                name="date"
+                                                name="dateCreation"
                                                 placeholder="Ajouter une date..."
                                                 value={ this.state.dateCreation }
                                                 onChange={ this.setDateCreation }
@@ -107,23 +148,21 @@ class PageAssistantOeuvreDescription extends Component {
 
                                         <label>
                                             <div className="input-label">Auteurs</div>
-                                            <p class="input-description">Qui a écrit les paroles de cette pièce musicale ?</p>
-                                            <DateInput
-                                                name="date"
-                                                placeholder="Ajouter une date..."
-                                                value={ this.state.dateCreation }
-                                                onChange={ this.setDateCreation }
+
+                                            <p className="input-description">
+                                                Qui a écrit les paroles de cette pièce musicale&#8239;?
+                                            </p>
+
+                                            { this.renderSelectedPersons() }
+
+                                            <Dropdown
+                                                placeholder='Ajouter un auteur...'
+                                                fluid
+                                                selection
+                                                onChange={ this.onAuthorSelection.bind(this) }
+                                                options={ this.getUnselectedPersons() }
                                             />
                                         </label>
-
-                                        {/*<Dropdown
-                                            placeholder='State'
-                                            fluid
-                                            multiple
-                                            search
-                                            selection
-                                            options={this.persons}
-                                        />*/ }
                                     </div>
                                 </div>
                             </div>
