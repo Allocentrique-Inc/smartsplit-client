@@ -1,3 +1,33 @@
+@import "colors";
+@import "dimensions";
+@import "typography";
+
 .assistant-container {
     margin-top: 64px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+
+    .section-label {
+        margin-left: $margin-step;
+
+        @extend .medium-500-caps-style;
+        color: $color-orange-dark;
+    }
+}
+
+.section-question {
+    margin-top: $margin-step * 2;
+
+    @extend .h1-style;
+    color: $color-primary;
+}
+
+.section-description {
+    margin-top: $margin-step;
+
+    @extend .medium-400-style;
+    color: $color-secondary;
 }

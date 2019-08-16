@@ -7,6 +7,7 @@ import { Translation } from 'react-i18next'
 
 import { DateInput } from 'semantic-ui-calendar-react';
 
+import copyrightIcon from '../../assets/images/icon_copyright.png';
 import '../../assets/scss/assistant-form.scss';
 
 class PageAssistantOeuvreDescription extends Component {
@@ -76,13 +77,17 @@ class PageAssistantOeuvreDescription extends Component {
                                     <div
                                         className="ui sixteen wide mobile eight wide tablet eight wide computer column"
                                     >
-                                        <h1 className="section-name">
-                                            <span className="section-icon"></span>
+                                        <h1 className="section-title">
+                                            <span className="section-icon">
+                                                <img src={copyrightIcon} alt={'création'}/>
+                                            </span>
 
-                                            <span className="section-label">Création</span>
+                                            <span className="section-label">
+                                                Création
+                                            </span>
                                         </h1>
 
-                                        <h2 className="question">
+                                        <h2 className="section-question">
                                             Qui a participé à la création de { this.props.songTitle }
                                         </h2>
 
@@ -90,13 +95,26 @@ class PageAssistantOeuvreDescription extends Component {
                                             C’est ici que tu indiques qui a contribué à la création de cette pièce.
                                         </p>
 
-                                        <label for="date_creation">Date de création</label>
-                                        <DateInput
-                                            name="date"
-                                            placeholder="Ajouter une date..."
-                                            value={this.state.dateCreation}
-                                            onChange={this.setDateCreation}
-                                        />
+                                        <label>
+                                            <h3>Date de création</h3>
+                                            <DateInput
+                                                name="date"
+                                                placeholder="Ajouter une date..."
+                                                value={ this.state.dateCreation }
+                                                onChange={ this.setDateCreation }
+                                            />
+                                        </label>
+
+                                        <label>
+                                            <h3>Auteurs</h3>
+                                            <p>Qui a écrit les paroles de cette pièce musicale ?</p>
+                                            <DateInput
+                                                name="date"
+                                                placeholder="Ajouter une date..."
+                                                value={ this.state.dateCreation }
+                                                onChange={ this.setDateCreation }
+                                            />
+                                        </label>
 
                                         {/*<Dropdown
                                             placeholder='State'

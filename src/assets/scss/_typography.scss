@@ -1,0 +1,79 @@
+$base-font-family: "IBM Plex Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+.h1-style,
+.h2-style,
+.h3-style,
+.h4-style,
+.h5-style,
+.medium-400-style,
+.medium-500-style,
+.medium-500-caps-style,
+.small-400-style,
+.small-500-style,
+.small-500-caps-style {
+    font-family: $base-font-family;
+}
+
+.h1-style {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 48px;
+}
+
+.h2-style {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+}
+
+.h3-style {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+}
+
+.h4-style {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.h5-style {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+}
+
+.medium-400-style,
+.medium-500-style,
+.medium-500-caps-style {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.small-400-style,
+.small-500-style,
+.small-500-caps-style {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.medium-400-style,
+.small-400-style {
+    font-weight: 400;
+}
+
+.medium-500-style,
+.medium-500-caps-style,
+.small-500-style,
+.small-500-caps-style {
+    font-weight: 700;
+}
+
+.medium-500-caps-style,
+.small-500-caps-style {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+
