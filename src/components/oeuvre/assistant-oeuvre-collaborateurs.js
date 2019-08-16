@@ -8,7 +8,7 @@ import { Translation } from 'react-i18next'
 import { Dropdown } from "semantic-ui-react";
 import { DateInput } from 'semantic-ui-calendar-react';
 
-import copyrightIcon from '../../assets/images/icon_copyright.png';
+import copyrightIcon from '../../assets/svg/icons/copyright-orange.svg';
 import avatar1 from '../../assets/images/steve.jpg';
 import avatar2 from '../../assets/images/stevie.jpg';
 import avatar3 from '../../assets/images/elliot.jpg';
