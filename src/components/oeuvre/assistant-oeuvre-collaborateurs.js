@@ -5,6 +5,8 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
+import { DateInput } from 'semantic-ui-calendar-react';
+
 import '../../assets/scss/assistant-form.scss';
 
 class PageAssistantOeuvreDescription extends Component {
@@ -16,6 +18,24 @@ class PageAssistantOeuvreDescription extends Component {
         const INSTRUMENTS = require(`../../assets/listes/${ props.i18n.lng.substring(0, 2) }/instruments.json`).instruments;
 
         let _roles = ROLES;
+
+        this.persons = [
+            {
+                key: 1,
+                text: 'Gros Bidule',
+                value: 1
+            },
+            {
+                key: 2,
+                text: 'Machin Chouette',
+                value: 2
+            },
+            {
+                key: 3,
+                text: 'Souffler Danslecou',
+                value: 3
+            },
+        ];
 
         // Charger la liste des instruments dans les rôles
         // Structure d'un élément d'option de liste Formik : [Clé|key;Texte|text;Valeur|value]
@@ -30,7 +50,8 @@ class PageAssistantOeuvreDescription extends Component {
 
         this.state = {
             pctProgression: props.pctProgression,
-            roles: _roles
+            roles: _roles,
+            dateCreation: ''
         }
     }
 
@@ -39,6 +60,10 @@ class PageAssistantOeuvreDescription extends Component {
             this.setState({ pctProgression: nextProps.pctProgression })
         }
     }
+
+    setDateCreation = (event, { value }) => {
+        this.setState({ dateCreation: value });
+    };
 
     render() {
         return (
@@ -64,6 +89,23 @@ class PageAssistantOeuvreDescription extends Component {
                                         <p className="section-description">
                                             C’est ici que tu indiques qui a contribué à la création de cette pièce.
                                         </p>
+
+                                        <label for="date_creation">Date de création</label>
+                                        <DateInput
+                                            name="date"
+                                            placeholder="Ajouter une date..."
+                                            value={this.state.dateCreation}
+                                            onChange={this.setDateCreation}
+                                        />
+
+                                        {/*<Dropdown
+                                            placeholder='State'
+                                            fluid
+                                            multiple
+                                            search
+                                            selection
+                                            options={this.persons}
+                                        />*/ }
                                     </div>
                                 </div>
                             </div>
