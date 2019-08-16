@@ -14,6 +14,7 @@ import avatar2 from '../../assets/images/stevie.jpg';
 import avatar3 from '../../assets/images/elliot.jpg';
 
 import '../../assets/scss/assistant-form.scss';
+import { PersonneSelectionnee } from "../formulaires/personne-selectionnee";
 
 class PageAssistantOeuvreDescription extends Component {
     persons = [
@@ -101,14 +102,16 @@ class PageAssistantOeuvreDescription extends Component {
 
     renderSelectedPersons() {
         return this.getSelectedPersons().map(person => {
-            return <div className={ 'h3-style' }
-                        onClick={ (event) => {
-                            this.unselectPerson(event, person);
-                        } }
-                        key={ person.key }
-            >
-                { person.text }
-            </div>;
+            return (
+                <PersonneSelectionnee
+                    key={ person.key }
+                    image={ person.image.src }
+                    nom={ person.text }
+                    onClick={ (event) => {
+                        this.unselectPerson(event, person);
+                    } }
+                />
+            );
         })
     }
 
