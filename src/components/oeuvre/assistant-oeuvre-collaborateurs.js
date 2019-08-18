@@ -5,7 +5,7 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-import { Dropdown } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import { DateInput } from 'semantic-ui-calendar-react';
 
 import copyrightIcon from '../../assets/svg/icons/copyright-orange.svg';
@@ -97,6 +97,7 @@ class PageAssistantOeuvreDescription extends Component {
                                                 placeholder="Ajouter une date..."
                                                 value={ this.state.dateCreation }
                                                 onChange={ this.setDateCreation }
+                                                icon="calendar outline"
                                             />
                                         </label>
 
@@ -125,7 +126,8 @@ class PageAssistantOeuvreDescription extends Component {
                                             <div className="input-label">Code ISWC</div>
 
                                             <p className="input-description">
-                                                L'International Standard Work Code est un code unique d'identification des oeuvres musicales.
+                                                L'International Standard Work Code est un code unique d'identification
+                                                des oeuvres musicales.
                                             </p>
 
                                             <Input

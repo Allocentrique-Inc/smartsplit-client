@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { PersonneSelectionnee } from "./personne-selectionnee";
+import chevronDown from '../../assets/svg/icons/chevron-down.svg';
 
 export class ChampSelection extends Component {
     constructor(props) {
@@ -82,6 +83,7 @@ export class ChampSelection extends Component {
                 { this.renderSelectedItems() }
 
                 <Dropdown
+                    /*trigger={ <span>Auteur <img src={ chevronDown } alt="chevron-down"/></span> }*/
                     placeholder={ this.props.placeholder }
                     fluid
                     search
