@@ -14,7 +14,8 @@ import avatar2 from '../../assets/images/stevie.jpg';
 import avatar3 from '../../assets/images/elliot.jpg';
 
 import '../../assets/scss/assistant-form.scss';
-import { PersonneSelectionnee } from "../formulaires/personne-selectionnee";
+import { ChampSelection } from "../formulaires/champ-selection";
+import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 
 class PageAssistantOeuvreDescription extends Component {
     persons = [
@@ -59,62 +60,6 @@ class PageAssistantOeuvreDescription extends Component {
         this.setState({ dateCreation: value });
     };
 
-    isSelectedPerson = person => this.state.selectedAuthorValues.includes(person.value);
-    isUnselectedPerson = person => !this.isSelectedPerson(person);
-
-    getSelectedPersons() {
-        return this.persons.filter(this.isSelectedPerson);
-    }
-
-    getUnselectedPersons() {
-        return this.persons.filter(this.isUnselectedPerson);
-    }
-
-    onAuthorSelection = (event, { value }) => {
-        event.preventDefault();
-        this.selectPerson(value);
-        this.setState({
-            selectedAuthorValue: null
-        });
-    };
-
-    selectPerson(personValue) {
-        const selectedAuthorValues = this.state.selectedAuthorValues;
-
-        if (!selectedAuthorValues.includes(personValue)) {
-            selectedAuthorValues.push(personValue);
-        }
-
-        this.setState({
-            selectedAuthorValues: selectedAuthorValues
-        });
-    }
-
-    unselectPerson(event, person) {
-        event.preventDefault();
-        const selectedAuthorValues = this.state.selectedAuthorValues.filter(value => value !== person.value);
-
-        this.setState({
-            selectedAuthorValues: selectedAuthorValues,
-            selectedAuthorValue: null
-        });
-    }
-
-    renderSelectedPersons() {
-        return this.getSelectedPersons().map(person => {
-            return (
-                <PersonneSelectionnee
-                    key={ person.key }
-                    image={ person.image.src }
-                    nom={ person.text }
-                    onClick={ (event) => {
-                        this.unselectPerson(event, person);
-                    } }
-                />
-            );
-        })
-    }
-
     render() {
         return (
             <Translation>
@@ -155,23 +100,38 @@ class PageAssistantOeuvreDescription extends Component {
                                             />
                                         </label>
 
+                                        <ChampSelection
+                                            items={ this.persons }
+                                            label="Auteurs"
+                                            description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
+                                            placeholder="Ajouter un auteur..."
+                                        />
+
+                                        <ChampSelection
+                                            items={ this.persons }
+                                            label="Compositeurs"
+                                            description="Qui a composé la musique de cette pièce musicale&#8239;?"
+                                            placeholder="Ajouter un compositeur..."
+                                        />
+
+                                        <ChampSelection
+                                            items={ this.persons }
+                                            label="Éditeurs"
+                                            description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
+                                            placeholder="Ajouter un éditeur..."
+                                        />
+
                                         <label>
-                                            <div className="input-label">Auteurs</div>
+                                            <div className="input-label">Code ISWC</div>
 
                                             <p className="input-description">
-                                                Qui a écrit les paroles de cette pièce musicale&#8239;?
+                                                L'International Standard Work Code est un code unique d'identification des oeuvres musicales.
                                             </p>
 
-                                            { this.renderSelectedPersons() }
-
-                                            <Dropdown
-                                                placeholder='Ajouter un auteur...'
+                                            <Input
                                                 fluid
-                                                search
-                                                selection
-                                                value={ this.state.selectedAuthorValue }
-                                                onChange={ this.onAuthorSelection }
-                                                options={ this.getUnselectedPersons() }
+                                                name="codeIswc"
+                                                placeholder="Ajouter un code..."
                                             />
                                         </label>
                                     </div>
