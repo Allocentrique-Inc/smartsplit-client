@@ -17,6 +17,9 @@ import '../../assets/scss/assistant-form.scss';
 import { ChampSelection } from "../formulaires/champ-selection";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 
+import moment from 'moment';
+import 'moment/locale/fr';
+
 class PageAssistantOeuvreDescription extends Component {
     persons = [
         {
@@ -94,6 +97,7 @@ class PageAssistantOeuvreDescription extends Component {
 
                                             <DateInput
                                                 name="dateCreation"
+                                                localization="fr"
                                                 placeholder="Ajouter une date..."
                                                 value={ this.state.dateCreation }
                                                 onChange={ this.setDateCreation }
