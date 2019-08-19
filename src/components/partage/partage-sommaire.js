@@ -50,6 +50,7 @@ class SommaireDroit extends Component {
             parts: props.parts,
             titre: props.titre,
             icone: props.icon,
+            uuid: props.propositionId,
             donnees: []
         }
     }
@@ -165,7 +166,7 @@ class SommaireDroit extends Component {
                             {_parts}
                         </div>
                         <div className="ui five wide column">
-                            <Beignet uuid={`beignt_${this.state.titre}`} data={_data} />
+                            <Beignet uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data} />
                         </div>
                         <div className="ui one wide column">
                         </div>
@@ -201,10 +202,7 @@ export default class SommairePartage extends Component {
     rafraichirDonnees() {
         axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
         .then(res=>{
-            this.setState({proposition: res.data.Item})
-            Object.keys(this.state.proposition.rightsSplits).forEach(key=>{
-                //console.log("Object key: "+key)
-            })
+            this.setState({proposition: res.data.Item})            
         })
         .catch(err=>{
             toast.error(err)
@@ -215,14 +213,26 @@ export default class SommairePartage extends Component {
 
         let droits = []
 
-        if(this.state.proposition) {
+        if(this.state.proposition) {        
             TYPE_SPLIT.forEach(type=>{
-                droits.push( <SommaireDroit 
-                                key={`sommaire_${type}`}
-                                parts={this.state.proposition.rightsSplits[type]}
-                                titre={type}
-                                icone={undefined}                                
-                                /> )
+
+                let _aDonnees = false
+
+                Object.keys(this.state.proposition.rightsSplits[type]).forEach(_cle=>{
+                    if(this.state.proposition.rightsSplits[type][_cle].length > 0) {
+                        _aDonnees = true
+                    }
+                })
+
+                if(_aDonnees) {
+                    droits.push( <SommaireDroit 
+                        key={`sommaire_${this.state.uuid}_${type}`}
+                        parts={this.state.proposition.rightsSplits[type]}
+                        titre={type}
+                        icone={undefined}   
+                        propositionId={this.state.uuid}                             
+                        /> )
+                }                
             })
         }        
 

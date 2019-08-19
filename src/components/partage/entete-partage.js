@@ -28,15 +28,8 @@ class EntetePartage extends Component {
                                 <i className="file image outline icon huge grey"></i>
                                 {this.state.media && (<span style={{marginLeft: "15px"}} className="medium-400">{this.state.media.title}</span>)}
                                 <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.etape.partage-titre')}</span>
-                                <span style={{cursor: "pointer", position: "absolute", right: "100px"}} className="entete--partage__enregistrerEtQuitter">
-                                    <div style={{marginTop: "10px"}} className="ui medium button" onClick={
-                                        ()=>{
-                                            console.log('Exécution enregistrer et quitter ...')
-                                            this.props.enregistrer(this.state.menu.deconnexion)
-                                        }
-                                        }>
-                                        {t('flot.etape.enregistrerEtQuitter')}
-                                    </div> <MenuProfil onRef={(menu)=>{this.setState({menu: menu})}} user={this.state.user} />
+                                <span style={{cursor: "pointer", position: "absolute", right: "100px"}} className="entete--partage">
+                                    <MenuProfil onRef={(menu)=>{this.setState({menu: menu})}} user={this.state.user} />
                                 </span>
                             </div>                            
                         </div>

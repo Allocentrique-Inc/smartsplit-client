@@ -67,7 +67,7 @@ export default class MenuProfil extends Component {
                 <Dropdown.Item text='Accueil' onClick={()=>{window.location.href = '/accueil'}}/>
                 <Dropdown.Item text='Mon profil' onClick={()=>{console.log('Mon profil')}}/>
                 <Dropdown.Divider />
-                <Dropdown.Item text='Déconnexion' onClick={()=>{this.deconnexion()}}/>                
+                <Dropdown.Item text='Déconnexion' onClick={()=>{this.deconnexion()}}/>
                 </Dropdown.Menu>
             </Dropdown>
         )

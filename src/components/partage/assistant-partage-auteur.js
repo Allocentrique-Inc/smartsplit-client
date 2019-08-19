@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-import { Checkbox } from 'semantic-ui-react'
+import { Checkbox, Progress } from 'semantic-ui-react'
 
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
@@ -34,7 +34,7 @@ class PageAssistantPartageAuteur extends Component {
 
     componentDidMount() {
         this.setState({parts: this.props.values.droitAuteur})
-        this.setState({song: this.props.values.song})
+        this.setState({song: this.props.values.media.title})
     }
 
     componentWillReceiveProps(nextProps) {
@@ -232,7 +232,6 @@ class PageAssistantPartageAuteur extends Component {
                 case MODES.egal:
                     // 1 beignet ou histogramme dépendant du nombre de collaborateurs
                     if(Object.keys(this.state.parts).length < 9) {
-                        console.log(this.state.parts)
                         visualisation = (<Beignet uuid="auteur--beignet" data={this.state.parts}/>)
                     } else {
                         visualisation = (<Histogramme uuid="auteur--histogramme" data={this.state.parts}/>)
@@ -284,7 +283,17 @@ class PageAssistantPartageAuteur extends Component {
                     (t) =>
                         <React.Fragment> 
                                                        
-                        <div className="ui grid">          
+                        <div className="ui grid">   
+                            <div className="ui row">                                                    
+                                <div className="ui thirteen wide column">
+                                    <Progress percent="20" size='tiny' indicating/>                                    
+                                </div>
+                                <div className="ui three wide column">
+                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                        {t('flot.etape.enregistrerEtQuitter')}
+                                    </div>
+                                </div>
+                            </div>
                             <div className="ui row">
                                 <div className="ui seven wide column">
                                     <div className="wizard-title">{t('flot.partage.auteur.titre')}</div>

@@ -188,6 +188,11 @@
         },
         "editeur": {
             "ajout": "Ajouter un éditeur"
+        },
+        "proposition": {
+            "nouvelle": "Créer une nouvelle version",
+            "envoyer": "Envoyer aux collaborateurs",
+            "continuer": "Continuer le partage"
         }
     },
     "traitement": {
@@ -260,5 +265,8 @@
     },
     "action": {
         "commencer": "Commencer"
+    },
+    "temps": {
+        "ilYA": "il y a"
     }
 }

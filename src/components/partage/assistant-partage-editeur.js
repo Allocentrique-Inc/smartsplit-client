@@ -154,9 +154,9 @@ class AssistantPartageEditeur extends Component {
                                     <div className="ui sixteen wide column">
                                         <Progress percent="10" size='tiny' indicating/>
                                     </div>                                    
-                                </div>                                
+                                </div>
                                 <div className="ui row">
-                                <div className="ui two wide column" />
+                                    <div className="ui two wide column" />
                                     <div className="ui twelve wide column">
                                         <Wizard                                           
                                             initialValues={{                                                                                                
@@ -167,7 +167,7 @@ class AssistantPartageEditeur extends Component {
                                                 ayantDroit: {rightHolderId: this.state.user.username, pourcent: undefined} // Pour suivre l'utilisateur courant et son pourcentage dans le partage avec l'éditeur
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={true}
+                                            debug={false}
                                             onSubmit={this.soumettre.bind(this)}                                            
                                             >                                            
             

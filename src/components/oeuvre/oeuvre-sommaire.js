@@ -69,7 +69,8 @@ export default class SommaireOeuvre extends Component {
     render() {
         let _m = ""
         if(this.state.media) {
-            let artiste = this.state.media.artist    
+            let artiste = this.state.media.artist
+            let contenu = (<div className="ui nine wide column"></div>)
             return (
                 <Translation>
                     {
@@ -77,8 +78,8 @@ export default class SommaireOeuvre extends Component {
                             <div className="ui grid">
                                 <div className="ui row" style={{background: "#FAF8F9", paddingTop: "30px", paddingBottom: "0px"}}>
                                     <div className="ui two wide column" />
-                                    <div className="ui fourteen wide column">
-                                        <Entete navigation={'/accueil'} menu={true} profil={this.state.user} />
+                                    <div className="ui fourteen wide column">                                        
+                                        <Entete contenu={contenu} navigation={'/accueil'} profil={this.state.user} />
                                     </div>
                                 </div>
                                 <div className="ui row" style={{background: "#FAF8F9"}}>

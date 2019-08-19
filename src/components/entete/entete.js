@@ -10,7 +10,6 @@ export default class Entete extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            menu: props.menu,
             navigation: props.navigation,
             contenu: props.contenu,
             profil: props.profil
@@ -27,20 +26,16 @@ export default class Entete extends Component {
                     t=>
                         <div className="ui three column grid">
                             <div className="ui row">
-                                <div className="ui eight wide column">                                                                
-                                    <div className="ui one wide column">
-                                        {nav}
-                                    </div>
-                                    <div className="ui fifteen wide column">
-                                        {this.state.contenu}
-                                    </div>                                    
+                                <div className="ui one wide column">
+                                    {nav}
                                 </div>                                
-                                <div className="ui five wide column" style={{textAlign: "right"}}>
+                                {this.state.contenu}
+                                <div className="ui three wide column" style={{textAlign: "right"}}>
                                     {this.state.profil && <MenuProfil user={this.state.profil} />}
                                     {!this.state.profil && <BoutonConnexion />}
                                 </div>                                
                             </div>
-                        </div>                        
+                        </div>
                 }
             </Translation>
         )
