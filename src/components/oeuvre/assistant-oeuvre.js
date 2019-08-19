@@ -13,7 +13,6 @@ import PageGenres from './assistant-oeuvre-genres'
 import PagePro from './assistant-oeuvre-pro'
 import PageLiens from './assistant-oeuvre-liens'
 import AudioLecture from './audio-lecture'
-
 // Alertes
 import { toast } from 'react-toastify'
 // Traduction
@@ -34,21 +33,22 @@ class AssistantOeuvre extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             pctProgression: this.pageProgressPercentages[0],
-            titre: props.titre
-        }
+            title: props.titre,
+        };
     }
 
     componentWillMount() {
         Auth.currentAuthenticatedUser()
-            .then(res => {
-                this.setState({ user: res }, () => {
-                    console.log(this.state.user)
+            .then(response => {
+                this.setState({ user: response }, () => {
+                    console.log(this.state.user);
                 })
             })
-            .catch(err => {
-                toast.error(err.message)
+            .catch(error => {
+                toast.error(error.message)
                 confirmAlert({
                     title: ``,
                     message: ``,
@@ -67,7 +67,7 @@ class AssistantOeuvre extends Component {
                         <Translation>
                             {
                                 t =>
-                                    <Login message={ t('connexion.titre.oeuvre') } fn={ (user) => {
+                                    <Login message={ t('connexion.title.oeuvre') } fn={ (user) => {
                                         onClose()
                                         this.setState({ user: user })
                                     } }/>
@@ -86,7 +86,7 @@ class AssistantOeuvre extends Component {
     getInitialValues() {
         return {
             // mediaId: 0,
-            title: this.state.titre,
+            title: this.state.title,
             album: "",
             artist: "",
             cover: "false",
@@ -112,13 +112,13 @@ class AssistantOeuvre extends Component {
         };
     }
 
-    onPageChanged(value) {
+    onPageChanged = value => {
         const newProgressPercentage = this.pageProgressPercentages[value] || 100;
 
         this.setState({
             pctProgression: newProgressPercentage
         });
-    }
+    };
 
     onSubmit(values, actions, t) {
         let oeuvre = new Oeuvre(values);
@@ -145,13 +145,12 @@ class AssistantOeuvre extends Component {
                     {
                         (t, i18n) =>
                             <React.Fragment>
-                                <Navbar songTitle={ this.state.titre }/>
+                                <Navbar songTitle={ this.state.title }/>
                                 <Trackbar pourcentage={ this.state.pctProgression }/>
 
                                 <Wizard
                                     initialValues={ this.getInitialValues() }
-
-                                    onPageChanged={ this.onPageChanged.bind(this) }
+                                    onPageChanged={ this.onPageChanged }
 
                                     onSubmit={ (values, actions, t) => {
                                         this.onSubmit(values, actions, t)
@@ -162,14 +161,18 @@ class AssistantOeuvre extends Component {
                                         next: t('navigation.suivant'),
                                         submit: t('navigation.envoi')
                                     } }
-                                    debug={ false }
+
+                                    debug={ true }
                                 >
                                     <Wizard.Page>
                                         <Embarquement audio={ this.state.audio } i18n={ i18n } pctProgression={ 5 }/>
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageCollaborateurs i18n={ i18n } songTitle={ this.state.titre }/>
+                                        <PageCollaborateurs
+                                            i18n={ i18n }
+                                            songTitle={ this.state.title }
+                                        />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
@@ -190,8 +193,10 @@ class AssistantOeuvre extends Component {
                                 </Wizard>
 
                                 <AudioLecture onRef={
-                                    (audio)=>{ this.setState({audio: audio}) }
-                                } />
+                                    (audio) => {
+                                        this.setState({ audio: audio })
+                                    }
+                                }/>
                             </React.Fragment>
                     }
                 </Translation>

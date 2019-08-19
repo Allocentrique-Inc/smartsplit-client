@@ -4,7 +4,6 @@
 
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
-import { DateInput } from 'semantic-ui-calendar-react';
 
 import copyrightIcon from '../../assets/svg/icons/copyright-orange.svg';
 import avatar1 from '../../assets/images/steve.jpg';
@@ -43,7 +42,6 @@ class PageAssistantOeuvreDescription extends Component {
 
         this.state = {
             pctProgression: props.pctProgression,
-            dateCreation: '',
             selectedAuthorValues: [],
             selectedAuthorValue: null
         }
@@ -54,10 +52,6 @@ class PageAssistantOeuvreDescription extends Component {
             this.setState({ pctProgression: nextProps.pctProgression })
         }
     }
-
-    setDateCreation = (event, { value }) => {
-        this.setState({ dateCreation: value });
-    };
 
     render() {
         return (
@@ -91,8 +85,8 @@ class PageAssistantOeuvreDescription extends Component {
 
                                         <ChampDate
                                             label="Date de création"
-                                            value={ this.state.dateCreation }
-                                            onChange={ this.setDateCreation }
+                                            value={ this.props.values.creationDate }
+                                            onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
                                         />
 
                                         <ChampSelection
