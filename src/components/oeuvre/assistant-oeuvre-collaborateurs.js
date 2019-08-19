@@ -121,8 +121,8 @@ class PageAssistantOeuvreDescription extends Component {
 
                                             <Input
                                                 fluid
-                                                name="codeIswc"
                                                 placeholder="Ajouter un code..."
+                                                onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
                                             />
                                         </label>
                                     </div>

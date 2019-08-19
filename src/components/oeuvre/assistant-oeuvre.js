@@ -98,6 +98,7 @@ class AssistantOeuvre extends Component {
             lyrics: "",
             inLanguages: [],
             isrc: "",
+            iswc: "",
             upc: "",
             msDuration: "",
             socialMediaLinks: [],

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { ItemSelectionne } from "./item-selectionne";
-import chevronDown from '../../assets/svg/icons/chevron-down.svg';
 
 export class ChampSelection extends Component {
     constructor(props) {
@@ -9,6 +8,7 @@ export class ChampSelection extends Component {
 
         this.state = {
             selectedValues: [],
+            dropdownValue: null
         };
     }
 
@@ -42,7 +42,7 @@ export class ChampSelection extends Component {
         event.preventDefault();
         this.selectItem(value);
         this.setState({
-            selectedValue: null
+            dropdownValue: null
         });
     };
 
@@ -64,7 +64,7 @@ export class ChampSelection extends Component {
 
         this.setState({
             selectedValues: selectedValues,
-            selectedValue: null
+            dropdownValue: null
         });
     }
 
@@ -88,7 +88,7 @@ export class ChampSelection extends Component {
                     fluid
                     search
                     selection
-                    value={ this.state.selectedValue }
+                    value={ this.state.dropdownValue }
                     onChange={ this.handleChange }
                     options={ this.unselectedItems() }
                 />
