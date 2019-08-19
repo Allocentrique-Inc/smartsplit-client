@@ -1,7 +1,7 @@
 import React from 'react';
 import xIcon from "../../assets/svg/icons/x.svg";
 
-export function PersonneSelectionnee(props) {
+export function ItemSelectionne(props) {
     return (
         <div className="selection-row"
              onClick={ (event) => props.onClick(event) }

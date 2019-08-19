@@ -187,7 +187,6 @@ class AssistantOeuvre extends Component {
                                     <Wizard.Page>
                                         <PageLiens pctProgression={ 97 }/>
                                     </Wizard.Page>
-
                                 </Wizard>
 
                                 <AudioLecture onRef={

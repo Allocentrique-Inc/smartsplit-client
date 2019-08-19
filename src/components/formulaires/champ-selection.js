@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { PersonneSelectionnee } from "./personne-selectionnee";
+import { ItemSelectionne } from "./item-selectionne";
 import chevronDown from '../../assets/svg/icons/chevron-down.svg';
 
 export class ChampSelection extends Component {
@@ -26,7 +26,7 @@ export class ChampSelection extends Component {
     renderSelectedItems() {
         return this.selectedItems().map(item => {
             return (
-                <PersonneSelectionnee
+                <ItemSelectionne
                     key={ item.key }
                     image={ item.image.src }
                     nom={ item.text }
