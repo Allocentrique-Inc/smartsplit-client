@@ -299,8 +299,12 @@ class AssistantPartage extends Component {
                                                 media: this.state.media
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={false}
-                                            onSubmit={()=>{this.soumettre(this.props.values, "PRET")}}
+                                            debug={true}
+                                            onSubmit={
+                                                (values)=>{
+                                                    this.soumettre(values, "PRET")
+                                                }
+                                            }
                                             >
 
                                             <Wizard.Page>                                                

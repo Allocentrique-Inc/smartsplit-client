@@ -93,7 +93,7 @@ class AssistantOeuvre extends Component {
                                 <div className="ui row" style={{background: "#FAF8F9", paddingTop: "30px", paddingBottom: "0px"}}>
                                     <div className="ui two wide column" />
                                     <div className="ui fourteen wide column">
-                                        <Entete navigation={`/documenter/${this.state.titre}`} menu={true} profil={this.state.user} />
+                                        <Entete navigation={`/documenter/${this.state.titre}`} profil={this.state.user} />
                                     </div>
                                 </div>
                                 <div className="ui row" style={{background: "#FAF8F9"}}>

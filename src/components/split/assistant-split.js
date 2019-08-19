@@ -62,7 +62,6 @@ class ValiderSplit extends Component {
                 }
                 if(proposition.rightsSplits[type]) {
                     let rightsSplit = proposition.rightsSplits[type]
-                    console.log(rightsSplit)
                     // Séparation de la structure des droits
                     switch(type) {
                         case 'workCopyrightSplit':

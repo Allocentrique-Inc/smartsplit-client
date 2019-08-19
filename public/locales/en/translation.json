@@ -265,5 +265,8 @@
     },
     "action": {
         "commencer": "Start"
+    },
+    "temps": {
+        "ilYA": "ago"
     }
 }
