@@ -29,22 +29,29 @@ const roles = [
 ]
 
 const image = ''
-const artistName = ''
-const firstName = ''
-const lastName = ''
-const email = ''
+// const artistName = ''
+// const firstName = ''
+// const lastName = ''
+// const email = ''
 const avatarS3Etag = ''
 const MAX_IMAGE_SIZE = 10000000
 
 class Register2 extends Component {
   state = { groups,
             image,
-            firstName,
-            lastName,
-            artistName,
-            email,
-            avatarS3Etag
+            firstName: false,
+            lastName: false,
+            artistName: false,
+            email: 'TEST@iptoki.com',
+            avatarS3Etag,
+            open: false
            }
+
+  closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
+    this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
+  }
+        
+  close = () => this.setState({ open: false })
 
   handleAddition = (e, { value }) => {
     this.setState(prevState => ({
@@ -77,35 +84,69 @@ class Register2 extends Component {
     );
   }
 
+  // handleSubmit = values => { 
+  //   // AWS Cognito integration here 
+  //   const username = values.username;
+  //   const email = values.username; // username is used as email
+  //   const firstName = values.firstName;
+  //   const lastName = values.lastName;
+  //   const artistName = values.artistName;
+  //   const password = this.state.password;
+  //   // console.log(password, username, email, firstName, lastName)
+
+  //   try {
+  //     Auth.signUp({
+  //       username,
+  //       password,
+  //       attributes: {
+  //         email: email,
+  //         name: firstName,
+  //         family_name: lastName,
+  //         'custom:artistName': artistName,
+  //         'custom:avatarS3Etag': 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+  //       }
+  //     })
+
+  //     .then(
+  //       // toast.success(`Biquette#${user.username} !`)
+  //       // this.props.auth.setAuthStatus(true)
+  //       // this.props.auth.setUser(user.username)  
+  //       this.props.history.push("/welcome")
+    
+  //     )
+  //     .catch((err)=>{
+  //       toast.error(err.message)
+  //       console.log(err)
+  //     })
+  //     .finally(()=>{
+  //       if(this.props.fn) {
+  //         this.props.fn()
+  //       }
+  //     })
+  //   } catch (err) {
+  //     console.log(err)
+  //   }
+  // }
+
   handleSubmit = values => { 
-    // AWS Cognito integration here 
-    const username = values.username;
-    const email = values.username; // username is used as email
-    const firstName = values.firstName;
-    const lastName = values.lastName;
-    const artistName = values.artistName;
-    const password = this.state.password;
-    // console.log(password, username, email, firstName, lastName)
+
+    let body = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      artistName: this.state.artistName,
+      email: this.state.email,
+      groups: '',
+      role: ''
+    }
 
     try {
-      Auth.signUp({
-        username,
-        password,
-        attributes: {
-          email: email,
-          name: firstName,
-          family_name: lastName,
-          'custom:artistName': artistName,
-          'custom:avatarS3Etag': 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
-        }
-      })
-
+      axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
       .then(
         // toast.success(`Biquette#${user.username} !`)
         // this.props.auth.setAuthStatus(true)
         // this.props.auth.setUser(user.username)  
         this.props.history.push("/welcome")
-    
+
       )
       .catch((err)=>{
         toast.error(err.message)
@@ -121,8 +162,14 @@ class Register2 extends Component {
     }
   }
 
+  onTodoChange(value){
+    this.setState({
+         firstName: value
+    });
+  }
+
   render() {
-    const { currentValue } = this.state
+    const { open, closeOnEscape, closeOnDimmerClick, currentValue } = this.state
 
     // Return checkbox for each role
     const renderCheckbox= () => {
@@ -132,9 +179,11 @@ class Register2 extends Component {
     };
 
     return (
-      <Modal size="tiny" trigger={<Button>Ajouter un nouveau collaborateur</Button>}>
+      <Modal open={open}
+      closeOnDimmerClick={closeOnDimmerClick}
+      onClose={this.close} size="tiny" trigger={<Button onClick={this.closeConfigShow(true, false)}>Ajouter un nouveau collaborateur</Button>} closeIcon>
         <Modal.Header>Ajouter un artiste collaborateur</Modal.Header>
-        <Modal.Content image>
+        {/* <Modal.Content image>
           <Image wrapped size='tiny' src='https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg' />
           <Modal.Description>
             <Header>Image de profil</Header>
@@ -142,11 +191,13 @@ class Register2 extends Component {
             <Input type="file" className="fileUpload" onChange={this.handleFileUpload}/>
             <button size='tiny' className="fileDelete" onChange={this.handleFileDelete}>Annuler</button>
           </Modal.Description>
-        </Modal.Content>
-          <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal"/>
-          <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal"/>
-          <label>Nom d'artiste</label><input type="text" className="artistName" placeholder="Nom d'artiste"/>
-          <label>Courriel</label><input type="text" className="email" placeholder="Courriel"/>
+        </Modal.Content> */}
+          <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName} onChange={e => this.onTodoChange(e.target.value)}/>
+          {/* <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName}/> */}
+          <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
+          <label>Nom d'artiste</label><input type="text" className="artistName" placeholder="Nom d'artiste" value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
+          Si non applicable, nous afficherons son nom complet.
+          <label>Courriel</label><input type="text" className="email" placeholder="Courriel" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
           <label>Groupes</label>
             <Dropdown 
               className="prompt"
@@ -167,9 +218,10 @@ class Register2 extends Component {
           <div className="roles">
             { renderCheckbox() }
           </div>
+          Ces rôles pourront toujours être modifiés plus tard.
         <Modal.Actions>
-                <Button negative>Annuler</Button>
-                <Button positive icon='checkmark' labelPosition='right' content='Sauvegarder' onChange={this.handleSubmit} />
+                <Button onClick={this.close} negative>Annuler</Button>
+                <Button onClick={this.handleSubmit} positive icon='checkmark' labelPosition='right' content='Sauvegarder' />
           </Modal.Actions>
       </Modal>
     )
