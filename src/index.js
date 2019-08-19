@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './components/app/app'
 import 'semantic-ui-css/semantic.min.css'
 import './index.css'
 
@@ -9,7 +8,7 @@ import Amplify from 'aws-amplify';
 
 // Traduction
 import i18n from './utils/i18n'
-import { I18nextProvider } from "react-i18next"
+import { I18nextProvider, Translation } from "react-i18next"
 
 // Routeur applicatif
 import { Router, Route, Switch } from 'react-router'
@@ -20,6 +19,7 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 // Composantes navigables
+import App from './components/app/app'
 import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import ListeOeuvres from './components/media/media-list'
 import ValiderSplit from './components/split/assistant-split'
@@ -44,7 +44,8 @@ import SignInFacebook from './components/auth/SignInFacebook'
 import SignInGoogle from './components/auth/SignInGoogle'
 
 // Sommaires
-import SommairePartage from './components/partage/partage-sommaire'
+import SommairePartages from './components/partage/sommaire-partages' // Plusieurs partages (liste de un partage)
+import SommairePartage from './components/partage/partage-sommaire'  // Un partage
 import SommaireOeuvre from './components/oeuvre/oeuvre-sommaire'
 import AssistantPartageEditeur from './components/partage/assistant-partage-editeur';
 
@@ -86,7 +87,6 @@ const renderRoutes = () => (
         <Route exact path="/visualisation/beignet" component={Beignet} />
         <Route exact path="/visualisation/histogramme" component={Histogramme} />
         <Route exact path="/visualisation/troissplits" component={Troissplits} />
-        <Route exact path="/bonjournat" component={Bonjour} />
         <Route exact path="/partager/:mediaId" component={Partager} />
         <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
         <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
@@ -117,10 +117,16 @@ function SommaireProposition(match) {
 
 function Partager(match) {
   let mediaId = match.match.params.mediaId
-  return (<AssistantPartage mediaId={mediaId} />)
+  return (
+    <Translation>
+      {
+        (t, i18n) =>
+          <SommairePartages i18n={i18n} mediaId={mediaId} />
+      }
+    </Translation>    
+  )
+  //return (<AssistantPartage mediaId={mediaId} />)
 }
-
-function Bonjour(){return(<div><h1>Bonjour Nat</h1></div>)}
 
 function Accueil() {
   return(

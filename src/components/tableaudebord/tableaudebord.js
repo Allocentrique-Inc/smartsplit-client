@@ -56,7 +56,6 @@ export default class TableauDeBord extends Component {
                                         Auth.currentAuthenticatedUser()
                                         .then(res=>{
                                             this.setState({user: res})
-                                            console.log('**** ', res )
                                         })
                                         .catch(err=>{
                                             toast.error(err.message)
@@ -72,7 +71,8 @@ export default class TableauDeBord extends Component {
     render() {
         
         if(this.state.user) {
-            let entete = (<Entete profil={this.state.user} menu={true} />)
+            let contenu = (<div className="ui eleven wide column"></div>)
+            let entete = (<Entete contenu={contenu} profil={this.state.user} />)
             return (
                 <div className="tdb--cadre ui row">
                     <Navigation parent={this} />

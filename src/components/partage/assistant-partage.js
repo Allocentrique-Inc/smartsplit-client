@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 // Assistant
 import { Wizard } from "semantic-ui-react-formik"
+
 // Traduction
 import { Translation } from 'react-i18next'
 // Composantes
@@ -19,7 +20,6 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
-import { Progress } from 'semantic-ui-react';
 
 class AssistantPartage extends Component {
 
@@ -27,25 +27,28 @@ class AssistantPartage extends Component {
         super(props);
         this.state = {
             mediaId: this.props.mediaId,
+            user: null     
+        }
+        this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
+        this.soumettre = this.soumettre.bind(this)
             user: null
         };
-        this.refAssistant = this.refAssistant.bind(this);
     }
 
     componentWillMount() {
 
         Auth.currentAuthenticatedUser()
-            .then(res => {
-                this.setState({ user: res })
-                this.recupererOeuvre()
-            })
-            .catch(err => {
-                toast.error(err.message)
-                confirmAlert({
-                    title: `Connexion obligatoire`,
-                    message: `Tu dois être connecté pour accéder au tableau de bord`,
-                    closeOnClickOutside: false,
-                    style: {
+        .then(res=>{
+            this.setState({user: res})
+            this.recupererOeuvre()
+        })
+        .catch(err=>{
+            toast.error(err.message)
+            confirmAlert({
+                title: `Connexion obligatoire`,
+                message: `Tu dois être connecté pour accéder au tableau de bord`,
+                closeOnClickOutside: false,
+                style: {
                         position: "relative",
                         width: "640px",
                         height: "660px",
@@ -80,15 +83,11 @@ class AssistantPartage extends Component {
             })
     }
 
-    refAssistant(assistant) {
-        this.setState({ assistant: assistant });
-    }
-
-    soumettre(values, cb) {
-        console.log('Soumettre le partage', values);
-
-        if (this.state.user) {
-            let _association = {}; // Associera le nom de l'ayant-droit avec son identitifiant unique
+    soumettre(values, etat, cb) {
+        console.log('Soumettre le partage', values)
+        
+        if(this.state.user) {
+            let _association = {} // Associera le nom de l'ayant-droit avec son identitifiant unique
 
             // 1. Récupérer la liste des ayant-droits
             axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
@@ -203,69 +202,81 @@ class AssistantPartage extends Component {
                         if (elem.graphiste) {
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a43"] = "graphist"
                         }
-                        droitEnregistrement.push({
-                            "rightHolder": {
-                                "name": nom,
-                                "rightHolderId": uuid
-                            },
-                            "voteStatus": "active",
-                            "contributorRole": roles,
-                            "splitPct": `${elem.pourcent}`
-                        })
+                    droitEnregistrement.push({
+                        "rightHolder": {
+                            "name": nom,
+                            "rightHolderId": uuid
+                        },
+                        "voteStatus": "active",
+                        "contributorRole": roles,
+                        "splitPct": `${elem.pourcent}`
                     })
-
-                    console.log('profil', this.state.user)
-
-                    let body = {
-                        uuid: "",
-                        mediaId: parseInt(`${this.state.mediaId}`),
-                        initiator: {
-                            "name": `${this.state.user.attributes.name} ${this.state.user.attributes.family_name}`,
-                            "id": this.state.user.username
-                        },
-                        rightsSplits: {
-                            "workCopyrightSplit": {
-                                "lyrics": droitAuteurParoles,
-                                "music": droitAuteurMusique
-                            },
-                            "performanceNeighboringRightSplit": {
-                                "principal": droitInterpretePrincipal,
-                                "accompaniment": droitInterpreteAccompagnement
-                            },
-                            "masterNeighboringRightSplit": {
-                                "split": droitEnregistrement
-                            }
-                        },
-                        "comments": []
-                    }
-                    body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split" })
-                    console.log('Envoi', body)
-                    // 3. Soumettre la nouvelle proposition
-                    axios.post('http://api.smartsplit.org:8080/v1/proposal', body)
-                        .then(res => {
-                            toast.success(`${res.data}`)
-                            // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
-                            if (typeof cb === "function") {
-                                cb()
-                            } else {
-                                setTimeout(() => {
-                                    window.location.href = `/approuver-proposition/${res.data}`
-                                }, 3000)
-                            }
-                        })
-                        .catch(err => {
-                            toast.error(err.message)
-                        })
                 })
-                .catch(err => {
+
+                let body = {
+                    uuid: "",
+                    mediaId: parseInt(`${this.state.mediaId}`),
+                    initiator: {
+                        "name": `${this.state.user.attributes.name} ${this.state.user.attributes.family_name}`,
+                        "id": this.state.user.username
+                    },
+                    rightsSplits: {
+                        "workCopyrightSplit": {
+                            "lyrics": droitAuteurParoles,
+                            "music": droitAuteurMusique
+                        },
+                        "performanceNeighboringRightSplit": {
+                            "principal": droitInterpretePrincipal,
+                            "accompaniment": droitInterpreteAccompagnement
+                        },
+                        "masterNeighboringRightSplit": {
+                            "split": droitEnregistrement
+                        }
+                    },
+                    "comments": [],
+                    "state": etat
+                }
+                body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split"})
+                console.log('Envoi', body)
+                // 3. Soumettre la nouvelle proposition
+                axios.post('http://api.smartsplit.org:8080/v1/proposal', body)
+                .then(res=>{
+                    toast.success(`${res.data}`)
+                    // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
+                    if(typeof cb === "function") {
+                        cb()
+                    } else {
+                        setTimeout(()=>{
+                            window.location.href = `/approuver-proposition/${res.data}`
+                        }, 3000)
+                    }
+                })
+                .catch(err=>{
                     toast.error(err.message)
-                    if (typeof cb === "function") {
-                        setTimeout(() => {
-                            cb()
-                        }, 1000)
-                    }
                 })
+            })
+            .catch(err=>{
+                toast.error(err.message)
+                if (typeof cb === "function") {
+                    setTimeout(()=>{
+                        cb()
+                    }, 1000)
+                }
+            })
         }
+    }
+
+    enregistrerEtQuitter(valeurs) {
+        this.soumettre(valeurs, "BROUILLON", ()=>{
+            Auth.signOut()
+            .then(data=>{
+                toast.success("Déconnexion réussie")
+                setTimeout(() => {
+                    window.location.href = '/accueil'
+                }, 1000)
+            })
+            .catch(error=>toast.error("Erreur..."))
+        })
     }
 
     render() {
@@ -274,47 +285,35 @@ class AssistantPartage extends Component {
             return (
                 <Translation>
                     {
-                        (t, i18n) =>
-                            <div className="ui grid" style={{ padding: "10px" }}>
-                                <EntetePartage enregistrer={
-                                    (cb) => {
-                                        this.soumettre(this.state.assistant.props.values, cb)
-                                    }} media={this.state.media} user={this.state.user}/>
-                                <div className="ui row">
-                                    <div className="ui sixteen wide column">
-                                        <Progress percent="10" size='tiny' indicating/>
-                                    </div>
-                                </div>
+                        (t, i18n)=>
+                            <div className="ui grid" style={{padding: "10px"}}>
+                                <EntetePartage media={this.state.media} user={this.state.user} />
                                 <div className="ui row">
                                     <div className="ui two wide column"/>
                                     <div className="ui twelve wide column">
                                         <Wizard
-                                            ref={(assistant) => {
-                                                if (!this.state.assistant)
-                                                    this.refAssistant(assistant)
-                                            }}
                                             initialValues={{
                                                 droitAuteur: [],
                                                 droitInterpretation: [],
                                                 droitEnregistrement: [],
                                                 collaborateur: [],
-                                                song: this.state.media.title
+                                                media: this.state.media
                                             }}
-                                            buttonLabels={{
-                                                previous: t('navigation.precedent'),
-                                                next: t('navigation.suivant'),
-                                                submit: t('navigation.envoi')
-                                            }}
-                                            debug={false}
-                                            onSubmit={this.soumettre.bind(this)}
-                                        >
+                                            buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
+                                            debug={true}
+                                            onSubmit={
+                                                (values)=>{
+                                                    this.soumettre(values, "PRET")
+                                                }
+                                            }
+                                            >
 
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitAuteur i18n={i18n}/>
+                                                <PageAssistantPartageDroitAuteur enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
-
+            
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitInterpretation i18n={i18n}/>
+                                                <PageAssistantPartageDroitInterpretation i18n={i18n} />
                                             </Wizard.Page>
 
                                             <Wizard.Page>

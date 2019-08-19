@@ -260,5 +260,8 @@
     },
     "action": {
         "commencer": "Commencer"
+    },
+    "temps": {
+        "ilYA": "il y a"
     }
 }
