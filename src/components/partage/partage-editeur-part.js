@@ -83,10 +83,8 @@ class PageAssistantPartageEditeur extends Component {
             } else {
                 return elem
             }
-        })    
-        this.setState({donnees: donnees}, ()=>{
-            console.log('données, valeurs', this.state.donnees, this.props.values)
         })
+        this.setState({donnees: donnees})        
     }
 
     changementGradateur(index, delta) {

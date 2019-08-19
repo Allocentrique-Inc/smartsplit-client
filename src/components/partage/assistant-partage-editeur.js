@@ -114,7 +114,7 @@ class AssistantPartageEditeur extends Component {
     }
 
     soumettre(values, cb) {
-        console.log("Soumettre le partage avec l'éditeur", values)
+
         if(this.state.user) {            
 
             let body = {
@@ -140,8 +140,6 @@ class AssistantPartageEditeur extends Component {
     render() {
 
         if(this.state.media) { // S'il y a un média, il y a forcément une proposition ( voir componentWillMount() ) et un utilisateur connecté
-
-            console.log(this.state.media.title, this.state.user.username)
 
             return (
                 <Translation>

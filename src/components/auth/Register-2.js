@@ -4,6 +4,7 @@ import { Formik , Form, Field } from 'formik'
 import { toast } from 'react-toastify'
 import { Auth } from 'aws-amplify';
 import axios from 'axios'
+const MAX_IMAGE_SIZE = 10000000
 // import * as Yup from 'yup'
 // Traduction
 // import { Translation } from 'react-i18next';
@@ -19,6 +20,8 @@ class Register2 extends Component {
       artistName: '',
       role: 'Singer',
       avatar: 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg',
+      image: '',
+      uploadURL: ''
     };
 
     // this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -26,6 +29,7 @@ class Register2 extends Component {
     // // this.stateChanged = this.stateChanged.bind(this);
     // this.toggleShow = this.toggleShow.bind(this);
     this.handleArtistNameChange = this.handleArtistNameChange.bind(this);
+    this.handleFileUpload = this.handleFileUpload.bind(this);
     // this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
     // this.validateUsername = this.validateUsername.bind(this)
     // this.validatePassword = this.validatePassword.bind(this)
@@ -123,6 +127,29 @@ class Register2 extends Component {
   }
 
 
+  handleFileUpload(e) {
+    // console.log(e.target.files[0]);
+    console.log("FILE: ", e.target.files[0]);
+    if (e.target.files[0].size > MAX_IMAGE_SIZE) {
+      return alert('Image is loo large - 10Mb maximum')
+    }
+    if ( !e.target.files[0].type.includes('image/jpeg') )  {
+      return alert('Wrong file type - JPG only.')
+    }
+    this.setState(
+      { image: 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'}
+    );
+  }
+
+  handleFileDelete(e) {
+    e.target.value = null;
+    // this.image = ''
+    this.setState(
+      { image: '' },
+    );
+    console.log('image: ', this.state.image);
+  }
+
   handleArtistNameChange(e) {
     this.setState(
       { artistName: e.target.value },
@@ -130,50 +157,6 @@ class Register2 extends Component {
     // const value = e.target.value;
     // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
   }
-
-  // handlePasswordChange(e) {
-  //   console.log("PASSWORD STRENGTH", this.state.strength);
-  //   this.setState({ 
-  //     password: e.target.value,
-  //     strength: zxcvbn(e.target.value).score
-  //   });
-  // }
-
-  // stateChanged = e => {
-
-  //   // update the internal state using the updated state from the form field
-
-  //   console.log("Target Value", e.target.value)
-  //   console.log("PPPPPPPPP", this.state.password)
-
-  //   this.setState({
-  //     password: e.target.value,
-  //     strength: zxcvbn(e.target.value).score
-  //   }, () => this.props.onStateChanged(e));
-
-  // };
-
-  // handleConfirmPasswordChange(e) {
-  //   this.setState(
-  //     { confirmpassword: e.target.value },
-  //   );
-  //   // const value = e.target.value;
-  //   // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
-  // }
-
-  // toggleShow() {
-  //   this.setState({ hidden: !this.state.hidden });
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.password !== nextProps.password) {
-  //     this.setState({ password: nextProps.password });
-  //   }
-  // }
-
-  // toggleConfirmShow() {
-  //   this.setState({ confirmhidden: !this.state.confirmhidden });
-  // }
 
   componentDidMount() {
     if (this.props.role) {
@@ -215,7 +198,8 @@ class Register2 extends Component {
                 // email: this.state.email,
                 role: this.state.role,
                 artistName: this.state.artistName,
-                avatar: this.state.avatar
+                avatar: this.state.avatar,
+                image: this.state.image
               } 
           }
       onSubmit={
@@ -229,7 +213,10 @@ class Register2 extends Component {
       <section className="section auth">
         <div className="container">
           <h1>Register</h1>
-          <div className="field">
+            <img type="image" className="avatarImage" src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"/>
+            <input type="file" className="fileUpload" onChange={this.handleFileUpload}/>
+            <button className="fileDelete" onChange={this.handleFileDelete}>Remove File</button>
+            <div className="field">
               <div className="control has-icons-left has-icons-right">
                 Artist Name:
                 <Field 
