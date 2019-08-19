@@ -37,6 +37,7 @@ class AssistantOeuvre extends Component {
         this.state = {
             pctProgression: this.pageProgressPercentages[0],
             title: props.titre,
+            rightHolders: []
         };
     }
 
@@ -75,6 +76,18 @@ class AssistantOeuvre extends Component {
                         </Translation>
                 })
             })
+
+        this.fetchApiRightHolders();
+    }
+
+    fetchApiRightHolders() {
+        axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
+            .then(response => {
+                this.setState({ rightHolders: response.data });
+            })
+            .catch(error => {
+                toast.error(error.message);
+            });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -90,7 +103,7 @@ class AssistantOeuvre extends Component {
             album: "",
             artist: "",
             cover: "false",
-            rightHolders: [{}],
+            rightHolders: [],
             jurisdiction: "",
             rightsType: [],
             genre: "",
@@ -173,6 +186,7 @@ class AssistantOeuvre extends Component {
                                         <PageCollaborateurs
                                             i18n={ i18n }
                                             songTitle={ this.state.title }
+                                            rightHolders={ this.state.rightHolders }
                                         />
                                     </Wizard.Page>
 

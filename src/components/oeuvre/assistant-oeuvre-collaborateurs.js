@@ -7,8 +7,6 @@ import { Translation } from 'react-i18next'
 
 import copyrightIcon from '../../assets/svg/icons/copyright-orange.svg';
 import avatar1 from '../../assets/images/steve.jpg';
-import avatar2 from '../../assets/images/stevie.jpg';
-import avatar3 from '../../assets/images/elliot.jpg';
 
 import '../../assets/scss/assistant-form.scss';
 import { ChampSelection } from "../formulaires/champ-selection";
@@ -16,34 +14,14 @@ import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
 
 class PageAssistantOeuvreDescription extends Component {
-    persons = [
-        {
-            key: 1,
-            text: 'Gros Bidule',
-            value: 1,
-            image: { avatar: true, src: avatar1 }
-        },
-        {
-            key: 2,
-            text: 'Machin Chouette',
-            value: 2,
-            image: { avatar: true, src: avatar2 }
-        },
-        {
-            key: 3,
-            text: 'Souffler Danslecou',
-            value: 3,
-            image: { avatar: true, src: avatar3 }
-        },
-    ];
-
     constructor(props) {
         super(props);
 
         this.state = {
             pctProgression: props.pctProgression,
-            selectedAuthorValues: [],
-            selectedAuthorValue: null
+            authors: [],
+            composers: [],
+            publishers: []
         }
     }
 
@@ -52,6 +30,51 @@ class PageAssistantOeuvreDescription extends Component {
             this.setState({ pctProgression: nextProps.pctProgression })
         }
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            this.state.authors !== prevState.authors ||
+            this.state.composers !== prevState.composers ||
+            this.state.publishers !== prevState.publishers
+        ) {
+            const authors = this.state.authors.map(this.addType('author'));
+            const composers = this.state.composers.map(this.addType('composer'));
+            const publishers = this.state.publishers.map(this.addType('publisher'));
+
+            const rightHolders = authors
+                .concat(composers)
+                .concat(publishers);
+
+            this.props.setFieldValue('rightHolders', rightHolders);
+        }
+    }
+
+    rightHolderOptions() {
+        return this.props.rightHolders.map(this.makeRightHolderOption);
+    }
+
+    makeRightHolderOption(rightHolder) {
+        const artistText = rightHolder.artistName ?
+            '(' + rightHolder.artistName + ')' :
+            null;
+
+        const fullName = [
+            rightHolder.firstName,
+            rightHolder.lastName,
+            artistText
+        ]
+            .filter(text => text)
+            .join(' ');
+
+        return {
+            key: rightHolder.rightHolderId,
+            value: rightHolder.rightHolderId,
+            text: fullName,
+            image: { avatar: true, src: avatar1 }
+        };
+    };
+
+    addType = type => rightHolder => Object.assign(rightHolder, { type: type });
 
     render() {
         return (
@@ -90,24 +113,27 @@ class PageAssistantOeuvreDescription extends Component {
                                         />
 
                                         <ChampSelection
-                                            items={ this.persons }
+                                            items={ this.rightHolderOptions() }
                                             label="Auteurs"
                                             description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un auteur..."
+                                            onChange={ authors => this.setState({ 'authors': authors }) }
                                         />
 
                                         <ChampSelection
-                                            items={ this.persons }
+                                            items={ this.rightHolderOptions() }
                                             label="Compositeurs"
                                             description="Qui a composé la musique de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un compositeur..."
+                                            onChange={ composers => this.setState({ 'composers': composers }) }
                                         />
 
                                         <ChampSelection
-                                            items={ this.persons }
+                                            items={ this.rightHolderOptions() }
                                             label="Éditeurs"
                                             description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
                                             placeholder="Ajouter un éditeur..."
+                                            onChange={ publishers => this.setState({ 'publishers': publishers }) }
                                         />
 
                                         <label>

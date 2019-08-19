@@ -12,16 +12,23 @@ export class ChampSelection extends Component {
         };
     }
 
-    isSelectedItem = item => this.state.selectedValues.includes(item.value);
-    isUnselectedItem = item => !this.isSelectedItem(item);
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.selectedValues !== prevState.selectedValues) {
+            this.props.onChange(this.selectedItems());
+        }
+    }
 
     selectedItems() {
         return this.props.items.filter(this.isSelectedItem);
     }
 
+    isSelectedItem = item => this.state.selectedValues.includes(item.value);
+
     unselectedItems() {
         return this.props.items.filter(this.isUnselectedItem);
     }
+
+    isUnselectedItem = item => !this.isSelectedItem(item);
 
     renderSelectedItems() {
         return this.selectedItems().map(item => {
@@ -35,26 +42,24 @@ export class ChampSelection extends Component {
                     } }
                 />
             );
-        })
+        });
     }
 
     handleChange = (event, { value }) => {
         event.preventDefault();
         this.selectItem(value);
-        this.setState({
-            dropdownValue: null
-        });
     };
 
     selectItem(itemValue) {
-        const selectedValues = this.state.selectedValues;
+        const selectedValues = [...this.state.selectedValues];
 
         if (!selectedValues.includes(itemValue)) {
             selectedValues.push(itemValue);
         }
 
         this.setState({
-            selectedValues: selectedValues
+            selectedValues: selectedValues,
+            dropdownValue: null
         });
     }
 
@@ -89,8 +94,8 @@ export class ChampSelection extends Component {
                     search
                     selection
                     value={ this.state.dropdownValue }
-                    onChange={ this.handleChange }
                     options={ this.unselectedItems() }
+                    onChange={ this.handleChange }
                 />
             </label>
         );
