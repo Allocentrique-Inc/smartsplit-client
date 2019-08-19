@@ -4,8 +4,6 @@
 
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
-
-import { Icon } from "semantic-ui-react";
 import { DateInput } from 'semantic-ui-calendar-react';
 
 import copyrightIcon from '../../assets/svg/icons/copyright-orange.svg';
@@ -16,9 +14,7 @@ import avatar3 from '../../assets/images/elliot.jpg';
 import '../../assets/scss/assistant-form.scss';
 import { ChampSelection } from "../formulaires/champ-selection";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
-
-import moment from 'moment';
-import 'moment/locale/fr';
+import { ChampDate } from "../formulaires/champ-date";
 
 class PageAssistantOeuvreDescription extends Component {
     persons = [
@@ -89,21 +85,15 @@ class PageAssistantOeuvreDescription extends Component {
                                         </h2>
 
                                         <p className="section-description">
-                                            C’est ici que tu indiques qui a contribué à la création de cette pièce.
+                                            C’est ici que tu indiques qui a contribué à la création de cette
+                                            pièce.
                                         </p>
 
-                                        <label>
-                                            <div className="input-label">Date de création</div>
-
-                                            <DateInput
-                                                name="dateCreation"
-                                                localization="fr"
-                                                placeholder="Ajouter une date..."
-                                                value={ this.state.dateCreation }
-                                                onChange={ this.setDateCreation }
-                                                icon="calendar outline"
-                                            />
-                                        </label>
+                                        <ChampDate
+                                            label="Date de création"
+                                            value={ this.state.dateCreation }
+                                            onChange={ this.setDateCreation }
+                                        />
 
                                         <ChampSelection
                                             items={ this.persons }
@@ -130,7 +120,8 @@ class PageAssistantOeuvreDescription extends Component {
                                             <div className="input-label">Code ISWC</div>
 
                                             <p className="input-description">
-                                                L'International Standard Work Code est un code unique d'identification
+                                                L'International Standard Work Code est un code unique
+                                                d'identification
                                                 des oeuvres musicales.
                                             </p>
 
