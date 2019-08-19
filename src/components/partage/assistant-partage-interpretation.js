@@ -150,12 +150,7 @@ class PageAssistantPartageInterpretation extends Component {
                                     <Progress percent="50" size='tiny' indicating/>                                    
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={
-                                        ()=>{
-                                            console.log('soumettre')
-                                            this.props.enregistrer(this.state.menu.deconnexion)
-                                        }
-                                        }>
+                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
                                         {t('flot.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>

@@ -79,7 +79,7 @@ const renderRoutes = () => (
         <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
         <Route exact path="/change-password-verification" component={ChangePasswordVerification} />
         <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/approuver-proposition/:propositionId" component={ApprouverSplit} />
+        <Route exact path="/proposition/approuver/:propositionId" component={ApprouverSplit} />
         <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
         <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
         <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
@@ -87,13 +87,26 @@ const renderRoutes = () => (
         <Route exact path="/visualisation/beignet" component={Beignet} />
         <Route exact path="/visualisation/histogramme" component={Histogramme} />
         <Route exact path="/visualisation/troissplits" component={Troissplits} />
-        <Route exact path="/partager/:mediaId" component={Partager} />
+        <Route exact path="/partager/:mediaId" component={PartagesOeuvres} />
+        <Route exact path="/partager/nouveau/:mediaId" component={NouveauPartage} />
+        <Route exact path="/partager/existant/:uuid" component={ContinuerProposition} />
         <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
         <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
       </Switch>
     </Router>
   </I18nextProvider>  
 )
+
+function ContinuerProposition(match) {
+  let uuid = match.match.params.uuid
+  console.log('continuer proposition', uuid)
+  return (<AssistantPartage uuid={uuid} />)
+}
+
+function NouveauPartage(match) {
+  let mediaId = match.match.params.mediaId  
+  return (<AssistantPartage mediaId={mediaId} />)
+}
 
 function PartageEditeur(match) {
   let propositionId = match.match.params.propositionId
@@ -115,7 +128,7 @@ function SommaireProposition(match) {
   return (<SommairePartage uuid={uuid} />)
 }
 
-function Partager(match) {
+function PartagesOeuvres(match) {
   let mediaId = match.match.params.mediaId
   return (
     <Translation>
@@ -124,8 +137,7 @@ function Partager(match) {
           <SommairePartages i18n={i18n} mediaId={mediaId} />
       }
     </Translation>    
-  )
-  //return (<AssistantPartage mediaId={mediaId} />)
+  )  
 }
 
 function Accueil() {

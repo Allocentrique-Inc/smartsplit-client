@@ -188,6 +188,11 @@
         },
         "editeur": {
             "ajout": "Add a publisher"
+        },
+        "proposition": {
+            "nouvelle" : "Create a new version",
+            "envoyer": "Send to collaborators",
+            "continuer": "Continue to share the rights"
         }
     },
     "traitement": {

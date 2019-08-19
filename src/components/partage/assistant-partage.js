@@ -29,6 +29,7 @@ class AssistantPartage extends Component {
         super(props)
         this.state = { 
             mediaId: this.props.mediaId,
+            uuid: this.props.uuid,
             user: null     
         }
         this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
@@ -39,7 +40,25 @@ class AssistantPartage extends Component {
         Auth.currentAuthenticatedUser()
         .then(res=>{
             this.setState({user: res})
-            this.recupererOeuvre()
+            if(this.state.mediaId) {
+                // Une nouvelle proposition pour un média
+                this.recupererOeuvre()
+            } else if (this.state.uuid) {
+                // Une proposition existante
+                axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+                .then(res=>{
+                    let proposal = res.data.Item
+                    this.setState({proposition: proposal}, ()=>{
+                        this.setState({mediaId: proposal.mediaId}, ()=>{
+                            this.recupererOeuvre()
+                        })
+                    })
+                })
+                .catch((error) => {
+                    toast.error(error)            
+                })
+            }
+            
         })
         .catch(err=>{
             toast.error(err.message)
@@ -233,7 +252,7 @@ class AssistantPartage extends Component {
                         }
                     },
                     "comments": [],
-                    "state": etat
+                    "etat": etat
                 }
                 body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split"})
                 console.log('Envoi', body)
@@ -246,7 +265,7 @@ class AssistantPartage extends Component {
                         cb()
                     } else {
                         setTimeout(()=>{
-                            window.location.href = `/approuver-proposition/${res.data}`
+                            window.location.href = `/proposition/approuver/${res.data}`
                         }, 3000)
                     }
                 })
@@ -299,7 +318,7 @@ class AssistantPartage extends Component {
                                                 media: this.state.media
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={true}
+                                            debug={false}
                                             onSubmit={
                                                 (values)=>{
                                                     this.soumettre(values, "PRET")
@@ -312,11 +331,11 @@ class AssistantPartage extends Component {
                                             </Wizard.Page>
             
                                             <Wizard.Page>                                                
-                                                <PageAssistantPartageDroitInterpretation i18n={i18n} />
+                                                <PageAssistantPartageDroitInterpretation enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
             
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitEnregistrement i18n={i18n} />
+                                                <PageAssistantPartageDroitEnregistrement enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
             
                                         </Wizard>

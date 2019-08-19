@@ -181,7 +181,7 @@ export default class SommairePartages extends Component {
                                 <div className="ui row">
                                     <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
                                         <Icon name='dropdown' />
-                                        Version {idx + 1} - {elem.state ? elem.state : "INCONNU"}
+                                        Version {idx + 1} - {elem.etat ? elem.etat : "INCONNU"}
                                         <div>
                                             <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                             <div className="small-500-color" style={{display: "inline-block"}}>{`${elem.initiator.name}`}</div>
@@ -199,23 +199,69 @@ export default class SommairePartages extends Component {
 
             propositions = propositions.reverse()
 
+            let nouveauDisabled = "", envoiDisabled = "disabled", continuerDisabled = "disabled"
+            
+            if(this.state.propositions.length > 0) {
+                if (this.state.propositions[this.state.propositions.length - 1].etat !== 'REFUSE' || this.state.propositions.length === 0) {
+                    nouveauDisabled = "disabled"
+                }    
+                if(this.state.propositions[this.state.propositions.length - 1].etat !== 'PRET') {
+                    envoiDisabled = "disabled"
+                } else {
+                    envoiDisabled = ""
+                }
+                if(this.state.propositions[this.state.propositions.length - 1].etat === 'BROUILLON') {
+                    continuerDisabled = ""
+                }
+            }
+
             return (
-                <div className="ui segment">                    
-                    <div className="ui grid" style={{padding: "10px"}}>
-                        <div className="ui row">
-                            <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
-                        </div>
-                        <div className="ui row">
-                            <div className="ui one wide column">
+                <Translation>
+                    {
+                        t =>
+                            <div className="ui segment">                    
+                                <div className="ui grid" style={{padding: "10px"}}>
+                                    <div className="ui row">
+                                        <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
+                                    </div>
+                                    <div className="ui row">
+                                        <div className="ui seven wide column" />                
+                                        <div className="ui seven wide column">
+                                            <div className={`ui medium button ${continuerDisabled}`} onClick={
+                                                ()=>{
+                                                    window.location.href=`/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
+                                                }
+                                                }>
+                                                {t('flot.proposition.continuer')}
+                                            </div>
+                                            <div className={`ui medium button ${nouveauDisabled}`} onClick={
+                                                ()=>{
+                                                    window.location.href=`/partager/nouveau/${this.state.mediaId}`
+                                                }
+                                                }>
+                                                {t('flot.proposition.nouvelle')}
+                                            </div>
+                                            <div className={`ui medium button ${envoiDisabled}`} onClick={
+                                                ()=>{
+                                                    window.location.href=`/proposition/approuver/${this.state.propositions[this.state.propositions.length - 1].uuid}`
+                                                }
+                                                }>
+                                                {t('flot.proposition.envoyer')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="ui row">
+                                        <div className="ui one wide column" />
+                                        <Accordion fluid styled className="ui twelve wide column">
+                                            {propositions}
+                                        </Accordion>                            
+                                        <div className="ui one wide column">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <Accordion fluid styled className="ui twelve wide column">
-                                {propositions}
-                            </Accordion>                            
-                            <div className="ui one wide column">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    }
+                </Translation>                
             )
         } else {
             return (
