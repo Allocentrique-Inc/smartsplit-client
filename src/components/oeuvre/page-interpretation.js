@@ -11,6 +11,7 @@ import '../../assets/scss/assistant-form.scss';
 import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
+import { Dropdown } from "semantic-ui-react";
 
 class PageAssistantOeuvreDescription extends Component {
 
@@ -115,6 +116,17 @@ class PageAssistantOeuvreDescription extends Component {
                                         <p className="section-description">
                                             C’est ici que tu indiques qui a joué quel instrument.
                                         </p>
+
+                                        <Dropdown
+                                            className="add-musician-dropdown"
+                                            placeholder={ this.props.placeholder }
+                                            fluid
+                                            search
+                                            selection
+                                            value={ this.state.dropdownValue }
+                                            options={ this.props.options }
+                                            onChange={ this.handleChange }
+                                        />
                                     </div>
                                 </div>
                             </div>
