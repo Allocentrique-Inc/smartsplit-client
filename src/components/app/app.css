@@ -123,7 +123,8 @@
   margin: 0px 16px 0px 16px;
 }
 
-.ui.primary.right.floated.button {
+.ui.primary.right.floated.button,
+.ui.right.floated.button {
   background-color:#2DA84F;
   color:#FFF;
   font-family: 'IBM Plex Sans';

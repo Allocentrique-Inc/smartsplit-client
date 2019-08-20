@@ -49,15 +49,14 @@ export default class MenuProfil extends Component {
 
     render() {        
 
-        let avatarLink
         let avatarImage
         let userInitials
         let nomComplet
 
         if (this.state.user) {
-            avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
-            avatarImage = this.state.user.avatarS3Etag == null ? 'https://www.imsa-search.com/wp-content/uploads/2018/06/avatar.png' : avatarLink
-            userInitials = this.state.user.avatarS3Etag == null ? this.state.initials : null
+            //avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag            
+            avatarImage = this.state.user.avatarImage === null ? 'https://www.imsa-search.com/wp-content/uploads/2018/06/avatar.png' : `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.user.avatarImage}`
+            userInitials = this.state.user.avatarImage === null ? this.state.initials : null
             nomComplet = this.state.user.artistName ? this.state.user.artistName : `${this.state.user.firstName} ${this.state.user.lastName}`
         }
 

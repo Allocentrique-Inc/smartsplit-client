@@ -99,7 +99,6 @@ const renderRoutes = () => (
 
 function ContinuerProposition(match) {
   let uuid = match.match.params.uuid
-  console.log('continuer proposition', uuid)
   return (<AssistantPartage uuid={uuid} />)
 }
 
