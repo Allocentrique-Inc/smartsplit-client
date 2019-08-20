@@ -19,6 +19,8 @@ import avatar from '../../assets/images/stevie.jpg'
 const MODES = {egal: "0", role: "1"}
 const TYPE = {principal: "0", accompagnement: "1"}
 
+const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
+
 class PageAssistantPartageInterpretation extends Component {
 
     constructor(props) {
@@ -89,31 +91,66 @@ class PageAssistantPartageInterpretation extends Component {
     }
 
     ajouterCollaborateur(arrayHelpers) {
-        let _coll = this.props.values.collaborateur                                                            
+        let ayants = {}
+        let _coll = this.props.values.collaborateur     
+        //let _index = arrayHelpers.data.length
+        let _index = this.props.values.droitAuteur.length + 
+                    this.props.values.droitInterpretation.length +
+                    this.props.values.droitEnregistrement.length
+        this.props.values.droitAuteur.forEach(droit=>{
+            ayants[droit["nom"]] = droit["color"]
+        })
+          
         _coll.forEach((elem, idx)=>{
             if(this.state.mode === MODES.egal) {
-                arrayHelpers.insert(0, {
-                    nom: elem, 
-                    pourcent: (100 / (this.props.values.droitInterpretation.length + _coll.length) ).toFixed(4),
-                    principal: true,
-                    chanteur: false,
-                    musicien: false
-                })
+                if (elem in ayants) {
+                    arrayHelpers.insert(0, {
+                        nom: elem, 
+                        pourcent: (100 / (this.props.values.droitInterpretation.length + _coll.length) ).toFixed(4),
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: ayants[elem]
+                    })
+                } else {
+                    arrayHelpers.insert(0, {
+                        nom: elem, 
+                        pourcent: (100 / (this.props.values.droitInterpretation.length + _coll.length) ).toFixed(4),
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: COLORS[_index+idx]
+                    })
+                    ayants[elem] = COLORS[_index+idx]
+                }
             }
-            if(this.state.mode === MODES.role) {          
-                arrayHelpers.insert(0, {
-                    nom: elem, 
-                    pourcent: "100",
-                    principal: true,
-                    chanteur: false,
-                    musicien: false
-                })
-            }            
-        })                                                            
+            if(this.state.mode === MODES.role) {     
+                if (elem in ayants) {     
+                    arrayHelpers.insert(0, {
+                        nom: elem, 
+                        pourcent: "100",
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: ayants[elem]
+                    })
+                } else { 
+                    arrayHelpers.insert(0, {
+                        nom: elem, 
+                        pourcent: "100",
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: COLORS[_index+idx]
+                    })
+                    ayants[elem] = COLORS[_index+idx]
+                }
+            }         
+        })                                                         
         this.props.setFieldValue('collaborateur', [])
         this.setState({ping: true}, ()=>{
             this.recalculerPartage()
-        })
+        })   
     }
 
     render() {
@@ -150,12 +187,7 @@ class PageAssistantPartageInterpretation extends Component {
                                     <Progress percent="50" size='tiny' indicating/>                                    
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={
-                                        ()=>{
-                                            console.log('soumettre')
-                                            this.props.enregistrer(this.state.menu.deconnexion)
-                                        }
-                                        }>
+                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
                                         {t('flot.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>

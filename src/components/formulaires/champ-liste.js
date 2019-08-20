@@ -97,8 +97,8 @@ export class ChampListeCollaborateurAssistant extends Component {
             let _options = res.data.map(elem=>{
                 return {
                     key: `${elem.rightHolderId}`, 
-                    text: `${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`, 
-                    value: `${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`
+                    text: `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`, 
+                    value: `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
                 }
             })            
             if(!this.OPTIONS) {
@@ -192,9 +192,10 @@ export class ChampListeEditeurAssistant extends Component {
         // Récupérer la liste des ayant-droits (éditeurs)
         axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
-            let _options = res.data.map(elem=>{                
-                editeurs[`${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`] = elem.rightHolderId
-                return {key: `${elem.rightHolderId}`,text: `${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`, value: `${elem.firstName}${elem.artistName ? " '"+elem.artistName+"'" : ''} ${elem.lastName}`}
+            let _options = res.data.map(elem=>{
+                let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
+                editeurs[nom] = elem.rightHolderId
+                return {key: `${elem.rightHolderId}`,text: nom, value: nom}
             })            
             if(!this.OPTIONS) {
                 this.OPTIONS = _options

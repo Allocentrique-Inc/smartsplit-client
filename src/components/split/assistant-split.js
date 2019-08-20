@@ -95,10 +95,10 @@ class ValiderSplit extends Component {
             .then(res=>{
                 let media = res.data.Item
                 this.setState({mediaTitle: media.title})
+                this.setState({mediaId: media.mediaId})
             })
             .catch((error) => {
-                toast.error(error.message)
-                
+                toast.error(error.message)                
             })
 
             // Récupération du courriel de l'ayant-droit
@@ -149,11 +149,11 @@ class ValiderSplit extends Component {
         axios.post('http://api.smartsplit.org:8080/v1/proposal/invite', body)
         .then((resp)=>{
             if(resp.data !== '') {
-                window.location.href=`/proposition/vote/${resp.data}`
+                window.location.href=`/partager/${this.state.mediaId}`
             }                
         })
         .catch((error) => {
-            toast.error(error)            
+            toast.error(error)
         })
 
     }
@@ -172,16 +172,6 @@ class ValiderSplit extends Component {
                                 buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                 debug={false}
                                 onSubmit={this.transmettreInvitation.bind(this)}>
-
-                                <Wizard.Page>
-                                    <React.Fragment>
-                                        <i className="file image outline icon huge grey"></i>
-                                        <span className="medium-400" style={{marginLeft: "15px"}}>{this.state.mediaTitle}</span>
-                                        <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.split.sommaire.titre')}</span>
-                                        <span className="medium-400" style={{marginLeft: "50px"}}>{t('flot.split.sommaire.soustitre')} {this.state.initiateur}</span>
-                                        <SommairePartage uuid={this.props.proposition} />
-                                    </React.Fragment>
-                                </Wizard.Page>
 
                                 <Wizard.Page>
                                     <PageAssistantSplitCourrielsCollaborateurs ayantDroits={this.state.rightHolders} titre={this.state.mediaTitle}/>

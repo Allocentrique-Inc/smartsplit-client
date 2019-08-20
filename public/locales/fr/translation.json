@@ -158,7 +158,8 @@
         "etape": {
             "partage-etape": "Étape 2",
             "partage-titre": "Partage des droits",
-            "enregistrerEtQuitter": "Enregistrer et quitter"
+            "enregistrerEtQuitter": "Enregistrer et quitter",
+            "vote-titre": "Voter sur une proposition de partage"
         },
         "partage": {
             "auteur": {
@@ -188,6 +189,11 @@
         },
         "editeur": {
             "ajout": "Ajouter un éditeur"
+        },
+        "proposition": {
+            "nouvelle": "Créer une nouvelle version",
+            "envoyer": "Envoyer aux collaborateurs",
+            "continuer": "Continuer le partage"
         }
     },
     "traitement": {

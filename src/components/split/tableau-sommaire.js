@@ -33,11 +33,12 @@ class TableauSommaireSplit extends Component {
        
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
-        this.genererAffichage = this.genererAffichage.bind(this)
         this.changerVote = this.changerVote.bind(this)
         this.activerBoutonVote = this.activerBoutonVote.bind(this)
-        this.preEnvoi = this.preEnvoi.bind(this)
         this.estVoteTermine = this.estVoteTermine.bind(this)
+
+        this.genererAffichage = this.genererAffichage.bind(this)        
+        this.preEnvoi = this.preEnvoi.bind(this)        
         this.transmettre = this.transmettre.bind(this)        
 
     }
@@ -56,7 +57,7 @@ class TableauSommaireSplit extends Component {
 
         // Calcul des droits et ayants-droits
         let proposal, propositionId
-        let sommaire = {}        
+        let sommaire = {}
         
         if (this.props.jeton) {            
             propositionId = this.props.jeton.proposalId            

@@ -19,12 +19,26 @@ import { Auth } from 'aws-amplify'
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
 
+const ROLES = {
+    COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a3i",
+    AUTEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a33",
+    ARRANGEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a32",
+    ACCOMPAGNEMENT: "45745c60-7b1a-11e8-9c9c-2d42b21b1a36",
+    PRODUCTEUR:  "45745c60-7b1a-11e8-9c9c-2d42b21b1a40",
+    REALISATEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a41",
+    STUDIO: "45745c60-7b1a-11e8-9c9c-2d42b21b1a42",
+    GRAPHISTE: "45745c60-7b1a-11e8-9c9c-2d42b21b1a43",
+    CHANTEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a35",
+    MUSICIEN: "45745c60-7b1a-11e8-9c9c-2d42b21b1a36"
+}
+
 class AssistantPartage extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             mediaId: this.props.mediaId,
+            uuid: this.props.uuid,
             user: null
         }
         this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
@@ -33,17 +47,35 @@ class AssistantPartage extends Component {
 
     componentWillMount() {
         Auth.currentAuthenticatedUser()
-            .then(res => {
-                this.setState({ user: res })
+        .then(res=>{
+            this.setState({user: res})
+            if(this.state.mediaId) {
+                // Une nouvelle proposition pour un média
                 this.recupererOeuvre()
-            })
-            .catch(err => {
-                toast.error(err.message)
-                confirmAlert({
-                    title: `Connexion obligatoire`,
-                    message: `Tu dois être connecté pour accéder au tableau de bord`,
-                    closeOnClickOutside: false,
-                    style: {
+            } else if (this.state.uuid) {
+                // Une proposition existante, poursuite de la proposition BROUILLON
+                axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+                .then(res=>{
+                    let proposal = res.data.Item
+                    this.setState({proposition: proposal}, ()=>{
+                        this.setState({mediaId: proposal.mediaId}, ()=>{
+                            this.recupererOeuvre()
+                        })
+                    })
+                })
+                .catch((error) => {
+                    toast.error(error)
+                })
+            }
+
+        })
+        .catch(err=>{
+            toast.error(err.message)
+            confirmAlert({
+                title: `Connexion obligatoire`,
+                message: `Tu dois être connecté pour accéder au tableau de bord`,
+                closeOnClickOutside: false,
+                style: {
                         position: "relative",
                         width: "640px",
                         height: "660px",
@@ -86,14 +118,13 @@ class AssistantPartage extends Component {
 
             // 1. Récupérer la liste des ayant-droits
             axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
-                .then(res => {
-                    res.data.forEach(elem => {
-
-                        let nom = `${ elem.firstName }${ elem.artistName ? ` '${ elem.artistName }'` : '' } ${ elem.lastName }`
-
-                        _association[nom] = elem
-                    });
-                    // 2. Générer la structure à envoyer à Dynamo
+            .then(res=>{                                    
+                console.log('Ayant-droits', res)
+                res.data.forEach(elem=>{
+                    let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
+                    _association[nom] = elem
+                })                        
+                // 2. Générer la structure à envoyer à Dynamo
 
                     let droitEnregistrement = [];
                     let droitInterpretePrincipal = [];
@@ -103,89 +134,92 @@ class AssistantPartage extends Component {
 
                     values.droitAuteur.forEach(elem => {
 
-                        let _rH = _association[elem.nom];
-                        let nom = `${ _rH.firstName } ${ _rH.lastName }`;
-                        let uuid = _rH.rightHolderId;
+                    let _rH = _association[elem.nom]
+                    let uuid = _rH.rightHolderId
 
-                        if (elem.arrangeur || elem.compositeur) {
-                            let roles = {};
-                            if (elem.compositeur) {
-                                roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a3i"] = "composer"
-                            }
-                            if (elem.arrangeur) {
-                                roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a32"] = "remixer"
-                            }
-                            droitAuteurMusique.push({
-                                    "rightHolder": {
-                                        "name": nom,
-                                        "rightHolderId": uuid
-                                    },
-                                    "voteStatus": "active",
-                                    "contributorRole": roles,
-                                    "splitPct": `${ elem.pourcentMusique }`
-                                }
-                            )
-                        }
-
-                        if (elem.auteur) {
-                            let roles = { "45745c60-7b1a-11e8-9c9c-2d42b21b1a33": "songwriter" }
-                            droitAuteurParoles.push({
-                                    "rightHolder": {
-                                        "name": nom,
-                                        "rightHolderId": uuid
-                                    },
-                                    "voteStatus": "active",
-                                    "contributorRole": roles,
-                                    "splitPct": `${ elem.pourcentParoles }`
-                                }
-                            )
-                        }
-                    })
-
-                    values.droitInterpretation.forEach(elem => {
-
-                        let _rH = _association[elem.nom];
-                        let nom = `${ _rH.firstName } ${ _rH.lastName }`;
-                        let uuid = _rH.rightHolderId;
-
-                        if (elem.principal) {
-                            let roles = {};
-                            if (elem.chanteur) {
-                                roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer";
-                            }
-                            if (elem.musicien) {
-                                roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] = "musician";
-                            }
-                            droitInterpretePrincipal.push({
-                                "rightHolder": {
-                                    "name": nom,
-                                    "rightHolderId": uuid
-                                },
-                                "voteStatus": "active",
-                                "contributorRole": roles,
-                                "splitPct": `${ elem.pourcent }`
-                            })
-                        } else {
-                            let roles = { "45745c60-7b1a-11e8-9c9c-2d42b21b1a36": "accompaniment" }
-                            droitInterpreteAccompagnement.push({
-                                "rightHolder": {
-                                    "name": nom,
-                                    "rightHolderId": uuid
-                                },
-                                "voteStatus": "active",
-                                "contributorRole": roles,
-                                "splitPct": `${ elem.pourcent }`
-                            })
-                        }
-
-                    })
-
-                    values.droitEnregistrement.forEach(elem => {
-                        let _rH = _association[elem.nom]
-                        let nom = `${ _rH.firstName } ${ _rH.lastName }`
-                        let uuid = _rH.rightHolderId
+                    if(elem.arrangeur || elem.compositeur) {
                         let roles = {}
-                        if (elem.producteur) {
+                        if(elem.compositeur) {
+                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a3i"] = "composer"
+                        }
+                        if(elem.arrangeur) {
+                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a32"] = "remixer"
+                        }
+                        droitAuteurMusique.push({
+                            "rightHolder": {
+                                "name": elem.nom,
+                                "rightHolderId": uuid
+                            },
+                            "voteStatus": "active",
+                            "contributorRole": roles,
+                            "splitPct": `${elem.pourcentMusique}`
+                            }
+                        )
+                    }
+
+                    if(elem.auteur) {
+                        let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a33": "songwriter"}
+                        droitAuteurParoles.push({
+                            "rightHolder": {
+                                "name": elem.nom,
+                                "rightHolderId": uuid
+                            },
+                            "voteStatus": "active",
+                            "contributorRole": roles,
+                            "splitPct": `${elem.pourcentParoles}`
+                            }
+                        )
+                    }
+                })
+
+                values.droitInterpretation.forEach(elem=>{
+                    
+                    let _rH = _association[elem.nom]
+                    let uuid = _rH.rightHolderId
+
+                    if(elem.principal) {
+                        let roles = {}
+                        if(elem.chanteur) {
+                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
+                        }
+                        if(elem.musicien) {
+                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] = "musician"
+                        }
+                        droitInterpretePrincipal.push({
+                            "rightHolder": {
+                                "name": elem.nom,
+                                "rightHolderId": uuid
+                            },
+                            "voteStatus": "active",
+                            "contributorRole": roles,
+                            "splitPct": `${elem.pourcent}`
+                            })
+                    } else {
+                        let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a36": "accompaniment"}
+                        if(elem.chanteur) {
+                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
+                        }
+                        if(elem.musicien) {
+                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] = "musician"
+                        }
+                        droitInterpreteAccompagnement.push({
+                            "rightHolder": {
+                                "name": elem.nom,
+                                "rightHolderId": uuid
+                            },
+                            "voteStatus": "active",
+                            "contributorRole": roles,
+                            "splitPct": `${elem.pourcent}`
+                            })
+                        }
+
+                    })
+
+                values.droitEnregistrement.forEach(elem=>{
+                    let _rH = _association[elem.nom]
+                    let uuid = _rH.rightHolderId
+                    let roles = {}
+                        if(elem.producteur) {
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a40"] = "producer"
                         }
                         if (elem.realisateur) {
@@ -197,67 +231,89 @@ class AssistantPartage extends Component {
                         if (elem.graphiste) {
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a43"] = "graphist"
                         }
-                        droitEnregistrement.push({
-                            "rightHolder": {
-                                "name": nom,
-                                "rightHolderId": uuid
-                            },
-                            "voteStatus": "active",
-                            "contributorRole": roles,
-                            "splitPct": `${ elem.pourcent }`
-                        })
+                    droitEnregistrement.push({
+                        "rightHolder": {
+                            "name": elem.nom,
+                            "rightHolderId": uuid
+                        },
+                        "voteStatus": "active",
+                        "contributorRole": roles,
+                        "splitPct": `${elem.pourcent}`
                     })
+                })            
 
-                    let body = {
-                        uuid: "",
-                        mediaId: parseInt(`${ this.state.mediaId }`),
-                        initiator: {
-                            "name": `${ this.state.user.attributes.name } ${ this.state.user.attributes.family_name }`,
-                            "id": this.state.user.username
+                let body = {
+                    uuid: "",
+                    mediaId: parseInt(`${this.state.mediaId}`),
+                    initiator: {
+                        "name": `${this.state.user.attributes.name} ${this.state.user.attributes.family_name}`,
+                        "id": this.state.user.username
+                    },
+                    rightsSplits: {
+                        "workCopyrightSplit": {
+                            "lyrics": droitAuteurParoles,
+                            "music": droitAuteurMusique
                         },
-                        rightsSplits: {
-                            "workCopyrightSplit": {
-                                "lyrics": droitAuteurParoles,
-                                "music": droitAuteurMusique
-                            },
-                            "performanceNeighboringRightSplit": {
-                                "principal": droitInterpretePrincipal,
-                                "accompaniment": droitInterpreteAccompagnement
-                            },
-                            "masterNeighboringRightSplit": {
-                                "split": droitEnregistrement
-                            }
+                        "performanceNeighboringRightSplit": {
+                            "principal": droitInterpretePrincipal,
+                            "accompaniment": droitInterpreteAccompagnement
                         },
-                        "comments": [],
-                        "state": etat
-                    }
-                    body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split" })
-                    console.log('Envoi', body)
-                    // 3. Soumettre la nouvelle proposition
-                    axios.post('http://api.smartsplit.org:8080/v1/proposal', body)
-                        .then(res => {
-                            toast.success(`${ res.data }`)
-                            // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
-                            if (typeof cb === "function") {
-                                cb()
-                            } else {
-                                setTimeout(() => {
-                                    window.location.href = `/approuver-proposition/${ res.data }`
-                                }, 3000)
-                            }
-                        })
-                        .catch(err => {
-                            toast.error(err.message)
-                        })
-                })
-                .catch(err => {
-                    toast.error(err.message)
-                    if (typeof cb === "function") {
-                        setTimeout(() => {
+                        "masterNeighboringRightSplit": {
+                            "split": droitEnregistrement
+                        }
+                    },
+                    "comments": [],
+                    "etat": etat
+                }
+                body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split"})
+                console.log('Envoi', body)
+
+                if(values.uuid && values.uuid !== "") {
+                    // 3a. Soumettre la nouvelle proposition
+                    body.uuid = values.uuid
+                    axios.put(`http://api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
+                    .then(res=>{
+                        toast.success(`${res.data}`)
+                        // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
+                        if(typeof cb === "function") {
                             cb()
-                        }, 1000)
-                    }
-                })
+                        } else {
+                            setTimeout(()=>{
+                                window.location.href = `/proposition/approuver/${res.data}`
+                            }, 3000)
+                        }
+                    })
+                    .catch(err=>{
+                        toast.error(err.message)
+                    })
+                } else {
+                    // 3b. Soumettre la nouvelle proposition
+                    axios.post('http://api.smartsplit.org:8080/v1/proposal', body)
+                    .then(res=>{
+                        toast.success(`${res.data}`)
+                        // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
+                        if(typeof cb === "function") {
+                            cb()
+                        } else {
+                            setTimeout(()=>{
+                                window.location.href = `/proposition/approuver/${res.data}`
+                            }, 3000)
+                        }
+                    })
+                    .catch(err=>{
+                        toast.error(err.message)
+                    })
+                }
+
+            })
+            .catch(err=>{
+                toast.error(err.message)
+                if (typeof cb === "function") {
+                    setTimeout(()=>{
+                        cb()
+                    }, 1000)
+                }                
+            })
         }
     }
 
@@ -276,7 +332,75 @@ class AssistantPartage extends Component {
 
     render() {
 
-        if (this.state.media) {
+        if(this.state.media) {
+            let valeursInitiales = {droitAuteur: [],droitInterpretation: [],droitEnregistrement: []}
+            if(this.state.proposition) {
+                // Ordonner les valeurs initiales
+                let _rS = this.state.proposition.rightsSplits
+                let _droit = {
+                    auteur: {},
+                    interpretation: {},
+                    enregistrement: {}
+                }
+                function creerAd(elem) {
+                    return {nom: elem.rightHolder.name, pourcent: 0.00}
+                }
+                // Droit d'auteur
+                _rS.workCopyrightSplit.music.forEach(elem=>{ // Musique
+                    if(!_droit.auteur[elem.rightHolder.rightHolderId]) {
+                        _droit.auteur[elem.rightHolder.rightHolderId] = creerAd(elem)
+                    }
+                    _droit.auteur[elem.rightHolder.rightHolderId].pourcentMusique = parseFloat(elem.splitPct)
+                    _droit.auteur[elem.rightHolder.rightHolderId].pourcent = parseFloat(elem.splitPct) + _droit.auteur[elem.rightHolder.rightHolderId].pourcent
+                    _droit.auteur[elem.rightHolder.rightHolderId].arrangeur = elem.contributorRole[ROLES.ARRANGEUR] ? true : false
+                    _droit.auteur[elem.rightHolder.rightHolderId].compositeur = elem.contributorRole[ROLES.COMPOSITEUR] ? true : false
+                })
+                _rS.workCopyrightSplit.lyrics.forEach(elem=>{ // Paroles
+                    if(!_droit.auteur[elem.rightHolder.rightHolderId]) {
+                        _droit.auteur[elem.rightHolder.rightHolderId] = creerAd(elem)
+                    }
+                    _droit.auteur[elem.rightHolder.rightHolderId].pourcentParoles = parseFloat(elem.splitPct)
+                    _droit.auteur[elem.rightHolder.rightHolderId].pourcent = parseFloat(elem.splitPct) + _droit.auteur[elem.rightHolder.rightHolderId].pourcent
+                    _droit.auteur[elem.rightHolder.rightHolderId].auteur = elem.contributorRole[ROLES.AUTEUR] ? true : false
+                })
+
+                // Droit d'interprétation
+                _rS.performanceNeighboringRightSplit.principal.forEach(elem=>{ // Principal
+                    if(!_droit.interpretation[elem.rightHolder.rightHolderId]) {
+                        _droit.interpretation[elem.rightHolder.rightHolderId] = creerAd(elem)
+                    }
+                    _droit.interpretation[elem.rightHolder.rightHolderId].pourcent = parseFloat(elem.splitPct) + _droit.interpretation[elem.rightHolder.rightHolderId].pourcent
+                    _droit.interpretation[elem.rightHolder.rightHolderId].principal = true
+                    _droit.interpretation[elem.rightHolder.rightHolderId].chanteur = elem.contributorRole[ROLES.CHANTEUR] ? true : false
+                    _droit.interpretation[elem.rightHolder.rightHolderId].musicien = elem.contributorRole[ROLES.MUSICIEN] ? true : false
+                })
+                _rS.performanceNeighboringRightSplit.accompaniment.forEach(elem=>{ // Accompagnement
+                    if(!_droit.interpretation[elem.rightHolder.rightHolderId]) {
+                        _droit.interpretation[elem.rightHolder.rightHolderId] = creerAd(elem)
+                    }
+                    _droit.interpretation[elem.rightHolder.rightHolderId].pourcent = parseFloat(elem.splitPct) + _droit.interpretation[elem.rightHolder.rightHolderId].pourcent
+                    _droit.interpretation[elem.rightHolder.rightHolderId].accompaniment = true
+                    _droit.interpretation[elem.rightHolder.rightHolderId].chanteur = elem.contributorRole[ROLES.CHANTEUR] ? true : false
+                    _droit.interpretation[elem.rightHolder.rightHolderId].musicien = elem.contributorRole[ROLES.MUSICIEN] ? true : false
+                })
+                // Droit d'enregistrement
+                _rS.masterNeighboringRightSplit.split.forEach(elem=>{ // Split
+                    if(!_droit.enregistrement[elem.rightHolder.rightHolderId]) {
+                        _droit.enregistrement[elem.rightHolder.rightHolderId] = creerAd(elem)
+                    }
+                    _droit.enregistrement[elem.rightHolder.rightHolderId].pourcent = parseFloat(elem.splitPct)
+                    _droit.enregistrement[elem.rightHolder.rightHolderId].studio = elem.contributorRole[ROLES.STUDIO] ? true : false
+                    _droit.enregistrement[elem.rightHolder.rightHolderId].producteur = elem.contributorRole[ROLES.PRODUCTEUR] ? true : false
+                    _droit.enregistrement[elem.rightHolder.rightHolderId].realisateur = elem.contributorRole[ROLES.REALISATEUR] ? true : false
+                    _droit.enregistrement[elem.rightHolder.rightHolderId].graphiste = elem.contributorRole[ROLES.GRAPHISTE] ? true : false
+                })
+
+                // Construction des valeurs initiales
+                Object.keys(_droit.auteur).forEach(elem=>{valeursInitiales.droitAuteur.push(_droit.auteur[elem])})
+                Object.keys(_droit.interpretation).forEach(elem=>{valeursInitiales.droitInterpretation.push(_droit.interpretation[elem])})
+                Object.keys(_droit.enregistrement).forEach(elem=>{valeursInitiales.droitEnregistrement.push(_droit.enregistrement[elem])})
+            }
+
             return (
                 <Translation>
                     {
@@ -286,20 +410,17 @@ class AssistantPartage extends Component {
                                 <div className="ui row">
                                     <div className="ui two wide column"/>
                                     <div className="ui twelve wide column">
-                                        <Wizard
-                                            initialValues={ {
-                                                droitAuteur: [],
-                                                droitInterpretation: [],
-                                                droitEnregistrement: [],
+                                        <Wizard                                    
+                                            initialValues={{
+                                                droitAuteur: valeursInitiales.droitAuteur,
+                                                droitInterpretation : valeursInitiales.droitInterpretation,
+                                                droitEnregistrement: valeursInitiales.droitEnregistrement,
                                                 collaborateur: [],
+                                                uuid: this.state.uuid,
                                                 media: this.state.media
-                                            } }
-                                            buttonLabels={ {
-                                                previous: t('navigation.precedent'),
-                                                next: t('navigation.suivant'),
-                                                submit: t('navigation.envoi')
-                                            } }
-                                            debug={ true }
+                                            }}
+                                            buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
+                                            debug={false}
                                             onSubmit={
                                                 (values) => {
                                                     this.soumettre(values, "PRET")
@@ -311,13 +432,13 @@ class AssistantPartage extends Component {
                                                 <PageAssistantPartageDroitAuteur
                                                     enregistrerEtQuitter={ this.enregistrerEtQuitter } i18n={ i18n }/>
                                             </Wizard.Page>
-
-                                            <Wizard.Page>
-                                                <PageAssistantPartageDroitInterpretation i18n={ i18n }/>
+            
+                                            <Wizard.Page>                                                
+                                                <PageAssistantPartageDroitInterpretation enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
 
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitEnregistrement i18n={ i18n }/>
+                                                <PageAssistantPartageDroitEnregistrement enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
 
                                         </Wizard>
