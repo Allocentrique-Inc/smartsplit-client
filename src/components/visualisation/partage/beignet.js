@@ -16,6 +16,7 @@ export default class Beignet extends Component {
         super(props)
         
         let _d = {}
+        let _c = {}
         
         if(props.data.length > 0) {
             props.data.forEach(elem=>{
@@ -30,6 +31,7 @@ export default class Beignet extends Component {
             height: 250, //225,
             margin: 0, //50,
             data: _d,
+            colors: _c,
             uuid: props.uuid
         }        
     } 
@@ -38,13 +40,16 @@ export default class Beignet extends Component {
         // Le beignet rafraichit son affichage à chaque changement de propriétés.
         // Il n'y a pas de test sur les attributes (this.props.xyz !== nextProps.xyz)
         let _d = {}
+        let _c = {}
         if(nextProps.data.length > 0) {
             nextProps.data.forEach(elem=>{
                 if(elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
                     _d[elem.nom] = elem.pourcent
                 }
+                _c[elem.nom] = elem.color
             })
             this.setState({data: _d})
+            this.setState({colors: _c})
         }        
     }
 
@@ -69,20 +74,12 @@ export default class Beignet extends Component {
             .append("g")
             .attr("transform", "translate(" + this.state.width / 2 + "," + this.state.height / 2 + ")");
 
-        // Les étiquettes (pour les couleurs)
-        let domaineDeNoms = []
-        Object.keys(this.state.data).forEach(elem=>{
-            domaineDeNoms.push(elem)
-        })
-
-        // set the color scale
-        //let color = d3.scaleOrdinal()
-        //    .domain( domaineDeNoms )
-        //    .range(d3. schemePaired
-        //);
+        //let color = d3.scaleOrdinal() // D3 Version 4
+        //    .domain(domaineDeNoms)
+        //    .range(["#EBB1DC", "#F6BCC7", "#FED2AC", "#F8EBA3", "#C6F3B6", "#AAE7E8", "#A4B7F1", "#BDBCF9"]);
         let color = d3.scaleOrdinal() // D3 Version 4
-            .domain(domaineDeNoms)
-            .range(["#EBB1DC", "#F6BCC7", "#FED2AC", "#F8EBA3", "#C6F3B6", "#AAE7E8", "#A4B7F1", "#BDBCF9"]);
+            .domain(Object.keys(this.state.colors))
+            .range(Object.values(this.state.colors));
 
         // Compute the position of each group on the pie:
         let pie = d3.pie()
