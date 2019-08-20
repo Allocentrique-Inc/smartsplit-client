@@ -194,7 +194,10 @@ class AssistantOeuvre extends Component {
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageInterpretation i18n={ i18n }/>
+                                        <PageInterpretation
+                                            i18n={ i18n }
+                                            rightHolders={ this.state.rightHolders }
+                                        />
                                     </Wizard.Page>
 
                                     <Wizard.Page>

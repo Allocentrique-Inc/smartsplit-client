@@ -8,10 +8,7 @@ import { Translation } from 'react-i18next'
 import starIcon from '../../assets/svg/icons/star-orange.svg';
 
 import '../../assets/scss/assistant-form.scss';
-import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple";
-import Input from "semantic-ui-react/dist/commonjs/elements/Input";
-import { ChampDate } from "../formulaires/champ-date";
-import { Dropdown } from "semantic-ui-react";
+import { ChampSelectionMusicien } from "../formulaires/champ-selection-musicien";
 
 class PageAssistantOeuvreDescription extends Component {
 
@@ -19,33 +16,9 @@ class PageAssistantOeuvreDescription extends Component {
         super(props);
 
         this.state = {
-            musicians: [],
-            composers: [],
-            publishers: []
+            musicians: []
         }
     }
-
-
-
-    componentDidUpdate(prevProps, prevState) {
-        if (
-            this.state.songwriters !== prevState.songwriters ||
-            this.state.composers !== prevState.composers ||
-            this.state.publishers !== prevState.publishers
-        ) {
-            const songwriters = this.state.songwriters.reduce(this.pushRole('songwriter'), {});
-            const songwritersAndComposers = this.state.composers.reduce(this.pushRole('composer'), songwriters);
-            const rightHolders = this.state.publishers.reduce(this.pushRole('publisher'), songwritersAndComposers);
-
-            this.props.setFieldValue('rightHolders', rightHolders);
-        }
-    }
-
-    pushRole = type => (rightHolders, uuid) => {
-        rightHolders[uuid] = rightHolders[uuid] || [];
-        rightHolders[uuid].push(type);
-        return rightHolders;
-    };
 
     rightHolderOptions() {
         return this.props.rightHolders.map(this.makeRightHolderOption);
@@ -112,15 +85,9 @@ class PageAssistantOeuvreDescription extends Component {
                                             C’est ici que tu indiques qui a joué quel instrument.
                                         </p>
 
-                                        <Dropdown
-                                            className="add-musician-dropdown"
-                                            placeholder={ this.props.placeholder }
-                                            fluid
-                                            search
-                                            selection
-                                            value={ this.state.dropdownValue }
-                                            options={ this.props.options }
-                                            onChange={ this.handleChange }
+                                        <ChampSelectionMusicien
+                                            items={ this.rightHolderOptions() }
+                                            onChange={ values => this.setState({ musicians: values }) }
                                         />
                                     </div>
                                 </div>
