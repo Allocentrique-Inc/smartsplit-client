@@ -12,23 +12,31 @@ import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple"
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
 
+const roles = {
+    songwriter: 'songwriter',
+    composer: 'composer',
+    publisher: 'publisher'
+};
+
 class PageAssistantOeuvreDescription extends Component {
 
     constructor(props) {
         super(props);
 
+        console.log(props.values.rightHolders);
+        const songwriters = this.filterShareHolders(roles.songwriter, props.values.rightHolders);
+        const composers = this.filterShareHolders(roles.composer, props.values.rightHolders);
+        const publishers = this.filterShareHolders(roles.publisher, props.values.rightHolders);
+
         this.state = {
-            pctProgression: props.pctProgression,
-            songwriters: [],
-            composers: [],
-            publishers: []
+            songwriters: songwriters,
+            composers: composers,
+            publishers: publishers
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.pctProgression !== nextProps.pctProgression) {
-            this.setState({ pctProgression: nextProps.pctProgression })
-        }
+    filterShareHolders(role, rightHolders) {
+        return Object.keys(rightHolders).filter(uuid => rightHolders[uuid].includes(role));
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -37,9 +45,9 @@ class PageAssistantOeuvreDescription extends Component {
             this.state.composers !== prevState.composers ||
             this.state.publishers !== prevState.publishers
         ) {
-            const songwriters = this.state.songwriters.reduce(this.pushRole('songwriter'), {});
-            const songwritersAndComposers = this.state.composers.reduce(this.pushRole('composer'), songwriters);
-            const rightHolders = this.state.publishers.reduce(this.pushRole('publisher'), songwritersAndComposers);
+            const songwriters = this.state.songwriters.reduce(this.pushRole(roles.songwriter), {});
+            const songwritersAndComposers = this.state.composers.reduce(this.pushRole(roles.composer), songwriters);
+            const rightHolders = this.state.publishers.reduce(this.pushRole(roles.publisher), songwritersAndComposers);
 
             this.props.setFieldValue('rightHolders', rightHolders);
         }
@@ -83,10 +91,6 @@ class PageAssistantOeuvreDescription extends Component {
             'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
     };
 
-    updateRightHolders(key, newRightHolderIds) {
-        this.setState({ [key]: newRightHolderIds });
-    }
-
     render() {
         return (
             <Translation>
@@ -128,6 +132,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Auteurs"
                                             description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un auteur..."
+                                            value={ this.state.songwriters }
                                             onChange={ ids => this.setState({ songwriters: ids }) }
                                         />
 
@@ -136,6 +141,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Compositeurs"
                                             description="Qui a composé la musique de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un compositeur..."
+                                            value={ this.state.composers }
                                             onChange={ ids => this.setState({ composers: ids }) }
                                         />
 
@@ -144,6 +150,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Éditeurs"
                                             description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
                                             placeholder="Ajouter un éditeur..."
+                                            value={ this.state.publishers }
                                             onChange={ ids => this.setState({ publishers: ids }) }
                                         />
 

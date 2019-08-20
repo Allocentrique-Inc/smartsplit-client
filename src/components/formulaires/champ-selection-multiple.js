@@ -7,7 +7,7 @@ export class ChampSelectionMultiple extends Component {
         super(props);
 
         this.state = {
-            selectedValues: [],
+            selectedValues: this.props.value || [],
             dropdownValue: null
         };
     }

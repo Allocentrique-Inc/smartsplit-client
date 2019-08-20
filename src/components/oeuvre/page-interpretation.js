@@ -19,18 +19,13 @@ class PageAssistantOeuvreDescription extends Component {
         super(props);
 
         this.state = {
-            pctProgression: props.pctProgression,
-            songwriters: [],
+            musicians: [],
             composers: [],
             publishers: []
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.pctProgression !== nextProps.pctProgression) {
-            this.setState({ pctProgression: nextProps.pctProgression })
-        }
-    }
+
 
     componentDidUpdate(prevProps, prevState) {
         if (
