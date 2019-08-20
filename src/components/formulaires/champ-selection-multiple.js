@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { ItemSelectionne } from "./item-selectionne";
 
-export class ChampSelection extends Component {
+export class ChampSelectionMultiple extends Component {
     constructor(props) {
         super(props);
 

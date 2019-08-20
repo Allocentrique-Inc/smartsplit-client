@@ -6,9 +6,9 @@ import React, { Component } from 'react'
 import { Wizard } from "semantic-ui-react-formik"
 import axios from 'axios'
 // Pages de l'assistant
-import Embarquement from './assistant-oeuvre-embarquement'
-import PageCollaborateurs from './assistant-oeuvre-collaborateurs'
-import PageParoles from './assistant-oeuvre-paroles'
+import PageEmbarquement from './page-embarquement';
+import PageCreation from './page-creation';
+import PageInterpretation from './page-interpretation';
 import PageGenres from './assistant-oeuvre-genres'
 import PagePro from './assistant-oeuvre-pro'
 import PageLiens from './assistant-oeuvre-liens'
@@ -179,18 +179,22 @@ class AssistantOeuvre extends Component {
                                     debug={ true }
                                 >
                                     <Wizard.Page>
-                                        <Embarquement audio={ this.state.audio } i18n={ i18n } pctProgression={ 5 }/>
+                                        <PageEmbarquement
+                                            i18n={ i18n }
+                                            audio={ this.state.audio }
+                                            pctProgression={ 5 }
+                                        />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageCollaborateurs
+                                        <PageCreation
                                             i18n={ i18n }
                                             rightHolders={ this.state.rightHolders }
                                         />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageParoles i18n={ i18n } pctProgression={ 55 }/>
+                                        <PageInterpretation i18n={ i18n }/>
                                     </Wizard.Page>
 
                                     <Wizard.Page>

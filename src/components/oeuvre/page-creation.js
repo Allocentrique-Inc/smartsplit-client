@@ -8,7 +8,7 @@ import { Translation } from 'react-i18next'
 import copyrightIcon from '../../assets/svg/icons/copyright-orange.svg';
 
 import '../../assets/scss/assistant-form.scss';
-import { ChampSelection } from "../formulaires/champ-selection";
+import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
 
@@ -123,7 +123,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
                                         />
 
-                                        <ChampSelection
+                                        <ChampSelectionMultiple
                                             items={ this.rightHolderOptions() }
                                             label="Auteurs"
                                             description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
@@ -131,7 +131,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             onChange={ ids => this.setState({ songwriters: ids }) }
                                         />
 
-                                        <ChampSelection
+                                        <ChampSelectionMultiple
                                             items={ this.rightHolderOptions() }
                                             label="Compositeurs"
                                             description="Qui a composé la musique de cette pièce musicale&#8239;?"
@@ -139,7 +139,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             onChange={ ids => this.setState({ composers: ids }) }
                                         />
 
-                                        <ChampSelection
+                                        <ChampSelectionMultiple
                                             items={ this.rightHolderOptions() }
                                             label="Éditeurs"
                                             description="Qui représente ces auteurs et/ou compositeurs&#8239;?"

@@ -7,8 +7,8 @@ import { Wizard } from "semantic-ui-react-formik"
 import axios from 'axios'
 
 // Pages de l'assistant
-import Embarquement from './assistant-oeuvre-embarquement'
-import PageCollaborateurs from './assistant-oeuvre-collaborateurs'
+import Embarquement from './page-embarquement'
+import PageCollaborateurs from './page-creation'
 import PageParoles from './assistant-oeuvre-paroles'
 import PageGenres from './assistant-oeuvre-genres'
 import PagePro from './assistant-oeuvre-pro'
