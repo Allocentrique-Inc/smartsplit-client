@@ -6,7 +6,6 @@ import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
 import copyrightIcon from '../../assets/svg/icons/copyright-orange.svg';
-import avatar1 from '../../assets/images/steve.jpg';
 
 import '../../assets/scss/assistant-form.scss';
 import { ChampSelection } from "../formulaires/champ-selection";
@@ -49,32 +48,49 @@ class PageAssistantOeuvreDescription extends Component {
         }
     }
 
+    addType = type => rightHolder => Object.assign({}, rightHolder, { type: type });
+
     rightHolderOptions() {
         return this.props.rightHolders.map(this.makeRightHolderOption);
     }
 
-    makeRightHolderOption(rightHolder) {
-        const artistText = rightHolder.artistName ?
-            '(' + rightHolder.artistName + ')' :
-            null;
-
-        const fullName = [
-            rightHolder.firstName,
-            rightHolder.lastName,
-            artistText
-        ]
-            .filter(text => text)
-            .join(' ');
-
+    makeRightHolderOption = rightHolder => {
         return {
             key: rightHolder.rightHolderId,
             value: rightHolder.rightHolderId,
-            text: fullName,
-            image: { avatar: true, src: avatar1 }
+            text: this.makeRightHolderText(rightHolder),
+            image: {
+                avatar: true,
+                src: this.makeRightHolderAvatarUrl(rightHolder)
+            }
         };
     };
 
-    addType = type => rightHolder => Object.assign(rightHolder, { type: type });
+    makeRightHolderText = rightHolder => {
+        return rightHolder.artistName ?
+            rightHolder.artistName :
+            [rightHolder.firstName, rightHolder.lastName]
+                .filter(text => text)
+                .join(' ');
+    };
+
+    makeRightHolderAvatarUrl = rightHolder => {
+        const avatarImage = rightHolder.avatarImage;
+
+        return avatarImage ?
+            'https://smartsplit-images.s3.us-east-2.amazonaws.com/' + avatarImage :
+            'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+    };
+
+    updateRightHolders(key, newRightHolderIds) {
+        const newRightHolders = newRightHolderIds.map(
+            id => this.props.rightHolders.find(
+                rightHolder => rightHolder.rightHolderId === id
+            )
+        );
+
+        this.setState({ [key]: newRightHolders });
+    }
 
     render() {
         return (
@@ -117,7 +133,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Auteurs"
                                             description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un auteur..."
-                                            onChange={ authors => this.setState({ 'authors': authors }) }
+                                            onChange={ ids => this.updateRightHolders('authors', ids) }
                                         />
 
                                         <ChampSelection
@@ -125,7 +141,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Compositeurs"
                                             description="Qui a composé la musique de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un compositeur..."
-                                            onChange={ composers => this.setState({ 'composers': composers }) }
+                                            onChange={ ids => this.updateRightHolders('composers', ids) }
                                         />
 
                                         <ChampSelection
@@ -133,7 +149,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Éditeurs"
                                             description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
                                             placeholder="Ajouter un éditeur..."
-                                            onChange={ publishers => this.setState({ 'publishers': publishers }) }
+                                            onChange={ ids => this.updateRightHolders('publishers', ids) }
                                         />
 
                                         <label>

@@ -14,7 +14,7 @@ export class ChampSelection extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.selectedValues !== prevState.selectedValues) {
-            this.props.onChange(this.selectedItems());
+            this.props.onChange(this.state.selectedValues);
         }
     }
 
