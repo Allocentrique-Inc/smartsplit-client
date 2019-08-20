@@ -139,9 +139,14 @@ export default class SommairePartages extends Component {
         .then(res=>{
             this.setState({media: res.data.Item}, ()=>{
                 axios.get(`http://api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
-                .then(res=>{
-                    this.setState({propositions: res.data})
-                    this.setState({activeIndex: res.data.length - 1})
+                .then(res=>{                    
+                    axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
+                    .then(_rAd=>{
+                        this.setState({ayantDroit: _rAd.data.Item}, ()=>{
+                            this.setState({propositions: res.data})
+                            this.setState({activeIndex: res.data.length - 1})
+                        })
+                    })
                 })
             })
         })
@@ -189,7 +194,7 @@ export default class SommairePartages extends Component {
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
-                                        <SommairePartage uuid={elem.uuid} />
+                                        <SommairePartage ayantDroit={this.state.ayantDroit} proposition={elem}/>
                                     </Accordion.Content>                                
                                 </div>
                         }
@@ -202,15 +207,16 @@ export default class SommairePartages extends Component {
             let nouveauDisabled = "", envoiDisabled = "disabled", continuerDisabled = "disabled"
             
             if(this.state.propositions.length > 0) {
-                if (this.state.propositions[this.state.propositions.length - 1].etat !== 'REFUSE' || this.state.propositions.length === 0) {
+                let _p = this.state.propositions[this.state.propositions.length - 1]
+                if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
                     nouveauDisabled = "disabled"
                 }    
-                if(this.state.propositions[this.state.propositions.length - 1].etat !== 'PRET') {
+                if(_p.etat !== 'PRET') {
                     envoiDisabled = "disabled"
                 } else {
                     envoiDisabled = ""
                 }
-                if(this.state.propositions[this.state.propositions.length - 1].etat === 'BROUILLON') {
+                if(_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
                     continuerDisabled = ""
                 }
             }

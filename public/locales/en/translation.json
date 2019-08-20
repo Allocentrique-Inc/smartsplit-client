@@ -158,7 +158,8 @@
         "etape": {            
             "partage-etape": "Step 2",
             "partage-titre": "Share the rights",
-            "enregistrerEtQuitter": "Save and quit"
+            "enregistrerEtQuitter": "Save and quit",
+            "vote-titre": "Vote on a right split proposal"
         },
         "partage": {
             "auteur": {

@@ -10,7 +10,8 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 
 // Composantes
-import TableauSommaireSplit from './tableau-sommaire'
+import Entete from '../entete/entete'
+import SommairePartage from '../partage/partage-sommaire'
 
 class VotationSplit extends Component {
     
@@ -20,46 +21,96 @@ class VotationSplit extends Component {
         this.state = {
             split: null,
             jetonAPI: props.jeton
-        }
+        }    
+    }
 
-        // Décoder le jeton
+    componentWillMount() {        
+        // Décoder le jeton        
         let body = {jeton: this.props.jeton}
         axios.post('http://api.smartsplit.org:8080/v1/proposal/decode', body)
         .then((resp)=>{
-            let _s = resp.data                                    
+            let _s = resp.data
             this.setState({jeton: _s})
-            // Récupère le nom de l'ayant-droit, pour affichage
+            // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)
             axios.get(`http://api.smartsplit.org:8080/v1/rightHolders/${_s.rightHolderId}`)
             .then(res=>{
                 let _rH = res.data.Item
-                this.setState({nomUsager: `${_rH.firstName} ${_rH.lastName}` })
+                this.setState({ayantDroit: _rH})
+                // Récupère la proposition
+                axios.get(`http://api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
+                .then(_r=>{
+                    this.setState({proposition: _r.data.Item})
+                    // Récupère le média
+                    axios.get(`http://api.smartsplit.org:8080/v1/media/${_r.data.Item.mediaId}`)
+                    .then(_rMedia=>{
+                        this.setState({media: _rMedia.data.Item})
+                    })
+                    .catch((error) => {
+                        toast.error(error.message)                
+                    })
+                })
+                .catch((error) => {
+                    toast.error(error.message)                
+                })
             })
             .catch((error) => {
-                toast.error(error)
-                
+                toast.error(error.message)                
             })
         })
         .catch((error) => {
             toast.error(error)
             
         })
-
-    }    
+    }
 
     render() {           
 
+        if(this.state.media) {
+            let contenu = (
+                <Translation>
+                    {
+                        t =>
+                            <div className="ui ten wide column">
+                                <i className="file image outline icon huge grey"></i>
+                                    {this.state.media && (<span style={{marginLeft: "15px"}} className="medium-400">{this.state.media.title}</span>)}
+                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.etape.vote-titre')}</span>                            
+                            </div>
+                    }                    
+                </Translation>
+            )        
+    
             return (            
                 <Translation>
                     {
                         (t, i18n)=>
-                            <div>
-                                <h1>{t('flot.voter.soustitre', {nom: this.state.nomUsager})}</h1>
-                                {this.state.jeton && (<TableauSommaireSplit auth={this.props.auth} jeton={this.state.jeton} jetonAPI={this.state.jetonAPI}/>)}
-                            </div>
+                            <div className="ui segment">                    
+                                <div className="ui grid" style={{padding: "10px"}}>
+                                    <div className="ui row">
+                                        <Entete contenu={contenu} />
+                                    </div>
+                                    <div className="ui row">
+                                        <div className="ui one wide column" />
+                                        <div className="ui twelve wide column">
+                                            {this.state.jeton && (<SommairePartage proposition={this.state.proposition} ayantDroit={this.state.ayantDroit} jetonAPI={this.state.jetonAPI}/>)}
+                                        </div>                            
+                                        <div className="ui one wide column">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
                     }
                 </Translation>
             )
+        } else {
+            return (<div></div>)
+        }
         
+        /**
+         * <div>
+                            <h1>{t('flot.voter.soustitre', {nom: this.state.nomUsager})}</h1>
+                            
+                        </div>
+         */
     }
 }
 
