@@ -13,12 +13,13 @@ import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
 
 class PageAssistantOeuvreDescription extends Component {
+
     constructor(props) {
         super(props);
 
         this.state = {
             pctProgression: props.pctProgression,
-            authors: [],
+            songwriters: [],
             composers: [],
             publishers: []
         }
@@ -32,23 +33,23 @@ class PageAssistantOeuvreDescription extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (
-            this.state.authors !== prevState.authors ||
+            this.state.songwriters !== prevState.songwriters ||
             this.state.composers !== prevState.composers ||
             this.state.publishers !== prevState.publishers
         ) {
-            const authors = this.state.authors.map(this.addType('author'));
-            const composers = this.state.composers.map(this.addType('composer'));
-            const publishers = this.state.publishers.map(this.addType('publisher'));
-
-            const rightHolders = authors
-                .concat(composers)
-                .concat(publishers);
+            const songwriters = this.state.songwriters.reduce(this.pushRole('songwriter'), {});
+            const songwritersAndComposers = this.state.composers.reduce(this.pushRole('composer'), songwriters);
+            const rightHolders = this.state.publishers.reduce(this.pushRole('publisher'), songwritersAndComposers);
 
             this.props.setFieldValue('rightHolders', rightHolders);
         }
     }
 
-    addType = type => rightHolder => Object.assign({}, rightHolder, { type: type });
+    pushRole = type => (rightHolders, uuid) => {
+        rightHolders[uuid] = rightHolders[uuid] || [];
+        rightHolders[uuid].push(type);
+        return rightHolders;
+    };
 
     rightHolderOptions() {
         return this.props.rightHolders.map(this.makeRightHolderOption);
@@ -83,13 +84,7 @@ class PageAssistantOeuvreDescription extends Component {
     };
 
     updateRightHolders(key, newRightHolderIds) {
-        const newRightHolders = newRightHolderIds.map(
-            id => this.props.rightHolders.find(
-                rightHolder => rightHolder.rightHolderId === id
-            )
-        );
-
-        this.setState({ [key]: newRightHolders });
+        this.setState({ [key]: newRightHolderIds });
     }
 
     render() {
@@ -133,7 +128,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Auteurs"
                                             description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un auteur..."
-                                            onChange={ ids => this.updateRightHolders('authors', ids) }
+                                            onChange={ ids => this.setState({ songwriters: ids }) }
                                         />
 
                                         <ChampSelection
@@ -141,7 +136,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Compositeurs"
                                             description="Qui a composé la musique de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un compositeur..."
-                                            onChange={ ids => this.updateRightHolders('composers', ids) }
+                                            onChange={ ids => this.setState({ composers: ids }) }
                                         />
 
                                         <ChampSelection
@@ -149,7 +144,7 @@ class PageAssistantOeuvreDescription extends Component {
                                             label="Éditeurs"
                                             description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
                                             placeholder="Ajouter un éditeur..."
-                                            onChange={ ids => this.updateRightHolders('publishers', ids) }
+                                            onChange={ ids => this.setState({ publishers: ids }) }
                                         />
 
                                         <label>
