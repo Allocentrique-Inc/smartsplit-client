@@ -185,7 +185,6 @@ class AssistantOeuvre extends Component {
                                     <Wizard.Page>
                                         <PageCollaborateurs
                                             i18n={ i18n }
-                                            songTitle={ this.state.title }
                                             rightHolders={ this.state.rightHolders }
                                         />
                                     </Wizard.Page>

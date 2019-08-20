@@ -109,7 +109,7 @@ class PageAssistantOeuvreDescription extends Component {
                                         </h1>
 
                                         <h2 className="section-question">
-                                            Qui a participé à la création de { this.props.songTitle }&#8239;?
+                                            Qui a participé à la création de { this.props.values.title }&#8239;?
                                         </h2>
 
                                         <p className="section-description">
