@@ -64,7 +64,7 @@ const browserHistory = createBrowserHistory()
 
 const renderRoutes = () => {
 
-  if(window.location.href.includes('//pochette.info')) {
+  if(window.location.href.includes('pochette.info')) {
     return (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
