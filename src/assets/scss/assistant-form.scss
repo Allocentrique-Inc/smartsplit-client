@@ -24,17 +24,11 @@
     display: flex;
     align-items: center;
 
-    .section-icon {
-        svg {
-            fill: $color-orange-dark;
-        }
-    }
-
     .section-label {
         margin-left: $margin-step;
 
         @extend .medium-500-caps-style;
-        color: $color-orange-dark;
+        color: $color-action;
     }
 }
 
@@ -106,3 +100,12 @@
 .add-musician-dropdown {
     margin-top: $margin-step * 4;
 }
+
+.pochette {
+    .section-title {
+        .section-label {
+            color: $color-orange-dark;
+        }
+    }
+}
+

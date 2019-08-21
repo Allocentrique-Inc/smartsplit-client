@@ -189,11 +189,13 @@ class AssistantOeuvre extends Component {
                                             i18n={ i18n }
                                             audio={ this.state.audio }
                                             pctProgression={ 5 }
+                                            pochette={ this.props.pochette }
                                         />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
                                         <PageCreation
+                                            pochette={ this.props.pochette }
                                             i18n={ i18n }
                                             rightHolders={ this.state.rightHolders }
                                         />
@@ -201,6 +203,7 @@ class AssistantOeuvre extends Component {
 
                                     <Wizard.Page>
                                         <PageInterpretation
+                                            pochette={ this.props.pochette }
                                             i18n={ i18n }
                                             rightHolders={ this.state.rightHolders }
                                         />
