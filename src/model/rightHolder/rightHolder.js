@@ -12,7 +12,7 @@ export default class RightHolder {
             .hasString('jurisdiction')
             .hasString('ipi')
             .hasString('wallet')
-            .hasString('avatarS3Etag')
+            .hasString('avatarImage')
             .hasString('artistName')
             .hasObject('socialMediaLinks')
             .assert()
@@ -24,7 +24,7 @@ export default class RightHolder {
         this.jurisdiction = rightHolderDefinition.jurisdiction
         this.ipi = rightHolderDefinition.ipi
         this.wallet = rightHolderDefinition.wallet
-        this.avatarS3Etag = rightHolderDefinition.avatarS3Etag
+        this.avatarImage = rightHolderDefinition.avatarImage
         this.artistName = rightHolderDefinition.artistName
         this.socialMediaLinks = rightHolderDefinition.socialMediaLinks
     }
@@ -37,7 +37,7 @@ export default class RightHolder {
             jurisdiction: this.jurisdiction,
             ipi: this.ipi,
             wallet: this.wallet,
-            avatarS3Etag: this.avatarS3Etag,
+            avatarImage: this.avatarImage,
             artistName: this.artistName,
             socialMediaLinks: this.socialMediaLinks,
         }]
