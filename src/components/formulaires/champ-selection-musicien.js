@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { ItemSelectionne } from "./item-selectionne";
+import { ChampInstrument } from "./champ-instrument";
 
 export class ChampSelectionMusicien extends Component {
     constructor(props) {
@@ -33,10 +33,8 @@ export class ChampSelectionMusicien extends Component {
     renderSelectedItems() {
         return this.selectedItems().map(item => {
             return (
-                <ItemSelectionne
-                    key={ item.key }
-                    image={ item.image.src }
-                    nom={ item.text }
+                <ChampInstrument
+                    item={ item }
                     onClick={ (event) => {
                         this.unselectItem(event, item);
                     } }
