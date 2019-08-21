@@ -159,8 +159,14 @@ class AssistantOeuvre extends Component {
                     {
                         (t, i18n) =>
                             <React.Fragment>
-                                <Navbar songTitle={ this.state.title }/>
-                                <Trackbar pourcentage={ this.state.pctProgression }/>
+                                <Navbar
+                                    songTitle={ this.state.title }
+                                    pochette={ this.props.pochette }
+                                />
+                                <Trackbar
+                                    pourcentage={ this.state.pctProgression }
+                                    pochette={ this.props.pochette }
+                                />
 
                                 <Wizard
                                     initialValues={ this.getInitialValues() }

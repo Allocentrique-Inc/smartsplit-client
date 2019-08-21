@@ -1,7 +1,8 @@
 @import "colors";
 
-$color-on: $color-orange-dark;
 $color-off: $color-stroke;
+$smartsplit-color-on: $smartsplit-color-link;
+$pochette-color-on: $pochette-color-link;
 
 $trackbar-height: 2px;
 
@@ -21,9 +22,15 @@ $trackbar-height: 2px;
         width: 0%;
         height: $trackbar-height;
 
-        background-color: $color-on;
+        background-color: $smartsplit-color-on;
 
         transition: width 0.5s ease;
         will-change: width;
+    }
+}
+
+.Trackbar.pochette {
+    .progress-bar {
+        background-color: $pochette-color-on;
     }
 }
