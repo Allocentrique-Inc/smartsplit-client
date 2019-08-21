@@ -48,6 +48,7 @@ class SommaireDroit extends Component {
     constructor(props){
         super(props)
         this.state = {
+            type: props.type,
             parts: props.parts,
             titre: props.titre,
             icone: props.icon,
@@ -59,9 +60,9 @@ class SommaireDroit extends Component {
             transmis: false,
             voteClos: false,
             modifierVote: {
-                workCopyrightSplit: {music: false, lyrics: false},
-                performanceNeighboringRightSplit: {principal: false, accompaniment: false},
-                masterNeighboringRightSplit: {split: false}
+                workCopyrightSplit: false,
+                performanceNeighboringRightSplit: false,
+                masterNeighboringRightSplit: false
             }
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
@@ -158,31 +159,35 @@ class SommaireDroit extends Component {
         })
     }
 
-    boutonAccepter (droit, type) {
+    boutonAccepter (droit) {
         return (
-            <div className="ui button medium" style={{cursor: "pointer", width: "40%", display: "inline-block"}} onClick={()=>{
-                /*
-                VdeG : À suivre ...
-                this.voter(droit, type, true)
-                if(this.estVoteTermine()) {
-                    this.activerBoutonVote()
+            <Translation>
+                {
+                    t=>
+                        <div className="ui button medium" style={{cursor: "pointer", width: "40%", display: "inline-block"}} onClick={()=>{
+                            this.voter(droit, true)
+                            if(this.estVoteTermine()) {
+                                this.activerBoutonVote()
+                            }
+                        }}>{t('vote.accepter')}</div>
                 }
-                */
-            }}>ACCEPTER</div>
+            </Translation>
         )
     }
 
-    boutonRefuser (droit, type) {   
+    boutonRefuser (droit) {   
         return (
-            <div className="ui button medium red" style={{cursor: "pointer", width: "40%", display: "inline-block"}} onClick={()=>{
-                /*
-                VdeG : À suivre ...
-                this.voter(droit, type, false)
-                if(this.estVoteTermine()) {
-                    this.activerBoutonVote()
+            <Translation>
+                {
+                    t=>
+                        <div className="ui button medium red" style={{cursor: "pointer", width: "40%", display: "inline-block"}} onClick={()=>{
+                            this.voter(droit, false)
+                            if(this.estVoteTermine()) {
+                                this.activerBoutonVote()
+                            }
+                        }}>{t('vote.refuser')}</div>
                 }
-                */
-            }}>REFUSER</div>
+            </Translation>            
         )
     }
 
@@ -193,7 +198,7 @@ class SommaireDroit extends Component {
     }
 
     estVoteClos() {
-        // Détecte si le vote est clos pour cet utilisateur (s'il a déjà voté  il ne peut plus voter)
+        // Détecte si le vote est clos pour cet utilisateur (s'il a déjà voté il ne peut plus voter)
         let termine = false
         let proposition = this.state.proposition
 
@@ -257,23 +262,26 @@ class SommaireDroit extends Component {
         return termine
     }
 
-    voter(droit, type, choix) {
+    voter(droit, choix) {
         let _etat = choix ? 'accept' : 'reject'
         let droits = this.state.droits
-        let partages = droits[droit][type]
-        partages.forEach((elem, idx)=>{
-            if(elem.rightHolder.rightHolderId === this.state.jeton.rightHolderId) {
-                elem.voteStatus = choix ? 'accept': 'reject'
-                partages[idx] = elem
-            }
-        })
-        droits[droit][type] = partages
+        let partages = droits[droit]
+        Object.keys(partages).forEach(type=>{
+            partages[type].forEach((elem, idx)=>{
+                if(elem.rightHolder.rightHolderId === this.state.ayantDroit.rightHolderId) {
+                    elem.voteStatus = choix ? 'accept': 'reject'
+                    partages[type][idx] = elem
+                }
+            })
+        })        
+        droits[droit] = partages
         this.setState({droits: droits})
         let _m = this.state.modifierVote
-        _m[droit][type] = false
+        _m[droit] = false
         this.setState({modifierVote: _m})
         let sommaire = this.state.sommaire
-        sommaire[this.state.jeton.rightHolderId].droits[droit][type] = _etat
+        sommaire[this.state.ayantDroit.rightHolderId].droits[droit] = _etat
+        console.log(`${this.state.ayantDroit.rightHolderId} a voté ${choix} sur pour ${droit}`)
     }
 
     organiserDonnees() {
@@ -336,7 +344,6 @@ class SommaireDroit extends Component {
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
-            console.log('Part', part)
             _data.push({nom: part.nom, pourcent: part.sommePct})            
             _parts.push(
                 <div key={`part_${uuid}`}>
@@ -356,28 +363,29 @@ class SommaireDroit extends Component {
                                         return ROLES_NAMES[_e]+`${idx === part.roles.length - 1 ? '' : ', '}`
                                     })}
                                 </div>
+                                <div style={{position: "relative", marginTop: "5px"}}>
+                                    {this.state.ayantDroit && uuid === this.state.ayantDroit.rightHolderId && part.vote === "active" && (                                    
+                                        <div className="ui five wide column">                                            
+                                            {this.boutonRefuser(this.state.type)}
+                                            {this.boutonAccepter(this.state.type)}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                             <div className="ui three wide column">
                                 <p className="big">
                                     {parseFloat(part.sommePct).toFixed(2)} %
                                 </p>
-                                <div>                            
-                                    {part.vote}
-                                </div>
+                                <Translation>
+                                    {
+                                        t=>
+                                            <div style={{color: part.vote === 'accept' ? "green" : (part.vote === "reject" ? "red" : "grey")}}>
+                                                <strong>{t(`vote.${part.vote}`)}</strong>
+                                            </div>
+                                    }
+                                </Translation>
                             </div>
-                        </div>
-                        <div className="ui row">
-                            <div className="ui two wide column" />                                
-                            <div className="ui ten wide column">
-                                {this.state.ayantDroit && uuid === this.state.ayantDroit.rightHolderId && (                                    
-                                        <div className="ui five wide column">                                            
-                                            {this.boutonRefuser()}
-                                            {this.boutonAccepter()}
-                                        </div>
-                                )}
-                            </div>
-                            <div className="ui three wide column" />                                
-                        </div>
+                        </div>                        
                     </div>                    
                     <hr/>
                 </div>
@@ -412,7 +420,6 @@ export default class SommairePartage extends Component {
 
     constructor(props) {
         super(props)
-        console.log(props)
         this.state = {
             uuid: props.proposition.uuid,
             ayantDroit: props.ayantDroit,
@@ -462,6 +469,7 @@ export default class SommairePartage extends Component {
 
                 if(_aDonnees) {
                     droits.push( <SommaireDroit 
+                        type={type}
                         key={`sommaire_${this.state.uuid}_${type}`}
                         parts={this.state.proposition.rightsSplits[type]}
                         titre={type}

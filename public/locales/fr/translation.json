@@ -267,7 +267,11 @@
     "action": {
         "commencer": "Commencer"
     },
-    "temps": {
-        "ilYA": "il y a"
+    "vote": {
+        "accept": "Approuvé",
+        "reject": "Refusé",
+        "active": "En attente de décision",
+        "accepter": "ACCEPTER",
+        "refuser": "REFUSER"
     }
 }

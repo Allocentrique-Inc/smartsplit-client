@@ -33,7 +33,7 @@ class AssistantOeuvre extends Component {
 
     constructor(props) {
         super(props);
-
+        console.log('Est pochette ?', this.props.pochette)
         this.state = {
             pctProgression: this.pageProgressPercentages[0],
             title: props.titre,
