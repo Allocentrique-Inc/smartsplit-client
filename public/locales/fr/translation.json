@@ -112,7 +112,7 @@
             "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton œuvre."
         },
         "collaborateurs": {
-            "titre": "Qui sont les créateurs de ton œuvre ? ",
+            "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
             "preambule": "Commençons par toi ...",
             "role": "Joe, définis ton rôle ?",
             "ajout": "Ajouter un collaborateur"
@@ -267,7 +267,11 @@
     "action": {
         "commencer": "Commencer"
     },
-    "temps": {
-        "ilYA": "il y a"
+    "vote": {
+        "accept": "Approuvé",
+        "reject": "Refusé",
+        "active": "En attente de décision",
+        "accepter": "ACCEPTER",
+        "refuser": "REFUSER"
     }
 }

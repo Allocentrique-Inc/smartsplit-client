@@ -109,7 +109,7 @@ class Register extends Component {
           name: firstName,
           family_name: lastName,
           'custom:artistName': artistName,
-          'custom:avatarS3Etag': 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+          'custom:avatarImage': 'image.jpg'
         }
       })
       // Auth.currentSession().then(

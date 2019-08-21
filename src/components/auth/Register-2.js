@@ -58,7 +58,7 @@ class Register2 extends Component {
       jurisdiction: "Canada",
       ipi: "00004576",
       wallet: "0xdd87ae15f4be97e2739c9069ddef674f907d27a8",
-      avatarS3Etag: "2f03d99fbf37d8d585285fd4cce27fea",
+      avatarImage: "image.jpg",
       artistName: "Questlove",
       socialMediaLinks: {
         "facebook": "https://facebook.com/ex",
@@ -106,9 +106,7 @@ class Register2 extends Component {
       })
       // this.props.history.push("/welcome")
       .then(
-        // toast.success(`Biquette#${user.username} !`)
-        // this.props.auth.setAuthStatus(true)
-        // this.props.auth.setUser(user.username)    
+        // toast.success(`Biquette#${user.username} !`)  
         this.props.history.push("/welcome")
     
       )
