@@ -93,6 +93,8 @@ export class ChampSelectionMultiple extends Component {
                     fluid
                     search
                     selection
+                    selectOnBlur={false}
+                    selectOnNavigation={false}
                     value={ this.state.dropdownValue }
                     options={ this.unselectedItems() }
                     onChange={ this.handleChange }
