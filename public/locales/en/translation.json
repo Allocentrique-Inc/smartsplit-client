@@ -272,7 +272,11 @@
     "action": {
         "commencer": "Start"
     },
-    "temps": {
-        "ilYA": "ago"
+    "vote": {
+        "accept": "Approved",
+        "reject": "Refused",
+        "active": "Waiting for a decision",
+        "accepter": "ACCEPT",
+        "refuser": "REJECT"
     }
 }
