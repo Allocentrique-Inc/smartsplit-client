@@ -3,6 +3,7 @@ import { Wizard } from 'semantic-ui-react-formik'
 import { Form } from 'semantic-ui-react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import ModifyUser from '../auth/ModifyUser';
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"
@@ -24,7 +25,7 @@ export class ChampListeAssistant extends Component {
             recherche: props.recherche,
             selection: props.selection,
             options: props.options,
-            ajout: props.ajout
+            ajout: true
         }
     }
 
@@ -59,11 +60,14 @@ export class ChampListeAssistant extends Component {
                         search: this.state.recherche,
                         selection: this.state.selection,
                         options: this.state.options,
-                        allowAdditions: this.state.ajout,
+                        allowAdditions: true,
+                        onAddItem: this.handleAddition,
                         clearable: true
                     }}
                     validate={this.state.requis && required}
+
                 />
+                <ModifyUser open={this.state.open} />
                 <i className="right info circle icon blue"></i>
             </div>
         )        
@@ -85,7 +89,9 @@ export class ChampListeCollaborateurAssistant extends Component {
             multiple: props.multiple,
             recherche: props.recherche,
             selection: props.selection,
-            ajout: props.ajout
+            ajout: true
+            
+
         }
         this.OPTIONS = undefined
     }
@@ -136,6 +142,17 @@ export class ChampListeCollaborateurAssistant extends Component {
         this.setState({options: options})
     }
 
+    handleAddition = (e, { value }) => {
+        // this.setState(prevState => ({
+        //   options: [{ text: value, value }, ...prevState.options],
+        // }))
+        // closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
+        //     this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
+        // }
+        this.setState({ open:true })
+        this.setState({ firstName: value })
+    }
+
     render() {
         return(
             <div>
@@ -154,12 +171,16 @@ export class ChampListeCollaborateurAssistant extends Component {
                                 search: true,
                                 selection: this.state.selection,
                                 multiple: true,
-                                options: this.state.options
+                                options: this.state.options,
+                                onAddItem: this.handleAddition,
+                                allowAdditions: this.state.ajout,
+                                clearable: true
                             }}
-                            validate={this.state.requis && required}
+                            
                         />
-                    )
-                }                
+                    ) 
+                }       
+                <ModifyUser open={this.state.open} firstName={this.state.firstName} />  
             </div>
         )        
     }
@@ -234,7 +255,8 @@ export class ChampListeEditeurAssistant extends Component {
                                 search: true,
                                 selection: this.state.selection,
                                 multiple: this.state.multiple,
-                                options: this.state.options
+                                options: this.state.options,
+                                allowAdditions: this.state.ajout,
                             }}
                             validate={this.state.requis && required}
                         />

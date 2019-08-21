@@ -190,6 +190,21 @@ button[id="facebook"] {
   margin-left: 175px;
 }
 
+.ui.negative.button {
+  background-color: transparent;
+  color: #2DA84F
+}
+
+.ui.negative.button:hover {
+  background-color: white;
+  opacity: 80%;
+  color: #2DA84F
+}
+
+.ui.positive.button {
+  background-color: #2DA84F;
+  color: white
+}
 /* .container {
   display: inline-block;
   text-align: center;

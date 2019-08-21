@@ -4,71 +4,126 @@ import { Formik , Form, Field } from 'formik'
 import { toast } from 'react-toastify'
 import { Auth } from 'aws-amplify';
 import axios from 'axios'
-import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 'semantic-ui-react'
-import { Translation } from 'react-i18next';
-
-const groups = [
-  { key: 'Group1', text: 'Group1', value: 'Group1' },
-  { key: 'Group2', text: 'Group2', value: 'Group2' },
-  { key: 'Group3', text: 'Group3', value: 'Group3' },
-  { key: 'Group4', text: 'Group4', value: 'Group4' }
-]
-
-const roles = [
-  'principal', 
-  'accompaniment', 
-  'songwriter', 
-  'composer', 
-  'remixer', 
-  'studio', 
-  'publisher', 
-  'graphist', 
-  'producer', 
-  'singer', 
-  'musician'
-]
-
-const image = ''
-// const artistName = ''
-// const firstName = ''
-// const lastName = ''
-// const email = ''
-const avatarS3Etag = ''
 const MAX_IMAGE_SIZE = 10000000
+// import * as Yup from 'yup'
+// Traduction
+// import { Translation } from 'react-i18next';
+
 
 class Register2 extends Component {
-  state = { groups,
-            image,
-            firstName: false,
-            lastName: false,
-            artistName: false,
-            email: 'TEST@iptoki.com',
-            avatarS3Etag,
-            open: false
-           }
+  state = { firstName: false, username: false, lastName: false }
 
-  closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
-    this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      artistName: '',
+      role: 'Singer',
+      avatar: 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg',
+      image: '',
+      uploadURL: ''
+    };
+
+    // this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    // this.validatePasswordStrong = this.validatePasswordStrong.bind(this)
+    // // this.stateChanged = this.stateChanged.bind(this);
+    // this.toggleShow = this.toggleShow.bind(this);
+    this.handleArtistNameChange = this.handleArtistNameChange.bind(this);
+    this.handleFileUpload = this.handleFileUpload.bind(this);
+    // this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
+    // this.validateUsername = this.validateUsername.bind(this)
+    // this.validatePassword = this.validatePassword.bind(this)
+    // this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
   }
-        
-  close = () => this.setState({ open: false })
 
-  handleAddition = (e, { value }) => {
-    this.setState(prevState => ({
-      groups: [{text: value, value}, ...prevState.groups],
-    }))  
+  // clearErrorState = () => {
+  //   this.setState({
+  //     errors: {
+  //       cognito: null,
+  //       blankfield: false,
+  //       passwordmatch: false
+  //     }
+  //   });
+  // }
+
+  handleSubmit = values => { 
+    // AWS Cognito integration here 
+    let artistName = values.artistName;
+    let role = values.role; // username is used as email
+    let avatar = values.avatar;
+    let content = {
+      firstName: "John",
+      lastName: "Smith",
+      email: "john.smith@example.com",
+      jurisdiction: "Canada",
+      ipi: "00004576",
+      wallet: "0xdd87ae15f4be97e2739c9069ddef674f907d27a8",
+      avatarImage: "image.jpg",
+      artistName: "Questlove",
+      socialMediaLinks: {
+        "facebook": "https://facebook.com/ex",
+        "twitter": "https://twitter.com/ex",
+        "youtube": "https://youtube.com/ex"
+      }
+    }
+
+    try {
+      Auth.currentSession().then(
+        session=>{
+          let url = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/artistName'
+          let req = {
+            url,
+            method: 'Patch',
+            data: {artistName: this.state.artistName}
+          }
+          axios(req)
+          .then(res=>{
+            console.log(res);
+          })
+          .catch(err=>{
+            toast.error(err)
+          })
+          // let avatarUrl = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/avatarS3Etag'
+          // let avatarReq = {
+          //   avatarUrl,
+          //   method: 'Patch',
+          //   data: {avatarS3Etag: avatar} 
+          // }
+          // axios(avatarReq)
+          // .then(res=>{
+          //   console.log(res);
+          // })
+          // .catch(err=>{
+          //   toast.error(err)
+          // })
+
+          // Auth.currentAuthenticatedUser().then(
+          //   user=>{
+          //     this.props.auth.setUser(user);
+          //     this.setState({ isAuthenticating: false })
+          //   }
+          // )
+      })
+      // this.props.history.push("/welcome")
+      .then(
+        // toast.success(`Biquette#${user.username} !`)  
+        this.props.history.push("/welcome")
+    
+      )
+      .catch((err)=>{
+        // toast.error(err.message)
+        console.log(err)
+      })
+      .finally(()=>{
+        if(this.props.fn) {
+          this.props.fn()
+        }
+      })
+    } catch (err) {
+      console.log(err)
+    }
   }
 
-  handleChange = (e, { value }) => this.setState({ currentValue: value })
-
-  handleFileDelete(e) {
-    e.target.value = null;
-    // this.image = ''
-    this.setState(
-      { image: '' },
-    );
-    console.log('image: ', this.state.image);
-  }
 
   handleFileUpload(e) {
     // console.log(e.target.files[0]);
@@ -84,149 +139,128 @@ class Register2 extends Component {
     );
   }
 
-  // handleSubmit = values => { 
-  //   // AWS Cognito integration here 
-  //   const username = values.username;
-  //   const email = values.username; // username is used as email
-  //   const firstName = values.firstName;
-  //   const lastName = values.lastName;
-  //   const artistName = values.artistName;
-  //   const password = this.state.password;
-  //   // console.log(password, username, email, firstName, lastName)
-
-  //   try {
-  //     Auth.signUp({
-  //       username,
-  //       password,
-  //       attributes: {
-  //         email: email,
-  //         name: firstName,
-  //         family_name: lastName,
-  //         'custom:artistName': artistName,
-  //         'custom:avatarS3Etag': 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
-  //       }
-  //     })
-
-  //     .then(
-  //       // toast.success(`Biquette#${user.username} !`)
-  //       // this.props.auth.setAuthStatus(true)
-  //       // this.props.auth.setUser(user.username)  
-  //       this.props.history.push("/welcome")
-    
-  //     )
-  //     .catch((err)=>{
-  //       toast.error(err.message)
-  //       console.log(err)
-  //     })
-  //     .finally(()=>{
-  //       if(this.props.fn) {
-  //         this.props.fn()
-  //       }
-  //     })
-  //   } catch (err) {
-  //     console.log(err)
-  //   }
-  // }
-
-  handleSubmit = values => { 
-
-    let body = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      artistName: this.state.artistName,
-      email: this.state.email,
-      groups: '',
-      role: ''
-    }
-
-    try {
-      axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
-      .then(
-        // toast.success(`Biquette#${user.username} !`)
-        // this.props.auth.setAuthStatus(true)
-        // this.props.auth.setUser(user.username)  
-        this.props.history.push("/welcome")
-
-      )
-      .catch((err)=>{
-        toast.error(err.message)
-        console.log(err)
-      })
-      .finally(()=>{
-        if(this.props.fn) {
-          this.props.fn()
-        }
-      })
-    } catch (err) {
-      console.log(err)
-    }
+  handleFileDelete(e) {
+    e.target.value = null;
+    // this.image = ''
+    this.setState(
+      { image: '' },
+    );
+    console.log('image: ', this.state.image);
   }
 
-  onTodoChange(value){
-    this.setState({
-         firstName: value
-    });
+  handleArtistNameChange(e) {
+    this.setState(
+      { artistName: e.target.value },
+    );
+    // const value = e.target.value;
+    // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
+  }
+
+  componentDidMount() {
+    if (this.props.role) {
+      this.setState({ role: this.props.role });
+    }
+    if (this.props.artistName) {
+      this.setState({ artistName: this.props.artistName });
+    }
   }
 
   render() {
-    const { open, closeOnEscape, closeOnDimmerClick, currentValue } = this.state
+    // const { type, validator, onStateChanged, children, ...restProps } = this.props;
+    // const { password, strength, dirty } = this.state;
 
-    // Return checkbox for each role
-    const renderCheckbox= () => {
-      return roles.map(role => {
-        return <Checkbox label={role} key={role}/>;
-      });
-    };
+    // const { firstName, lastName, username } = this.state;
+
+    // const passwordLength = password.length;
+    // console.log("password =====", password.length, "pL: ", passwordLength);
+
+    // const passwordStrong = strength >= this.minStrength;
+    // const passwordLong = passwordLength > this.thresholdLength;
+
+    // const errors = 7;
+    // const hasErrors = this.passwordmatch;
+    // password strength meter is only visible when password is not empty
+    // const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
+    // // confirm password field is only visible when password is not empty
+    // const confirmClass = ['confirmPassword', strength >= 2 ? 'visible' : 'invisible'].join(' ').trim();
+    // console.log("PASSWORD MATCH: ", this.state.passwordmatch)
+    // // const controlClass = ['form-control', this.passwordmatch ? dirty ? 'is-valid' : 'is-invalid' : ''].join(' ').trim();
+    // const controlClass = ['form-control', this.passwordmatch ? 'is-valid' : 'is-invalid'].join(' ').trim();
+
 
     return (
-      <Modal open={open}
-      closeOnDimmerClick={closeOnDimmerClick}
-      onClose={this.close} size="tiny" trigger={<Button onClick={this.closeConfigShow(true, false)}>Ajouter un nouveau collaborateur</Button>} closeIcon>
-        <Modal.Header>Ajouter un artiste collaborateur</Modal.Header>
-        {/* <Modal.Content image>
-          <Image wrapped size='tiny' src='https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg' />
-          <Modal.Description>
-            <Header>Image de profil</Header>
-            <p>Photo par défaut pour votre utilisateur</p>
-            <Input type="file" className="fileUpload" onChange={this.handleFileUpload}/>
-            <button size='tiny' className="fileDelete" onChange={this.handleFileDelete}>Annuler</button>
-          </Modal.Description>
-        </Modal.Content> */}
-          <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName} onChange={e => this.onTodoChange(e.target.value)}/>
-          {/* <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName}/> */}
-          <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
-          <label>Nom d'artiste</label><input type="text" className="artistName" placeholder="Nom d'artiste" value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
-          Si non applicable, nous afficherons son nom complet.
-          <label>Courriel</label><input type="text" className="email" placeholder="Courriel" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
-          <label>Groupes</label>
-            <Dropdown 
-              className="prompt"
-              type="text" 
-              paceholder="Groupes"
-              options={this.state.groups}
-              placeholder='Choisir group'
-              search
-              selection
-              fluid
-              allowAdditions
-              value={currentValue}
-              onAddItem={this.handleAddition}
-              onChange={this.handleChange}
-            />
-            <i className="search icon"></i>
-          <label>Rôle(s) par défaut</label>
-          <div className="roles">
-            { renderCheckbox() }
-          </div>
-          Ces rôles pourront toujours être modifiés plus tard.
-        <Modal.Actions>
-                <Button onClick={this.close} negative>Annuler</Button>
-                <Button onClick={this.handleSubmit} positive icon='checkmark' labelPosition='right' content='Sauvegarder' />
-          </Modal.Actions>
-      </Modal>
-    )
+
+      <Formik
+      initialValues={ 
+              {
+                // email: this.state.email,
+                role: this.state.role,
+                artistName: this.state.artistName,
+                avatar: this.state.avatar,
+                image: this.state.image
+              } 
+          }
+      onSubmit={
+          (values, { setSubmitting }) => {
+              this.handleSubmit(values, ()=>{setSubmitting(false)})
+        }}
+      >
+
+      {({ errors, touched, isValidating }) => (
+      <Form>
+      <section className="section auth">
+        <div className="container">
+          <h1>Register</h1>
+            <img type="image" className="avatarImage" src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"/>
+            <input type="file" className="fileUpload" onChange={this.handleFileUpload}/>
+            <button className="fileDelete" onChange={this.handleFileDelete}>Remove File</button>
+            <div className="field">
+              <div className="control has-icons-left has-icons-right">
+                Artist Name:
+                <Field 
+                  name="artistName"
+                  id="artistName"
+                  aria-describedby="artistNameHelp"
+                  placeholder="Enter Artist Name"
+                  value={this.state.artistName}
+                  onChange={this.handleArtistNameChange}
+                  required={true}
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-envelope"></i>
+                </span>
+              </div>
+            </div>
+            <div className="field">
+              <div className="control has-icons-left has-icons-right">
+                Role:
+                <Field
+                  name="role"
+                  id="role"
+                  aria-describedby="=roleHelp"
+                  placeholder="Enter Role"
+                  value={this.state.role}
+                  required={true}
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-envelope"></i>
+                </span>
+              </div>
+            </div>
+              <div className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
+              <p className="control">
+                <button className="button is-success" type="submit">
+                  Update account
+                </button>
+              </p>
+              </div>
+            </div>
+      </section>
+      </Form>
+      )}
+    </Formik>           
+    );
   }
-  
 }
 
-export default Register2
+export default Register2;
