@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
-import { Translation } from 'react-i18next';
+import { Translation } from 'react-i18next'
+
+import { Auth } from 'aws-amplify'
+
+import { confirmAlert } from 'react-confirm-alert'
+import 'react-confirm-alert/src/react-confirm-alert.css'
 
 import avatar from '../../assets/images/elliot.jpg'
+import LogIn from '../auth/Login';
 
 const ROLES = [
         "principal",
@@ -46,7 +52,7 @@ const TITRES = {
 class SommaireDroit extends Component {
 
     constructor(props){
-        super(props)
+        super(props)    
         this.state = {
             parent: props.parent,
             voteTermine: props.voteTermine,
@@ -57,7 +63,7 @@ class SommaireDroit extends Component {
             ayantDroit: props.ayantDroit,
             jetonApi: props.jetonApi,
             modifierVote: false,
-            monVote: props.monVote
+            monVote: props.monVote,
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
@@ -66,15 +72,15 @@ class SommaireDroit extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(this.props.parts !== nextProps.parts) {
+            console.log('nouvelles parts', nextProps.parts)
             this.setState({parts: nextProps.parts})
-        }
-        if(this.props.monVote !== nextProps.monVote) {
-            this.setState({monVote: nextProps.monVote}, ()=>{
-                this.setState({modifierVote: true}, ()=>{
-                    console.log('monVote', this.state)
-                })
-            })
-        }
+            this.organiserDonnees()
+        }        
+        this.setState({monVote: nextProps.monVote}, ()=>{
+            if(this.state.monVote && this.state.monVote.vote !== 'active') {
+                this.setState({modifierVote: true})
+            }            
+        })        
     }
 
     componentWillMount() {
@@ -100,11 +106,61 @@ class SommaireDroit extends Component {
                 {
                     t=>
                         <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
-                            this.voter(false)                            
+                            this.justifierRefus(()=>{this.voter(false)})
                         }}>{t('vote.refuser')}</div>
                 }
             </Translation>            
         )
+    }
+
+    justifierRefus(fn) {
+        confirmAlert({
+            title: `Tu refuses la proposition !`,
+            message: `Es-tu certain ?`,
+            closeOnClickOutside: false,
+            style: {
+                    position: "relative",
+                    width: "640px",
+                    height: "660px",
+                    margin: "0 auto",
+                    background: "#FFFFFF",
+                    border: "1px solid rgba(0, 0, 0, 0.5)",
+                    boxSizing: "border-box",
+                    boxShadow: "inset 0px -1px 0px #DCDFE1"
+                },
+            customUI: ({ onClose }) => 
+                <div>         
+                    <h3>Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.</h3>               
+                    <textarea 
+                        cols={40} 
+                        rows={5} 
+                        id="raison"
+                        placeholder="Pourquoi refuses-tu le split (optionel)" 
+                        style={{
+                        width: "546px",
+                        height: "253px",
+                        left: "436px",
+                        top: "429px",                              
+                        background: "#FFFFFF",
+                        border: "1px solid rgba(0, 0, 0, 0.5)",
+                        boxSizing: "border-box",
+                        boxShadow: "inset 0px -1px 0px #DCDFE1"
+                    }}></textarea><p/>
+                    <button style={{
+                        background: "rgb(45, 168, 79)",
+                        borderRadius: "2px",
+                        width: "100%",                                
+                        fontWeight: "bold",
+                        fontSize: "1.2rem"
+                    }}
+                    onClick={()=>{
+                        this.state.parent.refuser(this.state.type, document.getElementById('raison').value)
+                        onClose()
+                        fn()
+                    }}
+                    >Refuser ce partage</button>
+                </div>
+        })        
     }
 
     changerVote () {        
@@ -113,26 +169,7 @@ class SommaireDroit extends Component {
 
     voter(choix) {
         let _monChoix = choix ? 'accept' : 'reject'
-        this.state.parent.vote(_monChoix, this.state.type)
-        
-        /*
-        let droits = this.state.droits
-        let partages = droits[droit]
-        Object.keys(partages).forEach(type=>{
-            partages[type].forEach((elem, idx)=>{
-                if(elem.rightHolder.rightHolderId === this.state.ayantDroit.rightHolderId) {
-                    elem.voteStatus = choix ? 'accept': 'reject'
-                    partages[type][idx] = elem
-                }
-            })
-        })        
-        droits[droit] = partages
-        this.setState({droits: droits})
-        this.setState({modifierVote: false})
-        let sommaire = this.state.sommaire
-        sommaire[this.state.ayantDroit.rightHolderId].droits[droit] = _monChoix
-        console.log(`${this.state.ayantDroit.rightHolderId} a voté ${choix} sur pour ${droit}`)
-        */
+        this.state.parent.vote(_monChoix, this.state.type)        
     }
 
     organiserDonnees() {
@@ -199,7 +236,7 @@ class SommaireDroit extends Component {
             
             let _vote
             if(this.state.monVote) {
-                _vote = this.state.monVote
+                _vote = this.state.monVote.vote
             } else {
                 _vote = part.vote
             }
@@ -239,9 +276,13 @@ class SommaireDroit extends Component {
                                                         style={{cursor: "pointer"}} 
                                                         onClick={()=>{this.changerVote()}}></i>
                                                 )
-                                            }
+                                            }                                            
                                         </div>
-                                    )}                                    
+                                    )}
+                                    {
+                                        this.state.monVote && 
+                                        uuid === this.state.ayantDroit.rightHolderId && this.state.monVote.raison
+                                    }
                                 </div>
                             </div>
                             <div className="ui three wide column">
@@ -263,8 +304,8 @@ class SommaireDroit extends Component {
                                                 {
                                                     uuid === this.state.ayantDroit.rightHolderId && 
                                                     (
-                                                        <div style={{color: this.state.monVote === 'accept' ? "green" : (this.state.monVote === "reject" ? "red" : "grey")}}>
-                                                            <strong>{t(`vote.${this.state.monVote}`)}</strong>
+                                                        <div style={{color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "green" : (this.state.monVote && this.state.monVote.vote === "reject" ? "red" : "grey")}}>
+                                                            <strong>{t(`vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
                                                         </div>
                                                     ) 
                                                 }
@@ -308,27 +349,48 @@ export default class SommairePartage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            uuid: props.proposition.uuid,
+            uuid: props.uuid,
             ayantDroit: props.ayantDroit,
             jetonApi: props.jetonApi,
             proposition: props.proposition,
-            mesVotes: {}
+            mesVotes: {},
+            rafraichirAuto: props.rafraichirAuto
         }
         this.calculMesVotes = this.calculMesVotes.bind(this)
+        this.envoi = this.envoi.bind(this)        
     }
 
     componentWillMount() {
-        console.log('will mount', this.state)        
         this.rafraichirDonnees()
+        if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {            
+            this.setState({rafraichir: true}, ()=>{
+                console.log('Démarrage du rafraîchissement automatique')
+                this.rafraichissementAutomatique()                
+            })
+        }
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log('will receive props', nextProps)
         if(this.props.uuid !== nextProps.uuid && !this.state.proposition) {
             this.setState({uuid: nextProps.uuid}, ()=>{
                 this.rafraichirDonnees()
             })
         }        
+    }
+
+    rafraichissementAutomatique() {
+        setTimeout(()=>{            
+            this.rafraichirDonnees()
+            this.rafraichissementAutomatique()
+        }, 3000)
+    }
+
+    refuser(type, raison) {
+        let _mesVotes = this.state.mesVotes
+        if(!_mesVotes[type]) {
+            _mesVotes[type] = {}
+        }
+        _mesVotes[type].raison = raison
     }
 
     estVoteFinal() {
@@ -347,16 +409,38 @@ export default class SommairePartage extends Component {
                     })                                        
                 })                
             })            
-        } 
+        }
 
         return termine
     }
 
     vote(choix, type) {
         let _mesVotes = this.state.mesVotes
-        _mesVotes[type] = choix
-        this.setState({mesVotes: _mesVotes}, console.log('vote', this.state.mesVotes))
-    }
+        if(!_mesVotes[type]) {
+            _mesVotes[type] = {}
+        }
+        _mesVotes[type].vote = choix
+        
+        if(choix === 'accept') {
+            // Enlève la raison de refus si acceptation
+            delete _mesVotes[type].raison
+        }
+
+        this.setState({mesVotes: _mesVotes}, 
+            ()=>{
+                // Vérifie si tous les votes sont saisis
+                let _tousSaisis = true
+                Object.keys(this.state.mesVotes).forEach(elem=>{                    
+                    if(this.state.mesVotes[elem].vote === 'active') {
+                        _tousSaisis = false
+                    }                    
+                })
+                if(_tousSaisis){
+                    this.activerBoutonVote()
+                }
+            }
+        )
+    }    
 
     estVoteClos() {
         // Détecte si le vote est clos pour cet utilisateur (s'il a déjà voté il ne peut plus voter)
@@ -380,26 +464,29 @@ export default class SommairePartage extends Component {
     }
 
     calculMesVotes(proposition) {
-        console.log('Dans calculMesVotes')
         this.setState({proposition: proposition})
         // Calcul des votes
         let _mesVotes = {}
         Object.keys(proposition.rightsSplits).forEach(_droit=>{
             let _droits = proposition.rightsSplits[_droit]
             Object.keys(_droits).forEach(_type=>{
-                console.log(_droits, _droit, _type)
                 let _parts = _droits[_type]
                 _parts.forEach(_part=>{
                     if(_part.rightHolder) {                        
                         if(_part.rightHolder.rightHolderId === this.state.ayantDroit.rightHolderId) {
-                            console.log(` monVote[${_droit}] trouvé pour part`, _part, _part.rightHolder.rightHolderId, this.state.ayantDroit.rightHolderId)
-                            _mesVotes[_droit] = _part.voteStatus
+                            if(!_mesVotes[_droit]) {
+                                _mesVotes[_droit] = {}
+                            }
+                            _mesVotes[_droit].vote = _part.voteStatus
+                            if(_part.comment) {
+                                _mesVotes[_droit].raison = _part.comment
+                            }
                         }                
                     }
                 })                
             })                        
         })
-        this.setState({mesVotes: _mesVotes},()=>{ console.log('mesVotes', this.state.mesVotes)})
+        this.setState({mesVotes: _mesVotes})
     }
 
     activerBoutonVote() {
@@ -409,19 +496,70 @@ export default class SommairePartage extends Component {
     }
 
     rafraichirDonnees() {
-        console.log('rafraichir données', this.state)
-        if (!this.state.proposition){
+        if (!this.state.proposition || this.state.rafraichir){
+            console.log('rafraichir données')
             axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
                 this.calculMesVotes(proposition)            
             })
             .catch(err=>{
-                toast.error(err)
+                toast.error(err.message)
             })
         } else {
             this.calculMesVotes(this.state.proposition)
         }
+    }
+
+    envoi() {
+        let body = {
+            userId: `${this.state.ayantDroit.rightHolderId}`,
+            droits: this.state.mesVotes,
+            jeton: this.state.jetonApi
+        }
+        console.log('transmission vote', body)
+        axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
+        .then((res)=>{
+            console.log('Envoyé', res)
+            window.location.reload()
+        })
+        .catch((err) => {
+            toast.error(err.message)                                
+        })
+    }
+
+    transmettre() {        
+
+        Auth.currentAuthenticatedUser()
+        .then(res=>{
+            this.envoi()
+        })
+        .catch(err=>{
+            toast.error(err.message)
+            confirmAlert({
+                title: `Connexion obligatoire`,
+                message: `Tu dois être connecté pour accéder`,
+                closeOnClickOutside: false,
+                style: {
+                        position: "relative",
+                        width: "640px",
+                        height: "660px",
+                        margin: "0 auto",
+                        background: "#FFFFFF",
+                        border: "1px solid rgba(0, 0, 0, 0.5)",
+                        boxSizing: "border-box",
+                        boxShadow: "inset 0px -1px 0px #DCDFE1"
+                    },
+                customUI: ({ onClose }) => 
+                    <div>
+                        <LogIn message="Connecte-toi pour voter" fn={()=>{
+                            this.envoi()
+                            onClose()
+                        }} />
+                </div>
+            })
+        })
+        
     }
 
     render() {
@@ -446,19 +584,26 @@ export default class SommairePartage extends Component {
                         parts={this.state.proposition.rightsSplits[type]}
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
-                        jetonApi={this.state.jetonApi}
                         monVote={this.state.mesVotes[type]}
                         voteTermine={this.estVoteFinal() || this.estVoteClos()}
                         parent={this}
                         /> )
                 }                
             })
-        }        
+        }
 
         return (
             <div>
                 {droits}
-            </div>            
+                {
+                    !this.estVoteClos() && (
+                        <button disabled={!this.state.transmission} onClick={()=>{
+                            this.transmettre()
+                        }}> Voter
+                        </button>
+                    )
+                }
+            </div>
         )
     }
 }

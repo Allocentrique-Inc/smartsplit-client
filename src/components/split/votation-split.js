@@ -19,14 +19,14 @@ class VotationSplit extends Component {
         super(props)
 
         this.state = {
-            split: null,
-            jetonAPI: props.jeton
+            split: null,            
+            jetonApi: props.jeton
         }    
     }
 
     componentWillMount() {        
         // Décoder le jeton        
-        let body = {jeton: this.props.jeton}
+        let body = {jeton: this.state.jetonApi}
         axios.post('http://api.smartsplit.org:8080/v1/proposal/decode', body)
         .then((resp)=>{
             let _s = resp.data
@@ -86,12 +86,12 @@ class VotationSplit extends Component {
                             <div className="ui segment">                    
                                 <div className="ui grid" style={{padding: "10px"}}>
                                     <div className="ui row">
-                                        <Entete contenu={contenu} />
+                                        <Entete contenu={contenu} sansconnexion={true} />
                                     </div>
                                     <div className="ui row">
                                         <div className="ui one wide column" />
                                         <div className="ui twelve wide column">
-                                            {this.state.jeton && (<SommairePartage proposition={this.state.proposition} ayantDroit={this.state.ayantDroit} jetonAPI={this.state.jetonAPI}/>)}
+                                            {this.state.jeton && (<SommairePartage uuid={this.state.proposition.uuid} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi}/>)}
                                         </div>                            
                                         <div className="ui one wide column">
                                         </div>
