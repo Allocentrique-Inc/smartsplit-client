@@ -5,12 +5,13 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-import starIcon from '../../assets/svg/icons/star-orange.svg';
+import starIconOrange from '../../assets/svg/icons/star-orange.svg';
+import starIconGreen from '../../assets/svg/icons/star-green.svg';
 
 import '../../assets/scss/assistant-form.scss';
 import { ChampSelectionMusicien } from "../formulaires/champ-selection-musicien";
 
-class PageAssistantOeuvreDescription extends Component {
+export default class PageInterpretation extends Component {
 
     constructor(props) {
         super(props);
@@ -56,6 +57,10 @@ class PageAssistantOeuvreDescription extends Component {
         this.setState({ [key]: newRightHolderIds });
     }
 
+    starIcon() {
+        return this.props.pochette ? starIconOrange : starIconGreen;
+    }
+
     render() {
         return (
             <Translation>
@@ -69,7 +74,7 @@ class PageAssistantOeuvreDescription extends Component {
                                     >
                                         <h1 className="section-title">
                                             <span className="section-icon">
-                                                <img src={ starIcon } alt={ 'création' }/>
+                                                <img src={ this.starIcon() } alt={ 'interprétation' }/>
                                             </span>
 
                                             <span className="section-label">
@@ -98,5 +103,3 @@ class PageAssistantOeuvreDescription extends Component {
         )
     }
 }
-
-export default PageAssistantOeuvreDescription

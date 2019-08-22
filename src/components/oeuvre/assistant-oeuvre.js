@@ -159,8 +159,14 @@ class AssistantOeuvre extends Component {
                     {
                         (t, i18n) =>
                             <React.Fragment>
-                                <Navbar songTitle={ this.state.title }/>
-                                <Trackbar pourcentage={ this.state.pctProgression }/>
+                                <Navbar
+                                    songTitle={ this.state.title }
+                                    pochette={ this.props.pochette }
+                                />
+                                <Trackbar
+                                    pourcentage={ this.state.pctProgression }
+                                    pochette={ this.props.pochette }
+                                />
 
                                 <Wizard
                                     initialValues={ this.getInitialValues() }
@@ -176,18 +182,20 @@ class AssistantOeuvre extends Component {
                                         submit: t('navigation.envoi')
                                     } }
 
-                                    debug={ true }
+                                    debug={ false }
                                 >
                                     <Wizard.Page>
                                         <PageEmbarquement
                                             i18n={ i18n }
                                             audio={ this.state.audio }
                                             pctProgression={ 5 }
+                                            pochette={ this.props.pochette }
                                         />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
                                         <PageCreation
+                                            pochette={ this.props.pochette }
                                             i18n={ i18n }
                                             rightHolders={ this.state.rightHolders }
                                         />
@@ -195,6 +203,7 @@ class AssistantOeuvre extends Component {
 
                                     <Wizard.Page>
                                         <PageInterpretation
+                                            pochette={ this.props.pochette }
                                             i18n={ i18n }
                                             rightHolders={ this.state.rightHolders }
                                         />
