@@ -9,12 +9,8 @@ import { Wizard } from "semantic-ui-react-formik"
 // Traduction
 import { Translation } from 'react-i18next'
 
-// Composantes
-import TableauSommaireSplit from './tableau-sommaire'
-
 // Pages de l'assistant
 import PageAssistantSplitCourrielsCollaborateurs from './assistant-split-courriel-collaborateurs'
-import SommairePartage from '../partage/partage-sommaire';
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 

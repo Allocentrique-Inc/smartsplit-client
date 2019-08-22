@@ -194,7 +194,7 @@ export default class SommairePartages extends Component {
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
-                                        <SommairePartage ayantDroit={this.state.ayantDroit} proposition={elem}/>
+                                        <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={true} />
                                     </Accordion.Content>                                
                                 </div>
                         }

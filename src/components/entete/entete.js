@@ -12,7 +12,8 @@ export default class Entete extends Component {
         this.state = {
             navigation: props.navigation,
             contenu: props.contenu,
-            profil: props.profil
+            profil: props.profil,
+            connexion: !props.sansconnexion
         }
     }
 
@@ -32,7 +33,7 @@ export default class Entete extends Component {
                                 {this.state.contenu}
                                 <div className="ui three wide column" style={{textAlign: "right"}}>
                                     {this.state.profil && <MenuProfil user={this.state.profil} />}
-                                    {!this.state.profil && <BoutonConnexion />}
+                                    {!this.state.profil && this.state.connexion && <BoutonConnexion />}
                                 </div>                                
                             </div>
                         </div>
