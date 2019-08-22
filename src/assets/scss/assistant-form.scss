@@ -114,3 +114,13 @@
     }
 }
 
+label.ui.radio {
+    margin-bottom: $margin-step;
+
+    @extend .medium-400-style;
+
+    input {
+        margin-right: $margin-step;
+    }
+}
+
