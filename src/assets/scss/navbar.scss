@@ -1,9 +1,6 @@
 @import "colors";
 @import "layout";
 
-$color-link: $color-orange-dark;
-$color-link-hover: $color-orange;
-
 .Navbar {
     height: 72px;
     width: 100%;
@@ -47,12 +44,22 @@ $color-link-hover: $color-orange;
 
 .save-and-quit-label a {
     font-weight: bold;
-    color: $color-link;
+    color: $smartsplit-color-link;
     transition: color 0.2s ease;
     will-change: color;
 
     &:hover {
-        color: $color-link-hover;
+        color: $smartsplit-color-link-hover;
+    }
+}
+
+.Navbar.pochette {
+    .save-and-quit-label a {
+        color: $pochette-color-link;
+
+        &:hover {
+            color: $pochette-color-link-hover;
+        }
     }
 }
 

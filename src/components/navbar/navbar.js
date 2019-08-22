@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../../assets/scss/navbar.scss';
 import placeholder from '../../assets/images/placeholder.png';
 
-export class Navbar extends React.Component {
+export class Navbar extends Component {
     render() {
         return (
-            <div className="Navbar">
+            <div className={ 'Navbar ' + (this.props.pochette ? 'pochette' : '') }>
                 <div className="left">
                     <div className="song-image">
                         <img src={ placeholder }/>

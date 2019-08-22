@@ -5,9 +5,10 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-import copyrightIcon from '../../assets/svg/icons/copyright-orange.svg';
-
+import copyrightIconOrange from '../../assets/svg/icons/copyright-orange.svg';
+import copyrightIconGreen from '../../assets/svg/icons/copyright-green.svg';
 import '../../assets/scss/assistant-form.scss';
+
 import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
@@ -18,12 +19,10 @@ const roles = {
     publisher: 'publisher'
 };
 
-class PageAssistantOeuvreDescription extends Component {
-
+export default class PageCreation extends Component {
     constructor(props) {
         super(props);
 
-        console.log(props.values.rightHolders);
         const songwriters = this.filterShareHolders(roles.songwriter, props.values.rightHolders);
         const composers = this.filterShareHolders(roles.composer, props.values.rightHolders);
         const publishers = this.filterShareHolders(roles.publisher, props.values.rightHolders);
@@ -91,20 +90,24 @@ class PageAssistantOeuvreDescription extends Component {
             'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
     };
 
+    copyrightIcon() {
+        return this.props.pochette ? copyrightIconOrange : copyrightIconGreen;
+    }
+
     render() {
         return (
             <Translation>
                 {
                     (t) =>
                         <React.Fragment>
-                            <div className="ui container assistant-container">
+                            <div className={'ui container assistant-container ' + (this.props.pochette ? 'pochette' : '')}>
                                 <div className="ui grid">
                                     <div
                                         className="form-column ui sixteen wide mobile eight wide tablet eight wide computer column"
                                     >
                                         <h1 className="section-title">
                                             <span className="section-icon">
-                                                <img src={ copyrightIcon } alt={ 'création' }/>
+                                                <img src={ this.copyrightIcon() } alt={ 'création' }/>
                                             </span>
 
                                             <span className="section-label">
@@ -178,5 +181,3 @@ class PageAssistantOeuvreDescription extends Component {
         )
     }
 }
-
-export default PageAssistantOeuvreDescription
