@@ -130,9 +130,9 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     recalculerOptions(collaborateurs){
-        // Enlève les collaborateurs déjà ajoutés des options
+        console.log('recalculer options', collaborateurs)
         let options = Object.assign([], this.OPTIONS)
-        collaborateurs.forEach(elem => {                
+        collaborateurs.forEach(elem => {
             options.forEach((_e, idx)=>{
                 if (elem.nom === _e.text) {
                     options.splice(idx, 1)
@@ -143,12 +143,6 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     handleAddition = (e, { value }) => {
-        // this.setState(prevState => ({
-        //   options: [{ text: value, value }, ...prevState.options],
-        // }))
-        // closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
-        //     this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
-        // }
         this.setState({ open:true })
         this.setState({ firstName: value })
     }

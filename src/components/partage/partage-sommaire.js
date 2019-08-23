@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
+import Histogramme from '../visualisation/partage/histogramme'
 import { Translation } from 'react-i18next'
 
 import { Auth } from 'aws-amplify'
@@ -185,7 +186,9 @@ class SommaireDroit extends Component {
                 
                 let _donnees = _aD[__e.rightHolder.rightHolderId]
                 _donnees.nom = __e.rightHolder.name
-                _donnees.vote = __e.voteStatus                
+                _donnees.vote = __e.voteStatus     
+                _donnees.color = __e.rightHolder.color 
+                console.log(__e.rightHolder.color)
                 _donnees.sommePct = (parseFloat(_donnees.sommePct) + parseFloat(__e.splitPct)).toFixed(4)
                 
                 // Les rôles dépendent du type de droit
@@ -232,7 +235,7 @@ class SommaireDroit extends Component {
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
-            _data.push({nom: part.nom, pourcent: part.sommePct})        
+            _data.push({nom: part.nom, pourcent: part.sommePct, color: part.color})  
             
             let _vote
             if(this.state.monVote) {
@@ -261,7 +264,7 @@ class SommaireDroit extends Component {
                                 </div>
                                 <div style={{position: "relative", marginTop: "5px"}}>
                                     {
-                                        !this.state.voteTermine &&
+                                        !this.state.voteTermine &&                                        
                                         this.state.ayantDroit && 
                                         uuid === this.state.ayantDroit.rightHolderId && 
                                         (
@@ -328,11 +331,12 @@ class SommaireDroit extends Component {
                     <div className="ui row">
                         <div className="ui one wide column">
                         </div>
-                        <div className="ui seven wide column">
+                        <div className="ui six wide column">
                             {_parts}
                         </div>
-                        <div className="ui five wide column">
-                            <Beignet uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data} />
+                        <div className="ui six wide column">
+                            {_data.length < 9 && (<Beignet uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                            {_data.length >= 9 && (<Histogramme uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
                         </div>
                         <div className="ui one wide column">
                         </div>
@@ -361,27 +365,36 @@ export default class SommairePartage extends Component {
     }
 
     componentWillMount() {
-        this.rafraichirDonnees()
-        if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {            
-            this.setState({rafraichir: true}, ()=>{
-                console.log('Démarrage du rafraîchissement automatique')
-                this.rafraichissementAutomatique()                
-            })
-        }
-    }
+        this.rafraichirDonnees(()=>{
+            if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {
+                this.setState({rafraichir: true}, ()=>{
+                    console.log('Démarrage du rafraîchissement automatique')
+                    this.rafraichissementAutomatique()                
+                })
+            }
+        })        
+    }   
 
     componentWillReceiveProps(nextProps) {
         if(this.props.uuid !== nextProps.uuid && !this.state.proposition) {
             this.setState({uuid: nextProps.uuid}, ()=>{
-                this.rafraichirDonnees()
+                this.rafraichirDonnees()                
             })
-        }        
+        }
     }
 
     rafraichissementAutomatique() {
-        setTimeout(()=>{            
-            this.rafraichirDonnees()
-            this.rafraichissementAutomatique()
+        setTimeout(()=>{
+            this.rafraichirDonnees(()=>{                
+                if((!this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichir){
+                    this.rafraichissementAutomatique()
+                    if(this.estVoteFinal()){
+                        // C'était le dernier rafraichissement (p.ex. cas où le dernier vote entre)
+                        this.rafraichirDonnees()
+                        this.setState({rafraichir: false})
+                    }
+                }
+            })            
         }, 3000)
     }
 
@@ -446,7 +459,6 @@ export default class SommairePartage extends Component {
         // Détecte si le vote est clos pour cet utilisateur (s'il a déjà voté il ne peut plus voter)
         let termine = false
         let proposition = this.state.proposition
-
         if(proposition) {
             termine = true
             Object.keys(proposition.rightsSplits).forEach(famille=>{
@@ -463,7 +475,7 @@ export default class SommairePartage extends Component {
         return termine
     }
 
-    calculMesVotes(proposition) {
+    calculMesVotes(proposition, fn) {
         this.setState({proposition: proposition})
         // Calcul des votes
         let _mesVotes = {}
@@ -486,7 +498,7 @@ export default class SommairePartage extends Component {
                 })                
             })                        
         })
-        this.setState({mesVotes: _mesVotes})
+        this.setState({mesVotes: _mesVotes}, ()=>{if(fn) fn() })
     }
 
     activerBoutonVote() {
@@ -495,19 +507,19 @@ export default class SommairePartage extends Component {
         })
     }
 
-    rafraichirDonnees() {
+    rafraichirDonnees(fn) {
         if (!this.state.proposition || this.state.rafraichir){
-            console.log('rafraichir données')
+            console.log('rafraichir données pour le uuid '+this.state.uuid)
             axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
-                this.calculMesVotes(proposition)            
+                this.calculMesVotes(proposition, fn)
             })
             .catch(err=>{
                 toast.error(err.message)
             })
         } else {
-            this.calculMesVotes(this.state.proposition)
+            this.calculMesVotes(this.state.proposition, fn)
         }
     }
 
@@ -585,7 +597,7 @@ export default class SommairePartage extends Component {
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
                         monVote={this.state.mesVotes[type]}
-                        voteTermine={this.estVoteFinal() || this.estVoteClos()}
+                        voteTermine={this.estVoteFinal() || this.estVoteClos() || this.state.proposition.etat !== "VOTATION"}
                         parent={this}
                         /> )
                 }                
@@ -596,7 +608,9 @@ export default class SommairePartage extends Component {
             <div>
                 {droits}
                 {
-                    !this.estVoteClos() && (
+                    !this.estVoteClos() && 
+                    (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
+                    (
                         <button disabled={!this.state.transmission} onClick={()=>{
                             this.transmettre()
                         }}> Voter

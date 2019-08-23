@@ -100,6 +100,7 @@ class PageAssistantPartageInterpretation extends Component {
         this.props.values.droitAuteur.forEach(droit=>{
             ayants[droit["nom"]] = droit["color"]
         })
+        console.log(ayants)
           
         _coll.forEach((elem, idx)=>{
             if(this.state.mode === MODES.egal) {
@@ -157,7 +158,7 @@ class PageAssistantPartageInterpretation extends Component {
 
         let descriptif
 
-        if(this.props.i18n.lng === 'en') {
+        if(this.props.i18n.lng.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 Here we divide the <strong> neighboring right</strong> between the 
                 <strong> performers</strong>, musicians and singers alike. 

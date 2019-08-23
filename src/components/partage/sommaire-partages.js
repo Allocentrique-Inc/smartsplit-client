@@ -135,6 +135,7 @@ export default class SommairePartages extends Component {
     }
 
     initialisation() {
+        console.log("INITIALISATION")
         axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
         .then(res=>{
             this.setState({media: res.data.Item}, ()=>{
@@ -143,7 +144,7 @@ export default class SommairePartages extends Component {
                     axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
                     .then(_rAd=>{
                         this.setState({ayantDroit: _rAd.data.Item}, ()=>{
-                            this.setState({propositions: res.data})
+                            this.setState({propositions: res.data})                            
                             this.setState({activeIndex: res.data.length - 1})
                         })
                     })
@@ -161,9 +162,7 @@ export default class SommairePartages extends Component {
       }
 
     render() {        
-        
         if(this.state.propositions && this.state.media) {
-
             let propositions = []
             let contenu = (
                 <Translation>
@@ -177,7 +176,6 @@ export default class SommairePartages extends Component {
                     }                    
                 </Translation>
             )
-        
             propositions = this.state.propositions.map((elem, idx)=>{ 
                 return(                    
                     <Translation key={`sommaire_${idx}`} >

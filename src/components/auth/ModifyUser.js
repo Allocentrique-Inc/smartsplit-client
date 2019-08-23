@@ -143,8 +143,7 @@ class ModifyUser extends Component {
       groupsUnique.forEach(function(elm) {
         groups.push( {key: elm, text: elm, value: elm} )
       })
-      this.setState({groups: groups})
-      console.log("this.state.groups", this.state.groups);
+      this.setState({groups: groups}, ()=>{console.log("this.state.groups", this.state.groups)})
     })
     .catch(err=>{
       // toast.error(err)

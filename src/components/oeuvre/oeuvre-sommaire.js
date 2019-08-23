@@ -71,6 +71,8 @@ export default class SommaireOeuvre extends Component {
         if(this.state.media) {
             let artiste = this.state.media.artist
             let contenu = (<div className="ui nine wide column"></div>)
+
+            
             return (
                 <Translation>
                     {
@@ -111,30 +113,32 @@ export default class SommaireOeuvre extends Component {
                                     <div className="ui two wide column" />
                                     <div className="ui six wide column">
                                         <div className="ui row etape">
-                                            <div className="ui heading3">ÉTAPE 1</div>
-                                            <div className="ui heading1">Partage tes droits</div>
+                                            <div className="ui heading3">{t('flot.preambules.titre1')}</div>
+                                            <div className="ui heading1">{t('flot.preambules.sous-titre1')}</div>
+
                                             <div className="ui medium-400">
-                                                Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)
+                                            {t('flot.preambules.intro1')}
                                             </div>
+                                            
                                             <div className="ui medium button" style={{marginTop: "50px", marginLeft: "0px"}} onClick={()=>{window.location.href=`/partager/${this.state.mediaId}`}}>
                                                 {t('action.commencer')}
                                             </div>
                                         </div>
                                         <div className="ui row etape">
-                                        <div className="ui heading3">ÉTAPE 2</div>
-                                            <div className="ui heading1">Documente ton oeuvre</div>
+                                        <div className="ui heading3">{t('flot.preambules.titre2')}</div>
+                                            <div className="ui heading1">{t('flot.preambules.sous-titre2')}</div>
                                             <div className="ui medium-400">
-                                                Rends découvrable ton oeuvre sur le web grâce aux métadonnées et augmente ainsi tes chances d’apparaître dans des playlists.
+                                            {t('flot.preambules.intro2')}
                                             </div>
                                             <div className="ui medium button" style={{marginTop: "50px", marginLeft: "0px"}} onClick={()=>{window.location.href=`/documenter/${this.state.media.title}`}} >
                                                 {t('action.commencer')}
                                             </div>
                                         </div>
                                         <div className="ui row etape">
-                                        <div className="ui heading3">ÉTAPE 3</div>
-                                            <div className="ui heading1">Protège ton oeuvre</div>
+                                        <div className="ui heading3">{t('flot.preambules.titre3')}</div>
+                                            <div className="ui heading1">{t('flot.preambules.sous-titre3')}</div>
                                             <div className="ui medium-400">
-                                            Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)
+                                            {t('flot.preambules.intro3')}
                                             </div>
                                             <div className="ui medium button" style={{marginTop: "50px", marginLeft: "0px"}}>
                                                 {t('action.commencer')}

@@ -78,6 +78,9 @@ export default class BoutonsRadio extends Component {
         if(this.props.disabled !== nextProps.disabled) {
             this.setState({disabled: nextProps.disabled})
         }
+        if(this.props.choix !== nextProps.choix) {
+            this.setState({choix: nextProps.choix})
+        }
     }
 
     render() {
