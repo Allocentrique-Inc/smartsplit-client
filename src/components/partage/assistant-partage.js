@@ -148,7 +148,8 @@ class AssistantPartage extends Component {
                         droitAuteurMusique.push({
                             "rightHolder": {
                                 "name": elem.nom,
-                                "rightHolderId": uuid
+                                "rightHolderId": uuid,
+                                "color": elem.color
                             },
                             "voteStatus": "active",
                             "contributorRole": roles,
@@ -162,7 +163,8 @@ class AssistantPartage extends Component {
                         droitAuteurParoles.push({
                             "rightHolder": {
                                 "name": elem.nom,
-                                "rightHolderId": uuid
+                                "rightHolderId": uuid,
+                                "color": elem.color
                             },
                             "voteStatus": "active",
                             "contributorRole": roles,
@@ -188,7 +190,8 @@ class AssistantPartage extends Component {
                         droitInterpretePrincipal.push({
                             "rightHolder": {
                                 "name": elem.nom,
-                                "rightHolderId": uuid
+                                "rightHolderId": uuid,
+                                "color": elem.color
                             },
                             "voteStatus": "active",
                             "contributorRole": roles,
@@ -234,7 +237,8 @@ class AssistantPartage extends Component {
                     droitEnregistrement.push({
                         "rightHolder": {
                             "name": elem.nom,
-                            "rightHolderId": uuid
+                            "rightHolderId": uuid,
+                            "color": elem.color
                         },
                         "voteStatus": "active",
                         "contributorRole": roles,

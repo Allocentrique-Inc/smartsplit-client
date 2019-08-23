@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
+import Histogramme from '../visualisation/partage/histogramme'
 import { Translation } from 'react-i18next'
 
 import { Auth } from 'aws-amplify'
@@ -185,7 +186,9 @@ class SommaireDroit extends Component {
                 
                 let _donnees = _aD[__e.rightHolder.rightHolderId]
                 _donnees.nom = __e.rightHolder.name
-                _donnees.vote = __e.voteStatus                
+                _donnees.vote = __e.voteStatus     
+                _donnees.color = __e.rightHolder.color 
+                console.log(__e.rightHolder.color)          
                 _donnees.sommePct = (parseFloat(_donnees.sommePct) + parseFloat(__e.splitPct)).toFixed(4)
                 
                 // Les rôles dépendent du type de droit
@@ -228,11 +231,12 @@ class SommaireDroit extends Component {
 
         let _parts = []
         let _data = []
+        let _colors = []
         let titre = TITRES[this.state.titre]       
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
-            _data.push({nom: part.nom, pourcent: part.sommePct})        
+            _data.push({nom: part.nom, pourcent: part.sommePct, color: part.color})  
             
             let _vote
             if(this.state.monVote) {
@@ -328,11 +332,12 @@ class SommaireDroit extends Component {
                     <div className="ui row">
                         <div className="ui one wide column">
                         </div>
-                        <div className="ui seven wide column">
+                        <div className="ui six wide column">
                             {_parts}
                         </div>
-                        <div className="ui five wide column">
-                            <Beignet uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data} />
+                        <div className="ui six wide column">
+                            {_data.length < 9 && (<Beignet uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                            {_data.length >= 9 && (<Histogramme uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
                         </div>
                         <div className="ui one wide column">
                         </div>
@@ -497,7 +502,7 @@ export default class SommairePartage extends Component {
 
     rafraichirDonnees() {
         if (!this.state.proposition || this.state.rafraichir){
-            console.log('rafraichir données')
+            console.log('rafraichir données pour le uuid '+this.state.uuid)
             axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item

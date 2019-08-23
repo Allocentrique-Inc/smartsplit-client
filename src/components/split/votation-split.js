@@ -36,7 +36,7 @@ class VotationSplit extends Component {
             .then(res=>{
                 let _rH = res.data.Item
                 this.setState({ayantDroit: _rH})
-                // Récupère la proposition
+                // Récupère la proposition       
                 axios.get(`http://api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
                 .then(_r=>{
                     this.setState({proposition: _r.data.Item})

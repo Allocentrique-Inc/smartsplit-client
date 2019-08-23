@@ -100,6 +100,7 @@ class PageAssistantPartageInterpretation extends Component {
         this.props.values.droitAuteur.forEach(droit=>{
             ayants[droit["nom"]] = droit["color"]
         })
+        console.log(ayants)
           
         _coll.forEach((elem, idx)=>{
             if(this.state.mode === MODES.egal) {

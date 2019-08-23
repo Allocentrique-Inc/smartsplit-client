@@ -16,10 +16,23 @@ export default class Histogramme extends Component {
 
     constructor(props){
         super(props)
+        
+        let _d = {}
+        let _c = {}
+        
+        if(props.data.length > 0) {
+            props.data.forEach(elem=>{
+                if(elem && elem.pourcent !== 0) {
+                    _d[elem.nom] = elem.pourcent
+                }
+            })
+        }
         this.state = {
             dataset: Object.keys(this.props.data).map(elem=>this.props.data[elem].pourcent),
             nameset: Object.keys(this.props.data).map(elem=>this.props.data[elem].nom),
-            uuid: this.props.uuid
+            uuid: this.props.uuid,
+            data: _d,
+            colors: _c
         }        
     }   
 
@@ -33,6 +46,18 @@ export default class Histogramme extends Component {
                 this.genererHisto()
             })
         })
+        let _d = {}
+        let _c = {}
+        if(nextProps.data.length > 0) {
+            nextProps.data.forEach(elem=>{
+                if(elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
+                    _d[elem.nom] = elem.pourcent
+                }
+                _c[elem.nom] = elem.color
+            })
+            this.setState({data: _d})
+            this.setState({colors: _c})
+        } 
     }
 
     genererHisto() {
@@ -49,9 +74,9 @@ export default class Histogramme extends Component {
         var dataset = this.state.dataset
         var nameset = this.state.nameset
 
-        var margin = {top: 50, right: 140, bottom: 150, left: 60}
-        var width = (window.innerWidth - 20 - margin.left - margin.right) * WIDTH_FUDGE_PCT // Use the window's width 
-        var height = window.innerHeight - 20 - margin.top - margin.bottom // Use the window's height
+        var margin = {top: 50, right: 40, bottom: 50, left: 100}
+        var width = (800 - 20 - margin.left - margin.right) * WIDTH_FUDGE_PCT // Use the window's width 
+        var height = 300 - 20 - margin.top - margin.bottom // Use the window's height
         
         var svg = d3.select(`#histogramme_${this.state.uuid}`)
             .attr("width", width + margin.left + margin.right)
@@ -59,7 +84,10 @@ export default class Histogramme extends Component {
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     
-        var colors = d3.scaleOrdinal(d3.schemePaired)
+        //var colors = d3.scaleOrdinal(d3.schemePaired)
+        let colors = d3.scaleOrdinal() // D3 Version 4
+            .domain(Object.keys(this.state.colors))
+            .range(Object.values(this.state.colors));
 
         var xScale = d3.scaleLinear()
             .domain([0, dataset.length - 1])
