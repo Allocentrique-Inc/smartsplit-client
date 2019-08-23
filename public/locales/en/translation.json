@@ -108,7 +108,7 @@
             }
         },
         "documente-ton-oeuvre": {
-            "titre": "STEP 1 - Describe your work",
+            "titre": "STEP 1 - Share your rights",
             "preambule": "Hi Joe ! We will help you describe your work."
         },
         "collaborateurs": {
@@ -187,6 +187,17 @@
                 }
             }
         },
+        "preambules": {
+            "titre1": "Step 1",
+                "sous-titre1": "Share your rights",
+                "intro1": "Create the shares on your rights using our guide. You'll see, it's a lot easier than you think :)",
+            "titre2": "Step 2",
+                "sous-titre2": "Document your work",
+                "intro2": "Make your work known on the web thanks to metadata, increasing your chances of to appear in playlists.",
+            "titre3": "Step 3",
+                "sous-titre3": "Protect your work",
+                "intro3": "In the good old days, a cassette was sent by registered mail to prove who did the work and when. Now we rather use a blockchain to create this proof :)" 
+        },
         "editeur": {
             "ajout": "Add a publisher"
         },
@@ -194,6 +205,9 @@
             "nouvelle" : "Create a new version",
             "envoyer": "Send to collaborators",
             "continuer": "Continue to share the rights"
+        },
+        "bouton": {
+            "ajout": "Add"
         }
     },
     "traitement": {
@@ -277,6 +291,8 @@
     },
     "modepartage": {
         "egal": "Share evenly",
+        "roles": "Share according to roles",
+        "manual": "Share manually"
     
     }
 }

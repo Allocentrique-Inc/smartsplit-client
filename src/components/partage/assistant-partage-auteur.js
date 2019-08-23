@@ -330,15 +330,15 @@ class PageAssistantPartageAuteur extends Component {
                                             titre=""
                                             choix={[  
                                                 {
-                                                    nom: 'Partager de façon égale',
+                                                    nom: t('modepartage.egal'),
                                                     valeur: MODES.egal            
                                                 },
                                                 {
-                                                    nom: 'Partager selon les rôles',
+                                                    nom: t('modepartage.roles'),
                                                     valeur: MODES.role
                                                 },                                  
                                                 {
-                                                    nom: 'Gérer manuellement',
+                                                    nom: t('modepartage.manual'),
                                                     valeur:MODES.manuel
                                                 }
                                             ]}
@@ -453,15 +453,17 @@ class PageAssistantPartageAuteur extends Component {
                                                                         ajout={false}
                                                                         collaborateurs={this.props.values.droitAuteur}                                                                
                                                                     />              
-                                                                </div>                  
+                                                                </div> 
+
                                                                 <div className="four wide column">
-                                                                        <button 
+                                                                        <div 
                                                                             className="ui small button"
                                                                             onClick={(e)=>{
-                                                                            e.preventDefault()
-                                                                            this.ajouterCollaborateur(arrayHelpers)
-                                                                        }   }>Ajouter
-                                                                        </button>
+                                                                                e.preventDefault()
+                                                                                this.ajouterCollaborateur(arrayHelpers)                                                                                
+                                                                            }}>
+                                                                            {t('flot.bouton.ajout')}
+                                                                        </div>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -187,6 +187,17 @@
                 }
             }
         },
+        "preambules": {
+            "titre1": "Étape 1",
+                "sous-titre1": "Partage tes droits",
+                "intro1": "Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
+            "titre2": "Étape 2",
+                "sous-titre2": "Documente ton œuvre",
+                "intro2": "Fais découvrir ton oeuvre sur le web grâce aux métadonnées et augmente ainsi tes chances d’apparaître dans des playlists.",
+            "titre3": "Étape 3",
+                "sous-titre3": "Protège ton œuvre",
+                "intro3": "Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)" 
+        },
         "editeur": {
             "ajout": "Ajouter un éditeur"
         },
@@ -269,5 +280,10 @@
     },
     "temps": {
         "ilYA": "il y a"
+    },
+    "modepartage": {
+        "egal": "Partager de façon égale",
+        "roles": "Partager selon les rôles",
+        "manual": "Partager manuellement"
     }
 }
