@@ -7,7 +7,7 @@ import './index.css'
 import Amplify from 'aws-amplify';
 
 // Traduction
-import i18n from './utils/i18n'
+import i18n from './utils/i18n' //Module React (dans dossier modules). npm install
 import { I18nextProvider, Translation } from "react-i18next"
 
 // Routeur applicatif

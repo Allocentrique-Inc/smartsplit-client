@@ -271,7 +271,7 @@ class PageAssistantPartageAuteur extends Component {
         
         let descriptif
 
-        if(this.props.i18n.lng === 'en') {
+        if(this.props.i18n && this.props.i18n.lng.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 Split the copyright between the creators, ie the authors of the
                 <strong> lyrics</strong>, the composers and arrangers of <strong> music</strong>.
@@ -315,7 +315,7 @@ class PageAssistantPartageAuteur extends Component {
                                     <br/>
                                     {descriptif}
                                     <br/>
-
+                                    
                                 <div className="fields">
                                     <div className="field">
                                         <div className="nine wide field">
@@ -331,7 +331,7 @@ class PageAssistantPartageAuteur extends Component {
                                             choix={[  
                                                 {
                                                     nom: 'Partager de façon égale',
-                                                    valeur: MODES.egal
+                                                    valeur: MODES.egal            
                                                 },
                                                 {
                                                     nom: 'Partager selon les rôles',

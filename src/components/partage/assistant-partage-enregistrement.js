@@ -176,8 +176,8 @@ class PageAssistantPartageEnregistrement extends Component {
     render() {
 
         let descriptif
-
-        if(this.props.i18n.lng === 'en') {
+ 
+        if(this.props.i18n.lng.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 Here we separate the <strong>neighboring right</strong> of <strong>producers</strong>, 
                 ie those who have invested their time and / or their money to record and 
@@ -236,7 +236,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                         titre=""
                                         choix={[    
                                             {
-                                                nom: 'Partager de façon égale',
+                                                nom: t('modepartage.egal'),
                                                 valeur: ""+MODES.egal
                                             },                                
                                             {

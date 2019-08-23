@@ -108,7 +108,7 @@ class PageAssistantPartageEditeur extends Component {
         let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees}/>)
                   
         let descriptif
-        if(this.props.i18n.lng === 'en') {
+        if(this.props.i18n.lng.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 It's official, you own <strong>{this.state.partPrincipale.toFixed(2)}% of {this.props.values.song}'s Copyright</strong>. 
                 You must now determine how much your publisher should get from this share.
