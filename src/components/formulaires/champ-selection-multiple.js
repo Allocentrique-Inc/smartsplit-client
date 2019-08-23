@@ -88,13 +88,12 @@ export class ChampSelectionMultiple extends Component {
                 { this.renderSelectedItems() }
 
                 <Dropdown
-                    /*trigger={ <span>Auteur <img src={ chevronDown } alt="chevron-down"/></span> }*/
                     placeholder={ this.props.placeholder }
                     fluid
                     search
                     selection
-                    selectOnBlur={false}
-                    selectOnNavigation={false}
+                    selectOnBlur={ false }
+                    selectOnNavigation={ false }
                     value={ this.state.dropdownValue }
                     options={ this.unselectedItems() }
                     onChange={ this.handleChange }

@@ -82,7 +82,7 @@ export class ChampInstrument extends Component {
                     />
                 </div>
 
-                <div className="divider"></div>
+                <div className="instrument-divider"></div>
             </>
         );
     }
