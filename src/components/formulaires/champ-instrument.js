@@ -48,27 +48,31 @@ export class ChampInstrument extends Component {
                 <div className="instrument-form">
                     <p className="input-label">Quel type d'interprétation ?</p>
 
-                    <label className="ui radio">
-                        <input type="radio"
-                               name="type"
-                               value='principal'
-                               checked={ this.state.type === 'principal' }
-                               onChange={ event => this.handleTypeChange(event) }
-                        />
+                    <div>
+                        <div className="ui radio checkbox">
+                            <input type="radio"
+                                   name="type"
+                                   value='principal'
+                                   checked={ this.state.type === 'principal' }
+                                   onChange={ event => this.handleTypeChange(event) }
+                            />
 
-                        Artiste principal
-                    </label>
+                            <label>Artiste principal</label>
+                        </div>
+                    </div>
 
-                    <label className="ui radio">
-                        <input type="radio"
-                               name="type"
-                               value='accompagnateur'
-                               checked={ this.state.type === 'accompagnateur' }
-                               onChange={ event => this.handleTypeChange(event) }
-                        />
+                    <div>
+                        <div className="ui radio checkbox">
+                            <input type="radio"
+                                   name="type"
+                                   value='accompagnateur'
+                                   checked={ this.state.type === 'accompagnateur' }
+                                   onChange={ event => this.handleTypeChange(event) }
+                            />
 
-                        Artiste accompagnateur
-                    </label>
+                            <label>Artiste accompagnateur</label>
+                        </div>
+                    </div>
 
                     <p className="input-label">Quel rôle dans la pièce musicale ?</p>
 
@@ -77,6 +81,8 @@ export class ChampInstrument extends Component {
                         onChange={ (event, { value }) => this.handleRoleChange('chanteur', event, value) }
                     />
                 </div>
+
+                <div className="divider"></div>
             </>
         );
     }

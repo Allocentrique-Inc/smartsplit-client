@@ -114,6 +114,7 @@
     }
 }
 
+
 .ui.radio,
 .ui.checkbox {
     margin-bottom: $margin-step;
@@ -124,7 +125,20 @@
     }
 }
 
+.ui.radio {
+    input[type='radio'] {
+        left: 0px;
+    }
+}
+
 .ui.checkbox label {
     padding-left: 32px;
+}
+
+.divider {
+    margin: ($margin-step * 4) 0;
+    height: 1px;
+    width: 100%;
+    background-color: $color-stroke;
 }
 
