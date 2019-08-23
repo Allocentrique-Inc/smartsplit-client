@@ -205,6 +205,9 @@
             "nouvelle": "Créer une nouvelle version",
             "envoyer": "Envoyer aux collaborateurs",
             "continuer": "Continuer le partage"
+        },
+        "bouton": {
+            "ajout": "Ajouter"
         }
     },
     "traitement": {

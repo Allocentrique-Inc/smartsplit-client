@@ -486,7 +486,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     onClick={(e) => {
                                                                                         e.preventDefault()
                                                                                         this.ajouterCollaborateur(arrayHelpers)
-                                                                                    }}>Ajouter
+                                                                                    }}>{t('flot.bouton.ajout')}
                                                                                 </button>
                                                                             </div>
                                                                         </div>
