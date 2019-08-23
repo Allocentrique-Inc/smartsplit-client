@@ -34,6 +34,7 @@ export class ChampSelectionMusicien extends Component {
         return this.selectedItems().map(item => {
             return (
                 <ChampInstrument
+                    key={ item }
                     item={ item }
                     onClick={ (event) => {
                         this.unselectItem(event, item);

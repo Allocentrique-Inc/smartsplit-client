@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ItemSelectionne } from './item-selectionne';
+import { Checkbox } from "semantic-ui-react";
 
 export class ChampInstrument extends Component {
 
@@ -12,9 +13,11 @@ export class ChampInstrument extends Component {
         };
     }
 
-    handleTypeChange = (event, { value }) => this.setState({ type: value });
-    handleRoleChange = (name, event) => {
-        const newRoles = event.target.checked ? this.getRolesWith(name) : this.getRolesWithout(name);
+    handleTypeChange = event => this.setState({ type: event.target.value });
+
+    handleRoleChange = (name, event, value) => {
+        console.log(value);
+        const newRoles = value ? this.getRolesWith(name) : this.getRolesWithout(name);
 
         this.setState({ roles: newRoles });
     };
@@ -50,7 +53,7 @@ export class ChampInstrument extends Component {
                                name="type"
                                value='principal'
                                checked={ this.state.type === 'principal' }
-                               onChange={ this.handleTypeChange }
+                               onChange={ event => this.handleTypeChange(event) }
                         />
 
                         Artiste principal
@@ -61,7 +64,7 @@ export class ChampInstrument extends Component {
                                name="type"
                                value='accompagnateur'
                                checked={ this.state.type === 'accompagnateur' }
-                               onChange={ this.handleTypeChange }
+                               onChange={ event => this.handleTypeChange(event) }
                         />
 
                         Artiste accompagnateur
@@ -69,15 +72,10 @@ export class ChampInstrument extends Component {
 
                     <p className="input-label">Quel rôle dans la pièce musicale ?</p>
 
-                    <label className="ui radio">
-                        <input type="checkbox"
-                               name="chanteur"
-                               value='chanteur'
-                               onChange={ event => this.handleRoleChange('chanteur', event) }
-                        />
-
-                        Chanteur
-                    </label>
+                    <Checkbox
+                        label={ 'Chanteur' }
+                        onChange={ (event, { value }) => this.handleRoleChange('chanteur', event, value) }
+                    />
                 </div>
             </>
         );
