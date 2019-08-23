@@ -60,8 +60,7 @@ class TableauSommaireSplit extends Component {
         let sommaire = {}
         
         if (this.props.jeton) {            
-            propositionId = this.props.jeton.proposalId            
-            
+            propositionId = this.props.jeton.proposalId     
             // Récupère la prposition
             axios.get(`http://api.smartsplit.org:8080/v1/proposal/${propositionId}`)
             .then((res)=>{

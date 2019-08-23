@@ -27,13 +27,14 @@ export default class Beignet extends Component {
         }            
 
         this.state = {
-            width: 800, //550,
-            height: 250, //225,
+            width: 600, //550,
+            height: 200, //225,
             margin: 0, //50,
             data: _d,
             colors: _c,
             uuid: props.uuid
-        }        
+        }       
+        console.log(this.state)
     } 
 
     componentWillReceiveProps(nextProps) {
