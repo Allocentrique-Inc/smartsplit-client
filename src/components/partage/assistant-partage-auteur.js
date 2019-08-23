@@ -277,7 +277,7 @@ class PageAssistantPartageAuteur extends Component {
 
         let descriptif
 
-        if (this.props.i18n.lng === 'en') {
+        if(this.props.i18n && this.props.i18n.lng.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 Split the copyright between the creators, ie the authors of the
                 <strong> lyrics</strong>, the composers and arrangers of <strong> music</strong>.
@@ -336,15 +336,15 @@ class PageAssistantPartageAuteur extends Component {
                                                             titre=""
                                                             choix={[
                                                                 {
-                                                                    nom: 'Partager de façon égale',
+                                                                    nom: t('modepartage.egal'),
                                                                     valeur: MODES.egal
                                                                 },
                                                                 {
-                                                                    nom: 'Partager selon les rôles',
+                                                                    nom: t('modepartage.roles'),
                                                                     valeur: MODES.role
                                                                 },
                                                                 {
-                                                                    nom: 'Gérer manuellement',
+                                                                    nom: t('modepartage.manual'),
                                                                     valeur: MODES.manuel
                                                                 }
                                                             ]}

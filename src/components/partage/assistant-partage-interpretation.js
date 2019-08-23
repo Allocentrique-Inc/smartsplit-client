@@ -157,7 +157,7 @@ class PageAssistantPartageInterpretation extends Component {
 
         let descriptif
 
-        if(this.props.i18n.lng === 'en') {
+        if(this.props.i18n.lng.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 Here we divide the <strong> neighboring right</strong> between the 
                 <strong> performers</strong>, musicians and singers alike. 

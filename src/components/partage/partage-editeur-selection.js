@@ -43,7 +43,7 @@ class PageAssistantPartageChoixEditeur extends Component {
         
         let descriptif
 
-        if(this.props.i18n.lng === 'en') {
+        if(this.props.i18n.lng.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 The music publisher is the representative of the creator's works. 
                 It helps the creator to value, exploit and market his works. 
