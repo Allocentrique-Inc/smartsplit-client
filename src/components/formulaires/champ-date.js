@@ -5,7 +5,7 @@ import 'moment/locale/fr';
 export class ChampDate extends Component {
     render() {
         return (
-            <label>
+            <label className="champ">
                 <div className="input-label">{ this.props.label }</div>
 
                 <DateInput

@@ -7,11 +7,11 @@
 }
 
 .form-column {
-    > label:first-of-type {
+    > .champ:first-of-type {
         margin-top: $margin-step * 4;
     }
 
-    > label + label {
+    > .champ + .champ {
         margin-top: $margin-step * 2;
     }
 }
@@ -54,6 +54,22 @@
 .input-description {
     @extend .medium-400-style;
     color: $color-secondary;
+}
+
+.create-link {
+    margin-top: $margin-step;
+    display: flex;
+    align-items: center;
+    color: $smartsplit-color-link;
+    transition: color 0.2s ease;
+
+    img {
+        margin-right: $margin-step;
+    }
+
+    &:hover {
+        color: $smartsplit-color-link-hover;
+    }
 }
 
 .selection-row {
@@ -110,6 +126,14 @@
     .section-title {
         .section-label {
             color: $color-orange-dark;
+        }
+    }
+
+    .create-link {
+        color: $pochette-color-link;
+
+        &:hover {
+            color: $pochette-color-link-hover;
         }
     }
 }

@@ -9,17 +9,15 @@ export class ChampInstrument extends Component {
 
         this.state = {
             type: "",
-            roles: []
+            chanteur: false,
+            musicien: false,
         };
     }
 
     handleTypeChange = event => this.setState({ type: event.target.value });
 
-    handleRoleChange = (name, event, value) => {
-        console.log(value);
-        const newRoles = value ? this.getRolesWith(name) : this.getRolesWithout(name);
-
-        this.setState({ roles: newRoles });
+    handleRoleChange = (name, checked) => {
+        this.setState({ [name]: checked });
     };
 
     getRolesWith(name) {
@@ -76,10 +74,21 @@ export class ChampInstrument extends Component {
 
                     <p className="input-label">Quel rôle dans la pièce musicale ?</p>
 
-                    <Checkbox
-                        label={ 'Chanteur' }
-                        onChange={ (event, { value }) => this.handleRoleChange('chanteur', event, value) }
-                    />
+                    <div>
+                        <Checkbox
+                            label={ 'Chanteur' }
+                            checked={ this.state.chanteur }
+                            onChange={ (event, { checked }) => this.handleRoleChange('chanteur', checked) }
+                        />
+                    </div>
+
+                    <div>
+                        <Checkbox
+                            label={ 'Musicien' }
+                            checked={ this.state.musicien }
+                            onChange={ (event, { checked }) => this.handleRoleChange('musicien', checked) }
+                        />
+                    </div>
                 </div>
 
                 <div className="instrument-divider"></div>

@@ -133,6 +133,7 @@ export default class PageCreation extends Component {
                                         <ChampSelectionMultiple
                                             items={ this.rightHolderOptions() }
                                             label="Auteurs"
+                                            createLabel="Créer un nouveau collaborateur"
                                             description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un auteur..."
                                             value={ this.state.songwriters }
@@ -142,6 +143,7 @@ export default class PageCreation extends Component {
                                         <ChampSelectionMultiple
                                             items={ this.rightHolderOptions() }
                                             label="Compositeurs"
+                                            createLabel="Créer un nouveau collaborateur"
                                             description="Qui a composé la musique de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un compositeur..."
                                             value={ this.state.composers }
@@ -151,13 +153,14 @@ export default class PageCreation extends Component {
                                         <ChampSelectionMultiple
                                             items={ this.rightHolderOptions() }
                                             label="Éditeurs"
+                                            createLabel="Créer un nouveau collaborateur"
                                             description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
                                             placeholder="Ajouter un éditeur..."
                                             value={ this.state.publishers }
                                             onChange={ ids => this.setState({ publishers: ids }) }
                                         />
 
-                                        <label>
+                                        <label className="champ">
                                             <div className="input-label">Code ISWC</div>
 
                                             <p className="input-description">
