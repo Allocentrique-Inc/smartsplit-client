@@ -208,7 +208,8 @@ class AssistantPartage extends Component {
                         droitInterpreteAccompagnement.push({
                             "rightHolder": {
                                 "name": elem.nom,
-                                "rightHolderId": uuid
+                                "rightHolderId": uuid,
+                                "color": elem.color
                             },
                             "voteStatus": "active",
                             "contributorRole": roles,
@@ -358,6 +359,7 @@ class AssistantPartage extends Component {
                     _droit.auteur[elem.rightHolder.rightHolderId].pourcent = parseFloat(elem.splitPct) + _droit.auteur[elem.rightHolder.rightHolderId].pourcent
                     _droit.auteur[elem.rightHolder.rightHolderId].arrangeur = elem.contributorRole[ROLES.ARRANGEUR] ? true : false
                     _droit.auteur[elem.rightHolder.rightHolderId].compositeur = elem.contributorRole[ROLES.COMPOSITEUR] ? true : false
+                    _droit.auteur[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
                 })
                 _rS.workCopyrightSplit.lyrics.forEach(elem=>{ // Paroles
                     if(!_droit.auteur[elem.rightHolder.rightHolderId]) {
@@ -366,6 +368,7 @@ class AssistantPartage extends Component {
                     _droit.auteur[elem.rightHolder.rightHolderId].pourcentParoles = parseFloat(elem.splitPct)
                     _droit.auteur[elem.rightHolder.rightHolderId].pourcent = parseFloat(elem.splitPct) + _droit.auteur[elem.rightHolder.rightHolderId].pourcent
                     _droit.auteur[elem.rightHolder.rightHolderId].auteur = elem.contributorRole[ROLES.AUTEUR] ? true : false
+                    _droit.auteur[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
                 })
 
                 // Droit d'interprétation
@@ -377,6 +380,7 @@ class AssistantPartage extends Component {
                     _droit.interpretation[elem.rightHolder.rightHolderId].principal = true
                     _droit.interpretation[elem.rightHolder.rightHolderId].chanteur = elem.contributorRole[ROLES.CHANTEUR] ? true : false
                     _droit.interpretation[elem.rightHolder.rightHolderId].musicien = elem.contributorRole[ROLES.MUSICIEN] ? true : false
+                    _droit.interpretation[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
                 })
                 _rS.performanceNeighboringRightSplit.accompaniment.forEach(elem=>{ // Accompagnement
                     if(!_droit.interpretation[elem.rightHolder.rightHolderId]) {
@@ -386,6 +390,7 @@ class AssistantPartage extends Component {
                     _droit.interpretation[elem.rightHolder.rightHolderId].accompaniment = true
                     _droit.interpretation[elem.rightHolder.rightHolderId].chanteur = elem.contributorRole[ROLES.CHANTEUR] ? true : false
                     _droit.interpretation[elem.rightHolder.rightHolderId].musicien = elem.contributorRole[ROLES.MUSICIEN] ? true : false
+                    _droit.interpretation[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
                 })
                 // Droit d'enregistrement
                 _rS.masterNeighboringRightSplit.split.forEach(elem=>{ // Split
@@ -397,6 +402,7 @@ class AssistantPartage extends Component {
                     _droit.enregistrement[elem.rightHolder.rightHolderId].producteur = elem.contributorRole[ROLES.PRODUCTEUR] ? true : false
                     _droit.enregistrement[elem.rightHolder.rightHolderId].realisateur = elem.contributorRole[ROLES.REALISATEUR] ? true : false
                     _droit.enregistrement[elem.rightHolder.rightHolderId].graphiste = elem.contributorRole[ROLES.GRAPHISTE] ? true : false
+                    _droit.enregistrement[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
                 })
 
                 // Construction des valeurs initiales

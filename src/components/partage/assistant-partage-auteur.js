@@ -59,6 +59,7 @@ class PageAssistantPartageAuteur extends Component {
                     _parts[idx].pourcent = pourcent
                     _parts[idx].pourcentMusique = (pourcent / 2)
                     _parts[idx].pourcentParoles = (pourcent / 2)
+                    _parts[idx].color = elem.color
                 })
                 this.props.setFieldValue("droitAuteur", _parts)
                 break
@@ -88,11 +89,12 @@ class PageAssistantPartageAuteur extends Component {
                     this.state.parts.forEach((elem, idx) => {
                         _pM = (compositeurs.includes(elem.nom) ? pctMusiqueParCollaborateur : 0) + (arrangeurs.includes(elem.nom) ? pctMusiqueParCollaborateur : 0)
                         _pP = (auteurs.includes(elem.nom) ? pctParolesParCollaborateur : 0)
-                        partsMusique.push({ nom: elem.nom, pourcent: `${_pM}` })
-                        partsParoles.push({ nom: elem.nom, pourcent: `${_pP}` })
+                        partsMusique.push({ nom: elem.nom, pourcent: `${_pM}`, color: elem.color })
+                        partsParoles.push({ nom: elem.nom, pourcent: `${_pP}`, color: elem.color })
                         _parts[idx].pourcent = _pM + _pP
                         _parts[idx].pourcentMusique = _pM
                         _parts[idx].pourcentParoles = _pP
+                        _parts[idx].color = elem.color
                     })
                     this.props.setFieldValue("droitAuteur", _parts)
                     this.setState({ parts: _parts })
@@ -123,6 +125,7 @@ class PageAssistantPartageAuteur extends Component {
                         _parts[idx].pourcent = elem.pourcent
                         _parts[idx].pourcentMusique = _musique ? elem.pourcent / (_paroles ? 2 : 1) : 0
                         _parts[idx].pourcentParoles = _paroles ? elem.pourcent / (_musique ? 2 : 1) : 0
+                        _parts[idx].color = elem.color
                     })
                     this.props.setFieldValue("droitAuteur", _parts)
                 }
@@ -234,9 +237,7 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     render() {
-
         let visualisation
-
         if (this.state.parts.length > 0) {
             switch (this.state.mode) {
                 case MODES.egal:
