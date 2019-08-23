@@ -114,13 +114,17 @@
     }
 }
 
-label.ui.radio {
+.ui.radio,
+.ui.checkbox {
     margin-bottom: $margin-step;
-
     @extend .medium-400-style;
 
     input {
         margin-right: $margin-step;
     }
+}
+
+.ui.checkbox label {
+    padding-left: 32px;
 }
 
