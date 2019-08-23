@@ -1,8 +1,22 @@
 import React, { Component } from 'react';
 import { ItemSelectionne } from './item-selectionne';
 import { Checkbox } from "semantic-ui-react";
+import { ChampSelectionMultiple } from "./champ-selection-multiple";
 
 export class ChampInstrument extends Component {
+
+    instruments = [
+        {
+            text: 'a',
+            key: 'a',
+            value: 'a'
+        },
+        {
+            text: 'b',
+            key: 'b',
+            value: 'b'
+        },
+    ];
 
     constructor(props) {
         super(props);
@@ -15,21 +29,23 @@ export class ChampInstrument extends Component {
     }
 
     handleTypeChange = event => this.setState({ type: event.target.value });
+    handleRoleChange = (name, checked) => this.setState({ [name]: checked });
 
-    handleRoleChange = (name, checked) => {
-        this.setState({ [name]: checked });
-    };
+    instrumentSelect() {
+        return this.state.musicien ?
+            (
+                <ChampSelectionMultiple
+                    items={ this.instruments }
+                    label="Compositeurs"
+                    createLabel="Créer un nouveau collaborateur"
+                    description="Qui a composé la musique de cette pièce musicale&#8239;?"
+                    placeholder="Ajouter un compositeur..."
+                    value={ this.state.composers }
+                    onChange={ ids => this.setState({ composers: ids }) }
+                />
+            ) :
+            (<></>);
 
-    getRolesWith(name) {
-        return [...this.state.roles]
-            .concat([name])
-            .filter((value, index, self) => {
-                return self.indexOf(value) === index;
-            })
-    }
-
-    getRolesWithout(name) {
-        return [...this.state.roles].filter(value => value !== name);
     }
 
 
@@ -89,6 +105,8 @@ export class ChampInstrument extends Component {
                             onChange={ (event, { checked }) => this.handleRoleChange('musicien', checked) }
                         />
                     </div>
+
+                    { this.instrumentSelect() }
                 </div>
 
                 <div className="instrument-divider"></div>
