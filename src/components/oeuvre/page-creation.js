@@ -9,7 +9,7 @@ import copyrightIconOrange from '../../assets/svg/icons/copyright-orange.svg';
 import copyrightIconGreen from '../../assets/svg/icons/copyright-green.svg';
 import '../../assets/scss/assistant-form.scss';
 
-import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple";
+import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
 
@@ -130,7 +130,7 @@ export default class PageCreation extends Component {
                                             onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
                                         />
 
-                                        <ChampSelectionMultiple
+                                        <ChampSelectionPersonne
                                             items={ this.rightHolderOptions() }
                                             label="Auteurs"
                                             createLabel="Créer un nouveau collaborateur"
@@ -140,7 +140,7 @@ export default class PageCreation extends Component {
                                             onChange={ ids => this.setState({ songwriters: ids }) }
                                         />
 
-                                        <ChampSelectionMultiple
+                                        <ChampSelectionPersonne
                                             items={ this.rightHolderOptions() }
                                             label="Compositeurs"
                                             createLabel="Créer un nouveau collaborateur"
@@ -150,7 +150,7 @@ export default class PageCreation extends Component {
                                             onChange={ ids => this.setState({ composers: ids }) }
                                         />
 
-                                        <ChampSelectionMultiple
+                                        <ChampSelectionPersonne
                                             items={ this.rightHolderOptions() }
                                             label="Éditeurs"
                                             createLabel="Créer un nouveau collaborateur"

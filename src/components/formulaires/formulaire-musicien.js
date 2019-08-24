@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
 import { ItemSelectionne } from './item-selectionne';
 import { Checkbox } from "semantic-ui-react";
-import { ChampSelectionMultiple } from "./champ-selection-multiple";
+import { ChampSelectionInstrument } from "./champ-selection-instrument";
+import { instruments } from '../../assets/listes/fr/instruments';
 
-export class ChampInstrument extends Component {
-
-    instruments = [
-        {
-            text: 'a',
-            key: 'a',
-            value: 'a'
-        },
-        {
-            text: 'b',
-            key: 'b',
-            value: 'b'
-        },
-    ];
+export class FormulaireMusicien extends Component {
 
     constructor(props) {
         super(props);
+
+        this.instrumentOptions = instruments
+            .filter((value, index, self) => {
+                return self.indexOf(value) === index;
+            })
+            .map(instrument => ({
+                key: instrument.nom,
+                value: instrument.nom,
+                text: instrument.nom
+            }));
 
         this.state = {
             type: "",
             chanteur: false,
             musicien: false,
+            instruments: []
         };
     }
 
@@ -34,18 +33,14 @@ export class ChampInstrument extends Component {
     instrumentSelect() {
         return this.state.musicien ?
             (
-                <ChampSelectionMultiple
-                    items={ this.instruments }
-                    label="Compositeurs"
-                    createLabel="Créer un nouveau collaborateur"
-                    description="Qui a composé la musique de cette pièce musicale&#8239;?"
-                    placeholder="Ajouter un compositeur..."
-                    value={ this.state.composers }
-                    onChange={ ids => this.setState({ composers: ids }) }
+                <ChampSelectionInstrument
+                    items={ this.instrumentOptions }
+                    placeholder="Ajouter un instrument..."
+                    value={ this.state.instruments }
+                    onChange={ ids => this.setState({ instruments: ids }) }
                 />
             ) :
             (<></>);
-
     }
 
 
@@ -106,7 +101,9 @@ export class ChampInstrument extends Component {
                         />
                     </div>
 
-                    { this.instrumentSelect() }
+                    <div className="instrument-select">
+                        { this.instrumentSelect() }
+                    </div>
                 </div>
 
                 <div className="instrument-divider"></div>

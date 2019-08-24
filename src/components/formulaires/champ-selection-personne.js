@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { ChampInstrument } from "./champ-instrument";
+import { ItemSelectionne } from "./item-selectionne";
+import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
+import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 
-export class ChampSelectionMusicien extends Component {
+export class ChampSelectionPersonne extends Component {
     constructor(props) {
         super(props);
 
@@ -16,6 +18,10 @@ export class ChampSelectionMusicien extends Component {
         if (this.state.selectedValues !== prevState.selectedValues) {
             this.props.onChange(this.state.selectedValues);
         }
+    }
+
+    plusCircle() {
+        return this.props.pochette ? plusCircleOrange : plusCircleGreen;
     }
 
     selectedItems() {
@@ -33,9 +39,10 @@ export class ChampSelectionMusicien extends Component {
     renderSelectedItems() {
         return this.selectedItems().map(item => {
             return (
-                <ChampInstrument
-                    key={ item }
-                    item={ item }
+                <ItemSelectionne
+                    key={ item.key }
+                    image={ item.image.src }
+                    nom={ item.text }
                     onClick={ (event) => {
                         this.unselectItem(event, item);
                     } }
@@ -75,29 +82,36 @@ export class ChampSelectionMusicien extends Component {
 
     render() {
         return (
-            <label>
-                <div className="input-label">
-                    { this.props.label }
-                </div>
+            <div className="champ">
+                <label>
+                    <div className="input-label">
+                        { this.props.label }
+                    </div>
 
-                <p className="input-description">
-                    { this.props.description }
-                </p>
+                    <p className="input-description">
+                        { this.props.description }
+                    </p>
 
-                { this.renderSelectedItems() }
+                    { this.renderSelectedItems() }
 
-                <Dropdown
-                    placeholder={ this.props.placeholder }
-                    fluid
-                    search
-                    selection
-                    selectOnBlur={ false }
-                    selectOnNavigation={ false }
-                    value={ this.state.dropdownValue }
-                    options={ this.unselectedItems() }
-                    onChange={ this.handleChange }
-                />
-            </label>
+                    <Dropdown
+                        placeholder={ this.props.placeholder }
+                        fluid
+                        search
+                        selection
+                        selectOnBlur={ false }
+                        selectOnNavigation={ false }
+                        value={ this.state.dropdownValue }
+                        options={ this.unselectedItems() }
+                        onChange={ this.handleChange }
+                    />
+                </label>
+
+                <a className="create-link" href="#">
+                    <img src={ this.plusCircle() } alt={ 'Créer' }/>
+                    { this.props.createLabel }
+                </a>
+            </div>
         );
     }
 }

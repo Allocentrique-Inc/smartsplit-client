@@ -4,7 +4,7 @@ import { ItemSelectionne } from "./item-selectionne";
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 
-export class ChampSelectionMultiple extends Component {
+export class ChampSelectionInstrument extends Component {
     constructor(props) {
         super(props);
 
@@ -24,27 +24,26 @@ export class ChampSelectionMultiple extends Component {
         return this.props.pochette ? plusCircleOrange : plusCircleGreen;
     }
 
-    selectedItems() {
-        return this.props.items.filter(this.isSelectedItem);
+    additionLabelClasses() {
+        const pochetteClass = this.props.pochette ? ' pochette' : '';
+        return 'addition-label' + pochetteClass;
     }
-
-    isSelectedItem = item => this.state.selectedValues.includes(item.value);
 
     unselectedItems() {
         return this.props.items.filter(this.isUnselectedItem);
     }
 
     isUnselectedItem = item => !this.isSelectedItem(item);
+    isSelectedItem = item => this.state.selectedValues.includes(item.value);
 
     renderSelectedItems() {
-        return this.selectedItems().map(item => {
+        return this.state.selectedValues.map(value => {
             return (
                 <ItemSelectionne
-                    key={ item.key }
-                    image={ item.image.src }
-                    nom={ item.text }
+                    key={ value }
+                    nom={ value }
                     onClick={ (event) => {
-                        this.unselectItem(event, item);
+                        this.unselectItem(event, value);
                     } }
                 />
             );
@@ -53,6 +52,10 @@ export class ChampSelectionMultiple extends Component {
 
     handleChange = (event, { value }) => {
         event.preventDefault();
+        this.selectItem(value);
+    };
+
+    handleAddItem = (event, { value }) => {
         this.selectItem(value);
     };
 
@@ -69,9 +72,9 @@ export class ChampSelectionMultiple extends Component {
         });
     }
 
-    unselectItem(event, item) {
+    unselectItem(event, unselectedValue) {
         event.preventDefault();
-        const selectedValues = this.state.selectedValues.filter(value => value !== item.value);
+        const selectedValues = this.state.selectedValues.filter(value => value !== unselectedValue);
 
         this.setState({
             selectedValues: selectedValues,
@@ -84,14 +87,6 @@ export class ChampSelectionMultiple extends Component {
         return (
             <div className="champ">
                 <label>
-                    <div className="input-label">
-                        { this.props.label }
-                    </div>
-
-                    <p className="input-description">
-                        { this.props.description }
-                    </p>
-
                     { this.renderSelectedItems() }
 
                     <Dropdown
@@ -101,16 +96,14 @@ export class ChampSelectionMultiple extends Component {
                         selection
                         selectOnBlur={ false }
                         selectOnNavigation={ false }
+                        allowAdditions
+                        additionLabel={ <span className={ this.additionLabelClasses() }><img src={ this.plusCircle() }/> Ajouter comme instrument:</span> }
                         value={ this.state.dropdownValue }
                         options={ this.unselectedItems() }
                         onChange={ this.handleChange }
+                        onAddItem={ this.handleAddItem }
                     />
                 </label>
-
-                <a className="create-link" href="#">
-                    <img src={ this.plusCircle() } alt={ 'Créer' }/>
-                    { this.props.createLabel }
-                </a>
             </div>
         );
     }

@@ -113,6 +113,31 @@
     }
 }
 
+.instrument-select {
+    margin-left: $margin-step * 2;
+}
+
+.ui.dropdown .menu > .item.addition {
+    display: flex;
+    align-items: center;
+
+    .text {
+        display: flex;
+        align-items: center;
+    }
+
+    .addition-label {
+        display: inline-flex;
+        align-items: center;
+        margin-right: $margin-step / 2;
+
+        img {
+            margin-right: $margin-step / 2;
+        }
+    }
+}
+
+
 .add-musician-dropdown {
     margin-top: $margin-step * 4;
 }

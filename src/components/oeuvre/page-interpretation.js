@@ -9,7 +9,7 @@ import starIconOrange from '../../assets/svg/icons/star-orange.svg';
 import starIconGreen from '../../assets/svg/icons/star-green.svg';
 
 import '../../assets/scss/assistant-form.scss';
-import { ChampSelectionMusicien } from "../formulaires/champ-selection-musicien";
+import { ChampSelectionInterprete } from "../formulaires/champ-selection-interprete";
 
 export default class PageInterpretation extends Component {
 
@@ -90,7 +90,7 @@ export default class PageInterpretation extends Component {
                                             C’est ici que tu indiques qui a joué quel instrument.
                                         </p>
 
-                                        <ChampSelectionMusicien
+                                        <ChampSelectionInterprete
                                             items={ this.rightHolderOptions() }
                                             onChange={ values => this.setState({ musicians: values }) }
                                         />
