@@ -17,6 +17,8 @@ import { Accordion, Icon } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
 import moment from 'moment'
 
+const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
+
 const localeFr = () => {moment.locale('fr', {
     months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
     monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
@@ -84,10 +86,13 @@ export default class SommairePartages extends Component {
         super(props)
         this.state = {
             mediaId: props.mediaId,
-            activeIndex: 0
+            activeIndex: 0,
+            panneau: PANNEAU_PROPOSITIONS
         }
         this.initialisation = this.initialisation.bind(this)
         this.clic = this.clic.bind(this)
+        this.afficherPanneauEditeur = this.afficherPanneauEditeur.bind(this)
+        this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
     }
     
     componentWillReceiveProps(nextProps) {
@@ -134,8 +139,15 @@ export default class SommairePartages extends Component {
         })        
     }
 
+    afficherPanneauEditeur() {
+        this.setState({panneau: PANNEAU_EDITEUR})
+    }
+
+    afficherPanneauPropositions() {
+        this.setState({panneau: PANNEAU_PROPOSITIONS})
+    }
+
     initialisation() {
-        console.log("INITIALISATION")
         axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
         .then(res=>{
             this.setState({media: res.data.Item}, ()=>{
@@ -159,7 +171,7 @@ export default class SommairePartages extends Component {
         const newIndex = activeIndex === index ? -1 : index
     
         this.setState({ activeIndex: newIndex })
-      }
+    }
 
     render() {        
         if(this.state.propositions && this.state.media) {
@@ -203,6 +215,7 @@ export default class SommairePartages extends Component {
             propositions = propositions.reverse()
 
             let nouveauDisabled = "", envoiDisabled = "disabled", continuerDisabled = "disabled"
+            let partageEditeur = false
             
             if(this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
@@ -217,9 +230,12 @@ export default class SommairePartages extends Component {
                 if(_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
                     continuerDisabled = ""
                 }
+                if(_p.etat === 'ACCEPTE') {
+                    partageEditeur = true
+                }
             }
 
-            return (
+            return (                
                 <Translation>
                     {
                         t =>
@@ -254,14 +270,41 @@ export default class SommairePartages extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="ui row">
-                                        <div className="ui one wide column" />
-                                        <Accordion fluid styled className="ui twelve wide column">
-                                            {propositions}
-                                        </Accordion>                            
-                                        <div className="ui one wide column">
-                                        </div>
-                                    </div>
+                                    {
+                                        partageEditeur && (
+                                            <div className="ui row">
+                                                <div className="ui one wide column" />
+                                                <div className="ui twelve wide column">
+                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>Mes collaborateurs</span>&nbsp;&nbsp;
+                                                    <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>Mon éditeur</span>
+                                                </div>
+                                                <div className="ui one wide column" />
+                                            </div>
+                                        )
+                                    }
+                                    {
+                                        this.state.panneau === PANNEAU_PROPOSITIONS &&
+                                        (
+                                            <div className="ui row">
+                                                <div className="ui one wide column" />
+                                                <Accordion fluid styled className="ui twelve wide column">
+                                                    {propositions}
+                                                </Accordion>                            
+                                                <div className="ui one wide column">
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                    {
+                                        this.state.panneau === PANNEAU_EDITEUR &&
+                                        (
+                                            <div className="ui row">
+                                                <div className="ui one wide column" />
+                                                Ici le choix de partage éditeur
+                                                <div className="ui one wide column" />                                                
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                     }
