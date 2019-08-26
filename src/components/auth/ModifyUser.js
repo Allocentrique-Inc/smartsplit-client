@@ -65,9 +65,8 @@ class ModifyUser extends Component {
     }
 
     close = () => {
-        this.setState({ open: false });
-        this.props.onClose();
-    };
+        this.setState({ open: false })        
+    }
 
     handleAddition = (e, { value }) => {
         this.setState(prevState => ({
