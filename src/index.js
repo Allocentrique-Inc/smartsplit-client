@@ -87,6 +87,7 @@ const renderRoutes = () => {
             <Route exact path="/login" component={renderLogin} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/register-2" component={Register2} />
+            <Route exact path="/register-3" component={Register3} />
             <Route exact path="/sign-in-facebook" component={SignInFacebook} />
             <Route exact path="/sign-in-google" component={SignInGoogle} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
@@ -126,40 +127,6 @@ function NouveauPartage(match) {
   let mediaId = match.match.params.mediaId  
   return (<AssistantPartage mediaId={mediaId} />)
 }
-const renderRoutes = () => (
-  <I18nextProvider i18n={i18n}>
-    <Router history={browserHistory}>
-      <Switch>
-        <Route exact path="/" component={Accueil}/>
-        <Route exact path="/documenter/:titre" component={Documenter}/>
-        <Route exact path="/decrire-oeuvre" component={AssistantOeuvre}/>
-        <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
-        <Route exact path="/login" component={renderLogin} />
-        <Route exact path="/register" component={Register} />
-        <Route exact path="/register-2" component={Register2} />
-        <Route exact path="/register-3" component={Register3} />
-        <Route exact path="/sign-in-facebook" component={SignInFacebook} />
-        <Route exact path="/sign-in-google" component={SignInGoogle} />
-        <Route exact path="/forgot-password" component={ForgotPassword} />
-        <Route exact path="/forgot-password-verification" component={ForgotPasswordVerification} />
-        <Route exact path="/change-password-verification" component={ChangePasswordVerification} />
-        <Route exact path="/welcome" component={Welcome} />
-        <Route exact path="/approuver-proposition/:propositionId" component={ApprouverSplit} />
-        <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
-        <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
-        <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
-        <Route exact path="/accueil" component={Accueil} />
-        <Route exact path="/visualisation/beignet" component={Beignet} />
-        <Route exact path="/visualisation/histogramme" component={Histogramme} />
-        <Route exact path="/visualisation/troissplits" component={Troissplits} />
-        <Route exact path="/bonjournat" component={Bonjour} />
-        <Route exact path="/partager/:mediaId" component={Partager} />
-        <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
-        <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
-      </Switch>
-    </Router>
-  </I18nextProvider>  
-)
 
 function PartageEditeur(match) {
   let propositionId = match.match.params.propositionId
