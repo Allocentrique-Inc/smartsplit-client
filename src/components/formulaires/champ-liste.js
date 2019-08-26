@@ -89,9 +89,7 @@ export class ChampListeCollaborateurAssistant extends Component {
             multiple: props.multiple,
             recherche: props.recherche,
             selection: props.selection,
-            ajout: true
-            
-
+            ajout: true            
         }
         this.OPTIONS = undefined
     }
@@ -101,10 +99,11 @@ export class ChampListeCollaborateurAssistant extends Component {
         axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _options = res.data.map(elem=>{
+                let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
                 return {
                     key: `${elem.rightHolderId}`, 
-                    text: `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`, 
-                    value: `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
+                    text: nom, 
+                    value: nom
                 }
             })            
             if(!this.OPTIONS) {
