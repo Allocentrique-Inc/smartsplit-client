@@ -261,7 +261,7 @@ export default class SommairePartages extends Component {
                                                 }
                                                 {
                                                     this.state.partEditeur &&
-                                                    <PartageSommaireEditeur part={this.state.partEditeur} proposition={_p0} avatars={this.state.avatars} />
+                                                    <PartageSommaireEditeur ayantDroit={this.state.ayantDroit} part={this.state.partEditeur} proposition={_p0} />
                                                 }
                                                 <div className="ui one wide column" />                                                
                                             </div>
