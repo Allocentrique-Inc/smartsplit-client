@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { ItemSelectionne } from "./item-selectionne";
+import { FormulaireMusicien } from "./formulaire-musicien";
 
-export class ChampSelectionMultiple extends Component {
+export class ChampSelectionInterprete extends Component {
     constructor(props) {
         super(props);
 
@@ -33,10 +33,9 @@ export class ChampSelectionMultiple extends Component {
     renderSelectedItems() {
         return this.selectedItems().map(item => {
             return (
-                <ItemSelectionne
-                    key={ item.key }
-                    image={ item.image.src }
-                    nom={ item.text }
+                <FormulaireMusicien
+                    key={ item }
+                    item={ item }
                     onClick={ (event) => {
                         this.unselectItem(event, item);
                     } }
@@ -88,13 +87,12 @@ export class ChampSelectionMultiple extends Component {
                 { this.renderSelectedItems() }
 
                 <Dropdown
-                    /*trigger={ <span>Auteur <img src={ chevronDown } alt="chevron-down"/></span> }*/
                     placeholder={ this.props.placeholder }
                     fluid
                     search
                     selection
-                    selectOnBlur={false}
-                    selectOnNavigation={false}
+                    selectOnBlur={ false }
+                    selectOnNavigation={ false }
                     value={ this.state.dropdownValue }
                     options={ this.unselectedItems() }
                     onChange={ this.handleChange }

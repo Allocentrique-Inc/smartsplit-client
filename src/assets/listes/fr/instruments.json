@@ -1153,10 +1153,6 @@
             "nom": "Maracas"
         },
         {
-            "lien": "http://fr.wikipedia.org/wiki/Kayamb",
-            "nom": "Kayamb"
-        },
-        {
             "lien": "http://fr.wikipedia.org/wiki/Marimba",
             "nom": "Marimba"
         },
@@ -1677,10 +1673,6 @@
             "nom": "Sopilka"
         },
         {
-            "lien": "http://fr.wikipedia.org/wiki/Zurna",
-            "nom": "Zurna"
-        },
-        {
             "lien": "http://fr.wikipedia.org/wiki/Sousaphone",
             "nom": "Sousaphone"
         },
@@ -1977,14 +1969,6 @@
             "nom": "Viole d&#39;amour"
         },
         {
-            "lien": "http://fr.wikipedia.org/wiki/Viole_de_gambe",
-            "nom": "Viole de gambe"
-        },
-        {
-            "lien": "http://fr.wikipedia.org/wiki/Violon",
-            "nom": "Violon"
-        },
-        {
             "lien": "http://fr.wikipedia.org/wiki/Violon_%C3%A0_pavillon",
             "nom": "Violon à pavillon"
         },
@@ -1995,10 +1979,6 @@
         {
             "lien": "http://fr.wikipedia.org/wiki/Violone",
             "nom": "Violone"
-        },
-        {
-            "lien": "http://fr.wikipedia.org/wiki/Virginal",
-            "nom": "Virginal"
         },
         {
             "lien": "http://fr.wikipedia.org/wiki/Voix_(instrument)",
@@ -2043,18 +2023,6 @@
         {
             "lien": "http://fr.wikipedia.org/wiki/Yueqin",
             "nom": "Yueqin"
-        },
-        {
-            "lien": "http://fr.wikipedia.org/wiki/Siku",
-            "nom": "Siku"
-        },
-        {
-            "lien": "http://fr.wikipedia.org/wiki/Tombak",
-            "nom": "Tombak"
-        },
-        {
-            "lien": "http://fr.wikipedia.org/wiki/Zurna",
-            "nom": "Zurna"
         }
     ]
 }

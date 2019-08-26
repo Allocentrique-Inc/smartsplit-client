@@ -7,11 +7,11 @@
 }
 
 .form-column {
-    > label:first-of-type {
+    > .champ:first-of-type {
         margin-top: $margin-step * 4;
     }
 
-    > label + label {
+    > .champ + .champ {
         margin-top: $margin-step * 2;
     }
 }
@@ -56,6 +56,22 @@
     color: $color-secondary;
 }
 
+.create-link {
+    margin-top: $margin-step;
+    display: flex;
+    align-items: center;
+    color: $smartsplit-color-link;
+    transition: color 0.2s ease;
+
+    img {
+        margin-right: $margin-step;
+    }
+
+    &:hover {
+        color: $smartsplit-color-link-hover;
+    }
+}
+
 .selection-row {
     margin-bottom: $margin-step;
 
@@ -97,8 +113,49 @@
     }
 }
 
+.instrument-select {
+    margin-left: $margin-step * 2;
+}
+
+.ui.selection.dropdown,
+.ui.dropdown .menu > .item {
+    display: flex;
+    align-items: center;
+
+    .text {
+        display: flex;
+        align-items: center;
+    }
+
+    .addition-label {
+        display: inline-flex;
+        align-items: center;
+        margin-right: $margin-step / 2;
+
+        img {
+            margin-right: $margin-step / 2;
+        }
+    }
+}
+
+.ui.selection.dropdown input {
+    @extend .medium-400-style;
+    color: $color-primary;
+}
+
+.ui.selection.dropdown .addition-label {
+    @extend .medium-400-style;
+    color: $color-tertiary;
+}
+
+
 .add-musician-dropdown {
     margin-top: $margin-step * 4;
+}
+
+.instrument-form {
+    padding-left: 16px;
+    border-left: 4px $color-underground solid;
 }
 
 .pochette {
@@ -107,5 +164,41 @@
             color: $color-orange-dark;
         }
     }
+
+    .create-link {
+        color: $pochette-color-link;
+
+        &:hover {
+            color: $pochette-color-link-hover;
+        }
+    }
+}
+
+
+.ui.radio,
+.ui.checkbox {
+    margin-bottom: $margin-step;
+    @extend .medium-400-style;
+
+    input {
+        margin-right: $margin-step;
+    }
+}
+
+.ui.radio {
+    input[type='radio'] {
+        left: 0px;
+    }
+}
+
+.ui.checkbox label {
+    padding-left: 32px;
+}
+
+.instrument-divider {
+    margin: ($margin-step * 4) 0;
+    height: 1px;
+    width: 100%;
+    background-color: $color-stroke;
 }
 
