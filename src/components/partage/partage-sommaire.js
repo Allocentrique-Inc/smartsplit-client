@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
+import Histogramme from '../visualisation/partage/histogramme'
 import { Translation } from 'react-i18next'
 
 import { Auth } from 'aws-amplify'
@@ -9,8 +10,9 @@ import { Auth } from 'aws-amplify'
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
-import avatar from '../../assets/images/elliot.jpg'
-import LogIn from '../auth/Login';
+import avatar_espece from '../../assets/images/elliot.jpg'
+import LogIn from '../auth/Login'
+import { AbstractIdentifyPredictionsProvider } from '@aws-amplify/predictions/lib/types/Providers';
 
 const ROLES = [
         "principal",
@@ -64,6 +66,8 @@ class SommaireDroit extends Component {
             jetonApi: props.jetonApi,
             modifierVote: false,
             monVote: props.monVote,
+            avatars: props.avatars,
+            uuid: props.uuid
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
@@ -72,15 +76,17 @@ class SommaireDroit extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(this.props.parts !== nextProps.parts) {
-            console.log('nouvelles parts', nextProps.parts)
             this.setState({parts: nextProps.parts})
             this.organiserDonnees()
+        } 
+        if(this.props.avatars !== nextProps.avatars) {
+            this.setState({avatars: nextProps.avatars})
         }        
         this.setState({monVote: nextProps.monVote}, ()=>{
             if(this.state.monVote && this.state.monVote.vote !== 'active') {
                 this.setState({modifierVote: true})
             }            
-        })        
+        })    
     }
 
     componentWillMount() {
@@ -174,7 +180,7 @@ class SommaireDroit extends Component {
 
     organiserDonnees() {
         let _p = this.state.parts
-        let _aD = {} // Structure résumé de l'ayant-droit
+        let _aD = {} // Structure résumé des ayants-droit
         Object.keys(_p).forEach(_e=>{
             _p[_e].forEach(__e=>{
                 
@@ -185,7 +191,9 @@ class SommaireDroit extends Component {
                 
                 let _donnees = _aD[__e.rightHolder.rightHolderId]
                 _donnees.nom = __e.rightHolder.name
-                _donnees.vote = __e.voteStatus                
+                _donnees.vote = __e.voteStatus     
+                _donnees.color = __e.rightHolder.color
+                _donnees.rightHolderId = __e.rightHolder.rightHolderId
                 _donnees.sommePct = (parseFloat(_donnees.sommePct) + parseFloat(__e.splitPct)).toFixed(4)
                 
                 // Les rôles dépendent du type de droit
@@ -232,7 +240,7 @@ class SommaireDroit extends Component {
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
-            _data.push({nom: part.nom, pourcent: part.sommePct})        
+            _data.push({nom: part.nom, pourcent: part.sommePct, color: part.color})  
             
             let _vote
             if(this.state.monVote) {
@@ -247,7 +255,9 @@ class SommaireDroit extends Component {
                         <div className="ui row">
                             <div className="ui two wide column">
                                 <div className="holder-name">
-                                    <img className="ui spaced avatar image" src={avatar}/>
+                                    <img className="ui spaced avatar image" src={ 
+                                        (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ? 
+                                        this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
                                 </div>
                             </div>
                             <div className="ui ten wide column">
@@ -261,7 +271,7 @@ class SommaireDroit extends Component {
                                 </div>
                                 <div style={{position: "relative", marginTop: "5px"}}>
                                     {
-                                        !this.state.voteTermine &&
+                                        !this.state.voteTermine &&                                        
                                         this.state.ayantDroit && 
                                         uuid === this.state.ayantDroit.rightHolderId && 
                                         (
@@ -318,8 +328,8 @@ class SommaireDroit extends Component {
                     <hr/>
                 </div>
             )
-        })
-
+        })                    
+        
         return (
             <div className="ui segment">
                 <div className="wizard-title">{titre}</div>
@@ -328,16 +338,17 @@ class SommaireDroit extends Component {
                     <div className="ui row">
                         <div className="ui one wide column">
                         </div>
-                        <div className="ui seven wide column">
+                        <div className="ui six wide column">
                             {_parts}
                         </div>
-                        <div className="ui five wide column">
-                            <Beignet uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data} />
+                        <div className="ui six wide column">
+                            {_data.length < 9 && (<Beignet uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                            {_data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
                         </div>
                         <div className="ui one wide column">
                         </div>
                     </div>
-                </div>
+                </div>                
             </div>
         )
     }
@@ -361,27 +372,67 @@ export default class SommairePartage extends Component {
     }
 
     componentWillMount() {
-        this.rafraichirDonnees()
-        if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {            
-            this.setState({rafraichir: true}, ()=>{
-                console.log('Démarrage du rafraîchissement automatique')
-                this.rafraichissementAutomatique()                
-            })
-        }
-    }
+
+        // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
+        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+        .then(res=>{
+            let proposition = res.data.Item
+            // Chercher les avatars
+            let _avatars = {} // Les avatars peuvent être sur plusieurs droits
+            Object.keys(proposition.rightsSplits).forEach(droit=> {
+                Object.keys(proposition.rightsSplits[droit]).forEach(type=>{
+                    proposition.rightsSplits[droit][type].forEach(part=>{
+                        let _rH = part.rightHolder
+                        if(!_avatars[_rH.rightHolderId]) {
+                            _avatars[_rH.rightHolderId] = { }
+                            // Récupération des avatars et intégration dans les éléments correspondants
+                            axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
+                            .then(r=>{
+                                let avatar = r.data.Item.avatarImage
+                                _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
+                                this.setState({avatars: _avatars})
+                            })
+                            .catch(err=>{
+                                toast.error(err.message)
+                                _avatars[_rH.rightHolderId].avatar = err.message
+                            })
+                        }
+                    })                    
+                })
+            })            
+        })
+        .catch(err=>{
+            toast.error(err.message)
+        })
+
+        this.rafraichirDonnees(()=>{
+            if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {
+                this.setState({rafraichir: true}, ()=>{
+                    this.rafraichissementAutomatique()                
+                })
+            }
+        })        
+    }   
 
     componentWillReceiveProps(nextProps) {
         if(this.props.uuid !== nextProps.uuid && !this.state.proposition) {
             this.setState({uuid: nextProps.uuid}, ()=>{
-                this.rafraichirDonnees()
+                this.rafraichirDonnees()                
             })
-        }        
+        }
     }
 
     rafraichissementAutomatique() {
-        setTimeout(()=>{            
-            this.rafraichirDonnees()
-            this.rafraichissementAutomatique()
+        setTimeout(()=>{
+            this.rafraichirDonnees(()=>{                
+                if((!this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichir){
+                    this.rafraichissementAutomatique()
+                    if(this.estVoteFinal()){
+                        // C'était le dernier rafraichissement (p.ex. cas où le dernier vote entre)
+                        this.setState({rafraichir: false})
+                    }
+                }
+            })
         }, 3000)
     }
 
@@ -446,7 +497,6 @@ export default class SommairePartage extends Component {
         // Détecte si le vote est clos pour cet utilisateur (s'il a déjà voté il ne peut plus voter)
         let termine = false
         let proposition = this.state.proposition
-
         if(proposition) {
             termine = true
             Object.keys(proposition.rightsSplits).forEach(famille=>{
@@ -463,7 +513,7 @@ export default class SommairePartage extends Component {
         return termine
     }
 
-    calculMesVotes(proposition) {
+    calculMesVotes(proposition, fn) {
         this.setState({proposition: proposition})
         // Calcul des votes
         let _mesVotes = {}
@@ -486,7 +536,7 @@ export default class SommairePartage extends Component {
                 })                
             })                        
         })
-        this.setState({mesVotes: _mesVotes})
+        this.setState({mesVotes: _mesVotes}, ()=>{if(fn) fn() })
     }
 
     activerBoutonVote() {
@@ -495,19 +545,18 @@ export default class SommairePartage extends Component {
         })
     }
 
-    rafraichirDonnees() {
+    rafraichirDonnees(fn) {
         if (!this.state.proposition || this.state.rafraichir){
-            console.log('rafraichir données')
             axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
-                this.calculMesVotes(proposition)            
+                this.calculMesVotes(proposition, fn)
             })
             .catch(err=>{
                 toast.error(err.message)
             })
         } else {
-            this.calculMesVotes(this.state.proposition)
+            this.calculMesVotes(this.state.proposition, fn)
         }
     }
 
@@ -517,10 +566,8 @@ export default class SommairePartage extends Component {
             droits: this.state.mesVotes,
             jeton: this.state.jetonApi
         }
-        console.log('transmission vote', body)
         axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
         .then((res)=>{
-            console.log('Envoyé', res)
             window.location.reload()
         })
         .catch((err) => {
@@ -566,7 +613,7 @@ export default class SommairePartage extends Component {
 
         let droits = []
 
-        if(this.state.proposition) {        
+        if(this.state.proposition) {
             TYPE_SPLIT.forEach(type=>{
 
                 let _aDonnees = false
@@ -579,14 +626,16 @@ export default class SommairePartage extends Component {
 
                 if(_aDonnees) {
                     droits.push( <SommaireDroit 
+                        avatars={this.state.avatars}
                         type={type}
                         key={`sommaire_${this.state.uuid}_${type}`}
                         parts={this.state.proposition.rightsSplits[type]}
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
                         monVote={this.state.mesVotes[type]}
-                        voteTermine={this.estVoteFinal() || this.estVoteClos()}
+                        voteTermine={this.estVoteFinal() || this.estVoteClos() || this.state.proposition.etat !== "VOTATION"}
                         parent={this}
+                        uuid={this.state.proposition.uuid}
                         /> )
                 }                
             })
@@ -596,7 +645,9 @@ export default class SommairePartage extends Component {
             <div>
                 {droits}
                 {
-                    !this.estVoteClos() && (
+                    !this.estVoteClos() && 
+                    (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
+                    (
                         <button disabled={!this.state.transmission} onClick={()=>{
                             this.transmettre()
                         }}> Voter

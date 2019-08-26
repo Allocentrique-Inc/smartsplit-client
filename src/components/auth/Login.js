@@ -59,15 +59,15 @@ class LogIn extends Component {
     try {
       Auth.signIn(values.username, values.password)
       .then(user=>{
-        toast.success(`Biquette#${user.username} !`)        
+        toast.success(`Bonjour#${user.username} !`)
+        if(this.props.fn) {
+          this.props.fn()
+        }
       })
       .catch((err)=>{
         toast.error(err.message)
       })
-      .finally(()=>{
-        if(this.props.fn) {
-          this.props.fn()
-        }
+      .finally(()=>{        
       })
     } catch (err) {
       console.log(err)

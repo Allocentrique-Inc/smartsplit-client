@@ -16,7 +16,7 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import avatar from "../../assets/images/elliot.jpg"
 
-const MODES = {egal: "0", manuel: "1", manuel: "2"}
+const MODES = {egal: "0", role: "1", manuel: "2"}
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
 
@@ -123,7 +123,6 @@ class PageAssistantPartageEnregistrement extends Component {
         console.log(ayants)
                                                             
         _coll.forEach((elem, idx)=>{
-
             if(this.state.mode === MODES.egal) {
                 if (elem in ayants) {
                     arrayHelpers.insert(0, {
@@ -146,25 +145,40 @@ class PageAssistantPartageEnregistrement extends Component {
                     ayants[elem] = COLORS[_index+idx]
                 }
             }
-
-            if(this.state.mode === MODES.manuel) {
-                arrayHelpers.insert(0, {
-                    nom: elem, 
-                    pourcent: (
-                        this.pourcentRestant() / 
-                        (this.props.values.droitEnregistrement.length + _coll.length) )
-                        .toFixed(4),
-                    producteur: false,
-                    realisateur: false,
-                    graphiste: false,
-                    studio: false,
-                    color: COLORS[_index+idx]
-                })
-                // création de l'entrée dans le tableau des invariables
-                let _inv = this.state.partsInvariables
-                _inv.unshift(false)
-                this.setState({partsInvariables: _inv})
+            if(this.state.mode === MODES.manuel) {  
+                if (elem in ayants) {     
+                    arrayHelpers.insert(0, {
+                        nom: elem, 
+                        pourcent: (
+                            this.pourcentRestant() / 
+                            (this.props.values.droitEnregistrement.length + _coll.length) )
+                            .toFixed(4),
+                        producteur: false,
+                        realisateur: false,
+                        graphiste: false,
+                        studio: false,
+                        color: ayants[elem]
+                    })
+                } else {
+                    arrayHelpers.insert(0, {
+                        nom: elem, 
+                        pourcent: (
+                            this.pourcentRestant() / 
+                            (this.props.values.droitEnregistrement.length + _coll.length) )
+                            .toFixed(4),
+                        producteur: false,
+                        realisateur: false,
+                        graphiste: false,
+                        studio: false,
+                        color: COLORS[_index+idx]
+                    })
+                    ayants[elem] = COLORS[_index+idx]
+                }
             }
+            // création de l'entrée dans le tableau des invariables
+            let _inv = this.state.partsInvariables
+            _inv.unshift(false)
+            this.setState({partsInvariables: _inv})
             
         })                                                            
         this.props.setFieldValue('collaborateur', [])
@@ -176,8 +190,8 @@ class PageAssistantPartageEnregistrement extends Component {
     render() {
 
         let descriptif
-
-        if(this.props.i18n.lng === 'en') {
+ 
+        if(this.props.i18n.lng.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 Here we separate the <strong>neighboring right</strong> of <strong>producers</strong>, 
                 ie those who have invested their time and / or their money to record and 
@@ -236,7 +250,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                         titre=""
                                         choix={[    
                                             {
-                                                nom: 'Partager de façon égale',
+                                                nom: t('modepartage.egal'),
                                                 valeur: ""+MODES.egal
                                             },                                
                                             {

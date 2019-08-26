@@ -29,6 +29,7 @@ class AssistantPartageEditeur extends Component {
         super(props)
         this.state = { 
             propositionId: this.props.propositionId,
+            sansentete: this.props.sansentete,
             user: null
         }
         this.charger = this.charger.bind(this)
@@ -130,6 +131,16 @@ class AssistantPartageEditeur extends Component {
             axios.post(`http://api.smartsplit.org:8080/v1/editorsplitshare`, body)
             .then(res=>{
                 toast.success(res.data)
+                body = {
+                    rightHolder: {nom: values.ayantDroit.nom, uuid: values.ayantDroit.rightHolderId},
+                    shareeId: values.editeurs[values.editeur.nom],
+                    proposalId: this.state.propositionId,
+                    mediaId: this.state.media.mediaId
+                }
+                axios.post(`http://api.smartsplit.org:8080/v1/editorsplitshare/invite`, body)
+                .then(()=>{
+                    window.location.reload()
+                })
             })
             .catch(err=>{
                 toast.error(err.message)
@@ -146,19 +157,22 @@ class AssistantPartageEditeur extends Component {
                     {
                         (t, i18n)=>
                             <div className="ui grid" style={{padding: "10px"}}>
-                                <EntetePartage enregistrer={
-                                    (cb)=>{
-                                        //this.soumettre(this.state.assistant.props.values, cb)
-                                    }} media={this.state.media} user={this.state.user} />
+                                {!this.state.sansentete && 
+                                    <EntetePartage enregistrer={
+                                        (cb)=>{
+                                            //this.soumettre(this.state.assistant.props.values, cb)
+                                        }} media={this.state.media} user={this.state.user} />}
+                                {!this.state.sansentete && 
                                 <div className="ui row">                                    
                                     <div className="ui sixteen wide column">
                                         <Progress percent="10" size='tiny' indicating/>
-                                    </div>                                    
+                                    </div>
                                 </div>
+                                }
                                 <div className="ui row">
                                     <div className="ui two wide column" />
                                     <div className="ui twelve wide column">
-                                        <Wizard                                           
+                                        <Wizard
                                             initialValues={{                                                                                                
                                                 editeur: {},
                                                 editeurListe: "",

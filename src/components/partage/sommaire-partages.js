@@ -16,67 +16,10 @@ import Entete from '../entete/entete'
 import { Accordion, Icon } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
 import moment from 'moment'
+import AssistantPartageEditeur from './assistant-partage-editeur'
+import PartageSommaireEditeur from './partage-sommaire-editeur'
 
-const localeFr = () => {moment.locale('fr', {
-    months : 'janvier_février_mars_avril_mai_juin_juillet_août_septembre_octobre_novembre_décembre'.split('_'),
-    monthsShort : 'janv._févr._mars_avr._mai_juin_juil._août_sept._oct._nov._déc.'.split('_'),
-    monthsParseExact : true,
-    weekdays : 'dimanche_lundi_mardi_mercredi_jeudi_vendredi_samedi'.split('_'),
-    weekdaysShort : 'dim._lun._mar._mer._jeu._ven._sam.'.split('_'),
-    weekdaysMin : 'Di_Lu_Ma_Me_Je_Ve_Sa'.split('_'),
-    weekdaysParseExact : true,
-    longDateFormat : {
-        LT : 'HH:mm',
-        LTS : 'HH:mm:ss',
-        L : 'DD/MM/YYYY',
-        LL : 'D MMMM YYYY',
-        LLL : 'D MMMM YYYY HH:mm',
-        LLLL : 'dddd D MMMM YYYY HH:mm'
-    },
-    calendar : {
-        sameDay : '[Aujourd’hui à] LT',
-        nextDay : '[Demain à] LT',
-        nextWeek : 'dddd [à] LT',
-        lastDay : '[Hier à] LT',
-        lastWeek : 'dddd [dernier à] LT',
-        sameElse : 'L'
-    },
-    relativeTime : {
-        future : 'dans %s',
-        past : 'il y a %s',
-        s : 'quelques secondes',
-        m : 'une minute',
-        mm : '%d minutes',
-        h : 'une heure',
-        hh : '%d heures',
-        d : 'un jour',
-        dd : '%d jours',
-        M : 'un mois',
-        MM : '%d mois',
-        y : 'un an',
-        yy : '%d ans'
-    },
-    dayOfMonthOrdinalParse : /\d{1,2}(er|e)/,
-    ordinal : function (number) {
-        return number + (number === 1 ? 'er' : 'e');
-    },
-    meridiemParse : /PD|MD/,
-    isPM : function (input) {
-        return input.charAt(0) === 'M';
-    },
-    // In case the meridiem units are not separated around 12, then implement
-    // this function (look at locale/id.js for an example).
-    // meridiemHour : function (hour, meridiem) {
-    //     return /* 0-23 hour, given meridiem token and hour 1-12 */ ;
-    // },
-    meridiem : function (hours, minutes, isLower) {
-        return hours < 12 ? 'PD' : 'MD';
-    },
-    week : {
-        dow : 1, // Monday is the first day of the week.
-        doy : 4  // Used to determine first week of the year.
-    }
-})}
+const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
 export default class SommairePartages extends Component {
 
@@ -84,17 +27,20 @@ export default class SommairePartages extends Component {
         super(props)
         this.state = {
             mediaId: props.mediaId,
-            activeIndex: 0
+            activeIndex: 0,
+            panneau: PANNEAU_PROPOSITIONS
         }
         this.initialisation = this.initialisation.bind(this)
         this.clic = this.clic.bind(this)
+        this.afficherPanneauEditeur = this.afficherPanneauEditeur.bind(this)
+        this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
     }
     
     componentWillReceiveProps(nextProps) {
         if(this.props.i18n !== nextProps.i18n) {
             if(nextProps.i18n.lng === "fr") {
                 // momentjs en français, SVP
-                localeFr()
+                require('../../utils/moment-fr')
             }            
         }
     }
@@ -134,6 +80,14 @@ export default class SommairePartages extends Component {
         })        
     }
 
+    afficherPanneauEditeur() {
+        this.setState({panneau: PANNEAU_EDITEUR})
+    }
+
+    afficherPanneauPropositions() {
+        this.setState({panneau: PANNEAU_PROPOSITIONS})
+    }
+
     initialisation() {
         axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
         .then(res=>{
@@ -143,8 +97,17 @@ export default class SommairePartages extends Component {
                     axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
                     .then(_rAd=>{
                         this.setState({ayantDroit: _rAd.data.Item}, ()=>{
-                            this.setState({propositions: res.data})
+                            this.setState({propositions: res.data})                            
                             this.setState({activeIndex: res.data.length - 1})
+                            let _ps = res.data
+                            _ps.forEach(p=>{
+                                if(p.etat === 'ACCEPTE') {
+                                    axios.get(`http://api.smartsplit.org:8080/v1/splitShare/${p.uuid}/${this.state.user.username}`)
+                                    .then(res=>{
+                                        this.setState({partEditeur: res.data})
+                                    })
+                                }
+                            })
                         })
                     })
                 })
@@ -158,12 +121,10 @@ export default class SommairePartages extends Component {
         const newIndex = activeIndex === index ? -1 : index
     
         this.setState({ activeIndex: newIndex })
-      }
+    }
 
     render() {        
-        
         if(this.state.propositions && this.state.media) {
-
             let propositions = []
             let contenu = (
                 <Translation>
@@ -177,7 +138,6 @@ export default class SommairePartages extends Component {
                     }                    
                 </Translation>
             )
-        
             propositions = this.state.propositions.map((elem, idx)=>{ 
                 return(                    
                     <Translation key={`sommaire_${idx}`} >
@@ -205,9 +165,15 @@ export default class SommairePartages extends Component {
             propositions = propositions.reverse()
 
             let nouveauDisabled = "", envoiDisabled = "disabled", continuerDisabled = "disabled"
+            let partageEditeur = false
+
+            let _id0
+            let _p0
             
             if(this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
+                _p0 = _p
+                _id0 = _p.uuid
                 if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
                     nouveauDisabled = "disabled"
                 }    
@@ -219,9 +185,12 @@ export default class SommairePartages extends Component {
                 if(_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
                     continuerDisabled = ""
                 }
+                if(_p.etat === 'ACCEPTE') {
+                    partageEditeur = true
+                }
             }
 
-            return (
+            return (                
                 <Translation>
                     {
                         t =>
@@ -256,14 +225,48 @@ export default class SommairePartages extends Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="ui row">
-                                        <div className="ui one wide column" />
-                                        <Accordion fluid styled className="ui twelve wide column">
-                                            {propositions}
-                                        </Accordion>                            
-                                        <div className="ui one wide column">
-                                        </div>
-                                    </div>
+                                    {
+                                        partageEditeur && (
+                                            <div className="ui row">
+                                                <div className="ui one wide column" />
+                                                <div className="ui twelve wide column">
+                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>Mes collaborateurs</span>&nbsp;&nbsp;
+                                                    <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>Mon éditeur</span>
+                                                </div>
+                                                <div className="ui one wide column" />
+                                            </div>
+                                        )
+                                    }
+                                    {
+                                        this.state.panneau === PANNEAU_PROPOSITIONS &&
+                                        (
+                                            <div className="ui row">
+                                                <div className="ui one wide column" />
+                                                <Accordion fluid styled className="ui twelve wide column">
+                                                    {propositions}
+                                                </Accordion>                            
+                                                <div className="ui one wide column">
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                    {
+                                        this.state.panneau === PANNEAU_EDITEUR &&
+                                        (
+                                            <div className="ui row">
+                                                <div className="ui one wide column" />
+                                                {
+                                                    !this.state.partEditeur &&
+                                                    <AssistantPartageEditeur propositionId={_id0} sansentete className="ui twelve wide column" />
+                                                }
+                                                {
+                                                    this.state.partEditeur &&
+                                                    <PartageSommaireEditeur part={this.state.partEditeur} proposition={_p0} avatars={this.state.avatars} />
+                                                }
+                                                <div className="ui one wide column" />                                                
+                                            </div>
+                                        )
+                                    }
                                 </div>
                             </div>
                     }

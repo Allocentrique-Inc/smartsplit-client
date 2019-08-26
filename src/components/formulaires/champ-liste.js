@@ -89,9 +89,7 @@ export class ChampListeCollaborateurAssistant extends Component {
             multiple: props.multiple,
             recherche: props.recherche,
             selection: props.selection,
-            ajout: true
-            
-
+            ajout: true            
         }
         this.OPTIONS = undefined
     }
@@ -101,10 +99,11 @@ export class ChampListeCollaborateurAssistant extends Component {
         axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _options = res.data.map(elem=>{
+                let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
                 return {
                     key: `${elem.rightHolderId}`, 
-                    text: `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`, 
-                    value: `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
+                    text: nom, 
+                    value: nom
                 }
             })            
             if(!this.OPTIONS) {
@@ -130,9 +129,9 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     recalculerOptions(collaborateurs){
-        // Enlève les collaborateurs déjà ajoutés des options
+        console.log('recalculer options', collaborateurs)
         let options = Object.assign([], this.OPTIONS)
-        collaborateurs.forEach(elem => {                
+        collaborateurs.forEach(elem => {
             options.forEach((_e, idx)=>{
                 if (elem.nom === _e.text) {
                     options.splice(idx, 1)
@@ -143,12 +142,6 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     handleAddition = (e, { value }) => {
-        // this.setState(prevState => ({
-        //   options: [{ text: value, value }, ...prevState.options],
-        // }))
-        // closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
-        //     this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
-        // }
         this.setState({ open:true })
         this.setState({ firstName: value })
     }

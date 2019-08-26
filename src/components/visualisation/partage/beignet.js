@@ -14,35 +14,32 @@ export default class Beignet extends Component {
 
     constructor(props){
         super(props)
-        
-        let _d = {}
-        let _c = {}
-        
-        if(props.data.length > 0) {
-            props.data.forEach(elem=>{
-                if(elem && elem.pourcent !== 0) {
-                    _d[elem.nom] = elem.pourcent
-                }
-            })
-        }            
-
         this.state = {
-            width: 800, //550,
-            height: 250, //225,
+            width: 600, //550,
+            height: 200, //225,
             margin: 0, //50,
-            data: _d,
-            colors: _c,
+            data: {},
+            colors: {},
             uuid: props.uuid
-        }        
+        }
+                
     } 
+
+    componentDidMount() {
+        this.rafraichir(this.props)
+    }
 
     componentWillReceiveProps(nextProps) {
         // Le beignet rafraichit son affichage à chaque changement de propriétés.
         // Il n'y a pas de test sur les attributes (this.props.xyz !== nextProps.xyz)
+        this.rafraichir(nextProps)
+    }
+
+    rafraichir(props) {
         let _d = {}
         let _c = {}
-        if(nextProps.data.length > 0) {
-            nextProps.data.forEach(elem=>{
+        if(props.data && props.data.length > 0) {
+            props.data.forEach(elem=>{
                 if(elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
                     _d[elem.nom] = elem.pourcent
                 }
@@ -50,7 +47,7 @@ export default class Beignet extends Component {
             })
             this.setState({data: _d})
             this.setState({colors: _c})
-        }        
+        }
     }
 
     genererBeignet() {     
