@@ -16,6 +16,8 @@ import Entete from '../entete/entete'
 import { Accordion, Icon } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
 import moment from 'moment'
+import AssistantPartageEditeur from './assistant-partage-editeur'
+import PartageSommaireEditeur from './partage-sommaire-editeur'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
@@ -97,6 +99,15 @@ export default class SommairePartages extends Component {
                         this.setState({ayantDroit: _rAd.data.Item}, ()=>{
                             this.setState({propositions: res.data})                            
                             this.setState({activeIndex: res.data.length - 1})
+                            let _ps = res.data
+                            _ps.forEach(p=>{
+                                if(p.etat === 'ACCEPTE') {
+                                    axios.get(`http://api.smartsplit.org:8080/v1/splitShare/${p.uuid}/${this.state.user.username}`)
+                                    .then(res=>{
+                                        this.setState({partEditeur: res.data})
+                                    })
+                                }
+                            })
                         })
                     })
                 })
@@ -155,9 +166,14 @@ export default class SommairePartages extends Component {
 
             let nouveauDisabled = "", envoiDisabled = "disabled", continuerDisabled = "disabled"
             let partageEditeur = false
+
+            let _id0
+            let _p0
             
             if(this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
+                _p0 = _p
+                _id0 = _p.uuid
                 if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
                     nouveauDisabled = "disabled"
                 }    
@@ -239,7 +255,14 @@ export default class SommairePartages extends Component {
                                         (
                                             <div className="ui row">
                                                 <div className="ui one wide column" />
-                                                Ici le choix de partage éditeur
+                                                {
+                                                    !this.state.partEditeur &&
+                                                    <AssistantPartageEditeur propositionId={_id0} sansentete className="ui twelve wide column" />
+                                                }
+                                                {
+                                                    this.state.partEditeur &&
+                                                    <PartageSommaireEditeur part={this.state.partEditeur} proposition={_p0} avatars={this.state.avatars} />
+                                                }
                                                 <div className="ui one wide column" />                                                
                                             </div>
                                         )

@@ -34,6 +34,7 @@ class PageAssistantPartageEditeur extends Component {
                 _rH[elem.rightHolder.rightHolderId] = {nom: undefined, pourcent: 0}
             }            
             _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
+            _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
             _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
         })
 
@@ -43,6 +44,7 @@ class PageAssistantPartageEditeur extends Component {
                 _rH[elem.rightHolder.rightHolderId] = {nom: undefined, pourcent: 0}
             }            
             _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
+            _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
             _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
         })
 
@@ -52,6 +54,7 @@ class PageAssistantPartageEditeur extends Component {
                 // c'est l'utlisateur connecté, on lui assigne 100 % du partage avec l'éditeur
                 let _aD = this.props.values.ayantDroit
                 _aD.pourcent = 100
+                _aD.color = _rH[elem].color
                 _aD.nom = _rH[elem].nom
 
                 // Ajout de l'utilisateur et de son pourcentage aux données du formulaire
@@ -60,11 +63,11 @@ class PageAssistantPartageEditeur extends Component {
                 this.setState({partPrincipale: _rH[elem].pourcent})
 
                 // on pousse l'utilisateur ET l'éditeur
-                donnees.push({nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent)})
-                donnees.push({nom: this.props.values.editeur.nom, pourcent: parseFloat(this.props.values.editeur.pourcent)})
+                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent)})
+                donnees.push({color: "#bacada", nom: this.props.values.editeur.nom, pourcent: parseFloat(this.props.values.editeur.pourcent)})
             } else {
                 // on pousse l'ayant-droit
-                donnees.push({nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent)})
+                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent)})
             }            
         })
             
@@ -84,7 +87,7 @@ class PageAssistantPartageEditeur extends Component {
                 return elem
             }
         })
-        this.setState({donnees: donnees})        
+        this.setState({donnees: donnees})
     }
 
     changementGradateur(index, delta) {
@@ -127,11 +130,11 @@ class PageAssistantPartageEditeur extends Component {
                         <div className="ui grid">          
                             <div className="ui row">
                                 <div className="ui seven wide column">
-                                    <div className="wizard-title">{t('flot.partage.editeur.titre-part')}</div>
+                                    <div className="wizard-title">{t('flot.partage.auteur.titre')}</div>
                                     <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
-                                        { t('partage.auteur.titre', {oeuvre: this.state.song}) }
+                                        { t('partage.editeur.titre-part') }
                                     </div>
                                     <br/>
                                     {descriptif}

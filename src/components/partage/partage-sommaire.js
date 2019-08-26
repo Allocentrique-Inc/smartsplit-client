@@ -384,7 +384,7 @@ export default class SommairePartage extends Component {
                         let _rH = part.rightHolder
                         if(!_avatars[_rH.rightHolderId]) {
                             _avatars[_rH.rightHolderId] = { }
-                            // Récupération des avatars et inrégration dans les éléments correspondants
+                            // Récupération des avatars et intégration dans les éléments correspondants
                             axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
                             .then(r=>{
                                 let avatar = r.data.Item.avatarImage

@@ -38,7 +38,7 @@ export default class Beignet extends Component {
     rafraichir(props) {
         let _d = {}
         let _c = {}
-        if(props.data.length > 0) {
+        if(props.data && props.data.length > 0) {
             props.data.forEach(elem=>{
                 if(elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
                     _d[elem.nom] = elem.pourcent
