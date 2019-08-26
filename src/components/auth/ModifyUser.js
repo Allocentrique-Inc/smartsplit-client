@@ -55,7 +55,7 @@ class ModifyUser extends Component {
     }
 
     // BIND TODO
-
+    this.click = this.click.bind(this)
 
   }
 
@@ -103,6 +103,11 @@ class ModifyUser extends Component {
     );
   }
 
+  click(){
+    this.handleSubmit();
+    this.close();
+  }
+
   handleSubmit = values => { 
 
     let body = {
@@ -120,11 +125,14 @@ class ModifyUser extends Component {
     try {
       axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
       .then(
-        // this.props.history.push("/"),
-        console.log('user created / modified')
-        toast.success('user created / modified')
+        console.log('user created / modified'),
+        toast.success('user created / modified'),
         // TODO Add modal close action
         this.close,
+        // this.props.history.push("/")
+      )
+      .then(
+        this.close
       )
       .catch((err)=>{
         // toast.error(err.message)
@@ -253,7 +261,7 @@ class ModifyUser extends Component {
           Ces rôles pourront toujours être modifiés plus tard.
         <Modal.Actions>
                 <Button onClick={this.close} negative>Annuler</Button>
-                <Button onClick={this.handleSubmit} positive icon='checkmark' labelPosition='right' content='Sauvegarder' />
+                <Button onClick={this.click} positive icon='checkmark' labelPosition='right' content='Sauvegarder' />
           </Modal.Actions>
       </Modal>
     )
