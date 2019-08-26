@@ -117,6 +117,10 @@
     margin-left: $margin-step * 2;
 }
 
+.ui.form input[type="text"] {
+    @extend .medium-400-style;
+}
+
 .ui.selection.dropdown,
 .ui.dropdown .menu > .item {
     display: flex;
