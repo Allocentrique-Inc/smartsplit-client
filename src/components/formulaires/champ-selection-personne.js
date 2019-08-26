@@ -159,6 +159,7 @@ export class ChampSelectionPersonne extends Component {
                 <ModifyUser
                     open={ this.state.modalOpen }
                     firstName={ this.state.modalFirstName }
+                    onClose={ () => this.setState({ modalOpen: false, modalFirstName: '' }) }
                 />
             </>
         );
