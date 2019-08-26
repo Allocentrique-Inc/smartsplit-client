@@ -36,6 +36,7 @@ import Troissplits from './components/visualisation/partage/troissplits'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Register2 from './components/auth/Register-2'
+import Register3 from './components/auth/Register-3'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
 import ChangePasswordVerification from './components/auth/ChangePasswordVerification'
@@ -86,6 +87,7 @@ const renderRoutes = () => {
             <Route exact path="/login" component={renderLogin} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/register-2" component={Register2} />
+            <Route exact path="/register-3" component={Register3} />
             <Route exact path="/sign-in-facebook" component={SignInFacebook} />
             <Route exact path="/sign-in-google" component={SignInGoogle} />
             <Route exact path="/forgot-password" component={ForgotPassword} />

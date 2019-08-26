@@ -9,7 +9,7 @@ import copyrightIconOrange from '../../assets/svg/icons/copyright-orange.svg';
 import copyrightIconGreen from '../../assets/svg/icons/copyright-green.svg';
 import '../../assets/scss/assistant-form.scss';
 
-import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple";
+import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
 
@@ -130,34 +130,37 @@ export default class PageCreation extends Component {
                                             onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
                                         />
 
-                                        <ChampSelectionMultiple
+                                        <ChampSelectionPersonne
                                             items={ this.rightHolderOptions() }
                                             label="Auteurs"
+                                            createLabel="Créer un nouveau collaborateur"
                                             description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un auteur..."
                                             value={ this.state.songwriters }
                                             onChange={ ids => this.setState({ songwriters: ids }) }
                                         />
 
-                                        <ChampSelectionMultiple
+                                        <ChampSelectionPersonne
                                             items={ this.rightHolderOptions() }
                                             label="Compositeurs"
+                                            createLabel="Créer un nouveau collaborateur"
                                             description="Qui a composé la musique de cette pièce musicale&#8239;?"
                                             placeholder="Ajouter un compositeur..."
                                             value={ this.state.composers }
                                             onChange={ ids => this.setState({ composers: ids }) }
                                         />
 
-                                        <ChampSelectionMultiple
+                                        <ChampSelectionPersonne
                                             items={ this.rightHolderOptions() }
                                             label="Éditeurs"
+                                            createLabel="Créer un nouveau collaborateur"
                                             description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
                                             placeholder="Ajouter un éditeur..."
                                             value={ this.state.publishers }
                                             onChange={ ids => this.setState({ publishers: ids }) }
                                         />
 
-                                        <label>
+                                        <label className="champ">
                                             <div className="input-label">Code ISWC</div>
 
                                             <p className="input-description">

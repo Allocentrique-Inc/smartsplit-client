@@ -2,16 +2,25 @@ import React from 'react';
 import xIcon from "../../assets/svg/icons/x.svg";
 
 export function ItemSelectionne(props) {
-    return (
-        <div className="selection-row"
-             onClick={ (event) => props.onClick(event) }
-        >
-            <div className="left">
+
+    function selectionAvatar(props) {
+        return props.image ?
+            (
                 <div className="selection-avatar">
                     <img src={ props.image }
                          alt={ props.nom }
                     />
                 </div>
+            ) :
+            (<></>);
+    }
+
+    return (
+        <div className="selection-row"
+             onClick={ (event) => props.onClick(event) }
+        >
+            <div className="left">
+                { selectionAvatar(props) }
 
                 <div className="selection-name">
                     { props.nom }

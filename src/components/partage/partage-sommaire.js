@@ -429,11 +429,10 @@ export default class SommairePartage extends Component {
                     this.rafraichissementAutomatique()
                     if(this.estVoteFinal()){
                         // C'était le dernier rafraichissement (p.ex. cas où le dernier vote entre)
-                        this.rafraichirDonnees()
                         this.setState({rafraichir: false})
                     }
                 }
-            })            
+            })
         }, 3000)
     }
 
@@ -551,7 +550,7 @@ export default class SommairePartage extends Component {
             axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
-                this.calculMesVotes(proposition, fn)                
+                this.calculMesVotes(proposition, fn)
             })
             .catch(err=>{
                 toast.error(err.message)
@@ -614,7 +613,7 @@ export default class SommairePartage extends Component {
 
         let droits = []
 
-        if(this.state.proposition) {        
+        if(this.state.proposition) {
             TYPE_SPLIT.forEach(type=>{
 
                 let _aDonnees = false
