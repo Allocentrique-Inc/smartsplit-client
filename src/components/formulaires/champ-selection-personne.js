@@ -24,6 +24,12 @@ export class ChampSelectionPersonne extends Component {
         return this.props.pochette ? plusCircleOrange : plusCircleGreen;
     }
 
+    additionLabelClasses() {
+        const pochetteClass = this.props.pochette ? ' pochette' : '';
+        return 'addition-label' + pochetteClass;
+    }
+
+
     selectedItems() {
         return this.props.items.filter(this.isSelectedItem);
     }
@@ -79,6 +85,10 @@ export class ChampSelectionPersonne extends Component {
         });
     }
 
+    handleAddItem = (event, { value }) => {
+        console.log('Calling modal');
+    };
+
 
     render() {
         return (
@@ -101,16 +111,14 @@ export class ChampSelectionPersonne extends Component {
                         selection
                         selectOnBlur={ false }
                         selectOnNavigation={ false }
+                        allowAdditions
+                        additionLabel={ <span className={ this.additionLabelClasses() }><img src={ this.plusCircle() }/> Ajouter comme collaborateur :</span> }
                         value={ this.state.dropdownValue }
                         options={ this.unselectedItems() }
                         onChange={ this.handleChange }
+                        onAddItem={ this.handleAddItem }
                     />
                 </label>
-
-                <a className="create-link" href="#">
-                    <img src={ this.plusCircle() } alt={ 'Créer' }/>
-                    { this.props.createLabel }
-                </a>
             </div>
         );
     }
