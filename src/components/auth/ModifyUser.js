@@ -120,10 +120,11 @@ class ModifyUser extends Component {
     try {
       axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
       .then(
-        this.props.history.push("/"),
+        // this.props.history.push("/"),
+        console.log('user created / modified')
+        toast.success('user created / modified')
         // TODO Add modal close action
         this.close,
-        toast.success('user created / modified')
       )
       .catch((err)=>{
         // toast.error(err.message)
