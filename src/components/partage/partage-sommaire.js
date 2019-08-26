@@ -428,10 +428,7 @@ export default class SommairePartage extends Component {
                 if((!this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichir){
                     this.rafraichissementAutomatique()
                     if(this.estVoteFinal()){
-                        // C'était le dernier rafraichissement (p.ex. cas où le dernier vote entre)
-                        this.rafraichirDonnees(()=>{
-                            window.location.reload()
-                        })
+                        // C'était le dernier rafraichissement (p.ex. cas où le dernier vote entre)                        
                         this.setState({rafraichir: false})
                     }
                 }
