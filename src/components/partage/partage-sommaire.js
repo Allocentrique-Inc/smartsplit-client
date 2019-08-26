@@ -66,7 +66,8 @@ class SommaireDroit extends Component {
             jetonApi: props.jetonApi,
             modifierVote: false,
             monVote: props.monVote,
-            avatars: props.avatars
+            avatars: props.avatars,
+            uuid: props.uuid
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
@@ -341,8 +342,8 @@ class SommaireDroit extends Component {
                             {_parts}
                         </div>
                         <div className="ui six wide column">
-                            {_data.length < 9 && (<Beignet uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
-                            {_data.length >= 9 && (<Histogramme uuid={`beignt_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                            {_data.length < 9 && (<Beignet uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                            {_data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
                         </div>
                         <div className="ui one wide column">
                         </div>
@@ -398,18 +399,7 @@ export default class SommairePartage extends Component {
                         }
                     })                    
                 })
-            })
-            // Attend que tous les avatars soient trouvés
-            /*
-            let avatarTousTrouves = true
-            while(!avatarTousTrouves) {
-                Object.keys(_avatars).forEach(_ad=>{
-                    if(!_avatars[_ad].avatar)
-                        avatarTousTrouves = false
-                })
-            }
-            this.setState({avatars: _avatars})
-            */
+            })            
         })
         .catch(err=>{
             toast.error(err.message)
@@ -646,6 +636,7 @@ export default class SommairePartage extends Component {
                         monVote={this.state.mesVotes[type]}
                         voteTermine={this.estVoteFinal() || this.estVoteClos() || this.state.proposition.etat !== "VOTATION"}
                         parent={this}
+                        uuid={this.state.proposition.uuid}
                         /> )
                 }                
             })
