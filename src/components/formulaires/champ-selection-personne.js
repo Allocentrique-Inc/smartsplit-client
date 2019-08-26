@@ -10,7 +10,8 @@ export class ChampSelectionPersonne extends Component {
 
         this.state = {
             selectedValues: this.props.value || [],
-            dropdownValue: null
+            dropdownValue: null,
+            searchQuery: '',
         };
     }
 
@@ -29,6 +30,23 @@ export class ChampSelectionPersonne extends Component {
         return 'addition-label' + pochetteClass;
     }
 
+    plusCircleLabel(labelString) {
+        return (
+            <span className={ this.additionLabelClasses() }>
+                <img src={ this.plusCircle() }/> { labelString }
+            </span>
+        );
+    }
+
+    triggerLabel() {
+        return this.state.searchQuery ?
+            '' :
+            this.plusCircleLabel(this.props.placeholder);
+    }
+
+    additionLabel() {
+        return this.plusCircleLabel('Ajouter comme collaborateur :');
+    }
 
     selectedItems() {
         return this.props.items.filter(this.isSelectedItem);
@@ -89,6 +107,13 @@ export class ChampSelectionPersonne extends Component {
         console.log('Calling modal');
     };
 
+    handleSearchChange = (event, { searchQuery }) => {
+        this.setState({ searchQuery: searchQuery });
+    };
+
+    handleBlur = () => {
+        this.setState({ searchQuery: '' });
+    };
 
     render() {
         return (
@@ -105,18 +130,20 @@ export class ChampSelectionPersonne extends Component {
                     { this.renderSelectedItems() }
 
                     <Dropdown
-                        placeholder={ this.props.placeholder }
+                        trigger={ this.triggerLabel() }
                         fluid
                         search
                         selection
                         selectOnBlur={ false }
                         selectOnNavigation={ false }
                         allowAdditions
-                        additionLabel={ <span className={ this.additionLabelClasses() }><img src={ this.plusCircle() }/> Ajouter comme collaborateur :</span> }
+                        additionLabel={ this.additionLabel() }
                         value={ this.state.dropdownValue }
                         options={ this.unselectedItems() }
+                        onBlur={ this.handleBlur }
                         onChange={ this.handleChange }
                         onAddItem={ this.handleAddItem }
+                        onSearchChange={ this.handleSearchChange }
                     />
                 </label>
             </div>

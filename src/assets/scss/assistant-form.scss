@@ -117,7 +117,8 @@
     margin-left: $margin-step * 2;
 }
 
-.ui.dropdown .menu > .item.addition {
+.ui.selection.dropdown,
+.ui.dropdown .menu > .item {
     display: flex;
     align-items: center;
 
@@ -135,6 +136,16 @@
             margin-right: $margin-step / 2;
         }
     }
+}
+
+.ui.selection.dropdown input {
+    @extend .medium-400-style;
+    color: $color-primary;
+}
+
+.ui.selection.dropdown .addition-label {
+    @extend .medium-400-style;
+    color: $color-tertiary;
 }
 
 
