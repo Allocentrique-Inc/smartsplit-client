@@ -34,6 +34,7 @@ export class FormulaireMusicien extends Component {
         return this.state.musicien ?
             (
                 <ChampSelectionInstrument
+                    pochette={ this.props.pochette }
                     items={ this.instrumentOptions }
                     placeholder="Ajouter un instrument..."
                     value={ this.state.instruments }
