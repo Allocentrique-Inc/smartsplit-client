@@ -35,6 +35,7 @@ export class ChampSelectionInterprete extends Component {
             return (
                 <FormulaireMusicien
                     key={ item }
+                    pochette={ this.props.pochette }
                     item={ item }
                     onClick={ (event) => {
                         this.unselectItem(event, item);

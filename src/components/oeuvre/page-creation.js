@@ -13,6 +13,7 @@ import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne"
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
 
+
 const roles = {
     songwriter: 'songwriter',
     composer: 'composer',
@@ -100,7 +101,8 @@ export default class PageCreation extends Component {
                 {
                     (t) =>
                         <React.Fragment>
-                            <div className={'ui container assistant-container ' + (this.props.pochette ? 'pochette' : '')}>
+                            <div
+                                className={ 'ui container assistant-container ' + (this.props.pochette ? 'pochette' : '') }>
                                 <div className="ui grid">
                                     <div
                                         className="form-column ui sixteen wide mobile eight wide tablet eight wide computer column"
@@ -131,6 +133,7 @@ export default class PageCreation extends Component {
                                         />
 
                                         <ChampSelectionPersonne
+                                            pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
                                             label="Auteurs"
                                             createLabel="Créer un nouveau collaborateur"
@@ -141,6 +144,7 @@ export default class PageCreation extends Component {
                                         />
 
                                         <ChampSelectionPersonne
+                                            pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
                                             label="Compositeurs"
                                             createLabel="Créer un nouveau collaborateur"
@@ -151,6 +155,7 @@ export default class PageCreation extends Component {
                                         />
 
                                         <ChampSelectionPersonne
+                                            pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
                                             label="Éditeurs"
                                             createLabel="Créer un nouveau collaborateur"

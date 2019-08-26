@@ -3,12 +3,15 @@ import { Dropdown } from "semantic-ui-react";
 import { ItemSelectionne } from "./item-selectionne";
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
+import ModifyUser from "../auth/ModifyUser";
 
 export class ChampSelectionPersonne extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            modalOpen: false,
+            modalFirstName: '',
             selectedValues: this.props.value || [],
             dropdownValue: null,
             searchQuery: '',
@@ -104,7 +107,11 @@ export class ChampSelectionPersonne extends Component {
     }
 
     handleAddItem = (event, { value }) => {
-        console.log('Calling modal');
+        console.log('handleAddItem');
+        this.setState({
+            modalOpen: true,
+            modalFirstName: value
+        }, () => console.log(this.state));
     };
 
     handleSearchChange = (event, { searchQuery }) => {
@@ -117,36 +124,44 @@ export class ChampSelectionPersonne extends Component {
 
     render() {
         return (
-            <div className="champ">
-                <label>
-                    <div className="input-label">
-                        { this.props.label }
-                    </div>
+            <>
+                <div className="champ">
+                    <label>
+                        <div className="input-label">
+                            { this.props.label }
+                        </div>
 
-                    <p className="input-description">
-                        { this.props.description }
-                    </p>
+                        <p className="input-description">
+                            { this.props.description }
+                        </p>
 
-                    { this.renderSelectedItems() }
+                        { this.renderSelectedItems() }
 
-                    <Dropdown
-                        trigger={ this.triggerLabel() }
-                        fluid
-                        search
-                        selection
-                        selectOnBlur={ false }
-                        selectOnNavigation={ false }
-                        allowAdditions
-                        additionLabel={ this.additionLabel() }
-                        value={ this.state.dropdownValue }
-                        options={ this.unselectedItems() }
-                        onBlur={ this.handleBlur }
-                        onChange={ this.handleChange }
-                        onAddItem={ this.handleAddItem }
-                        onSearchChange={ this.handleSearchChange }
-                    />
-                </label>
-            </div>
+                        <Dropdown
+                            trigger={ this.triggerLabel() }
+                            fluid
+                            search
+                            selection
+                            selectOnBlur={ false }
+                            selectOnNavigation={ false }
+                            allowAdditions
+                            additionLabel={ this.additionLabel() }
+                            value={ this.state.dropdownValue }
+                            options={ this.unselectedItems() }
+                            onBlur={ this.handleBlur }
+                            onChange={ this.handleChange }
+                            onAddItem={ this.handleAddItem }
+                            onSearchChange={ this.handleSearchChange }
+                        />
+                    </label>
+                </div>
+
+                <ModifyUser
+                    open={ this.state.modalOpen }
+                    firstName={ this.state.modalFirstName }
+                    onClose={ () => this.setState({ modalOpen: false, modalFirstName: '' }) }
+                />
+            </>
         );
     }
 }
