@@ -100,7 +100,8 @@ export default class PageCreation extends Component {
                 {
                     (t) =>
                         <React.Fragment>
-                            <div className={'ui container assistant-container ' + (this.props.pochette ? 'pochette' : '')}>
+                            <div
+                                className={ 'ui container assistant-container ' + (this.props.pochette ? 'pochette' : '') }>
                                 <div className="ui grid">
                                     <div
                                         className="form-column ui sixteen wide mobile eight wide tablet eight wide computer column"
@@ -131,6 +132,7 @@ export default class PageCreation extends Component {
                                         />
 
                                         <ChampSelectionPersonne
+                                            pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
                                             label="Auteurs"
                                             createLabel="Créer un nouveau collaborateur"
@@ -141,6 +143,7 @@ export default class PageCreation extends Component {
                                         />
 
                                         <ChampSelectionPersonne
+                                            pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
                                             label="Compositeurs"
                                             createLabel="Créer un nouveau collaborateur"
@@ -151,6 +154,7 @@ export default class PageCreation extends Component {
                                         />
 
                                         <ChampSelectionPersonne
+                                            pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
                                             label="Éditeurs"
                                             createLabel="Créer un nouveau collaborateur"
