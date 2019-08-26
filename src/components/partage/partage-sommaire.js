@@ -10,8 +10,9 @@ import { Auth } from 'aws-amplify'
 import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
-import avatar from '../../assets/images/elliot.jpg'
-import LogIn from '../auth/Login';
+import avatar_espece from '../../assets/images/elliot.jpg'
+import LogIn from '../auth/Login'
+import { AbstractIdentifyPredictionsProvider } from '@aws-amplify/predictions/lib/types/Providers';
 
 const ROLES = [
         "principal",
@@ -65,6 +66,7 @@ class SommaireDroit extends Component {
             jetonApi: props.jetonApi,
             modifierVote: false,
             monVote: props.monVote,
+            avatars: props.avatars
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
@@ -73,15 +75,17 @@ class SommaireDroit extends Component {
 
     componentWillReceiveProps(nextProps) {
         if(this.props.parts !== nextProps.parts) {
-            console.log('nouvelles parts', nextProps.parts)
             this.setState({parts: nextProps.parts})
             this.organiserDonnees()
+        } 
+        if(this.props.avatars !== nextProps.avatars) {
+            this.setState({avatars: nextProps.avatars})
         }        
         this.setState({monVote: nextProps.monVote}, ()=>{
             if(this.state.monVote && this.state.monVote.vote !== 'active') {
                 this.setState({modifierVote: true})
             }            
-        })        
+        })    
     }
 
     componentWillMount() {
@@ -175,7 +179,7 @@ class SommaireDroit extends Component {
 
     organiserDonnees() {
         let _p = this.state.parts
-        let _aD = {} // Structure résumé de l'ayant-droit
+        let _aD = {} // Structure résumé des ayants-droit
         Object.keys(_p).forEach(_e=>{
             _p[_e].forEach(__e=>{
                 
@@ -187,8 +191,8 @@ class SommaireDroit extends Component {
                 let _donnees = _aD[__e.rightHolder.rightHolderId]
                 _donnees.nom = __e.rightHolder.name
                 _donnees.vote = __e.voteStatus     
-                _donnees.color = __e.rightHolder.color 
-                console.log(__e.rightHolder.color)
+                _donnees.color = __e.rightHolder.color
+                _donnees.rightHolderId = __e.rightHolder.rightHolderId
                 _donnees.sommePct = (parseFloat(_donnees.sommePct) + parseFloat(__e.splitPct)).toFixed(4)
                 
                 // Les rôles dépendent du type de droit
@@ -250,7 +254,9 @@ class SommaireDroit extends Component {
                         <div className="ui row">
                             <div className="ui two wide column">
                                 <div className="holder-name">
-                                    <img className="ui spaced avatar image" src={avatar}/>
+                                    <img className="ui spaced avatar image" src={ 
+                                        (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ? 
+                                        this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
                                 </div>
                             </div>
                             <div className="ui ten wide column">
@@ -321,8 +327,8 @@ class SommaireDroit extends Component {
                     <hr/>
                 </div>
             )
-        })
-
+        })                    
+        
         return (
             <div className="ui segment">
                 <div className="wizard-title">{titre}</div>
@@ -341,7 +347,7 @@ class SommaireDroit extends Component {
                         <div className="ui one wide column">
                         </div>
                     </div>
-                </div>
+                </div>                
             </div>
         )
     }
@@ -365,10 +371,53 @@ export default class SommairePartage extends Component {
     }
 
     componentWillMount() {
+
+        // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
+        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+        .then(res=>{
+            let proposition = res.data.Item
+            // Chercher les avatars
+            let _avatars = {} // Les avatars peuvent être sur plusieurs droits
+            Object.keys(proposition.rightsSplits).forEach(droit=> {
+                Object.keys(proposition.rightsSplits[droit]).forEach(type=>{
+                    proposition.rightsSplits[droit][type].forEach(part=>{
+                        let _rH = part.rightHolder
+                        if(!_avatars[_rH.rightHolderId]) {
+                            _avatars[_rH.rightHolderId] = { }
+                            // Récupération des avatars et inrégration dans les éléments correspondants
+                            axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
+                            .then(r=>{
+                                let avatar = r.data.Item.avatarImage
+                                _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
+                                this.setState({avatars: _avatars})
+                            })
+                            .catch(err=>{
+                                toast.error(err.message)
+                                _avatars[_rH.rightHolderId].avatar = err.message
+                            })
+                        }
+                    })                    
+                })
+            })
+            // Attend que tous les avatars soient trouvés
+            /*
+            let avatarTousTrouves = true
+            while(!avatarTousTrouves) {
+                Object.keys(_avatars).forEach(_ad=>{
+                    if(!_avatars[_ad].avatar)
+                        avatarTousTrouves = false
+                })
+            }
+            this.setState({avatars: _avatars})
+            */
+        })
+        .catch(err=>{
+            toast.error(err.message)
+        })
+
         this.rafraichirDonnees(()=>{
             if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {
                 this.setState({rafraichir: true}, ()=>{
-                    console.log('Démarrage du rafraîchissement automatique')
                     this.rafraichissementAutomatique()                
                 })
             }
@@ -509,11 +558,10 @@ export default class SommairePartage extends Component {
 
     rafraichirDonnees(fn) {
         if (!this.state.proposition || this.state.rafraichir){
-            console.log('rafraichir données pour le uuid '+this.state.uuid)
             axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
-                this.calculMesVotes(proposition, fn)
+                this.calculMesVotes(proposition, fn)                
             })
             .catch(err=>{
                 toast.error(err.message)
@@ -529,10 +577,8 @@ export default class SommairePartage extends Component {
             droits: this.state.mesVotes,
             jeton: this.state.jetonApi
         }
-        console.log('transmission vote', body)
         axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
         .then((res)=>{
-            console.log('Envoyé', res)
             window.location.reload()
         })
         .catch((err) => {
@@ -591,6 +637,7 @@ export default class SommairePartage extends Component {
 
                 if(_aDonnees) {
                     droits.push( <SommaireDroit 
+                        avatars={this.state.avatars}
                         type={type}
                         key={`sommaire_${this.state.uuid}_${type}`}
                         parts={this.state.proposition.rightsSplits[type]}
