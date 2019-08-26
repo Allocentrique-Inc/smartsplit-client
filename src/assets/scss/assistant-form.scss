@@ -148,7 +148,6 @@
     color: $color-tertiary;
 }
 
-
 .add-musician-dropdown {
     margin-top: $margin-step * 4;
 }
@@ -156,6 +155,41 @@
 .instrument-form {
     padding-left: 16px;
     border-left: 4px $color-underground solid;
+}
+
+.ui.radio,
+.ui.checkbox.radio,
+.ui.checkbox {
+    margin-bottom: $margin-step;
+    @extend .medium-400-style;
+
+    input {
+        margin-right: $margin-step;
+    }
+
+    input:checked,
+    input:focus:checked {
+        ~ label:after {
+            background-color: #2DA84F;
+        }
+    }
+
+    label {
+        padding-left: $margin-step * 2;
+    }
+}
+
+.ui.radio.checkbox {
+    input[type='radio'] {
+        left: 0px;
+    }
+}
+
+.instrument-divider {
+    margin: ($margin-step * 4) 0;
+    height: 1px;
+    width: 100%;
+    background-color: $color-stroke;
 }
 
 .pochette {
@@ -172,33 +206,16 @@
             color: $pochette-color-link-hover;
         }
     }
-}
 
-
-.ui.radio,
-.ui.checkbox {
-    margin-bottom: $margin-step;
-    @extend .medium-400-style;
-
-    input {
-        margin-right: $margin-step;
+    .ui.checkbox,
+    .ui.radio.checkbox {
+        input:checked,
+        input:focus:checked {
+            ~ label:after {
+                background-color: $pochette-color-link;
+            }
+        }
     }
 }
 
-.ui.radio {
-    input[type='radio'] {
-        left: 0px;
-    }
-}
-
-.ui.checkbox label {
-    padding-left: 32px;
-}
-
-.instrument-divider {
-    margin: ($margin-step * 4) 0;
-    height: 1px;
-    width: 100%;
-    background-color: $color-stroke;
-}
 
