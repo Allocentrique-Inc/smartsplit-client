@@ -11,9 +11,9 @@ import { toast } from 'react-toastify'
 
 // Composantes
 import Entete from '../entete/entete'
-import SommairePartage from '../partage/partage-sommaire'
+import PartageSommaireEditeur from './partage-sommaire-editeur'
 
-class VotationSplit extends Component {
+export default class VotationPartTiers extends Component {
     
     constructor(props) {
         super(props)
@@ -21,29 +21,35 @@ class VotationSplit extends Component {
         this.state = {
             split: null,            
             jetonApi: props.jeton
-        }    
+        }
+
     }
 
-    componentWillMount() {        
+    componentWillMount() {                
         // Décoder le jeton        
         let body = {jeton: this.state.jetonApi}
         axios.post('http://api.smartsplit.org:8080/v1/proposal/decode', body)
-        .then((resp)=>{
+        .then((resp)=>{            
             let _s = resp.data
             this.setState({jeton: _s})
             // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)
-            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders/${_s.rightHolderId}`)
-            .then(res=>{
+            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders/${_s.beneficiaire}`)
+            .then(res=>{                
                 let _rH = res.data.Item
                 this.setState({ayantDroit: _rH})
                 // Récupère la proposition       
                 axios.get(`http://api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
-                .then(_r=>{
+                .then(_r=>{                    
                     this.setState({proposition: _r.data.Item})
                     // Récupère le média
                     axios.get(`http://api.smartsplit.org:8080/v1/media/${_r.data.Item.mediaId}`)
-                    .then(_rMedia=>{
+                    .then(_rMedia=>{                        
                         this.setState({media: _rMedia.data.Item})
+                        // Récupère la part de partage avec le tier
+                        axios.get(`http://api.smartsplit.org:8080/v1/splitShare/${this.state.jeton.proposalId}/${this.state.jeton.donateur}`)
+                        .then(res=>{
+                            this.setState({part: res.data})
+                        })
                     })
                     .catch((error) => {
                         toast.error(error.message)                
@@ -65,7 +71,7 @@ class VotationSplit extends Component {
 
     render() {           
 
-        if(this.state.media) {
+        if(this.state.media && this.state.part) {
             let contenu = (
                 <Translation>
                     {
@@ -91,7 +97,7 @@ class VotationSplit extends Component {
                                     <div className="ui row">
                                         <div className="ui one wide column" />
                                         <div className="ui twelve wide column">
-                                            {this.state.jeton && (<SommairePartage uuid={this.state.proposition.uuid} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi}/>)}
+                                            {this.state.jeton && (<PartageSommaireEditeur part={this.state.part} proposition={this.state.proposition} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi} />)}
                                         </div>                            
                                         <div className="ui one wide column">
                                         </div>
@@ -106,5 +112,3 @@ class VotationSplit extends Component {
         }
     }
 }
-
-export default VotationSplit
