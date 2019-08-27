@@ -128,12 +128,21 @@ class ModifyUser extends Component {
         console.log('user created / modified'),
         toast.success('user created / modified'),
         // TODO Add modal close action
-        this.close,
         // this.props.history.push("/")
+
+        // TODO
+        // if(this.props.callback){
+        //   this.props.callback();
+        // }
+        // if (this.props.callback) {
+        //   this.props.callback();
+        // }
       )
-      .then(
-        this.close
-      )
+      // .then(
+      //   if (this.state.firstName == 'Jim') {
+      //     this.props.callback();
+      //   }
+      // )
       .catch((err)=>{
         // toast.error(err.message)
         console.log(err)
@@ -169,8 +178,7 @@ class ModifyUser extends Component {
       groupsUnique.forEach(function(elm) {
         groups.push( {key: elm, text: elm, value: elm} )
       })
-      this.setState({groups: groups})
-      console.log("this.state.groups", this.state.groups);
+      this.setState({groups: groups}, ()=>{console.log("this.state.groups", this.state.groups)})
     })
     .catch(err=>{
       // toast.error(err)
@@ -185,7 +193,7 @@ class ModifyUser extends Component {
     }
     if(this.props.firstName !== nextProps.firstName) {
       this.setState({firstName: nextProps.firstName})
-  }
+    }
   }
 
   render() {
@@ -257,7 +265,7 @@ class ModifyUser extends Component {
             />
           {/* <div className="roles">
             { renderCheckbox() }
-          </div> */}
+          </div> */} 
           Ces rôles pourront toujours être modifiés plus tard.
         <Modal.Actions>
                 <Button onClick={this.close} negative>Annuler</Button>
