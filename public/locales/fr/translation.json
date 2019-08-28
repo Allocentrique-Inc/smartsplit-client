@@ -292,5 +292,8 @@
         "egal": "Partager de façon égale",
         "roles": "Partager selon les rôles",
         "manual": "Partager manuellement"
+    },
+    "erreur": {
+        "volIdentite": "Tu tentes d'effectuer une opération qui s'appliquer pour un autre usager"
     }
 }

@@ -298,5 +298,8 @@
         "roles": "Share according to roles",
         "manual": "Share manually"
     
+    },
+    "erreur": {
+        "volIdentite": "You're trying to do an operation than belong to another user"
     }
 }

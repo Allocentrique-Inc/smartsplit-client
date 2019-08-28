@@ -429,6 +429,7 @@ export default class SommairePartage extends Component {
                     this.rafraichissementAutomatique()
                     if(this.estVoteFinal()){
                         // C'était le dernier rafraichissement (p.ex. cas où le dernier vote entre)
+                        this.rafraichirDonnees()
                         this.setState({rafraichir: false})
                     }
                 }
@@ -579,7 +580,16 @@ export default class SommairePartage extends Component {
 
         Auth.currentAuthenticatedUser()
         .then(res=>{
-            this.envoi()
+            if(res.username === this.state.ayantDroit.rightHolderId) {
+                this.envoi()
+            } else {
+                return (<Translation>
+                    {
+                        t=>
+                            toast.error(t('erreur.volIdentite'))
+                    }
+                </Translation>)                
+            }
         })
         .catch(err=>{
             toast.error(err.message)
@@ -598,12 +608,22 @@ export default class SommairePartage extends Component {
                         boxShadow: "inset 0px -1px 0px #DCDFE1"
                     },
                 customUI: ({ onClose }) => 
-                    <div>
-                        <LogIn message="Connecte-toi pour voter" fn={()=>{
-                            this.envoi()
-                            onClose()
-                        }} />
-                </div>
+                    <Translation>
+                        {
+                            t=>
+                                <LogIn message="Connecte-toi pour voter" fn={()=>{
+                                    Auth.currentAuthenticatedUser()
+                                    .then(res=>{
+                                        if(res.username === this.state.ayantDroit.rightHolderId) {
+                                            this.envoi()
+                                            onClose()
+                                        } else {
+                                            toast.error(t('erreur.volIdentite'))
+                                        }
+                                    })                            
+                                }} />
+                        }
+                    </Translation>
             })
         })
         
