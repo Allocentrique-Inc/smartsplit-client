@@ -10,6 +10,7 @@ import starIconGreen from '../../assets/svg/icons/star-green.svg';
 
 import '../../assets/scss/assistant-form.scss';
 import { ChampSelectionInterprete } from "../formulaires/champ-selection-interprete";
+import { PageAssistant } from "../canevas/page-assistant";
 
 export default class PageInterpretation extends Component {
 
@@ -17,15 +18,15 @@ export default class PageInterpretation extends Component {
         super(props);
 
         this.state = {
-            musicians: []
-        }
+            musicians: props.values.musicians
+        };
     }
 
     rightHolderOptions() {
-        return this.props.rightHolders.map(this.makeRightHolderOption);
+        return this.props.rightHolders.map(this.makeRightHolderOptions);
     }
 
-    makeRightHolderOption = rightHolder => {
+    makeRightHolderOptions = rightHolder => {
         return {
             key: rightHolder.rightHolderId,
             value: rightHolder.rightHolderId,
@@ -66,39 +67,19 @@ export default class PageInterpretation extends Component {
             <Translation>
                 {
                     (t) =>
-                        <>
-                            <div className={'ui container assistant-container ' + (this.props.pochette ? 'pochette' : '')}>
-                                <div className="ui grid">
-                                    <div
-                                        className="form-column ui sixteen wide mobile eight wide tablet eight wide computer column"
-                                    >
-                                        <h1 className="section-title">
-                                            <span className="section-icon">
-                                                <img src={ this.starIcon() } alt={ 'interprétation' }/>
-                                            </span>
-
-                                            <span className="section-label">
-                                                Interprétation
-                                            </span>
-                                        </h1>
-
-                                        <h2 className="section-question">
-                                            Qui a interprété la pièce musicale sur cet enregistrement sonore&#8239;?
-                                        </h2>
-
-                                        <p className="section-description">
-                                            C’est ici que tu indiques qui a joué quel instrument.
-                                        </p>
-
-                                        <ChampSelectionInterprete
-                                            pochette={ this.props.pochette }
-                                            items={ this.rightHolderOptions() }
-                                            onChange={ values => this.setState({ musicians: values }) }
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </>
+                        <PageAssistant
+                            sectionIcon={ this.starIcon() }
+                            sectionLabel={ 'Interprétation' }
+                            sectionQuestion={ 'Qui a interprété la pièce musicale sur cet enregistrement sonore?' }
+                            sectionDescription={ 'C’est ici que tu indiques qui a joué quel instrument.' }
+                        >
+                            <ChampSelectionInterprete
+                                pochette={ this.props.pochette }
+                                items={ this.rightHolderOptions() }
+                                values={ this.state.musicians }
+                                onChange={ newValues => this.setState({ musicians: newValues }) }
+                            />
+                        </PageAssistant>
                 }
             </Translation>
         )

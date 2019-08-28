@@ -27,6 +27,7 @@ import { Auth } from 'aws-amplify'
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
 import { Trackbar } from "../navbar/trackbar";
+import PageEnregistrement from "./page-enregistrement";
 
 class AssistantOeuvre extends Component {
     pageProgressPercentages = [5, 15, 55, 75, 85, 97, 100];
@@ -104,6 +105,7 @@ class AssistantOeuvre extends Component {
             artist: "",
             cover: "false",
             rightHolders: [],
+            musicians: [],
             jurisdiction: "",
             rightsType: [],
             genre: "",
@@ -210,6 +212,12 @@ class AssistantOeuvre extends Component {
                                     </Wizard.Page>
 
                                     <Wizard.Page>
+                                        <PageEnregistrement
+                                            pochette={ this.props.pochette }
+                                        />
+                                    </Wizard.Page>
+
+                                    {/*<Wizard.Page>
                                         <PageGenres i18n={ i18n } pctProgression={ 75 }/>
                                     </Wizard.Page>
 
@@ -219,7 +227,7 @@ class AssistantOeuvre extends Component {
 
                                     <Wizard.Page>
                                         <PageLiens pctProgression={ 97 }/>
-                                    </Wizard.Page>
+                                    </Wizard.Page>*/}
                                 </Wizard>
 
                                 <AudioLecture onRef={

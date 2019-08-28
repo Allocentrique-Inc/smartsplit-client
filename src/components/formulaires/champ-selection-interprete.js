@@ -7,14 +7,18 @@ export class ChampSelectionInterprete extends Component {
         super(props);
 
         this.state = {
-            selectedValues: this.props.value || [],
+            selectedMusicians: this.props.values || [],
             dropdownValue: null
         };
     }
 
+    selectedDropdownValues() {
+        return this.props.values.map(value => value.uuid);
+    }
+
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.selectedValues !== prevState.selectedValues) {
-            this.props.onChange(this.state.selectedValues);
+        if (this.state.selectedDropdownValues !== prevState.selectedDropdownValues) {
+            this.props.onChange(this.state.selectedDropdownValues);
         }
     }
 
@@ -22,7 +26,7 @@ export class ChampSelectionInterprete extends Component {
         return this.props.items.filter(this.isSelectedItem);
     }
 
-    isSelectedItem = item => this.state.selectedValues.includes(item.value);
+    isSelectedItem = item => this.selectedDropdownValues().includes(item.value);
 
     unselectedItems() {
         return this.props.items.filter(this.isUnselectedItem);
@@ -51,24 +55,24 @@ export class ChampSelectionInterprete extends Component {
     };
 
     selectItem(itemValue) {
-        const selectedValues = [...this.state.selectedValues];
+        const selectedDropdownValues = [...this.state.selectedDropdownValues()];
 
-        if (!selectedValues.includes(itemValue)) {
-            selectedValues.push(itemValue);
+        if (!selectedDropdownValues.includes(itemValue)) {
+            selectedDropdownValues.push(itemValue);
         }
 
         this.setState({
-            selectedValues: selectedValues,
+            selectedDropdownValues: selectedDropdownValues,
             dropdownValue: null
         });
     }
 
     unselectItem(event, item) {
         event.preventDefault();
-        const selectedValues = this.state.selectedValues.filter(value => value !== item.value);
+        const selectedDropdownValues = this.state.selectedDropdownValues.filter(value => value !== item.value);
 
         this.setState({
-            selectedValues: selectedValues,
+            selectedDropdownValues: selectedDropdownValues,
             dropdownValue: null
         });
     }

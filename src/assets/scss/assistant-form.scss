@@ -3,14 +3,10 @@
 @import "typography";
 
 .assistant-container {
-    margin-top: 64px;
+    margin-top: $margin-step * 4;
 }
 
 .form-column {
-    > .champ:first-of-type {
-        margin-top: $margin-step * 4;
-    }
-
     > .champ + .champ {
         margin-top: $margin-step * 2;
     }
@@ -18,6 +14,10 @@
 
 .ui.dropdown .default.text {
     font-weight: normal;
+}
+
+.section-header {
+    margin-bottom: $margin-step * 4;
 }
 
 .section-title {

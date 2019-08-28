@@ -12,6 +12,7 @@ import '../../assets/scss/assistant-form.scss';
 import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
+import { PageAssistant } from "../canevas/page-assistant";
 
 
 const roles = {
@@ -36,7 +37,7 @@ export default class PageCreation extends Component {
     }
 
     filterShareHolders(role, rightHolders) {
-        return Object.keys(rightHolders).filter(uuid => rightHolders[uuid].includes(role));
+        return Object.keys(rightHolders).filter(rightHolderUuid => rightHolders[rightHolderUuid].includes(role));
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -100,90 +101,68 @@ export default class PageCreation extends Component {
             <Translation>
                 {
                     (t) =>
-                        <React.Fragment>
-                            <div
-                                className={ 'ui container assistant-container ' + (this.props.pochette ? 'pochette' : '') }>
-                                <div className="ui grid">
-                                    <div
-                                        className="form-column ui sixteen wide mobile eight wide tablet eight wide computer column"
-                                    >
-                                        <h1 className="section-title">
-                                            <span className="section-icon">
-                                                <img src={ this.copyrightIcon() } alt={ 'création' }/>
-                                            </span>
+                        <PageAssistant
+                            sectionIcon={ this.copyrightIcon() }
+                            sectionLabel={ 'Création' }
+                            sectionQuestion={ 'Qui a participé à la création de ' + this.props.values.title  + ' ?' }
+                            sectionDescription={ 'C’est ici que tu indiques qui a contribué à la création de cette pièce.' }
+                        >
+                            <ChampDate
+                                label="Date de création"
+                                value={ this.props.values.creationDate }
+                                onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
+                            />
 
-                                            <span className="section-label">
-                                                Création
-                                            </span>
-                                        </h1>
+                            <ChampSelectionPersonne
+                                pochette={ this.props.pochette }
+                                items={ this.rightHolderOptions() }
+                                label="Auteurs"
+                                createLabel="Créer un nouveau collaborateur"
+                                description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
+                                placeholder="Ajouter un auteur..."
+                                value={ this.state.songwriters }
+                                onChange={ ids => this.setState({ songwriters: ids }) }
+                            />
 
-                                        <h2 className="section-question">
-                                            Qui a participé à la création de { this.props.values.title }&#8239;?
-                                        </h2>
+                            <ChampSelectionPersonne
+                                pochette={ this.props.pochette }
+                                items={ this.rightHolderOptions() }
+                                label="Compositeurs"
+                                createLabel="Créer un nouveau collaborateur"
+                                description="Qui a composé la musique de cette pièce musicale&#8239;?"
+                                placeholder="Ajouter un compositeur..."
+                                value={ this.state.composers }
+                                onChange={ ids => this.setState({ composers: ids }) }
+                            />
 
-                                        <p className="section-description">
-                                            C’est ici que tu indiques qui a contribué à la création de cette
-                                            pièce.
-                                        </p>
+                            <ChampSelectionPersonne
+                                pochette={ this.props.pochette }
+                                items={ this.rightHolderOptions() }
+                                label="Éditeurs"
+                                createLabel="Créer un nouveau collaborateur"
+                                description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
+                                placeholder="Ajouter un éditeur..."
+                                value={ this.state.publishers }
+                                onChange={ ids => this.setState({ publishers: ids }) }
+                            />
 
-                                        <ChampDate
-                                            label="Date de création"
-                                            value={ this.props.values.creationDate }
-                                            onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
-                                        />
+                            <label className="champ">
+                                <div className="input-label">Code ISWC</div>
 
-                                        <ChampSelectionPersonne
-                                            pochette={ this.props.pochette }
-                                            items={ this.rightHolderOptions() }
-                                            label="Auteurs"
-                                            createLabel="Créer un nouveau collaborateur"
-                                            description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
-                                            placeholder="Ajouter un auteur..."
-                                            value={ this.state.songwriters }
-                                            onChange={ ids => this.setState({ songwriters: ids }) }
-                                        />
+                                <p className="input-description">
+                                    L'International Standard Work Code est un code unique
+                                    d'identification
+                                    des oeuvres musicales.
+                                </p>
 
-                                        <ChampSelectionPersonne
-                                            pochette={ this.props.pochette }
-                                            items={ this.rightHolderOptions() }
-                                            label="Compositeurs"
-                                            createLabel="Créer un nouveau collaborateur"
-                                            description="Qui a composé la musique de cette pièce musicale&#8239;?"
-                                            placeholder="Ajouter un compositeur..."
-                                            value={ this.state.composers }
-                                            onChange={ ids => this.setState({ composers: ids }) }
-                                        />
+                                <Input
+                                    fluid
+                                    placeholder="Ajouter un code..."
+                                    onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
+                                />
+                            </label>
+                        </PageAssistant>
 
-                                        <ChampSelectionPersonne
-                                            pochette={ this.props.pochette }
-                                            items={ this.rightHolderOptions() }
-                                            label="Éditeurs"
-                                            createLabel="Créer un nouveau collaborateur"
-                                            description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
-                                            placeholder="Ajouter un éditeur..."
-                                            value={ this.state.publishers }
-                                            onChange={ ids => this.setState({ publishers: ids }) }
-                                        />
-
-                                        <label className="champ">
-                                            <div className="input-label">Code ISWC</div>
-
-                                            <p className="input-description">
-                                                L'International Standard Work Code est un code unique
-                                                d'identification
-                                                des oeuvres musicales.
-                                            </p>
-
-                                            <Input
-                                                fluid
-                                                placeholder="Ajouter un code..."
-                                                onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
-                                            />
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </React.Fragment>
                 }
             </Translation>
         )
