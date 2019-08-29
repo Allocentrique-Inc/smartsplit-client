@@ -10,7 +10,7 @@ import PageCreation from './page-creation';
 import PageInterpretation from './page-interpretation';
 import PageInfluences from './page-influences';
 import PageParoles from './page-paroles';
-import PageLiens from './page-paroles';
+import PageLiens from './page-liens';
 import PageEnregistrement from "./page-enregistrement";
 import PageFichiers from './page-fichiers';
 import AudioLecture from './audio-lecture';
