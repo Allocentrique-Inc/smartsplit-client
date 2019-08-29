@@ -92,7 +92,7 @@ export default class PageCreation extends Component {
             'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
     };
 
-    copyrightIcon() {
+    icon() {
         return this.props.pochette ? copyrightIconOrange : copyrightIconGreen;
     }
 
@@ -102,7 +102,7 @@ export default class PageCreation extends Component {
                 {
                     (t) =>
                         <PageAssistant
-                            sectionIcon={ this.copyrightIcon() }
+                            sectionIcon={ this.icon() }
                             sectionLabel={ 'Création' }
                             sectionQuestion={ 'Qui a participé à la création de ' + this.props.values.title  + ' ?' }
                             sectionDescription={ 'C’est ici que tu indiques qui a contribué à la création de cette pièce.' }

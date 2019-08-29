@@ -22,7 +22,7 @@ export default class PageInterpretation extends Component {
         };
     }
 
-    starIcon() {
+    icon() {
         return this.props.pochette ? starIconOrange : starIconGreen;
     }
 
@@ -32,7 +32,7 @@ export default class PageInterpretation extends Component {
                 {
                     (t) =>
                         <PageAssistant
-                            sectionIcon={ this.starIcon() }
+                            sectionIcon={ this.icon() }
                             sectionLabel={ 'Interprétation' }
                             sectionQuestion={ 'Qui a interprété la pièce musicale sur cet enregistrement sonore?' }
                             sectionDescription={ 'C’est ici que tu indiques qui a joué quel instrument.' }
