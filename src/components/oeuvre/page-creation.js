@@ -146,21 +146,24 @@ export default class PageCreation extends Component {
                                 onChange={ ids => this.setState({ publishers: ids }) }
                             />
 
-                            <label className="champ">
-                                <div className="input-label">Code ISWC</div>
+                            <div className="champ">
+                                <label>
+                                    <div className="input-label">Code ISWC</div>
 
-                                <p className="input-description">
-                                    L'International Standard Work Code est un code unique
-                                    d'identification
-                                    des oeuvres musicales.
-                                </p>
+                                    <p className="input-description">
+                                        L'International Standard Work Code est un code unique
+                                        d'identification
+                                        des oeuvres musicales.
+                                    </p>
 
-                                <Input
-                                    fluid
-                                    placeholder="Ajouter un code..."
-                                    onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
-                                />
-                            </label>
+                                    <Input
+                                        fluid
+                                        placeholder="Ajouter un code..."
+                                        onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
+                                    />
+                                </label>
+                            </div>
+
                         </PageAssistant>
 
                 }
