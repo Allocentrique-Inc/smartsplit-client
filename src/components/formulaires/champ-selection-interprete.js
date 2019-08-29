@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { FormulaireMusicien } from "./formulaire-musicien";
+import Musician from "../../model/musician/musician";
 
 export class ChampSelectionInterprete extends Component {
     constructor(props) {
@@ -12,8 +13,40 @@ export class ChampSelectionInterprete extends Component {
         };
     }
 
+    rightHolderOptions() {
+        return this.props.rightHolders.map(this.makeRightHolderOptions);
+    }
+
+    makeRightHolderOptions = rightHolder => {
+        return {
+            key: rightHolder.rightHolderId,
+            value: rightHolder.rightHolderId,
+            text: this.makeRightHolderText(rightHolder),
+            image: {
+                avatar: true,
+                src: this.makeRightHolderAvatarUrl(rightHolder)
+            }
+        };
+    };
+
+    makeRightHolderText = rightHolder => {
+        return rightHolder.artistName ?
+            rightHolder.artistName :
+            [rightHolder.firstName, rightHolder.lastName]
+                .filter(text => text)
+                .join(' ');
+    };
+
+    makeRightHolderAvatarUrl = rightHolder => {
+        const avatarImage = rightHolder.avatarImage;
+
+        return avatarImage ?
+            'https://smartsplit-images.s3.us-east-2.amazonaws.com/' + avatarImage :
+            'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+    };
+
     selectedDropdownValues() {
-        return this.props.values.map(value => value.uuid);
+        return this.state.selectedMusicians.map(value => value.uuid);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -23,13 +56,13 @@ export class ChampSelectionInterprete extends Component {
     }
 
     selectedItems() {
-        return this.props.items.filter(this.isSelectedItem);
+        return this.rightHolderOptions().filter(this.isSelectedItem);
     }
 
     isSelectedItem = item => this.selectedDropdownValues().includes(item.value);
 
     unselectedItems() {
-        return this.props.items.filter(this.isUnselectedItem);
+        return this.rightHolderOptions().filter(this.isUnselectedItem);
     }
 
     isUnselectedItem = item => !this.isSelectedItem(item);
@@ -55,24 +88,27 @@ export class ChampSelectionInterprete extends Component {
     };
 
     selectItem(itemValue) {
-        const selectedDropdownValues = [...this.state.selectedDropdownValues()];
+        let musicians = [... this.state.selectedMusicians];
 
-        if (!selectedDropdownValues.includes(itemValue)) {
-            selectedDropdownValues.push(itemValue);
+        if (!musicians.find(musician => musician.uuid === itemValue)) {
+            const newMusician = new Musician({'uuid' : itemValue});
+            musicians.push(newMusician);
         }
 
         this.setState({
-            selectedDropdownValues: selectedDropdownValues,
+            selectedMusicians: musicians,
             dropdownValue: null
         });
     }
 
     unselectItem(event, item) {
         event.preventDefault();
-        const selectedDropdownValues = this.state.selectedDropdownValues.filter(value => value !== item.value);
+        let musicians = [... this.state.selectedMusicians];
+
+        const selectedMusicians = musicians.filter(musician => musician.uuid !== item.value);
 
         this.setState({
-            selectedDropdownValues: selectedDropdownValues,
+            selectedMusicians: selectedMusicians,
             dropdownValue: null
         });
     }

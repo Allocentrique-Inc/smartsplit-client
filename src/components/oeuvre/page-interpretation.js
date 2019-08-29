@@ -22,42 +22,6 @@ export default class PageInterpretation extends Component {
         };
     }
 
-    rightHolderOptions() {
-        return this.props.rightHolders.map(this.makeRightHolderOptions);
-    }
-
-    makeRightHolderOptions = rightHolder => {
-        return {
-            key: rightHolder.rightHolderId,
-            value: rightHolder.rightHolderId,
-            text: this.makeRightHolderText(rightHolder),
-            image: {
-                avatar: true,
-                src: this.makeRightHolderAvatarUrl(rightHolder)
-            }
-        };
-    };
-
-    makeRightHolderText = rightHolder => {
-        return rightHolder.artistName ?
-            rightHolder.artistName :
-            [rightHolder.firstName, rightHolder.lastName]
-                .filter(text => text)
-                .join(' ');
-    };
-
-    makeRightHolderAvatarUrl = rightHolder => {
-        const avatarImage = rightHolder.avatarImage;
-
-        return avatarImage ?
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/' + avatarImage :
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
-    };
-
-    updateRightHolders(key, newRightHolderIds) {
-        this.setState({ [key]: newRightHolderIds });
-    }
-
     starIcon() {
         return this.props.pochette ? starIconOrange : starIconGreen;
     }
@@ -75,7 +39,7 @@ export default class PageInterpretation extends Component {
                         >
                             <ChampSelectionInterprete
                                 pochette={ this.props.pochette }
-                                items={ this.rightHolderOptions() }
+                                rightHolders={ this.props.rightHolders }
                                 values={ this.state.musicians }
                                 onChange={ newValues => this.setState({ musicians: newValues }) }
                             />
