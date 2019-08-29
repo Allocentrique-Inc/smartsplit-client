@@ -106,7 +106,7 @@ class Register extends Component {
         password,
         attributes: {
           email: email,
-          name: firstName,
+          given_name: firstName,
           family_name: lastName,
           'custom:artistName': artistName,
           'custom:avatarImage': 'image.jpg'
