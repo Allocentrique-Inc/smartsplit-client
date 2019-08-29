@@ -1,33 +1,35 @@
 /**
  * Assistant de saisie de la description d'une oeuvre
  */
-import './oeuvre.css'
-import React, { Component } from 'react'
-import { Wizard } from "semantic-ui-react-formik"
-import axios from 'axios'
+import React, { Component } from 'react';
+import { Wizard } from "semantic-ui-react-formik";
+import axios from 'axios';
+
 // Pages de l'assistant
-import PageEmbarquement from './page-embarquement';
 import PageCreation from './page-creation';
 import PageInterpretation from './page-interpretation';
-import PageGenres from './assistant-oeuvre-genres'
-import PagePro from './assistant-oeuvre-pro'
-import PageLiens from './assistant-oeuvre-liens'
-import AudioLecture from './audio-lecture'
+import PageInfluences from './page-influences';
+import PageParoles from './page-paroles';
+import PageLiens from './page-paroles';
+import PageEnregistrement from "./page-enregistrement";
+import PageFichiers from './page-fichiers';
+import AudioLecture from './audio-lecture';
+
 // Alertes
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 // Traduction
-import { Translation } from 'react-i18next'
+import { Translation } from 'react-i18next';
 // Modèle
-import Oeuvre from '../../model/oeuvre/oeuvre'
+import Oeuvre from '../../model/oeuvre/oeuvre';
 
 import { Navbar } from '../navbar/navbar';
 
-import { Auth } from 'aws-amplify'
+import { Auth } from 'aws-amplify';
 
-import Login from '../auth/Login'
-import { confirmAlert } from 'react-confirm-alert'
+import Login from '../auth/Login';
+import { confirmAlert } from 'react-confirm-alert';
 import { Trackbar } from "../navbar/trackbar";
-import PageEnregistrement from "./page-enregistrement";
+
 
 class AssistantOeuvre extends Component {
     pageProgressPercentages = [5, 15, 55, 75, 85, 97, 100];
@@ -186,14 +188,14 @@ class AssistantOeuvre extends Component {
 
                                     debug={ false }
                                 >
-                                    <Wizard.Page>
+                                    {/*<Wizard.Page>
                                         <PageEmbarquement
                                             i18n={ i18n }
                                             audio={ this.state.audio }
                                             pctProgression={ 5 }
                                             pochette={ this.props.pochette }
                                         />
-                                    </Wizard.Page>
+                                    </Wizard.Page>*/ }
 
                                     <Wizard.Page>
                                         <PageCreation
@@ -217,6 +219,30 @@ class AssistantOeuvre extends Component {
                                         />
                                     </Wizard.Page>
 
+                                    <Wizard.Page>
+                                        <PageFichiers
+                                            pochette={ this.props.pochette }
+                                        />
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageInfluences
+                                            pochette={ this.props.pochette }
+                                        />
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageParoles
+                                            pochette={ this.props.pochette }
+                                        />
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageLiens
+                                            pochette={ this.props.pochette }
+                                        />
+                                    </Wizard.Page>
+
                                     {/*<Wizard.Page>
                                         <PageGenres i18n={ i18n } pctProgression={ 75 }/>
                                     </Wizard.Page>
@@ -227,7 +253,7 @@ class AssistantOeuvre extends Component {
 
                                     <Wizard.Page>
                                         <PageLiens pctProgression={ 97 }/>
-                                    </Wizard.Page>*/}
+                                    </Wizard.Page>*/ }
                                 </Wizard>
 
                                 <AudioLecture onRef={
