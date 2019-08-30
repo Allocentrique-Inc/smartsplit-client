@@ -331,5 +331,8 @@
     },
     "droits": {
         "auteur": "Copyright"
-    }   
+    },   
+    "erreur": {
+        "volIdentite": "You're trying to do an operation than belong to another user"
+    }
 }

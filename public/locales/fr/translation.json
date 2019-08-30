@@ -328,5 +328,8 @@
     },
     "droits": {
         "auteur": "Droits d'auteur"
+    },
+    "erreur": {
+        "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
     }
 }

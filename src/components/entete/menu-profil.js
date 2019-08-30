@@ -32,7 +32,7 @@ export default class MenuProfil extends Component {
             this.setState({initials: res.data.Item.firstName.charAt(0)+res.data.Item.lastName.charAt(0)})
         })
         .catch(err=>{
-            toast.error(err)
+            toast.error(err.message)
         })
     }
 
