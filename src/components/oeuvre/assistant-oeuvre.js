@@ -32,13 +32,13 @@ import { Trackbar } from "../navbar/trackbar";
 
 
 class AssistantOeuvre extends Component {
-    pageProgressPercentages = [5, 15, 55, 75, 85, 97, 100];
+    pageProgressPercentages = [10, 20, 30, 40, 50, 70, 80, 100];
 
     constructor(props) {
         super(props);
         console.log('Est pochette ?', this.props.pochette)
         this.state = {
-            pctProgression: this.pageProgressPercentages[0],
+            progressPercentage: this.pageProgressPercentages[0],
             title: props.titre,
             rightHolders: []
         };
@@ -134,7 +134,7 @@ class AssistantOeuvre extends Component {
         const newProgressPercentage = this.pageProgressPercentages[value] || 100;
 
         this.setState({
-            pctProgression: newProgressPercentage
+            progressPercentage: newProgressPercentage
         });
     };
 
@@ -167,8 +167,9 @@ class AssistantOeuvre extends Component {
                                     songTitle={ this.state.title }
                                     pochette={ this.props.pochette }
                                 />
+
                                 <Trackbar
-                                    pourcentage={ this.state.pctProgression }
+                                    percentage={ this.state.progressPercentage }
                                     pochette={ this.props.pochette }
                                 />
 
@@ -192,7 +193,7 @@ class AssistantOeuvre extends Component {
                                         <PageEmbarquement
                                             i18n={ i18n }
                                             audio={ this.state.audio }
-                                            pctProgression={ 5 }
+                                            progressPercentage={ 5 }
                                             pochette={ this.props.pochette }
                                         />
                                     </Wizard.Page>*/ }
@@ -242,18 +243,6 @@ class AssistantOeuvre extends Component {
                                             pochette={ this.props.pochette }
                                         />
                                     </Wizard.Page>
-
-                                    {/*<Wizard.Page>
-                                        <PageGenres i18n={ i18n } pctProgression={ 75 }/>
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PagePro pctProgression={ 85 }/>
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageLiens pctProgression={ 97 }/>
-                                    </Wizard.Page>*/ }
                                 </Wizard>
 
                                 <AudioLecture onRef={
