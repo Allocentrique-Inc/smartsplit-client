@@ -20,13 +20,10 @@ export default class PageInfluences extends React.Component {
                             pochette={ this.props.pochette }
                             sectionIcon={ this.icon() }
                             sectionLabel={ 'Influences' }
-                            sectionQuestion={ 'Question?' }
-                            sectionDescription={ 'Description' }
+                            sectionQuestion={ 'Informations générales' }
+                            sectionDescription={ 'Ici, tu indiques de quel genre est cette pièce musicale et qui sont les artistes ou tendances qui l’ont influencé.' }
                         >
-                            <ChampDate
-                                label="Date de création"
-                                value={ this.props.values.creationDate }
-                            />
+
                         </PageAssistant>
                 }
             </Translation>

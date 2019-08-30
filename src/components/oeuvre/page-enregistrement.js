@@ -20,13 +20,10 @@ export default class PageEnregistrement extends React.Component {
                             pochette={ this.props.pochette }
                             sectionIcon={ this.icon() }
                             sectionLabel={ 'Enregistrement' }
-                            sectionQuestion={ 'Question?' }
-                            sectionDescription={ 'Description' }
+                            sectionQuestion={ 'Qui a enregistré la pièce musicale?' }
+                            sectionDescription={ 'Ici, tu indiques qui a contribué à l’enregistrement sonore de cette pièce.' }
                         >
-                            <ChampDate
-                                label="Date de création"
-                                value={ this.props.values.creationDate }
-                            />
+
                         </PageAssistant>
                 }
             </Translation>

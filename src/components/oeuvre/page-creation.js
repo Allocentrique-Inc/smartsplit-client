@@ -14,12 +14,7 @@ import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
 import { PageAssistant } from "../canevas/page-assistant";
 
-
-const roles = {
-    songwriter: 'songwriter',
-    composer: 'composer',
-    publisher: 'publisher'
-};
+import * as roles from '../../assets/listes/role-uuids.json';
 
 export default class PageCreation extends Component {
     constructor(props) {
