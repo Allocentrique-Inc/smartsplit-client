@@ -140,7 +140,7 @@ class AssistantPartage extends Component {
                     if(elem.arrangeur || elem.compositeur) {
                         let roles = {}
                         if(elem.compositeur) {
-                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a3i"] = "composer"
+                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a31"] = "composer"
                         }
                         if(elem.arrangeur) {
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a32"] = "remixer"
@@ -198,7 +198,7 @@ class AssistantPartage extends Component {
                             "splitPct": `${elem.pourcent}`
                             })
                     } else {
-                        let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a36": "accompaniment"}
+                        let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a37": "accompaniment"}
                         if(elem.chanteur) {
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
                         }
