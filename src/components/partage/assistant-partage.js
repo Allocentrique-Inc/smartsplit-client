@@ -50,8 +50,19 @@ class AssistantPartage extends Component {
         .then(res=>{
             this.setState({user: res})
             if(this.state.mediaId) {
-                // Une nouvelle proposition pour un média
-                this.recupererOeuvre()
+                // Une nouvelle proposition pour un média                
+                // Récupérer la dernière proposition pour le média                
+                axios.get(`http://api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
+                .then(res=>{
+                    // Si elle existe, configuration de l'assistant avec cette dernière
+                    console.log(res)
+                    if(res.data) {
+                        this.setState({proposition: res.data})
+                    }
+                })
+                .finally(()=>{
+                    this.recupererOeuvre()
+                })
             } else if (this.state.uuid) {
                 // Une proposition existante, poursuite de la proposition BROUILLON
                 axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)

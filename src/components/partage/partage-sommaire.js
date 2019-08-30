@@ -612,6 +612,7 @@ export default class SommairePartage extends Component {
                                 <LogIn message="Connecte-toi pour voter" fn={()=>{
                                     Auth.currentAuthenticatedUser()
                                     .then(res=>{
+                                        console.log("utilisateur", res, "ayantDroit", this.state.ayantDroit)                                        
                                         if(res.username === this.state.ayantDroit.rightHolderId) {
                                             this.envoi()
                                             onClose()
