@@ -346,7 +346,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                 },
                                                                 {
                                                                     nom: t('modepartage.manual'),
-                                                                    valeur: MODES.manuel
+                                                                    valeur: MODES.manual
                                                                 }
                                                             ]}
                                                         />

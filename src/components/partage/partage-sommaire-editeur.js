@@ -413,7 +413,7 @@ export default class PartageSommaireEditeur extends Component {
                         (
                             <button disabled={!this.state.transmission} onClick={()=>{
                                 this.transmettre()
-                            }}> Voter
+                            }}> Voter 
                             </button>
                         )
                     }              

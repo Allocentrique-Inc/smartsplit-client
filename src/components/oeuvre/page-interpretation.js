@@ -78,16 +78,16 @@ export default class PageInterpretation extends Component {
                                             </span>
 
                                             <span className="section-label">
-                                                Interprétation
+                                            {t('flot.documenter.entete.interpretation')}
                                             </span>
                                         </h1>
 
                                         <h2 className="section-question">
-                                            Qui a interprété la pièce musicale sur cet enregistrement sonore&#8239;?
+                                            {t('flot.documenter.titre2')}
                                         </h2>
 
                                         <p className="section-description">
-                                            C’est ici que tu indiques qui a joué quel instrument.
+                                            {t('flot.documenter.titre2-description')}
                                         </p>
 
                                         <ChampSelectionInterprete

@@ -254,8 +254,8 @@ class PageAssistantPartageEnregistrement extends Component {
                                                 valeur: ""+MODES.egal
                                             },                                
                                             {
-                                                nom: 'Gérer manuellement',
-                                                valeur: ""+MODES.manuel
+                                                nom: t('modepartage.manual'),
+                                                valeur: ""+MODES.manual
                                             }
                                         ]}
                                     />
@@ -377,7 +377,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     onClick={(e)=>{
                                                                         e.preventDefault()
                                                                         this.ajouterCollaborateur(arrayHelpers)
-                                                                    }}>Ajouter
+                                                                    }}>{t('flot.bouton.ajout')}
                                                                 </button>
                                                             </div>
                                                         </div>

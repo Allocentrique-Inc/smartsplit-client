@@ -218,12 +218,12 @@ class PageAssistantPartageInterpretation extends Component {
                                             titre=""
                                             choix={[
                                                 {
-                                                    nom: 'Partager de façon égale',
+                                                    nom: t('modepartage.egal'),
                                                     valeur: MODES.egal
                                                 },
                                                 {
-                                                    nom: 'Partager selon les rôles',
-                                                    valeur: MODES.role
+                                                    nom: t('modepartage.roles'),
+                                                    valeur: MODES.roles
                                                 }
                                             ]}
                                         />
@@ -338,7 +338,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                         onClick={(e)=>{
                                                                             e.preventDefault()
                                                                             this.ajouterCollaborateur(arrayHelpers)
-                                                                        }}>Ajouter
+                                                                        }}>{t('flot.bouton.ajout')}
                                                                     </button>
                                                                 </div>
                                                             </div>
