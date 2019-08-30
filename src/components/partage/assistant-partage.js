@@ -20,10 +20,10 @@ import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
 
 const ROLES = {
-    COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a3i",
+    COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a31",
     AUTEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a33",
     ARRANGEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a32",
-    ACCOMPAGNEMENT: "45745c60-7b1a-11e8-9c9c-2d42b21b1a36",
+    ACCOMPAGNEMENT: "45745c60-7b1a-11e8-9c9c-2d42b21b1a37",
     PRODUCTEUR:  "45745c60-7b1a-11e8-9c9c-2d42b21b1a40",
     REALISATEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a41",
     STUDIO: "45745c60-7b1a-11e8-9c9c-2d42b21b1a42",
@@ -247,11 +247,13 @@ class AssistantPartage extends Component {
                     })
                 })            
 
+                console.log(this.state.user.attributes)
+
                 let body = {
                     uuid: "",
                     mediaId: parseInt(`${this.state.mediaId}`),
                     initiator: {
-                        "name": `${this.state.user.attributes.name} ${this.state.user.attributes.family_name}`,
+                        "name": `${this.state.user.attributes.given_name} ${this.state.user.attributes.family_name}`,
                         "id": this.state.user.username
                     },
                     rightsSplits: {
