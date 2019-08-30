@@ -4,7 +4,6 @@
 import React, { Component } from 'react';
 import { Wizard } from "semantic-ui-react-formik";
 import axios from 'axios';
-
 // Pages de l'assistant
 import PageCreation from './page-creation';
 import PageInterpretation from './page-interpretation';
@@ -14,7 +13,6 @@ import PageLiens from './page-liens';
 import PageEnregistrement from "./page-enregistrement";
 import PageFichiers from './page-fichiers';
 import AudioLecture from './audio-lecture';
-
 // Alertes
 import { toast } from 'react-toastify';
 // Traduction
@@ -22,13 +20,12 @@ import { Translation } from 'react-i18next';
 // Modèle
 import Oeuvre from '../../model/oeuvre/oeuvre';
 
-import { Navbar } from '../navbar/navbar';
+import { Navbar } from '../navigation/navbar';
 
 import { Auth } from 'aws-amplify';
 
 import Login from '../auth/Login';
 import { confirmAlert } from 'react-confirm-alert';
-import { Trackbar } from "../navbar/trackbar";
 
 
 class AssistantOeuvre extends Component {
@@ -36,7 +33,7 @@ class AssistantOeuvre extends Component {
 
     constructor(props) {
         super(props);
-        console.log('Est pochette ?', this.props.pochette)
+
         this.state = {
             progressPercentage: this.pageProgressPercentages[0],
             title: props.titre,
@@ -162,15 +159,11 @@ class AssistantOeuvre extends Component {
                 <Translation>
                     {
                         (t, i18n) =>
-                            <React.Fragment>
+                            <>
                                 <Navbar
                                     songTitle={ this.state.title }
                                     pochette={ this.props.pochette }
-                                />
-
-                                <Trackbar
-                                    percentage={ this.state.progressPercentage }
-                                    pochette={ this.props.pochette }
+                                    progressPercentage={ this.state.progressPercentage }
                                 />
 
                                 <Wizard
@@ -189,15 +182,6 @@ class AssistantOeuvre extends Component {
 
                                     debug={ false }
                                 >
-                                    {/*<Wizard.Page>
-                                        <PageEmbarquement
-                                            i18n={ i18n }
-                                            audio={ this.state.audio }
-                                            progressPercentage={ 5 }
-                                            pochette={ this.props.pochette }
-                                        />
-                                    </Wizard.Page>*/ }
-
                                     <Wizard.Page>
                                         <PageCreation
                                             pochette={ this.props.pochette }
@@ -244,13 +228,7 @@ class AssistantOeuvre extends Component {
                                         />
                                     </Wizard.Page>
                                 </Wizard>
-
-                                <AudioLecture onRef={
-                                    (audio) => {
-                                        this.setState({ audio: audio })
-                                    }
-                                }/>
-                            </React.Fragment>
+                            </>
                     }
                 </Translation>
             )

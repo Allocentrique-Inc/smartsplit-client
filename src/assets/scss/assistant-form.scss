@@ -3,7 +3,7 @@
 @import "typography";
 
 .assistant-container {
-    margin-top: $margin-step * 4;
+    margin-top: $navbar-height + ($margin-step * 4);
 }
 
 .form-column {

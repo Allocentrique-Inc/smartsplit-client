@@ -1,17 +1,25 @@
 @import "colors";
 @import "layout";
 
-.Navbar {
-    height: 72px;
+.fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+}
+
+.smartsplit-navbar {
+    height: $navbar-height;
     width: 100%;
     padding: 5px 16px;
 
-    background-color: white;
-    color: $color-primary;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    background-color: white;
+    color: $color-primary;
 
     font-size: 16px;
 
@@ -53,7 +61,7 @@
     }
 }
 
-.Navbar.pochette {
+.smartsplit-navbar.pochette {
     .save-and-quit-label a {
         color: $pochette-color-link;
 
