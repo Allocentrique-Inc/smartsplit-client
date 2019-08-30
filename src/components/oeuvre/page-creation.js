@@ -113,32 +113,32 @@ export default class PageCreation extends Component {
                                             </span>
 
                                             <span className="section-label">
-                                                Création
+                                            {t('flot.documenter.entete.creation')}
                                             </span>
                                         </h1>
 
                                         <h2 className="section-question">
-                                            Qui a participé à la création de { this.props.values.title }&#8239;?
+                                        {t('flot.documenter.titre1')}{ this.props.values.title }&#8239;?
                                         </h2>
 
                                         <p className="section-description">
-                                            C’est ici que tu indiques qui a contribué à la création de cette
-                                            pièce.
+                                        {t('flot.documenter.titre1-description')}
                                         </p>
 
                                         <ChampDate
-                                            label="Date de création"
+                                            label={t('flot.documenter.date-creation')}
+                                            placeholder={t('flot.documenter.date-placeholder')} 
                                             value={ this.props.values.creationDate }
                                             onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
-                                        />
+                                        /> 
 
                                         <ChampSelectionPersonne
                                             pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
-                                            label="Auteurs"
+                                            label={t('flot.documenter.auteur')}
                                             createLabel="Créer un nouveau collaborateur"
-                                            description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
-                                            placeholder="Ajouter un auteur..."
+                                            description={t('flot.documenter.auteur-description')}
+                                            placeholder={t('flot.documenter.auteur-placeholder')} 
                                             value={ this.state.songwriters }
                                             onChange={ ids => this.setState({ songwriters: ids }) }
                                         />
@@ -146,9 +146,9 @@ export default class PageCreation extends Component {
                                         <ChampSelectionPersonne
                                             pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
-                                            label="Compositeurs"
+                                            label={t('flot.documenter.compositeur')}
                                             createLabel="Créer un nouveau collaborateur"
-                                            description="Qui a composé la musique de cette pièce musicale&#8239;?"
+                                            description={t('flot.documenter.compositeur-description')}
                                             placeholder="Ajouter un compositeur..."
                                             value={ this.state.composers }
                                             onChange={ ids => this.setState({ composers: ids }) }
@@ -157,26 +157,24 @@ export default class PageCreation extends Component {
                                         <ChampSelectionPersonne
                                             pochette={ this.props.pochette }
                                             items={ this.rightHolderOptions() }
-                                            label="Éditeurs"
+                                            label={t('flot.documenter.editeur')}
                                             createLabel="Créer un nouveau collaborateur"
-                                            description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
-                                            placeholder="Ajouter un éditeur..."
+                                            description={t('flot.documenter.editeur-description')}
+                                            placeholder={t('flot.documenter.editeur-placeholder')}
                                             value={ this.state.publishers }
                                             onChange={ ids => this.setState({ publishers: ids }) }
                                         />
 
                                         <label className="champ">
-                                            <div className="input-label">Code ISWC</div>
+                                            <div className="input-label">{t('flot.documenter.code')}</div>
 
                                             <p className="input-description">
-                                                L'International Standard Work Code est un code unique
-                                                d'identification
-                                                des oeuvres musicales.
+                                            {t('flot.documenter.code-description')}
                                             </p>
 
                                             <Input
                                                 fluid
-                                                placeholder="Ajouter un code..."
+                                                placeholder={t('flot.documenter.code-placeholder')}
                                                 onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
                                             />
                                         </label>

@@ -46,7 +46,7 @@ const ROLES_NAMES = {
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
 const TITRES = {
-    workCopyrightSplit: "Droits d'auteur", 
+    workCopyrightSplit: "Droits d'auteur",
     performanceNeighboringRightSplit: "Interprétation", 
     masterNeighboringRightSplit: "Enregistrement sonore"
 }

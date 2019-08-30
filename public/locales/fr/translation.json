@@ -88,7 +88,7 @@
         "televersement":  {
             "titre": "Téléverse tes fichiers sources",
             "indication": "Glisse et dépose des fichiers ou clique ici pour envoyer.",
-            "preambule": "Lorem ipsium, ici tu peux envoyer tes fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Tu peux ainsi partager tes fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
+            "preambule": "Ici tu peux envoyer tes fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Tu peux ainsi partager tes fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
         }
     },
     "image": {
@@ -100,7 +100,17 @@
         "split": {
             "sommaire": {
                 "titre": "Sommaire du Split",
-                "soustitre": "Départ : un split initial créé par"
+                "soustitre": "Départ : un split initial créé par",
+                "votation": "VOTATION",
+                "brouillon": "DRAFT"
+            },
+            "etat": {
+                "VOTATION": "VOTATION",
+                "REFUSE": "REFUSÉ",
+                "ACCEPTE": "ACCEPTÉ",
+                "BROUILLON": "BROUILLON",
+                "PRET": "PRÊT",
+                "INCONNU": "INCONNU"
             },
             "valider": {
                 "titre": "Valide ton Split",
@@ -108,13 +118,13 @@
             }
         },
         "documente-ton-oeuvre": {
-            "titre": "ÉTAPE 1 - Documente ton œuvre",
-            "preambule": "Bonjour Joe ! Nous allons t'aider à documenter ton œuvre."
+            "titre": "Documente ton œuvre",
+            "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre."
         },
         "collaborateurs": {
             "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
             "preambule": "Commençons par toi ...",
-            "role": "Joe, définis ton rôle ?",
+            "role": "Définis ton rôle ?",
             "ajout": "Ajouter un collaborateur"
         },
         "paroles": {
@@ -124,6 +134,29 @@
         "genre": {
             "titre": "Quel est le genre de ton œuvre ?",
             "preambule": "Genre, style, comme ... ?"
+        },
+        "documenter": {
+            "entete": {
+                "creation": "Création",
+                "interpretation": "Interprétation"
+            },
+            "titre1": "Qui a participé à la création de", 
+            "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
+                "date-creation": "Date de création",
+                "date-placeholder": "Ajouter une date",
+                "auteur": "Auteurs",
+                "auteur-placeholder": "Ajouter un auteur",
+                "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
+                "compositeur": "Compositeurs",
+                "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
+                "editeur": "Éditeurs",
+                "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
+                "editeur-placeholder": "Ajouter un éditeur",
+                "code": "Code ISWC",
+                "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
+                "code-placeholder": "Ajouter un code",
+            "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
+                "titre2-description": "C’est ici que tu indiques qui a joué quel instrument."
         },
         "pro": {
             "titre": "Es-tu pro ?",
@@ -292,5 +325,8 @@
         "egal": "Partager de façon égale",
         "roles": "Partager selon les rôles",
         "manual": "Partager manuellement"
+    },
+    "droits": {
+        "auteur": "Droits d'auteur"
     }
 }
