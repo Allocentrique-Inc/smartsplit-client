@@ -19,7 +19,7 @@ export default class PageLiens extends React.Component {
                         <PageAssistant
                             pochette={ this.props.pochette }
                             sectionIcon={ this.icon() }
-                            sectionLabel={ 'Liens' }
+                            sectionLabel={ 'Liens d\'écoute' }
                             sectionQuestion={ 'Question?' }
                             sectionDescription={ 'Description' }
                         >
