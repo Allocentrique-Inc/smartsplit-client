@@ -63,11 +63,11 @@ class PageAssistantPartageEditeur extends Component {
                 this.setState({partPrincipale: _rH[elem].pourcent})
 
                 // on pousse l'utilisateur ET l'éditeur
-                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent)})
-                donnees.push({color: "#bacada", nom: this.props.values.editeur.nom, pourcent: parseFloat(this.props.values.editeur.pourcent)})
+                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: false})
+                donnees.push({color: "#bacada", nom: this.props.values.editeur.nom, pourcent: parseFloat(this.props.values.editeur.pourcent), alpha: false})
             } else {
                 // on pousse l'ayant-droit
-                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent)})
+                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: true})
             }            
         })
             
