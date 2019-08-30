@@ -61,10 +61,7 @@ class AssistantPartageEditeur extends Component {
                     this.recupererOeuvre()
                 })
             } else {
-                toast.error(`Vous ne possédez aucun droit d'auteur dans la proposition ${proposition.uuid}`)
-                setTimeout(()=>{
-                    window.location.href = '/accueil'
-                }, 3000)
+                toast.error(`Tu ne posséde aucun droit d'auteur dans la proposition ${proposition.uuid}`)                
             }           
         })
     }

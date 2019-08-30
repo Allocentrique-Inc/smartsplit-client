@@ -20,10 +20,10 @@ import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
 
 const ROLES = {
-    COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a3i",
+    COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a31",
     AUTEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a33",
     ARRANGEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a32",
-    ACCOMPAGNEMENT: "45745c60-7b1a-11e8-9c9c-2d42b21b1a36",
+    ACCOMPAGNEMENT: "45745c60-7b1a-11e8-9c9c-2d42b21b1a37",
     PRODUCTEUR:  "45745c60-7b1a-11e8-9c9c-2d42b21b1a40",
     REALISATEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a41",
     STUDIO: "45745c60-7b1a-11e8-9c9c-2d42b21b1a42",
@@ -50,8 +50,19 @@ class AssistantPartage extends Component {
         .then(res=>{
             this.setState({user: res})
             if(this.state.mediaId) {
-                // Une nouvelle proposition pour un média
-                this.recupererOeuvre()
+                // Une nouvelle proposition pour un média                
+                // Récupérer la dernière proposition pour le média                
+                axios.get(`http://api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
+                .then(res=>{
+                    // Si elle existe, configuration de l'assistant avec cette dernière
+                    console.log(res)
+                    if(res.data) {
+                        this.setState({proposition: res.data})
+                    }
+                })
+                .finally(()=>{
+                    this.recupererOeuvre()
+                })
             } else if (this.state.uuid) {
                 // Une proposition existante, poursuite de la proposition BROUILLON
                 axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
@@ -140,7 +151,7 @@ class AssistantPartage extends Component {
                     if(elem.arrangeur || elem.compositeur) {
                         let roles = {}
                         if(elem.compositeur) {
-                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a3i"] = "composer"
+                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a31"] = "composer"
                         }
                         if(elem.arrangeur) {
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a32"] = "remixer"
@@ -198,7 +209,7 @@ class AssistantPartage extends Component {
                             "splitPct": `${elem.pourcent}`
                             })
                     } else {
-                        let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a36": "accompaniment"}
+                        let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a37": "accompaniment"}
                         if(elem.chanteur) {
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
                         }
@@ -247,11 +258,13 @@ class AssistantPartage extends Component {
                     })
                 })            
 
+                console.log(this.state.user.attributes)
+
                 let body = {
                     uuid: "",
                     mediaId: parseInt(`${this.state.mediaId}`),
                     initiator: {
-                        "name": `${this.state.user.attributes.name} ${this.state.user.attributes.family_name}`,
+                        "name": `${this.state.user.attributes.given_name} ${this.state.user.attributes.family_name}`,
                         "id": this.state.user.username
                     },
                     rightsSplits: {
