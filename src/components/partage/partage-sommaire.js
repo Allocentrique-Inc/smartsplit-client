@@ -191,7 +191,8 @@ class SommaireDroit extends Component {
                 
                 let _donnees = _aD[__e.rightHolder.rightHolderId]
                 _donnees.nom = __e.rightHolder.name
-                _donnees.vote = __e.voteStatus     
+                _donnees.vote = __e.voteStatus
+                _donnees.raison = __e.comment
                 _donnees.color = __e.rightHolder.color
                 _donnees.rightHolderId = __e.rightHolder.rightHolderId
                 _donnees.sommePct = (parseFloat(_donnees.sommePct) + parseFloat(__e.splitPct)).toFixed(4)
@@ -240,7 +241,7 @@ class SommaireDroit extends Component {
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
-            _data.push({nom: part.nom, pourcent: part.sommePct, color: part.color})  
+            _data.push({nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison})  
             
             let _vote
             if(this.state.monVote) {
@@ -289,10 +290,7 @@ class SommaireDroit extends Component {
                                             }                                            
                                         </div>
                                     )}
-                                    {
-                                        this.state.monVote && 
-                                        uuid === this.state.ayantDroit.rightHolderId && this.state.monVote.raison
-                                    }
+                                    {part.raison ? part.raison : ""}
                                 </div>
                             </div>
                             <div className="ui three wide column">
