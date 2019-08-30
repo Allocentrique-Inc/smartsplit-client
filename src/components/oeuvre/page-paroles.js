@@ -20,13 +20,10 @@ export default class PageParoles extends React.Component {
                             pochette={ this.props.pochette }
                             sectionIcon={ this.icon() }
                             sectionLabel={ 'Paroles' }
-                            sectionQuestion={ 'Question?' }
-                            sectionDescription={ 'Description' }
+                            sectionQuestion={ this.props.values.title + ' contient des paroles?' }
+                            sectionDescription={ 'Les mots dans une chanson sont d’excellentes données descriptives sur l’oeuvre qui augmentent sa découvrabilité et les chances d’élargir ton auditoire.' }
                         >
-                            <ChampDate
-                                label="Date de création"
-                                value={ this.props.values.creationDate }
-                            />
+
                         </PageAssistant>
                 }
             </Translation>

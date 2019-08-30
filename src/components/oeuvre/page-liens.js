@@ -20,13 +20,10 @@ export default class PageLiens extends React.Component {
                             pochette={ this.props.pochette }
                             sectionIcon={ this.icon() }
                             sectionLabel={ 'Liens d\'écoute' }
-                            sectionQuestion={ 'Question?' }
-                            sectionDescription={ 'Description' }
+                            sectionQuestion={ 'La pièce musicale est-elle déjà diffusée?' }
+                            sectionDescription={ 'Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d’écoute et de vente en ligne.' }
                         >
-                            <ChampDate
-                                label="Date de création"
-                                value={ this.props.values.creationDate }
-                            />
+
                         </PageAssistant>
                 }
             </Translation>
