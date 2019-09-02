@@ -12,69 +12,16 @@
     }
 }
 
-
 .section-title {
     @extend .h3-style;
     color: $color-primary;
     margin-bottom: $margin-step * 2;
 }
 
-
-
-
 .instrument-select {
     margin-left: $margin-step * 2;
 }
 
-.ui.selection.dropdown,
-.ui.dropdown .menu > .item {
-    display: flex;
-    align-items: center;
-    padding-left: $margin-step / 2 !important;
-    padding-right: $margin-step / 2 !important;
-    @extend .medium-400-style;
-
-    input.search {
-        padding-left: 40px;
-    }
-
-    img,
-    > img,
-    > .image {
-        width: 24px;
-        height: 24px;
-        margin-right: $margin-step / 2;
-    }
-
-    .text {
-        display: flex;
-        align-items: center;
-        color: $color-primary;
-    }
-
-    .addition-label {
-        display: inline-flex;
-        align-items: center;
-        margin-right: $margin-step / 2;
-    }
-}
-
-.ui.dropdown .menu > .item {
-    .addition-label {
-        @extend .medium-500-style;
-        color: $color-action;
-    }
-}
-
-.ui.selection.dropdown input {
-    @extend .medium-400-style;
-    color: $color-primary;
-}
-
-.ui.selection.dropdown .addition-label {
-    @extend .medium-400-style;
-    color: $color-tertiary;
-}
 
 .add-musician-dropdown {
     margin-top: $margin-step * 4;
