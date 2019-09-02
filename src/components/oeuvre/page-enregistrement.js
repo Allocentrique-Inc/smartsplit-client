@@ -16,7 +16,9 @@ export default class PageEnregistrement extends React.Component {
         super(props);
 
         this.state = {
-            directors: []
+            directors: [],
+            soundRecordists: [],
+            mixEngineers: []
         };
     }
 
@@ -56,6 +58,28 @@ export default class PageEnregistrement extends React.Component {
                                     placeholder="Ajouter un réalisateur..."
                                     value={ this.state.directors }
                                     onChange={ ids => this.setState({ directors: ids }) }
+                                />
+
+                                <ChampSelectionPersonne
+                                    pochette={ this.props.pochette }
+                                    items={ this.rightHolderOptions() }
+                                    label="Prise de son"
+                                    createLabel="Créer un nouveau collaborateur"
+                                    description="C’est la personne qui fait la prise de son de ta pièce musicale."
+                                    placeholder="Ajouter un preneur de son..."
+                                    value={ this.state.soundRecordists }
+                                    onChange={ ids => this.setState({ soundRecordists: ids }) }
+                                />
+
+                                <ChampSelectionPersonne
+                                    pochette={ this.props.pochette }
+                                    items={ this.rightHolderOptions() }
+                                    label="Mixage"
+                                    createLabel="Créer un nouveau collaborateur"
+                                    description="C’est l’étape où l’on dose les niveaux de volume et fréquences."
+                                    placeholder="Ajouter un ingénieur de mixage..."
+                                    value={ this.state.mixEngineers }
+                                    onChange={ ids => this.setState({ mixEngineers: ids }) }
                                 />
                             </Colonne>
                         </Page>
