@@ -17,7 +17,7 @@ export class ChampDate extends Component {
                     localization="fr"
                     placeholder="Ajouter une date..."
                     value={ this.props.value }
-                    onChange={ (event, props) => this.props.onChange(event, props) }
+                    onChange={ (event, {value}) => this.props.onChange(value) }
                     icon="calendar outline"
                 />
             </label>

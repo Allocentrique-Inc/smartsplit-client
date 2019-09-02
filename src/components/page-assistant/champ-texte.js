@@ -16,7 +16,7 @@ export default class ChampTexte extends React.Component {
                     <Input
                         fluid
                         placeholder={ this.props.placeholder }
-                        onChange={ this.props.onChange }
+                        onChange={ (event, {value}) => this.props.onChange(value) }
                     />
                 </label>
             </div>

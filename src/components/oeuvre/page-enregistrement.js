@@ -29,8 +29,8 @@ export default class PageEnregistrement extends React.Component {
             masterEngineers: [],
             studios: [],
             producers: [],
-            isrc: '',
-            recordLabel: '',
+            recordLabels: [],
+            distributors: []
         };
     }
 
@@ -43,6 +43,14 @@ export default class PageEnregistrement extends React.Component {
             value: studio,
             text: studio
         }));
+    }
+
+    labelOptions() {
+        return this.studioOptions();
+    }
+
+    distributorOptions() {
+        return this.studioOptions();
     }
 
     icon() {
@@ -137,20 +145,38 @@ export default class PageEnregistrement extends React.Component {
                                 <ChampTexte
                                     label="Code ISRC"
                                     description="L'International Standard Recording Code est un code unique d'identification des enregistrements sonores."
-                                    value={ this.state.isrc }
-                                    onChange={ (event, {value}) => this.setState({ isrc: value }) }
+                                    value={ this.props.values.isrc }
+                                    onChange={ value => this.props.setFieldValue('isrc', value) }
                                 />
 
                                 <div className="instrument-divider"></div>
 
                                 <h3 className="section-title">Sortie</h3>
 
-                                <ChampTexte
+                                <ChampSelectionMultiple
                                     label="Étiquette"
+                                    items={ this.labelOptions() }
                                     description="C’est l’entité qui s’occupe de commercialiser ta pièce."
                                     placeholder="Ajouter une étiquette..."
-                                    value={ this.state.recordLabel }
-                                    onChange={ (event, {value}) => this.setState({ recordLabel: value }) }
+                                    value={ this.state.recordLabels }
+                                    onChange={ ids => this.setState({ recordLabels: ids }) }
+                                />
+
+                                <ChampSelectionMultiple
+                                    label="Distribution"
+                                    items={ this.distributorOptions() }
+                                    description="C’est l’entité qui s’occupe de commercialiser ta pièce."
+                                    placeholder="Ajouter une étiquette..."
+                                    value={ this.state.distributors }
+                                    onChange={ ids => this.setState({ distributors: ids }) }
+                                />
+
+                                <ChampTexte
+                                    label="Code UPC/EAN"
+                                    description="Code à barre obligatoire au produit physique. Peut optionnellement être attribué à un produit numérique."
+                                    placeholder="Optionnel"
+                                    value={ this.state.upc }
+                                    onChange={ value => this.setState({ upc: value }) }
                                 />
                             </Colonne>
                         </Page>

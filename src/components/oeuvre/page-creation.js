@@ -88,7 +88,7 @@ export default class PageCreation extends Component {
                                 <ChampDate
                                     label="Date de création"
                                     value={ this.props.values.creationDate }
-                                    onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
+                                    onChange={ value => this.props.setFieldValue('creationDate', value) }
                                 />
 
                                 <ChampSelectionMultipleAyantDroit
@@ -129,7 +129,8 @@ export default class PageCreation extends Component {
                                     description={'L\'International Standard Work Code est un code unique' +
                                     ' d\'identification des oeuvres musicales.'}
                                     placeholder={'Ajouter un code...'}
-                                    onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
+                                    value={ this.props.values.iswc }
+                                    onChange={ value => this.props.setFieldValue('iswc', value) }
                                 />
                             </Colonne>
                         </Page>
