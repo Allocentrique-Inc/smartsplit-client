@@ -1,11 +1,11 @@
 import React from 'react';
 import { Translation } from "react-i18next";
-import { Page } from '../page-assistant/page';
+import Page from '../page-assistant/page';
 import { ChampDate } from "../formulaires/champ-date";
 import LyricsCircleOrange from '../../assets/svg/icons/lyrics-circle-orange.svg';
 import LyricsCircleGreen from '../../assets/svg/icons/lyrics-circle-green.svg';
-import { Colonne } from "../page-assistant/colonne";
-import { Entete } from "../page-assistant/entete";
+import Colonne from "../page-assistant/colonne";
+import Entete from "../page-assistant/entete";
 
 export default class PageParoles extends React.Component {
 

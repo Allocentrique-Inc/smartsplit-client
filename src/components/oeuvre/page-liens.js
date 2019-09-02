@@ -1,11 +1,11 @@
 import React from 'react';
 import { Translation } from "react-i18next";
-import { Page } from '../page-assistant/page';
+import Page from '../page-assistant/page';
 import { ChampDate } from "../formulaires/champ-date";
 import LinkCircleOrange from '../../assets/svg/icons/link-circle-orange.svg';
 import LinkCircleGreen from '../../assets/svg/icons/link-circle-green.svg';
-import { Colonne } from "../page-assistant/colonne";
-import { Entete } from "../page-assistant/entete";
+import Colonne from "../page-assistant/colonne";
+import Entete from "../page-assistant/entete";
 
 export default class PageLiens extends React.Component {
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../assets/scss/page-assistant/entete.scss';
 
-export class Entete extends React.Component {
+export default class Entete extends React.Component {
 
     labelClasses() {
         return 'label' + (this.pochette ? ' pochette' : '');

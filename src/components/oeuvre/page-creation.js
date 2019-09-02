@@ -12,11 +12,13 @@ import '../../assets/scss/assistant-form.scss';
 import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import { ChampDate } from "../formulaires/champ-date";
-import { Page } from "../page-assistant/page";
+import Page from "../page-assistant/page";
 
 import * as roles from '../../assets/listes/role-uuids.json';
-import { Colonne } from "../page-assistant/colonne";
-import { Entete } from "../page-assistant/entete";
+import Colonne from "../page-assistant/colonne";
+import Entete from "../page-assistant/entete";
+
+import RightHolderOptions from "../page-assistant/right-holder-options";
 
 export default class PageCreation extends Component {
     constructor(props) {
@@ -58,36 +60,8 @@ export default class PageCreation extends Component {
     };
 
     rightHolderOptions() {
-        return this.props.rightHolders.map(this.makeRightHolderOption);
+        return RightHolderOptions(this.props.rightHolders);
     }
-
-    makeRightHolderOption = rightHolder => {
-        return {
-            key: rightHolder.rightHolderId,
-            value: rightHolder.rightHolderId,
-            text: this.makeRightHolderText(rightHolder),
-            image: {
-                avatar: true,
-                src: this.makeRightHolderAvatarUrl(rightHolder)
-            }
-        };
-    };
-
-    makeRightHolderText = rightHolder => {
-        return rightHolder.artistName ?
-            rightHolder.artistName :
-            [rightHolder.firstName, rightHolder.lastName]
-                .filter(text => text)
-                .join(' ');
-    };
-
-    makeRightHolderAvatarUrl = rightHolder => {
-        const avatarImage = rightHolder.avatarImage;
-
-        return avatarImage ?
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/' + avatarImage :
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
-    };
 
     icon() {
         return this.props.pochette ? copyrightIconOrange : copyrightIconGreen;

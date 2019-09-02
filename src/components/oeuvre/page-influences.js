@@ -1,10 +1,10 @@
 import React from 'react';
 import { Translation } from "react-i18next";
-import { Page } from '../page-assistant/page';
+import Page from '../page-assistant/page';
 import MusicCircleOrange from '../../assets/svg/icons/music-circle-orange.svg';
 import MusicCircleGreen from '../../assets/svg/icons/music-circle-green.svg';
-import { Colonne } from "../page-assistant/colonne";
-import { Entete } from "../page-assistant/entete";
+import Colonne from "../page-assistant/colonne";
+import Entete from "../page-assistant/entete";
 
 export default class PageInfluences extends React.Component {
 

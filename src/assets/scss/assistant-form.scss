@@ -16,7 +16,11 @@
     font-weight: normal;
 }
 
-
+.section-title {
+    @extend .h3-style;
+    color: $color-primary;
+    margin-bottom: $margin-step * 2;
+}
 
 
 .input-label {

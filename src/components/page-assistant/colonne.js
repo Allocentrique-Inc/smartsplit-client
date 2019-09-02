@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../assets/scss/assistant-form.scss';
 
-export class Colonne extends React.Component {
+export default class Colonne extends React.Component {
     render() {
         return (
             <div
