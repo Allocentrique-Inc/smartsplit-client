@@ -19,6 +19,7 @@ import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
+import ChampTexte from "../page-assistant/champ-texte";
 
 export default class PageCreation extends Component {
     constructor(props) {
@@ -123,23 +124,13 @@ export default class PageCreation extends Component {
                                     onChange={ ids => this.setState({ publishers: ids }) }
                                 />
 
-                                <div className="champ">
-                                    <label>
-                                        <div className="input-label">Code ISWC</div>
-
-                                        <p className="input-description">
-                                            L'International Standard Work Code est un code unique
-                                            d'identification
-                                            des oeuvres musicales.
-                                        </p>
-
-                                        <Input
-                                            fluid
-                                            placeholder="Ajouter un code..."
-                                            onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
-                                        />
-                                    </label>
-                                </div>
+                                <ChampTexte
+                                    label={'Code ISWC'}
+                                    description={'L\'International Standard Work Code est un code unique' +
+                                    ' d\'identification des oeuvres musicales.'}
+                                    placeholder={'Ajouter un code...'}
+                                    onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
+                                />
                             </Colonne>
                         </Page>
 

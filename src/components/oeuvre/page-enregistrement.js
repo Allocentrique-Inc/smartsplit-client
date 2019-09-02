@@ -9,8 +9,15 @@ import Entete from "../page-assistant/entete";
 import '../../assets/scss/assistant-form.scss';
 import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne";
 import RightHolderOptions from "../page-assistant/right-holder-options";
+import ChampTexte from "../page-assistant/champ-texte";
+import SelectOption from "../../model/select-option/select-option";
+import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple";
 
 export default class PageEnregistrement extends React.Component {
+
+    studios = [
+        'a', 'b', 'c'
+    ];
 
     constructor(props) {
         super(props);
@@ -18,12 +25,23 @@ export default class PageEnregistrement extends React.Component {
         this.state = {
             directors: [],
             soundRecordists: [],
-            mixEngineers: []
+            mixEngineers: [],
+            masterEngineers: [],
+            studios: [],
+            producers: [],
+            isrc: ''
         };
     }
 
     rightHolderOptions() {
         return RightHolderOptions(this.props.rightHolders);
+    }
+
+    studioOptions() {
+        return this.studios.map(studio => new SelectOption({
+            value: studio,
+            text: studio
+        }));
     }
 
     icon() {
@@ -81,6 +99,49 @@ export default class PageEnregistrement extends React.Component {
                                     value={ this.state.mixEngineers }
                                     onChange={ ids => this.setState({ mixEngineers: ids }) }
                                 />
+
+                                <ChampSelectionPersonne
+                                    pochette={ this.props.pochette }
+                                    items={ this.rightHolderOptions() }
+                                    label="Mastering"
+                                    createLabel="Créer un nouveau collaborateur"
+                                    description="C’est l’étape de compression et d’égalisation globale de la chanson."
+                                    placeholder="Ajouter un ingénieur de mastering..."
+                                    value={ this.state.masterEngineers }
+                                    onChange={ ids => this.setState({ masterEngineers: ids }) }
+                                />
+
+                                <ChampSelectionMultiple
+                                    pochette={ this.props.pochette }
+                                    items={ this.studioOptions() }
+                                    label="Studio d’enregistrement"
+                                    createLabel="Créer un nouveau studio"
+                                    description="C’est le lieu où la chanson a été enregistrée."
+                                    placeholder="Rechercher un studio d'enregistrement..."
+                                    value={ this.state.studios }
+                                    onChange={ ids => this.setState({ studios: ids }) }
+                                />
+
+                                <ChampSelectionPersonne
+                                    pochette={ this.props.pochette }
+                                    items={ this.rightHolderOptions() }
+                                    label="Production"
+                                    createLabel="Créer un nouveau collaborateur"
+                                    description="Personne ou compagnie qui investit de l’argent ou du temps pour rendre l’enregistrement sonore possible."
+                                    placeholder="Ajouter un producteur..."
+                                    value={ this.state.producers }
+                                    onChange={ ids => this.setState({ producers: ids }) }
+                                />
+
+                                <ChampTexte
+                                    label="Code ISRC"
+                                    description="L'International Standard Recording Code est un code unique d'identification des enregistrements sonores."
+                                    value={ this.state.isrc }
+                                    onChange={ (event, {value}) => this.setState({ isrc: value }) }
+                                />
+
+                                <div className="instrument-divider"></div>
+
                             </Colonne>
                         </Page>
                 }

@@ -16,6 +16,13 @@
     font-weight: normal;
 }
 
+.ui.default.dropdown:not(.button)>.text,
+.ui.dropdown:not(.button)>.default.text {
+    @extend .medium-500-style;
+    font-weight: normal;
+    color: $color-tertiary;
+}
+
 .section-title {
     @extend .h3-style;
     color: $color-primary;
