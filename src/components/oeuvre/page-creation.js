@@ -9,9 +9,9 @@ import copyrightIconOrange from '../../assets/svg/icons/copyright-orange.svg';
 import copyrightIconGreen from '../../assets/svg/icons/copyright-green.svg';
 import '../../assets/scss/assistant-form.scss';
 
-import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne";
+import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
-import { ChampDate } from "../formulaires/champ-date";
+import { ChampDate } from "../page-assistant/champ-date";
 import Page from "../page-assistant/page";
 
 import * as roles from '../../assets/listes/role-uuids.json';
@@ -91,7 +91,7 @@ export default class PageCreation extends Component {
                                     onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
                                 />
 
-                                <ChampSelectionPersonne
+                                <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
                                     label="Auteurs"
@@ -102,7 +102,7 @@ export default class PageCreation extends Component {
                                     onChange={ ids => this.setState({ songwriters: ids }) }
                                 />
 
-                                <ChampSelectionPersonne
+                                <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
                                     label="Compositeurs"
@@ -113,7 +113,7 @@ export default class PageCreation extends Component {
                                     onChange={ ids => this.setState({ composers: ids }) }
                                 />
 
-                                <ChampSelectionPersonne
+                                <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
                                     label="Éditeurs"

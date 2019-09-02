@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { FormulaireMusicien } from "./formulaire-musicien";
 import Musician from "../../model/musician/musician";
+import '../../assets/scss/page-assistant/champ.scss';
+import TitreChamp from "./titre-champ";
 
 export class ChampSelectionInterprete extends Component {
     constructor(props) {
@@ -88,10 +90,10 @@ export class ChampSelectionInterprete extends Component {
     };
 
     selectItem(itemValue) {
-        let musicians = [... this.state.selectedMusicians];
+        let musicians = [...this.state.selectedMusicians];
 
         if (!musicians.find(musician => musician.uuid === itemValue)) {
-            const newMusician = new Musician({'uuid' : itemValue});
+            const newMusician = new Musician({ 'uuid': itemValue });
             musicians.push(newMusician);
         }
 
@@ -103,7 +105,7 @@ export class ChampSelectionInterprete extends Component {
 
     unselectItem(event, item) {
         event.preventDefault();
-        let musicians = [... this.state.selectedMusicians];
+        let musicians = [...this.state.selectedMusicians];
 
         const selectedMusicians = musicians.filter(musician => musician.uuid !== item.value);
 
@@ -117,13 +119,10 @@ export class ChampSelectionInterprete extends Component {
     render() {
         return (
             <label>
-                <div className="input-label">
-                    { this.props.label }
-                </div>
-
-                <p className="input-description">
-                    { this.props.description }
-                </p>
+                <TitreChamp
+                    label={ this.props.label }
+                    description={ this.props.description }
+                />
 
                 { this.renderSelectedItems() }
 

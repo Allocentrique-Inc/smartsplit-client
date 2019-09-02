@@ -1,7 +1,7 @@
 import React from 'react';
 import { Translation } from "react-i18next";
 import Page from '../page-assistant/page';
-import { ChampDate } from "../formulaires/champ-date";
+import { ChampDate } from "../page-assistant/champ-date";
 import FileCircleOrange from '../../assets/svg/icons/file-circle-orange.svg';
 import FileCircleGreen from '../../assets/svg/icons/file-circle-green.svg';
 import Colonne from "../page-assistant/colonne";

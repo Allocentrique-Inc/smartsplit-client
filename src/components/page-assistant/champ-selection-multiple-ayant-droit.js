@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { ItemSelectionne } from "./item-selectionne";
+import { ItemSelectionne } from "../formulaires/item-selectionne";
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 import ModifyUser from "../auth/ModifyUser";
+import '../../assets/scss/page-assistant/champ.scss';
+import TitreChamp from "./titre-champ";
 
-export class ChampSelectionPersonne extends Component {
+
+export default class ChampSelectionMultipleAyantDroit extends Component {
     constructor(props) {
         super(props);
 
@@ -127,13 +130,10 @@ export class ChampSelectionPersonne extends Component {
             <>
                 <div className="champ">
                     <label>
-                        <div className="input-label">
-                            { this.props.label }
-                        </div>
-
-                        <p className="input-description">
-                            { this.props.description }
-                        </p>
+                        <TitreChamp
+                            label={ this.props.label }
+                            description={ this.props.description }
+                        />
 
                         { this.renderSelectedItems() }
 

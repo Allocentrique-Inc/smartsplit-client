@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { ItemSelectionne } from './item-selectionne';
+import { ItemSelectionne } from '../formulaires/item-selectionne';
 import { Checkbox } from "semantic-ui-react";
-import { ChampSelectionInstrument } from "./champ-selection-instrument";
 import { instruments } from '../../assets/listes/fr/instruments';
+import ChampSelectionMultiple from "./champ-selection-multiple";
 
 export class FormulaireMusicien extends Component {
 
@@ -33,7 +33,7 @@ export class FormulaireMusicien extends Component {
     instrumentSelect() {
         return this.state.musicien ?
             (
-                <ChampSelectionInstrument
+                <ChampSelectionMultiple
                     pochette={ this.props.pochette }
                     items={ this.instrumentOptions }
                     placeholder="Ajouter un instrument..."

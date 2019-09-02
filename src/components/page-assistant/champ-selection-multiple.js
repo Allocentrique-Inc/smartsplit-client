@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { ItemSelectionne } from "./item-selectionne";
+import { ItemSelectionne } from "../formulaires/item-selectionne";
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
+import '../../assets/scss/page-assistant/champ.scss';
+import TitreChamp from "./titre-champ";
 
-export class ChampSelectionMultiple extends Component {
+export default class ChampSelectionMultiple extends Component {
     constructor(props) {
         super(props);
 
@@ -35,22 +37,6 @@ export class ChampSelectionMultiple extends Component {
 
     isUnselectedItem = item => !this.isSelectedItem(item);
     isSelectedItem = item => this.state.selectedValues.includes(item.value);
-
-    renderInputLabel() {
-        return this.props.label ?
-            (<div className="input-label">
-                { this.props.label }
-            </div>) :
-            (<></>);
-    }
-
-    renderInputDescription() {
-        return this.props.description ?
-            (<p className="input-description">
-                { this.props.description }
-            </p>) :
-            (<></>);
-    }
 
     renderSelectedItems() {
         return this.state.selectedValues.map(value => {
@@ -103,8 +89,11 @@ export class ChampSelectionMultiple extends Component {
         return (
             <div className="champ">
                 <label>
-                    { this.renderInputLabel() }
-                    { this.renderInputDescription() }
+                    <TitreChamp
+                        label={ this.props.label }
+                        description={ this.props.description }
+                    />
+
                     { this.renderSelectedItems() }
 
                     <Dropdown

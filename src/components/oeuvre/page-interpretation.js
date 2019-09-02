@@ -9,7 +9,7 @@ import starIconOrange from '../../assets/svg/icons/star-orange.svg';
 import starIconGreen from '../../assets/svg/icons/star-green.svg';
 
 import '../../assets/scss/assistant-form.scss';
-import { ChampSelectionInterprete } from "../formulaires/champ-selection-interprete";
+import { ChampSelectionInterprete } from "../page-assistant/champ-selection-interprete";
 import Page from "../page-assistant/page";
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";

@@ -1,17 +1,17 @@
 import React from 'react';
 import { Translation } from "react-i18next";
 import Page from '../page-assistant/page';
-import { ChampDate } from "../formulaires/champ-date";
+import { ChampDate } from "../page-assistant/champ-date";
 import RecordGreen from '../../assets/svg/icons/record-green.svg';
 import RecordOrange from '../../assets/svg/icons/record-orange.svg';
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 import '../../assets/scss/assistant-form.scss';
-import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne";
+import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit";
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import ChampTexte from "../page-assistant/champ-texte";
 import SelectOption from "../../model/select-option/select-option";
-import { ChampSelectionMultiple } from "../formulaires/champ-selection-multiple";
+import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 
 export default class PageEnregistrement extends React.Component {
 
@@ -29,7 +29,8 @@ export default class PageEnregistrement extends React.Component {
             masterEngineers: [],
             studios: [],
             producers: [],
-            isrc: ''
+            isrc: '',
+            recordLabel: '',
         };
     }
 
@@ -67,7 +68,7 @@ export default class PageEnregistrement extends React.Component {
 
                                 <h3 className="section-title">Enregistrement</h3>
 
-                                <ChampSelectionPersonne
+                                <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
                                     label="Réalisation"
@@ -78,7 +79,7 @@ export default class PageEnregistrement extends React.Component {
                                     onChange={ ids => this.setState({ directors: ids }) }
                                 />
 
-                                <ChampSelectionPersonne
+                                <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
                                     label="Prise de son"
@@ -89,7 +90,7 @@ export default class PageEnregistrement extends React.Component {
                                     onChange={ ids => this.setState({ soundRecordists: ids }) }
                                 />
 
-                                <ChampSelectionPersonne
+                                <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
                                     label="Mixage"
@@ -100,7 +101,7 @@ export default class PageEnregistrement extends React.Component {
                                     onChange={ ids => this.setState({ mixEngineers: ids }) }
                                 />
 
-                                <ChampSelectionPersonne
+                                <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
                                     label="Mastering"
@@ -122,7 +123,7 @@ export default class PageEnregistrement extends React.Component {
                                     onChange={ ids => this.setState({ studios: ids }) }
                                 />
 
-                                <ChampSelectionPersonne
+                                <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
                                     label="Production"
@@ -142,6 +143,15 @@ export default class PageEnregistrement extends React.Component {
 
                                 <div className="instrument-divider"></div>
 
+                                <h3 className="section-title">Sortie</h3>
+
+                                <ChampTexte
+                                    label="Étiquette"
+                                    description="C’est l’entité qui s’occupe de commercialiser ta pièce."
+                                    placeholder="Ajouter une étiquette..."
+                                    value={ this.state.recordLabel }
+                                    onChange={ (event, {value}) => this.setState({ recordLabel: value }) }
+                                />
                             </Colonne>
                         </Page>
                 }

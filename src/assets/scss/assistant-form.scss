@@ -12,16 +12,7 @@
     }
 }
 
-.ui.dropdown .default.text {
-    font-weight: normal;
-}
 
-.ui.default.dropdown:not(.button)>.text,
-.ui.dropdown:not(.button)>.default.text {
-    @extend .medium-500-style;
-    font-weight: normal;
-    color: $color-tertiary;
-}
 
 .section-title {
     @extend .h3-style;
@@ -30,15 +21,6 @@
 }
 
 
-.input-label {
-    @extend .medium-500-style;
-    color: $color-primary;
-}
-
-.input-description {
-    @extend .medium-400-style;
-    color: $color-secondary;
-}
 
 .create-link {
     margin-top: $margin-step;
