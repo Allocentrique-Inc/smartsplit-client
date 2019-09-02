@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { ItemSelectionne } from "../formulaires/item-selectionne";
+import { ItemSelectionne } from "./item-selectionne";
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 import ModifyUser from "../auth/ModifyUser";

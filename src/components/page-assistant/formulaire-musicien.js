@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ItemSelectionne } from '../formulaires/item-selectionne';
+import { ItemSelectionne } from './item-selectionne';
 import { Checkbox } from "semantic-ui-react";
 import { instruments } from '../../assets/listes/fr/instruments';
 import ChampSelectionMultiple from "./champ-selection-multiple";

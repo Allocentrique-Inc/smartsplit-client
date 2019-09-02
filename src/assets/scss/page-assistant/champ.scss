@@ -2,9 +2,12 @@
 @import "../layout";
 @import "../typography";
 
+.ui.form input[type="text"] {
+    @extend .medium-400-style;
+}
+
 .ui.form input[type="text"]::placeholder {
-    @extend .medium-500-style;
-    font-weight: normal;
+    @extend .medium-400-style;
     color: $color-tertiary;
 }
 
@@ -19,17 +22,4 @@
     color: $color-tertiary;
 }
 
-.input-title {
-    margin-bottom: $margin-step;
-}
-
-.input-label {
-    @extend .medium-500-style;
-    color: $color-primary;
-}
-
-.input-description {
-    @extend .medium-400-style;
-    color: $color-secondary;
-}
 
