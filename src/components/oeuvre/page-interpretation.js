@@ -10,7 +10,9 @@ import starIconGreen from '../../assets/svg/icons/star-green.svg';
 
 import '../../assets/scss/assistant-form.scss';
 import { ChampSelectionInterprete } from "../formulaires/champ-selection-interprete";
-import { PageAssistant } from "../canevas/page-assistant";
+import { Page } from "../page-assistant/page";
+import { Colonne } from "../page-assistant/colonne";
+import { Entete } from "../page-assistant/entete";
 
 export default class PageInterpretation extends Component {
 
@@ -31,19 +33,26 @@ export default class PageInterpretation extends Component {
             <Translation>
                 {
                     (t) =>
-                        <PageAssistant
-                            sectionIcon={ this.icon() }
-                            sectionLabel={ 'Interprétation' }
-                            sectionQuestion={ 'Qui a interprété la pièce musicale sur cet enregistrement sonore?' }
-                            sectionDescription={ 'C’est ici que tu indiques qui a joué quel instrument.' }
+                        <Page
+                            pochette={ this.props.pochette }
                         >
-                            <ChampSelectionInterprete
-                                pochette={ this.props.pochette }
-                                rightHolders={ this.props.rightHolders }
-                                values={ this.state.musicians }
-                                onChange={ newValues => this.setState({ musicians: newValues }) }
-                            />
-                        </PageAssistant>
+                            <Colonne>
+                                <Entete
+                                    pochette={ this.props.pochette }
+                                    icon={ this.icon() }
+                                    label={ 'Interprétation' }
+                                    question={ 'Qui a interprété la pièce musicale sur cet enregistrement sonore?' }
+                                    description={ 'C’est ici que tu indiques qui a joué quel instrument.' }
+                                />
+
+                                <ChampSelectionInterprete
+                                    pochette={ this.props.pochette }
+                                    rightHolders={ this.props.rightHolders }
+                                    values={ this.state.musicians }
+                                    onChange={ newValues => this.setState({ musicians: newValues }) }
+                                />
+                            </Colonne>
+                        </Page>
                 }
             </Translation>
         )

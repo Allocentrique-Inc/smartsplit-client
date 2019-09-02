@@ -1,9 +1,10 @@
 import React from 'react';
 import { Translation } from "react-i18next";
-import { PageAssistant } from '../canevas/page-assistant';
-import { ChampDate } from "../formulaires/champ-date";
+import { Page } from '../page-assistant/page';
 import MusicCircleOrange from '../../assets/svg/icons/music-circle-orange.svg';
 import MusicCircleGreen from '../../assets/svg/icons/music-circle-green.svg';
+import { Colonne } from "../page-assistant/colonne";
+import { Entete } from "../page-assistant/entete";
 
 export default class PageInfluences extends React.Component {
 
@@ -16,15 +17,19 @@ export default class PageInfluences extends React.Component {
             <Translation>
                 {
                     (t) =>
-                        <PageAssistant
+                        <Page
                             pochette={ this.props.pochette }
-                            sectionIcon={ this.icon() }
-                            sectionLabel={ 'Influences' }
-                            sectionQuestion={ 'Informations générales' }
-                            sectionDescription={ 'Ici, tu indiques de quel genre est cette pièce musicale et qui sont les artistes ou tendances qui l’ont influencé.' }
                         >
-
-                        </PageAssistant>
+                            <Colonne>
+                                <Entete
+                                    pochette={ this.props.pochette }
+                                    icon={ this.icon() }
+                                    label={ 'Influences' }
+                                    question={ 'Informations générales' }
+                                    description={ 'Ici, tu indiques de quel genre est cette pièce musicale et qui sont les artistes ou tendances qui l’ont influencé.' }
+                                />
+                            </Colonne>
+                        </Page>
                 }
             </Translation>
         )

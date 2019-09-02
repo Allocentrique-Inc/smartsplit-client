@@ -16,35 +16,8 @@
     font-weight: normal;
 }
 
-.section-header {
-    margin-bottom: $margin-step * 4;
-}
 
-.section-title {
-    display: flex;
-    align-items: center;
 
-    .section-label {
-        margin-left: $margin-step;
-
-        @extend .medium-500-caps-style;
-        color: $color-action;
-    }
-}
-
-.section-question {
-    margin-top: $margin-step * 2;
-
-    @extend .h1-style;
-    color: $color-primary;
-}
-
-.section-description {
-    margin-top: $margin-step;
-
-    @extend .medium-400-style;
-    color: $color-secondary;
-}
 
 .input-label {
     @extend .medium-500-style;
@@ -197,12 +170,6 @@
 }
 
 .pochette {
-    .section-title {
-        .section-label {
-            color: $color-orange-dark;
-        }
-    }
-
     .create-link {
         color: $pochette-color-link;
 
