@@ -108,8 +108,8 @@ button[id="facebook"] {
     border-top: 1px solid#DCDFE1;
     border-bottom: 1px solid#DCDFE1;
     position: absolute;
-    left: 50.5%;
-    transform: translate(-50%, 3px);
+    left: 50%;
+    transform: translate(-50%, 325px);
   }
   hr:after {
    /* content: "ou";*/
