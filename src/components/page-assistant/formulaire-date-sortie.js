@@ -1,5 +1,6 @@
 import React from 'react';
 import TitreChamp from "./titre-champ";
+import ChampDate from './champ-date';
 
 export default class FormulaireDateSortie extends React.Component {
 
@@ -7,22 +8,34 @@ export default class FormulaireDateSortie extends React.Component {
         super(props);
 
         this.state = {
-            determined: this.props.value ? 'true' : 'false',
-            inputValue: '',
+            determined: this.props.value,
+            value: this.props.value,
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.state.determined !== prevState.determined && this.state.determined === false) {
+        if (!this.state.determined && prevState.determined) {
             this.props.onChange(null);
         }
 
-        if (this.state.determined === 'true' && this.state.inputValue !== prevState.inputValue) {
-            this.props.onChange(this.state.inputValue);
+        if (this.state.determined && this.state.value !== prevState.value) {
+            this.props.onChange(this.state.value);
         }
     }
 
-    handleRadioChange = event => this.setState({ determined: event.target.value });
+    handleRadioChange = event => this.setState({ determined: (event.target.value === 'true') });
+
+    renderChampDate() {
+        return this.state.determined === 'true' ?
+            (
+                <ChampDate
+                    value={ this.state.inputValue }
+                    onChange={ value => this.setState({value: value})}
+                />
+            ) :
+            (<></>);
+
+    }
 
     render() {
         return (
@@ -37,7 +50,7 @@ export default class FormulaireDateSortie extends React.Component {
                         <input type="radio"
                                name="type"
                                value='false'
-                               checked={ this.state.determined === 'false' }
+                               checked={ !this.state.determined }
                                onChange={ this.handleRadioChange }
                         />
 
@@ -50,13 +63,15 @@ export default class FormulaireDateSortie extends React.Component {
                         <input type="radio"
                                name="type"
                                value='true'
-                               checked={ this.state.determined === 'true' }
+                               checked={ this.state.determined }
                                onChange={ this.handleRadioChange }
                         />
 
                         <label>Date déterminée</label>
                     </div>
                 </div>
+
+                { this.renderChampDate() }
             </div>
         );
     }

@@ -30,6 +30,10 @@
     color: $color-tertiary;
 }
 
+.ui.search.selection.dropdown > input.search {
+    padding-left: 40px !important;
+}
+
 .ui.selection.dropdown,
 .ui.dropdown .menu > .item {
     display: flex;

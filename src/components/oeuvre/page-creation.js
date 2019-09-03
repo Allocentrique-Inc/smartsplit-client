@@ -11,7 +11,7 @@ import '../../assets/scss/assistant-form.scss';
 
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
-import { ChampDate } from "../page-assistant/champ-date";
+import ChampDate from "../page-assistant/champ-date";
 import Page from "../page-assistant/page";
 
 import * as roles from '../../assets/listes/role-uuids.json';

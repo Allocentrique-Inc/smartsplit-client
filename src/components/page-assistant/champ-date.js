@@ -4,7 +4,7 @@ import 'moment/locale/fr';
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 
-export class ChampDate extends Component {
+export default class ChampDate extends Component {
     render() {
         return (
             <label className="champ">
