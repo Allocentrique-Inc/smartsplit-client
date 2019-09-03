@@ -1,0 +1,40 @@
+@import '../colors';
+@import '../layout';
+@import '../typography';
+
+.hidden {
+    display: none;
+}
+
+.file-input-container {
+    border: 1px solid $color-stroke;
+    border-radius: 2px;
+    width: 100%;
+    height: 40px;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 ($margin-step / 2);
+
+    .button {
+        margin-right: $margin-step / 2;
+        padding: ($margin-step / 4) ($margin-step / 2);
+        border-radius: 2px;
+        color: white;
+        background-color: $color-action;
+
+        @extend .small-500-style;
+    }
+
+    .placeholder {
+        @extend .small-400-style;
+        color: $color-tertiary;
+    }
+}
+
+.pochette .file-input-container {
+    .button {
+        background-color: $pochette-color-link;
+    }
+}

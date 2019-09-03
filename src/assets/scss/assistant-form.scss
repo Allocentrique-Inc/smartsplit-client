@@ -16,6 +16,10 @@
     @extend .h3-style;
     color: $color-primary;
     margin-bottom: $margin-step * 2;
+
+    &.with-description {
+        margin-bottom: $margin-step;
+    }
 }
 
 .instrument-select {
@@ -72,6 +76,18 @@
     background-color: $color-stroke;
 }
 
+.description {
+    margin-top: $margin-step;
+
+    @extend .medium-400-style;
+    color: $color-secondary;
+
+    a {
+        @extend .medium-500-style;
+        color: $color-action;
+    }
+}
+
 .pochette {
     .create-link {
         color: $pochette-color-link;
@@ -79,6 +95,10 @@
         &:hover {
             color: $pochette-color-link-hover;
         }
+    }
+
+    .description a {
+        color: $pochette-color-link;
     }
 
     .ui.dropdown .menu > .item {

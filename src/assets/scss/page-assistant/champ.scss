@@ -86,3 +86,22 @@
     padding-left: $margin-step * 2;
 }
 
+.undertext {
+    margin-top: $margin-step / 2;
+
+    @extend .small-400-style;
+    color: $color-secondary;
+}
+
+.section-televersement {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.champ-acces {
+    margin-left: $margin-step;
+    width: 72px;
+}
+
