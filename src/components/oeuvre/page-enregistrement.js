@@ -1,7 +1,6 @@
 import React from 'react';
 import { Translation } from "react-i18next";
 import Page from '../page-assistant/page';
-import { ChampDate } from "../page-assistant/champ-date";
 import RecordGreen from '../../assets/svg/icons/record-green.svg';
 import RecordOrange from '../../assets/svg/icons/record-orange.svg';
 import Colonne from "../page-assistant/colonne";
@@ -12,6 +11,7 @@ import RightHolderOptions from "../page-assistant/right-holder-options";
 import ChampTexte from "../page-assistant/champ-texte";
 import SelectOption from "../../model/select-option/select-option";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
+import FormulaireDateSortie from "../page-assistant/formulaire-date-sortie";
 
 export default class PageEnregistrement extends React.Component {
 
@@ -30,7 +30,9 @@ export default class PageEnregistrement extends React.Component {
             studios: [],
             producers: [],
             recordLabels: [],
-            distributors: []
+            distributors: [],
+            releaseDate: null,
+            upc: null
         };
     }
 
@@ -169,6 +171,11 @@ export default class PageEnregistrement extends React.Component {
                                     placeholder="Ajouter une étiquette..."
                                     value={ this.state.distributors }
                                     onChange={ ids => this.setState({ distributors: ids }) }
+                                />
+
+                                <FormulaireDateSortie
+                                    value={ this.state.releaseDate }
+                                    onChange={ value => this.setState({ releaseDate: value }) }
                                 />
 
                                 <ChampTexte
