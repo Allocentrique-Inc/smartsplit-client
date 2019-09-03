@@ -1,48 +1,48 @@
 input[id="password"] {
     padding-right: 50px;
     width: 414px;
-    margin: 5px 0 5px 0;   
+    margin: 5px 0 5px 0;
     display: inline;
 }
 
 input[id="confirmpassword"] {
     padding-right: 50px;
-    width: 414px; 
-    margin: 5px 0 5px 0;   
+    width: 414px;
+    margin: 5px 0 5px 0;
     display: inline;
 }
 
-input[id="username"]{
+input[id="username"] {
     width: 464px;
     display: inline;
 }
 
-input[id="artistName"]{
-  width: 464px;
-  display: inline;
+input[id="artistName"] {
+    width: 464px;
+    display: inline;
 }
 
-input[id="role"]{
-  width: 464px;
-  display: inline;
+input[id="role"] {
+    width: 464px;
+    display: inline;
 }
 
-input[id="firstName"]{
-  width: 464px;
-  display: inline;
+input[id="firstName"] {
+    width: 464px;
+    display: inline;
 }
 
-input[id="lastName"]{
-  width: 464px;
-  display: inline;
+input[id="lastName"] {
+    width: 464px;
+    display: inline;
 }
 
 .invisible {
-    visibility: hidden!important;
+    visibility: hidden !important;
 }
 
 .visible {
-    visibility: visible!important;
+    visibility: visible !important;
 }
 
 button[id="hide"] {
@@ -78,13 +78,13 @@ button[id="facebook"] {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 250px);
-  }
-  
-  .facebook {
+}
+
+.facebook {
     padding-right: 135px;
-  }
-  
-  button[id="google"] {
+}
+
+button[id="google"] {
     margin: 4px;
     width: 464px;
     max-width: 500px;
@@ -94,25 +94,26 @@ button[id="facebook"] {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 300px);
-  }
-  
-  .google {
+}
+
+.google {
     padding-right: 143px;
-  }
-  
-  hr {
+}
+
+hr {
     overflow: visible; /* For IE */
     padding: 0;
     width: 464px;
     text-align: center;
-    border-top: 1px solid#DCDFE1;
-    border-bottom: 1px solid#DCDFE1;
+    border-top: 1px solid #DCDFE1;
+    border-bottom: 1px solid #DCDFE1;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 325px);
-  }
-  hr:after {
-   /* content: "ou";*/
+}
+
+hr:after {
+    /* content: "ou";*/
     display: inline-block;
     position: relative;
     top: -0.7em;
@@ -120,130 +121,142 @@ button[id="facebook"] {
     padding: 0 0.25em;
     color: black;
     background: white;
-  }
+}
 
 /* Password Strength Validator  */
 
-  .confirmClass {
-    margin: 0 0 0 0!important;
-  }
-  
-  .strength-meter {
+.confirmClass {
+    margin: 0 0 0 0 !important;
+}
+
+.strength-meter {
     position: relative;
     height: 3px;
     width: 150px;
     background: #DDD;
     margin: 5px auto 5px auto;
-    border-radius: 2px; }
-  
-  .strength-meter-fill {
+    border-radius: 2px;
+}
+
+.strength-meter-fill {
     background: transparent;
     height: inherit;
     position: absolute;
     width: 0;
     border-radius: inherit;
-    transition: width 0.5s ease-in-out, background 0.25s; }
-    .strength-meter-fill[data-strength='0'] {
-      width: 20%;
-      background: darkred; }
-    .strength-meter-fill[data-strength='1'] {
-      width: 40%;
-      background: orangered; }
-    .strength-meter-fill[data-strength='2'] {
-      width: 60%;
-      background: orange; }
-    .strength-meter-fill[data-strength='3'] {
-      width: 80%;
-      background: yellowgreen; }
-    .strength-meter-fill[data-strength='4'] {
-      width: 100%;
-      background: green; }
+    transition: width 0.5s ease-in-out, background 0.25s;
+}
+
+.strength-meter-fill[data-strength='0'] {
+    width: 20%;
+    background: darkred;
+}
+
+.strength-meter-fill[data-strength='1'] {
+    width: 40%;
+    background: orangered;
+}
+
+.strength-meter-fill[data-strength='2'] {
+    width: 60%;
+    background: orange;
+}
+
+.strength-meter-fill[data-strength='3'] {
+    width: 80%;
+    background: yellowgreen;
+}
+
+.strength-meter-fill[data-strength='4'] {
+    width: 100%;
+    background: green;
+}
 
 .form-control.is-invalid {
-  border-color: #dc3545;
-  padding-right: calc(1.5em + .75rem);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
-  background-size: calc(.75em + .375rem) calc(.75em + .375rem);
-  background-repeat: no-repeat;
-  background-position: center right calc(.375em + .1875rem);
-}      
+    border-color: #dc3545;
+    padding-right: calc(1.5em + .75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23dc3545' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23dc3545' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+    background-repeat: no-repeat;
+    background-position: center right calc(.375em + .1875rem);
+}
 
 .form-control.is-valid {
-  border-color: #28a745;
-  padding-right: calc(1.5em + .75rem);
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: center right calc(.375em + .1875rem);
-  background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+    border-color: #28a745;
+    padding-right: calc(1.5em + .75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center right calc(.375em + .1875rem);
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
 }
 
 .fileUpload {
-  border: none
+    border: none
 }
 
 .avatarImage {
-  border-style: solid;
-  border-width: 2px;
-  border-color: black;
-  border-radius: 90px 90px 90px;
-  width: 100px;
-  height: 100px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 90px 90px 90px;
+    width: 100px;
+    height: 100px;
 }
 
 .fileDelete {
-  margin: 0;
-  max-width: 100px;
-  max-height: 30px;
-  font-size: 16px;
-  padding: 5px 10px;
-  margin-left: 175px;
+    margin: 0;
+    max-width: 100px;
+    max-height: 30px;
+    font-size: 16px;
+    padding: 5px 10px;
+    margin-left: 175px;
 }
 
 .ui.negative.button {
-  background-color: transparent;
-  color: #2DA84F
+    background-color: transparent;
+    color: #2DA84F
 }
 
 .ui.negative.button:hover {
-  background-color: white;
-  opacity: 80%;
-  color: #2DA84F
+    background-color: white;
+    opacity: 80%;
+    color: #2DA84F
 }
 
 .ui.positive.button {
-  background-color: #2DA84F;
-  color: white
+    background-color: #2DA84F;
+    color: white
 }
 
-.section.auth{
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate(-50%, 40px);
+.section.auth {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, 40px);
 }
 
 #registerHeader {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 50px);
-  width: 464px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50px);
+    width: 464px;
 }
 
 #registerHead {
-  font-size: 40px;
+    font-size: 40px;
 }
 
 #registerPrompt {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 
-header h1:after {
-  content:"En route vers \A la professionalisation.";
-  white-space: pre;
+header#registerHeader h1:after {
+    content: "En route vers \A la professionalisation.";
+    white-space: pre;
 }
 
-header h3:after {
-  content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";
-  white-space: pre;
+header#registerHeader h3:after {
+    content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";
+    white-space: pre;
 }

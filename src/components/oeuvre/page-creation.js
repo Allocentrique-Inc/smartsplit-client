@@ -9,16 +9,16 @@ import copyrightIconOrange from '../../assets/svg/icons/copyright-orange.svg';
 import copyrightIconGreen from '../../assets/svg/icons/copyright-green.svg';
 import '../../assets/scss/assistant-form.scss';
 
-import { ChampSelectionPersonne } from "../formulaires/champ-selection-personne";
-import Input from "semantic-ui-react/dist/commonjs/elements/Input";
-import { ChampDate } from "../formulaires/champ-date";
+import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit";
+import ChampDate from "../page-assistant/champ-date";
+import Page from "../page-assistant/page";
 
+import * as roles from '../../assets/listes/role-uuids.json';
+import Colonne from "../page-assistant/colonne";
+import Entete from "../page-assistant/entete";
+import ChampTexte from "../page-assistant/champ-texte";
 
-const roles = {
-    songwriter: 'songwriter',
-    composer: 'composer',
-    publisher: 'publisher'
-};
+import RightHolderOptions from "../page-assistant/right-holder-options";
 
 export default class PageCreation extends Component {
     constructor(props) {
@@ -36,7 +36,7 @@ export default class PageCreation extends Component {
     }
 
     filterShareHolders(role, rightHolders) {
-        return Object.keys(rightHolders).filter(uuid => rightHolders[uuid].includes(role));
+        return Object.keys(rightHolders).filter(rightHolderUuid => rightHolders[rightHolderUuid].includes(role));
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -60,38 +60,10 @@ export default class PageCreation extends Component {
     };
 
     rightHolderOptions() {
-        return this.props.rightHolders.map(this.makeRightHolderOption);
+        return RightHolderOptions(this.props.rightHolders);
     }
 
-    makeRightHolderOption = rightHolder => {
-        return {
-            key: rightHolder.rightHolderId,
-            value: rightHolder.rightHolderId,
-            text: this.makeRightHolderText(rightHolder),
-            image: {
-                avatar: true,
-                src: this.makeRightHolderAvatarUrl(rightHolder)
-            }
-        };
-    };
-
-    makeRightHolderText = rightHolder => {
-        return rightHolder.artistName ?
-            rightHolder.artistName :
-            [rightHolder.firstName, rightHolder.lastName]
-                .filter(text => text)
-                .join(' ');
-    };
-
-    makeRightHolderAvatarUrl = rightHolder => {
-        const avatarImage = rightHolder.avatarImage;
-
-        return avatarImage ?
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/' + avatarImage :
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
-    };
-
-    copyrightIcon() {
+    icon() {
         return this.props.pochette ? copyrightIconOrange : copyrightIconGreen;
     }
 
@@ -100,88 +72,68 @@ export default class PageCreation extends Component {
             <Translation>
                 {
                     (t) =>
-                        <React.Fragment>
-                            <div
-                                className={ 'ui container assistant-container ' + (this.props.pochette ? 'pochette' : '') }>
-                                <div className="ui grid">
-                                    <div
-                                        className="form-column ui sixteen wide mobile eight wide tablet eight wide computer column"
-                                    >
-                                        <h1 className="section-title">
-                                            <span className="section-icon">
-                                                <img src={ this.copyrightIcon() } alt={ 'création' }/>
-                                            </span>
+                        <Page
+                            pochette={ this.props.pochette }
+                        >
+                            <Colonne>
+                                <Entete
+                                    pochette={ this.props.pochette }
+                                    icon={ this.icon() }
+                                    label={ t('flot.documenter.entete.creation') }
+                                    question={ t('flot.documenter.titre1') + ' ' + this.props.values.title + "&#8239;?" }
+                                    description={ t('flot.documenter.titre1-description') }
+                                />
 
-                                            <span className="section-label">
-                                            {t('flot.documenter.entete.creation')}
-                                            </span>
-                                        </h1>
+                                <ChampDate
+                                    label={ t('flot.documenter.date-creation') }
+                                    placeholder={ t('flot.documenter.date-placeholder') }
+                                    value={ this.props.values.creationDate }
+                                    onChange={ value => this.props.setFieldValue('creationDate', value) }
+                                />
 
-                                        <h2 className="section-question">
-                                        {t('flot.documenter.titre1')}{ this.props.values.title }&#8239;?
-                                        </h2>
+                                <ChampSelectionMultipleAyantDroit
+                                    pochette={ this.props.pochette }
+                                    items={ this.rightHolderOptions() }
+                                    label={ t('flot.documenter.auteur') }
+                                    createLabel="Créer un nouveau collaborateur"
+                                    description={ t('flot.documenter.auteur-description') }
+                                    placeholder={ t('flot.documenter.auteur-placeholder') }
+                                    value={ this.state.songwriters }
+                                    onChange={ ids => this.setState({ songwriters: ids }) }
+                                />
 
-                                        <p className="section-description">
-                                        {t('flot.documenter.titre1-description')}
-                                        </p>
+                                <ChampSelectionMultipleAyantDroit
+                                    pochette={ this.props.pochette }
+                                    items={ this.rightHolderOptions() }
+                                    label={ t('flot.documenter.compositeur') }
+                                    createLabel="Créer un nouveau collaborateur"
+                                    description={ t('flot.documenter.compositeur-description') }
+                                    placeholder="Ajouter un compositeur..."
+                                    value={ this.state.composers }
+                                    onChange={ ids => this.setState({ composers: ids }) }
+                                />
 
-                                        <ChampDate
-                                            label={t('flot.documenter.date-creation')}
-                                            placeholder={t('flot.documenter.date-placeholder')} 
-                                            value={ this.props.values.creationDate }
-                                            onChange={ (event, { value }) => this.props.setFieldValue('creationDate', value) }
-                                        /> 
+                                <ChampSelectionMultipleAyantDroit
+                                    pochette={ this.props.pochette }
+                                    items={ this.rightHolderOptions() }
+                                    label={ t('flot.documenter.editeur') }
+                                    createLabel="Créer un nouveau collaborateur"
+                                    description={ t('flot.documenter.editeur-description') }
+                                    placeholder={ t('flot.documenter.editeur-placeholder') }
+                                    value={ this.state.publishers }
+                                    onChange={ ids => this.setState({ publishers: ids }) }
+                                />
 
-                                        <ChampSelectionPersonne
-                                            pochette={ this.props.pochette }
-                                            items={ this.rightHolderOptions() }
-                                            label={t('flot.documenter.auteur')}
-                                            createLabel="Créer un nouveau collaborateur"
-                                            description={t('flot.documenter.auteur-description')}
-                                            placeholder={t('flot.documenter.auteur-placeholder')} 
-                                            value={ this.state.songwriters }
-                                            onChange={ ids => this.setState({ songwriters: ids }) }
-                                        />
+                                <ChampTexte
+                                    label={ t('flot.documenter.code') }
+                                    description={ t('flot.documenter.code-description') }
+                                    placeholder={ t('flot.documenter.code-placeholder') }
+                                    value={ this.props.values.iswc }
+                                    onChange={ value => this.props.setFieldValue(' iswc', value) }
+                                />
+                            </Colonne>
+                        </Page>
 
-                                        <ChampSelectionPersonne
-                                            pochette={ this.props.pochette }
-                                            items={ this.rightHolderOptions() }
-                                            label={t('flot.documenter.compositeur')}
-                                            createLabel="Créer un nouveau collaborateur"
-                                            description={t('flot.documenter.compositeur-description')}
-                                            placeholder="Ajouter un compositeur..."
-                                            value={ this.state.composers }
-                                            onChange={ ids => this.setState({ composers: ids }) }
-                                        />
-
-                                        <ChampSelectionPersonne
-                                            pochette={ this.props.pochette }
-                                            items={ this.rightHolderOptions() }
-                                            label={t('flot.documenter.editeur')}
-                                            createLabel="Créer un nouveau collaborateur"
-                                            description={t('flot.documenter.editeur-description')}
-                                            placeholder={t('flot.documenter.editeur-placeholder')}
-                                            value={ this.state.publishers }
-                                            onChange={ ids => this.setState({ publishers: ids }) }
-                                        />
-
-                                        <label className="champ">
-                                            <div className="input-label">{t('flot.documenter.code')}</div>
-
-                                            <p className="input-description">
-                                            {t('flot.documenter.code-description')}
-                                            </p>
-
-                                            <Input
-                                                fluid
-                                                placeholder={t('flot.documenter.code-placeholder')}
-                                                onChange={ (event, { value }) => this.props.setFieldValue('iswc', value) }
-                                            />
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </React.Fragment>
                 }
             </Translation>
         )
