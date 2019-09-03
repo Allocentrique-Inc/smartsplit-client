@@ -103,5 +103,11 @@
 .champ-acces {
     margin-left: $margin-step;
     width: 72px;
+
+    .ui.selection.dropdown .menu {
+        right: 0;
+        left: auto;
+        width: 200px;
+    }
 }
 
