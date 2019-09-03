@@ -1,0 +1,39 @@
+@import "../colors";
+@import "../layout";
+@import "../typography";
+
+.entete-assistant {
+    margin-bottom: $margin-step * 4;
+
+    .title {
+        display: flex;
+        align-items: center;
+
+        .label {
+            margin-left: $margin-step;
+
+            @extend .medium-500-caps-style;
+            color: $color-action;
+
+            &.pochette {
+                color: $color-orange-dark;
+            }
+        }
+    }
+
+    .question {
+        margin-top: $margin-step * 2;
+
+        @extend .h1-style;
+        color: $color-primary;
+    }
+
+    .description {
+        margin-top: $margin-step;
+
+        @extend .medium-400-style;
+        color: $color-secondary;
+    }
+}
+
+

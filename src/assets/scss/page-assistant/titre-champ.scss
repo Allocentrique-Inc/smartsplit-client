@@ -1,0 +1,18 @@
+@import "../colors";
+@import "../layout";
+@import "../typography";
+
+.input-title {
+    margin-bottom: $margin-step;
+}
+
+.input-label {
+    @extend .medium-500-style;
+    color: $color-primary;
+}
+
+.input-description {
+    @extend .medium-400-style;
+    color: $color-secondary;
+}
+

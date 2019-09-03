@@ -1,41 +1,41 @@
 /**
  * Assistant de saisie de la description d'une oeuvre
  */
-import './oeuvre.css'
-import React, { Component } from 'react'
-import { Wizard } from "semantic-ui-react-formik"
-import axios from 'axios'
+import React, { Component } from 'react';
+import { Wizard } from "semantic-ui-react-formik";
+import axios from 'axios';
 // Pages de l'assistant
-import PageEmbarquement from './page-embarquement';
 import PageCreation from './page-creation';
 import PageInterpretation from './page-interpretation';
-import PageGenres from './assistant-oeuvre-genres'
-import PagePro from './assistant-oeuvre-pro'
-import PageLiens from './assistant-oeuvre-liens'
-import AudioLecture from './audio-lecture'
+import PageInfluences from './page-influences';
+import PageParoles from './page-paroles';
+import PageLiens from './page-liens';
+import PageEnregistrement from "./page-enregistrement";
+import PageFichiers from './page-fichiers';
+import AudioLecture from './audio-lecture';
 // Alertes
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 // Traduction
-import { Translation } from 'react-i18next'
+import { Translation } from 'react-i18next';
 // Modèle
-import Oeuvre from '../../model/oeuvre/oeuvre'
+import Oeuvre from '../../model/oeuvre/oeuvre';
 
-import { Navbar } from '../navbar/navbar';
+import { Navbar } from '../navigation/navbar';
 
-import { Auth } from 'aws-amplify'
+import { Auth } from 'aws-amplify';
 
-import Login from '../auth/Login'
-import { confirmAlert } from 'react-confirm-alert'
-import { Trackbar } from "../navbar/trackbar";
+import Login from '../auth/Login';
+import { confirmAlert } from 'react-confirm-alert';
+
 
 class AssistantOeuvre extends Component {
-    pageProgressPercentages = [5, 15, 55, 75, 85, 97, 100];
+    pageProgressPercentages = [10, 20, 30, 40, 50, 70, 80, 100];
 
     constructor(props) {
         super(props);
-        console.log('Est pochette ?', this.props.pochette)
+
         this.state = {
-            pctProgression: this.pageProgressPercentages[0],
+            progressPercentage: this.pageProgressPercentages[0],
             title: props.titre,
             rightHolders: []
         };
@@ -104,6 +104,7 @@ class AssistantOeuvre extends Component {
             artist: "",
             cover: "false",
             rightHolders: [],
+            musicians: [],
             jurisdiction: "",
             rightsType: [],
             genre: "",
@@ -130,7 +131,7 @@ class AssistantOeuvre extends Component {
         const newProgressPercentage = this.pageProgressPercentages[value] || 100;
 
         this.setState({
-            pctProgression: newProgressPercentage
+            progressPercentage: newProgressPercentage
         });
     };
 
@@ -158,14 +159,11 @@ class AssistantOeuvre extends Component {
                 <Translation>
                     {
                         (t, i18n) =>
-                            <React.Fragment>
+                            <>
                                 <Navbar
                                     songTitle={ this.state.title }
                                     pochette={ this.props.pochette }
-                                />
-                                <Trackbar
-                                    pourcentage={ this.state.pctProgression }
-                                    pochette={ this.props.pochette }
+                                    progressPercentage={ this.state.progressPercentage }
                                 />
 
                                 <Wizard
@@ -185,15 +183,6 @@ class AssistantOeuvre extends Component {
                                     debug={ false }
                                 >
                                     <Wizard.Page>
-                                        <PageEmbarquement
-                                            i18n={ i18n }
-                                            audio={ this.state.audio }
-                                            pctProgression={ 5 }
-                                            pochette={ this.props.pochette }
-                                        />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
                                         <PageCreation
                                             pochette={ this.props.pochette }
                                             i18n={ i18n }
@@ -210,24 +199,38 @@ class AssistantOeuvre extends Component {
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageGenres i18n={ i18n } pctProgression={ 75 }/>
+                                        <PageEnregistrement
+                                            pochette={ this.props.pochette }
+                                            i18n={ i18n }
+                                            rightHolders={ this.state.rightHolders }
+                                        />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PagePro pctProgression={ 85 }/>
+                                        <PageFichiers
+                                            pochette={ this.props.pochette }
+                                        />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageLiens pctProgression={ 97 }/>
+                                        <PageInfluences
+                                            pochette={ this.props.pochette }
+                                        />
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageParoles
+                                            pochette={ this.props.pochette }
+                                        />
+                                    </Wizard.Page>
+
+                                    <Wizard.Page>
+                                        <PageLiens
+                                            pochette={ this.props.pochette }
+                                        />
                                     </Wizard.Page>
                                 </Wizard>
-
-                                <AudioLecture onRef={
-                                    (audio) => {
-                                        this.setState({ audio: audio })
-                                    }
-                                }/>
-                            </React.Fragment>
+                            </>
                     }
                 </Translation>
             )
