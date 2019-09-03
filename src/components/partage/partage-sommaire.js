@@ -579,19 +579,15 @@ export default class SommairePartage extends Component {
         })
     }
 
-    transmettre() {        
+    transmettre(t) {        
 
         Auth.currentAuthenticatedUser()
         .then(res=>{
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                return (<Translation>
-                    {
-                        t=>
-                            toast.error(t('erreur.volIdentite'))
-                    }
-                </Translation>)                
+                console.log('pas le droit')
+                toast.error(t('erreur.volIdentite'))    
             }
         })
         .catch(err=>{
@@ -675,10 +671,10 @@ export default class SommairePartage extends Component {
                                 !this.estVoteClos() && 
                                 (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
                                 (
-                                    <button disabled={!this.state.transmission} onClick={()=>{
-                                        this.transmettre()
+                                    <div className={`ui medium button ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={()=>{
+                                        this.transmettre(t)
                                     }}>{t('flot.bouton.voter')}
-                                    </button>
+                                    </div>
                                 )
                             }
                         </div>
