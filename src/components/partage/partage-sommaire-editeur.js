@@ -12,6 +12,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 
 import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
+import { truncate } from 'fs';
 
 export default class PartageSommaireEditeur extends Component {
 
@@ -20,11 +21,14 @@ export default class PartageSommaireEditeur extends Component {
         this.state = {
             part: props.part,
             proposition: props.proposition,
-            ayantDroit: props.ayantDroit
+            utilisateur: props.ayantDroit,
+            jetonApi: props.jetonApi,
+            modifierVote: false,
+            choix: props.part.etat === 'ACCEPTE' ? 'accept' : (props.part.etat === 'REFUSE' ? 'reject' : 'active')
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
-        this.changerVote = this.changerVote.bind(this)
+        this.changerVote = this.changerVote.bind(this)        
     }
 
     componentWillReceiveProps(nextProps) {
@@ -36,7 +40,10 @@ export default class PartageSommaireEditeur extends Component {
         } 
         if(this.props.avatars !== nextProps.avatars) {
             this.setState({avatars: nextProps.avatars})
-        }        
+        }
+        if(this.props.ayantDroit !== nextProps.ayantDroit) {
+            this.setState({ayantDroit: nextProps.ayantDroit})
+        }
     }
 
     componentWillMount() {
@@ -61,9 +68,7 @@ export default class PartageSommaireEditeur extends Component {
                 // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
                 let _rH = {}
                 let donnees = []
-                console.log(this.state.proposition)
-                let parts = this.state.proposition.rightsSplits.workCopyrightSplit
-                
+                let parts = this.state.proposition.rightsSplits.workCopyrightSplit                
                 // Paroles
                 parts.lyrics.forEach((elem, idx)=>{
                     if(!_rH[elem.rightHolder.rightHolderId]) {
@@ -185,7 +190,8 @@ export default class PartageSommaireEditeur extends Component {
                         fontSize: "1.2rem"
                     }}
                     onClick={()=>{
-                        this.state.parent.refuser(this.state.type, document.getElementById('raison').value)
+                        this.setState({choix: 'reject'})
+                        this.setState({raison: document.getElementById('raison').value})
                         onClose()
                         fn()
                     }}
@@ -205,6 +211,7 @@ export default class PartageSommaireEditeur extends Component {
 
     voter(choix) {
         let _monChoix = choix ? 'accept' : 'reject'
+        this.setState({modifierVote: true})
         this.setState({choix: _monChoix}, ()=>{
             this.activerBoutonVote()
         })
@@ -227,11 +234,11 @@ export default class PartageSommaireEditeur extends Component {
 
     envoi() {
         let body = {
-            userId: `${this.state.ayantDroit.rightHolderId}`,
-            droits: this.state.mesVotes,
+            userId: `${this.state.utilisateur.rightHolderId}`,
+            choix: this.state.choix,
             jeton: this.state.jetonApi
         }
-        axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
+        axios.post('http://api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
         .then((res)=>{
             window.location.reload()
         })
@@ -290,7 +297,8 @@ export default class PartageSommaireEditeur extends Component {
 
         let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees} />)
         
-        if(this.state.beneficiaire && this.state.donateur) {
+        if(this.state.beneficiaire && this.state.donateur) {                    
+
             return (
                 <div className="ui segment">
                     <div className="ui grid">
@@ -321,7 +329,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 {
                                                     !this.estVoteFinal() &&
                                                     this.state.ayantDroit && 
-                                                    this.state.part.shareeId === this.state.ayantDroit.rightHolderId && 
+                                                    this.state.part.shareeId === this.state.utilisateur.rightHolderId && 
                                                     (
                                                     <div className="ui five wide column">                                            
                                                         {   !this.state.modifierVote && this.boutonRefuser()}
@@ -339,7 +347,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 )}
                                                 {
                                                     this.state.monVote && 
-                                                    this.state.part.shareeId === this.state.ayantDroit.rightHolderId && this.state.monVote.raison
+                                                    this.state.part.shareeId === this.state.utilisateur.rightHolderId && this.state.monVote.raison
                                                 }
                                             </div>
                                         </div>
@@ -350,8 +358,8 @@ export default class PartageSommaireEditeur extends Component {
                                             <Translation>
                                                 {
                                                     t=>
-                                                        <div style={{color: this.state.part.etat === 'ACCEPTE' ? "green" : (this.state.part.etat === "REFUSE" ? "red" : "grey")}}>
-                                                            <strong>{this.state.part.etat}</strong>
+                                                        <div style={{color: this.state.choix === 'accept' ? "green" : (this.state.choix === "reject" ? "red" : "grey")}}>
+                                                            <strong>{t(`vote.${this.state.choix}`)}</strong>
                                                         </div>                                                    
                                                 }
                                             </Translation>
@@ -384,7 +392,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 {
                                                     t=>
                                                         <div style={{color: "green"}}>
-                                                            <strong>ACCEPTE</strong>
+                                                            <strong>{t(`vote.accept`)}</strong>
                                                         </div>                                                    
                                                 }
                                             </Translation>
@@ -400,11 +408,12 @@ export default class PartageSommaireEditeur extends Component {
                         </div>
                     </div>
                     {
-                        this.state.proposition.etat === "VOTATION" &&
+                        this.state.part.etat === "VOTATION" &&
+                        this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
                         (
                             <button disabled={!this.state.transmission} onClick={()=>{
                                 this.transmettre()
-                            }}> Voter
+                            }}> Voter 
                             </button>
                         )
                     }              

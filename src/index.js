@@ -24,6 +24,7 @@ import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import ListeOeuvres from './components/media/media-list'
 import ValiderSplit from './components/split/assistant-split'
 import VotationSplit from './components/split/votation-split'
+import VotationPartTiers from './components/partage/votation-part-tiers'
 import AssistantPartage from './components/partage/assistant-partage'
 
 // Tableau de bord
@@ -56,8 +57,8 @@ Amplify.configure({
   Auth: {
     mandatorySignIn: true,
     region: REGION,
-    userPoolId: "us-east-2_ps232HgJK",
-    userPoolWebClientId: "4lar9itoqvck6m8i4spn6kmceq"
+    userPoolId: "us-east-2_tK9rNdAB1",
+    userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
   }
 })
 
@@ -107,6 +108,7 @@ const renderRoutes = () => {
             <Route exact path="/partager/existant/:uuid" component={ContinuerProposition} />
             <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
             <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
+            <Route exact path="/partage/editeur/vote/:jeton" component={VoterPartTiers} />
           </Switch>
         </Router>
       </I18nextProvider>  
@@ -183,6 +185,18 @@ function renderLogin() {
   return (<Login />)
 }
 
+function VoterPartTiers (match) {
+  let jeton
+  
+  if(match.match.params) {
+    jeton = match.match.params.jeton
+  }
+
+  return (
+    <VotationPartTiers jeton={jeton} />
+  )
+}
+
 function VoterSplit(match) {
 
   let jeton
@@ -208,7 +222,7 @@ function ApprouverSplit({match}) {
 // Configuration des alertes utilisateur
 toast.configure({
   autoClose: 8000,
-  draggable: true
+  draggable: true,
 })
 
 ReactDOM.render( renderRoutes(), document.getElementById('root') )

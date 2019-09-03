@@ -10,7 +10,6 @@ import copyrightIconGreen from '../../assets/svg/icons/copyright-green.svg';
 import '../../assets/scss/assistant-form.scss';
 
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit";
-import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import ChampDate from "../page-assistant/champ-date";
 import Page from "../page-assistant/page";
 
@@ -19,7 +18,6 @@ import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
-import ChampTexte from "../page-assistant/champ-texte";
 
 export default class PageCreation extends Component {
     constructor(props) {
@@ -80,13 +78,14 @@ export default class PageCreation extends Component {
                                 <Entete
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
-                                    label={ 'Création' }
-                                    question={ 'Qui a participé à la création de ' + this.props.values.title + ' ?' }
-                                    description={ 'C’est ici que tu indiques qui a contribué à la création de cette pièce.' }
+                                    label={ t('flot.documenter.entete.creation') }
+                                    question={ t('flot.documenter.titre1') + this.props.values.title + "&#8239;?" }
+                                    description={ t('flot.documenter.titre1-description') }
                                 />
 
                                 <ChampDate
-                                    label="Date de création"
+                                    label={ t('flot.documenter.date-creation') }
+                                    placeholder={ t('flot.documenter.date-placeholder') }
                                     value={ this.props.values.creationDate }
                                     onChange={ value => this.props.setFieldValue('creationDate', value) }
                                 />
@@ -94,10 +93,10 @@ export default class PageCreation extends Component {
                                 <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
-                                    label="Auteurs"
+                                    label={ t('flot.documenter.auteur') }
                                     createLabel="Créer un nouveau collaborateur"
-                                    description="Qui a écrit les paroles de cette pièce musicale&#8239;?"
-                                    placeholder="Ajouter un auteur..."
+                                    description={ t('flot.documenter.auteur-description') }
+                                    placeholder={ t('flot.documenter.auteur-placeholder') }
                                     value={ this.state.songwriters }
                                     onChange={ ids => this.setState({ songwriters: ids }) }
                                 />
@@ -105,9 +104,9 @@ export default class PageCreation extends Component {
                                 <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
-                                    label="Compositeurs"
+                                    label={ t('flot.documenter.compositeur') }
                                     createLabel="Créer un nouveau collaborateur"
-                                    description="Qui a composé la musique de cette pièce musicale&#8239;?"
+                                    description={ t('flot.documenter.compositeur-description') }
                                     placeholder="Ajouter un compositeur..."
                                     value={ this.state.composers }
                                     onChange={ ids => this.setState({ composers: ids }) }
@@ -116,21 +115,20 @@ export default class PageCreation extends Component {
                                 <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
-                                    label="Éditeurs"
+                                    label={ t('flot.documenter.editeur') }
                                     createLabel="Créer un nouveau collaborateur"
-                                    description="Qui représente ces auteurs et/ou compositeurs&#8239;?"
-                                    placeholder="Ajouter un éditeur..."
+                                    description={ t(' flot.documenter.editeur-description') }
+                                    placeholder={ t(' flot.documenter.editeur-placeholder') }
                                     value={ this.state.publishers }
                                     onChange={ ids => this.setState({ publishers: ids }) }
                                 />
 
                                 <ChampTexte
-                                    label={'Code ISWC'}
-                                    description={'L\'International Standard Work Code est un code unique' +
-                                    ' d\'identification des oeuvres musicales.'}
-                                    placeholder={'Ajouter un code...'}
+                                    label={ t(' flot.documenter.code') }
+                                    description={ t(' flot.documenter.code-description') }
+                                    placeholder={ t(' flot.documenter.code-placeholder') }
                                     value={ this.props.values.iswc }
-                                    onChange={ value => this.props.setFieldValue('iswc', value) }
+                                    onChange={ value => this.props.setFieldValue(' iswc', value) }
                                 />
                             </Colonne>
                         </Page>

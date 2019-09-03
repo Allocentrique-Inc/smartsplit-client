@@ -3,7 +3,6 @@ input[id="password"] {
     width: 414px;
     margin: 5px 0 5px 0;   
     display: inline;
-
 }
 
 input[id="confirmpassword"] {
@@ -75,6 +74,10 @@ button[id="facebook"] {
     border-radius: 2px;
     background-color: #3C5A99;
     padding-right: 137px;
+    /* display: inline-block; */
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 250px);
   }
   
   .facebook {
@@ -88,6 +91,9 @@ button[id="facebook"] {
     border-radius: 2px;
     background-color: #4285F4;
     padding-right: 150px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 300px);
   }
   
   .google {
@@ -101,6 +107,9 @@ button[id="facebook"] {
     text-align: center;
     border-top: 1px solid#DCDFE1;
     border-bottom: 1px solid#DCDFE1;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 325px);
   }
   hr:after {
    /* content: "ou";*/
@@ -205,21 +214,36 @@ button[id="facebook"] {
   background-color: #2DA84F;
   color: white
 }
-/* .container {
-  display: inline-block;
-  text-align: center;
-  margin: 0 auto
+
+.section.auth{
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, 40px);
 }
 
-input {
-  margin: 0 auto;
-
+#registerHeader {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50px);
+  width: 464px;
 }
 
-.section.auth {
-  margin: 0 auto;
+#registerHead {
+  font-size: 40px;
 }
-/* div {
-  display: inline-block;
 
-} */
+#registerPrompt {
+  font-size: 16px;
+}
+
+
+header h1:after {
+  content:"En route vers \A la professionalisation.";
+  white-space: pre;
+}
+
+header h3:after {
+  content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";
+  white-space: pre;
+}

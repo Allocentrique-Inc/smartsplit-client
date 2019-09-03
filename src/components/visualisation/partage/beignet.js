@@ -20,6 +20,7 @@ export default class Beignet extends Component {
             margin: 0, //50,
             data: {},
             colors: {},
+            alphas: {},
             uuid: props.uuid
         }
                 
@@ -38,15 +39,18 @@ export default class Beignet extends Component {
     rafraichir(props) {
         let _d = {}
         let _c = {}
+        let _a = {}
         if(props.data && props.data.length > 0) {
             props.data.forEach(elem=>{
                 if(elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
                     _d[elem.nom] = elem.pourcent
                 }
                 _c[elem.nom] = elem.color
+                _a[elem.nom] = elem.alpha
             })
             this.setState({data: _d})
             this.setState({colors: _c})
+            this.setState({alphas: _a})
         }
     }
 
@@ -77,6 +81,10 @@ export default class Beignet extends Component {
         let color = d3.scaleOrdinal() // D3 Version 4
             .domain(Object.keys(this.state.colors))
             .range(Object.values(this.state.colors));
+        
+            let alpha = d3.scaleOrdinal() // D3 Version 4
+            .domain(Object.keys(this.state.alphas))
+            .range(Object.values(this.state.alphas));
 
         // Compute the position of each group on the pie:
         let pie = d3.pie()
@@ -105,7 +113,7 @@ export default class Beignet extends Component {
             .attr('fill', function(d){ return(color(d.data.key)) })
             .attr("stroke", "white")
             .style("stroke-width", "2px")
-            .style("opacity", 0.7)
+            .style("opacity", function(d){ return(alpha(d.data.key) ? 0.1 : 0.9)})
 
         // Add the polylines between chart and labels:
         svg

@@ -52,7 +52,7 @@
                 "album": "Work album",
                 "reprise": "",
                 "artiste": "Who is the main artist ?",
-                "juridiction": "What is the legal jurisdiction (country) ?",
+                "juridiction": "What is the legal jurisdiction (country)?",
                 "ayantDroit": "Select one or more collaborators",
                 "genre": "Select the primary work genre",
                 "genre2": "Select the secondary work genre",
@@ -65,11 +65,11 @@
                 "liensServices": "URL for streaming link",
                 "liensPresse": "URL for press review",
                 "liensListes": "URL for playlist",
-                "dateCreation": "When was the work created or composed ?",
-                "dateModification": "When was the work modified ?",
-                "datePublication": "When was the work published ?",
-                "editeur": "Who is the publisher of the work ?",
-                "repartition": "How is the work splitted among contributors ?"
+                "dateCreation": "When was the work created or composed?",
+                "dateModification": "When was the work modified?",
+                "datePublication": "When was the work published?",
+                "editeur": "Who is the publisher of the work?",
+                "repartition": "How is the work splitted among contributors?"
             }            
         },
         "creePar": "Created by"
@@ -88,7 +88,7 @@
         "televersement":  {
             "titre": "Upload your source file",
             "indication": "Drag the file you want to upload and drop it here, or clic here to choose the file.",
-            "preambule": "Lorem ipsium, here you can upload your source file. It will be accessible only to those who have private access. You could then share your work with radio stations, broadcasters and so on. The link to the file is not publicly available."
+            "preambule": "Here you can upload your source file. It will be accessible only to those who have private access. You could then share your work with radio stations, broadcasters and so on. The link to the file is not publicly available."
         }
     },
     "image": {
@@ -100,21 +100,29 @@
         "split": {
             "sommaire": {
                 "titre": "Split's Summary",
-                "soustitre": "Begin : an initial Split created by"
+                "soustitre": "Begin: an initial Split created by"
+            },
+            "etat": {
+                "VOTATION": "VOTING",
+                "REFUSE": "DENIED",
+                "ACCEPTE": "ACCEPTED",
+                "BROUILLON": "DRAFT",
+                "PRET": "READY",
+                "INCONNU": "UNDEFINED"
             },
             "valider": {
-                "titre": "Valide ton Split",
-                "soustitre": "Invite tes collaborateurs à valider ce Split"
+                    "titre": "Validate Your Split",
+                    "soustitre": "Invite your contributers to validate this split"
             }
         },
         "documente-ton-oeuvre": {
-            "titre": "STEP 1 - Share your rights",
-            "preambule": "Hi Joe ! We will help you describe your work."
+            "titre": "Split your Rights",
+            "preambule": "Hi! We will help you describe your work."
         },
         "collaborateurs": {
             "titre": "What are the roles of each in {oeuvre} ?",
-            "preambule": "Let's begin with yourself ...",
-            "role": "Joe, what is your role in the work ?",
+            "preambule": "Let's begin with yourself...",
+            "role": "What is your role in the work?",
             "ajout": "Add a first collaborator"
         },
         "paroles": {
@@ -123,18 +131,41 @@
         },
         "genre": {
             "titre": "What are the genres of the work ?",
-            "preambule": "Genre, style, kind of ... ?"
+            "preambule": "Genre, style, kind of...?"
+        },
+        "documenter": {
+            "entete": {
+                "creation": "Creation",
+                "interpretation": "Performance"
+                },
+            "titre1": "Who participated in the creation of", 
+            "titre1-description": "That's where you mention who contributed to the creation of this piece.",
+                "date-creation": "Creation Date",
+                "date-placeholder": "Add a date",
+                "auteur": "Authors",
+                "auteur-placeholder": "Add an author",
+                "auteur-description": "Who wrote the lyrics of this musical piece?",
+                "compositeur": "Composers",
+                "compositeur-description": "Who composed the music of this piece?",
+                "editeur": "Editors",
+                "editeur-description": "Who represents these authors and/or composers?",
+                "editeur-placeholder": "Add an editor",
+                "code": "ISWC Code",
+                "code-description": "The International Standard Work Code is a unique identifying code for music work.",
+                "code-placeholder": "Add a code",
+            "titre2": "Who played the musical piece on this sound recording?",
+            "titre2-description": "Here you mention who played which instrument."
         },
         "pro": {
-            "titre": "Are you a professional ?",
+            "titre": "Are you a professional?",
             "preambule": "Your intellectual property is identified with two numbers: UPC and ISRC (if recorded). Link them here."
         },
         "envoi": {
-            "reussi": "Transfer successful !",
+            "reussi": "Transfer successful!",
             "echec": "Transfer failed"
         },
         "envoifichier": {
-            "reussi": "File transfer successful !",
+            "reussi": "File transfer successful!",
             "echec": "File transfer failed"
         },
         "lien": {
@@ -157,8 +188,8 @@
         },
         "etape": {            
             "partage-etape": "Step 2",
-            "partage-titre": "Share the rights",
-            "enregistrerEtQuitter": "Save and quit",
+            "partage-titre": "Split your rights",
+            "enregistrerEtQuitter": "Save and Quit",
             "vote-titre": "Validate the share proposal"
         },
         "partage": {
@@ -189,7 +220,7 @@
         },
         "preambules": {
             "titre1": "Step 1",
-                "sous-titre1": "Share your rights",
+                "sous-titre1": "Split your Rights",
                 "intro1": "Create the shares on your rights using our guide. You'll see, it's a lot easier than you think :)",
             "titre2": "Step 2",
                 "sous-titre2": "Document your work",
@@ -204,7 +235,7 @@
         "proposition": {
             "nouvelle" : "Create a new version",
             "envoyer": "Send to collaborators",
-            "continuer": "Continue to share the rights"
+            "continuer": "Continue to split the rights"
         },
         "bouton": {
             "ajout": "Add"
@@ -288,7 +319,7 @@
     },
     "vote": {
         "accept": "Approved",
-        "reject": "Refused",
+        "reject": "Rejected",
         "active": "Waiting for a decision",
         "accepter": "ACCEPT",
         "refuser": "REJECT"
@@ -297,6 +328,11 @@
         "egal": "Share evenly",
         "roles": "Share according to roles",
         "manual": "Share manually"
-    
+    },
+    "droits": {
+        "auteur": "Copyright"
+    },   
+    "erreur": {
+        "volIdentite": "You're trying to do an operation than belong to another user"
     }
 }

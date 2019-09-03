@@ -146,7 +146,7 @@ export default class SommairePartages extends Component {
                                 <div className="ui row">
                                     <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
                                         <Icon name='dropdown' />
-                                        Version {idx + 1} - {elem.etat ? elem.etat : "INCONNU"}
+                                        Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
                                         <div>
                                             <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                             <div className="small-500-color" style={{display: "inline-block"}}>{`${elem.initiator.name}`}</div>
@@ -261,7 +261,7 @@ export default class SommairePartages extends Component {
                                                 }
                                                 {
                                                     this.state.partEditeur &&
-                                                    <PartageSommaireEditeur part={this.state.partEditeur} proposition={_p0} avatars={this.state.avatars} />
+                                                    <PartageSommaireEditeur ayantDroit={this.state.ayantDroit} part={this.state.partEditeur} proposition={_p0} />
                                                 }
                                                 <div className="ui one wide column" />                                                
                                             </div>

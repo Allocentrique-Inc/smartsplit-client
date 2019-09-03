@@ -40,9 +40,9 @@ export default class PageInterpretation extends Component {
                                 <Entete
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
-                                    label={ 'Interprétation' }
-                                    question={ 'Qui a interprété la pièce musicale sur cet enregistrement sonore?' }
-                                    description={ 'C’est ici que tu indiques qui a joué quel instrument.' }
+                                    label={ t('flot.documenter.entete.interpretation') }
+                                    question={ t('flot.documenter.titre2') }
+                                    description={ t('flot.documenter.titre2-description') }
                                 />
 
                                 <ChampSelectionInterprete

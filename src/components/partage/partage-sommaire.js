@@ -46,7 +46,7 @@ const ROLES_NAMES = {
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
 const TITRES = {
-    workCopyrightSplit: "Droits d'auteur", 
+    workCopyrightSplit: "Droits d'auteur",
     performanceNeighboringRightSplit: "Interprétation", 
     masterNeighboringRightSplit: "Enregistrement sonore"
 }
@@ -191,7 +191,8 @@ class SommaireDroit extends Component {
                 
                 let _donnees = _aD[__e.rightHolder.rightHolderId]
                 _donnees.nom = __e.rightHolder.name
-                _donnees.vote = __e.voteStatus     
+                _donnees.vote = __e.voteStatus
+                _donnees.raison = __e.comment
                 _donnees.color = __e.rightHolder.color
                 _donnees.rightHolderId = __e.rightHolder.rightHolderId
                 _donnees.sommePct = (parseFloat(_donnees.sommePct) + parseFloat(__e.splitPct)).toFixed(4)
@@ -240,7 +241,7 @@ class SommaireDroit extends Component {
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
-            _data.push({nom: part.nom, pourcent: part.sommePct, color: part.color})  
+            _data.push({nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison})  
             
             let _vote
             if(this.state.monVote) {
@@ -289,10 +290,7 @@ class SommaireDroit extends Component {
                                             }                                            
                                         </div>
                                     )}
-                                    {
-                                        this.state.monVote && 
-                                        uuid === this.state.ayantDroit.rightHolderId && this.state.monVote.raison
-                                    }
+                                    {part.raison ? part.raison : ""}
                                 </div>
                             </div>
                             <div className="ui three wide column">
@@ -429,6 +427,7 @@ export default class SommairePartage extends Component {
                     this.rafraichissementAutomatique()
                     if(this.estVoteFinal()){
                         // C'était le dernier rafraichissement (p.ex. cas où le dernier vote entre)
+                        this.rafraichirDonnees()
                         this.setState({rafraichir: false})
                     }
                 }
@@ -579,7 +578,16 @@ export default class SommairePartage extends Component {
 
         Auth.currentAuthenticatedUser()
         .then(res=>{
-            this.envoi()
+            if(res.username === this.state.ayantDroit.rightHolderId) {
+                this.envoi()
+            } else {
+                return (<Translation>
+                    {
+                        t=>
+                            toast.error(t('erreur.volIdentite'))
+                    }
+                </Translation>)                
+            }
         })
         .catch(err=>{
             toast.error(err.message)
@@ -598,12 +606,23 @@ export default class SommairePartage extends Component {
                         boxShadow: "inset 0px -1px 0px #DCDFE1"
                     },
                 customUI: ({ onClose }) => 
-                    <div>
-                        <LogIn message="Connecte-toi pour voter" fn={()=>{
-                            this.envoi()
-                            onClose()
-                        }} />
-                </div>
+                    <Translation>
+                        {
+                            t=>
+                                <LogIn message="Connecte-toi pour voter" fn={()=>{
+                                    Auth.currentAuthenticatedUser()
+                                    .then(res=>{
+                                        console.log("utilisateur", res, "ayantDroit", this.state.ayantDroit)                                        
+                                        if(res.username === this.state.ayantDroit.rightHolderId) {
+                                            this.envoi()
+                                            onClose()
+                                        } else {
+                                            toast.error(t('erreur.volIdentite'))
+                                        }
+                                    })                            
+                                }} />
+                        }
+                    </Translation>
             })
         })
         

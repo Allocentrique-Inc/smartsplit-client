@@ -24,36 +24,37 @@ class ModifyUser extends Component {
     constructor(props) {
         super(props)
 
-        this.state = {
-            groups: [],
-            image: '',
-            firstName: props.firstName,
-            lastName: '',
-            artistName: '',
-            email: '',
-            avatarImage: '',
-            open: props.open,
-            // collabGroup: '',
-            newUser: true,
-            defaultRoles: [],
-            currentValue: [],
-            currentRoleValue: [],
-            roles: [
-                { key: "Principal", text: "Principal", value: "Principal" },
-                { key: "Accompaniment", text: "Accompaniment", value: "Aaccompaniment" },
-                { key: "Songwriter", text: "Songwriter", value: "Songwriter" },
-                { key: "Composer", text: "Composer", value: "Composer" },
-                { key: "Remixer", text: "Remixer", value: "Remixer" },
-                { key: "Studio", text: "Studio", value: "Studio" },
-                { key: "Publisher", text: "Publisher", value: "Publisher" },
-                { key: "Graphist", text: "Graphist", value: "Graphist" },
-                { key: "Producer", text: "Producer", value: "Producer" },
-                { key: "Singer", text: "Singer", value: "Singer" },
-                { key: "Musician", text: "Musician", value: "Musician" }
-            ]
-        }
+    this.state = { 
+      groups: [],
+      image:'',
+      firstName: props.firstName,
+      lastName: '',
+      artistName: '',
+      email: '',
+      avatarImage: '',
+      open: props.open,
+      // collabGroup: '',
+      newUser: true,
+      defaultRoles: [],
+      currentValue: [],
+      currentRoleValue: [],
+      roles: [
+        {key: "Principal", text: "Principal", value: "Principal"},
+        {key: "Accompaniment", text: "Accompaniment", value: "Accompaniment"},
+        {key: "Songwriter", text: "Songwriter", value: "Songwriter"},
+        {key: "Composer", text: "Composer", value: "Composer"},
+        {key: "Remixer", text: "Remixer", value: "Remixer"},   
+        {key: "Studio", text: "Studio", value: "Studio"},
+        {key: "Publisher", text: "Publisher", value: "Publisher"},
+        {key: "Graphist", text: "Graphist", value: "Graphist"},
+        {key: "Producer", text: "Producer", value: "Producer"},
+        {key: "Singer", text: "Singer", value: "Singer"},
+        {key: "Musician", text: "Musician", value: "Musician"}
+      ]
+    }
 
-        // BIND TODO
+    // BIND TODO
+    this.click = this.click.bind(this)
 
 
     }
@@ -64,9 +65,8 @@ class ModifyUser extends Component {
     }
 
     close = () => {
-        this.setState({ open: false });
-        this.props.onClose();
-    };
+        this.setState({ open: false })        
+    }
 
     handleAddition = (e, { value }) => {
         this.setState(prevState => ({
@@ -103,47 +103,47 @@ class ModifyUser extends Component {
         );
     }
 
-    handleSubmit = values => {
+  click(){
+    this.handleSubmit();
+    this.close();
+  }
 
-        let body = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            artistName: this.state.artistName,
-            email: this.state.email,
-            groups: this.state.currentValue,
-            defaultRoles: this.state.currentRoleValue,
-            jurisdiction: "Canada",
-            newUser: true,
-            avatarImage: "faceapp.jpg"
-        }
+  handleSubmit = values => { 
 
-        try {
-            axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
-                .then(
-                    this.props.history.push("/"),
-                    // TODO Add modal close action
-                    this.close,
-                    toast.success('user created / modified')
-                )
-                .catch((err) => {
-                    // toast.error(err.message)
-                    console.log(err)
-                })
-                .finally(() => {
-                    if (this.props.fn) {
-                        this.props.fn()
-                    }
-                })
-        } catch (err) {
-            console.log(err)
-        }
+    let body = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        artistName: this.state.artistName,
+        email: this.state.email,
+        groups: this.state.currentValue,
+        defaultRoles: this.state.currentRoleValue,
+        jurisdiction: "Canada",
+        newUser: true,
+        avatarImage: "faceapp.jpg"
     }
 
-    onTodoChange(value) {
-        this.setState({
-            firstName: value
-        });
+    try {
+    axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
+    .then(
+        ()=>{
+            console.log('user created / modified')
+            toast.success('user created / modified')
+            // TODO Add Callback for page refresh
+        }        
+    )      
+    .catch((err)=>{
+        // toast.error(err.message)
+        console.log(err)
+    })
+    .finally(()=>{
+        if(this.props.fn) {
+        this.props.fn()
+        }
+    })
+    } catch (err) {
+        console.log(err)
     }
+  }
 
     componentDidMount() {
         let groups = [];
@@ -208,68 +208,57 @@ class ModifyUser extends Component {
             <Input type="file" className="fileUpload" onChange={this.handleFileUpload}/>
             <button size='tiny' className="fileDelete" onChange={this.handleFileDelete}>Annuler</button>
           </Modal.Description>
-        </Modal.Content> */ }
-                <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal"
-                                                  value={ this.state.firstName }
-                                                  onChange={ e => this.onTodoChange(e.target.value) }/>
-                <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal"
-                                               value={ this.state.lastName }
-                                               onChange={ e => this.setState({ lastName: e.target.value }) }/>
-                <label>Nom d'artiste</label><label id="Optionel">Optionel</label><input type="text"
-                                                                                        className="artistName"
-                                                                                        placeholder="Nom d'artiste"
-                                                                                        value={ this.state.artistName }
-                                                                                        onChange={ e => this.setState({ artistName: e.target.value }) }/>
-                Si non applicable, nous afficherons son nom complet.
-                <label>Courriel</label><input type="text" className="email" placeholder="Courriel"
-                                              value={ this.state.email }
-                                              onChange={ e => this.setState({ email: e.target.value }) }/>
-                <label>Groupes</label>
-                <Dropdown
-                    className="prompt"
-                    type="text"
-                    paceholder="Groupes"
-                    options={ this.state.groups }
-                    placeholder='Choisir group'
-                    search
-                    // multiple
-                    multiple={ true }
-                    selection
-                    fluid
-                    allowAdditions
-                    value={ currentValue }
-                    onAddItem={ this.handleAddition }
-                    onChange={ this.handleChange }
-                />
-                <i className="search icon"></i>
-                <label>Rôle(s) par défaut</label>
-                <Dropdown
-                    className="roles"
-                    type="text"
-                    paceholder="Roles"
-                    options={ this.state.roles }
-                    placeholder='Choisir group'
-                    search
-                    // multiple
-                    multiple={ true }
-                    selection
-                    fluid
-                    value={ currentRoleValue }
-                    onChange={ this.roleChange }
-                />
-                {/* <div className="roles">
+        </Modal.Content> */}
+          <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
+          <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
+          <label>Nom d'artiste</label><label id="Optionel">Optionel</label><input type="text" className="artistName" placeholder="Nom d'artiste" value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
+          Si non applicable, nous afficherons son nom complet.
+          <label>Courriel</label><input type="text" className="email" placeholder="Courriel" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
+          <label>Groupes</label>
+            <Dropdown 
+              className="prompt"
+              type="text" 
+              paceholder="Groupes"
+              options={this.state.groups}
+              placeholder='Choisir group'
+              search
+              // multiple
+              multiple={true}
+              selection
+              fluid
+              allowAdditions
+              value={currentValue}
+              onAddItem={this.handleAddition}
+              onChange={this.handleChange}
+            />
+            <i className="search icon"></i>
+          <label>Rôle(s) par défaut</label>
+          <Dropdown 
+              className="roles"
+              type="text" 
+              paceholder="Roles"
+              options = {this.state.roles}
+              placeholder='Choisir group'
+              search
+              // multiple
+              multiple={true}
+              selection
+              fluid
+              value={currentRoleValue}
+              onChange={this.roleChange}
+            />
+          {/* <div className="roles">
             { renderCheckbox() }
-          </div> */ }
-                Ces rôles pourront toujours être modifiés plus tard.
-                <Modal.Actions>
-                    <Button onClick={ this.close } negative>Annuler</Button>
-                    <Button onClick={ this.handleSubmit } positive icon='checkmark' labelPosition='right'
-                            content='Sauvegarder'/>
-                </Modal.Actions>
-            </Modal>
-        )
-    }
-
+          </div> */} 
+          Ces rôles pourront toujours être modifiés plus tard.
+        <Modal.Actions>
+                <Button onClick={this.close} negative>Annuler</Button>
+                <Button onClick={this.click} positive icon='checkmark' labelPosition='right' content='Sauvegarder' />
+          </Modal.Actions>
+      </Modal>
+    )
+  }
+  
 }
 
 export default ModifyUser

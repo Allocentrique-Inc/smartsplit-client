@@ -13,7 +13,7 @@ import { Auth } from "aws-amplify";
 
 
 class Register extends Component {
-  state = { firstName: false, username: false, lastName: false, artistName: false }
+  state = { username: false }
 
   constructor(props) {
     super(props);
@@ -94,9 +94,9 @@ class Register extends Component {
     // AWS Cogni"to integration here 
     const username = values.username;
     const email = values.username; // username is used as email
-    const firstName = values.firstName;
-    const lastName = values.lastName;
-    const artistName = values.artistName;
+    // const firstName = values.firstName;
+    // const lastName = values.lastName;
+    // const artistName = values.artistName;
     const password = this.state.password;
     // console.log(password, username, email, firstName, lastName)
 
@@ -105,11 +105,7 @@ class Register extends Component {
         username,
         password,
         attributes: {
-          email: email,
-          name: firstName,
-          family_name: lastName,
-          'custom:artistName': artistName,
-          'custom:avatarImage': 'image.jpg'
+          email: email
         }
       })
       // Auth.currentSession().then(
@@ -221,9 +217,9 @@ class Register extends Component {
               {
                 // email: this.state.email,
                 username: this.state.username,
-                firstName: this.state.firstName,
-                lastName: this.state.lastName,
-                artistName: this.state.artistName,
+                // firstName: this.state.firstName,
+                // lastName: this.state.lastName,
+                // artistName: this.state.artistName,
                 password: this.state.password,
                 hidden: true,
                 confirmpassword: this.state.confirmpassword,
@@ -238,6 +234,10 @@ class Register extends Component {
 
       {({ errors, touched, isValidating }) => (
       <Form>
+        <header id="registerHeader">
+          <h1 id="registerHead"></h1>
+          <h3 id="registerPrompt"></h3>
+        </header>
         <SignInFacebook text="Créer mon compte avec Facebook"></SignInFacebook>
         <SignInGoogle>"Créer mon compte avec Google"</SignInGoogle>
             <br></br>
@@ -247,53 +247,6 @@ class Register extends Component {
             <br></br>
       <section className="section auth">
         <div className="container">
-          <h1>Register</h1>
-          <div className="field">
-              <div className="control has-icons-left has-icons-right">
-                <Field 
-                  name="firstName"
-                  id="firstName"
-                  aria-describedby="firstNameHelp"
-                  placeholder="Enter First Name"
-                  value={this.state.firstName}
-                  required={true}
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
-                </span>
-              </div>
-            </div>
-            <div className="field">
-              <div className="control has-icons-left has-icons-right">
-                <Field
-                  name="lastName"
-                  id="lastName"
-                  aria-describedby="=lastNameHelp"
-                  placeholder="Enter Last Name"
-                  value={this.state.lastName}
-                  required={true}
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
-                </span>
-              </div>
-            </div>
-            <div className="field">
-              <div className="control has-icons-left has-icons-right">
-                <Field 
-                  name="artistName" 
-                  type="artistName"
-                  id="artistName"
-                  aria-describedby="artistNameHelp"
-                  placeholder="Enter Artist Name"
-                  value={this.state.artistName}
-                  required={true}
-                />
-                <span className="icon is-small is-left">
-                  <i className="fas fa-envelope"></i>
-                </span>
-              </div>
-            </div>
             <div className="field">
               <div className="control">
                 <Field
