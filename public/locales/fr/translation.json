@@ -240,7 +240,8 @@
             "continuer": "Continuer le partage"
         },
         "bouton": {
-            "ajout": "Ajouter"
+            "ajout": "Ajouter",
+            "voter": "VOTER"
         }
     },
     "traitement": {
@@ -327,7 +328,12 @@
         "manual": "Partager manuellement"
     },
     "droits": {
-        "auteur": "Droits d'auteur"
+        "auteur": "Droits d'auteur",
+        "titre": {
+            "workCopyrightSplit": "Droits d'auteur",
+            "performanceNeighboringRightSplit": "Interprétation",
+            "masterNeighboringRightSplit": "Enregistrement sonore"
+        }
     },
     "erreur": {
         "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
