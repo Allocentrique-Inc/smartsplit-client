@@ -18,7 +18,7 @@ export default class ChampDate extends Component {
                             />
 
                             <DateInput
-                                localization={ i18n.lng.substring(0, 2) }
+                                localization={ /*'fr'*/ i18n.language }
                                 placeholder={ t('flot.documenter.date-placeholder') }
                                 value={ this.props.value }
                                 onChange={ (event, props) => this.props.onChange(event, props) }

@@ -20,9 +20,7 @@ export default class Entete extends React.Component {
                     </span>
                 </h1>
 
-                <h2 className="question">
-                    { this.props.question }
-                </h2>
+                <h2 className="question" dangerouslySetInnerHTML={ { __html: this.props.question } }/>
 
                 <p className="description">
                     { this.props.description }

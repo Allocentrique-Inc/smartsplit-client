@@ -16,6 +16,7 @@ import Page from "../page-assistant/page";
 import * as roles from '../../assets/listes/role-uuids.json';
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
+import ChampTexte from "../page-assistant/champ-texte";
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
 
@@ -79,7 +80,7 @@ export default class PageCreation extends Component {
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
                                     label={ t('flot.documenter.entete.creation') }
-                                    question={ t('flot.documenter.titre1') + this.props.values.title + "&#8239;?" }
+                                    question={ t('flot.documenter.titre1') + ' ' + this.props.values.title + "&#8239;?" }
                                     description={ t('flot.documenter.titre1-description') }
                                 />
 
@@ -117,16 +118,16 @@ export default class PageCreation extends Component {
                                     items={ this.rightHolderOptions() }
                                     label={ t('flot.documenter.editeur') }
                                     createLabel="Créer un nouveau collaborateur"
-                                    description={ t(' flot.documenter.editeur-description') }
-                                    placeholder={ t(' flot.documenter.editeur-placeholder') }
+                                    description={ t('flot.documenter.editeur-description') }
+                                    placeholder={ t('flot.documenter.editeur-placeholder') }
                                     value={ this.state.publishers }
                                     onChange={ ids => this.setState({ publishers: ids }) }
                                 />
 
                                 <ChampTexte
-                                    label={ t(' flot.documenter.code') }
-                                    description={ t(' flot.documenter.code-description') }
-                                    placeholder={ t(' flot.documenter.code-placeholder') }
+                                    label={ t('flot.documenter.code') }
+                                    description={ t('flot.documenter.code-description') }
+                                    placeholder={ t('flot.documenter.code-placeholder') }
                                     value={ this.props.values.iswc }
                                     onChange={ value => this.props.setFieldValue(' iswc', value) }
                                 />
