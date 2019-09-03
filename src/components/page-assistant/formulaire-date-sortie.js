@@ -8,7 +8,7 @@ export default class FormulaireDateSortie extends React.Component {
         super(props);
 
         this.state = {
-            determined: this.props.value,
+            determined: Boolean(this.props.value),
             value: this.props.value,
         }
     }
@@ -26,12 +26,14 @@ export default class FormulaireDateSortie extends React.Component {
     handleRadioChange = event => this.setState({ determined: (event.target.value === 'true') });
 
     renderChampDate() {
-        return this.state.determined === 'true' ?
+        return this.state.determined ?
             (
-                <ChampDate
-                    value={ this.state.inputValue }
-                    onChange={ value => this.setState({value: value})}
-                />
+                <div className="champ-date-sortie">
+                    <ChampDate
+                        value={ this.state.value || '' }
+                        onChange={ value => this.setState({value: value})}
+                    />
+                </div>
             ) :
             (<></>);
 
@@ -59,7 +61,7 @@ export default class FormulaireDateSortie extends React.Component {
                 </div>
 
                 <div>
-                    <div className="ui radio checkbox">
+                    <div className="ui radio checkbox date-sortie-determinee">
                         <input type="radio"
                                name="type"
                                value='true'
