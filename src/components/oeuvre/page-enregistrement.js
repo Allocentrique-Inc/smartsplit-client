@@ -31,8 +31,8 @@ export default class PageEnregistrement extends React.Component {
             producers: [],
             recordLabels: [],
             distributors: [],
-            releaseDate: null,
-            upc: null
+            releaseDate: '',
+            upc: ''
         };
     }
 

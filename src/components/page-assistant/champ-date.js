@@ -18,10 +18,10 @@ export default class ChampDate extends Component {
                             />
 
                             <DateInput
-                                localization={ String(i18n.lng).substr(0,2) }
+                                localization={ String(i18n.lng).substr(0, 2) }
                                 placeholder={ t('flot.documenter.date-placeholder') }
                                 value={ this.props.value }
-                                onChange={ (event, props) => this.props.onChange(event, props) }
+                                onChange={ (event, { value }) => this.props.onChange(value) }
                                 icon="calendar outline"
                             />
                         </label>
