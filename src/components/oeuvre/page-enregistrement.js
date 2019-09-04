@@ -27,10 +27,13 @@ export default class PageEnregistrement extends React.Component {
             soundRecordists: [],
             mixEngineers: [],
             masterEngineers: [],
-            studios: [],
+            studioName: '',
+            studioAddress: '',
             producers: [],
-            recordLabels: [],
-            distributors: [],
+            recordLabelName: '',
+            recordLabelAddress: '',
+            distributorName: '',
+            distributorAddress: '',
             releaseDate: '',
             upc: ''
         };
@@ -122,15 +125,21 @@ export default class PageEnregistrement extends React.Component {
                                     onChange={ ids => this.setState({ masterEngineers: ids }) }
                                 />
 
-                                <ChampSelectionMultiple
+                                <ChampTexte
                                     pochette={ this.props.pochette }
-                                    items={ this.studioOptions() }
-                                    label="Studio d’enregistrement"
-                                    createLabel="Créer un nouveau studio"
+                                    label="Studio d’enregistrement – nom"
                                     description="C’est le lieu où la chanson a été enregistrée."
-                                    placeholder="Rechercher un studio d'enregistrement..."
-                                    value={ this.state.studios }
-                                    onChange={ ids => this.setState({ studios: ids }) }
+                                    placeholder="Nom du studio d'enregistrement..."
+                                    value={ this.state.studioName }
+                                    onChange={ value => this.setState({ studioName: value }) }
+                                />
+
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Studio d’enregistrement – adresse"
+                                    placeholder="Adresse du studio d'enregistrement..."
+                                    value={ this.state.studioAddress }
+                                    onChange={ value => this.setState({ studioAddress: value }) }
                                 />
 
                                 <ChampSelectionMultipleAyantDroit
@@ -155,22 +164,38 @@ export default class PageEnregistrement extends React.Component {
 
                                 <h3 className="section-title">Sortie</h3>
 
-                                <ChampSelectionMultiple
-                                    label="Étiquette"
-                                    items={ this.labelOptions() }
-                                    description="C’est l’entité qui s’occupe de commercialiser ta pièce."
-                                    placeholder="Ajouter une étiquette..."
-                                    value={ this.state.recordLabels }
-                                    onChange={ ids => this.setState({ recordLabels: ids }) }
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Étiquette – nom"
+                                    description="C’est le lieu où la chanson a été enregistrée."
+                                    placeholder="Nom de l'étiquette..."
+                                    value={ this.state.recordLabelName }
+                                    onChange={ value => this.setState({ recordLabelName: value }) }
                                 />
 
-                                <ChampSelectionMultiple
-                                    label="Distribution"
-                                    items={ this.distributorOptions() }
-                                    description="C’est l’entité qui s’occupe de commercialiser ta pièce."
-                                    placeholder="Ajouter une étiquette..."
-                                    value={ this.state.distributors }
-                                    onChange={ ids => this.setState({ distributors: ids }) }
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Étiquette – adresse"
+                                    placeholder="Adresse de l'étiquette..."
+                                    value={ this.state.recordLabelAddress }
+                                    onChange={ value => this.setState({ recordLabelAddress: value }) }
+                                />
+
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Distributeur – nom"
+                                    description="C’est l'entité qui s'occupe de commercialiser la pièce."
+                                    placeholder="Nom du distributeur..."
+                                    value={ this.state.distributorName }
+                                    onChange={ value => this.setState({ distributorName: value }) }
+                                />
+
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Distributeur – adresse"
+                                    placeholder="Adresse du distributeur..."
+                                    value={ this.state.distributorAddress }
+                                    onChange={ value => this.setState({ distributorAddress: value }) }
                                 />
 
                                 <FormulaireDateSortie
