@@ -107,7 +107,7 @@ export class FormulaireMusicien extends Component {
                     </div>
                 </div>
 
-                <div className="instrument-divider"></div>
+                <div className="section-divider"></div>
             </>
         );
     }

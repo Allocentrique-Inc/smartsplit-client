@@ -141,7 +141,7 @@ export default class PageEnregistrement extends React.Component {
                                     onChange={ value => this.props.setFieldValue('isrc', value) }
                                 />
 
-                                <div className="instrument-divider"></div>
+                                <div className="section-divider"></div>
 
                                 <h3 className="section-title">Sortie</h3>
 

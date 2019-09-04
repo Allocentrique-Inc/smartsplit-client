@@ -1,17 +1,19 @@
 import React from 'react';
 import ChampFichier from "./champ-fichier";
-import ChampAcces from "./champ-acces";
+import ChampAccesTelechargement from "./champ-acces-telechargement";
 
-export default class ChampTeleversement extends React.Component {
-    render() {
-        return (
-            <div className="section-televersement">
-                <ChampFichier
-                    label={ this.props.label }
-                    undertext={ this.props.undertext }
-                />
-                <ChampAcces/>
-            </div>
-        );
-    }
+export default function ChampTeleversement(props) {
+    return (
+        <div className="section-televersement">
+            <ChampFichier
+                label={ props.label }
+                undertext={ props.undertext }
+            />
+
+            <ChampAccesTelechargement
+                value={ props.defaultAccessValue }
+            />
+        </div>
+    );
 }
+

@@ -1,79 +1,31 @@
 import React from 'react';
-import { Dropdown, Header } from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
 import DownloadCloudIcon from '../../assets/svg/icons/download-cloud.svg';
 import DownloadLockIcon from '../../assets/svg/icons/download-lock.svg';
 import LockFullIcon from '../../assets/svg/icons/lock-full.svg';
 import TitreChamp from "./titre-champ";
+import OptionAcces from "./option-acces";
+import '../../assets/scss/page-assistant/champ-acces.scss';
+
 
 export default class ChampAcces extends React.Component {
-    accessOptions = [
-        {
-            key: 'public',
-            value: 'public',
-            text: 'Public',
-            'icon-image': DownloadCloudIcon,
-            content: (
-                <div className={ 'access-option-content' }>
-                    <div className={ 'title' }>
-                        <img src={ DownloadCloudIcon }/>
-                        Public – Téléchargeable par tous
-                    </div>
-
-                    <div className={ 'description' }>
-                        Tous les utilisateurs pourront télécharger le fichier original.
-                    </div>
-                </div>
-
-            )
-        },
-        {
-            key: 'on-invite',
-            value:
-                'on-invite',
-            text:
-                'Sur invitation',
-            'icon-image':
-            DownloadLockIcon,
-            content:
-                (
-                    <Header
-                        icon='mobile'
-                        content='Sur invitation - Téléchargeable par certains'
-                        subheader='Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !'
-                    />
-                )
-        }
-        ,
-        {
-            key: 'private',
-            value:
-                'private',
-            text:
-                'Privé',
-            'icon-image':
-            LockFullIcon,
-            content:
-                (
-                    <Header
-                        icon='mobile'
-                        content='Privé - Empêcher le téléchargement'
-                        subheader='Personne ne pourra télécharger l’image originale, sauf vous.'
-                    />
-                )
-        }
-    ]
-    ;
 
     constructor(props) {
         super(props);
 
         this.state = {
-            value: this.accessOptions[0].value
+            value: this.props.value || this.props.options[0].value
         };
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.value !== prevState.value) {
+            this.props.onChange(this.state.value);
+        }
+    }
+
     trigger() {
-        const selectedOption = this.accessOptions.find(option => option.value === this.state.value);
+        const selectedOption = this.props.options.find(option => option.value === this.state.value);
         const iconSrc = selectedOption['icon-image'];
         const iconText = selectedOption.text;
 
@@ -97,7 +49,7 @@ export default class ChampAcces extends React.Component {
                         fluid
                         selection
                         direction='right'
-                        options={ this.accessOptions }
+                        options={ this.props.options }
                         onChange={ (event, { value }) => this.handleChange(value) }
                     />
                 </label>
