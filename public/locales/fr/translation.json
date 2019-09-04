@@ -149,6 +149,7 @@
                 "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
                 "compositeur": "Compositeurs",
                 "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
+                "compositeur-placeholder": "Add a Composer",
                 "editeur": "Éditeurs",
                 "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
                 "editeur-placeholder": "Ajouter un éditeur",

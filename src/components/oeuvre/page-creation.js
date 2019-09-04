@@ -149,7 +149,7 @@ export default class PageCreation extends Component {
                                             label={t('flot.documenter.compositeur')}
                                             createLabel="Créer un nouveau collaborateur"
                                             description={t('flot.documenter.compositeur-description')}
-                                            placeholder="Ajouter un compositeur..."
+                                            placeholder={t('flot.documenter.compositeur-placeholder')}
                                             value={ this.state.composers }
                                             onChange={ ids => this.setState({ composers: ids }) }
                                         />
