@@ -106,6 +106,7 @@ class ModifyUser extends Component {
   click(){
     this.handleSubmit();
     this.close();
+    // window.location.reload();
   }
 
   handleSubmit = values => { 
@@ -127,6 +128,8 @@ class ModifyUser extends Component {
       .then(
         console.log('user created / modified'),
         toast.success('user created / modified'),
+        setTimeout(function(){ window.location.reload(); }, 2000)
+        // window.location.reload()
         // TODO Add modal close action
         // this.props.history.push("/")
 
