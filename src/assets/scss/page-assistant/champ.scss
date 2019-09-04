@@ -104,10 +104,18 @@
     margin-left: $margin-step;
     width: 72px;
 
-    .ui.selection.dropdown .menu {
-        right: 0;
-        left: auto;
-        width: 200px;
+    .ui.selection.dropdown {
+        height: 40px;
+        width: 72px;
+        font-size: 12px;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        .menu {
+            right: 0;
+            left: auto;
+            width: 200px;
+        }
     }
 }
 

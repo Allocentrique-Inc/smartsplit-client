@@ -15,10 +15,6 @@ import FormulaireDateSortie from "../page-assistant/formulaire-date-sortie";
 
 export default class PageEnregistrement extends React.Component {
 
-    studios = [
-        'a', 'b', 'c'
-    ];
-
     constructor(props) {
         super(props);
 
@@ -41,21 +37,6 @@ export default class PageEnregistrement extends React.Component {
 
     rightHolderOptions() {
         return RightHolderOptions(this.props.rightHolders);
-    }
-
-    studioOptions() {
-        return this.studios.map(studio => new SelectOption({
-            value: studio,
-            text: studio
-        }));
-    }
-
-    labelOptions() {
-        return this.studioOptions();
-    }
-
-    distributorOptions() {
-        return this.studioOptions();
     }
 
     icon() {
