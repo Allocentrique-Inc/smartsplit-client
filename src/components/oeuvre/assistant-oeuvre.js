@@ -7,12 +7,11 @@ import axios from 'axios';
 // Pages de l'assistant
 import PageCreation from './page-creation';
 import PageInterpretation from './page-interpretation';
-import PageInfluences from './page-influences';
+import PageInformationsGenerales from './page-informations-generales';
 import PageParoles from './page-paroles';
 import PageLiens from './page-liens';
 import PageEnregistrement from "./page-enregistrement";
 import PageFichiers from './page-fichiers';
-import AudioLecture from './audio-lecture';
 // Alertes
 import { toast } from 'react-toastify';
 // Traduction
@@ -209,12 +208,14 @@ class AssistantOeuvre extends Component {
                                     <Wizard.Page>
                                         <PageFichiers
                                             pochette={ this.props.pochette }
+                                            i18n={ i18n }
                                         />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageInfluences
+                                        <PageInformationsGenerales
                                             pochette={ this.props.pochette }
+                                            i18n={ i18n }
                                         />
                                     </Wizard.Page>
 
