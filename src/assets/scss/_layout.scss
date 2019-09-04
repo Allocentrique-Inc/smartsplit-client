@@ -1,2 +1,14 @@
 $margin-step: 16px;
 $navbar-height: 72px;
+
+.mb-05 {
+    margin-bottom: $margin-step / 2;
+}
+
+.mb-1 {
+    margin-bottom: $margin-step;
+}
+
+.mb-2 {
+    margin-bottom: $margin-step * 2;
+}

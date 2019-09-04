@@ -128,7 +128,7 @@ export default class ChampSelectionMultipleAyantDroit extends Component {
     render() {
         return (
             <>
-                <div className="champ">
+                <div className="champ with-trigger-icon">
                     <label>
                         <TitreChamp
                             label={ this.props.label }

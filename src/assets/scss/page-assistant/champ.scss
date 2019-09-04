@@ -31,6 +31,10 @@
 }
 
 .ui.search.selection.dropdown > input.search {
+    padding-left: $margin-step / 2 !important;
+}
+
+.with-trigger-icon .ui.search.selection.dropdown > input.search {
     padding-left: 40px !important;
 }
 
@@ -39,10 +43,6 @@
     display: flex;
     align-items: center;
     @extend .medium-400-style;
-
-    input.search {
-        padding-left: 40px;
-    }
 
     img,
     > img,

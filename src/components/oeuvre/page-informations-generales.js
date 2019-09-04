@@ -29,7 +29,7 @@ export default class PageInformationsGenerales extends React.Component {
     }
 
     genreOptions() {
-        return this.genres.map(genre => new SelectOption({text: genre, value: genre}));
+        return this.genres.map(genre => new SelectOption({ text: genre, value: genre }));
     }
 
     icon() {
@@ -52,21 +52,29 @@ export default class PageInformationsGenerales extends React.Component {
                                     question={ 'Dis-nous en plus sur la pièce musicale.' }
                                 />
 
-                                <ChampTexte
-                                    pochette={ this.props.pochette }
-                                    label="Durée"
-                                    placeholder="MM:SS"
-                                    value={ this.state.duration }
-                                    onChange={ value => this.setState({ duration: value }) }
-                                />
+                                <div class="mb-2">
+                                    <div className="ui grid">
+                                        <div className="ui sixteen wide mobile eight wide tablet eight wide computer column">
+                                            <ChampTexte
+                                                pochette={ this.props.pochette }
+                                                label="Durée"
+                                                placeholder="MM:SS"
+                                                value={ this.state.duration }
+                                                onChange={ value => this.setState({ duration: value }) }
+                                            />
+                                        </div>
 
-                                <ChampTexte
-                                    pochette={ this.props.pochette }
-                                    label="BPM"
-                                    placeholder="888"
-                                    value={ this.state.bpm }
-                                    onChange={ value => this.setState({ bpm: value }) }
-                                />
+                                        <div className="ui sixteen wide mobile eight wide tablet eight wide computer column">
+                                            <ChampTexte
+                                                pochette={ this.props.pochette }
+                                                label="BPM"
+                                                placeholder="888"
+                                                value={ this.state.bpm }
+                                                onChange={ value => this.setState({ bpm: value }) }
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <ChampSelectionMultiple
                                     pochette={ this.props.pochette }

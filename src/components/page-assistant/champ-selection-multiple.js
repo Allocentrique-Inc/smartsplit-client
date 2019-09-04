@@ -3,8 +3,9 @@ import { Dropdown } from "semantic-ui-react";
 import { ItemSelectionne } from "./item-selectionne";
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
-import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
+import '../../assets/scss/page-assistant/champ.scss';
+import '../../assets/scss/page-assistant/champ-selection-multiple.scss';
 
 export default class ChampSelectionMultiple extends Component {
     constructor(props) {
