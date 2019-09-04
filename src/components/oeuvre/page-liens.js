@@ -25,9 +25,9 @@ export default class PageLiens extends React.Component {
                                 <Entete
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
-                                    label={ 'Liens d\'écoute' }
-                                    question={ 'La pièce musicale est-elle déjà diffusée?' }
-                                    description={ 'Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d’écoute et de vente en ligne.' }
+                                    label={ t('flot.documenter.entete.lien') }
+                                    question={ t('flot.documenter.titre7') }
+                                    description={ t('flot.documenter.titre7-description') }
                                 />
                             </Colonne>
                         </Page>
