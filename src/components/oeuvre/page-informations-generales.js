@@ -6,6 +6,7 @@ import MusicCircleGreen from '../../assets/svg/icons/music-circle-green.svg';
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
+import ChampSelection from "../page-assistant/champ-selection";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import SelectOption from "../../model/select-option/select-option";
 
@@ -23,7 +24,7 @@ export default class PageInformationsGenerales extends React.Component {
         this.state = {
             duration: '',
             bpm: '',
-            primaryGenres: [],
+            primaryGenre: '',
             secondaryGenres: [],
             influences: ''
         }
@@ -55,7 +56,8 @@ export default class PageInformationsGenerales extends React.Component {
 
                                 <div className="mb-2">
                                     <div className="ui grid">
-                                        <div className="ui sixteen wide mobile eight wide tablet eight wide computer column">
+                                        <div
+                                            className="ui sixteen wide mobile eight wide tablet eight wide computer column">
                                             <ChampTexte
                                                 pochette={ this.props.pochette }
                                                 label="Durée"
@@ -65,7 +67,8 @@ export default class PageInformationsGenerales extends React.Component {
                                             />
                                         </div>
 
-                                        <div className="ui sixteen wide mobile eight wide tablet eight wide computer column">
+                                        <div
+                                            className="ui sixteen wide mobile eight wide tablet eight wide computer column">
                                             <ChampTexte
                                                 pochette={ this.props.pochette }
                                                 label="BPM"
@@ -77,15 +80,14 @@ export default class PageInformationsGenerales extends React.Component {
                                     </div>
                                 </div>
 
-                                /* TODO Rendre non multiple */
-                                <ChampSelectionMultiple
+                                <ChampSelection
                                     pochette={ this.props.pochette }
                                     items={ this.genreOptions() }
                                     label="Genre principal"
                                     createLabel="Créer un nouveau genre"
                                     placeholder="Ajouter un genre..."
-                                    value={ this.state.primaryGenres }
-                                    onChange={ ids => this.setState({ primaryGenres: ids }) }
+                                    value={ this.state.primaryGenre }
+                                    onChange={ value => this.setState({ primaryGenre: value }) }
                                 />
 
                                 <ChampSelectionMultiple
