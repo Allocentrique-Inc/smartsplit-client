@@ -78,9 +78,15 @@ button[id="facebook"] {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 250px);
-}
-
-.facebook {
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 10px 10px 10px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  
+  .facebook {
     padding-right: 135px;
 }
 
@@ -94,9 +100,15 @@ button[id="google"] {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 300px);
-}
-
-.google {
+    color: white;
+    cursor: pointer;
+    border: none;
+    padding: 10px 10px 10px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  
+  .google {
     padding-right: 143px;
 }
 
@@ -110,10 +122,9 @@ hr {
     position: absolute;
     left: 50%;
     transform: translate(-50%, 325px);
-}
-
-hr:after {
-    /* content: "ou";*/
+  }
+  hr:after {
+   /* content: "ou";*/
     display: inline-block;
     position: relative;
     top: -0.7em;

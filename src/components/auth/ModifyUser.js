@@ -119,7 +119,7 @@ class ModifyUser extends Component {
       defaultRoles: this.state.currentRoleValue,
       jurisdiction: "Canada",
       newUser: true,
-      avatarImage: "faceapp.jpg"
+      avatarImage: "image.jpg"
     }
 
     try {
