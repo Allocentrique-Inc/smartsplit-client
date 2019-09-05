@@ -1,17 +1,17 @@
 import React from 'react';
-import DownloadCloudIcon from "../../assets/svg/icons/download-cloud.svg";
 import OptionAcces from "./option-acces";
 import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg";
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg";
-import ChampAcces from "./champ-acces";
 import EyeIcon from "../../assets/svg/icons/eye.svg";
+import TitreChamp from "./titre-champ";
+import { Dropdown } from "semantic-ui-react";
 
 export default class ChampAccesVision extends React.Component {
     accessOptions = [
         {
             key: 'public',
             value: 'public',
-            text: 'Public',
+            text: 'Public - Rendre l’information visible de tous',
             'icon-image': EyeIcon,
             content: (
                 <OptionAcces
@@ -25,7 +25,7 @@ export default class ChampAccesVision extends React.Component {
         {
             key: 'on-invite',
             value: 'on-invite',
-            text: 'Sur invitation',
+            text: 'Sur invitation - Téléchargeable par certains',
             'icon-image': DownloadLockIcon,
             content: (
                 <OptionAcces
@@ -39,7 +39,7 @@ export default class ChampAccesVision extends React.Component {
         {
             key: 'private',
             value: 'private',
-            text: 'Privé',
+            text: 'Privé - Empêcher le téléchargement',
             'icon-image': LockFullIcon,
             content: (
                 <OptionAcces
@@ -51,11 +51,49 @@ export default class ChampAccesVision extends React.Component {
         }
     ];
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            value: this.props.value || this.accessOptions[0].value
+        };
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.value !== prevState.value && this.props.onChange) {
+            this.props.onChange(this.state.value);
+        }
+    }
+
+    trigger() {
+        const selectedOption = this.accessOptions.find(option => option.value === this.state.value);
+        const iconSrc = selectedOption['icon-image'];
+        const iconText = selectedOption.text;
+
+        return (<><img src={ iconSrc } alt={ iconText }/> { iconText }</>);
+    }
+
+    handleChange = value => {
+        this.setState({ value: value });
+    }
+
     render() {
         return (
-            <ChampAcces
-                options={ this.accessOptions }
-            />
-        )
+            <div className="champ">
+                <label>
+                    <TitreChamp
+                        label={ 'Accès' }
+                    />
+
+                    <Dropdown
+                        trigger={ this.trigger() }
+                        fluid
+                        selection
+                        options={ this.accessOptions }
+                        onChange={ (event, { value }) => this.handleChange(value) }
+                    />
+                </label>
+            </div>
+        );
     }
 }

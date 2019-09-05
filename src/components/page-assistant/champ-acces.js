@@ -1,10 +1,6 @@
 import React from 'react';
 import { Dropdown } from "semantic-ui-react";
-import DownloadCloudIcon from '../../assets/svg/icons/download-cloud.svg';
-import DownloadLockIcon from '../../assets/svg/icons/download-lock.svg';
-import LockFullIcon from '../../assets/svg/icons/lock-full.svg';
 import TitreChamp from "./titre-champ";
-import OptionAcces from "./option-acces";
 import '../../assets/scss/page-assistant/champ-acces.scss';
 
 
@@ -19,7 +15,7 @@ export default class ChampAcces extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.state.value !== prevState.value) {
+        if (this.state.value !== prevState.value && this.props.onChange) {
             this.props.onChange(this.state.value);
         }
     }

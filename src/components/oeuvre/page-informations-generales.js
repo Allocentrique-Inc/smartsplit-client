@@ -23,6 +23,7 @@ export default class PageInformationsGenerales extends React.Component {
         this.state = {
             duration: '',
             bpm: '',
+            primaryGenres: [],
             secondaryGenres: [],
             influences: ''
         }
@@ -75,6 +76,17 @@ export default class PageInformationsGenerales extends React.Component {
                                         </div>
                                     </div>
                                 </div>
+
+                                /* TODO Rendre non multiple */
+                                <ChampSelectionMultiple
+                                    pochette={ this.props.pochette }
+                                    items={ this.genreOptions() }
+                                    label="Genre principal"
+                                    createLabel="Créer un nouveau genre"
+                                    placeholder="Ajouter un genre..."
+                                    value={ this.state.primaryGenres }
+                                    onChange={ ids => this.setState({ primaryGenres: ids }) }
+                                />
 
                                 <ChampSelectionMultiple
                                     pochette={ this.props.pochette }
