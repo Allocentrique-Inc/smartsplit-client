@@ -6,6 +6,7 @@ import LyricsCircleOrange from '../../assets/svg/icons/lyrics-circle-orange.svg'
 import LyricsCircleGreen from '../../assets/svg/icons/lyrics-circle-green.svg';
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
+import ChampTextArea from "../page-assistant/champ-textarea";
 
 export default class PageParoles extends React.Component {
 
@@ -28,6 +29,12 @@ export default class PageParoles extends React.Component {
                                     label={ 'Paroles' }
                                     question={ this.props.values.title + ' contient des paroles?' }
                                     description={ 'Les mots dans une chanson sont d’excellentes données descriptives sur l’oeuvre qui augmentent sa découvrabilité et les chances d’élargir ton auditoire.' }
+                                />
+
+                                <ChampTextArea
+                                    label={ 'Paroles' }
+                                    placeholder={ 'Ajouter des paroles...' }
+                                    undertext={ 'Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.' }
                                 />
                             </Colonne>
                         </Page>

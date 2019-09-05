@@ -104,4 +104,9 @@
     }
 }
 
+.ui.form .champ textarea {
+    border-radius: 2px;
+    @extend .medium-400-style;
+}
+
 

@@ -52,7 +52,7 @@ export default class PageInformationsGenerales extends React.Component {
                                     question={ 'Dis-nous en plus sur la pièce musicale.' }
                                 />
 
-                                <div class="mb-2">
+                                <div className="mb-2">
                                     <div className="ui grid">
                                         <div className="ui sixteen wide mobile eight wide tablet eight wide computer column">
                                             <ChampTexte
