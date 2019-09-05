@@ -1,12 +1,15 @@
 import React from 'react';
+import { Dropdown } from "semantic-ui-react";
+import TitreChamp from "./titre-champ";
+import '../../assets/scss/page-assistant/champ-acces.scss';
 import DownloadCloudIcon from "../../assets/svg/icons/download-cloud.svg";
 import OptionAcces from "./option-acces";
 import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg";
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg";
-import ChampAcces from "./champ-acces";
+
 
 export default class ChampAccesTelechargement extends React.Component {
-    accessOptions = [
+    options = [
         {
             key: 'public',
             value: 'public',
@@ -50,12 +53,50 @@ export default class ChampAccesTelechargement extends React.Component {
         }
     ];
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            value: this.props.value || this.options[0].value
+        };
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.value !== prevState.value && this.props.onChange) {
+            this.props.onChange(this.state.value);
+        }
+    }
+
+    trigger() {
+        const selectedOption = this.options.find(option => option.value === this.state.value);
+        const iconSrc = selectedOption['icon-image'];
+        const iconText = selectedOption.text;
+
+        return (<img src={ iconSrc } alt={ iconText }/>);
+    }
+
+    handleChange = value => {
+        this.setState({ value: value });
+    }
+
     render() {
         return (
-            <ChampAcces
-                options={ this.accessOptions }
-                value={ this.props.value }
-            />
-        )
+            <div className="champ champ-acces">
+                <label>
+                    <TitreChamp
+                        label={ 'Accès' }
+                    />
+
+                    <Dropdown
+                        trigger={ this.trigger() }
+                        fluid
+                        selection
+                        direction='right'
+                        options={ this.options }
+                        onChange={ (event, { value }) => this.handleChange(value) }
+                    />
+                </label>
+            </div>
+        );
     }
 }
