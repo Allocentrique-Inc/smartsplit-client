@@ -14,6 +14,8 @@ import YoutubeIcon from '../../assets/svg/icons/youtube.svg';
 import { Translation } from 'react-i18next'
 import ChampStreaming from "../page-assistant/champ-streaming";
 import DotIcon from '../../assets/svg/icons/dot.svg';
+import SoundCloudIcon from '../../assets/svg/icons/soundcloud.svg';
+import DeezerIcon from '../../assets/svg/icons/deezer.svg';
 import ChampTexte from "../page-assistant/champ-texte";
 
 export default class PageLiens extends React.Component {
@@ -42,6 +44,14 @@ export default class PageLiens extends React.Component {
         {
             icon: null,
             label: 'Pandora',
+        },
+        {
+            icon: SoundCloudIcon,
+            label: 'SoundCloud',
+        },
+        {
+            icon: DeezerIcon,
+            label: 'Deezer',
         }
     ];
 
