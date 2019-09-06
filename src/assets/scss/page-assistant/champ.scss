@@ -34,7 +34,8 @@
     padding-left: $margin-step / 2 !important;
 }
 
-.with-trigger-icon .ui.search.selection.dropdown > input.search {
+.with-trigger-icon .ui.search.selection.dropdown > input.search,
+.ui.search.selection.dropdown.with-trigger-icon > input.search {
     padding-left: 40px !important;
 }
 

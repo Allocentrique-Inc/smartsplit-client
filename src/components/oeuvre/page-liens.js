@@ -16,11 +16,14 @@ import ChampStreaming from "../page-assistant/champ-streaming";
 import DotIcon from '../../assets/svg/icons/dot.svg';
 import SoundCloudIcon from '../../assets/svg/icons/soundcloud.svg';
 import DeezerIcon from '../../assets/svg/icons/deezer.svg';
-import ChampTexte from "../page-assistant/champ-texte";
+import { Dropdown } from "semantic-ui-react";
+import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg";
+import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg";
+import '../../assets/scss/page-assistant/champ.scss';
 
 export default class PageLiens extends React.Component {
 
-    streamingApps = [
+    defaultStreamingApps = [
         {
             icon: SpotifyIcon,
             label: 'Spotify'
@@ -55,18 +58,85 @@ export default class PageLiens extends React.Component {
         }
     ];
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            dropdownValue: null,
+            searchQuery: null,
+            streamingApps: this.defaultStreamingApps
+        };
+    }
+
     icon() {
         return this.props.pochette ? LinkCircleOrange : LinkCircleGreen;
     }
 
+    plusCircle() {
+        return this.props.pochette ? plusCircleOrange : plusCircleGreen;
+    }
+
+    additionLabelClasses() {
+        const pochetteClass = this.props.pochette ? ' pochette' : '';
+        return 'addition-label' + pochetteClass;
+    }
+
+    createLabel() {
+        return this.props.createLabel || 'Ajouter comme réseau:';
+    }
+
+    plusCircleLabel(labelString) {
+        return (
+            <span className={ this.additionLabelClasses() }>
+                <img src={ this.plusCircle() }/> { labelString }
+            </span>
+        );
+    }
+
+    triggerLabel() {
+        return this.state.searchQuery ?
+            '' :
+            this.plusCircleLabel('Ajouter un réseau');
+    }
+
     renderStreamingFields() {
-        return this.streamingApps.map(app => (
+        return this.state.streamingApps.map(app => (
             <ChampStreaming
+                key={ app.label }
                 icon={ app.icon || DotIcon }
                 label={ app.label }
                 placeholder={ 'Coller un lien...' }
             />)
         );
+    }
+
+    unselectedAppOptions() {
+        return [];
+    }
+
+    handleChange = (event, { value }) => {
+        this.addStreamingApp(value);
+    };
+
+    handleSearchChange = (event, { searchQuery }) => {
+        this.setState({ searchQuery: searchQuery });
+    };
+
+
+    addStreamingApp(value) {
+        const streamingApps = [...this.state.streamingApps];
+
+        const newStreamingApps = streamingApps.find(app => app.label === value) ?
+            streamingApps :
+            streamingApps.concat([{
+                icon: null,
+                label: value
+            }]);
+
+        this.setState({
+            dropdownValue: null,
+            streamingApps: newStreamingApps
+        });
     }
 
     render() {
@@ -91,6 +161,22 @@ export default class PageLiens extends React.Component {
                                 />
 
                                 { this.renderStreamingFields() }
+
+                                <Dropdown
+                                    className={ 'with-trigger-icon' }
+                                    trigger={ this.triggerLabel() }
+                                    fluid
+                                    search
+                                    selection
+                                    selectOnBlur={ false }
+                                    selectOnNavigation={ false }
+                                    allowAdditions
+                                    additionLabel={ this.plusCircleLabel('Ajouter comme réseau...') }
+                                    value={ this.state.dropdownValue }
+                                    options={ this.unselectedAppOptions() }
+                                    onChange={ this.handleChange }
+                                    onSearchChange={ this.handleSearchChange }
+                                />
                             </Colonne>
                         </Page>
                 }
