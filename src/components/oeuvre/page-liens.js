@@ -8,6 +8,9 @@ import Entete from "../page-assistant/entete";
 import TitreChamp from "../page-assistant/titre-champ";
 import SpotifyIcon from '../../assets/svg/icons/spotify.svg';
 import GooglePlayIcon from '../../assets/svg/icons/googleplaymusic.svg';
+import AppleIcon from '../../assets/svg/icons/apple.svg';
+import AmazonMusicIcon from '../../assets/svg/icons/amazonmusic.svg';
+import YoutubeIcon from '../../assets/svg/icons/youtube.svg';
 import { Translation } from 'react-i18next'
 import ChampStreaming from "../page-assistant/champ-streaming";
 import DotIcon from '../../assets/svg/icons/dot.svg';
@@ -23,6 +26,18 @@ export default class PageLiens extends React.Component {
         {
             icon: GooglePlayIcon,
             label: 'Google Play',
+        },
+        {
+            icon: AppleIcon,
+            label: 'Apple Music',
+        },
+        {
+            icon: AmazonMusicIcon,
+            label: 'Amazon Music',
+        },
+        {
+            icon: YoutubeIcon,
+            label: 'Youtube',
         },
         {
             icon: null,

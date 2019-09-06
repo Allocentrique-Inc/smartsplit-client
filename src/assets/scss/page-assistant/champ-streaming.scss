@@ -1,4 +1,5 @@
 @import '../layout';
+@import '../typography';
 
 .streaming-field {
     margin-bottom: $margin-step / 2;
@@ -11,6 +12,8 @@
     .label {
         margin: 0 $margin-step;
         width: 104px;
+
+        @extend .medium-400-style;
     }
 
     .ui.input {
