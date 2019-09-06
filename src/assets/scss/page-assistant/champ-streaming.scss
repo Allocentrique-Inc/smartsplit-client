@@ -1,0 +1,19 @@
+@import '../layout';
+
+.streaming-field {
+    margin-bottom: $margin-step / 2;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+
+    .label {
+        margin: 0 $margin-step;
+        width: 104px;
+    }
+
+    .ui.input {
+        flex: 1 0 auto;
+    }
+}
