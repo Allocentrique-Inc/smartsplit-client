@@ -4,13 +4,13 @@ import { FormulaireMusicien } from "./formulaire-musicien";
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
+import * as roles from '../../assets/listes/role-uuids.json';
 
 export class ChampSelectionInterprete extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            selectedMusicians: this.props.values || [],
             dropdownValue: null
         };
     }
@@ -19,19 +19,11 @@ export class ChampSelectionInterprete extends Component {
         return RightHolderOptions(this.props.rightHolders);
     }
 
-    selectedDropdownValues() {
-        return Object.keys(this.state.selectedMusicians);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-
-    }
-
     selectedItems() {
         return this.rightHolderOptions().filter(this.isSelectedItem);
     }
 
-    isSelectedItem = item => Object.keys(this.state.selectedMusicians).includes(item.value);
+    isSelectedItem = item => Object.keys(this.props.musicians).includes(item.value);
 
     unselectedItems() {
         return this.rightHolderOptions().filter(this.isUnselectedItem);
@@ -43,7 +35,7 @@ export class ChampSelectionInterprete extends Component {
         return this.selectedItems().map(item => {
             return (
                 <FormulaireMusicien
-                    key={ item }
+                    key={ item.value }
                     pochette={ this.props.pochette }
                     item={ item }
                     onClick={ (event) => {
@@ -56,17 +48,18 @@ export class ChampSelectionInterprete extends Component {
 
     unselectItem(event, item) {
         event.preventDefault();
+        const newMusicianUuid = item.value;
+        const newMusicians = Object.assign(this.props.musicians);
+        const newMusician = Object.assign({ roles: [], instruments: [] }, newMusicians[newMusicianUuid]);
 
-        const addMusician = (newObject, uuid) => {
-            newObject[uuid] = this.state.selectedMusicians[uuid];
-            return newObject;
-        };
+        newMusician.roles = newMusician.roles.filter(role => role !== roles.musician && role !== role.principal && role.accompaniment);
+        newMusician.instruments = [];
 
-        const selectedUuids = Object.keys(this.state.selectedMusicians).filter(uuid => uuid !== item.value);
-        const newMusicians = selectedUuids.reduce(addMusician, {});
+        newMusicians[newMusicianUuid] = newMusician;
+
+        this.props.onChange(newMusicians);
 
         this.setState({
-            selectedMusicians: newMusicians,
             dropdownValue: null
         });
     }
@@ -76,19 +69,24 @@ export class ChampSelectionInterprete extends Component {
         this.selectItem(value);
     };
 
-    selectItem(itemValue) {
-        const newMusician = {
-            [itemValue]: {
-                roles: [],
-                instruments: []
-            }
-        };
+    selectItem(uuid) {
+        const musician = Object.assign(
+            {},
+            { roles: [], instruments: [] },
+            this.props.values.rightHolders[uuid]
+        );
 
-        const musiciansToAdd = this.isSelectedItem({ value: itemValue }) ? {} : newMusician;
-        const newMusicians = Object.assign({}, this.state.selectedMusicians, musiciansToAdd);
+        musician.roles = musician.roles.concat([roles.musician]);
+
+        const newMusicians = Object.assign(
+            {},
+            this.props.musicians,
+            { [uuid]: musician }
+        );
+
+        this.props.onChange(newMusicians);
 
         this.setState({
-            selectedMusicians: newMusicians,
             dropdownValue: null
         });
     }

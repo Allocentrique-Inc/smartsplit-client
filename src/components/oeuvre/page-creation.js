@@ -19,7 +19,7 @@ import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
-import { FilterRightHoldersByRole, PushRole } from "../page-assistant/right-holder-roles";
+import { FilterRightHoldersByRole, AddRole } from "../page-assistant/right-holder-roles";
 
 export default class PageCreation extends Component {
     constructor(props) {
@@ -42,9 +42,11 @@ export default class PageCreation extends Component {
             this.state.composers !== prevState.composers ||
             this.state.publishers !== prevState.publishers
         ) {
-            const songwriters = this.state.songwriters.reduce(PushRole(roles.songwriter), {});
-            const songwritersAndComposers = this.state.composers.reduce(PushRole(roles.composer), songwriters);
-            const rightHolders = this.state.publishers.reduce(PushRole(roles.publisher), songwritersAndComposers);
+            const songwritersToUpdate = this.state.songwriters.reduce(AddRole(roles.songwriter), {});
+            const songwritersAndComposersToUpdate = this.state.composers.reduce(AddRole(roles.composer), songwritersToUpdate);
+            const rightHoldersToUpdate = this.state.publishers.reduce(AddRole(roles.publisher), songwritersAndComposersToUpdate);
+
+            const rightHolders = Object.assign({}, this.props.values.rightHolders, rightHoldersToUpdate);
 
             this.props.setFieldValue('rightHolders', rightHolders);
         }
