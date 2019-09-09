@@ -54,10 +54,11 @@ export default class PageCreation extends Component {
     }
 
     pushRole = role => (rightHolders, uuid) => {
-        rightHolders[uuid] = rightHolders[uuid] || { roles: [] };
-        rightHolders[uuid].roles = rightHolders[uuid].roles || [];
-        rightHolders[uuid].roles.push(role);
-        return rightHolders;
+        const roles = rightHolders[uuid].roles || [];
+        const newRoles = roles.concat([role]);
+        const newRightHolder = Object.assign({}, rightHolders[uuid], { roles: newRoles });
+
+        return Object.assign({}, rightHolders, { [uuid]: newRightHolder});
     };
 
     rightHolderOptions() {
