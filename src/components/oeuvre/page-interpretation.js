@@ -14,13 +14,16 @@ import Page from "../page-assistant/page";
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 
+import * as roles from '../../assets/listes/role-uuids.json';
+import { FilterRightHoldersByRoles } from "../page-assistant/right-holder-roles";
+
 export default class PageInterpretation extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            musicians: props.values.musicians
+            musicians: FilterRightHoldersByRoles([roles.musician, roles.principal, roles.accompaniment], props.values.rightHolders)
         };
     }
 

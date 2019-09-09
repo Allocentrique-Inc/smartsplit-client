@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { FormulaireMusicien } from "./formulaire-musicien";
-import Musician from "../../model/musician/musician";
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
+import RightHolderOptions from "./right-holder-options";
 
 export class ChampSelectionInterprete extends Component {
     constructor(props) {
@@ -16,52 +16,22 @@ export class ChampSelectionInterprete extends Component {
     }
 
     rightHolderOptions() {
-        return this.props.rightHolders.map(this.makeRightHolderOptions);
+        return RightHolderOptions(this.props.rightHolders);
     }
 
-    makeRightHolderOptions = rightHolder => {
-        return {
-            key: rightHolder.rightHolderId,
-            value: rightHolder.rightHolderId,
-            text: this.makeRightHolderText(rightHolder),
-            image: {
-                avatar: true,
-                src: this.makeRightHolderAvatarUrl(rightHolder)
-            }
-        };
-    };
-
-    makeRightHolderText = rightHolder => {
-        return rightHolder.artistName ?
-            rightHolder.artistName :
-            [rightHolder.firstName, rightHolder.lastName]
-                .filter(text => text)
-                .join(' ');
-    };
-
-    makeRightHolderAvatarUrl = rightHolder => {
-        const avatarImage = rightHolder.avatarImage;
-
-        return avatarImage ?
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/' + avatarImage :
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
-    };
-
     selectedDropdownValues() {
-        return this.state.selectedMusicians.map(value => value.uuid);
+        return Object.keys(this.state.selectedMusicians);
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state.selectedDropdownValues !== prevState.selectedDropdownValues) {
-            this.props.onChange(this.state.selectedDropdownValues);
-        }
+
     }
 
     selectedItems() {
         return this.rightHolderOptions().filter(this.isSelectedItem);
     }
 
-    isSelectedItem = item => this.selectedDropdownValues().includes(item.value);
+    isSelectedItem = item => Object.keys(this.state.selectedMusicians).includes(item.value);
 
     unselectedItems() {
         return this.rightHolderOptions().filter(this.isUnselectedItem);
@@ -84,33 +54,41 @@ export class ChampSelectionInterprete extends Component {
         });
     }
 
+    unselectItem(event, item) {
+        event.preventDefault();
+
+        const addMusician = (newObject, uuid) => {
+            newObject[uuid] = this.state.selectedMusicians[uuid];
+            return newObject;
+        };
+
+        const selectedUuids = Object.keys(this.state.selectedMusicians).filter(uuid => uuid !== item.value);
+        const newMusicians = selectedUuids.reduce(addMusician, {});
+
+        this.setState({
+            selectedMusicians: newMusicians,
+            dropdownValue: null
+        });
+    }
+
     handleChange = (event, { value }) => {
         event.preventDefault();
         this.selectItem(value);
     };
 
     selectItem(itemValue) {
-        let musicians = [...this.state.selectedMusicians];
+        const newMusician = {
+            [itemValue]: {
+                roles: [],
+                instruments: []
+            }
+        };
 
-        if (!musicians.find(musician => musician.uuid === itemValue)) {
-            const newMusician = new Musician({ 'uuid': itemValue });
-            musicians.push(newMusician);
-        }
-
-        this.setState({
-            selectedMusicians: musicians,
-            dropdownValue: null
-        });
-    }
-
-    unselectItem(event, item) {
-        event.preventDefault();
-        let musicians = [...this.state.selectedMusicians];
-
-        const selectedMusicians = musicians.filter(musician => musician.uuid !== item.value);
+        const musiciansToAdd = this.isSelectedItem({ value: itemValue }) ? {} : newMusician;
+        const newMusicians = Object.assign({}, this.state.selectedMusicians, musiciansToAdd);
 
         this.setState({
-            selectedMusicians: selectedMusicians,
+            selectedMusicians: newMusicians,
             dropdownValue: null
         });
     }
