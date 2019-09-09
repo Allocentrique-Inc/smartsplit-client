@@ -97,7 +97,6 @@ class AssistantOeuvre extends Component {
 
     getInitialValues() {
         return {
-            // mediaId: 0,
             title: this.state.title,
             album: "",
             artist: "",
@@ -179,7 +178,7 @@ class AssistantOeuvre extends Component {
                                         submit: t('navigation.envoi')
                                     } }
 
-                                    debug={ false }
+                                    debug={ true }
                                 >
                                     <Wizard.Page>
                                         <PageCreation
@@ -236,7 +235,7 @@ class AssistantOeuvre extends Component {
                 </Translation>
             )
         } else {
-            return (<div></div>)
+            return (<></>)
         }
 
     }

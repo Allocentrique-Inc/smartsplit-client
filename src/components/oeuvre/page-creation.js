@@ -129,7 +129,7 @@ export default class PageCreation extends Component {
                                     description={ t('flot.documenter.code-description') }
                                     placeholder={ t('flot.documenter.code-placeholder') }
                                     value={ this.props.values.iswc }
-                                    onChange={ value => this.props.setFieldValue(' iswc', value) }
+                                    onChange={ value => this.props.setFieldValue('iswc', value) }
                                 />
                             </Colonne>
                         </Page>
