@@ -24,9 +24,9 @@ export default class PageCreation extends Component {
     constructor(props) {
         super(props);
 
-        const songwriters = this.filterShareHolders(roles.songwriter, props.values.rightHolders);
-        const composers = this.filterShareHolders(roles.composer, props.values.rightHolders);
-        const publishers = this.filterShareHolders(roles.publisher, props.values.rightHolders);
+        const songwriters = this.filterRightHoldersByRole(roles.songwriter, props.values.rightHolders);
+        const composers = this.filterRightHoldersByRole(roles.composer, props.values.rightHolders);
+        const publishers = this.filterRightHoldersByRole(roles.publisher, props.values.rightHolders);
 
         this.state = {
             songwriters: songwriters,
@@ -35,7 +35,7 @@ export default class PageCreation extends Component {
         }
     }
 
-    filterShareHolders(role, rightHolders) {
+    filterRightHoldersByRole(role, rightHolders) {
         return Object.keys(rightHolders).filter(rightHolderUuid => rightHolders[rightHolderUuid].roles.includes(role));
     }
 
@@ -54,11 +54,11 @@ export default class PageCreation extends Component {
     }
 
     pushRole = role => (rightHolders, uuid) => {
-        const roles = rightHolders[uuid].roles || [];
-        const newRoles = roles.concat([role]);
-        const newRightHolder = Object.assign({}, rightHolders[uuid], { roles: newRoles });
+        const rightHolder = Object.assign({}, { roles: [] }, rightHolders[uuid]);
+        const newRoles = rightHolder.roles.concat([role]);
+        const newRightHolderKeyToMerge = { [uuid]: { roles: newRoles } };
 
-        return Object.assign({}, rightHolders, { [uuid]: newRightHolder});
+        return Object.assign({}, rightHolders, newRightHolderKeyToMerge);
     };
 
     rightHolderOptions() {
