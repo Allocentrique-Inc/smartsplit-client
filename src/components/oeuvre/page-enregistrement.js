@@ -109,16 +109,16 @@ export default class PageEnregistrement extends React.Component {
                                     label="Studio d’enregistrement – nom"
                                     description="C’est le lieu où la chanson a été enregistrée."
                                     placeholder="Nom du studio d'enregistrement..."
-                                    value={ this.state.studio }
-                                    onChange={ value => this.setState({ studio: value }) }
+                                    value={ this.props.values.studio }
+                                    onChange={ value => this.props.setFieldValue('studio', value) }
                                 />
 
                                 <ChampTexte
                                     pochette={ this.props.pochette }
                                     label="Studio d’enregistrement – adresse"
                                     placeholder="Adresse du studio d'enregistrement..."
-                                    value={ this.state.studioAddress }
-                                    onChange={ value => this.setState({ studioAddress: value }) }
+                                    value={ this.props.values.studioAddress }
+                                    onChange={ value => this.props.setFieldValue('studioAddress', value) }
                                 />
 
                                 <ChampSelectionMultipleAyantDroit
@@ -148,16 +148,16 @@ export default class PageEnregistrement extends React.Component {
                                     label="Étiquette – nom"
                                     description="C’est le lieu où la chanson a été enregistrée."
                                     placeholder="Nom de l'étiquette..."
-                                    value={ this.state.label }
-                                    onChange={ value => this.setState({ label: value }) }
+                                    value={ this.props.values.label }
+                                    onChange={ value => this.props.setFieldValue('label', value) }
                                 />
 
                                 <ChampTexte
                                     pochette={ this.props.pochette }
                                     label="Étiquette – adresse"
                                     placeholder="Adresse de l'étiquette..."
-                                    value={ this.state.labelAddress }
-                                    onChange={ value => this.setState({ labelAddress: value }) }
+                                    value={ this.props.values.labelAddress }
+                                    onChange={ value => this.props.setFieldValue('labelAddress', value) }
                                 />
 
                                 <ChampTexte
