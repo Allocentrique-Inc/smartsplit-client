@@ -36,7 +36,7 @@ export default class PageCreation extends Component {
     }
 
     filterShareHolders(role, rightHolders) {
-        return Object.keys(rightHolders).filter(rightHolderUuid => rightHolders[rightHolderUuid].includes(role));
+        return Object.keys(rightHolders).filter(rightHolderUuid => rightHolders[rightHolderUuid].roles.includes(role));
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -53,9 +53,10 @@ export default class PageCreation extends Component {
         }
     }
 
-    pushRole = type => (rightHolders, uuid) => {
-        rightHolders[uuid] = rightHolders[uuid] || [];
-        rightHolders[uuid].push(type);
+    pushRole = role => (rightHolders, uuid) => {
+        rightHolders[uuid] = rightHolders[uuid] || { roles: [] };
+        rightHolders[uuid].roles = rightHolders[uuid].roles || [];
+        rightHolders[uuid].roles.push(role);
         return rightHolders;
     };
 
