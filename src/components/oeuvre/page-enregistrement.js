@@ -186,8 +186,8 @@ export default class PageEnregistrement extends React.Component {
                                     label="Code UPC/EAN"
                                     description="Code à barre obligatoire au produit physique. Peut optionnellement être attribué à un produit numérique."
                                     placeholder="Optionnel"
-                                    value={ this.state.upc }
-                                    onChange={ value => this.setState({ upc: value }) }
+                                    value={ this.props.values.upc }
+                                    onChange={ value => this.props.setFieldValue('upc', value) }
                                 />
                             </Colonne>
                         </Page>
