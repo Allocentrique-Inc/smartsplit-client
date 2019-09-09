@@ -19,14 +19,15 @@ import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
+import { FilterRightHoldersByRole, PushRole } from "../page-assistant/right-holder-roles";
 
 export default class PageCreation extends Component {
     constructor(props) {
         super(props);
 
-        const songwriters = this.filterRightHoldersByRole(roles.songwriter, props.values.rightHolders);
-        const composers = this.filterRightHoldersByRole(roles.composer, props.values.rightHolders);
-        const publishers = this.filterRightHoldersByRole(roles.publisher, props.values.rightHolders);
+        const songwriters = FilterRightHoldersByRole(roles.songwriter, props.values.rightHolders);
+        const composers = FilterRightHoldersByRole(roles.composer, props.values.rightHolders);
+        const publishers = FilterRightHoldersByRole(roles.publisher, props.values.rightHolders);
 
         this.state = {
             songwriters: songwriters,
@@ -35,31 +36,19 @@ export default class PageCreation extends Component {
         }
     }
 
-    filterRightHoldersByRole(role, rightHolders) {
-        return Object.keys(rightHolders).filter(rightHolderUuid => rightHolders[rightHolderUuid].roles.includes(role));
-    }
-
     componentDidUpdate(prevProps, prevState) {
         if (
             this.state.songwriters !== prevState.songwriters ||
             this.state.composers !== prevState.composers ||
             this.state.publishers !== prevState.publishers
         ) {
-            const songwriters = this.state.songwriters.reduce(this.pushRole(roles.songwriter), {});
-            const songwritersAndComposers = this.state.composers.reduce(this.pushRole(roles.composer), songwriters);
-            const rightHolders = this.state.publishers.reduce(this.pushRole(roles.publisher), songwritersAndComposers);
+            const songwriters = this.state.songwriters.reduce(PushRole(roles.songwriter), {});
+            const songwritersAndComposers = this.state.composers.reduce(PushRole(roles.composer), songwriters);
+            const rightHolders = this.state.publishers.reduce(PushRole(roles.publisher), songwritersAndComposers);
 
             this.props.setFieldValue('rightHolders', rightHolders);
         }
     }
-
-    pushRole = role => (rightHolders, uuid) => {
-        const rightHolder = Object.assign({}, { roles: [] }, rightHolders[uuid]);
-        const newRoles = rightHolder.roles.concat([role]);
-        const newRightHolderKeyToMerge = { [uuid]: { roles: newRoles } };
-
-        return Object.assign({}, rightHolders, newRightHolderKeyToMerge);
-    };
 
     rightHolderOptions() {
         return RightHolderOptions(this.props.rightHolders);
