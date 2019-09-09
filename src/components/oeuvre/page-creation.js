@@ -42,14 +42,61 @@ export default class PageCreation extends Component {
             this.state.composers !== prevState.composers ||
             this.state.publishers !== prevState.publishers
         ) {
+            const rightHolders = Object.assign({}, this.props.values.rightHolders);
+            const rightHoldersUuids = Object.keys(rightHolders);
+
+            rightHoldersUuids.forEach(uuid => {
+                let roles = rightHolders[uuid].roles || [];
+
+                if (!this.state.songwriters.includes(uuid)) {
+                    roles = roles.filter(role => role !== role.songwriter);
+                }
+
+                if (!this.state.composers.includes(uuid)) {
+                    roles = roles.filter(role => role !== role.composer);
+                }
+
+                if (!this.state.publishers.includes(uuid)) {
+                    roles = roles.filter(role => role !== role.publisher);
+                }
+
+                const newRightHolder = Object.assign({}, rightHolders[uuid], { roles: roles });
+                rightHolders[uuid] = newRightHolder;
+            });
+
             const songwritersToUpdate = this.state.songwriters.reduce(AddRole(roles.songwriter), {});
             const songwritersAndComposersToUpdate = this.state.composers.reduce(AddRole(roles.composer), songwritersToUpdate);
             const rightHoldersToUpdate = this.state.publishers.reduce(AddRole(roles.publisher), songwritersAndComposersToUpdate);
 
-            const rightHolders = Object.assign({}, this.props.values.rightHolders, rightHoldersToUpdate);
+            const newRightHolders = Object.assign({}, rightHolders, rightHoldersToUpdate);
 
-            this.props.setFieldValue('rightHolders', rightHolders);
+            this.props.setFieldValue('rightHolders', this.removeEmptyRoleRightHolders(newRightHolders));
         }
+    }
+
+    removeEmptyRoleRightHolders(rightHolders) {
+        return Object.keys(rightHolders)
+            .filter(key => rightHolders[key] &&
+                rightHolders[key].roles &&
+                rightHolders[key].roles.length
+            )
+            .reduce((newRightHolders, uuid) => {
+                newRightHolders[uuid] = rightHolders[uuid];
+                return newRightHolders;
+            }, {});
+    }
+
+
+    updateRoles(roleBearers, uuid, role, rightHolderRoles) {
+        let roles = [...rightHolderRoles];
+
+        if (roleBearers.includes(uuid)) {
+            roles.push(role)
+        } else {
+            roles = roles.filter(role => role !== role.songwriter);
+        }
+
+        return roles;
     }
 
     rightHolderOptions() {

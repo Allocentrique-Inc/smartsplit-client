@@ -52,9 +52,7 @@ export class ChampSelectionInterprete extends Component {
         const newMusicians = Object.assign(this.props.musicians);
         const newMusician = Object.assign({ roles: [], instruments: [] }, newMusicians[newMusicianUuid]);
 
-        newMusician.roles = newMusician.roles.filter(role => role !== roles.musician && role !== role.principal && role.accompaniment);
-        newMusician.instruments = [];
-
+        newMusician.roles = newMusician.roles.filter(this.isNotAMusicianRole);
         newMusicians[newMusicianUuid] = newMusician;
 
         this.props.onChange(newMusicians);
@@ -62,6 +60,12 @@ export class ChampSelectionInterprete extends Component {
         this.setState({
             dropdownValue: null
         });
+    }
+
+    isNotAMusicianRole = role => {
+        return (role !== roles.musician) &&
+            (role !== roles.principal) &&
+            (role !== roles.accompaniment);
     }
 
     handleChange = (event, { value }) => {
