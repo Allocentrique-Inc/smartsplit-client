@@ -9,8 +9,6 @@ import '../../assets/scss/assistant-form.scss';
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit";
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import ChampTexte from "../page-assistant/champ-texte";
-import SelectOption from "../../model/select-option/select-option";
-import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import FormulaireDateSortie from "../page-assistant/formulaire-date-sortie";
 
 export default class PageEnregistrement extends React.Component {
@@ -23,12 +21,12 @@ export default class PageEnregistrement extends React.Component {
             soundRecordists: [],
             mixEngineers: [],
             masterEngineers: [],
-            studioName: '',
+            studio: '',
             studioAddress: '',
             producers: [],
-            recordLabelName: '',
-            recordLabelAddress: '',
-            distributorName: '',
+            label: '',
+            labelAddress: '',
+            distributor: '',
             distributorAddress: '',
             releaseDate: '',
             upc: ''
@@ -111,8 +109,8 @@ export default class PageEnregistrement extends React.Component {
                                     label="Studio d’enregistrement – nom"
                                     description="C’est le lieu où la chanson a été enregistrée."
                                     placeholder="Nom du studio d'enregistrement..."
-                                    value={ this.state.studioName }
-                                    onChange={ value => this.setState({ studioName: value }) }
+                                    value={ this.state.studio }
+                                    onChange={ value => this.setState({ studio: value }) }
                                 />
 
                                 <ChampTexte
@@ -150,16 +148,16 @@ export default class PageEnregistrement extends React.Component {
                                     label="Étiquette – nom"
                                     description="C’est le lieu où la chanson a été enregistrée."
                                     placeholder="Nom de l'étiquette..."
-                                    value={ this.state.recordLabelName }
-                                    onChange={ value => this.setState({ recordLabelName: value }) }
+                                    value={ this.state.label }
+                                    onChange={ value => this.setState({ label: value }) }
                                 />
 
                                 <ChampTexte
                                     pochette={ this.props.pochette }
                                     label="Étiquette – adresse"
                                     placeholder="Adresse de l'étiquette..."
-                                    value={ this.state.recordLabelAddress }
-                                    onChange={ value => this.setState({ recordLabelAddress: value }) }
+                                    value={ this.state.labelAddress }
+                                    onChange={ value => this.setState({ labelAddress: value }) }
                                 />
 
                                 <ChampTexte
@@ -167,21 +165,21 @@ export default class PageEnregistrement extends React.Component {
                                     label="Distributeur – nom"
                                     description="C’est l'entité qui s'occupe de commercialiser la pièce."
                                     placeholder="Nom du distributeur..."
-                                    value={ this.state.distributorName }
-                                    onChange={ value => this.setState({ distributorName: value }) }
+                                    value={ this.props.values.distributor }
+                                    onChange={ value => this.props.setFieldValue('distributor', value) }
                                 />
 
                                 <ChampTexte
                                     pochette={ this.props.pochette }
                                     label="Distributeur – adresse"
                                     placeholder="Adresse du distributeur..."
-                                    value={ this.state.distributorAddress }
-                                    onChange={ value => this.setState({ distributorAddress: value }) }
+                                    value={ this.props.values.distributorAddress }
+                                    onChange={ value => this.props.setFieldValue('distributorAddress', value) }
                                 />
 
                                 <FormulaireDateSortie
-                                    value={ this.state.releaseDate }
-                                    onChange={ value => this.setState({ releaseDate: value }) }
+                                    value={ this.props.values.publishDate }
+                                    onChange={ value => this.props.setFieldValue('publishDate', value) }
                                 />
 
                                 <ChampTexte

@@ -121,6 +121,12 @@ class AssistantOeuvre extends Component {
             modificationDate: "",
             publishDate: "",
             publisher: "",
+            studio: "",
+            studioAddress: "",
+            label: "",
+            labelAddress: "",
+            distributor: "",
+            distributorAddress: "",
             rightsSplit: {}
         };
     }
