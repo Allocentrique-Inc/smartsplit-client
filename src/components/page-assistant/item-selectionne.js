@@ -1,5 +1,6 @@
 import React from 'react';
 import xIcon from "../../assets/svg/icons/x.svg";
+import '../../assets/scss/page-assistant/item-selectionne.scss';
 
 export function ItemSelectionne(props) {
 

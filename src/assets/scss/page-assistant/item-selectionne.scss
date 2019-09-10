@@ -1,0 +1,48 @@
+@import '../colors';
+@import '../layout';
+@import '../typography';
+
+.selection-row {
+    margin-bottom: $margin-step;
+
+    width: 100%;
+    height: 40px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background-color: $color-underground;
+    border-radius: 2px;
+
+    .selection-avatar,
+    .selection-name {
+        margin-left: $margin-step / 2;
+    }
+
+    .selection-name {
+        @extend .medium-500-style;
+    }
+
+    .left {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .selection-avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .x-icon {
+        margin-right: $margin-step / 2;
+    }
+}

@@ -239,7 +239,8 @@
             "continuer": "Continue to split the rights"
         },
         "bouton": {
-            "ajout": "Add"
+            "ajout": "Add",
+            "voter": "VOTE"
         }
     },
     "traitement": {
@@ -331,7 +332,12 @@
         "manual": "Share manually"
     },
     "droits": {
-        "auteur": "Copyright"
+        "auteur": "Copyright",
+        "titre": {
+            "workCopyrightSplit": "Copyright",
+            "performanceNeighboringRightSplit": "Performance",
+            "masterNeighboringRightSplit": "Sound Recording"
+        }
     },   
     "erreur": {
         "volIdentite": "You're trying to do an operation than belong to another user"

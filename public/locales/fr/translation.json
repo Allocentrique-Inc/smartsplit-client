@@ -35,7 +35,7 @@
                 "paroles": "Paroles",
                 "langueParoles": "Langue des paroles",
                 "isrc": "Numéro ISRC",
-                "upc": "Numéro UPC",                
+                "upc": "Numéro UPC",
                 "dureeMs": "Durée (millisecondes)",
                 "liensSociaux": "Lien vers un média social",
                 "liensServices": "Lien direct de diffusion",
@@ -70,7 +70,7 @@
                 "datePublication": "Quand l'œuvre a-t-elle été publiée ?",
                 "editeur": "Qui est l'éditeur de l'œuvre ?",
                 "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
-            }            
+            }
         },
         "creePar": "Créé par"
     },
@@ -85,7 +85,7 @@
         "requis": "Requis"
     },
     "composant": {
-        "televersement":  {
+        "televersement": {
             "titre": "Téléverse tes fichiers sources",
             "indication": "Glisse et dépose des fichiers ou clique ici pour envoyer.",
             "preambule": "Ici tu peux envoyer tes fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Tu peux ainsi partager tes fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
@@ -123,7 +123,7 @@
         },
         "collaborateurs": {
             "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
-            "preambule": "Commençons par toi ...",
+            "preambule": "Commençons par toi...",
             "role": "Définis ton rôle ?",
             "ajout": "Ajouter un collaborateur"
         },
@@ -133,14 +133,14 @@
         },
         "genre": {
             "titre": "Quel est le genre de ton œuvre ?",
-            "preambule": "Genre, style, comme ... ?"
+            "preambule": "Genre, style, comme... ?"
         },
         "documenter": {
             "entete": {
                 "creation": "Création",
                 "interpretation": "Interprétation"
             },
-            "titre1": "Qui a participé à la création de", 
+            "titre1": "Qui a participé à la création de",
             "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
                 "date-creation": "Date de création",
                 "date-placeholder": "Ajouter une date",
@@ -156,8 +156,21 @@
                 "code": "Code ISWC",
                 "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
                 "code-placeholder": "Ajouter un code",
+            "date-creation": "Date de création",
+            "date-placeholder": "Ajouter une date",
+            "auteur": "Auteurs",
+            "auteur-placeholder": "Ajouter un auteur",
+            "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
+            "compositeur": "Compositeurs",
+            "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
+            "editeur": "Éditeurs",
+            "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
+            "editeur-placeholder": "Ajouter un éditeur",
+            "codeiswc": "Code ISWC",
+            "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
+            "codeiswc-placeholder": "Ajouter un code",
             "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
-                "titre2-description": "C’est ici que tu indiques qui a joué quel instrument."
+            "titre2-description": "C’est ici que tu indiques qui a joué quel instrument."
         },
         "pro": {
             "titre": "Es-tu pro ?",
@@ -223,14 +236,14 @@
         },
         "preambules": {
             "titre1": "Étape 1",
-                "sous-titre1": "Partage tes droits",
-                "intro1": "Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
+            "sous-titre1": "Partage tes droits",
+            "intro1": "Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
             "titre2": "Étape 2",
-                "sous-titre2": "Documente ton œuvre",
-                "intro2": "Fais découvrir ton oeuvre sur le web grâce aux métadonnées et augmente ainsi tes chances d’apparaître dans des playlists.",
+            "sous-titre2": "Documente ton œuvre",
+            "intro2": "Fais découvrir ton oeuvre sur le web grâce aux métadonnées et augmente ainsi tes chances d’apparaître dans des playlists.",
             "titre3": "Étape 3",
-                "sous-titre3": "Protège ton œuvre",
-                "intro3": "Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)" 
+            "sous-titre3": "Protège ton œuvre",
+            "intro3": "Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)"
         },
         "editeur": {
             "ajout": "Ajouter un éditeur"
@@ -241,7 +254,8 @@
             "continuer": "Continuer le partage"
         },
         "bouton": {
-            "ajout": "Ajouter"
+            "ajout": "Ajouter",
+            "voter": "VOTER"
         }
     },
     "traitement": {
@@ -256,7 +270,7 @@
             "preambule": "Succès, vous avez enregistré un nouveau compte.",
             "indication": "Nous vous avons envoyé un email. Veuillez cliquer sur le lien de confirmation pour vérifier votre compte."
         },
-        "passwordchanged":{
+        "passwordchanged": {
             "titre": "Mot de passe changé",
             "indication": "Votre mot de passe a été changé avec succès."
         },
@@ -328,9 +342,33 @@
         "manual": "Partager manuellement"
     },
     "droits": {
-        "auteur": "Droits d'auteur"
+        "auteur": "Droits d'auteur",
+        "titre": {
+            "workCopyrightSplit": "Droits d'auteur",
+            "performanceNeighboringRightSplit": "Interprétation",
+            "masterNeighboringRightSplit": "Enregistrement sonore"
+        }
     },
     "erreur": {
         "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
+    },
+    "inscription": {
+        "titre":"En route vers la professionalisation.",
+        "sous-titre": "Tu es à un clic de pouvoir documenter ta musique et de partager tes droits avec tes collabos.",
+        "facebook": "Se connecter avec Facebook",
+        "google": "Se connecter avec Google",
+        "courriel": "Entrer le courriel",
+        "exemple": "nom@exemple.com",
+        "email-invalide": "Courriel invalide",
+        "motdepasse": "Choix du mot de passe",
+        "password-invalide": "Le mot de passe est invalide",
+        "correspond": "Les mots de passe ne correspondent pas",
+        "password": "Mot de passe",
+        "ou": "ou",
+        "bouton": "Créer mon compte"
+    },
+    "entete": {
+        "connexion": "Connexion",
+        "inscription": "Inscription"
     }
 }
