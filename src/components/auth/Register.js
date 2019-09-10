@@ -242,7 +242,7 @@ class Register extends Component {
                         t=>                               
                             <Form>
                                 <span className="top">
-                                    <a href="/login" style={{color: "#2DA84F"}}>{t('entete.inscription')}</a>
+                                    <a href="/login" style={{color: "#2DA84F"}}>{t('entete.connexion')}</a>
                                 </span>
                                 <div className="container">
                                     <header id="registerHeader">
