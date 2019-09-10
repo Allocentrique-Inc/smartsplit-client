@@ -23,7 +23,9 @@ export default class ChampTextArea extends React.Component {
                         placeholder={ this.props.placeholder }
                         onChange={ event => this.props.onChange ? this.props.onChange(event.target.value) : null }
                         rows={ this.props.rows || 8 }
-                    />
+                    >
+                        { this.props.value }
+                    </textarea>
 
                     { this.undertext() }
                 </label>
