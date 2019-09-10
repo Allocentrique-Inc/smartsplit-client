@@ -52,8 +52,8 @@ export default class ModifyUser extends Component {
       ]
     }
 
-    // BIND TODO
-    this.click = this.click.bind(this)
+        // BIND TODO
+        this.click = this.click.bind(this)
 
   }
 
