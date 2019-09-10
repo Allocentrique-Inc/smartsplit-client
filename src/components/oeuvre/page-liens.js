@@ -100,14 +100,39 @@ export default class PageLiens extends React.Component {
     }
 
     renderStreamingFields() {
-        return this.state.streamingApps.map(app => (
-            <ChampStreaming
-                key={ app.label }
-                icon={ app.icon || DotIcon }
-                label={ app.label }
-                placeholder={ 'Coller un lien...' }
-            />)
-        );
+        return this.state.streamingApps.map(app => {
+            const service = this.props.values.streamingServiceLinks
+                .find(service => service.name === app.label);
+            const serviceUrl = service ? service.url : '';
+
+            return (
+                <ChampStreaming
+                    key={ app.label }
+                    icon={ app.icon || DotIcon }
+                    label={ app.label }
+                    placeholder={ 'Coller un lien...' }
+                    value={ serviceUrl }
+                    onChange={ url => this.handleServiceChange(app.label, url) }
+                />
+            );
+        });
+    }
+
+    handleServiceChange(name, url) {
+        const services = [...this.props.values.streamingServiceLinks];
+        const serviceIndex = services.findIndex(service => service.name === name);
+        const newService = {
+            name: name,
+            url: url
+        };
+
+        serviceIndex === -1 ?
+            services.push(newService) :
+            services[serviceIndex] = newService;
+
+        const servicesToPush = services.filter(service => service.url);
+
+        this.props.setFieldValue('streamingServiceLinks', servicesToPush);
     }
 
     unselectedAppOptions() {

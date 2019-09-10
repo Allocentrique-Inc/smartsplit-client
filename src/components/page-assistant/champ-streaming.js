@@ -13,6 +13,7 @@ export default class ChampStreaming extends React.Component {
                 <Input
                     fluid
                     placeholder={ this.props.placeholder }
+                    value={ this.props.value }
                     onChange={ (event, { value }) => this.props.onChange(value) }
                 />
             </div>
