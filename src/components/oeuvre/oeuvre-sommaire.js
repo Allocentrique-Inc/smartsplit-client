@@ -149,7 +149,7 @@ export default class SommaireOeuvre extends Component {
                                         <div style={{position: "absolute", top: "85px", left: "135px", width: "55%"}}>
                                             {this.state.media.title} par {artiste}
                                         </div>
-                                        <img src={cassette} />
+                                        <img alt="médium" src={cassette} />
                                     </div>
                                 </div>
                             </div>

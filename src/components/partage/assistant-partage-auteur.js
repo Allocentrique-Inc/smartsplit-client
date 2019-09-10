@@ -129,6 +129,7 @@ class PageAssistantPartageAuteur extends Component {
                     })
                     this.props.setFieldValue("droitAuteur", _parts)
                 }
+                break;
             default:
         }
         this.setState({ ping: true })
