@@ -151,9 +151,9 @@
                 "editeur": "Editors",
                 "editeur-description": "Who represents these authors and/or composers?",
                 "editeur-placeholder": "Add an editor",
-                "code": "ISWC Code",
-                "code-description": "The International Standard Work Code is a unique identifying code for music work.",
-                "code-placeholder": "Add a code",
+                "codeiswc": "ISWC Code",
+                "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
+                "codeiswc-placeholder": "Add a code",
             "titre2": "Who played the musical piece on this sound recording?",
             "titre2-description": "Here you mention who played which instrument."
         },
@@ -341,5 +341,24 @@
     },   
     "erreur": {
         "volIdentite": "You're trying to do an operation than belong to another user"
+    },
+    "inscription": {
+        "titre":"On your way to professionalisation.",
+        "sous-titre": "You're one clock away to documenting your music and share your rights with your contributors.",
+        "facebook": "Sign in with Facebook",
+        "google": "Sign in with Google",
+        "courriel": "Enter your email",
+        "exemple": "name@example.com",
+        "email-invalide": "Invalid email",
+        "motdepasse": "Choose your password",
+        "password-invalide": "Invalid password",
+        "correspond": "The passwords do not match",
+        "password": "Password",
+        "ou": "or",
+        "bouton": "Create my account"
+    },
+    "entete": {
+        "connexion": "Login",
+        "inscription": "Register"
     }
 }
