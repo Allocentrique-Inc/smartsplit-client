@@ -14,29 +14,6 @@ const tokenType = 'Bearer ';
 const passwordSOCAN = '';
 const client_secret = '';
 
-let paramKey = 'SOCAN_API_KEY';
-
-const AWS = require('aws-sdk');
-const REGION = 'us-east-2';
-AWS.config.update({
-    region: REGION
-});
-
-const ssm = new AWS.SSM();
-let params = {
-    Name: paramKey,
-    WithDecryption: /*true ||*/ false
-};
-ssm.getParameter(params, function(err, data) {
-    if (err) {
-      console.log(err, err.stack); // an error occurred
-    } else {
-      const apiKey = data.Parameter.Value;   
-      console.log("API KEY IS:", apiKey);     
-    };
-})
-  
-
 class Socan extends Component {
   state = {
     image:'',
@@ -71,7 +48,7 @@ class Socan extends Component {
   
   handleCountryChange = (e, { value }) => this.setState({ currentCountryValue: value })
 
-  handleBirthdayChange = (e, { value }) => this.setState({ birthdate: value })
+  handleBirthdateChange = (e, { value }) => this.setState({ birthdate: value })
 
   handleSubmit = values => {
 
@@ -85,8 +62,7 @@ class Socan extends Component {
       PROVINCE: this.state.province,
       COUNTRY: this.state.country,
       POSTAL_CODE: this.state.postalCode,
-      // PHONE_NO1: this.state.phone,
-      PHONE_NO1: '514 416 0024',
+      PHONE_NO1: this.state.phone,
       TERMS: 'Y',
       USER_ID: this.state.userId,
       EMAIL_ADDRESS: this.state.email,
@@ -98,13 +74,10 @@ class Socan extends Component {
     }
 
     try {
-      // axios.post('https://api.socan.ca/auth/oauth/v2/token?client_id=' + apiKey +'&client_secret=' + client_secret + '&grant_type=password&password=' + passwordSOCAN + '&username=smartsplit')
-      // TODO GET ACCESS TOKEN
+      axios.post('http://api.smartsplit.org:8080/v1/socan/join', body)
       console.log("BODY: ", body)
-      // axios.post('https://api.socan.ca/sandbox/JoinSOCAN?' + apiKey, body)
       .then(
-        toast.success(`Application sent to SOCAN, check your email!`),
-        // this.props.history.push("/accueil")
+        toast.success(`Application sent to SOCAN API, check your email!`),
       )
       .catch((err)=>{
         toast.error(err.message)
@@ -121,33 +94,11 @@ class Socan extends Component {
   }
 
   componentDidMount(){
-    // let groups = [];
-    // axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
-    // .then(res=>{
-    //   let groupers = [];
-    //   let groupsUnique = [];
-    //   res.data.forEach(function(element) {
-    //     groupers.push( element.groups )
-    //     // Remove duplicates from multiple right holders and flattens arrays
-    //     let GR = groupers.sort().flat().filter( Boolean );
-    //     groupsUnique = [...new Set(GR)]
-    //   })
-    //   groupsUnique.forEach(function(elm) {
-    //     groups.push( {key: elm, text: elm, value: elm} )
-    //   })
-    //   this.setState({groups: groups})
-    //   console.log("this.state.groups", this.state.groups);
-    // })
-    // .catch(err=>{
-    //   // toast.error(err)
-    //   console.log(err);
-    // })
+
   }
 
   render() {
     const { open, closeOnDimmerClick, currentProvinceValue, currentCountryValue, terms } = this.state
-
-    // onChange = (e, { value }) => this.setState({ birthdate: value })
 
     return (
       
@@ -164,7 +115,7 @@ class Socan extends Component {
           <DateInput
             placeholder={"Date de Naissance"}
             value={ this.state.birthdate }
-            onChange={ (event, { value }) => this.handleBirthdayChange(value) }
+            onChange={ (event, { value }) => this.handleBirthdateChange(value) }
             icon="calendar outline"
           />
           <br></br>
