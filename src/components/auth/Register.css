@@ -9,11 +9,6 @@
     font-weight: normal;
     font-size: 16px;
     line-height: 24px;
-    color:#2DA84F;
-    display:flex;
-    flex-direction:column;
-    flex-wrap:wrap;
-    margin-top: 0px; 
   }
 
 .container {
@@ -22,23 +17,23 @@
     width: 464px;
 }
 
-button {
+button[id="facebook"],
+[id="google"] {
     width: 464px;
     height: 40px;
     border-radius: 2px;
     padding-right: 137px;
     font-family: 'IBM Plex Sans';
-    font-style: bold;
     font-weight: bold;
     color: white;
     font-size: 15px;
     line-height: 24px;
+    text-align: center;
 }
 
 button[id="facebook"] {
     margin-top: 20px;
     background-color: #3b5998;
-    text-align: center;
 }
 
 .facebook {
@@ -59,22 +54,6 @@ button[id="google"] {
     width: 464px;
 }
 
-input[id="password"] {
-    padding-right: 50px;
-    margin: 5px 0 5px 0;
-    display: inline;
-}
-
-input[id="confirmpassword"] {
-    padding-right: 0px;
-    margin: 5px 0 5px 0;
-    display: inline;
-}
-
-input[id="username"] {
-    width: 464px;
-  }
-
 input {
     /* styles génériques */
     font-family: 'IBM Plex Sans';
@@ -83,10 +62,15 @@ input {
     border: 1px solid #DCDFE1;
     border-radius: 2px;
     background: #FFFFFF;
-}
+    display: inline;
+    padding-right: 0px;
+    margin: 5px 0 5px 0;
+    padding-right: 0px;
+    }
 
 label[for="username"], 
-label[for="password"] {
+label[for="password"],
+label[for="confirmpassword"] {
     font-family: 'IBM Plex Sans';
     height: 24px;
     font-style: normal;
@@ -104,7 +88,8 @@ label[for="password"] {
 }
 
 input[id="username"],
-input[id="password"] {
+input[id="password"],
+input[id="confirmpassword"] {
     height: 40px;
     color: #8DA0B3;
     border: 1px solid #DCDFE1;
@@ -115,6 +100,19 @@ input[id="password"] {
     padding-right: 0;
     width: 100%;
     display: inline;
+}
+
+input[id="username"] {
+    margin-bottom: 30px;
+}
+
+input[id="password"] {
+    margin-bottom: 15px;
+}
+
+input[id="confirmpassword"] {
+    margin-top: 35px;
+    margin-bottom: 30px;
 }
 
 /*input[id="artistName"] {
@@ -141,7 +139,8 @@ input[id="lastName"] {
     visibility: visible !important;
 }
 
-button[id="hide"] {
+button[id="hide"],
+button[id="hide-confirm"] {
     padding: 0;
     color: white;
     background-color: Transparent;
@@ -149,14 +148,7 @@ button[id="hide"] {
     -webkit-appearance: none;
     position: absolute;
     right: 0;
-}
-
-button[id="hide-confirm"] {
-    padding: 0;
-    color: white;
-    background-color: Transparent;
-    border: 0;
-    -webkit-appearance: none;
+    margin: 42px 30px 0 0;
 }
 
 hr[class="hrLogin"] {
@@ -189,7 +181,7 @@ hr[class="hrLogin"]:after {
     height: 3px;
     width: 150px;
     background: #DDD;
-    margin: 5px auto 5px auto;
+    margin: 0 313px;
     border-radius: 2px;
 }
 
@@ -233,6 +225,7 @@ hr[class="hrLogin"]:after {
     background-size: calc(.75em + .375rem) calc(.75em + .375rem);
     background-repeat: no-repeat;
     background-position: center right calc(.375em + .1875rem);
+    width: 464px;
 }
 
 .form-control.is-valid {
@@ -242,6 +235,7 @@ hr[class="hrLogin"]:after {
     background-repeat: no-repeat;
     background-position: center right calc(.375em + .1875rem);
     background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+    width: 464px;
 }
 
 .fileUpload {
@@ -324,39 +318,20 @@ header#registerHeader h3:after {
     line-height: 24px;
     width: 464px;
     height: 24px;
+    margin-bottom: 100px;
 }
 
-button[class="ui medium button account"] {
+.ui.medium.button {
     background-color:#2DA84F;
     color:#FFF;
     font-family: 'IBM Plex Sans';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 16px;
-    line-height: 24px;
     font-weight: 700;
     font-size: 16px;
     line-height: 24px;
     text-align: center;
-    padding: 8px 16px 8px 16px;
-    margin: 0px 16px 0px 16px;
-    border-radius: 2px;
-    width: 138px;
-    height: 24px;
-    position: absolute;
-    right: 0px;
-  }
-
-  .eye1 {
-    display: inline;
-    color: transparent;
-    border: transparent;
-    box-sizing: border-box;
-    border-radius: 2px;
-    background: transparent;
-    margin: 0px;
-    padding-left: 10px;
-    white-space: pre;
+    float: right;
+    margin: 0 auto;
+    margin-bottom: 20px;
   }
 
 /*.avatar--image {
