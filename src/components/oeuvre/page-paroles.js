@@ -18,15 +18,6 @@ export default class PageParoles extends React.Component {
         'Esperanto'
     ];
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            lyrics: "",
-            languages: []
-        };
-    }
-
     icon() {
         return this.props.pochette ? LyricsCircleOrange : LyricsCircleGreen;
     }
@@ -62,8 +53,8 @@ export default class PageParoles extends React.Component {
                                     label={ 'Paroles' }
                                     placeholder={ 'Ajouter des paroles...' }
                                     undertext={ 'Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.' }
-                                    value={ this.state.lyrics }
-                                    onChange={ value => this.setState({ lyrics: value }) }
+                                    value={ this.props.values.lyrics.text }
+                                    onChange={ value => this.props.setFieldValue('lyrics.text', value) }
                                 />
 
                                 <ChampSelectionMultiple
@@ -72,11 +63,14 @@ export default class PageParoles extends React.Component {
                                     label="Langues"
                                     createLabel="Créer la langue :"
                                     placeholder="Ajouter une langue..."
-                                    value={ this.state.languages }
-                                    onChange={ ids => this.setState({ languages: ids }) }
+                                    value={ this.props.values.lyrics.languages }
+                                    onChange={ values => this.props.setFieldValue('lyrics.languages', values) }
                                 />
 
-                                <ChampAccesVision/>
+                                <ChampAccesVision
+                                    value={ this.props.values.lyrics.access }
+                                    onChange={ value => this.props.setFieldValue('lyrics.access', value) }
+                                />
                             </Colonne>
                         </Page>
                 }

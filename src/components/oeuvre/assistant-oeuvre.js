@@ -104,8 +104,11 @@ class AssistantOeuvre extends Component {
             rightHolders: [],
             jurisdiction: "",
             rightsType: [],
-            lyrics: "",
-            inLanguages: [],
+            lyrics: {
+                text: "",
+                languages: [],
+                access: "public"
+            },
             isrc: "",
             iswc: "",
             upc: "",
