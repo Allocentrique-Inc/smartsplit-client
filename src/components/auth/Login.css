@@ -1,24 +1,26 @@
 
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+
 button[id="hide"] {
-  margin: 0em;
-  width: 50px;
-  height: 32px;
   padding: 0;
   color: white;
   background-color: Transparent;
   border: 0;
   -webkit-appearance: none;
+  position: absolute;
+  right: 0;
+  margin: 10px 10px 0 0;
 }
 
 input[id="username"] {
-  padding-right: 50px;
+  padding-right: 0px;
   width: 464px;
   display: inline;
 }
 
 input[name="password"] {
-  padding-right: 50px;
-  width: 414px;
+  padding-right: 0px;
+  width: 464px;
   display: inline;
 }
 
@@ -70,3 +72,14 @@ hr:after {
   color: black;
   background: white;
 }
+
+/*.ui.medium.button {
+  background-color:#2DA84F;
+  color:#FFF;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 8px 16px 8px 16px;
+  margin: 0px 16px 0px 16px;
+}*/

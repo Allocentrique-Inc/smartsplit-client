@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Register.css'
-// import { toast } from 'react-toastify'
 import axios from 'axios'
 import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 'semantic-ui-react'
 import { Translation } from 'react-i18next';
@@ -21,27 +20,26 @@ const roles = [
   'musician'
 ]
 
-class ModifyUser extends Component {
+export default class ModifyUser extends Component {
   constructor(props){
     super(props)
 
     this.state = { 
       groups: [],
       image:'',
-      firstName: props.firstName,
+      firstName: '',
       lastName: '',
-      artistName: '',
+      artistName: props.firstName,
       email: '',
       avatarImage: '',
       open: props.open,
-      // collabGroup: '',
       newUser: true,
       defaultRoles: [],
       currentValue: [],
       currentRoleValue: [],
       roles: [
         {key: "Principal", text: "Principal", value: "Principal"},
-        {key: "Accompaniment", text: "Accompaniment", value: "Aaccompaniment"},
+        {key: "Accompaniment", text: "Accompaniment", value: "Accompaniment"},
         {key: "Songwriter", text: "Songwriter", value: "Songwriter"},
         {key: "Composer", text: "Composer", value: "Composer"},
         {key: "Remixer", text: "Remixer", value: "Remixer"},   
@@ -54,19 +52,16 @@ class ModifyUser extends Component {
       ]
     }
 
-    // BIND TODO
-    this.click = this.click.bind(this)
+        // BIND TODO
+        this.click = this.click.bind(this)
 
   }
-
-
-  
 
   closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
     this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
   }
         
-  close = () => this.setState({ open: false })
+  //close = () => this.setState({ open: false })
 
   handleAddition = (e, { value }) => {
     this.setState(prevState => ({
@@ -80,10 +75,8 @@ class ModifyUser extends Component {
 
   roleChange = (e, { value }) => this.setState({ currentRoleValue: value })
 
-
   handleFileDelete(e) {
     e.target.value = null;
-    // this.image = ''
     this.setState(
       { image: '' },
     );
@@ -105,7 +98,7 @@ class ModifyUser extends Component {
 
   click(){
     this.handleSubmit();
-    this.close();
+    this.props.close();
   }
 
   handleSubmit = values => { 
@@ -125,35 +118,18 @@ class ModifyUser extends Component {
     try {
       axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
       .then(
-        console.log('user created / modified'),
-        toast.success('user created / modified'),
-        setTimeout(function(){ window.location.reload(); }, 2000)
-        // window.location.reload()
-        // TODO Add modal close action
-        // this.props.history.push("/")
-
-        // TODO
-        // if(this.props.callback){
-        //   this.props.callback();
-        // }
-        // if (this.props.callback) {
-        //   this.props.callback();
-        // }
-      )
-      // .then(
-      //   if (this.state.firstName == 'Jim') {
-      //     this.props.callback();
-      //   }
-      // )
-      .catch((err)=>{
-        // toast.error(err.message)
-        console.log(err)
-      })
-      .finally(()=>{
-        if(this.props.fn) {
-          this.props.fn()
+        ()=>{
+          console.log('user created / modified')
+          toast.success('user created / modified')
+          //setTimeout(function(){ window.location.reload(); }, 2000)
+          if(this.props.fn) {
+            this.props.fn()
+          }
         }
-      })
+      )
+      .catch((err)=>{
+        console.log(err)
+      })      
     } catch (err) {
       console.log(err)
     }
@@ -183,10 +159,8 @@ class ModifyUser extends Component {
       this.setState({groups: groups}, ()=>{console.log("this.state.groups", this.state.groups)})
     })
     .catch(err=>{
-      // toast.error(err)
       console.log(err);
     })
-    console.log("this.state.roles", this.state.roles)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -194,7 +168,7 @@ class ModifyUser extends Component {
         this.setState({open: nextProps.open})
     }
     if(this.props.firstName !== nextProps.firstName) {
-      this.setState({firstName: nextProps.firstName})
+      this.setState({artistName: nextProps.firstName})
     }
   }
 
@@ -214,19 +188,15 @@ class ModifyUser extends Component {
     };
 
     return (
-      <Modal open={open}
-      closeOnDimmerClick={closeOnDimmerClick}
-      onClose={this.close} size="tiny" closeIcon>
+      <Modal 
+        open={open}
+        closeOnEscape={true}
+        closeOnDimmerClick={false}
+        onClose={this.props.close} 
+        size="tiny" 
+
+        closeIcon>
         <Modal.Header>Ajouter un artiste collaborateur</Modal.Header>
-        {/* <Modal.Content image>
-          <Image wrapped size='tiny' src='https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg' />
-          <Modal.Description>
-            <Header>Image de profil</Header>
-            <p>Photo par défaut pour votre utilisateur</p>
-            <Input type="file" className="fileUpload" onChange={this.handleFileUpload}/>
-            <button size='tiny' className="fileDelete" onChange={this.handleFileDelete}>Annuler</button>
-          </Modal.Description>
-        </Modal.Content> */}
           <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName} onChange={e => this.onTodoChange(e.target.value)}/>
           <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
           <label>Nom d'artiste</label><label id="Optionel">Optionel</label><input type="text" className="artistName" placeholder="Nom d'artiste" value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
@@ -240,7 +210,6 @@ class ModifyUser extends Component {
               options={this.state.groups}
               placeholder='Choisir group'
               search
-              // multiple
               multiple={true}
               selection
               fluid
@@ -258,16 +227,12 @@ class ModifyUser extends Component {
               options = {this.state.roles}
               placeholder='Choisir group'
               search
-              // multiple
               multiple={true}
               selection
               fluid
               value={currentRoleValue}
               onChange={this.roleChange}
-            />
-          {/* <div className="roles">
-            { renderCheckbox() }
-          </div> */} 
+            /> 
           Ces rôles pourront toujours être modifiés plus tard.
         <Modal.Actions>
                 <Button onClick={this.close} negative>Annuler</Button>
@@ -278,4 +243,3 @@ class ModifyUser extends Component {
   }
   
 }
-export default ModifyUser

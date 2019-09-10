@@ -21,7 +21,7 @@ export default class BoutonConnexion extends Component {
                 {
                     t=>
                         <div className="ui medium button">
-                            Connexion
+                            {t('entete.connexion')}
                         </div>
                 }
             </Translation>
