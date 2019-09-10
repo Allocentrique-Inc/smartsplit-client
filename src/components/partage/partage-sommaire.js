@@ -322,8 +322,7 @@ class SommaireDroit extends Component {
                                 </Translation>
                             </div>
                         </div>                        
-                    </div>                    
-                    <hr/>
+                    </div>
                 </div>
             )
         })                    

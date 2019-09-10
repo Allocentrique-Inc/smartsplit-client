@@ -86,7 +86,7 @@ export default class SommaireOeuvre extends Component {
                                 </div>
                                 <div className="ui row" style={{background: "#FAF8F9"}}>
                                     <div className="ui two wide column"></div>
-                                    <div className="ui eleven wide column"><hr style={{width: "100%"}}/></div>
+                                    <div className="ui eleven wide column"></div>
                                 </div>
                                 <div className="ui row" style={{background: "#FAF8F9"}}>
                                     <div className="ui two wide column" />

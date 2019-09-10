@@ -158,7 +158,7 @@ export default class ChampSelectionMultipleAyantDroit extends Component {
 
                 <ModifyUser
                     open={ this.state.modalOpen }
-                    firstName={ this.state.modalFirstName }
+                    firstName={ this.state.modalFirstName }                   
                     onClose={ () => this.setState({ modalOpen: false, modalFirstName: '' }) }
                 />
             </>

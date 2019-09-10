@@ -55,7 +55,6 @@ class AssistantPartage extends Component {
                 axios.get(`http://api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
                 .then(res=>{
                     // Si elle existe, configuration de l'assistant avec cette dernière
-                    console.log(res)
                     if(res.data) {
                         this.setState({proposition: res.data})
                     }
