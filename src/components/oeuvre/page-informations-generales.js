@@ -18,18 +18,6 @@ export default class PageInformationsGenerales extends React.Component {
         'Sweet Pickle'
     ];
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            duration: '',
-            bpm: '',
-            primaryGenre: '',
-            secondaryGenres: [],
-            influences: ''
-        }
-    }
-
     genreOptions() {
         return this.genres.map(genre => new SelectOption({ text: genre, value: genre }));
     }
@@ -62,8 +50,8 @@ export default class PageInformationsGenerales extends React.Component {
                                                 pochette={ this.props.pochette }
                                                 label="Durée"
                                                 placeholder="MM:SS"
-                                                value={ this.state.duration }
-                                                onChange={ value => this.setState({ duration: value }) }
+                                                value={ this.props.values.duration }
+                                                onChange={ value => this.props.setFieldValue('duration', value) }
                                             />
                                         </div>
 
@@ -73,8 +61,8 @@ export default class PageInformationsGenerales extends React.Component {
                                                 pochette={ this.props.pochette }
                                                 label="BPM"
                                                 placeholder="888"
-                                                value={ this.state.bpm }
-                                                onChange={ value => this.setState({ bpm: value }) }
+                                                value={ this.props.values.bpm }
+                                                onChange={ value => this.props.setFieldValue('bpm', value) }
                                             />
                                         </div>
                                     </div>
@@ -86,8 +74,8 @@ export default class PageInformationsGenerales extends React.Component {
                                     label="Genre principal"
                                     createLabel="Créer un nouveau genre"
                                     placeholder="Ajouter un genre..."
-                                    value={ this.state.primaryGenre }
-                                    onChange={ value => this.setState({ primaryGenre: value }) }
+                                    value={ this.props.values.genre }
+                                    onChange={ value => this.props.setFieldValue('genre', value) }
                                 />
 
                                 <ChampSelectionMultiple
@@ -96,8 +84,8 @@ export default class PageInformationsGenerales extends React.Component {
                                     label="Genres secondaires"
                                     createLabel="Créer un nouveau genre"
                                     placeholder="Ajouter un genre..."
-                                    value={ this.state.secondaryGenres }
-                                    onChange={ ids => this.setState({ secondaryGenres: ids }) }
+                                    value={ this.props.values.secondaryGenres }
+                                    onChange={ value => this.props.setFieldValue('secondaryGenres', value) }
                                 />
 
                                 <ChampTexte
@@ -105,8 +93,8 @@ export default class PageInformationsGenerales extends React.Component {
                                     label="Influences"
                                     placeholder="Indiquer un ou plusieurs artistes"
                                     undertext="Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae."
-                                    value={ this.state.influences }
-                                    onChange={ value => this.setState({ influences: value }) }
+                                    value={ this.props.values.influence }
+                                    onChange={ value => this.props.setFieldValue('influence', value) }
                                 />
                             </Colonne>
                         </Page>
