@@ -77,7 +77,8 @@ class Socan extends Component {
       axios.post('http://api.smartsplit.org:8080/v1/socan/join', body)
       console.log("BODY: ", body)
       .then(
-        toast.success(`Application sent to SOCAN API, check your email!`),
+        console.log("RESPONSE: ",Response),
+        toast.success(`Application sent to SOCAN API, check your email!`)
       )
       .catch((err)=>{
         toast.error(err.message)
