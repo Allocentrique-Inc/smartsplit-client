@@ -24,9 +24,9 @@ export default class PageInfluences extends React.Component {
                                 <Entete
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
-                                    label={ 'Influences' }
-                                    question={ 'Informations générales' }
-                                    description={ 'Ici, tu indiques de quel genre est cette pièce musicale et qui sont les artistes ou tendances qui l’ont influencé.' }
+                                    label={ t('flot.documenter.entete.influence') }
+                                    question={ t('flot.documenter.titre5') }
+                                    description={ t('flot.documenter.titre5-description') }
                                 />
                             </Colonne>
                         </Page>

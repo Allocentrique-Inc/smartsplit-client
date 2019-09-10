@@ -71,20 +71,20 @@ export default class PageEnregistrement extends React.Component {
                                 <Entete
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
-                                    label={ 'Enregistrement' }
-                                    question={ 'Qui a enregistré la pièce musicale?' }
-                                    description={ 'Ici, tu indiques qui a contribué à l’enregistrement sonore de cette pièce.' }
+                                    label={ t('flot.documenter.entete.enregistrement') }
+                                    question={ t('flot.documenter.titre3') }
+                                    description={ t('flot.documenter.titre3-description') }
                                 />
 
-                                <h3 className="section-title">Enregistrement</h3>
+                                <h3 className="section-title">{ t('flot.documenter.entete.enregistrement') }</h3>
 
                                 <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
-                                    label="Réalisation"
+                                    label={ t('flot.documenter.realisation') }
                                     createLabel="Créer un nouveau collaborateur"
-                                    description="C’est le directeur artistique qui donne un son à l’enregistrement."
-                                    placeholder="Ajouter un réalisateur..."
+                                    description={ t('flot.documenter.realisation-description') }
+                                    placeholder={ t('flot.documenter.realisation-placeholder') }
                                     value={ this.state.directors }
                                     onChange={ ids => this.setState({ directors: ids }) }
                                 />
@@ -92,10 +92,10 @@ export default class PageEnregistrement extends React.Component {
                                 <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
-                                    label="Prise de son"
+                                    label={ t('flot.documenter.son') }
                                     createLabel="Créer un nouveau collaborateur"
-                                    description="C’est la personne qui fait la prise de son de ta pièce musicale."
-                                    placeholder="Ajouter un preneur de son..."
+                                    description={ t('flot.documenter.son-description') }
+                                    placeholder={ t('flot.documenter.son-placeholder') }
                                     value={ this.state.soundRecordists }
                                     onChange={ ids => this.setState({ soundRecordists: ids }) }
                                 />
@@ -103,10 +103,10 @@ export default class PageEnregistrement extends React.Component {
                                 <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
-                                    label="Mixage"
+                                    label={ t('flot.documenter.mix') }
                                     createLabel="Créer un nouveau collaborateur"
-                                    description="C’est l’étape où l’on dose les niveaux de volume et fréquences."
-                                    placeholder="Ajouter un ingénieur de mixage..."
+                                    description={ t('flot.documenter.mix-description') }
+                                    placeholder={ t('flot.documenter.mix-placeholder') }
                                     value={ this.state.mixEngineers }
                                     onChange={ ids => this.setState({ mixEngineers: ids }) }
                                 />
@@ -114,10 +114,10 @@ export default class PageEnregistrement extends React.Component {
                                 <ChampSelectionMultipleAyantDroit
                                     pochette={ this.props.pochette }
                                     items={ this.rightHolderOptions() }
-                                    label="Mastering"
+                                    label={ t('flot.documenter.master') }
                                     createLabel="Créer un nouveau collaborateur"
-                                    description="C’est l’étape de compression et d’égalisation globale de la chanson."
-                                    placeholder="Ajouter un ingénieur de mastering..."
+                                    description={ t('flot.documenter.master-description') }
+                                    placeholder={ t('flot.documenter.master-placeholder') }
                                     value={ this.state.masterEngineers }
                                     onChange={ ids => this.setState({ masterEngineers: ids }) }
                                 />
@@ -125,10 +125,10 @@ export default class PageEnregistrement extends React.Component {
                                 <ChampSelectionMultiple
                                     pochette={ this.props.pochette }
                                     items={ this.studioOptions() }
-                                    label="Studio d’enregistrement"
+                                    label={ t('flot.documenter.studio') }
                                     createLabel="Créer un nouveau studio"
-                                    description="C’est le lieu où la chanson a été enregistrée."
-                                    placeholder="Rechercher un studio d'enregistrement..."
+                                    description={ t('flot.documenter.studio-description') }
+                                    placeholder={ t('flot.documenter.studio-placeholder') }
                                     value={ this.state.studios }
                                     onChange={ ids => this.setState({ studios: ids }) }
                                 />
@@ -138,28 +138,29 @@ export default class PageEnregistrement extends React.Component {
                                     items={ this.rightHolderOptions() }
                                     label="Production"
                                     createLabel="Créer un nouveau collaborateur"
-                                    description="Personne ou compagnie qui investit de l’argent ou du temps pour rendre l’enregistrement sonore possible."
-                                    placeholder="Ajouter un producteur..."
+                                    description={ t('flot.documenter.production-description') }
+                                    placeholder={ t('flot.documenter.production-placeholder') }
                                     value={ this.state.producers }
                                     onChange={ ids => this.setState({ producers: ids }) }
                                 />
 
                                 <ChampTexte
-                                    label="Code ISRC"
-                                    description="L'International Standard Recording Code est un code unique d'identification des enregistrements sonores."
+                                    label={ t('flot.documenter.codeiswc') }
+                                    description={ t('flot.documenter.codeiswc-description') }
+                                    placeholder={ t('flot.documenter.codeiswc-placeholder') }
                                     value={ this.props.values.isrc }
                                     onChange={ value => this.props.setFieldValue('isrc', value) }
                                 />
 
                                 <div className="instrument-divider"></div>
 
-                                <h3 className="section-title">Sortie</h3>
+                                <h3 className="section-title">{ t('flot.documenter.entete.sortie') }</h3>
 
                                 <ChampSelectionMultiple
-                                    label="Étiquette"
+                                    label={ t('flot.documenter.etiquette') }
                                     items={ this.labelOptions() }
-                                    description="C’est l’entité qui s’occupe de commercialiser ta pièce."
-                                    placeholder="Ajouter une étiquette..."
+                                    description={ t('flot.documenter.etiquette-description') }
+                                    placeholder={ t('flot.documenter.etiquette-placeholder') }
                                     value={ this.state.recordLabels }
                                     onChange={ ids => this.setState({ recordLabels: ids }) }
                                 />
@@ -167,8 +168,8 @@ export default class PageEnregistrement extends React.Component {
                                 <ChampSelectionMultiple
                                     label="Distribution"
                                     items={ this.distributorOptions() }
-                                    description="C’est l’entité qui s’occupe de commercialiser ta pièce."
-                                    placeholder="Ajouter une étiquette..."
+                                    description={ t('flot.documenter.distribution-description') }
+                                    placeholder={ t('flot.documenter.distribution-placeholder') }
                                     value={ this.state.distributors }
                                     onChange={ ids => this.setState({ distributors: ids }) }
                                 />
@@ -179,9 +180,9 @@ export default class PageEnregistrement extends React.Component {
                                 />
 
                                 <ChampTexte
-                                    label="Code UPC/EAN"
-                                    description="Code à barre obligatoire au produit physique. Peut optionnellement être attribué à un produit numérique."
-                                    placeholder="Optionnel"
+                                    label={ t('flot.documenter.codeupc') }
+                                    description={ t('flot.documenter.codeupc-description') }
+                                    placeholder={ t('flot.documenter.codeupc-placeholder') }
                                     value={ this.state.upc }
                                     onChange={ value => this.setState({ upc: value }) }
                                 />
