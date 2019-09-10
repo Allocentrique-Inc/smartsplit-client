@@ -25,9 +25,9 @@ export default class PageParoles extends React.Component {
                                 <Entete
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
-                                    label={ 'Paroles' }
-                                    question={ this.props.values.title + ' contient des paroles?' }
-                                    description={ 'Les mots dans une chanson sont d’excellentes données descriptives sur l’oeuvre qui augmentent sa découvrabilité et les chances d’élargir ton auditoire.' }
+                                    label={ t('flot.documenter.entete.parole') }
+                                    question={ this.props.values.title + " " + t('flot.documenter.titre6')}
+                                    description={ t('flot.documenter.titre6-description') }
                                 />
                             </Colonne>
                         </Page>

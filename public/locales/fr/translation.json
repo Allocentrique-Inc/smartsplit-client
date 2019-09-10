@@ -138,7 +138,13 @@
         "documenter": {
             "entete": {
                 "creation": "Création",
-                "interpretation": "Interprétation"
+                "interpretation": "Interprétation",
+                "enregistrement": "Enregistrement",
+                "sortie": "Sortie",
+                "fichier": "Fichiers",
+                "influence": "Influences",
+                "parole": "Paroles",
+                "lien": "Liens d'écoute"
             },
             "titre1": "Qui a participé à la création de",
             "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
@@ -149,7 +155,7 @@
                 "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
                 "compositeur": "Compositeurs",
                 "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
-                "compositeur-placeholder": "Add a Composer",
+                "compositeur-placeholder": "Ajouter un compositeur",
                 "editeur": "Éditeurs",
                 "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
                 "editeur-placeholder": "Ajouter un éditeur",

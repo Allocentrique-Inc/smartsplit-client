@@ -57,6 +57,22 @@ button[id="google"] {
 .input-wrapper {
     position: relative;
     width: 464px;
+}
+
+input[id="password"] {
+    padding-right: 50px;
+    margin: 5px 0 5px 0;
+    display: inline;
+}
+
+input[id="confirmpassword"] {
+    padding-right: 0px;
+    margin: 5px 0 5px 0;
+    display: inline;
+}
+
+input[id="username"] {
+    width: 464px;
   }
 
 input {
@@ -65,7 +81,6 @@ input {
     height: 40px;
     color: #8DA0B3;
     border: 1px solid #DCDFE1;
- 
     border-radius: 2px;
     background: #FFFFFF;
 }
@@ -174,7 +189,7 @@ hr[class="hrLogin"]:after {
     height: 3px;
     width: 150px;
     background: #DDD;
-    margin: 5px auto 5px 35px;
+    margin: 5px auto 5px auto;
     border-radius: 2px;
 }
 
@@ -341,8 +356,10 @@ button[class="ui medium button account"] {
     background: transparent;
     margin: 0px;
     padding-left: 10px;
+    white-space: pre;
   }
 
 /*.avatar--image {
 
 }*/
+

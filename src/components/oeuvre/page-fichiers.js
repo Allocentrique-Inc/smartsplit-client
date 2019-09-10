@@ -25,9 +25,9 @@ export default class PageFichiers extends React.Component {
                                 <Entete
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
-                                    label={ 'Fichiers' }
-                                    question={ 'Quels fichiers veux-tu rendre accessible?' }
-                                    description={ 'Ici, tu peux ajouter tous les fichiers relatifs à cette pièce musicale.' }
+                                    label={ t('flot.documenter.entete.fichier') }
+                                    question={ t('flot.documenter.titre4') }
+                                    description={ t('flot.documenter.titre4-description') }
                                 />
                             </Colonne>
                         </Page>

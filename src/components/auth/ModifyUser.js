@@ -2,27 +2,28 @@ import React, { Component } from 'react';
 import './Register.css'
 // import { toast } from 'react-toastify'
 import axios from 'axios'
-import { Button, Checkbox, Dropdown, Modal } from 'semantic-ui-react'
+import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 'semantic-ui-react'
+import { Translation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 const MAX_IMAGE_SIZE = 10000000
 const roles = [
-    'principal',
-    'accompaniment',
-    'songwriter',
-    'composer',
-    'remixer',
-    'studio',
-    'publisher',
-    'graphist',
-    'producer',
-    'singer',
-    'musician'
+  'principal', 
+  'accompaniment', 
+  'songwriter', 
+  'composer', 
+  'remixer', 
+  'studio', 
+  'publisher', 
+  'graphist', 
+  'producer', 
+  'singer', 
+  'musician'
 ]
 
 class ModifyUser extends Component {
-    constructor(props) {
-        super(props)
+  constructor(props){
+    super(props)
 
         this.state = {
             groups: [],
@@ -56,52 +57,51 @@ class ModifyUser extends Component {
         // BIND TODO
         this.click = this.click.bind(this)
 
+  }
 
+
+  
+
+  closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
+    this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
+  }
+        
+  close = () => this.setState({ open: false })
+
+  handleAddition = (e, { value }) => {
+    this.setState(prevState => ({
+      groups: [{text: value, value}, ...prevState.groups],
+    }))  
+  }
+
+  handleChange = (e, { value }) => this.setState({ currentValue: value })
+
+  handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value })
+
+  roleChange = (e, { value }) => this.setState({ currentRoleValue: value })
+
+
+  handleFileDelete(e) {
+    e.target.value = null;
+    // this.image = ''
+    this.setState(
+      { image: '' },
+    );
+    console.log('image: ', this.state.image);
+  }
+
+  handleFileUpload(e) {
+    console.log("FILE: ", e.target.files[0]);
+    if (e.target.files[0].size > MAX_IMAGE_SIZE) {
+      return alert('Image is loo large - 10Mb maximum')
     }
-
-
-    closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
-        this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
+    if ( !e.target.files[0].type.includes('image/jpeg') )  {
+      return alert('Wrong file type - JPG only.')
     }
-
-    close = () => {
-        this.setState({ open: false })
-    }
-
-    handleAddition = (e, { value }) => {
-        this.setState(prevState => ({
-            groups: [{ text: value, value }, ...prevState.groups],
-        }))
-    }
-
-    handleChange = (e, { value }) => this.setState({ currentValue: value })
-
-    handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value })
-
-    roleChange = (e, { value }) => this.setState({ currentRoleValue: value })
-
-
-    handleFileDelete(e) {
-        e.target.value = null;
-        // this.image = ''
-        this.setState(
-            { image: '' },
-        );
-        console.log('image: ', this.state.image);
-    }
-
-    handleFileUpload(e) {
-        console.log("FILE: ", e.target.files[0]);
-        if (e.target.files[0].size > MAX_IMAGE_SIZE) {
-            return alert('Image is loo large - 10Mb maximum')
-        }
-        if (!e.target.files[0].type.includes('image/jpeg')) {
-            return alert('Wrong file type - JPG only.')
-        }
-        this.setState(
-            { image: 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg' }
-        );
-    }
+    this.setState(
+      { image: 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'}
+    );
+  }
 
     click() {
         this.handleSubmit();
@@ -109,98 +109,98 @@ class ModifyUser extends Component {
     }
 
     handleSubmit = values => {
+      let body = {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        artistName: this.state.artistName,
+        email: this.state.email,
+        groups: this.state.currentValue,
+        defaultRoles: this.state.currentRoleValue,
+        jurisdiction: "Canada",
+        newUser: true,
+        avatarImage: "image.jpg"
+      }
 
-        let body = {
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            artistName: this.state.artistName,
-            email: this.state.email,
-            groups: this.state.currentValue,
-            defaultRoles: this.state.currentRoleValue,
-            jurisdiction: "Canada",
-            newUser: true,
-            avatarImage: "faceapp.jpg"
-        }
+      try {
+        axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
+        .then(
+          console.log('user created / modified'),
+          toast.success('user created / modified'),
+          setTimeout(function(){ window.location.reload(); }, 2000)
+        )
+        .catch((err)=>{
+          console.log(err)
+        })
+        .finally(()=>{
+          if(this.props.fn) {
+            this.props.fn()
+          }
+        })
+      } catch (err) {
+        console.log(err)
+      }
+  }
 
-        try {
-            axios.post('http://api.smartsplit.org:8080/v1/rightHolders', body)
-                .then(
-                    () => {
-                        console.log('user created / modified')
-                        toast.success('user created / modified')
-                        // TODO Add Callback for page refresh
-                    }
-                )
-                .catch((err) => {
-                    // toast.error(err.message)
-                    console.log(err)
-                })
-                .finally(() => {
-                    if (this.props.fn) {
-                        this.props.fn()
-                    }
-                })
-        } catch (err) {
-            console.log(err)
-        }
+  onTodoChange(value){
+    this.setState({
+         firstName: value
+    });
+  }
+
+  componentDidMount(){
+    let groups = [];
+    axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
+    .then(res=>{
+      let groupers = [];
+      let groupsUnique = [];
+      res.data.forEach(function(element) {
+        groupers.push( element.groups )
+        // Remove duplicates from multiple right holders and flattens arrays
+        let GR = groupers.sort().flat().filter( Boolean );
+        groupsUnique = [...new Set(GR)]
+      })
+      groupsUnique.forEach(function(elm) {
+        groups.push( {key: elm, text: elm, value: elm} )
+      })
+      this.setState({groups: groups}, ()=>{console.log("this.state.groups", this.state.groups)})
+    })
+    .catch(err=>{
+      // toast.error(err)
+      console.log(err);
+    })
+    console.log("this.state.roles", this.state.roles)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.open !== nextProps.open) {
+        this.setState({open: nextProps.open})
     }
-
-    componentDidMount() {
-        let groups = [];
-        axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
-            .then(res => {
-                let groupers = [];
-                let groupsUnique = [];
-                res.data.forEach(function (element) {
-                    groupers.push(element.groups)
-                    // Remove duplicates from multiple right holders and flattens arrays
-                    let GR = groupers.sort().flat().filter(Boolean);
-                    groupsUnique = [...new Set(GR)]
-                })
-                groupsUnique.forEach(function (elm) {
-                    groups.push({ key: elm, text: elm, value: elm })
-                })
-                this.setState({ groups: groups }, () => {
-                    console.log("this.state.groups", this.state.groups)
-                })
-            })
-            .catch(err => {
-                // toast.error(err)
-                console.log(err);
-            })
-        console.log("this.state.roles", this.state.roles)
+    if(this.props.firstName !== nextProps.firstName) {
+      this.setState({firstName: nextProps.firstName})
     }
+  }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.open !== nextProps.open) {
-            this.setState({ open: nextProps.open })
-        }
-        if (this.props.firstName !== nextProps.firstName) {
-            this.setState({ firstName: nextProps.firstName })
-        }
-    }
+  render() {
+    const { open, closeOnDimmerClick, currentValue, currentRoleValue } = this.state
 
-    render() {
-        const { open, closeOnDimmerClick, currentValue, currentRoleValue } = this.state
+    // Return checkbox for each role
+    const renderCheckbox= () => {
+      return roles.map(role => {
+        return <Checkbox 
+          label={role} 
+          key={role} 
+          value={this.state.defaultRoles} 
+          onChange={this.handleRoleChange}
+        />;
+      });
+    };
 
-        // Return checkbox for each role
-        const renderCheckbox = () => {
-            return roles.map(role => {
-                return <Checkbox
-                    label={ role }
-                    key={ role }
-                    value={ this.state.defaultRoles }
-                    onChange={ this.handleRoleChange }
-                />;
-            });
-        };
-
-        return (
-            <Modal open={ this.state.open }
-                   closeOnDimmerClick={ closeOnDimmerClick }
-                   onClose={ this.close } size="tiny" closeIcon>
-                <Modal.Header>Ajouter un artiste collaborateur</Modal.Header>
-                {/* <Modal.Content image>
+    return (
+      <Modal open={open}
+      closeOnDimmerClick={closeOnDimmerClick}
+      onClose={this.close} size="tiny" closeIcon>
+        <Modal.Header>Ajouter un artiste collaborateur</Modal.Header>
+        {/* <Modal.Content image>
           <Image wrapped size='tiny' src='https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg' />
           <Modal.Description>
             <Header>Image de profil</Header>
@@ -208,56 +208,46 @@ class ModifyUser extends Component {
             <Input type="file" className="fileUpload" onChange={this.handleFileUpload}/>
             <button size='tiny' className="fileDelete" onChange={this.handleFileDelete}>Annuler</button>
           </Modal.Description>
-        </Modal.Content> */ }
-                <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal"
-                                                  value={ this.state.firstName }
-                                                  onChange={ e => this.setState({ firstName: e.target.value }) }/>
-                <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal"
-                                               value={ this.state.lastName }
-                                               onChange={ e => this.setState({ lastName: e.target.value }) }/>
-                <label>Nom d'artiste</label><label id="Optionel">Optionel</label><input type="text"
-                                                                                        className="artistName"
-                                                                                        placeholder="Nom d'artiste"
-                                                                                        value={ this.state.artistName }
-                                                                                        onChange={ e => this.setState({ artistName: e.target.value }) }/>
-                Si non applicable, nous afficherons son nom complet.
-                <label>Courriel</label><input type="text" className="email" placeholder="Courriel"
-                                              value={ this.state.email }
-                                              onChange={ e => this.setState({ email: e.target.value }) }/>
-                <label>Groupes</label>
-                <Dropdown
-                    className="prompt"
-                    type="text"
-                    paceholder="Groupes"
-                    options={ this.state.groups }
-                    placeholder='Choisir group'
-                    search
-                    // multiple
-                    multiple={ true }
-                    selection
-                    fluid
-                    allowAdditions
-                    value={ currentValue }
-                    onAddItem={ this.handleAddition }
-                    onChange={ this.handleChange }
-                />
-                <i className="search icon"></i>
-                <label>Rôle(s) par défaut</label>
-                <Dropdown
-                    className="roles"
-                    type="text"
-                    paceholder="Roles"
-                    options={ this.state.roles }
-                    placeholder='Choisir group'
-                    search
-                    // multiple
-                    multiple={ true }
-                    selection
-                    fluid
-                    value={ currentRoleValue }
-                    onChange={ this.roleChange }
-                />
-                {/* <div className="roles">
+        </Modal.Content> */}
+          <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName} onChange={e => this.onTodoChange(e.target.value)}/>
+          <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
+          <label>Nom d'artiste</label><label id="Optionel">Optionel</label><input type="text" className="artistName" placeholder="Nom d'artiste" value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
+          Si non applicable, nous afficherons son nom complet.
+          <label>Courriel</label><input type="text" className="email" placeholder="Courriel" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
+          <label>Groupes</label>
+            <Dropdown 
+              className="prompt"
+              type="text" 
+              paceholder="Groupes"
+              options={this.state.groups}
+              placeholder='Choisir group'
+              search
+              // multiple
+              multiple={true}
+              selection
+              fluid
+              allowAdditions
+              value={currentValue}
+              onAddItem={this.handleAddition}
+              onChange={this.handleChange}
+            />
+            <i className="search icon"></i>
+          <label>Rôle(s) par défaut</label>
+          <Dropdown 
+              className="roles"
+              type="text" 
+              paceholder="Roles"
+              options = {this.state.roles}
+              placeholder='Choisir group'
+              search
+              // multiple
+              multiple={true}
+              selection
+              fluid
+              value={currentRoleValue}
+              onChange={this.roleChange}
+            />
+          {/* <div className="roles">
             { renderCheckbox() }
           </div> */ }
                 Ces rôles pourront toujours être modifiés plus tard.
