@@ -14,7 +14,10 @@ export default class ChampFichier extends React.Component {
                         description={ this.props.description }
                     />
 
-                    <InputFichier/>
+                    <InputFichier
+                        value={ this.props.value }
+                        onChange={ value => this.props.onChange(value) }
+                    />
 
                     <p className="undertext">{ this.props.undertext }</p>
                 </label>

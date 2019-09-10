@@ -8,9 +8,11 @@ export default class InputFichier extends React.Component {
 
         this.fileInputRef = React.createRef();
 
+        const filename = this.props.value ? this.props.value.name : '';
+
         this.state = {
-            filename: ''
-        }
+            filename: filename
+        };
     }
 
     placeholder() {
@@ -26,6 +28,8 @@ export default class InputFichier extends React.Component {
         const filename = event.target.files.length ?
             event.target.files[0].name :
             '';
+
+        this.props.onChange(event.target.files[0]);
 
         this.setState({
             filename: filename

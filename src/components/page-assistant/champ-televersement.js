@@ -8,6 +8,8 @@ export default function ChampTeleversement(props) {
             <ChampFichier
                 label={ props.label }
                 undertext={ props.undertext }
+                value={ props.file }
+                onChange={ value => props.onFileChange(value) }
             />
 
             <ChampAccesTelechargement

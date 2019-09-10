@@ -45,7 +45,9 @@ export default class PageFichiers extends React.Component {
                                 <ChampTeleversement
                                     label={ 'Téléverser en format JPEG ou PNG' }
                                     undertext={ 'Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.' }
+                                    file={ this.props.values.files.cover.file }
                                     access={ this.props.values.files.cover.access || 'public' }
+                                    onFileChange={ value => this.props.setFieldValue('files.cover.file', value) }
                                     onAccessChange={ value => this.props.setFieldValue('files.cover.access', value) }
                                 />
 
