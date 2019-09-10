@@ -11,7 +11,8 @@ export default function ChampTeleversement(props) {
             />
 
             <ChampAccesTelechargement
-                value={ props.defaultAccessValue }
+                value={ props.access }
+                onChange={ value => props.onAccessChange(value) }
             />
         </div>
     );

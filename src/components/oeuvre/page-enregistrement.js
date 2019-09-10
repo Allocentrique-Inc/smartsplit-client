@@ -21,15 +21,7 @@ export default class PageEnregistrement extends React.Component {
             soundRecordists: [],
             mixEngineers: [],
             masterEngineers: [],
-            studio: '',
-            studioAddress: '',
             producers: [],
-            label: '',
-            labelAddress: '',
-            distributor: '',
-            distributorAddress: '',
-            releaseDate: '',
-            upc: ''
         };
     }
 

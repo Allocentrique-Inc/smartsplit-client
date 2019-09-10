@@ -35,19 +35,21 @@ export default class PageFichiers extends React.Component {
                                     <h3 className="section-title with-description">Visuel de l'œuvre</h3>
 
                                     <p className="description">
-                                        Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir
+                                        Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi
+                                        avoir
                                         un visuel pour la représenter. <br/>
                                         <a href="#">En savoir plus</a>
                                     </p>
                                 </div>
 
                                 <ChampTeleversement
-                                    label={'Téléverser en format JPEG ou PNG'}
-                                    undertext={'Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.'}
-                                    defaultAccessValue={'public'}
+                                    label={ 'Téléverser en format JPEG ou PNG' }
+                                    undertext={ 'Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.' }
+                                    access={ this.props.values.files.cover.access || 'public' }
+                                    onAccessChange={ value => this.props.setFieldValue('files.cover.access', value) }
                                 />
 
-                                <div className={'section-divider'}></div>
+                                <div className={ 'section-divider' }></div>
 
                                 <div className="entete-section">
                                     <h3 className="section-title with-description">Fichier audio</h3>
@@ -58,31 +60,35 @@ export default class PageFichiers extends React.Component {
                                 </div>
 
                                 <ChampTeleversement
-                                    label={'Téléverser le fichier de l’œuvre enregistrée'}
-                                    undertext={'MP3 ou WAV acceptés.'}
-                                    defaultAccessValue={'on-invite'}
+                                    label={ 'Téléverser le fichier de l’œuvre enregistrée' }
+                                    undertext={ 'MP3 ou WAV acceptés.' }
+                                    access={ this.props.values.files.audio.access || 'on-invite' }
+                                    onAccessChange={ value => this.props.setFieldValue('files.audio.access', value) }
                                 />
 
-                                <div className={'section-divider'}></div>
+                                <div className={ 'section-divider' }></div>
 
                                 <div className="entete-section">
                                     <h3 className="section-title with-description">Autres fichiers sur l’œuvre</h3>
 
                                     <p className="description">
-                                        Ici, tu peux ajouter des documents permettant l’interprétation de l’œuvre, comme la partition ou le fichier MIDI.
+                                        Ici, tu peux ajouter des documents permettant l’interprétation de l’œuvre, comme
+                                        la partition ou le fichier MIDI.
                                     </p>
                                 </div>
 
                                 <ChampTeleversement
-                                    label={'Partition ou tablature'}
-                                    undertext={'Fichiers acceptés à mettre'}
-                                    defaultAccessValue={'on-invite'}
+                                    label={ 'Partition ou tablature' }
+                                    undertext={ 'Fichiers acceptés à mettre' }
+                                    access={ this.props.values.files.score.access || 'on-invite' }
+                                    onAccessChange={ value => this.props.setFieldValue('files.score.access', value) }
                                 />
 
                                 <ChampTeleversement
-                                    label={'Fichiers MIDI'}
-                                    undertext={'Fichiers acceptés à mettre'}
-                                    defaultAccessValue={'on-invite'}
+                                    label={ 'Fichiers MIDI' }
+                                    undertext={ 'Fichiers acceptés à mettre' }
+                                    access={ this.props.values.files.midi.access || 'on-invite' }
+                                    onAccessChange={ value => this.props.setFieldValue('files.midi.access', value) }
                                 />
                             </Colonne>
                         </Page>

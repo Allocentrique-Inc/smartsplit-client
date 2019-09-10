@@ -127,7 +127,25 @@ class AssistantOeuvre extends Component {
             labelAddress: "",
             distributor: "",
             distributorAddress: "",
-            rightsSplit: {}
+            rightsSplit: {},
+            files: {
+                cover: {
+                    file: null,
+                    access: "public"
+                },
+                audio: {
+                    file: null,
+                    access: "on-invite"
+                },
+                score: {
+                    file: null,
+                    access: "on-invite"
+                },
+                midi: {
+                    file: null,
+                    access: "on-invite"
+                }
+            }
         };
     }
 
