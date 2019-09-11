@@ -15,27 +15,31 @@ const passwordSOCAN = '';
 const client_secret = '';
 
 class Socan extends Component {
-  state = {
-    image:'',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    birthdate: '01/01/1984',
-    email: '',
-    verifyEmail: '',
-    password: '',
-    verifyPassword: '',
-    userId: '',
-    open: false,
-    terms: 'Y',
-    address: '',
-    city: '',
-    postalCode: '',
-    phone: '',
-    province: 'QC',
-    country: 'CAN',
-    currentCountryValue: '',
-    currentProvinceValue: ''
+  constructor(props) {
+    super(props);
+ 
+    this.state = {
+      date: '',
+      image:'',
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      email: '',
+      verifyEmail: '',
+      password: '',
+      verifyPassword: '',
+      userId: '',
+      open: false,
+      terms: 'Y',
+      address: '',
+      city: '',
+      postalCode: '',
+      phone: '',
+      province: 'QC',
+      country: 'CAN',
+      currentCountryValue: '',
+      currentProvinceValue: ''
+    };
   }
 
   closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
@@ -48,15 +52,18 @@ class Socan extends Component {
   
   handleCountryChange = (e, { value }) => this.setState({ currentCountryValue: value })
 
-  handleBirthdateChange = (e, { value }) => this.setState({ birthdate: value })
+  handleChange = (event, {name, value}) => {
+    if (this.state.hasOwnProperty(name)) {
+      this.setState({ date: value });
+    }
+  }
 
   handleSubmit = values => {
-
     let body = {
       GIVEN_NAMES: this.state.firstName,
       MIDDLE_NAME: this.state.middleName,
       LAST_NAME: this.state.lastName,
-      DATE_OF_BIRTH: this.state.birthdate,
+      DATE_OF_BIRTH: this.state.date,
       STREET1: this.state.address,
       CITY: this.state.city,
       PROVINCE: this.state.province,
@@ -77,7 +84,11 @@ class Socan extends Component {
       axios.post('http://api.smartsplit.org:8080/v1/socan/join', body)
       console.log("BODY: ", body)
       .then(
-        toast.success(`Application sent to SOCAN API, check your email!`),
+        function (response) {
+          // handle success
+          console.log("RESPONSE: ", response)
+          toast.success(`Application sent to SOCAN API, check your email!`)
+        }
       )
       .catch((err)=>{
         toast.error(err.message)
@@ -113,9 +124,10 @@ class Socan extends Component {
           <Label>Nom légal</Label><input type="text" className="lastName" placeholder="Nom légal" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
           <br></br>
           <DateInput
+            name = "date"
             placeholder={"Date de Naissance"}
-            value={ this.state.birthdate }
-            onChange={ (event, { value }) => this.handleBirthdateChange(value) }
+            value={ this.state.date }
+            onChange={this.handleChange}
             icon="calendar outline"
           />
           <br></br>
