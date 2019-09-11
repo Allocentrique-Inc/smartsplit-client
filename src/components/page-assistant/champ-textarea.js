@@ -1,7 +1,6 @@
 import React from 'react';
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
-import { TextArea } from "semantic-ui-react";
 
 export default class ChampTextArea extends React.Component {
     undertext() {
@@ -23,9 +22,8 @@ export default class ChampTextArea extends React.Component {
                         placeholder={ this.props.placeholder }
                         onChange={ event => this.props.onChange ? this.props.onChange(event.target.value) : null }
                         rows={ this.props.rows || 8 }
-                    >
-                        { this.props.value }
-                    </textarea>
+                        value={ this.props.value }
+                    ></textarea>
 
                     { this.undertext() }
                 </label>
