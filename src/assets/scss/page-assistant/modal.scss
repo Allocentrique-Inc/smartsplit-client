@@ -1,0 +1,51 @@
+@import '../navbar';
+@import '../typography';
+
+.ui.modal {
+    border-radius: 2px;
+    max-width: 624px;
+}
+
+.modal-navbar {
+    @extend .smartsplit-navbar;
+
+    border-bottom: 1px solid $color-stroke;
+
+    .title {
+        margin-left: $margin-step;
+        @extend .h4-style;
+    }
+
+    .close-icon {
+        margin-right: 6px;
+    }
+}
+
+.modal-content {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+    .success-image {
+        margin: ($margin-step * 2) 0;
+        width: 144px;
+        height: 144px;
+    }
+
+    .description {
+        margin: 0 ($margin-step * 2) ($margin-step * 2);
+        @extend .medium-400-style;
+        text-align: center;
+    }
+}
+
+.bottom-bar {
+    height: $navbar-height;
+    width: 100%;
+    padding: 5px 16px;
+
+    background-color: white;
+    color: $color-primary;
+
+    font-size: 16px;
+}

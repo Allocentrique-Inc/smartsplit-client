@@ -16,15 +16,15 @@ import PageFichiers from './page-fichiers';
 import { toast } from 'react-toastify';
 // Traduction
 import { Translation } from 'react-i18next';
-// Modèle
-
 import { Navbar } from '../navigation/navbar';
 
 import { Auth } from 'aws-amplify';
 
 import Login from '../auth/Login';
+import ModalFin from "./modal-fin";
 import { confirmAlert } from 'react-confirm-alert';
-import { Header, Modal } from "semantic-ui-react";
+
+// Modèle
 
 
 class AssistantOeuvre extends Component {
@@ -262,27 +262,11 @@ class AssistantOeuvre extends Component {
                                     </Wizard.Page>
                                 </Wizard>
 
-                                <Modal
+                                <ModalFin
+                                    songTitle={ this.state.title }
                                     open={ this.state.endModalOpen }
                                     onClose={ () => this.setState({ endModalOpen: false }) }
-                                >
-                                    <Modal.Header>
-                                        Documentation créée
-                                    </Modal.Header>
-
-                                    <Modal.Content>
-                                        <Modal.Description>
-                                            <Header>
-                                                { this.state.title } est maintenant documenté
-                                            </Header>
-
-                                            <p>
-                                                Tu es à un clic de pouvoir publier les crédits de cette pièce sur une
-                                                page web et ainsi d’augmenter ta découvrabilité dans le web des données.
-                                            </p>
-                                        </Modal.Description>
-                                    </Modal.Content>
-                                </Modal>
+                                />
                             </>
                     }
                 </Translation>
