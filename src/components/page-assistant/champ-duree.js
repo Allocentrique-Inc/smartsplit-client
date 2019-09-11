@@ -32,28 +32,48 @@ export default class ChampDuree extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.validateMinutes(prevState);
-        this.validateSeconds(prevState);
-        if (this.hasChanged(prevState, 'minutes') || this.hasChanged(prevState, 'seconds')) {
-            const newMsDuration = (this.state.minutes * 60000) + (this.state.seconds * 1000);
+        const cleanMinutes = this.getCleanMinutes(prevState);
+        const cleanSeconds = this.getCleanSeconds(prevState);
+        const newMsDuration = (cleanMinutes * 60000) + (cleanSeconds * 1000);
+
+        if (this.stateHasChanged(prevState)) {
             this.props.onChange(newMsDuration);
+            this.setState({
+                minutes: cleanMinutes,
+                seconds: cleanSeconds
+            })
         }
     }
 
-    validateMinutes(prevState) {
-        return;
+    getCleanMinutes(prevState) {
+        return this.hasChanged(prevState, 'minutes') ?
+            this.getPositiveInteger(this.state.minutes) :
+            this.state.minutes;
     }
 
-    validateSeconds(prevState) {
-        return;
+    getPositiveInteger(minutes) {
+        const number = Number(minutes) || 0;
+        const integer = Math.round(number);
+        return integer < 0 ? 0 : integer;
     }
 
-    minutesHasChanged(prevState) {
-        return this.state.minutes !== prevState.minutes;
+    getCleanSeconds(prevState) {
+        return this.hasChanged(prevState, 'seconds') ?
+            this.getPositiveIntegerUnder60(this.state.seconds) :
+            this.state.seconds;
+    }
+
+    getPositiveIntegerUnder60(seconds) {
+       const positiveInteger = this.getPositiveInteger(seconds);
+       return positiveInteger > 59 ? 59 : positiveInteger;
     }
 
     hasChanged(prevState, key) {
         return this.state[key] !== prevState[key];
+    }
+
+    stateHasChanged(prevState) {
+        return this.hasChanged(prevState, 'minutes') || this.hasChanged(prevState, 'seconds');
     }
 
     render() {
@@ -72,8 +92,8 @@ export default class ChampDuree extends React.Component {
                                     <Input
                                         type="number"
                                         min="0"
-                                        placeholder="MM"
-                                        value={ this.state.minutes }
+                                        placeholder="0"
+                                        value={ this.state.minutes || '' }
                                         onChange={ (event, { value }) => this.setState({ minutes: value }) }
                                     />
 
@@ -87,8 +107,8 @@ export default class ChampDuree extends React.Component {
                                         type="number"
                                         min="0"
                                         max="59"
-                                        placeholder="SS"
-                                        value={ this.state.seconds }
+                                        placeholder="00"
+                                        value={ this.state.seconds || '' }
                                         onChange={ (event, { value }) => this.setState({ seconds: value }) }
                                     />
 
