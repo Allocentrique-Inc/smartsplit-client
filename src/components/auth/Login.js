@@ -13,6 +13,8 @@ import { Formik, Form, Field } from "formik"
 // Rétroaction utilisateur
 import { toast } from 'react-toastify'
 
+import Eye from './Eye';
+
 class LogIn extends Component {
 
   constructor(props) {
@@ -106,62 +108,85 @@ class LogIn extends Component {
           }}
         >
           {({ errors, touched, isValidating }) => (
+
+        <Translation>
+        { 
+          t=>  
             <Form>
-              <SignInFacebook></SignInFacebook>
-              <SignInGoogle></SignInGoogle>
+              <span className="top-register">
+                <a href="/register" style={{color: "#2DA84F"}}>{t('entete.inscription')}</a>
+              </span>
+          
+          <div className="container">
+              <header id="loginHeader">
+                <h1 id="loginHead"></h1>
+                <h3 id="loginPrompt"></h3>
+              </header>
+          </div>
+
+              {/*<SignInFacebook text={t('inscription.facebook')}></SignInFacebook>
+              <SignInGoogle>{t('inscription.google')}</SignInGoogle>*/}
                   <br></br>
                   <br></br>
-                  <hr/>
                   <br></br>
                   <br></br>
               <section className="section auth">
                 <div className="container">
                   <h1>{this.props.message}</h1>
                     <div className="field">
-                      <div className="control">
+                    <div className="input-wrapper"> 
+                    <div className="control">
+                    <label htmlFor="username">{t('accueil.courriel')}</label>
                         <Field 
                           validate={this.validateUsername}
                           name="username"
-                          id="username"
+                          id="username" 
                           aria-describedby="usernameHelp"
-                          placeholder="Enter email"
+                          placeholder={t('inscription.exemple')} 
                           required={true}
                         />
-                        {errors.username && touched.username && <div style={{color: "red"}}> Courriel invalide </div>}
+                        {errors.username && touched.username && <div style={{color: "red"}}> {t('inscription.email-invalide')} </div>}
                       </div>                    
                     </div>
                     <div className="field">
                       <div className="control has-icons-left">
+                      <label htmlFor="password">{t('accueil.motdepasse')}</label>    
+                      <div className="input-wrapper">
                         <Field 
                           validate={this.validatePassword} 
                           type={this.state.hidden ? "password" : "text"}
+                          id="password"
                           name="password"
-                          placeholder="Password"
+                          placeholder={t('inscription.motdepasse')}
                           required={true}
                         />
                         <button id="hide" onClick={this.toggleShow}>
-                          <i className="eye icon black"></i>
-                        </button>                              
+                        <Eye />
+                        </button> 
+                  </div>                             
                       </div>                            
-                      {errors.password && touched.password && <div style={{color: "red"}}> Mot de passe invalide </div>}
+                      {errors.password && touched.password && <div style={{color: "red"}}> {t('inscription.password-invalide')} </div>}
                     </div>
                     <div className="field">
                       <p className="control">
-                        <a href="/forgot-password"> Mot de passe oublié ? </a>                         
-                        <a href="/register"> Créer ton compte </a>
+                        <a href="/forgot-password" style={{color: "#2DA84F"}}>{t('accueil.oublie')}</a>                         
                       </p>
                     </div>
                     <div className="field">
                       <p className="control">
-                        <button className="ui medium button is-success">
-                          Login
+                        <button className="ui medium button login is-success">
+                        {t('entete.connexion')}
                         </button>
                       </p>
+                      </div>
                     </div>
                 </div>
               </section>
             </Form>
-          )}
+          }
+          </Translation> 
+          )
+          }
       </Formik>           
     )
   }

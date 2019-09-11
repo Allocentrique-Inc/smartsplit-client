@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
 
-.top {
+.top-login {
     float: right;
     width: 105px;
     height: 24px;
@@ -14,6 +14,7 @@
     display: block;
     margin: 0 auto;
     width: 464px;
+    font-family: 'IBM Plex Sans';
 }
 
 button[id="facebook"],
@@ -28,6 +29,8 @@ button[id="facebook"],
     font-size: 15px;
     line-height: 24px;
     text-align: center;
+    cursor: pointer;
+    margin: 5px;
 }
 
 button[id="facebook"] {
@@ -51,11 +54,11 @@ button[id="google"] {
 .input-wrapper {
     position: relative;
     width: 464px;
+    font-family: 'IBM Plex Sans';
 }
 
 input {
     /* styles génériques */
-    font-family: 'IBM Plex Sans';
     height: 40px;
     color: #8DA0B3;
     border: 1px solid #DCDFE1;
@@ -147,27 +150,43 @@ button[id="hide-confirm"] {
     -webkit-appearance: none;
     position: absolute;
     right: 0;
+}
+
+button[id="hide"] {
+    margin: 13px 15px 0 0;
+}
+
+button[id="hide-confirm"] {
     margin: 42px 30px 0 0;
 }
 
 hr[class="hrLogin"] {
     overflow: visible; /* For IE */
-    padding: 0;
-    border-top: 1px solid #DCDFE1;
-    border-bottom: 1px solid #DCDFE1;
-    font-family: 'IBM Plex Sans';
-    font-style: normal;
-    font-weight: bold;
-    font-size: 12px;
-    color: black;
-    background: white;
+    line-height: 24px;
+    position: relative;
+    border: 0;
+    text-align: center;
+    height: 1.5em;
 }
-
+hr[class="hrLogin"]:before {
+      content: '';
+      border: 1px solid #DCDFE1;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 464px;
+    }
 hr[class="hrLogin"]:after {
-    content: "ou";
-    padding: 0 0.25em;
-    width: 40px;
-}
+      content: attr(data-content);
+      position: relative;
+      color: black;
+      font-family: 'IBM Plex Sans';
+      font-weight: bold;
+      font-size: 16px;
+      padding: 1em;
+      line-height: 1.5em;   
+      background-color: #fcfcfa;
+    }
 
 /* Password Strength Validator  */
 
@@ -275,10 +294,6 @@ hr[class="hrLogin"]:after {
     color: white
 }
 
-.section.auth {
-
-}
-
 #registerHeader {
     margin: 0 auto;
 }
@@ -293,20 +308,17 @@ hr[class="hrLogin"]:after {
 
 header#registerHeader h1:after {
     content: "En route vers la \A professionalisation.";
-    font-family: 'IBM Plex Sans';
     white-space: pre;
     font-style: bold;
     font-weight: 500;
     font-size: 40px;
     line-height: 48px;
     color: #333333;
-    width: 464px;
     height: 96px;
 }
 
 header#registerHeader h3:after {
     content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";
-    font-family: 'IBM Plex Sans';
     white-space: pre;
     font-weight: normal;
     font-weight: 400;
@@ -315,7 +327,6 @@ header#registerHeader h3:after {
     color: #687A8B;
     font-size: 16px;
     line-height: 24px;
-    width: 464px;
     height: 24px;
     margin-bottom: 100px;
 }
@@ -328,12 +339,10 @@ header#registerHeader h3:after {
     font-size: 16px;
     line-height: 24px;
     text-align: center;
+  }
+
+  .ui.medium.button.register {
     float: right;
     margin: 0 auto;
     margin-bottom: 20px;
   }
-
-/*.avatar--image {
-
-}*/
-

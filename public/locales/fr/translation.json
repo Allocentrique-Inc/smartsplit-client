@@ -373,6 +373,13 @@
         "ou": "ou",
         "bouton": "Créer mon compte"
     },
+    "accueil": {
+        "titre": "Connecte-toi à ton compte Smart Split.",
+        "sous-titre": "Entre tes informations ci-dessous.",
+        "courriel": "Entrer le courriel",
+        "motdepasse": "Mon mot de passe",
+        "oublie": "Mot de passe oublié ?"
+    },
     "entete": {
         "connexion": "Connexion",
         "inscription": "Inscription"

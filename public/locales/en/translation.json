@@ -415,6 +415,13 @@
         "ou": "or",
         "bouton": "Create my account"
     },
+    "accueil": {
+        "titre": "Login to you Smart Split account.",
+        "sous-titre": "Enter your information below.",
+        "courriel": "Enter email",
+        "motdepasse": "My password",
+        "oublie": "Forgot password?"
+    },
     "entete": {
         "connexion": "Login",
         "inscription": "Register"

@@ -241,7 +241,7 @@ class Register extends Component {
                     {
                         t=>                               
                             <Form>
-                                <span className="top">
+                                <span className="top-login">
                                     <a href="/login" style={{color: "#2DA84F"}}>{t('entete.connexion')}</a>
                                 </span>
                                 <div className="container">
@@ -254,7 +254,8 @@ class Register extends Component {
                                     <SignInGoogle>{t('inscription.google')}</SignInGoogle>
                                     <br></br>
                                     <br></br>
-                                    <hr className="hrLogin" />
+                                    {/*<hr className="hrLogin" />*/}
+                                    <hr className="hrLogin" data-content={t('inscription.ou')}></hr>
                                     <br></br>
                                     <br></br>
                                     <section className="section auth">
@@ -359,8 +360,8 @@ class Register extends Component {
                                                     <div className="container">
                                                     <p className="control">
 
-                                                        <button className="ui medium button is-success" type="submit">
-                                                            {t('inscription.bouton')}
+                                                        <button className="ui medium button register is-success" type="submit">
+                                                            {t('entete.inscription')}
                                                         </button>
                                                     </p>
                                                 </div>
