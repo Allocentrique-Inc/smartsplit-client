@@ -107,7 +107,7 @@ class AssistantOeuvre extends Component {
             lyrics: {
                 text: "",
                 languages: [],
-                access: "public"
+                access: "private"
             },
             isrc: "",
             iswc: "",
@@ -136,19 +136,19 @@ class AssistantOeuvre extends Component {
             files: {
                 cover: {
                     file: null,
-                    access: "public"
+                    access: "private"
                 },
                 audio: {
                     file: null,
-                    access: "on-invite"
+                    access: "private"
                 },
                 score: {
                     file: null,
-                    access: "on-invite"
+                    access: "private"
                 },
                 midi: {
                     file: null,
-                    access: "on-invite"
+                    access: "private"
                 }
             }
         };

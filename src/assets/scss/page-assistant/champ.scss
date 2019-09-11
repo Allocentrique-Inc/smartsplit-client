@@ -10,12 +10,15 @@
     padding-right: $margin-step / 2 !important;
 }
 
-.ui.form input[type="text"] {
-    @extend .medium-400-style;
-
-    &::placeholder {
+.ui.form {
+    input[type="text"],
+    input[type="number"] {
         @extend .medium-400-style;
-        color: $color-tertiary;
+
+        &::placeholder {
+            @extend .medium-400-style;
+            color: $color-tertiary;
+        }
     }
 }
 

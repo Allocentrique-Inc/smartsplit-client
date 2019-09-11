@@ -5,6 +5,7 @@ import MusicCircleOrange from '../../assets/svg/icons/music-circle-orange.svg';
 import MusicCircleGreen from '../../assets/svg/icons/music-circle-green.svg';
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
+import ChampDuree from "../page-assistant/champ-duree";
 import ChampTexte from "../page-assistant/champ-texte";
 import ChampSelection from "../page-assistant/champ-selection";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
@@ -46,12 +47,12 @@ export default class PageInformationsGenerales extends React.Component {
                                     <div className="ui grid">
                                         <div
                                             className="ui sixteen wide mobile eight wide tablet eight wide computer column">
-                                            <ChampTexte
+                                            <ChampDuree
                                                 pochette={ this.props.pochette }
                                                 label="Durée"
                                                 placeholder="MM:SS"
-                                                value={ this.props.values.duration }
-                                                onChange={ value => this.props.setFieldValue('duration', value) }
+                                                msDuration={ this.props.values.msDuration }
+                                                onChange={ value => this.props.setFieldValue('msDuration', value) }
                                             />
                                         </div>
 
