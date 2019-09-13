@@ -62,20 +62,20 @@ class Declaration extends Component {
 
   }
 
-//   componentWillReceiveProps(nextProps) {
-//     if(this.props.open !== nextProps.open) {
-//         this.setState({open: nextProps.open})
-//     }
-//     if(this.props.firstName !== nextProps.firstName) {
-//       this.setState({firstName: nextProps.firstName})
-//     }
-//     if(this.props.lastName !== nextProps.lastName) {
-//         this.setState({lastName: nextProps.lastName})
-//     }
-//     if(this.props.songTitle !== nextProps.songTitle) {
-//         this.setState({songTitle: nextProps.songTitle})
-//     }
-//   }
+  componentWillReceiveProps(nextProps) {
+    if(this.props.open !== nextProps.open) {
+        this.setState({open: nextProps.open})
+    }
+    if(this.props.firstName !== nextProps.firstName) {
+      this.setState({firstName: nextProps.firstName})
+    }
+    if(this.props.lastName !== nextProps.lastName) {
+        this.setState({lastName: nextProps.lastName})
+    }
+    if(this.props.songTitle !== nextProps.songTitle) {
+        this.setState({songTitle: nextProps.songTitle})
+    }
+  }
 
   render() {
     const { open, closeOnDimmerClick, identity, share} = this.state
