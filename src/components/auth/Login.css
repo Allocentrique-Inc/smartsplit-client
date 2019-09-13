@@ -182,7 +182,7 @@ button[id="hide"] {
     margin: 13px 15px 0 0;
 }
 
-.ui.medium.button {
+.ui .medium .button {
   background-color:#2DA84F;
   color:#FFF;
   font-family: 'IBM Plex Sans';

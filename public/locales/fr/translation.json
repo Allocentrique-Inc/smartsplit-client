@@ -5,18 +5,29 @@
         "liste-media": "Liste des médias retournés de l'API"
     },
     "collaborateur": {
+        "titre": "Ajouter un artiste collaborateur",
         "attribut": {
             "etiquette": {
-                "nom": "Nom de famille",
-                "prenom": "Prénom",
-                "artiste": "Nom d'artiste",
-                "role": "Rôle dans l'œuvre"
+                "nom": "Nom légal",
+                "prenom": "Prénom légal",
+                "artiste": "Nom d'artiste (optionel)",
+                "role": "Rôle dans l'œuvre",
+                "option": " (optionel)",
+                "na": "Si non applicable, nous afficherons le nom complet.",
+                "courriel": "Courriel",
+                "groupe": "Groupes"
             },
             "indication": {
                 "nom": "Indique un nom de famille",
                 "prenom": "Indique un prénom",
                 "artiste": "Indique un nom d'artiste",
-                "role": "Choisis 1 ou plusieurs rôles"
+                "role": "Choisis un ou plusieurs rôles",
+                "role2": "Ces rôles peuvent être modifiés plus tard.",
+                "groupe": "Choisir un groupe"
+            },
+            "bouton": {
+                "annuler": "Annuler",
+                "sauvegarder": "Sauvegarder"
             }
         }
     },
@@ -176,7 +187,58 @@
             "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
             "codeiswc-placeholder": "Ajouter un code",
             "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
-            "titre2-description": "C’est ici que tu indiques qui a joué quel instrument."
+            "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
+            "options": { 
+                "question1": "Quelle type d'interprétation ?",
+                    "question1-choix-a": "Artiste principal",
+                    "question1-choix-b": "Artiste accompagnateur",
+                "question2": "Quel rôle dans la pièce principale ?",
+                    "question2-choix-a": "Chanteur",
+                    "question2-choix-b": "Musicien"
+            },
+        "titre3": "Who recorded the musical piece?",
+        "titre3-description": "Here you mention who contributed to the sound recording of this piece.",
+            "realisation": "Direction",
+            "realisation-description": "The Artistic Director gives a sound to the recording.",
+            "realisation-placeholder": "Add a Director",
+            "son": "Sound Recording",
+            "son-description": "Who's the Sound Recordist on your musical piece.",
+            "son-placeholder": "Add a Sound Recordist",
+            "mix": "Mixing",
+            "mix-description": "This is the step of volume and frequency adjustment.",
+            "mix-placeholder": "Add a Sound Engineer",
+            "master": "Mastering",
+            "master-description": "This is the step of compression and overall equalization of the song.",
+            "master-placeholder": "Add a Sound Engineer",
+            "studio": "Recording Studio",
+            "studio-description": "The place where the song was recorded.",
+            "studio-placeholder": "Search for a recording studio",
+            "production-description": "The person or compagny that invest time or money to make sound recording possible.",
+            "production-placeholder": "Add a Producer",
+            "etiquette": "Label",
+            "etiquette-description": "That's the organisation that handles the marketing of your piece.",
+            "etiquette-placeholder": "Add a label",
+            "distribution": "Distributor",
+            "distribution-description": "That's the organisation that handles the commercialisation of your piece.",
+            "distribution-placeholder": "Add a Distributor",
+            "codeupc": "UPC/EAN Code",
+            "codeupc-description": "Mandatory barcode attributed to the physical product. Might be optionally attributed to a digital product.",
+            "codeupc-placeholder": "Enter the code (optional)",
+            "date": "Release date of the musical piece (if applicable)",
+            "date-description": "The moment when the piece is launched on platforms.", 
+            "date-choix": {
+                "avenir": "Coming Up",
+                "determine": "Determined"
+            },
+        "titre4": "Which files would you like to grant access to?",
+        "titre4-description": "Here you can add all files related to this musical piece.",
+        "titre5": "General Information",
+        "titre5-description": "Here you mention what is the genra of this musical piece and what are the artists or trends that inspired it.",
+        "titre6": "contains lyrics?",
+        "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
+        "titre7": "Was the musical piece already broadcasted?",
+        "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links."
+    }
         },
         "pro": {
             "titre": "Es-tu pro ?",
@@ -262,8 +324,7 @@
         "bouton": {
             "ajout": "Ajouter",
             "voter": "VOTER"
-        }
-    },
+        },
     "traitement": {
         "acr": {
             "erreur-mauvaise-lecture": "Mauvaise lecture du média. Essayez un nouvel échantillon.",
@@ -383,5 +444,25 @@
     "entete": {
         "connexion": "Connexion",
         "inscription": "Inscription"
+    },
+    "socan": {
+        "joindre": "Joindre SOCAN",
+        "prenom": "Prénom légal",
+        "nom": "Nom légal",
+        "date": "Date de naissance",
+        "adresse": "Adresse",
+        "ville": "Ville",
+        "province": "Province",
+        "codepostal": "Code postal",
+        "telephone": "Numéro de téléphone",
+        "courriel": "Courriel",
+        "confirmation-courriel": "Vérifie le courriel",
+        "utilisateur": "Identifiant d'utilisateur",
+        "mot-de-passe": "Mot de passe",
+        "confirmation-mot-de-passe": "Confirmer le mot de passe",
+        "condition": "J'accepte les conditions d'adhésion de la SOCAN.",
+        "bouton": {
+            "annuler": "Annuler"
+        }
     }
 }
