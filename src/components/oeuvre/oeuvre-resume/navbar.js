@@ -1,44 +1,42 @@
-import React, { Component } from 'react';
-import '../../assets/scss/navbar.scss';
-import placeholder from '../../assets/images/placeholder.png';
-import { Trackbar } from "./trackbar";
+import React from 'react';
+import '../../../assets/scss/page-assistant/bouton.scss';
+import '../../../assets/scss/oeuvre-resume/navbar.scss';
+import placeholder from '../../../assets/images/placeholder.png';
+import { Button } from "semantic-ui-react";
 import { Translation } from "react-i18next";
 
-export class Navbar extends Component {
+export class Navbar extends React.Component {
     render() {
         return (
             <Translation>
                 {
                     (t, i18n) =>
                         <div className="fixed-top">
-                            <div className={ 'smartsplit-navbar ' + (this.props.pochette ? 'pochette' : '') }>
-                                <div className="left">
-                                    <div className="song-image">
-                                        <img src={ placeholder }/>
+                            <div className={ 'oeuvre-resume-navbar ' + (this.props.pochette ? 'pochette' : '') }>
+                                <div className={ 'ui container' }>
+                                    <div className={ 'left' }>
+                                        <img className={ 'song-image' } src={ placeholder } alt={ 'Love you baby' }/>
+
+                                        <div className={ 'medium-500-style' }>
+                                            Love you baby
+                                        </div>
+
+                                        <div className={ 'medium-400-style' }>
+                                            &nbsp;·&nbsp;Documentation
+                                        </div>
                                     </div>
 
-                                    <div className="song-title">
-                                        { this.props.songTitle }
-                                    </div>
+                                    <div className={ 'right' }>
+                                        <Button basic>
+                                            Aperçu
+                                        </Button>
 
-                                    <div className="documentation-label">
-                                        Documentation
-                                    </div>
-                                </div>
-
-                                <div className="right">
-                                    <div className="save-and-quit-label">
-                                        <a href="#">
-                                            { t('flot.etape.enregistrerEtQuitter') }
-                                        </a>
+                                        <Button>
+                                            Partager
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
-
-                            <Trackbar
-                                percentage={ this.props.progressPercentage }
-                                pochette={ this.props.pochette }
-                            />
                         </div>
                 }
             </Translation>

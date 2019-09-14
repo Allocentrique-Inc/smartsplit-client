@@ -1,0 +1,37 @@
+@import "../colors";
+@import "../layout";
+@import "../typography";
+
+.oeuvre-resume-navbar {
+    height: $navbar-height;
+    width: 100%;
+    padding: 5px 16px;
+
+    background-color: $color-underground;
+    border-bottom: 1px solid $color-stroke;
+
+    .ui.container {
+        height: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .left,
+        .right {
+            display: flex;
+            align-items: center;
+        }
+
+        .right {
+            .ui.button + .ui.button {
+                margin-left: $margin-step;
+            }
+        }
+
+        .song-image {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}

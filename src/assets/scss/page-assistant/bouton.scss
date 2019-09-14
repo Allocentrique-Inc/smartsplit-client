@@ -3,20 +3,35 @@
 @import '../typography';
 
 .ui.button,
-.ui.button:focus {
+.ui.button:focus,
+.ui.button.basic,
+.ui.button.basic:focus {
     padding: ($margin-step/2) $margin-step;
     border-radius: 2px;
 
+    @extend .medium-500-style;
+}
+
+.ui.button,
+.ui.button:focus {
     background-color: $smartsplit-color-link;
     color: white;
+}
 
-    @extend .medium-500-style;
+.ui.button.basic,
+.ui.button.basic:focus {
+    color: $smartsplit-color-link !important;
 }
 
 .pochette {
     .ui.button,
     .ui.button:focus {
         background-color: $pochette-color-link;
+    }
+
+    .ui.button.basic,
+    .ui.button.basic:focus {
+        color: $pochette-color-link !important;
     }
 }
 

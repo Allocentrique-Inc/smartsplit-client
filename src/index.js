@@ -109,8 +109,8 @@ const renderRoutes = () => {
             <Route exact path="/partager/existant/:uuid" component={ContinuerProposition} />
             <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
             <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
+            <Route exact path="/oeuvre/resume" component={OeuvreResume} />
             <Route exact path="/partage/editeur/vote/:jeton" component={VoterPartTiers} />
-            <Route exact path="/resume" component={OeuvreResume} />
           </Switch>
         </Router>
       </I18nextProvider>  
