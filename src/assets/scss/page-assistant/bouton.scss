@@ -1,0 +1,16 @@
+@import '../colors';
+@import '../layout';
+@import '../typography';
+
+.ui.button,
+.ui.button:focus {
+    padding: ($margin-step/2) $margin-step;
+    border-radius: 2px;
+
+    background-color: $color-action;
+    color: white;
+
+    @extend .medium-500-style;
+}
+
+

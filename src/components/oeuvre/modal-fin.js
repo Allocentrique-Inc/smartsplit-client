@@ -36,7 +36,7 @@ export default class ModalFin extends React.Component {
                     </p>
                 </div>
 
-                <div className={'bottom-bar'}>
+                <div className={'modal-bottom-bar'}>
                     <Button>
                         Voir le résumé
                     </Button>
