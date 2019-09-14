@@ -50,6 +50,7 @@ import SommairePartages from './components/partage/sommaire-partages' // Plusieu
 import SommairePartage from './components/partage/partage-sommaire'  // Un partage
 import SommaireOeuvre from './components/oeuvre/oeuvre-sommaire'
 import AssistantPartageEditeur from './components/partage/assistant-partage-editeur';
+import OeuvreResume from "./components/oeuvre/oeuvre-resume";
 
 const REGION = 'us-east-2';
 
@@ -109,6 +110,7 @@ const renderRoutes = () => {
             <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
             <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
             <Route exact path="/partage/editeur/vote/:jeton" component={VoterPartTiers} />
+            <Route exact path="/resume" component={OeuvreResume} />
           </Switch>
         </Router>
       </I18nextProvider>  

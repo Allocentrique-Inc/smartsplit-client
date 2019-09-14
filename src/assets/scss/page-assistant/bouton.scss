@@ -7,10 +7,16 @@
     padding: ($margin-step/2) $margin-step;
     border-radius: 2px;
 
-    background-color: $color-action;
+    background-color: $smartsplit-color-link;
     color: white;
 
     @extend .medium-500-style;
 }
 
+.pochette {
+    .ui.button,
+    .ui.button:focus {
+        background-color: $pochette-color-link;
+    }
+}
 

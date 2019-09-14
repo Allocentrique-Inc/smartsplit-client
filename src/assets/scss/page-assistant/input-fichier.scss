@@ -17,7 +17,7 @@
     align-items: center;
     padding: 0 ($margin-step / 2);
 
-    .button {
+    .ui.button {
         margin-right: $margin-step / 2;
         padding: ($margin-step / 4) ($margin-step / 2);
         border-radius: 2px;
@@ -34,7 +34,7 @@
 }
 
 .pochette .file-input-container {
-    .button {
+    .ui.button {
         background-color: $pochette-color-link;
     }
 }

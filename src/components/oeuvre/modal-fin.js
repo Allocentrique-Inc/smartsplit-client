@@ -36,10 +36,10 @@ export default class ModalFin extends React.Component {
                     </p>
                 </div>
 
-                <div className={'modal-bottom-bar'}>
-                    <Button>
-                        Voir le résumé
-                    </Button>
+                <div className={ 'modal-bottom-bar' }>
+                    <a href={ '/resume' }>
+                        <Button>Voir le résumé</Button>
+                    </a>
                 </div>
             </Modal>
         );
