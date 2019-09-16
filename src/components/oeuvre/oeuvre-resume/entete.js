@@ -16,9 +16,16 @@ export default class Entete extends React.Component {
                         Love You Baby (Remix)
                     </h1>
 
-                    <span className={'tag'}>Pièce originale</span>
+                    <div className={'artist-line'}>
+                        <div className={'left'}>
+                            <span className={'tag'}>Pièce originale</span>
 
-                    Par <a href={'#'}>Band or ArtistName</a> feat. <a href={'#'}>ArtistName</a>
+                            Par <a href={'#'}>Band or ArtistName</a> feat. <a href={'#'}>ArtistName</a>
+                        </div>
+
+                        <div className={'right'}></div>
+                    </div>
+
 
                     <div className={'section-divider'}></div>
                 </div>
