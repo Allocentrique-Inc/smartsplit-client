@@ -98,8 +98,7 @@ export default class Histogramme extends Component {
             .range([height, 0]);
 
         var barPadding = 7.2
-        var barWidth = (width / dataset.length);
-        var x = d3.scaleLinear().range([0, width])
+        var barWidth = (width / dataset.length);        
 
         svg.append("g")
             .attr("class", "y axis")

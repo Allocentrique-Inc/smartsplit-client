@@ -1,28 +1,62 @@
 
-button[id="hide"] {
-  margin: 0em;
-  width: 50px;
-  height: 32px;
-  padding: 0;
-  color: white;
-  background-color: Transparent;
-  border: 0;
-  -webkit-appearance: none;
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+
+
+.top-register {
+  float: right;
+  width: 105px;
+  height: 24px;
+  font-family: 'IBM Plex Sans';
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
 }
 
-input[id="username"] {
-  padding-right: 50px;
+#loginHeader {
+    margin: 0 auto;
+}
+
+#loginHead {
+    font-size: 40px;
+}
+
+#loginPrompt {
+    font-size: 16px;
+}
+
+.container {
+  display: block;
+  margin: 0 auto;
   width: 464px;
-  display: inline;
+  font-family: 'IBM Plex Sans';
 }
 
-input[name="password"] {
-  padding-right: 50px;
-  width: 414px;
-  display: inline;
+header#loginHeader h1 {
+    /*content: "Connecte-toi à ton \A compte Smart Split.";*/
+    white-space: pre;
+    font-style: bold;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 48px;
+    color: #333333;
+    height: 96px;
 }
 
-button[id="facebook"] {
+header#loginHeader h3 {
+    /*content: "Entre tes informations ci-dessous.";*/
+    white-space: pre;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 18px;
+    color: #687A8B;
+    font-size: 16px;
+    line-height: 24px;
+    height: 24px;
+    margin-bottom: 100px;
+}
+
+/*button[id="facebook"] {
   width: 464px;
   margin: 4px;
   max-width: 500px;
@@ -46,27 +80,120 @@ button[id="google"] {
 
 .google {
   padding-right: 143px;
+}*/
+
+label[for="username"], 
+label[for="password"],
+label[for="confirmpassword"] {
+    font-family: 'IBM Plex Sans';
+    height: 24px;
+    font-style: normal;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
 }
 
-hr {
-  overflow: visible; /* For IE */
-  padding: 0;
-  /* border: none;
-  border-top: medium double #DCDFE1;
-  color: #DCDFE1; */
-  width: 464px;
-  /* height: 2px; */
-  text-align: center;
-  border-top: 1px solid#DCDFE1;
-  border-bottom: 1px solid#DCDFE1;
+label[for="username"] {
+    margin: 0 0 25;
 }
-hr:after {
-  /*content: "ou";*/
-  display: inline-block;
+
+label[for="password"] {
+    margin: 0 0 25;
+}
+
+.input-wrapper {
   position: relative;
-  top: -0.7em;
-  font-size: 1.5em;
-  padding: 0 0.25em;
-  color: black;
-  background: white;
+  width: 464px;
+}
+
+input {
+  /* styles génériques */
+  font-family: 'IBM Plex Sans';
+  height: 40px;
+  color: #8DA0B3;
+  border: 1px solid #DCDFE1;
+  border-radius: 2px;
+  display: inline;
+  padding-right: 0px;
+  margin: 5px 0 5px 0;
+  padding-right: 0px;
+  padding-left: 10px;
+  width: 100%;
+  }
+
+input[id="username"],
+input[id="password"] {
+  height: 40px;
+  color: #8DA0B3;
+  border: 1px solid #DCDFE1;
+  box-sizing: border-box;
+  border-radius: 2px;
+  padding-right: 0;
+  display: inline;
+}
+
+input[id="username"] {
+  margin-bottom: 30px;
+}
+
+input[id="password"] {
+  margin-bottom: 15px;
+}
+
+button[id="hide"] {
+  padding: 0;
+  color: white;
+  background-color: Transparent;
+  border: 0;
+  -webkit-appearance: none;
+  position: absolute;
+  right: 0;
+  margin: 10px 10px 0 0;
+}
+
+input[id="username"] {
+  padding-right: 0px;
+  width: 464px;
+  display: inline;
+}
+
+input[name="password"] {
+  padding-right: 0px;
+  width: 464px;
+  display: inline;
+}
+
+a[href="/forgot-password"] {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  height: 16px;
+}
+
+button[id="hide"] {
+    position: absolute;
+    padding: 0;
+    color: white;
+    background-color: Transparent;
+    border: 0;
+    -webkit-appearance: none;
+    right: 0;
+    margin: 13px 15px 0 0;
+}
+
+.ui .medium .button {
+  background-color:#2DA84F;
+  color:#FFF;
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.ui.medium.button.login {
+  float: right;
+  margin: 0 auto;
+  margin-bottom: 20px;
 }

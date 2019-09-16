@@ -129,6 +129,7 @@ class PageAssistantPartageAuteur extends Component {
                     })
                     this.props.setFieldValue("droitAuteur", _parts)
                 }
+                break;
             default:
         }
         this.setState({ ping: true })
@@ -306,7 +307,7 @@ class PageAssistantPartageAuteur extends Component {
                                     <Progress percent="20" size='tiny' indicating/>
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
                                         {t('flot.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>
@@ -346,7 +347,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                 },
                                                                 {
                                                                     nom: t('modepartage.manual'),
-                                                                    valeur: MODES.manual
+                                                                    valeur: MODES.manuel
                                                                 }
                                                             ]}
                                                         />

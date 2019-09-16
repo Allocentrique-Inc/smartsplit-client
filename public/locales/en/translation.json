@@ -5,18 +5,29 @@
         "liste-media": "Media list returned by the API"
     },
     "collaborateur": {
+        "titre": "Add a collaborating artist",
         "attribut": {
             "etiquette": {
-                "nom": "Last name",
-                "prenom": "First name",
-                "artiste": "Artist name",
-                "role": "Role in the work"
+                "nom": "Legal Name",
+                "prenom": "Legal First Name",
+                "artiste": "Artist Name",
+                "option": " (optional)",
+                "na": "If not applicable, the complete name is displayed.",
+                "role": "Role in the work",
+                "courriel": "Email",
+                "groupe": "Groups"
             },
             "indication": {
                 "nom": "Last name",
                 "prenom": "First name",
                 "artiste": "Artist name",
-                "role": "Choose one or more role"
+                "role": "Choose one or more role",
+                "role2": "These roles can be modified later.",
+                "groupe": "Choose a group"
+            },
+            "bouton": {
+                "annuler": "Cancel",
+                "sauvegarder": "Save"
             }
         }
     },
@@ -30,8 +41,8 @@
                 "artiste": "Artist",
                 "juridiction": "Jurisdiction",
                 "ayantDroit": "Collaborators",
-                "genre": "Main genre",
-                "genre2": "Secondary genre",
+                "genre": "Main genra",
+                "genre2": "Secondary genra",
                 "paroles": "Lyrics",
                 "langueParoles": "Lyric's languages",
                 "isrc": "ISRC #",
@@ -54,8 +65,8 @@
                 "artiste": "Who is the main artist ?",
                 "juridiction": "What is the legal jurisdiction (country)?",
                 "ayantDroit": "Select one or more collaborators",
-                "genre": "Select the primary work genre",
-                "genre2": "Select the secondary work genre",
+                "genre": "Select the primary work genra",
+                "genre2": "Select the secondary work genra",
                 "paroles": "Type in the lyrics",
                 "langueParoles": "Select one or more lyrics language",
                 "isrc": "Recording unique identified",
@@ -136,25 +147,82 @@
         "documenter": {
             "entete": {
                 "creation": "Creation",
-                "interpretation": "Performance"
+                "interpretation": "Performance",
+                "enregistrement": "Recording",
+                "sortie": "Exit",
+                "fichier": "Files",
+                "influence": "Inspirations",
+                "parole": "Lyrics",
+                "lien": "Streaming Links"
                 },
             "titre1": "Who participated in the creation of", 
             "titre1-description": "That's where you mention who contributed to the creation of this piece.",
                 "date-creation": "Creation Date",
                 "date-placeholder": "Add a date",
                 "auteur": "Authors",
-                "auteur-placeholder": "Add an author",
                 "auteur-description": "Who wrote the lyrics of this musical piece?",
+                "auteur-placeholder": "Add an Author",
                 "compositeur": "Composers",
                 "compositeur-description": "Who composed the music of this piece?",
+                "compositeur-placeholder": "Add a Composer",
                 "editeur": "Editors",
                 "editeur-description": "Who represents these authors and/or composers?",
                 "editeur-placeholder": "Add an editor",
-                "code": "ISWC Code",
-                "code-description": "The International Standard Work Code is a unique identifying code for music work.",
-                "code-placeholder": "Add a code",
+                "codeiswc": "ISWC Code",
+                "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
+                "codeiswc-placeholder": "Add a code",
             "titre2": "Who played the musical piece on this sound recording?",
-            "titre2-description": "Here you mention who played which instrument."
+            "titre2-description": "Here you mention who played which instrument.", 
+            "options": { 
+                    "question1": "Which type of performance?",
+                        "question1-choix-a": "Main Artist",
+                        "question1-choix-b": "Featuring Artist",
+                    "question2": "Which role in the musical piece?",
+                        "question2-choix-a": "Singer",
+                        "question2-choix-b": "Musician"
+                },
+            "titre3": "Who recorded the musical piece?",
+            "titre3-description": "Here you mention who contributed to the sound recording of this piece.",
+                "realisation": "Direction",
+                "realisation-description": "The Artistic Director gives a sound to the recording.",
+                "realisation-placeholder": "Add a Director",
+                "son": "Sound Recording",
+                "son-description": "Who's the Sound Recordist on your musical piece.",
+                "son-placeholder": "Add a Sound Recordist",
+                "mix": "Mixing",
+                "mix-description": "This is the step of volume and frequency adjustment.",
+                "mix-placeholder": "Add a Sound Engineer",
+                "master": "Mastering",
+                "master-description": "This is the step of compression and overall equalization of the song.",
+                "master-placeholder": "Add a Sound Engineer",
+                "studio": "Recording Studio",
+                "studio-description": "The place where the song was recorded.",
+                "studio-placeholder": "Search for a recording studio",
+                "production-description": "The person or compagny that invest time or money to make sound recording possible.",
+                "production-placeholder": "Add a Producer",
+                "etiquette": "Label",
+                "etiquette-description": "That's the organisation that handles the marketing of your piece.",
+                "etiquette-placeholder": "Add a label",
+                "distribution": "Distributor",
+                "distribution-description": "That's the organisation that handles the commercialisation of your piece.",
+                "distribution-placeholder": "Add a Distributor",
+                "codeupc": "UPC/EAN Code",
+                "codeupc-description": "Mandatory barcode attributed to the physical product. Might be optionally attributed to a digital product.",
+                "codeupc-placeholder": "Enter the code (optional)",
+                "date": "Release date of the musical piece (if applicable)",
+                "date-description": "The moment when the piece is launched on platforms.", 
+                "date-choix": {
+                    "avenir": "Coming Up",
+                    "determine": "Determined"
+                },
+            "titre4": "Which files would you like to grant access to?",
+            "titre4-description": "Here you can add all files related to this musical piece.",
+            "titre5": "General Information",
+            "titre5-description": "Here you mention what is the genra of this musical piece and what are the artists or trends that inspired it.",
+            "titre6": "contains lyrics?",
+            "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
+            "titre7": "Was the musical piece already broadcasted?",
+            "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links."
         },
         "pro": {
             "titre": "Are you a professional?",
@@ -229,18 +297,21 @@
                 "sous-titre3": "Protect your work",
                 "intro3": "In the good old days, a cassette was sent by registered mail to prove who did the work and when. Now we rather use a blockchain to create this proof :)" 
         },
+        
         "editeur": {
-            "ajout": "Add a publisher"
+            "ajout": "Add an editor"
         },
         "proposition": {
-            "nouvelle" : "Create a new version",
+            "nouvelle": "New",
             "envoyer": "Send to collaborators",
             "continuer": "Continue to split the rights"
         },
         "bouton": {
-            "ajout": "Add"
+            "ajout": "Add",
+            "voter": "VOTE"
         }
     },
+
     "traitement": {
         "acr": {
             "erreur-mauvaise-lecture": "Bad media. Try another sample.",
@@ -271,6 +342,7 @@
             }
         }
     },
+
     "tableaudebord": {
         "bonjour": "Here is the SmartSplit dashboard.",
         "navigation": {
@@ -307,6 +379,7 @@
             "titre-part": "How much should your publisher get ?"
         }
     },
+
     "connexion": {
         "titre": {
             "oeuvre": "Tu dois te connecter afin d'accéder à la page de votation !",
@@ -325,14 +398,81 @@
         "refuser": "REJECT"
     },
     "modepartage": {
-        "egal": "Share evenly",
-        "roles": "Share according to roles",
-        "manual": "Share manually"
+        "egal": "Split evenly",
+        "roles": "Split according to roles",
+        "manual": "Split manually"
     },
     "droits": {
-        "auteur": "Copyright"
-    },
+        "auteur": "Copyright",
+        "titre": {
+            "workCopyrightSplit": "Copyright",
+            "performanceNeighboringRightSplit": "Performance",
+            "masterNeighboringRightSplit": "Sound Recording"
+        }
+    },   
     "erreur": {
         "volIdentite": "You're trying to do an operation than belong to another user"
+    },
+    "inscription": {
+        "titre":"On your way to professionalisation.",
+        "sous-titre": "You're one clock away to documenting your music and share your rights with your contributors.",
+        "facebook": "Sign in with Facebook",
+        "google": "Sign in with Google",
+        "courriel": "Enter your email",
+        "exemple": "name@example.com",
+        "email-invalide": "Invalid email",
+        "motdepasse": "Choose your password",
+        "password-invalide": "Invalid password",
+        "correspond": "The passwords do not match",
+        "password": "Password",
+        "ou": "or",
+        "bouton": "Create my account"
+    },
+    "accueil": {
+        "titre": "Login to you Smart Split account.",
+        "sous-titre": "Enter your information below.",
+        "courriel": "Enter email",
+        "motdepasse": "My password",
+        "oublie": "Forgot password?"
+    },
+    "entete": {
+        "connexion": "Login",
+        "inscription": "Register",
+        "bonjour": "Hello",
+        "encours": "Connecting..."
+    },
+    "socan": {
+        "joindre": "Join SOCAN",
+        "prenom": "Legal First Name",
+        "nom": "Legal Name",
+        "date": "Birthdate",
+        "adresse": "Address",
+        "ville": "City",
+        "codepostal": "Postal Code",
+        "telephone": "Phone number",
+        "courriel": "Email",
+        "confirmation-courriel": "Verify Email",
+        "utilisateur": "User ID",
+        "mot-de-passe": "Password",
+        "confirmation-mot-de-passe": "Confirm the password",
+        "condition": "I agree to SOCAN's Terms & Conditions of Membership.",
+        "bouton": {
+            "annuler": "Cancel"
+        },
+        "province": {
+            "AB": "Alberta",
+            "BC": "British Columbia",
+            "MB": "Manitoba",
+            "NB": "New Brunswick",
+            "NL": "New Foundland and Labrador",
+            "NT": "Northwest Territories",
+            "NS": "Nova Scotia",
+            "NU": "Nunavut",
+            "ON": "Ontario",
+            "PE": "Prince Edward Island",
+            "QC": "Quebec",
+            "SK": "Saskatchewan",
+            "YT": "Yukon"
+        }
     }
 }

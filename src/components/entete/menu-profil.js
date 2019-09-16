@@ -5,6 +5,7 @@ import axios from 'axios'
 
 import { toast } from 'react-toastify'
 import { Dropdown } from 'semantic-ui-react'
+import ModifyUser from '../auth/ModifyUser';
 
 // Authentification avec AWS
 import { Auth } from 'aws-amplify'
@@ -64,7 +65,7 @@ export default class MenuProfil extends Component {
             <Dropdown text='' icon="angle down big black">
                 <Dropdown.Menu icon="down big">
                 <Dropdown.Item text='Accueil' onClick={()=>{window.location.href = '/accueil'}}/>
-                <Dropdown.Item text='Mon profil' onClick={()=>{console.log('Mon profil')}}/>
+                <Dropdown.Item text='Mon profil' onClick={()=>{window.location.href = '/socan'}}/>
                 <Dropdown.Divider />
                 <Dropdown.Item text='Déconnexion' onClick={()=>{this.deconnexion()}}/>
                 </Dropdown.Menu>

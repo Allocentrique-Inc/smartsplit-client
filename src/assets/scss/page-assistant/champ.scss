@@ -1,0 +1,88 @@
+@import "../colors";
+@import "../layout";
+@import "../typography";
+
+.ui.form input[type="text"],
+.ui.selection.dropdown,
+.ui.dropdown .menu > .item,
+.ui.selection.dropdown .menu > .item {
+    padding-left: $margin-step / 2 !important;
+    padding-right: $margin-step / 2 !important;
+}
+
+.ui.form input[type="text"] {
+    @extend .medium-400-style;
+
+    &::placeholder {
+        @extend .medium-400-style;
+        color: $color-tertiary;
+    }
+}
+
+.ui.dropdown .default.text {
+    font-weight: normal;
+}
+
+.ui.default.dropdown:not(.button) > .text,
+.ui.dropdown:not(.button) > .default.text {
+    @extend .medium-500-style;
+    font-weight: normal;
+    color: $color-tertiary;
+}
+
+.ui.search.selection.dropdown > input.search {
+    padding-left: 40px !important;
+}
+
+.ui.selection.dropdown,
+.ui.dropdown .menu > .item {
+    display: flex;
+    align-items: center;
+    @extend .medium-400-style;
+
+    input.search {
+        padding-left: 40px;
+    }
+
+    img,
+    > img,
+    > .image {
+        width: 24px;
+        height: 24px;
+        margin-right: $margin-step / 2;
+    }
+
+    .text {
+        display: flex;
+        align-items: center;
+        color: $color-primary;
+    }
+
+    .addition-label {
+        display: inline-flex;
+        align-items: center;
+        margin-right: $margin-step / 2;
+    }
+}
+
+.ui.dropdown .menu > .item .addition-label {
+    @extend .medium-500-style;
+    color: $color-action;
+}
+
+.ui.selection.dropdown {
+    input {
+        @extend .medium-400-style;
+        color: $color-primary;
+    }
+
+    .addition-label {
+        @extend .medium-400-style;
+        color: $color-tertiary;
+    }
+}
+
+.champ-date-sortie {
+    padding-left: $margin-step * 2;
+}
+

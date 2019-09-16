@@ -223,7 +223,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                 },
                                                 {
                                                     nom: t('modepartage.roles'),
-                                                    valeur: MODES.roles
+                                                    valeur: MODES.role
                                                 }
                                             ]}
                                         />

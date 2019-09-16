@@ -12,7 +12,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 
 import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
-import { AbstractIdentifyPredictionsProvider } from '@aws-amplify/predictions/lib/types/Providers';
 
 const ROLES = [
         "principal",
@@ -44,7 +43,7 @@ const ROLES_NAMES = {
     }
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
-
+                 
 const TITRES = {
     workCopyrightSplit: "Droits d'auteur",
     performanceNeighboringRightSplit: "Interprétation", 
@@ -237,7 +236,7 @@ class SommaireDroit extends Component {
 
         let _parts = []
         let _data = []
-        let titre = TITRES[this.state.titre]       
+        //let titre = TITRES[this.state.titre]       
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
@@ -322,32 +321,36 @@ class SommaireDroit extends Component {
                                 </Translation>
                             </div>
                         </div>                        
-                    </div>                    
-                    <hr/>
+                    </div>
                 </div>
             )
         })                    
         
         return (
-            <div className="ui segment">
-                <div className="wizard-title">{titre}</div>
-                <br/><br/>
-                <div className="ui grid">
-                    <div className="ui row">
-                        <div className="ui one wide column">
+            <Translation>
+                {
+                    t=>
+                        <div className="ui segment">
+                            <div className="wizard-title">{t(`droits.titre.${this.state.titre}`)}</div>
+                            <br/><br/>
+                            <div className="ui grid">
+                                <div className="ui row">
+                                    <div className="ui one wide column">
+                                    </div>
+                                    <div className="ui six wide column">
+                                        {_parts}
+                                    </div>
+                                    <div className="ui six wide column">
+                                        {_data.length < 9 && (<Beignet uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                                        {_data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                                    </div>
+                                    <div className="ui one wide column">
+                                    </div>
+                                </div>
+                            </div>                
                         </div>
-                        <div className="ui six wide column">
-                            {_parts}
-                        </div>
-                        <div className="ui six wide column">
-                            {_data.length < 9 && (<Beignet uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
-                            {_data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
-                        </div>
-                        <div className="ui one wide column">
-                        </div>
-                    </div>
-                </div>                
-            </div>
+                }  
+            </Translation>
         )
     }
 
@@ -574,19 +577,15 @@ export default class SommairePartage extends Component {
         })
     }
 
-    transmettre() {        
+    transmettre(t) {        
 
         Auth.currentAuthenticatedUser()
         .then(res=>{
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                return (<Translation>
-                    {
-                        t=>
-                            toast.error(t('erreur.volIdentite'))
-                    }
-                </Translation>)                
+                console.log('pas le droit')
+                toast.error(t('erreur.volIdentite'))    
             }
         })
         .catch(err=>{
@@ -661,19 +660,24 @@ export default class SommairePartage extends Component {
         }
 
         return (
-            <div>
-                {droits}
+            <Translation>
                 {
-                    !this.estVoteClos() && 
-                    (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
-                    (
-                        <button disabled={!this.state.transmission} onClick={()=>{
-                            this.transmettre()
-                        }}> Voter
-                        </button>
-                    )
+                    t=>
+                        <div>
+                            {droits}
+                            {
+                                !this.estVoteClos() && 
+                                (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
+                                (
+                                    <div className={`ui medium button ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={()=>{
+                                        this.transmettre(t)
+                                    }}>{t('flot.bouton.voter')}
+                                    </div>
+                                )
+                            }
+                        </div>
                 }
-            </div>
+            </Translation>
         )
     }
 }

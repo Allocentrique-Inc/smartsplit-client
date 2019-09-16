@@ -86,7 +86,7 @@ export default class SommaireOeuvre extends Component {
                                 </div>
                                 <div className="ui row" style={{background: "#FAF8F9"}}>
                                     <div className="ui two wide column"></div>
-                                    <div className="ui eleven wide column"><hr style={{width: "100%"}}/></div>
+                                    <div className="ui eleven wide column"></div>
                                 </div>
                                 <div className="ui row" style={{background: "#FAF8F9"}}>
                                     <div className="ui two wide column" />
@@ -149,7 +149,7 @@ export default class SommaireOeuvre extends Component {
                                         <div style={{position: "absolute", top: "85px", left: "135px", width: "55%"}}>
                                             {this.state.media.title} par {artiste}
                                         </div>
-                                        <img src={cassette} />
+                                        <img alt="médium" src={cassette} />
                                     </div>
                                 </div>
                             </div>
