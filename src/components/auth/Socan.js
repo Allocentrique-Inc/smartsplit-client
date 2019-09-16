@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import './Register.css'
+import './Socan.css'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 'semantic-ui-react'
 import { Translation } from 'react-i18next';
 import { DateInput } from "semantic-ui-calendar-react";
 
-const provinceOptions = [
+const divStyle = {
+  padding: '0 0 0 15px',
+};
+
+/*const provinceOptions = [
   {
     key: 'Alberta',
     text: 'Alberta',
@@ -72,7 +76,7 @@ const provinceOptions = [
     text: 'Yukon Territory',
     value: 'YT',
   }
-]
+]*/
 
 class Socan extends Component {
   constructor(props) {
@@ -171,50 +175,83 @@ class Socan extends Component {
     const { open, closeOnDimmerClick, currentProvinceValue, currentCountryValue, terms } = this.state
 
     return (
-      
+      <Translation>
+            {
+                (t, i18n) =>
+  
       <Modal open={open}
       closeOnDimmerClick={closeOnDimmerClick}
-      onClose={this.close} size="tiny" trigger={<Button onClick={this.closeConfigShow(true, false)}>Join SOCAN</Button>} closeIcon>
-        <Modal.Header>Join SOCAN</Modal.Header>
-          <Label>Prénom légal</Label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
+      onClose={this.close} size="small" trigger={<Button onClick={this.closeConfigShow(true, false)}>{t('socan.joindre')}</Button>} closeIcon>
+        <div className="input-container">
+          <Modal.Header className="titre-socan">{t('socan.joindre')}</Modal.Header>
+          <br></br>      
+          <input type="text" className="firstName" placeholder={t('socan.prenom')} value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
           <br></br>
-          <Label>Deuxième nom légal</Label><input type="text" className="middleName" placeholder="Deuxième nom légal" value={this.state.middleName} onChange={e => this.setState({middleName: e.target.value})}/>
+          <input type="text" className="lastName" placeholder={t('socan.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
           <br></br>
-          <Label>Nom légal</Label><input type="text" className="lastName" placeholder="Nom légal" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
-          <br></br>
-          <DateInput
+          <DateInput 
+            style={{color: "#c6c8ca"}}
+            className="date"
             name = "date"
-            placeholder={"Date de Naissance"}
+            placeholder={t('socan.date')} 
             value={ this.state.date }
             onChange={this.handleChange}
             icon="calendar outline"
           />
+          {/*<input type="text" className="address" placeholder={t('socan.adresse')} value={this.state.address} onChange={e => this.setState({address: e.target.value})}/>
           <br></br>
-          <Label>Addresse</Label><input type="text" className="address" placeholder="Addresse" value={this.state.address} onChange={e => this.setState({address: e.target.value})}/>
+          <input type="text" className="city" placeholder={t('socan.ville')} value={this.state.city} onChange={e => this.setState({city: e.target.value})}/>
           <br></br>
-          <Label>Ville</Label><input type="text" className="city" placeholder="Ville" value={this.state.city} onChange={e => this.setState({city: e.target.value})}/>
+          <Dropdown placeholder={t('socan.province')} search selection options={provinceOptions} onChange={this.handleProvinceChange}/>*/}
+        <div class="ui form">
+          <div class="province">
+            <select multiple="" class="ui dropdown" 
+            style={{color: "#c6c8ca"}}>
+            <option value="" style={divStyle}>Province</option>
+              <option value="AB">Alberta</option>
+              <option value="BC">{t('socan.province.BC')}</option>
+              <option value="MB">Manitoba</option>
+              <option value="NB">{t('socan.province.NB')}</option>
+              <option value="NL">{t('socan.province.NL')}</option>
+              <option value="NT">{t('socan.province.NT')}</option>
+              <option value="NS">{t('socan.province.NS')}</option>
+              <option value="NU">Nunavut</option>
+              <option value="ON">Ontario</option>
+              <option value="PE">{t('socan.province.PE')}</option>
+              <option value="QC">Quebec</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="YT">Yukon</option>
+            </select>
+        </div>
+      </div>  
+          
+          <input type="text" className="postalCode" placeholder={t('socan.codepostal')} value={this.state.postalCode} onChange={e => this.setState({postalCode: e.target.value})}/>
           <br></br>
-          <Dropdown placeholder='Province' search selection options={provinceOptions} onChange={this.handleProvinceChange}/>
+          <input type="text" className="phone" placeholder={t('socan.telephone')} value={this.state.phone} onChange={e => this.setState({phone: e.target.value})}/>
           <br></br>
-          <Label>Code Postal</Label><input type="text" className="postalCode" placeholder="Code postal" value={this.state.postalCode} onChange={e => this.setState({postalCode: e.target.value})}/>
+          <input type="text" className="email" placeholder={t('socan.courriel')} value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
           <br></br>
-          <Label>Numéro Téléphone</Label><input type="text" className="phone" placeholder="Numéro Téléphone" value={this.state.phone} onChange={e => this.setState({phone: e.target.value})}/>
+          <input type="text" className="verifyEmail" placeholder={t('socan.confirmation-courriel')} value={this.state.verifyEmail} onChange={e => this.setState({verifyEmail: e.target.value})}/>
           <br></br>
-          <Label>Courriel</Label><input type="text" className="email" placeholder="Courriel" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
+          <input type="text" className="userId" placeholder={t('socan.utilisateur')} value={this.state.userId} onChange={e => this.setState({userId: e.target.value})}/>
           <br></br>
-          <Label>Vérifie Courriel</Label><input type="text" className="verifyEmail" placeholder="Vérifiez votre courriel" value={this.state.verifyEmail} onChange={e => this.setState({verifyEmail: e.target.value})}/>
+          <input type="password" className="password" placeholder={t('socan.mot-de-passe')} value={this.state.password} onChange={e => this.setState({password: e.target.value})}/>
           <br></br>
-          <Label>User ID</Label><input type="text" className="userId" placeholder="Créer ton User ID" value={this.state.userId} onChange={e => this.setState({userId: e.target.value})}/>
-          <br></br>
-          <Label>Mot de passe</Label><input type="password" className="password" placeholder="Password" value={this.state.password} onChange={e => this.setState({password: e.target.value})}/>
-          <br></br>
-          <Label>Confirmez le mot de passe</Label><input type="password" className="verifyPassword" placeholder="Vérifiez votre mot de passe" value={this.state.verifyPassword} onChange={e => this.setState({verifyPassword: e.target.value})}/>
-        <Checkbox label={<label><a target="_blank" href='https://www.socan.com/WriterApplicant/terms-conditions-of-membership/'>I agree to SOCAN's Terms & Conditions of Membership.</a></label>} key={terms} value={this.state.terms}/>
+          <input type="password" className="verifyPassword" placeholder={t('socan.confirmation-mot-de-passe')} value={this.state.verifyPassword} onChange={e => this.setState({verifyPassword: e.target.value})}/>
+        <Checkbox label={<label><a target="_blank" href={
+          i18n.lng && (i18n.lng.substring(0,2) === "en" ? 
+            'https://www.socan.com/WriterApplicant/terms-conditions-of-membership/' :
+            'https://www.socan.com/WriterApplicant/fr/conditions-dadhesion/')
+          } style={{color: "#2DA84F"}}>{t('socan.condition')}</a></label>} key={terms} value={this.state.terms}/>
+      </div>
         <Modal.Actions>
-                <Button onClick={this.close} negative>Annuler</Button>
-                <Button onClick={this.handleSubmit} positive icon='checkmark' labelPosition='right' content='Join SOCAN' />
+                <Button onClick={this.close} negative>{t('socan.bouton.annuler')}</Button>
+                <Button onClick={this.handleSubmit} positive icon='checkmark' labelPosition='right' content={t('socan.joindre')} />
           </Modal.Actions>
       </Modal>
+      
+    }
+    </Translation>
     )
   }
 

@@ -10,6 +10,8 @@ import { Formik, Form, Field } from "formik"
 // Rétroaction utilisateur
 import { toast } from 'react-toastify'
 
+import Eye from './Eye';
+
 class LogIn extends Component {
 
   constructor(props) {
@@ -57,7 +59,8 @@ class LogIn extends Component {
       this.setState({patience: true}, ()=>{
         Auth.signIn(values.username, values.password)
         .then(user=>{
-          toast.success(`Bonjour#${user.username} !`)
+          toast.success(`t('entete.bonjour')#${user.username} !`)
+          console.log('fn', this.props.fn)
           if(this.props.fn) {
             this.props.fn()
           }
@@ -90,9 +93,9 @@ class LogIn extends Component {
   }
 
   render() {
-    
+
     return (
-      
+
       <Formik
         initialValues={ 
                 {
@@ -106,69 +109,117 @@ class LogIn extends Component {
           }}
         >
           {({ errors, touched, isValidating }) => (
-            <Form>              
-              <section className="section auth">
-                
-                  {
-                    this.state.patience && (
-                        <div className="container ui active dimmer">
-                          <div className="ui text loader">
-                            Connexion en cours ...
-                          </div>
-                        </div>
-                      )
-                  }
-                  {
-                    !this.state.patience && (
+
+        <Translation>
+        { 
+          (t, i18n)=>  
+            <Form>
+              {
+                this.state.patience && (
+                    <div className="container ui active dimmer">
+                      <div className="ui text loader">
+                        {t('entete.encours')}
+                      </div>
+                    </div>
+                  )
+              }
+              {
+                !this.state.patience && (
+                  <div>
+                    <span className="top-register">
+                      <a href="/register" style={{color: "#2DA84F"}}>{t('entete.inscription')}</a>
+                    </span>
+                    <div className="container">
+                      <header id="loginHeader">
+                        {
+                          i18n.lng && i18n.lng.substring(0,2) === 'en' && (
+                            <div>
+                              <div className="loginHeader">
+                                <h1>Log into you Smart Split <br />account.</h1>
+                                <br></br>
+                              </div>
+                              <div className="loginPrompt">
+                                  <h3>Enter your information below.</h3>
+                              </div>
+                            </div>
+                          )
+                        }
+                        {
+                          i18n.lng && i18n.lng.substring(0,2) !== 'en' && (
+                            <div>
+                              <div className="loginHeader">
+                                <h1>Connecte-toi à ton <br />compte Smart Split.</h1>
+                                <br></br>
+                              </div>
+                              <div className="loginPrompt">
+                                  <h3>Entre tes informations ci-dessous.</h3>
+                              </div>
+                            </div>
+                          )
+                        }
+                      </header>
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <section className="section auth">
                       <div className="container">
                         <h1>{this.props.message}</h1>
-                        <div className="field">
+                          <div className="field">
+                          <div className="input-wrapper"> 
                           <div className="control">
-                            <Field 
-                              validate={this.validateUsername}
-                              name="username"
-                              id="username"
-                              aria-describedby="usernameHelp"
-                              placeholder="Enter email"
-                              required={true}
-                            />
-                            {errors.username && touched.username && <div style={{color: "red"}}> Courriel invalide </div>}
-                          </div>                    
+                          <label htmlFor="username">{t('accueil.courriel')}</label>
+                              <Field 
+                                validate={this.validateUsername}
+                                name="username"
+                                id="username" 
+                                aria-describedby="usernameHelp"
+                                placeholder={t('inscription.exemple')} 
+                                required={true}
+                              />
+                              {errors.username && touched.username && <div style={{color: "red"}}> {t('inscription.email-invalide')} </div>}
+                            </div>                    
+                          </div>
+                          <div className="field">
+                            <div className="control has-icons-left">
+                            <label htmlFor="password">{t('accueil.motdepasse')}</label>    
+                            <div className="input-wrapper">
+                              <Field 
+                                validate={this.validatePassword} 
+                                type={this.state.hidden ? "password" : "text"}
+                                id="password"
+                                name="password"
+                                placeholder={t('inscription.motdepasse')}
+                                required={true}
+                              />
+                              <button id="hide" onClick={this.toggleShow}>
+                              <Eye />
+                              </button> 
+                            </div>                             
+                        </div>                            
+                        {errors.password && touched.password && <div style={{color: "red"}}> {t('inscription.password-invalide')} </div>}
+                      </div>
+                      <div className="field">
+                        <p className="control">
+                          <a href="/forgot-password" style={{color: "#2DA84F"}}>{t('accueil.oublie')}</a>                         
+                        </p>
+                      </div>
+                      <div className="field">
+                        <p className="control">
+                          <button className="ui medium button login is-success">
+                          {t('entete.connexion')}
+                          </button>
+                        </p>
+                        </div> 
                         </div>
-                        <div className="field">
-                          <div className="control has-icons-left">
-                            <Field 
-                              validate={this.validatePassword} 
-                              type={this.state.hidden ? "password" : "text"}
-                              name="password"
-                              placeholder="Password"
-                              required={true}
-                            />
-                            <button id="hide" onClick={this.toggleShow}>
-                              <i className="eye icon black"></i>
-                            </button>                              
-                          </div>                            
-                          {errors.password && touched.password && <div style={{color: "red"}}> Mot de passe invalide </div>}
-                        </div>
-                        <div className="field">
-                          <p className="control">
-                            <a href="/forgot-password"> Mot de passe oublié ? </a>                         
-                            <a href="/register"> Créer ton compte </a>
-                          </p>
-                        </div>
-                        <div className="field">
-                          <p className="control">
-                            <button className="ui medium button is-success">
-                              Login
-                            </button>
-                          </p>
-                        </div>
-                    </div>
-                    )
-                  }                  
-              </section>
+                        </div>                 
+                  </section>
+                </div>)
+                }
             </Form>
-          )}
+          }
+          </Translation> 
+          )
+          }
       </Formik>           
     )
   }

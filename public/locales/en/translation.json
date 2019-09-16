@@ -5,18 +5,29 @@
         "liste-media": "Media list returned by the API"
     },
     "collaborateur": {
+        "titre": "Add a collaborating artist",
         "attribut": {
             "etiquette": {
-                "nom": "Last name",
-                "prenom": "First name",
-                "artiste": "Artist name",
-                "role": "Role in the work"
+                "nom": "Legal Name",
+                "prenom": "Legal First Name",
+                "artiste": "Artist Name",
+                "option": " (optional)",
+                "na": "If not applicable, the complete name is displayed.",
+                "role": "Role in the work",
+                "courriel": "Email",
+                "groupe": "Groups"
             },
             "indication": {
                 "nom": "Last name",
                 "prenom": "First name",
                 "artiste": "Artist name",
-                "role": "Choose one or more role"
+                "role": "Choose one or more role",
+                "role2": "These roles can be modified later.",
+                "groupe": "Choose a group"
+            },
+            "bouton": {
+                "annuler": "Cancel",
+                "sauvegarder": "Save"
             }
         }
     },
@@ -161,7 +172,15 @@
                 "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
                 "codeiswc-placeholder": "Add a code",
             "titre2": "Who played the musical piece on this sound recording?",
-            "titre2-description": "Here you mention who played which instrument.",
+            "titre2-description": "Here you mention who played which instrument.", 
+            "options": { 
+                    "question1": "Which type of performance?",
+                        "question1-choix-a": "Main Artist",
+                        "question1-choix-b": "Featuring Artist",
+                    "question2": "Which role in the musical piece?",
+                        "question2-choix-a": "Singer",
+                        "question2-choix-b": "Musician"
+                },
             "titre3": "Who recorded the musical piece?",
             "titre3-description": "Here you mention who contributed to the sound recording of this piece.",
                 "realisation": "Direction",
@@ -282,22 +301,16 @@
         "editeur": {
             "ajout": "Add an editor"
         },
-
-            "ajout": "Add a publisher",
+        "proposition": {
+            "nouvelle": "New",
             "envoyer": "Send to collaborators",
             "continuer": "Continue to split the rights"
         },
-
-        "proposition": {
-            "nouvelle": "Create a new version",
-            "envoyer": "Send to collaborators",
-            "continuer": "Continue the split"
-    },
-
         "bouton": {
             "ajout": "Add",
             "voter": "VOTE"
-        },
+        }
+    },
 
     "traitement": {
         "acr": {
@@ -415,8 +428,51 @@
         "ou": "or",
         "bouton": "Create my account"
     },
+    "accueil": {
+        "titre": "Login to you Smart Split account.",
+        "sous-titre": "Enter your information below.",
+        "courriel": "Enter email",
+        "motdepasse": "My password",
+        "oublie": "Forgot password?"
+    },
     "entete": {
         "connexion": "Login",
-        "inscription": "Register"
+        "inscription": "Register",
+        "bonjour": "Hello",
+        "encours": "Connecting..."
+    },
+    "socan": {
+        "joindre": "Join SOCAN",
+        "prenom": "Legal First Name",
+        "nom": "Legal Name",
+        "date": "Birthdate",
+        "adresse": "Address",
+        "ville": "City",
+        "codepostal": "Postal Code",
+        "telephone": "Phone number",
+        "courriel": "Email",
+        "confirmation-courriel": "Verify Email",
+        "utilisateur": "User ID",
+        "mot-de-passe": "Password",
+        "confirmation-mot-de-passe": "Confirm the password",
+        "condition": "I agree to SOCAN's Terms & Conditions of Membership.",
+        "bouton": {
+            "annuler": "Cancel"
+        },
+        "province": {
+            "AB": "Alberta",
+            "BC": "British Columbia",
+            "MB": "Manitoba",
+            "NB": "New Brunswick",
+            "NL": "New Foundland and Labrador",
+            "NT": "Northwest Territories",
+            "NS": "Nova Scotia",
+            "NU": "Nunavut",
+            "ON": "Ontario",
+            "PE": "Prince Edward Island",
+            "QC": "Quebec",
+            "SK": "Saskatchewan",
+            "YT": "Yukon"
+        }
     }
 }

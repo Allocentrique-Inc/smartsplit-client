@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Register.css'
+import './Collabo.css'
 import axios from 'axios'
 import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 'semantic-ui-react'
 import { Translation } from 'react-i18next';
@@ -188,27 +188,32 @@ export default class ModifyUser extends Component {
     };
 
     return (
+    <Translation>
+      { 
+          t=>  
+
       <Modal 
         open={open}
         closeOnEscape={true}
         closeOnDimmerClick={false}
         onClose={this.props.close} 
-        size="tiny" 
+        size="small" 
 
         closeIcon>
-        <Modal.Header>Ajouter un artiste collaborateur</Modal.Header>
-          <label>Prénom légal</label><input type="text" className="firstName" placeholder="Prénom légal" value={this.state.firstName} onChange={e => this.onTodoChange(e.target.value)}/>
-          <label>Nom légal</label><input type="text" className="lastName" placeholder="Nom légal" value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
-          <label>Nom d'artiste</label><label id="Optionel">Optionel</label><input type="text" className="artistName" placeholder="Nom d'artiste" value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
-          Si non applicable, nous afficherons son nom complet.
-          <label>Courriel</label><input type="text" className="email" placeholder="Courriel" value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
-          <label>Groupes</label>
+        <div className="input-container">
+        <Modal.Header className="Titre">{t('collaborateur.titre')}</Modal.Header>
+        <br></br> 
+          <input type="text" className="firstName" placeholder={t('collaborateur.attribut.etiquette.prenom')} value={this.state.firstName} onChange={e => this.onTodoChange(e.target.value)}/>
+          <input type="text" className="lastName" placeholder={t('collaborateur.attribut.etiquette.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
+          <label>{t('collaborateur.attribut.etiquette.artiste')}</label><label id="Optionel">{t('collaborateur.attribut.etiquette.option')}</label><input type="text" className="artistName" placeholder={t('collaborateur.attribut.etiquette.artiste')} value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
+          <div className="sous titre">{t('collaborateur.attribut.etiquette.na')}</div>
+          <input type="text" className="email" placeholder={t('collaborateur.attribut.etiquette.courriel')} value={this.state.email} onChange={e => this.setState({email: e.target.value})}/>
+          <label>{t('collaborateur.attribut.etiquette.groupe')}</label>
             <Dropdown 
-              className="prompt"
+              id="prompt"
               type="text" 
-              paceholder="Groupes"
               options={this.state.groups}
-              placeholder='Choisir group'
+              placeholder={t('collaborateur.attribut.indication.groupe')}
               search
               multiple={true}
               selection
@@ -218,14 +223,13 @@ export default class ModifyUser extends Component {
               onAddItem={this.handleAddition}
               onChange={this.handleChange}
             />
-            <i className="search icon"></i>
-          <label>Rôle(s) par défaut</label>
+            {/*<i className="search icon"></i>*/}
+          <label>{t('collaborateur.attribut.etiquette.role')}</label>
           <Dropdown 
-              className="roles"
+              id="roles"
               type="text" 
-              paceholder="Roles"
               options = {this.state.roles}
-              placeholder='Choisir group'
+              placeholder={t('collaborateur.attribut.indication.role')}
               search
               multiple={true}
               selection
@@ -233,12 +237,16 @@ export default class ModifyUser extends Component {
               value={currentRoleValue}
               onChange={this.roleChange}
             /> 
-          Ces rôles pourront toujours être modifiés plus tard.
+          <div className="sous titre">{t('collaborateur.attribut.indication.role2')}</div>
+        </div>  
         <Modal.Actions>
-                <Button onClick={this.close} negative>Annuler</Button>
-                <Button onClick={this.click} positive icon='checkmark' labelPosition='right' content='Sauvegarder' />
+                <Button onClick={this.close} negative>{t('collaborateur.attribut.bouton.annuler')}</Button>
+                <Button onClick={this.click} positive icon='checkmark' labelPosition='right' content={t('collaborateur.attribut.bouton.sauvegarder')} />
           </Modal.Actions>
       </Modal>
+
+    }  
+    </Translation>
     )
   }
   
