@@ -1,8 +1,50 @@
 import React, {Component} from 'react'
 import { Translation } from 'react-i18next'
 import axios from 'axios'
+import dynamo from 'dynamodb'
+import Joi from '@hapi/joi'
+
 
 import { toast } from 'react-toastify'
+
+// dynamo.AWS.config.update({accessKeyId: 'AKIASPDKSKDUZDFJGW2S', secretAccessKey: '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', region: "us-east-2"});
+
+// dynamo.createTables({
+//     'BlogPost': {readCapacity: 5, writeCapacity: 10},
+//   }, function(err) {
+//     if (err) {
+//       console.log('Error creating tables: ', err);
+//     } else {
+//       console.log('Tables has been created');
+//     }
+//   });
+
+// let BlogPost = dynamo.define('BlogPost', {
+//     hashKey : 'email',
+//     rangeKey : 'title',
+//     schema : {
+//       email   : Joi.string().email(),
+//       title   : Joi.string(),
+//       content : Joi.binary(),
+//       tags   : dynamo.types.stringSet(),
+//     }
+// });
+
+// BlogPost.create({
+//     email: 'werner@example.com', 
+//     title: 'Expanding the Cloud', 
+//     content: 'Today, we are excited to announce the limited preview...'
+//     }, function (err, post) {
+//       console.log('created blog post');
+//     });
+
+// BlogPost.update({
+//     email : 'werner@example.com',
+//     title : 'Expanding the Cloud',
+//     tags  : {$add : ['cloud', 'dynamodb']}
+//   }, function (err, post) {
+//     console.log('added tags to blog post', post.get('tags'));
+//   });
 
 export default class ListePieces extends Component {
 
@@ -13,9 +55,25 @@ export default class ListePieces extends Component {
 
     componentWillMount() {
 
-        axios.get('http://api.smartsplit.org:8080/v1/media')
-        .then((res)=>{
-            this.setState({medias:res.data})
+        // BlogPost
+        //     .query('werner@example.com')
+        //     .exec();
+        // console.log(BlogPost)
+
+        axios.get('http://api.smartsplit.org:8080/v1/proposal')
+        .then((res) => {
+            console.log("PROPOSAL", res.data)
+            const mediaId = res.data[0].mediaId
+            console.log(mediaId)
+
+
+
+            axios.get('http://api.smartsplit.org:8080/v1/media/')
+            // axios.get('http://api.smartsplit.org:8080/v1/media/' + mediaId)
+            .then((res)=>{
+                console.log("MEDIA", res.data)
+                this.setState({medias:res.data})
+            })
         })
         .catch((error) => {
             toast.error(error)            
