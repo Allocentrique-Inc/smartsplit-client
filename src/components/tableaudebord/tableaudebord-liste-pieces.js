@@ -7,8 +7,6 @@ import Joi from '@hapi/joi'
 
 import { toast } from 'react-toastify'
 
-// dynamo.AWS.config.update({accessKeyId: 'AKIASPDKSKDUZDFJGW2S', secretAccessKey: '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', region: "us-east-2"});
-
 // dynamo.createTables({
 //     'BlogPost': {readCapacity: 5, writeCapacity: 10},
 //   }, function(err) {
