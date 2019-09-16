@@ -66,12 +66,15 @@ export default class SommaireOeuvre extends Component {
         })
     }
 
+    editerTitre(edition) {
+        this.setState({editerTitre: edition})
+    }
+
     render() {
         let _m = ""
         if(this.state.media) {
             let artiste = this.state.media.artist
             let contenu = (<div className="ui nine wide column"></div>)
-
             
             return (
                 <Translation>
@@ -98,7 +101,31 @@ export default class SommaireOeuvre extends Component {
                                                 </div>
                                                 <div className="ui eleven wide column">
                                                     <div className="ui row">
-                                                        <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;<i className="pencil alternate icon grey" style={{cursor: "pointer"}}></i></h1>
+                                                        {
+                                                            this.state.editerTitre &&
+                                                            (
+                                                                <div>
+                                                                    <input placeholder="Saisir un titre" value={`${this.state.media.title}`}></input>
+                                                                    <i 
+                                                                        onClick={()=>{this.majTitre(); this.editerTitre(false)}} 
+                                                                        className="save alternate icon grey" 
+                                                                        style={{cursor: "pointer"}}>
+                                                                    </i>
+                                                                </div>                                                                
+                                                            )
+                                                        }
+                                                        {
+                                                            !this.state.editerTitre &&
+                                                            (
+                                                                <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
+                                                                    <i 
+                                                                        onClick={()=>{this.editerTitre(true)}} 
+                                                                        className="pencil alternate icon grey" 
+                                                                        style={{cursor: "pointer"}}>
+                                                                    </i>
+                                                                </h1>
+                                                            )
+                                                        }                                                        
                                                     </div>
                                                     <div className="ui row">
                                                         <div className="small-400" style={{display: "inline-block"}}>{t('oeuvre.creePar')}&nbsp;</div><div className="small-500-color" style={{display: "inline-block"}}>{`${artiste}`}&nbsp;</div>
