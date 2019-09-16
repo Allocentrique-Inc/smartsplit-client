@@ -1,0 +1,46 @@
+@import '../colors';
+@import '../layout';
+@import '../typography';
+
+.entete {
+    margin-top: $navbar-height;
+    padding: ($margin-step * 4) $margin-step;
+
+    .flex {
+        display: flex;
+    }
+
+    .song-image {
+        width: 144px;
+        height: 144px;
+        flex: 0 0 144px;
+    }
+
+    .song-info {
+        flex: 1 0 auto;
+        margin-left: 32px;
+        @extend .medium-400-style;
+        color: $color-secondary;
+
+        h1 {
+            color: $color-primary;
+        }
+    }
+
+    a {
+        @extend .medium-500-style;
+        color: $smartsplit-color-link;
+    }
+}
+
+.tag {
+    @include tag-shape;
+    @extend .small-400-style;
+
+    background-color: $color-hell;
+    margin-right: $margin-step;
+}
+
+.pochette .entete a {
+    color: $pochette-color-link;
+}

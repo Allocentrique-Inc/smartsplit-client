@@ -37,7 +37,7 @@ export default class ModalFin extends React.Component {
                 </div>
 
                 <div className={ 'modal-bottom-bar' }>
-                    <a href={ '/resume' }>
+                    <a href={ '/oeuvre/resume' }>
                         <Button>Voir le résumé</Button>
                     </a>
                 </div>

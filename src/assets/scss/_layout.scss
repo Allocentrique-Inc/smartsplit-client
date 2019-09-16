@@ -1,5 +1,6 @@
 $margin-step: 16px;
 $navbar-height: 72px;
+$border-radius: 2px;
 
 .mb-05 {
     margin-bottom: $margin-step / 2;
@@ -12,3 +13,9 @@ $navbar-height: 72px;
 .mb-2 {
     margin-bottom: $margin-step * 2;
 }
+
+@mixin tag-shape() {
+    padding: ($margin-step / 4) ($margin-step / 2);
+    border-radius: $border-radius;
+}
+
