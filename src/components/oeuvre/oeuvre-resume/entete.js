@@ -57,7 +57,11 @@ export default class Entete extends React.Component {
 
                 <div className={ 'song-info' }>
                     <h1 className={ 'h1-style' }>
-                        Love You Baby (Remix) <img className={'edit-icon'} src={editIcon} alt={'Éditer'}/>
+                        Love You Baby (Remix)
+
+                        <a className={'edit-link'} href={'#'}>
+                            <img className={'edit-icon'} src={editIcon} alt={'Éditer'}/>
+                        </a>
                     </h1>
 
                     <div className={ 'artist-line' }>
@@ -71,8 +75,6 @@ export default class Entete extends React.Component {
                             <div className={ 'avatars' }>
                                 { this.renderAvatars() }
                             </div>
-
-
                         </div>
                     </div>
 

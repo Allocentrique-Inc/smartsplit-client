@@ -29,6 +29,10 @@ $avatar-width: 24px;
         h1 {
             color: $color-primary;
 
+            .edit-link {
+                margin-left: $margin-step;
+            }
+
             .edit-icon {
                 width: 24px;
                 height: 24px;

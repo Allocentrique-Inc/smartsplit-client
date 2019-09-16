@@ -4,6 +4,7 @@ import Page from "../page-assistant/page";
 import Colonne from "../page-assistant/colonne";
 import { Navbar } from "./oeuvre-resume/navbar";
 import Entete from "./oeuvre-resume/entete";
+import Corps from "./oeuvre-resume/corps";
 
 export default class OeuvreResume extends React.Component {
     render() {
@@ -14,6 +15,7 @@ export default class OeuvreResume extends React.Component {
                         <>
                             <Navbar/>
                             <Entete/>
+                            <Corps/>
                         </>
                 }
             </Translation>
