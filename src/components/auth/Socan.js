@@ -6,7 +6,11 @@ import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 's
 import { Translation } from 'react-i18next';
 import { DateInput } from "semantic-ui-calendar-react";
 
-const provinceOptions = [
+const divStyle = {
+  padding: '0 0 0 15px',
+};
+
+/*const provinceOptions = [
   {
     key: 'Alberta',
     text: 'Alberta',
@@ -72,7 +76,7 @@ const provinceOptions = [
     text: 'Yukon Territory',
     value: 'YT',
   }
-]
+]*/
 
 class Socan extends Component {
   constructor(props) {
@@ -186,19 +190,41 @@ class Socan extends Component {
           <input type="text" className="lastName" placeholder={t('socan.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
           <br></br>
           <DateInput 
-            style={{color: "#8DA0B3"}}
+            style={{color: "#c6c8ca"}}
             className="date"
             name = "date"
-            placeholder={t('socan.date')}
+            placeholder={t('socan.date')} 
             value={ this.state.date }
             onChange={this.handleChange}
             icon="calendar outline"
           />
-          <input type="text" className="address" placeholder={t('socan.adresse')} value={this.state.address} onChange={e => this.setState({address: e.target.value})}/>
+          {/*<input type="text" className="address" placeholder={t('socan.adresse')} value={this.state.address} onChange={e => this.setState({address: e.target.value})}/>
           <br></br>
           <input type="text" className="city" placeholder={t('socan.ville')} value={this.state.city} onChange={e => this.setState({city: e.target.value})}/>
           <br></br>
-          <Dropdown placeholder={t('socan.province')} search selection options={provinceOptions} onChange={this.handleProvinceChange}/>
+          <Dropdown placeholder={t('socan.province')} search selection options={provinceOptions} onChange={this.handleProvinceChange}/>*/}
+        <div class="ui form">
+          <div class="province">
+            <select multiple="" class="ui dropdown" 
+            style={{color: "#c6c8ca"}}>
+            <option value="" style={divStyle}>Province</option>
+              <option value="AB">Alberta</option>
+              <option value="BC">{t('socan.province.BC')}</option>
+              <option value="MB">Manitoba</option>
+              <option value="NB">{t('socan.province.NB')}</option>
+              <option value="NL">{t('socan.province.NL')}</option>
+              <option value="NT">{t('socan.province.NT')}</option>
+              <option value="NS">{t('socan.province.NS')}</option>
+              <option value="NU">Nunavut</option>
+              <option value="ON">Ontario</option>
+              <option value="PE">{t('socan.province.PE')}</option>
+              <option value="QC">Quebec</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="YT">Yukon</option>
+            </select>
+        </div>
+      </div>  
+          
           <input type="text" className="postalCode" placeholder={t('socan.codepostal')} value={this.state.postalCode} onChange={e => this.setState({postalCode: e.target.value})}/>
           <br></br>
           <input type="text" className="phone" placeholder={t('socan.telephone')} value={this.state.phone} onChange={e => this.setState({phone: e.target.value})}/>

@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 
 import './Login.css'
-import SignInFacebook from './SignInFacebook';
-import SignInGoogle from './SignInGoogle';
-
 
 import { Auth } from "aws-amplify";
 import { Translation } from 'react-i18next'
@@ -92,9 +89,9 @@ class LogIn extends Component {
   }
 
   render() {
-    
+
     return (
-      
+
       <Formik
         initialValues={ 
                 {
@@ -111,21 +108,42 @@ class LogIn extends Component {
 
         <Translation>
         { 
-          t=>  
+          (t, i18n)=>  
             <Form>
               <span className="top-register">
                 <a href="/register" style={{color: "#2DA84F"}}>{t('entete.inscription')}</a>
               </span>
-          
-          <div className="container">
+            <div className="container">
               <header id="loginHeader">
-                <h1 id="loginHead"></h1>
-                <h3 id="loginPrompt"></h3>
+                {
+                  i18n.lng && i18n.lng.substring(0,2) === 'en' && (
+                    <div>
+                      <div className="loginHeader">
+                        <h1>Log into you Smart Split <br />account.</h1>
+                        <br></br>
+                      </div>
+                      <div className="loginPrompt">
+                          <h3>Enter your information below.</h3>
+                      </div>
+                    </div>
+                  )
+                }
+                {
+                  i18n.lng && i18n.lng.substring(0,2) !== 'en' && (
+                    <div>
+                      <div className="loginHeader">
+                        <h1>Connecte-toi à ton <br />compte Smart Split.</h1>
+                        <br></br>
+                      </div>
+                      <div className="loginPrompt">
+                          <h3>Entre tes informations ci-dessous.</h3>
+                      </div>
+                    </div>
+                  )
+                }
+            
               </header>
           </div>
-
-              {/*<SignInFacebook text={t('inscription.facebook')}></SignInFacebook>
-              <SignInGoogle>{t('inscription.google')}</SignInGoogle>*/}
                   <br></br>
                   <br></br>
                   <br></br>

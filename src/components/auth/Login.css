@@ -31,8 +31,8 @@
   font-family: 'IBM Plex Sans';
 }
 
-header#loginHeader h1:after {
-    content: "Connecte-toi à ton \A compte Smart Split.";
+header#loginHeader h1 {
+    /*content: "Connecte-toi à ton \A compte Smart Split.";*/
     white-space: pre;
     font-style: bold;
     font-weight: 500;
@@ -42,10 +42,10 @@ header#loginHeader h1:after {
     height: 96px;
 }
 
-header#loginHeader h3:after {
-    content: "Entre tes informations ci-dessous.";
+header#loginHeader h3 {
+    /*content: "Entre tes informations ci-dessous.";*/
     white-space: pre;
-    font-weight: normal;
+    font-style: normal;
     font-weight: 400;
     font-size: 20px;
     line-height: 18px;

@@ -452,7 +452,6 @@
         "date": "Date de naissance",
         "adresse": "Adresse",
         "ville": "Ville",
-        "province": "Province",
         "codepostal": "Code postal",
         "telephone": "Numéro de téléphone",
         "courriel": "Courriel",
@@ -463,6 +462,21 @@
         "condition": "J'accepte les conditions d'adhésion de la SOCAN.",
         "bouton": {
             "annuler": "Annuler"
+        },
+        "province": {
+            "AB": "Alberta",
+            "BC": "Colombie britannique",
+            "MB": "Manitoba",
+            "NB": "Nouveau Brunswick",
+            "NL": "Terre-Neuve-et-Labrador",
+            "NT": "Territoires du Nord-Ouest",
+            "NS": "Nouvelle-Écosse",
+            "NU": "Nunavut",
+            "ON": "Ontario",
+            "PE": "Île-du-Prince-Édouard",
+            "QC": "Québec",
+            "SK": "Saskatchewan",
+            "YT": "Yukon"
         }
     }
 }

@@ -446,7 +446,6 @@
         "date": "Birthdate",
         "adresse": "Address",
         "ville": "City",
-        "province": "Province",
         "codepostal": "Postal Code",
         "telephone": "Phone number",
         "courriel": "Email",
@@ -457,6 +456,21 @@
         "condition": "I agree to SOCAN's Terms & Conditions of Membership.",
         "bouton": {
             "annuler": "Cancel"
+        },
+        "province": {
+            "AB": "Alberta",
+            "BC": "British Columbia",
+            "MB": "Manitoba",
+            "NB": "New Brunswick",
+            "NL": "New Foundland and Labrador",
+            "NT": "Northwest Territories",
+            "NS": "Nova Scotia",
+            "NU": "Nunavut",
+            "ON": "Ontario",
+            "PE": "Prince Edward Island",
+            "QC": "Quebec",
+            "SK": "Saskatchewan",
+            "YT": "Yukon"
         }
     }
 }
