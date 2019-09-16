@@ -224,8 +224,9 @@ function ApprouverSplit({match}) {
 
 // Configuration des alertes utilisateur
 toast.configure({
-  autoClose: 8000,
+  autoClose: 3500,
   draggable: true,
+  position: toast.POSITION.TOP_CENTER
 })
 
 ReactDOM.render( renderRoutes(), document.getElementById('root') )
