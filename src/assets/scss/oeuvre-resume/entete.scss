@@ -2,9 +2,13 @@
 @import '../layout';
 @import '../typography';
 
+$avatar-width: 24px;
+
 .entete {
     margin-top: $navbar-height;
     padding: ($margin-step * 4) $margin-step;
+
+    background-color: $color-underground;
 
     .flex {
         display: flex;
@@ -24,6 +28,84 @@
 
         h1 {
             color: $color-primary;
+
+            .edit-icon {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        .artist-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .avatars {
+            display: flex;
+            align-items: center;
+
+            a {
+                .plus-button {
+                    margin-left: $margin-step / 2;
+                    height: $avatar-width;
+                    width: $avatar-width;
+                    background-color: $smartsplit-color-link;
+                    border-radius: $border-radius;
+                    transition: 0.2s background-color;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    img {
+                        height: $avatar-width / 2;
+                        width: $avatar-width / 2;
+                    }
+                }
+
+                &:hover {
+                    .plus-button {
+                        background-color: $smartsplit-color-link-hover;
+                    }
+                }
+            }
+        }
+
+        .avatar {
+            margin-left: -$avatar-width / 4;
+            width: $avatar-width;
+            height: $avatar-width;
+            border: 1px solid $color-underground;
+            border-radius: $avatar-width / 2;
+            overflow: hidden;
+
+            img {
+                width: $avatar-width;
+                height: $avatar-width;
+            }
+        }
+
+        .more-tag {
+            margin-left: -$avatar-width / 4;
+            padding: ($margin-step / 4) ($margin-step / 4) ($margin-step / 4) ($margin-step / 2);
+
+            height: $avatar-width;
+            border-radius: $border-radius;
+
+            @extend .small-400-style;
+            background-color: $color-hell;
+            color: $color-primary;
+        }
+    }
+
+    .other-info {
+        @extend .small-400-style;
+        color: $color-secondary;
+
+        a {
+            @extend .small-500-style;
+            color: $smartsplit-color-link;
         }
     }
 
@@ -41,6 +123,21 @@
     margin-right: $margin-step;
 }
 
-.pochette .entete a {
-    color: $pochette-color-link;
+.header-divider {
+    margin: $margin-step 0;
+
+    width: 100%;
+    height: 1px;
+    background-color: $color-stroke;
+}
+
+.pochette .entete {
+    a,
+    .other-info a {
+        color: $pochette-color-link;
+    }
+
+    .avatars .plus-button {
+        background-color: $pochette-color-link;
+    }
 }
