@@ -443,7 +443,9 @@
     },
     "entete": {
         "connexion": "Connexion",
-        "inscription": "Inscription"
+        "inscription": "Inscription",
+        "bonjour": "Bonjour",
+        "encours": "Connexion en cours..."
     },
     "socan": {
         "joindre": "Joindre SOCAN",

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './Register.css'
 import { Field, Form, Formik } from 'formik'
-import SignInFacebook from './SignInFacebook';
-import SignInGoogle from './SignInGoogle';
 import zxcvbn from 'zxcvbn';
 import { Auth } from "aws-amplify";
 // import * as Yup from 'yup'
@@ -250,8 +248,6 @@ class Register extends Component {
                                         <h3 id="registerPrompt"></h3>
                                         <br /><br /><br />
                                     </header>
-                                    <SignInFacebook text={t('inscription.facebook')}></SignInFacebook>
-                                    <SignInGoogle>{t('inscription.google')}</SignInGoogle>
                                     <br></br>
                                     <br></br>
                                     {/*<hr className="hrLogin" />*/}

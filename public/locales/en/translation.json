@@ -437,7 +437,9 @@
     },
     "entete": {
         "connexion": "Login",
-        "inscription": "Register"
+        "inscription": "Register",
+        "bonjour": "Hello",
+        "encours": "Connecting..."
     },
     "socan": {
         "joindre": "Join SOCAN",
