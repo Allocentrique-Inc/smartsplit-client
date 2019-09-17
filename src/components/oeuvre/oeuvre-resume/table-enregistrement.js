@@ -33,6 +33,31 @@ export default class TableEnregistrement extends React.Component {
             label: 'Techniciens en enregistrement',
             value: (<><a href={'#'}>Claude Bernard</a>, <a href={'#'}>Sébastien Longchamps</a></>)
         },
+
+        {
+            label: 'Mixage',
+            value: (<><a href={'#'}>Sylvain Médrion</a></>)
+        },
+
+        {
+            label: 'Mastering',
+            value: (<><a href={'#'}>Ryebread Mastering</a></>)
+        },
+
+        {
+            label: 'Production',
+            value: (<><a href={'#'}>Paul Leinette</a>, <a href={'#'}>Steve Roquefort</a>, <a href={'#'}>Joanie Flan</a></>)
+        },
+
+        {
+            label: 'Étiquette',
+            value: ''
+        },
+
+        {
+            label: 'Studio d\'enregistrement',
+            value: (<>Studio Piccolo<br/><span class={'color-secondary'}>1234 rue du Rock, Montréal (QC) H2J 2K9</span></>)
+        },
     ];
 
     render() {
