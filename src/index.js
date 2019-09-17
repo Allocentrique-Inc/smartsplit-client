@@ -36,13 +36,8 @@ import Troissplits from './components/visualisation/partage/troissplits'
 // Composantes auth
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
-<<<<<<< HEAD
 import ModifyUser from './components/auth/ModifyUser'
-import Register3 from './components/auth/Register-3'
-=======
-import Register2 from './components/auth/Register-2'
 import Socan from './components/auth/Socan'
->>>>>>> develop
 import Declaration from './components/auth/Declaration'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
