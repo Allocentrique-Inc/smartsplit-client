@@ -18,6 +18,8 @@ import SommairePartage from './partage-sommaire'
 import AssistantPartageEditeur from './assistant-partage-editeur'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
 
+import { Modal } from 'semantic-ui-react'
+
 import moment from 'moment'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
@@ -47,31 +49,7 @@ export default class SommairePartages extends Component {
             this.initialisation()
         })
         .catch(err=>{
-            toast.error(err.message)
-            confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecté pour accéder`,
-                closeOnClickOutside: false,
-                style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                customUI: ({ onClose }) => 
-                    <div>
-                        <Login message="Connecte-toi pour accéder" fn={(user)=>{
-                            onClose()
-                            this.setState({user: user}, ()=>{
-                                this.initialisation()
-                            })
-                        }} />
-                </div>
-            })
+            this.setState({modaleConnexion: true})
         })        
     }
 
@@ -159,7 +137,7 @@ export default class SommairePartages extends Component {
 
             propositions = propositions.reverse()
 
-            let nouveauDisabled = "", envoiDisabled = "disabled", continuerDisabled = "disabled"
+            let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
             let partageEditeur = false
 
             let _id0
@@ -170,22 +148,39 @@ export default class SommairePartages extends Component {
                 _p0 = _p
                 _id0 = _p.uuid
                 if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
-                    nouveauDisabled = "disabled"
+                    nouveauDisabled = true
                 }    
                 if(_p.etat !== 'PRET') {
-                    envoiDisabled = "disabled"
+                    envoiDisabled = true
                 } else {
-                    envoiDisabled = ""
+                    envoiDisabled = false
                 }
                 if(_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
-                    continuerDisabled = ""
+                    continuerDisabled = false
                 }
                 if(_p.etat === 'ACCEPTE') {
-                    partageEditeur = true
+                    // ESt-ce que l'utilisateur est dans les ayant-droits ?
+                    console.log(_p)
+                    let estCollaborateur = false
+                    Object.keys(_p.rightsSplits).forEach(droit=>{
+                        Object.keys(_p.rightsSplits[droit]).forEach(type=>{
+                            _p.rightsSplits[droit][type].forEach(part=>{
+                                if(part.rightHolder.rightHolderId === this.state.user.username){
+                                    estCollaborateur = true
+                                    return
+                                }
+                            })
+                        })
+                    })
+                    if(estCollaborateur) {
+                        partageEditeur = true
+                    }                    
                 }
             }
 
-            return (                
+            let that = this
+
+            return (          
                 <Translation>
                     {
                         t =>
@@ -195,29 +190,41 @@ export default class SommairePartages extends Component {
                                         <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
                                     </div>
                                     <div className="ui row">
-                                        <div className="ui seven wide column" />                
-                                        <div className="ui seven wide column">
-                                            <div className={`ui medium button ${continuerDisabled}`} onClick={
-                                                ()=>{
-                                                    window.location.href=`/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                }
-                                                }>
-                                                {t('flot.proposition.continuer')}
-                                            </div>
-                                            <div className={`ui medium button ${nouveauDisabled}`} onClick={
-                                                ()=>{
-                                                    window.location.href=`/partager/nouveau/${this.state.mediaId}`
-                                                }
-                                                }>
-                                                {t('flot.proposition.nouvelle')}
-                                            </div>
-                                            <div className={`ui medium button ${envoiDisabled}`} onClick={
-                                                ()=>{
-                                                    window.location.href=`/proposition/approuver/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                }
-                                                }>
-                                                {t('flot.proposition.envoyer')}
-                                            </div>
+                                        <div className="ui twelve wide column" />                
+                                        <div className="ui one wide column">
+                                            {
+                                                !continuerDisabled && (
+                                                    <div className={`ui medium button`} onClick={
+                                                        ()=>{
+                                                            window.location.href=`/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
+                                                        }
+                                                        }>
+                                                        {t('flot.proposition.continuer')}
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                !nouveauDisabled && (
+                                                    <div className={`ui medium button`} onClick={
+                                                        ()=>{
+                                                            window.location.href=`/partager/nouveau/${this.state.mediaId}`
+                                                        }
+                                                        }>
+                                                        {t('flot.proposition.nouvelle')}
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                !envoiDisabled && (
+                                                    <div className={`ui medium button`} onClick={
+                                                        ()=>{
+                                                            window.location.href=`/proposition/approuver/${this.state.propositions[this.state.propositions.length - 1].uuid}`
+                                                        }
+                                                        }>
+                                                        {t('flot.proposition.envoyer')}
+                                                    </div>
+                                                )
+                                            }                                                                                        
                                         </div>
                                     </div>
                                     {
@@ -263,6 +270,23 @@ export default class SommairePartages extends Component {
                                         )
                                     }
                                 </div>
+                                <Modal
+                                    open={this.state.modaleConnexion}
+                                    closeOnEscape={false}
+                                    closeOnDimmerClick={false}
+                                    onClose={this.props.close} 
+                                    size="small" >
+                                    <br/><br/><br/>
+                                    <Login fn={()=>{
+                                        Auth.currentAuthenticatedUser()
+                                        .then(res=>{
+                                            that.setState({user: res})                                    
+                                        })
+                                        .catch(err=>{
+                                            toast.error(err.message)
+                                        })
+                                    }} />
+                                </Modal>
                             </div>
                     }
                 </Translation>                

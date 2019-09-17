@@ -31,7 +31,7 @@ export default class TableauDeBord extends Component {
             this.setState({user: res})
         })
         .catch(err=>{
-            this.setState({modaleConnexion: true})            
+            this.setState({modaleConnexion: true})
         })
     }
 
