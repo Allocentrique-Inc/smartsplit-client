@@ -55,8 +55,8 @@ export default class TableauDeBord extends Component {
                         closeOnEscape={false}
                         closeOnDimmerClick={false}
                         onClose={this.props.close} 
-                        size="large" >
-                        <Modal.Header>Tu dois être connecté pour accéder au tableau de bord</Modal.Header>
+                        size="small" >
+                        <br/><br/><br/>
                         <Login fn={()=>{
                             Auth.currentAuthenticatedUser()
                             .then(res=>{

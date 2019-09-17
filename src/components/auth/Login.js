@@ -59,7 +59,7 @@ class LogIn extends Component {
       this.setState({patience: true}, ()=>{
         Auth.signIn(values.username, values.password)
         .then(user=>{
-          toast.success(`t('entete.bonjour')#${user.username} !`)
+          toast.success(`#${user.username} !`)
           console.log('fn', this.props.fn)
           if(this.props.fn) {
             this.props.fn()
