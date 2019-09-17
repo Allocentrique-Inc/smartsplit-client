@@ -31,7 +31,8 @@
             }
         },
         "declaration": {
-            "identite": "Declaration of identity"
+            "identite": "Declaration of identity",
+            "accepter": "Accept"
         }
 },
     "oeuvre": {
@@ -316,9 +317,12 @@
         },
         "bouton": {
             "ajout": "Add",
-            "voter": "VOTE"
+            "voter": "Vote"
         },
-        "tableadebord": "You need to connect"
+        "tableaudebord": {
+                "collabo": "My Collaborators",
+                "edito": "My Editor"
+        }
     },
 
     "traitement": {

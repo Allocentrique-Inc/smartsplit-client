@@ -407,16 +407,19 @@ export default class PartageSommaireEditeur extends Component {
                             </div>
                         </div>
                     </div>
+                    <Translation>
                     {
+                        t =>
                         this.state.part.etat === "VOTATION" &&
                         this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
                         (
-                            <button disabled={!this.state.transmission} onClick={()=>{
+                            <button class="ui medium button" disabled={!this.state.transmission} onClick={()=>{
                                 this.transmettre()
-                            }}> Voter 
+                            }}> {t('flot.bouton.voter')}
                             </button>
                         )
-                    }              
+                    }    
+                    </Translation>          
                 </div>
             )
         } else {

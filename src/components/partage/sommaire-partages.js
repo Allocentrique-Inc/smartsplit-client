@@ -232,8 +232,8 @@ export default class SommairePartages extends Component {
                                             <div className="ui row">
                                                 <div className="ui one wide column" />
                                                 <div className="ui twelve wide column">
-                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>Mes collaborateurs</span>&nbsp;&nbsp;
-                                                    <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>Mon éditeur</span>
+                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>{t('flot.tableaudebord.collabo')}</span>&nbsp;&nbsp;
+                                                    <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>{t('flot.tableaudebord.edito')}</span>
                                                 </div>
                                                 <div className="ui one wide column" />
                                             </div>

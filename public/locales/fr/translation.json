@@ -30,7 +30,8 @@
                 "sauvegarder": "Sauvegarder"
             },
             "declaration": {
-                "identite": "Déclaration d'identité"
+                "identite": "Déclaration d'identité",
+                "accepter": "Accepter"
             }
         }
     },
@@ -251,7 +252,10 @@
             "ajout": "Ajouter",
             "voter": "VOTER"
         },
-        "tableadebord": "Tu dois être connecté",
+        "tableaudebord":  {
+            "collabo": "Mes collaborateurs",
+            "edito": "Mon éditeur"
+        },
         "pro": {
             "titre": "Es-tu pro ?",
             "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton œuvre ici !"
