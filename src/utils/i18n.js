@@ -6,15 +6,15 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import { initReactI18next } from 'react-i18next'
 
 i18n  
-  .use(Backend)  
+  .use(Backend)
   .use(LanguageDetector)
-  .use(initReactI18next)  
+  .use(initReactI18next)
   .init({
     fallbackLng: 'fr',
     debug: false,
     interpolation: {
       escapeValue: false,
-    },    
+    },
     react: {
         wait: true,
         useSuspense: false

@@ -50,7 +50,10 @@ import SignInGoogle from './components/auth/SignInGoogle'
 import SommairePartages from './components/partage/sommaire-partages' // Plusieurs partages (liste de un partage)
 import SommairePartage from './components/partage/partage-sommaire'  // Un partage
 import SommaireOeuvre from './components/oeuvre/oeuvre-sommaire'
-import AssistantPartageEditeur from './components/partage/assistant-partage-editeur';
+import AssistantPartageEditeur from './components/partage/assistant-partage-editeur'
+
+import 'moment/locale/fr'
+import 'moment/locale/en-ca'
 
 const REGION = 'us-east-2';
 

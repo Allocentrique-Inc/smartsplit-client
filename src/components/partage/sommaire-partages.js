@@ -15,9 +15,10 @@ import { confirmAlert } from 'react-confirm-alert'
 import Entete from '../entete/entete'
 import { Accordion, Icon } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
-import moment from 'moment'
 import AssistantPartageEditeur from './assistant-partage-editeur'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
+
+import moment from 'moment'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
@@ -36,13 +37,7 @@ export default class SommairePartages extends Component {
         this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
     }
     
-    componentWillReceiveProps(nextProps) {
-        if(this.props.i18n !== nextProps.i18n) {
-            if(nextProps.i18n.lng === "fr") {
-                // momentjs en français, SVP
-                require('../../utils/moment-fr')
-            }            
-        }
+    componentWillReceiveProps(nextProps) {     
     }
 
     componentWillMount() {
@@ -142,7 +137,7 @@ export default class SommairePartages extends Component {
                 return(                    
                     <Translation key={`sommaire_${idx}`} >
                         {
-                            (t) =>                            
+                            (t, i18n) =>                            
                                 <div className="ui row">
                                     <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
                                         <Icon name='dropdown' />
@@ -150,7 +145,7 @@ export default class SommairePartages extends Component {
                                         <div>
                                             <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                             <div className="small-500-color" style={{display: "inline-block"}}>{`${elem.initiator.name}`}</div>
-                                            <div className="small-400" style={{display: "inline-block"}}>&nbsp;{elem._d ? moment(elem._d).fromNow() : moment().fromNow()}</div>
+                                            <div className="small-400" style={{display: "inline-block"}}>&nbsp;{i18n.lng && elem._d ? moment(elem._d).locale(i18n.lng.substring(0,2)).fromNow() : moment().fromNow()}</div>
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>

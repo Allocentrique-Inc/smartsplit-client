@@ -87,11 +87,11 @@ export default class SommaireOeuvre extends Component {
         if(this.state.media) {
             let artiste = this.state.media.artist
             let contenu = (<div className="ui nine wide column"></div>)
-            let misAJourLe = moment(this.state.media.modificationDate).fromNow()
+            //let misAJourLe = moment(this.state.media.modificationDate).fromNow()
             return (
                 <Translation>
                     {
-                        t =>
+                        (t, i18n) =>
                             <div className="ui grid">
                                 <div className="ui row" style={{background: "#FAF8F9", paddingTop: "30px", paddingBottom: "0px"}}>
                                     <div className="ui two wide column" />
@@ -153,7 +153,7 @@ export default class SommaireOeuvre extends Component {
                                                     </div>
                                                     <div className="ui row">
                                                         <div className="small-400" style={{display: "inline-block"}}>{t('oeuvre.creePar')}&nbsp;</div><div className="small-500-color" style={{display: "inline-block"}}>{`${artiste}`}&nbsp;</div>
-                                                        <div className="small-400-color" style={{display: "inline-block"}}>&bull; {misAJourLe}</div>
+                                                        <div className="small-400-color" style={{display: "inline-block"}}>&bull; {i18n.lng && moment(this.state.media.modificationDate).locale(i18n.lng.substring(0,2)).fromNow()}</div>
                                                     </div>
                                                 </div>
                                             </div>
