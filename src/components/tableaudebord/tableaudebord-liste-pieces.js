@@ -15,7 +15,11 @@ export default class ListePieces extends Component {
         this.state={
             medias:[],
             collabMedias:[],
-            panneau:PANNEAU_INITIATEUR
+            panneau:PANNEAU_INITIATEUR,
+            collecte: {
+                medias: false,
+                collab: false
+            }
         }
     }
 
@@ -27,63 +31,87 @@ export default class ListePieces extends Component {
         this.setState({panneau: PANNEAU_COLLABORATEUR})
     }
 
+    collecte(obj) {
+        let collecte = this.state.collecte
+        if(obj.medias) {
+            collecte.medias = true
+        }
+        if(obj.collab) {
+            collecte.collab = true
+        }
+        this.setState({collecte: collecte}, ()=>{
+            let _collecte = this.state.collecte
+            if (_collecte.medias && _collecte.collab) {
+                this.setState({patience: false})
+            }
+        })        
+    }
+
     componentWillMount() {
 
         try{
-            Auth.currentSession().then(
-                session=>{
-                let that = this
-                let USER_ID = session.idToken.payload.sub       
 
-                axios.get('http://api.smartsplit.org:8080/v1/proposal')
-                .then((res) => {
-                    let initiatorMediaIds = []
-                    let collabMediaIds = []
-
-                    res.data.forEach(function(item){
-                        if (item.initiator.id === USER_ID){
-                            initiatorMediaIds.push(item.mediaId) // If initiator
-                        } 
-                        else if (item.initiator.id == undefined){
-                            toast.error("Initiator undefined")
-                        } 
-                        if((JSON.stringify(item.rightsSplits)).includes(USER_ID)){
-                            collabMediaIds.push(item.mediaId) // If collaborator
-                        } else if (item.rightsSplits == undefined) {
-                            toast.error("rightsSplits object error")
-                        }
+            this.setState({collecte: {
+                medias: false,
+                collabs: false
+            }})
+            this.setState({patience: true}, ()=>{
+                Auth.currentSession().then(
+                    session=>{
+                    let that = this
+                    let USER_ID = session.idToken.payload.sub       
+    
+                    axios.get('http://api.smartsplit.org:8080/v1/proposal')
+                    .then((res) => {
+                        let initiatorMediaIds = []
+                        let collabMediaIds = []
+    
+                        res.data.forEach(function(item){
+                            if (item.initiator.id === USER_ID){
+                                initiatorMediaIds.push(item.mediaId) // If initiator
+                            } 
+                            else if (item.initiator.id == undefined){
+                                toast.error("Initiator undefined")
+                            } 
+                            if((JSON.stringify(item.rightsSplits)).includes(USER_ID)){
+                                collabMediaIds.push(item.mediaId) // If collaborator
+                            } else if (item.rightsSplits == undefined) {
+                                toast.error("rightsSplits object error")
+                            }
+                        })
+                        let _medias = [];
+                        let ii = '';
+                        let _collabMedias = [];
+                        let jj = '';
+    
+                        initiatorMediaIds.forEach(async function(element) {
+                            const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + element)
+                            _medias.push(res.data.Item)
+                            ii++
+                            if (initiatorMediaIds.length == ii) {
+                                that.setState({medias: _medias})
+                            }
+                            that.collecte({medias: true})
+                        })
+    
+                        collabMediaIds.forEach(async function(elm) {
+                            const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + elm)
+                            _collabMedias.push(res.data.Item)
+                            jj++
+                            if (collabMediaIds.length == jj) {
+                                that.setState({collabMedias: _collabMedias})
+                            }
+                            that.collecte({collab: true})
+                        })
+    
                     })
-                    let _medias = [];
-                    let ii = '';
-                    let _collabMedias = [];
-                    let jj = '';
-
-                    initiatorMediaIds.forEach(async function(element) {
-                        const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + element)
-                        _medias.push(res.data.Item)
-                        ii++
-                        if (initiatorMediaIds.length == ii) {
-                            that.setState({medias: _medias})
-                        }
-                        return _medias;
-                    });
-
-                    collabMediaIds.forEach(async function(elm) {
-                        const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + elm)
-                        _collabMedias.push(res.data.Item)
-                        jj++
-                        if (collabMediaIds.length == jj) {
-                            that.setState({collabMedias: _collabMedias})
-                        }
-                        return _collabMedias;
-                    });
-
+                    .catch((error) => {
+                        toast.error(error.message)            
+                    })
                 })
-                .catch((error) => {
-                    toast.error(error)            
-                })
-
             })
+
+            
         } catch (err) {
             console.log(err)
         }
@@ -109,13 +137,13 @@ export default class ListePieces extends Component {
             </Translation>
         )
         let tableauMedias = []
-          if (this.state.medias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
+        if (this.state.medias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
             tableauMedias = this.state.medias.map((elem, _idx)=>{
                 return (
-                    <Translation>
+                    <Translation key={_idx} >
                         {
                             t =>
-                                <div key={_idx} style={{marginTop: "20px"}}>
+                                <div style={{marginTop: "20px"}}>
                                     <div className="ui three column grid">
                                         <div className="ui row">
                                             <div className="ui thirteen wide column">
@@ -145,10 +173,10 @@ export default class ListePieces extends Component {
         if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {
             tableauMedias = this.state.collabMedias.map((elem, _idx)=>{
                 return (
-                    <Translation>
+                    <Translation key={_idx} >
                         {
                             t =>
-                                <div key={_idx} style={{marginTop: "20px"}}>
+                                <div style={{marginTop: "20px"}}>
                                     <div className="ui three column grid">
                                         <div className="ui row">
                                             <div className="ui thirteen wide column">
@@ -174,12 +202,12 @@ export default class ListePieces extends Component {
                 ) 
             })
         }  
-        if (this.state.medias.length == 0 && this.state.panneau === PANNEAU_INITIATEUR) {  // If no initiator musical pieces present for user
+        if (!this.state.patience && this.state.medias.length == 0 && this.state.panneau === PANNEAU_INITIATEUR) {  // If no initiator musical pieces present for user
             return (
                 <Translation>
                 {
                     t =>
-                    <div key="blank"style={{marginTop: "20px"}}>
+                    <div style={{marginTop: "20px"}}>
                         <div className="ui three column grid">
                             <div className="ui row">
                                 <div className="ui thirteen wide column">
@@ -212,7 +240,7 @@ export default class ListePieces extends Component {
             </Translation>
             )
         }
-        if (this.state.collabMedias.length == 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {  // If no collaborator musical pieces present for user
+        if (!this.state.patience && this.state.collabMedias.length == 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {  // If no collaborator musical pieces present for user
             return (
                 <Translation>
                     {
@@ -255,11 +283,24 @@ export default class ListePieces extends Component {
                 {
                     t=>
                         <div>
-                            <div className="heading2">{t('tableaudebord.navigation.0')}</div>
-                            <br/>
-                            <div className="medium-500">{toggle}</div>
-                            <br/>
-                            <ul>{tableauMedias}</ul>                            
+                            {
+                                !this.state.patience && (
+                                    <div>
+                                        <div className="heading2">{t('tableaudebord.navigation.0')}</div>
+                                        <br/>
+                                        <div className="medium-500">{toggle}</div>
+                                        <br/>
+                                        <ul>{tableauMedias}</ul>
+                                    </div>
+                                )
+                            }
+                            {
+                                this.state.patience && (
+                                    <div className="ui active dimmer">
+                                        <div className="ui text loader">{t('entete.encours')}</div>
+                                    </div>
+                                )
+                            }                            
                         </div>
                 }
             </Translation>
