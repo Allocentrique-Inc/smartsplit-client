@@ -237,15 +237,39 @@ class Register extends Component {
                 { ({ errors, touched, isValidating }) => (
                 <Translation>
                     {
-                        t=>                               
+                        (t, i18n)=>                               
                             <Form>
                                 <span className="top-login">
                                     <a href="/login" style={{color: "#2DA84F"}}>{t('entete.connexion')}</a>
                                 </span>
                                 <div className="container">
                                     <header id="registerHeader">
-                                        <h1 id="registerHead"></h1>
-                                        <h3 id="registerPrompt"></h3>
+                                        {
+                                            i18n.lng && i18n.lng.substring(0,2) === 'en' && (
+                                                <div>
+                                                <div className="registerHead">
+                                                <h1>On your way to Professionalization.</h1>
+                                                <br></br>
+                                                </div>
+                                                <div className="registerPrompt">
+                                                <h3>You're one click away to documenting your music and share your rights with your contributors.</h3>
+                                                </div>
+                                                </div>
+                                            )
+                                            }
+                                        {
+                                            i18n.lng && i18n.lng.substring(0,2) !== 'en' && (
+                                            <div>
+                                            <div className="lregisterHeade">
+                                            <h1>En route vers la <br /> professionalisation.</h1>
+                                            <br></br>
+                                            </div>
+                                            <div className="registerPrompt">
+                                            <h3>Tu es à un clic de pouvoir documenter ta musique et de partager <br />tes droits avec tes collabos.</h3>
+                                            </div>
+                                            </div>
+                                            )
+                                            }
                                         <br /><br /><br />
                                     </header>
                                     <br></br>

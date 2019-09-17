@@ -318,7 +318,7 @@ header#registerHeader h1:after {
 }
 
 header#registerHeader h3:after {
-    content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";
+    /*content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";*/
     white-space: pre;
     font-weight: normal;
     font-weight: 400;
