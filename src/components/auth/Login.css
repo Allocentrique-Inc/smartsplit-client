@@ -1,7 +1,6 @@
 
 @import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
 
-
 .top-register {
   float: right;
   width: 105px;
@@ -10,10 +9,6 @@
   font-weight: bold;
   font-size: 16px;
   line-height: 24px;
-}
-
-#loginHeader {
-    margin: 0 auto;
 }
 
 #loginHead {
@@ -53,7 +48,7 @@ header#loginHeader h3 {
     font-size: 16px;
     line-height: 24px;
     height: 24px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 /*button[id="facebook"] {
@@ -114,7 +109,6 @@ input {
   border: 1px solid #DCDFE1;
   border-radius: 2px;
   display: inline;
-  padding-right: 0px;
   margin: 5px 0 5px 0;
   padding-right: 0px;
   padding-left: 10px;
@@ -180,6 +174,7 @@ button[id="hide"] {
     -webkit-appearance: none;
     right: 0;
     margin: 13px 15px 0 0;
+    cursor: pointer;
 }
 
 .ui .medium .button {

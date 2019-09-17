@@ -49,6 +49,10 @@ export default class TableauDeBord extends Component {
         } else {
             let that = this
             return (
+                <Translation>
+             {   
+                 t =>
+                 
                 <div className="tdb--cadre ui row accueil">
                     <Modal
                         open={this.state.modaleConnexion}
@@ -68,7 +72,11 @@ export default class TableauDeBord extends Component {
                         }} />
                     </Modal>
                 </div>
+            }
+            </Translation>
             )
+            
+
         }
         
     }

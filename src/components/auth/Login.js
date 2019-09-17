@@ -134,8 +134,8 @@ class LogIn extends Component {
                         {
                           i18n.lng && i18n.lng.substring(0,2) === 'en' && (
                             <div>
-                              <div className="loginHeader">
-                                <h1>Log into you Smart Split <br />account.</h1>
+                              <div className="loginHead">
+                                <h1>Log into you SmartSplit <br />account.</h1>
                                 <br></br>
                               </div>
                               <div className="loginPrompt">
@@ -147,8 +147,8 @@ class LogIn extends Component {
                         {
                           i18n.lng && i18n.lng.substring(0,2) !== 'en' && (
                             <div>
-                              <div className="loginHeader">
-                                <h1>Connecte-toi à ton <br />compte Smart Split.</h1>
+                              <div className="loginHead">
+                                <h1>Connecte-toi à ton <br />compte SmartSplit.</h1>
                                 <br></br>
                               </div>
                               <div className="loginPrompt">
@@ -157,10 +157,8 @@ class LogIn extends Component {
                             </div>
                           )
                         }
-                      </header>
+                      </header>                  
                     </div>
-                    <br></br>
-                    <br></br>
                     <section className="section auth">
                       <div className="container">
                         <h1>{this.props.message}</h1>

@@ -248,36 +248,31 @@ class Register extends Component {
                                             i18n.lng && i18n.lng.substring(0,2) === 'en' && (
                                                 <div>
                                                 <div className="registerHead">
-                                                <h1>On your way to Professionalization.</h1>
+                                                <h1>On your way to <br />Professionalization.</h1>
                                                 <br></br>
                                                 </div>
                                                 <div className="registerPrompt">
-                                                <h3>You're one click away to documenting your music and share your rights with your contributors.</h3>
+                                                <h3>You're one click away to documenting your music and share your <br />rights with your contributors.</h3>
                                                 </div>
                                                 </div>
                                             )
                                             }
                                         {
                                             i18n.lng && i18n.lng.substring(0,2) !== 'en' && (
-                                            <div>
-                                            <div className="lregisterHeade">
-                                            <h1>En route vers la <br /> professionalisation.</h1>
-                                            <br></br>
-                                            </div>
-                                            <div className="registerPrompt">
-                                            <h3>Tu es à un clic de pouvoir documenter ta musique et de partager <br />tes droits avec tes collabos.</h3>
-                                            </div>
-                                            </div>
+                                                <div>
+                                                <div className="lregisterHeade">
+                                                <h1>En route vers la <br /> professionalisation.</h1>
+                                                <br></br>
+                                                </div>
+                                                <div className="registerPrompt">
+                                                <h3>Tu es à un clic de pouvoir documenter ta musique et de partager <br />tes droits avec tes collabos.</h3>
+                                                </div>
+                                                </div>
                                             )
                                             }
-                                        <br /><br /><br />
                                     </header>
-                                    <br></br>
-                                    <br></br>
                                     {/*<hr className="hrLogin" />*/}
                                     <hr className="hrLogin" data-content={t('inscription.ou')}></hr>
-                                    <br></br>
-                                    <br></br>
                                     <section className="section auth">
                                         <div className="container">
                                             <div className="field">

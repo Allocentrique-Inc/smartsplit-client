@@ -202,12 +202,14 @@ export default class SommairePartages extends Component {
                                     <div className="ui row">
                                         <div className="ui seven wide column" />                
                                         <div className="ui seven wide column">
-                                            <div className={`ui medium button ${continuerDisabled}`} onClick={
+                                        
+                                            <div className={`ui medium button ${continuerDisabled}`} style={{color: 'pink'}} onClick={
                                                 ()=>{
                                                     window.location.href=`/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
                                                 }
                                                 }>
                                                 {t('flot.proposition.continuer')}
+                                            </div>
                                             </div>
                                             <div className={`ui medium button ${nouveauDisabled}`} onClick={
                                                 ()=>{
@@ -223,7 +225,6 @@ export default class SommairePartages extends Component {
                                                 }>
                                                 {t('flot.proposition.envoyer')}
                                             </div>
-                                        </div>
                                     </div>
                                     {
                                         partageEditeur && (

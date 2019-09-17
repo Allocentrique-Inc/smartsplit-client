@@ -29,8 +29,11 @@
                 "annuler": "Annuler",
                 "sauvegarder": "Sauvegarder"
             }
+        },
+        "declaration": {
+            "identite": "Déclaration d'identité"
         }
-    },
+},
     "oeuvre": {
         "attribut": {
             "etiquette": {
@@ -127,6 +130,11 @@
                 "titre": "Valide ton Split",
                 "soustitre": "Invite tes collaborateurs à valider ce Split"
             }
+        },
+        "accueil": {
+            "connexion": "Connexion obligatoire",
+            "message": "Tu dois être connecté pour accéder",
+            "login": "Connecte-toi pour accéder"
         },
         "documente-ton-oeuvre": {
             "titre": "Documente ton œuvre",
@@ -238,7 +246,12 @@
         "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
         "titre7": "Was the musical piece already broadcasted?",
         "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links."
-    }
+        },
+    "bouton": {
+        "ajout": "Ajouter",
+        "voter": "VOTER"
+    },
+    "tableadebord": "Tu dois être connecté"
         },
         "pro": {
             "titre": "Es-tu pro ?",
@@ -320,10 +333,6 @@
             "nouvelle": "Créer une nouvelle version",
             "envoyer": "Envoyer aux collaborateurs",
             "continuer": "Continuer le partage"
-        },
-        "bouton": {
-            "ajout": "Ajouter",
-            "voter": "VOTER"
         },
     "traitement": {
         "acr": {
@@ -420,8 +429,6 @@
         "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
     },
     "inscription": {
-        "titre":"En route vers la professionalisation.",
-        "sous-titre": "Tu es à un clic de pouvoir documenter ta musique et de partager tes droits avec tes collabos.",
         "facebook": "Se connecter avec Facebook",
         "google": "Se connecter avec Google",
         "courriel": "Entrer le courriel",
@@ -444,7 +451,6 @@
     "entete": {
         "connexion": "Connexion",
         "inscription": "Inscription",
-        "bonjour": "Bonjour",
         "encours": "Connexion en cours..."
     },
     "socan": {

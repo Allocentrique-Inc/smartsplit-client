@@ -484,7 +484,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                             </div>
                                                                             <div className="four wide column">
                                                                                 <button
-                                                                                    className="ui small button"
+                                                                                    className="ui medium button"
                                                                                     onClick={(e) => {
                                                                                         e.preventDefault()
                                                                                         this.ajouterCollaborateur(arrayHelpers)
