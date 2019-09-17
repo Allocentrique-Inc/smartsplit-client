@@ -13,6 +13,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
 
+import { Modal } from 'semantic-ui-react'
+
 const ROLES = [
         "principal",
         "accompaniment",
@@ -374,36 +376,39 @@ export default class SommairePartage extends Component {
 
     componentWillMount() {
 
-        // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
-        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
-        .then(res=>{
-            let proposition = res.data.Item
-            // Chercher les avatars
-            let _avatars = {} // Les avatars peuvent être sur plusieurs droits
-            Object.keys(proposition.rightsSplits).forEach(droit=> {
-                Object.keys(proposition.rightsSplits[droit]).forEach(type=>{
-                    proposition.rightsSplits[droit][type].forEach(part=>{
-                        let _rH = part.rightHolder
-                        if(!_avatars[_rH.rightHolderId]) {
-                            _avatars[_rH.rightHolderId] = { }
-                            // Récupération des avatars et intégration dans les éléments correspondants
-                            axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
-                            .then(r=>{
-                                let avatar = r.data.Item.avatarImage
-                                _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
-                                this.setState({avatars: _avatars})
-                            })
-                            .catch(err=>{
-                                toast.error(err.message)
-                                _avatars[_rH.rightHolderId].avatar = err.message
-                            })
-                        }
-                    })                    
+        this.setState({patience: true}, ()=>{
+            // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
+            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            .then(res=>{
+                let proposition = res.data.Item
+                // Chercher les avatars
+                let _avatars = {} // Les avatars peuvent être sur plusieurs droits
+                Object.keys(proposition.rightsSplits).forEach(droit=> {
+                    Object.keys(proposition.rightsSplits[droit]).forEach(type=>{
+                        proposition.rightsSplits[droit][type].forEach(part=>{
+                            let _rH = part.rightHolder
+                            if(!_avatars[_rH.rightHolderId]) {
+                                _avatars[_rH.rightHolderId] = { }
+                                // Récupération des avatars et intégration dans les éléments correspondants
+                                axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
+                                .then(r=>{
+                                    let avatar = r.data.Item.avatarImage
+                                    _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
+                                    this.setState({avatars: _avatars})
+                                })
+                                .catch(err=>{
+                                    toast.error(err.message)
+                                    _avatars[_rH.rightHolderId].avatar = err.message
+                                })
+                            }
+                        })                    
+                    })
                 })
-            })            
-        })
-        .catch(err=>{
-            toast.error(err.message)
+                this.setState({patience: false})            
+            })
+            .catch(err=>{
+                toast.error(err.message)
+            })
         })
 
         this.rafraichirDonnees(()=>{
@@ -589,40 +594,7 @@ export default class SommairePartage extends Component {
             }
         })
         .catch(err=>{
-            toast.error(err.message)
-            confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecté pour accéder`,
-                closeOnClickOutside: false,
-                style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                customUI: ({ onClose }) => 
-                    <Translation>
-                        {
-                            t=>
-                                <LogIn message="Connecte-toi pour voter" fn={()=>{
-                                    Auth.currentAuthenticatedUser()
-                                    .then(res=>{
-                                        console.log("utilisateur", res, "ayantDroit", this.state.ayantDroit)                                        
-                                        if(res.username === this.state.ayantDroit.rightHolderId) {
-                                            this.envoi()
-                                            onClose()
-                                        } else {
-                                            toast.error(t('erreur.volIdentite'))
-                                        }
-                                    })                            
-                                }} />
-                        }
-                    </Translation>
-            })
+            this.setState({modaleConnexion: true})           
         })
         
     }
@@ -659,22 +631,54 @@ export default class SommairePartage extends Component {
             })
         }
 
+        let that = this
+
         return (
             <Translation>
                 {
                     t=>
                         <div>
-                            {droits}
                             {
-                                !this.estVoteClos() && 
-                                (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
-                                (
-                                    <div className={`ui medium button ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={()=>{
-                                        this.transmettre(t)
-                                    }}>{t('flot.bouton.voter')}
+                                !this.state.patience && (
+                                    <div>
+                                        {droits}
+                                        {
+                                            !this.estVoteClos() && 
+                                            (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
+                                            (
+                                                <div className={`ui medium button ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={()=>{
+                                                    this.transmettre(t)
+                                                }}>{t('flot.bouton.voter')}
+                                                </div>
+                                            )
+                                        }
                                     </div>
                                 )
                             }
+                            {
+                                this.state.patience && (
+                                    <div className="ui active dimmer">
+                                        <div className="ui text loader">{t('entete.encours')}</div>
+                                    </div>
+                                )
+                            }
+                            <Modal
+                                open={this.state.modaleConnexion}
+                                closeOnEscape={false}
+                                closeOnDimmerClick={false}
+                                onClose={this.props.close} 
+                                size="small" >
+                                <br/><br/><br/>
+                                <LogIn fn={()=>{
+                                    Auth.currentAuthenticatedUser()
+                                    .then(res=>{
+                                        that.setState({user: res})                                    
+                                    })
+                                    .catch(err=>{
+                                        toast.error(err.message)
+                                    })
+                                }} />
+                            </Modal>                        
                         </div>
                 }
             </Translation>
