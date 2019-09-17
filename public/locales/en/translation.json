@@ -29,8 +29,11 @@
                 "annuler": "Cancel",
                 "sauvegarder": "Save"
             }
+        },
+        "declaration": {
+            "identite": "Declaration of identity"
         }
-    },
+},
     "oeuvre": {
         "attribut": {
             "etiquette": {
@@ -125,6 +128,11 @@
                     "titre": "Validate Your Split",
                     "soustitre": "Invite your contributers to validate this split"
             }
+        },
+        "accueil": {
+            "connexion": "Connexion obligatoire",
+            "message": "Tu dois être connecté pour accéder",
+            "login": "Connecte-toi pour accéder"
         },
         "documente-ton-oeuvre": {
             "titre": "Split your Rights",
@@ -309,7 +317,8 @@
         "bouton": {
             "ajout": "Add",
             "voter": "VOTE"
-        }
+        },
+        "tableadebord": "You need to connect"
     },
 
     "traitement": {
@@ -422,8 +431,6 @@
         "volIdentite": "You're trying to do an operation than belong to another user"
     },
     "inscription": {
-        "titre":"On your way to professionalisation.",
-        "sous-titre": "You're one clock away to documenting your music and share your rights with your contributors.",
         "facebook": "Sign in with Facebook",
         "google": "Sign in with Google",
         "courriel": "Enter your email",
