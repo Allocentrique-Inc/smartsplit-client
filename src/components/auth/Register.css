@@ -17,7 +17,7 @@
     font-family: 'IBM Plex Sans';
 }
 
-button[id="facebook"],
+/*button[id="facebook"],
 [id="google"] {
     width: 464px;
     height: 40px;
@@ -49,7 +49,7 @@ button[id="google"] {
 
 .google {
     padding-right: 143px;
-}
+}*/
 
 .input-wrapper {
     position: relative;
@@ -150,6 +150,7 @@ button[id="hide-confirm"] {
     -webkit-appearance: none;
     position: absolute;
     right: 0;
+    cursor: pointer;
 }
 
 button[id="hide"] {
@@ -306,8 +307,8 @@ hr[class="hrLogin"]:after {
     font-size: 16px;
 }
 
-header#registerHeader h1:after {
-    content: "En route vers la \A professionalisation.";
+header#registerHeader h1 {
+    /*content: "En route vers la \A professionalisation.";*/
     white-space: pre;
     font-style: bold;
     font-weight: 500;
@@ -317,10 +318,10 @@ header#registerHeader h1:after {
     height: 96px;
 }
 
-header#registerHeader h3:after {
-    content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";
+header#registerHeader h3 {
+    /*content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";*/
     white-space: pre;
-    font-weight: normal;
+    font-size: normal;
     font-weight: 400;
     font-size: 20px;
     line-height: 18px;
@@ -328,7 +329,7 @@ header#registerHeader h3:after {
     font-size: 16px;
     line-height: 24px;
     height: 24px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 
 .ui.medium.button {

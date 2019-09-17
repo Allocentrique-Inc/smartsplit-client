@@ -28,6 +28,9 @@
             "bouton": {
                 "annuler": "Annuler",
                 "sauvegarder": "Sauvegarder"
+            },
+            "declaration": {
+                "identite": "Déclaration d'identité"
             }
         }
     },
@@ -127,6 +130,11 @@
                 "titre": "Valide ton Split",
                 "soustitre": "Invite tes collaborateurs à valider ce Split"
             }
+        },
+        "accueil": {
+            "connexion": "Connexion obligatoire",
+            "message": "Tu dois être connecté pour accéder",
+            "login": "Connecte-toi pour accéder"
         },
         "documente-ton-oeuvre": {
             "titre": "Documente ton œuvre",
@@ -239,6 +247,11 @@
             "titre7": "Was the musical piece already broadcasted?",
             "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links."
         },
+        "bouton": {
+            "ajout": "Ajouter",
+            "voter": "VOTER"
+        },
+        "tableadebord": "Tu dois être connecté",
         "pro": {
             "titre": "Es-tu pro ?",
             "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton œuvre ici !"
@@ -319,12 +332,8 @@
             "nouvelle": "Créer une nouvelle version",
             "envoyer": "Envoyer aux collaborateurs",
             "continuer": "Continuer le partage"
-        },
-        "bouton": {
-            "ajout": "Ajouter",
-            "voter": "VOTER"
         }
-    },
+        },
     "traitement": {
         "acr": {
             "erreur-mauvaise-lecture": "Mauvaise lecture du média. Essayez un nouvel échantillon.",
@@ -356,6 +365,14 @@
             "0": "Mes pièces musicales",
             "1": "Mon profil public",
             "2": "Mes collaborateurs"
+        },
+        "pieces": {
+            "0": "Mes ajouts",
+            "1": "Partagées avec moi"
+        },
+        "vide": {
+            "preambule": "Tes oeuvres apparaîtrons ici.",
+            "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton «Ajouter»."
         }
     },
     "roles": {
@@ -420,8 +437,6 @@
         "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
     },
     "inscription": {
-        "titre":"En route vers la professionalisation.",
-        "sous-titre": "Tu es à un clic de pouvoir documenter ta musique et de partager tes droits avec tes collabos.",
         "facebook": "Se connecter avec Facebook",
         "google": "Se connecter avec Google",
         "courriel": "Entrer le courriel",
@@ -444,7 +459,6 @@
     "entete": {
         "connexion": "Connexion",
         "inscription": "Inscription",
-        "bonjour": "Bonjour",
         "encours": "Connexion en cours..."
     },
     "socan": {
