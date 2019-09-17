@@ -324,6 +324,14 @@
             "0": "Mes pièces musicales",
             "1": "Mon profil public",
             "2": "Mes collaborateurs"
+        },
+        "pieces": {
+            "0": "Mes ajouts",
+            "1": "Partagées avec moi"
+        },
+        "vide": {
+            "preambule": "Tes oeuvres apparaîtrons ici.",
+            "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton «Ajouter»."
         }
     },
     "roles": {

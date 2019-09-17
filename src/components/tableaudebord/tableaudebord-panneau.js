@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 
 // Composantes
-import ListePiecesInitiateur from './tableaudebord-liste-pieces-initiateur'
+import ListePieces from './tableaudebord-liste-pieces'
 import MonProfil from './tableaudebord-profil'
 import ListeCollaborateurs from './tableaudebord-liste-collaborateurs'
 
@@ -26,7 +26,7 @@ export default class Panneau extends Component {
             <div className="tdb--panneau">                
                 {this.props.entete}
                 <div className="contenu">
-                    {this.state.selection === 0 && (<ListePiecesInitiateur />)}
+                    {this.state.selection === 0 && (<ListePieces />)}
                     {this.state.selection === 1 && (<MonProfil />)}
                     {this.state.selection === 2 && (<ListeCollaborateurs />)}
                 </div>                

@@ -327,6 +327,14 @@
             "0": "My musical works",
             "1": "My public profile",
             "2": "My collaborators"
+        },
+        "pieces": {
+            "0": "My Additions",
+            "1": "Shared With Me"
+        },
+        "vide": {
+            "preambule": "Your works will appear here",
+            "indication": "Document and share the rights of your first musical work by clicking on the «Add» button"
         }
     },
     "roles": {
