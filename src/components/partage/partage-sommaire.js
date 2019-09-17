@@ -12,7 +12,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 
 import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
-import { AbstractIdentifyPredictionsProvider } from '@aws-amplify/predictions/lib/types/Providers';
 
 const ROLES = [
         "principal",
@@ -322,8 +321,7 @@ class SommaireDroit extends Component {
                                 </Translation>
                             </div>
                         </div>                        
-                    </div>                    
-                    <hr/>
+                    </div>
                 </div>
             )
         })                    

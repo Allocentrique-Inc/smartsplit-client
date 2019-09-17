@@ -37,7 +37,7 @@ import Troissplits from './components/visualisation/partage/troissplits'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import ModifyUser from './components/auth/ModifyUser'
-import Register3 from './components/auth/Register-3'
+import Socan from './components/auth/Socan'
 import Declaration from './components/auth/Declaration'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
@@ -50,7 +50,10 @@ import SignInGoogle from './components/auth/SignInGoogle'
 import SommairePartages from './components/partage/sommaire-partages' // Plusieurs partages (liste de un partage)
 import SommairePartage from './components/partage/partage-sommaire'  // Un partage
 import SommaireOeuvre from './components/oeuvre/oeuvre-sommaire'
-import AssistantPartageEditeur from './components/partage/assistant-partage-editeur';
+import AssistantPartageEditeur from './components/partage/assistant-partage-editeur'
+
+import 'moment/locale/fr'
+import 'moment/locale/en-ca'
 
 const REGION = 'us-east-2';
 
@@ -90,7 +93,7 @@ const renderRoutes = () => {
             <Route exact path="/register" component={Register} />
             <Route exact path="/register-2" component={ModifyUser} />
             <Route exact path="/declaration" component={Declaration} />
-            <Route exact path="/register-3" component={Register3} />
+            <Route exact path="/socan" component={Socan} />
             <Route exact path="/sign-in-facebook" component={SignInFacebook} />
             <Route exact path="/sign-in-google" component={SignInGoogle} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
@@ -223,8 +226,9 @@ function ApprouverSplit({match}) {
 
 // Configuration des alertes utilisateur
 toast.configure({
-  autoClose: 8000,
+  autoClose: 3500,
   draggable: true,
+  position: toast.POSITION.TOP_CENTER
 })
 
 ReactDOM.render( renderRoutes(), document.getElementById('root') )

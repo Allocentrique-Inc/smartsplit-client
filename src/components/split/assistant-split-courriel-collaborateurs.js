@@ -6,6 +6,13 @@ import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 import { ChampCourrielAssistant } from "../formulaires/champ-texte"
 
+const divEmail = {
+    position: 'relative',
+    display: 'block',
+    margin: '0 auto',
+    width: '464px',
+  };
+
 class PageAssistantSplitCourrielsCollaborateurs extends Component {
 
     constructor(props) {
@@ -17,15 +24,19 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
     }
     
     render() {
-
         // Construction de la liste à afficher
         let ayantDroits = []
         Object.keys(this.state.ayantDroits).forEach((elem)=>{
             ayantDroits.push( 
                 (
                     <ChampCourrielAssistant 
-                        key={`champ--courriel__split-${elem}`} modele={`rightHolders[${elem}].email`} requis={true} etiquette={this.state.ayantDroits[elem].name} indication="courriel@domain.extension"
+                        style={divEmail}
+                        key={`champ--courriel__split-${elem}`} 
+                        modele={`rightHolders[${elem}].email`} 
+                        requis={true} etiquette={this.state.ayantDroits[elem].name} 
+                        indication="courriel@domain.extension"
                     />
+                    
                 )
             )
         })

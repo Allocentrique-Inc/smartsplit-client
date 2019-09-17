@@ -223,7 +223,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                 },
                                                 {
                                                     nom: t('modepartage.roles'),
-                                                    valeur: MODES.roles
+                                                    valeur: MODES.role
                                                 }
                                             ]}
                                         />
@@ -334,7 +334,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                 </div> 
                                                                 <div className="four wide column">
                                                                     <button 
-                                                                        className="ui small button"
+                                                                        className="ui medium button"
                                                                         onClick={(e)=>{
                                                                             e.preventDefault()
                                                                             this.ajouterCollaborateur(arrayHelpers)

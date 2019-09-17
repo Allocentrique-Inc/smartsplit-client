@@ -16,7 +16,7 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import avatar from '../../assets/images/steve.jpg'
 
-const MODES = { egal: "0", role: "1", manual: "2" }
+const MODES = { egal: "0", role: "1", manuel: "2" }
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
 
@@ -129,6 +129,7 @@ class PageAssistantPartageAuteur extends Component {
                     })
                     this.props.setFieldValue("droitAuteur", _parts)
                 }
+                break;
             default:
         }
         this.setState({ ping: true })
@@ -306,7 +307,7 @@ class PageAssistantPartageAuteur extends Component {
                                     <Progress percent="20" size='tiny' indicating/>
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
                                         {t('flot.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>
@@ -346,7 +347,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                 },
                                                                 {
                                                                     nom: t('modepartage.manual'),
-                                                                    valeur: MODES.manual
+                                                                    valeur: MODES.manuel
                                                                 }
                                                             ]}
                                                         />
@@ -483,7 +484,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                             </div>
                                                                             <div className="four wide column">
                                                                                 <button
-                                                                                    className="ui small button"
+                                                                                    className="ui medium button"
                                                                                     onClick={(e) => {
                                                                                         e.preventDefault()
                                                                                         this.ajouterCollaborateur(arrayHelpers)

@@ -16,7 +16,7 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import avatar from "../../assets/images/elliot.jpg"
 
-const MODES = {egal: "0", role: "1", manuel: "2"}
+const MODES = {egal: "0", manuel: "1"}
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
 
@@ -242,7 +242,8 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <BoutonsRadio 
                                         name="mode_enregistrement"
                                         actif={this.state.mode} // Attribut dynamique
-                                        onClick={(e)=>{                                            
+                                        onClick={(e)=>{       
+                                            console.log('clic', e.target.value)                                     
                                             this.setState({mode: e.target.value}, ()=>{
                                                 this.recalculerPartage()
                                             })                                        
@@ -255,7 +256,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                             },                                
                                             {
                                                 nom: t('modepartage.manual'),
-                                                valeur: ""+MODES.manual
+                                                valeur: ""+MODES.manuel
                                             }
                                         ]}
                                     />
@@ -373,7 +374,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                             </div>
                                                             <div className="four wide column">
                                                                 <button 
-                                                                    className="ui small button"
+                                                                    className="ui medium button"
                                                                     onClick={(e)=>{
                                                                         e.preventDefault()
                                                                         this.ajouterCollaborateur(arrayHelpers)
