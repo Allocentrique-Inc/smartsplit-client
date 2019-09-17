@@ -14,7 +14,7 @@ export class Navbar extends Component {
                             <div className={ 'smartsplit-navbar ' + (this.props.pochette ? 'pochette' : '') }>
                                 <div className="left">
                                     <div className="song-image">
-                                        <img src={ placeholder }/>
+                                        <img alt="oeuvre" src={ placeholder }/>
                                     </div>
 
                                     <div className="song-title">

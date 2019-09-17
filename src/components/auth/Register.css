@@ -1,41 +1,134 @@
-input[id="password"] {
-    padding-right: 50px;
-    width: 414px;
-    margin: 5px 0 5px 0;
-    display: inline;
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+
+.top {
+    float: right;
+    width: 105px;
+    height: 24px;
+    font-family: 'IBM Plex Sans';
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+.container {
+    display: block;
+    margin: 0 auto;
+    width: 464px;
 }
 
-input[id="confirmpassword"] {
-    padding-right: 50px;
-    width: 414px;
+button[id="facebook"],
+[id="google"] {
+    width: 464px;
+    height: 40px;
+    border-radius: 2px;
+    padding-right: 137px;
+    font-family: 'IBM Plex Sans';
+    font-weight: bold;
+    color: white;
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+}
+
+button[id="facebook"] {
+    margin-top: 20px;
+    background-color: #3b5998;
+}
+
+.facebook {
+    padding-right: 135px;
+}
+
+button[id="google"] {
+    max-width: 500px;
+    background-color: #4285F4;
+}
+
+.google {
+    padding-right: 143px;
+}
+
+.input-wrapper {
+    position: relative;
+    width: 464px;
+}
+
+input {
+    /* styles génériques */
+    font-family: 'IBM Plex Sans';
+    height: 40px;
+    color: #8DA0B3;
+    border: 1px solid #DCDFE1;
+    border-radius: 2px;
+    background: #FFFFFF;
+    display: inline;
+    padding-right: 0px;
     margin: 5px 0 5px 0;
+    padding-right: 0px;
+    }
+
+label[for="username"], 
+label[for="password"],
+label[for="confirmpassword"] {
+    font-family: 'IBM Plex Sans';
+    height: 24px;
+    font-style: normal;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 24px;
+}
+
+label[for="username"] {
+    margin: 0 0 25;
+}
+
+label[for="password"] {
+    margin: 0 0 25;
+}
+
+input[id="username"],
+input[id="password"],
+input[id="confirmpassword"] {
+    height: 40px;
+    color: #8DA0B3;
+    border: 1px solid #DCDFE1;
+    box-sizing: border-box;
+    border-radius: 2px;
+    background: #FFFFFF;
+    padding-left: 10px;
+    padding-right: 0;
+    width: 100%;
     display: inline;
 }
 
 input[id="username"] {
-    width: 464px;
-    display: inline;
+    margin-bottom: 30px;
 }
 
-input[id="artistName"] {
+input[id="password"] {
+    margin-bottom: 15px;
+}
+
+input[id="confirmpassword"] {
+    margin-top: 35px;
+    margin-bottom: 30px;
+}
+
+/*input[id="artistName"] {
     width: 464px;
-    display: inline;
 }
 
 input[id="role"] {
     width: 464px;
-    display: inline;
 }
 
 input[id="firstName"] {
     width: 464px;
-    display: inline;
 }
 
 input[id="lastName"] {
     width: 464px;
-    display: inline;
-}
+}*/
 
 .invisible {
     visibility: hidden !important;
@@ -45,93 +138,35 @@ input[id="lastName"] {
     visibility: visible !important;
 }
 
-button[id="hide"] {
-    margin: 0em;
-    width: 50px;
-    height: 32px;
-    padding: 0;
-    color: white;
-    background-color: Transparent;
-    border: 0;
-    -webkit-appearance: none;
-}
-
+button[id="hide"],
 button[id="hide-confirm"] {
-    margin: 0em;
-    width: 50px;
-    height: 32px;
     padding: 0;
     color: white;
     background-color: Transparent;
     border: 0;
     -webkit-appearance: none;
-}
-
-button[id="facebook"] {
-    width: 464px;
-    margin: 4px;
-    max-width: 500px;
-    border-radius: 2px;
-    background-color: #3C5A99;
-    padding-right: 137px;
-    /* display: inline-block; */
     position: absolute;
-    left: 50%;
-    transform: translate(-50%, 250px);
-    color: white;
-    cursor: pointer;
-    border: none;
-    padding: 10px 10px 10px;
-    font-size: 17px;
-    font-weight: 500;
-  }
-  
-  .facebook {
-    padding-right: 135px;
+    right: 0;
+    margin: 42px 30px 0 0;
 }
 
-button[id="google"] {
-    margin: 4px;
-    width: 464px;
-    max-width: 500px;
-    border-radius: 2px;
-    background-color: #4285F4;
-    padding-right: 150px;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 300px);
-    color: white;
-    cursor: pointer;
-    border: none;
-    padding: 10px 10px 10px;
-    font-size: 17px;
-    font-weight: 500;
-  }
-  
-  .google {
-    padding-right: 143px;
-}
-
-hr {
+hr[class="hrLogin"] {
     overflow: visible; /* For IE */
     padding: 0;
-    width: 464px;
-    text-align: center;
     border-top: 1px solid #DCDFE1;
     border-bottom: 1px solid #DCDFE1;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 325px);
-  }
-  hr:after {
-   /* content: "ou";*/
-    display: inline-block;
-    position: relative;
-    top: -0.7em;
-    font-size: 1.5em;
-    padding: 0 0.25em;
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
     color: black;
     background: white;
+}
+
+hr[class="hrLogin"]:after {
+    content: "ou";
+    padding: 0 0.25em;
+    width: 40px;
 }
 
 /* Password Strength Validator  */
@@ -145,14 +180,13 @@ hr {
     height: 3px;
     width: 150px;
     background: #DDD;
-    margin: 5px auto 5px auto;
+    margin: 0 313px;
     border-radius: 2px;
 }
 
 .strength-meter-fill {
     background: transparent;
     height: inherit;
-    position: absolute;
     width: 0;
     border-radius: inherit;
     transition: width 0.5s ease-in-out, background 0.25s;
@@ -190,6 +224,7 @@ hr {
     background-size: calc(.75em + .375rem) calc(.75em + .375rem);
     background-repeat: no-repeat;
     background-position: center right calc(.375em + .1875rem);
+    width: 464px;
 }
 
 .form-control.is-valid {
@@ -199,6 +234,7 @@ hr {
     background-repeat: no-repeat;
     background-position: center right calc(.375em + .1875rem);
     background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+    width: 464px;
 }
 
 .fileUpload {
@@ -240,17 +276,11 @@ hr {
 }
 
 .section.auth {
-    position: absolute;
-    left: 50%;
-    top: 40%;
-    transform: translate(-50%, 40px);
+
 }
 
 #registerHeader {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 50px);
-    width: 464px;
+    margin: 0 auto;
 }
 
 #registerHead {
@@ -261,13 +291,49 @@ hr {
     font-size: 16px;
 }
 
-
 header#registerHeader h1:after {
-    content: "En route vers \A la professionalisation.";
+    content: "En route vers la \A professionalisation.";
+    font-family: 'IBM Plex Sans';
     white-space: pre;
+    font-style: bold;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 48px;
+    color: #333333;
+    width: 464px;
+    height: 96px;
 }
 
 header#registerHeader h3:after {
     content: "Tu es à un clic de pouvoir documenter ta musique et de partager \A tes droits avec tes collabos.";
+    font-family: 'IBM Plex Sans';
     white-space: pre;
+    font-weight: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 18px;
+    color: #687A8B;
+    font-size: 16px;
+    line-height: 24px;
+    width: 464px;
+    height: 24px;
+    margin-bottom: 100px;
 }
+
+.ui.medium.button {
+    background-color:#2DA84F;
+    color:#FFF;
+    font-family: 'IBM Plex Sans';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    float: right;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+
+/*.avatar--image {
+
+}*/
+

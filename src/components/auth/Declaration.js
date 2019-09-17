@@ -13,7 +13,8 @@ class Declaration extends Component {
         lastName: 'Last Name',
         songTitle: 'Song',
         identity: false,
-        share: false
+        share: false,
+        open: true
     }
 
     // BIND TODO
@@ -84,14 +85,16 @@ class Declaration extends Component {
       closeOnDimmerClick={closeOnDimmerClick}
       onClose={this.close} size="tiny" closeIcon>
         <Modal.Header>Déclaration d’identité</Modal.Header>
-        <Checkbox 
+        <Checkbox
+          value={this.state.identity}
           key={identity} 
-          value={'Je déclare être réellement {firstName} {firstName}. Je comprends que le fait me faire passer pour quelqu’un d’autre constituerait une faute grave passible de poursuites judiciaires. '} 
+          label={'Je déclare être réellement {firstName} {firstName}. Je comprends que le fait me faire passer pour quelqu’un d’autre constituerait une faute grave passible de poursuites judiciaires. '} 
           onChange={this.handleIdentityCheck}
         />
         <Checkbox 
+          value={this.state.share}
           key={share} 
-          value={'Jaccepte ces partages de droits intervenus entre moi-même et tout collaborateur. Cela représente l’entente souhaitée. Je comprends que ces pourcentages s’appliqueront désormais à tout partage de revenus en lien avec {song}.'} 
+          label={'Jaccepte ces partages de droits intervenus entre moi-même et tout collaborateur. Cela représente l’entente souhaitée. Je comprends que ces pourcentages s’appliqueront désormais à tout partage de revenus en lien avec {song}.'} 
           onChange={this.handleShareCheck}
         />
         <Modal.Actions>

@@ -104,7 +104,7 @@ export default class ChampSelectionMultiple extends Component {
                         selectOnBlur={ false }
                         selectOnNavigation={ false }
                         allowAdditions
-                        additionLabel={ <span className={ this.additionLabelClasses() }><img src={ this.plusCircle() }/> Ajouter comme instrument:</span> }
+                        additionLabel={ <span className={ this.additionLabelClasses() }><img alt="Ajouter l'instrument" src={ this.plusCircle() }/> Ajouter comme instrument:</span> }
                         value={ this.state.dropdownValue }
                         options={ this.unselectedItems() }
                         onChange={ this.handleChange }

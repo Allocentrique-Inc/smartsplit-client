@@ -7,8 +7,8 @@ import zxcvbn from 'zxcvbn';
 import { Auth } from "aws-amplify";
 // import * as Yup from 'yup'
 // Traduction
-// import { Translation } from 'react-i18next';
-
+import { Translation } from 'react-i18next';
+import Eye from './Eye';
 
 class Register extends Component {
     state = { username: false }
@@ -89,7 +89,7 @@ class Register extends Component {
     };
 
     handleSubmit = values => {
-        // AWS Cogni"to integration here
+        // AWS Cognito integration here
         const username = values.username;
         const email = values.username; // username is used as email
         // const firstName = values.firstName;
@@ -205,10 +205,15 @@ class Register extends Component {
         const confirmClass = ['confirmPassword', strength >= 2 ? 'visible' : 'invisible'].join(' ').trim();
         // const controlClass = ['form-control', this.passwordmatch ? dirty ? 'is-valid' : 'is-invalid' : ''].join(' ').trim();
         const controlClass = ['form-control', this.passwordmatch ? 'is-valid' : 'is-invalid'].join(' ').trim();
-
+        
+        /*let header = (
+            <span text='Connexion' onClick={()=>{this.connexion()}}>
+            <span text='Inscription' onClick={()=>{this.inscription()}}>
+            </span>
+            </span>
+        )*/
 
         return (
-
             <Formik
                 initialValues={
                     {
@@ -232,118 +237,142 @@ class Register extends Component {
             >
 
                 { ({ errors, touched, isValidating }) => (
-                    <Form>
-                        <header id="registerHeader">
-                            <h1 id="registerHead"></h1>
-                            <h3 id="registerPrompt"></h3>
-                        </header>
-                        <SignInFacebook text="Créer mon compte avec Facebook"></SignInFacebook>
-                        <SignInGoogle>"Créer mon compte avec Google"</SignInGoogle>
-                        <br></br>
-                        <br></br>
-                        <hr/>
-                        <br></br>
-                        <br></br>
-                        <section className="section auth">
-                            <div className="container">
-                                <div className="field">
-                                    <div className="control">
-                                        <Field
-                                            validate={ (val) => {
-                                                this.validateUsername(val)
-                                            } }
-                                            name="username"
-                                            id="username"
-                                            aria-describedby="userNameHelp"
-                                            placeholder="Create Username (Email)"
-                                            value={ this.state.username }
-                                            required={ true }
-                                        />
-                                        { errors.username && touched.username &&
-                                        <div style={ { color: "red" } }> Courriel invalide </div> }
-                                    </div>
-                                </div>
-                                <div className="field">
-                                    <div className="control has-icons-left">
-                                        <Field
-                                            validate={ (val) => {
-                                                this.validatePassword(val)
-                                            } }
-                                            validate={ (val) => {
-                                                this.validatePasswordStrong(val)
-                                            } }
-                                            type={ this.state.hidden ? "password" : "text" }
-                                            id="password"
-                                            name="password"
-                                            placeholder="Password"
-                                            value={ this.state.password }
-                                            onChange={ this.handlePasswordChange }
-                                            // onChange={this.stateChanged}
-                                            required={ true }
-                                            // {...restProps}
-                                        />
-                                        <button id="hide" onClick={ (e) => {
-                                            e.preventDefault();
-                                            this.toggleShow()
-                                        } }>
-                                            <i className="eye icon black"></i>
-                                            {/* <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg> */ }
-                                        </button>
-                                        { errors.password && touched.password &&
-                                        <div style={ { color: "red" } }> Mot de passe invalide </div> }
-                                        <span className="icon is-small is-left">
-                  <i className="fas fa-lock"></i>
-                </span>
-                                    </div>
-                                </div>
+                <Translation>
+                    {
+                        t=>                               
+                            <Form>
+                                <span className="top">
+                                    <a href="/login" style={{color: "#2DA84F"}}>{t('entete.connexion')}</a>
+                                </span>
+                                <div className="container">
+                                    <header id="registerHeader">
+                                        <h1 id="registerHead"></h1>
+                                        <h3 id="registerPrompt"></h3>
+                                        <br /><br /><br />
+                                    </header>
+                                    <SignInFacebook text={t('inscription.facebook')}></SignInFacebook>
+                                    <SignInGoogle>{t('inscription.google')}</SignInGoogle>
+                                    <br></br>
+                                    <br></br>
+                                    <hr className="hrLogin" />
+                                    <br></br>
+                                    <br></br>
+                                    <section className="section auth">
+                                        <div className="container">
+                                            <div className="field">
+                                                <div className="control">
+                                                    <label htmlFor="username">{t('inscription.courriel')}</label>
+                                                    <Field 
+                                                        validate={ (val) => {
+                                                            this.validateUsername(val)
+                                                    } } 
+                                                    name="username" 
+                                                    id="username" 
+                                                    aria-describedby="userNameHelp" 
+                                                    placeholder={t('inscription.exemple')} 
+                                                    value={this.state.username} required={true} 
+                                                    />
+                                                    { errors.username && touched.username &&
+                                                        <div style={ { color: "red" } }>{t('inscription.email-invalide')} </div> }
+                                                </div>
+                                            </div>
+                                            <span>
+                                                <div className="field">
+                                                    <div className="control has-icons-left">
+                                                        <label htmlFor="password">{t('inscription.motdepasse')}</label>
 
-                                <div className={ strengthClass }>
-                                    <div className="strength-meter-fill" data-strength={ strength }></div>
-                                </div>
+                                                        <div className="input-wrapper">
+                                                            <Field 
+                                                                /*validate={ (val) => {
+                                                                this.validatePassword(val)
+                                                            } }*/ 
+                                                                validate={(val) => {
+                                                                this.validatePasswordStrong(val)
+                                                            } } 
+                                                                type={ this.state.hidden ? "password" : "text" } 
+                                                                id="password" 
+                                                                name="password" 
+                                                                placeholder={t('inscription.password')} 
+                                                                value={ this.state.password }  
+                                                                onChange={ this.handlePasswordChange }
+                                                                /*onChange={this.stateChanged}*/
+                                                                required={ true } 
+                                                                //required={...restProps}
+                                                                />
 
-                                <div className={ confirmClass }>
-                                    <div className="control has-icons-left confirmPassword">
-                                        <Field
-                                            validate={ (val) => {
-                                                this.validateConfirmPassword(val)
-                                            } }
-                                            type={ this.state.confirmhidden ? "password" : "text" }
-                                            id="confirmpassword"
-                                            name="confirmpassword"
-                                            placeholder="Confirm password"
-                                            value={ this.state.confirmpassword }
-                                            onChange={ this.handleConfirmPasswordChange }
-                                            required={ true }
-                                            className={ controlClass }
-                                        />
-                                        <button id="hide-confirm" onClick={ (e) => {
-                                            e.preventDefault();
-                                            this.toggleConfirmShow()
-                                        } }>
-                                            <i className="eye icon black"></i>
-                                        </button>
-                                        { errors.confirmpassword && touched.confirmpassword &&
-                                        <div style={ { color: "red" } }> Les mots de passes ne correspondent pas</div> }
-                                        <span className="icon is-small is-left">
-                  <i className="fas fa-lock"></i>
-                </span>
-                                    </div>
-                                    <div
-                                        className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
-                                        <p className="control">
-                                            <button className="button is-success" type="submit">
-                                                Register
-                                            </button>
-                                        </p>
-                                    </div>
-                                </div>
+                                                            <button id="hide" onClick={ (e) => {
+                                                                e.preventDefault();
+                                                                this.toggleShow();
+                                                            } }>
+                                                                  <Eye />
+                                                            </button>
+                                                        </div>
 
-                            </div>
-                        </section>
-                    </Form>
+                                                        { errors.password && touched.password &&
+                                                            <div style={ { color: "red" } }> {t('inscription.password-invalide')} </div> }
+                                                        <span className="icon is-small is-left">
+                                                            <i className="fas fa-lock"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                            <div className={ strengthClass }>
+                                                <div className="strength-meter-fill" data-strength={ strength }></div>
+                                            </div>
+
+                                            <div className={ confirmClass }>
+                                                <div className="control has-icons-left confirmPassword">
+
+                                                    <div className="input-wrapper">
+                                                        <Field 
+                                                            validate={ (val) => {
+                                                            this.validateConfirmPassword(val);
+                                                        } } 
+                                                        type={ this.state.confirmhidden ? "password" : "text" } 
+                                                        id="confirmpassword" 
+                                                        name="confirmpassword" 
+                                                        placeholder="Confirm password" 
+                                                        value={ this.state.confirmpassword } 
+                                                        onChange={ this.handleConfirmPasswordChange } 
+                                                        required={ true } 
+                                                        className={ controlClass } />
+                                                        <button id="hide-confirm" onClick={ (e) => {
+                                                            e.preventDefault();
+                                                            this.toggleConfirmShow();
+                                                        } }>
+
+                                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                <path d="M9.9 4.24002C10.5883 4.0789 11.2931 3.99836 12 4.00003C19 4.00003 23 12 23 12C22.393 13.1356 21.6691 14.2048 20.84 15.19M14.12 14.12C13.8454 14.4148 13.5141 14.6512 13.1462 14.8151C12.7782 14.9791 12.3809 15.0673 11.9781 15.0744C11.5753 15.0815 11.1752 15.0074 10.8016 14.8565C10.4281 14.7056 10.0887 14.4811 9.80385 14.1962C9.51897 13.9113 9.29439 13.572 9.14351 13.1984C8.99262 12.8249 8.91853 12.4247 8.92563 12.0219C8.93274 11.6191 9.02091 11.2219 9.18488 10.8539C9.34884 10.4859 9.58525 10.1547 9.88 9.88003M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.68192 3.96914 7.65663 6.06 6.06003L17.94 17.94Z" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                <path d="M1 1L23 23" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+
+                                                    { errors.confirmpassword && touched.confirmpassword &&
+                                                        <div style={ { color: "red" } }> {t('inscription.correspond')}</div> }
+                                                    <span className="icon is-small is-left">
+                                                        <i className="fas fa-lock"></i>
+                                                    </span>
+                                                </div>
+                                                <div 
+                                                    className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
+                                                    <div className="container">
+                                                    <p className="control">
+
+                                                        <button className="ui medium button is-success" type="submit">
+                                                            {t('inscription.bouton')}
+                                                        </button>
+                                                    </p>
+                                                </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </section>
+                                </div>
+                            </Form>
+                    }
+                </Translation> 
                 ) }
             </Formik>
         );

@@ -113,7 +113,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                                                 onClick={(e)=>{
                                                 e.preventDefault()
                                                 this.ajouterEditeur()
-                                                }}>Ajouter
+                                                }}>{ t('flot.bouton.ajout') }
                                             </button>
                                         </div>
                                     )}                                    

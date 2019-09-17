@@ -123,7 +123,7 @@
         },
         "collaborateurs": {
             "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
-            "preambule": "Commençons par toi ...",
+            "preambule": "Commençons par toi...",
             "role": "Définis ton rôle ?",
             "ajout": "Ajouter un collaborateur"
         },
@@ -133,7 +133,7 @@
         },
         "genre": {
             "titre": "Quel est le genre de ton œuvre ?",
-            "preambule": "Genre, style, comme ... ?"
+            "preambule": "Genre, style, comme... ?"
         },
         "documenter": {
             "entete": {
@@ -148,14 +148,27 @@
             },
             "titre1": "Qui a participé à la création de",
             "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
+                "date-creation": "Date de création",
+                "date-placeholder": "Ajouter une date",
+                "auteur": "Auteurs",
+                "auteur-placeholder": "Ajouter un auteur",
+                "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
+                "compositeur": "Compositeurs",
+                "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
+                "compositeur-placeholder": "Ajouter un compositeur",
+                "editeur": "Éditeurs",
+                "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
+                "editeur-placeholder": "Ajouter un éditeur",
+                "code": "Code ISWC",
+                "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
+                "code-placeholder": "Ajouter un code",
             "date-creation": "Date de création",
             "date-placeholder": "Ajouter une date",
             "auteur": "Auteurs",
-            "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
             "auteur-placeholder": "Ajouter un auteur",
+            "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
             "compositeur": "Compositeurs",
             "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
-            "compositeur-placeholder": "Ajouter un compositeur",
             "editeur": "Éditeurs",
             "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
             "editeur-placeholder": "Ajouter un éditeur",
@@ -163,49 +176,7 @@
             "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
             "codeiswc-placeholder": "Ajouter un code",
             "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
-            "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
-            "titre3": "Qui a enregistré la pièce musicale ?",
-            "titre3-description": "Ici, tu indiques qui a contribué à l’enregistrement sonore de cette pièce.",
-                "realisation": "Réalisation",
-                "realisation-description": "C’est le directeur artistique qui donne un son à l’enregistrement.",
-                "realisation-placeholder": "Ajouter un réalisateur",
-                "son": "Prise de son",
-                "son-description": "C’est la personne qui fait la prise de son de ta pièce musicale.",
-                "son-placeholder": "Ajouter un preneur de son",
-                "mix": "Mixage",
-                "mix-description": "C’est l’étape d'ajustement des niveaux de volume et de fréquences.",
-                "mix-placeholder": "Ajouter un ingénieur de son",
-                "master": "Masterisation",
-                "master-description": "C’est l’étape de compression et d’égalisation globale de la chanson.",
-                "master-placeholder": "Ajouter un ingénieur de son",
-                "studio": "Studio d'enregistrement",
-                "studio-description": "C’est le lieu où la chanson a été enregistrée.",
-                "studio-placeholder": "Rechercher un studio d'enregistrement.",
-                "production-description": "La personne ou la compagnie qui investit de l’argent ou du temps pour rendre l’enregistrement sonore possible.",
-                "production-placeholder": "Ajouter un producteur.",
-                "etiquette": "Étiquette",
-                "etiquette-description": "C’est l’organisme qui s’occupe du marketing de ta pièce.",
-                "etiquette-placeholder": "Ajouter une étiquette",
-                "distribution": "Distribution",
-                "distribution-description": "C’est l’organisme qui s’occupe de commercialiser de ta pièce.",
-                "distribution-placeholder": "Ajouter un ditributeur",
-                "codeupc": "Code UPC/EAN",
-                "codeupc-description": "Code à barre obligatoire au produit physique. Peut être optionnellement attribué à un produit numérique.",
-                "codeupc-placeholder": "Entrez le code (optionnel)",
-                "date": "Date de sortie de la pièce musicale (si applicable)",
-                "date-description": "C’est le moment où la pièce est lancée sur les plateformes.", 
-                "date-choix": {
-                    "avenir": "À venir",
-                    "determine": "Déterminé"
-                },
-            "titre4": "Quels fichiers veux-tu rendre accessible ?",
-            "titre4-description": "Ici, tu peux ajouter tous les fichiers relatifs à cette pièce musicale.",
-            "titre5": "Informations générales",
-            "titre5-description": "Ici, tu indiques de quel genre est cette pièce musicale et qui sont les artistes ou tendances qui l’ont influencé.",
-            "titre6": "contient des paroles ?",
-            "titre6-description": "Les mots dans une chanson sont d’excellentes données descriptives sur l’oeuvre qui augmentent sa découvrabilité et les chances d’élargir ton auditoire.",
-            "titre7": "La pièce musicale est-elle déjà diffusée ?",
-            "titre7-description": "Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d’écoute et de vente en ligne."
+            "titre2-description": "C’est ici que tu indiques qui a joué quel instrument."
         },
         "pro": {
             "titre": "Es-tu pro ?",
@@ -394,5 +365,24 @@
     },
     "erreur": {
         "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
+    },
+    "inscription": {
+        "titre":"En route vers la professionalisation.",
+        "sous-titre": "Tu es à un clic de pouvoir documenter ta musique et de partager tes droits avec tes collabos.",
+        "facebook": "Se connecter avec Facebook",
+        "google": "Se connecter avec Google",
+        "courriel": "Entrer le courriel",
+        "exemple": "nom@exemple.com",
+        "email-invalide": "Courriel invalide",
+        "motdepasse": "Choix du mot de passe",
+        "password-invalide": "Le mot de passe est invalide",
+        "correspond": "Les mots de passe ne correspondent pas",
+        "password": "Mot de passe",
+        "ou": "ou",
+        "bouton": "Créer mon compte"
+    },
+    "entete": {
+        "connexion": "Connexion",
+        "inscription": "Inscription"
     }
 }

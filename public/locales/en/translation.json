@@ -30,8 +30,8 @@
                 "artiste": "Artist",
                 "juridiction": "Jurisdiction",
                 "ayantDroit": "Collaborators",
-                "genre": "Main genre",
-                "genre2": "Secondary genre",
+                "genre": "Main genra",
+                "genre2": "Secondary genra",
                 "paroles": "Lyrics",
                 "langueParoles": "Lyric's languages",
                 "isrc": "ISRC #",
@@ -54,8 +54,8 @@
                 "artiste": "Who is the main artist ?",
                 "juridiction": "What is the legal jurisdiction (country)?",
                 "ayantDroit": "Select one or more collaborators",
-                "genre": "Select the primary work genre",
-                "genre2": "Select the secondary work genre",
+                "genre": "Select the primary work genra",
+                "genre2": "Select the secondary work genra",
                 "paroles": "Type in the lyrics",
                 "langueParoles": "Select one or more lyrics language",
                 "isrc": "Recording unique identified",
@@ -156,7 +156,7 @@
                 "compositeur-placeholder": "Add a Composer",
                 "editeur": "Editors",
                 "editeur-description": "Who represents these authors and/or composers?",
-                "editeur-placeholder": "Add an Editor",
+                "editeur-placeholder": "Add an editor",
                 "codeiswc": "ISWC Code",
                 "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
                 "codeiswc-placeholder": "Add a code",
@@ -278,19 +278,27 @@
                 "sous-titre3": "Protect your work",
                 "intro3": "In the good old days, a cassette was sent by registered mail to prove who did the work and when. Now we rather use a blockchain to create this proof :)" 
         },
+        
         "editeur": {
-            "ajout": "Add a publisher"
+            "ajout": "Add an editor"
         },
-        "proposition": {
-            "nouvelle" : "Create a new version",
+
+            "ajout": "Add a publisher",
             "envoyer": "Send to collaborators",
             "continuer": "Continue to split the rights"
         },
+
+        "proposition": {
+            "nouvelle": "Create a new version",
+            "envoyer": "Send to collaborators",
+            "continuer": "Continue the split"
+    },
+
         "bouton": {
             "ajout": "Add",
             "voter": "VOTE"
-        }
-    },
+        },
+
     "traitement": {
         "acr": {
             "erreur-mauvaise-lecture": "Bad media. Try another sample.",
@@ -321,6 +329,7 @@
             }
         }
     },
+
     "tableaudebord": {
         "bonjour": "Here is the SmartSplit dashboard.",
         "navigation": {
@@ -365,6 +374,7 @@
             "titre-part": "How much should your publisher get ?"
         }
     },
+
     "connexion": {
         "titre": {
             "oeuvre": "Tu dois te connecter afin d'accéder à la page de votation !",
@@ -397,5 +407,24 @@
     },   
     "erreur": {
         "volIdentite": "You're trying to do an operation than belong to another user"
+    },
+    "inscription": {
+        "titre":"On your way to professionalisation.",
+        "sous-titre": "You're one clock away to documenting your music and share your rights with your contributors.",
+        "facebook": "Sign in with Facebook",
+        "google": "Sign in with Google",
+        "courriel": "Enter your email",
+        "exemple": "name@example.com",
+        "email-invalide": "Invalid email",
+        "motdepasse": "Choose your password",
+        "password-invalide": "Invalid password",
+        "correspond": "The passwords do not match",
+        "password": "Password",
+        "ou": "or",
+        "bouton": "Create my account"
+    },
+    "entete": {
+        "connexion": "Login",
+        "inscription": "Register"
     }
 }
