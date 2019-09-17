@@ -36,8 +36,13 @@ import Troissplits from './components/visualisation/partage/troissplits'
 // Composantes auth
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+<<<<<<< HEAD
+import ModifyUser from './components/auth/ModifyUser'
+import Register3 from './components/auth/Register-3'
+=======
 import Register2 from './components/auth/Register-2'
 import Socan from './components/auth/Socan'
+>>>>>>> develop
 import Declaration from './components/auth/Declaration'
 import ForgotPassword from './components/auth/ForgotPassword'
 import ForgotPasswordVerification from './components/auth/ForgotPasswordVerification'
@@ -91,8 +96,7 @@ const renderRoutes = () => {
             <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
             <Route exact path="/login" component={renderLogin} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/register-2" component={Register2} />
-            <Route exact path="/socan" component={Socan} />
+            <Route exact path="/register-2" component={ModifyUser} />
             <Route exact path="/declaration" component={Declaration} />
             <Route exact path="/socan" component={Socan} />
             <Route exact path="/sign-in-facebook" component={SignInFacebook} />
