@@ -70,7 +70,7 @@ export default class MenuProfil extends Component {
                         <Dropdown text='' icon="angle down big black">
                             <Dropdown.Menu icon="down big">
                             <Dropdown.Item text='Accueil' onClick={()=>{window.location.href = '/accueil'}}/>
-                            <Dropdown.Item text='Mon profil' onClick={()=>{window.location.href = '/socan'}}/>
+                            <Dropdown.Item text='Mon profil SOCAN' onClick={()=>{window.location.href = '/socan'}}/>
                             {
                                 i18n.language && i18n.language.substring(0,2) == 'en' &&
                                 (

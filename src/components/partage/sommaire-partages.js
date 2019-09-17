@@ -160,18 +160,16 @@ export default class SommairePartages extends Component {
                 }
                 if(_p.etat === 'ACCEPTE') {
                     // ESt-ce que l'utilisateur est dans les ayant-droits ?
-                    console.log(_p)
                     let estCollaborateur = false
-                    Object.keys(_p.rightsSplits).forEach(droit=>{
-                        Object.keys(_p.rightsSplits[droit]).forEach(type=>{
-                            _p.rightsSplits[droit][type].forEach(part=>{
+                    if(_p.rightsSplits.workCopyrightSplit) {
+                        Object.keys(_p.rightsSplits.workCopyrightSplit).forEach(type=>{
+                            _p.rightsSplits.workCopyrightSplit[type].forEach(part => {
                                 if(part.rightHolder.rightHolderId === this.state.user.username){
                                     estCollaborateur = true
-                                    return
                                 }
                             })
                         })
-                    })
+                    }
                     if(estCollaborateur) {
                         partageEditeur = true
                     }                    
