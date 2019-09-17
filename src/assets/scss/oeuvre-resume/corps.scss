@@ -24,10 +24,11 @@
 
     td {
         padding-bottom: $margin-step;
+        vertical-align: top;
 
         &:first-of-type {
             padding-right: $margin-step;
-            width: 175px;
+            width: 180px;
         }
 
         &.placeholder {

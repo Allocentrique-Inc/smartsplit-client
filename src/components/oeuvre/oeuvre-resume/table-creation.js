@@ -1,6 +1,5 @@
 import React from 'react';
-import TitreModifiable from "./titre-modifiable";
-import Rangee from "./rangee";
+import TableGauche from "./table-gauche";
 
 export default class TableCreation extends React.Component {
     rows = [
@@ -52,15 +51,10 @@ export default class TableCreation extends React.Component {
 
     render() {
         return (
-            <>
-                <TitreModifiable href={ '#' }>
-                    <h3 className={ 'corps-title-1' }>Création</h3>
-                </TitreModifiable>
-
-                <table className={ 'corps-table' }>
-                    { this.rows.map(row => Rangee(row)) }
-                </table>
-            </>
+            <TableGauche
+                title={ 'Création' }
+                rows={ this.rows }
+            />
         )
     }
 }
