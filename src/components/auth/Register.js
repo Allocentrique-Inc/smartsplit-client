@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './Register.css'
 import { Field, Form, Formik } from 'formik'
-import zxcvbn from 'zxcvbn';
-import { Auth } from "aws-amplify";
+import zxcvbn from 'zxcvbn'
+import { Auth } from 'aws-amplify'
+import { toast } from 'react-toastify'
 // import * as Yup from 'yup'
 // Traduction
 import { Translation } from 'react-i18next';
@@ -26,33 +27,35 @@ class Register extends Component {
             // dirty: false
         };
 
+        this.validateUsername = this.validateUsername.bind(this)
+        this.validatePassword = this.validatePassword.bind(this)
+        this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.validatePasswordStrong = this.validatePasswordStrong.bind(this)
         // this.stateChanged = this.stateChanged.bind(this);
         this.toggleShow = this.toggleShow.bind(this);
         this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(this);
         this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
-        this.validateUsername = this.validateUsername.bind(this)
-        this.validatePassword = this.validatePassword.bind(this)
-        this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
+
     }
 
-    clearErrorState = () => {
-        this.setState({
-            errors: {
-                cognito: null,
-                blankfield: false,
-                passwordmatch: false
-            }
-        });
-    }
+    // clearErrorState = () => {
+    //     this.setState({
+    //         errors: {
+    //             cognito: null,
+    //             blankfield: false,
+    //             passwordmatch: false
+    //         }
+    //     });
+    // }
 
     validateUsername(value) {
-        if (!value) {
-            return "Required"
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
             return "Invalid username"
         }
+        // else if (!value) {
+        //     return "Required"
+        // }
     }
 
     validatePassword(value) {
@@ -60,41 +63,38 @@ class Register extends Component {
             return "Required"
         } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
             console.log("VALUE", value)
-            return "Invalid password"
+            return <Translation> { t=> t('inscription.password-invalide')} </Translation> 
         }
     }
 
     validateConfirmPassword(value) {
         if (!value) {
             return "Required"
-            // } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
-            //   console.log("VALUE confirm", value)
-            //   return "Passwords do not match"
-        } else if ((value) !== this.state.password) {
-            console.log("VALUE confirm", value)
-            return "Passwords do not match"
+        } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
+            console.log("VALUE", value)
+            return <Translation> { t=> t('inscription.password-invalide')} </Translation> 
         } else {
             this.setState({ passwordmatch: true });
         }
     }
 
-    validatePasswordStrong = value => {
+    validatePasswordStrong(value) {
         // ensure password is long enough
-        if (value.length <= this.thresholdLength) throw new Error("Password is short");
+        // if (value.length <= this.thresholdLength) throw new Error("Password is short");
+        if (value.length <= 8) {
+            throw new Error("Password is short")
+        }
 
         // ensure password is strong enough using the zxcvbn library
-        if (zxcvbn(value).score < this.minStrength) throw new Error("Password is weak");
+        if (zxcvbn(value).score < this.minStrength) {
+throw new Error("Password is weak");
+        } 
     };
 
     handleSubmit = values => {
-        // AWS Cognito integration here
         const username = values.username;
         const email = values.username; // username is used as email
-        // const firstName = values.firstName;
-        // const lastName = values.lastName;
-        // const artistName = values.artistName;
         const password = this.state.password;
-        // console.log(password, username, email, firstName, lastName)
 
         try {
             Auth.signUp({
@@ -116,10 +116,11 @@ class Register extends Component {
                     // toast.success(`Biquette#${user.username} !`)
                     // this.props.auth.setAuthStatus(true)
                     // this.props.auth.setUser(user.username)
-                    this.props.history.push("/welcome")
+                    this.props.history.push("/welcome"),
+                    toast.success('Success')
                 )
                 .catch((err) => {
-                    // toast.error(err.message)
+                    toast.error(err.message)
                     console.log(err)
                 })
                 .finally(() => {
@@ -133,33 +134,16 @@ class Register extends Component {
     }
 
     handlePasswordChange(e) {
-        console.log("PASSWORD STRENGTH", this.state.strength);
         this.setState({
             password: e.target.value,
             strength: zxcvbn(e.target.value).score
         });
     }
 
-    // stateChanged = e => {
-
-    //   // update the internal state using the updated state from the form field
-
-    //   console.log("Target Value", e.target.value)
-    //   console.log("PPPPPPPPP", this.state.password)
-
-    //   this.setState({
-    //     password: e.target.value,
-    //     strength: zxcvbn(e.target.value).score
-    //   }, () => this.props.onStateChanged(e));
-
-    // };
-
     handleConfirmPasswordChange(e) {
         this.setState(
             { confirmpassword: e.target.value },
-        );
-        // const value = e.target.value;
-        // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
+        )
     }
 
     toggleShow() {
@@ -187,39 +171,24 @@ class Register extends Component {
 
     render() {
         const { type, validator, onStateChanged, children, ...restProps } = this.props;
-        const { password, strength, dirty } = this.state;
-
-        // const { firstName, lastName, username } = this.state;
+        const { username, password, strength, dirty } = this.state;
 
         const passwordLength = password.length;
         const passwordStrong = strength >= this.minStrength;
         const passwordLong = passwordLength > this.thresholdLength;
 
-        // const errors = 7;
-        // const hasErrors = this.passwordmatch;
         // password strength meter is only visible when password is not empty
         const strengthClass = ['strength-meter mt-2', passwordLength > 0 ? 'visible' : 'invisible'].join(' ').trim();
         // confirm password field is only visible when password is not empty
         const confirmClass = ['confirmPassword', strength >= 2 ? 'visible' : 'invisible'].join(' ').trim();
         // const controlClass = ['form-control', this.passwordmatch ? dirty ? 'is-valid' : 'is-invalid' : ''].join(' ').trim();
         const controlClass = ['form-control', this.passwordmatch ? 'is-valid' : 'is-invalid'].join(' ').trim();
-        
-        /*let header = (
-            <span text='Connexion' onClick={()=>{this.connexion()}}>
-            <span text='Inscription' onClick={()=>{this.inscription()}}>
-            </span>
-            </span>
-        )*/
 
         return (
             <Formik
                 initialValues={
                     {
-                        // email: this.state.email,
                         username: this.state.username,
-                        // firstName: this.state.firstName,
-                        // lastName: this.state.lastName,
-                        // artistName: this.state.artistName,
                         password: this.state.password,
                         hidden: true,
                         confirmpassword: this.state.confirmpassword,
@@ -279,17 +248,15 @@ class Register extends Component {
                                                 <div className="control">
                                                     <label htmlFor="username">{t('inscription.courriel')}</label>
                                                     <Field 
-                                                        validate={ (val) => {
-                                                            this.validateUsername(val)
-                                                    } } 
+                                                        validate={this.validateUsername} 
                                                     name="username" 
                                                     id="username" 
                                                     aria-describedby="userNameHelp" 
                                                     placeholder={t('inscription.exemple')} 
-                                                    value={this.state.username} required={true} 
+                                                    value={this.state.username} 
+                                                    required={true} 
                                                     />
-                                                    { errors.username && touched.username &&
-                                                        <div style={ { color: "red" } }>{t('inscription.email-invalide')} </div> }
+                                                    { errors.username && touched.username && <div style={ { color: "red" } }>{t('inscription.email-invalide')} </div> }
                                                 </div>
                                             </div>
                                             <span>
@@ -302,18 +269,14 @@ class Register extends Component {
                                                                 /*validate={ (val) => {
                                                                 this.validatePassword(val)
                                                             } }*/ 
-                                                                validate={(val) => {
-                                                                this.validatePasswordStrong(val)
-                                                            } } 
+                                                                validate={this.validatePassword} 
                                                                 type={ this.state.hidden ? "password" : "text" } 
                                                                 id="password" 
                                                                 name="password" 
                                                                 placeholder={t('inscription.password')} 
                                                                 value={ this.state.password }  
                                                                 onChange={ this.handlePasswordChange }
-                                                                /*onChange={this.stateChanged}*/
                                                                 required={ true } 
-                                                                //required={...restProps}
                                                                 />
 
                                                             <button id="hide" onClick={ (e) => {
@@ -341,9 +304,7 @@ class Register extends Component {
 
                                                     <div className="input-wrapper">
                                                         <Field 
-                                                            validate={ (val) => {
-                                                            this.validateConfirmPassword(val);
-                                                        } } 
+                                                            validate={this.validateConfirmPassword} 
                                                         type={ this.state.confirmhidden ? "password" : "text" } 
                                                         id="confirmpassword" 
                                                         name="confirmpassword" 
@@ -358,8 +319,8 @@ class Register extends Component {
                                                         } }>
 
                                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M9.9 4.24002C10.5883 4.0789 11.2931 3.99836 12 4.00003C19 4.00003 23 12 23 12C22.393 13.1356 21.6691 14.2048 20.84 15.19M14.12 14.12C13.8454 14.4148 13.5141 14.6512 13.1462 14.8151C12.7782 14.9791 12.3809 15.0673 11.9781 15.0744C11.5753 15.0815 11.1752 15.0074 10.8016 14.8565C10.4281 14.7056 10.0887 14.4811 9.80385 14.1962C9.51897 13.9113 9.29439 13.572 9.14351 13.1984C8.99262 12.8249 8.91853 12.4247 8.92563 12.0219C8.93274 11.6191 9.02091 11.2219 9.18488 10.8539C9.34884 10.4859 9.58525 10.1547 9.88 9.88003M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.68192 3.96914 7.65663 6.06 6.06003L17.94 17.94Z" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                                <path d="M1 1L23 23" stroke="#8DA0B3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                                                <path d="M9.9 4.24002C10.5883 4.0789 11.2931 3.99836 12 4.00003C19 4.00003 23 12 23 12C22.393 13.1356 21.6691 14.2048 20.84 15.19M14.12 14.12C13.8454 14.4148 13.5141 14.6512 13.1462 14.8151C12.7782 14.9791 12.3809 15.0673 11.9781 15.0744C11.5753 15.0815 11.1752 15.0074 10.8016 14.8565C10.4281 14.7056 10.0887 14.4811 9.80385 14.1962C9.51897 13.9113 9.29439 13.572 9.14351 13.1984C8.99262 12.8249 8.91853 12.4247 8.92563 12.0219C8.93274 11.6191 9.02091 11.2219 9.18488 10.8539C9.34884 10.4859 9.58525 10.1547 9.88 9.88003M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.68192 3.96914 7.65663 6.06 6.06003L17.94 17.94Z" stroke="#8DA0B3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                                <path d="M1 1L23 23" stroke="#8DA0B3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                             </svg>
                                                         </button>
                                                     </div>
