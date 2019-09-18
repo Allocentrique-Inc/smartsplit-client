@@ -36,9 +36,7 @@ export class FormulaireMusicien extends Component {
 
     handleTypeChange = event => {
         const newType = event.target.value;
-        console.log(newType);
         const newRole = roles.default[newType];
-        console.log(newRole);
 
         const newRoles = this.props.rightHolder.roles
             .filter(role => (role !== roles.default[this.types.principal]) && (role !== roles.default[this.types.accompaniment]))
