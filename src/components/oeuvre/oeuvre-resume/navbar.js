@@ -4,6 +4,7 @@ import '../../../assets/scss/oeuvre-resume/navbar.scss';
 import placeholder from '../../../assets/images/placeholder.png';
 import { Button } from "semantic-ui-react";
 import { Translation } from "react-i18next";
+import arrowLeftIcon from '../../../assets/svg/icons/arrow-left.svg';
 
 export class Navbar extends React.Component {
     render() {
@@ -13,6 +14,12 @@ export class Navbar extends React.Component {
                     (t, i18n) =>
                         <div className="fixed-top">
                             <div className={ 'oeuvre-resume-navbar ' + (this.props.pochette ? 'pochette' : '') }>
+                                <div className={ 'back-button-section' }>
+                                    <a href={ '#' }>
+                                        <img src={ arrowLeftIcon } alt={ 'Retour' }/>
+                                    </a>
+                                </div>
+
                                 <div className={ 'ui container' }>
                                     <div className={ 'left' }>
                                         <img className={ 'song-image' } src={ placeholder } alt={ 'Love you baby' }/>

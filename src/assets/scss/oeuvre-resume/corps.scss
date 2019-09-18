@@ -67,4 +67,50 @@
     }
 }
 
+.listen-icons {
+    margin-bottom: $margin-step * 2;
+    display: flex;
+    align-items: center;
+}
 
+.listen-icon {
+    margin-right: $margin-step / 2;
+    width: 22px;
+    height: auto;
+}
+
+.download-section {
+    margin-bottom: $margin-step * 2;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    @extend .medium-400-style;
+    color: $color-secondary;
+
+    .download-icon {
+        margin-right: $margin-step;
+        width: 24px;
+        height: auto;
+    }
+
+    a {
+        @extend .medium-500-style;
+
+        color: $smartsplit-color-link;
+        transition: 0.2s color;
+
+        &:hover {
+            color: $smartsplit-color-link-hover;
+        }
+    }
+}
+
+.pochette .download-section a {
+    color: $pochette-color-link;
+
+    &:hover {
+        color: $pochette-color-link-hover;
+    }
+}

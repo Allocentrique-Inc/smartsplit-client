@@ -1,10 +1,12 @@
 import React from 'react';
 import '../../../assets/scss/oeuvre-resume/corps.scss';
-import TitreModifiable from "./titre-modifiable";
 import TableCreation from "./table-creation";
 import TableInterpretation from "./table-interpretation";
 import TableEnregistrement from "./table-enregistrement";
-
+import TableInformationsGenerales from "./table-informations-generales";
+import SectionEcouter from "./section-ecouter";
+import SectionTelechargements from "./section-telechargements";
+import SectionParoles from "./section-paroles";
 export default class Corps extends React.Component {
     render() {
         return (
@@ -17,11 +19,10 @@ export default class Corps extends React.Component {
                     </div>
 
                     <div className={ 'ui sixteen wide mobile six wide tablet six wide computer column' }>
-                        <TitreModifiable
-                            href={ '#' }
-                        >
-                            <h4 className={ 'corps-title-2' }>Colonne 2</h4>
-                        </TitreModifiable>
+                        <TableInformationsGenerales/>
+                        <SectionEcouter/>
+                        <SectionTelechargements/>
+                        <SectionParoles/>
                     </div>
                 </div>
             </div>
