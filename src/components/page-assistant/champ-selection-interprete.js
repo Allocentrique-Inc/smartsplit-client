@@ -5,6 +5,7 @@ import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
 import * as roles from '../../assets/listes/role-uuids.json';
+import { hasRoles, isUnique } from "./right-holder-helpers";
 
 export class ChampSelectionInterprete extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ export class ChampSelectionInterprete extends Component {
         return this.rightHolderOptions().filter(this.isSelectedItem);
     }
 
-    isSelectedItem = item => Object.keys(this.props.musicians).includes(item.value);
+    isSelectedItem = item => this.props.musicians.map(musician => musician.id).includes(item.value);
 
     unselectedItems() {
         return this.rightHolderOptions().filter(this.isUnselectedItem);
@@ -33,17 +34,29 @@ export class ChampSelectionInterprete extends Component {
 
     renderSelectedItems() {
         return this.selectedItems().map(item => {
+            const musician = this.props.musicians.find(musician => musician.id === item.value);
+
             return (
                 <FormulaireMusicien
                     key={ item.value }
                     pochette={ this.props.pochette }
                     item={ item }
+                    rightHolder={ musician }
                     onClick={ (event) => {
                         this.unselectItem(event, item);
                     } }
+                    onChange={ this.updateRightHolder }
                 />
             );
         });
+    }
+
+    updateRightHolder = newRightHolder => {
+        const newRightHolders = [...this.props.values.rightHolders]
+            .filter(rightHolder => rightHolder.id !== newRightHolder.id)
+            .concat([newRightHolder]);
+
+        this.props.onChange(newRightHolders);
     }
 
     unselectItem(event, item) {
@@ -73,22 +86,20 @@ export class ChampSelectionInterprete extends Component {
         this.selectItem(value);
     };
 
-    selectItem(uuid) {
-        const musician = Object.assign(
-            {},
-            { roles: [], instruments: [] },
-            this.props.values.rightHolders[uuid]
-        );
+    selectItem(id) {
+        const existingMusician = this.props.values.rightHolders.find(rightHolder => rightHolder.id === id) || {};
+        const existingRoles = existingMusician.roles || [];
+        const newRoles = existingRoles.concat([roles.musician]).filter(isUnique);
+        const emptyMusician = { id: id, roles: [], instruments: [] };
 
-        musician.roles = musician.roles.concat([roles.musician]);
+        const newMusician = Object.assign({}, emptyMusician, existingMusician, { roles: newRoles });
 
-        const newMusicians = Object.assign(
-            {},
-            this.props.musicians,
-            { [uuid]: musician }
-        );
+        const newRightHolders = this.props.values.rightHolders
+            .filter(musician => musician.id !== id)
+            .concat([newMusician])
+            .filter(hasRoles);
 
-        this.props.onChange(newMusicians);
+        this.props.onChange(newRightHolders);
 
         this.setState({
             dropdownValue: null

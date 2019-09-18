@@ -3,8 +3,15 @@ import { ItemSelectionne } from './item-selectionne';
 import { Checkbox } from "semantic-ui-react";
 import { instruments } from '../../assets/listes/fr/instruments';
 import ChampSelectionMultiple from "./champ-selection-multiple";
+import { isUnique } from "./right-holder-helpers";
+import * as roles from '../../assets/listes/role-uuids.json';
 
 export class FormulaireMusicien extends Component {
+
+    types = {
+        principal: 'principal',
+        accompaniment: 'accompaniment',
+    };
 
     constructor(props) {
         super(props);
@@ -27,7 +34,24 @@ export class FormulaireMusicien extends Component {
         };
     }
 
-    handleTypeChange = event => this.setState({ type: event.target.value });
+    handleTypeChange = event => {
+        const newType = event.target.value;
+        console.log(newType);
+        const newRole = roles.default[newType];
+        console.log(newRole);
+
+        const newRoles = this.props.rightHolder.roles
+            .filter(role => (role !== roles.default[this.types.principal]) && (role !== roles.default[this.types.accompaniment]))
+            .concat([newRole])
+            .filter(isUnique);
+
+        const newRightHolder = Object.assign({}, this.props.rightHolder, { roles: newRoles });
+
+        this.props.onChange(newRightHolder);
+
+        this.setState({ type: newType });
+    };
+
     handleRoleChange = (name, checked) => this.setState({ [name]: checked });
 
     instrumentSelect() {
@@ -62,8 +86,8 @@ export class FormulaireMusicien extends Component {
                         <div className="ui radio checkbox">
                             <input type="radio"
                                    name="type"
-                                   value='principal'
-                                   checked={ this.state.type === 'principal' }
+                                   value={ this.types.principal }
+                                   checked={ this.state.type === this.types.principal }
                                    onChange={ event => this.handleTypeChange(event) }
                             />
 
@@ -75,8 +99,8 @@ export class FormulaireMusicien extends Component {
                         <div className="ui radio checkbox">
                             <input type="radio"
                                    name="type"
-                                   value='accompagnateur'
-                                   checked={ this.state.type === 'accompagnateur' }
+                                   value={ this.types.accompaniment }
+                                   checked={ this.state.type === this.types.accompaniment }
                                    onChange={ event => this.handleTypeChange(event) }
                             />
 

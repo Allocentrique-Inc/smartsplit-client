@@ -15,39 +15,18 @@ import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 
 import * as roles from '../../assets/listes/role-uuids.json';
-import { FilterRightHoldersByRoles } from "../page-assistant/right-holder-roles";
+import { getRightHolderIdsByAnyRole, getRightHoldersByAnyRole, hasRoles } from "../page-assistant/right-holder-helpers";
 
 export default class PageInterpretation extends Component {
+    musicianRoles = [roles.musician, roles.principal, roles.accompaniment];
+
     musicians() {
-        return this.musicianUuids().reduce((musicians, uuid) => {
-            musicians[uuid] = this.props.values.rightHolders[uuid];
-            return musicians;
-        }, {})
+        return getRightHoldersByAnyRole(this.musicianRoles, this.props.values.rightHolders);
     }
 
-    musicianUuids() {
-        return FilterRightHoldersByRoles([roles.musician, roles.principal, roles.accompaniment], this.props.values.rightHolders);
-    }
-
-    handleChange(newMusicians) {
-        const rawRightHolders = Object.assign({}, this.props.values.rightHolders, newMusicians);
-
-        const newRightHolders = this.removeEmptyRoleRightHolders(rawRightHolders);
-
+    handleChange(newRightHolders) {
         this.props.setFieldValue('rightHolders', newRightHolders);
     };
-
-    removeEmptyRoleRightHolders(rightHolders) {
-        return Object.keys(rightHolders)
-            .filter(key => rightHolders[key] &&
-                rightHolders[key].roles &&
-                rightHolders[key].roles.length
-            )
-            .reduce((newRightHolders, uuid) => {
-                newRightHolders[uuid] = rightHolders[uuid];
-                return newRightHolders;
-            }, {});
-    }
 
     icon() {
         return this.props.pochette ? starIconOrange : starIconGreen;
@@ -75,7 +54,7 @@ export default class PageInterpretation extends Component {
                                     rightHolders={ this.props.rightHolders }
                                     musicians={ this.musicians() }
                                     values={ this.props.values }
-                                    onChange={ newValues => this.handleChange(newValues) }
+                                    onChange={ newRightHolders => this.handleChange(newRightHolders) }
                                 />
                             </Colonne>
                         </Page>
