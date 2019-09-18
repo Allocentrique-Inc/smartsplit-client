@@ -1,3 +1,9 @@
+export function GetRightHolderIdsByRole(role, rightHolders) {
+    return rightHolders
+        .filter(rightHolder => rightHolder.roles.includes(role))
+        .map(rightHolder => rightHolder.id);
+}
+
 export function FilterRightHoldersByRole(role, rightHolders) {
     return Object.keys(rightHolders).filter(rightHolderUuid => rightHolders[rightHolderUuid].roles.includes(role));
 }

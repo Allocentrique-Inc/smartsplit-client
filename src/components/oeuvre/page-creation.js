@@ -19,15 +19,15 @@ import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
-import { FilterRightHoldersByRole, AddRole } from "../page-assistant/right-holder-roles";
+import { FilterRightHoldersByRole, AddRole, getRightHolderIdsByRole } from "../page-assistant/right-holder-roles";
 
 export default class PageCreation extends Component {
     constructor(props) {
         super(props);
 
-        const songwriters = FilterRightHoldersByRole(roles.songwriter, props.values.rightHolders);
-        const composers = FilterRightHoldersByRole(roles.composer, props.values.rightHolders);
-        const publishers = FilterRightHoldersByRole(roles.publisher, props.values.rightHolders);
+        const songwriters = GetRightHolderIdsByRole(roles.songwriter, props.values.rightHolders);
+        const composers = GetRightHolderIdsByRole(roles.composer, props.values.rightHolders);
+        const publishers = GetRightHolderIdsByRole(roles.publisher, props.values.rightHolders);
 
         this.state = {
             songwriters: songwriters,
@@ -43,7 +43,28 @@ export default class PageCreation extends Component {
             this.state.publishers !== prevState.publishers
         ) {
             const rightHolders = Object.assign({}, this.props.values.rightHolders);
-            const rightHoldersUuids = Object.keys(rightHolders);
+            const rightHoldersUuids = rightHolders.map(rightHolder => rightHolder.id);
+
+            /*rightHolders.forEach(rightHolder => {
+                let rightHolderRoles = rightHolder.roles || [];
+                let id = rightHolder.id;
+
+                rightHolderRoles = this.state.songwriters.includes(id) ?
+                    rightHolderRoles.concat([roles.songwriter]) :
+                    rightHolderRoles.filter(role => role !== roles.songwriter);
+
+                if (!this.state.songwriters.includes(id)) {
+                    roles = roles.filter(role => role !== role.songwriter);
+                }
+
+                if (!this.state.composers.includes(id)) {
+                    roles = roles.filter(role => role !== role.composer);
+                }
+
+                if (!this.state.publishers.includes(id)) {
+                    roles = roles.filter(role => role !== role.publisher);
+                }
+            });*/
 
             rightHoldersUuids.forEach(uuid => {
                 let roles = rightHolders[uuid].roles || [];
@@ -88,12 +109,12 @@ export default class PageCreation extends Component {
 
 
     updateRoles(roleBearers, uuid, role, rightHolderRoles) {
-        let roles = [...rightHolderRoles];
+        let newRoles = [...rightHolderRoles];
 
         if (roleBearers.includes(uuid)) {
-            roles.push(role)
+            newRoles.push(role)
         } else {
-            roles = roles.filter(role => role !== role.songwriter);
+            newRoles = roles.filter(role => role !== role.songwriter);
         }
 
         return roles;
