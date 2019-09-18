@@ -19,7 +19,7 @@ import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
-import { FilterRightHoldersByRole, AddRole, getRightHolderIdsByRole } from "../page-assistant/right-holder-roles";
+import { GetRightHolderIdsByRole } from "../page-assistant/right-holder-roles";
 
 export default class PageCreation extends Component {
     constructor(props) {
@@ -42,83 +42,46 @@ export default class PageCreation extends Component {
             this.state.composers !== prevState.composers ||
             this.state.publishers !== prevState.publishers
         ) {
-            const rightHolders = Object.assign({}, this.props.values.rightHolders);
-            const rightHoldersUuids = rightHolders.map(rightHolder => rightHolder.id);
+            const creationRightHolderIds = this.state.songwriters
+                .concat(this.state.composers)
+                .concat(this.state.publishers);
 
-            /*rightHolders.forEach(rightHolder => {
-                let rightHolderRoles = rightHolder.roles || [];
-                let id = rightHolder.id;
+            const updatedRightHolders = creationRightHolderIds
+                .reduce(this.addRightHolderIfMissing, [...this.props.values.rightHolders])
+                .map(this.getUpdatedRightHolder)
+                .filter(this.hasRoles);
 
-                rightHolderRoles = this.state.songwriters.includes(id) ?
-                    rightHolderRoles.concat([roles.songwriter]) :
-                    rightHolderRoles.filter(role => role !== roles.songwriter);
-
-                if (!this.state.songwriters.includes(id)) {
-                    roles = roles.filter(role => role !== role.songwriter);
-                }
-
-                if (!this.state.composers.includes(id)) {
-                    roles = roles.filter(role => role !== role.composer);
-                }
-
-                if (!this.state.publishers.includes(id)) {
-                    roles = roles.filter(role => role !== role.publisher);
-                }
-            });*/
-
-            rightHoldersUuids.forEach(uuid => {
-                let roles = rightHolders[uuid].roles || [];
-
-                if (!this.state.songwriters.includes(uuid)) {
-                    roles = roles.filter(role => role !== role.songwriter);
-                }
-
-                if (!this.state.composers.includes(uuid)) {
-                    roles = roles.filter(role => role !== role.composer);
-                }
-
-                if (!this.state.publishers.includes(uuid)) {
-                    roles = roles.filter(role => role !== role.publisher);
-                }
-
-                const newRightHolder = Object.assign({}, rightHolders[uuid], { roles: roles });
-                rightHolders[uuid] = newRightHolder;
-            });
-
-            const songwritersToUpdate = this.state.songwriters.reduce(AddRole(roles.songwriter), {});
-            const songwritersAndComposersToUpdate = this.state.composers.reduce(AddRole(roles.composer), songwritersToUpdate);
-            const rightHoldersToUpdate = this.state.publishers.reduce(AddRole(roles.publisher), songwritersAndComposersToUpdate);
-
-            const newRightHolders = Object.assign({}, rightHolders, rightHoldersToUpdate);
-
-            this.props.setFieldValue('rightHolders', this.removeEmptyRoleRightHolders(newRightHolders));
+            this.props.setFieldValue('rightHolders', updatedRightHolders);
         }
     }
 
-    removeEmptyRoleRightHolders(rightHolders) {
-        return Object.keys(rightHolders)
-            .filter(key => rightHolders[key] &&
-                rightHolders[key].roles &&
-                rightHolders[key].roles.length
-            )
-            .reduce((newRightHolders, uuid) => {
-                newRightHolders[uuid] = rightHolders[uuid];
-                return newRightHolders;
-            }, {});
-    }
+    addRightHolderIfMissing = (rightHolders, id) => {
+        const newRightHolder = { id: id, roles: [] };
+        return rightHolders.map(rightHolder => rightHolder.id).includes(id) ?
+            rightHolders :
+            rightHolders.concat([newRightHolder]);
+    };
 
+    getUpdatedRightHolder = rightHolder => {
+        const rightHolderRoles = rightHolder.roles || [];
+        const id = rightHolder.id || null;
 
-    updateRoles(roleBearers, uuid, role, rightHolderRoles) {
-        let newRoles = [...rightHolderRoles];
+        const songwriterRoles = this.updateRole(roles.songwriter)(this.state.songwriters, id, rightHolderRoles);
+        const composerRoles = this.updateRole(roles.composer)(this.state.composers, id, songwriterRoles);
+        const newRoles = this.updateRole(roles.publisher)(this.state.publishers, id, composerRoles);
 
-        if (roleBearers.includes(uuid)) {
-            newRoles.push(role)
-        } else {
-            newRoles = roles.filter(role => role !== role.songwriter);
-        }
+        return Object.assign({}, rightHolder, { roles: newRoles });
+    };
 
-        return roles;
-    }
+    updateRole = (role) => (roleBearers, id, rightHolderRoles) => {
+        return roleBearers.includes(id) ?
+            rightHolderRoles.concat([role]).filter(this.isUnique) :
+            rightHolderRoles.filter(this.isNotRole(role));
+    };
+
+    isUnique = (value, index, self) => index === self.indexOf(value);
+    isNotRole = role => rightHolderRole => rightHolderRole !== role;
+    hasRoles = rightHolder => rightHolder.roles && rightHolder.roles.length;
 
     rightHolderOptions() {
         return RightHolderOptions(this.props.rightHolders);
