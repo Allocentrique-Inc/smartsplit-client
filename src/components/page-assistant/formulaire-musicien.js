@@ -13,6 +13,8 @@ export class FormulaireMusicien extends Component {
         accompaniment: 'accompaniment',
     };
 
+    singerInstrument = 'Chanteur';
+
     constructor(props) {
         super(props);
 
@@ -26,7 +28,18 @@ export class FormulaireMusicien extends Component {
                 text: instrument.nom
             }));
 
+        this.state = {
+            musician: this.rightHolderHasNonSingerInstruments(),
+        };
+    }
+
+    hasRole(role) {
+        this.props.rightHolder.roles.includes(roles[role]);
+    }
+
+    getRightHolderType() {
         let type;
+
         switch (true) {
             case this.props.rightHolder.roles.includes(roles.principal) :
                 type = this.types.principal;
@@ -38,12 +51,27 @@ export class FormulaireMusicien extends Component {
                 type = '';
         }
 
-        this.state = {
-            type: type,
-            chanteur: false,
-            musicien: false,
-            instruments: []
-        };
+        return type;
+    }
+
+    rightHolderInstruments() {
+        return this.props.rightHolder.instruments || [];
+    }
+
+    rightHolderIsSinger() {
+        return this.rightHolderInstruments().includes(this.singerInstrument);
+    }
+
+    rightHolderNonSingerInstruments() {
+        return this.nonSingerInstruments(this.rightHolderInstruments());
+    }
+
+    rightHolderHasNonSingerInstruments() {
+        return Boolean(this.rightHolderNonSingerInstruments().length);
+    }
+
+    nonSingerInstruments(instruments) {
+        return instruments.filter(instrument => instrument !== this.singerInstrument);
     }
 
     handleTypeChange = event => {
@@ -51,28 +79,74 @@ export class FormulaireMusicien extends Component {
         const newRole = roles.default[newType];
 
         const newRoles = this.props.rightHolder.roles
-            .filter(role => (role !== roles.default[this.types.principal]) && (role !== roles.default[this.types.accompaniment]))
+            .filter(this.isNotMusicianType)
             .concat([newRole])
             .filter(isUnique);
 
-        const newRightHolder = Object.assign({}, this.props.rightHolder, { roles: newRoles });
-
-        this.props.onChange(newRightHolder);
-
-        this.setState({ type: newType });
+        this.updateRightHolder({ roles: newRoles });
     };
 
-    handleRoleChange = (name, checked) => this.setState({ [name]: checked });
+    isNotMusicianType = role => (role !== roles.default[this.types.principal]) && (role !== roles.default[this.types.accompaniment]);
+
+    updateRightHolder(newAttributes) {
+        const newRightHolder = Object.assign({}, this.props.rightHolder, newAttributes);
+
+        this.props.onChange(newRightHolder);
+    }
+
+    handleSingerChange(checked) {
+        checked ?
+            this.addSingerInstrument() :
+            this.removeSingerInstrument();
+    }
+
+    addSingerInstrument() {
+        this.updateRightHolder({ instruments: this.rightHolderNonSingerInstruments().concat([this.singerInstrument]) });
+    }
+
+    removeSingerInstrument() {
+        this.updateRightHolder({ instruments: this.rightHolderNonSingerInstruments() });
+    }
+
+    handleInstrumentCheckboxChange(checked) {
+        if (!checked) {
+            this.removeNonSingerInstruments();
+        }
+
+        this.setState({ musician: checked });
+    }
+
+    onNonSingerInstrumentChange = instruments => {
+        this.updateNonSingerInstruments(instruments);
+    };
+
+    updateNonSingerInstruments(instruments) {
+        const rightHolderInstruments = this.props.rightHolder.instruments || [];
+        const newInstruments = rightHolderInstruments
+            .filter(instrument => instrument === this.singerInstrument)
+            .concat(instruments);
+
+        this.updateRightHolder({ instruments: newInstruments });
+
+    }
+
+    removeNonSingerInstruments() {
+        const instruments = this.props.rightHolder.instruments || [];
+        const newInstruments = instruments
+            .filter(instrument => instrument === this.singerInstrument);
+
+        this.updateRightHolder({ instruments: newInstruments });
+    }
 
     instrumentSelect() {
-        return this.state.musicien ?
+        return this.state.musician ?
             (
                 <ChampSelectionMultiple
                     pochette={ this.props.pochette }
                     items={ this.instrumentOptions }
                     placeholder="Ajouter un instrument..."
-                    value={ this.state.instruments }
-                    onChange={ ids => this.setState({ instruments: ids }) }
+                    value={ this.rightHolderNonSingerInstruments() }
+                    onChange={ this.onNonSingerInstrumentChange }
                 />
             ) :
             (<></>);
@@ -97,7 +171,7 @@ export class FormulaireMusicien extends Component {
                             <input type="radio"
                                    name="type"
                                    value={ this.types.principal }
-                                   checked={ this.state.type === this.types.principal }
+                                   checked={ this.hasRole(this.types.principal) }
                                    onChange={ event => this.handleTypeChange(event) }
                             />
 
@@ -110,7 +184,7 @@ export class FormulaireMusicien extends Component {
                             <input type="radio"
                                    name="type"
                                    value={ this.types.accompaniment }
-                                   checked={ this.state.type === this.types.accompaniment }
+                                   checked={ this.getRightHolderType() === this.types.accompaniment }
                                    onChange={ event => this.handleTypeChange(event) }
                             />
 
@@ -123,16 +197,16 @@ export class FormulaireMusicien extends Component {
                     <div>
                         <Checkbox
                             label={ 'Chanteur' }
-                            checked={ this.state.chanteur }
-                            onChange={ (event, { checked }) => this.handleRoleChange('chanteur', checked) }
+                            checked={ this.rightHolderIsSinger() }
+                            onChange={ (event, { checked }) => this.handleSingerChange(checked) }
                         />
                     </div>
 
                     <div>
                         <Checkbox
                             label={ 'Musicien' }
-                            checked={ this.state.musicien }
-                            onChange={ (event, { checked }) => this.handleRoleChange('musicien', checked) }
+                            checked={ this.state.musician }
+                            onChange={ (event, { checked }) => this.handleInstrumentCheckboxChange(checked) }
                         />
                     </div>
 
