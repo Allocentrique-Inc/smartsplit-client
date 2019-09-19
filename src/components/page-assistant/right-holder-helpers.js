@@ -20,6 +20,13 @@ export const addRightHolderIfMissing = (rightHolders, id) => {
         rightHolders.concat([newRightHolder]);
 };
 
+export const updateRightHolders = (rightHolders, updatedRightHolder) => {
+    return rightHolders
+        .filter(rightHolder => rightHolder.id !== updatedRightHolder.id)
+        .concat([updatedRightHolder])
+        .filter(hasRoles);
+}
+
 export const updateRole = (role, roleBearers, id, rightHolderRoles) => {
     return roleBearers.includes(id) ?
         rightHolderRoles.concat([role]).filter(isUnique) :

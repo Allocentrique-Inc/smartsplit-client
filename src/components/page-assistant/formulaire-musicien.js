@@ -26,8 +26,20 @@ export class FormulaireMusicien extends Component {
                 text: instrument.nom
             }));
 
+        let type;
+        switch (true) {
+            case this.props.rightHolder.roles.includes(roles.principal) :
+                type = this.types.principal;
+                break;
+            case this.props.rightHolder.roles.includes(roles.accompaniment):
+                type = this.types.accompaniment;
+                break;
+            default:
+                type = '';
+        }
+
         this.state = {
-            type: "",
+            type: type,
             chanteur: false,
             musicien: false,
             instruments: []

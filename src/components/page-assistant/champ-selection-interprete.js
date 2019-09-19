@@ -5,7 +5,7 @@ import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
 import * as roles from '../../assets/listes/role-uuids.json';
-import { hasRoles, isUnique } from "./right-holder-helpers";
+import { hasRoles, isUnique, updateRightHolders } from "./right-holder-helpers";
 
 export class ChampSelectionInterprete extends Component {
     constructor(props) {
@@ -61,21 +61,22 @@ export class ChampSelectionInterprete extends Component {
 
     unselectItem(event, item) {
         event.preventDefault();
-        const newMusicianUuid = item.value;
-        const newMusicians = Object.assign(this.props.musicians);
-        const newMusician = Object.assign({ roles: [], instruments: [] }, newMusicians[newMusicianUuid]);
+        const id = item.value;
+        const musician = this.props.values.rightHolders.find(rightHolder => rightHolder.id === id);
+        const existingRoles = musician.roles || [];
+        const newRoles = existingRoles.filter(this.isNotMusicianRole);
+        const newMusician = Object.assign({}, musician, { roles: newRoles });
 
-        newMusician.roles = newMusician.roles.filter(this.isNotAMusicianRole);
-        newMusicians[newMusicianUuid] = newMusician;
+        const newRightHolders = updateRightHolders(this.props.values.rightHolders, newMusician);
 
-        this.props.onChange(newMusicians);
+        this.props.onChange(newRightHolders);
 
         this.setState({
             dropdownValue: null
         });
     }
 
-    isNotAMusicianRole = role => {
+    isNotMusicianRole = role => {
         return (role !== roles.musician) &&
             (role !== roles.principal) &&
             (role !== roles.accompaniment);
@@ -94,10 +95,8 @@ export class ChampSelectionInterprete extends Component {
 
         const newMusician = Object.assign({}, emptyMusician, existingMusician, { roles: newRoles });
 
-        const newRightHolders = this.props.values.rightHolders
-            .filter(musician => musician.id !== id)
-            .concat([newMusician])
-            .filter(hasRoles);
+        const newRightHolders = updateRightHolders(this.props.values.rightHolders, newMusician);
+
 
         this.props.onChange(newRightHolders);
 
