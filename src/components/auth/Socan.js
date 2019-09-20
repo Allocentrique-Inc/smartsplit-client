@@ -83,6 +83,7 @@ class Socan extends Component {
     super(props);
  
     this.state = {
+      open: props.open,
       date: '',
       image:'',
       firstName: '',
@@ -93,7 +94,6 @@ class Socan extends Component {
       password: '',
       verifyPassword: '',
       userId: '',
-      open: false,
       terms: 'Y',
       address: '',
       city: '',
@@ -110,7 +110,11 @@ class Socan extends Component {
     this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
   }
 
-  close = () => this.setState({ open: false })
+  close = () => {
+    this.setState({ open: false })
+    if(this.props.onClose)
+      this.props.onClose()
+  }
 
   handleProvinceChange = (e, { value }) => this.setState({ currentProvinceValue: value })
   
@@ -167,8 +171,10 @@ class Socan extends Component {
     }
   }
 
-  componentDidMount(){
-
+  componentWillReceiveProps(nextProps){
+    if(this.props.open !== nextProps.open) {
+      this.setState({open: nextProps.open})
+    }
   }
 
   render() {
@@ -179,9 +185,10 @@ class Socan extends Component {
             {
                 (t, i18n) =>
   
-      <Modal open={open}
+      <Modal 
+        open={open}
       closeOnDimmerClick={closeOnDimmerClick}
-      onClose={this.close} size="small" trigger={<Button onClick={this.closeConfigShow(true, false)}>{t('socan.joindre')}</Button>} closeIcon>
+      onClose={this.close} size="small" closeIcon>
         <div className="input-container">
           <Modal.Header className="titre-socan">{t('socan.joindre')}</Modal.Header>
           <br></br>      

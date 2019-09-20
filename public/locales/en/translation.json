@@ -315,7 +315,8 @@
         "proposition": {
             "nouvelle": "New",
             "envoyer": "Send to collaborators",
-            "continuer": "Continue to split the rights"
+            "continuer": "Continue to split the rights",
+            "sommaire": "Split summary"
         },
         "bouton": {
             "ajout": "Add",
@@ -357,7 +358,6 @@
             }
         }
     },
-
     "tableaudebord": {
         "bonjour": "Here is the SmartSplit dashboard.",
         "navigation": {
@@ -367,7 +367,10 @@
         },
         "pieces": {
             "0": "My Additions",
-            "1": "Shared With Me"
+            "1": "Shared With Me",
+            "par": "by",
+            "partageAvec": "shared with",
+            "ajouter": "Add a musical work"
         },
         "vide": {
             "preambule": "Your works will appear here",

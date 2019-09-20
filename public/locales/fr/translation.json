@@ -337,7 +337,8 @@
         "proposition": {
             "nouvelle": "Créer une nouvelle version",
             "envoyer": "Envoyer aux collaborateurs",
-            "continuer": "Continuer le partage"
+            "continuer": "Continuer le partage",
+            "sommaire": "Accéder au sommaire"
         }
         },
     "traitement": {
@@ -374,7 +375,10 @@
         },
         "pieces": {
             "0": "Mes ajouts",
-            "1": "Partagées avec moi"
+            "1": "Partagées avec moi",
+            "par": "par",
+            "partageAvec": "partagé avec",
+            "ajouter": "Ajouter une oeuvre"
         },
         "vide": {
             "preambule": "Tes oeuvres apparaîtrons ici.",
