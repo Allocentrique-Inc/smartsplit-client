@@ -18,11 +18,15 @@ import SommairePartage from './partage-sommaire'
 import AssistantPartageEditeur from './assistant-partage-editeur'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
 
+import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
+
 import { Modal } from 'semantic-ui-react'
 
 import moment from 'moment'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
+
+const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
 export default class SommairePartages extends Component {
 
@@ -37,6 +41,7 @@ export default class SommairePartages extends Component {
         this.clic = this.clic.bind(this)
         this.afficherPanneauEditeur = this.afficherPanneauEditeur.bind(this)
         this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
+        this.openModal = this.openModal.bind(this)
     }
     
     componentWillReceiveProps(nextProps) {     
@@ -60,6 +65,9 @@ export default class SommairePartages extends Component {
     afficherPanneauPropositions() {
         this.setState({panneau: PANNEAU_PROPOSITIONS})
     }
+
+    closeModal = () => this.setState({ open: false })
+    openModal = () => this.setState({ open: true })
 
     initialisation() {
         axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
@@ -96,7 +104,7 @@ export default class SommairePartages extends Component {
         this.setState({ activeIndex: newIndex })
     }
 
-    render() {        
+    render() {
         if(this.state.propositions && this.state.media) {
             let propositions = []
             let contenu = (
@@ -176,6 +184,57 @@ export default class SommairePartages extends Component {
                 }
             }
 
+            // Extraction de la liste des ayants droit de la proposition la plus récente
+            // Construction de la structure des données de l'assistant
+            let proposition = _p0
+
+            let rightHolders = {}
+            let rights = {}
+
+            function traitementDroit(objDroit, type) {
+                console.log('traitement droit', objDroit, type)
+                if (objDroit) {
+                    objDroit.forEach(droit=>{
+                        if(!rightHolders[droit.rightHolder.rightHolderId]) {
+                            // Ajout du titulaire dans la table des ayant droits
+                            rightHolders[droit.rightHolder.rightHolderId] = droit.rightHolder
+                        }
+                        // Ajout du droit à l'ayant droit
+                        rights[type][droit.rightHolder.rightHolderId] = droit
+                    })
+                }                
+            }
+
+            // Extraire les différents ayant-droits et ordonnancement dans un tableau
+            TYPE_SPLIT.forEach(type=>{
+                if(!rights[type]) {
+                    rights[type] = {}
+                }
+                if(proposition.rightsSplits[type]) {
+                    let rightsSplit = proposition.rightsSplits[type]
+                    // Séparation de la structure des droits
+                    switch(type) {
+                        case 'workCopyrightSplit':
+                            // lyrics
+                            traitementDroit(rightsSplit.lyrics, type)
+                            // music
+                            traitementDroit(rightsSplit.music, type)
+                            break
+                        case 'performanceNeighboringRightSplit':
+                            //principal
+                            traitementDroit(rightsSplit.principal, type)
+                            //accompaniment
+                            traitementDroit(rightsSplit.accompaniment, type)
+                            break
+                        case 'masterNeighboringRightSplit':
+                            traitementDroit(rightsSplit.split, type)
+                            break
+                        default:
+                    }
+                                        
+                }
+            })
+
             let that = this
 
             return (          
@@ -214,17 +273,33 @@ export default class SommairePartages extends Component {
                                             }
                                             {
                                                 !envoiDisabled && (
-                                                    <div className={`ui medium button`} onClick={
-                                                        ()=>{
-                                                            window.location.href=`/proposition/approuver/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                        }
-                                                        }>
-                                                        {t('flot.proposition.envoyer')}
-                                                    </div>
+                                    
+                                                    <div>
+                                                         
+                                                        <div onClick={()=>{
+                                                            this.openModal()
+                                                        }} className={`ui medium button`} style={{width:"200px", right:"150px"}}>
+                                                            {t('flot.proposition.envoyer')}
+                                                        </div>
+                                                     
+                                                        <Modal 
+                                                        open={this.state.open}
+                                                        onClose={this.closeModal} 
+                                                        size="small"
+                                                    >
+                                                        <PageAssistantSplitCourrielsCollaborateurs 
+                                                            ayantDroits={rightHolders}
+                                                            id={this.state.propositions[this.state.propositions.length - 1].uuid}/>
+                                   
+                                                  </Modal>
+                                                 </div>
+                                                     
                                                 )
                                             }                                                                                        
+                                                                                                                              
                                         </div>
-                                    </div>
+                                    </div> 
+
                                     {
                                         partageEditeur && (
                                             <div className="ui row">

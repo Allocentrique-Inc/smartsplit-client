@@ -12,6 +12,10 @@ import moment from 'moment'
 // Authentification avec AWS
 import { Auth } from 'aws-amplify'
 
+const menuStyle = {
+    position: 'absolute',  
+};
+
 export default class MenuProfil extends Component {
 
     constructor(props) {
@@ -67,14 +71,15 @@ export default class MenuProfil extends Component {
             <Translation>
                 {
                     t =>
+                    <span style={menuStyle}>
                         <Dropdown text='' icon="angle down big black">
-                            <Dropdown.Menu icon="down big">
-                            <Dropdown.Item text='Accueil' onClick={()=>{window.location.href = '/accueil'}}/>
-                            <Dropdown.Item text='Mon profil SOCAN' onClick={()=>{window.location.href = '/socan'}}/>
+                            <Dropdown.Menu icon="down small">
+                            <Dropdown.Item text={t('menuprofil.accueil')} onClick={()=>{window.location.href = '/accueil'}}/>
+                            <Dropdown.Item text={t('menuprofil.profil')} onClick={()=>{window.location.href = '/socan'}}/>
                             {
                                 i18n.language && i18n.language.substring(0,2) == 'en' &&
                                 (
-                                    <Dropdown.Item text='Français' onClick={()=>{
+                                    <Dropdown.Item text={t('menuprofil.francais')} onClick={()=>{
                                         i18n.init({lng: 'fr'})
                                     }}/>
                                 )
@@ -82,15 +87,16 @@ export default class MenuProfil extends Component {
                             {
                                 i18n.language && i18n.language.substring(0,2) == 'fr' &&
                                 (
-                                    <Dropdown.Item text='English' onClick={()=>{
+                                    <Dropdown.Item text={t('menuprofil.anglais')} onClick={()=>{
                                         i18n.init({lng: 'en'})
                                     }}/>
                                 )
                             }
                             <Dropdown.Divider />
-                            <Dropdown.Item text='Déconnexion' onClick={()=>{this.deconnexion()}}/>
+                            <Dropdown.Item text={t('menuprofil.deconnexion')} onClick={()=>{this.deconnexion()}}/>
                             </Dropdown.Menu>
                         </Dropdown>
+                        </span>
                 }
             </Translation>                        
         )
@@ -99,11 +105,11 @@ export default class MenuProfil extends Component {
             <Translation>
                 {
                     t=>
-                        <div style={{display: "inline-block"}}>
-                            <div style={{display: "inline-block"}}>
+                        <div style={{display: "inline"}}>
+                            <div style={{display: "flex", margin: "10px"}}>
                                 {nomComplet}
                             </div>                            
-                            <div className='avatar--image' style={{display: "inline-block"}} >
+                            <div className='avatar--image' style={{display: "inline", marginRight: "115px"}} >
                                 {userInitials}
                                 {!userInitials && (<img src={avatarImage} alt='user--image' className='user--img'/>)}
                                 {menu}

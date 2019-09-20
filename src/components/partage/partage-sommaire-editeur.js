@@ -322,9 +322,14 @@ export default class PartageSommaireEditeur extends Component {
                                                         `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`
                                                 }
                                             </div>
-                                            <div className="small-400-color">
-                                                Éditeur
-                                            </div>
+                                            <Translation>
+                                                { 
+                                                    t =>
+                                                <div className="small-400-color">
+                                                {t('flot.editeur.editeur')}
+                                                </div>
+                                                }
+                                            </Translation>
                                             <div style={{position: "relative", marginTop: "5px"}}>
                                                 {
                                                     !this.estVoteFinal() &&
@@ -380,9 +385,14 @@ export default class PartageSommaireEditeur extends Component {
                                                         `${this.state.donateur.firstName} ${this.state.donateur.lastName}`
                                                 }
                                             </div>
+                                            <Translation>
+                                                { 
+                                                    t=>
                                             <div className="small-400-color">
-                                                Donateur
-                                            </div>                                       
+                                                {t('flot.editeur.donateur')}
+                                            </div>
+                                            }  
+                                            </Translation>                                     
                                         </div>
                                         <div className="ui three wide column">
                                             <p className="big">

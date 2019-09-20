@@ -308,7 +308,9 @@
         },
         
         "editeur": {
-            "ajout": "Add an editor"
+            "ajout": "Add an editor",
+            "editeur": "Editor",
+            "donateur": "Donor"
         },
         "proposition": {
             "nouvelle": "New",
@@ -463,6 +465,7 @@
     "socan": {
         "joindre": "Join SOCAN",
         "prenom": "Legal First Name",
+        "2eprenom": "Legal Middle Name",
         "nom": "Legal Name",
         "date": "Birthdate",
         "adresse": "Address",
@@ -493,5 +496,12 @@
             "SK": "Saskatchewan",
             "YT": "Yukon"
         }
+    },
+    "menuprofil": {
+        "accueil": "Home",
+        "profil": "My SOCAN Profile",
+        "francais": "Français",
+        "anglais": "English",
+        "deconnexion": "Deconnect"
     }
 }

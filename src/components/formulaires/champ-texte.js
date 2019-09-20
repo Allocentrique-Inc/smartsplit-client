@@ -44,18 +44,14 @@ export class ChampCourrielAssistant extends Component {
     render() {    
 
         return(
-            <div>                
-                <Wizard.Field
-                    name={this.state.modele}
-                    component={FormField}
-                    componentProps={{
-                        label: this.state.etiquette,
-                        placeholder: this.state.indication,
-                        required: this.state.requis,
-                        autoFocus: this.state.autoFocus,
-                        type: "email"
-                    }}
-                    validate={this.validerCourriel}                    
+            <div>      {this.state.etiquette}           
+                <input 
+                    value= {this.state.modele}
+                         
+                        placeholder = {this.state.indication}
+                        required = {this.state.requis}
+                        autoFocus = {this.state.autoFocus}
+                        type = "email"                  
                 />                
                 {this.props.info && (<i className="right info circle icon blue"></i>)}
             </div>

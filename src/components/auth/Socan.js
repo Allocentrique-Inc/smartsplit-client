@@ -189,6 +189,8 @@ class Socan extends Component {
           <br></br>
           <input type="text" className="lastName" placeholder={t('socan.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
           <br></br>
+          <input type="text" className="middleName" placeholder={t('socan.2eprenom')} value={this.state.middleName} onChange={e => this.setState({middleName: e.target.value})}/>
+          <br></br>
           <DateInput 
             style={{color: "#c6c8ca"}}
             className="date"
@@ -198,11 +200,11 @@ class Socan extends Component {
             onChange={this.handleChange}
             icon="calendar outline"
           />
-          {/*<input type="text" className="address" placeholder={t('socan.adresse')} value={this.state.address} onChange={e => this.setState({address: e.target.value})}/>
+          <input type="text" className="address" placeholder={t('socan.adresse')} value={this.state.address} onChange={e => this.setState({address: e.target.value})}/>
           <br></br>
           <input type="text" className="city" placeholder={t('socan.ville')} value={this.state.city} onChange={e => this.setState({city: e.target.value})}/>
           <br></br>
-          <Dropdown placeholder={t('socan.province')} search selection options={provinceOptions} onChange={this.handleProvinceChange}/>*/}
+          {/*<Dropdown placeholder={t('socan.province')} search selection options={provinceOptions} onChange={this.handleProvinceChange}/>*/}
         <div class="ui form">
           <div class="province">
             <select multiple="" class="ui dropdown" 

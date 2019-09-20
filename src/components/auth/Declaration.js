@@ -137,7 +137,7 @@ class Declaration extends Component {
         </div>
         <Modal.Actions>
                 <Button onClick={this.close} negative>{t('collaborateur.attribut.bouton.annuler')}</Button>
-                <Button onClick={this.click} positive icon='checkmark' labelPosition='right' content={t('collaborateur.attribut.declaration.accepter')} />
+                <Button onClick={this.click} positive icon='checkmark' labelPosition='right' content={t('collaborateur.declaration.accepter')} />
           </Modal.Actions>
       </Modal>
     }

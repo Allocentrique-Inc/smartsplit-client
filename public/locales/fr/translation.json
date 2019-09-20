@@ -28,12 +28,12 @@
             "bouton": {
                 "annuler": "Annuler",
                 "sauvegarder": "Sauvegarder"
-            },
+            }
+        },
             "declaration": {
                 "identite": "Déclaration d'identité",
                 "accepter": "Accepter"
             }
-        }
     },
     "oeuvre": {
         "attribut": {
@@ -330,7 +330,9 @@
             "intro3": "Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)"
         },
         "editeur": {
-            "ajout": "Ajouter un éditeur"
+            "ajout": "Ajouter un éditeur",
+            "editeur": "Éditeur",
+            "donateur": "Donateur"
         },
         "proposition": {
             "nouvelle": "Créer une nouvelle version",
@@ -469,6 +471,7 @@
         "joindre": "Joindre SOCAN",
         "prenom": "Prénom légal",
         "nom": "Nom légal",
+        "2eprenom": "Deuxième prénom légal",
         "date": "Date de naissance",
         "adresse": "Adresse",
         "ville": "Ville",
@@ -498,5 +501,12 @@
             "SK": "Saskatchewan",
             "YT": "Yukon"
         }
+    },
+    "menuprofil": {
+        "accueil": "Accueil",
+        "profil": "Mon profil SOCAN",
+        "francais": "Français",
+        "anglais": "English",
+        "deconnexion": "Déconnexion"
     }
 }
