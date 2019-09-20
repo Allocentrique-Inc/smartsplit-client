@@ -1,5 +1,4 @@
 import React from 'react';
-import TitreChamp from "./titre-champ";
 import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import '../../assets/scss/page-assistant/champ-duree.scss';
 
@@ -26,9 +25,9 @@ export default class ChampDuree extends React.Component {
         return Number(this.props.msDuration) || 0;
     }
 
-    label() {
+    labelTime() {
         const paddedSeconds = ('00' + this.state.seconds).slice(-2);
-        return this.props.label + ' (' + this.state.minutes + ':' + paddedSeconds + ')'
+        return this.state.minutes + ':' + paddedSeconds;
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -64,8 +63,8 @@ export default class ChampDuree extends React.Component {
     }
 
     getPositiveIntegerUnder60(seconds) {
-       const positiveInteger = this.getPositiveInteger(seconds);
-       return positiveInteger > 59 ? 59 : positiveInteger;
+        const positiveInteger = this.getPositiveInteger(seconds);
+        return positiveInteger > 59 ? 59 : positiveInteger;
     }
 
     hasChanged(prevState, key) {
@@ -80,10 +79,11 @@ export default class ChampDuree extends React.Component {
         return (
             <div className="champ">
                 <label>
-                    <TitreChamp
-                        label={ this.label() }
-                        description={ this.props.description }
-                    />
+                    <div className="input-title">
+                        <div className="input-label">
+                            { this.props.label } <span className={ 'medium-400-style' }>({ this.labelTime() })</span>
+                        </div>
+                    </div>
 
                     <div className="ui grid">
                         <div className="ui row">
