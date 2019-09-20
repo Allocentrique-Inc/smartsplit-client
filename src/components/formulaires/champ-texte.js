@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form } from "semantic-ui-react"
+import { Form, Input } from "semantic-ui-react"
 import { FormField } from 'semantic-ui-react-ext'
 import { Wizard } from 'semantic-ui-react-formik'
 
@@ -19,7 +19,7 @@ export class ChampCourrielAssistant extends Component {
             autoFocus: props.autoFocus,
             requis: props.requis
         }
-        this.valeur = ""
+        this.onChange = this.onChange.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -28,6 +28,9 @@ export class ChampCourrielAssistant extends Component {
         }
         if (this.props.indication !== nextProps.indication) {
             this.setState({indication: nextProps.indication})
+        }  
+        if (this.props.modele !== nextProps.modele) {
+            this.setState({modele: nextProps.modele})
         }        
     }
 
@@ -41,17 +44,24 @@ export class ChampCourrielAssistant extends Component {
         return erreur;
     }
 
+    onChange (e) {
+        this.setState({modele: e.target.value})
+    }
+
     render() {    
 
+        console.log('Champ texte', this.state)
+
         return(
-            <div>      {this.state.etiquette}           
-                <input 
-                    value= {this.state.modele}
-                         
-                        placeholder = {this.state.indication}
-                        required = {this.state.requis}
-                        autoFocus = {this.state.autoFocus}
-                        type = "email"                  
+            <div>      
+                {this.state.etiquette}           
+                <Input 
+                    value = {this.state.modele}
+                    placeholder = {this.state.indication}
+                    required = {this.state.requis}
+                    autoFocus = {this.state.autoFocus}
+                    type = "email" 
+                    onChange = {this.onChange}                 
                 />                
                 {this.props.info && (<i className="right info circle icon blue"></i>)}
             </div>

@@ -5,16 +5,17 @@
 import React, { Component, Fragment } from "react"
 import { Translation } from 'react-i18next'
 
-import { Button } from 'semantic-ui-react'
+import { Input, Label } from "semantic-ui-react"
 
-import { ChampCourrielAssistant } from "../formulaires/champ-texte"
-import Axios from "axios";
+import axios from "axios"
+import {toast} from 'react-toastify'
+
  
 const divEmail = {
     position: 'relative',
     display: 'block',
     margin: '0 auto',
-    width: '464px',
+    width: '100%',
   };
 
 class PageAssistantSplitCourrielsCollaborateurs extends Component {
@@ -23,75 +24,114 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
         super(props)
         this.state = {
             open: false,
-            ayantDroits: props.ayantDroits
+            ayantDroits: props.ayantDroits,
+            propositionId: props.propositionId
         }
+        this._courrielsModifies = []
+        this.onChange = this.onChange.bind(this)
     }
 
     componentWillMount(){
-      let _aDs = this.props.ayantDroits
+      let _aDs = this.state.ayantDroits      
       let cpt = 0, taille = Object.keys(this.props.ayantDroits).length, aTous = false
       Object.keys(this.props.ayantDroits).forEach(rhId=>{
-        Axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${rhId}` )
+        axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${rhId}` )
         .then( (res)=>{
-          let _aD = res.data.Item
-          console.log(_aD)
-          _aDs[rhId] = _aD
-          cpt = cpt + 1
-          if(cpt >= taille) {
-            this.setState({ayantDroits: _aDs}, ()=>{console.log(this.state.ayantDroits)})
-          }
+            let _aD = res.data.Item
+            let _nom = _aD.artistName !== "" ? _aD.artistName : `${_aD.firstName} ${_aD.lastName}`
+            _aDs[rhId] = {name: _nom, rightHolderId: _aD.rightHolderId, email: _aD.email}
+            cpt = cpt + 1
+            if(cpt >= taille) {
+                this.setState({ayantDroits: _aDs})
+            }
         }
 
         )
       })
     }
 
+    click(){
+        this.handleSubmit()
+        this.close()
+    }
 
-  closeModal = () => this.setState({ open: false })
-  openModal = () => this.setState({ open: true })
+    close() {
+        this.props.close()
+    }
 
-  click(){
-    this.handleSubmit();
-    this.close();
-  }
-    
+    handleSubmit() {
+
+        // Construire la structure des ayant-droits avec les courriels modifiés, au besoin
+        let _aDs = {}
+
+        Object.keys(this.state.ayantDroits).forEach(elem=>{
+            let _aD = this.state.ayantDroits[elem]
+            let __aD = {}
+            if(this._courrielsModifies[elem]) {
+                __aD.email = this._courrielsModifies[elem]
+            }
+            __aD.name = _aD.name
+            __aD.rightHolderId = _aD.rightHolderId
+            _aDs[_aD.rightHolderId] = __aD
+        })
+        
+        let body = {
+            "proposalId": this.state.propositionId,
+            "rightHolders": _aDs
+        }
+
+        axios.post('http://api.smartsplit.org:8080/v1/proposal/invite', body)
+        .then((resp)=>{
+            this.props.close(()=>{window.location.reload()})                
+        })
+        .catch((error) => {
+            toast.error(error)
+        })
+        
+    }
+
+    onChange(e) {
+        this._courrielsModifies[e.target.id] = e.target.value
+    }
 
     render() {
-
 
       // Construction de la liste à afficher
       let ayantDroits = []
       Object.keys(this.state.ayantDroits).forEach((elem)=>{
 
-        console.log(this.state.ayantDroits[elem])
-
-          ayantDroits.push( 
-              (
-                  <ChampCourrielAssistant 
-                      style={divEmail}
-                      key={`champ--courriel__split-${elem}`} 
-                      modele={this.state.ayantDroits[elem].email} 
-                      requis={true} etiquette={this.state.ayantDroits[elem].name} 
-                      indication="courriel@domain.extension"
-                  />
-                  
-              )
-          )
+        let _aD = this.state.ayantDroits[elem]
+        
+        ayantDroits.push( 
+            (
+                <div key={`champ--courriel__${elem}`}>
+                    <Label htmlFor={`champ--courriel__${elem}`}>{_aD.name}</Label>
+                    <Input                             
+                        name={`champ--courriel__${elem}`}
+                        id={_aD.rightHolderId}
+                        style={divEmail}
+                        defaultValue = {_aD.email}
+                        placeholder = "courriel@domaine.extension"
+                        required = {this.state.requis}
+                        autoFocus = {this.state.autoFocus}
+                        type = "email" 
+                        onChange = {this.onChange}
+                    />
+                </div>                                  
+            )
+        )
       })
 
         return (
           <Translation>
              { 
-            (t) =>
-              <React.Fragment>
-                <Button onClick={this.openModal}>
-                  <div className={`ui medium button`} style={{width:"200px", right:"150px"}}>
-                    {t('flot.proposition.envoyer')}
-                  </div>
-                </Button>
-                {ayantDroits}
-
-              </React.Fragment>
+            (t) =>    
+                <div>
+                    <div onClick={()=>{this.click()}} className={`ui medium button`} style={{width:"200px", right:"150px"}}>
+                        {t('flot.proposition.envoyer')}
+                    </div>
+                    {ayantDroits}
+                </div>
             }
             </Translation>
              

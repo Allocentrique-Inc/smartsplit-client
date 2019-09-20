@@ -42,6 +42,7 @@ export default class SommairePartages extends Component {
         this.afficherPanneauEditeur = this.afficherPanneauEditeur.bind(this)
         this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
         this.openModal = this.openModal.bind(this)
+        this.closeModal = this.closeModal.bind(this)
     }
     
     componentWillReceiveProps(nextProps) {     
@@ -192,7 +193,6 @@ export default class SommairePartages extends Component {
             let rights = {}
 
             function traitementDroit(objDroit, type) {
-                console.log('traitement droit', objDroit, type)
                 if (objDroit) {
                     objDroit.forEach(droit=>{
                         if(!rightHolders[droit.rightHolder.rightHolderId]) {
@@ -283,15 +283,17 @@ export default class SommairePartages extends Component {
                                                         </div>
                                                      
                                                         <Modal 
-                                                        open={this.state.open}
-                                                        onClose={this.closeModal} 
-                                                        size="small"
-                                                    >
-                                                        <PageAssistantSplitCourrielsCollaborateurs 
-                                                            ayantDroits={rightHolders}
-                                                            id={this.state.propositions[this.state.propositions.length - 1].uuid}/>
-                                   
-                                                  </Modal>
+                                                            open={this.state.open}
+                                                            onClose={this.closeModal} 
+                                                            size="small"
+                                                        >
+                                                            <PageAssistantSplitCourrielsCollaborateurs 
+                                                                ayantDroits={rightHolders}
+                                                                propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
+                                                                close={(cb)=>{this.closeModal(); if (cb) cb()}}
+                                                                />
+                                    
+                                                        </Modal>
                                                  </div>
                                                      
                                                 )
