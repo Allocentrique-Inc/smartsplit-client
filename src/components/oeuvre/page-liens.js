@@ -82,7 +82,7 @@ export default class PageLiens extends React.Component {
     }
 
     createLabel() {
-        return this.props.createLabel || 'Ajouter comme réseau:';
+        return this.props.createLabel || 'Ajouter comme plateforme :';
     }
 
     plusCircleLabel(labelString) {
@@ -96,7 +96,7 @@ export default class PageLiens extends React.Component {
     triggerLabel() {
         return this.state.searchQuery ?
             '' :
-            this.plusCircleLabel('Ajouter un réseau');
+            this.plusCircleLabel('Ajouter une plateforme...');
     }
 
     renderStreamingFields() {
@@ -196,7 +196,7 @@ export default class PageLiens extends React.Component {
                                     selectOnBlur={ false }
                                     selectOnNavigation={ false }
                                     allowAdditions
-                                    additionLabel={ this.plusCircleLabel('Ajouter comme réseau...') }
+                                    additionLabel={ this.plusCircleLabel('Ajouter comme plateforme...') }
                                     value={ this.state.dropdownValue }
                                     options={ this.unselectedAppOptions() }
                                     onChange={ this.handleChange }
