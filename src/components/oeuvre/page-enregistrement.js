@@ -10,6 +10,14 @@ import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import ChampTexte from "../page-assistant/champ-texte";
 import FormulaireDateSortie from "../page-assistant/formulaire-date-sortie";
+import {
+    addRightHolderIfMissing,
+    getRightHolderIdsByRole,
+    hasRoles,
+    updateRole
+} from "../page-assistant/right-holder-helpers";
+import * as roles from '../../assets/listes/role-uuids.json';
+
 
 export default class PageEnregistrement extends React.Component {
 
@@ -17,13 +25,49 @@ export default class PageEnregistrement extends React.Component {
         super(props);
 
         this.state = {
-            directors: [],
-            soundRecordists: [],
-            mixEngineers: [],
-            masterEngineers: [],
-            producers: [],
+            directors: getRightHolderIdsByRole(roles.director, props.values.rightHolders),
+            soundRecordists: getRightHolderIdsByRole(roles.soundRecordist, props.values.rightHolders),
+            mixEngineers: getRightHolderIdsByRole(roles.mixEngineer, props.values.rightHolders),
+            masterEngineers: getRightHolderIdsByRole(roles.masterEngineer, props.values.rightHolders),
+            producers: getRightHolderIdsByRole(roles.producer, props.values.rightHolders),
         };
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            this.state.directors !== prevState.directors ||
+            this.state.soundRecordists !== prevState.soundRecordists ||
+            this.state.mixEngineers !== prevState.mixEngineers ||
+            this.state.masterEngineers !== prevState.masterEngineers ||
+            this.state.producers !== prevState.producers
+        ) {
+            const recordingRightHolderIds = this.state.directors
+                .concat(this.state.soundRecordists)
+                .concat(this.state.mixEngineers)
+                .concat(this.state.masterEngineers)
+                .concat(this.state.producers);
+
+            const updatedRightHolders = recordingRightHolderIds
+                .reduce(addRightHolderIfMissing, [...this.props.values.rightHolders])
+                .map(this.getUpdatedRightHolder)
+                .filter(hasRoles);
+
+            this.props.setFieldValue('rightHolders', updatedRightHolders);
+        }
+    }
+
+    getUpdatedRightHolder = rightHolder => {
+        const rightHolderRoles = rightHolder.roles || [];
+        const id = rightHolder.id || null;
+
+        const directorRoles = updateRole(roles.director, this.state.directors, id, rightHolderRoles);
+        const soundRecordistRoles = updateRole(roles.soundRecordist, this.state.soundRecordists, id, directorRoles);
+        const mixEngineerRoles = updateRole(roles.mixEngineer, this.state.mixEngineers, id, soundRecordistRoles);
+        const masterEngineerRoles = updateRole(roles.masterEngineer, this.state.masterEngineers, id, mixEngineerRoles);
+        const newRoles = updateRole(roles.producer, this.state.producers, id, masterEngineerRoles);
+
+        return Object.assign({}, rightHolder, { roles: newRoles });
+    };
 
     rightHolderOptions() {
         return RightHolderOptions(this.props.rightHolders);
@@ -128,6 +172,7 @@ export default class PageEnregistrement extends React.Component {
                                     label="Code ISRC"
                                     description="L'International Standard Recording Code est un code unique d'identification des enregistrements sonores."
                                     value={ this.props.values.isrc }
+                                    placeholder={ 'XX-XXX-00-0000' }
                                     onChange={ value => this.props.setFieldValue('isrc', value) }
                                 />
 

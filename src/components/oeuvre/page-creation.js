@@ -30,14 +30,10 @@ export default class PageCreation extends Component {
     constructor(props) {
         super(props);
 
-        const songwriters = getRightHolderIdsByRole(roles.songwriter, props.values.rightHolders);
-        const composers = getRightHolderIdsByRole(roles.composer, props.values.rightHolders);
-        const publishers = getRightHolderIdsByRole(roles.publisher, props.values.rightHolders);
-
         this.state = {
-            songwriters: songwriters,
-            composers: composers,
-            publishers: publishers
+            songwriters: getRightHolderIdsByRole(roles.songwriter, props.values.rightHolders),
+            composers: getRightHolderIdsByRole(roles.composer, props.values.rightHolders),
+            publishers: getRightHolderIdsByRole(roles.publisher, props.values.rightHolders)
         }
     }
 

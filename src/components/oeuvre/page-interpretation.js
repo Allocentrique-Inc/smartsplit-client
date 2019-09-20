@@ -15,7 +15,7 @@ import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 
 import * as roles from '../../assets/listes/role-uuids.json';
-import { getRightHolderIdsByAnyRole, getRightHoldersByAnyRole, hasRoles } from "../page-assistant/right-holder-helpers";
+import { getRightHoldersByAnyRole } from "../page-assistant/right-holder-helpers";
 
 export default class PageInterpretation extends Component {
     musicianRoles = [roles.musician, roles.principal, roles.accompaniment];
@@ -54,6 +54,7 @@ export default class PageInterpretation extends Component {
                                     rightHolders={ this.props.rightHolders }
                                     musicians={ this.musicians() }
                                     values={ this.props.values }
+                                    placeholder={ 'Ajouter un interprète...' }
                                     onChange={ newRightHolders => this.handleChange(newRightHolders) }
                                 />
                             </Colonne>
