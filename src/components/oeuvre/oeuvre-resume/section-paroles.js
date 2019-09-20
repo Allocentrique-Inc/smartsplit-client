@@ -7,7 +7,9 @@ export default class SectionParoles extends React.Component {
     render() {
         return (
             <>
-                <TitreModifiable>
+                <TitreModifiable
+                    href={'#'}
+                >
                     <h4 className={ 'corps-title-2' }>Paroles</h4>
                 </TitreModifiable>
 

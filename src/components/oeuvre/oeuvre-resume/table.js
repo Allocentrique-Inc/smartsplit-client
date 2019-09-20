@@ -6,7 +6,7 @@ export default class Table extends React.Component {
     render() {
         return (
             <>
-                <TitreModifiable href={ '#' }>
+                <TitreModifiable href={ this.props.href || '#' }>
                     { this.props.children }
                 </TitreModifiable>
 

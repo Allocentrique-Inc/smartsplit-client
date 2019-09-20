@@ -52,7 +52,9 @@ export default class SectionEcouter extends React.Component {
     render() {
         return (
             <>
-                <TitreModifiable>
+                <TitreModifiable
+                    href={'#'}
+                >
                     <h4 className={ 'corps-title-2' }>Écouter</h4>
                 </TitreModifiable>
 

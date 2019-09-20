@@ -50,7 +50,9 @@ export default class SectionTelechargements extends React.Component {
     render() {
         return (
             <>
-                <TitreModifiable>
+                <TitreModifiable
+                    href={'#'}
+                >
                     <h4 className={ 'corps-title-2' }>Téléchargements</h4>
                 </TitreModifiable>
 
