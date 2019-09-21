@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Translation } from 'react-i18next'
 import moment from 'moment'
 import axios from 'axios'
+import { Label } from 'semantic-ui-react'
 
 export default class LigneMedia extends Component {
 
@@ -68,7 +69,7 @@ export default class LigneMedia extends Component {
                                         <br/>
                                         <div className="small-400-color" style={{display: "inline-block"}}>{i18n.lng && moment(elem.modificationDate).locale(i18n.lng.substring(0,2)).fromNow()} &bull; {t('tableaudebord.pieces.partageAvec')}</div>
                                     </div>
-                                    <div className="ui four wide column">
+                                    <div className="ui four wide column">                                        
                                         {
                                             !continuerDisabled && (
                                                 <div className={`ui medium button`} onClick={
@@ -102,6 +103,7 @@ export default class LigneMedia extends Component {
                                                 </div>
                                             )
                                         }
+                                        {_p && <Label>{t(`flot.split.etat.${_p.etat}`)}</Label>}
                                     </div>
                                 </div>
                             </div>

@@ -111,7 +111,6 @@ class AssistantPartage extends Component {
             // 1. Récupérer la liste des ayant-droits
             axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
             .then(res=>{                                    
-                console.log('Ayant-droits', res)
                 res.data.forEach(elem=>{
                     let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
                     _association[nom] = elem
@@ -263,10 +262,9 @@ class AssistantPartage extends Component {
                     "etat": etat
                 }
                 body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split"})
-                console.log('Envoi', body)
 
                 if(values.uuid && values.uuid !== "") {
-                    // 3a. Soumettre la nouvelle proposition
+                    // 3a. Soumettre la nouvelle proposition en PUT
                     body.uuid = values.uuid
                     axios.put(`http://api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
                     .then(res=>{
@@ -276,7 +274,7 @@ class AssistantPartage extends Component {
                             cb()
                         } else {
                             setTimeout(()=>{
-                                window.location.href = `/proposition/approuver/${res.data}`
+                                window.location.href = `/partager/${this.state.mediaId}`
                             }, 3000)
                         }
                     })
@@ -284,7 +282,7 @@ class AssistantPartage extends Component {
                         toast.error(err.message)
                     })
                 } else {
-                    // 3b. Soumettre la nouvelle proposition
+                    // 3b. Soumettre la nouvelle proposition en POST
                     axios.post('http://api.smartsplit.org:8080/v1/proposal', body)
                     .then(res=>{
                         toast.success(`${res.data}`)
@@ -293,7 +291,7 @@ class AssistantPartage extends Component {
                             cb()
                         } else {
                             setTimeout(()=>{
-                                window.location.href = `/proposition/approuver/${res.data}`
+                                window.location.href = `/partager/${this.state.mediaId}`
                             }, 3000)
                         }
                     })
@@ -440,7 +438,7 @@ class AssistantPartage extends Component {
                                                 media: this.state.media
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={true}
+                                            debug={false}
                                             onSubmit={
                                                 (values) => {
                                                     if(!lectureSeule) {
