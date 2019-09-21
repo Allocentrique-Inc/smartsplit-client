@@ -63,7 +63,7 @@ export default class LigneMedia extends Component {
                                     <div className="ui one wide column cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
                                         <i className="file image outline icon big grey"></i>
                                     </div>
-                                    <div className="ui nine wide column" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
+                                    <div className="ui nine wide column cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
                                         <div className="song-name">{`${elem.title}`}</div>
                                         <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;{t('tableaudebord.pieces.par')}&nbsp;</div><div className="small-500-color" style={{display: "inline-block"}}>{`${elem.artist}`}</div>
                                         <br/>
