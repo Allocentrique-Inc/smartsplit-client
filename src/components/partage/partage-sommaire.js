@@ -371,7 +371,7 @@ export default class SommairePartage extends Component {
             rafraichirAuto: props.rafraichirAuto
         }
         this.calculMesVotes = this.calculMesVotes.bind(this)
-        this.envoi = this.envoi.bind(this)        
+        this.envoi = this.envoi.bind(this)
     }
 
     componentWillMount() {
@@ -394,7 +394,7 @@ export default class SommairePartage extends Component {
                                 .then(r=>{
                                     let avatar = r.data.Item.avatarImage
                                     _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
-                                    this.setState({avatars: _avatars})
+                                    this.setState({avatars: _avatars})                                    
                                 })
                                 .catch(err=>{
                                     toast.error(err.message)
@@ -412,7 +412,7 @@ export default class SommairePartage extends Component {
         })
 
         this.rafraichirDonnees(()=>{
-            if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {
+            if((!this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichirAuto) {
                 this.setState({rafraichir: true}, ()=>{
                     this.rafraichissementAutomatique()                
                 })
@@ -623,7 +623,11 @@ export default class SommairePartage extends Component {
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
                         monVote={this.state.mesVotes[type]}
-                        voteTermine={this.estVoteFinal() || this.estVoteClos() || this.state.proposition.etat !== "VOTATION"}
+                        voteTermine={
+                            this.estVoteFinal() || 
+                            this.estVoteClos() || 
+                            this.state.proposition.etat !== "VOTATION" || 
+                            (this.state.proposition.etat === "VOTATION" && !this.state.jetonApi)}
                         parent={this}
                         uuid={this.state.proposition.uuid}
                         /> )
@@ -661,7 +665,7 @@ export default class SommairePartage extends Component {
                                         <div className="ui text loader">{t('entete.encours')}</div>
                                     </div>
                                 )
-                            }
+                            }                        
                             <Modal
                                 open={this.state.modaleConnexion}
                                 closeOnEscape={false}
@@ -684,4 +688,5 @@ export default class SommairePartage extends Component {
             </Translation>
         )
     }
+
 }

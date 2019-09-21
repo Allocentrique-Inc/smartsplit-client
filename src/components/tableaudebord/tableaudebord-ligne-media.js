@@ -38,18 +38,21 @@ export default class LigneMedia extends Component {
         let elem = this.state.media
         let _p = this.state.p0
 
-        let nouveauDisabled = false, continuerDisabled = true, sommaireDisabled = true
+        let nouveauDisabled = false, continuerDisabled = true, sommaireDisabled = true, votationDisabled = true
 
         if(_p) {
             if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
                 nouveauDisabled = true
             }    
-            if(_p.etat === 'PRET' || _p.etat === 'ACCEPTE' || _p.etat === 'VOTATION') {
+            if(_p.etat === 'PRET' || _p.etat === 'ACCEPTE') {
                 sommaireDisabled = false
             }
             if(_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
                 continuerDisabled = false
-            }           
+            }
+            if(_p.etat === 'VOTATION') {
+                votationDisabled = false
+            }
         }        
 
         return (
@@ -100,6 +103,17 @@ export default class LigneMedia extends Component {
                                                     }
                                                     }>
                                                     {t('flot.proposition.sommaire')}
+                                                </div>
+                                            )
+                                        }
+                                        {
+                                            !votationDisabled && (                                        
+                                                <div className={`ui medium button`} onClick={
+                                                    ()=>{
+                                                        window.location.href=`/partager/${this.state.media.mediaId}`
+                                                    }
+                                                    }>
+                                                    {t('flot.proposition.voter')}
                                                 </div>
                                             )
                                         }

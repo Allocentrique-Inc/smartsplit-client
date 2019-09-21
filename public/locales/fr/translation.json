@@ -338,7 +338,9 @@
             "nouvelle": "Créer une nouvelle version",
             "envoyer": "Envoyer aux collaborateurs",
             "continuer": "Continuer le partage",
-            "sommaire": "Accéder au sommaire"
+            "sommaire": "Accéder au sommaire",
+            "voter": "Accéter au vote",
+            "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition."
         }
         },
     "traitement": {
