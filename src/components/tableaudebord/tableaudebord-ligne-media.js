@@ -9,7 +9,8 @@ export default class LigneMedia extends Component {
     constructor(props) {
         super(props) 
         this.state = {
-            media: props.media
+            media: props.media,
+            user: props.user
         }
     }
 
@@ -72,7 +73,7 @@ export default class LigneMedia extends Component {
                                             !continuerDisabled && (
                                                 <div className={`ui medium button`} onClick={
                                                     ()=>{
-                                                        window.location.href=`/partager/existant/${_p}`
+                                                        window.location.href=`/partager/existant/${_p.uuid}`
                                                     }
                                                     }>
                                                     {t('flot.proposition.continuer')}

@@ -197,9 +197,7 @@ export default class ModifyUser extends Component {
         closeOnEscape={true}
         closeOnDimmerClick={false}
         onClose={this.props.close} 
-        size="small" 
-
-        closeIcon>
+        size="small"         >
         <div className="input-container">
         <Modal.Header className="Titre">{t('collaborateur.titre')}</Modal.Header>
         <br></br> 
@@ -240,7 +238,7 @@ export default class ModifyUser extends Component {
           <div className="sous titre">{t('collaborateur.attribut.indication.role2')}</div>
         </div>  
         <Modal.Actions>
-                <Button onClick={this.close} negative>{t('collaborateur.attribut.bouton.annuler')}</Button>
+                <Button onClick={this.props.close} negative>{t('collaborateur.attribut.bouton.annuler')}</Button>
                 <Button onClick={this.click} positive icon='checkmark' labelPosition='right' content={t('collaborateur.attribut.bouton.sauvegarder')} />
           </Modal.Actions>
       </Modal>

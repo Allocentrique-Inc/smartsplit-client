@@ -403,7 +403,8 @@
         "editeur": {
             "titre": "What's your publisher's name ?",
             "titre-part": "How much should your publisher get ?"
-        }
+        },
+        "lecture-seule": "A new proposal is in progress. You are in read-only mode."
     },
 
     "connexion": {

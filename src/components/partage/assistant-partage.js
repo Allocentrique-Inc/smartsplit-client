@@ -18,6 +18,7 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
+import { Modal } from 'semantic-ui-react'
 
 const ROLES = {
     COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a31",
@@ -59,6 +60,9 @@ class AssistantPartage extends Component {
                         this.setState({proposition: res.data})
                     }
                 })
+                .catch(err=>{
+                    console.log(err)
+                })
                 .finally(()=>{
                     this.recupererOeuvre()
                 })
@@ -71,41 +75,19 @@ class AssistantPartage extends Component {
                         this.setState({mediaId: proposal.mediaId}, ()=>{
                             this.recupererOeuvre()
                         })
-                    })
+                    })                    
                 })
                 .catch((error) => {
-                    toast.error(error)
+                    console.log(error)
                 })
             }
 
+
         })
         .catch(err=>{
-            toast.error(err.message)
-            confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecté pour accéder au tableau de bord`,
-                closeOnClickOutside: false,
-                style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                    customUI: ({ onClose }) =>
-                        <div>
-                            <Login message="Connecte-toi pour accéder au tableau de bord" fn={ (user) => {
-                                onClose()
-                                this.setState({ user: user }, () => {
-                                    this.recupererOeuvre()
-                                })
-                            } }/>
-                        </div>
-                })
-            })
+            toast.error(err)
+            this.modaleConnexion()
+        })
     }
 
     recupererOeuvre() {
@@ -255,9 +237,7 @@ class AssistantPartage extends Component {
                         "contributorRole": roles,
                         "splitPct": `${elem.pourcent}`
                     })
-                })            
-
-                console.log(this.state.user.attributes)
+                })
 
                 let body = {
                     uuid: "",
@@ -334,6 +314,10 @@ class AssistantPartage extends Component {
         }
     }
 
+    modaleConnexion(ouvert = true) {
+        this.setState({modaleConnexion: ouvert})
+    }
+
     enregistrerEtQuitter(valeurs) {
         this.soumettre(valeurs, "BROUILLON", () => {
             Auth.signOut()
@@ -349,9 +333,16 @@ class AssistantPartage extends Component {
 
     render() {
 
+        let lectureSeule
+
         if(this.state.media) {
             let valeursInitiales = {droitAuteur: [],droitInterpretation: [],droitEnregistrement: []}
             if(this.state.proposition) {
+                
+                if(this.state.proposition.etat !== 'BROUILLON') {
+                    lectureSeule = true
+                }
+
                 // Ordonner les valeurs initiales
                 let _rS = this.state.proposition.rightsSplits
                 let _droit = {
@@ -428,11 +419,18 @@ class AssistantPartage extends Component {
                     {
                         (t, i18n) =>
                             <div className="ui grid" style={ { padding: "10px" } }>
+                                {
+                                    lectureSeule && (
+                                        <script>
+                                            setTimeout(()=>{toast.info(t('partage.lecture-seule'))})
+                                        </script>                                        
+                                    )
+                                }
                                 <EntetePartage media={ this.state.media } user={ this.state.user }/>
                                 <div className="ui row">
                                     <div className="ui two wide column"/>
                                     <div className="ui twelve wide column">
-                                        <Wizard                                    
+                                        <Wizard                                                                             
                                             initialValues={{
                                                 droitAuteur: valeursInitiales.droitAuteur,
                                                 droitInterpretation : valeursInitiales.droitInterpretation,
@@ -442,10 +440,12 @@ class AssistantPartage extends Component {
                                                 media: this.state.media
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={false}
+                                            debug={true}
                                             onSubmit={
                                                 (values) => {
-                                                    this.soumettre(values, "PRET")
+                                                    if(!lectureSeule) {
+                                                        this.soumettre(values, "PRET")
+                                                    }                                              
                                                 }
                                             }
                                         >
@@ -463,7 +463,7 @@ class AssistantPartage extends Component {
                                                 <PageAssistantPartageDroitEnregistrement enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
 
-                                        </Wizard>
+                                        </Wizard>                                       
                                     </div>
                                 </div>
                             </div>
@@ -472,7 +472,27 @@ class AssistantPartage extends Component {
             )
         } else {
             return (
-                <div></div>
+                <div>
+                     <Modal
+                        open={this.state.modaleConnexion}
+                        closeOnEscape={false}
+                        closeOnDimmerClick={false}
+                        onClose={()=>{this.modaleConnexion(false)}} 
+                        size="small" >
+                        <br/><br/><br/>
+                        <Login fn={()=>{
+                            Auth.currentAuthenticatedUser()
+                            .then(res=>{
+                                this.setState({user: res}, () => {
+                                    this.recupererOeuvre()
+                                })
+                            })
+                            .catch(err=>{
+                                toast.error(err)
+                            })
+                        }} />
+                    </Modal>                    
+                </div>
             )
         }
 

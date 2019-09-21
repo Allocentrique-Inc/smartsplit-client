@@ -21,7 +21,8 @@ export default class ListePieces extends Component {
             collecte: {
                 medias: false,
                 collab: false
-            }
+            },
+            user: props.user
         }
         this.ajouterOeuvre = this.ajouterOeuvre.bind(this)
         this.closeModal = this.closeModal.bind(this)
@@ -200,14 +201,14 @@ export default class ListePieces extends Component {
             if (this.state.medias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
                 tableauMedias = this.state.medias.map((elem, _idx)=>{
                     return (
-                        <LigneMedia key={elem.mediaId} media={elem} />                    
+                        <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
                     )
                 })
             }
             if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {
                 tableauMedias = this.state.collabMedias.map((elem, _idx)=>{
                     return (
-                        <LigneMedia key={elem.mediaId} media={elem} />                    
+                        <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
                     ) 
                 })
             } 
