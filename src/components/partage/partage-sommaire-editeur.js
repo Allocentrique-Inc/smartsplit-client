@@ -239,7 +239,6 @@ export default class PartageSommaireEditeur extends Component {
             choix: this.state.choix,
             jeton: this.state.jetonApi
         }
-        console.log('envoi', body)
         axios.post('http://api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
         .then((res)=>{
             window.location.reload()

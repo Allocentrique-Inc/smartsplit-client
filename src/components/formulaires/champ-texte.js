@@ -48,9 +48,7 @@ export class ChampCourrielAssistant extends Component {
         this.setState({modele: e.target.value})
     }
 
-    render() {    
-
-        console.log('Champ texte', this.state)
+    render() {
 
         return(
             <div>      

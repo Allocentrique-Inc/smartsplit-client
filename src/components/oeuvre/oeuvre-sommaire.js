@@ -28,7 +28,7 @@ export default class SommaireOeuvre extends Component {
 
         Auth.currentAuthenticatedUser()
         .then(res=>{
-            this.setState({user: res}, ()=>{console.log(this.state.user)})
+            this.setState({user: res})
             this.getMedia()
         })
         .catch(err=>{
@@ -71,7 +71,6 @@ export default class SommaireOeuvre extends Component {
 
     majTitre() {
         let titre = document.getElementById('titre').value
-        console.log('Le titre est ', titre)
         axios.patch(`http://api.smartsplit.org:8080/v1/media/${this.state.media.mediaId}/title`, {mediaId: this.state.media.mediaId, title: titre})
         .then(()=>{
             this.getMedia()
