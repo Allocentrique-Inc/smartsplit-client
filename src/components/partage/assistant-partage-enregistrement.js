@@ -145,7 +145,6 @@ class PageAssistantPartageEnregistrement extends Component {
         this.props.values.droitInterpretation.forEach(droit=>{
             ayants[droit["nom"]] = droit["color"]
         })
-        console.log(ayants)
                                                             
         _coll.forEach((elem, idx)=>{
             if(this.state.mode === MODES.egal) {
@@ -267,8 +266,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <BoutonsRadio 
                                         name="mode_enregistrement"
                                         actif={this.state.mode} // Attribut dynamique
-                                        onClick={(e)=>{       
-                                            console.log('clic', e.target.value)                                     
+                                        onClick={(e)=>{                                            
                                             this.setState({mode: e.target.value}, ()=>{
                                                 this.recalculerPartage()
                                             })                                        

@@ -38,7 +38,6 @@ class ValiderSplit extends Component {
             let rights = {}
 
             function traitementDroit(objDroit, type) {
-                console.log('traitement droit', objDroit, type)
                 if (objDroit) {
                     objDroit.forEach(droit=>{
                         if(!rightHolders[droit.rightHolder.rightHolderId]) {
@@ -117,9 +116,7 @@ class ValiderSplit extends Component {
                     rightHolders[idx].email = res.data.Item.email                    
                     reqs[idx] = '---'
                     if(aToutRecu()) {
-                        this.setState({rightHolders: rightHolders},()=>{
-                            console.log('Proposition - invitation\n', rightHolders, rights, proposition)
-                        })                        
+                        this.setState({rightHolders: rightHolders})   
                     }
                 })
                 .catch((error) => {

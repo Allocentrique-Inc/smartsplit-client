@@ -504,10 +504,10 @@
         }
     },
     "menuprofil": {
-        "accueil": "Home",
+        "accueil": "Dashboard",
         "profil": "My SOCAN Profile",
         "francais": "Français",
         "anglais": "English",
-        "deconnexion": "Deconnect"
+        "deconnexion": "Disconnect"
     }
 }

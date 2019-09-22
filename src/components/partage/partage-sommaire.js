@@ -674,11 +674,18 @@ export default class SommairePartage extends Component {
                                 <LogIn fn={()=>{
                                     Auth.currentAuthenticatedUser()
                                     .then(res=>{
-                                        that.setState({user: res})                                    
+                                        if(res.username === this.state.ayantDroit.rightHolderId) {
+                                            that.setState({user: res})
+                                            that.envoi()                                            
+                                        } else {
+                                            toast.error(t('erreur.volIdentite'))    
+                                        }
+                                        
                                     })
                                     .catch(err=>{
                                         toast.error(err.message)
                                     })
+
                                 }} />
                             </Modal>                        
                         </div>
