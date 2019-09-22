@@ -81,7 +81,7 @@ export class ChampTexteAssistant extends Component {
             requis: props.requis,
             lien: props.lien,
             typeLien: props.typeLien,
-            disabeld: props.disabled
+            disabled: props.disabled
         }
         this.valeur = props.valeur
     }

@@ -237,8 +237,7 @@ class SommaireDroit extends Component {
     render() {
 
         let _parts = []
-        let _data = []
-        //let titre = TITRES[this.state.titre]       
+        let _data = []                   
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
@@ -273,7 +272,7 @@ class SommaireDroit extends Component {
                                 </div>
                                 <div style={{position: "relative", marginTop: "5px"}}>
                                     {
-                                        !this.state.voteTermine &&                                        
+                                        !this.state.voteTermine && 
                                         this.state.ayantDroit && 
                                         uuid === this.state.ayantDroit.rightHolderId && 
                                         (
@@ -371,7 +370,7 @@ export default class SommairePartage extends Component {
             rafraichirAuto: props.rafraichirAuto
         }
         this.calculMesVotes = this.calculMesVotes.bind(this)
-        this.envoi = this.envoi.bind(this)        
+        this.envoi = this.envoi.bind(this)
     }
 
     componentWillMount() {
@@ -394,7 +393,7 @@ export default class SommairePartage extends Component {
                                 .then(r=>{
                                     let avatar = r.data.Item.avatarImage
                                     _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
-                                    this.setState({avatars: _avatars})
+                                    this.setState({avatars: _avatars})                                    
                                 })
                                 .catch(err=>{
                                     toast.error(err.message)
@@ -412,9 +411,9 @@ export default class SommairePartage extends Component {
         })
 
         this.rafraichirDonnees(()=>{
-            if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {
+            if((this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichirAuto) {
                 this.setState({rafraichir: true}, ()=>{
-                    this.rafraichissementAutomatique()                
+                    this.rafraichissementAutomatique()      
                 })
             }
         })        
@@ -589,7 +588,6 @@ export default class SommairePartage extends Component {
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                console.log('pas le droit')
                 toast.error(t('erreur.volIdentite'))    
             }
         })
@@ -613,7 +611,7 @@ export default class SommairePartage extends Component {
                         _aDonnees = true
                     }
                 })
-
+    
                 if(_aDonnees) {
                     droits.push( <SommaireDroit 
                         avatars={this.state.avatars}
@@ -623,7 +621,11 @@ export default class SommairePartage extends Component {
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
                         monVote={this.state.mesVotes[type]}
-                        voteTermine={this.estVoteFinal() || this.estVoteClos() || this.state.proposition.etat !== "VOTATION"}
+                        voteTermine={
+                            this.estVoteFinal() || 
+                            this.estVoteClos() || 
+                            this.state.proposition.etat !== "VOTATION" || 
+                            (this.state.proposition.etat === "VOTATION" && !this.state.jetonApi)}
                         parent={this}
                         uuid={this.state.proposition.uuid}
                         /> )
@@ -661,7 +663,7 @@ export default class SommairePartage extends Component {
                                         <div className="ui text loader">{t('entete.encours')}</div>
                                     </div>
                                 )
-                            }
+                            }                        
                             <Modal
                                 open={this.state.modaleConnexion}
                                 closeOnEscape={false}
@@ -684,4 +686,5 @@ export default class SommairePartage extends Component {
             </Translation>
         )
     }
+
 }

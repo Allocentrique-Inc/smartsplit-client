@@ -338,7 +338,9 @@
             "nouvelle": "Créer une nouvelle version",
             "envoyer": "Envoyer aux collaborateurs",
             "continuer": "Continuer le partage",
-            "sommaire": "Accéder au sommaire"
+            "sommaire": "Accéder au sommaire",
+            "voter": "Accéter au vote",
+            "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition."
         }
         },
     "traitement": {
@@ -411,7 +413,8 @@
         "editeur": {
             "titre": "Quel est le nom de ton éditeur ?",
             "titre-part": "Combien ton éditeur devrait-il avoir ?"
-        }
+        },
+        "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition."
     },
     "connexion": {
         "titre": {

@@ -316,11 +316,13 @@
             "nouvelle": "New",
             "envoyer": "Send to collaborators",
             "continuer": "Continue to split the rights",
-            "sommaire": "Split summary"
+            "sommaire": "Split summary",
+            "voter": "Go to vote page",
+            "voter-avec-jeton": "You can only vote by clicking on the email that was sent to you when the proposal was created."
         },
         "bouton": {
             "ajout": "Add",
-            "voter": "Vote"
+            "voter": "VOTE"
         },
         "tableaudebord": {
                 "collabo": "My Collaborators",
@@ -403,7 +405,8 @@
         "editeur": {
             "titre": "What's your publisher's name ?",
             "titre-part": "How much should your publisher get ?"
-        }
+        },
+        "lecture-seule": "A new proposal is in progress. You are in read-only mode."
     },
 
     "connexion": {

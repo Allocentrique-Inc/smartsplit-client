@@ -27,7 +27,7 @@ class PageAssistantPartageAuteur extends Component {
         this.state = {
             parts: {},
             mode: MODES.egal,
-            partsInvariables: [],
+            partsInvariables: {},
             song: ""
         }
         this.changementGradateur = this.changementGradateur.bind(this)
@@ -147,35 +147,60 @@ class PageAssistantPartageAuteur extends Component {
         // Changement d'un gradateur
 
         let invariable = this.state.partsInvariables
-        let droits = this.props.values.droitAuteur
-
+        let droits = this.props.values.droitAuteur        
+        
         let deltaParCollaborateurVariable = 0.0
 
         let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
-        if (!invariable[index])
+        if(!invariable[index])
             aMisInvariable = true
 
         invariable[index] = true // Le droit sélectionné lors de la transition est considéré invariable
         let nbModifications = droits.length - Object.keys(invariable).length
 
-        deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
-
-        droits.forEach((elem, idx) => {
-            if (!invariable[idx]) { // Ajustement si l'index est variable
+        if(nbModifications > 0) {
+            deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+        }
+    
+        droits.forEach((elem, idx)=>{
+            if(!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)
+                droits[idx].pourcentParoles = droits[idx].pourcent / 2
+                droits[idx].pourcentMusique = droits[idx].pourcent / 2
             }
-        })
+        })        
 
         this.props.setFieldValue('droitAuteur', droits)
-
-        if (aMisInvariable) // Retrait de l'index des invariables
+        
+        if(aMisInvariable) // Retrait de l'index des invariables
             delete invariable[index]
 
     }
 
-    basculerVariable(index) {
+    basculerVariable(index) {        
+
         let invariables = this.state.partsInvariables
+
+        let nbAvant = Object.keys(invariables).length
         invariables[index] = !invariables[index]
+
+        if (!invariables[index]) {
+            delete invariables[index]
+        }
+
+        let nbApres = Object.keys(invariables).length
+
+        if(((nbAvant === 0 && nbApres === 1) || nbAvant < nbApres ) && (this.props.values.droitAuteur.length - 1 === nbApres)) {
+            // Trouver le gradateur restant et l'inscrire comme invariable
+            let nbGradateurs = this.props.values.droitAuteur.length // Autant de gradateurs que de droits
+            
+            for(let i = 0; i < nbGradateurs; i++) { // Pour gradateur_droitAuteur_[0 à N-1]
+                if(!invariables[i]) {
+                    invariables[i] = true  
+                }
+            }
+        }
+
         this.setState({ partsInvariables: invariables })
     }
 
@@ -185,7 +210,6 @@ class PageAssistantPartageAuteur extends Component {
         let _index = this.props.values.droitAuteur.length +
                     this.props.values.droitInterpretation.length +
                     this.props.values.droitEnregistrement.length
-        console.log("Index "+_index)
 
         _coll.forEach((elem, idx)=>{
 
@@ -201,21 +225,17 @@ class PageAssistantPartageAuteur extends Component {
             }
 
             if (this.state.mode === MODES.manuel) {
+
+                let _pourcent = ( this.pourcentRestant() / _coll.length ).toFixed(4)
+
                 arrayHelpers.insert(0, {
                     nom: elem,
-                    pourcent: (
-                        this.pourcentRestant() /
-                        (this.props.values.droitAuteur.length + _coll.length))
-                        .toFixed(4),
+                    pourcent: _pourcent,
                     auteur: true,
                     compositeur: true,
                     arrangeur: false,
                     color: COLORS[_index+idx]
                 })
-                // création de l'entrée dans le tableau des invariables
-                let _inv = this.state.partsInvariables
-                _inv.unshift(false)
-                this.setState({ partsInvariables: _inv })
             }
 
             if (this.state.mode === MODES.role) {
@@ -359,6 +379,9 @@ class PageAssistantPartageAuteur extends Component {
                                                             <div>
                                                                 {
                                                                     this.props.values.droitAuteur.map((part, index) => {
+
+                                                                        // Composante de carte controlable
+
                                                                         let roles = [
                                                                             {
                                                                                 id: "auteur",
@@ -431,13 +454,21 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                     changement={(id, delta) => {
                                                                                                         this.changementGradateur(id, delta)
                                                                                                     }}
-                                                                                                    id={`gradateur_${index}`}
+                                                                                                    id={`gradateur_droitAuteur_${index}`}
                                                                                                     modele={`droitAuteur[${index}].pourcent`}
-                                                                                                    disabled={this.state.partsInvariables[index] || this.state.mode !== MODES.manuel}
+                                                                                                    disabled={
+                                                                                                        this.state.partsInvariables[index] || 
+                                                                                                        this.state.mode !== MODES.manuel || 
+                                                                                                        this.props.values.droitAuteur.length <= 1 ||
+                                                                                                        (
+                                                                                                            1 === 
+                                                                                                            (this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)
+                                                                                                        )
+                                                                                                    }
                                                                                                 />
                                                                                                 {
                                                                                                     this.state.mode === MODES.manuel && (
-                                                                                                        <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}
+                                                                                                        <i className={`lock ${!(this.state.partsInvariables[index] || this.props.values.droitAuteur.length <= 1 )? 'open' : ''} icon golden`}
                                                                                                            onClick={() => {
                                                                                                                this.basculerVariable(index)
                                                                                                            }}>
@@ -452,7 +483,10 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                 this.changementGradateur(id, valeur)
                                                                                                             }}
                                                                                                             modele={`droitAuteur[${index}].pourcent`}
-                                                                                                            disabled={this.state.partsInvariables[index]}
+                                                                                                            disabled={(
+                                                                                                                this.props.values.droitAuteur.length <= 1) || 
+                                                                                                                this.state.partsInvariables[index] ||
+                                                                                                                (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
                                                                                                             valeur={this.props.values.droitAuteur[index].pourcent}/>
                                                                                                     )
                                                                                                 }
@@ -460,7 +494,6 @@ class PageAssistantPartageAuteur extends Component {
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div className="blank-text">A</div>
                                                                             </div>
                                                                         )
                                                                     })
@@ -480,6 +513,9 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     selection={true}
                                                                                     ajout={false}
                                                                                     collaborateurs={this.props.values.droitAuteur}
+                                                                                    close={()=>{
+                                                                                        this.props.setFieldValue('collaborateur', [])
+                                                                                    }}
                                                                                 />
                                                                             </div>
                                                                             <div className="four wide column">

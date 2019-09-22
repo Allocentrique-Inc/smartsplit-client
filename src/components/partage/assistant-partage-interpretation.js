@@ -6,8 +6,6 @@ import { Checkbox, Progress } from 'semantic-ui-react'
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
 import Histogramme from '../visualisation/partage/histogramme'
-import ChampGradateurAssistant from '../formulaires/champ-gradateur'
-import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
 import { FieldArray } from "formik";
 
@@ -47,7 +45,7 @@ class PageAssistantPartageInterpretation extends Component {
     }    
 
     recalculerPartage() {
-        let pourcent = 100.00        
+        let pourcent = 100.00
         switch(this.state.mode) {
             case MODES.egal:
                 // Calcul le pourcentage égal
@@ -71,8 +69,19 @@ class PageAssistantPartageInterpretation extends Component {
                         }                        
                     })
                     // Calcul des parts principales et d'accompagnement.
-                    // Applique la règle du 80% / 20%
-                    let pctPrincipaux = 80, pctAccompagnement = 20                    
+                    // Applique la règle du 80% / 20%, sauf si tous sont principaux ou tous accompagnateurs (ce sera alors 100%)
+                    let pctPrincipaux = 80, pctAccompagnement = 20
+                    
+                    if(accompagnement.length === 0) {
+                        pctPrincipaux = 100
+                        pctAccompagnement = 0
+                    }
+
+                    if(principaux.length === 0) {
+                        pctAccompagnement = 100
+                        pctPrincipaux = 0
+                    }
+
                     let pctPrincipalParCollaborateur = principaux.length > 0 ? pctPrincipaux / principaux.length: 0
                     let pctAccompagnementParCollaborateur = accompagnement.length > 0 ? pctAccompagnement / accompagnement.length: 0                    
                     let _pP = 0, _pA = 0
@@ -330,6 +339,9 @@ class PageAssistantPartageInterpretation extends Component {
                                                                         selection={true}
                                                                         ajout={false}
                                                                         collaborateurs={this.props.values.droitInterpretation}
+                                                                        close={()=>{
+                                                                            this.props.setFieldValue('collaborateur', [])
+                                                                        }}
                                                                     />
                                                                 </div> 
                                                                 <div className="four wide column">

@@ -3,13 +3,15 @@ import React, { Component } from 'react'
 import { Translation } from 'react-i18next'
 import moment from 'moment'
 import axios from 'axios'
+import { Label } from 'semantic-ui-react'
 
 export default class LigneMedia extends Component {
 
     constructor(props) {
         super(props) 
         this.state = {
-            media: props.media
+            media: props.media,
+            user: props.user
         }
     }
 
@@ -23,7 +25,7 @@ export default class LigneMedia extends Component {
                 if (!_p0) {
                     _p0 = elem
                 }
-                if(_p0._d > elem._d) {
+                if(_p0._d < elem._d) {
                     _p0 = elem
                 }
             })
@@ -36,18 +38,23 @@ export default class LigneMedia extends Component {
         let elem = this.state.media
         let _p = this.state.p0
 
-        let nouveauDisabled = false, continuerDisabled = true, sommaireDisabled = true
+        let nouveauDisabled = false, continuerDisabled = true, sommaireDisabled = true, votationDisabled = true
 
-        if(_p) {
-            if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
+        console.log(_p, this.state)
+        if(_p && this.state.user) {
+            
+            if (_p.etat !== 'REFUSE') {
                 nouveauDisabled = true
             }    
-            if(_p.etat === 'PRET' || _p.etat === 'ACCEPTE' || _p.etat === 'VOTATION') {
+            if(_p.etat === 'PRET' || _p.etat === 'ACCEPTE') {
                 sommaireDisabled = false
             }
             if(_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
                 continuerDisabled = false
-            }           
+            }
+            if(_p.etat === 'VOTATION') {
+                votationDisabled = false
+            }
         }        
 
         return (
@@ -61,18 +68,18 @@ export default class LigneMedia extends Component {
                                     <div className="ui one wide column cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
                                         <i className="file image outline icon big grey"></i>
                                     </div>
-                                    <div className="ui nine wide column" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
+                                    <div className="ui seven wide column cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
                                         <div className="song-name">{`${elem.title}`}</div>
                                         <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;{t('tableaudebord.pieces.par')}&nbsp;</div><div className="small-500-color" style={{display: "inline-block"}}>{`${elem.artist}`}</div>
                                         <br/>
                                         <div className="small-400-color" style={{display: "inline-block"}}>{i18n.lng && moment(elem.modificationDate).locale(i18n.lng.substring(0,2)).fromNow()} &bull; {t('tableaudebord.pieces.partageAvec')}</div>
                                     </div>
-                                    <div className="ui four wide column">
+                                    <div className="ui six wide column">                                        
                                         {
                                             !continuerDisabled && (
                                                 <div className={`ui medium button`} onClick={
                                                     ()=>{
-                                                        window.location.href=`/partager/existant/${_p}`
+                                                        window.location.href=`/partager/existant/${_p.uuid}`
                                                     }
                                                     }>
                                                     {t('flot.proposition.continuer')}
@@ -101,6 +108,18 @@ export default class LigneMedia extends Component {
                                                 </div>
                                             )
                                         }
+                                        {
+                                            !votationDisabled && (                                        
+                                                <div className={`ui medium button`} onClick={
+                                                    ()=>{
+                                                        window.location.href=`/partager/${this.state.media.mediaId}`
+                                                    }
+                                                    }>
+                                                    {t('flot.proposition.voter')}
+                                                </div>
+                                            )
+                                        }
+                                        {_p && <Label>{t(`flot.split.etat.${_p.etat}`)}</Label>}
                                     </div>
                                 </div>
                             </div>

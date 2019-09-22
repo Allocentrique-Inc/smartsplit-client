@@ -135,7 +135,6 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     recalculerOptions(collaborateurs){
-        console.log('recalculer options', collaborateurs)
         let options = Object.assign([], this.OPTIONS)
         collaborateurs.forEach(elem => {
             options.forEach((_e, idx)=>{
@@ -183,8 +182,12 @@ export class ChampListeCollaborateurAssistant extends Component {
                     open={this.state.open} 
                     firstName={this.state.firstName}
                     close={()=>{
-                        this.setState({open: false})
-                    }}              
+                        this.setState({open: false}, ()=>{
+                            if(this.props.close) {
+                                this.props.close()
+                            }
+                        })                        
+                    }}
                     fn={()=>{
                         this.listeAyantsDroit()                    
                     }}
