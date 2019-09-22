@@ -164,7 +164,9 @@ class PageAssistantPartageAuteur extends Component {
     
         droits.forEach((elem, idx)=>{
             if(!invariable[idx]) { // Ajustement si l'index est variable
-                droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)                
+                droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)
+                droits[idx].pourcentParoles = droits[idx].pourcent / 2
+                droits[idx].pourcentMusique = droits[idx].pourcent / 2
             }
         })        
 

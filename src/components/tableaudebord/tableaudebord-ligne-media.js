@@ -25,7 +25,7 @@ export default class LigneMedia extends Component {
                 if (!_p0) {
                     _p0 = elem
                 }
-                if(_p0._d > elem._d) {
+                if(_p0._d < elem._d) {
                     _p0 = elem
                 }
             })
@@ -40,8 +40,10 @@ export default class LigneMedia extends Component {
 
         let nouveauDisabled = false, continuerDisabled = true, sommaireDisabled = true, votationDisabled = true
 
-        if(_p) {
-            if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
+        console.log(_p, this.state)
+        if(_p && this.state.user) {
+            
+            if (_p.etat !== 'REFUSE') {
                 nouveauDisabled = true
             }    
             if(_p.etat === 'PRET' || _p.etat === 'ACCEPTE') {
@@ -66,13 +68,13 @@ export default class LigneMedia extends Component {
                                     <div className="ui one wide column cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
                                         <i className="file image outline icon big grey"></i>
                                     </div>
-                                    <div className="ui nine wide column cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
+                                    <div className="ui seven wide column cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}}>
                                         <div className="song-name">{`${elem.title}`}</div>
                                         <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;{t('tableaudebord.pieces.par')}&nbsp;</div><div className="small-500-color" style={{display: "inline-block"}}>{`${elem.artist}`}</div>
                                         <br/>
                                         <div className="small-400-color" style={{display: "inline-block"}}>{i18n.lng && moment(elem.modificationDate).locale(i18n.lng.substring(0,2)).fromNow()} &bull; {t('tableaudebord.pieces.partageAvec')}</div>
                                     </div>
-                                    <div className="ui four wide column">                                        
+                                    <div className="ui six wide column">                                        
                                         {
                                             !continuerDisabled && (
                                                 <div className={`ui medium button`} onClick={

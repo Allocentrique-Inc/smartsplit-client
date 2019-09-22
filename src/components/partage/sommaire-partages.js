@@ -145,6 +145,12 @@ export default class SommairePartages extends Component {
                 if(!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
 
+            let _rafraichir = false
+
+            if(_p0.etat === 'VOTATION') {
+                _rafraichir = true
+            }
+
             propositions = this.state.propositions.map((elem, idx)=>{                 
 
                 return(                    
@@ -162,7 +168,7 @@ export default class SommairePartages extends Component {
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
-                                        <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={true} />true
+                                        <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                                     </Accordion.Content>                                
                                 </div>
                         }

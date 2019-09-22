@@ -84,6 +84,24 @@ export default class ListePieces extends Component {
                                 toast.error("rightsSplits object error")
                             }
                         })
+                        
+                        // Retrait des doublons
+                        // cleanArray removes all duplicated elements
+                        // https://www.unicoda.com/?p=579
+                        function cleanArray(array) {
+                            var i, j, len = array.length, out = [], obj = {};
+                            for (i = 0; i < len; i++) {
+                            obj[array[i]] = 0;
+                            }
+                            for (j in obj) {
+                            out.push(j);
+                            }
+                            return out;
+                        }
+
+                        initiatorMediaIds = cleanArray(initiatorMediaIds)
+                        collabMediaIds = cleanArray(collabMediaIds)
+                        
                         let _medias = [];
                         let ii = '';
                         let _collabMedias = [];
@@ -190,7 +208,7 @@ export default class ListePieces extends Component {
                 }
             </Translation>
         )
-         
+        
         if (
             (!this.state.patience && this.state.medias.length == 0 && this.state.panneau === PANNEAU_INITIATEUR) ||
             (!this.state.patience && this.state.collabMedias.length == 0 && this.state.panneau === PANNEAU_COLLABORATEUR)
@@ -214,8 +232,6 @@ export default class ListePieces extends Component {
             } 
             rendu = tableauMedias
         }
-    
-        console.log(rendu)
 
         return (
             <Translation>

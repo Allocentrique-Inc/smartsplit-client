@@ -237,8 +237,7 @@ class SommaireDroit extends Component {
     render() {
 
         let _parts = []
-        let _data = []
-        //let titre = TITRES[this.state.titre]       
+        let _data = []                   
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
@@ -273,7 +272,7 @@ class SommaireDroit extends Component {
                                 </div>
                                 <div style={{position: "relative", marginTop: "5px"}}>
                                     {
-                                        !this.state.voteTermine &&                                        
+                                        !this.state.voteTermine && 
                                         this.state.ayantDroit && 
                                         uuid === this.state.ayantDroit.rightHolderId && 
                                         (
@@ -412,9 +411,9 @@ export default class SommairePartage extends Component {
         })
 
         this.rafraichirDonnees(()=>{
-            if((!this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichirAuto) {
+            if((this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichirAuto) {
                 this.setState({rafraichir: true}, ()=>{
-                    this.rafraichissementAutomatique()                
+                    this.rafraichissementAutomatique()      
                 })
             }
         })        
@@ -589,7 +588,6 @@ export default class SommairePartage extends Component {
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                console.log('pas le droit')
                 toast.error(t('erreur.volIdentite'))    
             }
         })
@@ -613,7 +611,7 @@ export default class SommairePartage extends Component {
                         _aDonnees = true
                     }
                 })
-
+    
                 if(_aDonnees) {
                     droits.push( <SommaireDroit 
                         avatars={this.state.avatars}
