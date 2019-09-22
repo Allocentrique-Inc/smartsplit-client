@@ -114,7 +114,7 @@ export default class ChampSelectionMultipleAyantDroit extends Component {
         this.setState({
             modalOpen: true,
             modalFirstName: value
-        }, () => console.log(this.state));
+        });
     };
 
     handleSearchChange = (event, { searchQuery }) => {

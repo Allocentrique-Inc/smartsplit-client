@@ -103,7 +103,6 @@ class AssistantPartage extends Component {
     }
 
     soumettre(values, etat, cb) {
-        console.log('Soumettre le partage', values)
 
         if (this.state.user) {
             let _association = {} // Associera le nom de l'ayant-droit avec son identitifiant unique

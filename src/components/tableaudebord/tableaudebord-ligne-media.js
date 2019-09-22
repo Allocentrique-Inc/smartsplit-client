@@ -40,7 +40,6 @@ export default class LigneMedia extends Component {
 
         let nouveauDisabled = false, continuerDisabled = true, sommaireDisabled = true, votationDisabled = true
 
-        console.log(_p, this.state)
         if(_p && this.state.user) {
             
             if (_p.etat !== 'REFUSE') {
