@@ -12,6 +12,10 @@ import { toast } from 'react-toastify'
 
 import Eye from './Eye';
 
+import { Connexion } from './Connexion.js'
+
+const TYPE_LOGIN = 0, TYPE_REGISTER = 1, TYPE_FORGOT = 2
+
 class LogIn extends Component {
 
   constructor(props) {
@@ -20,9 +24,11 @@ class LogIn extends Component {
     this.state = {
       hidden: true,
       username: "",
-      password: this.props.password
+      password: this.props.password,
+      parent: props.parent
     };
 
+    console.log(props, this.state)
     this.toggleShow = this.toggleShow.bind(this)
     this.validateUsername = this.validateUsername.bind(this)
     this.validatePassword = this.validatePassword.bind(this)
@@ -67,7 +73,7 @@ class LogIn extends Component {
         Auth.signIn(values.username, values.password)
         .then(user=>{
           toast.success(`#${user.username} !`)
-          console.log('fn', this.props.fn)
+ 
           if(this.props.fn) {
             this.props.fn()
           }
@@ -94,140 +100,162 @@ class LogIn extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+ 
     if (this.props.password !== nextProps.password) {
       this.setState({ password: nextProps.password });
     }
+    if(this.props.parent !== nextProps.parent ){
+      this.setState({parent: nextProps.parent})
+    }
   }
-
+ 
   render() {
+  
+      return (
 
-    return (
-
-      <Formik
-        initialValues={ 
-                {
-                  username: this.state.username,
-                  password: ""
-                } 
-            }
-        onSubmit={
-            (values, { setSubmitting }) => {
-                this.handleSubmit(values, ()=>{setSubmitting(false)})
-          }}
-        >
-          {({ errors, touched, isValidating }) => (
-
-        <Translation>
-        { 
-          (t, i18n)=>  
-            <Form>
-              {
-                this.state.patience && (
-                    <div className="container ui active dimmer">
-                      <div className="ui text loader">
-                        {t('entete.encours')}
-                      </div>
-                    </div>
-                  )
+        <Formik
+          initialValues={ 
+                  {
+                    username: this.state.username,
+                    password: ""
+                  } 
               }
-              {
-                !this.state.patience && (
-                  <div>
-                    <span className="top-register">
-                      <a href="/register" style={{color: "#2DA84F"}}>{t('entete.inscription')}</a>
-                    </span>
-                    <div className="container">
-                      <header id="loginHeader">
-                        {
-                          i18n.lng && i18n.lng.substring(0,2) === 'en' && (
-                            <div>
-                              <div className="loginHead">
-                                <h1>Log into you SmartSplit <br />account.</h1>
-                                <br></br>
-                              </div>
-                              <div className="loginPrompt">
-                                  <h3>Enter your information below.</h3>
-                              </div>
-                            </div>
-                          )
-                        }
-                        {
-                          i18n.lng && i18n.lng.substring(0,2) !== 'en' && (
-                            <div>
-                              <div className="loginHead">
-                                <h1>Connecte-toi à ton <br />compte SmartSplit.</h1>
-                                <br></br>
-                              </div>
-                              <div className="loginPrompt">
-                                  <h3>Entre tes informations ci-dessous.</h3>
-                              </div>
-                            </div>
-                          )
-                        }
-                      </header>                  
-                    </div>
-                    <section className="section auth">
-                      <div className="container">
-                        <h1>{this.props.message}</h1>
-                          <div className="field">
-                          <div className="input-wrapper"> 
-                          <div className="control">
-                          <label htmlFor="username">{t('accueil.courriel')}</label>
-                              <Field 
-                                validate={this.validateUsername}
-                                name="username"
-                                id="username" 
-                                aria-describedby="usernameHelp"
-                                placeholder={t('inscription.exemple')} 
-                                required={true}
-                              />
-                              {errors.username && touched.username && <div style={{color: "red"}}> {t('inscription.email-invalide')} </div>}
-                            </div>                    
-                          </div>
-                          <div className="field">
-                            <div className="control has-icons-left">
-                            <label htmlFor="password">{t('accueil.motdepasse')}</label>    
-                            <div className="input-wrapper">
-                              <Field 
-                                validate={this.validatePassword} 
-                                type={this.state.hidden ? "password" : "text"}
-                                id="password"
-                                name="password"
-                                placeholder={t('inscription.motdepasse')}
-                                required={true}
-                              />
-                              <button id="hide" onClick={this.toggleShow}>
-                              <Eye />
-                              </button> 
-                            </div>                             
-                        </div>                            
-                        {errors.password && touched.password && <div style={{color: "red"}}> {t('inscription.password-invalide')} </div>}
-                      </div>
-                      <div className="field">
-                        <p className="control">
-                          <a href="/forgot-password" style={{color: "#2DA84F"}}>{t('accueil.oublie')}</a>                         
-                        </p>
-                      </div>
-                      <div className="field">
-                        <p className="control">
-                          <button className="ui medium button login is-success">
-                          {t('entete.connexion')}
-                          </button>
-                        </p>
-                        </div> 
+          onSubmit={
+              (values, { setSubmitting }) => {
+                  this.handleSubmit(values, ()=>{setSubmitting(false)})
+            }}
+          >
+            {({ errors, touched, isValidating }) => (
+  
+          <Translation>
+          { 
+            (t, i18n)=>  
+              <Form>
+                {
+                  this.state.patience && (
+                      <div className="container ui active dimmer">
+                        <div className="ui text loader">
+                          {t('entete.encours')}
                         </div>
-                        </div>                 
-                  </section>
-                </div>)
+                      </div>
+                    )
                 }
-            </Form>
-          }
-          </Translation> 
-          )
-          }
-      </Formik>           
-    )
-  }
+                {
+                  !this.state.patience && (
+                    <div>
+                      <span className="top-register">
+                        <div 
+                          onClick={ ()=>{
+                            // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js 
+                            this.props.parent.afficher(1)
+                          }}
+                          style={{color: "#2DA84F", cursor: "pointer"}}>{t('entete.inscription')}
+                          </div>
+                      </span>
+                      <div className="container">
+                        <header id="loginHeader">
+                          {
+                            i18n.lng && i18n.lng.substring(0,2) === 'en' && (
+                              <div>
+                                <div className="loginHead">
+                                  <h1>Log into you SmartSplit <br />account.</h1>
+                                  <br></br>
+                                </div>
+                                <div className="loginPrompt">
+                                    <h3>Enter your information below.</h3>
+                                </div>
+                              </div>
+                            )
+                          }
+                          {
+                            i18n.lng && i18n.lng.substring(0,2) !== 'en' && (
+                              <div>
+                                <div className="loginHead">
+                                  <h1>Connecte-toi à ton <br />compte SmartSplit.</h1>
+                                  <br></br>
+                                </div>
+                                <div className="loginPrompt">
+                                    <h3>Entre tes informations ci-dessous.</h3>
+                                </div>
+                              </div>
+                            )
+                          }
+                        </header>                  
+                      </div>
+                      <section className="section auth">
+                        <div className="container">
+                          <h1>{this.props.message}</h1>
+                            <div className="field">
+                            <div className="input-wrapper"> 
+                            <div className="control">
+                            <label htmlFor="username">{t('accueil.courriel')}</label>
+                                <Field 
+                                  validate={this.validateUsername}
+                                  name="username"
+                                  id="username" 
+                                  aria-describedby="usernameHelp"
+                                  placeholder={t('inscription.exemple')} 
+                                  required={true}
+                                />
+                                {errors.username && touched.username && <div style={{color: "red"}}> {t('inscription.email-invalide')} </div>}
+                              </div>                    
+                            </div>
+                            <div className="field">
+                              <div className="control has-icons-left">
+                              <label htmlFor="password">{t('accueil.motdepasse')}</label>    
+                              <div className="input-wrapper">
+                                <Field 
+                                  validate={this.validatePassword} 
+                                  type={this.state.hidden ? "password" : "text"}
+                                  id="password"
+                                  name="password"
+                                  placeholder={t('inscription.motdepasse')}
+                                  required={true}
+                                />
+                                <button id="hide" onClick={(e)=>{ this.toggleShow(e)}}>
+                                  <Eye actif={this.state.hidden}/>
+                                </button> 
+                              </div>                             
+                          </div>                            
+                          {errors.password && touched.password && <div style={{color: "red"}}> {t('inscription.password-invalide')} </div>}
+                        </div>
+                  { 
+                    !this.state.patience && ( 
+                      <div className="field">
+                      <div className="control">   
+                        <div 
+                            onClick={ ()=>{
+                              this.state.parent.afficher(2)
+                  }
+                  }
+                        style={{color: "#2DA84F", cursor: "pointer"}}>
+                          {t('accueil.oublie')}
+                        </div>
+                        </div>
+                        </div>
+                    )
+                  }
+  
+                        <div className="field">
+                          <p className="control">
+                            <button className="ui medium button login is-success">
+                            {t('entete.connexion')}
+                            </button>
+                          </p>
+                          </div> 
+                          </div>
+                          </div>                 
+                    </section>
+                  </div>)
+                  }
+              </Form>
+            }
+            </Translation> 
+            )
+            }
+        </Formik>           
+      )
+    }
 }
 
 export default LogIn

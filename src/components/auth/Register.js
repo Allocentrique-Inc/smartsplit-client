@@ -320,7 +320,7 @@ class Register extends Component {
                                                                 e.preventDefault();
                                                                 this.toggleShow();
                                                             } }>
-                                                                  <Eye />
+                                                                  <Eye actif={this.state.hidden}/>
                                                             </button>
                                                         </div>
 

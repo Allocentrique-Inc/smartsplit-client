@@ -114,10 +114,10 @@ export default class MenuProfil extends Component {
                     t=>
                         <div className="ui row">                           
                             <div className='ui five wide column avatar--image' >
-                                <Label>{nomComplet}</Label>
+                                <Label style={{background: "transparent", width: "150px"}}>{nomComplet }</Label>
                                 {!userInitials && (<img src={avatarImage} alt='user--image' className='user--img'/>)}
                                 {menu}
-                            </div>
+                            </div>   
                         </div>
                 }
             </Translation>
