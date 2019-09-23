@@ -4,13 +4,14 @@ import { Translation, Trans } from 'react-i18next'
 import axios from 'axios'
 
 import { toast } from 'react-toastify'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Label } from 'semantic-ui-react'
 
 import i18n from 'i18next'
 import moment from 'moment'
 
 // Authentification avec AWS
 import { Auth } from 'aws-amplify'
+import Socan from '../auth/Socan'
 
 const menuStyle = {
     position: 'absolute',  
@@ -30,6 +31,7 @@ export default class MenuProfil extends Component {
             user: undefined
         }
         this.deconnexion = this.deconnexion.bind(this)
+        this.ouvrirSocan = this.ouvrirSocan.bind(this)
     }
 
     componentWillMount() {                
@@ -54,6 +56,10 @@ export default class MenuProfil extends Component {
             .catch(error=>toast.error("Erreur..."))
     }
 
+    ouvrirSocan(val = true) {
+        this.setState({modaleSocan: val})
+    }
+
     render() {        
 
         let avatarImage
@@ -75,7 +81,7 @@ export default class MenuProfil extends Component {
                         <Dropdown text='' icon="angle down big black">
                             <Dropdown.Menu icon="down small">
                             <Dropdown.Item text={t('menuprofil.accueil')} onClick={()=>{window.location.href = '/accueil'}}/>
-                            <Dropdown.Item text={t('menuprofil.profil')} onClick={()=>{window.location.href = '/socan'}}/>
+                            <Dropdown.Item text={t('menuprofil.profil')} onClick={()=>{ this.ouvrirSocan() }}/>
                             {
                                 i18n.language && i18n.language.substring(0,2) == 'en' &&
                                 (
@@ -96,7 +102,8 @@ export default class MenuProfil extends Component {
                             <Dropdown.Item text={t('menuprofil.deconnexion')} onClick={()=>{this.deconnexion()}}/>
                             </Dropdown.Menu>
                         </Dropdown>
-                        </span>
+                        <Socan open={this.state.modaleSocan} onClose={()=>{this.ouvrirSocan(false)}}/>
+                    </span>
                 }
             </Translation>                        
         )
@@ -105,12 +112,9 @@ export default class MenuProfil extends Component {
             <Translation>
                 {
                     t=>
-                        <div style={{display: "inline"}}>
-                            <div style={{display: "flex", margin: "10px"}}>
-                                {nomComplet}
-                            </div>                            
-                            <div className='avatar--image' style={{display: "inline", marginRight: "115px"}} >
-                                {userInitials}
+                        <div className="ui row">                           
+                            <div className='ui five wide column avatar--image' >
+                                <Label>{nomComplet}</Label>
                                 {!userInitials && (<img src={avatarImage} alt='user--image' className='user--img'/>)}
                                 {menu}
                             </div>

@@ -43,6 +43,8 @@ export default class SommairePartages extends Component {
         this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
         this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
+        this.toastAvertissement = this.toastAvertissement.bind(this)
+        this.avertissementEnvoye = false
     }
     
     componentWillReceiveProps(nextProps) {     
@@ -105,6 +107,20 @@ export default class SommairePartages extends Component {
         this.setState({ activeIndex: newIndex })
     }
 
+    toastAvertissement() {
+        if(!this.avertissementEnvoye) {
+            this.avertissementEnvoye = true
+            return (
+                <Translation>
+                    {
+                        t=>
+                            toast.warn(t('flot.proposition.voter-avec-jeton'))
+                    }
+                </Translation>
+            )
+        }                
+    }
+
     render() {
         if(this.state.propositions && this.state.media) {
             let propositions = []
@@ -120,7 +136,23 @@ export default class SommairePartages extends Component {
                     }                    
                 </Translation>
             )
-            propositions = this.state.propositions.map((elem, idx)=>{ 
+
+            let _id0
+            let _p0
+
+            // Trouver _p0, la proposition la plus récente
+            this.state.propositions.forEach(elem=>{
+                if(!_p0 || _p0._d < elem._d) { _p0 = elem }
+            })
+
+            let _rafraichir = false
+
+            if(_p0.etat === 'VOTATION') {
+                _rafraichir = true
+            }
+
+            propositions = this.state.propositions.map((elem, idx)=>{                 
+
                 return(                    
                     <Translation key={`sommaire_${idx}`} >
                         {
@@ -136,7 +168,7 @@ export default class SommairePartages extends Component {
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
-                                        <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={true} />
+                                        <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                                     </Accordion.Content>                                
                                 </div>
                         }
@@ -147,10 +179,7 @@ export default class SommairePartages extends Component {
             propositions = propositions.reverse()
 
             let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
-            let partageEditeur = false
-
-            let _id0
-            let _p0
+            let partageEditeur = false            
             
             if(this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
@@ -241,7 +270,21 @@ export default class SommairePartages extends Component {
                 <Translation>
                     {
                         t =>
-                            <div className="ui segment">                    
+                            <div className="ui segment">
+                                {
+                                    this.state.user && 
+                                    _p0 && 
+                                        _p0.etat === "VOTATION" && 
+                                        !this.state.jetonApi && 
+                                        _p0.initiator.rightHolderId === this.state.user.username && 
+                                        (
+                                        <script language="javascript">
+                                            setTimeout(()=>{
+                                                this.toastAvertissement()                                                
+                                            })
+                                        </script>
+                                    )
+                                }                 
                                 <div className="ui grid" style={{padding: "10px"}}>
                                     <div className="ui row">
                                         <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
@@ -305,8 +348,7 @@ export default class SommairePartages extends Component {
                                                  </div>
                                                      
                                                 )
-                                            }                                                                                        
-                                                                                                                              
+                                            }
                                         </div>
                                     </div> 
 
@@ -350,6 +392,15 @@ export default class SommairePartages extends Component {
                                                 }
                                                 <div className="ui one wide column" />                                                
                                             </div>
+                                        )
+                                    }
+                                    {
+                                    this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
+                                            <script language="javascript">
+                                                setTimeout(()=>{
+                                                    toast.warn(t('flot.proposition.voter-avec-jeton'))
+                                                })
+                                            </script>
                                         )
                                     }
                                 </div>

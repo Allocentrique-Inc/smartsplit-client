@@ -4,9 +4,11 @@ import axios from 'axios'
 import { Auth } from 'aws-amplify';
 
 import { toast } from 'react-toastify'
+import LigneMedia from './tableaudebord-ligne-media'
+import { Modal } from 'semantic-ui-react';
+import AssistantOeuvre from '../oeuvre/assistant-oeuvre';
 
 const PANNEAU_INITIATEUR = 1, PANNEAU_COLLABORATEUR = 0
-
 
 export default class ListePieces extends Component {
 
@@ -19,8 +21,11 @@ export default class ListePieces extends Component {
             collecte: {
                 medias: false,
                 collab: false
-            }
+            },
+            user: props.user
         }
+        this.ajouterOeuvre = this.ajouterOeuvre.bind(this)
+        this.closeModal = this.closeModal.bind(this)
     }
 
     afficherPanneauInitiateur() {
@@ -79,6 +84,24 @@ export default class ListePieces extends Component {
                                 toast.error("rightsSplits object error")
                             }
                         })
+                        
+                        // Retrait des doublons
+                        // cleanArray removes all duplicated elements
+                        // https://www.unicoda.com/?p=579
+                        function cleanArray(array) {
+                            var i, j, len = array.length, out = [], obj = {};
+                            for (i = 0; i < len; i++) {
+                            obj[array[i]] = 0;
+                            }
+                            for (j in obj) {
+                            out.push(j);
+                            }
+                            return out;
+                        }
+
+                        initiatorMediaIds = cleanArray(initiatorMediaIds)
+                        collabMediaIds = cleanArray(collabMediaIds)
+                        
                         let _medias = [];
                         let ii = '';
                         let _collabMedias = [];
@@ -103,6 +126,14 @@ export default class ListePieces extends Component {
                             }
                             that.collecte({collab: true})
                         })
+
+                        if(initiatorMediaIds.length === 0) {
+                            that.collecte({medias: true})
+                        }
+
+                        if(collabMediaIds.length === 0) {
+                            that.collecte({collab: true})
+                        }
     
                     })
                     .catch((error) => {
@@ -117,92 +148,19 @@ export default class ListePieces extends Component {
         }
     }
 
+    ajouterOeuvre() {
+        this.setState({modaleOeuvre: true})
+    }
+
+    closeModal() {
+        this.setState({modaleOeuvre: false})
+    }
+
     render() {
 
-        let toggle = (
-            <Translation>
-                {
-                  t =>
-                    <div>
-                        <div className="ui row">
-                            <div className="ui one wide column" />
-                            <div className="ui twelve wide column">
-                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('tableaudebord.pieces.1')}</span>
-                            </div>
-                            <div className="ui one wide column" />
-                        </div>
-                    </div> 
-                }
-            </Translation>
-        )
-        let tableauMedias = []
-        if (this.state.medias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
-            tableauMedias = this.state.medias.map((elem, _idx)=>{
-                return (
-                    <Translation key={_idx} >
-                        {
-                            t =>
-                                <div style={{marginTop: "20px"}}>
-                                    <div className="ui three column grid">
-                                        <div className="ui row">
-                                            <div className="ui thirteen wide column">
-                                                <div className="ui three column grid cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}} >
-                                                    <div className="ui row">
-                                                        <div className="ui one wide column">
-                                                            <i className="file image outline icon big grey"></i>
-                                                        </div>
-                                                        <div className="ui fifteen wide column">
-                                                            <div className="song-name">{`${elem.title}`}</div>
-                                                            <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;Par&nbsp;</div><div className="small-500-color" style={{display: "inline-block"}}>{`${elem.artist}`}</div>
-                                                            <br/>
-                                                            <div className="small-400-color" style={{display: "inline-block"}}>Modifié il y a 2 jours &bull; Partagée avec</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>                            
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                            }
-                    </Translation>
-                ) 
-            })
-        }
-        if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {
-            tableauMedias = this.state.collabMedias.map((elem, _idx)=>{
-                return (
-                    <Translation key={_idx} >
-                        {
-                            t =>
-                                <div style={{marginTop: "20px"}}>
-                                    <div className="ui three column grid">
-                                        <div className="ui row">
-                                            <div className="ui thirteen wide column">
-                                                <div className="ui three column grid cliquable" onClick={()=>{window.location.href = `/oeuvre/sommaire/${elem.mediaId}`}} >
-                                                    <div className="ui row">
-                                                        <div className="ui one wide column">
-                                                            <i className="file image outline icon big grey"></i>
-                                                        </div>
-                                                        <div className="ui fifteen wide column">
-                                                            <div className="song-name">{`${elem.title}`}</div>
-                                                            <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;Par&nbsp;</div><div className="small-500-color" style={{display: "inline-block"}}>{`${elem.artist}`}</div>
-                                                            <br/>
-                                                            <div className="small-400-color" style={{display: "inline-block"}}>Modifié il y a 2 jours &bull; Partagée avec</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>                            
-                                        </div>
-                                    </div>
-                                </div>     
-                            }
-                    </Translation>
-                ) 
-            })
-        }  
-        if (!this.state.patience && this.state.medias.length == 0 && this.state.panneau === PANNEAU_INITIATEUR) {  // If no initiator musical pieces present for user
+        let rendu
+
+        function aucuneOeuvre() {
             return (
                 <Translation>
                 {
@@ -211,16 +169,8 @@ export default class ListePieces extends Component {
                         <div className="ui three column grid">
                             <div className="ui row">
                                 <div className="ui thirteen wide column">
-                                    <div className="ui row">
-                                    <div className="heading2">{t('tableaudebord.navigation.0')}</div>
-                                        <br/>
-                                        <div className="medium-500">
-                                            <div className="ui twelve wide column">
-                                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('tableaudebord.pieces.1')}</span>
-                                            </div>
-                                            <div className="ui one wide column" />    
-                                        </div>
+                                    <div className="ui row">                                    
+                                        <br/>                                        
                                         <br/>
                                         <br/>
                                         <div className="illustration">
@@ -240,44 +190,49 @@ export default class ListePieces extends Component {
             </Translation>
             )
         }
-        if (!this.state.patience && this.state.collabMedias.length == 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {  // If no collaborator musical pieces present for user
-            return (
-                <Translation>
-                    {
-                        t =>
-                            <div key="blank"style={{marginTop: "20px"}}>
-                                <div className="ui three column grid">
-                                    <div className="ui row">
-                                        <div className="ui thirteen wide column">
-                                            <div className="ui row">
-                                            <div className="heading2">{t('tableaudebord.navigation.0')}</div>
-                                                <br/>
-                                                <div className="medium-500">
-                                                    <div className="ui twelve wide column">
-                                                        <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                                        <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('tableaudebord.pieces.1')}</span>
-                                                    </div>
-                                                    <div className="ui one wide column" />    
-                                                </div>
-                                                <br/>
-                                                <br/>
-                                                <div className="illustration">
-                                                    <div className="medium-500">👀</div>
-                                                </div>
-                                                <div className="ui fifteen wide column">
-                                                    <br/>
-                                                    <div className="medium-500">{t('tableaudebord.vide.preambule')}</div>
-                                                    <div className="medium-500" style={{fontWeight: '100'}}>{t('tableaudebord.vide.indication')}</div>
-                                                </div>
-                                            </div>
-                                        </div>                            
-                                    </div>
-                                </div>
+
+        let toggle = (
+            <Translation>
+                {
+                  t =>
+                    <div>
+                        <div className="ui row">
+                            <div className="ui one wide column" />
+                            <div className="ui twelve wide column">
+                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
+                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('tableaudebord.pieces.1')}</span>
                             </div>
-                    }
-                </Translation>
-            )
+                            <div className="ui one wide column" />
+                        </div>
+                    </div> 
+                }
+            </Translation>
+        )
+        
+        if (
+            (!this.state.patience && this.state.medias.length == 0 && this.state.panneau === PANNEAU_INITIATEUR) ||
+            (!this.state.patience && this.state.collabMedias.length == 0 && this.state.panneau === PANNEAU_COLLABORATEUR)
+         ) {  // If no initiator musical pieces present for user
+            rendu = aucuneOeuvre()
+        } else {
+            let tableauMedias = []
+            if (this.state.medias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
+                tableauMedias = this.state.medias.map((elem, _idx)=>{
+                    return (
+                        <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
+                    )
+                })
+            }
+            if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {
+                tableauMedias = this.state.collabMedias.map((elem, _idx)=>{
+                    return (
+                        <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
+                    ) 
+                })
+            } 
+            rendu = tableauMedias
         }
+
         return (
             <Translation>
                 {
@@ -285,12 +240,32 @@ export default class ListePieces extends Component {
                         <div>
                             {
                                 !this.state.patience && (
-                                    <div>
-                                        <div className="heading2">{t('tableaudebord.navigation.0')}</div>
-                                        <br/>
-                                        <div className="medium-500">{toggle}</div>
-                                        <br/>
-                                        <ul>{tableauMedias}</ul>
+                                    <div>                                                                                
+                                        <div className="ui grid">
+                                            <div className="ui row">
+                                                <div className="heading2 ten wide column">{t('tableaudebord.navigation.0')}</div>
+                                            </div>                                            
+                                            <div className="ui row">
+                                                <div className="ui nine wide column" />
+                                                <div className="ui three wide column medium button" onClick={()=>{this.ajouterOeuvre()}}>
+                                                    {t('tableaudebord.pieces.ajouter')}
+                                                </div>
+                                            </div>
+                                            <div className="ui row">
+                                                <div className="fifteen wide column">
+                                                    <div className="medium-500">{toggle}</div>
+                                                    <br/>
+                                                    <ul>{rendu}</ul>
+                                                </div>
+                                            </div>                                            
+                                        </div>
+                                        <Modal
+                                            open={this.state.modaleOeuvre}                                            
+                                            onClose={this.closeModal}
+                                            size="fullscreen"
+                                        >
+                                            <AssistantOeuvre />
+                                        </Modal>
                                     </div>
                                 )
                             }

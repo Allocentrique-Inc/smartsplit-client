@@ -43,7 +43,7 @@ export default class TableauDeBord extends Component {
             return (
                 <div className="tdb--cadre ui row">
                     <Navigation parent={this} />
-                    <Panneau entete={entete} selection={this.state.navigation} />
+                    <Panneau entete={entete} selection={this.state.navigation} user={this.state.user} />
                 </div>                
             )
         } else {

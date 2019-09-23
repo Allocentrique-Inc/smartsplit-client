@@ -48,9 +48,7 @@ export class ChampCourrielAssistant extends Component {
         this.setState({modele: e.target.value})
     }
 
-    render() {    
-
-        console.log('Champ texte', this.state)
+    render() {
 
         return(
             <div>      
@@ -81,7 +79,7 @@ export class ChampTexteAssistant extends Component {
             requis: props.requis,
             lien: props.lien,
             typeLien: props.typeLien,
-            disabeld: props.disabled
+            disabled: props.disabled
         }
         this.valeur = props.valeur
     }

@@ -11,7 +11,8 @@ export default class Panneau extends Component {
         super(props)
         this.state = {
             selection: props.selection,
-            entete: props.profil
+            entete: props.profil,
+            user: props.user
         }
     }
 
@@ -26,7 +27,7 @@ export default class Panneau extends Component {
             <div className="tdb--panneau">                
                 {this.props.entete}
                 <div className="contenu">
-                    {this.state.selection === 0 && (<ListePieces />)}
+                    {this.state.selection === 0 && (<ListePieces user={this.state.user} />)}
                     {this.state.selection === 1 && (<MonProfil />)}
                     {this.state.selection === 2 && (<ListeCollaborateurs />)}
                 </div>                

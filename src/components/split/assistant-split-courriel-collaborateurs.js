@@ -69,6 +69,8 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             let __aD = {}
             if(this._courrielsModifies[elem]) {
                 __aD.email = this._courrielsModifies[elem]
+            } else {
+                __aD.email = _aD.email
             }
             __aD.name = _aD.name
             __aD.rightHolderId = _aD.rightHolderId
