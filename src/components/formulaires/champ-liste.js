@@ -67,7 +67,8 @@ export class ChampListeAssistant extends Component {
                     validate={this.state.requis && required}
 
                 />
-                <ModifyUser open={this.state.open} />
+                <ModifyUser 
+                    open={this.state.open} />
                 <i className="right info circle icon blue"></i>
             </div>
         )        
@@ -92,9 +93,26 @@ export class ChampListeCollaborateurAssistant extends Component {
             ajout: true            
         }
         this.OPTIONS = undefined
+        this.listeAyantsDroit = this.listeAyantsDroit.bind(this)
     }
 
     componentWillMount() {
+        this.listeAyantsDroit()        
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.etiquette !== nextProps.etiquette) {
+            this.setState({etiquette: nextProps.etiquette})
+        }
+        if (this.props.indication !== nextProps.indication) {
+            this.setState({indication: nextProps.indication})
+        }
+        if (this.props.collaborateurs !== nextProps.collaborateurs) {            
+            this.recalculerOptions(nextProps.collaborateurs)
+        }
+    }
+
+    listeAyantsDroit() {
         // Récupérer la liste des ayant-droits
         axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
@@ -116,20 +134,7 @@ export class ChampListeCollaborateurAssistant extends Component {
         })
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.etiquette !== nextProps.etiquette) {
-            this.setState({etiquette: nextProps.etiquette})
-        }
-        if (this.props.indication !== nextProps.indication) {
-            this.setState({indication: nextProps.indication})
-        }
-        if (this.props.collaborateurs !== nextProps.collaborateurs) {            
-            this.recalculerOptions(nextProps.collaborateurs)
-        }
-    }
-
     recalculerOptions(collaborateurs){
-        console.log('recalculer options', collaborateurs)
         let options = Object.assign([], this.OPTIONS)
         collaborateurs.forEach(elem => {
             options.forEach((_e, idx)=>{
@@ -173,7 +178,20 @@ export class ChampListeCollaborateurAssistant extends Component {
                         />
                     ) 
                 }       
-                <ModifyUser open={this.state.open} firstName={this.state.firstName} />  
+                <ModifyUser 
+                    open={this.state.open} 
+                    firstName={this.state.firstName}
+                    close={()=>{
+                        this.setState({open: false}, ()=>{
+                            if(this.props.close) {
+                                this.props.close()
+                            }
+                        })                        
+                    }}
+                    fn={()=>{
+                        this.listeAyantsDroit()                    
+                    }}
+                    />  
             </div>
         )        
     }

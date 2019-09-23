@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form } from "semantic-ui-react"
+import { Form, Input } from "semantic-ui-react"
 import { FormField } from 'semantic-ui-react-ext'
 import { Wizard } from 'semantic-ui-react-formik'
 
@@ -19,7 +19,7 @@ export class ChampCourrielAssistant extends Component {
             autoFocus: props.autoFocus,
             requis: props.requis
         }
-        this.valeur = ""
+        this.onChange = this.onChange.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -28,6 +28,9 @@ export class ChampCourrielAssistant extends Component {
         }
         if (this.props.indication !== nextProps.indication) {
             this.setState({indication: nextProps.indication})
+        }  
+        if (this.props.modele !== nextProps.modele) {
+            this.setState({modele: nextProps.modele})
         }        
     }
 
@@ -41,21 +44,22 @@ export class ChampCourrielAssistant extends Component {
         return erreur;
     }
 
-    render() {    
+    onChange (e) {
+        this.setState({modele: e.target.value})
+    }
+
+    render() {
 
         return(
-            <div>                
-                <Wizard.Field
-                    name={this.state.modele}
-                    component={FormField}
-                    componentProps={{
-                        label: this.state.etiquette,
-                        placeholder: this.state.indication,
-                        required: this.state.requis,
-                        autoFocus: this.state.autoFocus,
-                        type: "email"
-                    }}
-                    validate={this.validerCourriel}                    
+            <div>      
+                {this.state.etiquette}           
+                <Input 
+                    value = {this.state.modele}
+                    placeholder = {this.state.indication}
+                    required = {this.state.requis}
+                    autoFocus = {this.state.autoFocus}
+                    type = "email" 
+                    onChange = {this.onChange}                 
                 />                
                 {this.props.info && (<i className="right info circle icon blue"></i>)}
             </div>
@@ -75,7 +79,7 @@ export class ChampTexteAssistant extends Component {
             requis: props.requis,
             lien: props.lien,
             typeLien: props.typeLien,
-            disabeld: props.disabled
+            disabled: props.disabled
         }
         this.valeur = props.valeur
     }

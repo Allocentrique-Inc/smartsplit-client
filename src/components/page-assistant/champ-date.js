@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { DateInput } from "semantic-ui-calendar-react";
-import 'moment/locale/fr';
 import { Translation } from 'react-i18next';
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";

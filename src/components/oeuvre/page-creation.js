@@ -90,7 +90,7 @@ export default class PageCreation extends Component {
                                     pochette={ this.props.pochette }
                                     icon={ this.icon() }
                                     label={ t('flot.documenter.entete.creation') }
-                                    question={ t('flot.documenter.titre1') + ' ' + this.props.values.title + "&#8239;?" }
+                                    question={ t('flot.documenter.titre1') + ' ' + this.props.values.title + "?" }
                                     description={ t('flot.documenter.titre1-description') }
                                 />
 
@@ -118,7 +118,7 @@ export default class PageCreation extends Component {
                                     label={ t('flot.documenter.compositeur') }
                                     createLabel="Créer un nouveau collaborateur"
                                     description={ t('flot.documenter.compositeur-description') }
-                                    placeholder="Ajouter un compositeur..."
+                                    placeholder={ t('flot.documenter.compositeur-placeholder') }
                                     value={ this.state.composers }
                                     onChange={ ids => this.setState({ composers: ids }) }
                                 />
@@ -135,9 +135,9 @@ export default class PageCreation extends Component {
                                 />
 
                                 <ChampTexte
-                                    label={ t('flot.documenter.code') }
-                                    description={ t('flot.documenter.code-description') }
-                                    placeholder={ t('flot.documenter.code-placeholder') }
+                                    label={ t('flot.documenter.codeiswc') }
+                                    description={ t('flot.documenter.codeiswc-description') }
+                                    placeholder={ t('flot.documenter.codeiswc-placeholder') }
                                     value={ this.props.values.iswc }
                                     onChange={ value => this.props.setFieldValue('iswc', value) }
                                 />

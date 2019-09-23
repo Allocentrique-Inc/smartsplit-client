@@ -16,7 +16,7 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import avatar from "../../assets/images/elliot.jpg"
 
-const MODES = {egal: "0", role: "1", manuel: "2"}
+const MODES = {egal: "0", manuel: "1"}
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
 
@@ -27,7 +27,7 @@ class PageAssistantPartageEnregistrement extends Component {
         this.state = {
             parts: {},
             mode: MODES.egal,
-            partsInvariables: [],
+            partsInvariables: {},
             song: ""
         }        
         this.changementGradateur = this.changementGradateur.bind(this)
@@ -73,7 +73,8 @@ class PageAssistantPartageEnregistrement extends Component {
 
     // Changement d'un gradateur
     changementGradateur(index, delta) {
-        
+        // Changement d'un gradateur
+
         let invariable = this.state.partsInvariables
         let droits = this.props.values.droitEnregistrement        
         
@@ -86,14 +87,16 @@ class PageAssistantPartageEnregistrement extends Component {
         invariable[index] = true // Le droit sélectionné lors de la transition est considéré invariable
         let nbModifications = droits.length - Object.keys(invariable).length
 
-        deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+        if(nbModifications > 0) {
+            deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+        }
     
         droits.forEach((elem, idx)=>{
             if(!invariable[idx]) { // Ajustement si l'index est variable
-                droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)
+                droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)                
             }
-        })
-    
+        })        
+
         this.props.setFieldValue('droitEnregistrement', droits)
         
         if(aMisInvariable) // Retrait de l'index des invariables
@@ -101,26 +104,47 @@ class PageAssistantPartageEnregistrement extends Component {
 
     }
 
-    basculerVariable(index) {
+    basculerVariable(index) {        
+
         let invariables = this.state.partsInvariables
+
+        let nbAvant = Object.keys(invariables).length
         invariables[index] = !invariables[index]
-        this.setState({partsInvariables: invariables})
+
+        if (!invariables[index]) {
+            delete invariables[index]
+        }
+
+        let nbApres = Object.keys(invariables).length
+
+        if(((nbAvant === 0 && nbApres === 1) || nbAvant < nbApres ) && (this.props.values.droitEnregistrement.length - 1 === nbApres)) {
+
+            // Trouver le gradateur restant et l'inscrire comme invariable
+            let nbGradateurs = this.props.values.droitEnregistrement.length // Autant de gradateurs que de droits
+            
+            for(let i = 0; i < nbGradateurs; i++) { // Pour gradateur_droitEnregistrement_[0 à N-1]
+                if(!invariables[i]) {
+                    invariables[i] = true  
+                }
+            }
+        }
+
+        this.setState({ partsInvariables: invariables })
     }
 
     ajouterCollaborateur(arrayHelpers) {
         let ayants = {}
         let _coll = this.props.values.collaborateur
         //let _index = arrayHelpers.data.length
-        let _index = this.props.values.droitAuteur.length + 
+        let _index = this.props.values.droitEnregistrement.length + 
                     this.props.values.droitInterpretation.length +
                     this.props.values.droitEnregistrement.length
-        this.props.values.droitAuteur.forEach(droit=>{
+        this.props.values.droitEnregistrement.forEach(droit=>{
             ayants[droit["nom"]] = droit["color"]
         })
         this.props.values.droitInterpretation.forEach(droit=>{
             ayants[droit["nom"]] = droit["color"]
         })
-        console.log(ayants)
                                                             
         _coll.forEach((elem, idx)=>{
             if(this.state.mode === MODES.egal) {
@@ -176,10 +200,10 @@ class PageAssistantPartageEnregistrement extends Component {
                 }
             }
             // création de l'entrée dans le tableau des invariables
-            let _inv = this.state.partsInvariables
+           /*  let _inv = this.state.partsInvariables
             _inv.unshift(false)
             this.setState({partsInvariables: _inv})
-            
+            */ 
         })                                                            
         this.props.setFieldValue('collaborateur', [])
         this.setState({ping: true}, ()=>{
@@ -255,7 +279,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                             },                                
                                             {
                                                 nom: t('modepartage.manual'),
-                                                valeur: ""+MODES.manual
+                                                valeur: ""+MODES.manuel
                                             }
                                         ]}
                                     />
@@ -320,12 +344,19 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                         </div>
                                                                         <ChampGradateurAssistant 
                                                                             changement={(id, delta)=>{this.changementGradateur(id, delta)}} 
-                                                                            id={`gradateur_${index}`}                                                                            
+                                                                            id={`gradateur_droitEnregistrement_${index}`}                                                                            
                                                                             modele={`droitEnregistrement[${index}].pourcent`}
-                                                                            disabled={this.state.partsInvariables[index] || this.state.mode !== MODES.manuel}
+                                                                            disabled={
+                                                                                this.state.partsInvariables[index] || 
+                                                                                this.state.mode !== MODES.manuel  || 
+                                                                                this.props.values.droitEnregistrement.length <= 1 ||
+                                                                                (
+                                                                                    1 === 
+                                                                                    (this.props.values.droitEnregistrement.length - Object.keys(this.state.partsInvariables).length)
+                                                                                )}
                                                                             />
                                                                         {
-                                                                            this.state.mode === MODES.manuel && (
+                                                                            this.state.mode === MODES.manuel && !(this.props.values.droitEnregistrement.length <= 1) && (
                                                                                 <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}
                                                                                     onClick={()=>{
                                                                                         this.basculerVariable(index)
@@ -334,14 +365,18 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                             )
                                                                         }
                                                                         {
-                                                                            this.state.mode === MODES.manuel && (                                                                        
+                                                                            this.state.mode === MODES.manuel && !(this.props.values.droitEnregistrement.length <= 1) && (                                                                        
                                                                                 <ChampTexteAssistant 
                                                                                     id={`texte_${index}`}
                                                                                     changement={(id, valeur)=>{
                                                                                         this.changementGradateur(id, valeur)
                                                                                     }}
                                                                                     modele={`droitEnregistrement[${index}].pourcent`} 
-                                                                                    disabled={this.state.partsInvariables[index]}
+                                                                                    disabled={this.state.partsInvariables[index]  ||
+                                                                                        (
+                                                                                            1 === 
+                                                                                            (this.props.values.droitEnregistrement.length - Object.keys(this.state.partsInvariables).length)
+                                                                                        )}
                                                                                     valeur={this.props.values.droitEnregistrement[index].pourcent} />
                                                                             )
                                                                         }
@@ -349,7 +384,6 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     </div>
                                                                     </div>
                                                                 </div>
-                                                                    <div className="blank-text">A</div>
                                                             </div>
                                                         )
                                                     })
@@ -369,11 +403,14 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     selection={true}
                                                                     ajout={false}
                                                                     collaborateurs={this.props.values.droitEnregistrement}
+                                                                    close={()=>{
+                                                                        this.props.setFieldValue('collaborateur', [])
+                                                                    }}
                                                                 />                                               
                                                             </div>
                                                             <div className="four wide column">
                                                                 <button 
-                                                                    className="ui small button"
+                                                                    className="ui medium button"
                                                                     onClick={(e)=>{
                                                                         e.preventDefault()
                                                                         this.ajouterCollaborateur(arrayHelpers)

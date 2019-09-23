@@ -13,6 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
 import { truncate } from 'fs';
+import { Modal } from 'semantic-ui-react'
 
 export default class PartageSommaireEditeur extends Component {
 
@@ -247,6 +248,10 @@ export default class PartageSommaireEditeur extends Component {
         })
     }
 
+    modaleConnexion(ouvrir = true) {
+        this.setState({modaleConnexion: ouvrir})
+    }
+
     transmettre() {        
 
         Auth.currentAuthenticatedUser()
@@ -255,28 +260,7 @@ export default class PartageSommaireEditeur extends Component {
         })
         .catch(err=>{
             toast.error(err.message)
-            confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecté pour accéder`,
-                closeOnClickOutside: false,
-                style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                customUI: ({ onClose }) => 
-                    <div>
-                        <LogIn message="Connecte-toi pour voter" fn={()=>{
-                            this.envoi()
-                            onClose()
-                        }} />
-                </div>
-            })
+            this.modaleConnexion()
         })
         
     }
@@ -322,9 +306,14 @@ export default class PartageSommaireEditeur extends Component {
                                                         `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`
                                                 }
                                             </div>
-                                            <div className="small-400-color">
-                                                Éditeur
-                                            </div>
+                                            <Translation>
+                                                { 
+                                                    t =>
+                                                <div className="small-400-color">
+                                                {t('flot.editeur.editeur')}
+                                                </div>
+                                                }
+                                            </Translation>
                                             <div style={{position: "relative", marginTop: "5px"}}>
                                                 {
                                                     !this.estVoteFinal() &&
@@ -380,9 +369,14 @@ export default class PartageSommaireEditeur extends Component {
                                                         `${this.state.donateur.firstName} ${this.state.donateur.lastName}`
                                                 }
                                             </div>
+                                            <Translation>
+                                                { 
+                                                    t=>
                                             <div className="small-400-color">
-                                                Donateur
-                                            </div>                                       
+                                                {t('flot.editeur.donateur')}
+                                            </div>
+                                            }  
+                                            </Translation>                                     
                                         </div>
                                         <div className="ui three wide column">
                                             <p className="big">
@@ -407,16 +401,39 @@ export default class PartageSommaireEditeur extends Component {
                             </div>
                         </div>
                     </div>
+                    <Translation>
                     {
+                        t =>
                         this.state.part.etat === "VOTATION" &&
                         this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
                         (
-                            <button disabled={!this.state.transmission} onClick={()=>{
+                            <button className="ui medium button" disabled={!this.state.transmission} onClick={()=>{
                                 this.transmettre()
-                            }}> Voter 
+                            }}> {t('flot.bouton.voter')}
                             </button>
                         )
-                    }              
+                    }    
+                    </Translation>   
+
+                     {/*  */}     
+
+                    <Modal
+                        open={this.state.modaleConnexion}
+                        closeOnEscape={false}
+                        closeOnDimmerClick={false}
+                        onClose={this.props.close} 
+                        size="small" >
+                        <br/><br/><br/>
+                        <LogIn fn={()=>{
+                            Auth.currentAuthenticatedUser()
+                            .then(res=>{                                
+                                this.envoi()
+                            })
+                            .catch(err=>{
+                                toast.error(err.message)
+                            })
+                        }} />
+                    </Modal>  
                 </div>
             )
         } else {

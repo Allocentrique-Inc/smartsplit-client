@@ -5,20 +5,35 @@
         "liste-media": "Liste des médias retournés de l'API"
     },
     "collaborateur": {
+        "titre": "Ajouter un artiste collaborateur",
         "attribut": {
             "etiquette": {
-                "nom": "Nom de famille",
-                "prenom": "Prénom",
-                "artiste": "Nom d'artiste",
-                "role": "Rôle dans l'œuvre"
+                "nom": "Nom légal",
+                "prenom": "Prénom légal",
+                "artiste": "Nom d'artiste (optionel)",
+                "role": "Rôle dans l'œuvre",
+                "option": " (optionel)",
+                "na": "Si non applicable, nous afficherons le nom complet.",
+                "courriel": "Courriel",
+                "groupe": "Groupes"
             },
             "indication": {
                 "nom": "Indique un nom de famille",
                 "prenom": "Indique un prénom",
                 "artiste": "Indique un nom d'artiste",
-                "role": "Choisis 1 ou plusieurs rôles"
+                "role": "Choisis un ou plusieurs rôles",
+                "role2": "Ces rôles peuvent être modifiés plus tard.",
+                "groupe": "Choisir un groupe"
+            },
+            "bouton": {
+                "annuler": "Annuler",
+                "sauvegarder": "Sauvegarder"
             }
-        }
+        },
+            "declaration": {
+                "identite": "Déclaration d'identité",
+                "accepter": "Accepter"
+            }
     },
     "oeuvre": {
         "attribut": {
@@ -117,13 +132,18 @@
                 "soustitre": "Invite tes collaborateurs à valider ce Split"
             }
         },
+        "accueil": {
+            "connexion": "Connexion obligatoire",
+            "message": "Tu dois être connecté pour accéder",
+            "login": "Connecte-toi pour accéder"
+        },
         "documente-ton-oeuvre": {
             "titre": "Documente ton œuvre",
             "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre."
         },
         "collaborateurs": {
             "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
-            "preambule": "Commençons par toi ...",
+            "preambule": "Commençons par toi...",
             "role": "Définis ton rôle ?",
             "ajout": "Ajouter un collaborateur"
         },
@@ -133,12 +153,18 @@
         },
         "genre": {
             "titre": "Quel est le genre de ton œuvre ?",
-            "preambule": "Genre, style, comme ... ?"
+            "preambule": "Genre, style, comme... ?"
         },
         "documenter": {
             "entete": {
                 "creation": "Création",
-                "interpretation": "Interprétation"
+                "interpretation": "Interprétation",
+                "enregistrement": "Enregistrement",
+                "sortie": "Sortie",
+                "fichier": "Fichiers",
+                "influence": "Influences",
+                "parole": "Paroles",
+                "lien": "Liens d'écoute"
             },
             "titre1": "Qui a participé à la création de",
             "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
@@ -149,14 +175,86 @@
             "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
             "compositeur": "Compositeurs",
             "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
+            "compositeur-placeholder": "Ajouter un compositeur",
             "editeur": "Éditeurs",
             "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
             "editeur-placeholder": "Ajouter un éditeur",
             "code": "Code ISWC",
             "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
             "code-placeholder": "Ajouter un code",
+            "date-creation": "Date de création",
+            "date-placeholder": "Ajouter une date",
+            "auteur": "Auteurs",
+            "auteur-placeholder": "Ajouter un auteur",
+            "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
+            "compositeur": "Compositeurs",
+            "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
+            "editeur": "Éditeurs",
+            "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
+            "editeur-placeholder": "Ajouter un éditeur",
+            "codeiswc": "Code ISWC",
+            "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
+            "codeiswc-placeholder": "Ajouter un code",
             "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
-            "titre2-description": "C’est ici que tu indiques qui a joué quel instrument."
+            "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
+            "options": { 
+                "question1": "Quelle type d'interprétation ?",
+                    "question1-choix-a": "Artiste principal",
+                    "question1-choix-b": "Artiste accompagnateur",
+                "question2": "Quel rôle dans la pièce principale ?",
+                    "question2-choix-a": "Chanteur",
+                    "question2-choix-b": "Musicien"
+            },
+            "titre3": "Who recorded the musical piece?",
+            "titre3-description": "Here you mention who contributed to the sound recording of this piece.",
+            "realisation": "Direction",
+            "realisation-description": "The Artistic Director gives a sound to the recording.",
+            "realisation-placeholder": "Add a Director",
+            "son": "Sound Recording",
+            "son-description": "Who's the Sound Recordist on your musical piece.",
+            "son-placeholder": "Add a Sound Recordist",
+            "mix": "Mixing",
+            "mix-description": "This is the step of volume and frequency adjustment.",
+            "mix-placeholder": "Add a Sound Engineer",
+            "master": "Mastering",
+            "master-description": "This is the step of compression and overall equalization of the song.",
+            "master-placeholder": "Add a Sound Engineer",
+            "studio": "Recording Studio",
+            "studio-description": "The place where the song was recorded.",
+            "studio-placeholder": "Search for a recording studio",
+            "production-description": "The person or compagny that invest time or money to make sound recording possible.",
+            "production-placeholder": "Add a Producer",
+            "etiquette": "Label",
+            "etiquette-description": "That's the organisation that handles the marketing of your piece.",
+            "etiquette-placeholder": "Add a label",
+            "distribution": "Distributor",
+            "distribution-description": "That's the organisation that handles the commercialisation of your piece.",
+            "distribution-placeholder": "Add a Distributor",
+            "codeupc": "UPC/EAN Code",
+            "codeupc-description": "Mandatory barcode attributed to the physical product. Might be optionally attributed to a digital product.",
+            "codeupc-placeholder": "Enter the code (optional)",
+            "date": "Release date of the musical piece (if applicable)",
+            "date-description": "The moment when the piece is launched on platforms.", 
+            "date-choix": {
+                "avenir": "Coming Up",
+                "determine": "Determined"
+            },
+            "titre4": "Which files would you like to grant access to?",
+            "titre4-description": "Here you can add all files related to this musical piece.",
+            "titre5": "General Information",
+            "titre5-description": "Here you mention what is the genra of this musical piece and what are the artists or trends that inspired it.",
+            "titre6": "contains lyrics?",
+            "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
+            "titre7": "Was the musical piece already broadcasted?",
+            "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links."
+        },
+        "bouton": {
+            "ajout": "Ajouter",
+            "voter": "VOTER"
+        },
+        "tableaudebord":  {
+            "collabo": "Mes collaborateurs",
+            "edito": "Mon éditeur"
         },
         "pro": {
             "titre": "Es-tu pro ?",
@@ -232,17 +330,19 @@
             "intro3": "Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)"
         },
         "editeur": {
-            "ajout": "Ajouter un éditeur"
+            "ajout": "Ajouter un éditeur",
+            "editeur": "Éditeur",
+            "donateur": "Donateur"
         },
         "proposition": {
             "nouvelle": "Créer une nouvelle version",
             "envoyer": "Envoyer aux collaborateurs",
-            "continuer": "Continuer le partage"
-        },
-        "bouton": {
-            "ajout": "Ajouter"
+            "continuer": "Continuer le partage",
+            "sommaire": "Accéder au sommaire",
+            "voter": "Accéter au vote",
+            "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition."
         }
-    },
+        },
     "traitement": {
         "acr": {
             "erreur-mauvaise-lecture": "Mauvaise lecture du média. Essayez un nouvel échantillon.",
@@ -274,6 +374,17 @@
             "0": "Mes pièces musicales",
             "1": "Mon profil public",
             "2": "Mes collaborateurs"
+        },
+        "pieces": {
+            "0": "Mes ajouts",
+            "1": "Partagées avec moi",
+            "par": "par",
+            "partageAvec": "partagé avec",
+            "ajouter": "Ajouter une oeuvre"
+        },
+        "vide": {
+            "preambule": "Tes oeuvres apparaîtrons ici.",
+            "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton «Ajouter»."
         }
     },
     "roles": {
@@ -302,7 +413,8 @@
         "editeur": {
             "titre": "Quel est le nom de ton éditeur ?",
             "titre-part": "Combien ton éditeur devrait-il avoir ?"
-        }
+        },
+        "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition."
     },
     "connexion": {
         "titre": {
@@ -327,9 +439,81 @@
         "manual": "Partager manuellement"
     },
     "droits": {
-        "auteur": "Droits d'auteur"
+        "auteur": "Droits d'auteur",
+        "titre": {
+            "workCopyrightSplit": "Droits d'auteur",
+            "performanceNeighboringRightSplit": "Interprétation",
+            "masterNeighboringRightSplit": "Enregistrement sonore"
+        }
     },
     "erreur": {
         "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
+    },
+    "inscription": {
+        "facebook": "Se connecter avec Facebook",
+        "google": "Se connecter avec Google",
+        "courriel": "Entrer le courriel",
+        "exemple": "nom@exemple.com",
+        "email-invalide": "Courriel invalide",
+        "motdepasse": "Choix du mot de passe",
+        "password-invalide": "Le mot de passe est invalide",
+        "correspond": "Les mots de passe ne correspondent pas",
+        "password": "Mot de passe",
+        "ou": "ou",
+        "bouton": "Créer mon compte"
+    },
+    "accueil": {
+        "titre": "Connecte-toi à ton compte Smart Split.",
+        "sous-titre": "Entre tes informations ci-dessous.",
+        "courriel": "Entrer le courriel",
+        "motdepasse": "Mon mot de passe",
+        "oublie": "Mot de passe oublié ?"
+    },
+    "entete": {
+        "connexion": "Connexion",
+        "inscription": "Inscription",
+        "encours": "Connexion en cours..."
+    },
+    "socan": {
+        "joindre": "Joindre SOCAN",
+        "prenom": "Prénom légal",
+        "nom": "Nom légal",
+        "2eprenom": "Deuxième prénom légal",
+        "date": "Date de naissance",
+        "adresse": "Adresse",
+        "ville": "Ville",
+        "codepostal": "Code postal",
+        "telephone": "Numéro de téléphone",
+        "courriel": "Courriel",
+        "confirmation-courriel": "Vérifie le courriel",
+        "utilisateur": "Identifiant d'utilisateur",
+        "mot-de-passe": "Mot de passe",
+        "confirmation-mot-de-passe": "Confirmer le mot de passe",
+        "condition": "J'accepte les conditions d'adhésion de la SOCAN.",
+        "bouton": {
+            "annuler": "Annuler"
+        },
+        "province": {
+            "AB": "Alberta",
+            "BC": "Colombie britannique",
+            "MB": "Manitoba",
+            "NB": "Nouveau Brunswick",
+            "NL": "Terre-Neuve-et-Labrador",
+            "NT": "Territoires du Nord-Ouest",
+            "NS": "Nouvelle-Écosse",
+            "NU": "Nunavut",
+            "ON": "Ontario",
+            "PE": "Île-du-Prince-Édouard",
+            "QC": "Québec",
+            "SK": "Saskatchewan",
+            "YT": "Yukon"
+        }
+    },
+    "menuprofil": {
+        "accueil": "Tableau de bord",
+        "profil": "Mon profil SOCAN",
+        "francais": "Français",
+        "anglais": "English",
+        "deconnexion": "Déconnexion"
     }
 }

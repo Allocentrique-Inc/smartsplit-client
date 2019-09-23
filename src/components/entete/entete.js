@@ -31,7 +31,7 @@ export default class Entete extends Component {
                                     {nav}
                                 </div>                                
                                 {this.state.contenu}
-                                <div className="ui three wide column" style={{textAlign: "right"}}>
+                                <div className="ui two wide column" style={{textAlign: "right"}}>
                                     {this.state.profil && <MenuProfil user={this.state.profil} />}
                                     {!this.state.profil && this.state.connexion && <BoutonConnexion />}
                                 </div>                                

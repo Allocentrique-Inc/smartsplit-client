@@ -13,7 +13,8 @@ import { toast } from 'react-toastify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
-import { Translation } from 'react-i18next';
+import { Translation } from 'react-i18next'
+import { Modal } from 'semantic-ui-react'
 
 export default class TableauDeBord extends Component {
 
@@ -30,41 +31,7 @@ export default class TableauDeBord extends Component {
             this.setState({user: res})
         })
         .catch(err=>{
-            toast.error(err.message)
-            confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecté pour accéder au tableau de bord`,
-                closeOnClickOutside: false,
-                style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                customUI: ({ onClose }) => 
-                    <Translation>
-                        {
-                            (t) =>
-                                <Login message={t('connexion.titre.tdb')} fn={(user)=>{
-                                    this.setState({user: user}, ()=>{                                
-                                        onClose()
-                                        // Ré-exécute la vérification de la connexion
-                                        Auth.currentAuthenticatedUser()
-                                        .then(res=>{
-                                            this.setState({user: res})
-                                        })
-                                        .catch(err=>{
-                                            toast.error(err.message)
-                                        })
-                                    })
-                                }} /
-                        >}
-                    </Translation>
-            })
+            this.setState({modaleConnexion: true})
         })
     }
 
@@ -76,14 +43,40 @@ export default class TableauDeBord extends Component {
             return (
                 <div className="tdb--cadre ui row">
                     <Navigation parent={this} />
-                    <Panneau entete={entete} selection={this.state.navigation} />
+                    <Panneau entete={entete} selection={this.state.navigation} user={this.state.user} />
                 </div>                
             )
         } else {
+            let that = this
             return (
+                <Translation>
+             {   
+                 t =>
+                 
                 <div className="tdb--cadre ui row accueil">
+                    <Modal
+                        open={this.state.modaleConnexion}
+                        closeOnEscape={false}
+                        closeOnDimmerClick={false}
+                        onClose={this.props.close} 
+                        size="small" >
+                        <br/><br/><br/>
+                        <Login fn={()=>{
+                            Auth.currentAuthenticatedUser()
+                            .then(res=>{
+                                that.setState({user: res})                                    
+                            })
+                            .catch(err=>{
+                                toast.error(err.message)
+                            })
+                        }} />
+                    </Modal>
                 </div>
+            }
+            </Translation>
             )
+            
+
         }
         
     }

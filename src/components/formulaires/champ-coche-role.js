@@ -17,7 +17,6 @@ export default class CochesRolesDroit extends Component {
     render() {
 
         let choix = this.state.choix.map((elem, idx)=>{
-            console.log(elem, this.state.modele, `coche_role_droit_auteur_${this.state.id}_${idx}`)
             return (
                 <Wizard.Field
                     key={`coche_role_droit_auteur_${this.state.id}_${idx}`}

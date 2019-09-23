@@ -102,10 +102,10 @@ export default class BoutonsRadio extends Component {
 
         return (
             <RadioButtonGroup
-            id={`radioGroup_${this.state.id}`}
-            label={this.state.titre}
-            >
-                {choix}                
+                id={`radioGroup_${this.state.id}`}
+                label={this.state.titre}
+                >
+                {choix}
             </RadioButtonGroup>
         )
     }

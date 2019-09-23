@@ -15,11 +15,18 @@ import { confirmAlert } from 'react-confirm-alert'
 import Entete from '../entete/entete'
 import { Accordion, Icon } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
-import moment from 'moment'
 import AssistantPartageEditeur from './assistant-partage-editeur'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
 
+import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
+
+import { Modal } from 'semantic-ui-react'
+
+import moment from 'moment'
+
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
+
+const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
 export default class SommairePartages extends Component {
 
@@ -34,15 +41,13 @@ export default class SommairePartages extends Component {
         this.clic = this.clic.bind(this)
         this.afficherPanneauEditeur = this.afficherPanneauEditeur.bind(this)
         this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
+        this.openModal = this.openModal.bind(this)
+        this.closeModal = this.closeModal.bind(this)
+        this.toastAvertissement = this.toastAvertissement.bind(this)
+        this.avertissementEnvoye = false
     }
     
-    componentWillReceiveProps(nextProps) {
-        if(this.props.i18n !== nextProps.i18n) {
-            if(nextProps.i18n.lng === "fr") {
-                // momentjs en français, SVP
-                require('../../utils/moment-fr')
-            }            
-        }
+    componentWillReceiveProps(nextProps) {     
     }
 
     componentWillMount() {
@@ -52,31 +57,7 @@ export default class SommairePartages extends Component {
             this.initialisation()
         })
         .catch(err=>{
-            toast.error(err.message)
-            confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecté pour accéder`,
-                closeOnClickOutside: false,
-                style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                customUI: ({ onClose }) => 
-                    <div>
-                        <Login message="Connecte-toi pour accéder" fn={(user)=>{
-                            onClose()
-                            this.setState({user: user}, ()=>{
-                                this.initialisation()
-                            })
-                        }} />
-                </div>
-            })
+            this.setState({modaleConnexion: true})
         })        
     }
 
@@ -87,6 +68,9 @@ export default class SommairePartages extends Component {
     afficherPanneauPropositions() {
         this.setState({panneau: PANNEAU_PROPOSITIONS})
     }
+
+    closeModal = () => this.setState({ open: false })
+    openModal = () => this.setState({ open: true })
 
     initialisation() {
         axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
@@ -123,7 +107,21 @@ export default class SommairePartages extends Component {
         this.setState({ activeIndex: newIndex })
     }
 
-    render() {        
+    toastAvertissement() {
+        if(!this.avertissementEnvoye) {
+            this.avertissementEnvoye = true
+            return (
+                <Translation>
+                    {
+                        t=>
+                            toast.warn(t('flot.proposition.voter-avec-jeton'))
+                    }
+                </Translation>
+            )
+        }                
+    }
+
+    render() {
         if(this.state.propositions && this.state.media) {
             let propositions = []
             let contenu = (
@@ -138,11 +136,27 @@ export default class SommairePartages extends Component {
                     }                    
                 </Translation>
             )
-            propositions = this.state.propositions.map((elem, idx)=>{ 
+
+            let _id0
+            let _p0
+
+            // Trouver _p0, la proposition la plus récente
+            this.state.propositions.forEach(elem=>{
+                if(!_p0 || _p0._d < elem._d) { _p0 = elem }
+            })
+
+            let _rafraichir = false
+
+            if(_p0.etat === 'VOTATION') {
+                _rafraichir = true
+            }
+
+            propositions = this.state.propositions.map((elem, idx)=>{                 
+
                 return(                    
                     <Translation key={`sommaire_${idx}`} >
                         {
-                            (t) =>                            
+                            (t, i18n) =>                            
                                 <div className="ui row">
                                     <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
                                         <Icon name='dropdown' />
@@ -150,11 +164,11 @@ export default class SommairePartages extends Component {
                                         <div>
                                             <div className="small-400" style={{display: "inline-block"}}>&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                             <div className="small-500-color" style={{display: "inline-block"}}>{`${elem.initiator.name}`}</div>
-                                            <div className="small-400" style={{display: "inline-block"}}>&nbsp;{elem._d ? moment(elem._d).fromNow() : moment().fromNow()}</div>
+                                            <div className="small-400" style={{display: "inline-block"}}>&nbsp;{i18n.lng && elem._d ? moment(elem._d).locale(i18n.lng.substring(0,2)).fromNow() : moment().fromNow()}</div>
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
-                                        <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={true} />
+                                        <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                                     </Accordion.Content>                                
                                 </div>
                         }
@@ -164,74 +178,179 @@ export default class SommairePartages extends Component {
 
             propositions = propositions.reverse()
 
-            let nouveauDisabled = "", envoiDisabled = "disabled", continuerDisabled = "disabled"
-            let partageEditeur = false
-
-            let _id0
-            let _p0
+            let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
+            let partageEditeur = false            
             
             if(this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
                 _id0 = _p.uuid
                 if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
-                    nouveauDisabled = "disabled"
+                    nouveauDisabled = true
                 }    
                 if(_p.etat !== 'PRET') {
-                    envoiDisabled = "disabled"
+                    envoiDisabled = true
                 } else {
-                    envoiDisabled = ""
+                    envoiDisabled = false
                 }
                 if(_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
-                    continuerDisabled = ""
+                    continuerDisabled = false
                 }
                 if(_p.etat === 'ACCEPTE') {
-                    partageEditeur = true
+                    // ESt-ce que l'utilisateur est dans les ayant-droits ?
+                    let estCollaborateur = false
+                    if(_p.rightsSplits.workCopyrightSplit) {
+                        Object.keys(_p.rightsSplits.workCopyrightSplit).forEach(type=>{
+                            _p.rightsSplits.workCopyrightSplit[type].forEach(part => {
+                                if(part.rightHolder.rightHolderId === this.state.user.username){
+                                    estCollaborateur = true
+                                }
+                            })
+                        })
+                    }
+                    if(estCollaborateur) {
+                        partageEditeur = true
+                    }                    
                 }
             }
 
-            return (                
+            // Extraction de la liste des ayants droit de la proposition la plus récente
+            // Construction de la structure des données de l'assistant
+            let proposition = _p0
+
+            let rightHolders = {}
+            let rights = {}
+
+            function traitementDroit(objDroit, type) {
+                if (objDroit) {
+                    objDroit.forEach(droit=>{
+                        if(!rightHolders[droit.rightHolder.rightHolderId]) {
+                            // Ajout du titulaire dans la table des ayant droits
+                            rightHolders[droit.rightHolder.rightHolderId] = droit.rightHolder
+                        }
+                        // Ajout du droit à l'ayant droit
+                        rights[type][droit.rightHolder.rightHolderId] = droit
+                    })
+                }                
+            }
+
+            // Extraire les différents ayant-droits et ordonnancement dans un tableau
+            TYPE_SPLIT.forEach(type=>{
+                if(!rights[type]) {
+                    rights[type] = {}
+                }
+                if(proposition.rightsSplits[type]) {
+                    let rightsSplit = proposition.rightsSplits[type]
+                    // Séparation de la structure des droits
+                    switch(type) {
+                        case 'workCopyrightSplit':
+                            // lyrics
+                            traitementDroit(rightsSplit.lyrics, type)
+                            // music
+                            traitementDroit(rightsSplit.music, type)
+                            break
+                        case 'performanceNeighboringRightSplit':
+                            //principal
+                            traitementDroit(rightsSplit.principal, type)
+                            //accompaniment
+                            traitementDroit(rightsSplit.accompaniment, type)
+                            break
+                        case 'masterNeighboringRightSplit':
+                            traitementDroit(rightsSplit.split, type)
+                            break
+                        default:
+                    }
+                                        
+                }
+            })
+
+            let that = this
+
+            return (          
                 <Translation>
                     {
                         t =>
-                            <div className="ui segment">                    
+                            <div className="ui segment">
+                                {
+                                    this.state.user && 
+                                    _p0 && 
+                                        _p0.etat === "VOTATION" && 
+                                        !this.state.jetonApi && 
+                                        _p0.initiator.rightHolderId === this.state.user.username && 
+                                        (
+                                        <script language="javascript">
+                                            setTimeout(()=>{
+                                                this.toastAvertissement()                                                
+                                            })
+                                        </script>
+                                    )
+                                }                 
                                 <div className="ui grid" style={{padding: "10px"}}>
                                     <div className="ui row">
                                         <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
                                     </div>
                                     <div className="ui row">
-                                        <div className="ui seven wide column" />                
-                                        <div className="ui seven wide column">
-                                            <div className={`ui medium button ${continuerDisabled}`} onClick={
-                                                ()=>{
-                                                    window.location.href=`/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                }
-                                                }>
-                                                {t('flot.proposition.continuer')}
-                                            </div>
-                                            <div className={`ui medium button ${nouveauDisabled}`} onClick={
-                                                ()=>{
-                                                    window.location.href=`/partager/nouveau/${this.state.mediaId}`
-                                                }
-                                                }>
-                                                {t('flot.proposition.nouvelle')}
-                                            </div>
-                                            <div className={`ui medium button ${envoiDisabled}`} onClick={
-                                                ()=>{
-                                                    window.location.href=`/proposition/approuver/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                }
-                                                }>
-                                                {t('flot.proposition.envoyer')}
-                                            </div>
+                                        <div className="ui twelve wide column" />                
+                                        <div className="ui one wide column">
+                                            {
+                                                !continuerDisabled && (
+                                                    <div className={`ui medium button`} onClick={
+                                                        ()=>{
+                                                            window.location.href=`/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
+                                                        }
+                                                        }>
+                                                        {t('flot.proposition.continuer')}
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                !nouveauDisabled && (
+                                                    <div className={`ui medium button`} onClick={
+                                                        ()=>{
+                                                            window.location.href=`/partager/nouveau/${this.state.mediaId}`
+                                                        }
+                                                        }>
+                                                        {t('flot.proposition.nouvelle')}
+                                                    </div>
+                                                )
+                                            }
+                                            {
+                                                !envoiDisabled && (
+                                    
+                                                    <div>
+                                                         
+                                                        <div onClick={()=>{
+                                                            this.openModal()
+                                                        }} className={`ui medium button`} style={{width:"200px", right:"150px"}}>
+                                                            {t('flot.proposition.envoyer')}
+                                                        </div>
+                                                     
+                                                        <Modal 
+                                                            open={this.state.open}
+                                                            onClose={this.closeModal} 
+                                                            size="small"
+                                                        >
+                                                            <PageAssistantSplitCourrielsCollaborateurs 
+                                                                ayantDroits={rightHolders}
+                                                                propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
+                                                                close={(cb)=>{this.closeModal(); if (cb) cb()}}
+                                                                />
+                                    
+                                                        </Modal>
+                                                 </div>
+                                                     
+                                                )
+                                            }
                                         </div>
-                                    </div>
+                                    </div> 
+
                                     {
                                         partageEditeur && (
                                             <div className="ui row">
                                                 <div className="ui one wide column" />
                                                 <div className="ui twelve wide column">
-                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>Mes collaborateurs</span>&nbsp;&nbsp;
-                                                    <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>Mon éditeur</span>
+                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>{t('flot.tableaudebord.collabo')}</span>&nbsp;&nbsp;
+                                                    <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>{t('flot.tableaudebord.edito')}</span>
                                                 </div>
                                                 <div className="ui one wide column" />
                                             </div>
@@ -267,7 +386,33 @@ export default class SommairePartages extends Component {
                                             </div>
                                         )
                                     }
+                                    {
+                                    this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
+                                            <script language="javascript">
+                                                setTimeout(()=>{
+                                                    toast.warn(t('flot.proposition.voter-avec-jeton'))
+                                                })
+                                            </script>
+                                        )
+                                    }
                                 </div>
+                                <Modal
+                                    open={this.state.modaleConnexion}
+                                    closeOnEscape={false}
+                                    closeOnDimmerClick={false}
+                                    onClose={this.props.close} 
+                                    size="small" >
+                                    <br/><br/><br/>
+                                    <Login fn={()=>{
+                                        Auth.currentAuthenticatedUser()
+                                        .then(res=>{
+                                            that.setState({user: res})                                    
+                                        })
+                                        .catch(err=>{
+                                            toast.error(err.message)
+                                        })
+                                    }} />
+                                </Modal>
                             </div>
                     }
                 </Translation>                

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+
+.input-container {
+    font-family: 'IBM Plex Sans';
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 35px;
+    width: 550px;
+    margin: 0 20px 0 80px;
+}
+
+::placeholder {
+    color: #8DA0B3;
+    opacity: 1; 
+  }  
+/*IE*/
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #8DA0B3;
+}
+
+.Titre {
+    font-size: 20px;
+    font-weight: normal;
+    color: #2DA84F;
+    margin: 0;
+}
+
+#prompt,
+#roles {
+    padding: 10px 0 0 0;
+}
+

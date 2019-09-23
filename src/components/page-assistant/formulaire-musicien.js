@@ -3,6 +3,7 @@ import { ItemSelectionne } from './item-selectionne';
 import { Checkbox } from "semantic-ui-react";
 import { instruments } from '../../assets/listes/fr/instruments';
 import ChampSelectionMultiple from "./champ-selection-multiple";
+import { Translation } from 'react-i18next'
 import { isUnique } from "./right-holder-helpers";
 import * as roles from '../../assets/listes/role-uuids.json';
 
@@ -31,8 +32,6 @@ export class FormulaireMusicien extends Component {
 
     constructor(props) {
         super(props);
-
-        console.log(this.rightHolderSingerSubroles());
 
         this.instrumentOptions = instruments
             .filter((value, index, self) => {
@@ -170,6 +169,9 @@ export class FormulaireMusicien extends Component {
 
     render() {
         return (
+        <Translation>
+            {
+                (t) =>
             <>
                 <ItemSelectionne
                     key={ this.props.item.key }
@@ -179,7 +181,7 @@ export class FormulaireMusicien extends Component {
                 />
 
                 <div className="instrument-form">
-                    <p className="input-label">Quel type d'interprétation ?</p>
+                    <p className="input-label">{t('flot.documenter.options.question1')}</p>
 
                     <div>
                         <div className="ui radio checkbox">
@@ -190,7 +192,7 @@ export class FormulaireMusicien extends Component {
                                    onChange={ this.onTypeChange }
                             />
 
-                            <label>Artiste principal</label>
+                            <label>{t('flot.documenter.options.question1-choix-a')}</label>
                         </div>
                     </div>
 
@@ -203,15 +205,15 @@ export class FormulaireMusicien extends Component {
                                    onChange={ this.onTypeChange }
                             />
 
-                            <label>Artiste accompagnateur</label>
+                            <label>{t('flot.documenter.options.question1-choix-b')}</label>
                         </div>
                     </div>
 
-                    <p className="input-label">Quel rôle dans la pièce musicale ?</p>
+                    <p className="input-label">{t('flot.documenter.options.question2')}</p>
 
                     <div>
                         <Checkbox
-                            label={ 'Chanteur' }
+                            label={ t('flot.documenter.options.question2-choix-a') }
                             checked={ this.state.singer }
                             onChange={ (event, { checked }) => this.handleSingerCheckboxChange(checked) }
                         />
@@ -223,7 +225,7 @@ export class FormulaireMusicien extends Component {
 
                     <div>
                         <Checkbox
-                            label={ 'Musicien' }
+                            label={ t('flot.documenter.options.question2-choix-b') }
                             checked={ this.state.musician }
                             onChange={ (event, { checked }) => this.handleInstrumentCheckboxChange(checked) }
                         />
@@ -236,6 +238,8 @@ export class FormulaireMusicien extends Component {
 
                 <div className="section-divider"></div>
             </>
+            }
+            </Translation>
         );
     }
 }

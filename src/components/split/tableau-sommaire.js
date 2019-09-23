@@ -7,6 +7,8 @@ import Login from '../auth/Login'
 
 import { toast } from 'react-toastify'
 
+import { Translation } from 'react-i18next';
+
 const DROITS = {
     auteur: 'workCopyrightSplit', 
     interpretation: 'performanceNeighboringRightSplit', 
@@ -634,6 +636,9 @@ class TableauSommaireSplit extends Component {
         }        
 
         return (
+            <Translation>
+                 {
+                     t =>
             <div>
                 <div className="heading1">{titre}</div>
                 <table width="100%">
@@ -652,7 +657,7 @@ class TableauSommaireSplit extends Component {
                     <div>                    
                         <button disabled={!this.state.transmission} onClick={()=>{
                             this.preEnvoi()
-                        }}> Voter
+                        }}> t{('flot.bouton.voter')}
                         </button>
                     </div>
                 )}                
@@ -662,7 +667,9 @@ class TableauSommaireSplit extends Component {
                         {/*this.state.droits && this.afficherSommaire()*/}
                     </div>
                 )}
-            </div>            
+            </div>
+                 }
+                 </Translation>            
         )                           
     }
 }

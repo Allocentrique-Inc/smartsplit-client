@@ -144,7 +144,7 @@ class PageAssistantPartageEditeur extends Component {
                                         <div className="fields gray-fields">                                    
                                             <div className="twelve wide field">
                                                 <div className="holder-name">
-                                                    <img className="ui spaced avatar image" src={avatar}/>
+                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
                                                     {this.state.ayantDroit.nom}
                                                 </div>
                                                 <br/>
@@ -168,7 +168,7 @@ class PageAssistantPartageEditeur extends Component {
                                         <div className="fields gray-fields">
                                             <div className="twelve wide field">
                                                 <div className="holder-name">
-                                                    <img className="ui spaced avatar image" src={avatar}/>
+                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
                                                     {this.state.editeur.nom}
                                                 </div>
                                                 <br/>
