@@ -65,6 +65,7 @@ export default class PageFichiers extends React.Component {
                                     label={ 'Téléverser le fichier de l’œuvre enregistrée' }
                                     undertext={ 'MP3 ou WAV acceptés.' }
                                     access={ this.props.values.files.audio.access || 'on-invite' }
+                                    onFileChange={ value => this.props.setFieldValue('files.audio.file', value) }
                                     onAccessChange={ value => this.props.setFieldValue('files.audio.access', value) }
                                 />
 
@@ -83,6 +84,7 @@ export default class PageFichiers extends React.Component {
                                     label={ 'Partition ou tablature' }
                                     undertext={ 'Fichiers acceptés à mettre' }
                                     access={ this.props.values.files.score.access || 'on-invite' }
+                                    onFileChange={ value => this.props.setFieldValue('files.score.file', value) }
                                     onAccessChange={ value => this.props.setFieldValue('files.score.access', value) }
                                 />
 
@@ -90,6 +92,7 @@ export default class PageFichiers extends React.Component {
                                     label={ 'Fichiers MIDI' }
                                     undertext={ 'Fichiers acceptés à mettre' }
                                     access={ this.props.values.files.midi.access || 'on-invite' }
+                                    onFileChange={ value => this.props.setFieldValue('files.midi.file', value) }
                                     onAccessChange={ value => this.props.setFieldValue('files.midi.access', value) }
                                 />
                             </Colonne>
