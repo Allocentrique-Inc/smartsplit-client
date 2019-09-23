@@ -1,0 +1,116 @@
+@import '../colors';
+@import '../layout';
+@import '../typography';
+
+.corps {
+    padding: ($margin-step * 4) 0;
+}
+
+.corps-title-1 {
+    @extend .h3-style;
+    margin-bottom: $margin-step * 1.5;
+}
+
+.corps-title-2 {
+    @extend .h4-style;
+    margin-bottom: $margin-step * 1.5;
+}
+
+.corps-table {
+    margin-bottom: $margin-step;
+
+    @extend .medium-400-style;
+    color: $color-primary;
+
+    td {
+        padding-bottom: $margin-step;
+        vertical-align: top;
+
+        &:first-of-type {
+            padding-right: $margin-step;
+            width: 200px;
+        }
+
+        &.placeholder {
+            color: $color-tertiary;
+        }
+
+        a {
+            @extend .medium-500-style;
+
+            color: $smartsplit-color-link;
+            transition: 0.2s color;
+
+            &:hover {
+                color: $smartsplit-color-link-hover;
+            }
+        }
+    }
+
+    .table-label {
+        display: flex;
+        color: $color-secondary;
+
+        .help-icon {
+            margin-left: $margin-step / 4;
+            width: 16px;
+            height: auto;
+        }
+    }
+}
+
+.pochette .corps-table td a {
+    color: $pochette-color-link;
+
+    &:hover {
+        color: $pochette-color-link-hover;
+    }
+}
+
+.listen-icons {
+    margin-bottom: $margin-step * 2;
+    display: flex;
+    align-items: center;
+}
+
+.listen-icon {
+    margin-right: $margin-step / 2;
+    width: 22px;
+    height: auto;
+}
+
+.download-section {
+    margin-bottom: $margin-step * 2;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    @extend .medium-400-style;
+    color: $color-secondary;
+
+    .download-icon {
+        margin-right: $margin-step;
+        width: 24px;
+        height: auto;
+    }
+
+    a {
+        @extend .medium-500-style;
+
+        color: $smartsplit-color-link;
+        transition: 0.2s color;
+
+        &:hover {
+            color: $smartsplit-color-link-hover;
+        }
+    }
+}
+
+.pochette .download-section a {
+    color: $pochette-color-link;
+
+    &:hover {
+        color: $pochette-color-link-hover;
+    }
+}

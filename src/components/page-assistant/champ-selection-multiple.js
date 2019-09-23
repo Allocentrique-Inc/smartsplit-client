@@ -3,8 +3,9 @@ import { Dropdown } from "semantic-ui-react";
 import { ItemSelectionne } from "./item-selectionne";
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
-import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
+import '../../assets/scss/page-assistant/champ.scss';
+import '../../assets/scss/page-assistant/champ-selection-multiple.scss';
 
 export default class ChampSelectionMultiple extends Component {
     constructor(props) {
@@ -84,6 +85,10 @@ export default class ChampSelectionMultiple extends Component {
         });
     }
 
+    createLabel() {
+        return this.props.createLabel || 'Ajouter comme instrument:';
+    }
+
 
     render() {
         return (
@@ -104,7 +109,8 @@ export default class ChampSelectionMultiple extends Component {
                         selectOnBlur={ false }
                         selectOnNavigation={ false }
                         allowAdditions
-                        additionLabel={ <span className={ this.additionLabelClasses() }><img alt="Ajouter l'instrument" src={ this.plusCircle() }/> Ajouter comme instrument:</span> }
+                        additionLabel={ <span className={ this.additionLabelClasses() }><img
+                            src={ this.plusCircle() }/> { this.createLabel() }</span> }
                         value={ this.state.dropdownValue }
                         options={ this.unselectedItems() }
                         onChange={ this.handleChange }

@@ -1,0 +1,21 @@
+@import '../layout';
+@import '../typography';
+
+.access-option-content {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+
+    .access-text {
+        margin-left: $margin-step;
+
+        .title {
+            @extend .medium-400-style;
+        }
+
+        .description {
+            @extend .small-400-style;
+            margin-top: 0;
+        }
+    }
+}

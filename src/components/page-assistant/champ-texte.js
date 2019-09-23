@@ -4,6 +4,12 @@ import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 
 export default class ChampTexte extends React.Component {
+    undertext() {
+        return this.props.undertext ?
+            (<p className="undertext">{ this.props.undertext }</p>) :
+            (<></>);
+    }
+
     render() {
         return (
             <div className="champ">
@@ -16,8 +22,11 @@ export default class ChampTexte extends React.Component {
                     <Input
                         fluid
                         placeholder={ this.props.placeholder }
-                        onChange={ (event, {value}) => this.props.onChange(value) }
+                        value={ this.props.value }
+                        onChange={ (event, { value }) => this.props.onChange(value) }
                     />
+
+                    { this.undertext() }
                 </label>
             </div>
         );

@@ -112,62 +112,21 @@ class SommaireDroit extends Component {
             <Translation>
                 {
                     t=>
-                        <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
-                            this.justifierRefus(()=>{this.voter(false)})
-                        }}>{t('vote.refuser')}</div>
+                        <div style={{display: "inline-block"}}>
+                            <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
+                                this.justifierRefus()
+                                this.voter(false)
+                            }}>
+                                {t('vote.refuser')}
+                            </div>                            
+                        </div>
                 }
-            </Translation>            
+            </Translation>
         )
     }
 
-    justifierRefus(fn) {
-        confirmAlert({
-            title: `Tu refuses la proposition !`,
-            message: `Es-tu certain ?`,
-            closeOnClickOutside: false,
-            style: {
-                    position: "relative",
-                    width: "640px",
-                    height: "660px",
-                    margin: "0 auto",
-                    background: "#FFFFFF",
-                    border: "1px solid rgba(0, 0, 0, 0.5)",
-                    boxSizing: "border-box",
-                    boxShadow: "inset 0px -1px 0px #DCDFE1"
-                },
-            customUI: ({ onClose }) => 
-                <div>         
-                    <h3>Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.</h3>               
-                    <textarea 
-                        cols={40} 
-                        rows={5} 
-                        id="raison"
-                        placeholder="Pourquoi refuses-tu le split (optionel)" 
-                        style={{
-                        width: "546px",
-                        height: "253px",
-                        left: "436px",
-                        top: "429px",                              
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    }}></textarea><p/>
-                    <button style={{
-                        background: "rgb(45, 168, 79)",
-                        borderRadius: "2px",
-                        width: "100%",                                
-                        fontWeight: "bold",
-                        fontSize: "1.2rem"
-                    }}
-                    onClick={()=>{
-                        this.state.parent.refuser(this.state.type, document.getElementById('raison').value)
-                        onClose()
-                        fn()
-                    }}
-                    >Refuser ce partage</button>
-                </div>
-        })        
+    justifierRefus() {
+        this.setState({justifierRefus: true})
     }
 
     changerVote () {        
@@ -176,7 +135,10 @@ class SommaireDroit extends Component {
 
     voter(choix) {
         let _monChoix = choix ? 'accept' : 'reject'
-        this.state.parent.vote(_monChoix, this.state.type)        
+        this.state.parent.vote(_monChoix, this.state.type)
+        if(choix) {
+            this.setState({justifierRefus: false})
+        }
     }
 
     organiserDonnees() {
@@ -237,7 +199,7 @@ class SommaireDroit extends Component {
     render() {
 
         let _parts = []
-        let _data = []                   
+        let _data = []
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
@@ -282,10 +244,26 @@ class SommaireDroit extends Component {
                                             {
                                                 this.state.modifierVote &&
                                                 (
-                                                    <i 
-                                                        className="pencil alternate icon big blue" 
-                                                        style={{cursor: "pointer"}} 
-                                                        onClick={()=>{this.changerVote()}}></i>
+                                                    <div>
+                                                        <i 
+                                                            className="pencil alternate icon big blue" 
+                                                            style={{cursor: "pointer"}} 
+                                                            onClick={()=>{this.changerVote()}}></i>
+                                                        {
+                                                            this.state.justifierRefus && (
+                                                                <div>                                        
+                                                                    <textarea 
+                                                                        cols={30} 
+                                                                        rows={2} 
+                                                                        placeholder="Pourquoi refuses-tu le split (optionel)"                                       
+                                                                        onChange={(e)=>{
+                                                                            this.state.parent.refuser(this.state.type, e.target.value)
+                                                                        }}>
+                                                                    </textarea>                                       
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </div>                                                    
                                                 )
                                             }                                            
                                         </div>
@@ -574,7 +552,7 @@ export default class SommairePartage extends Component {
         }
         axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
         .then((res)=>{
-            window.location.reload()
+            window.location.href = `/partager/${this.state.proposition.mediaId}`
         })
         .catch((err) => {
             toast.error(err.message)                                
