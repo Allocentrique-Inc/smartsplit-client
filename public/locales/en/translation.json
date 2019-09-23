@@ -406,7 +406,8 @@
             "titre": "What's your publisher's name ?",
             "titre-part": "How much should your publisher get ?"
         },
-        "lecture-seule": "A new proposal is in progress. You are in read-only mode."
+        "lecture-seule": "A new proposal is in progress. You are in read-only mode.",
+        "prete-a-envoyer": "Your proposal is ready to go by email to your collaborators. Take a time to review and clic on Send."
     },
 
     "connexion": {

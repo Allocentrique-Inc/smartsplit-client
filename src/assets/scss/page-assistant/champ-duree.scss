@@ -1,0 +1,15 @@
+@import '../colors';
+@import '../typography';
+@import '../layout';
+
+.input-duree {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    .duree-label {
+        @extend .medium-400-style;
+        color: $color-secondary;
+        padding-left: $margin-step / 2;
+    }
+}

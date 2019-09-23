@@ -123,8 +123,6 @@ class AssistantPartageEditeur extends Component {
                 proposalId: `${this.state.propositionId}`
             }
 
-            console.log("Envoi des données à editorsplitshare", body)
-
             axios.post(`http://api.smartsplit.org:8080/v1/editorsplitshare`, body)
             .then(res=>{
                 toast.success(res.data)

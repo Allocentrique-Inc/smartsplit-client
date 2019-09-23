@@ -9,50 +9,68 @@ import '../../assets/scss/assistant-form.scss';
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit";
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import ChampTexte from "../page-assistant/champ-texte";
-import SelectOption from "../../model/select-option/select-option";
-import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import FormulaireDateSortie from "../page-assistant/formulaire-date-sortie";
+import {
+    addRightHolderIfMissing,
+    getRightHolderIdsByRole,
+    hasRoles,
+    updateRole
+} from "../page-assistant/right-holder-helpers";
+import * as roles from '../../assets/listes/role-uuids.json';
+
 
 export default class PageEnregistrement extends React.Component {
-
-    studios = [
-        'a', 'b', 'c'
-    ];
 
     constructor(props) {
         super(props);
 
         this.state = {
-            directors: [],
-            soundRecordists: [],
-            mixEngineers: [],
-            masterEngineers: [],
-            studios: [],
-            producers: [],
-            recordLabels: [],
-            distributors: [],
-            releaseDate: '',
-            upc: ''
+            directors: getRightHolderIdsByRole(roles.director, props.values.rightHolders),
+            soundRecordists: getRightHolderIdsByRole(roles.soundRecordist, props.values.rightHolders),
+            mixEngineers: getRightHolderIdsByRole(roles.mixEngineer, props.values.rightHolders),
+            masterEngineers: getRightHolderIdsByRole(roles.masterEngineer, props.values.rightHolders),
+            producers: getRightHolderIdsByRole(roles.producer, props.values.rightHolders),
         };
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (
+            this.state.directors !== prevState.directors ||
+            this.state.soundRecordists !== prevState.soundRecordists ||
+            this.state.mixEngineers !== prevState.mixEngineers ||
+            this.state.masterEngineers !== prevState.masterEngineers ||
+            this.state.producers !== prevState.producers
+        ) {
+            const recordingRightHolderIds = this.state.directors
+                .concat(this.state.soundRecordists)
+                .concat(this.state.mixEngineers)
+                .concat(this.state.masterEngineers)
+                .concat(this.state.producers);
+
+            const updatedRightHolders = recordingRightHolderIds
+                .reduce(addRightHolderIfMissing, [...this.props.values.rightHolders])
+                .map(this.getUpdatedRightHolder)
+                .filter(hasRoles);
+
+            this.props.setFieldValue('rightHolders', updatedRightHolders);
+        }
+    }
+
+    getUpdatedRightHolder = rightHolder => {
+        const rightHolderRoles = rightHolder.roles || [];
+        const id = rightHolder.id || null;
+
+        const directorRoles = updateRole(roles.director, this.state.directors, id, rightHolderRoles);
+        const soundRecordistRoles = updateRole(roles.soundRecordist, this.state.soundRecordists, id, directorRoles);
+        const mixEngineerRoles = updateRole(roles.mixEngineer, this.state.mixEngineers, id, soundRecordistRoles);
+        const masterEngineerRoles = updateRole(roles.masterEngineer, this.state.masterEngineers, id, mixEngineerRoles);
+        const newRoles = updateRole(roles.producer, this.state.producers, id, masterEngineerRoles);
+
+        return Object.assign({}, rightHolder, { roles: newRoles });
+    };
+
     rightHolderOptions() {
         return RightHolderOptions(this.props.rightHolders);
-    }
-
-    studioOptions() {
-        return this.studios.map(studio => new SelectOption({
-            value: studio,
-            text: studio
-        }));
-    }
-
-    labelOptions() {
-        return this.studioOptions();
-    }
-
-    distributorOptions() {
-        return this.studioOptions();
     }
 
     icon() {
@@ -122,15 +140,21 @@ export default class PageEnregistrement extends React.Component {
                                     onChange={ ids => this.setState({ masterEngineers: ids }) }
                                 />
 
-                                <ChampSelectionMultiple
+                                <ChampTexte
                                     pochette={ this.props.pochette }
-                                    items={ this.studioOptions() }
                                     label={ t('flot.documenter.studio') }
-                                    createLabel="Créer un nouveau studio"
                                     description={ t('flot.documenter.studio-description') }
                                     placeholder={ t('flot.documenter.studio-placeholder') }
-                                    value={ this.state.studios }
-                                    onChange={ ids => this.setState({ studios: ids }) }
+                                    value={ this.props.values.studio }
+                                    onChange={ value => this.props.setFieldValue('studio', value) }
+                                />
+
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Studio d’enregistrement – adresse"
+                                    placeholder="Adresse du studio d'enregistrement..."
+                                    value={ this.props.values.studioAddress }
+                                    onChange={ value => this.props.setFieldValue('studioAddress', value) }
                                 />
 
                                 <ChampSelectionMultipleAyantDroit
@@ -149,42 +173,59 @@ export default class PageEnregistrement extends React.Component {
                                     description={ t('flot.documenter.codeiswc-description') }
                                     placeholder={ t('flot.documenter.codeiswc-placeholder') }
                                     value={ this.props.values.isrc }
+                                    placeholder={ 'XX-XXX-00-0000' }
                                     onChange={ value => this.props.setFieldValue('isrc', value) }
                                 />
 
-                                <div className="instrument-divider"></div>
+                                <div className="section-divider"></div>
 
                                 <h3 className="section-title">{ t('flot.documenter.entete.sortie') }</h3>
 
-                                <ChampSelectionMultiple
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
                                     label={ t('flot.documenter.etiquette') }
-                                    items={ this.labelOptions() }
                                     description={ t('flot.documenter.etiquette-description') }
                                     placeholder={ t('flot.documenter.etiquette-placeholder') }
-                                    value={ this.state.recordLabels }
-                                    onChange={ ids => this.setState({ recordLabels: ids }) }
+                                    value={ this.props.values.label }
+                                    onChange={ value => this.props.setFieldValue('label', value) }
                                 />
 
-                                <ChampSelectionMultiple
-                                    label="Distribution"
-                                    items={ this.distributorOptions() }
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Étiquette – adresse"
+                                    placeholder="Adresse de l'étiquette..."
+                                    value={ this.props.values.labelAddress }
+                                    onChange={ value => this.props.setFieldValue('labelAddress', value) }
+                                />
+
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Distributeur – nom"
                                     description={ t('flot.documenter.distribution-description') }
                                     placeholder={ t('flot.documenter.distribution-placeholder') }
-                                    value={ this.state.distributors }
-                                    onChange={ ids => this.setState({ distributors: ids }) }
+                                    value={ this.props.values.distributor }
+                                    onChange={ value => this.props.setFieldValue('distributor', value) }
+                                />
+
+                                <ChampTexte
+                                    pochette={ this.props.pochette }
+                                    label="Distributeur – adresse"
+                                    placeholder="Adresse du distributeur..."
+                                    value={ this.props.values.distributorAddress }
+                                    onChange={ value => this.props.setFieldValue('distributorAddress', value) }
                                 />
 
                                 <FormulaireDateSortie
-                                    value={ this.state.releaseDate }
-                                    onChange={ value => this.setState({ releaseDate: value }) }
+                                    value={ this.props.values.publishDate }
+                                    onChange={ value => this.props.setFieldValue('publishDate', value) }
                                 />
 
                                 <ChampTexte
                                     label={ t('flot.documenter.codeupc') }
                                     description={ t('flot.documenter.codeupc-description') }
                                     placeholder={ t('flot.documenter.codeupc-placeholder') }
-                                    value={ this.state.upc }
-                                    onChange={ value => this.setState({ upc: value }) }
+                                    value={ this.props.values.upc }
+                                    onChange={ value => this.props.setFieldValue('upc', value) }
                                 />
                             </Colonne>
                         </Page>

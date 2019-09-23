@@ -133,7 +133,6 @@ class Register extends Component {
     }
 
     handlePasswordChange(e) {
-        console.log("PASSWORD STRENGTH", this.state.strength);
         this.setState({
             password: e.target.value,
             strength: zxcvbn(e.target.value).score
