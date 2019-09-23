@@ -256,7 +256,11 @@ export default class PartageSommaireEditeur extends Component {
 
         Auth.currentAuthenticatedUser()
         .then(res=>{
-            this.envoi()
+            if(res.username === this.state.ayantDroit.rightHolderId) {
+                this.envoi()
+            } else {
+                toast.error(t('erreur.volIdentite'))    
+            }
         })
         .catch(err=>{
             toast.error(err.message)
