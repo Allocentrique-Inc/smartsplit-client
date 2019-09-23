@@ -247,7 +247,7 @@ export default class SommairePartages extends Component {
                                         <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
                                     </div>
                                     <div className="ui row">
-                                        <div className="ui twelve wide column" />                
+                                        {/*<div className="ui twelve wide column sommaire" />*/}                
                                         <div className="ui one wide column">
                                             {
                                                 !continuerDisabled && (
@@ -278,7 +278,14 @@ export default class SommairePartages extends Component {
                                                          
                                                         <div onClick={()=>{
                                                             this.openModal()
-                                                        }} className={`ui medium button`} style={{width:"200px", right:"150px"}}>
+                                                        }} className={`ui medium button sommaire`} 
+
+                                                        style={{width:"200px", 
+                                                        position: "relative", 
+                                                        left: "780px", 
+                                                        marginTop:"50px", 
+                                                        marginTop: "150px"}}>
+
                                                             {t('flot.proposition.envoyer')}
                                                         </div>
                                                      
@@ -286,6 +293,7 @@ export default class SommairePartages extends Component {
                                                             open={this.state.open}
                                                             onClose={this.closeModal} 
                                                             size="small"
+                                                            style={{height: "200px"}}
                                                         >
                                                             <PageAssistantSplitCourrielsCollaborateurs 
                                                                 ayantDroits={rightHolders}
@@ -306,7 +314,7 @@ export default class SommairePartages extends Component {
                                         partageEditeur && (
                                             <div className="ui row">
                                                 <div className="ui one wide column" />
-                                                <div className="ui twelve wide column">
+                                                <div className="ui twelve wide column   ">
                                                     <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>{t('flot.tableaudebord.collabo')}</span>&nbsp;&nbsp;
                                                     <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>{t('flot.tableaudebord.edito')}</span>
                                                 </div>

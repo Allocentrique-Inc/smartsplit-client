@@ -21,12 +21,19 @@ class LogIn extends Component {
       hidden: true,
       username: "",
       password: this.props.password
-    }
+    };
 
     this.toggleShow = this.toggleShow.bind(this)
     this.validateUsername = this.validateUsername.bind(this)
     this.validatePassword = this.validatePassword.bind(this)
+  }
 
+  handlePasswordChange(e) {
+    this.setState({ password: e.target.value });
+  }
+
+  toggleShow() {
+  this.setState({ hidden: !this.state.hidden });
   }
 
   clearErrorState = () => {
