@@ -29,7 +29,7 @@ export default class PartageSommaireEditeur extends Component {
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
-        this.changerVote = this.changerVote.bind(this)        
+        this.changerVote = this.changerVote.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -137,68 +137,27 @@ export default class PartageSommaireEditeur extends Component {
         )
     }
 
+    refuser(raison) {
+        this.setState({raison: raison})
+    }
+
     boutonRefuser () {   
         return (
             <Translation>
                 {
                     t=>
                         <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
-                            this.justifierRefus(()=>{this.voter(false)})
+                            this.voter(false)
+                            this.justifierRefus()
                         }}>{t('vote.refuser')}</div>
                 }
             </Translation>            
         )
     }
 
-    justifierRefus(fn) {
-        confirmAlert({
-            title: `Tu refuses la proposition !`,
-            message: `Es-tu certain ?`,
-            closeOnClickOutside: false,
-            style: {
-                    position: "relative",
-                    width: "640px",
-                    height: "660px",
-                    margin: "0 auto",
-                    background: "#FFFFFF",
-                    border: "1px solid rgba(0, 0, 0, 0.5)",
-                    boxSizing: "border-box",
-                    boxShadow: "inset 0px -1px 0px #DCDFE1"
-                },
-            customUI: ({ onClose }) => 
-                <div>         
-                    <h3>Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.</h3>               
-                    <textarea 
-                        cols={40} 
-                        rows={5} 
-                        id="raison"
-                        placeholder="Pourquoi refuses-tu la proposition (optionel) ? "
-                        style={{
-                        width: "546px",
-                        height: "253px",
-                        left: "436px",
-                        top: "429px",                              
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    }}></textarea><p/>
-                    <button style={{
-                        background: "rgb(45, 168, 79)",
-                        borderRadius: "2px",
-                        width: "100%",                                
-                        fontWeight: "bold",
-                        fontSize: "1.2rem"
-                    }}
-                    onClick={()=>{
-                        this.setState({choix: 'reject'})
-                        this.setState({raison: document.getElementById('raison').value})
-                        onClose()
-                        fn()
-                    }}
-                    >Refuser ce partage</button>
-                </div>
-        })        
+    justifierRefus() {        
+        this.setState({justifierRefus: true})
+        this.setState({choix: 'reject'})           
     }
 
     changerVote () {        
@@ -213,6 +172,9 @@ export default class PartageSommaireEditeur extends Component {
     voter(choix) {
         let _monChoix = choix ? 'accept' : 'reject'
         this.setState({modifierVote: true})
+        if(choix) {
+            this.setState({justifierRefus: false})
+        }
         this.setState({choix: _monChoix}, ()=>{
             this.activerBoutonVote()
         })
@@ -287,6 +249,8 @@ export default class PartageSommaireEditeur extends Component {
         
         if(this.state.beneficiaire && this.state.donateur) {                    
 
+            console.log('justifierRefus', this.state.justifierRefus)
+
             return (
                 <div className="ui segment">
                     <div className="ui grid">
@@ -330,10 +294,26 @@ export default class PartageSommaireEditeur extends Component {
                                                         {
                                                             this.state.modifierVote &&
                                                             (
-                                                                <i 
+                                                                <div>
+                                                                    <i 
                                                                     className="pencil alternate icon big blue" 
                                                                     style={{cursor: "pointer"}} 
                                                                     onClick={()=>{this.changerVote()}}></i>
+                                                                    {
+                                                                        this.state.justifierRefus && (
+                                                                            <div>                                        
+                                                                                <textarea 
+                                                                                    cols={30} 
+                                                                                    rows={2} 
+                                                                                    placeholder="Pourquoi refuses-tu le split (optionel)"                                       
+                                                                                    onChange={(e)=>{
+                                                                                        this.refuser(e.target.value)
+                                                                                    }}>
+                                                                                </textarea>                                       
+                                                                            </div>
+                                                                        )
+                                                                    }
+                                                                </div>
                                                             )
                                                         }                                            
                                                     </div>
@@ -417,9 +397,7 @@ export default class PartageSommaireEditeur extends Component {
                             </button>
                         )
                     }    
-                    </Translation>   
-
-                     {/*  */}     
+                    </Translation>    
 
                     <Modal
                         open={this.state.modaleConnexion}
