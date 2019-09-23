@@ -247,9 +247,7 @@ export default class PartageSommaireEditeur extends Component {
 
         let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees} />)
         
-        if(this.state.beneficiaire && this.state.donateur) {                    
-
-            console.log('justifierRefus', this.state.justifierRefus)
+        if(this.state.beneficiaire && this.state.donateur) {
 
             return (
                 <div className="ui segment">
