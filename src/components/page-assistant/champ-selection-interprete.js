@@ -5,9 +5,20 @@ import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
 import * as roles from '../../assets/listes/role-uuids.json';
-import { hasRoles, isUnique, updateRightHolders } from "./right-holder-helpers";
+import { isUnique, updateRightHolders } from "./right-holder-helpers";
 
 export class ChampSelectionInterprete extends Component {
+
+    musicianRoles = [
+        roles.musician,
+        roles.principal,
+        roles.accompaniment,
+        roles.singer,
+        roles.leadVocal,
+        roles.spokenVocal,
+        roles.backVocal
+    ];
+
     constructor(props) {
         super(props);
 
@@ -77,9 +88,7 @@ export class ChampSelectionInterprete extends Component {
     }
 
     isNotMusicianRole = role => {
-        return (role !== roles.musician) &&
-            (role !== roles.principal) &&
-            (role !== roles.accompaniment);
+        return this.musicianRoles.every(musicianRole => role !== musicianRole);
     }
 
     handleChange = (event, { value }) => {
