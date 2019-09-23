@@ -125,7 +125,7 @@ class SommaireDroit extends Component {
         )
     }
 
-    justifierRefus(fn) {
+    justifierRefus() {
         this.setState({justifierRefus: true})
     }
 
@@ -199,7 +199,7 @@ class SommaireDroit extends Component {
     render() {
 
         let _parts = []
-        let _data = []                   
+        let _data = []
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
@@ -426,7 +426,6 @@ export default class SommairePartage extends Component {
             _mesVotes[type] = {}
         }
         _mesVotes[type].raison = raison
-        console.log(_mesVotes)
     }
 
     estVoteFinal() {
