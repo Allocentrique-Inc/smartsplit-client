@@ -252,7 +252,7 @@ export default class PartageSommaireEditeur extends Component {
         this.setState({modaleConnexion: ouvrir})
     }
 
-    transmettre() {        
+    transmettre(t) {        
 
         Auth.currentAuthenticatedUser()
         .then(res=>{
@@ -412,7 +412,7 @@ export default class PartageSommaireEditeur extends Component {
                         this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
                         (
                             <button className="ui medium button" disabled={!this.state.transmission} onClick={()=>{
-                                this.transmettre()
+                                this.transmettre(t)
                             }}> {t('flot.bouton.voter')}
                             </button>
                         )
