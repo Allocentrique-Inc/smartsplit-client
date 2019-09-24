@@ -11,10 +11,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import { Auth } from 'aws-amplify'
 import { toast } from 'react-toastify'
 
-import Login from '../auth/Login'
-import { confirmAlert } from 'react-confirm-alert'
 import { Translation } from 'react-i18next'
-import { Modal } from 'semantic-ui-react'
+import ModaleConnexion from '../auth/Connexion'
 
 export default class TableauDeBord extends Component {
 
@@ -54,23 +52,7 @@ export default class TableauDeBord extends Component {
                  t =>
                  
                 <div className="tdb--cadre ui row accueil">
-                    <Modal
-                        open={this.state.modaleConnexion}
-                        closeOnEscape={false}
-                        closeOnDimmerClick={false}
-                        onClose={this.props.close} 
-                        size="small" >
-                        <br/><br/><br/>
-                        <Login fn={()=>{
-                            Auth.currentAuthenticatedUser()
-                            .then(res=>{
-                                that.setState({user: res})                                    
-                            })
-                            .catch(err=>{
-                                toast.error(err.message)
-                            })
-                        }} />
-                    </Modal>
+                    <ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />
                 </div>
             }
             </Translation>

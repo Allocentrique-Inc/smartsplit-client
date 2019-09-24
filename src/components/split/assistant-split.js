@@ -27,7 +27,7 @@ class ValiderSplit extends Component {
     }
 
     componentWillMount() {
-
+ 
         // Récupère la proposition
         axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.props.proposition}`)
         .then((data)=>{

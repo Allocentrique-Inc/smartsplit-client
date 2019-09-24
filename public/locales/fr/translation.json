@@ -27,7 +27,8 @@
             },
             "bouton": {
                 "annuler": "Annuler",
-                "sauvegarder": "Sauvegarder"
+                "sauvegarder": "Sauvegarder",
+                "soumettre": "Soumette"
             }
         },
             "declaration": {

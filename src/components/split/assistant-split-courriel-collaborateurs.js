@@ -14,8 +14,8 @@ import {toast} from 'react-toastify'
 const divEmail = {
     position: 'relative',
     display: 'block',
-    margin: '0 auto',
-    width: '100%',
+    margin: '0 50px 0 30px',
+    background: 'transparent',
   };
 
 class PageAssistantSplitCourrielsCollaborateurs extends Component {
@@ -107,11 +107,11 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
         ayantDroits.push( 
             (
                 <div key={`champ--courriel__${elem}`}>
-                    <Label htmlFor={`champ--courriel__${elem}`}>{_aD.name}</Label>
-                    <Input                             
+                    <Label style={divEmail} htmlFor={`champ--courriel__${elem}`}>{_aD.name}</Label>
+                    <Input
+                        style={divEmail}                             
                         name={`champ--courriel__${elem}`}
                         id={_aD.rightHolderId}
-                        style={divEmail}
                         defaultValue = {_aD.email}
                         placeholder = "courriel@domaine.extension"
                         required = {this.state.requis}
@@ -129,7 +129,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
              { 
             (t) =>    
                 <div>
-                    <div onClick={()=>{this.click()}} className={`ui medium button`} style={{width:"200px", right:"150px"}}>
+                    <div onClick={()=>{this.click()}} className={`ui medium button envoie`} style={{position: "relative"}}>
                         {t('flot.proposition.envoyer')}
                     </div>
                     {ayantDroits}
