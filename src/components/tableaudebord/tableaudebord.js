@@ -13,7 +13,7 @@ import { toast } from 'react-toastify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
-import { Translation } from 'react-i18next';
+import { Translation } from 'react-i18next'
 import { Modal } from 'semantic-ui-react'
 
 export default class TableauDeBord extends Component {
@@ -43,7 +43,7 @@ export default class TableauDeBord extends Component {
             return (
                 <div className="tdb--cadre ui row">
                     <Navigation parent={this} />
-                    <Panneau entete={entete} selection={this.state.navigation} />
+                    <Panneau entete={entete} selection={this.state.navigation} user={this.state.user} />
                 </div>                
             )
         } else {

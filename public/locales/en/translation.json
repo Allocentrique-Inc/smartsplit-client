@@ -31,7 +31,8 @@
             }
         },
         "declaration": {
-            "identite": "Declaration of identity"
+            "identite": "Declaration of identity",
+            "accepter": "Accept"
         }
 },
     "oeuvre": {
@@ -307,18 +308,26 @@
         },
         
         "editeur": {
-            "ajout": "Add an editor"
+            "ajout": "Add an editor",
+            "editeur": "Editor",
+            "donateur": "Donor"
         },
         "proposition": {
             "nouvelle": "New",
             "envoyer": "Send to collaborators",
-            "continuer": "Continue to split the rights"
+            "continuer": "Continue to split the rights",
+            "sommaire": "Split summary",
+            "voter": "Go to vote page",
+            "voter-avec-jeton": "You can only vote by clicking on the email that was sent to you when the proposal was created."
         },
         "bouton": {
             "ajout": "Add",
             "voter": "VOTE"
         },
-        "tableadebord": "You need to connect"
+        "tableaudebord": {
+                "collabo": "My Collaborators",
+                "edito": "My Editor"
+        }
     },
 
     "traitement": {
@@ -351,7 +360,6 @@
             }
         }
     },
-
     "tableaudebord": {
         "bonjour": "Here is the SmartSplit dashboard.",
         "navigation": {
@@ -361,7 +369,10 @@
         },
         "pieces": {
             "0": "My Additions",
-            "1": "Shared With Me"
+            "1": "Shared With Me",
+            "par": "by",
+            "partageAvec": "shared with",
+            "ajouter": "Add a musical work"
         },
         "vide": {
             "preambule": "Your works will appear here",
@@ -394,7 +405,9 @@
         "editeur": {
             "titre": "What's your publisher's name ?",
             "titre-part": "How much should your publisher get ?"
-        }
+        },
+        "lecture-seule": "A new proposal is in progress. You are in read-only mode.",
+        "prete-a-envoyer": "Your proposal is ready to go by email to your collaborators. Take a time to review and clic on Send."
     },
 
     "connexion": {
@@ -459,6 +472,7 @@
     "socan": {
         "joindre": "Join SOCAN",
         "prenom": "Legal First Name",
+        "2eprenom": "Legal Middle Name",
         "nom": "Legal Name",
         "date": "Birthdate",
         "adresse": "Address",
@@ -489,5 +503,12 @@
             "SK": "Saskatchewan",
             "YT": "Yukon"
         }
+    },
+    "menuprofil": {
+        "accueil": "Dashboard",
+        "profil": "My SOCAN Profile",
+        "francais": "Français",
+        "anglais": "English",
+        "deconnexion": "Disconnect"
     }
 }

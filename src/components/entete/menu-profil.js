@@ -4,13 +4,18 @@ import { Translation, Trans } from 'react-i18next'
 import axios from 'axios'
 
 import { toast } from 'react-toastify'
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Label } from 'semantic-ui-react'
 
 import i18n from 'i18next'
 import moment from 'moment'
 
 // Authentification avec AWS
 import { Auth } from 'aws-amplify'
+import Socan from '../auth/Socan'
+
+const menuStyle = {
+    position: 'absolute',  
+};
 
 export default class MenuProfil extends Component {
 
@@ -26,6 +31,7 @@ export default class MenuProfil extends Component {
             user: undefined
         }
         this.deconnexion = this.deconnexion.bind(this)
+        this.ouvrirSocan = this.ouvrirSocan.bind(this)
     }
 
     componentWillMount() {                
@@ -50,6 +56,10 @@ export default class MenuProfil extends Component {
             .catch(error=>toast.error("Erreur..."))
     }
 
+    ouvrirSocan(val = true) {
+        this.setState({modaleSocan: val})
+    }
+
     render() {        
 
         let avatarImage
@@ -67,14 +77,15 @@ export default class MenuProfil extends Component {
             <Translation>
                 {
                     t =>
+                    <span style={menuStyle}>
                         <Dropdown text='' icon="angle down big black">
-                            <Dropdown.Menu icon="down big">
-                            <Dropdown.Item text='Accueil' onClick={()=>{window.location.href = '/accueil'}}/>
-                            <Dropdown.Item text='Mon profil' onClick={()=>{window.location.href = '/socan'}}/>
+                            <Dropdown.Menu icon="down small">
+                            <Dropdown.Item text={t('menuprofil.accueil')} onClick={()=>{window.location.href = '/accueil'}}/>
+                            <Dropdown.Item text={t('menuprofil.profil')} onClick={()=>{ this.ouvrirSocan() }}/>
                             {
                                 i18n.language && i18n.language.substring(0,2) == 'en' &&
                                 (
-                                    <Dropdown.Item text='Français' onClick={()=>{
+                                    <Dropdown.Item text={t('menuprofil.francais')} onClick={()=>{
                                         i18n.init({lng: 'fr'})
                                     }}/>
                                 )
@@ -82,15 +93,17 @@ export default class MenuProfil extends Component {
                             {
                                 i18n.language && i18n.language.substring(0,2) == 'fr' &&
                                 (
-                                    <Dropdown.Item text='English' onClick={()=>{
+                                    <Dropdown.Item text={t('menuprofil.anglais')} onClick={()=>{
                                         i18n.init({lng: 'en'})
                                     }}/>
                                 )
                             }
                             <Dropdown.Divider />
-                            <Dropdown.Item text='Déconnexion' onClick={()=>{this.deconnexion()}}/>
+                            <Dropdown.Item text={t('menuprofil.deconnexion')} onClick={()=>{this.deconnexion()}}/>
                             </Dropdown.Menu>
                         </Dropdown>
+                        <Socan open={this.state.modaleSocan} onClose={()=>{this.ouvrirSocan(false)}}/>
+                    </span>
                 }
             </Translation>                        
         )
@@ -99,12 +112,9 @@ export default class MenuProfil extends Component {
             <Translation>
                 {
                     t=>
-                        <div style={{display: "inline-block"}}>
-                            <div style={{display: "inline-block"}}>
-                                {nomComplet}
-                            </div>                            
-                            <div className='avatar--image' style={{display: "inline-block"}} >
-                                {userInitials}
+                        <div className="ui row">                           
+                            <div className='ui five wide column avatar--image' >
+                                <Label>{nomComplet}</Label>
                                 {!userInitials && (<img src={avatarImage} alt='user--image' className='user--img'/>)}
                                 {menu}
                             </div>

@@ -16,7 +16,7 @@ export default class FormulaireDateSortie extends React.Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!this.state.determined && prevState.determined) {
-            this.props.onChange(null);
+            this.props.onChange('');
         }
 
         if (this.state.determined && this.state.value !== prevState.value) {
@@ -32,7 +32,7 @@ export default class FormulaireDateSortie extends React.Component {
                 <div className="champ-date-sortie">
                     <ChampDate
                         value={ this.state.value || '' }
-                        onChange={ value => this.setState({value: value})}
+                        onChange={ value => this.setState({ value: value }) }
                     />
                 </div>
             ) :

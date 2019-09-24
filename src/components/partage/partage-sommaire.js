@@ -13,6 +13,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
 
+import { Modal } from 'semantic-ui-react'
+
 const ROLES = [
         "principal",
         "accompaniment",
@@ -110,62 +112,21 @@ class SommaireDroit extends Component {
             <Translation>
                 {
                     t=>
-                        <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
-                            this.justifierRefus(()=>{this.voter(false)})
-                        }}>{t('vote.refuser')}</div>
+                        <div style={{display: "inline-block"}}>
+                            <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
+                                this.justifierRefus()
+                                this.voter(false)
+                            }}>
+                                {t('vote.refuser')}
+                            </div>                            
+                        </div>
                 }
-            </Translation>            
+            </Translation>
         )
     }
 
-    justifierRefus(fn) {
-        confirmAlert({
-            title: `Tu refuses la proposition !`,
-            message: `Es-tu certain ?`,
-            closeOnClickOutside: false,
-            style: {
-                    position: "relative",
-                    width: "640px",
-                    height: "660px",
-                    margin: "0 auto",
-                    background: "#FFFFFF",
-                    border: "1px solid rgba(0, 0, 0, 0.5)",
-                    boxSizing: "border-box",
-                    boxShadow: "inset 0px -1px 0px #DCDFE1"
-                },
-            customUI: ({ onClose }) => 
-                <div>         
-                    <h3>Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.</h3>               
-                    <textarea 
-                        cols={40} 
-                        rows={5} 
-                        id="raison"
-                        placeholder="Pourquoi refuses-tu le split (optionel)" 
-                        style={{
-                        width: "546px",
-                        height: "253px",
-                        left: "436px",
-                        top: "429px",                              
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    }}></textarea><p/>
-                    <button style={{
-                        background: "rgb(45, 168, 79)",
-                        borderRadius: "2px",
-                        width: "100%",                                
-                        fontWeight: "bold",
-                        fontSize: "1.2rem"
-                    }}
-                    onClick={()=>{
-                        this.state.parent.refuser(this.state.type, document.getElementById('raison').value)
-                        onClose()
-                        fn()
-                    }}
-                    >Refuser ce partage</button>
-                </div>
-        })        
+    justifierRefus() {
+        this.setState({justifierRefus: true})
     }
 
     changerVote () {        
@@ -174,7 +135,10 @@ class SommaireDroit extends Component {
 
     voter(choix) {
         let _monChoix = choix ? 'accept' : 'reject'
-        this.state.parent.vote(_monChoix, this.state.type)        
+        this.state.parent.vote(_monChoix, this.state.type)
+        if(choix) {
+            this.setState({justifierRefus: false})
+        }
     }
 
     organiserDonnees() {
@@ -236,7 +200,6 @@ class SommaireDroit extends Component {
 
         let _parts = []
         let _data = []
-        //let titre = TITRES[this.state.titre]       
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
@@ -271,7 +234,7 @@ class SommaireDroit extends Component {
                                 </div>
                                 <div style={{position: "relative", marginTop: "5px"}}>
                                     {
-                                        !this.state.voteTermine &&                                        
+                                        !this.state.voteTermine && 
                                         this.state.ayantDroit && 
                                         uuid === this.state.ayantDroit.rightHolderId && 
                                         (
@@ -281,10 +244,26 @@ class SommaireDroit extends Component {
                                             {
                                                 this.state.modifierVote &&
                                                 (
-                                                    <i 
-                                                        className="pencil alternate icon big blue" 
-                                                        style={{cursor: "pointer"}} 
-                                                        onClick={()=>{this.changerVote()}}></i>
+                                                    <div>
+                                                        <i 
+                                                            className="pencil alternate icon big blue" 
+                                                            style={{cursor: "pointer"}} 
+                                                            onClick={()=>{this.changerVote()}}></i>
+                                                        {
+                                                            this.state.justifierRefus && (
+                                                                <div>                                        
+                                                                    <textarea 
+                                                                        cols={30} 
+                                                                        rows={2} 
+                                                                        placeholder="Pourquoi refuses-tu le split (optionel)"                                       
+                                                                        onChange={(e)=>{
+                                                                            this.state.parent.refuser(this.state.type, e.target.value)
+                                                                        }}>
+                                                                    </textarea>                                       
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </div>                                                    
                                                 )
                                             }                                            
                                         </div>
@@ -369,47 +348,50 @@ export default class SommairePartage extends Component {
             rafraichirAuto: props.rafraichirAuto
         }
         this.calculMesVotes = this.calculMesVotes.bind(this)
-        this.envoi = this.envoi.bind(this)        
+        this.envoi = this.envoi.bind(this)
     }
 
     componentWillMount() {
 
-        // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
-        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
-        .then(res=>{
-            let proposition = res.data.Item
-            // Chercher les avatars
-            let _avatars = {} // Les avatars peuvent être sur plusieurs droits
-            Object.keys(proposition.rightsSplits).forEach(droit=> {
-                Object.keys(proposition.rightsSplits[droit]).forEach(type=>{
-                    proposition.rightsSplits[droit][type].forEach(part=>{
-                        let _rH = part.rightHolder
-                        if(!_avatars[_rH.rightHolderId]) {
-                            _avatars[_rH.rightHolderId] = { }
-                            // Récupération des avatars et intégration dans les éléments correspondants
-                            axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
-                            .then(r=>{
-                                let avatar = r.data.Item.avatarImage
-                                _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
-                                this.setState({avatars: _avatars})
-                            })
-                            .catch(err=>{
-                                toast.error(err.message)
-                                _avatars[_rH.rightHolderId].avatar = err.message
-                            })
-                        }
-                    })                    
+        this.setState({patience: true}, ()=>{
+            // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
+            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            .then(res=>{
+                let proposition = res.data.Item
+                // Chercher les avatars
+                let _avatars = {} // Les avatars peuvent être sur plusieurs droits
+                Object.keys(proposition.rightsSplits).forEach(droit=> {
+                    Object.keys(proposition.rightsSplits[droit]).forEach(type=>{
+                        proposition.rightsSplits[droit][type].forEach(part=>{
+                            let _rH = part.rightHolder
+                            if(!_avatars[_rH.rightHolderId]) {
+                                _avatars[_rH.rightHolderId] = { }
+                                // Récupération des avatars et intégration dans les éléments correspondants
+                                axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
+                                .then(r=>{
+                                    let avatar = r.data.Item.avatarImage
+                                    _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
+                                    this.setState({avatars: _avatars})                                    
+                                })
+                                .catch(err=>{
+                                    toast.error(err.message)
+                                    _avatars[_rH.rightHolderId].avatar = err.message
+                                })
+                            }
+                        })                    
+                    })
                 })
-            })            
-        })
-        .catch(err=>{
-            toast.error(err.message)
+                this.setState({patience: false})            
+            })
+            .catch(err=>{
+                toast.error(err.message)
+            })
         })
 
         this.rafraichirDonnees(()=>{
-            if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {
+            if((this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichirAuto) {
                 this.setState({rafraichir: true}, ()=>{
-                    this.rafraichissementAutomatique()                
+                    this.rafraichissementAutomatique()      
                 })
             }
         })        
@@ -570,7 +552,7 @@ export default class SommairePartage extends Component {
         }
         axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
         .then((res)=>{
-            window.location.reload()
+            window.location.href = `/partager/${this.state.proposition.mediaId}`
         })
         .catch((err) => {
             toast.error(err.message)                                
@@ -584,45 +566,11 @@ export default class SommairePartage extends Component {
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                console.log('pas le droit')
                 toast.error(t('erreur.volIdentite'))    
             }
         })
         .catch(err=>{
-            toast.error(err.message)
-            confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecté pour accéder`,
-                closeOnClickOutside: false,
-                style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                customUI: ({ onClose }) => 
-                    <Translation>
-                        {
-                            t=>
-                                <LogIn message="Connecte-toi pour voter" fn={()=>{
-                                    Auth.currentAuthenticatedUser()
-                                    .then(res=>{
-                                        console.log("utilisateur", res, "ayantDroit", this.state.ayantDroit)                                        
-                                        if(res.username === this.state.ayantDroit.rightHolderId) {
-                                            this.envoi()
-                                            onClose()
-                                        } else {
-                                            toast.error(t('erreur.volIdentite'))
-                                        }
-                                    })                            
-                                }} />
-                        }
-                    </Translation>
-            })
+            this.setState({modaleConnexion: true})           
         })
         
     }
@@ -641,7 +589,7 @@ export default class SommairePartage extends Component {
                         _aDonnees = true
                     }
                 })
-
+    
                 if(_aDonnees) {
                     droits.push( <SommaireDroit 
                         avatars={this.state.avatars}
@@ -651,7 +599,11 @@ export default class SommairePartage extends Component {
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
                         monVote={this.state.mesVotes[type]}
-                        voteTermine={this.estVoteFinal() || this.estVoteClos() || this.state.proposition.etat !== "VOTATION"}
+                        voteTermine={
+                            this.estVoteFinal() || 
+                            this.estVoteClos() || 
+                            this.state.proposition.etat !== "VOTATION" || 
+                            (this.state.proposition.etat === "VOTATION" && !this.state.jetonApi)}
                         parent={this}
                         uuid={this.state.proposition.uuid}
                         /> )
@@ -659,25 +611,65 @@ export default class SommairePartage extends Component {
             })
         }
 
+        let that = this
+
         return (
             <Translation>
                 {
                     t=>
                         <div>
-                            {droits}
                             {
-                                !this.estVoteClos() && 
-                                (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
-                                (
-                                    <div className={`ui medium button ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={()=>{
-                                        this.transmettre(t)
-                                    }}>{t('flot.bouton.voter')}
+                                !this.state.patience && (
+                                    <div>
+                                        {droits}
+                                        {
+                                            !this.estVoteClos() && 
+                                            (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
+                                            (
+                                                <div className={`ui medium button ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={()=>{
+                                                    this.transmettre(t)
+                                                }}>{t('flot.bouton.voter')}
+                                                </div>
+                                            )
+                                        }
                                     </div>
                                 )
                             }
+                            {
+                                this.state.patience && (
+                                    <div className="ui active dimmer">
+                                        <div className="ui text loader">{t('entete.encours')}</div>
+                                    </div>
+                                )
+                            }                        
+                            <Modal
+                                open={this.state.modaleConnexion}
+                                closeOnEscape={false}
+                                closeOnDimmerClick={false}
+                                onClose={this.props.close} 
+                                size="small" >
+                                <br/><br/><br/>
+                                <LogIn fn={()=>{
+                                    Auth.currentAuthenticatedUser()
+                                    .then(res=>{
+                                        if(res.username === this.state.ayantDroit.rightHolderId) {
+                                            that.setState({user: res})
+                                            that.envoi()                                            
+                                        } else {
+                                            toast.error(t('erreur.volIdentite'))    
+                                        }
+                                        
+                                    })
+                                    .catch(err=>{
+                                        toast.error(err.message)
+                                    })
+
+                                }} />
+                            </Modal>                        
                         </div>
                 }
             </Translation>
         )
     }
+
 }

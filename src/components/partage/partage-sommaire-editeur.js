@@ -13,6 +13,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
 import { truncate } from 'fs';
+import { Modal } from 'semantic-ui-react'
 
 export default class PartageSommaireEditeur extends Component {
 
@@ -28,7 +29,7 @@ export default class PartageSommaireEditeur extends Component {
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
-        this.changerVote = this.changerVote.bind(this)        
+        this.changerVote = this.changerVote.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -136,68 +137,27 @@ export default class PartageSommaireEditeur extends Component {
         )
     }
 
+    refuser(raison) {
+        this.setState({raison: raison})
+    }
+
     boutonRefuser () {   
         return (
             <Translation>
                 {
                     t=>
                         <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
-                            this.justifierRefus(()=>{this.voter(false)})
+                            this.voter(false)
+                            this.justifierRefus()
                         }}>{t('vote.refuser')}</div>
                 }
             </Translation>            
         )
     }
 
-    justifierRefus(fn) {
-        confirmAlert({
-            title: `Tu refuses la proposition !`,
-            message: `Es-tu certain ?`,
-            closeOnClickOutside: false,
-            style: {
-                    position: "relative",
-                    width: "640px",
-                    height: "660px",
-                    margin: "0 auto",
-                    background: "#FFFFFF",
-                    border: "1px solid rgba(0, 0, 0, 0.5)",
-                    boxSizing: "border-box",
-                    boxShadow: "inset 0px -1px 0px #DCDFE1"
-                },
-            customUI: ({ onClose }) => 
-                <div>         
-                    <h3>Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.</h3>               
-                    <textarea 
-                        cols={40} 
-                        rows={5} 
-                        id="raison"
-                        placeholder="Pourquoi refuses-tu la proposition (optionel) ? "
-                        style={{
-                        width: "546px",
-                        height: "253px",
-                        left: "436px",
-                        top: "429px",                              
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    }}></textarea><p/>
-                    <button style={{
-                        background: "rgb(45, 168, 79)",
-                        borderRadius: "2px",
-                        width: "100%",                                
-                        fontWeight: "bold",
-                        fontSize: "1.2rem"
-                    }}
-                    onClick={()=>{
-                        this.setState({choix: 'reject'})
-                        this.setState({raison: document.getElementById('raison').value})
-                        onClose()
-                        fn()
-                    }}
-                    >Refuser ce partage</button>
-                </div>
-        })        
+    justifierRefus() {        
+        this.setState({justifierRefus: true})
+        this.setState({choix: 'reject'})           
     }
 
     changerVote () {        
@@ -212,6 +172,9 @@ export default class PartageSommaireEditeur extends Component {
     voter(choix) {
         let _monChoix = choix ? 'accept' : 'reject'
         this.setState({modifierVote: true})
+        if(choix) {
+            this.setState({justifierRefus: false})
+        }
         this.setState({choix: _monChoix}, ()=>{
             this.activerBoutonVote()
         })
@@ -247,36 +210,23 @@ export default class PartageSommaireEditeur extends Component {
         })
     }
 
-    transmettre() {        
+    modaleConnexion(ouvrir = true) {
+        this.setState({modaleConnexion: ouvrir})
+    }
+
+    transmettre(t) {        
 
         Auth.currentAuthenticatedUser()
         .then(res=>{
-            this.envoi()
+            if(res.username === this.state.ayantDroit.rightHolderId) {
+                this.envoi()
+            } else {
+                toast.error(t('erreur.volIdentite'))    
+            }
         })
         .catch(err=>{
             toast.error(err.message)
-            confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecté pour accéder`,
-                closeOnClickOutside: false,
-                style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                customUI: ({ onClose }) => 
-                    <div>
-                        <LogIn message="Connecte-toi pour voter" fn={()=>{
-                            this.envoi()
-                            onClose()
-                        }} />
-                </div>
-            })
+            this.modaleConnexion()
         })
         
     }
@@ -297,7 +247,7 @@ export default class PartageSommaireEditeur extends Component {
 
         let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees} />)
         
-        if(this.state.beneficiaire && this.state.donateur) {                    
+        if(this.state.beneficiaire && this.state.donateur) {
 
             return (
                 <div className="ui segment">
@@ -322,9 +272,14 @@ export default class PartageSommaireEditeur extends Component {
                                                         `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`
                                                 }
                                             </div>
-                                            <div className="small-400-color">
-                                                Éditeur
-                                            </div>
+                                            <Translation>
+                                                { 
+                                                    t =>
+                                                <div className="small-400-color">
+                                                {t('flot.editeur.editeur')}
+                                                </div>
+                                                }
+                                            </Translation>
                                             <div style={{position: "relative", marginTop: "5px"}}>
                                                 {
                                                     !this.estVoteFinal() &&
@@ -337,10 +292,26 @@ export default class PartageSommaireEditeur extends Component {
                                                         {
                                                             this.state.modifierVote &&
                                                             (
-                                                                <i 
+                                                                <div>
+                                                                    <i 
                                                                     className="pencil alternate icon big blue" 
                                                                     style={{cursor: "pointer"}} 
                                                                     onClick={()=>{this.changerVote()}}></i>
+                                                                    {
+                                                                        this.state.justifierRefus && (
+                                                                            <div>                                        
+                                                                                <textarea 
+                                                                                    cols={30} 
+                                                                                    rows={2} 
+                                                                                    placeholder="Pourquoi refuses-tu le split (optionel)"                                       
+                                                                                    onChange={(e)=>{
+                                                                                        this.refuser(e.target.value)
+                                                                                    }}>
+                                                                                </textarea>                                       
+                                                                            </div>
+                                                                        )
+                                                                    }
+                                                                </div>
                                                             )
                                                         }                                            
                                                     </div>
@@ -380,9 +351,14 @@ export default class PartageSommaireEditeur extends Component {
                                                         `${this.state.donateur.firstName} ${this.state.donateur.lastName}`
                                                 }
                                             </div>
+                                            <Translation>
+                                                { 
+                                                    t=>
                                             <div className="small-400-color">
-                                                Donateur
-                                            </div>                                       
+                                                {t('flot.editeur.donateur')}
+                                            </div>
+                                            }  
+                                            </Translation>                                     
                                         </div>
                                         <div className="ui three wide column">
                                             <p className="big">
@@ -407,16 +383,37 @@ export default class PartageSommaireEditeur extends Component {
                             </div>
                         </div>
                     </div>
+                    <Translation>
                     {
+                        t =>
                         this.state.part.etat === "VOTATION" &&
                         this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
                         (
-                            <button disabled={!this.state.transmission} onClick={()=>{
-                                this.transmettre()
-                            }}> Voter 
+                            <button className="ui medium button" disabled={!this.state.transmission} onClick={()=>{
+                                this.transmettre(t)
+                            }}> {t('flot.bouton.voter')}
                             </button>
                         )
-                    }              
+                    }    
+                    </Translation>    
+
+                    <Modal
+                        open={this.state.modaleConnexion}
+                        closeOnEscape={false}
+                        closeOnDimmerClick={false}
+                        onClose={this.props.close} 
+                        size="small" >
+                        <br/><br/><br/>
+                        <LogIn fn={()=>{
+                            Auth.currentAuthenticatedUser()
+                            .then(res=>{                                
+                                this.envoi()
+                            })
+                            .catch(err=>{
+                                toast.error(err.message)
+                            })
+                        }} />
+                    </Modal>  
                 </div>
             )
         } else {

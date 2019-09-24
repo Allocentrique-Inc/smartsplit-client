@@ -110,11 +110,10 @@ export default class ChampSelectionMultipleAyantDroit extends Component {
     }
 
     handleAddItem = (event, { value }) => {
-        console.log('handleAddItem');
         this.setState({
             modalOpen: true,
             modalFirstName: value
-        }, () => console.log(this.state));
+        });
     };
 
     handleSearchChange = (event, { searchQuery }) => {
@@ -128,7 +127,7 @@ export default class ChampSelectionMultipleAyantDroit extends Component {
     render() {
         return (
             <>
-                <div className="champ">
+                <div className="champ with-trigger-icon">
                     <label>
                         <TitreChamp
                             label={ this.props.label }

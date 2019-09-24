@@ -1,67 +1,41 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { FormulaireMusicien } from "./formulaire-musicien";
-import Musician from "../../model/musician/musician";
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
+import RightHolderOptions from "./right-holder-options";
+import * as roles from '../../assets/listes/role-uuids.json';
+import { isUnique, updateRightHolders } from "./right-holder-helpers";
 
 export class ChampSelectionInterprete extends Component {
+
+    musicianRoles = [
+        roles.musician,
+        roles.principal,
+        roles.accompaniment,
+        roles.singer,
+        roles.leadVocal,
+        roles.spokenVocal,
+        roles.backVocal
+    ];
+
     constructor(props) {
         super(props);
 
         this.state = {
-            selectedMusicians: this.props.values || [],
             dropdownValue: null
         };
     }
 
     rightHolderOptions() {
-        return this.props.rightHolders.map(this.makeRightHolderOptions);
-    }
-
-    makeRightHolderOptions = rightHolder => {
-        return {
-            key: rightHolder.rightHolderId,
-            value: rightHolder.rightHolderId,
-            text: this.makeRightHolderText(rightHolder),
-            image: {
-                avatar: true,
-                src: this.makeRightHolderAvatarUrl(rightHolder)
-            }
-        };
-    };
-
-    makeRightHolderText = rightHolder => {
-        return rightHolder.artistName ?
-            rightHolder.artistName :
-            [rightHolder.firstName, rightHolder.lastName]
-                .filter(text => text)
-                .join(' ');
-    };
-
-    makeRightHolderAvatarUrl = rightHolder => {
-        const avatarImage = rightHolder.avatarImage;
-
-        return avatarImage ?
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/' + avatarImage :
-            'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
-    };
-
-    selectedDropdownValues() {
-        return this.state.selectedMusicians.map(value => value.uuid);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.selectedDropdownValues !== prevState.selectedDropdownValues) {
-            this.props.onChange(this.state.selectedDropdownValues);
-        }
+        return RightHolderOptions(this.props.rightHolders);
     }
 
     selectedItems() {
         return this.rightHolderOptions().filter(this.isSelectedItem);
     }
 
-    isSelectedItem = item => this.selectedDropdownValues().includes(item.value);
+    isSelectedItem = item => this.props.musicians.map(musician => musician.id).includes(item.value);
 
     unselectedItems() {
         return this.rightHolderOptions().filter(this.isUnselectedItem);
@@ -71,17 +45,50 @@ export class ChampSelectionInterprete extends Component {
 
     renderSelectedItems() {
         return this.selectedItems().map(item => {
+            const musician = this.props.musicians.find(musician => musician.id === item.value);
+
             return (
                 <FormulaireMusicien
-                    key={ item }
+                    key={ item.value }
                     pochette={ this.props.pochette }
                     item={ item }
+                    rightHolder={ musician }
                     onClick={ (event) => {
                         this.unselectItem(event, item);
                     } }
+                    onChange={ this.updateRightHolder }
                 />
             );
         });
+    }
+
+    updateRightHolder = newRightHolder => {
+        const newRightHolders = [...this.props.values.rightHolders]
+            .filter(rightHolder => rightHolder.id !== newRightHolder.id)
+            .concat([newRightHolder]);
+
+        this.props.onChange(newRightHolders);
+    }
+
+    unselectItem(event, item) {
+        event.preventDefault();
+        const id = item.value;
+        const musician = this.props.values.rightHolders.find(rightHolder => rightHolder.id === id);
+        const existingRoles = musician.roles || [];
+        const newRoles = existingRoles.filter(this.isNotMusicianRole);
+        const newMusician = Object.assign({}, musician, { roles: newRoles });
+
+        const newRightHolders = updateRightHolders(this.props.values.rightHolders, newMusician);
+
+        this.props.onChange(newRightHolders);
+
+        this.setState({
+            dropdownValue: null
+        });
+    }
+
+    isNotMusicianRole = role => {
+        return this.musicianRoles.every(musicianRole => role !== musicianRole);
     }
 
     handleChange = (event, { value }) => {
@@ -89,28 +96,20 @@ export class ChampSelectionInterprete extends Component {
         this.selectItem(value);
     };
 
-    selectItem(itemValue) {
-        let musicians = [...this.state.selectedMusicians];
+    selectItem(id) {
+        const existingMusician = this.props.values.rightHolders.find(rightHolder => rightHolder.id === id) || {};
+        const existingRoles = existingMusician.roles || [];
+        const newRoles = existingRoles.concat([roles.musician]).filter(isUnique);
+        const emptyMusician = { id: id, roles: [], instruments: [] };
 
-        if (!musicians.find(musician => musician.uuid === itemValue)) {
-            const newMusician = new Musician({ 'uuid': itemValue });
-            musicians.push(newMusician);
-        }
+        const newMusician = Object.assign({}, emptyMusician, existingMusician, { roles: newRoles });
 
-        this.setState({
-            selectedMusicians: musicians,
-            dropdownValue: null
-        });
-    }
+        const newRightHolders = updateRightHolders(this.props.values.rightHolders, newMusician);
 
-    unselectItem(event, item) {
-        event.preventDefault();
-        let musicians = [...this.state.selectedMusicians];
 
-        const selectedMusicians = musicians.filter(musician => musician.uuid !== item.value);
+        this.props.onChange(newRightHolders);
 
         this.setState({
-            selectedMusicians: selectedMusicians,
             dropdownValue: null
         });
     }

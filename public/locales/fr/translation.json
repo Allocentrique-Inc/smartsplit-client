@@ -28,11 +28,12 @@
             "bouton": {
                 "annuler": "Annuler",
                 "sauvegarder": "Sauvegarder"
-            },
-            "declaration": {
-                "identite": "Déclaration d'identité"
             }
-        }
+        },
+            "declaration": {
+                "identite": "Déclaration d'identité",
+                "accepter": "Accepter"
+            }
     },
     "oeuvre": {
         "attribut": {
@@ -251,7 +252,10 @@
             "ajout": "Ajouter",
             "voter": "VOTER"
         },
-        "tableadebord": "Tu dois être connecté",
+        "tableaudebord":  {
+            "collabo": "Mes collaborateurs",
+            "edito": "Mon éditeur"
+        },
         "pro": {
             "titre": "Es-tu pro ?",
             "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton œuvre ici !"
@@ -326,12 +330,17 @@
             "intro3": "Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)"
         },
         "editeur": {
-            "ajout": "Ajouter un éditeur"
+            "ajout": "Ajouter un éditeur",
+            "editeur": "Éditeur",
+            "donateur": "Donateur"
         },
         "proposition": {
             "nouvelle": "Créer une nouvelle version",
             "envoyer": "Envoyer aux collaborateurs",
-            "continuer": "Continuer le partage"
+            "continuer": "Continuer le partage",
+            "sommaire": "Accéder au sommaire",
+            "voter": "Accéter au vote",
+            "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition."
         }
         },
     "traitement": {
@@ -368,7 +377,10 @@
         },
         "pieces": {
             "0": "Mes ajouts",
-            "1": "Partagées avec moi"
+            "1": "Partagées avec moi",
+            "par": "par",
+            "partageAvec": "partagé avec",
+            "ajouter": "Ajouter une oeuvre"
         },
         "vide": {
             "preambule": "Tes oeuvres apparaîtrons ici.",
@@ -401,7 +413,9 @@
         "editeur": {
             "titre": "Quel est le nom de ton éditeur ?",
             "titre-part": "Combien ton éditeur devrait-il avoir ?"
-        }
+        },
+        "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition.",
+        "prete-a-envoyer": "Ta proposition est prête à envoyer à tes collaborateurs par courriel. Révise-la et appuie sur Envoyer."
     },
     "connexion": {
         "titre": {
@@ -465,6 +479,7 @@
         "joindre": "Joindre SOCAN",
         "prenom": "Prénom légal",
         "nom": "Nom légal",
+        "2eprenom": "Deuxième prénom légal",
         "date": "Date de naissance",
         "adresse": "Adresse",
         "ville": "Ville",
@@ -494,5 +509,12 @@
             "SK": "Saskatchewan",
             "YT": "Yukon"
         }
+    },
+    "menuprofil": {
+        "accueil": "Tableau de bord",
+        "profil": "Mon profil SOCAN",
+        "francais": "Français",
+        "anglais": "English",
+        "deconnexion": "Déconnexion"
     }
 }

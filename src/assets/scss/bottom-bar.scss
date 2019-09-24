@@ -1,0 +1,9 @@
+@import 'colors';
+@import 'layout';
+@import 'page-assistant/bouton';
+
+.bottom-bar {
+    height: 72px;
+    width: 100%;
+    border-top: 1px solid $color-stroke;
+}
