@@ -19,24 +19,22 @@ import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
+import {
+    addRightHolderIfMissing,
+    getRightHolderIdsByRole,
+    hasRoles,
+    updateRole
+} from "../page-assistant/right-holder-helpers";
 
 export default class PageCreation extends Component {
     constructor(props) {
         super(props);
 
-        const songwriters = this.filterShareHolders(roles.songwriter, props.values.rightHolders);
-        const composers = this.filterShareHolders(roles.composer, props.values.rightHolders);
-        const publishers = this.filterShareHolders(roles.publisher, props.values.rightHolders);
-
         this.state = {
-            songwriters: songwriters,
-            composers: composers,
-            publishers: publishers
+            songwriters: getRightHolderIdsByRole(roles.songwriter, props.values.rightHolders),
+            composers: getRightHolderIdsByRole(roles.composer, props.values.rightHolders),
+            publishers: getRightHolderIdsByRole(roles.publisher, props.values.rightHolders)
         }
-    }
-
-    filterShareHolders(role, rightHolders) {
-        return Object.keys(rightHolders).filter(rightHolderUuid => rightHolders[rightHolderUuid].includes(role));
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -45,19 +43,31 @@ export default class PageCreation extends Component {
             this.state.composers !== prevState.composers ||
             this.state.publishers !== prevState.publishers
         ) {
-            const songwriters = this.state.songwriters.reduce(this.pushRole(roles.songwriter), {});
-            const songwritersAndComposers = this.state.composers.reduce(this.pushRole(roles.composer), songwriters);
-            const rightHolders = this.state.publishers.reduce(this.pushRole(roles.publisher), songwritersAndComposers);
+            const creationRightHolderIds = this.state.songwriters
+                .concat(this.state.composers)
+                .concat(this.state.publishers);
 
-            this.props.setFieldValue('rightHolders', rightHolders);
+            const updatedRightHolders = creationRightHolderIds
+                .reduce(addRightHolderIfMissing, [...this.props.values.rightHolders])
+                .map(this.getUpdatedRightHolder)
+                .filter(hasRoles);
+
+            this.props.setFieldValue('rightHolders', updatedRightHolders);
         }
     }
 
-    pushRole = type => (rightHolders, uuid) => {
-        rightHolders[uuid] = rightHolders[uuid] || [];
-        rightHolders[uuid].push(type);
-        return rightHolders;
+
+    getUpdatedRightHolder = rightHolder => {
+        const rightHolderRoles = rightHolder.roles || [];
+        const id = rightHolder.id || null;
+
+        const songwriterRoles = updateRole(roles.songwriter, this.state.songwriters, id, rightHolderRoles);
+        const composerRoles = updateRole(roles.composer, this.state.composers, id, songwriterRoles);
+        const newRoles = updateRole(roles.publisher, this.state.publishers, id, composerRoles);
+
+        return Object.assign({}, rightHolder, { roles: newRoles });
     };
+
 
     rightHolderOptions() {
         return RightHolderOptions(this.props.rightHolders);
@@ -129,7 +139,7 @@ export default class PageCreation extends Component {
                                     description={ t('flot.documenter.codeiswc-description') }
                                     placeholder={ t('flot.documenter.codeiswc-placeholder') }
                                     value={ this.props.values.iswc }
-                                    onChange={ value => this.props.setFieldValue(' iswc', value) }
+                                    onChange={ value => this.props.setFieldValue('iswc', value) }
                                 />
                             </Colonne>
                         </Page>

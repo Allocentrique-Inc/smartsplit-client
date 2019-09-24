@@ -10,12 +10,15 @@
     padding-right: $margin-step / 2 !important;
 }
 
-.ui.form input[type="text"] {
-    @extend .medium-400-style;
-
-    &::placeholder {
+.ui.form {
+    input[type="text"],
+    input[type="number"] {
         @extend .medium-400-style;
-        color: $color-tertiary;
+
+        &::placeholder {
+            @extend .medium-400-style;
+            color: $color-tertiary;
+        }
     }
 }
 
@@ -31,6 +34,11 @@
 }
 
 .ui.search.selection.dropdown > input.search {
+    padding-left: $margin-step / 2 !important;
+}
+
+.with-trigger-icon .ui.search.selection.dropdown > input.search,
+.ui.search.selection.dropdown.with-trigger-icon > input.search {
     padding-left: 40px !important;
 }
 
@@ -39,10 +47,6 @@
     display: flex;
     align-items: center;
     @extend .medium-400-style;
-
-    input.search {
-        padding-left: 40px;
-    }
 
     img,
     > img,
@@ -71,6 +75,8 @@
 }
 
 .ui.selection.dropdown {
+    color: $color-primary;
+
     input {
         @extend .medium-400-style;
         color: $color-primary;
@@ -84,5 +90,28 @@
 
 .champ-date-sortie {
     padding-left: $margin-step * 2;
+}
+
+.undertext {
+    margin-top: $margin-step / 2;
+
+    @extend .small-400-style;
+    color: $color-secondary;
+}
+
+.section-televersement {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    .champ-fichier {
+        flex: 1 1 auto;
+    }
+}
+
+.ui.form .champ textarea {
+    border-radius: 2px;
+    @extend .medium-400-style;
 }
 

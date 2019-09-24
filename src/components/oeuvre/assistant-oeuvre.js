@@ -7,25 +7,24 @@ import axios from 'axios';
 // Pages de l'assistant
 import PageCreation from './page-creation';
 import PageInterpretation from './page-interpretation';
-import PageInfluences from './page-influences';
+import PageInformationsGenerales from './page-informations-generales';
 import PageParoles from './page-paroles';
 import PageLiens from './page-liens';
 import PageEnregistrement from "./page-enregistrement";
 import PageFichiers from './page-fichiers';
-import AudioLecture from './audio-lecture';
 // Alertes
 import { toast } from 'react-toastify';
 // Traduction
 import { Translation } from 'react-i18next';
-// Modèle
-import Oeuvre from '../../model/oeuvre/oeuvre';
-
 import { Navbar } from '../navigation/navbar';
 
 import { Auth } from 'aws-amplify';
 
 import Login from '../auth/Login';
+import ModalFin from "./modal-fin";
 import { confirmAlert } from 'react-confirm-alert';
+
+// Modèle
 
 
 class AssistantOeuvre extends Component {
@@ -37,7 +36,8 @@ class AssistantOeuvre extends Component {
         this.state = {
             progressPercentage: this.pageProgressPercentages[0],
             title: props.titre,
-            rightHolders: []
+            rightHolders: [],
+            endModalOpen: false
         };
     }
 
@@ -96,23 +96,27 @@ class AssistantOeuvre extends Component {
 
     getInitialValues() {
         return {
-            // mediaId: 0,
             title: this.state.title,
             album: "",
             artist: "",
             cover: "false",
             rightHolders: [],
-            musicians: [],
             jurisdiction: "",
             rightsType: [],
-            genre: "",
-            secondaryGenre: [],
-            lyrics: "",
-            inLanguages: [],
+            lyrics: {
+                text: "",
+                languages: [],
+                access: "private"
+            },
             isrc: "",
             iswc: "",
             upc: "",
             msDuration: "",
+            duration: "",
+            bpm: "",
+            influence: "",
+            genre: "",
+            secondaryGenres: [],
             socialMediaLinks: [],
             streamingServiceLinks: [],
             pressArticleLinks: [],
@@ -121,7 +125,31 @@ class AssistantOeuvre extends Component {
             modificationDate: "",
             publishDate: "",
             publisher: "",
-            rightsSplit: {}
+            studio: "",
+            studioAddress: "",
+            label: "",
+            labelAddress: "",
+            distributor: "",
+            distributorAddress: "",
+            rightsSplit: {},
+            files: {
+                cover: {
+                    file: null,
+                    access: "private"
+                },
+                audio: {
+                    file: null,
+                    access: "private"
+                },
+                score: {
+                    file: null,
+                    access: "private"
+                },
+                midi: {
+                    file: null,
+                    access: "private"
+                }
+            }
         };
     }
 
@@ -133,8 +161,12 @@ class AssistantOeuvre extends Component {
         });
     };
 
-    onSubmit(values, actions, t) {
-        let oeuvre = new Oeuvre(values);
+    onSubmit = (values, actions, t) => {
+        this.setState({
+            endModalOpen: true
+        });
+
+        /*let oeuvre = new Oeuvre(values);
         let body = oeuvre.get();
 
         axios.post('http://api.smartsplit.org:8080/v1/media', body)
@@ -148,8 +180,8 @@ class AssistantOeuvre extends Component {
             })
             .catch((error) => {
                 toast.error(error);
-            });
-    }
+            });*/
+    };
 
     render() {
         if (this.state.user) {
@@ -167,10 +199,7 @@ class AssistantOeuvre extends Component {
                                 <Wizard
                                     initialValues={ this.getInitialValues() }
                                     onPageChanged={ this.onPageChanged }
-
-                                    onSubmit={ (values, actions, t) => {
-                                        this.onSubmit(values, actions, t)
-                                    } }
+                                    onSubmit={ this.onSubmit }
 
                                     buttonLabels={ {
                                         previous: t('navigation.precedent'),
@@ -178,7 +207,7 @@ class AssistantOeuvre extends Component {
                                         submit: t('navigation.envoi')
                                     } }
 
-                                    debug={ false }
+                                    debug={ true }
                                 >
                                     <Wizard.Page>
                                         <PageCreation
@@ -207,12 +236,14 @@ class AssistantOeuvre extends Component {
                                     <Wizard.Page>
                                         <PageFichiers
                                             pochette={ this.props.pochette }
+                                            i18n={ i18n }
                                         />
                                     </Wizard.Page>
 
                                     <Wizard.Page>
-                                        <PageInfluences
+                                        <PageInformationsGenerales
                                             pochette={ this.props.pochette }
+                                            i18n={ i18n }
                                         />
                                     </Wizard.Page>
 
@@ -228,12 +259,18 @@ class AssistantOeuvre extends Component {
                                         />
                                     </Wizard.Page>
                                 </Wizard>
+
+                                <ModalFin
+                                    songTitle={ this.state.title }
+                                    open={ this.state.endModalOpen }
+                                    onClose={ () => this.setState({ endModalOpen: false }) }
+                                />
                             </>
                     }
                 </Translation>
             )
         } else {
-            return (<div></div>)
+            return (<></>)
         }
 
     }

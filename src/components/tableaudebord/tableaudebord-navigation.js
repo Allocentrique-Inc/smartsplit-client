@@ -28,8 +28,7 @@ export default class Navigation extends Component {
                 this.props.parent.setState({navigation: COLLABORATEURS})
                 this.setState({selection: COLLABORATEURS})
                 break;
-            default:
-                console.log("Ne peut naviguer nulle part...")
+            default:                
         }
     }
 

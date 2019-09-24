@@ -43,7 +43,7 @@ class AssistantOeuvre extends Component {
     componentWillMount() {
         Auth.currentAuthenticatedUser()
         .then(res=>{
-            this.setState({user: res}, ()=>{console.log(this.state.user)})
+            this.setState({user: res})
         })
         .catch(err=>{
             toast.error(err.message)
