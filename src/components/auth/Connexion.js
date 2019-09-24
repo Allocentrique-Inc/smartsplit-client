@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Modal } from "semantic-ui-react";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
-import Login from "../auth/Login";
+import Login from "./Login";
 import Register from "./Register";
 import ForgotPassword from "./ForgotPassword";
 

@@ -17,7 +17,7 @@ class Register extends Component {
 
     this.state = {
       hidden: true,
-      confirmhidden: true,
+      confirmhidden: true,  
       password: "",
       confirmpassword: "",
       strength: 0,
@@ -99,10 +99,18 @@ class Register extends Component {
     // AWS Cognito integration here
     const username = values.username;
     const email = values.username; // username is used as email
+    const password = this.state.password;
     // const firstName = values.firstName;
     // const lastName = values.lastName;
     // const artistName = values.artistName;
-    const password = this.state.password;
+    const firstName = 'First Name'
+    const lastName = 'Last Name'
+    const artistName = 'Artist Name'
+    const defaultRoles = Buffer.from('["Singer", "Producer"]').toString('base64');
+    const instruments = Buffer.from('["Piano"]').toString('base64');
+    const groups = Buffer.from('["Group 1", "Group 2"]').toString('base64');
+    const avatarImage = 'image.jpg'
+    
     // console.log(password, username, email, firstName, lastName)
 
     try {
@@ -110,7 +118,14 @@ class Register extends Component {
         username,
         password,
         attributes: {
-          email
+          email: email,
+          given_name: firstName,
+          family_name: lastName,
+          'custom:artistName': artistName,
+          'custom:instruments': instruments,
+          'custom:defaultRoles': defaultRoles,
+          'custom:groups': groups,
+          'custom:avatarImage': avatarImage
         }
       })
         // Auth.currentSession().then(
