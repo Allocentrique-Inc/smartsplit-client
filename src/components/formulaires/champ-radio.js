@@ -67,7 +67,8 @@ export default class BoutonsRadio extends Component {
             id: props.id,
             onClick: props.onClick,
             actif: props.actif,
-            disabled: props.disabled
+            disabled: props.disabled,
+            requis: props.requis
         }
     }
 
@@ -104,6 +105,7 @@ export default class BoutonsRadio extends Component {
             <RadioButtonGroup
                 id={`radioGroup_${this.state.id}`}
                 label={this.state.titre}
+                required={this.state.requis}
                 >
                 {choix}
             </RadioButtonGroup>

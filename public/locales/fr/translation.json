@@ -1,8 +1,17 @@
 {
+    "options": {
+        "piece": {
+            "titre": "Cette oeuvre est ...",
+            "originale": "une création originale",
+            "arrangement": "un arrangement (remix)",
+            "reprise": "une reprise (cover)"
+        }
+    },
     "titre": {
         "principal": "Bienvenue sur SmartSplit Alpha - Client",
         "accueil": "Accueil",
-        "liste-media": "Liste des médias retournés de l'API"
+        "liste-media": "Liste des médias retournés de l'API",
+        "apercu": "Aperçu"
     },
     "collaborateur": {
         "titre": "Ajouter un artiste collaborateur",
@@ -11,7 +20,7 @@
                 "nom": "Nom légal",
                 "prenom": "Prénom légal",
                 "artiste": "Nom d'artiste (optionel)",
-                "role": "Rôle dans l'œuvre",
+                "role": "Rôle dans la pièce musicale",
                 "option": " (optionel)",
                 "na": "Si non applicable, nous afficherons le nom complet.",
                 "courriel": "Courriel",
@@ -64,14 +73,15 @@
                 "repartition": "Répartition des droits (%)"
             },
             "indication": {
-                "titre": "Titre de l'œuvre",
-                "album": "Album sur lequel figure l'œuvre",
+                "titre": "Titre de la pièce musicale",
+                "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
+                "album": "Album sur lequel figure la pièce musicale",
                 "reprise": "",
                 "artiste": "Qui est l'artiste principal ?",
                 "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
                 "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
-                "genre": "Sélectionne le genre principal de l'œuvre",
-                "genre2": "Sélectionne le genre secondaire de l'œuvre",
+                "genre": "Sélectionne le genre principal de la pièce musicale",
+                "genre2": "Sélectionne le genre secondaire de la pièce musicale",
                 "paroles": "Inscrit les paroles",
                 "langueParoles": "Sélectionne la ou les langues pour les paroles",
                 "isrc": "Identifiant unique de l'enregistrement",
@@ -81,10 +91,10 @@
                 "liensServices": "URL complet vers un lien de diffusion",
                 "liensPresse": "URL complet vers un article de presse",
                 "liensListes": "URL complet vers une liste de lecture",
-                "dateCreation": "Quand a été créé l'œuvre ?",
-                "dateModification": "Quand l'œuvre a-t-elle été modifiée ?",
-                "datePublication": "Quand l'œuvre a-t-elle été publiée ?",
-                "editeur": "Qui est l'éditeur de l'œuvre ?",
+                "dateCreation": "Quand a été créé la pièce musicale ?",
+                "dateModification": "Quand la pièce musicale a-t-elle été modifiée ?",
+                "datePublication": "Quand la pièce musicale a-t-elle été publiée ?",
+                "editeur": "Qui est l'éditeur de la pièce musicale ?",
                 "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
             }
         },
@@ -95,7 +105,8 @@
         "envoi": "Soumettre",
         "precedent": "Précédent",
         "reinitialiser": "Réinitialiser",
-        "transfertEnCours": "Transfert de données en cours. Merci d'être patient."
+        "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
+        "cest-parti": "C'est parti !"        
     },
     "validation": {
         "requis": "Requis"

@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import LigneMedia from './tableaudebord-ligne-media'
 import { Modal } from 'semantic-ui-react';
 import AssistantOeuvre from '../oeuvre/assistant-oeuvre';
+import NouvelleOeuvre from './tableaudebord-nouvelle-oeuvre';
 
 const PANNEAU_INITIATEUR = 1, PANNEAU_COLLABORATEUR = 0
 
@@ -262,9 +263,14 @@ export default class ListePieces extends Component {
                                         <Modal
                                             open={this.state.modaleOeuvre}                                            
                                             onClose={this.closeModal}
-                                            size="fullscreen"
+                                            size="large"
+                                            closeIcon
+                                            closeOnDimmerClick={false}
                                         >
-                                            <AssistantOeuvre />
+                                            <Modal.Header>Créer une nouvelle pièce musicale</Modal.Header>
+                                            <Modal.Content>
+                                                <NouvelleOeuvre user={this.state.user} />
+                                            </Modal.Content>                                            
                                         </Modal>
                                     </div>
                                 )
@@ -275,7 +281,7 @@ export default class ListePieces extends Component {
                                         <div className="ui text loader">{t('entete.encours')}</div>
                                     </div>
                                 )
-                            }                            
+                            }
                         </div>
                 }
             </Translation>

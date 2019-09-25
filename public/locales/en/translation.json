@@ -1,8 +1,17 @@
 {
+    "options": {
+        "piece": {
+            "titre": "This work is ...",
+            "originale": "an original creation",
+            "arrangement": "a remix",
+            "reprise": "a cover"
+        }
+    },
     "titre": {
         "principal": "Welcome to SmartSplit Alpha - Client",
         "accueil": "Home",
-        "liste-media": "Media list returned by the API"
+        "liste-media": "Media list returned by the API",
+        "apercu": "Preview"
     },
     "collaborateur": {
         "titre": "Add a collaborating artist",
@@ -65,6 +74,7 @@
             },
             "indication": {
                 "titre": "Work title",
+                "titre-soustexte": "Do not include guests (featuring, remixed by, etc., in the title",
                 "album": "Work album",
                 "reprise": "",
                 "artiste": "Who is the main artist ?",
@@ -95,7 +105,8 @@
         "envoi": "Submit",
         "precedent": "Previous",
         "reinitialiser": "Reset",
-        "transfertEnCours": "Data transfer in progress, please be patient."
+        "transfertEnCours": "Data transfer in progress, please be patient.",
+        "cest-parti": "Let's Go !"
     },
     "validation": {
         "requis": "Required"
