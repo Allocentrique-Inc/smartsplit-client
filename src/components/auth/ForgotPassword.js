@@ -6,9 +6,16 @@ import { Translation } from "react-i18next";
 
 //import { withTranslation } from "react-i18next";
 
-const TYPE_LOGIN = 0,
-  TYPE_REGISTER = 1,
-  TYPE_FORGOT = 2;
+const passwordStyle = {
+  display: "block",
+  width: "464px",
+  fontFamily: "IBM Plex Sans",
+  fontWeight: "normal",
+  fontSize: "16px",
+  lineHeight: "24px",
+  position: "isAbsolute",
+  margin: "20px 20px 60px 70px"
+};
 
 class ForgotPassword extends Component {
   state = {
@@ -59,70 +66,98 @@ class ForgotPassword extends Component {
   render() {
     //const { t } = this.props;
 
-    /*{!this.state.patience && (
-            <span className="top-login">
-              <div
-                onClick={() => {
-                  // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
-                  this.props.parent.afficher(0);
-                }}
-                style={{ color: "#2DA84F", cursor: "pointer" }}
-              >
-                {t("entete.inscription")}
-              </div>
-            </span>
-        )}{!this.state.patience && (
-            <span className="top-register">
-              <div
-                onClick={() => {
-                  // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
-                  this.props.parent.afficher(1);
-                }}
-                style={{ color: "#2DA84F", cursor: "pointer" }}
-              >
-                {t("entete.inscription")}
-              </div>
-            </span>
-        )}*/
     return (
       <Translation className="section auth">
         {t => (
-          <div className="container">
-            <h1>{t("auth.oublier.titre")}</h1>
-            <p>{t("auth.oublier.preambule")}</p>
-            {/* <FormErrors formerrors={this.state.errors} /> */}
+          <React.Fragment>
+            {!this.state.patience && (
+              <span className="top-login">
+                <div
+                  onClick={() => {
+                    // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
+                    this.props.parent.afficher(0);
+                  }}
+                  style={{
+                    color: "#2DA84F",
+                    cursor: "pointer",
+                    position: "relative",
+                    right: "25px"
+                  }}
+                >
+                  {t("entete.connexion")}
+                </div>
+              </span>
+            )}
+            {!this.state.patience && (
+              <span
+                className="top-register"
+                style={{
+                  color: "#2DA84F",
+                  cursor: "pointer"
+                }}
+              >
+                <div
+                  onClick={() => {
+                    // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
+                    this.props.parent.afficher(1);
+                  }}
+                >
+                  {t("entete.inscription")}
+                </div>
+              </span>
+            )}
+            <div className="containerPassword" style={passwordStyle}>
+              <h1
+                style={{
+                  passwordStyle,
+                  marginLeft: "10px",
+                  fontWeight: "normal"
+                }}
+              >
+                {t("auth.oublier.titre")}
+              </h1>
+              <p>{t("auth.oublier.preambule")}</p>
+              {/* <FormErrors formerrors={this.state.errors} /> */}
 
-            <form onSubmit={this.forgotPasswordHandler}>
-              <div className="field">
-                <p className="control has-icons-left has-icons-right">
-                  <input
-                    type="email"
-                    className="input"
-                    id="email"
-                    aria-describedby="emailHelp"
-                    placeholder="Enter email"
-                    value={this.state.email}
-                    onChange={this.onInputChange}
-                  />
-                  <span className="icon is-small is-left">
-                    <i className="fas fa-envelope"></i>
-                  </span>
-                </p>
-              </div>
-              <div className="field">
-                <p className="control">
-                  <a href="/forgotpassword">Forgot password?</a>
-                </p>
-              </div>
-              <div className="field">
-                <p className="control">
-                  <button className="button is-success">
-                    {t("collaborateur.attribut.bouton.soumettre")}
-                  </button>
-                </p>
-              </div>
-            </form>
-          </div>
+              <form onSubmit={this.forgotPasswordHandler}>
+                <div
+                  className="field"
+                  style={{
+                    passwordStyle,
+                    fontWeight: "normal"
+                  }}
+                >
+                  <p className="control has-icons-left has-icons-right">
+                    <input
+                      type="email"
+                      className="input"
+                      id="email"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter email"
+                      value={this.state.email}
+                      onChange={this.onInputChange}
+                    />
+                    <span className="icon is-small is-left">
+                      <i className="fas fa-envelope"></i>
+                    </span>
+                  </p>
+                </div>
+                <div className="field">
+                  <p className="control"></p>
+                </div>
+                <div className="field">
+                  <p className="control">
+                    <button
+                      className="ui medium button is-success"
+                      style={{ float: "right" }}
+                    >
+                      {t("collaborateur.attribut.bouton.soumettre")}
+                    </button>
+                  </p>
+                </div>
+              </form>
+            </div>
+          </React.Fragment>
         )}
       </Translation>
     );
