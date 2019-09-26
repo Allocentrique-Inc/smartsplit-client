@@ -13,7 +13,7 @@ import { I18nextProvider, Translation } from "react-i18next"
 // Routeur applicatif
 import { Router, Route, Switch } from 'react-router'
 import { createBrowserHistory } from 'history'
-
+ 
 // Alertes utlisateur
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
