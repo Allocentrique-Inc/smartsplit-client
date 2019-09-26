@@ -3,13 +3,22 @@ import "./Register.css";
 import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
+import { toast } from "react-toastify";
 // import * as Yup from 'yup'
 // Traduction
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
+import ModifyUser from "./ModifyUser";
 
 class Register extends Component {
-  state = { username: false };
+  state = {
+    showModal: false,
+    username: false
+  };
+
+  openModal = () => {
+    this.setState({ showModal: true });
+  };
 
   constructor(props) {
     super(props);
@@ -207,6 +216,29 @@ class Register extends Component {
     }
   }
 
+  handleSubmit = values => {
+    try {
+      this.setState({ patience: true }, () => {
+        Auth.signIn(values.username, values.password)
+          .then(user => {
+            toast.success(`#${user.username} !`);
+
+            if (this.props.fn) {
+              this.props.fn();
+            }
+          })
+          .catch(err => {
+            toast.error(err.message);
+          })
+          .finally(() => {
+            this.setState({ patience: false });
+          });
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   render() {
     const {
       type,
@@ -247,13 +279,6 @@ class Register extends Component {
       .join(" ")
       .trim();
 
-    /*let header = (
-            <span text='Connexion' onClick={()=>{this.connexion()}}>
-            <span text='Inscription' onClick={()=>{this.inscription()}}>
-            </span>
-            </span>
-        )*/
-
     return (
       <Formik
         initialValues={{
@@ -270,6 +295,7 @@ class Register extends Component {
         onSubmit={(values, { setSubmitting }) => {
           this.handleSubmit(values, () => {
             setSubmitting(false);
+            this.openModal();
           });
         }}
       >
@@ -287,7 +313,7 @@ class Register extends Component {
                         }}
                         style={{ color: "#2DA84F", cursor: "pointer" }}
                       >
-                        {t("entete.inscription")}
+                        {t("entete.connexion")}
                       </div>
                     </span>
                     <div className="container">
@@ -483,12 +509,16 @@ class Register extends Component {
                             <div className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
                               <div className="container">
                                 <p className="control">
-                                  <button
-                                    className="ui medium button register is-success"
-                                    type="submit"
-                                  >
-                                    {t("entete.inscription")}
-                                  </button>
+                                  <div>
+                                    <button
+                                      className="ui medium button register is-success"
+                                      type="submit"
+                                      onClick={this.openModal}
+                                    >
+                                      {t("entete.inscription")}
+                                    </button>
+                                    <ModifyUser open={this.state.showModal} />
+                                  </div>
                                 </p>
                               </div>
                             </div>
