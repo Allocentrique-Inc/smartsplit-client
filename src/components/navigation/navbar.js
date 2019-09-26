@@ -3,8 +3,17 @@ import '../../assets/scss/navbar.scss';
 import placeholder from '../../assets/images/placeholder.png';
 import { Trackbar } from "./trackbar";
 import { Translation } from "react-i18next";
+import MenuProfil from '../entete/menu-profil';
 
 export class Navbar extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            profil: props.profil
+        }
+    }
+
     render() {
         return (
             <Translation>
@@ -27,12 +36,14 @@ export class Navbar extends Component {
                                 </div>
 
                                 <div className="right">
+                                    {this.state.profil && <MenuProfil user={this.state.profil} />}
                                     <div className="save-and-quit-label">
                                         <a href="#">
                                             { t('flot.etape.enregistrerEtQuitter') }
                                         </a>
-                                    </div>
+                                    </div>                                    
                                 </div>
+                                
                             </div>
 
                             <Trackbar

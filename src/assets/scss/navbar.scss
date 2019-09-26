@@ -25,13 +25,13 @@
     .left,
     .right {
         flex: 1 2;
-
         display: flex;
         align-items: center;
     }
 
     .right {
         justify-content: flex-end;
+        padding-right: 50px;
     }
 }
 
@@ -50,6 +50,7 @@
 }
 
 .save-and-quit-label a {
+    padding-left: 50px;
     font-weight: bold;
     color: $smartsplit-color-link;
     transition: color 0.2s ease;
