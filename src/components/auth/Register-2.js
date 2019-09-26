@@ -114,7 +114,7 @@ class Register2 extends Component {
 
   click(){
     this.handleSubmit();
-    this.props.close();
+    // this.props.close();
   }
 
   handleSubmit = values => {
@@ -244,10 +244,10 @@ class Register2 extends Component {
             t=>  
   
         <Modal 
-          open={open}
-          closeOnEscape={true}
-          closeOnDimmerClick={false}
-          onClose={this.props.close} 
+          // open={open}
+          // closeOnEscape={true}
+          // closeOnDimmerClick={false}
+          // onClose={this.props.close} 
           size="small"         >
           <div className="input-container">
           <Modal.Header className="Titre">{t('collaborateur.titre')}</Modal.Header>
@@ -293,7 +293,7 @@ class Register2 extends Component {
             <div className="sous titre">{t('collaborateur.attribut.indication.role2')}</div>
           </div>  
           <Modal.Actions>
-                  <Button onClick={this.props.close} negative>{t('collaborateur.attribut.bouton.annuler')}</Button>
+                  {/* <Button onClick={this.props.close} negative>{t('collaborateur.attribut.bouton.annuler')}</Button> */}
                   <Button onClick={this.click} positive icon='checkmark' labelPosition='right' content={t('collaborateur.attribut.bouton.sauvegarder')} />
             </Modal.Actions>
         </Modal>

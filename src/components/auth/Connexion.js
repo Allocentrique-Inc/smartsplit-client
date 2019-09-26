@@ -71,6 +71,7 @@ export default class ModaleConnexion extends Component {
                     else {
                       if (data.Users[0].UserStatus === "CONFIRMED") {
                         // If user is confirmed and has full profile
+                        window.location.href = '/accueil'
                         // this.state.parent.setState({ user: res });
                       } else {
                         // If user is not confirmed
@@ -92,7 +93,7 @@ export default class ModaleConnexion extends Component {
         )}
         {this.state.opened === TYPE_REGISTER && <Register parent={this} />}
         {this.state.opened === TYPE_PROFILE && <Register2 parent={this} />}
-        {this.state.opened === TYPE_FORGOT && <ForgotPassword parent={this} />}
+        {this.state.opened === TYPE_FORGOT && <Register2 parent={this} />}
       </Modal>
     );
   }

@@ -4,11 +4,27 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
+import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 'semantic-ui-react'
+import axios from 'axios'
 // import * as Yup from 'yup'
 // Traduction
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
 import ModifyUser from "./ModifyUser";
+
+const roles = [
+    'principal', 
+    'accompaniment', 
+    'songwriter', 
+    'composer', 
+    'remixer', 
+    'studio', 
+    'publisher', 
+    'graphist', 
+    'producer', 
+    'singer', 
+    'musician'
+  ]
 
 class Register extends Component {
   state = {
@@ -30,8 +46,31 @@ class Register extends Component {
       password: "",
       confirmpassword: "",
       strength: 0,
-      passwordmatch: false
-      // dirty: false
+      passwordmatch: false,
+      groups: [],
+      avatarImage: 'image.jpg',
+      firstName: '',
+      lastName: '',
+      artistName: '',
+      defaultRoles: [],
+      instruments: [],
+      currentValue: [],
+      currentRoleValue: [],
+      image: '',
+      uploadURL: '',
+      roles: [
+        {key: "Principal", text: "Principal", value: "Principal"},
+        {key: "Accompaniment", text: "Accompaniment", value: "Accompaniment"},
+        {key: "Songwriter", text: "Songwriter", value: "Songwriter"},
+        {key: "Composer", text: "Composer", value: "Composer"},
+        {key: "Remixer", text: "Remixer", value: "Remixer"},   
+        {key: "Studio", text: "Studio", value: "Studio"},
+        {key: "Publisher", text: "Publisher", value: "Publisher"},
+        {key: "Graphist", text: "Graphist", value: "Graphist"},
+        {key: "Producer", text: "Producer", value: "Producer"},
+        {key: "Singer", text: "Singer", value: "Singer"},
+        {key: "Musician", text: "Musician", value: "Musician"}
+      ]
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -173,6 +212,18 @@ class Register extends Component {
     });
   }
 
+  handleAddition = (e, { value }) => {
+    this.setState(prevState => ({
+      groups: [{text: value, value}, ...prevState.groups],
+    }))  
+  }
+
+  handleChange = (e, { value }) => this.setState({ currentValue: value })
+
+  handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value })
+
+  roleChange = (e, { value }) => this.setState({ currentRoleValue: value })
+
   // stateChanged = e => {
 
   //   // update the internal state using the updated state from the form field
@@ -208,11 +259,30 @@ class Register extends Component {
   }
 
   componentDidMount() {
+    let groups = [];
+    axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
+    .then(res=>{
+      let groupers = [];
+      let groupsUnique = [];
+      res.data.forEach(function(element) {
+        groupers.push( element.groups )
+        // Remove duplicates from multiple right holders and flattens arrays
+        let GR = groupers.sort().flat().filter( Boolean );
+        groupsUnique = [...new Set(GR)]
+      })
+      groupsUnique.forEach(function(elm) {
+        groups.push( {key: elm, text: elm, value: elm} )
+      })
+      this.setState({groups: groups}, ()=>{console.log("this.state.groups", this.state.groups)})
+    })
+    .catch(err=>{
+      console.log(err);
+    })
     if (this.props.password) {
-      this.setState({ password: this.props.password });
+        this.setState({ password: this.props.password });
     }
     if (this.props.confirmpassword) {
-      this.setState({ confirmpassword: this.props.confirmpassword });
+    this.setState({ confirmpassword: this.props.confirmpassword });
     }
   }
 
@@ -247,7 +317,7 @@ class Register extends Component {
       children,
       ...restProps
     } = this.props;
-    const { password, strength, dirty } = this.state;
+    const { password, strength, currentValue, currentRoleValue  } = this.state;
 
     // const { firstName, lastName, username } = this.state;
 
@@ -363,6 +433,47 @@ class Register extends Component {
                       />
                       <section className="section auth">
                         <div className="container">
+                          
+                        <img type="image" className="avatarImage" src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"/>
+                        {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
+                            <br></br>
+                            <br></br>
+                        <label>First Name</label><input type="text" className="firstName" placeholder={t('collaborateur.attribut.etiquette.prenom')} value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
+                        <label>Last Name</label><input type="text" className="lastName" placeholder={t('collaborateur.attribut.etiquette.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
+                        <label>{t('collaborateur.attribut.etiquette.artiste')}</label><label id="Optionel">{t('collaborateur.attribut.etiquette.option')}</label><input type="text" className="artistName" placeholder={t('collaborateur.attribut.etiquette.artiste')} value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
+                        <div className="sous titre">{t('collaborateur.attribut.etiquette.na')}</div>
+                        <label>{t('collaborateur.attribut.etiquette.groupe')}</label>
+                        <Dropdown 
+                            id="prompt"
+                            type="text" 
+                            options={this.state.groups}
+                            placeholder={t('collaborateur.attribut.indication.groupe')}
+                            search
+                            multiple={true}
+                            selection
+                            fluid
+                            allowAdditions
+                            value={currentValue}
+                            onAddItem={this.handleAddition}
+                            onChange={this.handleChange}
+                        />
+                        {/*<i className="search icon"></i>*/}
+                        <label>{t('collaborateur.attribut.etiquette.role')}</label>
+                        <Dropdown 
+                            id="roles"
+                            type="text" 
+                            options = {this.state.roles}
+                            placeholder={t('collaborateur.attribut.indication.role')}
+                            search
+                            multiple={true}
+                            selection
+                            fluid
+                            value={currentRoleValue}
+                            onChange={this.roleChange}
+                        /> 
+                        <div className="sous titre">{t('collaborateur.attribut.indication.role2')}</div>
+                        <br></br>
+
                           <div className="field">
                             <div className="control">
                               <label htmlFor="username">
