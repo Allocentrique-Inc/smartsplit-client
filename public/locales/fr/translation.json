@@ -118,7 +118,29 @@
                 "titre": "Sommaire du Split",
                 "soustitre": "Départ : un split initial créé par",
                 "votation": "VOTATION",
-                "brouillon": "DRAFT"
+                "brouillon": "BROUILLON",
+                "liste": "Liste des œuvres",
+                "decrire": "Décrire mon œuvres",
+                "soumettre1": "Soumettre au vote #1",
+                "soumettre2": "Soumettre au vote #2",
+                "soumettre3": "Soumettre au vote #3",
+                "soumettre4": "Soumettre au vote #4",
+                "soumettre5": "Soumettre au vote #5",
+                "connexion": "Connexion et création de compte",
+                "trois": "Trois Splits",
+                "login": "Connexion",
+                "register": "Inscription",
+                "register2": " Inscription 2",
+                "password": "Mot de pass oublié",
+                "password2": "Vérification de mot de passe",
+                "password3": "Changer de vérification",
+                "welcome": "Bienvenue",
+                "tableau": "Tableau de bord",
+                "media": "Partager les droits pour un média :",
+                "partage": "Partager les droits",
+                "sommaire": "Sommaire d'une proposition :",
+                "afficher": "Afficher le sommaire"
+
             },
             "etat": {
                 "VOTATION": "VOTATION",
@@ -247,7 +269,10 @@
             "titre6": "contains lyrics?",
             "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
             "titre7": "Was the musical piece already broadcasted?",
-            "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links."
+            "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links.",
+            "titre8": "Visuel de l'œuvre",
+            "titre8-description": "Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
+            "titre8-plus": "En savoir plus"
         },
         "bouton": {
             "ajout": "Ajouter",
@@ -415,7 +440,8 @@
             "titre": "Quel est le nom de ton éditeur ?",
             "titre-part": "Combien ton éditeur devrait-il avoir ?"
         },
-        "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition."
+        "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition.",
+        "prete-a-envoyer": "Ta proposition est prête à envoyer à tes collaborateurs par courriel. Révise-la et appuie sur Envoyer."
     },
     "connexion": {
         "titre": {

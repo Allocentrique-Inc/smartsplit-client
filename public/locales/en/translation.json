@@ -116,7 +116,30 @@
         "split": {
             "sommaire": {
                 "titre": "Split's Summary",
-                "soustitre": "Begin: an initial Split created by"
+                "soustitre": "Begin: an initial Split created by",
+                "votation": "VOTATION",
+                "brouillon": "DRAFT",
+                "liste": "List of Work",
+                "decrire": "Describe my Work",
+                "soumettre1": "Submit to Vote #1",
+                "soumettre2": "Submit to Vote #2",
+                "soumettre3": "Submit to Vote #3",
+                "soumettre4": "Submit to Vote #4",
+                "soumettre5": "Submit to Vote #5",
+                "connexion": "Login and Create Account",
+                "trois": "Three Splits",
+                "login": "Login",
+                "register": "Register",
+                "register2": " Register 2",
+                "password": "Forgot Password",
+                "password2": "Password Verification",
+                "password3": "Change Verification",
+                "welcome": "Welcome",
+                "tableau": "Dashboard",
+                "media": "Split Rights for a Media:",
+                "partage": "Split Rights",
+                "sommaire": "Proposal Summary :",
+                "afficher": "Proposal Display"
             },
             "etat": {
                 "VOTATION": "VOTING",
@@ -232,7 +255,10 @@
             "titre6": "contains lyrics?",
             "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
             "titre7": "Was the musical piece already broadcasted?",
-            "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links."
+            "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links.",
+            "titre8": "Work's Visual",
+            "titre8-description": "As the album Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
+            "titre8-plus": "En savoir plus"
         },
         "pro": {
             "titre": "Are you a professional?",
@@ -407,7 +433,8 @@
             "titre": "What's your publisher's name ?",
             "titre-part": "How much should your publisher get ?"
         },
-        "lecture-seule": "A new proposal is in progress. You are in read-only mode."
+        "lecture-seule": "A new proposal is in progress. You are in read-only mode.",
+        "prete-a-envoyer": "Your proposal is ready to go by email to your collaborators. Take a time to review and clic on Send."
     },
 
     "connexion": {

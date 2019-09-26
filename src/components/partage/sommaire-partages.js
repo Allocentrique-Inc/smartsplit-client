@@ -43,8 +43,6 @@ export default class SommairePartages extends Component {
         this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
         this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
-        this.toastAvertissement = this.toastAvertissement.bind(this)
-        this.avertissementEnvoye = false
     }
     
     componentWillReceiveProps(nextProps) {     
@@ -105,20 +103,6 @@ export default class SommairePartages extends Component {
         const newIndex = activeIndex === index ? -1 : index
     
         this.setState({ activeIndex: newIndex })
-    }
-
-    toastAvertissement() {
-        if(!this.avertissementEnvoye) {
-            this.avertissementEnvoye = true
-            return (
-                <Translation>
-                    {
-                        t=>
-                            toast.warn(t('flot.proposition.voter-avec-jeton'))
-                    }
-                </Translation>
-            )
-        }                
     }
 
     render() {
@@ -266,32 +250,45 @@ export default class SommairePartages extends Component {
 
             let that = this
 
+            let message
+
+            if(this.state.user && _p0 && _p0.etat === "PRET" && _p0.initiator.id === this.state.user.username) {                
+                message = (
+                    <Translation>
+                        {
+                            t =>
+                                <h4 className="ui color blue">{t('partage.prete-a-envoyer')}</h4>
+                        }
+                    </Translation>
+                )
+            }
+
+            if(this.state.user && _p0 && _p0.etat === "VOTATION" && !this.state.jetonApi) {                
+                message = (
+                    <Translation>
+                        {
+                            t =>
+                                <h4 className="ui color orange">{t('flot.proposition.voter-avec-jeton')}</h4>
+                        }
+                    </Translation>
+                )
+            }
+
             return (          
                 <Translation>
                     {
                         t =>
-                            <div className="ui segment">
-                                {
-                                    this.state.user && 
-                                    _p0 && 
-                                        _p0.etat === "VOTATION" && 
-                                        !this.state.jetonApi && 
-                                        _p0.initiator.rightHolderId === this.state.user.username && 
-                                        (
-                                        <script language="javascript">
-                                            setTimeout(()=>{
-                                                this.toastAvertissement()                                                
-                                            })
-                                        </script>
-                                    )
-                                }                 
+                            <div className="ui segment">                                                       
                                 <div className="ui grid" style={{padding: "10px"}}>
                                     <div className="ui row">
                                         <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
                                     </div>
                                     <div className="ui row">
-                                        {/*<div className="ui twelve wide column sommaire" />*/}                
-                                        <div className="ui one wide column">
+                                        <div className="ui two wide column" />
+                                        <div className="ui eight wide column">
+                                            {message}
+                                        </div>                
+                                        <div className="ui four wide column">
                                             {
                                                 !continuerDisabled && (
                                                     <div className={`ui medium button`} onClick={

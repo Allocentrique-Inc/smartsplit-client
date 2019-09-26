@@ -16,12 +16,23 @@
     @extend .h3-style;
     color: $color-primary;
     margin-bottom: $margin-step * 2;
+
+    &.with-description {
+        margin-bottom: $margin-step;
+    }
+}
+
+.entete-section {
+    margin-bottom: $margin-step * 2;
 }
 
 .instrument-select {
     margin-left: $margin-step * 2;
 }
 
+.section-televersement + .section-televersement {
+    margin-top: $margin-step * 2;
+}
 
 .add-musician-dropdown {
     margin-top: $margin-step * 4;
@@ -65,11 +76,23 @@
     }
 }
 
-.instrument-divider {
+.section-divider {
     margin: ($margin-step * 4) 0;
     height: 1px;
     width: 100%;
     background-color: $color-stroke;
+}
+
+.description {
+    margin-top: $margin-step;
+
+    @extend .medium-400-style;
+    color: $color-secondary;
+
+    a {
+        @extend .medium-500-style;
+        color: $color-action;
+    }
 }
 
 .pochette {
@@ -79,6 +102,10 @@
         &:hover {
             color: $pochette-color-link-hover;
         }
+    }
+
+    .description a {
+        color: $pochette-color-link;
     }
 
     .ui.dropdown .menu > .item {

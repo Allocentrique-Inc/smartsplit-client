@@ -64,7 +64,7 @@ export default class VotationPartTiers extends Component {
             })
         })
         .catch((error) => {
-            toast.error(error)
+            toast.error(error.message)
             
         })
     }
