@@ -261,13 +261,21 @@ class PageAssistantPartageEnregistrement extends Component {
                                     {descriptif}
                                     <br/>
                             <div className="fields">
-                                <div className="field">
-                                    <div className="nine wide field">
+                                <div className="fourteen wide field">
+                                    <div className="fourteen wide field">
                                     <BoutonsRadio 
                                         name="mode_enregistrement"
                                         actif={this.state.mode} // Attribut dynamique
-                                        onClick={(e)=>{                                            
-                                            this.setState({mode: e.target.value}, ()=>{
+                                        onClick={(e)=>{     
+                                            let valeur
+                                            // Clic de la puce ou de l'étiquette ?
+                                            if(e.target.nodeName === 'LABEL') {
+                                                valeur = e.target.parentNode.childNodes[0].value
+                                            }
+                                            if(e.target.nodeName === 'INPUT') {
+                                                valeur = e.target.value
+                                            }                                       
+                                            this.setState({mode: valeur}, ()=>{
                                                 this.recalculerPartage()
                                             })                                        
                                         }}
@@ -432,7 +440,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <br/>
                                     <br/>
                                     <br/>
-                                    <div className="conteneur-beignet nine wide field">
+                                    <div className="conteneur-beignet fourteen wide field">
                                         {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="1" data={this.state.parts}/>)}
                                         {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="1" data={this.state.parts}/>)}
                                     </div>

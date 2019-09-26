@@ -1,4 +1,9 @@
 {
+    "info": {
+        "oeuvre": {
+            "creation": "Oeuvre # {{id}} créée. :)"
+        }
+    },
     "options": {
         "piece": {
             "titre": "Cette oeuvre est ...",
@@ -11,7 +16,9 @@
         "principal": "Bienvenue sur SmartSplit Alpha - Client",
         "accueil": "Accueil",
         "liste-media": "Liste des médias retournés de l'API",
-        "apercu": "Aperçu"
+        "apercu": "Aperçu",
+        "oeil-ouvert": "Gardez l'oeil ouvert",
+        "apercu-sen-vient": "Votre aperçu s'affichera ici"
     },
     "collaborateur": {
         "titre": "Ajouter un artiste collaborateur",
@@ -50,9 +57,11 @@
             "etiquette": {
                 "titre": "Titre",
                 "album": "Album",
+                "piecePar": "{{titre}}, par",
+                "arrangementPar": "{{titre}}, arrangé par",
                 "reprise": "Cette œuvre est une reprise",
                 "instrumental": "Cette œuvre est instrumentale",
-                "artiste": "Artiste",
+                "artiste": "Artiste ou groupe originel",
                 "juridiction": "Juridiction",
                 "ayantDroit": "Collaborateurs",
                 "genre": "Style musical principal",
@@ -63,7 +72,8 @@
                 "upc": "Numéro UPC",
                 "dureeMs": "Durée (millisecondes)",
                 "liensSociaux": "Lien vers un média social",
-                "liensServices": "Lien direct de diffusion",
+                "liensServices": "Lien direct de diffusion","arrangeur": "Artiste ou groupe ...",
+                "vedette": "Ajouter un artiste ou groupe en vedette ...",
                 "liensPresse": "Lien vers une revue de presse",
                 "liensListes": "Lien vers une liste de lecture",
                 "dateCreation": "Date de création",
@@ -76,6 +86,8 @@
                 "titre": "Titre de la pièce musicale",
                 "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
                 "album": "Album sur lequel figure la pièce musicale",
+                "arrangeur": "Artiste ou groupe ...",
+                "vedette": "Ajouter un artiste ou groupe en vedette ...",
                 "reprise": "",
                 "artiste": "Qui est l'artiste principal ?",
                 "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
@@ -98,6 +110,9 @@
                 "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
             }
         },
+        "titre": {
+            "vedette": "Avec la participation (featuring)"
+        },
         "creePar": "Créé par"
     },
     "navigation": {
@@ -113,9 +128,9 @@
     },
     "composant": {
         "televersement": {
-            "titre": "Téléverse tes fichiers sources",
-            "indication": "Glisse et dépose des fichiers ou clique ici pour envoyer.",
-            "preambule": "Ici tu peux envoyer tes fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Tu peux ainsi partager tes fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
+            "titre": "Fichier",
+            "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
+            "indication": "ou dépose le fichier ici"
         }
     },
     "image": {
@@ -524,7 +539,7 @@
     },
     "menuprofil": {
         "accueil": "Tableau de bord",
-        "profil": "Mon profil SOCAN",
+        "profil": "Mon profil",
         "francais": "Français",
         "anglais": "English",
         "deconnexion": "Déconnexion"
