@@ -1,22 +1,33 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ChampFichier from "./champ-fichier";
 import ChampAccesTelechargement from "./champ-acces-telechargement";
 
-export default function ChampTeleversement(props) {
-    return (
-        <div className="section-televersement">
-            <ChampFichier
-                label={ props.label }
-                undertext={ props.undertext }
-                value={ props.file }
-                onChange={ value => props.onFileChange(value) }
-            />
+export default class ChampTeleversement extends Component {
+    
+    constructor(props) {
+        super(props)
+    }
 
-            <ChampAccesTelechargement
-                value={ props.access }
-                onChange={ value => props.onAccessChange(value) }
-            />
-        </div>
-    );
+    render() {
+        return (
+            <div className="section-televersement">
+                <ChampFichier
+                    label={ this.props.label }
+                    undertext={ this.props.undertext }
+                    value={ this.props.file }
+                    onChange={ value => {this.props.onFileChange(value)} }
+                />
+                {
+                    this.props.acces && (
+                        <ChampAccesTelechargement
+                            value={ this.props.access }
+                            onChange={ value => this.props.onAccessChange(value) }
+                        />
+                    )
+                }            
+            </div>
+        )
+    }
+    
 }
 

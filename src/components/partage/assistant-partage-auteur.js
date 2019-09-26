@@ -346,12 +346,22 @@ class PageAssistantPartageAuteur extends Component {
 
                                             <div className="fields">
                                                 <div className="field">
-                                                    <div className="nine wide field">
+                                                    <div className="fourteen wide field">
                                                         <BoutonsRadio
                                                             name="mode_auteur"
                                                             actif={this.state.mode} // Attribut dynamique
                                                             onClick={(e) => {
-                                                                this.setState({ mode: e.target.value }, () => {
+ 
+                                                                let valeur
+                                                                // Clic de la puce ou de l'étiquette ?
+                                                                if(e.target.nodeName === 'LABEL') {
+                                                                    valeur = e.target.parentNode.childNodes[0].value
+                                                                }
+                                                                if(e.target.nodeName === 'INPUT') {
+                                                                    valeur = e.target.value
+                                                                }
+
+                                                                this.setState({ mode: valeur }, () => {
                                                                     this.recalculerPartage()
                                                                 })
                                                             }}
@@ -542,7 +552,7 @@ class PageAssistantPartageAuteur extends Component {
                                         <br/>
                                         <br/>
                                         <br/>
-                                        <div className="conteneur-beignet nine wide field">
+                                        <div className="conteneur-beignet fourteen wide field">
                                             {visualisation}
                                         </div>
                                     </div>

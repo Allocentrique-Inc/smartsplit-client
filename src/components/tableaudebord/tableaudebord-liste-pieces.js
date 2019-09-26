@@ -25,8 +25,7 @@ export default class ListePieces extends Component {
             },
             user: props.user
         }
-        this.ajouterOeuvre = this.ajouterOeuvre.bind(this)
-        this.closeModal = this.closeModal.bind(this)
+        this.modaleNouvelleOeuvre = this.modaleNouvelleOeuvre.bind(this)
     }
 
     afficherPanneauInitiateur() {
@@ -149,12 +148,8 @@ export default class ListePieces extends Component {
         }
     }
 
-    ajouterOeuvre() {
-        this.setState({modaleOeuvre: true})
-    }
-
-    closeModal() {
-        this.setState({modaleOeuvre: false})
+    modaleNouvelleOeuvre(ouvert = true) {
+        this.setState({modaleOeuvre: ouvert})
     }
 
     render() {
@@ -232,7 +227,7 @@ export default class ListePieces extends Component {
                 })
             } 
             rendu = tableauMedias
-        }
+        }        
 
         return (
             <Translation>
@@ -248,7 +243,7 @@ export default class ListePieces extends Component {
                                             </div>                                            
                                             <div className="ui row">
                                                 <div className="ui nine wide column" />
-                                                <div className="ui three wide column medium button" onClick={()=>{this.ajouterOeuvre()}}>
+                                                <div className="ui three wide column medium button" onClick={()=>{this.modaleNouvelleOeuvre()}}>
                                                     {t('tableaudebord.pieces.ajouter')}
                                                 </div>
                                             </div>
@@ -262,14 +257,14 @@ export default class ListePieces extends Component {
                                         </div>
                                         <Modal
                                             open={this.state.modaleOeuvre}                                            
-                                            onClose={this.closeModal}
+                                            onClose={()=>this.modaleNouvelleOeuvre(false)}
                                             size="large"
                                             closeIcon
                                             closeOnDimmerClick={false}
                                         >
                                             <Modal.Header>Créer une nouvelle pièce musicale</Modal.Header>
                                             <Modal.Content>
-                                                <NouvelleOeuvre user={this.state.user} />
+                                                <NouvelleOeuvre parent={this} user={this.state.user} />
                                             </Modal.Content>                                            
                                         </Modal>
                                     </div>
