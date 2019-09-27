@@ -1,60 +1,69 @@
-import React from 'react';
-import '../../assets/scss/page-assistant/input-fichier.scss';
+import React from "react";
+import "../../assets/scss/page-assistant/input-fichier.scss";
+import { Translation } from "react-i18next";
 
 export default class InputFichier extends React.Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-        super(props);
+    this.fileInputRef = React.createRef();
 
-        this.fileInputRef = React.createRef();
+    const filename = this.props.value ? this.props.value.name : "";
 
-        const filename = this.props.value ? this.props.value.name : '';
-
-        this.state = {
-            filename: filename
-        };
-    }
-
-    placeholder() {
-        return this.state.filename || this.props.placeholder || 'ou glissez votre fichier ici';
-    }
-
-    clickFileInput = event => {
-        event.preventDefault();
-        this.fileInputRef.current.click();
+    this.state = {
+      filename: filename
     };
+  }
 
-    handleFileInputChange = event => {
-        const filename = event.target.files.length ?
-            event.target.files[0].name :
-            '';
+  placeholder() {
+    return (
+      <Translation>
+        {t =>
+          this.state.filename ||
+          this.props.placeholder ||
+          t("flot.documenter.glisse")
+        }
+      </Translation>
+    );
+  }
 
-        this.props.onChange(event.target.files[0]);
+  clickFileInput = event => {
+    event.preventDefault();
+    this.fileInputRef.current.click();
+  };
 
-        this.setState({
-            filename: filename
-        });
-    };
+  handleFileInputChange = event => {
+    const filename = event.target.files.length
+      ? event.target.files[0].name
+      : "";
 
-    render() {
-        return (
-            <div className="file-input-container">
-                <div className="ui button"
-                    onClick={ this.clickFileInput }
-                >
-                    Choisir un fichier
-                </div>
+    this.props.onChange(event.target.files[0]);
 
-                <div className="placeholder">
-                    { this.placeholder() }
-                </div>
+    this.setState({
+      filename: filename
+    });
+  };
 
-                <input ref={ this.fileInputRef }
-                       className="hidden"
-                       type="file"
-                       onChange={ this.handleFileInputChange }
-                />
+  render() {
+    return (
+      <Translation>
+        {t => (
+          <div className="file-input-container">
+            <div className="ui button" onClick={this.clickFileInput}>
+              {t("flot.documenter.choix")}
             </div>
-        );
-    }
+
+            <div className="placeholder">{this.placeholder()}</div>
+
+            <input
+              ref={this.fileInputRef}
+              className="hidden"
+              type="file"
+              onChange={this.handleFileInputChange}
+            />
+          </div>
+        )}
+      </Translation>
+    );
+  }
 }
