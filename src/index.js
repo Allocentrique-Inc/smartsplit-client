@@ -28,6 +28,7 @@ import Troissplits from './components/visualisation/partage/troissplits'
 // Composantes auth
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
+import Register2 from './components/auth/Register-2'
 import ModifyUser from './components/auth/ModifyUser'
 import Socan from './components/auth/Socan'
 import Declaration from './components/auth/Declaration'
@@ -54,8 +55,10 @@ Amplify.configure({
     Auth: {
         mandatorySignIn: true,
         region: REGION,
-        userPoolId: "us-east-2_tK9rNdAB1",
-        userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
+        // userPoolId: "us-east-2_tK9rNdAB1",
+        userPoolId: "us-east-2_PRLNO62fN",
+        // userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
+        userPoolWebClientId: "25bbenhpsvd0hpbvvqastmsd9j"
     }
 })
 
@@ -84,7 +87,8 @@ const renderRoutes = () => {
                         <Route exact path="/liste-oeuvres" component={ ListeOeuvres }/>
                         <Route exact path="/login" component={ renderLogin }/>
                         <Route exact path="/register" component={ Register }/>
-                        <Route exact path="/register-2" component={ ModifyUser }/>
+                        <Route exact path="/register-2" component={ Register2 }/>
+                        <Route exact path="/modify-user" component={ ModifyUser }/>
                         <Route exact path="/declaration" component={ Declaration }/>
                         <Route exact path="/socan" component={ Socan }/>
                         <Route exact path="/sign-in-facebook" component={ SignInFacebook }/>
