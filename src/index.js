@@ -14,6 +14,7 @@ import { createBrowserHistory } from 'history'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 // Composantes navigables
+import './components/app/app.css'
 import AssistantOeuvre from './components/oeuvre/assistant-oeuvre'
 import ListeOeuvres from './components/media/media-list'
 import ValiderSplit from './components/split/assistant-split'
@@ -55,10 +56,10 @@ Amplify.configure({
     Auth: {
         mandatorySignIn: true,
         region: REGION,
-        // userPoolId: "us-east-2_tK9rNdAB1",
-        userPoolId: "us-east-2_PRLNO62fN",
-        // userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
-        userPoolWebClientId: "25bbenhpsvd0hpbvvqastmsd9j"
+        userPoolId: "us-east-2_tK9rNdAB1",
+        //userPoolId: "us-east-2_PRLNO62fN",
+        userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
+        //userPoolWebClientId: "25bbenhpsvd0hpbvvqastmsd9j"
     }
 })
 
