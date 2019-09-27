@@ -43,7 +43,7 @@ class App extends Component {
     })
 
     axios
-      .get("http://api.smartsplit.org:8080/v1/proposal")
+      .get("http://dev.api.smartsplit.org:8080/v1/proposal")
       .then(res => {
         let listePropositions = res.data.map((elem, idx) => {
           return (
