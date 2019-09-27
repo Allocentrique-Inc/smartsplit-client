@@ -27,9 +27,8 @@ class LogIn extends Component {
       username: "",
       password: this.props.password,
       parent: props.parent
-    };
+    }
 
-    console.log(props, this.state);
     this.toggleShow = this.toggleShow.bind(this);
     this.validateUsername = this.validateUsername.bind(this);
     this.validatePassword = this.validatePassword.bind(this);
