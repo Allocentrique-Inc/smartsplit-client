@@ -213,7 +213,7 @@ export default class ListePieces extends Component {
         } else {
             let tableauMedias = []
             if (this.state.medias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
-                tableauMedias = this.state.medias.map((elem, _idx)=>{
+                tableauMedias = this.state.medias.map((elem, _idx)=>{                    
                     return (
                         <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
                     )

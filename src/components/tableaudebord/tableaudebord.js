@@ -26,7 +26,7 @@ export default class TableauDeBord extends Component {
     componentWillMount() {
         Auth.currentAuthenticatedUser()
         .then(res=>{
-            this.setState({user: res})
+            this.setState({user: res}, ()=>console.log(this.state.user))
         })
         .catch(err=>{
             this.setState({modaleConnexion: true})
@@ -36,7 +36,7 @@ export default class TableauDeBord extends Component {
     render() {
         
         if(this.state.user) {
-            let contenu = (<div className="ui eleven wide column"></div>)
+            let contenu = (<div className="ui seven wide column"></div>)
             let entete = (<Entete contenu={contenu} profil={this.state.user} />)
             return (
                 <div className="tdb--cadre ui row">

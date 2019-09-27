@@ -214,7 +214,7 @@ class Socan extends Component {
           {/*<Dropdown placeholder={t('socan.province')} search selection options={provinceOptions} onChange={this.handleProvinceChange}/>*/}
         <div class="ui form">
           <div class="province">
-            <select multiple="" class="ui dropdown" 
+            <select multiple="" className="ui dropdown" 
             style={{color: "#c6c8ca"}}>
             <option value="" style={divStyle}>Province</option>
               <option value="AB">Alberta</option>

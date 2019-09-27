@@ -285,7 +285,6 @@ export default class NouvelleOeuvre extends Component {
     }
 
     changementPage(no, t) {
-        console.log('Changement de page', no, this.state)
         if(no === 1) {
             // On arrive sur la page 1 de la page 0
             // Création de l'oeuvre avec uniquement le titre et le type
@@ -312,10 +311,7 @@ export default class NouvelleOeuvre extends Component {
     }
 
     soumettre(values, t) {
-        // Envoi à l'api et redirection vers la documentation de l'oeuvre
-        //axios.post('http://api.smartsplit.org:8080/')
-        //window.location.href=`/documenter/${titre}`
-        console.log(this.state, values)
+
         this.props.parent.modaleNouvelleOeuvre(false)
 
         let body = {
@@ -362,7 +358,7 @@ export default class NouvelleOeuvre extends Component {
                                         type: undefined
                                     }}
                                     buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.cest-parti')}}
-                                    debug={true}         
+                                    debug={false}         
                                     onPageChanged={no=>this.changementPage(no, t)}                       
                                     onSubmit={(values, {setSubmitting})=>{this.soumettre(values, t); setSubmitting(false) }}
                                     style={{width: "80%"}}
