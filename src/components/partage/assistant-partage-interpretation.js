@@ -213,13 +213,23 @@ class PageAssistantPartageInterpretation extends Component {
                                     {descriptif}
                                     <br/>
                                 <div className="fields">
-                                    <div className="field">
-                                        <div className="nine wide field">
+                                    <div className="fourteen wide field">
+                                        <div className="fourteen wide field">
                                         <BoutonsRadio 
                                             name="mode_interpretation"
                                             actif={this.state.mode} // Attribut dynamique
                                             onClick={(e)=>{
-                                                this.setState({mode: e.target.value}, ()=>{
+
+                                                let valeur
+                                                // Clic de la puce ou de l'étiquette ?
+                                                if(e.target.nodeName === 'LABEL') {
+                                                    valeur = e.target.parentNode.childNodes[0].value
+                                                }
+                                                if(e.target.nodeName === 'INPUT') {
+                                                    valeur = e.target.value
+                                                }
+                                            
+                                                this.setState({mode: valeur}, ()=>{
                                                     this.recalculerPartage()
                                                 })                                        
                                             }}
@@ -273,7 +283,17 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                 name={`type_interpretation_${index}`}
                                                                                 actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
                                                                                 onClick={(e)=>{
-                                                                                    this.props.setFieldValue(`droitInterpretation[${index}].principal`, e.target.value === TYPE.principal)
+
+                                                                                    let valeur
+                                                                                    // Clic de la puce ou de l'étiquette ?
+                                                                                    if(e.target.nodeName === 'LABEL') {
+                                                                                        valeur = e.target.parentNode.childNodes[0].value
+                                                                                    }
+                                                                                    if(e.target.nodeName === 'INPUT') {
+                                                                                        valeur = e.target.value
+                                                                                    }
+
+                                                                                    this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
                                                                                     })
@@ -367,7 +387,7 @@ class PageAssistantPartageInterpretation extends Component {
                                         <br/>
                                         <br/>
                                         <br/>
-                                        <div className="conteneur-beignet nine wide field">
+                                        <div className="conteneur-beignet fourteen wide field">
                                             {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="interpretation--beignet" data={this.state.parts}/>)}
                                             {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="interpretation--histogramme" data={this.state.parts}/>)}
                                         </div>

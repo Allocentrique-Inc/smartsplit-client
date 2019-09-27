@@ -52,6 +52,7 @@ const RadioButtonGroup = ({
         <div className="grouped fields">
           <legend>{label}</legend>
           {children}
+          {touched && error && (<div className="ui red">{error}</div>)}
         </div>
       </div>
     )
@@ -67,7 +68,8 @@ export default class BoutonsRadio extends Component {
             id: props.id,
             onClick: props.onClick,
             actif: props.actif,
-            disabled: props.disabled
+            disabled: props.disabled,
+            requis: props.requis
         }
     }
 
@@ -81,22 +83,25 @@ export default class BoutonsRadio extends Component {
         if(this.props.choix !== nextProps.choix) {
             this.setState({choix: nextProps.choix})
         }
+        if(this.props.touched !== nextProps.touched) {
+            this.setState({touched: nextProps.touched})
+        }
     }
 
-    render() {
+    render() {            
 
         let choix = this.state.choix.map((elem, idx)=>{
             return (
-                <Field
-                    key={`radioOption_${this.props.name}_${idx}`}
-                    component={RadioButton}
-                    name={this.props.name}
-                    value={elem.valeur}
-                    label={elem.nom}
-                    checked={idx == this.state.actif}
-                    onClick={this.state.onClick}
-                    disabled={this.state.disabled}
-                />
+                <div className="ui row" onClick={this.state.onClick} key={`radioOption_${this.props.name}_${idx}`}>
+                    <Field                        
+                        component={RadioButton}
+                        id={this.props.modele}
+                        value={elem.valeur}
+                        label={elem.nom}
+                        checked={idx == this.state.actif}
+                        disabled={this.state.disabled}
+                    />
+                </div>                
             )
         })        
 
@@ -104,6 +109,7 @@ export default class BoutonsRadio extends Component {
             <RadioButtonGroup
                 id={`radioGroup_${this.state.id}`}
                 label={this.state.titre}
+                required={this.state.requis}                
                 >
                 {choix}
             </RadioButtonGroup>

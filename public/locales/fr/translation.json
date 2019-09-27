@@ -1,8 +1,24 @@
 {
+    "info": {
+        "oeuvre": {
+            "creation": "Oeuvre # {{id}} créée. :)"
+        }
+    },
+    "options": {
+        "piece": {
+            "titre": "Cette oeuvre est ...",
+            "originale": "une création originale",
+            "arrangement": "un arrangement (remix)",
+            "reprise": "une reprise (cover)"
+        }
+    },
     "titre": {
         "principal": "Bienvenue sur SmartSplit Alpha - Client",
         "accueil": "Accueil",
-        "liste-media": "Liste des médias retournés de l'API"
+        "liste-media": "Liste des médias retournés de l'API",
+        "apercu": "Aperçu",
+        "oeil-ouvert": "Gardez l'oeil ouvert",
+        "apercu-sen-vient": "Votre aperçu s'affichera ici"
     },
     "collaborateur": {
         "titre": "Ajouter un artiste collaborateur",
@@ -11,7 +27,7 @@
                 "nom": "Nom légal",
                 "prenom": "Prénom légal",
                 "artiste": "Nom d'artiste (optionel)",
-                "role": "Rôle dans l'œuvre",
+                "role": "Rôle dans la pièce musicale",
                 "option": " (optionel)",
                 "na": "Si non applicable, nous afficherons le nom complet.",
                 "courriel": "Courriel",
@@ -41,9 +57,11 @@
             "etiquette": {
                 "titre": "Titre",
                 "album": "Album",
+                "piecePar": "{{titre}}, par",
+                "arrangementPar": "{{titre}}, arrangé par",
                 "reprise": "Cette œuvre est une reprise",
                 "instrumental": "Cette œuvre est instrumentale",
-                "artiste": "Artiste",
+                "artiste": "Artiste ou groupe originel",
                 "juridiction": "Juridiction",
                 "ayantDroit": "Collaborateurs",
                 "genre": "Style musical principal",
@@ -54,7 +72,8 @@
                 "upc": "Numéro UPC",
                 "dureeMs": "Durée (millisecondes)",
                 "liensSociaux": "Lien vers un média social",
-                "liensServices": "Lien direct de diffusion",
+                "liensServices": "Lien direct de diffusion","arrangeur": "Artiste ou groupe ...",
+                "vedette": "Ajouter un artiste ou groupe en vedette ...",
                 "liensPresse": "Lien vers une revue de presse",
                 "liensListes": "Lien vers une liste de lecture",
                 "dateCreation": "Date de création",
@@ -64,14 +83,17 @@
                 "repartition": "Répartition des droits (%)"
             },
             "indication": {
-                "titre": "Titre de l'œuvre",
-                "album": "Album sur lequel figure l'œuvre",
+                "titre": "Titre de la pièce musicale",
+                "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
+                "album": "Album sur lequel figure la pièce musicale",
+                "arrangeur": "Artiste ou groupe ...",
+                "vedette": "Ajouter un artiste ou groupe en vedette ...",
                 "reprise": "",
                 "artiste": "Qui est l'artiste principal ?",
                 "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
                 "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
-                "genre": "Sélectionne le genre principal de l'œuvre",
-                "genre2": "Sélectionne le genre secondaire de l'œuvre",
+                "genre": "Sélectionne le genre principal de la pièce musicale",
+                "genre2": "Sélectionne le genre secondaire de la pièce musicale",
                 "paroles": "Inscrit les paroles",
                 "langueParoles": "Sélectionne la ou les langues pour les paroles",
                 "isrc": "Identifiant unique de l'enregistrement",
@@ -81,12 +103,15 @@
                 "liensServices": "URL complet vers un lien de diffusion",
                 "liensPresse": "URL complet vers un article de presse",
                 "liensListes": "URL complet vers une liste de lecture",
-                "dateCreation": "Quand a été créé l'œuvre ?",
-                "dateModification": "Quand l'œuvre a-t-elle été modifiée ?",
-                "datePublication": "Quand l'œuvre a-t-elle été publiée ?",
-                "editeur": "Qui est l'éditeur de l'œuvre ?",
+                "dateCreation": "Quand a été créé la pièce musicale ?",
+                "dateModification": "Quand la pièce musicale a-t-elle été modifiée ?",
+                "datePublication": "Quand la pièce musicale a-t-elle été publiée ?",
+                "editeur": "Qui est l'éditeur de la pièce musicale ?",
                 "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
             }
+        },
+        "titre": {
+            "vedette": "Avec la participation (featuring)"
         },
         "creePar": "Créé par"
     },
@@ -95,16 +120,17 @@
         "envoi": "Soumettre",
         "precedent": "Précédent",
         "reinitialiser": "Réinitialiser",
-        "transfertEnCours": "Transfert de données en cours. Merci d'être patient."
+        "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
+        "cest-parti": "C'est parti !"        
     },
     "validation": {
         "requis": "Requis"
     },
     "composant": {
         "televersement": {
-            "titre": "Téléverse tes fichiers sources",
-            "indication": "Glisse et dépose des fichiers ou clique ici pour envoyer.",
-            "preambule": "Ici tu peux envoyer tes fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Tu peux ainsi partager tes fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
+            "titre": "Fichier",
+            "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
+            "indication": "ou dépose le fichier ici"
         }
     },
     "image": {
@@ -538,7 +564,7 @@
     },
     "menuprofil": {
         "accueil": "Tableau de bord",
-        "profil": "Mon profil SOCAN",
+        "profil": "Mon profil",
         "francais": "Français",
         "anglais": "English",
         "deconnexion": "Déconnexion"

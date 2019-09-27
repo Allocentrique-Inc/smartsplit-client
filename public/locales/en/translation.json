@@ -1,8 +1,24 @@
 {
+    "info": {
+        "oeuvre": {
+            "creation": "Media # {{id}} created. :)"
+        }
+    },
+    "options": {
+        "piece": {
+            "titre": "This work is ...",
+            "originale": "an original creation",
+            "arrangement": "a remix",
+            "reprise": "a cover"
+        }
+    },
     "titre": {
         "principal": "Welcome to SmartSplit Alpha - Client",
         "accueil": "Home",
-        "liste-media": "Media list returned by the API"
+        "liste-media": "Media list returned by the API",
+        "apercu": "Preview",
+        "oeil-ouvert": "Keep your eyes opened",
+        "apercu-sen-vient": "Your preview will be shown here"
     },
     "collaborateur": {
         "titre": "Add a collaborating artist",
@@ -41,9 +57,11 @@
             "etiquette": {
                 "titre": "Title",
                 "album": "Album",
+                "piecePar": "{{titre}}, by",
+                "arrangementPar": "{{titre}}, remixed by",
                 "reprise": "This work is a cover",
                 "instrumental": "This work is instrumental",
-                "artiste": "Artist",
+                "artiste": "Artist or original group",
                 "juridiction": "Jurisdiction",
                 "ayantDroit": "Collaborators",
                 "genre": "Main genra",
@@ -65,6 +83,9 @@
             },
             "indication": {
                 "titre": "Work title",
+                "titre-soustexte": "Do not include guests (featuring, remixed by, etc., in the title",
+                "arrangeur": "Artist or group...",
+                "vedette": "Add an artist or group as featuring...",
                 "album": "Work album",
                 "reprise": "",
                 "artiste": "Who is the main artist ?",
@@ -95,16 +116,17 @@
         "envoi": "Submit",
         "precedent": "Previous",
         "reinitialiser": "Reset",
-        "transfertEnCours": "Data transfer in progress, please be patient."
+        "transfertEnCours": "Data transfer in progress, please be patient.",
+        "cest-parti": "Let's Go !"
     },
     "validation": {
         "requis": "Required"
     },
     "composant": {
         "televersement":  {
-            "titre": "Upload your source file",
-            "indication": "Drag the file you want to upload and drop it here, or clic here to choose the file.",
-            "preambule": "Here you can upload your source file. It will be accessible only to those who have private access. You could then share your work with radio stations, broadcasters and so on. The link to the file is not publicly available."
+            "titre": "File",
+            "soustitre": "WAV or MP3 only, 100 MB maximum.",
+            "indication": "or drop the file here"
         }
     },
     "image": {
@@ -533,7 +555,7 @@
     },
     "menuprofil": {
         "accueil": "Dashboard",
-        "profil": "My SOCAN Profile",
+        "profil": "My Profile",
         "francais": "Français",
         "anglais": "English",
         "deconnexion": "Disconnect"

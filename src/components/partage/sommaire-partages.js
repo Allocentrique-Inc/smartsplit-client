@@ -35,7 +35,10 @@ export default class SommairePartages extends Component {
         this.state = {
             mediaId: props.mediaId,
             activeIndex: 0,
-            panneau: PANNEAU_PROPOSITIONS
+            panneau: PANNEAU_PROPOSITIONS,
+            modaleConnexion: false,
+            modaleNouvelle: false,
+            modaleCourriels: false
         }
         this.initialisation = this.initialisation.bind(this)
         this.clic = this.clic.bind(this)
@@ -67,15 +70,15 @@ export default class SommairePartages extends Component {
         this.setState({panneau: PANNEAU_PROPOSITIONS})
     }
 
-    closeModal = () => this.setState({ open: false })
-    openModal = () => this.setState({ open: true })
+    closeModal = () => this.setState({ modaleCourriels: false })
+    openModal = () => this.setState({ modaleCourriels: true })
 
     initialisation() {
         axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
         .then(res=>{
             this.setState({media: res.data.Item}, ()=>{
                 axios.get(`http://api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
-                .then(res=>{                    
+                .then(res=>{
                     axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
                     .then(_rAd=>{
                         this.setState({ayantDroit: _rAd.data.Item}, ()=>{
@@ -103,6 +106,10 @@ export default class SommairePartages extends Component {
         const newIndex = activeIndex === index ? -1 : index
     
         this.setState({ activeIndex: newIndex })
+    }
+
+    ajouterNouvelleOeuvre() {
+        this.setState({modaleNouvelle: true})
     }
 
     render() {
@@ -135,8 +142,7 @@ export default class SommairePartages extends Component {
                 _rafraichir = true
             }
 
-            propositions = this.state.propositions.map((elem, idx)=>{                 
-
+            propositions = this.state.propositions.map((elem, idx)=>{
                 return(                    
                     <Translation key={`sommaire_${idx}`} >
                         {
@@ -249,7 +255,6 @@ export default class SommairePartages extends Component {
             })
 
             let that = this
-
             let message
 
             if(this.state.user && _p0 && _p0.etat === "PRET" && _p0.initiator.id === this.state.user.username) {                
@@ -322,7 +327,6 @@ export default class SommairePartages extends Component {
 
                                                         style={{width:"200px", 
                                                         position: "relative", 
-                                                        left: "780px", 
                                                         marginTop:"50px", 
                                                         marginTop: "150px"}}>
 
@@ -330,7 +334,7 @@ export default class SommairePartages extends Component {
                                                         </div>
                                                      
                                                         <Modal 
-                                                            open={this.state.open}
+                                                            open={this.state.modaleCourriels}
                                                             onClose={this.closeModal} 
                                                             size="small"
                                                             style={{height: "200px"}}

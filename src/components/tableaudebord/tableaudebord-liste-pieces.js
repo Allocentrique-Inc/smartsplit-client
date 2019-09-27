@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import LigneMedia from './tableaudebord-ligne-media'
 import { Modal } from 'semantic-ui-react';
 import AssistantOeuvre from '../oeuvre/assistant-oeuvre';
+import NouvelleOeuvre from './tableaudebord-nouvelle-oeuvre';
 
 const PANNEAU_INITIATEUR = 1, PANNEAU_COLLABORATEUR = 0
 
@@ -24,8 +25,7 @@ export default class ListePieces extends Component {
             },
             user: props.user
         }
-        this.ajouterOeuvre = this.ajouterOeuvre.bind(this)
-        this.closeModal = this.closeModal.bind(this)
+        this.modaleNouvelleOeuvre = this.modaleNouvelleOeuvre.bind(this)
     }
 
     afficherPanneauInitiateur() {
@@ -148,12 +148,8 @@ export default class ListePieces extends Component {
         }
     }
 
-    ajouterOeuvre() {
-        this.setState({modaleOeuvre: true})
-    }
-
-    closeModal() {
-        this.setState({modaleOeuvre: false})
+    modaleNouvelleOeuvre(ouvert = true) {
+        this.setState({modaleOeuvre: ouvert})
     }
 
     render() {
@@ -217,7 +213,7 @@ export default class ListePieces extends Component {
         } else {
             let tableauMedias = []
             if (this.state.medias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
-                tableauMedias = this.state.medias.map((elem, _idx)=>{
+                tableauMedias = this.state.medias.map((elem, _idx)=>{                    
                     return (
                         <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
                     )
@@ -231,7 +227,7 @@ export default class ListePieces extends Component {
                 })
             } 
             rendu = tableauMedias
-        }
+        }        
 
         return (
             <Translation>
@@ -247,7 +243,7 @@ export default class ListePieces extends Component {
                                             </div>                                            
                                             <div className="ui row">
                                                 <div className="ui nine wide column" />
-                                                <div className="ui three wide column medium button" onClick={()=>{this.ajouterOeuvre()}}>
+                                                <div className="ui three wide column medium button" onClick={()=>{this.modaleNouvelleOeuvre()}}>
                                                     {t('tableaudebord.pieces.ajouter')}
                                                 </div>
                                             </div>
@@ -261,10 +257,15 @@ export default class ListePieces extends Component {
                                         </div>
                                         <Modal
                                             open={this.state.modaleOeuvre}                                            
-                                            onClose={this.closeModal}
-                                            size="fullscreen"
+                                            onClose={()=>this.modaleNouvelleOeuvre(false)}
+                                            size="large"
+                                            closeIcon
+                                            closeOnDimmerClick={false}
                                         >
-                                            <AssistantOeuvre />
+                                            <Modal.Header>Créer une nouvelle pièce musicale</Modal.Header>
+                                            <Modal.Content>
+                                                <NouvelleOeuvre parent={this} user={this.state.user} />
+                                            </Modal.Content>                                            
                                         </Modal>
                                     </div>
                                 )
@@ -275,7 +276,7 @@ export default class ListePieces extends Component {
                                         <div className="ui text loader">{t('entete.encours')}</div>
                                     </div>
                                 )
-                            }                            
+                            }
                         </div>
                 }
             </Translation>
