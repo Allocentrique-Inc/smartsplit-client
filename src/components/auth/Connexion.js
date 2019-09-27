@@ -14,7 +14,7 @@ import AWS from "aws-sdk";
 
 const TYPE_LOGIN = 0,
   TYPE_REGISTER = 1,
-  TYPE_FORGOT = 2,
+  TYPE_FORGOT = 2
   // TYPE_PROFILE = 3
 
 export default class ModaleConnexion extends Component {

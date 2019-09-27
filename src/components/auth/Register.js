@@ -10,7 +10,6 @@ import axios from 'axios'
 // Traduction
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
-import ModifyUser from "./ModifyUser";
 
 const roles = [
     'principal', 
@@ -34,6 +33,10 @@ class Register extends Component {
 
   openModal = () => {
     this.setState({ showModal: true });
+  };
+
+  closeModal = () => {
+    this.setState({ showModal: false });
   };
 
   constructor(props) {
@@ -148,9 +151,9 @@ class Register extends Component {
     const username = values.username;
     const email = values.username; // username is used as email
     const password = this.state.password;
-    const firstName = values.firstName;
-    const lastName = values.lastName;
-    const artistName = values.artistName;
+    const firstName = this.state.firstName;
+    const lastName = this.state.lastName;
+    const artistName = this.state.artistName;
     // const firstName = 'First Name'
     // const lastName = 'Last Name'
     // const artistName = 'Artist Name'
@@ -185,11 +188,12 @@ class Register extends Component {
         // )
         // this.props.history.push("/welcome")
         .then(
-          // toast.success(`Biquette#${user.username} !`)
-          // this.props.auth.setAuthStatus(true)
-          // this.props.auth.setUser(user.username)
-          this.props.history.push("/welcome")
+          toast.success(`${firstName}, your account is created, check email!`)
         )
+        .then(
+            setTimeout(function(){ window.location.reload() }, 3000),
+            this.props.history.push("/welcome")
+          )
         .catch(err => {
           // toast.error(err.message)
           console.log(err);
@@ -286,28 +290,28 @@ class Register extends Component {
     }
   }
 
-  handleSubmit = values => {
-    try {
-      this.setState({ patience: true }, () => {
-        Auth.signIn(values.username, values.password)
-          .then(user => {
-            toast.success(`#${user.username} !`);
+//   handleSubmit = values => {
+//     try {
+//       this.setState({ patience: true }, () => {
+//         Auth.signIn(values.username, values.password)
+//           .then(user => {
+//             toast.success(`#${user.username} !`);
 
-            if (this.props.fn) {
-              this.props.fn();
-            }
-          })
-          .catch(err => {
-            toast.error(err.message);
-          })
-          .finally(() => {
-            this.setState({ patience: false });
-          });
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+//             if (this.props.fn) {
+//               this.props.fn();
+//             }
+//           })
+//           .catch(err => {
+//             toast.error(err.message);
+//           })
+//           .finally(() => {
+//             this.setState({ patience: false });
+//           });
+//       });
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
 
   render() {
     const {
@@ -319,7 +323,7 @@ class Register extends Component {
     } = this.props;
     const { password, strength, currentValue, currentRoleValue  } = this.state;
 
-    // const { firstName, lastName, username } = this.state;
+    const { firstName, lastName, username } = this.state;
 
     const passwordLength = password.length;
     const passwordStrong = strength >= this.minStrength;
@@ -365,7 +369,7 @@ class Register extends Component {
         onSubmit={(values, { setSubmitting }) => {
           this.handleSubmit(values, () => {
             setSubmitting(false);
-            this.openModal();
+            // this.openModal();
           });
         }}
       >
@@ -624,11 +628,10 @@ class Register extends Component {
                                     <button
                                       className="ui medium button register is-success"
                                       type="submit"
-                                      onClick={this.openModal}
+                                      onClick={this.closeModal}
                                     >
                                       {t("entete.inscription")}
                                     </button>
-                                    <ModifyUser open={this.state.showModal} />
                                   </div>
                                 </p>
                               </div>
