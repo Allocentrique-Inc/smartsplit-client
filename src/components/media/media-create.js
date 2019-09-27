@@ -47,7 +47,7 @@ export default class MediaCreate extends Component {
         const media = new Oeuvre(donnees);
         const body = media.get();
 
-        axios.post('http://api.smartsplit.org:8080/v1/media', body)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/media', body)
           .then(function (response) {
             console.log(response);
           })

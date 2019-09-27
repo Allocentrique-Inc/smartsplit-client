@@ -4,11 +4,26 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
+import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 'semantic-ui-react'
+import axios from 'axios'
 // import * as Yup from 'yup'
 // Traduction
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
-import ModifyUser from "./ModifyUser";
+
+const roles = [
+    'principal', 
+    'accompaniment', 
+    'songwriter', 
+    'composer', 
+    'remixer', 
+    'studio', 
+    'publisher', 
+    'graphist', 
+    'producer', 
+    'singer', 
+    'musician'
+  ]
 
 class Register extends Component {
   state = {
@@ -20,18 +35,45 @@ class Register extends Component {
     this.setState({ showModal: true });
   };
 
+  closeModal = () => {
+    this.setState({ showModal: false });
+  };
+
   constructor(props) {
     super(props);
     const { minStrength = 3, thresholdLength = 8 } = props;
 
     this.state = {
       hidden: true,
-      confirmhidden: true,
+      confirmhidden: true,  
       password: "",
       confirmpassword: "",
       strength: 0,
-      passwordmatch: false
-      // dirty: false
+      passwordmatch: false,
+      groups: [],
+      avatarImage: 'image.jpg',
+      firstName: '',
+      lastName: '',
+      artistName: '',
+      defaultRoles: [],
+      instruments: [],
+      currentValue: [],
+      currentRoleValue: [],
+      image: '',
+      uploadURL: '',
+      roles: [
+        {key: "Principal", text: "Principal", value: "Principal"},
+        {key: "Accompaniment", text: "Accompaniment", value: "Accompaniment"},
+        {key: "Songwriter", text: "Songwriter", value: "Songwriter"},
+        {key: "Composer", text: "Composer", value: "Composer"},
+        {key: "Remixer", text: "Remixer", value: "Remixer"},   
+        {key: "Studio", text: "Studio", value: "Studio"},
+        {key: "Publisher", text: "Publisher", value: "Publisher"},
+        {key: "Graphist", text: "Graphist", value: "Graphist"},
+        {key: "Producer", text: "Producer", value: "Producer"},
+        {key: "Singer", text: "Singer", value: "Singer"},
+        {key: "Musician", text: "Musician", value: "Musician"}
+      ]
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -108,10 +150,18 @@ class Register extends Component {
     // AWS Cognito integration here
     const username = values.username;
     const email = values.username; // username is used as email
-    // const firstName = values.firstName;
-    // const lastName = values.lastName;
-    // const artistName = values.artistName;
     const password = this.state.password;
+    const firstName = this.state.firstName;
+    const lastName = this.state.lastName;
+    const artistName = this.state.artistName;
+    // const firstName = 'First Name'
+    // const lastName = 'Last Name'
+    // const artistName = 'Artist Name'
+    const defaultRoles = Buffer.from('["Singer", "Producer"]').toString('base64');
+    const instruments = Buffer.from('["Piano"]').toString('base64');
+    const groups = Buffer.from('["Group 1", "Group 2"]').toString('base64');
+    const avatarImage = 'image.jpg'
+    
     // console.log(password, username, email, firstName, lastName)
 
     try {
@@ -119,7 +169,14 @@ class Register extends Component {
         username,
         password,
         attributes: {
-          email
+          email: email,
+          given_name: firstName,
+          family_name: lastName,
+          'custom:artistName': artistName,
+          'custom:instruments': instruments,
+          'custom:defaultRoles': defaultRoles,
+          'custom:groups': groups,
+          'custom:avatarImage': avatarImage
         }
       })
         // Auth.currentSession().then(
@@ -131,11 +188,12 @@ class Register extends Component {
         // )
         // this.props.history.push("/welcome")
         .then(
-          // toast.success(`Biquette#${user.username} !`)
-          // this.props.auth.setAuthStatus(true)
-          // this.props.auth.setUser(user.username)
-          this.props.history.push("/welcome")
+          toast.success(`${firstName}, your account is created, check email!`)
         )
+        .then(
+            setTimeout(function(){ window.location.reload() }, 3000),
+            this.props.history.push("/welcome")
+          )
         .catch(err => {
           // toast.error(err.message)
           console.log(err);
@@ -157,6 +215,18 @@ class Register extends Component {
       strength: zxcvbn(e.target.value).score
     });
   }
+
+  handleAddition = (e, { value }) => {
+    this.setState(prevState => ({
+      groups: [{text: value, value}, ...prevState.groups],
+    }))  
+  }
+
+  handleChange = (e, { value }) => this.setState({ currentValue: value })
+
+  handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value })
+
+  roleChange = (e, { value }) => this.setState({ currentRoleValue: value })
 
   // stateChanged = e => {
 
@@ -193,36 +263,55 @@ class Register extends Component {
   }
 
   componentDidMount() {
+    let groups = [];
+    axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
+    .then(res=>{
+      let groupers = [];
+      let groupsUnique = [];
+      res.data.forEach(function(element) {
+        groupers.push( element.groups )
+        // Remove duplicates from multiple right holders and flattens arrays
+        let GR = groupers.sort().flat().filter( Boolean );
+        groupsUnique = [...new Set(GR)]
+      })
+      groupsUnique.forEach(function(elm) {
+        groups.push( {key: elm, text: elm, value: elm} )
+      })
+      this.setState({groups: groups}, ()=>{console.log("this.state.groups", this.state.groups)})
+    })
+    .catch(err=>{
+      console.log(err);
+    })
     if (this.props.password) {
-      this.setState({ password: this.props.password });
+        this.setState({ password: this.props.password });
     }
     if (this.props.confirmpassword) {
-      this.setState({ confirmpassword: this.props.confirmpassword });
+    this.setState({ confirmpassword: this.props.confirmpassword });
     }
   }
 
-  handleSubmit = values => {
-    try {
-      this.setState({ patience: true }, () => {
-        Auth.signIn(values.username, values.password)
-          .then(user => {
-            toast.success(`#${user.username} !`);
+//   handleSubmit = values => {
+//     try {
+//       this.setState({ patience: true }, () => {
+//         Auth.signIn(values.username, values.password)
+//           .then(user => {
+//             toast.success(`#${user.username} !`);
 
-            if (this.props.fn) {
-              this.props.fn();
-            }
-          })
-          .catch(err => {
-            toast.error(err.message);
-          })
-          .finally(() => {
-            this.setState({ patience: false });
-          });
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+//             if (this.props.fn) {
+//               this.props.fn();
+//             }
+//           })
+//           .catch(err => {
+//             toast.error(err.message);
+//           })
+//           .finally(() => {
+//             this.setState({ patience: false });
+//           });
+//       });
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   };
 
   render() {
     const {
@@ -232,9 +321,9 @@ class Register extends Component {
       children,
       ...restProps
     } = this.props;
-    const { password, strength, dirty } = this.state;
+    const { password, strength, currentValue, currentRoleValue  } = this.state;
 
-    // const { firstName, lastName, username } = this.state;
+    const { firstName, lastName, username } = this.state;
 
     const passwordLength = password.length;
     const passwordStrong = strength >= this.minStrength;
@@ -280,7 +369,7 @@ class Register extends Component {
         onSubmit={(values, { setSubmitting }) => {
           this.handleSubmit(values, () => {
             setSubmitting(false);
-            this.openModal();
+            // this.openModal();
           });
         }}
       >
@@ -348,6 +437,47 @@ class Register extends Component {
                       />
                       <section className="section auth">
                         <div className="container">
+                          
+                        <img type="image" className="avatarImage" src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"/>
+                        {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
+                            <br></br>
+                            <br></br>
+                        <label>{t("collaborateur.attribut.etiquette.prenom")}</label><input type="text" className="firstName" placeholder={t('collaborateur.attribut.etiquette.prenom')} value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
+                        <label>{t("collaborateur.attribut.etiquette.nom")}</label><input type="text" className="lastName" placeholder={t('collaborateur.attribut.etiquette.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
+                        <label>{t('collaborateur.attribut.etiquette.artiste')}</label><label id="Optionel">{t('collaborateur.attribut.etiquette.option')}</label><input type="text" className="artistName" placeholder={t('collaborateur.attribut.etiquette.artiste')} value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
+                        <div className="sous titre">{t('collaborateur.attribut.etiquette.na')}</div>
+                        <label>{t('collaborateur.attribut.etiquette.groupe')}</label>
+                        <Dropdown 
+                            id="prompt"
+                            type="text" 
+                            options={this.state.groups}
+                            placeholder={t('collaborateur.attribut.indication.groupe')}
+                            search
+                            multiple={true}
+                            selection
+                            fluid
+                            allowAdditions
+                            value={currentValue}
+                            onAddItem={this.handleAddition}
+                            onChange={this.handleChange}
+                        />
+                        {/*<i className="search icon"></i>*/}
+                        <label>{t('collaborateur.attribut.etiquette.role')}</label>
+                        <Dropdown 
+                            id="roles"
+                            type="text" 
+                            options = {this.state.roles}
+                            placeholder={t('collaborateur.attribut.indication.role')}
+                            search
+                            multiple={true}
+                            selection
+                            fluid
+                            value={currentRoleValue}
+                            onChange={this.roleChange}
+                        /> 
+                        <div className="sous titre">{t('collaborateur.attribut.indication.role2')}</div>
+                        <br></br>
+
                           <div className="field">
                             <div className="control">
                               <label htmlFor="username">
@@ -498,11 +628,10 @@ class Register extends Component {
                                     <button
                                       className="ui medium button register is-success"
                                       type="submit"
-                                      onClick={this.openModal}
+                                      onClick={this.closeModal}
                                     >
                                       {t("entete.inscription")}
                                     </button>
-                                    <ModifyUser open={this.state.showModal} />
                                   </div>
                                 </p>
                               </div>
