@@ -28,7 +28,7 @@ export default class MediaList extends Component {
             }
         }        
 
-        fetch('http://dev.api.smartsplit.org:8080/v1/media', options).then((response) => {
+        fetch('http://api.smartsplit.org:8080/v1/media', options).then((response) => {
             return response.json()
         })
         .then((jsonObject) => {

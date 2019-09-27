@@ -274,7 +274,7 @@ export default class NouvelleOeuvre extends Component {
     }
 
     componentWillMount() {
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{
             this.setState({rightHolders: res.data})
         })
@@ -302,7 +302,7 @@ export default class NouvelleOeuvre extends Component {
                 type = "REPRISE"
             }
             
-            axios.put(`http://dev.api.smartsplit.org:8080/v1/media`, {title: titre, type: type})
+            axios.put(`http://api.smartsplit.org:8080/v1/media`, {title: titre, type: type})
             .then(res=>{
                 // Enregistrement du mediaId pour sauvegarde des données dans handleSubmit                
                 toast.info(t('info.oeuvre.creation', {id: res.data.id}))

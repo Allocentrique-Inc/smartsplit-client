@@ -62,7 +62,7 @@ export default class SommaireOeuvre extends Component {
     }
 
     getMedia() {
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
+        axios.get(`http://api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
             .then(res => {
                 let media = res.data.Item
                 this.setState({ media: media })
@@ -71,7 +71,7 @@ export default class SommaireOeuvre extends Component {
 
     majTitre() {
         let titre = document.getElementById('titre').value
-        axios.patch(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.media.mediaId }/title`, {
+        axios.patch(`http://api.smartsplit.org:8080/v1/media/${ this.state.media.mediaId }/title`, {
             mediaId: this.state.media.mediaId,
             title: titre
         })

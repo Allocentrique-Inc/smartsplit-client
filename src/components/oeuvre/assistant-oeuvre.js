@@ -57,7 +57,7 @@ class AssistantOeuvre extends Component {
     }
 
     fetchApiRightHolders() {
-        axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
+        axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
             .then(response => {
                 this.setState({ rightHolders: response.data });
             })
@@ -147,7 +147,7 @@ class AssistantOeuvre extends Component {
         /*let oeuvre = new Oeuvre(values);
         let body = oeuvre.get();
 
-        axios.post('http://dev.api.smartsplit.org:8080/v1/media', body)
+        axios.post('http://api.smartsplit.org:8080/v1/media', body)
             .then((response) => {
                 actions.setSubmitting(false);
                 toast(t('flot.envoi.reussi'));
