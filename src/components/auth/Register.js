@@ -148,12 +148,12 @@ class Register extends Component {
     const username = values.username;
     const email = values.username; // username is used as email
     const password = this.state.password;
-    // const firstName = values.firstName;
-    // const lastName = values.lastName;
-    // const artistName = values.artistName;
-    const firstName = 'First Name'
-    const lastName = 'Last Name'
-    const artistName = 'Artist Name'
+    const firstName = values.firstName;
+    const lastName = values.lastName;
+    const artistName = values.artistName;
+    // const firstName = 'First Name'
+    // const lastName = 'Last Name'
+    // const artistName = 'Artist Name'
     const defaultRoles = Buffer.from('["Singer", "Producer"]').toString('base64');
     const instruments = Buffer.from('["Piano"]').toString('base64');
     const groups = Buffer.from('["Group 1", "Group 2"]').toString('base64');
@@ -438,8 +438,8 @@ class Register extends Component {
                         {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
                             <br></br>
                             <br></br>
-                        <label>First Name</label><input type="text" className="firstName" placeholder={t('collaborateur.attribut.etiquette.prenom')} value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
-                        <label>Last Name</label><input type="text" className="lastName" placeholder={t('collaborateur.attribut.etiquette.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
+                        <label>{t("collaborateur.attribut.etiquette.prenom")}</label><input type="text" className="firstName" placeholder={t('collaborateur.attribut.etiquette.prenom')} value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
+                        <label>{t("collaborateur.attribut.etiquette.nom")}</label><input type="text" className="lastName" placeholder={t('collaborateur.attribut.etiquette.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
                         <label>{t('collaborateur.attribut.etiquette.artiste')}</label><label id="Optionel">{t('collaborateur.attribut.etiquette.option')}</label><input type="text" className="artistName" placeholder={t('collaborateur.attribut.etiquette.artiste')} value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
                         <div className="sous titre">{t('collaborateur.attribut.etiquette.na')}</div>
                         <label>{t('collaborateur.attribut.etiquette.groupe')}</label>
