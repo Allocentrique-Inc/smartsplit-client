@@ -35,7 +35,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
       let _aDs = this.state.ayantDroits      
       let cpt = 0, taille = Object.keys(this.props.ayantDroits).length, aTous = false
       Object.keys(this.props.ayantDroits).forEach(rhId=>{
-        axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${rhId}` )
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${rhId}` )
         .then( (res)=>{
             let _aD = res.data.Item
             let _nom = _aD.artistName !== "" ? _aD.artistName : `${_aD.firstName} ${_aD.lastName}`
@@ -82,7 +82,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             "rightHolders": _aDs
         }
 
-        axios.post('http://api.smartsplit.org:8080/v1/proposal/invite', body)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/invite', body)
         .then((resp)=>{
             this.props.close(()=>{window.location.reload()})                
         })
