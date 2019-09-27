@@ -12,24 +12,35 @@ class App extends Component {
     isAuthenticated: false,
     isAuthenticating: true,
     user: null
-  };
+  }
 
-  componentDidMount() {
-    axios
-      .get("http://api.smartsplit.org:8080/v1/media")
-      .then(res => {
-        let listeMedias = res.data.map((elem, idx) => {
-          return (
-            <option key={`option_media_${idx}`} value={elem.mediaId}>
-              {elem.title}
-            </option>
-          );
-        });
-        this.setState({ listeMedias: listeMedias });
-      })
-      .catch(err => {
-        toast.error(err);
-      });
+  componentDidMount() {          
+  
+    axios.get('http://api.smartsplit.org:8080/v1/media')
+    .then(res=>{
+      let listeMedias = res.data.map((elem, idx)=>{
+        return (
+          <option key={`option_media_${idx}`} value={elem.mediaId}>{elem.title}</option>
+        )
+      })      
+      this.setState({listeMedias: listeMedias})
+    })
+    .catch(err=>{
+      toast.error(err)
+    })
+
+    axios.get('http://api.smartsplit.org:8080/v1/proposal')
+    .then(res=>{
+      let listePropositions = res.data.map((elem, idx)=>{
+        return (
+          <option key={`option_proposal_${idx}`} value={elem.uuid}>{elem.uuid} - {elem.initiator && elem.initiator.name}</option>
+        )
+      })      
+      this.setState({listePropositions: listePropositions})
+    })
+    .catch(err=>{
+      toast.error(err)
+    })
 
     axios
       .get("http://api.smartsplit.org:8080/v1/proposal")

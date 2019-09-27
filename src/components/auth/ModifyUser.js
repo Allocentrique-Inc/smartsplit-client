@@ -43,7 +43,6 @@ export default class ModifyUser extends Component {
       email: "",
       avatarImage: "",
       open: props.open,
-      newUser: true,
       defaultRoles: [],
       currentValue: [],
       currentRoleValue: [],
