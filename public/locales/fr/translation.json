@@ -154,508 +154,513 @@
       "valider": {
         "titre": "Valide ton Split",
         "soustitre": "Invite tes collaborateurs à valider ce Split"
-      }
-    }
-  },
-  "accueil": {
-    "connexion": "Connexion obligatoire",
-    "message": "Tu dois être connecté pour accéder",
-    "login": "Connecte-toi pour accéder"
-  },
-  "info": {
-    "oeuvre": {
-      "creation": "Oeuvre # {{id}} créée. :)"
-    }
-  },
-  "options": {
-    "piece": {
-      "titre": "Cette oeuvre est ...",
-      "originale": "une création originale",
-      "arrangement": "un arrangement (remix)",
-      "reprise": "une reprise (cover)"
-    }
-  },
-  "titre": {
-    "principal": "Bienvenue sur SmartSplit Alpha - Client",
-    "accueil": "Accueil",
-    "liste-media": "Liste des médias retournés de l'API",
-    "apercu": "Aperçu",
-    "oeil-ouvert": "Gardez l'oeil ouvert",
-    "apercu-sen-vient": "Votre aperçu s'affichera ici"
-  },
-  "collaborateur": {
-    "titre": "Ajouter un artiste collaborateur",
-    "attribut": {
-      "etiquette": {
-        "nom": "Nom légal",
-        "prenom": "Prénom légal",
-        "artiste": "Nom d'artiste (optionel)",
-        "role": "Rôle dans la pièce musicale",
-        "option": " (optionel)",
-        "na": "Si non applicable, nous afficherons le nom complet.",
-        "courriel": "Courriel",
-        "groupe": "Groupes"
       },
-      "indication": {
-        "nom": "Indique un nom de famille",
-        "prenom": "Indique un prénom",
-        "artiste": "Indique un nom d'artiste",
-        "role": "Choisis un ou plusieurs rôles",
-        "role2": "Ces rôles peuvent être modifiés plus tard.",
-        "groupe": "Choisir un groupe"
+      "accueil": {
+        "connexion": "Connexion obligatoire",
+        "message": "Tu dois être connecté pour accéder",
+        "login": "Connecte-toi pour accéder"
       },
-      "bouton": {
-        "annuler": "Annuler",
-        "sauvegarder": "Sauvegarder",
-        "soumettre": "Soumette"
-      }
-    },
-    "declaration": {
-      "identite": "Déclaration d'identité",
-      "accepter": "Accepter"
-    }
-  },
-  "oeuvre": {
-    "attribut": {
-      "etiquette": {
-        "titre": "Titre",
-        "album": "Album",
-        "piecePar": "{{titre}}, par",
-        "arrangementPar": "{{titre}}, arrangé par",
-        "reprise": "Cette œuvre est une reprise",
-        "instrumental": "Cette œuvre est instrumentale",
-        "artiste": "Artiste ou groupe originel",
-        "juridiction": "Juridiction",
-        "ayantDroit": "Collaborateurs",
-        "genre": "Style musical principal",
-        "genre2": "Style musical secondaire",
-        "paroles": "Paroles",
-        "langueParoles": "Langue des paroles",
-        "isrc": "Numéro ISRC",
-        "upc": "Numéro UPC",
-        "dureeMs": "Durée (millisecondes)",
-        "liensSociaux": "Lien vers un média social",
-        "liensServices": "Lien direct de diffusion",
-        "arrangeur": "Artiste ou groupe ...",
-        "vedette": "Ajouter un artiste ou groupe en vedette ...",
-        "liensPresse": "Lien vers une revue de presse",
-        "liensListes": "Lien vers une liste de lecture",
-        "dateCreation": "Date de création",
-        "dateModification": "Date de modification",
-        "datePublication": "Date de publication",
-        "editeur": "Éditeur",
-        "repartition": "Répartition des droits (%)"
+      "info": {
+        "oeuvre": {
+          "creation": "Oeuvre # {{id}} créée. :)"
+        }
       },
-      "indication": {
-        "titre": "Titre de la pièce musicale",
-        "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
-        "album": "Album sur lequel figure la pièce musicale",
-        "arrangeur": "Artiste ou groupe ...",
-        "vedette": "Ajouter un artiste ou groupe en vedette ...",
-        "reprise": "",
-        "artiste": "Qui est l'artiste principal ?",
-        "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
-        "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
-        "genre": "Sélectionne le genre principal de la pièce musicale",
-        "genre2": "Sélectionne le genre secondaire de la pièce musicale",
-        "paroles": "Inscrit les paroles",
-        "langueParoles": "Sélectionne la ou les langues pour les paroles",
-        "isrc": "Identifiant unique de l'enregistrement",
-        "upc": "Identifiant unique de produit",
-        "dureeMs": "Indique la durée en millisecondes",
-        "liensSociaux": "URL complet vers un lien social",
-        "liensServices": "URL complet vers un lien de diffusion",
-        "liensPresse": "URL complet vers un article de presse",
-        "liensListes": "URL complet vers une liste de lecture",
-        "dateCreation": "Quand a été créé la pièce musicale ?",
-        "dateModification": "Quand la pièce musicale a-t-elle été modifiée ?",
-        "datePublication": "Quand la pièce musicale a-t-elle été publiée ?",
-        "editeur": "Qui est l'éditeur de la pièce musicale ?",
-        "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
-      }
-    },
-    "titre": {
-      "vedette": "Avec la participation (featuring)"
-    },
-    "creePar": "Créé par"
-  },
-  "navigation": {
-    "suivant": "Suivant",
-    "envoi": "Soumettre",
-    "precedent": "Précédent",
-    "reinitialiser": "Réinitialiser",
-    "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
-    "cest-parti": "C'est parti !"
-  },
-  "documente-ton-oeuvre": {
-    "titre": "Documente ton œuvre",
-    "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre."
-  },
-  "collaborateurs": {
-    "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
-    "preambule": "Commençons par toi...",
-    "role": "Définis ton rôle ?",
-    "ajout": "Ajouter un collaborateur",
-    "composant": {
-      "televersement": {
-        "titre": "Fichier",
-        "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
-        "indication": "ou dépose le fichier ici"
-      }
-    },
-    "paroles": {
-      "titre": "Inscris les paroles de ton œuvre musicale",
-      "preambule": ""
-    },
-    "genre": {
-      "titre": "Quel est le genre de ton œuvre ?",
-      "preambule": "Genre, style, comme... ?"
-    },
-    "documenter": {
-      "entete": {
-        "creation": "Création",
-        "interpretation": "Interprétation",
-        "enregistrement": "Enregistrement",
-        "sortie": "Sortie",
-        "fichier": "Fichiers",
-        "influence": "Influences",
-        "influenceurs": "Indiquer un ou plusieurs artistes",
-        "exemple": "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae...",
-        "parole": "Paroles",
-        "ajouter-parole": "Ajouter des paroles",
-        "parole-only": "Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
-        "lien": "Liens d'écoute",
-        "langueParole": "Langue",
-        "langue-creer": "Indiquer la langue",
-        "langue-ajouter": "Ajouter une langue"
-      },
-      "titre1": "Qui a participé à la création de",
-      "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
-      "date-creation": "Date de création",
-      "date-placeholder": "Ajouter une date",
-      "auteur": "Auteurs",
-      "auteur-placeholder": "Ajouter un auteur",
-      "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
-      "compositeur": "Compositeurs",
-      "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
-      "compositeur-placeholder": "Ajouter un compositeur",
-      "editeur": "Éditeurs",
-      "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
-      "editeur-placeholder": "Ajouter un éditeur",
-      "code": "Code ISWC",
-      "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
-      "code-placeholder": "Ajouter un code",
-      "date-creation": "Date de création",
-      "date-placeholder": "Ajouter une date",
-      "auteur": "Auteurs",
-      "auteur-placeholder": "Ajouter un auteur",
-      "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
-      "compositeur": "Compositeurs",
-      "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
-      "editeur": "Éditeurs",
-      "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
-      "editeur-placeholder": "Ajouter un éditeur",
-      "codeiswc": "Code ISWC",
-      "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
-      "codeiswc-placeholder": "Ajouter un code",
-      "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
-      "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
-      "titre2-placeholder": "Ajouter un interprète",
       "options": {
-        "question1": "Quelle type d'interprétation ?",
-        "question1-choix-a": "Artiste principal",
-        "question1-choix-b": "Artiste accompagnateur",
-        "question2": "Quel rôle dans la pièce principale ?",
-        "question2-choix-a": "Chanteur",
-        "question2-choix-b": "Musicien"
+        "piece": {
+          "titre": "Cette oeuvre est ...",
+          "originale": "une création originale",
+          "arrangement": "un arrangement (remix)",
+          "reprise": "une reprise (cover)"
+        }
       },
-      "titre3": "Qui a enregistré la pièce musicale ?",
-      "titre3-description": "Ici vous mentionner qui a contribué à l'enregistrement sonore de cette pièce.",
-      "realisation": "Réalisation sonore ",
-      "realisation-description": "Le réalisateur sonore donne un son à l'enregistrement.",
-      "realisation-placeholder": "Ajouter un directeur",
-      "son": "Enregistrement sonore",
-      "son-description": "Qui est le technicien en enregistrement sonore sur la pièce musicale ?",
-      "son-placeholder": "Ajouter un technicien",
-      "mix": "Mixage",
-      "mix-description": "Ceci est l'étape de l'ajustement de volume et de fréquence.",
-      "mix-placeholder": "Ajouter un technicien",
-      "master": "Matriçage",
-      "master-description": "Ceci est l'étape de compression et d'égalisation globale de la chanson.",
-      "master-placeholder": "Ajouter un technicien",
-      "studio": "Studio d'enregistrement",
-      "studio-description": "Le lieu où la chanson a été enregistrée.",
-      "studio-placeholder": "Recherche d'un studio d'enregistrement",
-      "studio-adresse": "Adresse du studio d'enregistrement",
-      "production": "Producteur exécutif",
-      "production-description": "La personne qui investi temps et argent pour rendre l'enregistrement sonore possible.",
-      "production-placeholder": "Ajouter un producteur",
-      "etiquette": "Étiquette",
-      "etiquette-description": "C'est l'organisation qui gère le marketing de ta pièce.",
-      "etiquette-placeholder": "Ajouter une étiquette",
-      "etiquette-adresse": "Adresse de l'étiquette",
-      "distribution": "Distributeur",
-      "distribution-description": "C'est l'organisation qui livre ta pièce musicale sur les plateformes de diffusion et de téléchargement.",
-      "distribution-placeholder": "Ajouter un distributeur",
-      "distribution-adresse": "Adresse du distributeur",
-      "codeupc": "Code UPC/EAN",
-      "codeupc-description": "Un UPC (Code Produit Universel) ou EAN (Numéro d’Article International) est un code unique permettant d’identifier un produit numérique.",
-      "codeupc-placeholder": "Entrer le code (optionnel)",
-      "date": "Date de sortie de la pièce musicale (si applicable)",
-      "date-description": "Le moment de la sortie de la pièce sur les plateformes.",
-      "date-choix": {
-        "avenir": "À venir",
-        "determine": "Déterminé"
+      "titre": {
+        "principal": "Bienvenue sur SmartSplit Alpha - Client",
+        "accueil": "Accueil",
+        "liste-media": "Liste des médias retournés de l'API",
+        "apercu": "Aperçu",
+        "oeil-ouvert": "Gardez l'oeil ouvert",
+        "apercu-sen-vient": "Votre aperçu s'affichera ici"
       },
-      "titre4": "Quels fichiers veux-tu rendre accessible?",
-      "titre4-description": "Ici tu peux ajouter tous les fichiers relatifs à cette pièce musicale.",
-      "titre5": "Informations générales",
-      "titre5-description": "Ici tu mentionnes quel est le genre de la pièce musicale et quels sont les artistes ou influences qui l'ont inspiré.",
-      "titre6": "Contient des paroles ?",
-      "titre6-description": "Les mots dans une chanson sont d'excellentes données descriptives sur l'oeuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
-      "titre7": "La pièce musicale a-t-elle déjà été diffusée?",
-      "titre7-description": "Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
-      "titre8": "Illustration",
-      "titre8-description": "Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
-      "titre8-plus": "En savoir plus",
-      "titre8-etape1": "Téléverser en format JPEG ou PNG",
-      "titre8-etape2": "Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.",
-      "titre9-description": "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
-      "titre9-etape1": "Téléverser le fichier de l’œuvre enregistrée",
-      "titre9-etape2": "MP3 ou WAV acceptés.",
-      "autre": "Autres fichiers l’œuvre",
-      "autre-description": "Ici, tu peux ajouter des documents permettant l’interprétation de l’œuvre, comme la partition ou le fichier MIDI.",
-      "autre-etape1": "Partition ou tablature",
-      "autre-etape2": "Vous pouvez téléverser une partition ou une tablature en format graphique (.PDF, .SVG, .PNG ou .JPEG). Vous pouvez aussi téléverser un fichier en format natif provenant de votre logiciel d’écriture musicale (comme .musicxml).",
-      "autre-plus": "Pour en savoir plus",
-      "autre-etape3": "Fichiers MIDI",
-      "autre-etape4": "Téléverser des fichiers .MID ou .MIDI seulement",
-      "acces": "Accès",
-      "choix": "Choose a file",
-      "glisse": "Ou glisse ton fichier ici",
-      "details": "Dis-nous en plus sur la pièce musicale",
-      "duree": "Durée",
-      "public": "Public - Rendre l’information visible de tous",
-      "tous": "Tous les utilisateurs pourront avoir accès à cette information.",
-      "invite": "Sur invitation - Téléchargeable par certains.",
-      "invite-description": "Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
-      "prive": "Privé - Empêcher le téléchargement",
-      "prive-description": "Seul toi peux télécharger l'image originale"
-    },
-    "bouton": {
-      "ajout": "Ajouter",
-      "voter": "VOTER"
-    },
-    "tableaudebord": {
-      "collabo": "Mes collaborateurs",
-      "edito": "Mon éditeur"
-    },
-    "pro": {
-      "titre": "Es-tu pro ?",
-      "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton œuvre ici !"
-    },
-    "envoi": {
-      "reussi": "Envoi réussi!",
-      "echec": "Envoi en échec"
-    },
-    "envoifichier": {
-      "reussi": "Envoi de fichier réussi!",
-      "echec": "Envoi de fichier en échec"
-    },
-    "lien": {
-      "sociaux": {
-        "titre": "Liens vers les médias sociaux"
+      "collaborateur": {
+        "titre": "Ajouter un artiste collaborateur",
+        "attribut": {
+          "etiquette": {
+            "nom": "Nom légal",
+            "prenom": "Prénom légal",
+            "artiste": "Nom d'artiste (optionel)",
+            "role": "Rôle dans la pièce musicale",
+            "option": " (optionel)",
+            "na": "Si non applicable, nous afficherons le nom complet.",
+            "courriel": "Courriel",
+            "groupe": "Groupes"
+          },
+          "indication": {
+            "nom": "Indique un nom de famille",
+            "prenom": "Indique un prénom",
+            "artiste": "Indique un nom d'artiste",
+            "role": "Choisis un ou plusieurs rôles",
+            "role2": "Ces rôles peuvent être modifiés plus tard.",
+            "groupe": "Choisir un groupe"
+          },
+          "bouton": {
+            "annuler": "Annuler",
+            "sauvegarder": "Sauvegarder",
+            "soumettre": "Soumette"
+          }
+        },
+        "declaration": {
+          "identite": "Déclaration d'identité",
+          "accepter": "Accepter"
+        }
       },
-      "commercial": {
-        "titre": "Liens de diffusion"
+      "oeuvre": {
+        "attribut": {
+          "etiquette": {
+            "titre": "Titre",
+            "album": "Album",
+            "piecePar": "{{titre}}, par",
+            "arrangementPar": "{{titre}}, arrangé par",
+            "reprise": "Cette œuvre est une reprise",
+            "instrumental": "Cette œuvre est instrumentale",
+            "artiste": "Artiste ou groupe originel",
+            "juridiction": "Juridiction",
+            "ayantDroit": "Collaborateurs",
+            "genre": "Style musical principal",
+            "genre2": "Style musical secondaire",
+            "paroles": "Paroles",
+            "langueParoles": "Langue des paroles",
+            "isrc": "Numéro ISRC",
+            "upc": "Numéro UPC",
+            "dureeMs": "Durée (millisecondes)",
+            "liensSociaux": "Lien vers un média social",
+            "liensServices": "Lien direct de diffusion",
+            "arrangeur": "Artiste ou groupe ...",
+            "vedette": "Ajouter un artiste ou groupe en vedette ...",
+            "liensPresse": "Lien vers une revue de presse",
+            "liensListes": "Lien vers une liste de lecture",
+            "dateCreation": "Date de création",
+            "dateModification": "Date de modification",
+            "datePublication": "Date de publication",
+            "editeur": "Éditeur",
+            "repartition": "Répartition des droits (%)"
+          },
+          "indication": {
+            "titre": "Titre de la pièce musicale",
+            "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
+            "album": "Album sur lequel figure la pièce musicale",
+            "arrangeur": "Artiste ou groupe ...",
+            "vedette": "Ajouter un artiste ou groupe en vedette ...",
+            "reprise": "",
+            "artiste": "Qui est l'artiste principal ?",
+            "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
+            "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
+            "genre": "Sélectionne le genre principal de la pièce musicale",
+            "genre2": "Sélectionne le genre secondaire de la pièce musicale",
+            "paroles": "Inscrit les paroles",
+            "langueParoles": "Sélectionne la ou les langues pour les paroles",
+            "isrc": "Identifiant unique de l'enregistrement",
+            "upc": "Identifiant unique de produit",
+            "dureeMs": "Indique la durée en millisecondes",
+            "liensSociaux": "URL complet vers un lien social",
+            "liensServices": "URL complet vers un lien de diffusion",
+            "liensPresse": "URL complet vers un article de presse",
+            "liensListes": "URL complet vers une liste de lecture",
+            "dateCreation": "Quand a été créé la pièce musicale ?",
+            "dateModification": "Quand la pièce musicale a-t-elle été modifiée ?",
+            "datePublication": "Quand la pièce musicale a-t-elle été publiée ?",
+            "editeur": "Qui est l'éditeur de la pièce musicale ?",
+            "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
+          }
+        },
+        "titre": {
+          "vedette": "Avec la participation (featuring)"
+        },
+        "creePar": "Créé par"
       },
-      "presse": {
-        "titre": "Liens vers les revues de presse"
+      "navigation": {
+        "suivant": "Suivant",
+        "envoi": "Soumettre",
+        "precedent": "Précédent",
+        "reinitialiser": "Réinitialiser",
+        "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
+        "cest-parti": "C'est parti !"
       },
-      "liste": {
-        "titre": "Liens vers les listes de lecture"
+      "documente-ton-oeuvre": {
+        "titre": "Documente ton œuvre",
+        "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre.",
+        "collaborateurs": {
+          "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
+          "preambule": "Commençons par toi...",
+          "role": "Définis ton rôle ?",
+          "ajout": "Ajouter un collaborateur"
+        },
+        "composant": {
+          "televersement": {
+            "titre": "Fichier",
+            "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
+            "indication": "ou dépose le fichier ici"
+          }
+        },
+        "paroles": {
+          "titre": "Inscris les paroles de ton œuvre musicale",
+          "preambule": ""
+        },
+        "genre": {
+          "titre": "Quel est le genre de ton œuvre ?",
+          "preambule": "Genre, style, comme... ?"
+        },
+        "documenter": {
+          "entete": {
+            "creation": "Création",
+            "interpretation": "Interprétation",
+            "enregistrement": "Enregistrement",
+            "sortie": "Sortie",
+            "fichier": "Fichiers",
+            "influence": "Influences",
+            "influenceurs": "Indiquer un ou plusieurs artistes",
+            "exemple": "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae...",
+            "parole": "Paroles",
+            "ajouter-parole": "Ajouter des paroles",
+            "parole-only": "Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
+            "lien": "Liens d'écoute",
+            "langueParole": "Langue",
+            "langue-creer": "Indiquer la langue",
+            "langue-ajouter": "Ajouter une langue"
+          },
+          "titre1": "Qui a participé à la création de",
+          "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
+          "date-creation": "Date de création",
+          "date-placeholder": "Ajouter une date",
+          "auteur": "Auteurs",
+          "auteur-placeholder": "Ajouter un auteur",
+          "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
+          "compositeur": "Compositeurs",
+          "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
+          "compositeur-placeholder": "Ajouter un compositeur",
+          "editeur": "Éditeurs",
+          "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
+          "editeur-placeholder": "Ajouter un éditeur",
+          "code": "Code ISWC",
+          "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
+          "code-placeholder": "Ajouter un code",
+          "date-creation": "Date de création",
+          "date-placeholder": "Ajouter une date",
+          "auteur": "Auteurs",
+          "auteur-placeholder": "Ajouter un auteur",
+          "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
+          "compositeur": "Compositeurs",
+          "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
+          "editeur": "Éditeurs",
+          "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
+          "editeur-placeholder": "Ajouter un éditeur",
+          "codeiswc": "Code ISWC",
+          "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
+          "codeiswc-placeholder": "Ajouter un code",
+          "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
+          "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
+          "titre2-placeholder": "Ajouter un interprète",
+          "options": {
+            "question1": "Quelle type d'interprétation ?",
+            "question1-choix-a": "Artiste principal",
+            "question1-choix-b": "Artiste accompagnateur",
+            "question2": "Quel rôle dans la pièce principale ?",
+            "question2-choix-a": "Chanteur",
+            "question2-choix-b": "Musicien"
+          },
+          "titre3": "Qui a enregistré la pièce musicale ?",
+          "titre3-description": "Ici vous mentionner qui a contribué à l'enregistrement sonore de cette pièce.",
+          "realisation": "Réalisation sonore ",
+          "realisation-description": "Le réalisateur sonore donne un son à l'enregistrement.",
+          "realisation-placeholder": "Ajouter un directeur",
+          "son": "Enregistrement sonore",
+          "son-description": "Qui est le technicien en enregistrement sonore sur la pièce musicale ?",
+          "son-placeholder": "Ajouter un technicien",
+          "mix": "Mixage",
+          "mix-description": "Ceci est l'étape de l'ajustement de volume et de fréquence.",
+          "mix-placeholder": "Ajouter un technicien",
+          "master": "Matriçage",
+          "master-description": "Ceci est l'étape de compression et d'égalisation globale de la chanson.",
+          "master-placeholder": "Ajouter un technicien",
+          "studio": "Studio d'enregistrement",
+          "studio-description": "Le lieu où la chanson a été enregistrée.",
+          "studio-placeholder": "Recherche d'un studio d'enregistrement",
+          "studio-adresse": "Adresse du studio d'enregistrement",
+          "production": "Producteur exécutif",
+          "production-description": "La personne qui investi temps et argent pour rendre l'enregistrement sonore possible.",
+          "production-placeholder": "Ajouter un producteur",
+          "etiquette": "Étiquette",
+          "etiquette-description": "C'est l'organisation qui gère le marketing de ta pièce.",
+          "etiquette-placeholder": "Ajouter une étiquette",
+          "etiquette-adresse": "Adresse de l'étiquette",
+          "distribution": "Distributeur",
+          "distribution-description": "C'est l'organisation qui livre ta pièce musicale sur les plateformes de diffusion et de téléchargement.",
+          "distribution-placeholder": "Ajouter un distributeur",
+          "distribution-adresse": "Adresse du distributeur",
+          "codeupc": "Code UPC/EAN",
+          "codeupc-description": "Un UPC (Code Produit Universel) ou EAN (Numéro d’Article International) est un code unique permettant d’identifier un produit numérique.",
+          "codeupc-placeholder": "Entrer le code (optionnel)",
+          "date": "Date de sortie de la pièce musicale (si applicable)",
+          "date-description": "Le moment de la sortie de la pièce sur les plateformes.",
+          "date-choix": {
+            "avenir": "À venir",
+            "determine": "Déterminé"
+          },
+          "titre4": "Quels fichiers veux-tu rendre accessible?",
+          "titre4-description": "Ici tu peux ajouter tous les fichiers relatifs à cette pièce musicale.",
+          "titre5": "Informations générales",
+          "titre5-description": "Ici tu mentionnes quel est le genre de la pièce musicale et quels sont les artistes ou influences qui l'ont inspiré.",
+          "titre6": "Contient des paroles ?",
+          "titre6-description": "Les mots dans une chanson sont d'excellentes données descriptives sur l'oeuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
+          "titre7": "La pièce musicale a-t-elle déjà été diffusée?",
+          "titre7-description": "Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
+          "titre8": "Illustration",
+          "titre8-description": "Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
+          "titre8-plus": "En savoir plus",
+          "titre8-etape1": "Téléverser en format JPEG ou PNG",
+          "titre8-etape2": "Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.",
+          "titre9-description": "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
+          "titre9-etape1": "Téléverser le fichier de l’œuvre enregistrée",
+          "titre9-etape2": "MP3 ou WAV acceptés.",
+          "autre": "Autres fichiers l’œuvre",
+          "autre-description": "Ici, tu peux ajouter des documents permettant l’interprétation de l’œuvre, comme la partition ou le fichier MIDI.",
+          "autre-etape1": "Partition ou tablature",
+          "autre-etape2": "Vous pouvez téléverser une partition ou une tablature en format graphique (.PDF, .SVG, .PNG ou .JPEG). Vous pouvez aussi téléverser un fichier en format natif provenant de votre logiciel d’écriture musicale (comme .musicxml).",
+          "autre-plus": "Pour en savoir plus",
+          "autre-etape3": "Fichiers MIDI",
+          "autre-etape4": "Téléverser des fichiers .MID ou .MIDI seulement",
+          "acces": "Accès",
+          "choix": "Choose a file",
+          "glisse": "Ou glisse ton fichier ici",
+          "details": "Dis-nous en plus sur la pièce musicale",
+          "duree": "Durée",
+          "public": "Public - Rendre l’information visible de tous",
+          "tous": "Tous les utilisateurs pourront avoir accès à cette information.",
+          "invite": "Sur invitation - Téléchargeable par certains.",
+          "invite-description": "Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
+          "prive": "Privé - Empêcher le téléchargement",
+          "prive-description": "Seul toi peux télécharger l'image originale"
+        },
+        "bouton": {
+          "ajout": "Ajouter",
+          "voter": "VOTER"
+        },
+        "tableaudebord": {
+          "collabo": "Mes collaborateurs",
+          "edito": "Mon éditeur"
+        },
+        "pro": {
+          "titre": "Es-tu pro ?",
+          "preambule": "Ta propriété intellectuelle se matérialise par des numéros UPC et ISRC (si enregistrement). Relie-les à ton œuvre ici !"
+        },
+        "envoi": {
+          "reussi": "Envoi réussi!",
+          "echec": "Envoi en échec"
+        },
+        "envoifichier": {
+          "reussi": "Envoi de fichier réussi!",
+          "echec": "Envoi de fichier en échec"
+        },
+        "lien": {
+          "sociaux": {
+            "titre": "Liens vers les médias sociaux"
+          },
+          "commercial": {
+            "titre": "Liens de diffusion"
+          },
+          "presse": {
+            "titre": "Liens vers les revues de presse"
+          },
+          "liste": {
+            "titre": "Liens vers les listes de lecture"
+          }
+        },
+        "voter": {
+          "connexion": "Tu dois te connecter afin d'accéder à la page de votation !",
+          "soustitre": "Salut, {{nom}}, voici la page de votation pour les contributeurs dans l'œuvre : "
+        },
+        "etape": {
+          "partage-etape": "Étape 2",
+          "partage-titre": "Partage des droits",
+          "enregistrerEtQuitter": "Enregistrer et quitter",
+          "vote-titre": "Valider le partage de droits"
+        },
+        "partage": {
+          "auteur": {
+            "titre": "Partage du droit d'auteur",
+            "role": {
+              "auteur": "Auteur",
+              "compositeur": "Compositeur",
+              "arrangeur": "Arrangeur"
+            }
+          },
+          "interprete": {
+            "titre": "Partage du droit d'interprétation",
+            "role": {
+              "chanteur": "Chanteur",
+              "musicien": "Musicien"
+            }
+          },
+          "enregistrement": {
+            "titre": "Partage du droit d'enregistrement",
+            "role": {
+              "producteur": "Producteur",
+              "graphiste": "Graphiste",
+              "realisateur": "Réalisateur",
+              "studio": "Studio"
+            }
+          }
+        },
+        "preambules": {
+          "titre1": "Étape 1",
+          "sous-titre1": "Partage tes droits",
+          "intro1": "Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
+          "titre2": "Étape 2",
+          "sous-titre2": "Documente ton œuvre",
+          "intro2": "Fais découvrir ton oeuvre sur le web grâce aux métadonnées et augmente ainsi tes chances d’apparaître dans des playlists.",
+          "titre3": "Étape 3",
+          "sous-titre3": "Protège ton œuvre",
+          "intro3": "Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)"
+        },
+        "editeur": {
+          "ajout": "Ajouter un éditeur",
+          "editeur": "Éditeur",
+          "donateur": "Donateur"
+        },
+        "proposition": {
+          "nouvelle": "Créer une nouvelle version",
+          "envoyer": "Envoyer aux collaborateurs",
+          "continuer": "Continuer le partage",
+          "sommaire": "Accéder au sommaire",
+          "voter": "Accéter au vote",
+          "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition."
+        }
+      },
+      "traitement": {
+        "acr": {
+          "erreur-mauvaise-lecture": "Mauvaise lecture du média. Essayez un nouvel échantillon.",
+          "erreur-inconnu": "Aucune correspondance pour le média soumis."
+        }
+      },
+      "auth": {
+        "bienvenue": {
+          "titre": "Bienvenue!",
+          "preambule": "Succès, vous avez enregistré un nouveau compte.",
+          "indication": "Nous vous avons envoyé un email. Veuillez cliquer sur le lien de confirmation pour vérifier votre compte."
+        },
+        "passwordchanged": {
+          "titre": "Mot de passe changé",
+          "indication": "Votre mot de passe a été changé avec succès."
+        },
+        "titre": "Connexion à SmartSplit",
+        "err": {
+          "username": "Le nom d'utilisateur est un courriel invalide",
+          "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
+        },
+        "oublier": {
+          "titre": "Mot de passe oublié ?",
+          "preambule": "Veuillez indiquer l'adresse courriel associé à votre compte pour recevoir un lien afin de réinitialiser le mot de passe.",
+          "indication": {
+            "email": "Indiquer le courriel",
+            "password": "Mot de passe oublié"
+          }
+        }
+      },
+      "tableaudebord": {
+        "bonjour": "Ici le panneau du tableau de bord SmartSplit.",
+        "navigation": {
+          "0": "Mes pièces musicales",
+          "1": "Mon profil public",
+          "2": "Mes collaborateurs"
+        },
+        "pieces": {
+          "0": "Mes ajouts",
+          "1": "Partagées avec moi",
+          "par": "par",
+          "partageAvec": "partagé avec",
+          "ajouter": "Ajouter une oeuvre"
+        },
+        "vide": {
+          "preambule": "Tes oeuvres apparaîtrons ici.",
+          "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton «Ajouter»."
+        }
+      },
+      "roles": {
+        "principal": "Principal",
+        "accompaniment": "Accompagnement",
+        "producer": "Producteur",
+        "director": "Réalisateur",
+        "studio": "Studio",
+        "graphist": "Graphiste",
+        "arranger": "Arrangeur",
+        "songwriter": "Auteur",
+        "composer": "Compositeur",
+        "singer": "Chanteur",
+        "musicien": "Musicien"
+      },
+      "partage": {
+        "auteur": {
+          "titre": "Qui a inventé {{oeuvre}} ?"
+        },
+        "interprete": {
+          "titre": "Qui a joué sur {{oeuvre}} ?"
+        },
+        "enregistrement": {
+          "titre": "Qui possède l'enregistrement sonore de {{oeuvre}} ?"
+        },
+        "editeur": {
+          "titre": "Quel est le nom de ton éditeur ?",
+          "titre-part": "Combien ton éditeur devrait-il avoir ?"
+        },
+        "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition.",
+        "prete-a-envoyer": "Ta proposition est prête à envoyer à tes collaborateurs par courriel. Révise-la et appuie sur Envoyer."
+      },
+      "connexion": {
+        "titre": {
+          "oeuvre": "Tu dois te connecter afin d'accéder au sommaire de l'oeuvre !",
+          "tdb": "Tu dois te connecter afin d'accéder au tableau de bord !",
+          "vote": "Tu dois te connecter afin de pouvoir voter !"
+        }
+      },
+      "action": {
+        "commencer": "Commencer"
+      },
+      "vote": {
+        "accept": "Approuvé",
+        "reject": "Refusé",
+        "active": "En attente de décision",
+        "accepter": "ACCEPTER",
+        "refuser": "REFUSER"
+      },
+      "modepartage": {
+        "egal": "Partager de façon égale",
+        "roles": "Partager selon les rôles",
+        "manual": "Partager manuellement"
+      },
+      "droits": {
+        "auteur": "Droits d'auteur",
+        "titre": {
+          "workCopyrightSplit": "Droits d'auteur",
+          "performanceNeighboringRightSplit": "Interprétation",
+          "masterNeighboringRightSplit": "Enregistrement sonore"
+        }
+      },
+      "erreur": {
+        "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
+      },
+      "inscription": {
+        "facebook": "Se connecter avec Facebook",
+        "google": "Se connecter avec Google",
+        "courriel": "Entrer le courriel",
+        "exemple": "nom@exemple.com",
+        "email-invalide": "Courriel invalide",
+        "motdepasse": "Choix du mot de passe",
+        "password-invalide": "Le mot de passe est invalide",
+        "correspond": "Les mots de passe ne correspondent pas",
+        "password": "Mot de passe",
+        "ou": "ou",
+        "bouton": "Créer mon compte"
       }
-    },
-    "voter": {
-      "connexion": "Tu dois te connecter afin d'accéder à la page de votation !",
-      "soustitre": "Salut, {{nom}}, voici la page de votation pour les contributeurs dans l'œuvre : "
-    },
-    "etape": {
-      "partage-etape": "Étape 2",
-      "partage-titre": "Partage des droits",
-      "enregistrerEtQuitter": "Enregistrer et quitter",
-      "vote-titre": "Valider le partage de droits"
-    },
-    "partage": {
-      "auteur": {
-        "titre": "Partage du droit d'auteur",
-        "role": {
-          "auteur": "Auteur",
-          "compositeur": "Compositeur",
-          "arrangeur": "Arrangeur"
-        }
-      },
-      "interprete": {
-        "titre": "Partage du droit d'interprétation",
-        "role": {
-          "chanteur": "Chanteur",
-          "musicien": "Musicien"
-        }
-      },
-      "enregistrement": {
-        "titre": "Partage du droit d'enregistrement",
-        "role": {
-          "producteur": "Producteur",
-          "graphiste": "Graphiste",
-          "realisateur": "Réalisateur",
-          "studio": "Studio"
-        }
-      }
-    },
-    "preambules": {
-      "titre1": "Étape 1",
-      "sous-titre1": "Partage tes droits",
-      "intro1": "Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
-      "titre2": "Étape 2",
-      "sous-titre2": "Documente ton œuvre",
-      "intro2": "Fais découvrir ton oeuvre sur le web grâce aux métadonnées et augmente ainsi tes chances d’apparaître dans des playlists.",
-      "titre3": "Étape 3",
-      "sous-titre3": "Protège ton œuvre",
-      "intro3": "Dans le bon vieux temps, on s’envoyait une cassette par courrier recommandé pour prouver qui a fait l’oeuvre et à quel moment. Là, on utilise plutôt une blockchain pour créer cette preuve. :)"
-    },
-    "editeur": {
-      "ajout": "Ajouter un éditeur",
-      "editeur": "Éditeur",
-      "donateur": "Donateur"
-    },
-    "proposition": {
-      "nouvelle": "Créer une nouvelle version",
-      "envoyer": "Envoyer aux collaborateurs",
-      "continuer": "Continuer le partage",
-      "sommaire": "Accéder au sommaire",
-      "voter": "Accéter au vote",
-      "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition."
     }
-  },
-  "traitement": {
-    "acr": {
-      "erreur-mauvaise-lecture": "Mauvaise lecture du média. Essayez un nouvel échantillon.",
-      "erreur-inconnu": "Aucune correspondance pour le média soumis."
-    }
-  },
-  "auth": {
-    "bienvenue": {
-      "titre": "Bienvenue!",
-      "preambule": "Succès, vous avez enregistré un nouveau compte.",
-      "indication": "Nous vous avons envoyé un email. Veuillez cliquer sur le lien de confirmation pour vérifier votre compte."
-    },
-    "passwordchanged": {
-      "titre": "Mot de passe changé",
-      "indication": "Votre mot de passe a été changé avec succès."
-    },
-    "titre": "Connexion à SmartSplit",
-    "err": {
-      "username": "Le nom d'utilisateur est un courriel invalide",
-      "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
-    },
-    "oublier": {
-      "titre": "Mot de passe oublié ?"
-    }
-  },
-  "tableaudebord": {
-    "bonjour": "Ici le panneau du tableau de bord SmartSplit.",
-    "navigation": {
-      "0": "Mes pièces musicales",
-      "1": "Mon profil public",
-      "2": "Mes collaborateurs"
-    },
-    "pieces": {
-      "0": "Mes ajouts",
-      "1": "Partagées avec moi",
-      "par": "par",
-      "partageAvec": "partagé avec",
-      "ajouter": "Ajouter une oeuvre"
-    },
-    "vide": {
-      "preambule": "Tes oeuvres apparaîtrons ici.",
-      "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton «Ajouter»."
-    }
-  },
-  "roles": {
-    "principal": "Principal",
-    "accompaniment": "Accompagnement",
-    "producer": "Producteur",
-    "director": "Réalisateur",
-    "studio": "Studio",
-    "graphist": "Graphiste",
-    "arranger": "Arrangeur",
-    "songwriter": "Auteur",
-    "composer": "Compositeur",
-    "singer": "Chanteur",
-    "musicien": "Musicien"
-  },
-  "partage": {
-    "auteur": {
-      "titre": "Qui a inventé {{oeuvre}} ?"
-    },
-    "interprete": {
-      "titre": "Qui a joué sur {{oeuvre}} ?"
-    },
-    "enregistrement": {
-      "titre": "Qui possède l'enregistrement sonore de {{oeuvre}} ?"
-    },
-    "editeur": {
-      "titre": "Quel est le nom de ton éditeur ?",
-      "titre-part": "Combien ton éditeur devrait-il avoir ?"
-    },
-    "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition.",
-    "prete-a-envoyer": "Ta proposition est prête à envoyer à tes collaborateurs par courriel. Révise-la et appuie sur Envoyer."
-  },
-  "connexion": {
-    "titre": {
-      "oeuvre": "Tu dois te connecter afin d'accéder au sommaire de l'oeuvre !",
-      "tdb": "Tu dois te connecter afin d'accéder au tableau de bord !",
-      "vote": "Tu dois te connecter afin de pouvoir voter !"
-    }
-  },
-  "action": {
-    "commencer": "Commencer"
-  },
-  "vote": {
-    "accept": "Approuvé",
-    "reject": "Refusé",
-    "active": "En attente de décision",
-    "accepter": "ACCEPTER",
-    "refuser": "REFUSER"
-  },
-  "modepartage": {
-    "egal": "Partager de façon égale",
-    "roles": "Partager selon les rôles",
-    "manual": "Partager manuellement"
-  },
-  "droits": {
-    "auteur": "Droits d'auteur",
-    "titre": {
-      "workCopyrightSplit": "Droits d'auteur",
-      "performanceNeighboringRightSplit": "Interprétation",
-      "masterNeighboringRightSplit": "Enregistrement sonore"
-    }
-  },
-  "erreur": {
-    "volIdentite": "Tu tentes d'effectuer une opération qui s'applique pour un autre usager"
-  },
-  "inscription": {
-    "facebook": "Se connecter avec Facebook",
-    "google": "Se connecter avec Google",
-    "courriel": "Entrer le courriel",
-    "exemple": "nom@exemple.com",
-    "email-invalide": "Courriel invalide",
-    "motdepasse": "Choix du mot de passe",
-    "password-invalide": "Le mot de passe est invalide",
-    "correspond": "Les mots de passe ne correspondent pas",
-    "password": "Mot de passe",
-    "ou": "ou",
-    "bouton": "Créer mon compte"
   },
   "accueil": {
     "titre": "Connecte-toi à ton compte Smart Split.",

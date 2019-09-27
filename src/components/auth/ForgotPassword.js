@@ -116,7 +116,7 @@ class ForgotPassword extends Component {
               >
                 {t("auth.oublier.titre")}
               </h1>
-              <p>{t("auth.oublier.preambule")}</p>
+              <p>{t("flot.split.auth.oublier.preambule")}</p>
               {/* <FormErrors formerrors={this.state.errors} /> */}
 
               <form onSubmit={this.forgotPasswordHandler}>

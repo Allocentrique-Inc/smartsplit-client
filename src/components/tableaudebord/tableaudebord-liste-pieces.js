@@ -239,12 +239,12 @@ export default class ListePieces extends Component {
                                     <div>                                                                                
                                         <div className="ui grid">
                                             <div className="ui row">
-                                                <div className="heading2 ten wide column">{t('tableaudebord.navigation.0')}</div>
+                                                <div className="heading2 ten wide column">{t('flot.split.tableaudebord.navigation.0')}</div>
                                             </div>                                            
                                             <div className="ui row">
                                                 <div className="ui nine wide column" />
                                                 <div className="ui three wide column medium button" onClick={()=>{this.modaleNouvelleOeuvre()}}>
-                                                    {t('tableaudebord.pieces.ajouter')}
+                                                    {t('flot.split.tableaudebord.pieces.ajouter')}
                                                 </div>
                                             </div>
                                             <div className="ui row">
