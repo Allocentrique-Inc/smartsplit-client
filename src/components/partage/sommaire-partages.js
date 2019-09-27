@@ -327,7 +327,6 @@ export default class SommairePartages extends Component {
 
                                                         style={{width:"200px", 
                                                         position: "relative", 
-                                                        left: "780px", 
                                                         marginTop:"50px", 
                                                         marginTop: "150px"}}>
 

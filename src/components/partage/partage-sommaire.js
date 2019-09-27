@@ -385,6 +385,7 @@ export default class SommairePartage extends Component {
             })
             .catch(err=>{
                 toast.error(err.message)
+                console.log(err)
             })
         })
 
