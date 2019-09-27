@@ -41,7 +41,8 @@ export default class ModifyUser extends Component {
       lastName: "",
       artistName: props.firstName,
       email: "",
-      avatarImage: "",
+      avatarImage: "image.jpg",
+      instruments: [],
       open: props.open,
       defaultRoles: [],
       currentValue: [],
@@ -107,26 +108,48 @@ export default class ModifyUser extends Component {
     this.props.close();
   }
 
+  randomPassword(length) {
+    let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOP1234567890"
+    let password = "";
+    for (var x = 0; x < length; x++) {
+        var i = Math.floor(Math.random() * chars.length);
+        password += chars.charAt(i);
+    }
+    return password;
+  }
+
   handleSubmit = values => {
-    let body = {
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      artistName: this.state.artistName,
+    // let body = {
+    //   firstName: this.state.firstName,
+    //   lastName: this.state.lastName,
+    //   artistName: this.state.artistName,
+    //   email: this.state.email,
+    //   groups: this.state.currentValue,
+    //   defaultRoles: this.state.currentRoleValue,
+    //   avatarImage: "image.jpg"
+    // };
+
+    let attributes = {
       email: this.state.email,
-      groups: this.state.currentValue,
-      defaultRoles: this.state.currentRoleValue,
-      jurisdiction: "Canada",
-      newUser: true,
-      avatarImage: "image.jpg"
-    };
+      given_name: this.state.firstName,
+      family_name: this.state.lastName,
+      'custom:artistName': this.state.artistName,
+      'custom:instruments': this.state.instruments,
+      'custom:defaultRoles': this.state.currentRoleValue,
+      'custom:groups': this.state.currentValue,
+      'custom:avatarImage': avatarImage
+    }
+    let username = this.state.email
+    let password = this.randomPassword(10)
 
     try {
-      axios
-        .post("http://dev.api.smartsplit.org:8080/v1/rightHolders", body)
+      Auth.signUp({
+        username,
+        password,
+        attributes: attributes
+      })
         .then(() => {
-          console.log("user created / modified");
           toast.success("user created / modified");
-          //setTimeout(function(){ window.location.reload(); }, 2000)
           if (this.props.fn) {
             this.props.fn();
           }
