@@ -35,7 +35,7 @@ export default class MenuProfil extends Component {
     }
 
     componentWillMount() {                
-        axios.get('http://api.smartsplit.org:8080/v1/rightHolders/' + this.state.auth.username)
+        axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders/' + this.state.auth.username)
         .then(res=>{
             this.setState({user: res.data.Item})
             this.setState({initials: res.data.Item.firstName.charAt(0)+res.data.Item.lastName.charAt(0)})

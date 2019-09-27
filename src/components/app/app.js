@@ -17,7 +17,7 @@ class App extends Component {
 
   componentDidMount() {          
   
-    axios.get('http://api.smartsplit.org:8080/v1/media')
+    axios.get('http://dev.api.smartsplit.org:8080/v1/media')
     .then(res=>{
       let listeMedias = res.data.map((elem, idx)=>{
         return (
@@ -30,7 +30,7 @@ class App extends Component {
       toast.error(err)
     })
 
-    axios.get('http://api.smartsplit.org:8080/v1/proposal')
+    axios.get('http://dev.api.smartsplit.org:8080/v1/proposal')
     .then(res=>{
       let listePropositions = res.data.map((elem, idx)=>{
         return (

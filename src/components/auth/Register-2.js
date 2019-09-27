@@ -70,7 +70,7 @@ class Register2 extends Component {
     try {
       Auth.currentSession().then(
         session=>{
-          let url = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/artistName'
+          let url = 'http://dev.api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/artistName'
           let req = {
             url,
             method: 'Patch',
@@ -83,7 +83,7 @@ class Register2 extends Component {
           .catch(err=>{
             toast.error(err)
           })
-          // let avatarUrl = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/avatarS3Etag'
+          // let avatarUrl = 'http://dev.api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/avatarS3Etag'
           // let avatarReq = {
           //   avatarUrl,
           //   method: 'Patch',
