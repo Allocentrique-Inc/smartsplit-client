@@ -137,7 +137,7 @@ export default class ModifyUser extends Component {
       'custom:instruments': this.state.instruments,
       'custom:defaultRoles': this.state.currentRoleValue,
       'custom:groups': this.state.currentValue,
-      'custom:avatarImage': avatarImage
+      'custom:avatarImage': this.state.avatarImage
     }
     let username = this.state.email
     let password = this.randomPassword(10)
