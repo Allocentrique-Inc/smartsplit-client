@@ -23,6 +23,7 @@ import { Auth } from 'aws-amplify';
 import Login from '../auth/Login';
 import ModalFin from "./modal-fin";
 import { confirmAlert } from 'react-confirm-alert';
+import ModaleConnexion from '../auth/Connexion';
 
 // Modèle
 
@@ -37,7 +38,8 @@ class AssistantOeuvre extends Component {
             progressPercentage: this.pageProgressPercentages[0],
             title: props.titre,
             rightHolders: [],
-            endModalOpen: false
+            endModalOpen: false,
+            modaleConnexion: false
         };
     }
 
@@ -47,35 +49,11 @@ class AssistantOeuvre extends Component {
                 this.setState({ user: response })
             })
             .catch(error => {
-                toast.error(error.message)
-                confirmAlert({
-                    title: ``,
-                    message: ``,
-                    closeOnClickOutside: false,
-                    style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                    customUI: ({ onClose }) =>
-                        <Translation>
-                            {
-                                t =>
-                                    <Login message={ t('connexion.title.oeuvre') } fn={ (user) => {
-                                        onClose()
-                                        this.setState({ user: user })
-                                    } }/>
-                            }
-                        </Translation>
-                })
+                console.log(error)
+                this.setState({modaleConnexion: true})
             })
-
-        this.fetchApiRightHolders();
+            
+            this.fetchApiRightHolders()
     }
 
     fetchApiRightHolders() {
@@ -194,6 +172,7 @@ class AssistantOeuvre extends Component {
                                     songTitle={ this.state.title }
                                     pochette={ this.props.pochette }
                                     progressPercentage={ this.state.progressPercentage }
+                                    profil={this.state.user}
                                 />
 
                                 <Wizard
@@ -207,7 +186,7 @@ class AssistantOeuvre extends Component {
                                         submit: t('navigation.envoi')
                                     } }
 
-                                    debug={ true }
+                                    debug={ false }
                                 >
                                     <Wizard.Page>
                                         <PageCreation
@@ -264,13 +243,13 @@ class AssistantOeuvre extends Component {
                                     songTitle={ this.state.title }
                                     open={ this.state.endModalOpen }
                                     onClose={ () => this.setState({ endModalOpen: false }) }
-                                />
+                                />                                
                             </>
                     }
                 </Translation>
             )
         } else {
-            return (<></>)
+            return (<ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />)
         }
 
     }

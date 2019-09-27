@@ -121,7 +121,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                                 </div>
                                     </div>
                                     <div className="ui seven wide column">                                    
-                                        <div className="nine wide field">
+                                        <div className="nine fourteen field">
                                             &nbsp;
                                         </div>
                                     </div>

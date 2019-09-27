@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input } from "semantic-ui-react"
+import { Form, Input, Label } from "semantic-ui-react"
 import { FormField } from 'semantic-ui-react-ext'
 import { Wizard } from 'semantic-ui-react-formik'
 
@@ -79,7 +79,8 @@ export class ChampTexteAssistant extends Component {
             requis: props.requis,
             lien: props.lien,
             typeLien: props.typeLien,
-            disabled: props.disabled
+            disabled: props.disabled,
+            soustexte: props.soustexte
         }
         this.valeur = props.valeur
     }
@@ -102,6 +103,9 @@ export class ChampTexteAssistant extends Component {
         }
         if (this.props.valeur !== nextProps.valeur) {
             this.setState({valeur: nextProps.valeur})
+        }
+        if (this.props.soustexte !== nextProps.soustexte) {
+            this.setState({soustexte: nextProps.soustexte})
         }
     }
 
@@ -137,7 +141,7 @@ export class ChampTexteAssistant extends Component {
             }})
 
         return(
-            <div>                
+            <div>
                 <Wizard.Field
                     name={this.state.modele}
                     component={FormField}
@@ -146,6 +150,7 @@ export class ChampTexteAssistant extends Component {
                 />
                 {this.state.lien && (<a href={this.state.lien} target={`lien--${classType}`}><i className={`right ${classType} icon big`}></i></a>)}
                 {this.props.info && (<i className="right info circle icon blue"></i>)}
+                {this.state.soustexte && (<p className="undertext">{this.state.soustexte}</p>)}
             </div>
         )        
     }

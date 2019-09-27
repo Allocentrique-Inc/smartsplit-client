@@ -155,21 +155,153 @@
         "titre": "Valide ton Split",
         "soustitre": "Invite tes collaborateurs à valider ce Split"
       }
+    }
+  },
+  "accueil": {
+    "connexion": "Connexion obligatoire",
+    "message": "Tu dois être connecté pour accéder",
+    "login": "Connecte-toi pour accéder"
+  },
+  "info": {
+    "oeuvre": {
+      "creation": "Oeuvre # {{id}} créée. :)"
+    }
+  },
+  "options": {
+    "piece": {
+      "titre": "Cette oeuvre est ...",
+      "originale": "une création originale",
+      "arrangement": "un arrangement (remix)",
+      "reprise": "une reprise (cover)"
+    }
+  },
+  "titre": {
+    "principal": "Bienvenue sur SmartSplit Alpha - Client",
+    "accueil": "Accueil",
+    "liste-media": "Liste des médias retournés de l'API",
+    "apercu": "Aperçu",
+    "oeil-ouvert": "Gardez l'oeil ouvert",
+    "apercu-sen-vient": "Votre aperçu s'affichera ici"
+  },
+  "collaborateur": {
+    "titre": "Ajouter un artiste collaborateur",
+    "attribut": {
+      "etiquette": {
+        "nom": "Nom légal",
+        "prenom": "Prénom légal",
+        "artiste": "Nom d'artiste (optionel)",
+        "role": "Rôle dans la pièce musicale",
+        "option": " (optionel)",
+        "na": "Si non applicable, nous afficherons le nom complet.",
+        "courriel": "Courriel",
+        "groupe": "Groupes"
+      },
+      "indication": {
+        "nom": "Indique un nom de famille",
+        "prenom": "Indique un prénom",
+        "artiste": "Indique un nom d'artiste",
+        "role": "Choisis un ou plusieurs rôles",
+        "role2": "Ces rôles peuvent être modifiés plus tard.",
+        "groupe": "Choisir un groupe"
+      },
+      "bouton": {
+        "annuler": "Annuler",
+        "sauvegarder": "Sauvegarder",
+        "soumettre": "Soumette"
+      }
     },
-    "accueil": {
-      "connexion": "Connexion obligatoire",
-      "message": "Tu dois être connecté pour accéder",
-      "login": "Connecte-toi pour accéder"
+    "declaration": {
+      "identite": "Déclaration d'identité",
+      "accepter": "Accepter"
+    }
+  },
+  "oeuvre": {
+    "attribut": {
+      "etiquette": {
+        "titre": "Titre",
+        "album": "Album",
+        "piecePar": "{{titre}}, par",
+        "arrangementPar": "{{titre}}, arrangé par",
+        "reprise": "Cette œuvre est une reprise",
+        "instrumental": "Cette œuvre est instrumentale",
+        "artiste": "Artiste ou groupe originel",
+        "juridiction": "Juridiction",
+        "ayantDroit": "Collaborateurs",
+        "genre": "Style musical principal",
+        "genre2": "Style musical secondaire",
+        "paroles": "Paroles",
+        "langueParoles": "Langue des paroles",
+        "isrc": "Numéro ISRC",
+        "upc": "Numéro UPC",
+        "dureeMs": "Durée (millisecondes)",
+        "liensSociaux": "Lien vers un média social",
+        "liensServices": "Lien direct de diffusion",
+        "arrangeur": "Artiste ou groupe ...",
+        "vedette": "Ajouter un artiste ou groupe en vedette ...",
+        "liensPresse": "Lien vers une revue de presse",
+        "liensListes": "Lien vers une liste de lecture",
+        "dateCreation": "Date de création",
+        "dateModification": "Date de modification",
+        "datePublication": "Date de publication",
+        "editeur": "Éditeur",
+        "repartition": "Répartition des droits (%)"
+      },
+      "indication": {
+        "titre": "Titre de la pièce musicale",
+        "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
+        "album": "Album sur lequel figure la pièce musicale",
+        "arrangeur": "Artiste ou groupe ...",
+        "vedette": "Ajouter un artiste ou groupe en vedette ...",
+        "reprise": "",
+        "artiste": "Qui est l'artiste principal ?",
+        "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
+        "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
+        "genre": "Sélectionne le genre principal de la pièce musicale",
+        "genre2": "Sélectionne le genre secondaire de la pièce musicale",
+        "paroles": "Inscrit les paroles",
+        "langueParoles": "Sélectionne la ou les langues pour les paroles",
+        "isrc": "Identifiant unique de l'enregistrement",
+        "upc": "Identifiant unique de produit",
+        "dureeMs": "Indique la durée en millisecondes",
+        "liensSociaux": "URL complet vers un lien social",
+        "liensServices": "URL complet vers un lien de diffusion",
+        "liensPresse": "URL complet vers un article de presse",
+        "liensListes": "URL complet vers une liste de lecture",
+        "dateCreation": "Quand a été créé la pièce musicale ?",
+        "dateModification": "Quand la pièce musicale a-t-elle été modifiée ?",
+        "datePublication": "Quand la pièce musicale a-t-elle été publiée ?",
+        "editeur": "Qui est l'éditeur de la pièce musicale ?",
+        "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
+      }
     },
-    "documente-ton-oeuvre": {
-      "titre": "Documente ton œuvre",
-      "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre."
+    "titre": {
+      "vedette": "Avec la participation (featuring)"
     },
-    "collaborateurs": {
-      "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
-      "preambule": "Commençons par toi...",
-      "role": "Définis ton rôle ?",
-      "ajout": "Ajouter un collaborateur"
+    "creePar": "Créé par"
+  },
+  "navigation": {
+    "suivant": "Suivant",
+    "envoi": "Soumettre",
+    "precedent": "Précédent",
+    "reinitialiser": "Réinitialiser",
+    "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
+    "cest-parti": "C'est parti !"
+  },
+  "documente-ton-oeuvre": {
+    "titre": "Documente ton œuvre",
+    "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre."
+  },
+  "collaborateurs": {
+    "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
+    "preambule": "Commençons par toi...",
+    "role": "Définis ton rôle ?",
+    "ajout": "Ajouter un collaborateur",
+    "composant": {
+      "televersement": {
+        "titre": "Fichier",
+        "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
+        "indication": "ou dépose le fichier ici"
+      }
     },
     "paroles": {
       "titre": "Inscris les paroles de ton œuvre musicale",
@@ -569,14 +701,21 @@
       "PE": "Île-du-Prince-Édouard",
       "QC": "Québec",
       "SK": "Saskatchewan",
-      "YT": "Yukon"
+      "YT": "Yukon",
+      "menuprofil": {
+        "accueil": "Tableau de bord",
+        "profil": "Mon profil",
+        "francais": "Français",
+        "anglais": "English",
+        "deconnexion": "Déconnexion"
+      }
+    },
+    "menuprofil": {
+      "accueil": "Tableau de bord",
+      "profil": "Mon profil SOCAN",
+      "francais": "Français",
+      "anglais": "English",
+      "deconnexion": "Déconnexion"
     }
-  },
-  "menuprofil": {
-    "accueil": "Tableau de bord",
-    "profil": "Mon profil SOCAN",
-    "francais": "Français",
-    "anglais": "English",
-    "deconnexion": "Déconnexion"
   }
 }
