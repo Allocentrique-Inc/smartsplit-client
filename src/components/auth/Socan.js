@@ -149,7 +149,7 @@ class Socan extends Component {
     }
 
     try {
-      axios.post('http://api.smartsplit.org:8080/v1/socan/join', body)
+      axios.post('http://dev.api.smartsplit.org:8080/v1/socan/join', body)
       console.log("BODY: ", body)
       .then(
         function (response) {

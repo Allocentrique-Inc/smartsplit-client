@@ -66,7 +66,7 @@ export default class ListePieces extends Component {
                     let that = this
                     let USER_ID = session.idToken.payload.sub       
     
-                    axios.get('http://api.smartsplit.org:8080/v1/proposal')
+                    axios.get('http://dev.api.smartsplit.org:8080/v1/proposal')
                     .then((res) => {
                         let initiatorMediaIds = []
                         let collabMediaIds = []
@@ -108,7 +108,7 @@ export default class ListePieces extends Component {
                         let jj = '';
     
                         initiatorMediaIds.forEach(async function(element) {
-                            const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + element)
+                            const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + element)
                             _medias.push(res.data.Item)
                             ii++
                             if (initiatorMediaIds.length == ii) {
@@ -118,7 +118,7 @@ export default class ListePieces extends Component {
                         })
     
                         collabMediaIds.forEach(async function(elm) {
-                            const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + elm)
+                            const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + elm)
                             _collabMedias.push(res.data.Item)
                             jj++
                             if (collabMediaIds.length == jj) {
