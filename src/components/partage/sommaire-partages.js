@@ -138,7 +138,7 @@ export default class SommairePartages extends Component {
 
             let _rafraichir = false
 
-            if(_p0.etat === 'VOTATION') {
+            if(_p0 && _p0.etat === 'VOTATION') {
                 _rafraichir = true
             }
 
@@ -229,7 +229,7 @@ export default class SommairePartages extends Component {
                 if(!rights[type]) {
                     rights[type] = {}
                 }
-                if(proposition.rightsSplits[type]) {
+                if(proposition && proposition.rightsSplits[type]) {
                     let rightsSplit = proposition.rightsSplits[type]
                     // Séparation de la structure des droits
                     switch(type) {
@@ -249,8 +249,7 @@ export default class SommairePartages extends Component {
                             traitementDroit(rightsSplit.split, type)
                             break
                         default:
-                    }
-                                        
+                    }                                        
                 }
             })
 
