@@ -147,7 +147,7 @@ class AssistantOeuvre extends Component {
         //let oeuvre = new Oeuvre(values);
         //let body = oeuvre.get();
 
-        axios.post('http://api.smartsplit.org:8080/v1/media', body)
+        axios.post('http://api.smartsplit.org:8080/v1/media', values)
             .then((response) => {
                 actions.setSubmitting(false);
                 toast(t('flot.envoi.reussi'));
