@@ -301,8 +301,8 @@ export default class NouvelleOeuvre extends Component {
             if (this.state.valeurs.type === "2") {
                 type = "REPRISE"
             }
-            
-            axios.put(`http://dev.api.smartsplit.org:8080/v1/media`, {title: titre, type: type})
+
+            axios.put(`http://dev.api.smartsplit.org:8080/v1/media`, {title: titre, type: type, creator: this.state.user.username})
             .then(res=>{
                 // Enregistrement du mediaId pour sauvegarde des données dans handleSubmit                
                 toast.info(t('info.oeuvre.creation', {id: res.data.id}))
@@ -316,9 +316,15 @@ export default class NouvelleOeuvre extends Component {
 
         let body = {
 
+        }        
+
+        let envoiEnCours = false
+        function fin () {
+            window.location.href="/oeuvre/sommaire/104"
         }
 
         if(values.fichier) {
+            envoiEnCours = true
             // Envoi vers le service de fichiers
             this.setState({patience: true})
             
@@ -334,9 +340,16 @@ export default class NouvelleOeuvre extends Component {
                     toast.error(t('flot.envoifichier.echec'))
                 })
                 .finally(()=>{
-                    this.setState({patience: false})                                                
+                    this.setState({patience: false})
+                    fin()
                 })
-        }        
+        }
+
+        if (!envoiEnCours) {
+            // Envoi des informations de création du média à l'api et 
+            // redirection sur la page sommaire
+            fin()
+        }
 
     }
 
