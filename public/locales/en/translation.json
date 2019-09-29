@@ -109,6 +109,9 @@
                 "repartition": "How is the work splitted among contributors?"
             }            
         },
+        "titre": {
+            "vedette": "Featuring"
+        },
         "creePar": "Created by"
     },
     "navigation": {
@@ -135,6 +138,11 @@
         }
     },
     "flot": {
+        "acr": {
+            "titre": "Your musical work is recognized",
+            "oui": "Let's do this !",
+            "non": "No, thanks."
+        },
         "split": {
             "sommaire": {
                 "titre": "Split's Summary",
@@ -291,7 +299,7 @@
             "echec": "Transfer failed"
         },
         "envoifichier": {
-            "reussi": "File transfer successful!",
+            "reussi": "File analysis successful!",
             "echec": "File transfer failed"
         },
         "lien": {
@@ -362,7 +370,7 @@
             "donateur": "Donor"
         },
         "proposition": {
-            "nouvelle": "New",
+            "nouvelle": "New musical work",
             "envoyer": "Send to collaborators",
             "continuer": "Continue to split the rights",
             "sommaire": "Split summary",
@@ -517,6 +525,9 @@
         "inscription": "Register",
         "bonjour": "Hello",
         "encours": "Connecting..."
+    },
+    "televersement": {
+        "encours": "Please wait while we store and analyse your file"
     },
     "socan": {
         "joindre": "Join SOCAN",

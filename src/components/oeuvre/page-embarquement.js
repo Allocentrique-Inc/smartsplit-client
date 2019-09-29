@@ -111,6 +111,7 @@ class PageAssistantOeuvreEmbarquement extends Component {
 
                                                                 toast(t('flot.envoifichier.reussi') + ` ${ f.nom }`)
 
+                                                                // Modale pour remplir les champs automatiquement
                                                                 confirmAlert({
                                                                     title: `Un résultat d'enregistrement est détecté pour ton œuvre!`,
                                                                     message: `Veux-tu que je remplisse tous les champs, pour voir ce que ça donne ?`,
