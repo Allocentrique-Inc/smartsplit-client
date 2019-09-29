@@ -195,8 +195,8 @@ export default class ListePieces extends Component {
                         <div className="ui row">
                             <div className="ui one wide column" />
                             <div className="ui twelve wide column">
-                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('tableaudebord.pieces.1')}</span>
+                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('flot.split.tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
+                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('flot.split.tableaudebord.pieces.1')}</span>
                             </div>
                             <div className="ui one wide column" />
                         </div>
@@ -262,7 +262,7 @@ export default class ListePieces extends Component {
                                             closeIcon
                                             closeOnDimmerClick={false}
                                         >
-                                            <Modal.Header>Créer une nouvelle pièce musicale</Modal.Header>
+                                            <Modal.Header>{t("flot.split.titre.creer")}</Modal.Header>
                                             <Modal.Content>
                                                 <NouvelleOeuvre parent={this} user={this.state.user} />
                                             </Modal.Content>                                            

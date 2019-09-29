@@ -41,18 +41,22 @@
       "etiquette": {
         "titre": "Title",
         "album": "Album",
+        "piecePar": "{{titre}}, by",
+        "arrangementPar": "{{titre}}, remixed by",
         "reprise": "This work is a cover",
         "instrumental": "This work is instrumental",
-        "artiste": "Artist",
+        "artiste": "Artist or original group",
         "juridiction": "Jurisdiction",
         "ayantDroit": "Collaborators",
-        "genre": "Main genre",
-        "creer-genre": "Create a new genre",
+        "genre": "Main genra",
+        "genre2": "Secondary genra",
         "ajouter-genre": "Add a genre",
-        "genre2": "Secondary genre",
+        "paroles": "Lyrics",
+        "langueParoles": "Lyric's languages",
         "isrc": "ISRC #",
         "upc": "UPC #",
         "dureeMs": "Duration (milliseconds)",
+        "vedette": "Add a featuring artist or group",
         "liensSociaux": "Social links",
         "liensServices": "Streaming links",
         "liensPresse": "Press links",
@@ -65,6 +69,8 @@
       },
       "indication": {
         "titre": "Work title",
+        "titre-soustexte": "Do not include guests (featuring, remixed by, etc., in the title",
+        "arrangeur": "Artist or group...",
         "album": "Work album",
         "reprise": "",
         "artiste": "Who is the main artist ?",
@@ -88,7 +94,15 @@
         "repartition": "How is the work splitted among contributors?"
       }
     },
-    "creePar": "Created by"
+    "titre": {
+      "vedette": "Featuring"
+    },
+    "creePar": "Created by",
+    "piece": "Original track",
+    "band": "Band or Artist Name",
+    "feat": "avec",
+    "artistName": "Artist Name",
+    "par": "by"
   },
   "navigation": {
     "suivant": "Next",
@@ -160,7 +174,7 @@
       },
       "options": {
         "piece": {
-          "titre": "This work is ...",
+          "titre": "This work is...",
           "originale": "an original creation",
           "arrangement": "a remix",
           "reprise": "a cover"
@@ -172,7 +186,8 @@
         "liste-media": "Media list returned by the API",
         "apercu": "Preview",
         "oeil-ouvert": "Keep your eyes opened",
-        "apercu-sen-vient": "Your preview will be shown here"
+        "apercu-sen-vient": "Your preview will be shown here",
+        "creer": "Create a new track"
       },
       "collaborateur": {
         "titre": "Add a collaborating artist",
@@ -206,72 +221,13 @@
           "accepter": "Accept"
         }
       },
-      "oeuvre": {
-        "attribut": {
-          "etiquette": {
-            "titre": "Title",
-            "album": "Album",
-            "piecePar": "{{titre}}, by",
-            "arrangementPar": "{{titre}}, remixed by",
-            "reprise": "This work is a cover",
-            "instrumental": "This work is instrumental",
-            "artiste": "Artist or original group",
-            "juridiction": "Jurisdiction",
-            "ayantDroit": "Collaborators",
-            "genre": "Main genra",
-            "genre2": "Secondary genra",
-            "paroles": "Lyrics",
-            "langueParoles": "Lyric's languages",
-            "isrc": "ISRC #",
-            "upc": "UPC #",
-            "dureeMs": "Duration (milliseconds)",
-            "liensSociaux": "Social links",
-            "liensServices": "Streaming links",
-            "liensPresse": "Press links",
-            "liensListes": "Playlist links",
-            "dateCreation": "Creation date",
-            "dateModification": "Modification date",
-            "datePublication": "Publication date",
-            "editeur": "Publisher",
-            "repartition": "Rights split (%)"
-          },
-          "indication": {
-            "titre": "Work title",
-            "titre-soustexte": "Do not include guests (featuring, remixed by, etc., in the title",
-            "arrangeur": "Artist or group...",
-            "vedette": "Add an artist or group as featuring...",
-            "album": "Work album",
-            "reprise": "",
-            "artiste": "Who is the main artist ?",
-            "juridiction": "What is the legal jurisdiction (country)?",
-            "ayantDroit": "Select one or more collaborators",
-            "genre": "Select the primary work genra",
-            "genre2": "Select the secondary work genra",
-            "paroles": "Type in the lyrics",
-            "langueParoles": "Select one or more lyrics language",
-            "isrc": "Recording unique identified",
-            "upc": "Product unique identifier",
-            "dureeMs": "Type in the duration (in milliseconds)",
-            "liensSociaux": "URL for social link",
-            "liensServices": "URL for streaming link",
-            "liensPresse": "URL for press review",
-            "liensListes": "URL for playlist",
-            "dateCreation": "When was the work created or composed?",
-            "dateModification": "When was the work modified?",
-            "datePublication": "When was the work published?",
-            "editeur": "Who is the publisher of the work?",
-            "repartition": "How is the work splitted among contributors?"
-          }
-        },
-        "creePar": "Created by"
-      },
       "navigation": {
         "suivant": "Next",
         "envoi": "Submit",
         "precedent": "Previous",
         "reinitialiser": "Reset",
         "transfertEnCours": "Data transfer in progress, please be patient.",
-        "cest-parti": "Let's Go !"
+        "cest-parti": "Let's Go!"
       },
       "accueil": {
         "connexion": "Connexion obligatoire",
@@ -292,15 +248,7 @@
           "titre": "What are the roles of each in {oeuvre} ?",
           "preambule": "Let's begin with yourself...",
           "role": "What is your role in the work?",
-          "ajout": "Add a first collaborator",
-          "proposition": {
-            "nouvelle": "Create ne version",
-            "envoyer": "Send to collaborators",
-            "continuer": "Continue the plit",
-            "sommaire": "Access summary",
-            "voter": "Access voting",
-            "voter-avec-jeton": "You can only vote with the link sent to you upon the creation of the proposition."
-          }
+          "ajout": "Add a collaborator"
         },
         "paroles": {
           "titre": "Type in the lyrics of your work",
@@ -318,7 +266,7 @@
             "sortie": "Exit",
             "fichier": "Files",
             "influence": "Inspirations",
-            "influenceurs": "Mention one or many artists",
+            "influenceurs": "Mention one or more artists",
             "exemple": "Exemple : The Beatles, Dr Dre, Mozart, Jacques Brel, Stromae...",
             "parole": "Lyrics",
             "ajouter-parole": "Add lyrics",
@@ -333,6 +281,7 @@
           "date-creation": "Creation Date",
           "date-placeholder": "Add a date",
           "auteur": "Authors",
+          "collabo": "Create a new controbutor",
           "auteur-description": "Who wrote the lyrics of this musical piece?",
           "auteur-placeholder": "Add an Author",
           "compositeur": "Composers",
@@ -375,7 +324,7 @@
           "studio-adresse": "Address of the recording studio",
           "production": "Executive Producer",
           "production-description": "The person or compagny that invest time or money to make sound recording possible.",
-          "production-placeholder": "Add an Producer",
+          "production-placeholder": "Add a Producer",
           "etiquette": "Label",
           "etiquette-description": "That's the organisation that handles the marketing of your track.",
           "etiquette-placeholder": "Add a label",
@@ -401,6 +350,8 @@
           "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
           "titre7": "Was the musical piece already broadcasted?",
           "titre7-description": "To increase the chances for your track to be discovered and listened to, document its streaming and online shopping links.",
+          "sur": "on...",
+          "platforme": "Add as a platform",
           "titre8": "Cover Artwork",
           "titre8-description": "An album has a cover, a song or an instrumental track must also have a cover artwork to represent it.",
           "titre8-plus": "Learn more",
@@ -652,10 +603,15 @@
         "ou": "or",
         "bouton": "Create my account"
       }
-    }
+    },
+      "fin": {
+        "created": "Documentation créee",
+        "maintenant": "est maintenant documentée !",
+        "resume": "Voir le résumé"
+      }
   },
   "accueil": {
-    "titre": "Login to you Smart Split account.",
+    "titre": "Login to your Smart Split account.",
     "sous-titre": "Enter your information below.",
     "courriel": "Enter email",
     "motdepasse": "My password",

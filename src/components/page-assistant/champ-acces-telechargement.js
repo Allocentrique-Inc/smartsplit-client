@@ -93,7 +93,9 @@ export default class ChampAccesTelechargement extends React.Component {
         {t => (
           <div className="champ champ-acces">
             <label>
-              <TitreChamp label={t("flot.documenter.acces")} />
+              <TitreChamp
+                label={t("flot.split.documente-ton-oeuvre.documenter.acces")}
+              />
 
               <Dropdown
                 trigger={this.trigger()}

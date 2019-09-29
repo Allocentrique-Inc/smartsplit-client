@@ -34,7 +34,9 @@ export default class PageInformationsGenerales extends React.Component {
                 pochette={this.props.pochette}
                 icon={this.icon()}
                 label={t("flot.documenter.titre5")}
-                question={t("flot.documenter.details")}
+                question={t(
+                  "flot.split.documente-ton-oeuvre.documenter.details"
+                )}
               />
 
               <div className="mb-2">
@@ -42,7 +44,9 @@ export default class PageInformationsGenerales extends React.Component {
                   <div className="ui sixteen wide mobile eight wide tablet eight wide computer column">
                     <ChampDuree
                       pochette={this.props.pochette}
-                      label={t("flot.documenter.duree")}
+                      label={t(
+                        "flot.split.documente-ton-oeuvre.documenter.duree"
+                      )}
                       placeholder="MM:SS"
                       msDuration={this.props.values.msDuration}
                       onChange={value =>
@@ -87,9 +91,15 @@ export default class PageInformationsGenerales extends React.Component {
 
               <ChampTexte
                 pochette={this.props.pochette}
-                label={t("flot.documenter.entete.influence")}
-                placeholder={t("flot.documenter.entete.influenceurs")}
-                undertext={t("flot.documenter.entete.exemple")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.influence"
+                )}
+                placeholder={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.influenceurs"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.exemple"
+                )}
                 value={this.props.values.influence}
                 onChange={value => this.props.setFieldValue("influence", value)}
               />

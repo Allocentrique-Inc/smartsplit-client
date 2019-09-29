@@ -44,9 +44,15 @@ export default class PageInterpretation extends Component {
               <Entete
                 pochette={this.props.pochette}
                 icon={this.icon()}
-                label={t("flot.documenter.entete.interpretation")}
-                question={t("flot.documenter.titre2")}
-                description={t("flot.documenter.titre2-description")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.interpretation"
+                )}
+                question={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre2"
+                )}
+                description={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre2-description"
+                )}
               />
 
               <ChampSelectionInterprete
@@ -54,7 +60,9 @@ export default class PageInterpretation extends Component {
                 rightHolders={this.props.rightHolders}
                 musicians={this.musicians()}
                 values={this.props.values}
-                placeholder={t("flot.documenter.titre2-placeholder")}
+                placeholder={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre2-placeholder"
+                )}
                 onChange={newRightHolders => this.handleChange(newRightHolders)}
               />
             </Colonne>

@@ -21,7 +21,7 @@ export default class InputFichier extends React.Component {
         {t =>
           this.state.filename ||
           this.props.placeholder ||
-          t("flot.documenter.glisse")
+          t("flot.split.documente-ton-oeuvre.documenter.glisse")
         }
       </Translation>
     );
@@ -49,11 +49,17 @@ export default class InputFichier extends React.Component {
       <Translation>
         {t => (
           <div className="file-input-container">
-            <div className="ui button" onClick={this.clickFileInput}>
-              {t("flot.documenter.choix")}
+            <div
+              className="ui button"
+              style={{ width: "100px" }}
+              onClick={this.clickFileInput}
+            >
+              {t("flot.split.documente-ton-oeuvre.documenter.choix")}
             </div>
 
-            <div className="placeholder">{this.placeholder()}</div>
+            <div className="placeholder" style={{ width: "225px" }}>
+              {this.placeholder()}
+            </div>
 
             <input
               ref={this.fileInputRef}

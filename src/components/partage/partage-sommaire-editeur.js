@@ -131,7 +131,7 @@ export default class PartageSommaireEditeur extends Component {
                     t=>
                         <div className="ui button medium" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
                             this.voter(true)                        
-                        }}>{t('vote.accepter')}</div>
+                        }}>{t('flot.split.vote.accepter')}</div>
                 }
             </Translation>
         )
@@ -149,7 +149,7 @@ export default class PartageSommaireEditeur extends Component {
                         <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
                             this.voter(false)
                             this.justifierRefus()
-                        }}>{t('vote.refuser')}</div>
+                        }}>{t('flot.split.vote.refuser')}</div>
                 }
             </Translation>            
         )
@@ -330,7 +330,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 {
                                                     t=>
                                                         <div style={{color: this.state.choix === 'accept' ? "green" : (this.state.choix === "reject" ? "red" : "grey")}}>
-                                                            <strong>{t(`vote.${this.state.choix}`)}</strong>
+                                                            <strong>{t(`flot.split.vote.${this.state.choix}`)}</strong>
                                                         </div>                                                    
                                                 }
                                             </Translation>
@@ -368,7 +368,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 {
                                                     t=>
                                                         <div style={{color: "green"}}>
-                                                            <strong>{t(`vote.accept`)}</strong>
+                                                            <strong>{t(`flot.split.vote.accept`)}</strong>
                                                         </div>                                                    
                                                 }
                                             </Translation>
@@ -391,7 +391,7 @@ export default class PartageSommaireEditeur extends Component {
                         (
                             <button className="ui medium button" disabled={!this.state.transmission} onClick={()=>{
                                 this.transmettre(t)
-                            }}> {t('flot.bouton.voter')}
+                            }}> {t('flot.split.documente-ton-oeuvre.bouton.voter')}
                             </button>
                         )
                     }    

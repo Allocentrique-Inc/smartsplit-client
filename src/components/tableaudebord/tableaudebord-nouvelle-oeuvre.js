@@ -45,16 +45,16 @@ class Apercu extends Component {
                                     textTransform: "uppercase",
                                     paddingTop: "16px",
                                     color: "#8DA0B3"                                                
-                                }}>{t('titre.apercu')}</p>
+                                }}>{t('flot.split.titre.apercu')}</p>
                                 <div className="ui grid">
                                     <div className="ui two wide column">
                                         <i className="file image outline icon big grey" /> 
                                     </div>
                                     <div className="ui twelve wide column">
                                         <p>
-                                            {this.state.values.artiste || t('titre.oeil-ouvert')}
+                                            {this.state.values.artiste || t('flot.split.titre.oeil-ouvert')}
                                         </p>
-                                        <p style={{fontWeight: "bolder"}}>{this.state.values.titre || t('titre.apercu-sen-vient')}</p>
+                                        <p style={{fontWeight: "bolder"}}>{this.state.values.titre || t('flot.split.titre.apercu-sen-vient')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -103,15 +103,15 @@ class Base extends Component {
                                         requis={true}                                            
                                         choix={[
                                             {
-                                                nom: t('options.piece.originale'),
+                                                nom: t('flot.split.options.piece.originale'),
                                                 valeur: ORIGINALE
                                             },
                                             {
-                                                nom: t('options.piece.arrangement'),
+                                                nom: t('flot.split.options.piece.arrangement'),
                                                 valeur: ARRANGEMENT
                                             },
                                             {
-                                                nom: t('options.piece.reprise'),
+                                                nom: t('flot.split.options.piece.reprise'),
                                                 valeur: REPRISE
                                             }
                                         ]}
@@ -227,13 +227,13 @@ class Page2NouvellePiece extends Component {
                                             )
                                         }
 
-                                        <div style={{marginTop: "20px"}} className="ui row">
+                                        <div style={{marginTop: "20px", width: "350px"}} className="ui row">
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={ this.props.pochette }
                                                 items={ this.rightHolderOptions() }
                                                 label={ t('oeuvre.titre.vedette') }
                                                 createLabel="Créer un nouveau collaborateur"
-                                                placeholder={ t('oeuvre.attribut.indication.vedette') }
+                                                placeholder={ t('oeuvre.attribut.etiquette.vedette') }
                                                 value={ this.state.vedettes }
                                                 onChange={ ids => this.props.setFieldValue('vedettes', ids) }
                                             />
@@ -241,7 +241,7 @@ class Page2NouvellePiece extends Component {
 
                                         <ChampTeleversement
                                             label={t('composant.televersement.titre')}
-                                            undertext={t('composant.televersement.soustitre')}                                     
+                                            undertext={t('flot.split.documente-ton-oeuvre.composant.televersement.soustitre')}                                     
                                             onFileChange={ value => {this.props.setFieldValue('fichier', value.name); this.props.parent.setState({fichier: value})} }
                                             acces={false}
                                         />
@@ -357,7 +357,7 @@ export default class NouvelleOeuvre extends Component {
                                         titre: undefined,
                                         type: undefined
                                     }}
-                                    buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.cest-parti')}}
+                                    buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti')}}
                                     debug={false}         
                                     onPageChanged={no=>this.changementPage(no, t)}                       
                                     onSubmit={(values, {setSubmitting})=>{this.soumettre(values, t); setSubmitting(false) }}

@@ -86,7 +86,7 @@ export default class LigneMedia extends Component {
                     className="small-400"
                     style={{ display: "inline-block" }}
                   >
-                    &nbsp;&nbsp;{t("tableaudebord.pieces.par")}&nbsp;
+                    &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
                   </div>
                   <div
                     className="small-500-color"
@@ -101,7 +101,7 @@ export default class LigneMedia extends Component {
                       moment(elem.modificationDate)
                         .locale(i18n.lng.substring(0, 2))
                         .fromNow()}{" "}
-                    &bull; {t("tableaudebord.pieces.partageAvec")}
+                    &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
                   </div>
                 </div>
                 <div className="ui six wide column">
@@ -112,7 +112,9 @@ export default class LigneMedia extends Component {
                         window.location.href = `/partager/existant/${_p.uuid}`;
                       }}
                     >
-                      {t("flot.proposition.continuer")}
+                      {t(
+                        "flot.split.documente-ton-oeuvre.proposition.continuer"
+                      )}
                     </div>
                   )}
                   {!nouveauDisabled && (

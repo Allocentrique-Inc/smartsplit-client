@@ -114,7 +114,7 @@ class ForgotPassword extends Component {
                   fontWeight: "normal"
                 }}
               >
-                {t("auth.oublier.titre")}
+                {t("flot.split.auth.oublier.titre")}
               </h1>
               <p>{t("flot.split.auth.oublier.preambule")}</p>
               {/* <FormErrors formerrors={this.state.errors} /> */}

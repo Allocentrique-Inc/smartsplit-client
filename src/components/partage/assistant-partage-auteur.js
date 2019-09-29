@@ -328,17 +328,17 @@ class PageAssistantPartageAuteur extends Component {
                                 </div>
                                 <div className="ui three wide column">
                                     <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
-                                        {t('flot.etape.enregistrerEtQuitter')}
+                                        {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>
                             </div>
                             <div className="ui row">
                                 <div className="ui seven wide column">
-                                    <div className="wizard-title">{t('flot.partage.auteur.titre')}</div>
+                                    <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.partage.auteur.titre')}</div>
                                     <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
-                                        { t('partage.auteur.titre', {oeuvre: this.state.song}) }
+                                        { t('flot.split.documente-ton-oeuvre.partage.auteur.titre', {oeuvre: this.state.song}) }
                                     </div>
                                     <br/>
                                     {descriptif}
@@ -368,15 +368,15 @@ class PageAssistantPartageAuteur extends Component {
                                                             titre=""
                                                             choix={[
                                                                 {
-                                                                    nom: t('modepartage.egal'),
+                                                                    nom: t('flot.split.modepartage.egal'),
                                                                     valeur: MODES.egal
                                                                 },
                                                                 {
-                                                                    nom: t('modepartage.roles'),
+                                                                    nom: t('flot.split.modepartage.roles'),
                                                                     valeur: MODES.role
                                                                 },
                                                                 {
-                                                                    nom: t('modepartage.manual'),
+                                                                    nom: t('flot.split.modepartage.manual'),
                                                                     valeur: MODES.manuel
                                                                 }
                                                             ]}
@@ -395,15 +395,15 @@ class PageAssistantPartageAuteur extends Component {
                                                                         let roles = [
                                                                             {
                                                                                 id: "auteur",
-                                                                                nom: t('flot.partage.auteur.role.auteur')
+                                                                                nom: t('flot.split.documente-ton-oeuvre.partage.auteur.role.auteur')
                                                                             },
                                                                             {
                                                                                 id: "compositeur",
-                                                                                nom: t('flot.partage.auteur.role.compositeur')
+                                                                                nom: t('flot.split.documente-ton-oeuvre.partage.auteur.role.compositeur')
                                                                             },
                                                                             {
                                                                                 id: "arrangeur",
-                                                                                nom: t('flot.partage.auteur.role.arrangeur')
+                                                                                nom: t('flot.split.documente-ton-oeuvre.partage.auteur.role.arrangeur')
                                                                             }
                                                                         ]
                                                                         return (
@@ -508,12 +508,15 @@ class PageAssistantPartageAuteur extends Component {
                                                                         )
                                                                     })
                                                                 }
-                                                                <div style={{ margin: "0 auto", height: "100px" }}>
+                                                                <br></br>
+                                                                <br></br>
+                                                                <div style={{ margin: "0 auto" }}>
                                                                     <div className="ui grid">
                                                                         <div className="ui row">
                                                                             <div className="ui ten wide column">
                                                                                 <ChampListeCollaborateurAssistant
-                                                                                    indication={t('flot.collaborateurs.ajout')}
+                                                                                    style={{height: "50px" }}
+                                                                                    indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                                     modele="collaborateur"
                                                                                     autoFocus={false}
                                                                                     requis={false}
@@ -534,7 +537,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     onClick={(e) => {
                                                                                         e.preventDefault()
                                                                                         this.ajouterCollaborateur(arrayHelpers)
-                                                                                    }}>{t('flot.bouton.ajout')}
+                                                                                    }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
                                                                                 </button>
                                                                             </div>
                                                                         </div>

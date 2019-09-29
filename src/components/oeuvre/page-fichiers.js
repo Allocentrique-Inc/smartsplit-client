@@ -38,25 +38,42 @@ export default class PageFichiers extends React.Component {
               <Entete
                 pochette={this.props.pochette}
                 icon={this.icon()}
-                label={t("flot.documenter.entete.fichier")}
-                question={t("flot.documenter.titre4")}
-                description={t("flot.documenter.titre4-description")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.fichier"
+                )}
+                question={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre4"
+                )}
+                description={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre4-description"
+                )}
               />
 
               <div className="entete-section">
                 <h3 className="section-title with-description">
-                  {t("flot.documenter.titre8")}
+                  {t("flot.split.documente-ton-oeuvre.documenter.titre8")}
                 </h3>
 
                 <p className="description">
-                  {t("flot.documenter.titre8-description")} <br />
-                  <a href="#">{t("flot.documenter.titre8-plus")}</a>
+                  {t(
+                    "flot.split.documente-ton-oeuvre.documenter.titre8-description"
+                  )}{" "}
+                  <br />
+                  <a href="#">
+                    {t(
+                      "flot.split.documente-ton-oeuvre.documenter.titre8-plus"
+                    )}
+                  </a>
                 </p>
               </div>
 
               <ChampTeleversement
-                label={t("flot.documenter.titre8-etape1")}
-                undertext={t("flot.documenter.titre8-etape2")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre8-etape1"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre8-etape2"
+                )}
                 file={this.props.values.files.cover.file}
                 access={this.props.values.files.cover.access || "public"}
                 onFileChange={value =>
@@ -71,17 +88,23 @@ export default class PageFichiers extends React.Component {
 
               <div className="entete-section">
                 <h3 className="section-title with-description">
-                  {t("flot.documenter.titre9")}
+                  {t("flot.split.documente-ton-oeuvre.documenter.titre9")}
                 </h3>
 
                 <p className="description">
-                  {t("flot.documenter.titre9-description")}
+                  {t(
+                    "flot.split.documente-ton-oeuvre.documenter.titre9-description"
+                  )}
                 </p>
               </div>
 
               <ChampTeleversement
-                label={t("flot.documenter.titre9-etape1")}
-                undertext={t("flot.documenter.titre9-etape2")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre9-etape1"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre9-etape2"
+                )}
                 access={this.props.values.files.audio.access || "on-invite"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.audio.file", value)
@@ -95,17 +118,23 @@ export default class PageFichiers extends React.Component {
 
               <div className="entete-section">
                 <h3 className="section-title with-description">
-                  {t("flot.documenter.autre")}
+                  {t("flot.split.documente-ton-oeuvre.documenter.autre")}
                 </h3>
 
                 <p className="description">
-                  {t("flot.documenter.autre-description")}
+                  {t(
+                    "flot.split.documente-ton-oeuvre.documenter.autre-description"
+                  )}
                 </p>
               </div>
 
               <ChampTeleversement
-                label={t("flot.documenter.autre-etape1")}
-                undertext={t("flot.documenter.autre-etape2")} //Mette ça en toolkit
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.autre-etape1"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.autre-etape2"
+                )} //Mette ça en toolkit
                 access={this.props.values.files.score.access || "on-invite"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.score.file", value)
@@ -124,7 +153,7 @@ export default class PageFichiers extends React.Component {
                     }
                     style={{ color: "#2DA84F" }}
                   >
-                    {t("flot.documenter.autre-plus")}
+                    {t("flot.split.documente-ton-oeuvre.documenter.autre-plus")}
                   </a>
                 }
                 key={terms}
@@ -132,8 +161,12 @@ export default class PageFichiers extends React.Component {
               />
 
               <ChampTeleversement
-                label={t("flot.documenter.autre-etape3")}
-                undertext={t("flot.documenter.autre-etape4")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.autre-etape3"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.autre-etape4"
+                )}
                 access={this.props.values.files.midi.access || "on-invite"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.midi.file", value)

@@ -12,15 +12,17 @@ class ChampAccesVision extends React.Component {
     {
       key: "public",
       value: "public",
-      text: "Public - Rendre l’information visible de tous",
+      text: this.props.t("flot.split.documente-ton-oeuvre.documenter.prive"),
       "icon-image": EyeIcon,
       content: (
         <OptionAcces
           icon={EyeIcon}
-          title={"Public - Rendre l’information visible de tous"}
-          description={
-            "Tous les utilisateurs pourront avoir accès à cette information."
-          }
+          title={this.props.t(
+            "flot.split.documente-ton-oeuvre.documenter.public"
+          )}
+          description={this.props.t(
+            "flot.split.documente-ton-oeuvre.documenter.prive"
+          )}
         />
       )
     },
@@ -28,13 +30,17 @@ class ChampAccesVision extends React.Component {
     {
       key: "on-invite",
       value: "on-invite",
-      text: this.props.t("flot.documenter.invite"),
+      text: this.props.t("flot.split.documente-ton-oeuvre.documenter.invite"),
       "icon-image": DownloadLockIcon,
       content: (
         <OptionAcces
           icon={DownloadLockIcon}
-          title={this.props.t("flot.documenter.invite")}
-          description={this.props.t("flot.documenter.invite-description")}
+          title={this.props.t(
+            "flot.split.documente-ton-oeuvre.documenter.invite"
+          )}
+          description={this.props.t(
+            "flot.split.documente-ton-oeuvre.documenter.invite-description"
+          )}
         />
       )
     },
@@ -42,13 +48,17 @@ class ChampAccesVision extends React.Component {
     {
       key: "private",
       value: "private",
-      text: this.props.t("flot.documenter.invite"),
+      text: this.props.t("flot.split.documente-ton-oeuvre.documenter.invite"),
       "icon-image": LockFullIcon,
       content: (
         <OptionAcces
           icon={LockFullIcon}
-          title={this.props.t("flot.documenter.prive")}
-          description={this.props.t("flot.documenter.prive-description")}
+          title={this.props.t(
+            "flot.split.documente-ton-oeuvre.documenter.prive"
+          )}
+          description={this.props.t(
+            "flot.split.documente-ton-oeuvre.documenter.prive-description"
+          )}
         />
       )
     }
@@ -90,7 +100,11 @@ class ChampAccesVision extends React.Component {
     return (
       <div className="champ">
         <label>
-          <TitreChamp label={this.props.t("flot.documenter.acces")} />
+          <TitreChamp
+            label={this.props.t(
+              "flot.split.documente-ton-oeuvre.documenter.acces"
+            )}
+          />
 
           <Dropdown
             trigger={this.trigger()}

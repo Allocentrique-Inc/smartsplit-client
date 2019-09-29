@@ -38,15 +38,25 @@ export default class PageParoles extends React.Component {
                 icon={this.icon()}
                 label={t("flot.documenter.entete.parole")}
                 question={
-                  this.props.values.title + " " + t("flot.documenter.titre6")
+                  this.props.values.title +
+                  " " +
+                  t("flot.split.documente-ton-oeuvre.documenter.titre6")
                 }
-                description={t("flot.documenter.titre6-description")}
+                description={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre6-description"
+                )}
               />
 
               <ChampTextArea
-                label={t("flot.documenter.entete.parole")}
-                placeholder={t("flot.documenter.entete.ajouter-parole")}
-                undertext={t("flot.documenter.entete.parole-only")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.parole"
+                )}
+                placeholder={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.ajouter-parole"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.parole-only"
+                )}
                 value={this.props.values.lyrics.text}
                 onChange={value =>
                   this.props.setFieldValue("lyrics.text", value)
@@ -56,9 +66,15 @@ export default class PageParoles extends React.Component {
               <ChampSelectionMultiple
                 pochette={this.props.pochette}
                 items={this.languageOptions()}
-                label={t("flot.documenter.entete.langueParole")}
-                createLabel={t("flot.documenter.entete.langue-creer")}
-                placeholder={t("flot.documenter.entete.langue-ajouter")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.langueParole"
+                )}
+                createLabel={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.langue-creer"
+                )}
+                placeholder={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.langue-ajouter"
+                )}
                 value={this.props.values.lyrics.languages}
                 onChange={values =>
                   this.props.setFieldValue("lyrics.languages", values)

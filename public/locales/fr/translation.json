@@ -41,15 +41,16 @@
       "etiquette": {
         "titre": "Titre",
         "album": "Album",
+        "piecePar": "{{titre}}, par",
+        "arrangementPar": "{{titre}}, arrangé par",
         "reprise": "Cette œuvre est une reprise",
         "instrumental": "Cette œuvre est instrumentale",
-        "artiste": "Artiste",
+        "artiste": "Artiste ou groupe originel",
         "juridiction": "Juridiction",
         "ayantDroit": "Collaborateurs",
-        "genre": "Genre principal",
-        "creer-genre": "Créer un nouveau genre",
+        "genre": "Style musical principal",
+        "genre2": "Style musical secondaire",
         "ajouter-genre": "Ajouter un genre",
-        "genre2": "Genre secondaire",
         "paroles": "Paroles",
         "langueParoles": "Langue des paroles",
         "isrc": "Numéro ISRC",
@@ -57,6 +58,8 @@
         "dureeMs": "Durée (millisecondes)",
         "liensSociaux": "Lien vers un média social",
         "liensServices": "Lien direct de diffusion",
+        "arrangeur": "Artiste ou groupe",
+        "vedette": "Ajouter un artiste ou groupe en vedette",
         "liensPresse": "Lien vers une revue de presse",
         "liensListes": "Lien vers une liste de lecture",
         "dateCreation": "Date de création",
@@ -66,14 +69,17 @@
         "repartition": "Répartition des droits (%)"
       },
       "indication": {
-        "titre": "Titre de l'œuvre",
-        "album": "Album sur lequel figure l'œuvre",
+        "titre": "Titre de la pièce musicale",
+        "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
+        "album": "Album sur lequel figure la pièce musicale",
+        "arrangeur": "Artiste ou groupe ...",
+        "vedette": "Ajouter un artiste ou groupe en vedette ...",
         "reprise": "",
         "artiste": "Qui est l'artiste principal ?",
         "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
         "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
-        "genre": "Sélectionne le genre principal de l'œuvre",
-        "genre2": "Sélectionne le genre secondaire de l'œuvre",
+        "genre": "Sélectionne le genre principal de la pièce musicale",
+        "genre2": "Sélectionne le genre secondaire de la pièce musicale",
         "paroles": "Inscrit les paroles",
         "langueParoles": "Sélectionne la ou les langues pour les paroles",
         "isrc": "Identifiant unique de l'enregistrement",
@@ -83,14 +89,22 @@
         "liensServices": "URL complet vers un lien de diffusion",
         "liensPresse": "URL complet vers un article de presse",
         "liensListes": "URL complet vers une liste de lecture",
-        "dateCreation": "Quand a été créé l'œuvre ?",
-        "dateModification": "Quand l'œuvre a-t-elle été modifiée ?",
-        "datePublication": "Quand l'œuvre a-t-elle été publiée ?",
-        "editeur": "Qui est l'éditeur de l'œuvre ?",
+        "dateCreation": "Quand a été créé la pièce musicale ?",
+        "dateModification": "Quand la pièce musicale a-t-elle été modifiée ?",
+        "datePublication": "Quand la pièce musicale a-t-elle été publiée ?",
+        "editeur": "Qui est l'éditeur de la pièce musicale ?",
         "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
       }
     },
-    "creePar": "Créé par"
+    "titre": {
+      "vedette": "Avec la participation"
+    },
+    "creePar": "Créé par",
+    "piece": "Pièce originale",
+    "band": "Groupe ou nom d'artiste",
+    "feat": "avec",
+    "artistName": "Nom d'artiste",
+    "par": "par"
   },
   "navigation": {
     "suivant": "Suivant",
@@ -101,13 +115,6 @@
   },
   "validation": {
     "requis": "Requis"
-  },
-  "composant": {
-    "televersement": {
-      "titre": "Téléverse tes fichiers sources",
-      "indication": "Glisse et dépose des fichiers ou clique ici pour envoyer.",
-      "preambule": "Ici tu peux envoyer tes fichiers sources. Ces fichiers seront accessibles seulement aux tierces personnes qui en possèdent les accès privés. Tu peux ainsi partager tes fichiers directement aux radios, télédiffuseurs, etc. Ce ne sont pas des liens pour le public."
-    }
   },
   "image": {
     "embarquement": {
@@ -167,7 +174,7 @@
       },
       "options": {
         "piece": {
-          "titre": "Cette oeuvre est ...",
+          "titre": "Cette oeuvre est...",
           "originale": "une création originale",
           "arrangement": "un arrangement (remix)",
           "reprise": "une reprise (cover)"
@@ -179,7 +186,8 @@
         "liste-media": "Liste des médias retournés de l'API",
         "apercu": "Aperçu",
         "oeil-ouvert": "Gardez l'oeil ouvert",
-        "apercu-sen-vient": "Votre aperçu s'affichera ici"
+        "apercu-sen-vient": "Votre aperçu s'affichera ici",
+        "creer": "Créer une nouvelle pièce musicale"
       },
       "collaborateur": {
         "titre": "Ajouter un artiste collaborateur",
@@ -213,70 +221,6 @@
           "accepter": "Accepter"
         }
       },
-      "oeuvre": {
-        "attribut": {
-          "etiquette": {
-            "titre": "Titre",
-            "album": "Album",
-            "piecePar": "{{titre}}, par",
-            "arrangementPar": "{{titre}}, arrangé par",
-            "reprise": "Cette œuvre est une reprise",
-            "instrumental": "Cette œuvre est instrumentale",
-            "artiste": "Artiste ou groupe originel",
-            "juridiction": "Juridiction",
-            "ayantDroit": "Collaborateurs",
-            "genre": "Style musical principal",
-            "genre2": "Style musical secondaire",
-            "paroles": "Paroles",
-            "langueParoles": "Langue des paroles",
-            "isrc": "Numéro ISRC",
-            "upc": "Numéro UPC",
-            "dureeMs": "Durée (millisecondes)",
-            "liensSociaux": "Lien vers un média social",
-            "liensServices": "Lien direct de diffusion",
-            "arrangeur": "Artiste ou groupe ...",
-            "vedette": "Ajouter un artiste ou groupe en vedette ...",
-            "liensPresse": "Lien vers une revue de presse",
-            "liensListes": "Lien vers une liste de lecture",
-            "dateCreation": "Date de création",
-            "dateModification": "Date de modification",
-            "datePublication": "Date de publication",
-            "editeur": "Éditeur",
-            "repartition": "Répartition des droits (%)"
-          },
-          "indication": {
-            "titre": "Titre de la pièce musicale",
-            "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
-            "album": "Album sur lequel figure la pièce musicale",
-            "arrangeur": "Artiste ou groupe ...",
-            "vedette": "Ajouter un artiste ou groupe en vedette ...",
-            "reprise": "",
-            "artiste": "Qui est l'artiste principal ?",
-            "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
-            "ayantDroit": "Sélectionne un ou plusieurs collaborateurs",
-            "genre": "Sélectionne le genre principal de la pièce musicale",
-            "genre2": "Sélectionne le genre secondaire de la pièce musicale",
-            "paroles": "Inscrit les paroles",
-            "langueParoles": "Sélectionne la ou les langues pour les paroles",
-            "isrc": "Identifiant unique de l'enregistrement",
-            "upc": "Identifiant unique de produit",
-            "dureeMs": "Indique la durée en millisecondes",
-            "liensSociaux": "URL complet vers un lien social",
-            "liensServices": "URL complet vers un lien de diffusion",
-            "liensPresse": "URL complet vers un article de presse",
-            "liensListes": "URL complet vers une liste de lecture",
-            "dateCreation": "Quand a été créé la pièce musicale ?",
-            "dateModification": "Quand la pièce musicale a-t-elle été modifiée ?",
-            "datePublication": "Quand la pièce musicale a-t-elle été publiée ?",
-            "editeur": "Qui est l'éditeur de la pièce musicale ?",
-            "repartition": "Comment sont répartis les droits parmis les collaborateurs ?"
-          }
-        },
-        "titre": {
-          "vedette": "Avec la participation (featuring)"
-        },
-        "creePar": "Créé par"
-      },
       "navigation": {
         "suivant": "Suivant",
         "envoi": "Soumettre",
@@ -288,18 +232,18 @@
       "documente-ton-oeuvre": {
         "titre": "Documente ton œuvre",
         "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre.",
+        "composant": {
+          "televersement": {
+            "titre": "Fichier",
+            "soustitre": "WAV ou MP3 seulement, 100 MB maximum.",
+            "indication": "ou déposer le fichier ici"
+          }
+        },
         "collaborateurs": {
           "titre": "Quels sont les rôles de chacun dans {oeuvre} ? ",
           "preambule": "Commençons par toi...",
           "role": "Définis ton rôle ?",
-          "ajout": "Ajouter un collaborateur"
-        },
-        "composant": {
-          "televersement": {
-            "titre": "Fichier",
-            "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
-            "indication": "ou dépose le fichier ici"
-          }
+          "ajout": "Ajouter collaborateur"
         },
         "paroles": {
           "titre": "Inscris les paroles de ton œuvre musicale",
@@ -332,6 +276,7 @@
           "date-creation": "Date de création",
           "date-placeholder": "Ajouter une date",
           "auteur": "Auteurs",
+          "collabo": "Créer un nouveau collaborateur",
           "auteur-placeholder": "Ajouter un auteur",
           "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
           "compositeur": "Compositeurs",
@@ -343,16 +288,6 @@
           "code": "Code ISWC",
           "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
           "code-placeholder": "Ajouter un code",
-          "date-creation": "Date de création",
-          "date-placeholder": "Ajouter une date",
-          "auteur": "Auteurs",
-          "auteur-placeholder": "Ajouter un auteur",
-          "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
-          "compositeur": "Compositeurs",
-          "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
-          "editeur": "Éditeurs",
-          "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
-          "editeur-placeholder": "Ajouter un éditeur",
           "codeiswc": "Code ISWC",
           "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
           "codeiswc-placeholder": "Ajouter un code",
@@ -413,6 +348,8 @@
           "titre6-description": "Les mots dans une chanson sont d'excellentes données descriptives sur l'oeuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
           "titre7": "La pièce musicale a-t-elle déjà été diffusée?",
           "titre7-description": "Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
+          "sur": "sur...",
+          "platforme": "Ajouter comme plateforme",
           "titre8": "Illustration",
           "titre8-description": "Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
           "titre8-plus": "En savoir plus",
@@ -660,6 +597,11 @@
         "ou": "ou",
         "bouton": "Créer mon compte"
       }
+    },
+    "fin": {
+      "created": "Created documentation",
+      "maintenant": "is now documented!",
+      "resume": "See the summary"
     }
   },
   "accueil": {
