@@ -8,6 +8,7 @@ import LigneMedia from './tableaudebord-ligne-media'
 import { Modal } from 'semantic-ui-react';
 import AssistantOeuvre from '../oeuvre/assistant-oeuvre';
 import NouvelleOeuvre from './tableaudebord-nouvelle-oeuvre';
+import AudioLecture from '../oeuvre/audio-lecture';
 
 const PANNEAU_INITIATEUR = 1, PANNEAU_COLLABORATEUR = 0
 
@@ -80,12 +81,44 @@ export default class ListePieces extends Component {
                     session=>{
                     let that = this
                     let USER_ID = session.idToken.payload.sub
-    
+
+                    // 1. Récupérer tous les médias
+                    let initiatorMediaIds = []
+                    let collabMediaIds = []
+/*
+                    function construireListe() {
+
+                    }
+
+                    axios.get('http://dev.api.smartsplit.org:8080/v1/media')
+                    .then(resMedias=>{
+                        const _medias = resMedias.data
+                        // 2. Récupérer la proposition de chaque média
+                        _medias.forEach(_m=>{
+                            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${_m.mediaId}`)
+                            .then((resProposition) => {
+                                const item = resProposition.data.Item
+                                // Découvre si initiateur ou collaborateur et classifie
+                                if (item.initiator.id === USER_ID){
+                                    initiatorMediaIds.push(item.mediaId) // If initiator
+                                } 
+                                else if (item.initiator.id == undefined){
+                                    toast.error("Initiator undefined")
+                                } 
+                                if((JSON.stringify(item.rightsSplits)).includes(USER_ID)){
+                                    collabMediaIds.push(item.mediaId) // If collaborator
+                                } else if (item.rightsSplits == undefined) {
+                                    toast.error("rightsSplits object error")
+                                }
+                                construireListe()
+                            })
+                        })                        
+                    })
+                    
+  */  
                     // Médias depuis les propositions
                     axios.get('http://dev.api.smartsplit.org:8080/v1/proposal')
-                    .then((res) => {
-                        let initiatorMediaIds = []
-                        let collabMediaIds = []
+                    .then((res) => {                        
     
                         res.data.forEach(function(item){
                             if (item.initiator.id === USER_ID){
@@ -149,15 +182,11 @@ export default class ListePieces extends Component {
                         let kk = 0
                         res.data.forEach(m=>{
                             // Si l'usager est le créateur il peut voir l'oeuvre
-                            console.log(USER_ID, m.creator)
                             if(USER_ID === m.creator) {
                                 _cM.push(m)
-                                console.log('Créateur identifié')
                             }
                             kk++
-                            console.log(kk, res.data.length)
                             if(kk === res.data.length) {
-                                _cM = cleanArray(_cM)
                                 this.setState({creatorMedias: _cM}, ()=>console.log(this.state.creatorMedias))
                             }
                         })                  
@@ -246,15 +275,15 @@ export default class ListePieces extends Component {
                 tableauMedias = tableauMedias.concat(
                     this.state.creatorMedias.map((elem, _idx)=>{
                         return (
-                            <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
+                            elem && <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />                    
                         )
                     })
                 )
             }
-            if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {
+            if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {                
                 tableauMedias = this.state.collabMedias.map((elem, _idx)=>{
                     return (
-                        <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
+                        elem !== undefined && <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />                    
                     ) 
                 })
             } 
@@ -294,10 +323,21 @@ export default class ListePieces extends Component {
                                             closeIcon
                                             closeOnDimmerClick={false}
                                         >
-                                            <Modal.Header>Créer une nouvelle pièce musicale</Modal.Header>
+                                            <Modal.Header>
+                                                {t('flot.proposition.nouvelle')}
+                                            </Modal.Header>
                                             <Modal.Content>
-                                                <NouvelleOeuvre parent={this} user={this.state.user} />
-                                            </Modal.Content>                                            
+                                                <NouvelleOeuvre audio={this.state.audio} parent={this} user={this.state.user} />
+                                            </Modal.Content>
+                                            <Modal.Actions>
+                                                <>
+                                                { this.state.mediaId &&
+                                                    <AudioLecture onRef={
+                                                        (audio)=>{ this.setState({audio: audio}) }
+                                                    } />
+                                                }
+                                                </>                                            
+                                            </Modal.Actions>
                                         </Modal>
                                     </div>
                                 )
