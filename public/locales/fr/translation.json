@@ -139,6 +139,11 @@
         }
     },
     "flot": {
+        "acr": {
+            "titre": "Ta pièce musicale a été reconnue",
+            "oui": "D'accord !",
+            "non": "Merci, mais ça va être correct."
+        },
         "split": {
             "sommaire": {
                 "titre": "Sommaire du Split",
@@ -317,7 +322,7 @@
             "echec": "Envoi en échec"
         },
         "envoifichier": {
-            "reussi": "Envoi de fichier réussi!",
+            "reussi": "Reconnaissance du fichier réussie !",
             "echec": "Envoi de fichier en échec"
         },
         "lien": {
@@ -526,6 +531,9 @@
         "connexion": "Connexion",
         "inscription": "Inscription",
         "encours": "Connexion en cours..."
+    },
+    "televersement": {
+        "encours": "Merci de patienter pendant l'envoi et l'analyse du fichier"
     },
     "socan": {
         "joindre": "Joindre SOCAN",

@@ -345,7 +345,7 @@ class PageAssistantPartageAuteur extends Component {
                                     <br/>
 
                                             <div className="fields">
-                                                <div className="field">
+                                                <div className="fourteen wide field">
                                                     <div className="fourteen wide field">
                                                         <BoutonsRadio
                                                             name="mode_auteur"

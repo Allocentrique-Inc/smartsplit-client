@@ -12,6 +12,7 @@ import moment from 'moment'
 // Authentification avec AWS
 import { Auth } from 'aws-amplify'
 import Socan from '../auth/Socan'
+import AudioLecture from '../oeuvre/audio-lecture'
 
 const menuStyle = {
     position: 'absolute',  
@@ -112,7 +113,7 @@ export default class MenuProfil extends Component {
             <Translation>
                 {
                     t=>
-                        <div className="ui row">                           
+                        <div className="ui row">                            
                             <div className='ui five wide column avatar--image' >
                                 <Label style={{background: "transparent", width: "150px"}}>{nomComplet }</Label>
                                 {!userInitials && (<img src={avatarImage} alt='user--image' className='user--img'/>)}

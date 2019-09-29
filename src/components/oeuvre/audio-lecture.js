@@ -19,34 +19,36 @@ class AudioLecture extends Component {
     }
 
     stopEtJouer(fichier) {
-        this.stop()        
-        this.setState({context: new AudioContext()}, ()=>{
-            let reader = new FileReader()
-            let that = this
-            reader.addEventListener('load', function(e) {
-                let data = e.target.result
-                let contexte = that.state.context
-                if(contexte) {
-                    contexte.decodeAudioData(data, function(buffer) {                    
-                        playSound(contexte, buffer)
-                    })
-                }                
+        this.stop()
+        if(fichier) {
+            this.setState({context: new AudioContext()}, ()=>{
+                let reader = new FileReader()
+                let that = this
+                reader.addEventListener('load', function(e) {
+                    let data = e.target.result
+                    let contexte = that.state.context
+                    if(contexte) {
+                        contexte.decodeAudioData(data, function(buffer) {                    
+                            playSound(contexte, buffer)
+                        })
+                    }                
+                })
+                reader.readAsArrayBuffer(fichier)
             })
-            reader.readAsArrayBuffer(fichier)
-        })
-        
-        let playSound = function(contexte, buffer) {
-            var source = contexte.createBufferSource()
-            source.buffer = buffer
-            source.connect(contexte.destination)
-            source.start(0)
-        }
+            
+            let playSound = function(contexte, buffer) {
+                var source = contexte.createBufferSource()
+                source.buffer = buffer
+                source.connect(contexte.destination)
+                source.start(0)
+            }
+        }        
         
     }
 
     render() {
         return (
-            <div style={{position: 'absolute', margin: '0 auto'}}>
+            <div>
             {
                 this.state.context && (
                     <div onClick={()=>{this.stop()}}>
