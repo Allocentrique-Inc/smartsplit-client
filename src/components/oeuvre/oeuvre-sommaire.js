@@ -30,7 +30,7 @@ export default class SommaireOeuvre extends Component {
             .then(res => {
                 this.setState({ user: res })
                 this.getMedia()
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
+                axios.get(`http://api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
                 .then(res=>{
                     let _p0
                     res.data.forEach(_p=>{
