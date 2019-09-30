@@ -425,7 +425,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                 <div
                                                                                                     className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right floated ellipsis horizontal icon delete image"
+                                                                                                    <i className="right floated close icon cliquable"
                                                                                                        onClick={() => {
                                                                                                            arrayHelpers.remove(index)
                                                                                                            this.setState({ ping: true }, () => {

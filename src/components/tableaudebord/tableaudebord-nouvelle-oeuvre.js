@@ -261,6 +261,7 @@ class Page2NouvellePiece extends Component {
                                         }
                                         <ChampTeleversement                                          
                                             label={t('composant.televersement.titre')}
+                                            access="private"
                                             undertext={t('composant.televersement.soustitre')}                                     
                                             onFileChange={ value => {
                                                 
