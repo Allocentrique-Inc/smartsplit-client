@@ -188,7 +188,7 @@ export default class SommairePartages extends Component {
                     continuerDisabled = false
                 }
                 if(_p.etat === 'ACCEPTE') {
-                    // Essst-ce que l'utilisateur est dans les ayant-droits ?
+                    // Est-ce que l'utilisateur est dans les ayant-droits ?
                     let estCollaborateur = false
                     if(_p.rightsSplits.workCopyrightSplit) {
                         Object.keys(_p.rightsSplits.workCopyrightSplit).forEach(type=>{

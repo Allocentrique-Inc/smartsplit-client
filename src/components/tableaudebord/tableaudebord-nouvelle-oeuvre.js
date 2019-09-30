@@ -37,8 +37,8 @@ class Apercu extends Component {
             <Translation>
                 {
                     t=>
-                        <div className="ui column">
-                            <div>                                        
+                        <div className="ui column" style={{position: "absolute", float: "right"}}>
+                            <div style={{position: "relative", left: "60px"}}>                                        
                                 <p style={{
                                     fontFamily: "IBM Plex Sans",
                                     fontStyle: "normal",
@@ -52,7 +52,7 @@ class Apercu extends Component {
                                 }}>{t('titre.apercu')}</p>
                                 <div className="ui grid">
                                     <div className="ui two wide column">
-                                        <i className="file image outline icon big grey" /> 
+                                        <i className="file image outline icon big grey" style={{marginBottom: "20px"}} /> 
                                     </div>
                                     <div className="ui twelve wide column">
                                         <p>
@@ -91,7 +91,7 @@ class Base extends Component {
                     {
                         t=>    
                             <>                        
-                                <div className="ui row">
+                                <div className="ui row" style={{width: "360px", margin: "20px 20px 0 0"}}>
                                     <ChampTexteAssistant 
                                         soustexte={t('oeuvre.attribut.indication.titre-soustexte')}
                                         modele="title"
@@ -363,7 +363,7 @@ class Page2NouvellePiece extends Component {
                                             )
                                         }
 
-                                        <div style={{marginTop: "20px"}} className="ui row">
+                                        <div style={{margin: "20px 0 20px 0", width: "360px"}} className="ui row">
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={ this.props.pochette }
                                                 items={ this.rightHolderOptions() }

@@ -583,7 +583,7 @@ class Register extends Component {
                             <div className="field">
                               <div className="control has-icons-left">
                                 <label htmlFor="password">
-                                  {t("inscription.motdepasse")}
+                                  {t("flot.split.inscription.motdepasse")}
                                 </label>
 
                                 <div className="input-wrapper">
@@ -622,7 +622,9 @@ class Register extends Component {
                                 {errors.password && touched.password && (
                                   <div style={{ color: "red" }}>
                                     {" "}
-                                    {t("inscription.password-invalide")}{" "}
+                                    {t(
+                                      "flot.split.inscription.password-invalide"
+                                    )}{" "}
                                   </div>
                                 )}
                                 <span className="icon is-small is-left">

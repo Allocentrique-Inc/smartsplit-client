@@ -27,7 +27,7 @@ class LogIn extends Component {
       username: "",
       password: this.props.password,
       parent: props.parent
-    }
+    };
 
     this.toggleShow = this.toggleShow.bind(this);
     this.validateUsername = this.validateUsername.bind(this);
@@ -152,10 +152,7 @@ class LogIn extends Component {
                         {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
                           <div>
                             <div className="loginHead">
-                              <h1>
-                                Log into you SmartSplit <br />
-                                account.
-                              </h1>
+                              <h1>Login to your Smart Split account.</h1>
                               <br></br>
                             </div>
                             <div className="loginPrompt">
@@ -193,13 +190,17 @@ class LogIn extends Component {
                                 name="username"
                                 id="username"
                                 aria-describedby="usernameHelp"
-                                placeholder={t("inscription.exemple")}
+                                placeholder={t(
+                                  "flot.split.inscription.exemple"
+                                )}
                                 required={true}
                               />
                               {errors.username && touched.username && (
                                 <div style={{ color: "red" }}>
                                   {" "}
-                                  {t("inscription.email-invalide")}{" "}
+                                  {t(
+                                    "flot.split.inscription.email-invalide"
+                                  )}{" "}
                                 </div>
                               )}
                             </div>
@@ -215,7 +216,9 @@ class LogIn extends Component {
                                   type={this.state.hidden ? "password" : "text"}
                                   id="password"
                                   name="password"
-                                  placeholder={t("inscription.motdepasse")}
+                                  placeholder={t(
+                                    "flot.split.inscription.motdepasse"
+                                  )}
                                   required={true}
                                 />
                                 <button
@@ -231,7 +234,9 @@ class LogIn extends Component {
                             {errors.password && touched.password && (
                               <div style={{ color: "red" }}>
                                 {" "}
-                                {t("inscription.password-invalide")}{" "}
+                                {t(
+                                  "flot.split.inscription.password-invalide"
+                                )}{" "}
                               </div>
                             )}
                           </div>
