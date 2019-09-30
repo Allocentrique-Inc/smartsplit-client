@@ -144,7 +144,9 @@ export default class ListePieces extends Component {
     
                         initiatorMediaIds.forEach(async function(element) {
                             const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + element)
-                            _medias.push(res.data.Item)
+                            if(res.data.Item) {
+                                _medias.push(res.data.Item)                                
+                            }
                             ii++
                             if (initiatorMediaIds.length == ii) {
                                 that.setState({medias: _medias})
@@ -154,7 +156,9 @@ export default class ListePieces extends Component {
     
                         collabMediaIds.forEach(async function(elm) {
                             const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + elm)
-                            _collabMedias.push(res.data.Item)
+                            if(res.data.Item) {
+                                _collabMedias.push(res.data.Item)
+                            }                            
                             jj++
                             if (collabMediaIds.length == jj) {
                                 that.setState({collabMedias: _collabMedias})

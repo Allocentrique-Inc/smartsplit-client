@@ -104,7 +104,9 @@ export default class ModifyUser extends Component {
 
   click() {
     this.handleSubmit();
-    this.props.close();
+    if(this.props.close) {
+      this.props.close()
+    }      
   }
 
   handleSubmit = values => {
@@ -132,10 +134,10 @@ export default class ModifyUser extends Component {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log('réponse rightHolders', err);
         });
     } catch (err) {
-      console.log(err);
+      console.log('try', err);
     }
   };
 
