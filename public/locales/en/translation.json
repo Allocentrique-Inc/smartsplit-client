@@ -135,6 +135,7 @@
     "televersement": {
       "titre": "Upload your source file",
       "indication": "Drag the file you want to upload and drop it here, or clic here to choose the file.",
+      "soustitre": "WAV or MP3 format only, 100 Mo maximum.",
       "preambule": "Here you can upload your source file. It will be accessible only to those who have private access. You could then share your work with radio stations, broadcasters and so on. The link to the file is not publicly available."
     }
   },
@@ -148,10 +149,6 @@
       "titre": "Your musical work is recognized",
       "oui": "Let's do this !",
       "non": "No, thanks."
-    },
-    "envoifichier": {
-      "reussi": "File analysis successful!",
-      "echec": "File transfer failed"
     },
     "split": {
       "sommaire": {
@@ -415,6 +412,10 @@
         "envoi": {
           "reussi": "Transfer successful!",
           "echec": "Transfer failed"
+        },
+        "envoifichier": {
+          "reussi": "File analysis successful!",
+          "echec": "File transfer failed"
         },
         "lien": {
           "sociaux": {

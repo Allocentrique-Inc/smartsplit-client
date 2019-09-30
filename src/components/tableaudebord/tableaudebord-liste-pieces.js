@@ -322,7 +322,7 @@ export default class ListePieces extends Component {
                                         </div>
                                         <Modal
                                             open={this.state.modaleOeuvre}                                            
-                                            onClose={()=>this.modaleNouvelleOeuvre(false)}
+                                            onClose={()=>{this.modaleNouvelleOeuvre(false); if(this.state.audio) this.state.audio.stop()}}
                                             size="large"
                                             closeIcon
                                             closeOnDimmerClick={false}
