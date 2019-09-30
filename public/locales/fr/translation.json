@@ -1,15 +1,15 @@
 {
   "info": {
     "oeuvre": {
-        "creation": "Oeuvre # {{id}} créée. :)"
+      "creation": "Oeuvre # {{id}} créée. :)"
     }
   },
   "options": {
     "piece": {
-        "titre": "Cette oeuvre est ...",
-        "originale": "une création originale",
-        "arrangement": "un arrangement (remix)",
-        "reprise": "une reprise (cover)"
+      "titre": "Cette oeuvre est ...",
+      "originale": "une création originale",
+      "arrangement": "un arrangement (remix)",
+      "reprise": "une reprise (cover)"
     }
   },
   "titre": {
@@ -64,6 +64,7 @@
         "artiste": "Artiste ou groupe originel",
         "juridiction": "Juridiction",
         "ayantDroit": "Collaborateurs",
+        "commentaire": "Commentaire",
         "genre": "Style musical principal",
         "genre2": "Style musical secondaire",
         "ajouter-genre": "Ajouter un genre",
@@ -88,8 +89,7 @@
         "titre": "Titre de la pièce musicale",
         "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
         "album": "Album sur lequel figure la pièce musicale",
-        "arrangeur": "Artiste ou groupe ...",
-        "vedette": "Ajouter un artiste ou groupe en vedette ...",
+        "arrangeur": "Artiste ou groupe",
         "reprise": "",
         "artiste": "Qui est l'artiste principal ?",
         "juridiction": "Quelle est la juridiction légale du droit d'auteur (pays) ?",
@@ -133,11 +133,11 @@
     "requis": "Requis"
   },
   "composant": {
-      "televersement": {
-          "titre": "Fichier",
-          "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
-          "indication": "ou dépose le fichier ici"
-      }
+    "televersement": {
+      "titre": "Fichier",
+      "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
+      "indication": "ou dépose le fichier ici"
+    }
   },
   "image": {
     "embarquement": {
@@ -153,6 +153,7 @@
     "split": {
       "sommaire": {
         "titre": "Sommaire du Split",
+        "resultat": "Sommaire des résultats",
         "soustitre": "Départ : un split initial créé par",
         "votation": "VOTATION",
         "brouillon": "BROUILLON",
@@ -184,7 +185,8 @@
         "ACCEPTE": "ACCEPTÉ",
         "BROUILLON": "BROUILLON",
         "PRET": "PRÊT",
-        "INCONNU": "INCONNU"
+        "INCONNU": "INCONNU",
+        "ATTENTE": "ATTENTE"
       },
       "valider": {
         "titre": "Valide ton Split",
@@ -422,8 +424,8 @@
           "echec": "Envoi en échec"
         },
         "envoifichier": {
-            "reussi": "Reconnaissance du fichier réussie !",
-            "echec": "Envoi de fichier en échec"
+          "reussi": "Reconnaissance du fichier réussie !",
+          "echec": "Envoi de fichier en échec"
         },
         "lien": {
           "sociaux": {
@@ -497,7 +499,11 @@
           "continuer": "Continuer le partage",
           "sommaire": "Accéder au sommaire",
           "voter": "Accéter au vote",
-          "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition."
+          "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition.",
+          "pourquoi": "Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.",
+          "refuse": "Pourquoi refuses-tu le split (optionel)",
+          "refuse2": "Refuser ce partage",
+          "termine": "Le vote est terminé !"
         }
       },
       "traitement": {
@@ -630,10 +636,6 @@
       "created": "Created documentation",
       "maintenant": "is now documented!",
       "resume": "See the summary"
-    },    
-    "envoifichier": {
-        "reussi": "Reconnaissance du fichier réussie !",
-        "echec": "Envoi de fichier en échec"
     }
   },
   "accueil": {
@@ -649,7 +651,7 @@
     "encours": "Connexion en cours..."
   },
   "televersement": {
-      "encours": "Merci de patienter pendant l'envoi et l'analyse du fichier"
+    "encours": "Merci de patienter pendant l'envoi et l'analyse du fichier"
   },
   "socan": {
     "joindre": "Joindre SOCAN",
@@ -692,5 +694,10 @@
     "francais": "Français",
     "anglais": "English",
     "deconnexion": "Déconnexion"
-  }
+  },
+  "obligatoire": "Mendatory",
+  "connexion": "Connexion obligatoire",
+  "connecter": "Tu dois être connecté pour voter",
+  "selection": "Une sélection dans cette liste est obligatoire",
+  "champ": "Ce champ texte est obligatoire"
 }

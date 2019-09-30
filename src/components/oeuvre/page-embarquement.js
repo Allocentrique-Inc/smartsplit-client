@@ -109,7 +109,7 @@ class PageAssistantOeuvreEmbarquement extends Component {
 
                                                                 let analyse = f.music[0] // Il peut y avoir plus d'un résultat
 
-                                                                toast(t('flot.envoifichier.reussi') + ` ${ f.nom }`)
+                                                                toast(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${ f.nom }`)
 
                                                                 // Modale pour remplir les champs automatiquement
                                                                 confirmAlert({

@@ -146,7 +146,7 @@ export default class LigneMedia extends Component {
                         window.location.href = `/partager/${this.state.media.mediaId}`;
                       }}
                     >
-                      {t("flot.proposition.voter")}
+                      {t("flot.split.documente-ton-oeuvre.proposition.voter")}
                     </div>
                   )}
                   {_p && <Label>{t(`flot.split.etat.${_p.etat}`)}</Label>}

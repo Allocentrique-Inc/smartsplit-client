@@ -7,7 +7,7 @@ import Login from '../auth/Login'
 
 import { toast } from 'react-toastify'
 
-import { Translation } from 'react-i18next';
+import { Translation, withTranslation } from 'react-i18next';
 
 const DROITS = {
     auteur: 'workCopyrightSplit', 
@@ -189,12 +189,12 @@ class TableauSommaireSplit extends Component {
                 },
             customUI: ({ onClose }) => 
                 <div>         
-                    <h3>Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.</h3>               
+                    <h3>{t("flot.split.documente-ton-oeuvre.proposition.pourquoi")}</h3>               
                     <textarea 
                         cols={40} 
                         rows={5} 
                         id="raison"
-                        placeholder="Pourquoi refuses-tu le split (optionel)" 
+                        placeholder={t("flot.split.documente-ton-oeuvre.proposition.refuse")} 
                         style={{
                         width: "546px",
                         height: "253px",
@@ -232,7 +232,7 @@ class TableauSommaireSplit extends Component {
 
                         }                                
                     }
-                    >Refuser ce partage</button>
+                    >{t("flot.split.documente-ton-oeuvre.proposition.refuse2")}</button>
                 </div>
         })        
     }
@@ -272,8 +272,8 @@ class TableauSommaireSplit extends Component {
 
         if(!this.props.auth.isAuthenticated()) {
             confirmAlert({
-                title: `Connexion obligatoire`,
-                message: `Tu dois être connecter pour voter`,
+                title: this.props.t(`connexion`),
+                message: this.props.t(`connecter`),
                 closeOnClickOutside: false,
                 style: {
                         position: "relative",
@@ -370,11 +370,11 @@ class TableauSommaireSplit extends Component {
 
             function getTextePourEtat(etat) {
                 if(etat === "accept") {
-                    etat = (<span style={{color: "green"}}>ACCEPTÉ</span>)
+                    etat = (<span style={{color: "green"}}>{this.props.t(`flot.split.etat.ACCEPTE`)}</span>)
                 } else if(etat === "reject") {
-                    etat = (<span style={{color: "red"}}>REFUSÉ</span>)
+                    etat = (<span style={{color: "red"}}>{this.props.t(`flot.split.etat.REFUSE`)}</span>)
                 } else {
-                    etat = (<span style={{color: "grey"}}>ATTENTE</span>)
+                    etat = (<span style={{color: "grey"}}>{this.props.t(`flot.split.etat.ATTENTE`)}</span>)
                 }
                 return etat
             }
@@ -463,16 +463,19 @@ class TableauSommaireSplit extends Component {
         })
 
         return (
-            <div>                    
-                <h3>Sommaire des résultats</h3>
-                <table style={{width: "100%"}}>
+            <Translation>
+                    {
+                         t => 
+            <div>               
+                <h3>{t("flot.split.sommaire.resultat")}</h3>
+                <table style={{width: "auto"}}>
                     <thead>
                         <tr>
-                            <th>Collaborateurs</th>
+                            <th>{t("oeuvre.attribut.indication.etiquette.ayantDroit")}</th>
                             <th><i className="copyright outline icon"></i></th>
                             <th><i className="star outline icon"></i></th>
                             <th><i className="product hunt icon"></i></th>
-                            <th>Commentaire</th>
+                            <th>{t("oeuvre.attribut.indication.etiquette.ayantDroit")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -480,6 +483,8 @@ class TableauSommaireSplit extends Component {
                     </tbody>
                 </table>
             </div>
+            }
+            </Translation> 
         )
     }
 
@@ -663,7 +668,7 @@ class TableauSommaireSplit extends Component {
                 )}                
                 {(this.estVoteFinal() && !this.props.init) && (
                     <div>
-                        <div className="heading1">Le vote est terminé !</div>
+                        <div className="heading1">t{('flot.split.documente-ton-oeuvre.proposition.termine')}</div>
                         {/*this.state.droits && this.afficherSommaire()*/}
                     </div>
                 )}
@@ -674,4 +679,4 @@ class TableauSommaireSplit extends Component {
     }
 }
 
-export default TableauSommaireSplit
+export default withTranslation()(TableauSommaireSplit)
