@@ -186,7 +186,7 @@ export default class SommairePartages extends Component {
                     continuerDisabled = false
                 }
                 if(_p.etat === 'ACCEPTE') {
-                    // ESt-ce que l'utilisateur est dans les ayant-droits ?
+                    // Essst-ce que l'utilisateur est dans les ayant-droits ?
                     let estCollaborateur = false
                     if(_p.rightsSplits.workCopyrightSplit) {
                         Object.keys(_p.rightsSplits.workCopyrightSplit).forEach(type=>{
@@ -340,7 +340,7 @@ export default class SommairePartages extends Component {
                                                             open={this.state.modaleCourriels}
                                                             onClose={this.closeModal} 
                                                             size="small"
-                                                            style={{height: "200px"}}
+                                                            style={{height: "100%"}}
                                                         >
                                                             <PageAssistantSplitCourrielsCollaborateurs 
                                                                 ayantDroits={rightHolders}

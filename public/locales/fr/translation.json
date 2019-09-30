@@ -648,21 +648,14 @@
       "PE": "Île-du-Prince-Édouard",
       "QC": "Québec",
       "SK": "Saskatchewan",
-      "YT": "Yukon",
-      "menuprofil": {
-        "accueil": "Tableau de bord",
-        "profil": "Mon profil",
-        "francais": "Français",
-        "anglais": "English",
-        "deconnexion": "Déconnexion"
-      }
-    },
-    "menuprofil": {
-      "accueil": "Tableau de bord",
-      "profil": "Mon profil SOCAN",
-      "francais": "Français",
-      "anglais": "English",
-      "deconnexion": "Déconnexion"
+      "YT": "Yukon"
     }
+  },
+  "menuprofil": {
+    "accueil": "Tableau de bord",
+    "profil": "Mon profil SOCAN",
+    "francais": "Français",
+    "anglais": "English",
+    "deconnexion": "Déconnexion"
   }
 }

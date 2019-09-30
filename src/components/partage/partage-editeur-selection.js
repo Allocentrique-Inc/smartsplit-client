@@ -66,12 +66,14 @@ class PageAssistantPartageChoixEditeur extends Component {
             <div className="ui row">
               <div className="ui seven wide column">
                 <div className="wizard-title">
-                  {t("flot.partage.auteur.titre")}
+                  {t("flot.split.documente-ton-oeuvre.partage.auteur.titre")}
                 </div>
                 <br />
                 <div className="mode--partage__auteur">
                   <div className="who-invented-title">
-                    {t("partage.editeur.titre", { oeuvre: this.state.song })}
+                    {t("flot.split.partage.editeur.titre", {
+                      oeuvre: this.state.song
+                    })}
                   </div>
                   <br />
                   {descriptif}
@@ -116,8 +118,13 @@ class PageAssistantPartageChoixEditeur extends Component {
                           parent={this}
                         />
                       </div>
+                      <br></br>
                       <button
                         className="ui medium button"
+                        style={{
+                          float: "right",
+                          margin: "auto"
+                        }}
                         onClick={e => {
                           e.preventDefault();
                           this.ajouterEditeur();

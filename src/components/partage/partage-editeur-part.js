@@ -134,7 +134,7 @@ class PageAssistantPartageEditeur extends Component {
                                     <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
-                                        { t('partage.editeur.titre-part') }
+                                        { t('flot.split.partage.editeur.titre-part') }
                                     </div>
                                     <br/>
                                     {descriptif}

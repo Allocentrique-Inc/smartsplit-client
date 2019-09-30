@@ -305,7 +305,7 @@ export default class NouvelleOeuvre extends Component {
             axios.put(`http://dev.api.smartsplit.org:8080/v1/media`, {title: titre, type: type, creator: this.state.user.username})
             .then(res=>{
                 // Enregistrement du mediaId pour sauvegarde des données dans handleSubmit                
-                toast.info(t('info.oeuvre.creation', {id: res.data.id}))
+                toast.info(t('flot.split.info.oeuvre.creation', {id: res.data.id}))
             })
         }
     }

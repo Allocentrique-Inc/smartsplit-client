@@ -114,17 +114,21 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
           <Label style={divEmail} htmlFor={`champ--courriel__${elem}`}>
             {_aD.name}
           </Label>
-          <Input
-            style={divEmail}
-            name={`champ--courriel__${elem}`}
-            id={_aD.rightHolderId}
-            defaultValue={_aD.email}
-            placeholder="courriel@domaine.extension"
-            required={this.state.requis}
-            autoFocus={this.state.autoFocus}
-            type="email"
-            onChange={this.onChange}
-          />
+          <Translation>
+            {t => (
+              <Input
+                style={divEmail}
+                name={`champ--courriel__${elem}`}
+                id={_aD.rightHolderId}
+                defaultValue={_aD.email}
+                placeholder={t("flot.split.inscription.exemple")}
+                required={this.state.requis}
+                autoFocus={this.state.autoFocus}
+                type="email"
+                onChange={this.onChange}
+              />
+            )}
+          </Translation>
         </div>
       );
     });
@@ -138,7 +142,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
                 this.click();
               }}
               className={`ui medium button envoie`}
-              style={{ position: "relative" }}
+              style={{ position: "relative", top: "450px", left: "365px" }}
             >
               {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
             </div>

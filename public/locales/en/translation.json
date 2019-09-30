@@ -655,21 +655,15 @@
       "PE": "Prince Edward Island",
       "QC": "Quebec",
       "SK": "Saskatchewan",
-      "YT": "Yukon",
-      "menuprofil": {
-        "accueil": "Dashboard",
-        "profil": "My Profile",
-        "francais": "Français",
-        "anglais": "English",
-        "deconnexion": "Disconnect"
-      }
-    },
-    "menuprofil": {
-      "accueil": "Dashboard",
-      "profil": "My SOCAN Profile",
-      "francais": "Français",
-      "anglais": "English",
-      "deconnexion": "Disconnect"
+      "YT": "Yukon"
     }
+  },
+  "menuprofil": {
+    "accueil": "Dashboard",
+    "profil": "My Profile",
+    "francais": "Français",
+    "anglais": "English",
+    "deconnexion": "Disconnect"
+     
   }
 }
