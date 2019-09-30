@@ -566,7 +566,7 @@ export default class SommairePartage extends Component {
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                toast.error(t('erreur.volIdentite'))    
+                toast.error(t('flot.split.erreur.volIdentite'))    
             }
         })
         .catch(err=>{
@@ -656,7 +656,7 @@ export default class SommairePartage extends Component {
                                             that.setState({user: res})
                                             that.envoi()                                            
                                         } else {
-                                            toast.error(t('erreur.volIdentite'))    
+                                            toast.error(t('flot.split.erreur.volIdentite'))    
                                         }
                                         
                                     })

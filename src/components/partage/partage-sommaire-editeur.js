@@ -221,7 +221,7 @@ export default class PartageSommaireEditeur extends Component {
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                toast.error(t('erreur.volIdentite'))    
+                toast.error(t('flot.split.erreur.volIdentite'))    
             }
         })
         .catch(err=>{

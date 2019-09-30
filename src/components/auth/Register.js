@@ -464,6 +464,9 @@ class Register extends Component {
                           {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
                           <br></br>
                           <br></br>
+                          {/*<span
+                            style={{ display: "flex", flexDirection: "row" }}
+                          >}*/}
                           <label>
                             {t("collaborateur.attribut.etiquette.prenom")}
                           </label>
@@ -492,6 +495,7 @@ class Register extends Component {
                               this.setState({ lastName: e.target.value })
                             }
                           />
+                          {/*</span>*/}
                           <label>
                             {t("collaborateur.attribut.etiquette.artiste")}
                           </label>
@@ -512,6 +516,7 @@ class Register extends Component {
                           <div className="sous titre">
                             {t("collaborateur.attribut.etiquette.na")}
                           </div>
+                          <br></br>
                           <label>
                             {t("collaborateur.attribut.etiquette.groupe")}
                           </label>
@@ -532,6 +537,7 @@ class Register extends Component {
                             onChange={this.handleChange}
                           />
                           {/*<i className="search icon"></i>*/}
+                          <br></br>
                           <label>
                             {t("collaborateur.attribut.etiquette.role")}
                           </label>

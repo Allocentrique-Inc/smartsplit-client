@@ -152,7 +152,10 @@ class LogIn extends Component {
                         {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
                           <div>
                             <div className="loginHead">
-                              <h1>Login to your Smart Split account.</h1>
+                              <h1>
+                                Login to your Smart Split <br />
+                                account.
+                              </h1>
                               <br></br>
                             </div>
                             <div className="loginPrompt">
