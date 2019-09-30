@@ -196,18 +196,18 @@ class PageAssistantPartageInterpretation extends Component {
                                     <Progress percent="50" size='tiny' indicating/>                                    
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
-                                        {t('flot.etape.enregistrerEtQuitter')}
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                        {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>
                             </div>
                             <div className="ui row">
                                 <div className="ui seven wide column">
-                                    <div className="wizard-title">{t('flot.partage.interprete.titre')}</div>
+                                    <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.partage.interprete.titre')}</div>
                                     <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
-                                        {t('partage.interprete.titre', {oeuvre: this.state.song})}
+                                        {t('flot.split.documente-ton-oeuvre.partage.interprete.titre', {oeuvre: this.state.song})}
                                     </div>
                                     <br/>
                                     {descriptif}
@@ -236,11 +236,11 @@ class PageAssistantPartageInterpretation extends Component {
                                             titre=""
                                             choix={[
                                                 {
-                                                    nom: t('modepartage.egal'),
+                                                    nom: t('flot.split.modepartage.egal'),
                                                     valeur: MODES.egal
                                                 },
                                                 {
-                                                    nom: t('modepartage.roles'),
+                                                    nom: t('flot.split.modepartage.roles'),
                                                     valeur: MODES.role
                                                 }
                                             ]}
@@ -254,8 +254,8 @@ class PageAssistantPartageInterpretation extends Component {
                                                     {
                                                         this.props.values.droitInterpretation.map((part, index)=>{                                                
                                                             let roles = [
-                                                                {id: "chanteur", nom: t('flot.partage.interprete.role.chanteur')}, 
-                                                                {id: "musicien", nom: t('flot.partage.interprete.role.musicien')}
+                                                                {id: "chanteur", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.chanteur')}, 
+                                                                {id: "musicien", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.musicien')}
                                                             ]
                                                             return (
                                                                 <div key={`part-${index}`}>                                                                    
@@ -348,7 +348,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                             <div className="ui row">                                 
                                                                 <div className="ui ten wide column">
                                                                     <ChampListeCollaborateurAssistant
-                                                                        indication={t('flot.collaborateurs.ajout')}
+                                                                        indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                         modele="collaborateur"
                                                                         autoFocus={false}
                                                                         requis={false}
@@ -369,7 +369,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                         onClick={(e)=>{
                                                                             e.preventDefault()
                                                                             this.ajouterCollaborateur(arrayHelpers)
-                                                                        }}>{t('flot.bouton.ajout')}
+                                                                        }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
                                                                     </button>
                                                                 </div>
                                                             </div>

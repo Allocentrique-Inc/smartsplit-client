@@ -249,8 +249,8 @@ export default class ListePieces extends Component {
                         <div className="ui row">
                             <div className="ui one wide column" />
                             <div className="ui twelve wide column">
-                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('tableaudebord.pieces.1')}</span>
+                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('flot.split.tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
+                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('flot.split.tableaudebord.pieces.1')}</span>
                             </div>
                             <div className="ui one wide column" />
                         </div>
@@ -300,12 +300,12 @@ export default class ListePieces extends Component {
                                     <div>                                                                                
                                         <div className="ui grid">
                                             <div className="ui row">
-                                                <div className="heading2 ten wide column">{t('tableaudebord.navigation.0')}</div>
+                                                <div className="heading2 ten wide column">{t('flot.split.tableaudebord.navigation.0')}</div>
                                             </div>                                            
                                             <div className="ui row">
                                                 <div className="ui nine wide column" />
                                                 <div className="ui three wide column medium button" onClick={()=>{this.modaleNouvelleOeuvre()}}>
-                                                    {t('tableaudebord.pieces.ajouter')}
+                                                    {t('flot.split.tableaudebord.pieces.ajouter')}
                                                 </div>
                                             </div>
                                             <div className="ui row">
