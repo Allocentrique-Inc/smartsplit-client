@@ -207,34 +207,6 @@ export default class ModifyUser extends Component {
     }
   }
 
-  // handleSubmit = values => {
-  //   try {
-  //     this.setState({ patience: true }, () => {
-  //       Auth.signIn(
-  //         this.state.firstName,
-  //         this.state.lastName,
-  //         this.state.artistName,
-  //         "image.jpg"
-  //       )
-  //         .then(user => {
-  //           toast.success(`#${user.username} !`);
-
-  //           if (this.props.fn) {
-  //             this.props.fn();
-  //           }
-  //         })
-  //         .catch(err => {
-  //           toast.error(err.message);
-  //         })
-  //         .finally(() => {
-  //           this.setState({ patience: false });
-  //         });
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   render() {
     const {
       open,
