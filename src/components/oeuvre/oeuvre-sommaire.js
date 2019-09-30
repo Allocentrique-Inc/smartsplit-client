@@ -62,7 +62,7 @@ export default class SommaireOeuvre extends Component {
     }
 
     getMedia() {
-        axios.get(`http://api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
             .then(res => {
                 let media = res.data.Item
                 this.setState({ media: media })
@@ -71,7 +71,7 @@ export default class SommaireOeuvre extends Component {
 
     majTitre() {
         let titre = document.getElementById('titre').value
-        axios.patch(`http://api.smartsplit.org:8080/v1/media/${ this.state.media.mediaId }/title`, {
+        axios.patch(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.media.mediaId }/title`, {
             mediaId: this.state.media.mediaId,
             title: titre
         })
@@ -182,31 +182,31 @@ export default class SommaireOeuvre extends Component {
                                     <div className="ui two wide column"/>
                                     <div className="ui six wide column">
                                         <div className="ui row etape">
-                                            <div className="ui heading3">{ t('flot.preambules.titre1') }</div>
-                                            <div className="ui heading1">{ t('flot.preambules.sous-titre1') }</div>
+                                            <div className="ui heading3">{ t('flot.split.documente-ton-oeuvre.preambules.titre1') }</div>
+                                            <div className="ui heading1">{ t('flot.split.documente-ton-oeuvre.preambules.sous-titre1') }</div>
 
                                             <div className="ui medium-400">
-                                                { t('flot.preambules.intro1') }
+                                                { t('flot.split.documente-ton-oeuvre.preambules.intro1') }
                                             </div>
 
                                             <div className="ui medium button"
                                                  style={ { marginTop: "50px", marginLeft: "0px" } } onClick={ () => {
                                                 window.location.href = `/partager/${ this.state.mediaId }`
                                             } }>
-                                                { t('action.commencer') }
+                                                { t('flot.split.action.commencer') }
                                             </div>
                                         </div>
                                         <div className="ui row etape">
-                                            <div className="ui heading3">{ t('flot.preambules.titre2') }</div>
-                                            <div className="ui heading1">{ t('flot.preambules.sous-titre2') }</div>
+                                            <div className="ui heading3">{ t('flot.split.documente-ton-oeuvre.preambules.titre2') }</div>
+                                            <div className="ui heading1">{ t('flot.split.documente-ton-oeuvre.preambules.sous-titre2') }</div>
                                             <div className="ui medium-400">
-                                                { t('flot.preambules.intro2') }
+                                                { t('flot.split.documente-ton-oeuvre.preambules.intro2') }
                                             </div>
                                             <div className="ui medium button"
                                                  style={ { marginTop: "50px", marginLeft: "0px" } } onClick={ () => {
                                                 window.location.href = `/documenter/${ this.state.media.title }`
                                             } }>
-                                                { t('action.commencer') }
+                                                { t('flot.split.action.commencer') }
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +217,7 @@ export default class SommaireOeuvre extends Component {
                                             left: "135px",
                                             width: "55%"
                                         } }>
-                                            { this.state.media.title } par { artiste }
+                                            { this.state.media.title } { t('oeuvre.par') } { artiste }
                                         </div>
                                         <img alt="médium" src={ cassette }/>
                                     </div>

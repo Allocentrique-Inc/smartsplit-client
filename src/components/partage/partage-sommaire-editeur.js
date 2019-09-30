@@ -57,13 +57,13 @@ export default class PartageSommaireEditeur extends Component {
         })
 
         // Récupérer l'ayant-droit
-        axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.part.rightHolderId}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.part.rightHolderId}`)
         .then(res=>{
             this.setState({donateur: res.data.Item})
         })
 
         // Récupérer l'éditeur
-        axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.part.shareeId}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.part.shareeId}`)
         .then(res=>{
             this.setState({beneficiaire: res.data.Item}, ()=>{
                 // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
@@ -131,7 +131,7 @@ export default class PartageSommaireEditeur extends Component {
                     t=>
                         <div className="ui button medium" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
                             this.voter(true)                        
-                        }}>{t('vote.accepter')}</div>
+                        }}>{t('flot.split.vote.accepter')}</div>
                 }
             </Translation>
         )
@@ -149,7 +149,7 @@ export default class PartageSommaireEditeur extends Component {
                         <div className="ui button medium red" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
                             this.voter(false)
                             this.justifierRefus()
-                        }}>{t('vote.refuser')}</div>
+                        }}>{t('flot.split.vote.refuser')}</div>
                 }
             </Translation>            
         )
@@ -201,7 +201,7 @@ export default class PartageSommaireEditeur extends Component {
             choix: this.state.choix,
             jeton: this.state.jetonApi
         }
-        axios.post('http://api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
         .then((res)=>{
             window.location.reload()
         })
@@ -233,7 +233,7 @@ export default class PartageSommaireEditeur extends Component {
 
     rafraichirDonnees(fn) {
         if (this.state.rafraichir){
-            axios.get(`http://api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
             .then(res=>{
                 this.setState({part: res.data})
             })            
@@ -330,7 +330,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 {
                                                     t=>
                                                         <div style={{color: this.state.choix === 'accept' ? "green" : (this.state.choix === "reject" ? "red" : "grey")}}>
-                                                            <strong>{t(`vote.${this.state.choix}`)}</strong>
+                                                            <strong>{t(`flot.split.vote.${this.state.choix}`)}</strong>
                                                         </div>                                                    
                                                 }
                                             </Translation>
@@ -368,7 +368,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 {
                                                     t=>
                                                         <div style={{color: "green"}}>
-                                                            <strong>{t(`vote.accept`)}</strong>
+                                                            <strong>{t(`flot.split.vote.accept`)}</strong>
                                                         </div>                                                    
                                                 }
                                             </Translation>
@@ -391,7 +391,7 @@ export default class PartageSommaireEditeur extends Component {
                         (
                             <button className="ui medium button" disabled={!this.state.transmission} onClick={()=>{
                                 this.transmettre(t)
-                            }}> {t('flot.bouton.voter')}
+                            }}> {t('flot.split.documente-ton-oeuvre.bouton.voter')}
                             </button>
                         )
                     }    

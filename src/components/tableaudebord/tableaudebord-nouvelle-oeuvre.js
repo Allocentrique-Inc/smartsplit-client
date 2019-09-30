@@ -51,17 +51,15 @@ class Apercu extends Component {
                                     color: "#8DA0B3"                                                
                                 }}>{t('titre.apercu')}</p>
                                 <div className="ui grid">
-                                    <div className="ui row" style={{background: "#FAF8F9", borderRadius: "2px", minHeight: "112px", width: "100%"}}>
-                                        <div className="ui two wide column">
-                                            <i className="file image outline icon big grey" />                                         
-                                        </div>
-                                        <div className="ui twelve wide column">
-                                            <p>
-                                                {this.state.values.artist || t('titre.oeil-ouvert')}
-                                            </p>
-                                            <p style={{fontWeight: "bolder"}}>{this.state.values.title || t('titre.apercu-sen-vient')}</p>
-                                        </div>
-                                    </div>                                                                                                        
+                                    <div className="ui two wide column">
+                                        <i className="file image outline icon big grey" /> 
+                                    </div>
+                                    <div className="ui twelve wide column">
+                                        <p>
+                                            {this.state.values.artist || t('titre.oeil-ouvert')}
+                                        </p>
+                                        <p style={{fontWeight: "bolder"}}>{this.state.values.title || t('titre.apercu-sen-vient')}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -426,7 +424,7 @@ export default class NouvelleOeuvre extends Component {
     }
 
     componentWillMount() {
-        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{
             this.setState({rightHolders: res.data})
         })
@@ -512,7 +510,7 @@ export default class NouvelleOeuvre extends Component {
                                         title: undefined,
                                         type: undefined
                                     }}
-                                    buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.cest-parti')}}
+                                    buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti')}}
                                     debug={false}         
                                     onPageChanged={no=>this.changementPage(no, t)}                       
                                     onSubmit={(values, {setSubmitting})=>{this.soumettre(values, t); setSubmitting(false) }}

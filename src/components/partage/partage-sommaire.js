@@ -99,9 +99,9 @@ class SommaireDroit extends Component {
             <Translation>
                 {
                     t=>
-                        <div className="ui button medium" style={{cursor: "pointer", display: "inline-block"}} onClick={()=>{
+                        <div className="ui button medium" style={{cursor: "pointer", display: "inline-block", width: "100px"}} onClick={()=>{
                             this.voter(true)                        
-                        }}>{t('vote.accepter')}</div>
+                        }}>{t('flot.split.vote.accepter')}</div>
                 }
             </Translation>
         )
@@ -117,7 +117,7 @@ class SommaireDroit extends Component {
                                 this.justifierRefus()
                                 this.voter(false)
                             }}>
-                                {t('vote.refuser')}
+                                {t('flot.split.vote.refuser')}
                             </div>                            
                         </div>
                 }
@@ -283,7 +283,7 @@ class SommaireDroit extends Component {
                                                     uuid !== this.state.ayantDroit.rightHolderId && 
                                                     (
                                                         <div style={{color: part.vote === 'accept' ? "green" : (part.vote === "reject" ? "red" : "grey")}}>
-                                                            <strong>{t(`vote.${part.vote}`)}</strong>
+                                                            <strong>{t(`flot.split.vote.${part.vote}`)}</strong>
                                                         </div>
                                                     ) 
                                                 }
@@ -291,7 +291,7 @@ class SommaireDroit extends Component {
                                                     uuid === this.state.ayantDroit.rightHolderId && 
                                                     (
                                                         <div style={{color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "green" : (this.state.monVote && this.state.monVote.vote === "reject" ? "red" : "grey")}}>
-                                                            <strong>{t(`vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
+                                                            <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
                                                         </div>
                                                     ) 
                                                 }
@@ -310,7 +310,7 @@ class SommaireDroit extends Component {
                 {
                     t=>
                         <div className="ui segment">
-                            <div className="wizard-title">{t(`droits.titre.${this.state.titre}`)}</div>
+                            <div className="wizard-title">{t(`flot.split.droits.titre.${this.state.titre}`)}</div>
                             <br/><br/>
                             <div className="ui grid">
                                 <div className="ui row">
@@ -355,7 +355,7 @@ export default class SommairePartage extends Component {
 
         this.setState({patience: true}, ()=>{
             // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
-            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
                 // Chercher les avatars
@@ -367,7 +367,7 @@ export default class SommairePartage extends Component {
                             if(!_avatars[_rH.rightHolderId]) {
                                 _avatars[_rH.rightHolderId] = { }
                                 // Récupération des avatars et intégration dans les éléments correspondants
-                                axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
+                                axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
                                 .then(r=>{
                                     let avatar = r.data.Item.avatarImage
                                     _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
@@ -532,7 +532,7 @@ export default class SommairePartage extends Component {
 
     rafraichirDonnees(fn) {
         if (!this.state.proposition || this.state.rafraichir){
-            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
                 this.calculMesVotes(proposition, fn)
@@ -551,7 +551,7 @@ export default class SommairePartage extends Component {
             droits: this.state.mesVotes,
             jeton: this.state.jetonApi
         }
-        axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/voter', body)
         .then((res)=>{
             window.location.href = `/partager/${this.state.proposition.mediaId}`
         })
@@ -629,7 +629,7 @@ export default class SommairePartage extends Component {
                                             (
                                                 <div className={`ui medium button ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={()=>{
                                                     this.transmettre(t)
-                                                }}>{t('flot.bouton.voter')}
+                                                }}>{t('flot.split.documente-ton-oeuvre.bouton.voter')}
                                                 </div>
                                             )
                                         }

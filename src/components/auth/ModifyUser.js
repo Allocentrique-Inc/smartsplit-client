@@ -104,7 +104,9 @@ export default class ModifyUser extends Component {
 
   click() {
     this.handleSubmit();
-    this.props.close();
+    if(this.props.close) {
+      this.props.close()
+    }      
   }
 
   handleSubmit = values => {
@@ -122,7 +124,7 @@ export default class ModifyUser extends Component {
 
     try {
       axios
-        .post("http://api.smartsplit.org:8080/v1/rightHolders", body)
+        .post("http://dev.api.smartsplit.org:8080/v1/rightHolders", body)
         .then(() => {
           console.log("user created / modified");
           toast.success("user created / modified");
@@ -132,10 +134,10 @@ export default class ModifyUser extends Component {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log('réponse rightHolders', err);
         });
     } catch (err) {
-      console.log(err);
+      console.log('try', err);
     }
   };
 
@@ -148,7 +150,7 @@ export default class ModifyUser extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://api.smartsplit.org:8080/v1/rightHolders")
+      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
