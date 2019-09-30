@@ -9,7 +9,7 @@ const params = {
     "AttributesToGet": ["email"],
     "Filter": EMAIL_FILTER_STRING,
     "Limit": 1,
-    "UserPoolId": 'us-east-2_tK9rNdAB1'
+    "UserPoolId": 'us-east-2_PRLNO62fN'
 }
 
   COGNITO_CLIENT.listUsers(params, (err, data) => {
