@@ -232,8 +232,8 @@ export default class ListePieces extends Component {
                                         </div>
                                         <div className="ui fifteen wide column">
                                             <br/>
-                                            <div className="medium-500">{t('tableaudebord.vide.preambule')}</div>
-                                            <div className="medium-500" style={{fontWeight: '100'}}>{t('tableaudebord.vide.indication')}</div>
+                                            <div className="medium-500">{t('flot.split.tableaudebord.vide.preambule')}</div>
+                                            <div className="medium-500" style={{fontWeight: '100'}}>{t('flot.split.tableaudebord.vide.indication')}</div>
                                         </div>
                                     </div>
                                 </div>                            
@@ -322,7 +322,7 @@ export default class ListePieces extends Component {
                                         </div>
                                         <Modal
                                             open={this.state.modaleOeuvre}                                            
-                                            onClose={()=>this.modaleNouvelleOeuvre(false)}
+                                            onClose={()=>{this.modaleNouvelleOeuvre(false); if(this.state.audio) this.state.audio.stop()}}
                                             size="large"
                                             closeIcon
                                             closeOnDimmerClick={false}

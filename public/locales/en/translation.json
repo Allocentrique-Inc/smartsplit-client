@@ -1,15 +1,15 @@
 {
   "info": {
     "oeuvre": {
-        "creation": "Work # {{id}} created. :)"
+      "creation": "Work # {{id}} created. :)"
     }
   },
   "options": {
     "piece": {
-        "titre": "This work is ...",
-        "originale": "an original creation",
-        "arrangement": "a remix",
-        "reprise": "a cover"
+      "titre": "This work is ...",
+      "originale": "an original creation",
+      "arrangement": "a remix",
+      "reprise": "a cover"
     }
   },
   "titre": {
@@ -19,7 +19,7 @@
     "apercu": "Preview",
     "oeil-ouvert": "Keep your eyes opened",
     "apercu-sen-vient": "Your preview will be shown here"
-  },  
+  },
   "collaborateur": {
     "titre": "Add a collaborating artist",
     "attribut": {
@@ -92,6 +92,7 @@
         "artiste": "Who is the main artist ?",
         "juridiction": "What is the legal jurisdiction (country)?",
         "ayantDroit": "Select one or more collaborators",
+        "commentaire": "Comment",
         "genre": "Select the primary work genra",
         "genre2": "Select the secondary work genra",
         "paroles": "Type in the lyrics",
@@ -134,6 +135,7 @@
     "televersement": {
       "titre": "Upload your source file",
       "indication": "Drag the file you want to upload and drop it here, or clic here to choose the file.",
+      "soustitre": "WAV or MP3 format only, 100 Mo maximum.",
       "preambule": "Here you can upload your source file. It will be accessible only to those who have private access. You could then share your work with radio stations, broadcasters and so on. The link to the file is not publicly available."
     }
   },
@@ -148,13 +150,10 @@
       "oui": "Let's do this !",
       "non": "No, thanks."
     },
-    "envoifichier": {
-      "reussi": "File analysis successful!",
-      "echec": "File transfer failed"
-    },
     "split": {
       "sommaire": {
         "titre": "Split's Summary",
+        "resultat": "Results summary",
         "soustitre": "Begin: an initial Split created by",
         "votation": "VOTATION",
         "brouillon": "DRAFT",
@@ -186,7 +185,8 @@
         "ACCEPTE": "ACCEPTED",
         "BROUILLON": "DRAFT",
         "PRET": "READY",
-        "INCONNU": "UNDEFINED"
+        "INCONNU": "UNDEFINED",
+        "ATTENTE": "WAITING"
       },
       "valider": {
         "titre": "Validate Your Split",
@@ -414,8 +414,8 @@
           "echec": "Transfer failed"
         },
         "envoifichier": {
-            "reussi": "File analysis successful!",
-            "echec": "File transfer failed"
+          "reussi": "File analysis successful!",
+          "echec": "File transfer failed"
         },
         "lien": {
           "sociaux": {
@@ -485,12 +485,16 @@
           "donateur": "Donor"
         },
         "proposition": {
-            "nouvelle": "New musical work",
-            "envoyer": "Send to collaborators",
-            "continuer": "Continue to split the rights",
-            "sommaire": "Split summary",
-            "voter": "Go to vote page",
-            "voter-avec-jeton": "You can only vote by clicking on the email that was sent to you when the proposal was created."
+          "nouvelle": "New musical work",
+          "envoyer": "Send to collaborators",
+          "continuer": "Continue to split the rights",
+          "sommaire": "Split summary",
+          "voter": "Go to vote page",
+          "voter-avec-jeton": "You can only vote by clicking on the email that was sent to you when the proposal was created.",
+          "pourquoi": "Mention to your contributors why you're not comfortable with this split.",
+          "refuse": "Why you decline this split (optional)",
+          "refuse2": "Decline this split",
+          "termine": "The voting is done!"
         },
         "bouton": {
           "ajout": "Add",
@@ -633,11 +637,7 @@
       "created": "Created documentation",
       "maintenant": "is now documented!",
       "resume": "See the summary"
-    },
-    "envoifichier": {
-      "reussi": "File analysis successful!",
-      "echec": "File transfer failed"
-    }      
+    }
   },
   "accueil": {
     "titre": "Login to your Smart Split account.",
@@ -653,7 +653,7 @@
     "encours": "Connecting..."
   },
   "televersement": {
-      "encours": "Please wait while we store and analyse your file"
+    "encours": "Please wait while we store and analyse your file"
   },
   "socan": {
     "joindre": "Join SOCAN",
@@ -696,6 +696,10 @@
     "francais": "Français",
     "anglais": "English",
     "deconnexion": "Disconnect"
-     
-  }
+  },
+  "obligatoire": "Mendatory",
+  "connexion": "Login mendatory",
+  "connecter": "You must be connected to vote",
+  "selection": "A selection in this list is mandatory",
+  "champ": "This text field is mandatory"
 }

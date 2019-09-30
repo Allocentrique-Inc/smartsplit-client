@@ -98,7 +98,7 @@ export default class LigneMedia extends Component {
                     style={{ display: "inline-block" }}
                   >
                     {i18n.lng &&
-                      moment(elem.modificationDate)
+                      moment(elem.creationDate)
                         .locale(i18n.lng.substring(0, 2))
                         .fromNow()}{" "}
                     &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
@@ -146,7 +146,7 @@ export default class LigneMedia extends Component {
                         window.location.href = `/partager/${this.state.media.mediaId}`;
                       }}
                     >
-                      {t("flot.proposition.voter")}
+                      {t("flot.split.documente-ton-oeuvre.proposition.voter")}
                     </div>
                   )}
                   {_p && <Label>{t(`flot.split.etat.${_p.etat}`)}</Label>}
