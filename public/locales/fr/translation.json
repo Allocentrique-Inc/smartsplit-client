@@ -1,8 +1,24 @@
 {
+  "info": {
+    "oeuvre": {
+        "creation": "Oeuvre # {{id}} créée. :)"
+    }
+  },
+  "options": {
+    "piece": {
+        "titre": "Cette oeuvre est ...",
+        "originale": "une création originale",
+        "arrangement": "un arrangement (remix)",
+        "reprise": "une reprise (cover)"
+    }
+  },
   "titre": {
     "principal": "Bienvenue sur SmartSplit Alpha - Client",
     "accueil": "Accueil",
-    "liste-media": "Liste des médias retournés de l'API"
+    "liste-media": "Liste des médias retournés de l'API",
+    "apercu": "Aperçu",
+    "oeil-ouvert": "Gardez l'oeil ouvert",
+    "apercu-sen-vient": "Votre aperçu s'affichera ici"
   },
   "collaborateur": {
     "titre": "Ajouter un artiste collaborateur",
@@ -116,12 +132,24 @@
   "validation": {
     "requis": "Requis"
   },
+  "composant": {
+      "televersement": {
+          "titre": "Fichier",
+          "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
+          "indication": "ou dépose le fichier ici"
+      }
+  },
   "image": {
     "embarquement": {
       "alt": "Femme en méditation avec des écouteurs"
     }
   },
   "flot": {
+    "acr": {
+      "titre": "Ta pièce musicale a été reconnue",
+      "oui": "D'accord !",
+      "non": "Merci, mais ça va être correct."
+    },
     "split": {
       "sommaire": {
         "titre": "Sommaire du Split",
@@ -602,6 +630,10 @@
       "created": "Created documentation",
       "maintenant": "is now documented!",
       "resume": "See the summary"
+    },    
+    "envoifichier": {
+        "reussi": "Reconnaissance du fichier réussie !",
+        "echec": "Envoi de fichier en échec"
     }
   },
   "accueil": {

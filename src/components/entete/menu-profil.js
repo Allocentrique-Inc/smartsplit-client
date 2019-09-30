@@ -145,9 +145,7 @@ export default class MenuProfil extends Component {
                   style={{
                     background: "transparent",
                     width: "150px",
-                    left: "30px",
-                    position: "relative",
-                    display: "block",
+                    left: "30px",                  
                     marginBottom: "10px"
                   }}
                 >

@@ -1,9 +1,25 @@
 {
+  "info": {
+    "oeuvre": {
+        "creation": "Work # {{id}} created. :)"
+    }
+  },
+  "options": {
+    "piece": {
+        "titre": "This work is ...",
+        "originale": "an original creation",
+        "arrangement": "a remix",
+        "reprise": "a cover"
+    }
+  },
   "titre": {
     "principal": "Welcome to SmartSplit Alpha - Client",
     "accueil": "Home",
-    "liste-media": "Media list returned by the API"
-  },
+    "liste-media": "Media list returned by the API",
+    "apercu": "Preview",
+    "oeil-ouvert": "Keep your eyes opened",
+    "apercu-sen-vient": "Your preview will be shown here"
+  },  
   "collaborateur": {
     "titre": "Add a collaborating artist",
     "attribut": {
@@ -127,6 +143,15 @@
     }
   },
   "flot": {
+    "acr": {
+      "titre": "Your musical work is recognized",
+      "oui": "Let's do this !",
+      "non": "No, thanks."
+    },
+    "envoifichier": {
+      "reussi": "File analysis successful!",
+      "echec": "File transfer failed"
+    },
     "split": {
       "sommaire": {
         "titre": "Split's Summary",
@@ -604,11 +629,15 @@
         "bouton": "Create my account"
       }
     },
-      "fin": {
-        "created": "Documentation créee",
-        "maintenant": "est maintenant documentée !",
-        "resume": "Voir le résumé"
-      }
+    "fin": {
+      "created": "Created documentation",
+      "maintenant": "is now documented!",
+      "resume": "See the summary"
+    },
+    "envoifichier": {
+      "reussi": "File analysis successful!",
+      "echec": "File transfer failed"
+    }      
   },
   "accueil": {
     "titre": "Login to your Smart Split account.",

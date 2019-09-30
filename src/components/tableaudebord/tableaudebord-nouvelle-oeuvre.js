@@ -49,16 +49,16 @@ class Apercu extends Component {
                                     textTransform: "uppercase",
                                     paddingTop: "16px",
                                     color: "#8DA0B3"                                                
-                                }}>{t('flot.split.titre.apercu')}</p>
+                                }}>{t('titre.apercu')}</p>
                                 <div className="ui grid">
                                     <div className="ui two wide column">
                                         <i className="file image outline icon big grey" /> 
                                     </div>
                                     <div className="ui twelve wide column">
                                         <p>
-                                            {this.state.values.artiste || t('flot.split.titre.oeil-ouvert')}
+                                            {this.state.values.artist || t('titre.oeil-ouvert')}
                                         </p>
-                                        <p style={{fontWeight: "bolder"}}>{this.state.values.titre || t('flot.split.titre.apercu-sen-vient')}</p>
+                                        <p style={{fontWeight: "bolder"}}>{this.state.values.title || t('titre.apercu-sen-vient')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -108,15 +108,15 @@ class Base extends Component {
                                         requis={true}                                            
                                         choix={[
                                             {
-                                                nom: t('flot.split.options.piece.originale'),
+                                                nom: t('options.piece.originale'),
                                                 valeur: ORIGINALE
                                             },
                                             {
-                                                nom: t('flot.split.options.piece.arrangement'),
+                                                nom: t('options.piece.arrangement'),
                                                 valeur: ARRANGEMENT
                                             },
                                             {
-                                                nom: t('flot.split.options.piece.reprise'),
+                                                nom: t('options.piece.reprise'),
                                                 valeur: REPRISE
                                             }
                                         ]}
@@ -362,13 +362,13 @@ class Page2NouvellePiece extends Component {
                                             )
                                         }
 
-                                        <div style={{marginTop: "20px", width: "350px"}} className="ui row">
+                                        <div style={{marginTop: "20px"}} className="ui row">
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={ this.props.pochette }
                                                 items={ this.rightHolderOptions() }
                                                 label={ t('oeuvre.titre.vedette') }
                                                 createLabel="Créer un nouveau collaborateur"
-                                                placeholder={ t('oeuvre.attribut.etiquette.vedette') }
+                                                placeholder={ t('oeuvre.attribut.indication.vedette') }
                                                 value={ this.state.vedettes }
                                                 onChange={ ids => this.props.setFieldValue('vedettes', ids) }
                                             />

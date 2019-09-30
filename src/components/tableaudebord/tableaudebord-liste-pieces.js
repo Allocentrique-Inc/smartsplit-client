@@ -328,7 +328,7 @@ export default class ListePieces extends Component {
                                             closeOnDimmerClick={false}
                                         >
                                             <Modal.Header>
-                                                {t('flot.proposition.nouvelle')}
+                                                {t('flot.split.titre.creer')}
                                             </Modal.Header>
                                             <Modal.Content>
                                                 <NouvelleOeuvre audio={this.state.audio} parent={this} user={this.state.user} />
