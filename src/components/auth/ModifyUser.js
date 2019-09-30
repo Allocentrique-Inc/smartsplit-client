@@ -146,8 +146,11 @@ export default class ModifyUser extends Component {
     console.log(username, password, attributes)
 
     try {
-      axios
-        .post("http://api.smartsplit.org:8080/v1/rightHolders", body)
+      Auth.signUp({
+        username,
+        password,
+        attributes: attributes
+      })
         .then(() => {
           toast.success("user created / modified");
           if (this.props.fn) {
