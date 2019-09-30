@@ -180,7 +180,9 @@ export default class SommairePartages extends Component {
                 if(_p.etat !== 'PRET') {
                     envoiDisabled = true
                 } else {
-                    envoiDisabled = false
+                    if(_p.initiator.id === this.state.user.username) {
+                        envoiDisabled = false
+                    }                    
                 }
                 if(_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
                     continuerDisabled = false
@@ -340,7 +342,6 @@ export default class SommairePartages extends Component {
                                                             open={this.state.modaleCourriels}
                                                             onClose={this.closeModal} 
                                                             size="small"
-                                                            style={{height: "100%"}}
                                                         >
                                                             <PageAssistantSplitCourrielsCollaborateurs 
                                                                 ayantDroits={rightHolders}

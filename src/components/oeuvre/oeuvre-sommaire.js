@@ -30,6 +30,17 @@ export default class SommaireOeuvre extends Component {
             .then(res => {
                 this.setState({ user: res })
                 this.getMedia()
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
+                .then(res=>{
+                    let _p0
+                    res.data.forEach(_p=>{
+                        if(!_p0)
+                            _p0 = _p
+                        if(_p0._d < _p._d)
+                            _p0 = _p
+                    })
+                    this.setState({p0: _p0})
+                })
             })
             .catch(err => {
                 toast.error(err.message)
@@ -75,9 +86,9 @@ export default class SommaireOeuvre extends Component {
             mediaId: this.state.media.mediaId,
             title: titre
         })
-            .then(() => {
-                this.getMedia()
-            })
+        .then(() => {
+            this.getMedia()
+        })
     }
 
     editerTitre(edition) {
@@ -191,7 +202,15 @@ export default class SommaireOeuvre extends Component {
 
                                             <div className="ui medium button"
                                                  style={ { marginTop: "50px", marginLeft: "0px" } } onClick={ () => {
-                                                window.location.href = `/partager/${ this.state.mediaId }`
+                                                
+                                                    let p0 = this.state.p0
+
+                                                    if(!p0) {
+                                                        window.location.href = `/partager/nouveau/${ this.state.mediaId }`
+                                                    } else {
+                                                        window.location.href = `/partager/${ this.state.mediaId }`
+                                                    }
+                                                                                                    
                                             } }>
                                                 { t('flot.split.action.commencer') }
                                             </div>

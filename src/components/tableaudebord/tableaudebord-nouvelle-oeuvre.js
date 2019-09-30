@@ -261,6 +261,7 @@ class Page2NouvellePiece extends Component {
                                         }
                                         <ChampTeleversement                                          
                                             label={t('composant.televersement.titre')}
+                                            access="private"
                                             undertext={t('composant.televersement.soustitre')}                                     
                                             onFileChange={ value => {
                                                 
@@ -301,7 +302,7 @@ class Page2NouvellePiece extends Component {
             
                                                                 let analyse = f.music[0] // Il peut y avoir plus d'un résultat
             
-                                                                toast.success(t('flot.envoifichier.reussi') + ` ${ f.empreinte }`)
+                                                                toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${ f.empreinte }`)
                                                                 this.setState({analyse: analyse}, ()=>this.modaleReconnaissance()) 
                                                                 this.props.setFieldValue('fichier', f.empreinte)                                                       
                                                                 
@@ -311,7 +312,7 @@ class Page2NouvellePiece extends Component {
                                                             if(err) {
                                                                 console.log(err)
                                                                 if(fichier)
-                                                                    toast.error(t('flot.envoifichier.echec') + ` ${fichier.name}`)
+                                                                    toast.error(t('flot.split.documente-ton-oeuvre.envoifichier.echec') + ` ${fichier.name}`)
                                                             }                                                        
                                                         })
                                                         .finally(()=>{
@@ -367,8 +368,8 @@ class Page2NouvellePiece extends Component {
                                                 pochette={ this.props.pochette }
                                                 items={ this.rightHolderOptions() }
                                                 label={ t('oeuvre.titre.vedette') }
-                                                createLabel="Créer un nouveau collaborateur"
-                                                placeholder={ t('oeuvre.attribut.indication.vedette') }
+                                                createLabel={ t('flot.split.documente-ton-oeuvre.documenter.collabo') }
+                                                placeholder={ t('oeuvre.attribut.etiquette.vedette') }
                                                 value={ this.state.vedettes }
                                                 onChange={ ids => this.props.setFieldValue('vedettes', ids) }
                                             />
@@ -522,7 +523,7 @@ export default class NouvelleOeuvre extends Component {
                                             this.changement(values)
                                             const errors = {};
                                             if (!values.title) {
-                                                errors.title = "Obligatoire"
+                                                errors.title = t("obligatoire")
                                             }
                                             return errors
                                         }}>                                

@@ -374,7 +374,7 @@ export default class SommairePartage extends Component {
                                     this.setState({avatars: _avatars})                                    
                                 })
                                 .catch(err=>{
-                                    toast.error(err.message)
+                                    console.log(err)
                                     _avatars[_rH.rightHolderId].avatar = err.message
                                 })
                             }
@@ -383,8 +383,7 @@ export default class SommairePartage extends Component {
                 })
                 this.setState({patience: false})            
             })
-            .catch(err=>{
-                toast.error(err.message)
+            .catch(err=>{                
                 console.log(err)
             })
         })
@@ -538,7 +537,7 @@ export default class SommairePartage extends Component {
                 this.calculMesVotes(proposition, fn)
             })
             .catch(err=>{
-                toast.error(err.message)
+                console.log(err)
             })
         } else {
             this.calculMesVotes(this.state.proposition, fn)
@@ -556,7 +555,7 @@ export default class SommairePartage extends Component {
             window.location.href = `/partager/${this.state.proposition.mediaId}`
         })
         .catch((err) => {
-            toast.error(err.message)                                
+            console.log(err)
         })
     }
 

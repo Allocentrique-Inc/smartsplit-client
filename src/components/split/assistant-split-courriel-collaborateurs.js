@@ -95,7 +95,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
         });
       })
       .catch(error => {
-        toast.error(error);
+        console.log(error);
       });
   }
 
@@ -142,7 +142,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
                 this.click();
               }}
               className={`ui medium button envoie`}
-              style={{ position: "relative", top: "450px", left: "365px" }}
+              style={{ position: "relative", left: "365px" }}
             >
               {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
             </div>
