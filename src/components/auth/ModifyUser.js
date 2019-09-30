@@ -109,7 +109,7 @@ export default class ModifyUser extends Component {
   }
 
   randomPassword(length) {
-    let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOP1234567890"
+    let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890"
     let password = "";
     for (var x = 0; x < length; x++) {
         var i = Math.floor(Math.random() * chars.length);
@@ -134,13 +134,14 @@ export default class ModifyUser extends Component {
       given_name: this.state.firstName,
       family_name: this.state.lastName,
       'custom:artistName': this.state.artistName,
-      'custom:instruments': this.state.instruments,
-      'custom:defaultRoles': this.state.currentRoleValue,
-      'custom:groups': this.state.currentValue,
+      // 'custom:instruments': this.state.instruments,
+      // 'custom:defaultRoles': this.state.currentRoleValue,
+      // 'custom:groups': this.state.currentValue,
       'custom:avatarImage': this.state.avatarImage
     }
     let username = this.state.email
-    let password = this.randomPassword(10)
+    let password = this.randomPassword(16)
+    console.log(username, password, attributes)
 
     try {
       Auth.signUp({
