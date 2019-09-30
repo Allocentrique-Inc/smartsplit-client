@@ -424,7 +424,7 @@ export default class NouvelleOeuvre extends Component {
     }
 
     componentWillMount() {
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{
             this.setState({rightHolders: res.data})
         })

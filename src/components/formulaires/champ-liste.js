@@ -114,7 +114,7 @@ export class ChampListeCollaborateurAssistant extends Component {
 
     listeAyantsDroit() {
         // Récupérer la liste des ayant-droits
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _options = res.data.map(elem=>{
                 let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
@@ -222,7 +222,7 @@ export class ChampListeEditeurAssistant extends Component {
         let editeurs = {}
 
         // Récupérer la liste des ayant-droits (éditeurs)
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _options = res.data.map(elem=>{
                 let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`

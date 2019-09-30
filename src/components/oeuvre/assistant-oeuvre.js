@@ -57,7 +57,7 @@ class AssistantOeuvre extends Component {
     }
 
     fetchApiRightHolders() {
-        axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
+        axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
             .then(response => {
                 this.setState({ rightHolders: response.data });
             })

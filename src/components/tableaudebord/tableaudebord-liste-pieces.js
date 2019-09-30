@@ -90,12 +90,12 @@ export default class ListePieces extends Component {
 
                     }
 
-                    axios.get('http://dev.api.smartsplit.org:8080/v1/media')
+                    axios.get('http://api.smartsplit.org:8080/v1/media')
                     .then(resMedias=>{
                         const _medias = resMedias.data
                         // 2. Récupérer la proposition de chaque média
                         _medias.forEach(_m=>{
-                            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${_m.mediaId}`)
+                            axios.get(`http://api.smartsplit.org:8080/v1/proposal/media/${_m.mediaId}`)
                             .then((resProposition) => {
                                 const item = resProposition.data.Item
                                 // Découvre si initiateur ou collaborateur et classifie
@@ -143,7 +143,7 @@ export default class ListePieces extends Component {
                         let jj = '';
     
                         initiatorMediaIds.forEach(async function(element) {
-                            const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + element)
+                            const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + element)
                             if(res.data.Item) {
                                 _medias.push(res.data.Item)                                
                             }
@@ -155,7 +155,7 @@ export default class ListePieces extends Component {
                         })
     
                         collabMediaIds.forEach(async function(elm) {
-                            const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + elm)
+                            const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + elm)
                             if(res.data.Item) {
                                 _collabMedias.push(res.data.Item)
                             }                            

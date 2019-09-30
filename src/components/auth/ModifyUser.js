@@ -124,7 +124,7 @@ export default class ModifyUser extends Component {
 
     try {
       axios
-        .post("http://dev.api.smartsplit.org:8080/v1/rightHolders", body)
+        .post("http://api.smartsplit.org:8080/v1/rightHolders", body)
         .then(() => {
           console.log("user created / modified");
           toast.success("user created / modified");
@@ -150,7 +150,7 @@ export default class ModifyUser extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
+      .get("http://api.smartsplit.org:8080/v1/rightHolders")
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
