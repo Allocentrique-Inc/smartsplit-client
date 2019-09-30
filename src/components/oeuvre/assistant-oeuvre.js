@@ -144,21 +144,17 @@ class AssistantOeuvre extends Component {
             endModalOpen: true
         });
 
-        /*let oeuvre = new Oeuvre(values);
-        let body = oeuvre.get();
+        //let oeuvre = new Oeuvre(values);
+        //let body = oeuvre.get();
 
-        axios.post('http://dev.api.smartsplit.org:8080/v1/media', body)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/media', values)
             .then((response) => {
                 actions.setSubmitting(false);
                 toast(t('flot.envoi.reussi'));
-
-                setTimeout(() => {
-                    window.location.href = '/liste-oeuvres';
-                }, 4000);
             })
             .catch((error) => {
                 toast.error(error);
-            });*/
+            });
     };
 
     render() {

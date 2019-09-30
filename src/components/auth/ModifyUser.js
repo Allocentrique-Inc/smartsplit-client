@@ -105,7 +105,9 @@ export default class ModifyUser extends Component {
 
   click() {
     this.handleSubmit();
-    this.props.close();
+    if(this.props.close) {
+      this.props.close()
+    }      
   }
 
   randomPassword(length) {
@@ -150,7 +152,7 @@ export default class ModifyUser extends Component {
           console.log(err);
         });
     } catch (err) {
-      console.log(err);
+      console.log('try', err);
     }
   };
 
@@ -196,34 +198,6 @@ export default class ModifyUser extends Component {
       this.setState({ artistName: nextProps.firstName });
     }
   }
-
-  // handleSubmit = values => {
-  //   try {
-  //     this.setState({ patience: true }, () => {
-  //       Auth.signIn(
-  //         this.state.firstName,
-  //         this.state.lastName,
-  //         this.state.artistName,
-  //         "image.jpg"
-  //       )
-  //         .then(user => {
-  //           toast.success(`#${user.username} !`);
-
-  //           if (this.props.fn) {
-  //             this.props.fn();
-  //           }
-  //         })
-  //         .catch(err => {
-  //           toast.error(err.message);
-  //         })
-  //         .finally(() => {
-  //           this.setState({ patience: false });
-  //         });
-  //     });
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   render() {
     const {

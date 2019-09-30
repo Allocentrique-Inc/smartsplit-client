@@ -39,7 +39,7 @@ export class Navbar extends Component {
                                     {this.state.profil && <MenuProfil user={this.state.profil} />}
                                     <div className="save-and-quit-label">
                                         <a href="#">
-                                            { t('flot.etape.enregistrerEtQuitter') }
+                                            { t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter') }
                                         </a>
                                     </div>                                    
                                 </div>

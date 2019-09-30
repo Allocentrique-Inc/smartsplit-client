@@ -8,6 +8,7 @@ import LigneMedia from './tableaudebord-ligne-media'
 import { Modal } from 'semantic-ui-react';
 import AssistantOeuvre from '../oeuvre/assistant-oeuvre';
 import NouvelleOeuvre from './tableaudebord-nouvelle-oeuvre';
+import AudioLecture from '../oeuvre/audio-lecture';
 
 const PANNEAU_INITIATEUR = 1, PANNEAU_COLLABORATEUR = 0
 
@@ -18,6 +19,7 @@ export default class ListePieces extends Component {
         this.state={
             medias:[],
             collabMedias:[],
+            creatorMedias: [],
             panneau:PANNEAU_INITIATEUR,
             collecte: {
                 medias: false,
@@ -54,6 +56,20 @@ export default class ListePieces extends Component {
 
     componentWillMount() {
 
+        // Retrait des doublons
+        // cleanArray removes all duplicated elements
+        // https://www.unicoda.com/?p=579
+        function cleanArray(array) {
+            var i, j, len = array.length, out = [], obj = {};
+            for (i = 0; i < len; i++) {
+            obj[array[i]] = 0;
+            }
+            for (j in obj) {
+            out.push(j);
+            }
+            return out;
+        }
+        
         try{
 
             this.setState({collecte: {
@@ -64,12 +80,45 @@ export default class ListePieces extends Component {
                 Auth.currentSession().then(
                     session=>{
                     let that = this
-                    let USER_ID = session.idToken.payload.sub       
-    
+                    let USER_ID = session.idToken.payload.sub
+
+                    // 1. Récupérer tous les médias
+                    let initiatorMediaIds = []
+                    let collabMediaIds = []
+/*
+                    function construireListe() {
+
+                    }
+
+                    axios.get('http://dev.api.smartsplit.org:8080/v1/media')
+                    .then(resMedias=>{
+                        const _medias = resMedias.data
+                        // 2. Récupérer la proposition de chaque média
+                        _medias.forEach(_m=>{
+                            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${_m.mediaId}`)
+                            .then((resProposition) => {
+                                const item = resProposition.data.Item
+                                // Découvre si initiateur ou collaborateur et classifie
+                                if (item.initiator.id === USER_ID){
+                                    initiatorMediaIds.push(item.mediaId) // If initiator
+                                } 
+                                else if (item.initiator.id == undefined){
+                                    toast.error("Initiator undefined")
+                                } 
+                                if((JSON.stringify(item.rightsSplits)).includes(USER_ID)){
+                                    collabMediaIds.push(item.mediaId) // If collaborator
+                                } else if (item.rightsSplits == undefined) {
+                                    toast.error("rightsSplits object error")
+                                }
+                                construireListe()
+                            })
+                        })                        
+                    })
+                    
+  */  
+                    // Médias depuis les propositions
                     axios.get('http://dev.api.smartsplit.org:8080/v1/proposal')
-                    .then((res) => {
-                        let initiatorMediaIds = []
-                        let collabMediaIds = []
+                    .then((res) => {                        
     
                         res.data.forEach(function(item){
                             if (item.initiator.id === USER_ID){
@@ -83,21 +132,7 @@ export default class ListePieces extends Component {
                             } else if (item.rightsSplits == undefined) {
                                 toast.error("rightsSplits object error")
                             }
-                        })
-                        
-                        // Retrait des doublons
-                        // cleanArray removes all duplicated elements
-                        // https://www.unicoda.com/?p=579
-                        function cleanArray(array) {
-                            var i, j, len = array.length, out = [], obj = {};
-                            for (i = 0; i < len; i++) {
-                            obj[array[i]] = 0;
-                            }
-                            for (j in obj) {
-                            out.push(j);
-                            }
-                            return out;
-                        }
+                        })                                             
 
                         initiatorMediaIds = cleanArray(initiatorMediaIds)
                         collabMediaIds = cleanArray(collabMediaIds)
@@ -109,7 +144,9 @@ export default class ListePieces extends Component {
     
                         initiatorMediaIds.forEach(async function(element) {
                             const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + element)
-                            _medias.push(res.data.Item)
+                            if(res.data.Item) {
+                                _medias.push(res.data.Item)                                
+                            }
                             ii++
                             if (initiatorMediaIds.length == ii) {
                                 that.setState({medias: _medias})
@@ -119,7 +156,9 @@ export default class ListePieces extends Component {
     
                         collabMediaIds.forEach(async function(elm) {
                             const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + elm)
-                            _collabMedias.push(res.data.Item)
+                            if(res.data.Item) {
+                                _collabMedias.push(res.data.Item)
+                            }                            
                             jj++
                             if (collabMediaIds.length == jj) {
                                 that.setState({collabMedias: _collabMedias})
@@ -139,6 +178,25 @@ export default class ListePieces extends Component {
                     .catch((error) => {
                         toast.error(error.message)            
                     })
+
+                    // Médias depuis les médias
+                    let _cM = []                 
+                    axios.get('http://dev.api.smartsplit.org:8080/v1/media')
+                    .then(res=>{                        
+                        let kk = 0
+                        res.data.forEach(m=>{
+                            // Si l'usager est le créateur il peut voir l'oeuvre
+                            if(USER_ID === m.creator) {
+                                _cM.push(m)
+                            }
+                            kk++
+                            if(kk === res.data.length) {
+                                this.setState({creatorMedias: _cM}, ()=>console.log(this.state.creatorMedias))
+                            }
+                        })                  
+                    })
+                    .catch(err=>console.log(err))
+                    
                 })
             })
 
@@ -174,8 +232,8 @@ export default class ListePieces extends Component {
                                         </div>
                                         <div className="ui fifteen wide column">
                                             <br/>
-                                            <div className="medium-500">{t('tableaudebord.vide.preambule')}</div>
-                                            <div className="medium-500" style={{fontWeight: '100'}}>{t('tableaudebord.vide.indication')}</div>
+                                            <div className="medium-500">{t('flot.split.tableaudebord.vide.preambule')}</div>
+                                            <div className="medium-500" style={{fontWeight: '100'}}>{t('flot.split.tableaudebord.vide.indication')}</div>
                                         </div>
                                     </div>
                                 </div>                            
@@ -195,8 +253,8 @@ export default class ListePieces extends Component {
                         <div className="ui row">
                             <div className="ui one wide column" />
                             <div className="ui twelve wide column">
-                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('tableaudebord.pieces.1')}</span>
+                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('flot.split.tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
+                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('flot.split.tableaudebord.pieces.1')}</span>
                             </div>
                             <div className="ui one wide column" />
                         </div>
@@ -212,17 +270,24 @@ export default class ListePieces extends Component {
             rendu = aucuneOeuvre()
         } else {
             let tableauMedias = []
-            if (this.state.medias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
-                tableauMedias = this.state.medias.map((elem, _idx)=>{                    
+            if (this.state.medias.length + this.state.creatorMedias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
+                tableauMedias = this.state.medias.map((elem, _idx)=>{
                     return (
                         <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
                     )
                 })
+                tableauMedias = tableauMedias.concat(
+                    this.state.creatorMedias.map((elem, _idx)=>{
+                        return (
+                            elem && <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />                    
+                        )
+                    })
+                )
             }
-            if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {
+            if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {                
                 tableauMedias = this.state.collabMedias.map((elem, _idx)=>{
                     return (
-                        <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
+                        elem !== undefined && <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />                    
                     ) 
                 })
             } 
@@ -239,12 +304,12 @@ export default class ListePieces extends Component {
                                     <div>                                                                                
                                         <div className="ui grid">
                                             <div className="ui row">
-                                                <div className="heading2 ten wide column">{t('tableaudebord.navigation.0')}</div>
+                                                <div className="heading2 ten wide column">{t('flot.split.tableaudebord.navigation.0')}</div>
                                             </div>                                            
                                             <div className="ui row">
                                                 <div className="ui nine wide column" />
                                                 <div className="ui three wide column medium button" onClick={()=>{this.modaleNouvelleOeuvre()}}>
-                                                    {t('tableaudebord.pieces.ajouter')}
+                                                    {t('flot.split.tableaudebord.pieces.ajouter')}
                                                 </div>
                                             </div>
                                             <div className="ui row">
@@ -257,15 +322,26 @@ export default class ListePieces extends Component {
                                         </div>
                                         <Modal
                                             open={this.state.modaleOeuvre}                                            
-                                            onClose={()=>this.modaleNouvelleOeuvre(false)}
+                                            onClose={()=>{this.modaleNouvelleOeuvre(false); if(this.state.audio) this.state.audio.stop()}}
                                             size="large"
                                             closeIcon
                                             closeOnDimmerClick={false}
                                         >
-                                            <Modal.Header>Créer une nouvelle pièce musicale</Modal.Header>
+                                            <Modal.Header>
+                                                {t('flot.split.titre.creer')}
+                                            </Modal.Header>
                                             <Modal.Content>
-                                                <NouvelleOeuvre parent={this} user={this.state.user} />
-                                            </Modal.Content>                                            
+                                                <NouvelleOeuvre audio={this.state.audio} parent={this} user={this.state.user} />
+                                            </Modal.Content>
+                                            <Modal.Actions>
+                                                <>
+                                                { this.state.mediaId &&
+                                                    <AudioLecture onRef={
+                                                        (audio)=>{ this.setState({audio: audio}) }
+                                                    } />
+                                                }
+                                                </>                                            
+                                            </Modal.Actions>
                                         </Modal>
                                     </div>
                                 )

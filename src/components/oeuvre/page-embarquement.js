@@ -93,10 +93,10 @@ class PageAssistantOeuvreEmbarquement extends Component {
                                                             if (f.music.err) {
                                                                 switch (f.music.err) {
                                                                     case "AUDIO-MAUVAISE-LECTURE":
-                                                                        toast.warn(t('traitement.acr.erreur-mauvaise-lecture'))
+                                                                        toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
                                                                         break;
                                                                     case "AUDIO-INCONNU":
-                                                                        toast.warn(t('traitement.acr.erreur-inconnu'))
+                                                                        toast.warn(t('flot.split.traitement.acr.erreur-inconnu'))
                                                                         break;
                                                                     default:
                                                                         toast.warn(f.music.err)
@@ -109,8 +109,9 @@ class PageAssistantOeuvreEmbarquement extends Component {
 
                                                                 let analyse = f.music[0] // Il peut y avoir plus d'un résultat
 
-                                                                toast(t('flot.envoifichier.reussi') + ` ${ f.nom }`)
+                                                                toast(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${ f.nom }`)
 
+                                                                // Modale pour remplir les champs automatiquement
                                                                 confirmAlert({
                                                                     title: `Un résultat d'enregistrement est détecté pour ton œuvre!`,
                                                                     message: `Veux-tu que je remplisse tous les champs, pour voir ce que ça donne ?`,

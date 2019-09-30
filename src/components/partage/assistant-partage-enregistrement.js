@@ -244,18 +244,18 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <Progress percent="85" size='tiny' indicating/>                                    
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
-                                        {t('flot.etape.enregistrerEtQuitter')}
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                        {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>
                             </div>       
                             <div className="ui row">
                                 <div className="ui seven wide column">
-                                    <div className="wizard-title">{t('flot.partage.enregistrement.titre')}</div>
+                                    <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.partage.enregistrement.titre')}</div>
                                     <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
-                                        {t('partage.enregistrement.titre', {oeuvre: this.state.song})}
+                                        {t('flot.split.documente-ton-oeuvre.partage.enregistrement.titre', {oeuvre: this.state.song})}
                                     </div>
                                     <br/>
                                     {descriptif}
@@ -282,11 +282,11 @@ class PageAssistantPartageEnregistrement extends Component {
                                         titre=""
                                         choix={[    
                                             {
-                                                nom: t('modepartage.egal'),
+                                                nom: t('flot.split.modepartage.egal'),
                                                 valeur: ""+MODES.egal
                                             },                                
                                             {
-                                                nom: t('modepartage.manual'),
+                                                nom: t('flot.split.modepartage.manual'),
                                                 valeur: ""+MODES.manuel
                                             }
                                         ]}
@@ -300,10 +300,10 @@ class PageAssistantPartageEnregistrement extends Component {
                                                 {
                                                     this.props.values.droitEnregistrement.map((part, index)=>{
                                                         let roles = [
-                                                            {id: "producteur", nom: t('flot.partage.enregistrement.role.producteur')}, 
-                                                            {id: "realisateur", nom: t('flot.partage.enregistrement.role.realisateur')}, 
-                                                            {id: "graphiste", nom: t('flot.partage.enregistrement.role.graphiste')}, 
-                                                            {id: "studio", nom: t('flot.partage.enregistrement.role.studio')}
+                                                            {id: "producteur", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.producteur')}, 
+                                                            {id: "realisateur", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.realisateur')}, 
+                                                            {id: "graphiste", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.graphiste')}, 
+                                                            {id: "studio", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.studio')}
                                                         ]
                                                         return (
                                                             <div key={`part-${index}`}>                                                                
@@ -396,12 +396,12 @@ class PageAssistantPartageEnregistrement extends Component {
                                                         )
                                                     })
                                                 }
-                                                <div style={{margin: "0 auto", height: "100px"}}>                                  
+                                                <div style={{margin: "0 auto", height: "50px"}}>                                  
                                                     <div className="ui grid">                                 
                                                         <div className="ui row">                                 
                                                             <div className="ui ten wide column">
                                                                 <ChampListeCollaborateurAssistant
-                                                                    indication={t('flot.collaborateurs.ajout')}
+                                                                    indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                     modele="collaborateur"
                                                                     autoFocus={false}
                                                                     requis={false}
@@ -422,7 +422,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     onClick={(e)=>{
                                                                         e.preventDefault()
                                                                         this.ajouterCollaborateur(arrayHelpers)
-                                                                    }}>{t('flot.bouton.ajout')}
+                                                                    }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
                                                                 </button>
                                                             </div>
                                                         </div>

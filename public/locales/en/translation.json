@@ -1,434 +1,561 @@
 {
-    "info": {
-        "oeuvre": {
-            "creation": "Media # {{id}} created. :)"
-        }
+  "info": {
+    "oeuvre": {
+      "creation": "Work # {{id}} created. :)"
+    }
+  },
+  "options": {
+    "piece": {
+      "titre": "This work is ...",
+      "originale": "an original creation",
+      "arrangement": "a remix",
+      "reprise": "a cover"
+    }
+  },
+  "titre": {
+    "principal": "Welcome to SmartSplit Alpha - Client",
+    "accueil": "Home",
+    "liste-media": "Media list returned by the API",
+    "apercu": "Preview",
+    "oeil-ouvert": "Keep your eyes opened",
+    "apercu-sen-vient": "Your preview will be shown here"
+  },
+  "collaborateur": {
+    "titre": "Add a collaborating artist",
+    "attribut": {
+      "etiquette": {
+        "nom": "Legal Name",
+        "prenom": "Legal First Name",
+        "artiste": "Artist Name",
+        "option": " (optional)",
+        "na": "If not applicable, the complete name is displayed.",
+        "role": "Role in the work",
+        "courriel": "Email",
+        "groupe": "Groups"
+      },
+      "indication": {
+        "nom": "Last name",
+        "prenom": "First name",
+        "artiste": "Artist name",
+        "role": "Choose one or more role",
+        "role2": "These roles can be modified later.",
+        "groupe": "Choose a group"
+      },
+      "bouton": {
+        "annuler": "Cancel",
+        "sauvegarder": "Save",
+        "soumettre": "Submit"
+      }
     },
-    "options": {
-        "piece": {
-            "titre": "This work is ...",
-            "originale": "an original creation",
-            "arrangement": "a remix",
-            "reprise": "a cover"
-        }
+    "declaration": {
+      "identite": "Declaration of identity",
+      "accepter": "Accept"
+    }
+  },
+  "oeuvre": {
+    "attribut": {
+      "etiquette": {
+        "titre": "Title",
+        "album": "Album",
+        "piecePar": "{{titre}}, by",
+        "arrangementPar": "{{titre}}, remixed by",
+        "reprise": "This work is a cover",
+        "instrumental": "This work is instrumental",
+        "artiste": "Artist or original group",
+        "juridiction": "Jurisdiction",
+        "ayantDroit": "Collaborators",
+        "genre": "Main genra",
+        "genre2": "Secondary genra",
+        "ajouter-genre": "Add a genre",
+        "paroles": "Lyrics",
+        "langueParoles": "Lyric's languages",
+        "isrc": "ISRC #",
+        "upc": "UPC #",
+        "dureeMs": "Duration (milliseconds)",
+        "vedette": "Add a featuring artist or group",
+        "liensSociaux": "Social links",
+        "liensServices": "Streaming links",
+        "liensPresse": "Press links",
+        "liensListes": "Playlist links",
+        "dateCreation": "Creation date",
+        "dateModification": "Modification date",
+        "datePublication": "Publication date",
+        "editeur": "Publisher",
+        "repartition": "Rights split (%)"
+      },
+      "indication": {
+        "titre": "Work title",
+        "titre-soustexte": "Do not include guests (featuring, remixed by, etc., in the title",
+        "arrangeur": "Artist or group...",
+        "album": "Work album",
+        "reprise": "",
+        "artiste": "Who is the main artist ?",
+        "juridiction": "What is the legal jurisdiction (country)?",
+        "ayantDroit": "Select one or more collaborators",
+        "commentaire": "Comment",
+        "genre": "Select the primary work genra",
+        "genre2": "Select the secondary work genra",
+        "paroles": "Type in the lyrics",
+        "langueParoles": "Select one or more lyrics language",
+        "isrc": "Recording unique identified",
+        "upc": "Product unique identifier",
+        "dureeMs": "Type in the duration (in milliseconds)",
+        "liensSociaux": "URL for social link",
+        "liensServices": "URL for streaming link",
+        "liensPresse": "URL for press review",
+        "liensListes": "URL for playlist",
+        "dateCreation": "When was the work created or composed?",
+        "dateModification": "When was the work modified?",
+        "datePublication": "When was the work published?",
+        "editeur": "Who is the publisher of the work?",
+        "repartition": "How is the work splitted among contributors?"
+      }
     },
     "titre": {
+      "vedette": "Featuring"
+    },
+    "creePar": "Created by",
+    "piece": "Original track",
+    "band": "Band or Artist Name",
+    "feat": "avec",
+    "artistName": "Artist Name",
+    "par": "by"
+  },
+  "navigation": {
+    "suivant": "Next",
+    "envoi": "Submit",
+    "precedent": "Previous",
+    "reinitialiser": "Reset",
+    "transfertEnCours": "Data transfer in progress, please be patient."
+  },
+  "validation": {
+    "requis": "Required"
+  },
+  "composant": {
+    "televersement": {
+      "titre": "Upload your source file",
+      "indication": "Drag the file you want to upload and drop it here, or clic here to choose the file.",
+      "soustitre": "WAV or MP3 format only, 100 Mo maximum.",
+      "preambule": "Here you can upload your source file. It will be accessible only to those who have private access. You could then share your work with radio stations, broadcasters and so on. The link to the file is not publicly available."
+    }
+  },
+  "image": {
+    "embarquement": {
+      "alt": "Meditative women with headphones"
+    }
+  },
+  "flot": {
+    "acr": {
+      "titre": "Your musical work is recognized",
+      "oui": "Let's do this !",
+      "non": "No, thanks."
+    },
+    "split": {
+      "sommaire": {
+        "titre": "Split's Summary",
+        "resultat": "Results summary",
+        "soustitre": "Begin: an initial Split created by",
+        "votation": "VOTATION",
+        "brouillon": "DRAFT",
+        "liste": "List of Work",
+        "decrire": "Describe my Work",
+        "soumettre1": "Submit to Vote #1",
+        "soumettre2": "Submit to Vote #2",
+        "soumettre3": "Submit to Vote #3",
+        "soumettre4": "Submit to Vote #4",
+        "soumettre5": "Submit to Vote #5",
+        "connexion": "Login and Create Account",
+        "trois": "Three Splits",
+        "login": "Login",
+        "register": "Register",
+        "register2": " Register 2",
+        "password": "Forgot Password",
+        "password2": "Password Verification",
+        "password3": "Change Verification",
+        "welcome": "Welcome",
+        "tableau": "Dashboard",
+        "media": "Split Rights for a Media:",
+        "partage": "Split Rights",
+        "sommaire": "Proposal Summary :",
+        "afficher": "Proposal Display"
+      },
+      "etat": {
+        "VOTATION": "VOTING",
+        "REFUSE": "DENIED",
+        "ACCEPTE": "ACCEPTED",
+        "BROUILLON": "DRAFT",
+        "PRET": "READY",
+        "INCONNU": "UNDEFINED",
+        "ATTENTE": "WAITING"
+      },
+      "valider": {
+        "titre": "Validate Your Split",
+        "soustitre": "Invite your contributers to validate this split"
+      },
+      "info": {
+        "oeuvre": {
+          "creation": "Media # {{id}} created. :)"
+        }
+      },
+      "options": {
+        "piece": {
+          "titre": "This work is...",
+          "originale": "an original creation",
+          "arrangement": "a remix",
+          "reprise": "a cover"
+        }
+      },
+      "titre": {
         "principal": "Welcome to SmartSplit Alpha - Client",
         "accueil": "Home",
         "liste-media": "Media list returned by the API",
         "apercu": "Preview",
         "oeil-ouvert": "Keep your eyes opened",
-        "apercu-sen-vient": "Your preview will be shown here"
-    },
-    "collaborateur": {
+        "apercu-sen-vient": "Your preview will be shown here",
+        "creer": "Create a new track"
+      },
+      "collaborateur": {
         "titre": "Add a collaborating artist",
         "attribut": {
-            "etiquette": {
-                "nom": "Legal Name",
-                "prenom": "Legal First Name",
-                "artiste": "Artist Name",
-                "option": " (optional)",
-                "na": "If not applicable, the complete name is displayed.",
-                "role": "Role in the work",
-                "courriel": "Email",
-                "groupe": "Groups"
-            },
-            "indication": {
-                "nom": "Last name",
-                "prenom": "First name",
-                "artiste": "Artist name",
-                "role": "Choose one or more role",
-                "role2": "These roles can be modified later.",
-                "groupe": "Choose a group"
-            },
-            "bouton": {
-                "annuler": "Cancel",
-                "sauvegarder": "Save",
-                "soumettre": "Submit"
-            }
+          "etiquette": {
+            "nom": "Legal Name",
+            "prenom": "Legal First Name",
+            "artiste": "Artist Name",
+            "option": " (optional)",
+            "na": "If not applicable, the complete name is displayed.",
+            "role": "Role in the work",
+            "courriel": "Email",
+            "groupe": "Groups"
+          },
+          "indication": {
+            "nom": "Last name",
+            "prenom": "First name",
+            "artiste": "Artist name",
+            "role": "Choose one or more role",
+            "role2": "These roles can be modified later.",
+            "groupe": "Choose a group"
+          },
+          "bouton": {
+            "annuler": "Cancel",
+            "sauvegarder": "Save",
+            "soumettre": "Submit"
+          }
         },
         "declaration": {
-            "identite": "Declaration of identity",
-            "accepter": "Accept"
+          "identite": "Declaration of identity",
+          "accepter": "Accept"
         }
-},
-    "oeuvre": {
-        "attribut": {
-            "etiquette": {
-                "titre": "Title",
-                "album": "Album",
-                "piecePar": "{{titre}}, by",
-                "arrangementPar": "{{titre}}, remixed by",
-                "reprise": "This work is a cover",
-                "instrumental": "This work is instrumental",
-                "artiste": "Artist or original group",
-                "juridiction": "Jurisdiction",
-                "ayantDroit": "Collaborators",
-                "genre": "Main genra",
-                "genre2": "Secondary genra",
-                "paroles": "Lyrics",
-                "langueParoles": "Lyric's languages",
-                "isrc": "ISRC #",
-                "upc": "UPC #",
-                "dureeMs": "Duration (milliseconds)",
-                "liensSociaux": "Social links",
-                "liensServices": "Streaming links",
-                "liensPresse": "Press links",
-                "liensListes": "Playlist links",
-                "dateCreation": "Creation date",
-                "dateModification": "Modification date",
-                "datePublication": "Publication date",
-                "editeur": "Publisher",
-                "repartition": "Rights split (%)"
-            },
-            "indication": {
-                "titre": "Work title",
-                "titre-soustexte": "Do not include guests (featuring, remixed by, etc., in the title",
-                "arrangeur": "Artist or group...",
-                "vedette": "Add an artist or group as featuring...",
-                "album": "Work album",
-                "reprise": "",
-                "artiste": "Who is the main artist ?",
-                "juridiction": "What is the legal jurisdiction (country)?",
-                "ayantDroit": "Select one or more collaborators",
-                "genre": "Select the primary work genra",
-                "genre2": "Select the secondary work genra",
-                "paroles": "Type in the lyrics",
-                "langueParoles": "Select one or more lyrics language",
-                "isrc": "Recording unique identified",
-                "upc": "Product unique identifier",
-                "dureeMs": "Type in the duration (in milliseconds)",
-                "liensSociaux": "URL for social link",
-                "liensServices": "URL for streaming link",
-                "liensPresse": "URL for press review",
-                "liensListes": "URL for playlist",
-                "dateCreation": "When was the work created or composed?",
-                "dateModification": "When was the work modified?",
-                "datePublication": "When was the work published?",
-                "editeur": "Who is the publisher of the work?",
-                "repartition": "How is the work splitted among contributors?"
-            }            
-        },
-        "creePar": "Created by"
-    },
-    "navigation": {
+      },
+      "navigation": {
         "suivant": "Next",
         "envoi": "Submit",
         "precedent": "Previous",
         "reinitialiser": "Reset",
         "transfertEnCours": "Data transfer in progress, please be patient.",
-        "cest-parti": "Let's Go !"
-    },
-    "validation": {
-        "requis": "Required"
-    },
-    "composant": {
-        "televersement":  {
+        "cest-parti": "Let's Go!"
+      },
+      "accueil": {
+        "connexion": "Connexion obligatoire",
+        "message": "Tu dois être connecté pour accéder",
+        "login": "Connecte-toi pour accéder"
+      },
+      "documente-ton-oeuvre": {
+        "titre": "Split your Rights",
+        "preambule": "Hi! We will help you describe your work.",
+        "composant": {
+          "televersement": {
             "titre": "File",
             "soustitre": "WAV or MP3 only, 100 MB maximum.",
             "indication": "or drop the file here"
-        }
-    },
-    "image": {
-        "embarquement": {
-            "alt": "Meditative women with headphones"
-        }
-    },
-    "flot": {
-        "split": {
-            "sommaire": {
-                "titre": "Split's Summary",
-                "soustitre": "Begin: an initial Split created by",
-                "votation": "VOTATION",
-                "brouillon": "DRAFT",
-                "liste": "List of Work",
-                "decrire": "Describe my Work",
-                "soumettre1": "Submit to Vote #1",
-                "soumettre2": "Submit to Vote #2",
-                "soumettre3": "Submit to Vote #3",
-                "soumettre4": "Submit to Vote #4",
-                "soumettre5": "Submit to Vote #5",
-                "connexion": "Login and Create Account",
-                "trois": "Three Splits",
-                "login": "Login",
-                "register": "Register",
-                "register2": " Register 2",
-                "password": "Forgot Password",
-                "password2": "Password Verification",
-                "password3": "Change Verification",
-                "welcome": "Welcome",
-                "tableau": "Dashboard",
-                "media": "Split Rights for a Media:",
-                "partage": "Split Rights",
-                "sommaire": "Proposal Summary :",
-                "afficher": "Proposal Display"
-            },
-            "etat": {
-                "VOTATION": "VOTING",
-                "REFUSE": "DENIED",
-                "ACCEPTE": "ACCEPTED",
-                "BROUILLON": "DRAFT",
-                "PRET": "READY",
-                "INCONNU": "UNDEFINED"
-            },
-            "valider": {
-                    "titre": "Validate Your Split",
-                    "soustitre": "Invite your contributers to validate this split"
-            }
-        },
-        "accueil": {
-            "connexion": "Connexion obligatoire",
-            "message": "Tu dois être connecté pour accéder",
-            "login": "Connecte-toi pour accéder"
-        },
-        "documente-ton-oeuvre": {
-            "titre": "Split your Rights",
-            "preambule": "Hi! We will help you describe your work."
+          }
         },
         "collaborateurs": {
-            "titre": "What are the roles of each in {oeuvre} ?",
-            "preambule": "Let's begin with yourself...",
-            "role": "What is your role in the work?",
-            "ajout": "Add a first collaborator"
+          "titre": "What are the roles of each in {oeuvre} ?",
+          "preambule": "Let's begin with yourself...",
+          "role": "What is your role in the work?",
+          "ajout": "Add a collaborator"
         },
         "paroles": {
-            "titre": "Type in the lyrics of your work",
-            "preambule": ""
+          "titre": "Type in the lyrics of your work",
+          "preambule": ""
         },
         "genre": {
-            "titre": "What are the genres of the work ?",
-            "preambule": "Genre, style, kind of...?"
+          "titre": "What are the genres of the work ?",
+          "preambule": "Genre, style, kind of...?"
         },
         "documenter": {
-            "entete": {
-                "creation": "Creation",
-                "interpretation": "Performance",
-                "enregistrement": "Recording",
-                "sortie": "Exit",
-                "fichier": "Files",
-                "influence": "Inspirations",
-                "parole": "Lyrics",
-                "lien": "Streaming Links"
-                },
-            "titre1": "Who participated in the creation of", 
-            "titre1-description": "That's where you mention who contributed to the creation of this piece.",
-                "date-creation": "Creation Date",
-                "date-placeholder": "Add a date",
-                "auteur": "Authors",
-                "auteur-description": "Who wrote the lyrics of this musical piece?",
-                "auteur-placeholder": "Add an Author",
-                "compositeur": "Composers",
-                "compositeur-description": "Who composed the music of this piece?",
-                "compositeur-placeholder": "Add a Composer",
-                "editeur": "Editors",
-                "editeur-description": "Who represents these authors and/or composers?",
-                "editeur-placeholder": "Add an editor",
-                "codeiswc": "ISWC Code",
-                "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
-                "codeiswc-placeholder": "Add a code",
-            "titre2": "Who played the musical piece on this sound recording?",
-            "titre2-description": "Here you mention who played which instrument.", 
-            "options": { 
-                    "question1": "Which type of performance?",
-                        "question1-choix-a": "Main Artist",
-                        "question1-choix-b": "Featuring Artist",
-                    "question2": "Which role in the musical piece?",
-                        "question2-choix-a": "Singer",
-                        "question2-choix-b": "Musician"
-                },
-            "titre3": "Who recorded the musical piece?",
-            "titre3-description": "Here you mention who contributed to the sound recording of this piece.",
-                "realisation": "Direction",
-                "realisation-description": "The Artistic Director gives a sound to the recording.",
-                "realisation-placeholder": "Add a Director",
-                "son": "Sound Recording",
-                "son-description": "Who's the Sound Recordist on your musical piece.",
-                "son-placeholder": "Add a Sound Recordist",
-                "mix": "Mixing",
-                "mix-description": "This is the step of volume and frequency adjustment.",
-                "mix-placeholder": "Add a Sound Engineer",
-                "master": "Mastering",
-                "master-description": "This is the step of compression and overall equalization of the song.",
-                "master-placeholder": "Add a Sound Engineer",
-                "studio": "Recording Studio",
-                "studio-description": "The place where the song was recorded.",
-                "studio-placeholder": "Search for a recording studio",
-                "production-description": "The person or compagny that invest time or money to make sound recording possible.",
-                "production-placeholder": "Add a Producer",
-                "etiquette": "Label",
-                "etiquette-description": "That's the organisation that handles the marketing of your piece.",
-                "etiquette-placeholder": "Add a label",
-                "distribution": "Distributor",
-                "distribution-description": "That's the organisation that handles the commercialisation of your piece.",
-                "distribution-placeholder": "Add a Distributor",
-                "codeupc": "UPC/EAN Code",
-                "codeupc-description": "Mandatory barcode attributed to the physical product. Might be optionally attributed to a digital product.",
-                "codeupc-placeholder": "Enter the code (optional)",
-                "date": "Release date of the musical piece (if applicable)",
-                "date-description": "The moment when the piece is launched on platforms.", 
-                "date-choix": {
-                    "avenir": "Coming Up",
-                    "determine": "Determined"
-                },
-            "titre4": "Which files would you like to grant access to?",
-            "titre4-description": "Here you can add all files related to this musical piece.",
-            "titre5": "General Information",
-            "titre5-description": "Here you mention what is the genra of this musical piece and what are the artists or trends that inspired it.",
-            "titre6": "contains lyrics?",
-            "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
-            "titre7": "Was the musical piece already broadcasted?",
-            "titre7-description": "To increase the chances for your piece to be discovered and listened to, document its streaming  and online shopping links.",
-            "titre8": "Work's Visual",
-            "titre8-description": "As the album Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
-            "titre8-plus": "En savoir plus"
+          "entete": {
+            "creation": "Creation",
+            "interpretation": "Performance",
+            "enregistrement": "Recording",
+            "sortie": "Exit",
+            "fichier": "Files",
+            "influence": "Inspirations",
+            "influenceurs": "Mention one or more artists",
+            "exemple": "Exemple : The Beatles, Dr Dre, Mozart, Jacques Brel, Stromae...",
+            "parole": "Lyrics",
+            "ajouter-parole": "Add lyrics",
+            "parole-only": "Lyrics only. Do not add Authors, Composers, year of creation, etc.",
+            "langue-creer": "Mention the language",
+            "langue-ajouter": "Add a language",
+            "langueParole": "Language",
+            "lien": "Streaming Links"
+          },
+          "titre1": "Who participated in the creation of",
+          "titre1-description": "That's where you mention who contributed to the creation of this piece.",
+          "date-creation": "Creation Date",
+          "date-placeholder": "Add a date",
+          "auteur": "Authors",
+          "collabo": "Create a new controbutor",
+          "auteur-description": "Who wrote the lyrics of this musical piece?",
+          "auteur-placeholder": "Add an Author",
+          "compositeur": "Composers",
+          "compositeur-description": "Who composed the music of this piece?",
+          "compositeur-placeholder": "Add a Composer",
+          "editeur": "Editors",
+          "editeur-description": "Who represents these authors and/or composers?",
+          "editeur-placeholder": "Add an editor",
+          "codeiswc": "ISWC Code",
+          "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
+          "codeiswc-placeholder": "Add a code",
+          "titre2": "Who played the musical piece on this sound recording?",
+          "titre2-description": "Here you mention who played which instrument.",
+          "titre2-placeholder": "Add an Interpreter",
+          "options": {
+            "question1": "Which type of performance?",
+            "question1-choix-a": "Main Artist",
+            "question1-choix-b": "Featuring Artist",
+            "question2": "Which role in the musical piece?",
+            "question2-choix-a": "Singer",
+            "question2-choix-b": "Musician"
+          },
+          "titre3": "Who recorded the musical piece?",
+          "titre3-description": "Here you mention who contributed to the sound recording of this piece.",
+          "realisation": "Sound Production",
+          "realisation-description": "The Sound Producer creates the sound environement of the music track.",
+          "realisation-placeholder": "Add a Sound Producer",
+          "son": "Sound Recording",
+          "son-description": "Who's the Recording Engineer on your music track?",
+          "son-placeholder": "Add an Engineer",
+          "mix": "Mix",
+          "mix-description": "This is the step of volume and frequency adjustment.",
+          "mix-placeholder": "Add an Engineer",
+          "master": "Mastering",
+          "master-description": "This is the step of compression and overall equalization of the song.",
+          "master-placeholder": "Add an Engineer",
+          "studio": "Recording Studio",
+          "studio-description": "The place(s) where the song was recorded.",
+          "studio-placeholder": "Search for a recording studio",
+          "studio-adresse": "Address of the recording studio",
+          "production": "Executive Producer",
+          "production-description": "The person or compagny that invest time or money to make sound recording possible.",
+          "production-placeholder": "Add a Producer",
+          "etiquette": "Label",
+          "etiquette-description": "That's the organisation that handles the marketing of your track.",
+          "etiquette-placeholder": "Add a label",
+          "etiquette-adresse": "Address of the label",
+          "distribution": "Distributor",
+          "distribution-description": "That's the organisation that delivers your music track to streaming and downloading stores.",
+          "distribution-placeholder": "Add a Distributor",
+          "distribution-adresse": "Address of the Distributor",
+          "codeupc": "UPC/EAN Code",
+          "codeupc-description": "A UPC (Universal Product Code) or EAN (International Article Number) is a unique code used to identify a digital product.",
+          "codeupc-placeholder": "Enter the code (optional)",
+          "date": "Release date of the musical piece (if applicable)",
+          "date-description": "The moment when the piece is launched on platforms.",
+          "date-choix": {
+            "avenir": "Coming Up",
+            "determine": "Determined"
+          },
+          "titre4": "Which files would you like grant access to?",
+          "titre4-description": "Here you can add all files related to this musical piece.",
+          "titre5": "General Information",
+          "titre5-description": "Here you mention what is the genre of this musical piece and what are the artists or trends that inspired it.",
+          "titre6": "contains lyrics?",
+          "titre6-description": "Words in a song are excellent descriptive data about the artwork that increases its discoverability and the chances to expands its audience.",
+          "titre7": "Was the musical piece already broadcasted?",
+          "titre7-description": "To increase the chances for your track to be discovered and listened to, document its streaming and online shopping links.",
+          "sur": "on...",
+          "platforme": "Add as a platform",
+          "titre8": "Cover Artwork",
+          "titre8-description": "An album has a cover, a song or an instrumental track must also have a cover artwork to represent it.",
+          "titre8-plus": "Learn more",
+          "titre8-etape1": "Upload in JPEG or PNG format",
+          "titre8-etape2": "Recommended: Square image of 1600 x 1600 pixels with a resolution of 300 dpi.",
+          "titre9": "Audio File",
+          "titre9-description": "Here you can upload your track in WAV or MP3 format.",
+          "titre9-etape1": "Upload the recording track",
+          "titre9-etape2": "MP3 or WAV accepted.",
+          "autre": "Other track files",
+          "autre-description": "Here you can add documents for the track's performance, such as the partition or the MIDI file.",
+          "autre-etape1": "Partition or Tablature",
+          "autre-etape2": "You can upload a graphic score or tablature format format (.PDF, .SVG, .PNG ou .JPEG). You can also chose to upload a native scorewriters software file.",
+          "autre-plus": "Learn more",
+          "autre-etape3": "MIDI Files",
+          "autre-etape4": "Upload .MID or .MIDI files only.",
+          "acces": "Access",
+          "choix": "Choose a file",
+          "glisse": "Or drag your file here",
+          "details": "Tell us more about the track.",
+          "duree": "Length",
+          "public": "Public - Make the information visible for all",
+          "tous": "All users can have access to this information.",
+          "invite": "On invitation - Downloadable by some.",
+          "invite-description": "Users provided with a unique shareable link are able to download the original file. Pretty convenient for journalists and professionals!",
+          "prive": "Private - Prevent download",
+          "prive-description": "Only you can download the original image."
         },
         "pro": {
-            "titre": "Are you a professional?",
-            "preambule": "Your intellectual property is identified with two numbers: UPC and ISRC (if recorded). Link them here."
+          "titre": "Are you a professional?",
+          "preambule": "Your intellectual property is identified with two numbers: UPC and ISRC (if recorded). Link them here."
         },
         "envoi": {
-            "reussi": "Transfer successful!",
-            "echec": "Transfer failed"
+          "reussi": "Transfer successful!",
+          "echec": "Transfer failed"
         },
         "envoifichier": {
-            "reussi": "File transfer successful!",
-            "echec": "File transfer failed"
+          "reussi": "File analysis successful!",
+          "echec": "File transfer failed"
         },
         "lien": {
-            "sociaux": {
-                "titre": "Social media links"
-            },
-            "commercial": {
-                "titre": "Streaming links"
-            },
-            "presse": {
-                "titre": "Press review links"
-            },
-            "liste": {
-                "titre": "Playlist links"
-            }
+          "sociaux": {
+            "titre": "Social media links"
+          },
+          "commercial": {
+            "titre": "Streaming links"
+          },
+          "presse": {
+            "titre": "Press review links"
+          },
+          "liste": {
+            "titre": "Playlist links"
+          }
         },
         "voter": {
-            "connexion": "You shall be connected to access the vote page",
-            "soustitre": "Hi, {{nom}}, here is the voting page for your work: "
+          "connexion": "You shall be connected to access the vote page",
+          "soustitre": "Hi, {{nom}}, here is the voting page for your work: "
         },
-        "etape": {            
-            "partage-etape": "Step 2",
-            "partage-titre": "Split your rights",
-            "enregistrerEtQuitter": "Save and Quit",
-            "vote-titre": "Validate the share proposal"
+        "etape": {
+          "partage-etape": "Step 2",
+          "partage-titre": "Split your rights",
+          "enregistrerEtQuitter": "Save and Quit",
+          "vote-titre": "Validate the share proposal"
         },
         "partage": {
-            "auteur": {
-                "titre": "Copyright sharing",
-                "role": {
-                    "auteur": "Author",
-                    "compositeur": "Composer",
-                    "arrangeur": "Remixer"
-                }
-            },
-            "interprete": {
-                "titre": "Performance sharing",
-                "role": {
-                    "chanteur": "Singer",
-                    "musicien": "Musician"
-                }
-            },
-            "enregistrement": {
-                "titre": "Mastering sharing",
-                "role": {
-                    "producteur": "Producer",
-                    "graphiste": "Graphics",
-                    "realisateur": "Director",
-                    "studio": "Studio"
-                }
+          "auteur": {
+            "titre": "Copyright sharing",
+            "role": {
+              "auteur": "Author",
+              "compositeur": "Composer",
+              "arrangeur": "Remixer"
             }
+          },
+          "interprete": {
+            "titre": "Performance sharing",
+            "role": {
+              "chanteur": "Singer",
+              "musicien": "Musician"
+            }
+          },
+          "enregistrement": {
+            "titre": "Mastering sharing",
+            "role": {
+              "producteur": "Producer",
+              "graphiste": "Graphics",
+              "realisateur": "Director",
+              "studio": "Studio"
+            }
+          }
         },
         "preambules": {
-            "titre1": "Step 1",
-                "sous-titre1": "Split your Rights",
-                "intro1": "Create the shares on your rights using our guide. You'll see, it's a lot easier than you think :)",
-            "titre2": "Step 2",
-                "sous-titre2": "Document your work",
-                "intro2": "Make your work known on the web thanks to metadata, increasing your chances of to appear in playlists.",
-            "titre3": "Step 3",
-                "sous-titre3": "Protect your work",
-                "intro3": "In the good old days, a cassette was sent by registered mail to prove who did the work and when. Now we rather use a blockchain to create this proof :)" 
+          "titre1": "Step 1",
+          "sous-titre1": "Split your Rights",
+          "intro1": "Create the shares on your rights using our guide. You'll see, it's a lot easier than you think :)",
+          "titre2": "Step 2",
+          "sous-titre2": "Document your work",
+          "intro2": "Make your work known on the web thanks to metadata, increasing your chances of to appear in playlists.",
+          "titre3": "Step 3",
+          "sous-titre3": "Protect your work",
+          "intro3": "In the good old days, a cassette was sent by registered mail to prove who did the work and when. Now we rather use a blockchain to create this proof :)"
         },
-        
+
         "editeur": {
-            "ajout": "Add an editor",
-            "editeur": "Editor",
-            "donateur": "Donor"
+          "ajout": "Add an editor",
+          "editeur": "Editor",
+          "donateur": "Donor"
         },
         "proposition": {
-            "nouvelle": "New",
-            "envoyer": "Send to collaborators",
-            "continuer": "Continue to split the rights",
-            "sommaire": "Split summary",
-            "voter": "Go to vote page",
-            "voter-avec-jeton": "You can only vote by clicking on the email that was sent to you when the proposal was created."
+          "nouvelle": "New musical work",
+          "envoyer": "Send to collaborators",
+          "continuer": "Continue to split the rights",
+          "sommaire": "Split summary",
+          "voter": "Go to vote page",
+          "voter-avec-jeton": "You can only vote by clicking on the email that was sent to you when the proposal was created.",
+          "pourquoi": "Mention to your contributors why you're not comfortable with this split.",
+          "refuse": "Why you decline this split (optional)",
+          "refuse2": "Decline this split",
+          "termine": "The voting is done!"
         },
         "bouton": {
-            "ajout": "Add",
-            "voter": "VOTE"
+          "ajout": "Add",
+          "voter": "VOTE"
         },
         "tableaudebord": {
-                "collabo": "My Collaborators",
-                "edito": "My Editor"
+          "collabo": "My Collaborators",
+          "edito": "My Editor"
         }
-    },
+      },
 
-    "traitement": {
+      "traitement": {
         "acr": {
-            "erreur-mauvaise-lecture": "Bad media. Try another sample.",
-            "erreur-inconnu": "No match found for the submitted file."
+          "erreur-mauvaise-lecture": "Bad media. Try another sample.",
+          "erreur-inconnu": "No match found for the submitted file."
         }
-    },
-    "auth": {
+      },
+      "auth": {
         "bienvenue": {
-            "titre": "Welcome!",
-            "preambule": "You have successfully registered a new account.", 
-            "indication": "We've sent you a email. Please click on the confirmation link to verify your account."
+          "titre": "Welcome!",
+          "preambule": "You have successfully registered a new account.",
+          "indication": "We've sent you a email. Please click on the confirmation link to verify your account."
         },
-        "passwordchanged":{
-            "titre": "Password Reset",
-            "indication": "Your password has been changed successfully."
+        "passwordchanged": {
+          "titre": "Password Reset",
+          "indication": "Your password has been changed successfully."
         },
         "titre": "Connexion à SmartSplit",
         "err": {
-            "username": "Le nom d'utilisateur est un courriel invalide",
-            "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
+          "username": "Le nom d'utilisateur est un courriel invalide",
+          "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
         },
         "oublier": {
-            "titre": "Forgot your password?",
-            "preambule": "Please enter the email address associated with your account and we'll email you a password reset link.",
-            "indication": {
-                "email": "Enter email",
-                "password": "Forgot password" 
-            }
+          "titre": "Forgot your password?",
+          "preambule": "Please enter the email address associated with your account and we'll email you a password reset link.",
+          "indication": {
+            "email": "Enter email",
+            "password": "Forgot password"
+          }
         }
-    },
-    "tableaudebord": {
+      },
+      "tableaudebord": {
         "bonjour": "Here is the SmartSplit dashboard.",
         "navigation": {
-            "0": "My musical works",
-            "1": "My public profile",
-            "2": "My collaborators"
+          "0": "My musical works",
+          "1": "My public profile",
+          "2": "My collaborators"
         },
         "pieces": {
-            "0": "My Additions",
-            "1": "Shared With Me",
-            "par": "by",
-            "partageAvec": "shared with",
-            "ajouter": "Add a musical work"
+          "0": "My Additions",
+          "1": "Shared With Me",
+          "par": "by",
+          "partageAvec": "shared with",
+          "ajouter": "Add a musical work"
         },
         "vide": {
-            "preambule": "Your works will appear here",
-            "indication": "Document and share the rights of your first musical work by clicking on the «Add» button"
+          "preambule": "Your works will appear here",
+          "indication": "Document and share the rights of your first musical work by clicking on the «Add» button"
         }
-    },
-    "roles": {
+      },
+      "roles": {
         "principal": "Principal",
         "accompaniment": "Accompaniment",
         "producer": "Producer",
@@ -440,59 +567,59 @@
         "composer": "Composer",
         "singer": "Singer",
         "musicien": "Musician"
-    },
-    "partage": {
+      },
+      "partage": {
         "auteur": {
-            "titre": "Who invented {{oeuvre}} ?"
+          "titre": "Who invented {{oeuvre}} ?"
         },
         "interprete": {
-            "titre": "Who played on {{oeuvre}} ?"
+          "titre": "Who played on {{oeuvre}} ?"
         },
         "enregistrement": {
-            "titre": "Who owns the master for {{oeuvre}} ?"
+          "titre": "Who owns the master for {{oeuvre}} ?"
         },
         "editeur": {
-            "titre": "What's your publisher's name ?",
-            "titre-part": "How much should your publisher get ?"
+          "titre": "What's your publisher's name ?",
+          "titre-part": "How much should your publisher get ?"
         },
         "lecture-seule": "A new proposal is in progress. You are in read-only mode.",
         "prete-a-envoyer": "Your proposal is ready to go by email to your collaborators. Take a time to review and clic on Send."
-    },
+      },
 
-    "connexion": {
+      "connexion": {
         "titre": {
-            "oeuvre": "Tu dois te connecter afin d'accéder à la page de votation !",
-            "tdb": "Tu dois te connecter afin d'accéder au tableau de bord !",
-            "vote": "Tu dois te connecter afin de pouvoir voter !"
+          "oeuvre": "Tu dois te connecter afin d'accéder à la page de votation !",
+          "tdb": "Tu dois te connecter afin d'accéder au tableau de bord !",
+          "vote": "Tu dois te connecter afin de pouvoir voter !"
         }
-    },
-    "action": {
+      },
+      "action": {
         "commencer": "Start"
-    },
-    "vote": {
+      },
+      "vote": {
         "accept": "Approved",
         "reject": "Rejected",
         "active": "Waiting for a decision",
         "accepter": "ACCEPT",
         "refuser": "REJECT"
-    },
-    "modepartage": {
+      },
+      "modepartage": {
         "egal": "Split evenly",
         "roles": "Split according to roles",
         "manual": "Split manually"
-    },
-    "droits": {
+      },
+      "droits": {
         "auteur": "Copyright",
         "titre": {
-            "workCopyrightSplit": "Copyright",
-            "performanceNeighboringRightSplit": "Performance",
-            "masterNeighboringRightSplit": "Sound Recording"
+          "workCopyrightSplit": "Copyright",
+          "performanceNeighboringRightSplit": "Performance",
+          "masterNeighboringRightSplit": "Sound Recording"
         }
-    },   
-    "erreur": {
+      },
+      "erreur": {
         "volIdentite": "You're trying to do an operation than belong to another user"
-    },
-    "inscription": {
+      },
+      "inscription": {
         "facebook": "Sign in with Facebook",
         "google": "Sign in with Google",
         "courriel": "Enter your email",
@@ -504,60 +631,75 @@
         "password": "Password",
         "ou": "or",
         "bouton": "Create my account"
+      }
     },
-    "accueil": {
-        "titre": "Login to you Smart Split account.",
-        "sous-titre": "Enter your information below.",
-        "courriel": "Enter email",
-        "motdepasse": "My password",
-        "oublie": "Forgot password?"
-    },
-    "entete": {
-        "connexion": "Login",
-        "inscription": "Register",
-        "bonjour": "Hello",
-        "encours": "Connecting..."
-    },
-    "socan": {
-        "joindre": "Join SOCAN",
-        "prenom": "Legal First Name",
-        "2eprenom": "Legal Middle Name",
-        "nom": "Legal Name",
-        "date": "Birthdate",
-        "adresse": "Address",
-        "ville": "City",
-        "codepostal": "Postal Code",
-        "telephone": "Phone number",
-        "courriel": "Email",
-        "confirmation-courriel": "Verify Email",
-        "utilisateur": "User ID",
-        "mot-de-passe": "Password",
-        "confirmation-mot-de-passe": "Confirm the password",
-        "condition": "I agree to SOCAN's Terms & Conditions of Membership.",
-        "bouton": {
-            "annuler": "Cancel"
-        },
-        "province": {
-            "AB": "Alberta",
-            "BC": "British Columbia",
-            "MB": "Manitoba",
-            "NB": "New Brunswick",
-            "NL": "New Foundland and Labrador",
-            "NT": "Northwest Territories",
-            "NS": "Nova Scotia",
-            "NU": "Nunavut",
-            "ON": "Ontario",
-            "PE": "Prince Edward Island",
-            "QC": "Quebec",
-            "SK": "Saskatchewan",
-            "YT": "Yukon"
-        }
-    },
-    "menuprofil": {
-        "accueil": "Dashboard",
-        "profil": "My Profile",
-        "francais": "Français",
-        "anglais": "English",
-        "deconnexion": "Disconnect"
+    "fin": {
+      "created": "Created documentation",
+      "maintenant": "is now documented!",
+      "resume": "See the summary"
     }
+  },
+  "accueil": {
+    "titre": "Login to your Smart Split account.",
+    "sous-titre": "Enter your information below.",
+    "courriel": "Enter email",
+    "motdepasse": "My password",
+    "oublie": "Forgot password?"
+  },
+  "entete": {
+    "connexion": "Login",
+    "inscription": "Register",
+    "bonjour": "Hello",
+    "encours": "Connecting..."
+  },
+  "televersement": {
+    "encours": "Please wait while we store and analyse your file"
+  },
+  "socan": {
+    "joindre": "Join SOCAN",
+    "prenom": "Legal First Name",
+    "2eprenom": "Legal Middle Name",
+    "nom": "Legal Name",
+    "date": "Birthdate",
+    "adresse": "Address",
+    "ville": "City",
+    "codepostal": "Postal Code",
+    "telephone": "Phone number",
+    "courriel": "Email",
+    "confirmation-courriel": "Verify Email",
+    "utilisateur": "User ID",
+    "mot-de-passe": "Password",
+    "confirmation-mot-de-passe": "Confirm the password",
+    "condition": "I agree to SOCAN's Terms & Conditions of Membership.",
+    "bouton": {
+      "annuler": "Cancel"
+    },
+    "province": {
+      "AB": "Alberta",
+      "BC": "British Columbia",
+      "MB": "Manitoba",
+      "NB": "New Brunswick",
+      "NL": "New Foundland and Labrador",
+      "NT": "Northwest Territories",
+      "NS": "Nova Scotia",
+      "NU": "Nunavut",
+      "ON": "Ontario",
+      "PE": "Prince Edward Island",
+      "QC": "Quebec",
+      "SK": "Saskatchewan",
+      "YT": "Yukon"
+    }
+  },
+  "menuprofil": {
+    "accueil": "Dashboard",
+    "profil": "My Profile",
+    "francais": "Français",
+    "anglais": "English",
+    "deconnexion": "Disconnect"
+  },
+  "obligatoire": "Mendatory",
+  "connexion": "Login mendatory",
+  "connecter": "You must be connected to vote",
+  "selection": "A selection in this list is mandatory",
+  "champ": "This text field is mandatory"
 }

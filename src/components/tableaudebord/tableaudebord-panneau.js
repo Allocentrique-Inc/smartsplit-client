@@ -27,7 +27,7 @@ export default class Panneau extends Component {
             <div className="tdb--panneau">                
                 {this.props.entete}
                 <div className="contenu">
-                    {this.state.selection === 0 && (<ListePieces user={this.state.user} />)}
+                    {this.state.selection === 0 && (<ListePieces parent={this} user={this.state.user} />)}
                     {this.state.selection === 1 && (<MonProfil />)}
                     {this.state.selection === 2 && (<ListeCollaborateurs />)}
                 </div>                

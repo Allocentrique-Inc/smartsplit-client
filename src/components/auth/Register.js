@@ -4,26 +4,35 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
-import { Button, Header, Image, Modal, Checkbox, Dropdown, Input, Label} from 'semantic-ui-react'
-import axios from 'axios'
+import {
+  Button,
+  Header,
+  Image,
+  Modal,
+  Checkbox,
+  Dropdown,
+  Input,
+  Label
+} from "semantic-ui-react";
+import axios from "axios";
 // import * as Yup from 'yup'
 // Traduction
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
 
 const roles = [
-    'principal', 
-    'accompaniment', 
-    'songwriter', 
-    'composer', 
-    'remixer', 
-    'studio', 
-    'publisher', 
-    'graphist', 
-    'producer', 
-    'singer', 
-    'musician'
-  ]
+  "principal",
+  "accompaniment",
+  "songwriter",
+  "composer",
+  "remixer",
+  "studio",
+  "publisher",
+  "graphist",
+  "producer",
+  "singer",
+  "musician"
+];
 
 class Register extends Component {
   state = {
@@ -45,34 +54,34 @@ class Register extends Component {
 
     this.state = {
       hidden: true,
-      confirmhidden: true,  
+      confirmhidden: true,
       password: "",
       confirmpassword: "",
       strength: 0,
       passwordmatch: false,
       groups: [],
-      avatarImage: 'image.jpg',
-      firstName: '',
-      lastName: '',
-      artistName: '',
+      avatarImage: "image.jpg",
+      firstName: "",
+      lastName: "",
+      artistName: "",
       defaultRoles: [],
       instruments: [],
       currentValue: [],
       currentRoleValue: [],
-      image: '',
-      uploadURL: '',
+      image: "",
+      uploadURL: "",
       roles: [
-        {key: "Principal", text: "Principal", value: "Principal"},
-        {key: "Accompaniment", text: "Accompaniment", value: "Accompaniment"},
-        {key: "Songwriter", text: "Songwriter", value: "Songwriter"},
-        {key: "Composer", text: "Composer", value: "Composer"},
-        {key: "Remixer", text: "Remixer", value: "Remixer"},   
-        {key: "Studio", text: "Studio", value: "Studio"},
-        {key: "Publisher", text: "Publisher", value: "Publisher"},
-        {key: "Graphist", text: "Graphist", value: "Graphist"},
-        {key: "Producer", text: "Producer", value: "Producer"},
-        {key: "Singer", text: "Singer", value: "Singer"},
-        {key: "Musician", text: "Musician", value: "Musician"}
+        { key: "Principal", text: "Principal", value: "Principal" },
+        { key: "Accompaniment", text: "Accompaniment", value: "Accompaniment" },
+        { key: "Songwriter", text: "Songwriter", value: "Songwriter" },
+        { key: "Composer", text: "Composer", value: "Composer" },
+        { key: "Remixer", text: "Remixer", value: "Remixer" },
+        { key: "Studio", text: "Studio", value: "Studio" },
+        { key: "Publisher", text: "Publisher", value: "Publisher" },
+        { key: "Graphist", text: "Graphist", value: "Graphist" },
+        { key: "Producer", text: "Producer", value: "Producer" },
+        { key: "Singer", text: "Singer", value: "Singer" },
+        { key: "Musician", text: "Musician", value: "Musician" }
       ]
     };
 
@@ -155,9 +164,23 @@ class Register extends Component {
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const artistName = this.state.artistName;
+<<<<<<< HEAD
     const defaultRoles = Buffer.from(JSON.stringify(this.state.currentRoleValue)).toString('base64');
     const instruments = Buffer.from(JSON.stringify(this.state.instruments)).toString('base64');
     const groups = Buffer.from(JSON.stringify(this.state.currentValue)).toString('base64');
+=======
+    // const firstName = 'First Name'
+    // const lastName = 'Last Name'
+    // const artistName = 'Artist Name'
+    const defaultRoles = Buffer.from('["Singer", "Producer"]').toString(
+      "base64"
+    );
+    const instruments = Buffer.from('["Piano"]').toString("base64");
+    const groups = Buffer.from('["Group 1", "Group 2"]').toString("base64");
+    const avatarImage = "image.jpg";
+
+    // console.log(password, username, email, firstName, lastName)
+>>>>>>> 8e3a65a8ee3c98d751de5bcae6ceb8ef6c522e45
 
     try {
       Auth.signUp({
@@ -167,11 +190,11 @@ class Register extends Component {
           email: email,
           given_name: firstName,
           family_name: lastName,
-          'custom:artistName': artistName,
-          'custom:instruments': instruments,
-          'custom:defaultRoles': defaultRoles,
-          'custom:groups': groups,
-          'custom:avatarImage': avatarImage
+          "custom:artistName": artistName,
+          "custom:instruments": instruments,
+          "custom:defaultRoles": defaultRoles,
+          "custom:groups": groups,
+          "custom:avatarImage": avatarImage
         }
       })
         // Auth.currentSession().then(
@@ -186,9 +209,11 @@ class Register extends Component {
           toast.success(`${firstName}, your account is created, check email!`)
         )
         .then(
-            setTimeout(function(){ window.location.reload() }, 3000),
-            this.props.history.push("/welcome")
-          )
+          setTimeout(function() {
+            window.location.reload();
+          }, 3000),
+          this.props.history.push("/welcome")
+        )
         .catch(err => {
           // toast.error(err.message)
           console.log(err);
@@ -213,15 +238,15 @@ class Register extends Component {
 
   handleAddition = (e, { value }) => {
     this.setState(prevState => ({
-      groups: [{text: value, value}, ...prevState.groups],
-    }))  
-  }
+      groups: [{ text: value, value }, ...prevState.groups]
+    }));
+  };
 
-  handleChange = (e, { value }) => this.setState({ currentValue: value })
+  handleChange = (e, { value }) => this.setState({ currentValue: value });
 
-  handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value })
+  handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value });
 
-  roleChange = (e, { value }) => this.setState({ currentRoleValue: value })
+  roleChange = (e, { value }) => this.setState({ currentRoleValue: value });
 
   // stateChanged = e => {
 
@@ -259,54 +284,60 @@ class Register extends Component {
 
   componentDidMount() {
     let groups = [];
-    axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
-    .then(res=>{
-      let groupers = [];
-      let groupsUnique = [];
-      res.data.forEach(function(element) {
-        groupers.push( element.groups )
-        // Remove duplicates from multiple right holders and flattens arrays
-        let GR = groupers.sort().flat().filter( Boolean );
-        groupsUnique = [...new Set(GR)]
+    axios
+      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
+      .then(res => {
+        let groupers = [];
+        let groupsUnique = [];
+        res.data.forEach(function(element) {
+          groupers.push(element.groups);
+          // Remove duplicates from multiple right holders and flattens arrays
+          let GR = groupers
+            .sort()
+            .flat()
+            .filter(Boolean);
+          groupsUnique = [...new Set(GR)];
+        });
+        groupsUnique.forEach(function(elm) {
+          groups.push({ key: elm, text: elm, value: elm });
+        });
+        this.setState({ groups: groups }, () => {
+          console.log("this.state.groups", this.state.groups);
+        });
       })
-      groupsUnique.forEach(function(elm) {
-        groups.push( {key: elm, text: elm, value: elm} )
-      })
-      this.setState({groups: groups}, ()=>{console.log("this.state.groups", this.state.groups)})
-    })
-    .catch(err=>{
-      console.log(err);
-    })
+      .catch(err => {
+        console.log(err);
+      });
     if (this.props.password) {
-        this.setState({ password: this.props.password });
+      this.setState({ password: this.props.password });
     }
     if (this.props.confirmpassword) {
-    this.setState({ confirmpassword: this.props.confirmpassword });
+      this.setState({ confirmpassword: this.props.confirmpassword });
     }
   }
 
-//   handleSubmit = values => {
-//     try {
-//       this.setState({ patience: true }, () => {
-//         Auth.signIn(values.username, values.password)
-//           .then(user => {
-//             toast.success(`#${user.username} !`);
+  //   handleSubmit = values => {
+  //     try {
+  //       this.setState({ patience: true }, () => {
+  //         Auth.signIn(values.username, values.password)
+  //           .then(user => {
+  //             toast.success(`#${user.username} !`);
 
-//             if (this.props.fn) {
-//               this.props.fn();
-//             }
-//           })
-//           .catch(err => {
-//             toast.error(err.message);
-//           })
-//           .finally(() => {
-//             this.setState({ patience: false });
-//           });
-//       });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
+  //             if (this.props.fn) {
+  //               this.props.fn();
+  //             }
+  //           })
+  //           .catch(err => {
+  //             toast.error(err.message);
+  //           })
+  //           .finally(() => {
+  //             this.setState({ patience: false });
+  //           });
+  //       });
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
 
   render() {
     const {
@@ -316,7 +347,7 @@ class Register extends Component {
       children,
       ...restProps
     } = this.props;
-    const { password, strength, currentValue, currentRoleValue  } = this.state;
+    const { password, strength, currentValue, currentRoleValue } = this.state;
 
     const { firstName, lastName, username } = this.state;
 
@@ -428,25 +459,76 @@ class Register extends Component {
                       {/*<hr className="hrLogin" />*/}
                       <hr
                         className="hrLogin"
-                        data-content={t("inscription.ou")}
+                        data-content={t("flot.split.inscription.ou")}
                       />
                       <section className="section auth">
                         <div className="container">
-                          
-                        <img type="image" className="avatarImage" src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"/>
-                        {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
-                            <br></br>
-                            <br></br>
-                        <label>{t("collaborateur.attribut.etiquette.prenom")}</label><input type="text" className="firstName" placeholder={t('collaborateur.attribut.etiquette.prenom')} value={this.state.firstName} onChange={e => this.setState({firstName: e.target.value})}/>
-                        <label>{t("collaborateur.attribut.etiquette.nom")}</label><input type="text" className="lastName" placeholder={t('collaborateur.attribut.etiquette.nom')} value={this.state.lastName} onChange={e => this.setState({lastName: e.target.value})}/>
-                        <label>{t('collaborateur.attribut.etiquette.artiste')}</label><label id="Optionel">{t('collaborateur.attribut.etiquette.option')}</label><input type="text" className="artistName" placeholder={t('collaborateur.attribut.etiquette.artiste')} value={this.state.artistName} onChange={e => this.setState({artistName: e.target.value})}/>
-                        <div className="sous titre">{t('collaborateur.attribut.etiquette.na')}</div>
-                        <label>{t('collaborateur.attribut.etiquette.groupe')}</label>
-                        <Dropdown 
+                          <img
+                            type="image"
+                            className="avatarImage"
+                            src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
+                          />
+                          {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
+                          <br></br>
+                          <br></br>
+                          <label>
+                            {t("collaborateur.attribut.etiquette.prenom")}
+                          </label>
+                          <input
+                            type="text"
+                            className="firstName"
+                            placeholder={t(
+                              "collaborateur.attribut.etiquette.prenom"
+                            )}
+                            value={this.state.firstName}
+                            onChange={e =>
+                              this.setState({ firstName: e.target.value })
+                            }
+                          />
+                          <label>
+                            {t("collaborateur.attribut.etiquette.nom")}
+                          </label>
+                          <input
+                            type="text"
+                            className="lastName"
+                            placeholder={t(
+                              "collaborateur.attribut.etiquette.nom"
+                            )}
+                            value={this.state.lastName}
+                            onChange={e =>
+                              this.setState({ lastName: e.target.value })
+                            }
+                          />
+                          <label>
+                            {t("collaborateur.attribut.etiquette.artiste")}
+                          </label>
+                          <label id="Optionel">
+                            {t("collaborateur.attribut.etiquette.option")}
+                          </label>
+                          <input
+                            type="text"
+                            className="artistName"
+                            placeholder={t(
+                              "collaborateur.attribut.etiquette.artiste"
+                            )}
+                            value={this.state.artistName}
+                            onChange={e =>
+                              this.setState({ artistName: e.target.value })
+                            }
+                          />
+                          <div className="sous titre">
+                            {t("collaborateur.attribut.etiquette.na")}
+                          </div>
+                          <label>
+                            {t("collaborateur.attribut.etiquette.groupe")}
+                          </label>
+                          <Dropdown
                             id="prompt"
-                            type="text" 
+                            type="text"
                             options={this.state.groups}
-                            placeholder={t('collaborateur.attribut.indication.groupe')}
+                            placeholder={t(
+                              "collaborateur.attribut.indication.groupe"
+                            )}
                             search
                             multiple={true}
                             selection
@@ -455,28 +537,34 @@ class Register extends Component {
                             value={currentValue}
                             onAddItem={this.handleAddition}
                             onChange={this.handleChange}
-                        />
-                        {/*<i className="search icon"></i>*/}
-                        <label>{t('collaborateur.attribut.etiquette.role')}</label>
-                        <Dropdown 
+                          />
+                          {/*<i className="search icon"></i>*/}
+                          <label>
+                            {t("collaborateur.attribut.etiquette.role")}
+                          </label>
+                          <Dropdown
                             id="roles"
-                            type="text" 
-                            options = {this.state.roles}
-                            placeholder={t('collaborateur.attribut.indication.role')}
+                            type="text"
+                            options={this.state.roles}
+                            placeholder={t(
+                              "collaborateur.attribut.indication.role"
+                            )}
                             search
                             multiple={true}
                             selection
                             fluid
                             value={currentRoleValue}
                             onChange={this.roleChange}
-                        /> 
-                        <div className="sous titre">{t('collaborateur.attribut.indication.role2')}</div>
-                        <br></br>
+                          />
+                          <div className="sous titre">
+                            {t("collaborateur.attribut.indication.role2")}
+                          </div>
+                          <br></br>
 
                           <div className="field">
                             <div className="control">
                               <label htmlFor="username">
-                                {t("inscription.courriel")}
+                                {t("flot.split.inscription.courriel")}
                               </label>
                               <Field
                                 validate={val => {
@@ -485,13 +573,15 @@ class Register extends Component {
                                 name="username"
                                 id="username"
                                 aria-describedby="userNameHelp"
-                                placeholder={t("inscription.exemple")}
+                                placeholder={t(
+                                  "flot.split.inscription.exemple"
+                                )}
                                 value={this.state.username}
                                 required={true}
                               />
                               {errors.username && touched.username && (
                                 <div style={{ color: "red" }}>
-                                  {t("inscription.email-invalide")}{" "}
+                                  {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
                               )}
                             </div>
