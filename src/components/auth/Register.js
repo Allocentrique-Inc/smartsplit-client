@@ -164,23 +164,9 @@ class Register extends Component {
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const artistName = this.state.artistName;
-<<<<<<< HEAD
     const defaultRoles = Buffer.from(JSON.stringify(this.state.currentRoleValue)).toString('base64');
     const instruments = Buffer.from(JSON.stringify(this.state.instruments)).toString('base64');
     const groups = Buffer.from(JSON.stringify(this.state.currentValue)).toString('base64');
-=======
-    // const firstName = 'First Name'
-    // const lastName = 'Last Name'
-    // const artistName = 'Artist Name'
-    const defaultRoles = Buffer.from('["Singer", "Producer"]').toString(
-      "base64"
-    );
-    const instruments = Buffer.from('["Piano"]').toString("base64");
-    const groups = Buffer.from('["Group 1", "Group 2"]').toString("base64");
-    const avatarImage = "image.jpg";
-
-    // console.log(password, username, email, firstName, lastName)
->>>>>>> 8e3a65a8ee3c98d751de5bcae6ceb8ef6c522e45
 
     try {
       Auth.signUp({
