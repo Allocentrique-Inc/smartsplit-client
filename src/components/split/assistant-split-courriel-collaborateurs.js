@@ -95,7 +95,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
         });
       })
       .catch(error => {
-        toast.error(error);
+        console.log(error);
       });
   }
 
