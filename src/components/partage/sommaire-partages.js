@@ -122,7 +122,7 @@ export default class SommairePartages extends Component {
                             <div className="ui ten wide column">
                                 <i className="file image outline icon huge grey"></i>
                                     {this.state.media && (<span style={{marginLeft: "15px"}} className="medium-400">{this.state.media.title}</span>)}
-                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.etape.partage-titre')}</span>                            
+                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>                            
                             </div>
                     }                    
                 </Translation>
@@ -147,7 +147,7 @@ export default class SommairePartages extends Component {
                     <Translation key={`sommaire_${idx}`} >
                         {
                             (t, i18n) =>                            
-                                <div className="ui row">
+                                <div className="ui row" style={{fontFamily: "IBM Plex Sans"}}>
                                     <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
                                         <Icon name='dropdown' />
                                         Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
@@ -156,16 +156,15 @@ export default class SommairePartages extends Component {
                                             <div className="small-500-color" style={{display: "inline-block"}}>{`${elem.initiator.name}`}</div>
                                             <div className="small-400" style={{display: "inline-block"}}>&nbsp;{i18n.lng && elem._d ? moment(elem._d).locale(i18n.lng.substring(0,2)).fromNow() : moment().fromNow()}</div>
                                         </div>
-                                    </Accordion.Title>
+                                   </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
                                         <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
-                                    </Accordion.Content>                                
-                                </div>
+                                    </Accordion.Content> 
+                                    </div>                               
                         }
                     </Translation>
                 )
             })
-
             propositions = propositions.reverse()
 
             let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
@@ -187,7 +186,7 @@ export default class SommairePartages extends Component {
                     continuerDisabled = false
                 }
                 if(_p.etat === 'ACCEPTE') {
-                    // ESt-ce que l'utilisateur est dans les ayant-droits ?
+                    // Essst-ce que l'utilisateur est dans les ayant-droits ?
                     let estCollaborateur = false
                     if(_p.rightsSplits.workCopyrightSplit) {
                         Object.keys(_p.rightsSplits.workCopyrightSplit).forEach(type=>{
@@ -261,7 +260,12 @@ export default class SommairePartages extends Component {
                     <Translation>
                         {
                             t =>
-                                <h4 className="ui color blue">{t('partage.prete-a-envoyer')}</h4>
+                                <p className="ui color blue" 
+                                style={{width: "800px", 
+                                fontFamily: "IBM Plex Sans", 
+                                fontWeight: "normal", 
+                                fontSize: "16px"}}>
+                                {t('flot.split.partage.prete-a-envoyer')}</p>
                         }
                     </Translation>
                 )
@@ -272,7 +276,7 @@ export default class SommairePartages extends Component {
                     <Translation>
                         {
                             t =>
-                                <h4 className="ui color orange">{t('flot.proposition.voter-avec-jeton')}</h4>
+                                <h4 className="ui color orange">{t('flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton')}</h4>
                         }
                     </Translation>
                 )
@@ -300,7 +304,7 @@ export default class SommairePartages extends Component {
                                                             window.location.href=`/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
                                                         }
                                                         }>
-                                                        {t('flot.proposition.continuer')}
+                                                        {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
                                                     </div>
                                                 )
                                             }
@@ -311,7 +315,7 @@ export default class SommairePartages extends Component {
                                                             window.location.href=`/partager/nouveau/${this.state.mediaId}`
                                                         }
                                                         }>
-                                                        {t('flot.proposition.nouvelle')}
+                                                        {t('flot.split.documente-ton-oeuvre.proposition.nouvelle')}
                                                     </div>
                                                 )
                                             }
@@ -329,14 +333,14 @@ export default class SommairePartages extends Component {
                                                         marginTop:"50px", 
                                                         marginTop: "150px"}}>
 
-                                                            {t('flot.proposition.envoyer')}
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                         </div>
                                                      
                                                         <Modal 
                                                             open={this.state.modaleCourriels}
                                                             onClose={this.closeModal} 
                                                             size="small"
-                                                            style={{height: "200px"}}
+                                                            style={{height: "100%"}}
                                                         >
                                                             <PageAssistantSplitCourrielsCollaborateurs 
                                                                 ayantDroits={rightHolders}
@@ -357,8 +361,8 @@ export default class SommairePartages extends Component {
                                             <div className="ui row">
                                                 <div className="ui one wide column" />
                                                 <div className="ui twelve wide column   ">
-                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>{t('flot.tableaudebord.collabo')}</span>&nbsp;&nbsp;
-                                                    <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>{t('flot.tableaudebord.edito')}</span>
+                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={()=>{this.afficherPanneauPropositions()}}>{t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}</span>&nbsp;&nbsp;
+                                                    <span style={this.state.panneau === PANNEAU_EDITEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauEditeur()}}>{t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}</span>
                                                 </div>
                                                 <div className="ui one wide column" />
                                             </div>
@@ -398,7 +402,7 @@ export default class SommairePartages extends Component {
                                     this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
                                             <script language="javascript">
                                                 setTimeout(()=>{
-                                                    toast.warn(t('flot.proposition.voter-avec-jeton'))
+                                                    toast.warn(t('flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton'))
                                                 })
                                             </script>
                                         )

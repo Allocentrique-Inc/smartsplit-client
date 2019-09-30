@@ -1,104 +1,184 @@
-import React from 'react';
+import React from "react";
 import { Translation } from "react-i18next";
-import Page from '../page-assistant/page';
+import Page from "../page-assistant/page";
 import { ChampDate } from "../page-assistant/champ-date";
-import FileCircleOrange from '../../assets/svg/icons/file-circle-orange.svg';
-import FileCircleGreen from '../../assets/svg/icons/file-circle-green.svg';
+import FileCircleOrange from "../../assets/svg/icons/file-circle-orange.svg";
+import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg";
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 import ChampTeleversement from "../page-assistant/champ-televersement";
 
 export default class PageFichiers extends React.Component {
+  icon() {
+    return this.props.pochette ? FileCircleOrange : FileCircleGreen;
+  }
 
-    icon() {
-        return this.props.pochette ? FileCircleOrange : FileCircleGreen;
-    }
+  constructor(props) {
+    super(props);
 
-    render() {
-        return (
-            <Translation>
-                {
-                    (t) =>
-                        <Page
-                            pochette={ this.props.pochette }
-                        >
-                            <Colonne>
-                                <Entete
-                                    pochette={ this.props.pochette }
-                                    icon={ this.icon() }
-                                    label={ t('flot.documenter.entete.fichier') }
-                                    question={ t('flot.documenter.titre4') }
-                                    description={ t('flot.documenter.titre4-description') }
-                                />
+    this.state = {
+      open: props.open,
+      terms: "Y"
+    };
+  }
 
-                                <div className="entete-section">
-                                    <h3 className="section-title with-description">Visuel de l'œuvre</h3>
+  handleSubmit = values => {
+    let body = {
+      TERMS: "Y"
+    };
+  };
 
-                                    <p className="description">
-                                        Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi
-                                        avoir
-                                        un visuel pour la représenter. <br/>
-                                        <a href="#">En savoir plus</a>
-                                    </p>
-                                </div>
+  render() {
+    const { terms } = this.state;
+    return (
+      <Translation>
+        {(t, i18n) => (
+          <Page pochette={this.props.pochette}>
+            <Colonne>
+              <Entete
+                pochette={this.props.pochette}
+                icon={this.icon()}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.fichier"
+                )}
+                question={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre4"
+                )}
+                description={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre4-description"
+                )}
+              />
 
-                                <ChampTeleversement
-                                    label={ 'Téléverser en format JPEG ou PNG' }
-                                    undertext={ 'Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.' }
-                                    file={ this.props.values.files.cover.file }
-                                    access={ this.props.values.files.cover.access || 'public' }
-                                    onFileChange={ value => this.props.setFieldValue('files.cover.file', value) }
-                                    onAccessChange={ value => this.props.setFieldValue('files.cover.access', value) }
-                                />
+              <div className="entete-section">
+                <h3 className="section-title with-description">
+                  {t("flot.split.documente-ton-oeuvre.documenter.titre8")}
+                </h3>
 
-                                <div className={ 'section-divider' }></div>
+                <p className="description">
+                  {t(
+                    "flot.split.documente-ton-oeuvre.documenter.titre8-description"
+                  )}{" "}
+                  <br />
+                  <a href="#">
+                    {t(
+                      "flot.split.documente-ton-oeuvre.documenter.titre8-plus"
+                    )}
+                  </a>
+                </p>
+              </div>
 
-                                <div className="entete-section">
-                                    <h3 className="section-title with-description">Fichier audio</h3>
-
-                                    <p className="description">
-                                        Ici, tu peux télécharger ta pièce en format WAV ou MP3.
-                                    </p>
-                                </div>
-
-                                <ChampTeleversement
-                                    label={ 'Téléverser le fichier de l’œuvre enregistrée' }
-                                    undertext={ 'MP3 ou WAV acceptés.' }
-                                    access={ this.props.values.files.audio.access || 'on-invite' }
-                                    onFileChange={ value => this.props.setFieldValue('files.audio.file', value) }
-                                    onAccessChange={ value => this.props.setFieldValue('files.audio.access', value) }
-                                />
-
-                                <div className={ 'section-divider' }></div>
-
-                                <div className="entete-section">
-                                    <h3 className="section-title with-description">Autres fichiers sur l’œuvre</h3>
-
-                                    <p className="description">
-                                        Ici, tu peux ajouter des documents permettant l’interprétation de l’œuvre, comme
-                                        la partition ou le fichier MIDI.
-                                    </p>
-                                </div>
-
-                                <ChampTeleversement
-                                    label={ 'Partition ou tablature' }
-                                    undertext={ 'Fichiers acceptés à mettre' }
-                                    access={ this.props.values.files.score.access || 'on-invite' }
-                                    onFileChange={ value => this.props.setFieldValue('files.score.file', value) }
-                                    onAccessChange={ value => this.props.setFieldValue('files.score.access', value) }
-                                />
-
-                                <ChampTeleversement
-                                    label={ 'Fichiers MIDI' }
-                                    undertext={ 'Fichiers acceptés à mettre' }
-                                    access={ this.props.values.files.midi.access || 'on-invite' }
-                                    onFileChange={ value => this.props.setFieldValue('files.midi.file', value) }
-                                    onAccessChange={ value => this.props.setFieldValue('files.midi.access', value) }
-                                />
-                            </Colonne>
-                        </Page>
+              <ChampTeleversement
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre8-etape1"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre8-etape2"
+                )}
+                file={this.props.values.files.cover.file}
+                access={this.props.values.files.cover.access || "public"}
+                onFileChange={value =>
+                  this.props.setFieldValue("files.cover.file", value)
                 }
-            </Translation>
-        )
-    }
+                onAccessChange={value =>
+                  this.props.setFieldValue("files.cover.access", value)
+                }
+              />
+
+              <div className={"section-divider"}></div>
+
+              <div className="entete-section">
+                <h3 className="section-title with-description">
+                  {t("flot.split.documente-ton-oeuvre.documenter.titre9")}
+                </h3>
+
+                <p className="description">
+                  {t(
+                    "flot.split.documente-ton-oeuvre.documenter.titre9-description"
+                  )}
+                </p>
+              </div>
+
+              <ChampTeleversement
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre9-etape1"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre9-etape2"
+                )}
+                access={this.props.values.files.audio.access || "on-invite"}
+                onFileChange={value =>
+                  this.props.setFieldValue("files.audio.file", value)
+                }
+                onAccessChange={value =>
+                  this.props.setFieldValue("files.audio.access", value)
+                }
+              />
+
+              <div className={"section-divider"}></div>
+
+              <div className="entete-section">
+                <h3 className="section-title with-description">
+                  {t("flot.split.documente-ton-oeuvre.documenter.autre")}
+                </h3>
+
+                <p className="description">
+                  {t(
+                    "flot.split.documente-ton-oeuvre.documenter.autre-description"
+                  )}
+                </p>
+              </div>
+
+              <ChampTeleversement
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.autre-etape1"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.autre-etape2"
+                )} //Mette ça en toolkit
+                access={this.props.values.files.score.access || "on-invite"}
+                onFileChange={value =>
+                  this.props.setFieldValue("files.score.file", value)
+                }
+                onAccessChange={value =>
+                  this.props.setFieldValue("files.score.access", value)
+                }
+                label={
+                  <a
+                    target="_blank"
+                    href={
+                      i18n.lng &&
+                      (i18n.lng.substring(0, 2) === "en"
+                        ? "https://en.wikipedia.org/wiki/Graphic_notation_(music)"
+                        : "https://fr.wikipedia.org/wiki/Partition_graphique")
+                    }
+                    style={{ color: "#2DA84F" }}
+                  >
+                    {t("flot.split.documente-ton-oeuvre.documenter.autre-plus")}
+                  </a>
+                }
+                key={terms}
+                value={this.state.terms}
+              />
+
+              <ChampTeleversement
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.autre-etape3"
+                )}
+                undertext={t(
+                  "flot.split.documente-ton-oeuvre.documenter.autre-etape4"
+                )}
+                access={this.props.values.files.midi.access || "on-invite"}
+                onFileChange={value =>
+                  this.props.setFieldValue("files.midi.file", value)
+                }
+                onAccessChange={value =>
+                  this.props.setFieldValue("files.midi.access", value)
+                }
+              />
+            </Colonne>
+          </Page>
+        )}
+      </Translation>
+    );
+  }
 }

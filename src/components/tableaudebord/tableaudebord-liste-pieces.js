@@ -144,7 +144,9 @@ export default class ListePieces extends Component {
     
                         initiatorMediaIds.forEach(async function(element) {
                             const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + element)
-                            _medias.push(res.data.Item)
+                            if(res.data.Item) {
+                                _medias.push(res.data.Item)                                
+                            }
                             ii++
                             if (initiatorMediaIds.length == ii) {
                                 that.setState({medias: _medias})
@@ -154,7 +156,9 @@ export default class ListePieces extends Component {
     
                         collabMediaIds.forEach(async function(elm) {
                             const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + elm)
-                            _collabMedias.push(res.data.Item)
+                            if(res.data.Item) {
+                                _collabMedias.push(res.data.Item)
+                            }                            
                             jj++
                             if (collabMediaIds.length == jj) {
                                 that.setState({collabMedias: _collabMedias})
@@ -249,8 +253,8 @@ export default class ListePieces extends Component {
                         <div className="ui row">
                             <div className="ui one wide column" />
                             <div className="ui twelve wide column">
-                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('tableaudebord.pieces.1')}</span>
+                                <span style={this.state.panneau === PANNEAU_INITIATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauInitiateur()}}>{t('flot.split.tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
+                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? {cursor: "pointer", borderBottom: "solid green"} : {cursor: "pointer"}} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={()=>{this.afficherPanneauCollaborateur()}}>{t('flot.split.tableaudebord.pieces.1')}</span>
                             </div>
                             <div className="ui one wide column" />
                         </div>
@@ -300,12 +304,12 @@ export default class ListePieces extends Component {
                                     <div>                                                                                
                                         <div className="ui grid">
                                             <div className="ui row">
-                                                <div className="heading2 ten wide column">{t('tableaudebord.navigation.0')}</div>
+                                                <div className="heading2 ten wide column">{t('flot.split.tableaudebord.navigation.0')}</div>
                                             </div>                                            
                                             <div className="ui row">
                                                 <div className="ui nine wide column" />
                                                 <div className="ui three wide column medium button" onClick={()=>{this.modaleNouvelleOeuvre()}}>
-                                                    {t('tableaudebord.pieces.ajouter')}
+                                                    {t('flot.split.tableaudebord.pieces.ajouter')}
                                                 </div>
                                             </div>
                                             <div className="ui row">
@@ -324,7 +328,7 @@ export default class ListePieces extends Component {
                                             closeOnDimmerClick={false}
                                         >
                                             <Modal.Header>
-                                                {t('flot.proposition.nouvelle')}
+                                                {t('flot.split.titre.creer')}
                                             </Modal.Header>
                                             <Modal.Content>
                                                 <NouvelleOeuvre audio={this.state.audio} parent={this} user={this.state.user} />
