@@ -223,7 +223,7 @@ export default class SommaireOeuvre extends Component {
                                             </div>
                                             <div className="ui medium button"
                                                  style={ { marginTop: "50px", marginLeft: "0px" } } onClick={ () => {
-                                                window.location.href = `/documenter/${ this.state.media.title }`
+                                                window.location.href = `/documenter/${ this.state.media.mediaId }`
                                             } }>
                                                 { t('flot.split.action.commencer') }
                                             </div>

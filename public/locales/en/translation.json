@@ -18,7 +18,7 @@
     "liste-media": "Media list returned by the API",
     "apercu": "Preview",
     "oeil-ouvert": "Keep your eyes opened",
-    "apercu-sen-vient": "Your preview will be shown here"
+    "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
     "titre": "Add a collaborating artist",
@@ -85,7 +85,7 @@
       },
       "indication": {
         "titre": "Work title",
-        "titre-soustexte": "Do not include guests (featuring, remixed by, etc., in the title",
+        "titre-soustexte": "Do not include guests (featuring, remixed by, etc.) in the title.",
         "arrangeur": "Artist or group...",
         "album": "Work album",
         "reprise": "",
@@ -134,8 +134,8 @@
   "composant": {
     "televersement": {
       "titre": "Upload your source file",
-      "indication": "Drag the file you want to upload and drop it here, or clic here to choose the file.",
       "soustitre": "WAV or MP3 format only, 100 Mo maximum.",
+      "indication": "Drag the file you want to upload and drop it here, or clic to choose the file.",
       "preambule": "Here you can upload your source file. It will be accessible only to those who have private access. You could then share your work with radio stations, broadcasters and so on. The link to the file is not publicly available."
     }
   },

@@ -18,7 +18,7 @@
     "liste-media": "Liste des médias retournés de l'API",
     "apercu": "Aperçu",
     "oeil-ouvert": "Gardez l'oeil ouvert",
-    "apercu-sen-vient": "Votre aperçu s'affichera ici"
+    "apercu-sen-vient": "Votre aperçu s'affichere ici"
   },
   "collaborateur": {
     "titre": "Ajouter un artiste collaborateur",
@@ -87,7 +87,7 @@
       },
       "indication": {
         "titre": "Titre de la pièce musicale",
-        "titre-soustexte": "Ne pas inclure de mentions (arr., avec, etc., dans le titre",
+        "titre-soustexte": "Ne pas inclure de mentions (avec, arrangement par, etc.) dans le titre.",
         "album": "Album sur lequel figure la pièce musicale",
         "arrangeur": "Artiste ou groupe",
         "reprise": "",
@@ -136,7 +136,8 @@
     "televersement": {
       "titre": "Fichier",
       "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
-      "indication": "ou dépose le fichier ici"
+      "indication": "Glisse ici le fichier que tu souhaites téléverser, ou click pour choisir le fichier.",
+      "preambule": "Ici tu peux téléverser le fichier source. Il sera seulement accessible à ceux qui ont un accès privé. Tu peux ensuite partager ton œuvre avec des stations radio, diffuseurs, etc. Le lien au fichier n'est pas accessible publiquement."
     }
   },
   "image": {
@@ -582,7 +583,7 @@
           "titre": "Quel est le nom de ton éditeur ?",
           "titre-part": "Combien ton éditeur devrait-il avoir ?"
         },
-        "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition.",
+        "lecture-seule": "Une nouvelle proposition est en vigueur, tu ne pourra pas enregistrer cette proposition.",
         "prete-a-envoyer": "Ta proposition est prête à envoyer à tes collaborateurs par courriel. Révise-la et appuie sur Envoyer."
       },
       "connexion": {

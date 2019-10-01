@@ -39,21 +39,33 @@ class AssistantOeuvre extends Component {
             title: props.titre,
             rightHolders: [],
             endModalOpen: false,
-            modaleConnexion: false
+            modaleConnexion: false,
+            mediaId: props.mediaId
         };
+        console.log(this.state)
     }
 
     componentWillMount() {
         Auth.currentAuthenticatedUser()
-            .then(response => {
+        .then(response => {            
+            if(this.state.mediaId) {
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
+                .then(res=>{                    
+                    if(res.data.Item) {
+                        let media = res.data.Item
+                        this.setState({media: media}, ()=>this.fetchApiRightHolders())
+                        this.setState({ user: response })
+                    }
+                })
+            } else {
                 this.setState({ user: response })
-            })
-            .catch(error => {
-                console.log(error)
-                this.setState({modaleConnexion: true})
-            })
-            
-            this.fetchApiRightHolders()
+                this.fetchApiRightHolders()
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            this.setState({modaleConnexion: true})
+        })          
     }
 
     fetchApiRightHolders() {
@@ -73,62 +85,126 @@ class AssistantOeuvre extends Component {
     }
 
     getInitialValues() {
-        return {
-            title: this.state.title,
-            album: "",
-            artist: "",
-            cover: "false",
-            rightHolders: [],
-            jurisdiction: "",
-            rightsType: [],
-            lyrics: {
-                text: "",
-                languages: [],
-                access: "private"
-            },
-            isrc: "",
-            iswc: "",
-            upc: "",
-            msDuration: "",
-            duration: "",
-            bpm: "",
-            influence: "",
-            genre: "",
-            secondaryGenres: [],
-            socialMediaLinks: [],
-            streamingServiceLinks: [],
-            pressArticleLinks: [],
-            playlistLinks: [],
-            creationDate: "",
-            modificationDate: "",
-            publishDate: "",
-            publisher: "",
-            studio: "",
-            studioAddress: "",
-            label: "",
-            labelAddress: "",
-            distributor: "",
-            distributorAddress: "",
-            rightsSplit: {},
-            files: {
-                cover: {
-                    file: null,
+
+        let _m = this.state.media
+        let valeurs = {}
+
+        if(!_m) {
+            valeurs = {
+                title: "",
+                album: "",
+                artist: "",
+                cover: "false",
+                rightHolders: [],
+                jurisdiction: "",
+                rightsType: [],
+                lyrics: {
+                    text: "",
+                    languages: [],
                     access: "private"
                 },
-                audio: {
-                    file: null,
-                    access: "private"
-                },
-                score: {
-                    file: null,
-                    access: "private"
-                },
-                midi: {
-                    file: null,
-                    access: "private"
+                isrc: "",
+                iswc: "",
+                upc: "",
+                msDuration: "",
+                duration: "",
+                bpm: "",
+                influence: "",
+                genre: "",
+                secondaryGenres: [],
+                socialMediaLinks: [],
+                streamingServiceLinks: [],
+                pressArticleLinks: [],
+                playlistLinks: [],
+                creationDate: "",
+                modificationDate: "",
+                publishDate: "",
+                publisher: "",
+                studio: "",
+                studioAddress: "",
+                label: "",
+                labelAddress: "",
+                distributor: "",
+                distributorAddress: "",
+                rightsSplit: {},
+                files: {
+                    cover: {
+                        file: null,
+                        access: "private"
+                    },
+                    audio: {
+                        file: null,
+                        access: "private"
+                    },
+                    score: {
+                        file: null,
+                        access: "private"
+                    },
+                    midi: {
+                        file: null,
+                        access: "private"
+                    }
                 }
             }
-        };
+        } else {
+            valeurs = {
+                title: _m.title,
+                album: _m.album,
+                artist: _m.artist,
+                cover: "false",
+                rightHolders: [],
+                jurisdiction: "",
+                rightsType: [],
+                lyrics: {
+                    text: "",
+                    languages: [],
+                    access: "private"
+                },
+                isrc: _m.isrc,
+                iswc: _m.iswc,
+                upc: _m.upc,
+                msDuration: _m.msDuration,
+                duration: "",
+                bpm: "",
+                influence: "",
+                genre: _m.genre,
+                secondaryGenres: [],
+                socialMediaLinks: _m.socialMediaLinks || [],
+                streamingServiceLinks: _m.streamingServiceLinks || [],
+                pressArticleLinks: _m.pressArticleLinks || [],
+                playlistLinks: _m.playlistLinks || [],
+                creationDate: _m.creationDate,
+                modificationDate: _m.modificationDate,
+                publishDate: _m.publishDate,
+                publisher: _m.publisher,
+                studio: "",
+                studioAddress: "",
+                label: "",
+                labelAddress: "",
+                distributor: "",
+                distributorAddress: "",
+                rightsSplit: {},
+                files: {
+                    cover: {
+                        file: null,
+                        access: "private"
+                    },
+                    audio: {
+                        file: _m.fichier,
+                        access: "private"
+                    },
+                    score: {
+                        file: null,
+                        access: "private"
+                    },
+                    midi: {
+                        file: null,
+                        access: "private"
+                    }
+                }
+            }
+        }
+        return valeurs
     }
 
     onPageChanged = value => {
@@ -171,75 +247,81 @@ class AssistantOeuvre extends Component {
                                     profil={this.state.user}
                                 />
 
-                                <Wizard
-                                    initialValues={ this.getInitialValues() }
-                                    onPageChanged={ this.onPageChanged }
-                                    onSubmit={ this.onSubmit }
+                                {
+                                    this.state.rightHolders && (
+                                    <>
+                                        <Wizard
+                                            initialValues={ this.getInitialValues() }
+                                            onPageChanged={ this.onPageChanged }
+                                            onSubmit={ this.onSubmit }
 
-                                    buttonLabels={ {
-                                        previous: t('navigation.precedent'),
-                                        next: t('navigation.suivant'),
-                                        submit: t('navigation.envoi')
-                                    } }
+                                            buttonLabels={ {
+                                                previous: t('navigation.precedent'),
+                                                next: t('navigation.suivant'),
+                                                submit: t('navigation.envoi')
+                                            } }
 
-                                    debug={ false }
-                                >
-                                    <Wizard.Page>
-                                        <PageCreation
-                                            pochette={ this.props.pochette }
-                                            i18n={ i18n }
-                                            rightHolders={ this.state.rightHolders }
+                                            debug={ false }
+                                        >
+                                            <Wizard.Page>
+                                                <PageCreation
+                                                    pochette={ this.props.pochette }
+                                                    i18n={ i18n }
+                                                    rightHolders={ this.state.rightHolders }
+                                                />
+                                            </Wizard.Page>
+
+                                            <Wizard.Page>
+                                                <PageInterpretation
+                                                    pochette={ this.props.pochette }
+                                                    i18n={ i18n }
+                                                    rightHolders={ this.state.rightHolders }
+                                                />
+                                            </Wizard.Page>
+
+                                            <Wizard.Page>
+                                                <PageEnregistrement
+                                                    pochette={ this.props.pochette }
+                                                    i18n={ i18n }
+                                                    rightHolders={ this.state.rightHolders }
+                                                />
+                                            </Wizard.Page>
+
+                                            <Wizard.Page>
+                                                <PageFichiers
+                                                    pochette={ this.props.pochette }
+                                                    i18n={ i18n }
+                                                />
+                                            </Wizard.Page>
+
+                                            <Wizard.Page>
+                                                <PageInformationsGenerales
+                                                    pochette={ this.props.pochette }
+                                                    i18n={ i18n }
+                                                />
+                                            </Wizard.Page>
+
+                                            <Wizard.Page>
+                                                <PageParoles
+                                                    pochette={ this.props.pochette }
+                                                />
+                                            </Wizard.Page>
+
+                                            <Wizard.Page>
+                                                <PageLiens
+                                                    pochette={ this.props.pochette }
+                                                />
+                                            </Wizard.Page>
+                                        </Wizard>
+                                        <ModalFin
+                                            songTitle={ this.state.title }
+                                            open={ this.state.endModalOpen }
+                                            onClose={ () => this.setState({ endModalOpen: false }) }
                                         />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageInterpretation
-                                            pochette={ this.props.pochette }
-                                            i18n={ i18n }
-                                            rightHolders={ this.state.rightHolders }
-                                        />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageEnregistrement
-                                            pochette={ this.props.pochette }
-                                            i18n={ i18n }
-                                            rightHolders={ this.state.rightHolders }
-                                        />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageFichiers
-                                            pochette={ this.props.pochette }
-                                            i18n={ i18n }
-                                        />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageInformationsGenerales
-                                            pochette={ this.props.pochette }
-                                            i18n={ i18n }
-                                        />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageParoles
-                                            pochette={ this.props.pochette }
-                                        />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageLiens
-                                            pochette={ this.props.pochette }
-                                        />
-                                    </Wizard.Page>
-                                </Wizard>
-
-                                <ModalFin
-                                    songTitle={ this.state.title }
-                                    open={ this.state.endModalOpen }
-                                    onClose={ () => this.setState({ endModalOpen: false }) }
-                                />                                
+                                    </>
+                                    )
+                                }                                
+                                
                             </>
                     }
                 </Translation>

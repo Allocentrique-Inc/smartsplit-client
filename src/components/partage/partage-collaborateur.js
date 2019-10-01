@@ -28,6 +28,7 @@ export default class PartageCollaborateur extends Component {
                         etiquette={`Sélection du collaborateur`} 
                         indication={`Choisis le collaborateur à lier à ce droit de l'oeuvre`} 
                         requis={true} autoFocus={true} 
+                        multiple={false}
                         close={()=>{
                             this.props.setFieldValue('collaborateur', [])
                         }}/>

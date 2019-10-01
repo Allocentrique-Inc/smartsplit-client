@@ -221,7 +221,7 @@ export default class PartageSommaireEditeur extends Component {
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                toast.error(t('erreur.volIdentite'))    
+                toast.error(t('flot.split.erreur.volIdentite'))    
             }
         })
         .catch(err=>{
@@ -276,7 +276,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 { 
                                                     t =>
                                                 <div className="small-400-color">
-                                                {t('flot.editeur.editeur')}
+                                                {t('flot.split.documente-ton-oeuvre.editeur.editeur')}
                                                 </div>
                                                 }
                                             </Translation>
@@ -355,7 +355,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 { 
                                                     t=>
                                             <div className="small-400-color">
-                                                {t('flot.editeur.donateur')}
+                                                {t('flot.split.documente-ton-oeuvre.editeur.donateur')}
                                             </div>
                                             }  
                                             </Translation>                                     

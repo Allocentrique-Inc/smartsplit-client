@@ -7,8 +7,6 @@ import Beignet from '../visualisation/partage/beignet'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
-import avatar from '../../assets/images/elliot.jpg'
-
 class PageAssistantPartageEditeur extends Component {
 
     constructor(props) {
@@ -123,6 +121,24 @@ class PageAssistantPartageEditeur extends Component {
             </div>)
         }
 
+        let avatar = ''
+        let userAvatar = ''
+
+        let editeur = this.props.values.editeur
+        let __aD = this.props.values.ayantDroit
+
+        if(editeur && editeur.ayantDroit && editeur.ayantDroit.avatarImage) {            
+            avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${editeur.ayantDroit.avatarImage}`
+        } else {
+            avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+        }
+
+        if(__aD && __aD.aD && __aD.aD.avatarImage) {
+            userAvatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${__aD.aD.avatarImage}`
+        } else {
+            userAvatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+        }
+
         return (
             <Translation>
                 {
@@ -144,7 +160,7 @@ class PageAssistantPartageEditeur extends Component {
                                         <div className="fields gray-fields">                                    
                                             <div className="twelve wide field">
                                                 <div className="holder-name">
-                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
+                                                    <img alt="avatar" className="ui spaced avatar image" src={userAvatar}/>
                                                     {this.state.ayantDroit.nom}
                                                 </div>
                                                 <br/>
