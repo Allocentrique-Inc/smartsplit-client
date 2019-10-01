@@ -583,7 +583,7 @@
           "titre": "Quel est le nom de ton éditeur ?",
           "titre-part": "Combien ton éditeur devrait-il avoir ?"
         },
-        "lecture-seule": "Une nouvelle proposition est en vigueur, vous ne pourrez pas enregistrer cette proposition.",
+        "lecture-seule": "Une nouvelle proposition est en vigueur, tu ne pourra pas enregistrer cette proposition.",
         "prete-a-envoyer": "Ta proposition est prête à envoyer à tes collaborateurs par courriel. Révise-la et appuie sur Envoyer."
       },
       "connexion": {

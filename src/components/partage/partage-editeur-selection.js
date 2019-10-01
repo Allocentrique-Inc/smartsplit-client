@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Translation } from "react-i18next";
 
-import { ChampListeEditeurAssistant } from "../formulaires/champ-liste";
+import { ChampListeEditeurAssistant, ChampListeCollaborateurAssistant } from "../formulaires/champ-liste";
 
 import avatar from "../../assets/images/elliot.jpg";
 
@@ -21,19 +21,27 @@ class PageAssistantPartageChoixEditeur extends Component {
   }
 
   ajouterEditeur() {
-    let _ed = this.props.values.editeurListe;
+    let _ed = this.props.values.editeurListe
 
-    let editeur = {
-      nom: _ed,
-      pourcent: "0"
-    };
+    if(_ed) {
+      let ayantDroit = this.state.editeurs[_ed], nom
+      if(ayantDroit) {
+          nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+      }
 
-    this.props.setFieldValue("editeur", editeur);
-    this.setState({ editeur: editeur });
+      let editeur = {
+        nom: nom,
+        pourcent: "0",
+        ayantDroit: ayantDroit
+      };
+
+      this.props.setFieldValue("editeur", editeur);
+      this.setState({ editeur: editeur });
+    }    
   }
 
   setEditeurs(editeurs) {
-    this.props.setFieldValue("editeurs", editeurs);
+    this.setState({editeurs: editeurs})
   }
 
   render() {
@@ -57,7 +65,14 @@ class PageAssistantPartageChoixEditeur extends Component {
       );
     }
 
-    let index, part;
+    let avatar = ''
+    if(this.state.editeur) {
+      // Y a-t-il un avatar ?
+      if(this.state.editeur.ayantDroit && this.state.editeur.ayantDroit.avatarImage) 
+        avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.editeur.ayantDroit.avatarImage}`
+      else
+        avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+    }    
 
     return (
       <Translation>
@@ -103,20 +118,19 @@ class PageAssistantPartageChoixEditeur extends Component {
                   {!this.state.editeur && (
                     <div style={{ margin: "0 auto", height: "50px" }}>
                       <div>
-                        <ChampListeEditeurAssistant
-                          indication={t(
-                            "flot.split.documente-ton-oeuvre.editeur.ajout"
-                          )}
-                          modele="editeurListe"
-                          autoFocus={false}
-                          requis={true}
-                          fluid={true}
-                          multiple={false}
-                          recherche={true}
-                          selection={false}
-                          ajout={false}
-                          parent={this}
-                        />
+                        <ChampListeCollaborateurAssistant
+                            onRef={ayantsDroit=>this.setEditeurs(ayantsDroit)}
+                            style={{height: "50px" }}
+                            indication={t("flot.split.documente-ton-oeuvre.editeur.ajout")}
+                            modele="editeurListe"
+                            autoFocus={false}
+                            requis={true}
+                            fluid={true}
+                            multiple={false}
+                            recherche={true}
+                            selection={false}
+                            ajout={true}                            
+                        />                        
                       </div>
                       <br></br>
                       <button
@@ -147,4 +161,4 @@ class PageAssistantPartageChoixEditeur extends Component {
   }
 }
 
-export default PageAssistantPartageChoixEditeur;
+export default PageAssistantPartageChoixEditeur

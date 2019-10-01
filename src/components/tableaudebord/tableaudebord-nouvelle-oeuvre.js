@@ -14,6 +14,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import AudioLecture from '../oeuvre/audio-lecture'
 import { Field } from 'formik'
 import moment from 'moment'
+import { ChampListeCollaborateurAssistant } from '../formulaires/champ-liste'
 
 const ORIGINALE = 0, ARRANGEMENT = 1, REPRISE = 2
 
@@ -194,20 +195,7 @@ class Page2NouvellePiece extends Component {
 
         this.props.setFieldValue('title', analyse.title, false)
         this.props.setFieldValue('publisher', analyse.label ? analyse.label : analyse.artists[0].name, false)
-        this.props.setFieldValue('artist', analyse.artists[0].name, false)
-
-        // Création des ayant-droits
-        /* let ayantDroits = []
-        analyse.artists.forEach((artiste, idx) => {            
-            let prenom = artiste.name.split(" ").length === 2 ? artiste.name.split(" ")[0] : ""
-            let nom = artiste.name.split(" ").length === 2 ? artiste.name.split(" ")[1] : ""
-            ayantDroits.push({
-                prenom: prenom,
-                nom: nom,
-                artiste: artiste.name
-            })
-        })
-        this.props.setFieldValue('rightHolders', ayantDroits, false) */
+        this.props.setFieldValue('artist', analyse.artists[0].name, false)        
         this.props.setFieldValue('instrumental', true, false)
         this.props.setFieldValue('album', analyse.album.name, false)
         this.props.setFieldValue('durationMs', `${ analyse.duration_ms }`, false)
@@ -286,10 +274,10 @@ class Page2NouvellePiece extends Component {
                                                             if (f.music.err) {
                                                                 switch (f.music.err) {
                                                                     case "AUDIO-MAUVAISE-LECTURE":
-                                                                        toast.warn(t('traitement.acr.erreur-mauvaise-lecture'))
+                                                                        toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
                                                                         break;
                                                                     case "AUDIO-INCONNU":
-                                                                        toast.warn(t('traitement.acr.erreur-inconnu'))
+                                                                        toast.warn(t('flot.split.traitement.acr.erreur-inconnu'))
                                                                         break;
                                                                     default:
                                                                         toast.warn(f.music.err)
@@ -332,11 +320,18 @@ class Page2NouvellePiece extends Component {
                                             this.props.values.type === ""+ORIGINALE && (
                                                 <>
                                                     <div style={{marginTop: "20px"}} className="ui row">
-                                                        <ChampTexteAssistant 
-                                                            modele="artist"
-                                                            etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})}
-                                                            requis={true}
-                                                            />
+                                                    <ChampListeCollaborateurAssistant
+                                                        modele={"artist"} 
+                                                        etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})} 
+                                                        indication={t('oeuvre.attribut.indication.artiste')} 
+                                                        requis={true} 
+                                                        autoFocus={true}
+                                                        multiple={false}
+                                                        nomCommeCle={true}
+                                                        onRef={ayantsDroit=>{
+                                                            this.setState({ayantsDroit: ayantsDroit})
+                                                        }}
+                                                        />                                                                                                               
                                                     </div>                                                    
                                                 </>
                                             )
@@ -505,7 +500,12 @@ export default class NouvelleOeuvre extends Component {
                 <Translation>
                     {
                         t=>
-                            <div>                                
+                            <div>
+                                {this.state.patience && (
+                                    <div style={{width: "100%"}} className="container ui active dimmer">
+                                        <div className="ui text loader">{t("entete.encours")}</div>
+                                    </div>
+                                )}                        
                                 <Wizard
                                     initialValues={{
                                         title: undefined,
@@ -533,12 +533,7 @@ export default class NouvelleOeuvre extends Component {
                                         <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} parent={this} />
                                     </Wizard.Page>                                    
 
-                                </Wizard>                               
-                                {this.state.patience && (
-                                    <div className="container ui active dimmer">
-                                        <div className="ui text loader">{t("entete.encours")}</div>
-                                    </div>
-                                )}
+                                </Wizard>
                             </div>
                     }                
                 </Translation>            

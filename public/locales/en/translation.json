@@ -150,10 +150,6 @@
       "oui": "Let's do this !",
       "non": "No, thanks."
     },
-    "envoifichier": {
-      "reussi": "File analysis successful!",
-      "echec": "File transfer failed"
-    },
     "split": {
       "sommaire": {
         "titre": "Split's Summary",
@@ -416,6 +412,10 @@
         "envoi": {
           "reussi": "Transfer successful!",
           "echec": "Transfer failed"
+        },
+        "envoifichier": {
+          "reussi": "File analysis successful!",
+          "echec": "File transfer failed"
         },
         "lien": {
           "sociaux": {

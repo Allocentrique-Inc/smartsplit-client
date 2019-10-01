@@ -55,10 +55,8 @@ Amplify.configure({
   Auth: {
     mandatorySignIn: true,
     region: REGION,
-    userPoolId: "us-east-2_tK9rNdAB1",
-    //userPoolId: "us-east-2_PRLNO62fN",
-    userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
-    //userPoolWebClientId: "25bbenhpsvd0hpbvvqastmsd9j"
+    userPoolId: "us-east-2_PRLNO62fN",
+    userPoolWebClientId: "25bbenhpsvd0hpbvvqastmsd9j"
   }
 });
 
@@ -81,7 +79,7 @@ const renderRoutes = () => {
         <Router history={browserHistory}>
           <Switch>
             <Route exact path="/" component={Accueil} />
-            <Route exact path="/documenter/:titre" component={Documenter} />
+            <Route exact path="/documenter/:mediaId" component={Documenter} />
             <Route exact path="/decrire-oeuvre" component={AssistantOeuvre} />
             <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
             <Route exact path="/login" component={renderLogin} />
@@ -194,8 +192,8 @@ function PartageEditeur(match) {
 }
 
 function Documenter(match) {
-  let titre = match.match.params.titre;
-  return <AssistantOeuvre titre={titre} />;
+  let mediaId = match.match.params.mediaId
+  return <AssistantOeuvre mediaId={mediaId} />;
 }
 
 function sommaireOeuvre(match) {

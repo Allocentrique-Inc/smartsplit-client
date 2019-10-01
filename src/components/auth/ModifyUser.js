@@ -121,29 +121,19 @@ export default class ModifyUser extends Component {
   }
 
   handleSubmit = values => {
-    // let body = {
-    //   firstName: this.state.firstName,
-    //   lastName: this.state.lastName,
-    //   artistName: this.state.artistName,
-    //   email: this.state.email,
-    //   groups: this.state.currentValue,
-    //   defaultRoles: this.state.currentRoleValue,
-    //   avatarImage: "image.jpg"
-    // };
 
     let attributes = {
       email: this.state.email,
       given_name: this.state.firstName,
       family_name: this.state.lastName,
       'custom:artistName': this.state.artistName,
-      // 'custom:instruments': this.state.instruments,
-      // 'custom:defaultRoles': this.state.currentRoleValue,
-      // 'custom:groups': this.state.currentValue,
+      'custom:defaultRoles': Buffer.from(JSON.stringify(this.state.currentRoleValue)).toString('base64'),
+      'custom:instruments':Buffer.from(JSON.stringify(this.state.instruments)).toString('base64'),
+      'custom:groups': Buffer.from(JSON.stringify(this.state.currentValue)).toString('base64'),
       'custom:avatarImage': this.state.avatarImage
     }
     let username = this.state.email
     let password = this.randomPassword(16)
-    console.log(username, password, attributes)
 
     try {
       Auth.signUp({
@@ -158,7 +148,8 @@ export default class ModifyUser extends Component {
           }
         })
         .catch(err => {
-          console.log('réponse rightHolders', err);
+          toast.error(err)
+          console.log(err);
         });
     } catch (err) {
       console.log('try', err);

@@ -342,7 +342,6 @@ export default class SommairePartages extends Component {
                                                             open={this.state.modaleCourriels}
                                                             onClose={this.closeModal} 
                                                             size="small"
-                                                            style={{height: "100%"}}
                                                         >
                                                             <PageAssistantSplitCourrielsCollaborateurs 
                                                                 ayantDroits={rightHolders}

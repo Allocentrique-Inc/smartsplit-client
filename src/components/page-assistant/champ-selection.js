@@ -84,10 +84,3 @@ export default class ChampSelection extends Component {
         );
     }
 }
-/*
- allowAdditions
-
-
-selectOnBlur={ false }
-                        selectOnNavigation={ false }
- */

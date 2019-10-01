@@ -12,8 +12,6 @@ import { FieldArray } from "formik";
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-import avatar from '../../assets/images/stevie.jpg'
-
 const MODES = {egal: "0", role: "1"}
 const TYPE = {principal: "0", accompagnement: "1"}
 
@@ -41,6 +39,9 @@ class PageAssistantPartageInterpretation extends Component {
     componentWillReceiveProps(nextProps) {
         if(this.props.values.droitInterpretation !== nextProps.values.droitInterpretation) {
             this.setState({parts: nextProps.values.droitInterpretation})
+        }
+        if(this.props.ayantsDroit !== nextProps.ayantsDroit){
+            this.setState({ayantsDroit: nextProps.ayantsDroit})
         }
     }    
 
@@ -100,66 +101,81 @@ class PageAssistantPartageInterpretation extends Component {
     }
 
     ajouterCollaborateur(arrayHelpers) {
+        
         let ayants = {}
-        let _coll = this.props.values.collaborateur     
-        //let _index = arrayHelpers.data.length
-        let _index = this.props.values.droitAuteur.length + 
-                    this.props.values.droitInterpretation.length +
-                    this.props.values.droitEnregistrement.length
-        this.props.values.droitAuteur.forEach(droit=>{
-            ayants[droit["nom"]] = droit["color"]
-        })
-          
-        _coll.forEach((elem, idx)=>{
+        
+        let _coll = this.props.values.collaborateur
+
+        if(_coll) {
+            let ayantDroit = this.state.ayantsDroit[_coll], nom            
+        
+            if(ayantDroit) {
+                nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+            }
+            
+            //let _index = arrayHelpers.data.length
+            let _index = this.props.values.droitAuteur.length + 
+                        this.props.values.droitInterpretation.length +
+                        this.props.values.droitEnregistrement.length
+
+            this.props.values.droitAuteur.forEach(droit=>{
+                ayants[droit.ayantDroit.rightHolderId] = droit["color"]
+            })
+            
             if(this.state.mode === MODES.egal) {
-                if (elem in ayants) {
+                if (_coll in ayants) {
                     arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (100 / (this.props.values.droitInterpretation.length + _coll.length) ).toFixed(4),
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: (100 / (this.props.values.droitInterpretation.length + 1) ).toFixed(4),
                         principal: true,
                         chanteur: false,
                         musicien: false,
-                        color: ayants[elem]
+                        color: ayants[_coll]
                     })
                 } else {
                     arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (100 / (this.props.values.droitInterpretation.length + _coll.length) ).toFixed(4),
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: (100 / (this.props.values.droitInterpretation.length + 1) ).toFixed(4),
                         principal: true,
                         chanteur: false,
                         musicien: false,
-                        color: COLORS[_index+idx]
+                        color: COLORS[_index]
                     })
-                    ayants[elem] = COLORS[_index+idx]
+                    ayants[_coll] = COLORS[_index]
                 }
             }
             if(this.state.mode === MODES.role) {     
-                if (elem in ayants) {     
+                if (_coll in ayants) {     
                     arrayHelpers.insert(0, {
-                        nom: elem, 
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
                         pourcent: "100",
                         principal: true,
                         chanteur: false,
                         musicien: false,
-                        color: ayants[elem]
+                        color: ayants[_coll]
                     })
                 } else { 
                     arrayHelpers.insert(0, {
-                        nom: elem, 
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
                         pourcent: "100",
                         principal: true,
                         chanteur: false,
                         musicien: false,
-                        color: COLORS[_index+idx]
+                        color: COLORS[_index]
                     })
-                    ayants[elem] = COLORS[_index+idx]
+                    ayants[_coll] = COLORS[_index]
                 }
-            }         
-        })                                                         
-        this.props.setFieldValue('collaborateur', [])
-        this.setState({ping: true}, ()=>{
-            this.recalculerPartage()
-        })   
+            }
+
+            this.props.setFieldValue('collaborateur','')
+            this.setState({ping: true}, ()=>{
+                this.recalculerPartage()
+            })   
+        }        
     }
 
     render() {
@@ -252,11 +268,19 @@ class PageAssistantPartageInterpretation extends Component {
                                             render={arrayHelpers => (
                                                 <div>
                                                     {
-                                                        this.props.values.droitInterpretation.map((part, index)=>{                                                
+                                                        this.state.ayantsDroit && this.props.values.droitInterpretation.map((part, index)=>{                                                
                                                             let roles = [
                                                                 {id: "chanteur", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.chanteur')}, 
                                                                 {id: "musicien", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.musicien')}
                                                             ]
+                                                            let avatar = ''
+                                                            let _aD = part.ayantDroit
+                                                            // Y a-t-il un avatar ?
+                                                            if(_aD.avatarImage) 
+                                                                avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
+                                                            else
+                                                                avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+
                                                             return (
                                                                 <div key={`part-${index}`}>                                                                    
                                                                     <div className="gray-fields">
@@ -270,7 +294,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                         <div className="ui thirteen wide column">
                                                                             <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i className="right floated ellipsis horizontal icon" onClick={() => {
+                                                                                <i className="right floated close icon cliquable" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
@@ -348,6 +372,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                             <div className="ui row">                                 
                                                                 <div className="ui ten wide column">
                                                                     <ChampListeCollaborateurAssistant
+                                                                        onRef={ayantsDroit=>this.setState({ayantsDroit: ayantsDroit})}
                                                                         indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                         modele="collaborateur"
                                                                         autoFocus={false}
@@ -356,18 +381,15 @@ class PageAssistantPartageInterpretation extends Component {
                                                                         multiple={false}
                                                                         recherche={true}
                                                                         selection={true}
-                                                                        ajout={false}
-                                                                        collaborateurs={this.props.values.droitInterpretation}
-                                                                        close={()=>{
-                                                                            this.props.setFieldValue('collaborateur', [])
-                                                                        }}
+                                                                        ajout={true}
+                                                                        collaborateurs={this.props.values.droitInterpretation}                                                                        
                                                                     />
                                                                 </div> 
                                                                 <div className="four wide column">
                                                                     <button 
                                                                         className="ui medium button"
                                                                         onClick={(e)=>{
-                                                                            e.preventDefault()
+                                                                            e.preventDefault()                                                                            
                                                                             this.ajouterCollaborateur(arrayHelpers)
                                                                         }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
                                                                     </button>

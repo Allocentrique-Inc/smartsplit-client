@@ -93,10 +93,10 @@ class PageAssistantOeuvreEmbarquement extends Component {
                                                             if (f.music.err) {
                                                                 switch (f.music.err) {
                                                                     case "AUDIO-MAUVAISE-LECTURE":
-                                                                        toast.warn(t('traitement.acr.erreur-mauvaise-lecture'))
+                                                                        toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
                                                                         break;
                                                                     case "AUDIO-INCONNU":
-                                                                        toast.warn(t('traitement.acr.erreur-inconnu'))
+                                                                        toast.warn(t('flot.split.traitement.acr.erreur-inconnu'))
                                                                         break;
                                                                     default:
                                                                         toast.warn(f.music.err)
