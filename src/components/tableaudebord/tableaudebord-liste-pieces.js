@@ -88,7 +88,7 @@ export default class ListePieces extends Component {
                     let collabMediaIds = []
   
                     // Médias depuis les propositions
-                    axios.get('http://dev.api.smartsplit.org:8080/v1/proposal')
+                    axios.get('http://api.smartsplit.org:8080/v1/proposal')
                     .then((res) => {                        
     
                         res.data.forEach(function(item){
@@ -114,7 +114,7 @@ export default class ListePieces extends Component {
                         let jj = '';
     
                         initiatorMediaIds.forEach(async function(element) {
-                            const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + element)
+                            const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + element)
                             if(res.data.Item) {
                                 _medias.push(res.data.Item)                                
                             }
@@ -126,7 +126,7 @@ export default class ListePieces extends Component {
                         })
     
                         collabMediaIds.forEach(async function(elm) {
-                            const res = await axios.get('http://dev.api.smartsplit.org:8080/v1/media/' + elm)
+                            const res = await axios.get('http://api.smartsplit.org:8080/v1/media/' + elm)
                             if(res.data.Item) {
                                 _collabMedias.push(res.data.Item)
                             }                            
@@ -152,7 +152,7 @@ export default class ListePieces extends Component {
 
                     // Médias depuis les médias
                     let _cM = []                 
-                    axios.get('http://dev.api.smartsplit.org:8080/v1/media')
+                    axios.get('http://api.smartsplit.org:8080/v1/media')
                     .then(res=>{                        
                         let kk = 0
                         res.data.forEach(m=>{

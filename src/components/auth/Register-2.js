@@ -115,7 +115,7 @@ class Register2 extends Component {
     /* 
       Auth.currentSession().then(
         session=>{
-          let url = 'http://dev.api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/artistName'
+          let url = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/artistName'
           let req = {
             url,
             method: 'Patch',
@@ -131,7 +131,7 @@ class Register2 extends Component {
         }
       )
       .catch(err=>console.log(err)) */
-          // let avatarUrl = 'http://dev.api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/avatarS3Etag'
+          // let avatarUrl = 'http://api.smartsplit.org:8080/v1/rightHolders/' + session.idToken.payload.sub + '/avatarS3Etag'
           // let avatarReq = {
           //   avatarUrl,
           //   method: 'Patch',
@@ -232,7 +232,7 @@ class Register2 extends Component {
 
   componentDidMount(){
     let groups = [];
-    axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
+    axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
     .then(res=>{
       let groupers = [];
       let groupsUnique = [];

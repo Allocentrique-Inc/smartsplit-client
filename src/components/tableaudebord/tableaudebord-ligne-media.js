@@ -17,7 +17,7 @@ export default class LigneMedia extends Component {
     // Récupération de la dernière proposition du média
     axios
       .get(
-        `http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.media.mediaId}`
+        `http://api.smartsplit.org:8080/v1/proposal/media/${this.state.media.mediaId}`
       )
       .then(res => {
         let _pS = res.data;
