@@ -14,6 +14,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import AudioLecture from '../oeuvre/audio-lecture'
 import { Field } from 'formik'
 import moment from 'moment'
+import { ChampListeCollaborateurAssistant } from '../formulaires/champ-liste'
 
 const ORIGINALE = 0, ARRANGEMENT = 1, REPRISE = 2
 
@@ -37,8 +38,8 @@ class Apercu extends Component {
             <Translation>
                 {
                     t=>
-                        <div className="ui column">
-                            <div>                                        
+                        <div className="ui column" style={{position: "absolute", float: "right"}}>
+                            <div style={{position: "relative", left: "60px"}}>                                        
                                 <p style={{
                                     fontFamily: "IBM Plex Sans",
                                     fontStyle: "normal",
@@ -52,7 +53,7 @@ class Apercu extends Component {
                                 }}>{t('titre.apercu')}</p>
                                 <div className="ui grid">
                                     <div className="ui two wide column">
-                                        <i className="file image outline icon big grey" /> 
+                                        <i className="file image outline icon big grey" style={{marginBottom: "20px"}} /> 
                                     </div>
                                     <div className="ui twelve wide column">
                                         <p>
@@ -91,7 +92,7 @@ class Base extends Component {
                     {
                         t=>    
                             <>                        
-                                <div className="ui row">
+                                <div className="ui row" style={{width: "360px", margin: "20px 20px 0 0"}}>
                                     <ChampTexteAssistant 
                                         soustexte={t('oeuvre.attribut.indication.titre-soustexte')}
                                         modele="title"
@@ -194,20 +195,7 @@ class Page2NouvellePiece extends Component {
 
         this.props.setFieldValue('title', analyse.title, false)
         this.props.setFieldValue('publisher', analyse.label ? analyse.label : analyse.artists[0].name, false)
-        this.props.setFieldValue('artist', analyse.artists[0].name, false)
-
-        // Création des ayant-droits
-        /* let ayantDroits = []
-        analyse.artists.forEach((artiste, idx) => {            
-            let prenom = artiste.name.split(" ").length === 2 ? artiste.name.split(" ")[0] : ""
-            let nom = artiste.name.split(" ").length === 2 ? artiste.name.split(" ")[1] : ""
-            ayantDroits.push({
-                prenom: prenom,
-                nom: nom,
-                artiste: artiste.name
-            })
-        })
-        this.props.setFieldValue('rightHolders', ayantDroits, false) */
+        this.props.setFieldValue('artist', analyse.artists[0].name, false)        
         this.props.setFieldValue('instrumental', true, false)
         this.props.setFieldValue('album', analyse.album.name, false)
         this.props.setFieldValue('durationMs', `${ analyse.duration_ms }`, false)
@@ -332,11 +320,18 @@ class Page2NouvellePiece extends Component {
                                             this.props.values.type === ""+ORIGINALE && (
                                                 <>
                                                     <div style={{marginTop: "20px"}} className="ui row">
-                                                        <ChampTexteAssistant 
-                                                            modele="artist"
-                                                            etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})}
-                                                            requis={true}
-                                                            />
+                                                    <ChampListeCollaborateurAssistant
+                                                        modele={"artist"} 
+                                                        etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})} 
+                                                        indication={t('oeuvre.attribut.indication.artiste')} 
+                                                        requis={true} 
+                                                        autoFocus={true}
+                                                        multiple={false}
+                                                        nomCommeCle={true}
+                                                        onRef={ayantsDroit=>{
+                                                            this.setState({ayantsDroit: ayantsDroit})
+                                                        }}
+                                                        />                                                                                                               
                                                     </div>                                                    
                                                 </>
                                             )
@@ -363,7 +358,7 @@ class Page2NouvellePiece extends Component {
                                             )
                                         }
 
-                                        <div style={{marginTop: "20px"}} className="ui row">
+                                        <div style={{margin: "20px 0 20px 0", width: "360px"}} className="ui row">
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={ this.props.pochette }
                                                 items={ this.rightHolderOptions() }
@@ -425,7 +420,7 @@ export default class NouvelleOeuvre extends Component {
     }
 
     componentWillMount() {
-        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{
             this.setState({rightHolders: res.data})
         })
@@ -453,7 +448,7 @@ export default class NouvelleOeuvre extends Component {
                 type = "REPRISE"
             }
 
-            axios.put(`http://api.smartsplit.org:8080/v1/media`, {title: title, type: type, creator: this.state.user.username})
+            axios.put(`http://dev.api.smartsplit.org:8080/v1/media`, {title: title, type: type, creator: this.state.user.username})
             .then(res=>{
                 // Enregistrement du mediaId pour sauvegarde des données dans handleSubmit                
                 toast.info(t('info.oeuvre.creation', {id: res.data.id}))
@@ -486,7 +481,7 @@ export default class NouvelleOeuvre extends Component {
         body.mediaId = this.state.mediaId
         this.props.parent.state.audio.stop()
 
-        axios.post(`http://api.smartsplit.org:8080/v1/media`, body)
+        axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
         .then(res=>{
             window.location.href = `/oeuvre/sommaire/${body.mediaId}`
         })
@@ -505,7 +500,12 @@ export default class NouvelleOeuvre extends Component {
                 <Translation>
                     {
                         t=>
-                            <div>                                
+                            <div>
+                                {this.state.patience && (
+                                    <div style={{width: "100%"}} className="container ui active dimmer">
+                                        <div className="ui text loader">{t("entete.encours")}</div>
+                                    </div>
+                                )}                        
                                 <Wizard
                                     initialValues={{
                                         title: undefined,
@@ -533,12 +533,7 @@ export default class NouvelleOeuvre extends Component {
                                         <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} parent={this} />
                                     </Wizard.Page>                                    
 
-                                </Wizard>                               
-                                {this.state.patience && (
-                                    <div className="container ui active dimmer">
-                                        <div className="ui text loader">{t("entete.encours")}</div>
-                                    </div>
-                                )}
+                                </Wizard>
                             </div>
                     }                
                 </Translation>            

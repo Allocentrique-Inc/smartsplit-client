@@ -49,11 +49,23 @@ class AssistantPartage extends Component {
     componentWillMount() {
         Auth.currentAuthenticatedUser()
         .then(res=>{
+            // Récupère les ayant-droits car on en aura besoin
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+            .then(_res=>{ 
+                if(_res.data) {
+                    let _adParId = {}
+                    _res.data.forEach(elem=>{
+                        _adParId[elem.rightHolderId] = elem
+                    })
+                    this.setState({ayantsDroit: _adParId})
+                }
+            })
             this.setState({user: res})
-            if(this.state.mediaId) {
+            if(this.state.mediaId) {                
+
                 // Une nouvelle proposition pour un média                
                 // Récupérer la dernière proposition pour le média                
-                axios.get(`http://api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
                 .then(res=>{
                     // Si elle existe, configuration de l'assistant avec cette dernière
                     if(res.data) {
@@ -68,7 +80,7 @@ class AssistantPartage extends Component {
                 })
             } else if (this.state.uuid) {
                 // Une proposition existante, poursuite de la proposition BROUILLON
-                axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
                 .then(res=>{
                     let proposal = res.data.Item
                     this.setState({proposition: proposal}, ()=>{
@@ -92,7 +104,7 @@ class AssistantPartage extends Component {
 
     recupererOeuvre() {
         // Récupérer le média
-        axios.get(`http://api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
             .then(res => {
                 let media = res.data.Item;
                 this.setState({ media: media });
@@ -108,7 +120,7 @@ class AssistantPartage extends Component {
             let _association = {} // Associera le nom de l'ayant-droit avec son identitifiant unique
 
             // 1. Récupérer la liste des ayant-droits
-            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
             .then(res=>{                                    
                 res.data.forEach(elem=>{
                     let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
@@ -265,7 +277,7 @@ class AssistantPartage extends Component {
                 if(values.uuid && values.uuid !== "") {
                     // 3a. Soumettre la nouvelle proposition en PUT
                     body.uuid = values.uuid
-                    axios.put(`http://api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
+                    axios.put(`http://dev.api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
                     .then(res=>{
                         toast.success(`${res.data}`)
                         // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
@@ -282,7 +294,7 @@ class AssistantPartage extends Component {
                     })
                 } else {
                     // 3b. Soumettre la nouvelle proposition en POST
-                    axios.post('http://api.smartsplit.org:8080/v1/proposal', body)
+                    axios.post('http://dev.api.smartsplit.org:8080/v1/proposal', body)
                     .then(res=>{
                         toast.success(`${res.data}`)
                         // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
@@ -332,6 +344,8 @@ class AssistantPartage extends Component {
 
         let lectureSeule
 
+        let that = this
+
         if(this.state.media) {
             let valeursInitiales = {droitAuteur: [],droitInterpretation: [],droitEnregistrement: []}
             if(this.state.proposition) {
@@ -348,7 +362,7 @@ class AssistantPartage extends Component {
                     enregistrement: {}
                 }
                 function creerAd(elem) {
-                    return {nom: elem.rightHolder.name, pourcent: 0.00}
+                    return {nom: elem.rightHolder.name, pourcent: 0.00, ayantDroit: that.state.ayantsDroit[elem.rightHolder.rightHolderId]}
                 }
                 // Droit d'auteur
                 _rS.workCopyrightSplit.music.forEach(elem=>{ // Musique
@@ -419,7 +433,7 @@ class AssistantPartage extends Component {
                                 {
                                     lectureSeule && (
                                         <script>
-                                            setTimeout(()=>{toast.info(t('partage.lecture-seule'))})
+                                            setTimeout(()=>{toast.info(t('flot.split.partage.lecture-seule'))})
                                         </script>                                        
                                     )
                                 }
@@ -432,7 +446,7 @@ class AssistantPartage extends Component {
                                                 droitAuteur: valeursInitiales.droitAuteur,
                                                 droitInterpretation : valeursInitiales.droitInterpretation,
                                                 droitEnregistrement: valeursInitiales.droitEnregistrement,
-                                                collaborateur: [],
+                                                collaborateur: "",
                                                 uuid: this.state.uuid,
                                                 media: this.state.media
                                             }}
@@ -448,16 +462,15 @@ class AssistantPartage extends Component {
                                         >
 
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitAuteur
-                                                    enregistrerEtQuitter={ this.enregistrerEtQuitter } i18n={ i18n }/>
+                                                <PageAssistantPartageDroitAuteur ayantsDroit={this.state.ayantDroits} enregistrerEtQuitter={ this.enregistrerEtQuitter } i18n={ i18n }/>
                                             </Wizard.Page>
             
                                             <Wizard.Page>                                                
-                                                <PageAssistantPartageDroitInterpretation enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
+                                                <PageAssistantPartageDroitInterpretation ayantsDroit={this.state.ayantDroits} enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
 
                                             <Wizard.Page>
-                                                <PageAssistantPartageDroitEnregistrement enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
+                                                <PageAssistantPartageDroitEnregistrement ayantsDroit={this.state.ayantDroits} enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
                                             </Wizard.Page>
 
                                         </Wizard>                                       

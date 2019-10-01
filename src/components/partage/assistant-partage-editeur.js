@@ -37,7 +37,15 @@ class AssistantPartageEditeur extends Component {
 
     charger(user) {
         this.setState({user: user})
-        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.propositionId}`)
+
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${user.username}`)
+        .then(_r=>{
+            if(_r.data.Item) {
+                this.setState({uaD: _r.data.Item})
+            }
+        })
+
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.propositionId}`)
         .then(res=>{
             let proposition = res.data.Item
 
@@ -101,7 +109,7 @@ class AssistantPartageEditeur extends Component {
 
     recupererOeuvre() {
         // Récupérer le média
-        axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.proposition.mediaId}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.proposition.mediaId}`)
         .then(res=>{
             let media = res.data.Item
             this.setState({media: media})
@@ -117,22 +125,22 @@ class AssistantPartageEditeur extends Component {
 
             let body = {
                 rightHolderId: `${values.ayantDroit.rightHolderId}`,
-                shareeId: `${values.editeurs[values.editeur.nom]}`,
+                shareeId: `${values.editeur.ayantDroit.rightHolderId}`,
                 rightHolderPct: `${values.ayantDroit.pourcent}`,
                 shareePct: `${values.editeur.pourcent}`,
                 proposalId: `${this.state.propositionId}`
             }
 
-            axios.post(`http://api.smartsplit.org:8080/v1/editorsplitshare`, body)
+            axios.post(`http://dev.api.smartsplit.org:8080/v1/editorsplitshare`, body)
             .then(res=>{
                 toast.success(res.data)
                 body = {
                     rightHolder: {nom: values.ayantDroit.nom, uuid: values.ayantDroit.rightHolderId},
-                    shareeId: values.editeurs[values.editeur.nom],
+                    shareeId: values.editeur.ayantDroit.rightHolderId,
                     proposalId: this.state.propositionId,
                     mediaId: this.state.media.mediaId
                 }
-                axios.post(`http://api.smartsplit.org:8080/v1/editorsplitshare/invite`, body)
+                axios.post(`http://dev.api.smartsplit.org:8080/v1/editorsplitshare/invite`, body)
                 .then(()=>{
                     window.location.reload()
                 })
@@ -167,28 +175,32 @@ class AssistantPartageEditeur extends Component {
                                 <div className="ui row">
                                     <div className="ui two wide column" />
                                     <div className="ui twelve wide column">
-                                        <Wizard
-                                            initialValues={{                                                                                                
-                                                editeur: {},
-                                                editeurListe: "",
-                                                song: this.state.media.title,
-                                                parts: this.state.proposition.rightsSplits.workCopyrightSplit,
-                                                ayantDroit: {rightHolderId: this.state.user.username, pourcent: undefined} // Pour suivre l'utilisateur courant et son pourcentage dans le partage avec l'éditeur
-                                            }}
-                                            buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={false}
-                                            onSubmit={this.soumettre.bind(this)}                                            
-                                            >                                            
-            
-                                            <Wizard.Page>
-                                                <PageAssistantPartageEditeurChoix i18n={i18n} />
-                                            </Wizard.Page>
-            
-                                            <Wizard.Page>
-                                                <PageAssistantPartageEditeurPart i18n={i18n} />
-                                            </Wizard.Page>                                            
-            
-                                        </Wizard>
+                                        {
+                                            this.state.uaD && (
+                                                <Wizard
+                                                    initialValues={{                                                                                                
+                                                        editeur: {},
+                                                        editeurListe: "",
+                                                        song: this.state.media.title,
+                                                        parts: this.state.proposition.rightsSplits.workCopyrightSplit,
+                                                        ayantDroit: {rightHolderId: this.state.user.username, pourcent: undefined, aD: this.state.uaD}
+                                                    }}
+                                                    buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
+                                                    debug={false}
+                                                    onSubmit={this.soumettre.bind(this)}                                            
+                                                    >                                            
+                    
+                                                    <Wizard.Page>
+                                                        <PageAssistantPartageEditeurChoix i18n={i18n} />
+                                                    </Wizard.Page>
+                    
+                                                    <Wizard.Page>
+                                                        <PageAssistantPartageEditeurPart i18n={i18n} />
+                                                    </Wizard.Page>                                            
+                    
+                                                </Wizard>
+                                            )
+                                        }                                        
                                     </div>
                                 </div>                                
                             </div>

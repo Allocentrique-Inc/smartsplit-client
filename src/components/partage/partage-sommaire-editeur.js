@@ -57,13 +57,13 @@ export default class PartageSommaireEditeur extends Component {
         })
 
         // Récupérer l'ayant-droit
-        axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.part.rightHolderId}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.part.rightHolderId}`)
         .then(res=>{
             this.setState({donateur: res.data.Item})
         })
 
         // Récupérer l'éditeur
-        axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.part.shareeId}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.part.shareeId}`)
         .then(res=>{
             this.setState({beneficiaire: res.data.Item}, ()=>{
                 // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
@@ -201,7 +201,7 @@ export default class PartageSommaireEditeur extends Component {
             choix: this.state.choix,
             jeton: this.state.jetonApi
         }
-        axios.post('http://api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
         .then((res)=>{
             window.location.reload()
         })
@@ -221,7 +221,7 @@ export default class PartageSommaireEditeur extends Component {
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                toast.error(t('erreur.volIdentite'))    
+                toast.error(t('flot.split.erreur.volIdentite'))    
             }
         })
         .catch(err=>{
@@ -233,7 +233,7 @@ export default class PartageSommaireEditeur extends Component {
 
     rafraichirDonnees(fn) {
         if (this.state.rafraichir){
-            axios.get(`http://api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
             .then(res=>{
                 this.setState({part: res.data})
             })            
@@ -276,7 +276,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 { 
                                                     t =>
                                                 <div className="small-400-color">
-                                                {t('flot.editeur.editeur')}
+                                                {t('flot.split.documente-ton-oeuvre.editeur.editeur')}
                                                 </div>
                                                 }
                                             </Translation>
@@ -355,7 +355,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 { 
                                                     t=>
                                             <div className="small-400-color">
-                                                {t('flot.editeur.donateur')}
+                                                {t('flot.split.documente-ton-oeuvre.editeur.donateur')}
                                             </div>
                                             }  
                                             </Translation>                                     

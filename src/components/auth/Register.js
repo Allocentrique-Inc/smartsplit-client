@@ -160,20 +160,13 @@ class Register extends Component {
     const username = values.username;
     const email = values.username; // username is used as email
     const password = this.state.password;
+    const avatarImage = 'image.jpg'
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const artistName = this.state.artistName;
-    // const firstName = 'First Name'
-    // const lastName = 'Last Name'
-    // const artistName = 'Artist Name'
-    const defaultRoles = Buffer.from('["Singer", "Producer"]').toString(
-      "base64"
-    );
-    const instruments = Buffer.from('["Piano"]').toString("base64");
-    const groups = Buffer.from('["Group 1", "Group 2"]').toString("base64");
-    const avatarImage = "image.jpg";
-
-    // console.log(password, username, email, firstName, lastName)
+    const defaultRoles = Buffer.from(JSON.stringify(this.state.currentRoleValue)).toString('base64');
+    const instruments = Buffer.from(JSON.stringify(this.state.instruments)).toString('base64');
+    const groups = Buffer.from(JSON.stringify(this.state.currentValue)).toString('base64');
 
     try {
       Auth.signUp({
@@ -278,7 +271,7 @@ class Register extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://api.smartsplit.org:8080/v1/rightHolders")
+      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
@@ -464,6 +457,9 @@ class Register extends Component {
                           {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
                           <br></br>
                           <br></br>
+                          {/*<span
+                            style={{ display: "flex", flexDirection: "row" }}
+                          >}*/}
                           <label>
                             {t("collaborateur.attribut.etiquette.prenom")}
                           </label>
@@ -492,6 +488,7 @@ class Register extends Component {
                               this.setState({ lastName: e.target.value })
                             }
                           />
+                          {/*</span>*/}
                           <label>
                             {t("collaborateur.attribut.etiquette.artiste")}
                           </label>
@@ -512,6 +509,7 @@ class Register extends Component {
                           <div className="sous titre">
                             {t("collaborateur.attribut.etiquette.na")}
                           </div>
+                          <br></br>
                           <label>
                             {t("collaborateur.attribut.etiquette.groupe")}
                           </label>
@@ -532,6 +530,7 @@ class Register extends Component {
                             onChange={this.handleChange}
                           />
                           {/*<i className="search icon"></i>*/}
+                          <br></br>
                           <label>
                             {t("collaborateur.attribut.etiquette.role")}
                           </label>
@@ -583,7 +582,7 @@ class Register extends Component {
                             <div className="field">
                               <div className="control has-icons-left">
                                 <label htmlFor="password">
-                                  {t("inscription.motdepasse")}
+                                  {t("flot.split.inscription.motdepasse")}
                                 </label>
 
                                 <div className="input-wrapper">
@@ -622,7 +621,9 @@ class Register extends Component {
                                 {errors.password && touched.password && (
                                   <div style={{ color: "red" }}>
                                     {" "}
-                                    {t("inscription.password-invalide")}{" "}
+                                    {t(
+                                      "flot.split.inscription.password-invalide"
+                                    )}{" "}
                                   </div>
                                 )}
                                 <span className="icon is-small is-left">

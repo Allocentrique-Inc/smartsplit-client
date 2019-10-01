@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik'
-import { Form } from 'semantic-ui-react'
+import { Form, Header, Image } from 'semantic-ui-react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import ModifyUser from '../auth/ModifyUser';
@@ -90,10 +90,13 @@ export class ChampListeCollaborateurAssistant extends Component {
             multiple: props.multiple,
             recherche: props.recherche,
             selection: props.selection,
-            ajout: true            
+            onInput: props.onInput,
+            ajout: true,
+            nomCommeCle: props.nomCommeCle
         }
         this.OPTIONS = undefined
         this.listeAyantsDroit = this.listeAyantsDroit.bind(this)
+        this.onChange = props.onChange
     }
 
     componentWillMount() {
@@ -113,20 +116,33 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     listeAyantsDroit() {
-        // Récupérer la liste des ayant-droits
-        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        // Récupérer la liste des ayant-droits        
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
-            let _options = res.data.map(elem=>{
+            let _adParId = {}
+            let _options = res.data.map((elem, idx)=>{
                 let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
-                return {
-                    key: `${elem.rightHolderId}`, 
-                    text: nom, 
-                    value: nom
-                }
+                _adParId[elem.rightHolderId] = elem
+                let avatar = ''                
+                // Y a-t-il un avatar ?
+                if(elem.avatarImage) 
+                    avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${elem.avatarImage}`
+                else
+                    avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+
+                return (
+                    {
+                        key: this.state.nomCommeCle ? nom : elem.rightHolderId,
+                        text: nom,
+                        value: this.state.nomCommeCle ? nom : elem.rightHolderId,
+                        image: { avatar: true, src: avatar }
+                    }
+                )
             })            
             if(!this.OPTIONS) {
                 this.OPTIONS = _options
             }
+            this.setState({ayantDroit: _adParId}, ()=>{if(this.props.onRef) this.props.onRef(_adParId)})
             this.setState({options: _options})            
         })
         .catch(err=>{
@@ -168,7 +184,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                                 fluid: true,
                                 search: true,
                                 selection: this.state.selection,
-                                multiple: true,
+                                multiple: this.state.multiple,
                                 options: this.state.options,
                                 onAddItem: this.handleAddition,
                                 allowAdditions: this.state.ajout,
@@ -222,7 +238,7 @@ export class ChampListeEditeurAssistant extends Component {
         let editeurs = {}
 
         // Récupérer la liste des ayant-droits (éditeurs)
-        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _options = res.data.map(elem=>{
                 let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`

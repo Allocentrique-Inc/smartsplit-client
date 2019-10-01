@@ -355,7 +355,7 @@ export default class SommairePartage extends Component {
 
         this.setState({patience: true}, ()=>{
             // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
-            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
                 // Chercher les avatars
@@ -367,7 +367,7 @@ export default class SommairePartage extends Component {
                             if(!_avatars[_rH.rightHolderId]) {
                                 _avatars[_rH.rightHolderId] = { }
                                 // Récupération des avatars et intégration dans les éléments correspondants
-                                axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
+                                axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
                                 .then(r=>{
                                     let avatar = r.data.Item.avatarImage
                                     _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
@@ -531,7 +531,7 @@ export default class SommairePartage extends Component {
 
     rafraichirDonnees(fn) {
         if (!this.state.proposition || this.state.rafraichir){
-            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
             .then(res=>{
                 let proposition = res.data.Item
                 this.calculMesVotes(proposition, fn)
@@ -550,7 +550,7 @@ export default class SommairePartage extends Component {
             droits: this.state.mesVotes,
             jeton: this.state.jetonApi
         }
-        axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/voter', body)
         .then((res)=>{
             window.location.href = `/partager/${this.state.proposition.mediaId}`
         })
@@ -566,7 +566,7 @@ export default class SommairePartage extends Component {
             if(res.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
-                toast.error(t('erreur.volIdentite'))    
+                toast.error(t('flot.split.erreur.volIdentite'))    
             }
         })
         .catch(err=>{
@@ -656,7 +656,7 @@ export default class SommairePartage extends Component {
                                             that.setState({user: res})
                                             that.envoi()                                            
                                         } else {
-                                            toast.error(t('erreur.volIdentite'))    
+                                            toast.error(t('flot.split.erreur.volIdentite'))    
                                         }
                                         
                                     })

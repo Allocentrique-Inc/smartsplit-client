@@ -27,21 +27,21 @@ class VotationSplit extends Component {
     componentWillMount() {        
         // Décoder le jeton        
         let body = {jeton: this.state.jetonApi}
-        axios.post('http://api.smartsplit.org:8080/v1/proposal/decode', body)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/decode', body)
         .then((resp)=>{
             let _s = resp.data
             this.setState({jeton: _s})
             // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)
-            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders/${_s.rightHolderId}`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${_s.rightHolderId}`)
             .then(res=>{
                 let _rH = res.data.Item
                 this.setState({ayantDroit: _rH})
                 // Récupère la proposition       
-                axios.get(`http://api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
                 .then(_r=>{
                     this.setState({proposition: _r.data.Item})
                     // Récupère le média
-                    axios.get(`http://api.smartsplit.org:8080/v1/media/${_r.data.Item.mediaId}`)
+                    axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${_r.data.Item.mediaId}`)
                     .then(_rMedia=>{
                         this.setState({media: _rMedia.data.Item})
                     })
@@ -73,7 +73,7 @@ class VotationSplit extends Component {
                             <div className="ui ten wide column">
                                 <i className="file image outline icon huge grey"></i>
                                     {this.state.media && (<span style={{marginLeft: "15px"}} className="medium-400">{this.state.media.title}</span>)}
-                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.etape.vote-titre')}</span>                            
+                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>                            
                             </div>
                     }                    
                 </Translation>

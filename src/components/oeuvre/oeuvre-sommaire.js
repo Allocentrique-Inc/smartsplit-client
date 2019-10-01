@@ -73,7 +73,7 @@ export default class SommaireOeuvre extends Component {
     }
 
     getMedia() {
-        axios.get(`http://api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
             .then(res => {
                 let media = res.data.Item
                 this.setState({ media: media })
@@ -82,7 +82,7 @@ export default class SommaireOeuvre extends Component {
 
     majTitre() {
         let titre = document.getElementById('titre').value
-        axios.patch(`http://api.smartsplit.org:8080/v1/media/${ this.state.media.mediaId }/title`, {
+        axios.patch(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.media.mediaId }/title`, {
             mediaId: this.state.media.mediaId,
             title: titre
         })
@@ -223,7 +223,7 @@ export default class SommaireOeuvre extends Component {
                                             </div>
                                             <div className="ui medium button"
                                                  style={ { marginTop: "50px", marginLeft: "0px" } } onClick={ () => {
-                                                window.location.href = `/documenter/${ this.state.media.title }`
+                                                window.location.href = `/documenter/${ this.state.media.mediaId }`
                                             } }>
                                                 { t('flot.split.action.commencer') }
                                             </div>
