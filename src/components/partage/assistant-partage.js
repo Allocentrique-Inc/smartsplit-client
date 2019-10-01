@@ -432,7 +432,7 @@ class AssistantPartage extends Component {
                                                 droitAuteur: valeursInitiales.droitAuteur,
                                                 droitInterpretation : valeursInitiales.droitInterpretation,
                                                 droitEnregistrement: valeursInitiales.droitEnregistrement,
-                                                collaborateur: [],
+                                                collaborateur: "",
                                                 uuid: this.state.uuid,
                                                 media: this.state.media
                                             }}

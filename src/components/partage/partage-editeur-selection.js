@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Translation } from "react-i18next";
 
-import { ChampListeEditeurAssistant } from "../formulaires/champ-liste";
+import { ChampListeEditeurAssistant, ChampListeCollaborateurAssistant } from "../formulaires/champ-liste";
 
 import avatar from "../../assets/images/elliot.jpg";
 
@@ -103,20 +103,19 @@ class PageAssistantPartageChoixEditeur extends Component {
                   {!this.state.editeur && (
                     <div style={{ margin: "0 auto", height: "50px" }}>
                       <div>
-                        <ChampListeEditeurAssistant
-                          indication={t(
-                            "flot.split.documente-ton-oeuvre.editeur.ajout"
-                          )}
-                          modele="editeurListe"
-                          autoFocus={false}
-                          requis={true}
-                          fluid={true}
-                          multiple={false}
-                          recherche={true}
-                          selection={false}
-                          ajout={false}
-                          parent={this}
-                        />
+                        <ChampListeCollaborateurAssistant
+                            onRef={ayantsDroit=>this.setEditeurs(ayantsDroit)}
+                            style={{height: "50px" }}
+                            indication={4("flot.split.documente-ton-oeuvre.editeur.ajout")}
+                            modele="editeurListe"
+                            autoFocus={false}
+                            requis={true}
+                            fluid={true}
+                            multiple={false}
+                            recherche={true}
+                            selection={false}
+                            ajout={true}                            
+                        />                        
                       </div>
                       <br></br>
                       <button
@@ -148,3 +147,17 @@ class PageAssistantPartageChoixEditeur extends Component {
 }
 
 export default PageAssistantPartageChoixEditeur;
+{/* <ChampListeEditeurAssistant
+                          indication={t(
+                            "flot.split.documente-ton-oeuvre.editeur.ajout"
+                          )}
+                          modele="editeurListe"
+                          autoFocus={false}
+                          requis={true}
+                          fluid={true}
+                          multiple={false}
+                          recherche={true}
+                          selection={false}
+                          ajout={false}
+                          parent={this}
+                        /> */}

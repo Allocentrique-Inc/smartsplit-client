@@ -14,8 +14,6 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-import avatar from "../../assets/images/elliot.jpg"
-
 const MODES = {egal: "0", manuel: "1"}
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -134,11 +132,18 @@ class PageAssistantPartageEnregistrement extends Component {
 
     ajouterCollaborateur(arrayHelpers) {
         let ayants = {}
+        
         let _coll = this.props.values.collaborateur
-        //let _index = arrayHelpers.data.length
+        let ayantDroit = this.state.ayantsDroit[_coll], nom            
+        
+        if(ayantDroit) {
+            nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+        }
+
         let _index = this.props.values.droitEnregistrement.length + 
                     this.props.values.droitInterpretation.length +
                     this.props.values.droitEnregistrement.length
+
         this.props.values.droitEnregistrement.forEach(droit=>{
             ayants[droit["nom"]] = droit["color"]
         })
@@ -146,66 +151,64 @@ class PageAssistantPartageEnregistrement extends Component {
             ayants[droit["nom"]] = droit["color"]
         })
                                                             
-        _coll.forEach((elem, idx)=>{
-            if(this.state.mode === MODES.egal) {
-                if (elem in ayants) {
-                    arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4),
-                        principal: true,
-                        chanteur: false,
-                        musicien: false,
-                        color: ayants[elem]
-                    })
-                } else {
-                    arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4),
-                        principal: true,
-                        chanteur: false,
-                        musicien: false,
-                        color: COLORS[_index+idx]
-                    })
-                    ayants[elem] = COLORS[_index+idx]
-                }
+        if(this.state.mode === MODES.egal) {
+            if (_coll in ayants) {
+                arrayHelpers.insert(0, {
+                    nom: nom, 
+                    ayantDroit: ayantDroit,
+                    pourcent: (100 / (this.props.values.droitEnregistrement.length + 1) ).toFixed(4),
+                    principal: true,
+                    chanteur: false,
+                    musicien: false,
+                    color: ayants[_coll]
+                })
+            } else {
+                arrayHelpers.insert(0, {
+                    nom: nom, 
+                    ayantDroit: ayantDroit,
+                    pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4),
+                    principal: true,
+                    chanteur: false,
+                    musicien: false,
+                    color: COLORS[_index+1]
+                })
+                ayants[_coll] = COLORS[_index+1]
             }
-            if(this.state.mode === MODES.manuel) {  
-                if (elem in ayants) {     
-                    arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (
-                            this.pourcentRestant() / 
-                            (this.props.values.droitEnregistrement.length + _coll.length) )
-                            .toFixed(4),
-                        producteur: false,
-                        realisateur: false,
-                        graphiste: false,
-                        studio: false,
-                        color: ayants[elem]
-                    })
-                } else {
-                    arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (
-                            this.pourcentRestant() / 
-                            (this.props.values.droitEnregistrement.length + _coll.length) )
-                            .toFixed(4),
-                        producteur: false,
-                        realisateur: false,
-                        graphiste: false,
-                        studio: false,
-                        color: COLORS[_index+idx]
-                    })
-                    ayants[elem] = COLORS[_index+idx]
-                }
+        }
+        if(this.state.mode === MODES.manuel) {  
+            if (_coll in ayants) {     
+                arrayHelpers.insert(0, {
+                    nom: nom, 
+                    ayantDroit: ayantDroit,
+                    pourcent: (
+                        this.pourcentRestant() / 
+                        (this.props.values.droitEnregistrement.length + _coll.length) )
+                        .toFixed(4),
+                    producteur: false,
+                    realisateur: false,
+                    graphiste: false,
+                    studio: false,
+                    color: ayants[_coll]
+                })
+            } else {
+                arrayHelpers.insert(0, {
+                    nom: nom, 
+                    ayantDroit: ayantDroit,
+                    pourcent: (
+                        this.pourcentRestant() / 
+                        (this.props.values.droitEnregistrement.length + _coll.length) )
+                        .toFixed(4),
+                    producteur: false,
+                    realisateur: false,
+                    graphiste: false,
+                    studio: false,
+                    color: COLORS[_index+1]
+                })
+                ayants[_coll] = COLORS[_index+1]
             }
-            // création de l'entrée dans le tableau des invariables
-           /*  let _inv = this.state.partsInvariables
-            _inv.unshift(false)
-            this.setState({partsInvariables: _inv})
-            */ 
-        })                                                            
-        this.props.setFieldValue('collaborateur', [])
+        }        
+
+        this.props.setFieldValue('collaborateur', "")
         this.setState({ping: true}, ()=>{
             this.recalculerPartage()
         })
@@ -305,6 +308,15 @@ class PageAssistantPartageEnregistrement extends Component {
                                                             {id: "graphiste", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.graphiste')}, 
                                                             {id: "studio", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.studio')}
                                                         ]
+
+                                                        let avatar = ''
+                                                            let _aD = part.ayantDroit
+                                                            // Y a-t-il un avatar ?
+                                                            if(_aD.avatarImage) 
+                                                                avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
+                                                            else
+                                                                avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+
                                                         return (
                                                             <div key={`part-${index}`}>                                                                
                                                                 <div className="gray-fields">
@@ -318,7 +330,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                         <div className="ui thirteen wide column">
                                                                             <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i className="right floated ellipsis horizontal icon" onClick={() => {
+                                                                                <i className="right floated close icon" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
@@ -401,6 +413,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                         <div className="ui row">                                 
                                                             <div className="ui ten wide column">
                                                                 <ChampListeCollaborateurAssistant
+                                                                    onRef={ayantsDroit=>this.setState({ayantsDroit: ayantsDroit})}
                                                                     indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                     modele="collaborateur"
                                                                     autoFocus={false}
@@ -409,11 +422,8 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     multiple={false}
                                                                     recherche={true}
                                                                     selection={true}
-                                                                    ajout={false}
-                                                                    collaborateurs={this.props.values.droitEnregistrement}
-                                                                    close={()=>{
-                                                                        this.props.setFieldValue('collaborateur', [])
-                                                                    }}
+                                                                    ajout={true}
+                                                                    collaborateurs={this.props.values.droitEnregistrement}                                                                    
                                                                 />                                               
                                                             </div>
                                                             <div className="four wide column">

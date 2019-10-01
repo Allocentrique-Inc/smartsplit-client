@@ -14,6 +14,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import AudioLecture from '../oeuvre/audio-lecture'
 import { Field } from 'formik'
 import moment from 'moment'
+import { ChampListeCollaborateurAssistant } from '../formulaires/champ-liste'
 
 const ORIGINALE = 0, ARRANGEMENT = 1, REPRISE = 2
 
@@ -332,11 +333,15 @@ class Page2NouvellePiece extends Component {
                                             this.props.values.type === ""+ORIGINALE && (
                                                 <>
                                                     <div style={{marginTop: "20px"}} className="ui row">
-                                                        <ChampTexteAssistant 
-                                                            modele="artist"
-                                                            etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})}
-                                                            requis={true}
-                                                            />
+                                                    <ChampListeCollaborateurAssistant
+                                                        modele={"artist"} 
+                                                        etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})} 
+                                                        indication={t('oeuvre.attribut.indication.artiste')} 
+                                                        requis={true} autoFocus={false}
+                                                        multiple={false}
+                                                        close={()=>{
+                                                            this.props.setFieldValue('collaborateur', [])
+                                                        }}/>                                                       
                                                     </div>                                                    
                                                 </>
                                             )

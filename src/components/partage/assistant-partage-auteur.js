@@ -14,8 +14,6 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-import avatar from '../../assets/images/steve.jpg'
-
 const MODES = { egal: "0", role: "1", manuel: "2" }
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -205,53 +203,56 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     ajouterCollaborateur(arrayHelpers) {
+
         let _coll = this.props.values.collaborateur
-        //let _index = arrayHelpers.data.length
+        let ayantDroit = this.state.ayantsDroit[_coll], nom            
+        
+        if(ayantDroit) {
+            nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+        }
+
         let _index = this.props.values.droitAuteur.length +
                     this.props.values.droitInterpretation.length +
-                    this.props.values.droitEnregistrement.length
+                    this.props.values.droitEnregistrement.length        
 
-        _coll.forEach((elem, idx)=>{
+        if(this.state.mode === MODES.egal) {
+            arrayHelpers.insert(0, {
+                nom: nom,
+                ayantDroit: ayantDroit,
+                pourcent: (100 / (this.props.values.droitAuteur.length + 1)).toFixed(4),
+                auteur: true,
+                compositeur: true,
+                arrangeur: false,
+                color: COLORS[_index+1]
+            })                
+        }
 
-            if(this.state.mode === MODES.egal) {
-                arrayHelpers.insert(0, {
-                    nom: elem,
-                    pourcent: (100 / (this.props.values.droitAuteur.length + _coll.length)).toFixed(4),
-                    auteur: true,
-                    compositeur: true,
-                    arrangeur: false,
-                    color: COLORS[_index+idx]
-                })
-            }
+        if (this.state.mode === MODES.manuel) {
+            let _pourcent = ( this.pourcentRestant() ).toFixed(4)
+            arrayHelpers.insert(0, {
+                nom: nom,
+                ayantDroit: ayantDroit,
+                pourcent: _pourcent,
+                auteur: true,
+                compositeur: true,
+                arrangeur: false,
+                color: COLORS[_index+1]
+            })
+        }
 
-            if (this.state.mode === MODES.manuel) {
+        if (this.state.mode === MODES.role) {
+            arrayHelpers.insert(0, {
+                nom: nom,
+                ayantDroit: ayantDroit,
+                pourcent: "100",
+                auteur: true,
+                compositeur: true,
+                arrangeur: false,
+                color: COLORS[_index+1]
+            })
+        }
 
-                let _pourcent = ( this.pourcentRestant() / _coll.length ).toFixed(4)
-
-                arrayHelpers.insert(0, {
-                    nom: elem,
-                    pourcent: _pourcent,
-                    auteur: true,
-                    compositeur: true,
-                    arrangeur: false,
-                    color: COLORS[_index+idx]
-                })
-            }
-
-            if (this.state.mode === MODES.role) {
-                arrayHelpers.insert(0, {
-                    nom: elem,
-                    pourcent: "100",
-                    auteur: true,
-                    compositeur: true,
-                    arrangeur: false,
-                    color: COLORS[_index+idx]
-                })
-            }
-
-        })
-        this.props.setFieldValue('collaborateur', [])
-
+        this.props.setFieldValue('collaborateur','')
         this.setState({ ping: true }, () => {
             this.recalculerPartage()
         })
@@ -392,6 +393,8 @@ class PageAssistantPartageAuteur extends Component {
 
                                                                         // Composante de carte controlable
 
+                                                                        let _aD = part.ayantDroit
+
                                                                         let roles = [
                                                                             {
                                                                                 id: "auteur",
@@ -406,6 +409,15 @@ class PageAssistantPartageAuteur extends Component {
                                                                                 nom: t('flot.split.documente-ton-oeuvre.partage.auteur.role.arrangeur')
                                                                             }
                                                                         ]
+
+                                                                        let avatar = ''
+
+                                                                        // Y a-t-il un avatar ?
+                                                                        if(_aD.avatarImage) 
+                                                                            avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
+                                                                        else
+                                                                            avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+
                                                                         return (
                                                                             <div key={`part-${index}`}>
                                                                                 <div className="gray-fields">
@@ -425,7 +437,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                 <div
                                                                                                     className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right floated close icon cliquable"
+                                                                                                    <i className="right flated close icon cliquable"
                                                                                                        onClick={() => {
                                                                                                            arrayHelpers.remove(index)
                                                                                                            this.setState({ ping: true }, () => {
@@ -515,6 +527,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                         <div className="ui row">
                                                                             <div className="ui ten wide column">
                                                                                 <ChampListeCollaborateurAssistant
+                                                                                    onRef={ayantsDroit=>this.setState({ayantsDroit: ayantsDroit})}
                                                                                     style={{height: "50px" }}
                                                                                     indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                                     modele="collaborateur"
@@ -524,22 +537,19 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     multiple={false}
                                                                                     recherche={true}
                                                                                     selection={true}
-                                                                                    ajout={false}
+                                                                                    ajout={true}
                                                                                     collaborateurs={this.props.values.droitAuteur}
-                                                                                    close={()=>{
-                                                                                        this.props.setFieldValue('collaborateur', [])
-                                                                                    }}
-                                                                                />
+                                                                                />                                                                                
                                                                             </div>
                                                                             <div className="four wide column">
-                                                                                <button
+                                                                                <button 
                                                                                     className="ui medium button"
-                                                                                    onClick={(e) => {
+                                                                                    onClick={(e)=>{
                                                                                         e.preventDefault()
                                                                                         this.ajouterCollaborateur(arrayHelpers)
                                                                                     }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
                                                                                 </button>
-                                                                            </div>
+                                                                            </div>                                                                           
                                                                         </div>
                                                                     </div>
                                                                 </div>
