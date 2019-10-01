@@ -4,13 +4,7 @@ import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
 import Login from "../auth/Login";
 import Register from "./Register";
-import Register2 from "./Register-2"
 import ForgotPassword from "./ForgotPassword";
-import AWS from "aws-sdk";
-
-// AWS.config.update({ region: 'us-east-2'});
-// const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider()
-// const USER_POOL_ID = 'us-east-2_tK9rNdAB1'
 
 const TYPE_LOGIN = 0,
   TYPE_REGISTER = 1,

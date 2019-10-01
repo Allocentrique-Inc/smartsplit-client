@@ -149,7 +149,7 @@ class ForgotPassword extends Component {
                   <p className="control">
                     <button
                       className="ui medium button is-success"
-                      style={{ float: "right" }}
+                      style={{ position: "relative", left: "350px" }}
                     >
                       {t("collaborateur.attribut.bouton.soumettre")}
                     </button>

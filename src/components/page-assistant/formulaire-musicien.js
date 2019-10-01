@@ -1,245 +1,274 @@
-import React, { Component } from 'react';
-import { ItemSelectionne } from './item-selectionne';
+import React, { Component } from "react";
+import { ItemSelectionne } from "./item-selectionne";
 import { Checkbox } from "semantic-ui-react";
-import { instruments } from '../../assets/listes/fr/instruments';
+import { instruments } from "../../assets/listes/fr/instruments";
 import ChampSelectionMultiple from "./champ-selection-multiple";
-import { Translation } from 'react-i18next'
+import { Translation } from "react-i18next";
 import { isUnique } from "./right-holder-helpers";
-import * as roles from '../../assets/listes/role-uuids.json';
+import * as roles from "../../assets/listes/role-uuids.json";
 
 export class FormulaireMusicien extends Component {
-    singerRoleLabels = [
-        {
-            key: 'leadVocal',
-            text: 'Soliste'
-        },
-        {
-            key: 'backVocal',
-            text: 'Choriste',
-        },
-        {
-            key: 'spokenVocal',
-            text: 'Voix parlée'
-        }
-    ];
-
-    singerRoles = this.singerRoleLabels.map(label => roles.default[label.key]);
-    singerOptions = this.singerRoleLabels.map(label => ({
-        key: roles.default[label.key],
-        value: roles.default[label.key],
-        text: label.text
-    }));
-
-    constructor(props) {
-        super(props);
-
-        this.instrumentOptions = instruments
-            .filter((value, index, self) => {
-                return self.indexOf(value) === index;
-            })
-            .map(instrument => ({
-                key: instrument.nom,
-                value: instrument.nom,
-                text: instrument.nom
-            }));
-
-        this.state = {
-            singer: this.props.rightHolder.roles.includes(roles.singer),
-            musician: this.rightHolderHasInstruments(),
-        };
+  singerRoleLabels = [
+    {
+      key: "leadVocal",
+      text: "Soliste"
+    },
+    {
+      key: "backVocal",
+      text: "Choriste"
+    },
+    {
+      key: "spokenVocal",
+      text: "Voix parlée"
     }
+  ];
 
-    hasRole(role) {
-        this.props.rightHolder.roles.includes(roles.default[role]);
-    }
+  singerRoles = this.singerRoleLabels.map(label => roles.default[label.key]);
+  singerOptions = this.singerRoleLabels.map(label => ({
+    key: roles.default[label.key],
+    value: roles.default[label.key],
+    text: label.text
+  }));
 
-    rightHolderSingerSubroles() {
-        return this.singerRoles.filter(role => this.props.rightHolder.roles.includes(role));
-    }
+  constructor(props) {
+    super(props);
 
-    rightHolderInstruments() {
-        return this.props.rightHolder.instruments || [];
-    }
+    this.instrumentOptions = instruments
+      .filter((value, index, self) => {
+        return self.indexOf(value) === index;
+      })
+      .map(instrument => ({
+        key: instrument.nom,
+        value: instrument.nom,
+        text: instrument.nom
+      }));
 
-    rightHolderHasInstruments() {
-        return Boolean(this.rightHolderInstruments().length);
-    }
-
-    onTypeChange = event => {
-        const newType = event.target.value;
-        const newRole = roles.default[newType];
-
-        const newRoles = this.props.rightHolder.roles
-            .filter(this.isNotMusicianRole)
-            .concat([newRole])
-            .filter(isUnique);
-
-        this.updateRightHolder({ roles: newRoles });
+    this.state = {
+      singer: this.props.rightHolder.roles.includes(roles.singer),
+      musician: this.rightHolderHasInstruments()
     };
+  }
 
-    isNotMusicianRole = role => (role !== roles.principal) && (role !== roles.accompaniment);
+  hasRole(role) {
+    this.props.rightHolder.roles.includes(roles.default[role]);
+  }
 
-    updateRightHolder(newAttributes) {
-        const newRightHolder = Object.assign({}, this.props.rightHolder, newAttributes);
+  rightHolderSingerSubroles() {
+    return this.singerRoles.filter(role =>
+      this.props.rightHolder.roles.includes(role)
+    );
+  }
 
-        this.props.onChange(newRightHolder);
+  rightHolderInstruments() {
+    return this.props.rightHolder.instruments || [];
+  }
+
+  rightHolderHasInstruments() {
+    return Boolean(this.rightHolderInstruments().length);
+  }
+
+  onTypeChange = event => {
+    const newType = event.target.value;
+    const newRole = roles.default[newType];
+
+    const newRoles = this.props.rightHolder.roles
+      .filter(this.isNotMusicianRole)
+      .concat([newRole])
+      .filter(isUnique);
+
+    this.updateRightHolder({ roles: newRoles });
+  };
+
+  isNotMusicianRole = role =>
+    role !== roles.principal && role !== roles.accompaniment;
+
+  updateRightHolder(newAttributes) {
+    const newRightHolder = Object.assign(
+      {},
+      this.props.rightHolder,
+      newAttributes
+    );
+
+    this.props.onChange(newRightHolder);
+  }
+
+  handleSingerCheckboxChange(checked) {
+    const newSingerRoles = checked ? [roles.singer] : [];
+
+    const rightHolderRoles = this.props.rightHolder.roles || [];
+    const newRoles = rightHolderRoles
+      .filter(this.isNotSingerRole)
+      .filter(role => role !== roles.singer)
+      .concat(newSingerRoles);
+
+    this.updateRightHolder({ roles: newRoles });
+    this.setState({ singer: checked });
+  }
+
+  isNotSingerRole = role =>
+    this.singerRoles.every(singerRole => role !== singerRole);
+
+  handleInstrumentCheckboxChange(checked) {
+    if (!checked) {
+      this.removeInstruments();
     }
 
-    handleSingerCheckboxChange(checked) {
-        const newSingerRoles = checked ? [roles.singer] : [];
+    this.setState({ musician: checked });
+  }
 
-        const rightHolderRoles = this.props.rightHolder.roles || [];
-        const newRoles = rightHolderRoles
-            .filter(this.isNotSingerRole)
-            .filter(role => role !== roles.singer)
-            .concat(newSingerRoles);
+  onSingerRoleChange = newSingerRoles => {
+    const rightHolderRoles = this.props.rightHolder.roles || [];
+    const newRoles = rightHolderRoles
+      .filter(this.isNotSingerRole)
+      .concat(newSingerRoles);
 
-        this.updateRightHolder({ roles: newRoles });
-        this.setState({ singer: checked });
-    }
+    this.updateRightHolder({ roles: newRoles });
+  };
 
-    isNotSingerRole = role => (this.singerRoles.every(singerRole => role !== singerRole));
+  onInstrumentChange = instruments => {
+    const rightHolderInstruments = this.props.rightHolder.instruments || [];
+    const newInstruments = rightHolderInstruments
+      .filter(instrument => instrument === this.singerInstrument)
+      .concat(instruments);
 
-    handleInstrumentCheckboxChange(checked) {
-        if (!checked) {
-            this.removeInstruments();
-        }
+    this.updateRightHolder({ instruments: newInstruments });
+  };
 
-        this.setState({ musician: checked });
-    }
+  removeInstruments() {
+    const instruments = this.props.rightHolder.instruments || [];
+    const newInstruments = instruments.filter(
+      instrument => instrument === this.singerInstrument
+    );
 
-    onSingerRoleChange = newSingerRoles => {
-        const rightHolderRoles = this.props.rightHolder.roles || [];
-        const newRoles = rightHolderRoles
-            .filter(this.isNotSingerRole)
-            .concat(newSingerRoles);
+    this.updateRightHolder({ instruments: newInstruments });
+  }
 
-        this.updateRightHolder({ roles: newRoles });
-    }
+  singerSelect() {
+    return this.state.singer ? (
+      <div className={"mb-2"}>
+        <ChampSelectionMultiple
+          key={this.props.rightHolder.id + "singer"}
+          pochette={this.props.pochette}
+          items={this.singerOptions}
+          placeholder="Ajouter un type de chanteur..."
+          value={this.rightHolderSingerSubroles()}
+          onChange={this.onSingerRoleChange}
+        />
+      </div>
+    ) : (
+      <></>
+    );
+  }
 
-    onInstrumentChange = instruments => {
-        const rightHolderInstruments = this.props.rightHolder.instruments || [];
-        const newInstruments = rightHolderInstruments
-            .filter(instrument => instrument === this.singerInstrument)
-            .concat(instruments);
+  instrumentSelect() {
+    return this.state.musician ? (
+      <ChampSelectionMultiple
+        key={this.props.rightHolder.id + "musician"}
+        pochette={this.props.pochette}
+        items={this.instrumentOptions}
+        placeholder="Ajouter un instrument..."
+        value={this.rightHolderInstruments()}
+        onChange={this.onInstrumentChange}
+      />
+    ) : (
+      <></>
+    );
+  }
 
-        this.updateRightHolder({ instruments: newInstruments });
-    }
+  render() {
+    return (
+      <Translation>
+        {t => (
+          <>
+            <ItemSelectionne
+              key={this.props.item.key}
+              image={this.props.item.image.src}
+              nom={this.props.item.text}
+              onClick={this.props.onClick}
+            />
 
-    removeInstruments() {
-        const instruments = this.props.rightHolder.instruments || [];
-        const newInstruments = instruments
-            .filter(instrument => instrument === this.singerInstrument);
+            <div className="instrument-form">
+              <p className="input-label">
+                {t("flot.documenter.options.question1")}
+              </p>
 
-        this.updateRightHolder({ instruments: newInstruments });
-    }
+              <div>
+                <div className="ui radio checkbox">
+                  <input
+                    type="radio"
+                    name="type"
+                    value={"principal"}
+                    checked={this.props.rightHolder.roles.includes(
+                      roles.principal
+                    )}
+                    onChange={this.onTypeChange}
+                  />
 
-    singerSelect() {
-        return this.state.singer ?
-            (
-                <div className={ 'mb-2' }>
-                    <ChampSelectionMultiple
-                        key={ this.props.rightHolder.id + 'singer' }
-                        pochette={ this.props.pochette }
-                        items={ this.singerOptions }
-                        placeholder="Ajouter un type de chanteur..."
-                        value={ this.rightHolderSingerSubroles() }
-                        onChange={ this.onSingerRoleChange }
-                    />
+                  <label>
+                    {t(
+                      "flot.split.documente-ton-oeuvre.documenter.options.question1-choix-a"
+                    )}
+                  </label>
                 </div>
-            ) :
-            (<></>);
-    }
+              </div>
 
-    instrumentSelect() {
-        return this.state.musician ?
-            (
-                <ChampSelectionMultiple
-                    key={ this.props.rightHolder.id + 'musician' }
-                    pochette={ this.props.pochette }
-                    items={ this.instrumentOptions }
-                    placeholder="Ajouter un instrument..."
-                    value={ this.rightHolderInstruments() }
-                    onChange={ this.onInstrumentChange }
-                />
-            ) :
-            (<></>);
-    }
+              <div>
+                <div className="ui radio checkbox">
+                  <input
+                    type="radio"
+                    name="type"
+                    value={"accompaniment"}
+                    checked={this.props.rightHolder.roles.includes(
+                      roles.accompaniment
+                    )}
+                    onChange={this.onTypeChange}
+                  />
 
-
-    render() {
-        return (
-        <Translation>
-            {
-                (t) =>
-            <>
-                <ItemSelectionne
-                    key={ this.props.item.key }
-                    image={ this.props.item.image.src }
-                    nom={ this.props.item.text }
-                    onClick={ this.props.onClick }
-                />
-
-                <div className="instrument-form">
-                    <p className="input-label">{t('flot.documenter.options.question1')}</p>
-
-                    <div>
-                        <div className="ui radio checkbox">
-                            <input type="radio"
-                                   name="type"
-                                   value={ 'principal' }
-                                   checked={ this.props.rightHolder.roles.includes(roles.principal) }
-                                   onChange={ this.onTypeChange }
-                            />
-
-                            <label>{t('flot.documenter.options.question1-choix-a')}</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div className="ui radio checkbox">
-                            <input type="radio"
-                                   name="type"
-                                   value={ 'accompaniment' }
-                                   checked={ this.props.rightHolder.roles.includes(roles.accompaniment) }
-                                   onChange={ this.onTypeChange }
-                            />
-
-                            <label>{t('flot.documenter.options.question1-choix-b')}</label>
-                        </div>
-                    </div>
-
-                    <p className="input-label">{t('flot.documenter.options.question2')}</p>
-
-                    <div>
-                        <Checkbox
-                            label={ t('flot.documenter.options.question2-choix-a') }
-                            checked={ this.state.singer }
-                            onChange={ (event, { checked }) => this.handleSingerCheckboxChange(checked) }
-                        />
-                    </div>
-
-                    <div className="instrument-select">
-                        { this.singerSelect() }
-                    </div>
-
-                    <div>
-                        <Checkbox
-                            label={ t('flot.documenter.options.question2-choix-b') }
-                            checked={ this.state.musician }
-                            onChange={ (event, { checked }) => this.handleInstrumentCheckboxChange(checked) }
-                        />
-                    </div>
-
-                    <div className="instrument-select">
-                        { this.instrumentSelect() }
-                    </div>
+                  <label>
+                    {t(
+                      "flot.split.documente-ton-oeuvre.options.question1-choix-b"
+                    )}
+                  </label>
                 </div>
+              </div>
 
-                <div className="section-divider"></div>
-            </>
-            }
-            </Translation>
-        );
-    }
+              <p className="input-label">
+                {t("flot.split.documente-ton-oeuvre.options.question2")}
+              </p>
+
+              <div>
+                <Checkbox
+                  label={t(
+                    "flot.split.documente-ton-oeuvre.options.question2-choix-a"
+                  )}
+                  checked={this.state.singer}
+                  onChange={(event, { checked }) =>
+                    this.handleSingerCheckboxChange(checked)
+                  }
+                />
+              </div>
+
+              <div className="instrument-select">{this.singerSelect()}</div>
+
+              <div>
+                <Checkbox
+                  label={t(
+                    "flot.split.documente-ton-oeuvre.options.question2-choix-b"
+                  )}
+                  checked={this.state.musician}
+                  onChange={(event, { checked }) =>
+                    this.handleInstrumentCheckboxChange(checked)
+                  }
+                />
+              </div>
+
+              <div className="instrument-select">{this.instrumentSelect()}</div>
+            </div>
+
+            <div className="section-divider"></div>
+          </>
+        )}
+      </Translation>
+    );
+  }
 }
