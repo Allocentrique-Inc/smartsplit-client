@@ -41,6 +41,9 @@ class PageAssistantPartageEnregistrement extends Component {
         if(this.props.values.droitEnregistrement !== nextProps.values.droitEnregistrement) {
             this.setState({parts: nextProps.values.droitEnregistrement})
         }
+        if(this.props.ayantsDroit !== nextProps.ayantsDroit){
+            this.setState({ayantsDroit: nextProps.ayantsDroit})
+        }
     }
 
     recalculerPartage() {
@@ -134,84 +137,88 @@ class PageAssistantPartageEnregistrement extends Component {
         let ayants = {}
         
         let _coll = this.props.values.collaborateur
-        let ayantDroit = this.state.ayantsDroit[_coll], nom            
+
+        if(_coll) {
+            let ayantDroit = this.state.ayantsDroit[_coll], nom            
         
-        if(ayantDroit) {
-            nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
-        }
-
-        let _index = this.props.values.droitEnregistrement.length + 
-                    this.props.values.droitInterpretation.length +
-                    this.props.values.droitEnregistrement.length
-
-        this.props.values.droitEnregistrement.forEach(droit=>{
-            ayants[droit["nom"]] = droit["color"]
-        })
-        this.props.values.droitInterpretation.forEach(droit=>{
-            ayants[droit["nom"]] = droit["color"]
-        })
-                                                            
-        if(this.state.mode === MODES.egal) {
-            if (_coll in ayants) {
-                arrayHelpers.insert(0, {
-                    nom: nom, 
-                    ayantDroit: ayantDroit,
-                    pourcent: (100 / (this.props.values.droitEnregistrement.length + 1) ).toFixed(4),
-                    principal: true,
-                    chanteur: false,
-                    musicien: false,
-                    color: ayants[_coll]
-                })
-            } else {
-                arrayHelpers.insert(0, {
-                    nom: nom, 
-                    ayantDroit: ayantDroit,
-                    pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4),
-                    principal: true,
-                    chanteur: false,
-                    musicien: false,
-                    color: COLORS[_index+1]
-                })
-                ayants[_coll] = COLORS[_index+1]
+            if(ayantDroit) {
+                nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
             }
-        }
-        if(this.state.mode === MODES.manuel) {  
-            if (_coll in ayants) {     
-                arrayHelpers.insert(0, {
-                    nom: nom, 
-                    ayantDroit: ayantDroit,
-                    pourcent: (
-                        this.pourcentRestant() / 
-                        (this.props.values.droitEnregistrement.length + _coll.length) )
-                        .toFixed(4),
-                    producteur: false,
-                    realisateur: false,
-                    graphiste: false,
-                    studio: false,
-                    color: ayants[_coll]
-                })
-            } else {
-                arrayHelpers.insert(0, {
-                    nom: nom, 
-                    ayantDroit: ayantDroit,
-                    pourcent: (
-                        this.pourcentRestant() / 
-                        (this.props.values.droitEnregistrement.length + _coll.length) )
-                        .toFixed(4),
-                    producteur: false,
-                    realisateur: false,
-                    graphiste: false,
-                    studio: false,
-                    color: COLORS[_index+1]
-                })
-                ayants[_coll] = COLORS[_index+1]
-            }
-        }        
 
-        this.props.setFieldValue('collaborateur', "")
-        this.setState({ping: true}, ()=>{
-            this.recalculerPartage()
-        })
+            let _index = this.props.values.droitEnregistrement.length + 
+                        this.props.values.droitInterpretation.length +
+                        this.props.values.droitEnregistrement.length
+
+            this.props.values.droitEnregistrement.forEach(droit=>{
+                ayants[droit.ayantDroit.rightHolderId] = droit["color"]
+            })
+            this.props.values.droitInterpretation.forEach(droit=>{
+                ayants[droit.ayantDroit.rightHolderId] = droit["color"]
+            })
+                                                                
+            if(this.state.mode === MODES.egal) {
+                if (_coll in ayants) {
+                    arrayHelpers.insert(0, {
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: (100 / (this.props.values.droitEnregistrement.length + 1) ).toFixed(4),
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: ayants[_coll]
+                    })
+                } else {
+                    arrayHelpers.insert(0, {
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4),
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: COLORS[_index]
+                    })
+                    ayants[_coll] = COLORS[_index]
+                }
+            }
+            if(this.state.mode === MODES.manuel) {  
+                if (_coll in ayants) {     
+                    arrayHelpers.insert(0, {
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: (
+                            this.pourcentRestant() / 
+                            (this.props.values.droitEnregistrement.length + _coll.length) )
+                            .toFixed(4),
+                        producteur: false,
+                        realisateur: false,
+                        graphiste: false,
+                        studio: false,
+                        color: ayants[_coll]
+                    })
+                } else {
+                    arrayHelpers.insert(0, {
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: (
+                            this.pourcentRestant() / 
+                            (this.props.values.droitEnregistrement.length + _coll.length) )
+                            .toFixed(4),
+                        producteur: false,
+                        realisateur: false,
+                        graphiste: false,
+                        studio: false,
+                        color: COLORS[_index]
+                    })
+                    ayants[_coll] = COLORS[_index]
+                }
+            }        
+
+            this.props.setFieldValue('collaborateur', "")
+            this.setState({ping: true}, ()=>{
+                this.recalculerPartage()
+            })
+        }
+        
     }
 
     render() {
@@ -301,7 +308,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                         render={arrayHelpers => (
                                             <div>
                                                 {
-                                                    this.props.values.droitEnregistrement.map((part, index)=>{
+                                                    this.state.ayantsDroit && this.props.values.droitEnregistrement.map((part, index)=>{
                                                         let roles = [
                                                             {id: "producteur", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.producteur')}, 
                                                             {id: "realisateur", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.realisateur')}, 

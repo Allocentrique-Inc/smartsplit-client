@@ -91,7 +91,8 @@ export class ChampListeCollaborateurAssistant extends Component {
             recherche: props.recherche,
             selection: props.selection,
             onInput: props.onInput,
-            ajout: true            
+            ajout: true,
+            nomCommeCle: props.nomCommeCle
         }
         this.OPTIONS = undefined
         this.listeAyantsDroit = this.listeAyantsDroit.bind(this)
@@ -115,10 +116,10 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     listeAyantsDroit() {
-        // Récupérer la liste des ayant-droits
-        let _adParId = {}
+        // Récupérer la liste des ayant-droits        
         axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
+            let _adParId = {}
             let _options = res.data.map((elem, idx)=>{
                 let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
                 _adParId[elem.rightHolderId] = elem
@@ -131,9 +132,9 @@ export class ChampListeCollaborateurAssistant extends Component {
 
                 return (
                     {
-                        key: elem.rightHolderId,
+                        key: this.state.nomCommeCle ? nom : elem.rightHolderId,
                         text: nom,
-                        value: elem.rightHolderId,
+                        value: this.state.nomCommeCle ? nom : elem.rightHolderId,
                         image: { avatar: true, src: avatar }
                     }
                 )
@@ -141,7 +142,7 @@ export class ChampListeCollaborateurAssistant extends Component {
             if(!this.OPTIONS) {
                 this.OPTIONS = _options
             }
-            this.setState({ayantDroit: _adParId}, ()=>this.props.onRef(_adParId))
+            this.setState({ayantDroit: _adParId}, ()=>{if(this.props.onRef) this.props.onRef(_adParId)})
             this.setState({options: _options})            
         })
         .catch(err=>{

@@ -30,6 +30,7 @@ class PageAssistantPartageAuteur extends Component {
         }
         this.changementGradateur = this.changementGradateur.bind(this)
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
+        this.pourcentRestant = this.pourcentRestant.bind(this)
     }
 
     componentDidMount() {
@@ -40,6 +41,9 @@ class PageAssistantPartageAuteur extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.values.droitAuteur !== nextProps.values.droitAuteur) {
             this.setState({ parts: nextProps.values.droitAuteur })
+        }
+        if(this.props.ayantsDroit !== nextProps.ayantsDroit){
+            this.setState({ayantsDroit: nextProps.ayantsDroit})
         }
     }
 
@@ -205,57 +209,61 @@ class PageAssistantPartageAuteur extends Component {
     ajouterCollaborateur(arrayHelpers) {
 
         let _coll = this.props.values.collaborateur
-        let ayantDroit = this.state.ayantsDroit[_coll], nom            
+
+        if(_coll) {
+            let ayantDroit = this.state.ayantsDroit[_coll], nom            
         
-        if(ayantDroit) {
-            nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
-        }
+            if(ayantDroit) {
+                nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+            }
 
-        let _index = this.props.values.droitAuteur.length +
-                    this.props.values.droitInterpretation.length +
-                    this.props.values.droitEnregistrement.length        
+            let _index = this.props.values.droitAuteur.length +
+                        this.props.values.droitInterpretation.length +
+                        this.props.values.droitEnregistrement.length        
 
-        if(this.state.mode === MODES.egal) {
-            arrayHelpers.insert(0, {
-                nom: nom,
-                ayantDroit: ayantDroit,
-                pourcent: (100 / (this.props.values.droitAuteur.length + 1)).toFixed(4),
-                auteur: true,
-                compositeur: true,
-                arrangeur: false,
-                color: COLORS[_index+1]
-            })                
-        }
+            if(this.state.mode === MODES.egal) {
+                arrayHelpers.insert(0, {
+                    nom: nom,
+                    ayantDroit: ayantDroit,
+                    pourcent: (100 / (this.props.values.droitAuteur.length + 1)).toFixed(4),
+                    auteur: true,
+                    compositeur: true,
+                    arrangeur: false,
+                    color: COLORS[_index]
+                })                
+            }
 
-        if (this.state.mode === MODES.manuel) {
-            let _pourcent = ( this.pourcentRestant() ).toFixed(4)
-            arrayHelpers.insert(0, {
-                nom: nom,
-                ayantDroit: ayantDroit,
-                pourcent: _pourcent,
-                auteur: true,
-                compositeur: true,
-                arrangeur: false,
-                color: COLORS[_index+1]
+            if (this.state.mode === MODES.manuel) {
+                let _pourcent = ( this.pourcentRestant() )
+                arrayHelpers.insert(0, {
+                    nom: nom,
+                    ayantDroit: ayantDroit,
+                    pourcent: _pourcent,
+                    auteur: true,
+                    compositeur: true,
+                    arrangeur: false,
+                    color: COLORS[_index]
+                })
+            }
+
+            if (this.state.mode === MODES.role) {
+                arrayHelpers.insert(0, {
+                    nom: nom,
+                    ayantDroit: ayantDroit,
+                    pourcent: "100",
+                    auteur: true,
+                    compositeur: true,
+                    arrangeur: false,
+                    color: COLORS[_index]
+                })
+            }
+
+            this.props.setFieldValue('collaborateur','')
+            this.setState({ ping: true }, () => {
+                this.recalculerPartage()
             })
         }
-
-        if (this.state.mode === MODES.role) {
-            arrayHelpers.insert(0, {
-                nom: nom,
-                ayantDroit: ayantDroit,
-                pourcent: "100",
-                auteur: true,
-                compositeur: true,
-                arrangeur: false,
-                color: COLORS[_index+1]
-            })
-        }
-
-        this.props.setFieldValue('collaborateur','')
-        this.setState({ ping: true }, () => {
-            this.recalculerPartage()
-        })
+        
     }
 
     render() {
@@ -389,7 +397,7 @@ class PageAssistantPartageAuteur extends Component {
                                                         render={arrayHelpers => (
                                                             <div>
                                                                 {
-                                                                    this.props.values.droitAuteur.map((part, index) => {
+                                                                    this.state.ayantsDroit && this.props.values.droitAuteur.map((part, index) => {
 
                                                                         // Composante de carte controlable
 
@@ -545,7 +553,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                 <button 
                                                                                     className="ui medium button"
                                                                                     onClick={(e)=>{
-                                                                                        e.preventDefault()
+                                                                                        e.preventDefault()                                                                                        
                                                                                         this.ajouterCollaborateur(arrayHelpers)
                                                                                     }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
                                                                                 </button>

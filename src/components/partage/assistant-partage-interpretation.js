@@ -40,6 +40,9 @@ class PageAssistantPartageInterpretation extends Component {
         if(this.props.values.droitInterpretation !== nextProps.values.droitInterpretation) {
             this.setState({parts: nextProps.values.droitInterpretation})
         }
+        if(this.props.ayantsDroit !== nextProps.ayantsDroit){
+            this.setState({ayantsDroit: nextProps.ayantsDroit})
+        }
     }    
 
     recalculerPartage() {
@@ -102,73 +105,77 @@ class PageAssistantPartageInterpretation extends Component {
         let ayants = {}
         
         let _coll = this.props.values.collaborateur
-        let ayantDroit = this.state.ayantsDroit[_coll], nom            
-        
-        if(ayantDroit) {
-            nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
-        }
-        
-        //let _index = arrayHelpers.data.length
-        let _index = this.props.values.droitAuteur.length + 
-                    this.props.values.droitInterpretation.length +
-                    this.props.values.droitEnregistrement.length
-        this.props.values.droitAuteur.forEach(droit=>{
-            ayants[droit["nom"]] = droit["color"]
-        })
-          
-        if(this.state.mode === MODES.egal) {
-            if (_coll in ayants) {
-                arrayHelpers.insert(0, {
-                    nom: nom, 
-                    ayantDroit: ayantDroit,
-                    pourcent: (100 / (this.props.values.droitInterpretation.length + 1) ).toFixed(4),
-                    principal: true,
-                    chanteur: false,
-                    musicien: false,
-                    color: ayants[_coll]
-                })
-            } else {
-                arrayHelpers.insert(0, {
-                    nom: nom, 
-                    ayantDroit: ayantDroit,
-                    pourcent: (100 / (this.props.values.droitInterpretation.length + 1) ).toFixed(4),
-                    principal: true,
-                    chanteur: false,
-                    musicien: false,
-                    color: COLORS[_index+1]
-                })
-                ayants[_coll] = COLORS[_index+1]
-            }
-        }
-        if(this.state.mode === MODES.role) {     
-            if (_coll in ayants) {     
-                arrayHelpers.insert(0, {
-                    nom: nom, 
-                    ayantDroit: ayantDroit,
-                    pourcent: "100",
-                    principal: true,
-                    chanteur: false,
-                    musicien: false,
-                    color: ayants[_coll]
-                })
-            } else { 
-                arrayHelpers.insert(0, {
-                    nom: nom, 
-                    ayantDroit: ayantDroit,
-                    pourcent: "100",
-                    principal: true,
-                    chanteur: false,
-                    musicien: false,
-                    color: COLORS[_index+1]
-                })
-                ayants[_coll] = COLORS[_index+1]
-            }
-        }
 
-        this.props.setFieldValue('collaborateur','')
-        this.setState({ping: true}, ()=>{
-            this.recalculerPartage()
-        })   
+        if(_coll) {
+            let ayantDroit = this.state.ayantsDroit[_coll], nom            
+        
+            if(ayantDroit) {
+                nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+            }
+            
+            //let _index = arrayHelpers.data.length
+            let _index = this.props.values.droitAuteur.length + 
+                        this.props.values.droitInterpretation.length +
+                        this.props.values.droitEnregistrement.length
+
+            this.props.values.droitAuteur.forEach(droit=>{
+                ayants[droit.ayantDroit.rightHolderId] = droit["color"]
+            })
+            
+            if(this.state.mode === MODES.egal) {
+                if (_coll in ayants) {
+                    arrayHelpers.insert(0, {
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: (100 / (this.props.values.droitInterpretation.length + 1) ).toFixed(4),
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: ayants[_coll]
+                    })
+                } else {
+                    arrayHelpers.insert(0, {
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: (100 / (this.props.values.droitInterpretation.length + 1) ).toFixed(4),
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: COLORS[_index]
+                    })
+                    ayants[_coll] = COLORS[_index]
+                }
+            }
+            if(this.state.mode === MODES.role) {     
+                if (_coll in ayants) {     
+                    arrayHelpers.insert(0, {
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: "100",
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: ayants[_coll]
+                    })
+                } else { 
+                    arrayHelpers.insert(0, {
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: "100",
+                        principal: true,
+                        chanteur: false,
+                        musicien: false,
+                        color: COLORS[_index]
+                    })
+                    ayants[_coll] = COLORS[_index]
+                }
+            }
+
+            this.props.setFieldValue('collaborateur','')
+            this.setState({ping: true}, ()=>{
+                this.recalculerPartage()
+            })   
+        }        
     }
 
     render() {
@@ -261,7 +268,7 @@ class PageAssistantPartageInterpretation extends Component {
                                             render={arrayHelpers => (
                                                 <div>
                                                     {
-                                                        this.props.values.droitInterpretation.map((part, index)=>{                                                
+                                                        this.state.ayantsDroit && this.props.values.droitInterpretation.map((part, index)=>{                                                
                                                             let roles = [
                                                                 {id: "chanteur", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.chanteur')}, 
                                                                 {id: "musicien", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.musicien')}

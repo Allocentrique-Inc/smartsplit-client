@@ -276,7 +276,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 { 
                                                     t =>
                                                 <div className="small-400-color">
-                                                {t('flot.editeur.editeur')}
+                                                {t('flot.split.documente-ton-oeuvre.editeur.editeur')}
                                                 </div>
                                                 }
                                             </Translation>
@@ -355,7 +355,7 @@ export default class PartageSommaireEditeur extends Component {
                                                 { 
                                                     t=>
                                             <div className="small-400-color">
-                                                {t('flot.editeur.donateur')}
+                                                {t('flot.split.documente-ton-oeuvre.editeur.donateur')}
                                             </div>
                                             }  
                                             </Translation>                                     
