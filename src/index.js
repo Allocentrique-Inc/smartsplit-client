@@ -57,9 +57,11 @@ Amplify.configure({
         mandatorySignIn: true,
         region: REGION,
         // userPoolId: "us-east-2_tK9rNdAB1",
-        userPoolId: "us-east-2_PRLNO62fN",
+        // userPoolId: "us-east-2_PRLNO62fN",
+        userPoolId: "us-east-1_W3bnhMGGM",
         // userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
-        userPoolWebClientId: "25bbenhpsvd0hpbvvqastmsd9j"
+        // userPoolWebClientId: "25bbenhpsvd0hpbvvqastmsd9j"
+        userPoolWebClientId: "26ucvf278ngc8hs3nsbm8flvl1"
     }
 })
 
