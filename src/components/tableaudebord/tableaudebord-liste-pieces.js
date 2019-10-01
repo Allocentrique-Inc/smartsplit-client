@@ -12,6 +12,21 @@ import AudioLecture from '../oeuvre/audio-lecture';
 
 const PANNEAU_INITIATEUR = 1, PANNEAU_COLLABORATEUR = 0
 
+// Retrait des doublons
+// cleanArray removes all duplicated elements
+// https://www.unicoda.com/?p=579
+function cleanArray(array) {
+    var i, j, len = array.length, out = [], obj = {};
+    for (i = 0; i < len; i++) {
+    obj[array[i]] = 0;
+    }
+    for (j in obj) {
+    out.push(j);
+    }
+    return out;
+}
+
+
 export default class ListePieces extends Component {
 
     constructor(props) {
@@ -55,20 +70,6 @@ export default class ListePieces extends Component {
     }
 
     componentWillMount() {
-
-        // Retrait des doublons
-        // cleanArray removes all duplicated elements
-        // https://www.unicoda.com/?p=579
-        function cleanArray(array) {
-            var i, j, len = array.length, out = [], obj = {};
-            for (i = 0; i < len; i++) {
-            obj[array[i]] = 0;
-            }
-            for (j in obj) {
-            out.push(j);
-            }
-            return out;
-        }
         
         try{
 
@@ -85,37 +86,7 @@ export default class ListePieces extends Component {
                     // 1. Récupérer tous les médias
                     let initiatorMediaIds = []
                     let collabMediaIds = []
-/*
-                    function construireListe() {
-
-                    }
-
-                    axios.get('http://dev.api.smartsplit.org:8080/v1/media')
-                    .then(resMedias=>{
-                        const _medias = resMedias.data
-                        // 2. Récupérer la proposition de chaque média
-                        _medias.forEach(_m=>{
-                            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${_m.mediaId}`)
-                            .then((resProposition) => {
-                                const item = resProposition.data.Item
-                                // Découvre si initiateur ou collaborateur et classifie
-                                if (item.initiator.id === USER_ID){
-                                    initiatorMediaIds.push(item.mediaId) // If initiator
-                                } 
-                                else if (item.initiator.id == undefined){
-                                    toast.error("Initiator undefined")
-                                } 
-                                if((JSON.stringify(item.rightsSplits)).includes(USER_ID)){
-                                    collabMediaIds.push(item.mediaId) // If collaborator
-                                } else if (item.rightsSplits == undefined) {
-                                    toast.error("rightsSplits object error")
-                                }
-                                construireListe()
-                            })
-                        })                        
-                    })
-                    
-  */  
+  
                     // Médias depuis les propositions
                     axios.get('http://dev.api.smartsplit.org:8080/v1/proposal')
                     .then((res) => {                        
@@ -191,7 +162,7 @@ export default class ListePieces extends Component {
                             }
                             kk++
                             if(kk === res.data.length) {
-                                this.setState({creatorMedias: _cM}, ()=>console.log(this.state.creatorMedias))
+                                this.setState({creatorMedias: _cM})
                             }
                         })                  
                     })
@@ -264,23 +235,30 @@ export default class ListePieces extends Component {
         )
         
         if (
-            (!this.state.patience && this.state.medias.length == 0 && this.state.panneau === PANNEAU_INITIATEUR) ||
+            (!this.state.patience && (this.state.medias.length + this.state.creatorMedias.length) == 0 && this.state.panneau === PANNEAU_INITIATEUR) ||
             (!this.state.patience && this.state.collabMedias.length == 0 && this.state.panneau === PANNEAU_COLLABORATEUR)
          ) {  // If no initiator musical pieces present for user
             rendu = aucuneOeuvre()
         } else {
             let tableauMedias = []
+            let _medias = {}
             if (this.state.medias.length + this.state.creatorMedias.length > 0 && this.state.panneau === PANNEAU_INITIATEUR) {
+
                 tableauMedias = this.state.medias.map((elem, _idx)=>{
+                    _medias[elem.mediaId] = elem
                     return (
                         <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
                     )
                 })
+                console.log(this.state.creatorMedias)
                 tableauMedias = tableauMedias.concat(
                     this.state.creatorMedias.map((elem, _idx)=>{
-                        return (
-                            elem && <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />                    
-                        )
+                        console.log(elem, _medias)
+                        if(elem && elem.mediaId && !_medias[elem.mediaId]) {
+                            return (
+                                <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />                    
+                            )
+                        }                        
                     })
                 )
             }

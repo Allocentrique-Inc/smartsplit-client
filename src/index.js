@@ -81,7 +81,7 @@ const renderRoutes = () => {
         <Router history={browserHistory}>
           <Switch>
             <Route exact path="/" component={Accueil} />
-            <Route exact path="/documenter/:titre" component={Documenter} />
+            <Route exact path="/documenter/:mediaId" component={Documenter} />
             <Route exact path="/decrire-oeuvre" component={AssistantOeuvre} />
             <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
             <Route exact path="/login" component={renderLogin} />
@@ -194,8 +194,8 @@ function PartageEditeur(match) {
 }
 
 function Documenter(match) {
-  let titre = match.match.params.titre;
-  return <AssistantOeuvre titre={titre} />;
+  let mediaId = match.match.params.mediaId
+  return <AssistantOeuvre mediaId={mediaId} />;
 }
 
 function sommaireOeuvre(match) {
