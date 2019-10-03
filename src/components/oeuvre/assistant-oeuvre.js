@@ -49,7 +49,7 @@ class AssistantOeuvre extends Component {
         Auth.currentAuthenticatedUser()
         .then(response => {            
             if(this.state.mediaId) {
-                axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
                 .then(res=>{                    
                     if(res.data.Item) {
                         let media = res.data.Item
@@ -69,7 +69,7 @@ class AssistantOeuvre extends Component {
     }
 
     fetchApiRightHolders() {
-        axios.get('http://api.smartsplit.org:8080/v1/rightHolders')
+        axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
             .then(response => {
                 this.setState({ rightHolders: response.data });
             })
@@ -223,7 +223,7 @@ class AssistantOeuvre extends Component {
         //let oeuvre = new Oeuvre(values);
         //let body = oeuvre.get();
 
-        axios.post('http://api.smartsplit.org:8080/v1/media', values)
+        axios.post('http://dev.api.smartsplit.org:8080/v1/media', values)
             .then((response) => {
                 actions.setSubmitting(false);
                 toast(t('flot.envoi.reussi'));

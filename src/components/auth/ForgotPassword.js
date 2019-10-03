@@ -3,6 +3,8 @@ import React, { Component } from "react";
 // import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
 import { Translation } from "react-i18next";
+import ForgotPasswordVerification from "./ForgotPasswordVerification";
+import { Modal } from "semantic-ui-react";
 
 //import { withTranslation } from "react-i18next";
 
@@ -18,12 +20,20 @@ const passwordStyle = {
 };
 
 class ForgotPassword extends Component {
+  state = { modalOpen: false };
+  handleOpen = () => this.setState({ modalOpen: true });
+  handleClose = () => this.setState({ modalOpen: false });
+
   state = {
     email: "",
     errors: {
       cognito: null,
       blankfield: false
     }
+  };
+
+  openModal = () => {
+    this.setState({ showModal: true });
   };
 
   clearErrorState = () => {
@@ -50,7 +60,7 @@ class ForgotPassword extends Component {
     // AWS Cognito integration here
     try {
       await Auth.forgotPassword(this.state.email);
-      this.props.history.push("/forgot-password-verification");
+      // this.props.history.push("/forgot-password-verification");
     } catch (error) {
       console.log(error);
     }
@@ -147,12 +157,26 @@ class ForgotPassword extends Component {
                 </div>
                 <div className="field">
                   <p className="control">
-                    <button
-                      className="ui medium button is-success"
-                      style={{ position: "relative", left: "350px" }}
+                    <Modal
+                      trigger={
+                        <button
+                          className="ui medium button is-success"
+                          style={{
+                            position: "relative",
+                            left: "350px"
+                          }}
+                          onClick={this.handleOpen}
+                        >
+                          {t("collaborateur.attribut.bouton.soumettre")}
+                        </button>
+                      }
+                      onClose={this.handleClose}
+                      size="small"
                     >
-                      {t("collaborateur.attribut.bouton.soumettre")}
-                    </button>
+                      <Modal.Content>
+                        <ForgotPasswordVerification />
+                      </Modal.Content>
+                    </Modal>
                   </p>
                 </div>
               </form>

@@ -5,9 +5,19 @@
   font-weight: normal;
   font-size: 16px;
   line-height: 35px;
-  margin: 0 20px 0 80px;
+  margin: 0 20px 0 20px;
 }
 
+label.courriel {
+  margin-top: 200px;
+  position: absolute;
+}
+label.nom {
+  margin-top: 200px;
+}
+.Modal.Header .Titre {
+  margin: 50px 0px 50px 0px;
+}
 ::placeholder {
   color: #8da0b3;
   opacity: 1;
@@ -29,6 +39,6 @@
   padding: 10px 0 0 0;
 }
 
-.ui.search.icon {
+.ui .search .icon {
   float: left;
 }

@@ -1,166 +1,172 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Dropdown } from "semantic-ui-react";
 import { ItemSelectionne } from "./item-selectionne";
-import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
-import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
+import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg";
+import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg";
 import ModifyUser from "../auth/ModifyUser";
-import '../../assets/scss/page-assistant/champ.scss';
+import "../../assets/scss/page-assistant/champ.scss";
 import TitreChamp from "./titre-champ";
+import { withTranslation } from "react-i18next";
 
+class ChampSelectionMultipleAyantDroit extends Component {
+  constructor(props) {
+    super(props);
 
-export default class ChampSelectionMultipleAyantDroit extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            modalOpen: false,
-            modalFirstName: '',
-            selectedValues: this.props.value || [],
-            dropdownValue: null,
-            searchQuery: '',
-        };
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (this.state.selectedValues !== prevState.selectedValues) {
-            this.props.onChange(this.state.selectedValues);
-        }
-    }
-
-    plusCircle() {
-        return this.props.pochette ? plusCircleOrange : plusCircleGreen;
-    }
-
-    additionLabelClasses() {
-        const pochetteClass = this.props.pochette ? ' pochette' : '';
-        return 'addition-label' + pochetteClass;
-    }
-
-    plusCircleLabel(labelString) {
-        return (
-            <span className={ this.additionLabelClasses() }>
-                <img src={ this.plusCircle() }/> { labelString }
-            </span>
-        );
-    }
-
-    triggerLabel() {
-        return this.state.searchQuery ?
-            '' :
-            this.plusCircleLabel(this.props.placeholder);
-    }
-
-    additionLabel() {
-        return this.plusCircleLabel('Ajouter comme collaborateur :');
-    }
-
-    selectedItems() {
-        return this.props.items.filter(this.isSelectedItem);
-    }
-
-    isSelectedItem = item => this.state.selectedValues.includes(item.value);
-
-    unselectedItems() {
-        return this.props.items.filter(this.isUnselectedItem);
-    }
-
-    isUnselectedItem = item => !this.isSelectedItem(item);
-
-    renderSelectedItems() {
-        return this.selectedItems().map(item => {
-            return (
-                <ItemSelectionne
-                    key={ item.key }
-                    image={ item.image.src }
-                    nom={ item.text }
-                    onClick={ (event) => {
-                        this.unselectItem(event, item);
-                    } }
-                />
-            );
-        });
-    }
-
-    handleChange = (event, { value }) => {
-        event.preventDefault();
-        this.selectItem(value);
+    this.state = {
+      modalOpen: false,
+      modalFirstName: "",
+      selectedValues: this.props.value || [],
+      dropdownValue: null,
+      searchQuery: ""
     };
+  }
 
-    selectItem(itemValue) {
-        const selectedValues = [...this.state.selectedValues];
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.selectedValues !== prevState.selectedValues) {
+      this.props.onChange(this.state.selectedValues);
+    }
+  }
 
-        if (!selectedValues.includes(itemValue)) {
-            selectedValues.push(itemValue);
-        }
+  plusCircle() {
+    return this.props.pochette ? plusCircleOrange : plusCircleGreen;
+  }
 
-        this.setState({
-            selectedValues: selectedValues,
-            dropdownValue: null
-        });
+  additionLabelClasses() {
+    const pochetteClass = this.props.pochette ? " pochette" : "";
+    return "addition-label" + pochetteClass;
+  }
+
+  plusCircleLabel(labelString) {
+    return (
+      <span className={this.additionLabelClasses()}>
+        <img src={this.plusCircle()} /> {labelString}
+      </span>
+    );
+  }
+
+  triggerLabel() {
+    return this.state.searchQuery
+      ? ""
+      : this.plusCircleLabel(this.props.placeholder);
+  }
+
+  additionLabel() {
+    return this.plusCircleLabel(this.props.t("collaborateur.titre2"));
+  }
+
+  selectedItems() {
+    return this.props.items.filter(this.isSelectedItem);
+  }
+
+  isSelectedItem = item => this.state.selectedValues.includes(item.value);
+
+  unselectedItems() {
+    return this.props.items.filter(this.isUnselectedItem);
+  }
+
+  isUnselectedItem = item => !this.isSelectedItem(item);
+
+  renderSelectedItems() {
+    return this.selectedItems().map(item => {
+      return (
+        <ItemSelectionne
+          key={item.key}
+          image={item.image.src}
+          nom={item.text}
+          onClick={event => {
+            this.unselectItem(event, item);
+          }}
+        />
+      );
+    });
+  }
+
+  handleChange = (event, { value }) => {
+    event.preventDefault();
+    this.selectItem(value);
+  };
+
+  selectItem(itemValue) {
+    const selectedValues = [...this.state.selectedValues];
+
+    if (!selectedValues.includes(itemValue)) {
+      selectedValues.push(itemValue);
     }
 
-    unselectItem(event, item) {
-        event.preventDefault();
-        const selectedValues = this.state.selectedValues.filter(value => value !== item.value);
+    this.setState({
+      selectedValues: selectedValues,
+      dropdownValue: null
+    });
+  }
 
-        this.setState({
-            selectedValues: selectedValues,
-            dropdownValue: null
-        });
-    }
+  unselectItem(event, item) {
+    event.preventDefault();
+    const selectedValues = this.state.selectedValues.filter(
+      value => value !== item.value
+    );
 
-    handleAddItem = (event, { value }) => {
-        this.setState({
-            modalOpen: true,
-            modalFirstName: value
-        });
-    };
+    this.setState({
+      selectedValues: selectedValues,
+      dropdownValue: null
+    });
+  }
 
-    handleSearchChange = (event, { searchQuery }) => {
-        this.setState({ searchQuery: searchQuery });
-    };
+  handleAddItem = (event, { value }) => {
+    this.setState({
+      modalOpen: true,
+      modalFirstName: value
+    });
+  };
 
-    handleBlur = () => {
-        this.setState({ searchQuery: '' });
-    };
+  handleSearchChange = (event, { searchQuery }) => {
+    this.setState({ searchQuery: searchQuery });
+  };
 
-    render() {
-        return (
-            <>
-                <div className="champ with-trigger-icon">
-                    <label>
-                        <TitreChamp
-                            label={ this.props.label }
-                            description={ this.props.description }
-                        />
+  handleBlur = () => {
+    this.setState({ searchQuery: "" });
+  };
 
-                        { this.renderSelectedItems() }
+  render() {
+    return (
+      <>
+        <div className="champ with-trigger-icon">
+          <label>
+            <TitreChamp
+              label={this.props.label}
+              description={this.props.description}
+            />
 
-                        <Dropdown
-                            trigger={ this.triggerLabel() }
-                            fluid
-                            search
-                            selection
-                            selectOnBlur={ false }
-                            selectOnNavigation={ false }
-                            allowAdditions
-                            additionLabel={ this.additionLabel() }
-                            value={ this.state.dropdownValue }
-                            options={ this.unselectedItems() }
-                            onBlur={ this.handleBlur }
-                            onChange={ this.handleChange }
-                            onAddItem={ this.handleAddItem }
-                            onSearchChange={ this.handleSearchChange }
-                        />
-                    </label>
-                </div>
+            {this.renderSelectedItems()}
 
-                <ModifyUser
-                    open={ this.state.modalOpen }
-                    firstName={ this.state.modalFirstName }                   
-                    onClose={ () => this.setState({ modalOpen: false, modalFirstName: '' }) }
-                />
-            </>
-        );
-    }
+            <Dropdown
+              trigger={this.triggerLabel()}
+              fluid
+              search
+              selection
+              selectOnBlur={false}
+              selectOnNavigation={false}
+              allowAdditions
+              additionLabel={this.additionLabel()}
+              value={this.state.dropdownValue}
+              options={this.unselectedItems()}
+              onBlur={this.handleBlur}
+              onChange={this.handleChange}
+              onAddItem={this.handleAddItem}
+              onSearchChange={this.handleSearchChange}
+            />
+          </label>
+        </div>
+
+        <ModifyUser
+          open={this.state.modalOpen}
+          firstName={this.state.modalFirstName}
+          onClose={() =>
+            this.setState({ modalOpen: false, modalFirstName: "" })
+          }
+        />
+      </>
+    );
+  }
 }
+
+export default withTranslation()(ChampSelectionMultipleAyantDroit);

@@ -6,10 +6,10 @@
   },
   "options": {
     "piece": {
-      "titre": "This work is ...",
-      "originale": "an original creation",
-      "arrangement": "a remix",
-      "reprise": "a cover"
+      "titre": "This work is...",
+      "originale": "An original creation",
+      "arrangement": "A remix",
+      "reprise": "A cover"
     }
   },
   "titre": {
@@ -21,15 +21,16 @@
     "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
-    "titre": "Add a collaborating artist",
+    "titre": "[Add/Modify] a collaborating artist",
+    "titre2": "Add as a collaborator:",
     "attribut": {
       "etiquette": {
         "nom": "Legal Name",
         "prenom": "Legal First Name",
         "artiste": "Artist Name",
-        "option": " (optional)",
-        "na": "If not applicable, the complete name is displayed.",
-        "role": "Role in the work",
+        "option": " Optional",
+        "na": "If not applicable, the complete name will be displayed.",
+        "role": "Role(s) by default",
         "courriel": "Email",
         "groupe": "Groups"
       },
@@ -39,7 +40,7 @@
         "artiste": "Artist name",
         "role": "Choose one or more role",
         "role2": "These roles can be modified later.",
-        "groupe": "Choose a group"
+        "groupe": "Search among groups"
       },
       "bouton": {
         "annuler": "Cancel",
@@ -172,6 +173,10 @@
         "password": "Forgot Password",
         "password2": "Password Verification",
         "password3": "Change Verification",
+        "definir": "Set new password",
+        "nouveau": "New password",
+        "code": "Please enter the verification code sent to your email address below, your email address and a new password.",
+        "verification": "Enter verification code",
         "welcome": "Welcome",
         "tableau": "Dashboard",
         "media": "Split Rights for a Media:",
@@ -437,7 +442,7 @@
         },
         "etape": {
           "partage-etape": "Step 2",
-          "partage-titre": "Split your rights",
+          "partage-titre": "© Copyright",
           "enregistrerEtQuitter": "Save and Quit",
           "vote-titre": "Validate the share proposal"
         },
@@ -697,6 +702,7 @@
     "anglais": "English",
     "deconnexion": "Disconnect"
   },
+  "reussi": "Lugin successful",
   "obligatoire": "Mendatory",
   "connexion": "Login mendatory",
   "connecter": "You must be connected to vote",

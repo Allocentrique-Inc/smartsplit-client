@@ -1,31 +1,29 @@
-import React from 'react';
-import { Translation } from 'react-i18next'
+import React from "react";
+import { Translation } from "react-i18next";
+import { Modal } from "semantic-ui-react";
 
 const ChangePasswordVerification = () => (
-  
   // <React.Fragment>
-    <Translation>
-      {
-        (t) =>
-        <section className="section auth">
-         <div className="container">
-          <tbody>
+  <Translation>
+    {t => (
+      <section className="section auth">
+        <div className="container">
+          <tbody style={{ FontFamily: "IBM Plex Sans", fontSize: "16px" }}>
             <tr>
               <td>
-                <h2>{t('auth.passwordchanged.titre')}</h2>
+                <h2>
+                  &nbsp;&nbsp;{t("flot.split.auth.passwordchanged.titre")}
+                </h2>
 
-                <p>
-                  {t('auth.passwordchanged.indication')}
-                </p>
-
+                <p>{t("flot.split.auth.passwordchanged.indication")}</p>
               </td>
             </tr>
-          </tbody>    
-         </div>
+          </tbody>
+        </div>
       </section>
-      }      
-    </Translation>    
+    )}
+  </Translation>
   // </React.Fragment>
-)
+);
 
-export default ChangePasswordVerification
+export default ChangePasswordVerification;

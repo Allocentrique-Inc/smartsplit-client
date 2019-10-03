@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Collabo.css";
+import "./ModifyUser.css";
 import axios from "axios";
 import {
   Button,
@@ -11,7 +11,7 @@ import {
   Input,
   Label
 } from "semantic-ui-react";
-import { Translation } from "react-i18next";
+import { withTranslation, Translation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
 
@@ -30,7 +30,7 @@ const roles = [
   "musician"
 ];
 
-export default class ModifyUser extends Component {
+class ModifyUser extends Component {
   constructor(props) {
     super(props);
 
@@ -105,35 +105,41 @@ export default class ModifyUser extends Component {
 
   click() {
     this.handleSubmit();
-    if(this.props.close) {
-      this.props.close()
-    }      
+    if (this.props.close) {
+      this.props.close();
+    }
   }
 
   randomPassword(length) {
-    let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890"
+    let chars =
+      "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
     let password = "";
     for (var x = 0; x < length; x++) {
-        var i = Math.floor(Math.random() * chars.length);
-        password += chars.charAt(i);
+      var i = Math.floor(Math.random() * chars.length);
+      password += chars.charAt(i);
     }
     return password;
   }
 
   handleSubmit = values => {
-
     let attributes = {
       email: this.state.email,
       given_name: this.state.firstName,
       family_name: this.state.lastName,
-      'custom:artistName': this.state.artistName,
-      'custom:defaultRoles': Buffer.from(JSON.stringify(this.state.currentRoleValue)).toString('base64'),
-      'custom:instruments':Buffer.from(JSON.stringify(this.state.instruments)).toString('base64'),
-      'custom:groups': Buffer.from(JSON.stringify(this.state.currentValue)).toString('base64'),
-      'custom:avatarImage': this.state.avatarImage
-    }
-    let username = this.state.email
-    let password = this.randomPassword(16)
+      "custom:artistName": this.state.artistName,
+      "custom:defaultRoles": Buffer.from(
+        JSON.stringify(this.state.currentRoleValue)
+      ).toString("base64"),
+      "custom:instruments": Buffer.from(
+        JSON.stringify(this.state.instruments)
+      ).toString("base64"),
+      "custom:groups": Buffer.from(
+        JSON.stringify(this.state.currentValue)
+      ).toString("base64"),
+      "custom:avatarImage": this.state.avatarImage
+    };
+    let username = this.state.email;
+    let password = this.randomPassword(16);
 
     try {
       Auth.signUp({
@@ -148,11 +154,11 @@ export default class ModifyUser extends Component {
           }
         })
         .catch(err => {
-          toast.error(err)
+          toast.error(err);
           console.log(err);
         });
     } catch (err) {
-      console.log('try', err);
+      console.log("try", err);
     }
   };
 
@@ -165,7 +171,7 @@ export default class ModifyUser extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://api.smartsplit.org:8080/v1/rightHolders")
+      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
@@ -232,76 +238,132 @@ export default class ModifyUser extends Component {
             size="small"
           >
             <div className="input-container">
-              <Modal.Header className="Titre">
-                {t("collaborateur.titre")}
+              <Modal.Header className="Titre" style={{ color: "black" }}>
+                <strong>{t("collaborateur.titre")}</strong>
               </Modal.Header>
               <br></br>
-              <input
-                type="text"
-                className="firstName"
-                placeholder={t("collaborateur.attribut.etiquette.prenom")}
-                value={this.state.firstName}
-                onChange={e => this.onTodoChange(e.target.value)}
-              />
-              <input
-                type="text"
-                className="lastName"
-                placeholder={t("collaborateur.attribut.etiquette.nom")}
-                value={this.state.lastName}
-                onChange={e => this.setState({ lastName: e.target.value })}
-              />
-              <label>{t("collaborateur.attribut.etiquette.artiste")}</label>
-              <label id="Optionel">
-                {t("collaborateur.attribut.etiquette.option")}
-              </label>
-              <input
-                type="text"
-                className="artistName"
-                placeholder={t("collaborateur.attribut.etiquette.artiste")}
-                value={this.state.artistName}
-                onChange={e => this.setState({ artistName: e.target.value })}
-              />
-              <div className="sous titre">
-                {t("collaborateur.attribut.etiquette.na")}
-              </div>
-              <input
-                type="text"
-                className="email"
-                placeholder={t("collaborateur.attribut.etiquette.courriel")}
-                value={this.state.email}
-                onChange={e => this.setState({ email: e.target.value })}
-              />
-              <label>{t("collaborateur.attribut.etiquette.groupe")}</label>
-              <Dropdown
-                id="prompt"
-                type="text"
-                options={this.state.groups}
-                placeholder={t("collaborateur.attribut.indication.groupe")}
-                search
-                multiple={true}
-                selection
-                fluid
-                allowAdditions
-                value={currentValue}
-                onAddItem={this.handleAddition}
-                onChange={this.handleChange}
-              />
-              {/*<i className="search icon"></i>*/}
-              <label>{t("collaborateur.attribut.etiquette.role")}</label>
-              <Dropdown
-                id="roles"
-                type="text"
-                options={this.state.roles}
-                placeholder={t("collaborateur.attribut.indication.role")}
-                search
-                multiple={true}
-                selection
-                fluid
-                value={currentRoleValue}
-                onChange={this.roleChange}
-              />
-              <div className="sous titre">
-                {t("collaborateur.attribut.indication.role2")}
+              <div className="userContainer" style={{ alignItems: "center" }}>
+                <span
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: "100%"
+                  }}
+                >
+                  <div style={{ width: "220px" }}>
+                    <label>
+                      <strong>
+                        {t("collaborateur.attribut.etiquette.prenom")}
+                      </strong>
+                    </label>
+                    <input
+                      type="text"
+                      className="firstName"
+                      placeholder={t("collaborateur.attribut.etiquette.prenom")}
+                      value={this.state.firstName}
+                      onChange={e => this.onTodoChange(e.target.value)}
+                      style={{ marginRight: "5px" }}
+                    />
+                  </div>
+                  <div style={{ width: "220px" }}>
+                    <label>
+                      <strong>
+                        &nbsp;&nbsp;{t("collaborateur.attribut.etiquette.nom")}
+                      </strong>
+                    </label>
+                    <input
+                      type="text"
+                      className="lastName"
+                      placeholder={t("collaborateur.attribut.etiquette.nom")}
+                      value={this.state.lastName}
+                      onChange={e =>
+                        this.setState({ lastName: e.target.value })
+                      }
+                      style={{ marginLeft: "5px" }}
+                    />
+                  </div>
+                </span>
+                <br></br>
+                <label>
+                  <strong>
+                    {t("collaborateur.attribut.etiquette.artiste")}
+                  </strong>
+                </label>
+                <label style={{ float: "right", color: "gray" }}>
+                  {t("collaborateur.attribut.etiquette.option")}
+                </label>
+                <input
+                  type="text"
+                  className="artistName"
+                  placeholder={t("collaborateur.attribut.etiquette.artiste")}
+                  value={this.state.artistName}
+                  onChange={e => this.setState({ artistName: e.target.value })}
+                />
+                <div
+                  className="sous titre"
+                  style={{ color: "gray", fontSize: "small" }}
+                >
+                  {t("collaborateur.attribut.etiquette.na")}
+                </div>
+                <br></br>
+                <label>
+                  <strong>
+                    {t("collaborateur.attribut.etiquette.courriel")}
+                  </strong>
+                </label>
+                <input
+                  type="text"
+                  className="email"
+                  placeholder={t("collaborateur.attribut.etiquette.courriel")}
+                  value={this.state.email}
+                  onChange={e => this.setState({ email: e.target.value })}
+                />
+                <br></br>
+                <label>
+                  <strong>
+                    {t("collaborateur.attribut.etiquette.groupe")}
+                  </strong>
+                </label>
+                <span>
+                  <Dropdown
+                    icon="ui search icon"
+                    id="prompt"
+                    type="text"
+                    options={this.state.groups}
+                    placeholder={t("collaborateur.attribut.indication.groupe")}
+                    search
+                    multiple={true}
+                    selection
+                    fluid
+                    allowAdditions
+                    value={currentValue}
+                    onAddItem={this.handleAddition}
+                    onChange={this.handleChange}
+                  />
+                </span>
+                <br></br>
+                <label>
+                  <strong>{t("collaborateur.attribut.etiquette.role")}</strong>
+                </label>
+                <Dropdown
+                  id="roles"
+                  type="text"
+                  options={this.state.roles}
+                  placeholder={t("collaborateur.attribut.indication.role")}
+                  search
+                  multiple={true}
+                  selection
+                  fluid
+                  value={currentRoleValue}
+                  onChange={this.roleChange}
+                />
+                <div
+                  className="sous titre"
+                  style={{ color: "gray", fontSize: "small" }}
+                >
+                  {t("collaborateur.attribut.indication.role2")}
+                </div>
+                <br></br>
               </div>
             </div>
             <Modal.Actions>
@@ -322,3 +384,4 @@ export default class ModifyUser extends Component {
     );
   }
 }
+export default withTranslation()(ModifyUser);

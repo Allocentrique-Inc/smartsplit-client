@@ -142,7 +142,12 @@ class LogIn extends Component {
                           // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
                           this.props.parent.afficher(1);
                         }}
-                        style={{ color: "#2DA84F", cursor: "pointer" }}
+                        style={{
+                          color: "#2DA84F",
+                          cursor: "pointer",
+                          position: "relative",
+                          bottom: "20px"
+                        }}
                       >
                         {t("entete.inscription")}
                       </div>

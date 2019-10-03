@@ -5,11 +5,14 @@ import { Auth } from "aws-amplify";
 import Login from "../auth/Login";
 import Register from "./Register";
 import ForgotPassword from "./ForgotPassword";
+import ForgotPasswordVerification from "./ForgotPasswordVerification";
+import ChangePasswordVerification from "./ChangePasswordVerification";
 
 const TYPE_LOGIN = 0,
   TYPE_REGISTER = 1,
-  TYPE_FORGOT = 2
-  // TYPE_PROFILE = 3
+  TYPE_FORGOT = 2,
+  TYPE_VERIFY = 3,
+  TYPE_CHANGE = 4;
 
 export default class ModaleConnexion extends Component {
   constructor(props) {
@@ -87,7 +90,12 @@ export default class ModaleConnexion extends Component {
           />
         )}
         {this.state.opened === TYPE_REGISTER && <Register parent={this} />}
-        {/* {this.state.opened === TYPE_PROFILE && <Register2 parent={this} />} */}
+        {this.state.opened === TYPE_VERIFY && (
+          <ForgotPasswordVerification parent={this} />
+        )}
+        {this.state.opened === TYPE_CHANGE && (
+          <ChangePasswordVerification parent={this} />
+        )}
         {this.state.opened === TYPE_FORGOT && <ForgotPassword parent={this} />}
       </Modal>
     );
