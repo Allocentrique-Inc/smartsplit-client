@@ -188,7 +188,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                                 options: this.state.options,
                                 onAddItem: this.handleAddition,
                                 allowAdditions: this.state.ajout,
-                                clearable: true
+                                clearable: false
                             }}
                             
                         />

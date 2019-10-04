@@ -55,11 +55,9 @@ class Apercu extends Component {
                                     <div className="ui two wide column">
                                         <i className="file image outline icon big grey" style={{marginBottom: "20px"}} /> 
                                     </div>
-                                    <div className="ui twelve wide column">
-                                        <p>
-                                            {this.state.values.artist || t('titre.oeil-ouvert')}
-                                        </p>
+                                    <div className="ui twelve wide column">                                        
                                         <p style={{fontWeight: "bolder"}}>{this.state.values.title || t('titre.apercu-sen-vient')}</p>
+                                        <p>{this.state.values.artist || t('titre.oeil-ouvert')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -513,8 +511,8 @@ export default class NouvelleOeuvre extends Component {
                                         type: undefined
                                     }}
                                     buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti')}}
-                                    debug={false}         
-                                    onPageChanged={no=>this.changementPage(no, t)}                       
+                                    debug={true}
+                                    onPageChanged={no=>this.changementPage(no, t)}
                                     onSubmit={(values, {setSubmitting})=>{this.soumettre(values, t); setSubmitting(false) }}
                                     style={{width: "80%"}}
 

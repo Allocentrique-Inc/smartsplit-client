@@ -451,7 +451,7 @@ class AssistantPartage extends Component {
                                                 media: this.state.media
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={false}
+                                            debug={true}
                                             onSubmit={
                                                 (values) => {
                                                     if(!lectureSeule) {

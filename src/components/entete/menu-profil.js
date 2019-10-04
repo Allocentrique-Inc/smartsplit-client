@@ -86,9 +86,7 @@ class MenuProfil extends Component {
         {t => (
           <span
             style={{
-              position: "relative",
-              right: "100px",
-              top: "30px",
+              position: "absolute",              
               zIndex: "1"
             }}
           >
@@ -145,14 +143,7 @@ class MenuProfil extends Component {
     return (
       <Translation>
         {t => (
-          <div
-            className="ui row"
-            style={{
-              position: "relative",
-              top: "30px",
-              right: "125px"
-            }}
-          >
+          <>
             <div
               className="ui five wide column avatar--image profile"
               style={{
@@ -167,6 +158,7 @@ class MenuProfil extends Component {
                 background: "transparent",
                 width: "150px",
                 position: "relative",
+                top: "5px",
                 bottom: "10px"
               }}
             >
@@ -176,7 +168,7 @@ class MenuProfil extends Component {
               <img src={avatarImage} alt="user--image" className="user--img" />
             )}
             {menu}
-          </div>
+          </>
         )}
       </Translation>
     );
