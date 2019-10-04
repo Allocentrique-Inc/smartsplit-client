@@ -1,11 +1,15 @@
 @import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
 
-.input-container .ui.small.modal .Titre {
+.ui.small.modal .input-container {
   font-family: "IBM Plex Sans";
-  font-weight: normal;
   font-size: 16px;
   line-height: 35px;
-  margin: 0 20px 0 20px;
+  margin: 0 20px 0 80px;
+  align-items: center;
+}
+
+.Titre {
+  font-size: 18px;
 }
 
 label.courriel {
