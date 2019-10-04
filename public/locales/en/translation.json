@@ -630,7 +630,8 @@
         "correspond": "The passwords do not match",
         "password": "Password",
         "ou": "or",
-        "bouton": "Create my account"
+        "bouton": "Create my account",
+        "courriel-confirm": "Confirm your email"
       }
     },
     "fin": {

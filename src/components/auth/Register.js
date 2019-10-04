@@ -4,6 +4,9 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
+import { base64EncArr } from "../../utils/base64EncArr";
+
+
 import {
   Button,
   Header,
@@ -19,20 +22,6 @@ import axios from "axios";
 // Traduction
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
-
-const roles = [
-  "principal",
-  "accompaniment",
-  "songwriter",
-  "composer",
-  "remixer",
-  "studio",
-  "publisher",
-  "graphist",
-  "producer",
-  "singer",
-  "musician"
-];
 
 class Register extends Component {
   state = {
@@ -56,6 +45,7 @@ class Register extends Component {
       hidden: true,
       confirmhidden: true,
       password: "",
+      confirmEmail: "",
       confirmpassword: "",
       strength: 0,
       passwordmatch: false,
@@ -70,20 +60,8 @@ class Register extends Component {
       currentRoleValue: [],
       image: "",
       uploadURL: "",
-      roles: [
-        { key: "Principal", text: "Principal", value: "Principal" },
-        { key: "Accompaniment", text: "Accompaniment", value: "Accompaniment" },
-        { key: "Songwriter", text: "Songwriter", value: "Songwriter" },
-        { key: "Composer", text: "Composer", value: "Composer" },
-        { key: "Remixer", text: "Remixer", value: "Remixer" },
-        { key: "Studio", text: "Studio", value: "Studio" },
-        { key: "Publisher", text: "Publisher", value: "Publisher" },
-        { key: "Graphist", text: "Graphist", value: "Graphist" },
-        { key: "Producer", text: "Producer", value: "Producer" },
-        { key: "Singer", text: "Singer", value: "Singer" },
-        { key: "Musician", text: "Musician", value: "Musician" }
-      ]
-    };
+      roles: []
+    }
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.validatePasswordStrong = this.validatePasswordStrong.bind(this);
@@ -98,15 +76,15 @@ class Register extends Component {
     this.validateConfirmPassword = this.validateConfirmPassword.bind(this);
   }
 
-  clearErrorState = () => {
-    this.setState({
-      errors: {
-        cognito: null,
-        blankfield: false,
-        passwordmatch: false
-      }
-    });
-  };
+  // clearErrorState = () => {
+  //   this.setState({
+  //     errors: {
+  //       cognito: null,
+  //       blankfield: false,
+  //       passwordmatch: false
+  //     }
+  //   });
+  // };
 
   validateUsername(value) {
     if (!value) {
@@ -156,7 +134,6 @@ class Register extends Component {
   };
 
   handleSubmit = values => {
-    // AWS Cognito integration here
     const username = values.username;
     const email = values.username; // username is used as email
     const password = this.state.password;
@@ -164,9 +141,22 @@ class Register extends Component {
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const artistName = this.state.artistName;
-    const defaultRoles = Buffer.from(JSON.stringify(this.state.currentRoleValue)).toString('base64');
-    const instruments = Buffer.from(JSON.stringify(this.state.instruments)).toString('base64');
-    const groups = Buffer.from(JSON.stringify(this.state.currentValue)).toString('base64');
+    // Encode objects as aUTF16Base64 Strings
+    let groupsObject = this.state.currentValue;
+    let instrumentsObject = this.state.instruments;
+    let defaultRolesObject = this.state.currentRoleValue;
+
+    let aUTF16CodeUnitsRoles = new Uint16Array(JSON.stringify(defaultRolesObject).length);
+    Array.prototype.forEach.call(aUTF16CodeUnitsRoles, function (el, idx, arr) { arr[idx] = (JSON.stringify(defaultRolesObject)).charCodeAt(idx); });
+    let defaultRoles = base64EncArr(new Uint8Array(aUTF16CodeUnitsRoles.buffer));
+
+    let aUTF16CodeUnitsInstruments = new Uint16Array(JSON.stringify(instrumentsObject).length);
+    Array.prototype.forEach.call(aUTF16CodeUnitsInstruments, function (el, idx, arr) { arr[idx] = (JSON.stringify(instrumentsObject)).charCodeAt(idx); });
+    let instruments = base64EncArr(new Uint8Array(aUTF16CodeUnitsInstruments.buffer));
+
+    let aUTF16CodeUnitsGroups = new Uint16Array(JSON.stringify(groupsObject).length);
+    Array.prototype.forEach.call(aUTF16CodeUnitsGroups, function (el, idx, arr) { arr[idx] = (JSON.stringify(groupsObject)).charCodeAt(idx); });
+    let groups = base64EncArr(new Uint8Array(aUTF16CodeUnitsGroups.buffer));
 
     try {
       Auth.signUp({
@@ -302,29 +292,6 @@ class Register extends Component {
     }
   }
 
-  //   handleSubmit = values => {
-  //     try {
-  //       this.setState({ patience: true }, () => {
-  //         Auth.signIn(values.username, values.password)
-  //           .then(user => {
-  //             toast.success(`#${user.username} !`);
-
-  //             if (this.props.fn) {
-  //               this.props.fn();
-  //             }
-  //           })
-  //           .catch(err => {
-  //             toast.error(err.message);
-  //           })
-  //           .finally(() => {
-  //             this.setState({ patience: false });
-  //           });
-  //       });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
   render() {
     const {
       type,
@@ -333,6 +300,7 @@ class Register extends Component {
       children,
       ...restProps
     } = this.props;
+
     const { password, strength, currentValue, currentRoleValue } = this.state;
 
     const { firstName, lastName, username } = this.state;
@@ -370,6 +338,7 @@ class Register extends Component {
         initialValues={{
           // email: this.state.email,
           username: this.state.username,
+          confirmEmail: this.state.confirmEmail,
           // firstName: this.state.firstName,
           // lastName: this.state.lastName,
           // artistName: this.state.artistName,
@@ -443,17 +412,17 @@ class Register extends Component {
                         )}
                       </header>
                       {/*<hr className="hrLogin" />*/}
-                      <hr
+                      {/* <hr
                         className="hrLogin"
                         data-content={t("flot.split.inscription.ou")}
-                      />
+                      /> */}
                       <section className="section auth">
                         <div className="container">
-                          <img
+                          {/* <img
                             type="image"
                             className="avatarImage"
                             src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
-                          />
+                          /> */}
                           {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
                           <br></br>
                           <br></br>
@@ -531,7 +500,21 @@ class Register extends Component {
                           <Dropdown
                             id="roles"
                             type="text"
-                            options={this.state.roles}
+                            options={
+                              [
+                                { key: "Principal", text: "Principal", value: "Principal" },
+                                { key: "Accompaniment", text: "Accompaniment", value: "Accompaniment" },
+                                { key: "Songwriter", text: "Songwriter", value: "Songwriter" },
+                                { key: "Composer", text: "Composer", value: "Composer" },
+                                { key: "Remixer", text: "Remixer", value: "Remixer" },
+                                { key: "Studio", text: "Studio", value: "Studio" },
+                                { key: "Publisher", text: "Publisher", value: "Publisher" },
+                                { key: "Graphist", text: "Graphist", value: "Graphist" },
+                                { key: "Producer", text: "Producer", value: "Producer" },
+                                { key: "Singer", text: "Singer", value: "Singer" },
+                                { key: "Musician", text: "Musician", value: "Musician" }
+                              ]
+                            }
                             placeholder={t(
                               "collaborateur.attribut.indication.role"
                             )}
@@ -572,11 +555,39 @@ class Register extends Component {
                               )}
                             </div>
                           </div>
+                          <div className="field">
+                            <div className="control">
+                              <label htmlFor="username">
+                                {t("flot.split.inscription.courriel-confirm")}
+                              </label>
+                              <Field
+                                validate={val => {
+                                  this.validateUsername(val);
+                                }}
+                                name="username"
+                                id="username"
+                                aria-describedby="userNameHelp"
+                                placeholder={t(
+                                  "flot.split.inscription.exemple"
+                                )}
+                                value={this.state.confirmEmail}
+                                required={true}
+                                onChange={e =>
+                                  this.setState({ confirmEmail: e.target.value })
+                                }
+                              />
+                              {errors.username && touched.username && (
+                                <div style={{ color: "red" }}>
+                                  {t("flot.split.inscription.email-invalide")}{" "}
+                                </div>
+                              )}
+                            </div>
+                          </div>
                           <span>
                             <div className="field">
                               <div className="control has-icons-left">
                                 <label htmlFor="password">
-                                  {t("inscription.motdepasse")}
+                                  {t("flot.split.inscription.motdepasse")}
                                 </label>
 
                                 <div className="input-wrapper">
@@ -593,7 +604,7 @@ class Register extends Component {
                                     }
                                     id="password"
                                     name="password"
-                                    placeholder={t("inscription.password")}
+                                    placeholder={t("flot.split.inscription.password")}
                                     value={this.state.password}
                                     onChange={this.handlePasswordChange}
                                     /*onChange={this.stateChanged}*/

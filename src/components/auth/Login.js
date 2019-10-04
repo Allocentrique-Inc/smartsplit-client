@@ -193,13 +193,13 @@ class LogIn extends Component {
                                 name="username"
                                 id="username"
                                 aria-describedby="usernameHelp"
-                                placeholder={t("inscription.exemple")}
+                                placeholder={t("flot.split.inscription.exemple")}
                                 required={true}
                               />
                               {errors.username && touched.username && (
                                 <div style={{ color: "red" }}>
                                   {" "}
-                                  {t("inscription.email-invalide")}{" "}
+                                  {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
                               )}
                             </div>
@@ -215,7 +215,7 @@ class LogIn extends Component {
                                   type={this.state.hidden ? "password" : "text"}
                                   id="password"
                                   name="password"
-                                  placeholder={t("inscription.motdepasse")}
+                                  placeholder={t("flot.split.inscription.motdepasse")}
                                   required={true}
                                 />
                                 <button
@@ -231,7 +231,7 @@ class LogIn extends Component {
                             {errors.password && touched.password && (
                               <div style={{ color: "red" }}>
                                 {" "}
-                                {t("inscription.password-invalide")}{" "}
+                                {t("flot.split.inscription.password-invalide")}{" "}
                               </div>
                             )}
                           </div>

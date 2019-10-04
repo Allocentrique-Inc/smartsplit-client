@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Collabo.css";
 import axios from "axios";
+import { base64EncArr } from "../../utils/base64EncArr";
 import {
   Button,
   Header,
@@ -121,15 +122,31 @@ export default class ModifyUser extends Component {
   }
 
   handleSubmit = values => {
+    // Encode objects as aUTF16Base64 Strings
+    let groupsObject = this.state.currentValue;
+    let instrumentsObject = this.state.instruments;
+    let defaultRolesObject = this.state.currentRoleValue;
+
+    let aUTF16CodeUnitsRoles = new Uint16Array(JSON.stringify(defaultRolesObject).length);
+    Array.prototype.forEach.call(aUTF16CodeUnitsRoles, function (el, idx, arr) { arr[idx] = (JSON.stringify(defaultRolesObject)).charCodeAt(idx); });
+    let defaultRoles = base64EncArr(new Uint8Array(aUTF16CodeUnitsRoles.buffer));
+
+    let aUTF16CodeUnitsInstruments = new Uint16Array(JSON.stringify(instrumentsObject).length);
+    Array.prototype.forEach.call(aUTF16CodeUnitsInstruments, function (el, idx, arr) { arr[idx] = (JSON.stringify(instrumentsObject)).charCodeAt(idx); });
+    let instruments = base64EncArr(new Uint8Array(aUTF16CodeUnitsInstruments.buffer));
+
+    let aUTF16CodeUnitsGroups = new Uint16Array(JSON.stringify(groupsObject).length);
+    Array.prototype.forEach.call(aUTF16CodeUnitsGroups, function (el, idx, arr) { arr[idx] = (JSON.stringify(groupsObject)).charCodeAt(idx); });
+    let groups = base64EncArr(new Uint8Array(aUTF16CodeUnitsGroups.buffer));
 
     let attributes = {
       email: this.state.email,
       given_name: this.state.firstName,
       family_name: this.state.lastName,
       'custom:artistName': this.state.artistName,
-      'custom:defaultRoles': Buffer.from(JSON.stringify(this.state.currentRoleValue)).toString('base64'),
-      'custom:instruments':Buffer.from(JSON.stringify(this.state.instruments)).toString('base64'),
-      'custom:groups': Buffer.from(JSON.stringify(this.state.currentValue)).toString('base64'),
+      'custom:defaultRoles': defaultRoles,
+      'custom:instruments': instruments,
+      'custom:groups': groups,
       'custom:avatarImage': this.state.avatarImage
     }
     let username = this.state.email
