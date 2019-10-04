@@ -171,7 +171,7 @@ class ModifyUser extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
+      .get("http://api.smartsplit.org:8080/v1/rightHolders")
       .then(res => {
         let groupers = [];
         let groupsUnique = [];

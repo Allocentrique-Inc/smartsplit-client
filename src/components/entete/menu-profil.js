@@ -33,7 +33,7 @@ class MenuProfil extends Component {
   componentWillMount() {
     axios
       .get(
-        "http://dev.api.smartsplit.org:8080/v1/rightHolders/" +
+        "http://api.smartsplit.org:8080/v1/rightHolders/" +
           this.state.auth.username
       )
       .then(res => {

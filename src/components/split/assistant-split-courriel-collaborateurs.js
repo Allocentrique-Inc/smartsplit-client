@@ -36,7 +36,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
       aTous = false;
     Object.keys(this.props.ayantDroits).forEach(rhId => {
       axios
-        .get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${rhId}`)
+        .get(`http://api.smartsplit.org:8080/v1/rightholders/${rhId}`)
         .then(res => {
           let _aD = res.data.Item;
           if (_aD) {
@@ -90,7 +90,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
     };
 
     axios
-      .post("http://dev.api.smartsplit.org:8080/v1/proposal/invite", body)
+      .post("http://api.smartsplit.org:8080/v1/proposal/invite", body)
       .then(resp => {
         this.props.close(() => {
           window.location.reload();

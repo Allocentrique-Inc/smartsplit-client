@@ -64,7 +64,7 @@ class TableauSommaireSplit extends Component {
         if (this.props.jeton) {            
             propositionId = this.props.jeton.proposalId     
             // Récupère la prposition
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${propositionId}`)
+            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${propositionId}`)
             .then((res)=>{
                 proposal = res.data.Item
                 
@@ -141,7 +141,7 @@ class TableauSommaireSplit extends Component {
                 this.setState({proposition: proposal})
                                
                  // Récupère le titre du média
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${proposal.mediaId}`)
+                axios.get(`http://api.smartsplit.org:8080/v1/media/${proposal.mediaId}`)
                 .then(res=>{
                     let media = res.data.Item
                     this.setState({mediaTitle: media.title})
@@ -220,7 +220,7 @@ class TableauSommaireSplit extends Component {
                             raison: document.getElementById('raison').value
                         }                                                                
                 
-                        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/justifier-refus', refus)
+                        axios.post('http://api.smartsplit.org:8080/v1/proposal/justifier-refus', refus)
                         .catch(err=>{console.log(err)})
                         .then(()=>{
                             fn()                            
@@ -294,7 +294,7 @@ class TableauSommaireSplit extends Component {
                                 jeton: this.state.jetonAPI
                             }
                     
-                            axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/voter', body)
+                            axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
                             .then(()=>{
                                 this.majListeVotes()
                             })
