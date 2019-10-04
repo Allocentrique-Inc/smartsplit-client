@@ -26,7 +26,7 @@ class PageAssistantPartageChoixEditeur extends Component {
     if(_ed) {
       let ayantDroit = this.state.editeurs[_ed], nom
       if(ayantDroit) {
-          nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+        nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
       }
 
       let editeur = {

@@ -2,6 +2,9 @@
   "info": {
     "oeuvre": {
       "creation": "Work # {{id}} created. :)"
+    },
+    "partage": {
+      "vide": "Cannot share an empty proposal. Add at least one collaborator to a right."
     }
   },
   "options": {

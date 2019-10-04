@@ -121,7 +121,7 @@ export class ChampListeCollaborateurAssistant extends Component {
         .then(res=>{            
             let _adParId = {}
             let _options = res.data.map((elem, idx)=>{
-                let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
+                let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
                 _adParId[elem.rightHolderId] = elem
                 let avatar = ''                
                 // Y a-t-il un avatar ?

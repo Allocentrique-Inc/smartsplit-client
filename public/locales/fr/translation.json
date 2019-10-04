@@ -2,6 +2,9 @@
   "info": {
     "oeuvre": {
       "creation": "Oeuvre # {{id}} créée. :)"
+    },
+    "partage": {
+      "vide": "Un partage vide ne peut pas être soumis. Assigne au moins un collaborateur à un droit."
     }
   },
   "options": {

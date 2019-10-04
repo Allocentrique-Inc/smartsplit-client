@@ -105,6 +105,7 @@ class PageAssistantPartageAuteur extends Component {
                 }
                 break;
             case MODES.manuel:
+
                 if (this.state.parts.length > 0) {
                     let auteurs = [], compositeurs = [], arrangeurs = []
                     this.state.parts.forEach(elem => {
@@ -142,14 +143,21 @@ class PageAssistantPartageAuteur extends Component {
         this.props.values.droitAuteur.forEach(elem => {
             _pctDelta = _pctDelta - parseFloat(elem.pourcent)
         })
-        return `${_pctDelta < 0 ? 0 : _pctDelta}`
+        
+        return `${_pctDelta < 0 ? 0 : _pctDelta.toFixed(4)}`
     }
 
     changementGradateur(index, delta) {
-        // Changement d'un gradateur
+        // Changement d'un gradateur        
 
         let invariable = this.state.partsInvariables
-        let droits = this.props.values.droitAuteur        
+        let droits = this.props.values.droitAuteur
+
+        // extraction de l'index numérique du gradateur
+        // pour récupération du droit (derniers caractères après le dernier _)
+        let idxG = index.substring(index.lastIndexOf('_') + 1,index.length)
+
+        delta = delta - (parseFloat(droits[idxG].pourcent) % 1) // différence décimales à 
         
         let deltaParCollaborateurVariable = 0.0
 
@@ -163,17 +171,18 @@ class PageAssistantPartageAuteur extends Component {
         if(nbModifications > 0) {
             deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
         }
-    
+            
         droits.forEach((elem, idx)=>{
-            if(!invariable[idx]) { // Ajustement si l'index est variable                
-                droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)
-                droits[idx].pourcentParoles = droits[idx].pourcent / 2
-                droits[idx].pourcentMusique = droits[idx].pourcent / 2
-                console.log(droits[idx])
+            if(!invariable[idx]) { // Ajustement si l'index est variable
+                droits[idx].pourcent = (Math.round( (parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)) * 10000) / 10000)
+                droits[idx].pourcentParoles = (Math.round((droits[idx].pourcent / 2) * 10000) / 10000)
+                droits[idx].pourcentMusique = (Math.round((droits[idx].pourcent / 2) * 10000) / 10000)
             }
-        })        
+        })
 
         this.props.setFieldValue('droitAuteur', droits)
+        
+        this.setState({ping: true}, ()=>this.recalculerPartage())
         
         if(aMisInvariable) // Retrait de l'index des invariables
             delete invariable[index]
@@ -215,7 +224,7 @@ class PageAssistantPartageAuteur extends Component {
             let ayantDroit = this.state.ayantsDroit[_coll], nom            
         
             if(ayantDroit) {
-                nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+                nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
             }
 
             let _index = this.props.values.droitAuteur.length +
@@ -337,7 +346,7 @@ class PageAssistantPartageAuteur extends Component {
                                     <Progress percent="20" size='tiny' indicating/>
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(t, this.props.values)}}>
                                         {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>

@@ -110,7 +110,7 @@ class PageAssistantPartageInterpretation extends Component {
             let ayantDroit = this.state.ayantsDroit[_coll], nom            
         
             if(ayantDroit) {
-                nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+                nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
             }
             
             //let _index = arrayHelpers.data.length
@@ -212,7 +212,7 @@ class PageAssistantPartageInterpretation extends Component {
                                     <Progress percent="50" size='tiny' indicating/>                                    
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(t, this.props.values)}}>
                                         {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>
