@@ -704,6 +704,9 @@
     "anglais": "English",
     "deconnexion": "Déconnexion"
   },
+  "deconnexion": {
+    "reussie": "Déconnexion réussie"
+  },
   "reussi": "Connexion réussie",
   "obligatoire": "Mendatory",
   "connexion": "Connexion obligatoire",

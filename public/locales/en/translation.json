@@ -705,7 +705,10 @@
     "anglais": "English",
     "deconnexion": "Disconnect"
   },
-  "reussi": "Lugin successful",
+  "deconnexion": {
+    "reussie": "Succesfully disconnected"
+  },
+  "reussi": "Login successful",
   "obligatoire": "Mendatory",
   "connexion": "Login mendatory",
   "connecter": "You must be connected to vote",
