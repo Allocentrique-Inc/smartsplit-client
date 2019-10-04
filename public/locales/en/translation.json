@@ -2,18 +2,21 @@
   "info": {
     "oeuvre": {
       "creation": "Work # {{id}} created. :)"
+    },
+    "partage": {
+      "vide": "Cannot share an empty proposal. Add at least one collaborator to a right."
     }
   },
   "options": {
     "piece": {
-      "titre": "This work is ...",
-      "originale": "an original creation",
-      "arrangement": "a remix",
-      "reprise": "a cover"
+      "titre": "This work is...",
+      "originale": "An original creation",
+      "arrangement": "A remix",
+      "reprise": "A cover"
     }
   },
   "titre": {
-    "principal": "Welcome to SmartSplit Alpha - Client",
+    "principal": "Welcome to Smartsplit Beta",
     "accueil": "Home",
     "liste-media": "Media list returned by the API",
     "apercu": "Preview",
@@ -22,14 +25,15 @@
   },
   "collaborateur": {
     "titre": "Add a collaborating artist",
+    "titre2": "Add as a collaborator:",
     "attribut": {
       "etiquette": {
         "nom": "Legal Name",
         "prenom": "Legal First Name",
         "artiste": "Artist Name",
-        "option": " (optional)",
-        "na": "If not applicable, the complete name is displayed.",
-        "role": "Role in the work",
+        "option": " Optional",
+        "na": "If not applicable, the complete name will be displayed.",
+        "role": "Role(s) by default",
         "courriel": "Email",
         "groupe": "Groups"
       },
@@ -39,7 +43,7 @@
         "artiste": "Artist name",
         "role": "Choose one or more role",
         "role2": "These roles can be modified later.",
-        "groupe": "Choose a group"
+        "groupe": "Search among groups"
       },
       "bouton": {
         "annuler": "Cancel",
@@ -172,6 +176,10 @@
         "password": "Forgot Password",
         "password2": "Password Verification",
         "password3": "Change Verification",
+        "definir": "Set new password",
+        "nouveau": "New password",
+        "code": "Please enter the verification code sent to your email address below, your email address and a new password.",
+        "verification": "Enter verification code",
         "welcome": "Welcome",
         "tableau": "Dashboard",
         "media": "Split Rights for a Media:",
@@ -206,7 +214,7 @@
         }
       },
       "titre": {
-        "principal": "Welcome to SmartSplit Alpha - Client",
+        "principal": "Welcome to Smartsplit Beta",
         "accueil": "Home",
         "liste-media": "Media list returned by the API",
         "apercu": "Preview",
@@ -437,7 +445,7 @@
         },
         "etape": {
           "partage-etape": "Step 2",
-          "partage-titre": "Split your rights",
+          "partage-titre": "© Copyright",
           "enregistrerEtQuitter": "Save and Quit",
           "vote-titre": "Validate the share proposal"
         },
@@ -522,7 +530,7 @@
           "titre": "Password Reset",
           "indication": "Your password has been changed successfully."
         },
-        "titre": "Connexion à SmartSplit",
+        "titre": "Connexion à Smartsplit",
         "err": {
           "username": "Le nom d'utilisateur est un courriel invalide",
           "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
@@ -537,7 +545,7 @@
         }
       },
       "tableaudebord": {
-        "bonjour": "Here is the SmartSplit dashboard.",
+        "bonjour": "Here is the Smartsplit dashboard.",
         "navigation": {
           "0": "My musical works",
           "1": "My public profile",
@@ -640,7 +648,7 @@
     }
   },
   "accueil": {
-    "titre": "Login to your Smart Split account.",
+    "titre": "Login to your Smartsplit account.",
     "sous-titre": "Enter your information below.",
     "courriel": "Enter email",
     "motdepasse": "My password",
@@ -697,6 +705,7 @@
     "anglais": "English",
     "deconnexion": "Disconnect"
   },
+  "reussi": "Lugin successful",
   "obligatoire": "Mendatory",
   "connexion": "Login mendatory",
   "connecter": "You must be connected to vote",

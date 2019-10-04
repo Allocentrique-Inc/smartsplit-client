@@ -117,11 +117,11 @@ export class ChampListeCollaborateurAssistant extends Component {
 
     listeAyantsDroit() {
         // Récupérer la liste des ayant-droits        
-        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _adParId = {}
             let _options = res.data.map((elem, idx)=>{
-                let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
+                let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
                 _adParId[elem.rightHolderId] = elem
                 let avatar = ''                
                 // Y a-t-il un avatar ?
@@ -140,10 +140,14 @@ export class ChampListeCollaborateurAssistant extends Component {
                 )
             })            
             if(!this.OPTIONS) {
-                this.OPTIONS = _options
+                this.OPTIONS = _options                
             }
             this.setState({ayantDroit: _adParId}, ()=>{if(this.props.onRef) this.props.onRef(_adParId)})
-            this.setState({options: _options})            
+            this.setState({options: _options}, ()=>{
+                // recalcul des options initiales
+                if(this.props.collaborateurs)
+                    this.recalculerOptions(this.props.collaborateurs)
+            })
         })
         .catch(err=>{
             toast.error(err)
@@ -151,6 +155,7 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     recalculerOptions(collaborateurs){
+        // collaborateurs est une liste de collaborateurs à exclure
         let options = Object.assign([], this.OPTIONS)
         collaborateurs.forEach(elem => {
             options.forEach((_e, idx)=>{
@@ -188,7 +193,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                                 options: this.state.options,
                                 onAddItem: this.handleAddition,
                                 allowAdditions: this.state.ajout,
-                                clearable: true
+                                clearable: false
                             }}
                             
                         />
@@ -238,7 +243,7 @@ export class ChampListeEditeurAssistant extends Component {
         let editeurs = {}
 
         // Récupérer la liste des ayant-droits (éditeurs)
-        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
             let _options = res.data.map(elem=>{
                 let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`

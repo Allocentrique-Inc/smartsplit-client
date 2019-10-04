@@ -1,40 +1,40 @@
-@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
 
 .ui.small.modal .titre-socan {
-    font-size: 20px;
-    font-weight: normal;
-    color: #2DA84F;
-    margin: 0;
+  font-size: 20px;
+  font-weight: normal;
+  color: #2da84f;
+  margin: 0;
 }
 
 div .input-container {
-    font-family: 'IBM Plex Sans';
-    font-weight: normal;
-    font-size: 16px;
-    width: auto;
-    display: inline-block;
-    margin: 0 20px 20px 55px;
-    padding: '0 0 0 15px';
+  font-family: "IBM Plex Sans";
+  font-weight: normal;
+  font-size: 16px;
+  width: auto;
+  display: inline-block;
+  margin: 0 20px 20px 55px;
+  padding: "0 0 0 15px";
 }
 
 div .province,
 .date {
-    margin: 5px auto 5px 0px;
-    font-family: 'IBM Plex Sans';
-    font-weight: normal;
-    font-size: 16px;
-    opacity: 1; 
-    position: relative;
-    padding: '0 0 0 15px';
+  margin: 5px auto 5px 0px;
+  font-family: "IBM Plex Sans";
+  font-weight: normal;
+  font-size: 16px;
+  opacity: 1;
+  position: relative;
+  padding: "0 0 0 15px";
 }
 
 div .province select option {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 ::placeholder {
-    color: #c6c8ca;
-    opacity: 1; 
+  color: #c6c8ca;
+  opacity: 1;
 }
 
 /*div .ui .label {
@@ -44,4 +44,3 @@ div .province select option {
     background: transparent;
     padding: 10px 0 10px 0;
 }*/
-

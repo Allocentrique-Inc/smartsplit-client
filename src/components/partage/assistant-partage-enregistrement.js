@@ -18,6 +18,10 @@ const MODES = {egal: "0", manuel: "1"}
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
 
+const arrondir = function(nombre) {
+    return Math.round(nombre * 10000) / 10000
+}
+
 class PageAssistantPartageEnregistrement extends Component {
 
     constructor(props) {
@@ -52,11 +56,11 @@ class PageAssistantPartageEnregistrement extends Component {
             case MODES.egal:
                 // Calcul le pourcentage égal
                 let _parts = this.props.values.droitEnregistrement
-                pourcent = (pourcent / (_parts.length)).toFixed(4)
+                pourcent = (pourcent / _parts.length)
                 // Applique le pourcentage aux données existantes
                 _parts.forEach((elem, idx)=>{
                     _parts[idx].nom = elem.nom
-                    _parts[idx].pourcent = pourcent
+                    _parts[idx].pourcent = `${pourcent}`
                 })
                 this.props.setFieldValue("droitEnregistrement", _parts)
                 break          
@@ -69,7 +73,7 @@ class PageAssistantPartageEnregistrement extends Component {
         this.props.values.droitEnregistrement.forEach(elem=>{
             _pctDelta = _pctDelta - parseFloat(elem.pourcent)
         })
-        return `${_pctDelta < 0 ? 0 : _pctDelta}`
+        return _pctDelta < 0 ? 0 : _pctDelta
     }
 
     // Changement d'un gradateur
@@ -79,6 +83,12 @@ class PageAssistantPartageEnregistrement extends Component {
         let invariable = this.state.partsInvariables
         let droits = this.props.values.droitEnregistrement        
         
+        // extraction de l'index numérique du gradateur
+        // pour récupération du droit (derniers caractères après le dernier _)
+        let idxG = index.substring(index.lastIndexOf('_') + 1,index.length)
+
+        delta = delta - (parseFloat(droits[idxG].pourcent) % 1) // différence décimale à soustraire du delta à répartir
+
         let deltaParCollaborateurVariable = 0.0
 
         let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
@@ -94,7 +104,7 @@ class PageAssistantPartageEnregistrement extends Component {
     
         droits.forEach((elem, idx)=>{
             if(!invariable[idx]) { // Ajustement si l'index est variable
-                droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)                
+                droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
             }
         })        
 
@@ -142,7 +152,7 @@ class PageAssistantPartageEnregistrement extends Component {
             let ayantDroit = this.state.ayantsDroit[_coll], nom            
         
             if(ayantDroit) {
-                nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+                nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
             }
 
             let _index = this.props.values.droitEnregistrement.length + 
@@ -161,7 +171,7 @@ class PageAssistantPartageEnregistrement extends Component {
                     arrayHelpers.insert(0, {
                         nom: nom, 
                         ayantDroit: ayantDroit,
-                        pourcent: (100 / (this.props.values.droitEnregistrement.length + 1) ).toFixed(4),
+                        pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1) )}`,
                         principal: true,
                         chanteur: false,
                         musicien: false,
@@ -171,7 +181,7 @@ class PageAssistantPartageEnregistrement extends Component {
                     arrayHelpers.insert(0, {
                         nom: nom, 
                         ayantDroit: ayantDroit,
-                        pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4),
+                        pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1) )}`,
                         principal: true,
                         chanteur: false,
                         musicien: false,
@@ -185,10 +195,9 @@ class PageAssistantPartageEnregistrement extends Component {
                     arrayHelpers.insert(0, {
                         nom: nom, 
                         ayantDroit: ayantDroit,
-                        pourcent: (
+                        pourcent: `${arrondir(
                             this.pourcentRestant() / 
-                            (this.props.values.droitEnregistrement.length + _coll.length) )
-                            .toFixed(4),
+                            (this.props.values.droitEnregistrement.length + 1) )}`,
                         producteur: false,
                         realisateur: false,
                         graphiste: false,
@@ -199,10 +208,9 @@ class PageAssistantPartageEnregistrement extends Component {
                     arrayHelpers.insert(0, {
                         nom: nom, 
                         ayantDroit: ayantDroit,
-                        pourcent: (
+                        pourcent: `${arrondir(
                             this.pourcentRestant() / 
-                            (this.props.values.droitEnregistrement.length + _coll.length) )
-                            .toFixed(4),
+                            (this.props.values.droitEnregistrement.length + 1) )}`,
                         producteur: false,
                         realisateur: false,
                         graphiste: false,
@@ -254,7 +262,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <Progress percent="85" size='tiny' indicating/>                                    
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(t, this.props.values)}}>
                                         {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>

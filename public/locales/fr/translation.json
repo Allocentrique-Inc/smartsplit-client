@@ -2,6 +2,9 @@
   "info": {
     "oeuvre": {
       "creation": "Oeuvre # {{id}} créée. :)"
+    },
+    "partage": {
+      "vide": "Un partage vide ne peut pas être soumis. Assigne au moins un collaborateur à un droit."
     }
   },
   "options": {
@@ -13,7 +16,7 @@
     }
   },
   "titre": {
-    "principal": "Bienvenue sur SmartSplit Alpha - Client",
+    "principal": "Bienvenue sur Smartsplit Beta",
     "accueil": "Accueil",
     "liste-media": "Liste des médias retournés de l'API",
     "apercu": "Aperçu",
@@ -22,13 +25,14 @@
   },
   "collaborateur": {
     "titre": "Ajouter un artiste collaborateur",
+    "titre2": "Ajouter comme collaborateur :",
     "attribut": {
       "etiquette": {
         "nom": "Nom légal",
         "prenom": "Prénom légal",
-        "artiste": "Nom d'artiste (optionel)",
+        "artiste": "Nom d'artiste",
         "role": "Rôle dans l'œuvre",
-        "option": " (optionel)",
+        "option": " Optionnel",
         "na": "Si non applicable, nous afficherons le nom complet.",
         "courriel": "Courriel",
         "groupe": "Groupes"
@@ -37,9 +41,9 @@
         "nom": "Indique un nom de famille",
         "prenom": "Indique un prénom",
         "artiste": "Indique un nom d'artiste",
-        "role": "Choisis un ou plusieurs rôles",
+        "role": "Rôle(s) par défaut",
         "role2": "Ces rôles peuvent être modifiés plus tard.",
-        "groupe": "Choisir un groupe"
+        "groupe": "Chercher parmi les groupes"
       },
       "bouton": {
         "annuler": "Annuler",
@@ -113,7 +117,7 @@
       }
     },
     "titre": {
-      "vedette": "Avec la participation"
+      "vedette": "Avec la participation de"
     },
     "creePar": "Créé par",
     "piece": "Pièce originale",
@@ -173,6 +177,10 @@
         "password": "Mot de pass oublié",
         "password2": "Vérification de mot de passe",
         "password3": "Changer de vérification",
+        "definir": "Définir un nouveau mot de passe",
+        "nouveau": "Nouveau mot de passe",
+        "code": "Veuillez indiquer le code de vérification envoyé à l'adresse courriel ci-dessous, votre adresse courriel et un nouveau mot de passe.",
+        "verification": "Indiquer le code de vérification",
         "welcome": "Bienvenue",
         "tableau": "Tableau de bord",
         "media": "Partager les droits pour un média :",
@@ -206,13 +214,13 @@
       "options": {
         "piece": {
           "titre": "Cette oeuvre est...",
-          "originale": "une création originale",
-          "arrangement": "un arrangement (remix)",
-          "reprise": "une reprise (cover)"
+          "originale": "Une création originale",
+          "arrangement": "Un arrangement (remix)",
+          "reprise": "Une reprise (cover)"
         }
       },
       "titre": {
-        "principal": "Bienvenue sur SmartSplit Alpha - Client",
+        "principal": "Bienvenue sur Smartsplit Beta",
         "accueil": "Accueil",
         "liste-media": "Liste des médias retournés de l'API",
         "apercu": "Aperçu",
@@ -226,7 +234,7 @@
           "etiquette": {
             "nom": "Nom légal",
             "prenom": "Prénom légal",
-            "artiste": "Nom d'artiste (optionel)",
+            "artiste": "Nom d'artiste",
             "role": "Rôle dans la pièce musicale",
             "option": " (optionel)",
             "na": "Si non applicable, nous afficherons le nom complet.",
@@ -397,7 +405,7 @@
           "autre-etape3": "Fichiers MIDI",
           "autre-etape4": "Téléverser des fichiers .MID ou .MIDI seulement",
           "acces": "Accès",
-          "choix": "Choose a file",
+          "choix": "Fichier ...",
           "glisse": "Ou glisse ton fichier ici",
           "details": "Dis-nous en plus sur la pièce musicale",
           "duree": "Durée",
@@ -448,7 +456,7 @@
         },
         "etape": {
           "partage-etape": "Étape 2",
-          "partage-titre": "Partage des droits",
+          "partage-titre": "© Droit d'auteur",
           "enregistrerEtQuitter": "Enregistrer et quitter",
           "vote-titre": "Valider le partage de droits"
         },
@@ -523,7 +531,7 @@
           "titre": "Mot de passe changé",
           "indication": "Votre mot de passe a été changé avec succès."
         },
-        "titre": "Connexion à SmartSplit",
+        "titre": "Connexion à Smartsplit",
         "err": {
           "username": "Le nom d'utilisateur est un courriel invalide",
           "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
@@ -538,7 +546,7 @@
         }
       },
       "tableaudebord": {
-        "bonjour": "Ici le panneau du tableau de bord SmartSplit.",
+        "bonjour": "Ici le panneau du tableau de bord Smartsplit.",
         "navigation": {
           "0": "Mes pièces musicales",
           "1": "Mon profil public",
@@ -640,7 +648,7 @@
     }
   },
   "accueil": {
-    "titre": "Connecte-toi à ton compte Smart Split.",
+    "titre": "Connecte-toi à ton compte Smartsplit.",
     "sous-titre": "Entre tes informations ci-dessous.",
     "courriel": "Entrer le courriel",
     "motdepasse": "Mon mot de passe",
@@ -696,6 +704,7 @@
     "anglais": "English",
     "deconnexion": "Déconnexion"
   },
+  "reussi": "Connexion réussie",
   "obligatoire": "Mendatory",
   "connexion": "Connexion obligatoire",
   "connecter": "Tu dois être connecté pour voter",

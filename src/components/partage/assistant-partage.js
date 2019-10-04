@@ -50,7 +50,7 @@ class AssistantPartage extends Component {
         Auth.currentAuthenticatedUser()
         .then(res=>{
             // Récupère les ayant-droits car on en aura besoin
-            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
             .then(_res=>{ 
                 if(_res.data) {
                     let _adParId = {}
@@ -65,7 +65,7 @@ class AssistantPartage extends Component {
 
                 // Une nouvelle proposition pour un média                
                 // Récupérer la dernière proposition pour le média                
-                axios.get(`http://api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
                 .then(res=>{
                     // Si elle existe, configuration de l'assistant avec cette dernière
                     if(res.data) {
@@ -80,7 +80,7 @@ class AssistantPartage extends Component {
                 })
             } else if (this.state.uuid) {
                 // Une proposition existante, poursuite de la proposition BROUILLON
-                axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
                 .then(res=>{
                     let proposal = res.data.Item
                     this.setState({proposition: proposal}, ()=>{
@@ -104,7 +104,7 @@ class AssistantPartage extends Component {
 
     recupererOeuvre() {
         // Récupérer le média
-        axios.get(`http://api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
             .then(res => {
                 let media = res.data.Item;
                 this.setState({ media: media });
@@ -114,29 +114,31 @@ class AssistantPartage extends Component {
             })
     }
 
-    soumettre(values, etat, cb) {
+    soumettre(t, values, etat, cb) {
 
         if (this.state.user) {
             let _association = {} // Associera le nom de l'ayant-droit avec son identitifiant unique
 
             // 1. Récupérer la liste des ayant-droits
-            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
-            .then(res=>{                                    
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+            .then(res=>{
                 res.data.forEach(elem=>{
-                    let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
-                    _association[nom] = elem
-                })                        
+                    //let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
+                    _association[elem.rightHolderId] = elem
+                })
                 // 2. Générer la structure à envoyer à Dynamo
 
-                    let droitEnregistrement = [];
-                    let droitInterpretePrincipal = [];
-                    let droitInterpreteAccompagnement = [];
-                    let droitAuteurMusique = [];
-                    let droitAuteurParoles = [];
+                let droitEnregistrement = [];
+                let droitInterpretePrincipal = [];
+                let droitInterpreteAccompagnement = [];
+                let droitAuteurMusique = [];
+                let droitAuteurParoles = [];
 
-                    values.droitAuteur.forEach(elem => {
+                values.droitAuteur.forEach(elem => {
 
-                    let _rH = _association[elem.nom]
+                    let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
+
+                    let _rH = _association[elem.ayantDroit.rightHolderId]
                     let uuid = _rH.rightHolderId
 
                     if(elem.arrangeur || elem.compositeur) {
@@ -177,52 +179,52 @@ class AssistantPartage extends Component {
                 })
 
                 values.droitInterpretation.forEach(elem=>{
-                    
-                    let _rH = _association[elem.nom]
-                    let uuid = _rH.rightHolderId
+                
+                let _rH = _association[elem.ayantDroit.rightHolderId]
+                let uuid = _rH.rightHolderId
 
-                    if(elem.principal) {
-                        let roles = {}
-                        if(elem.chanteur) {
-                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
-                        }
-                        if(elem.musicien) {
-                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] = "musician"
-                        }
-                        droitInterpretePrincipal.push({
-                            "rightHolder": {
-                                "name": elem.nom,
-                                "rightHolderId": uuid,
-                                "color": elem.color
-                            },
-                            "voteStatus": "active",
-                            "contributorRole": roles,
-                            "splitPct": `${elem.pourcent}`
-                            })
-                    } else {
-                        let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a37": "accompaniment"}
-                        if(elem.chanteur) {
-                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
-                        }
-                        if(elem.musicien) {
-                            roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] = "musician"
-                        }
-                        droitInterpreteAccompagnement.push({
-                            "rightHolder": {
-                                "name": elem.nom,
-                                "rightHolderId": uuid,
-                                "color": elem.color
-                            },
-                            "voteStatus": "active",
-                            "contributorRole": roles,
-                            "splitPct": `${elem.pourcent}`
-                            })
-                        }
+                if(elem.principal) {
+                    let roles = {}
+                    if(elem.chanteur) {
+                        roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
+                    }
+                    if(elem.musicien) {
+                        roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] = "musician"
+                    }
+                    droitInterpretePrincipal.push({
+                        "rightHolder": {
+                            "name": elem.nom,
+                            "rightHolderId": uuid,
+                            "color": elem.color
+                        },
+                        "voteStatus": "active",
+                        "contributorRole": roles,
+                        "splitPct": `${elem.pourcent}`
+                        })
+                } else {
+                    let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a37": "accompaniment"}
+                    if(elem.chanteur) {
+                        roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
+                    }
+                    if(elem.musicien) {
+                        roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] = "musician"
+                    }
+                    droitInterpreteAccompagnement.push({
+                        "rightHolder": {
+                            "name": elem.nom,
+                            "rightHolderId": uuid,
+                            "color": elem.color
+                        },
+                        "voteStatus": "active",
+                        "contributorRole": roles,
+                        "splitPct": `${elem.pourcent}`
+                        })
+                    }
 
-                    })
+                })
 
                 values.droitEnregistrement.forEach(elem=>{
-                    let _rH = _association[elem.nom]
+                    let _rH = _association[elem.ayantDroit.rightHolderId]
                     let uuid = _rH.rightHolderId
                     let roles = {}
                         if(elem.producteur) {
@@ -249,71 +251,76 @@ class AssistantPartage extends Component {
                     })
                 })
 
-                let body = {
-                    uuid: "",
-                    mediaId: parseInt(`${this.state.mediaId}`),
-                    initiator: {
-                        "name": `${this.state.user.attributes.given_name} ${this.state.user.attributes.family_name}`,
-                        "id": this.state.user.username
-                    },
-                    rightsSplits: {
-                        "workCopyrightSplit": {
-                            "lyrics": droitAuteurParoles,
-                            "music": droitAuteurMusique
-                        },
-                        "performanceNeighboringRightSplit": {
-                            "principal": droitInterpretePrincipal,
-                            "accompaniment": droitInterpreteAccompagnement
-                        },
-                        "masterNeighboringRightSplit": {
-                            "split": droitEnregistrement
-                        }
-                    },
-                    "comments": [],
-                    "etat": etat
-                }
-                body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split"})
-
-                if(values.uuid && values.uuid !== "") {
-                    // 3a. Soumettre la nouvelle proposition en PUT
-                    body.uuid = values.uuid
-                    axios.put(`http://api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
-                    .then(res=>{
-                        toast.success(`${res.data}`)
-                        // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
-                        if(typeof cb === "function") {
-                            cb()
-                        } else {
-                            setTimeout(()=>{
-                                window.location.href = `/partager/${this.state.mediaId}`
-                            }, 3000)
-                        }
-                    })
-                    .catch(err=>{
-                        toast.error(err.message)
-                    })
+                if(values.droitAuteur.length + values.droitInterpretation.length + values.droitEnregistrement.length === 0) {
+                    toast.warn(t('info.partage.vide'))
                 } else {
-                    // 3b. Soumettre la nouvelle proposition en POST
-                    axios.post('http://api.smartsplit.org:8080/v1/proposal', body)
-                    .then(res=>{
-                        toast.success(`${res.data}`)
-                        // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
-                        if(typeof cb === "function") {
-                            cb()
-                        } else {
-                            setTimeout(()=>{
-                                window.location.href = `/partager/${this.state.mediaId}`
-                            }, 3000)
-                        }
-                    })
-                    .catch(err=>{
-                        toast.error(err.message)
-                    })
-                }
+                    let body = {
+                        uuid: "",
+                        mediaId: parseInt(`${this.state.mediaId}`),
+                        initiator: {
+                            "name": `${this.state.user.attributes.given_name} ${this.state.user.attributes.family_name}`,
+                            "id": this.state.user.username
+                        },
+                        rightsSplits: {
+                            "workCopyrightSplit": {
+                                "lyrics": droitAuteurParoles,
+                                "music": droitAuteurMusique
+                            },
+                            "performanceNeighboringRightSplit": {
+                                "principal": droitInterpretePrincipal,
+                                "accompaniment": droitInterpreteAccompagnement
+                            },
+                            "masterNeighboringRightSplit": {
+                                "split": droitEnregistrement
+                            }
+                        },
+                        "comments": [],
+                        "etat": etat
+                    }
+                    body.comments.push({ rightHolderId: this.state.user.username, comment: "Initiateur du split"})
+    
+                    if(values.uuid && values.uuid !== "") {
+                        // Reprise d'une proposition existante
+                        // 3a. Soumettre la nouvelle proposition en PUT
+                        body.uuid = values.uuid
+                        axios.put(`http://dev.api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
+                        .then(res=>{
+                            toast.success(`${res.data}`)
+                            // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
+                            if(typeof cb === "function") {
+                                cb()
+                            } else {
+                                setTimeout(()=>{
+                                    window.location.href = `/partager/${this.state.mediaId}`
+                                }, 3000)
+                            }
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                    } else {
+                        // 3b. Soumettre la nouvelle proposition en POST
+                        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal', body)
+                        .then(res=>{
+                            toast.success(`${res.data}`)
+                            // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
+                            if(typeof cb === "function") {
+                                cb()
+                            } else {
+                                setTimeout(()=>{
+                                    window.location.href = `/partager/${this.state.mediaId}`
+                                }, 3000)
+                            }
+                        })
+                        .catch(err=>{
+                            console.log(err)
+                        })
+                    }
+                }                
 
             })
             .catch(err=>{
-                toast.error(err.message)
+                console.log(err)
                 if (typeof cb === "function") {
                     setTimeout(()=>{
                         cb()
@@ -327,8 +334,8 @@ class AssistantPartage extends Component {
         this.setState({modaleConnexion: ouvert})
     }
 
-    enregistrerEtQuitter(valeurs) {
-        this.soumettre(valeurs, "BROUILLON", () => {
+    enregistrerEtQuitter(t, valeurs) {
+        this.soumettre(t, valeurs, "BROUILLON", () => {
             Auth.signOut()
                 .then(data => {
                     toast.success("Déconnexion réussie")
@@ -336,7 +343,7 @@ class AssistantPartage extends Component {
                         window.location.href = '/accueil'
                     }, 1000)
                 })
-                .catch(error => toast.error("Erreur..."))
+                .catch(error => console.log(error))
         })
     }
 
@@ -455,7 +462,7 @@ class AssistantPartage extends Component {
                                             onSubmit={
                                                 (values) => {
                                                     if(!lectureSeule) {
-                                                        this.soumettre(values, "PRET")
+                                                        this.soumettre(t, values, "PRET")
                                                     }                                              
                                                 }
                                             }

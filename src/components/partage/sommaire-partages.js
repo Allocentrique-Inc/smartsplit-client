@@ -74,12 +74,12 @@ export default class SommairePartages extends Component {
     openModal = () => this.setState({ modaleCourriels: true })
 
     initialisation() {
-        axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
         .then(res=>{
             this.setState({media: res.data.Item}, ()=>{
-                axios.get(`http://api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
+                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
                 .then(res=>{
-                    axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
+                    axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
                     .then(_rAd=>{
                         this.setState({ayantDroit: _rAd.data.Item}, ()=>{
                             this.setState({propositions: res.data})                            
@@ -87,7 +87,7 @@ export default class SommairePartages extends Component {
                             let _ps = res.data
                             _ps.forEach(p=>{
                                 if(p.etat === 'ACCEPTE') {
-                                    axios.get(`http://api.smartsplit.org:8080/v1/splitShare/${p.uuid}/${this.state.user.username}`)
+                                    axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${p.uuid}/${this.state.user.username}`)
                                     .then(res=>{
                                         this.setState({partEditeur: res.data})
                                     })
@@ -119,7 +119,7 @@ export default class SommairePartages extends Component {
                 <Translation>
                     {
                         t =>
-                            <div className="ui ten wide column">
+                            <div className="ui seven wide column">
                                 <i className="file image outline icon huge grey"></i>
                                     {this.state.media && (<span style={{marginLeft: "15px"}} className="medium-400">{this.state.media.title}</span>)}
                                     <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>                            

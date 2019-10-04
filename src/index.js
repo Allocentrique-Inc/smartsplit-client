@@ -192,7 +192,7 @@ function PartageEditeur(match) {
 }
 
 function Documenter(match) {
-  let mediaId = match.match.params.mediaId
+  let mediaId = match.match.params.mediaId;
   return <AssistantOeuvre mediaId={mediaId} />;
 }
 

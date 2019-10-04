@@ -271,7 +271,7 @@ class Register extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://api.smartsplit.org:8080/v1/rightHolders")
+      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
@@ -457,38 +457,46 @@ class Register extends Component {
                           {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
                           <br></br>
                           <br></br>
-                          {/*<span
-                            style={{ display: "flex", flexDirection: "row" }}
-                          >}*/}
-                          <label>
-                            {t("collaborateur.attribut.etiquette.prenom")}
-                          </label>
-                          <input
-                            type="text"
-                            className="firstName"
-                            placeholder={t(
-                              "collaborateur.attribut.etiquette.prenom"
-                            )}
-                            value={this.state.firstName}
-                            onChange={e =>
-                              this.setState({ firstName: e.target.value })
-                            }
-                          />
-                          <label>
-                            {t("collaborateur.attribut.etiquette.nom")}
-                          </label>
-                          <input
-                            type="text"
-                            className="lastName"
-                            placeholder={t(
-                              "collaborateur.attribut.etiquette.nom"
-                            )}
-                            value={this.state.lastName}
-                            onChange={e =>
-                              this.setState({ lastName: e.target.value })
-                            }
-                          />
-                          {/*</span>*/}
+                          <span
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              width: "100%"
+                            }}
+                          >
+                            <div style={{ width: "220px" }}>
+                              <label>
+                                {t("collaborateur.attribut.etiquette.prenom")}
+                              </label>
+                              <input
+                                type="text"
+                                className="firstName"
+                                placeholder={t(
+                                  "collaborateur.attribut.etiquette.prenom"
+                                )}
+                                value={this.state.firstName}
+                                onChange={e =>
+                                  this.setState({ firstName: e.target.value })
+                                }
+                              />
+                            </div>
+                            <div style={{ width: "220px", marginLeft: "25px" }}>
+                              <label>
+                                {t("collaborateur.attribut.etiquette.nom")}
+                              </label>
+                              <input
+                                type="text"
+                                className="lastName"
+                                placeholder={t(
+                                  "collaborateur.attribut.etiquette.nom"
+                                )}
+                                value={this.state.lastName}
+                                onChange={e =>
+                                  this.setState({ lastName: e.target.value })
+                                }
+                              />
+                            </div>
+                          </span>
                           <label>
                             {t("collaborateur.attribut.etiquette.artiste")}
                           </label>

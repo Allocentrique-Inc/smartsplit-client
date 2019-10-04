@@ -38,14 +38,14 @@ class AssistantPartageEditeur extends Component {
     charger(user) {
         this.setState({user: user})
 
-        axios.get(`http://api.smartsplit.org:8080/v1/rightHolders/${user.username}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${user.username}`)
         .then(_r=>{
             if(_r.data.Item) {
                 this.setState({uaD: _r.data.Item})
             }
         })
 
-        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.propositionId}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.propositionId}`)
         .then(res=>{
             let proposition = res.data.Item
 
@@ -109,7 +109,7 @@ class AssistantPartageEditeur extends Component {
 
     recupererOeuvre() {
         // Récupérer le média
-        axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.proposition.mediaId}`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.proposition.mediaId}`)
         .then(res=>{
             let media = res.data.Item
             this.setState({media: media})
@@ -131,7 +131,7 @@ class AssistantPartageEditeur extends Component {
                 proposalId: `${this.state.propositionId}`
             }
 
-            axios.post(`http://api.smartsplit.org:8080/v1/editorsplitshare`, body)
+            axios.post(`http://dev.api.smartsplit.org:8080/v1/editorsplitshare`, body)
             .then(res=>{
                 toast.success(res.data)
                 body = {
@@ -140,7 +140,7 @@ class AssistantPartageEditeur extends Component {
                     proposalId: this.state.propositionId,
                     mediaId: this.state.media.mediaId
                 }
-                axios.post(`http://api.smartsplit.org:8080/v1/editorsplitshare/invite`, body)
+                axios.post(`http://dev.api.smartsplit.org:8080/v1/editorsplitshare/invite`, body)
                 .then(()=>{
                     window.location.reload()
                 })
