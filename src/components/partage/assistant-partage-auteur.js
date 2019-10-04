@@ -18,6 +18,10 @@ const MODES = { egal: "0", role: "1", manuel: "2" }
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
 
+const arrondir = function(nombre) {
+    return Math.round(nombre * 10000) / 10000
+}
+
 class PageAssistantPartageAuteur extends Component {
 
     constructor(props) {
@@ -54,13 +58,13 @@ class PageAssistantPartageAuteur extends Component {
             case MODES.egal:
                 // Calcul le pourcentage égal
                 let _parts = this.props.values.droitAuteur
-                pourcent = (pourcent / (_parts.length)).toFixed(4)
+                pourcent = arrondir(pourcent / _parts.length)
                 // Applique le pourcentage aux données existantes
                 _parts.forEach((elem, idx) => {
                     _parts[idx].nom = elem.nom
-                    _parts[idx].pourcent = pourcent
-                    _parts[idx].pourcentMusique = (pourcent / 2)
-                    _parts[idx].pourcentParoles = (pourcent / 2)
+                    _parts[idx].pourcent = `${pourcent}`
+                    _parts[idx].pourcentMusique = `${arrondir(pourcent / 2)}`
+                    _parts[idx].pourcentParoles = `${arrondir(pourcent / 2)}`
                     _parts[idx].color = elem.color
                 })
                 this.props.setFieldValue("droitAuteur", _parts)
@@ -93,9 +97,9 @@ class PageAssistantPartageAuteur extends Component {
                         _pP = (auteurs.includes(elem.nom) ? pctParolesParCollaborateur : 0)
                         partsMusique.push({ nom: elem.nom, pourcent: `${_pM}`, color: elem.color })
                         partsParoles.push({ nom: elem.nom, pourcent: `${_pP}`, color: elem.color })
-                        _parts[idx].pourcent = _pM + _pP
-                        _parts[idx].pourcentMusique = _pM
-                        _parts[idx].pourcentParoles = _pP
+                        _parts[idx].pourcent = `${arrondir(_pM + _pP)}`
+                        _parts[idx].pourcentMusique = `${arrondir(_pM)}`
+                        _parts[idx].pourcentParoles = `${arrondir(_pP)}`
                         _parts[idx].color = elem.color
                     })
                     this.props.setFieldValue("droitAuteur", _parts)
@@ -125,9 +129,9 @@ class PageAssistantPartageAuteur extends Component {
                         let _musique = 0, _paroles = 0
                         _musique = compositeurs.includes(elem.nom) || arrangeurs.includes(elem.nom)
                         _paroles = auteurs.includes(elem.nom)
-                        _parts[idx].pourcent = elem.pourcent
-                        _parts[idx].pourcentMusique = _musique ? elem.pourcent / (_paroles ? 2 : 1) : 0
-                        _parts[idx].pourcentParoles = _paroles ? elem.pourcent / (_musique ? 2 : 1) : 0
+                        _parts[idx].pourcent = `${arrondir(elem.pourcent)}`
+                        _parts[idx].pourcentMusique = `${arrondir(_musique ? elem.pourcent / (_paroles ? 2 : 1) : 0)}`
+                        _parts[idx].pourcentParoles = `${arrondir(_paroles ? elem.pourcent / (_musique ? 2 : 1) : 0)}`
                         _parts[idx].color = elem.color
                     })
                     this.props.setFieldValue("droitAuteur", _parts)
@@ -142,9 +146,9 @@ class PageAssistantPartageAuteur extends Component {
         let _pctDelta = 100
         this.props.values.droitAuteur.forEach(elem => {
             _pctDelta = _pctDelta - parseFloat(elem.pourcent)
-        })
+        })        
         
-        return `${_pctDelta < 0 ? 0 : _pctDelta.toFixed(4)}`
+        return arrondir(_pctDelta < 0 ? 0 : _pctDelta)
     }
 
     changementGradateur(index, delta) {
@@ -157,7 +161,7 @@ class PageAssistantPartageAuteur extends Component {
         // pour récupération du droit (derniers caractères après le dernier _)
         let idxG = index.substring(index.lastIndexOf('_') + 1,index.length)
 
-        delta = delta - (parseFloat(droits[idxG].pourcent) % 1) // différence décimales à 
+        delta = delta - (parseFloat(droits[idxG].pourcent) % 1) // différence décimale à soustraire du delta à répartir
         
         let deltaParCollaborateurVariable = 0.0
 
@@ -174,9 +178,9 @@ class PageAssistantPartageAuteur extends Component {
             
         droits.forEach((elem, idx)=>{
             if(!invariable[idx]) { // Ajustement si l'index est variable
-                droits[idx].pourcent = (Math.round( (parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)) * 10000) / 10000)
-                droits[idx].pourcentParoles = (Math.round((droits[idx].pourcent / 2) * 10000) / 10000)
-                droits[idx].pourcentMusique = (Math.round((droits[idx].pourcent / 2) * 10000) / 10000)
+                droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
+                droits[idx].pourcentParoles = `${arrondir(droits[idx].pourcent / 2)}`
+                droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
             }
         })
 
@@ -235,7 +239,7 @@ class PageAssistantPartageAuteur extends Component {
                 arrayHelpers.insert(0, {
                     nom: nom,
                     ayantDroit: ayantDroit,
-                    pourcent: (100 / (this.props.values.droitAuteur.length + 1)).toFixed(4),
+                    pourcent: `${arrondir(100 / (this.props.values.droitAuteur.length + 1))}`,
                     auteur: true,
                     compositeur: true,
                     arrangeur: false,
@@ -248,7 +252,7 @@ class PageAssistantPartageAuteur extends Component {
                 arrayHelpers.insert(0, {
                     nom: nom,
                     ayantDroit: ayantDroit,
-                    pourcent: _pourcent,
+                    pourcent: `${_pourcent}`,
                     auteur: true,
                     compositeur: true,
                     arrangeur: false,

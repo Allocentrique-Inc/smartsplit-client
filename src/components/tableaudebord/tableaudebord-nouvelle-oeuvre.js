@@ -312,7 +312,6 @@ class Page2NouvellePiece extends Component {
 
                                             }                                            
                                             }
-                                            onAccessChange={value=>console.log(value)}
                                         />
                                         <Base values={this.props.values} setFieldValue={this.props.setFieldValue}/>
                                         {
@@ -511,7 +510,7 @@ export default class NouvelleOeuvre extends Component {
                                         type: undefined
                                     }}
                                     buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti')}}
-                                    debug={true}
+                                    debug={false}
                                     onPageChanged={no=>this.changementPage(no, t)}
                                     onSubmit={(values, {setSubmitting})=>{this.soumettre(values, t); setSubmitting(false) }}
                                     style={{width: "80%"}}

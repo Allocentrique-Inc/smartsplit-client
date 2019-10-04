@@ -128,8 +128,6 @@ class AssistantPartage extends Component {
                 })
                 // 2. Générer la structure à envoyer à Dynamo
 
-                console.log('associations', _association)
-
                 let droitEnregistrement = [];
                 let droitInterpretePrincipal = [];
                 let droitInterpreteAccompagnement = [];
@@ -140,7 +138,7 @@ class AssistantPartage extends Component {
 
                     let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
 
-                    let _rH = _association[elem.rightHolderId]
+                    let _rH = _association[elem.ayantDroit.rightHolderId]
                     let uuid = _rH.rightHolderId
 
                     if(elem.arrangeur || elem.compositeur) {
@@ -182,7 +180,7 @@ class AssistantPartage extends Component {
 
                 values.droitInterpretation.forEach(elem=>{
                 
-                let _rH = _association[elem.rightHolderId]
+                let _rH = _association[elem.ayantDroit.rightHolderId]
                 let uuid = _rH.rightHolderId
 
                 if(elem.principal) {
@@ -226,7 +224,7 @@ class AssistantPartage extends Component {
                 })
 
                 values.droitEnregistrement.forEach(elem=>{
-                    let _rH = _association[elem.rightHolderId]
+                    let _rH = _association[elem.ayantDroit.rightHolderId]
                     let uuid = _rH.rightHolderId
                     let roles = {}
                         if(elem.producteur) {
@@ -460,7 +458,7 @@ class AssistantPartage extends Component {
                                                 media: this.state.media
                                             }}
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                            debug={true}
+                                            debug={false}
                                             onSubmit={
                                                 (values) => {
                                                     if(!lectureSeule) {

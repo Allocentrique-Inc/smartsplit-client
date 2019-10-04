@@ -32,7 +32,7 @@ class AssistantOeuvre extends Component {
     pageProgressPercentages = [10, 20, 30, 40, 50, 70, 80, 100];
 
     constructor(props) {
-        super(props);
+        super(props)
 
         this.state = {
             progressPercentage: this.pageProgressPercentages[0],
@@ -41,8 +41,7 @@ class AssistantOeuvre extends Component {
             endModalOpen: false,
             modaleConnexion: false,
             mediaId: props.mediaId
-        };
-        console.log(this.state)
+        }
     }
 
     componentWillMount() {

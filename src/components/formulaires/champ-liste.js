@@ -140,10 +140,14 @@ export class ChampListeCollaborateurAssistant extends Component {
                 )
             })            
             if(!this.OPTIONS) {
-                this.OPTIONS = _options
+                this.OPTIONS = _options                
             }
             this.setState({ayantDroit: _adParId}, ()=>{if(this.props.onRef) this.props.onRef(_adParId)})
-            this.setState({options: _options})            
+            this.setState({options: _options}, ()=>{
+                // recalcul des options initiales
+                if(this.props.collaborateurs)
+                    this.recalculerOptions(this.props.collaborateurs)
+            })
         })
         .catch(err=>{
             toast.error(err)
@@ -151,6 +155,7 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     recalculerOptions(collaborateurs){
+        // collaborateurs est une liste de collaborateurs à exclure
         let options = Object.assign([], this.OPTIONS)
         collaborateurs.forEach(elem => {
             options.forEach((_e, idx)=>{
