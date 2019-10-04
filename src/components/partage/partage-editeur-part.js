@@ -7,6 +7,10 @@ import Beignet from '../visualisation/partage/beignet'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
+const arrondir = function(nombre) {
+    return Math.round(nombre * 10000) / 10000
+}
+
 class PageAssistantPartageEditeur extends Component {
 
     constructor(props) {
@@ -76,10 +80,10 @@ class PageAssistantPartageEditeur extends Component {
         // Recalculer les parts pour le beignet
         let donnees = this.state.donnees.map(elem=>{
             if(elem.nom === this.props.values.ayantDroit.nom) {
-                elem.pourcent = (parseFloat(this.state.partPrincipale / 100) * parseFloat(this.props.values.ayantDroit.pourcent)).toFixed(4)
+                elem.pourcent = `${arrondir(parseFloat(this.state.partPrincipale / 100) * parseFloat(this.props.values.ayantDroit.pourcent))}`
                 return elem
             } else if(elem.nom === this.props.values.editeur.nom) {
-                elem.pourcent = (parseFloat(this.state.partPrincipale / 100) * parseFloat(this.props.values.editeur.pourcent)).toFixed(4)
+                elem.pourcent = `${arrondir(parseFloat(this.state.partPrincipale / 100) * parseFloat(this.props.values.editeur.pourcent))}`
                 return elem
             } else {
                 return elem
@@ -94,11 +98,11 @@ class PageAssistantPartageEditeur extends Component {
         let editeur = this.props.values.editeur    
         if(index === "gradateur_ayantDroit") {
             // On bouge l'éditeur du delta inverse
-            editeur.pourcent = parseInt(editeur.pourcent) + (-1 * delta)
+            editeur.pourcent = `${arrondir(parseInt(editeur.pourcent) + (-1 * delta))}`
             this.props.setFieldValue('editeur', editeur)
         } else if(index === "gradateur_editeur") {
             // On bouge l'ayant-droit du delta inverse
-            _aD.pourcent = parseInt(_aD.pourcent) + (-1 * delta)
+            _aD.pourcent = `${arrondir(parseInt(_aD.pourcent) + (-1 * delta))}`
             this.props.setFieldValue('ayantDroit', _aD)
         }
         setTimeout(()=>{this.recalculerPartage()}, 0)

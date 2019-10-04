@@ -250,10 +250,8 @@ export default class ListePieces extends Component {
                         <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />                    
                     )
                 })
-                console.log(this.state.creatorMedias)
                 tableauMedias = tableauMedias.concat(
                     this.state.creatorMedias.map((elem, _idx)=>{
-                        console.log(elem, _medias)
                         if(elem && elem.mediaId && !_medias[elem.mediaId]) {
                             return (
                                 <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />                    

@@ -158,7 +158,7 @@ class LogIn extends Component {
                           <div>
                             <div className="loginHead">
                               <h1>
-                                Login to your Smart Split <br />
+                                Login to your Smartsplit <br />
                                 account.
                               </h1>
                               <br></br>
@@ -173,7 +173,7 @@ class LogIn extends Component {
                             <div className="loginHead">
                               <h1>
                                 Connecte-toi à ton <br />
-                                compte SmartSplit.
+                                compte Smartsplit.
                               </h1>
                               <br></br>
                             </div>

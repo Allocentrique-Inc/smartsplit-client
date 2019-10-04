@@ -2,6 +2,9 @@
   "info": {
     "oeuvre": {
       "creation": "Oeuvre # {{id}} créée. :)"
+    },
+    "partage": {
+      "vide": "Un partage vide ne peut pas être soumis. Assigne au moins un collaborateur à un droit."
     }
   },
   "options": {
@@ -13,7 +16,7 @@
     }
   },
   "titre": {
-    "principal": "Bienvenue sur SmartSplit Alpha - Client",
+    "principal": "Bienvenue sur Smartsplit Beta",
     "accueil": "Accueil",
     "liste-media": "Liste des médias retournés de l'API",
     "apercu": "Aperçu",
@@ -21,7 +24,7 @@
     "apercu-sen-vient": "Votre aperçu s'affichere ici"
   },
   "collaborateur": {
-    "titre": "[Ajouter/Modifier] un artiste collaborateur",
+    "titre": "Ajouter un artiste collaborateur",
     "titre2": "Ajouter comme collaborateur :",
     "attribut": {
       "etiquette": {
@@ -217,7 +220,7 @@
         }
       },
       "titre": {
-        "principal": "Bienvenue sur SmartSplit Alpha - Client",
+        "principal": "Bienvenue sur Smartsplit Beta",
         "accueil": "Accueil",
         "liste-media": "Liste des médias retournés de l'API",
         "apercu": "Aperçu",
@@ -231,7 +234,7 @@
           "etiquette": {
             "nom": "Nom légal",
             "prenom": "Prénom légal",
-            "artiste": "Nom d'artiste (optionel)",
+            "artiste": "Nom d'artiste",
             "role": "Rôle dans la pièce musicale",
             "option": " (optionel)",
             "na": "Si non applicable, nous afficherons le nom complet.",
@@ -402,7 +405,7 @@
           "autre-etape3": "Fichiers MIDI",
           "autre-etape4": "Téléverser des fichiers .MID ou .MIDI seulement",
           "acces": "Accès",
-          "choix": "Choose a file",
+          "choix": "Fichier ...",
           "glisse": "Ou glisse ton fichier ici",
           "details": "Dis-nous en plus sur la pièce musicale",
           "duree": "Durée",
@@ -528,7 +531,7 @@
           "titre": "Mot de passe changé",
           "indication": "Votre mot de passe a été changé avec succès."
         },
-        "titre": "Connexion à SmartSplit",
+        "titre": "Connexion à Smartsplit",
         "err": {
           "username": "Le nom d'utilisateur est un courriel invalide",
           "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
@@ -543,7 +546,7 @@
         }
       },
       "tableaudebord": {
-        "bonjour": "Ici le panneau du tableau de bord SmartSplit.",
+        "bonjour": "Ici le panneau du tableau de bord Smartsplit.",
         "navigation": {
           "0": "Mes pièces musicales",
           "1": "Mon profil public",
@@ -645,7 +648,7 @@
     }
   },
   "accueil": {
-    "titre": "Connecte-toi à ton compte Smart Split.",
+    "titre": "Connecte-toi à ton compte Smartsplit.",
     "sous-titre": "Entre tes informations ci-dessous.",
     "courriel": "Entrer le courriel",
     "motdepasse": "Mon mot de passe",
@@ -700,6 +703,9 @@
     "francais": "Français",
     "anglais": "English",
     "deconnexion": "Déconnexion"
+  },
+  "deconnexion": {
+    "reussie": "Déconnexion réussie"
   },
   "reussi": "Connexion réussie",
   "obligatoire": "Mendatory",

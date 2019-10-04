@@ -17,6 +17,10 @@ const TYPE = {principal: "0", accompagnement: "1"}
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
 
+const arrondir = function(nombre) {
+    return Math.round(nombre * 10000) / 10000
+}
+
 class PageAssistantPartageInterpretation extends Component {
 
     constructor(props) {
@@ -51,11 +55,11 @@ class PageAssistantPartageInterpretation extends Component {
             case MODES.egal:
                 // Calcul le pourcentage égal
                 let _parts = this.props.values.droitInterpretation
-                pourcent = (pourcent / (_parts.length)).toFixed(4)
+                pourcent = arrondir(pourcent / (_parts.length))
                 // Applique le pourcentage aux données existantes
                 _parts.forEach((elem, idx)=>{
                     _parts[idx].nom = elem.nom
-                    _parts[idx].pourcent = pourcent
+                    _parts[idx].pourcent = `${pourcent}`
                 })
                 this.props.setFieldValue("droitInterpretation", _parts)
                 break
@@ -90,7 +94,7 @@ class PageAssistantPartageInterpretation extends Component {
                     this.state.parts.forEach((elem, idx)=>{
                         _pP = (principaux.includes(elem.nom) ? pctPrincipalParCollaborateur : 0)
                         _pA = (accompagnement.includes(elem.nom) ? pctAccompagnementParCollaborateur : 0)
-                        _parts[idx].pourcent = _pP + _pA
+                        _parts[idx].pourcent = `${arrondir(_pP + _pA)}`
                     })
                     this.setState({parts: _parts})                    
                 }                
@@ -110,7 +114,7 @@ class PageAssistantPartageInterpretation extends Component {
             let ayantDroit = this.state.ayantsDroit[_coll], nom            
         
             if(ayantDroit) {
-                nom = ayantDroit.artistName ? ayantDroit.artistName : `${ayantDroit.firstName} ${ayantDroit.lastName}`
+                nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
             }
             
             //let _index = arrayHelpers.data.length
@@ -127,7 +131,7 @@ class PageAssistantPartageInterpretation extends Component {
                     arrayHelpers.insert(0, {
                         nom: nom, 
                         ayantDroit: ayantDroit,
-                        pourcent: (100 / (this.props.values.droitInterpretation.length + 1) ).toFixed(4),
+                        pourcent: `${arrondir(100 / (this.props.values.droitInterpretation.length + 1))}`,
                         principal: true,
                         chanteur: false,
                         musicien: false,
@@ -137,7 +141,7 @@ class PageAssistantPartageInterpretation extends Component {
                     arrayHelpers.insert(0, {
                         nom: nom, 
                         ayantDroit: ayantDroit,
-                        pourcent: (100 / (this.props.values.droitInterpretation.length + 1) ).toFixed(4),
+                        pourcent: `${arrondir(100 / (this.props.values.droitInterpretation.length + 1))}`,
                         principal: true,
                         chanteur: false,
                         musicien: false,
@@ -212,7 +216,7 @@ class PageAssistantPartageInterpretation extends Component {
                                     <Progress percent="50" size='tiny' indicating/>                                    
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(t, this.props.values)}}>
                                         {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>
