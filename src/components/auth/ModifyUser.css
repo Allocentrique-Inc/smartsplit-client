@@ -10,18 +10,10 @@
 
 .Titre {
   font-size: 18px;
+  margin-top: 40px;
+  color: black;
 }
 
-label.courriel {
-  margin-top: 200px;
-  position: absolute;
-}
-label.nom {
-  margin-top: 200px;
-}
-.Modal.Header .Titre {
-  margin: 50px 0px 50px 0px;
-}
 ::placeholder {
   color: #8da0b3;
   opacity: 1;
@@ -30,12 +22,6 @@ label.nom {
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #8da0b3;
-}
-
-.Titre {
-  font-size: 20px;
-  font-weight: normal;
-  margin: 0;
 }
 
 #prompt,

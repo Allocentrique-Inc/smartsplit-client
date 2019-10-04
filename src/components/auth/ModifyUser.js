@@ -238,7 +238,7 @@ class ModifyUser extends Component {
             size="small"
           >
             <div className="input-container">
-              <Modal.Header className="Titre" style={{ color: "black" }}>
+              <Modal.Header className="Titre">
                 <strong>{t("collaborateur.titre")}</strong>
               </Modal.Header>
               <br></br>
@@ -266,7 +266,7 @@ class ModifyUser extends Component {
                     />
                   </div>
                   <div style={{ width: "220px" }}>
-                    <label>
+                    <label style={{ marginTop: "30px" }}>
                       <strong>
                         &nbsp;&nbsp;{t("collaborateur.attribut.etiquette.nom")}
                       </strong>
@@ -283,7 +283,6 @@ class ModifyUser extends Component {
                     />
                   </div>
                 </span>
-                <br></br>
                 <label>
                   <strong>
                     {t("collaborateur.attribut.etiquette.artiste")}
@@ -305,7 +304,6 @@ class ModifyUser extends Component {
                 >
                   {t("collaborateur.attribut.etiquette.na")}
                 </div>
-                <br></br>
                 <label>
                   <strong>
                     {t("collaborateur.attribut.etiquette.courriel")}
@@ -318,7 +316,6 @@ class ModifyUser extends Component {
                   value={this.state.email}
                   onChange={e => this.setState({ email: e.target.value })}
                 />
-                <br></br>
                 <label>
                   <strong>
                     {t("collaborateur.attribut.etiquette.groupe")}
@@ -341,7 +338,6 @@ class ModifyUser extends Component {
                     onChange={this.handleChange}
                   />
                 </span>
-                <br></br>
                 <label>
                   <strong>{t("collaborateur.attribut.etiquette.role")}</strong>
                 </label>
