@@ -16,7 +16,7 @@
     }
   },
   "titre": {
-    "principal": "Welcome to SmartSplit Alpha - Client",
+    "principal": "Welcome to Smartsplit Beta",
     "accueil": "Home",
     "liste-media": "Media list returned by the API",
     "apercu": "Preview",
@@ -214,7 +214,7 @@
         }
       },
       "titre": {
-        "principal": "Welcome to SmartSplit Alpha - Client",
+        "principal": "Welcome to Smartsplit Beta",
         "accueil": "Home",
         "liste-media": "Media list returned by the API",
         "apercu": "Preview",
@@ -530,7 +530,7 @@
           "titre": "Password Reset",
           "indication": "Your password has been changed successfully."
         },
-        "titre": "Connexion à SmartSplit",
+        "titre": "Connexion à Smartsplit",
         "err": {
           "username": "Le nom d'utilisateur est un courriel invalide",
           "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
@@ -545,7 +545,7 @@
         }
       },
       "tableaudebord": {
-        "bonjour": "Here is the SmartSplit dashboard.",
+        "bonjour": "Here is the Smartsplit dashboard.",
         "navigation": {
           "0": "My musical works",
           "1": "My public profile",
@@ -648,7 +648,7 @@
     }
   },
   "accueil": {
-    "titre": "Login to your Smart Split account.",
+    "titre": "Login to your Smartsplit account.",
     "sous-titre": "Enter your information below.",
     "courriel": "Enter email",
     "motdepasse": "My password",

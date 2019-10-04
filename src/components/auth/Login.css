@@ -27,7 +27,6 @@
 }
 
 header#loginHeader h1 {
-    /*content: "Connecte-toi à ton \A compte Smart Split.";*/
     white-space: pre;
     font-style: bold;
     font-weight: 500;
@@ -38,7 +37,6 @@ header#loginHeader h1 {
 }
 
 header#loginHeader h3 {
-    /*content: "Entre tes informations ci-dessous.";*/
     white-space: pre;
     font-style: normal;
     font-weight: 400;
