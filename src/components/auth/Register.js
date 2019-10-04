@@ -17,22 +17,8 @@ import {
 import axios from "axios";
 // import * as Yup from 'yup'
 // Traduction
-import { Translation } from "react-i18next";
+import { withTranslation, Translation } from "react-i18next";
 import Eye from "./Eye";
-
-const roles = [
-  "principal",
-  "accompaniment",
-  "songwriter",
-  "composer",
-  "remixer",
-  "studio",
-  "publisher",
-  "graphist",
-  "producer",
-  "singer",
-  "musician"
-];
 
 class Register extends Component {
   state = {
@@ -70,19 +56,6 @@ class Register extends Component {
       currentRoleValue: [],
       image: "",
       uploadURL: "",
-      roles: [
-        { key: "Principal", text: "Principal", value: "Principal" },
-        { key: "Accompaniment", text: "Accompaniment", value: "Accompaniment" },
-        { key: "Songwriter", text: "Songwriter", value: "Songwriter" },
-        { key: "Composer", text: "Composer", value: "Composer" },
-        { key: "Remixer", text: "Remixer", value: "Remixer" },
-        { key: "Studio", text: "Studio", value: "Studio" },
-        { key: "Publisher", text: "Publisher", value: "Publisher" },
-        { key: "Graphist", text: "Graphist", value: "Graphist" },
-        { key: "Producer", text: "Producer", value: "Producer" },
-        { key: "Singer", text: "Singer", value: "Singer" },
-        { key: "Musician", text: "Musician", value: "Musician" }
-      ]
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -160,13 +133,19 @@ class Register extends Component {
     const username = values.username;
     const email = values.username; // username is used as email
     const password = this.state.password;
-    const avatarImage = 'image.jpg'
+    const avatarImage = "image.jpg";
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const artistName = this.state.artistName;
-    const defaultRoles = Buffer.from(JSON.stringify(this.state.currentRoleValue)).toString('base64');
-    const instruments = Buffer.from(JSON.stringify(this.state.instruments)).toString('base64');
-    const groups = Buffer.from(JSON.stringify(this.state.currentValue)).toString('base64');
+    const defaultRoles = Buffer.from(
+      JSON.stringify(this.state.currentRoleValue)
+    ).toString("base64");
+    const instruments = Buffer.from(
+      JSON.stringify(this.state.instruments)
+    ).toString("base64");
+    const groups = Buffer.from(
+      JSON.stringify(this.state.currentValue)
+    ).toString("base64");
 
     try {
       Auth.signUp({
@@ -358,12 +337,12 @@ class Register extends Component {
       .join(" ")
       .trim();
     // const controlClass = ['form-control', this.passwordmatch ? dirty ? 'is-valid' : 'is-invalid' : ''].join(' ').trim();
-    const controlClass = [
+    /*const controlClass = [
       "form-control",
       this.passwordmatch ? "is-valid" : "is-invalid"
     ]
       .join(" ")
-      .trim();
+      .trim();*/
 
     return (
       <Formik
@@ -443,17 +422,17 @@ class Register extends Component {
                         )}
                       </header>
                       {/*<hr className="hrLogin" />*/}
-                      <hr
+                      {/*<hr
                         className="hrLogin"
                         data-content={t("flot.split.inscription.ou")}
-                      />
+                      />*/}
                       <section className="section auth">
                         <div className="container">
-                          <img
+                          {/*<img
                             type="image"
                             className="avatarImage"
                             src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
-                          />
+                          />*/}
                           {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
                           <br></br>
                           <br></br>
@@ -465,9 +444,10 @@ class Register extends Component {
                             }}
                           >
                             <div style={{ width: "220px" }}>
-                              <label>
+                              <label style={{ fontWeight: "bold" }}>
                                 {t("collaborateur.attribut.etiquette.prenom")}
                               </label>
+                              <br />
                               <input
                                 type="text"
                                 className="firstName"
@@ -481,9 +461,10 @@ class Register extends Component {
                               />
                             </div>
                             <div style={{ width: "220px", marginLeft: "25px" }}>
-                              <label>
+                              <label style={{ fontWeight: "bold" }}>
                                 {t("collaborateur.attribut.etiquette.nom")}
                               </label>
+                              <br />
                               <input
                                 type="text"
                                 className="lastName"
@@ -497,88 +478,128 @@ class Register extends Component {
                               />
                             </div>
                           </span>
-                          <label>
-                            {t("collaborateur.attribut.etiquette.artiste")}
-                          </label>
-                          <label id="Optionel">
-                            {t("collaborateur.attribut.etiquette.option")}
-                          </label>
-                          <input
-                            type="text"
-                            className="artistName"
-                            placeholder={t(
-                              "collaborateur.attribut.etiquette.artiste"
-                            )}
-                            value={this.state.artistName}
-                            onChange={e =>
-                              this.setState({ artistName: e.target.value })
-                            }
-                          />
-                          <div className="sous titre">
-                            {t("collaborateur.attribut.etiquette.na")}
-                          </div>
-                          <br></br>
-                          <label>
-                            {t("collaborateur.attribut.etiquette.groupe")}
-                          </label>
-                          <Dropdown
-                            id="prompt"
-                            type="text"
-                            options={this.state.groups}
-                            placeholder={t(
-                              "collaborateur.attribut.indication.groupe"
-                            )}
-                            search
-                            multiple={true}
-                            selection
-                            fluid
-                            allowAdditions
-                            value={currentValue}
-                            onAddItem={this.handleAddition}
-                            onChange={this.handleChange}
-                          />
-                          {/*<i className="search icon"></i>*/}
-                          <br></br>
-                          <label>
-                            {t("collaborateur.attribut.etiquette.role")}
-                          </label>
-                          <Dropdown
-                            id="roles"
-                            type="text"
-                            options={this.state.roles}
-                            placeholder={t(
-                              "collaborateur.attribut.indication.role"
-                            )}
-                            search
-                            multiple={true}
-                            selection
-                            fluid
-                            value={currentRoleValue}
-                            onChange={this.roleChange}
-                          />
-                          <div className="sous titre">
-                            {t("collaborateur.attribut.indication.role2")}
-                          </div>
-                          <br></br>
 
-                          <div className="field">
-                            <div className="control">
-                              <label htmlFor="username">
-                                {t("flot.split.inscription.courriel")}
+                          <div className="ui row" style={{ marginTop: "30px" }}>
+                            <span>
+                              <label style={{ fontWeight: "bold" }}>
+                                {t("collaborateur.attribut.etiquette.artiste")}
                               </label>
-                              <Field
-                                validate={val => {
-                                  this.validateUsername(val);
-                                }}
-                                name="username"
-                                id="username"
-                                aria-describedby="userNameHelp"
-                                placeholder={t(
-                                  "flot.split.inscription.exemple"
-                                )}
-                                value={this.state.username}
-                                required={true}
-                              />
+                              <label style={{ color: "grey", float: "right" }}>
+                                {t("collaborateur.attribut.etiquette.option")}
+                              </label>
+                            </span>
+                            <br />
+
+                            <input
+                              type="text"
+                              className="artistName"
+                              placeholder={t(
+                                "collaborateur.attribut.etiquette.artiste"
+                              )}
+                              value={this.state.artistName}
+                              onChange={e =>
+                                this.setState({ artistName: e.target.value })
+                              }
+                            />
+                            <div className="sous-titre">
+                              {t("collaborateur.attribut.etiquette.na")}
+                            </div>
+                          </div>
+
+                          <div>
+                            <div
+                              className="ui row"
+                              style={{ marginTop: "30px" }}
+                            >
+                              <label style={{ fontWeight: "bold" }}>
+                                {t("collaborateur.attribut.etiquette.groupe")}
+                              </label>
+                              <br />
+                            </div>
+                            <Dropdown
+                              id="prompt"
+                              type="text"
+                              options={this.state.groups}
+                              placeholder={t(
+                                "collaborateur.attribut.indication.groupe"
+                              )}
+                              search
+                              multiple={true}
+                              selection
+                              fluid
+                              allowAdditions
+                              value={currentValue}
+                              onAddItem={this.handleAddition}
+                              onChange={this.handleChange}
+                            />
+                          </div>
+
+                          <div>
+                            <div
+                              className="ui row"
+                              style={{ marginTop: "30px" }}
+                            >
+                              <label style={{ fontWeight: "bold" }}>
+                                {t("collaborateur.attribut.etiquette.role")}
+                              </label>
+                              <br />
+                            </div>
+                            <Dropdown
+                              icon="ui search icon"
+                              id="roles"
+                              type="text"
+                              options={
+                                [
+                                  { key: t('flot.split.roles.principal'), text: "Principal", value: "Principal" },
+                                  { key: t('flot.split.roles.accompaniment'), text: "Accompaniment", value: "Accompaniment" },
+                                  { key: t('flot.split.roles.songwriter'), text: "Songwriter", value: "Songwriter" },
+                                  { key: t('flot.split.roles.composer'), text: "Composer", value: "Composer" },
+                                  { key: t('flot.split.roles.remixer'), text: "Remixer", value: "Remixer" },
+                                  { key: t('flot.split.roles.studio'), text: "Studio", value: "Studio" },
+                                  { key: t('flot.split.roles.publisher'), text: "Publisher", value: "Publisher" },
+                                  { key: t('flot.split.roles.graphist'), text: "Graphist", value: "Graphist" },
+                                  { key: t('flot.split.roles.producer'), text: "Producer", value: "Producer" },
+                                  { key: t('flot.split.roles.singer'), text: "Singer", value: "Singer" },
+                                  { key: t('flot.split.roles.musician'), text: "Musician", value: "Musician" }
+                                ]
+                              }
+                              placeholder={t(
+                                "collaborateur.attribut.indication.role"
+                              )}
+                              search
+                              multiple={true}
+                              selection
+                              fluid
+                              value={currentRoleValue}
+                              onChange={this.roleChange}
+                            />
+                            <div className="sous-titre">
+                              {t("collaborateur.attribut.indication.role2")}
+                            </div>
+                          </div>
+
+                          <div className="ui row" style={{ marginTop: "30px" }}>
+                            <div className="field">
+                              <div className="control">
+                                <label htmlFor="username">
+                                  {t("flot.split.inscription.courriel")}
+                                </label>
+                                <br />
+                                <Field
+                                  validate={val => {
+                                    this.validateUsername(val);
+                                  }}
+                                  name="username"
+                                  id="username"
+                                  aria-describedby="userNameHelp"
+                                  placeholder={t(
+                                    "flot.split.inscription.exemple"
+                                  )}
+                                  value={this.state.username}
+                                  required={true}
+                                />
+                              </div>
+
                               {errors.username && touched.username && (
                                 <div style={{ color: "red" }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
@@ -592,6 +613,7 @@ class Register extends Component {
                                 <label htmlFor="password">
                                   {t("flot.split.inscription.motdepasse")}
                                 </label>
+                                <br />
 
                                 <div className="input-wrapper">
                                   <Field
@@ -607,7 +629,9 @@ class Register extends Component {
                                     }
                                     id="password"
                                     name="password"
-                                    placeholder={t("inscription.password")}
+                                    placeholder={t(
+                                      "flot.split.inscription.password"
+                                    )}
                                     value={this.state.password}
                                     onChange={this.handlePasswordChange}
                                     /*onChange={this.stateChanged}*/
@@ -664,7 +688,7 @@ class Register extends Component {
                                   value={this.state.confirmpassword}
                                   onChange={this.handleConfirmPasswordChange}
                                   required={true}
-                                  className={controlClass}
+                                  /*className={controlClass}*/
                                 />
                                 <button
                                   id="hide-confirm"
@@ -738,4 +762,4 @@ class Register extends Component {
   }
 }
 
-export default Register;
+export default withTranslation()(Register);

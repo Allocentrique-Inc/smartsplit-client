@@ -575,7 +575,9 @@
         "songwriter": "Auteur",
         "composer": "Compositeur",
         "singer": "Chanteur",
-        "musicien": "Musicien"
+        "musicien": "Musicien",
+        "remixer": "Arrangeur",
+        "publisher": "Éditeur"
       },
       "partage": {
         "auteur": {

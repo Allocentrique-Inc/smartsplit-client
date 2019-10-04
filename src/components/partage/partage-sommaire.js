@@ -14,6 +14,7 @@ import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
 
 import { Modal } from 'semantic-ui-react'
+import Declaration from '../auth/Declaration'
 
 const ROLES = [
         "principal",
@@ -544,19 +545,15 @@ export default class SommairePartage extends Component {
         }
     }
 
+    modaleDeclaration(ouvert = true) {
+        this.stateState({modaleDeclaration: ouvert})
+    }
+
     envoi() {
-        let body = {
-            userId: `${this.state.ayantDroit.rightHolderId}`,
-            droits: this.state.mesVotes,
-            jeton: this.state.jetonApi
-        }
-        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/voter', body)
-        .then((res)=>{
-            window.location.href = `/partager/${this.state.proposition.mediaId}`
-        })
-        .catch((err) => {
-            console.log(err)
-        })
+
+        // Ouvrir Modale déclaration et c'est dans celle-ci
+        // que l'envoi est réellement fait.
+        this.modaleDeclaration()
     }
 
     transmettre(t) {        
@@ -665,7 +662,30 @@ export default class SommairePartage extends Component {
                                     })
 
                                 }} />
-                            </Modal>                        
+                            </Modal>  
+                            { 
+                                this.state.ayantDroit &&
+                                <Declaration 
+                                    firstName={this.state.ayantDroit.firstName} 
+                                    lastName={this.state.ayantDroit.lastName} 
+                                    songTitle={this.state.titre} 
+                                    open={this.state.modaleDeclaration} 
+                                    fn={()=>{
+                                        let body = {
+                                            userId: `${this.state.ayantDroit.rightHolderId}`,
+                                            droits: this.state.mesVotes,
+                                            jeton: this.state.jetonApi
+                                        }
+                                        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/voter', body)
+                                        .then((res)=>{
+                                            window.location.href = `/partager/${this.state.proposition.mediaId}`
+                                        })
+                                        .catch((err) => {
+                                            console.log(err)
+                                        })
+                                }} />  
+                            }
+                            
                         </div>
                 }
             </Translation>

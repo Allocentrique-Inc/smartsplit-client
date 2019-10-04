@@ -98,7 +98,7 @@ class ForgotPassword extends Component {
                 </div>
               </span>
             )}
-            {!this.state.patience && (
+            {/*{!this.state.patience && (
               <span
                 className="top-register"
                 style={{
@@ -115,7 +115,7 @@ class ForgotPassword extends Component {
                   {t("entete.inscription")}
                 </div>
               </span>
-            )}
+            )}*/}
             <div className="containerPassword" style={passwordStyle}>
               <h1
                 style={{

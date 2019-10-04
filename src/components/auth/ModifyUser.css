@@ -8,10 +8,10 @@
   align-items: center;
 }
 
-.Titre {
+.Modal.Header.Titre {
   font-size: 18px;
-  margin-top: 40px;
   color: black;
+  margin: 0px 0px 50px 65px;
 }
 
 ::placeholder {
