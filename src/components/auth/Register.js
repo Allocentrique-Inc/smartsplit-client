@@ -129,6 +129,7 @@ class Register extends Component {
   };
 
   handleSubmit = values => {
+   
     // AWS Cognito integration here
     const username = values.username;
     const email = values.username; // username is used as email
@@ -137,15 +138,9 @@ class Register extends Component {
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const artistName = this.state.artistName;
-    const defaultRoles = Buffer.from(
-      JSON.stringify(this.state.currentRoleValue)
-    ).toString("base64");
-    const instruments = Buffer.from(
-      JSON.stringify(this.state.instruments)
-    ).toString("base64");
-    const groups = Buffer.from(
-      JSON.stringify(this.state.currentValue)
-    ).toString("base64");
+    const defaultRoles = this.state.currentRoleValue;
+    const instruments = this.state.instruments;
+    const groups = this.state.currentValue;
 
     try {
       Auth.signUp({
@@ -156,22 +151,14 @@ class Register extends Component {
           given_name: firstName,
           family_name: lastName,
           "custom:artistName": artistName,
-          "custom:instruments": instruments,
-          "custom:defaultRoles": defaultRoles,
-          "custom:groups": groups,
+          "custom:instruments": JSON.stringify(instruments),
+          "custom:defaultRoles": JSON.stringify(defaultRoles),
+          "custom:groups": JSON.stringify(groups),
           "custom:avatarImage": avatarImage
         }
-      })
-        // Auth.currentSession().then(
-        //   session=>{
-        //     // this.props.auth.setAuthStatus(true)
-        //     console.log("AmazonCognitoUser***** ", session)
-        //     console.log("rightHolderId: ", session.idToken.payload.sub)
-        //   }
-        // )
-        // this.props.history.push("/welcome")
+      })        
         .then(
-          toast.success(`${firstName}, your account is created, check email!`)
+          toast.success(`${firstName}, compte créé !`)
         )
         .then(
           setTimeout(function() {
@@ -212,20 +199,6 @@ class Register extends Component {
   handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value });
 
   roleChange = (e, { value }) => this.setState({ currentRoleValue: value });
-
-  // stateChanged = e => {
-
-  //   // update the internal state using the updated state from the form field
-
-  //   console.log("Target Value", e.target.value)
-  //   console.log("PPPPPPPPP", this.state.password)
-
-  //   this.setState({
-  //     password: e.target.value,
-  //     strength: zxcvbn(e.target.value).score
-  //   }, () => this.props.onStateChanged(e));
-
-  // };
 
   handleConfirmPasswordChange(e) {
     this.setState({ confirmpassword: e.target.value });
@@ -281,29 +254,6 @@ class Register extends Component {
     }
   }
 
-  //   handleSubmit = values => {
-  //     try {
-  //       this.setState({ patience: true }, () => {
-  //         Auth.signIn(values.username, values.password)
-  //           .then(user => {
-  //             toast.success(`#${user.username} !`);
-
-  //             if (this.props.fn) {
-  //               this.props.fn();
-  //             }
-  //           })
-  //           .catch(err => {
-  //             toast.error(err.message);
-  //           })
-  //           .finally(() => {
-  //             this.setState({ patience: false });
-  //           });
-  //       });
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   };
-
   render() {
     const {
       type,
@@ -335,23 +285,12 @@ class Register extends Component {
       strength >= 2 ? "visible" : "invisible"
     ]
       .join(" ")
-      .trim();
-    // const controlClass = ['form-control', this.passwordmatch ? dirty ? 'is-valid' : 'is-invalid' : ''].join(' ').trim();
-    /*const controlClass = [
-      "form-control",
-      this.passwordmatch ? "is-valid" : "is-invalid"
-    ]
-      .join(" ")
-      .trim();*/
+      .trim();    
 
     return (
       <Formik
         initialValues={{
-          // email: this.state.email,
-          username: this.state.username,
-          // firstName: this.state.firstName,
-          // lastName: this.state.lastName,
-          // artistName: this.state.artistName,
+          username: this.state.username,          
           password: this.state.password,
           hidden: true,
           confirmpassword: this.state.confirmpassword,
@@ -360,7 +299,6 @@ class Register extends Component {
         onSubmit={(values, { setSubmitting }) => {
           this.handleSubmit(values, () => {
             setSubmitting(false);
-            // this.openModal();
           });
         }}
       >
