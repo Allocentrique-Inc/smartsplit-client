@@ -735,11 +735,18 @@ class Register extends Component {
                             <div className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
                               <div className="container">
                                 <p className="control">
-                                  <div>
+                                  <div>                                    
                                     <button
-                                      className="ui medium button register is-success"
+                                      className={`ui medium button register is-success ${!this.state.password || this.state.confirmpassword !== this.state.password ? 'disabled' : ''}`}
                                       type="submit"
-                                      onClick={this.closeModal}
+                                      
+                                      onClick={e=>{
+                                        if(this.state.confirmpassword !== this.state.password) {
+                                          e.preventDefault()
+                                        } else {
+                                          this.closeModal()
+                                        }                                        
+                                      }}
                                     >
                                       {t("entete.inscription")}
                                     </button>
