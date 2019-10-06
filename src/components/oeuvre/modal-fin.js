@@ -35,7 +35,7 @@ export default class ModalFin extends React.Component {
               </h4>
               {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
                 <p className={"description"}>
-                  You're one <em>click</em>away from publishing this tack's
+                  You're one <em>click</em> away from publishing this track's
                   credits on a web page and thus increasing your discoverability
                   in <em>data web</em>.
                 </p>

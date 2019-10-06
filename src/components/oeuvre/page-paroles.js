@@ -36,7 +36,7 @@ export default class PageParoles extends React.Component {
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
-            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={15000} />
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={20000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}

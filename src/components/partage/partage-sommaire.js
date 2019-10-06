@@ -350,6 +350,7 @@ export default class SommairePartage extends Component {
         }
         this.calculMesVotes = this.calculMesVotes.bind(this)
         this.envoi = this.envoi.bind(this)
+        this.modaleConnexion = this.modaleConnexion.bind(this)
     }
 
     componentWillMount() {
@@ -546,7 +547,7 @@ export default class SommairePartage extends Component {
     }
 
     modaleDeclaration(ouvert = true) {
-        this.stateState({modaleDeclaration: ouvert})
+        this.setState({modaleDeclaration: ouvert})
     }
 
     envoi() {
@@ -567,9 +568,13 @@ export default class SommairePartage extends Component {
             }
         })
         .catch(err=>{
-            this.setState({modaleConnexion: true})           
+            this.modaleConnexion()            
         })
         
+    }
+
+    modaleConnexion(ouvert = true) {
+        this.setState({modaleConnexion: ouvert})
     }
 
     render() {
@@ -651,7 +656,8 @@ export default class SommairePartage extends Component {
                                     .then(res=>{
                                         if(res.username === this.state.ayantDroit.rightHolderId) {
                                             that.setState({user: res})
-                                            that.envoi()                                            
+                                            that.envoi()
+                                            that.modaleConnexion(false)
                                         } else {
                                             toast.error(t('flot.split.erreur.volIdentite'))    
                                         }
@@ -667,8 +673,9 @@ export default class SommairePartage extends Component {
                                 this.state.ayantDroit &&
                                 <Declaration 
                                     firstName={this.state.ayantDroit.firstName} 
-                                    lastName={this.state.ayantDroit.lastName} 
-                                    songTitle={this.state.titre} 
+                                    lastName={this.state.ayantDroit.lastName}
+                                    artistName={this.state.ayantDroit.artistName}
+                                    songTitle={this.props.titre} 
                                     open={this.state.modaleDeclaration} 
                                     fn={()=>{
                                         let body = {

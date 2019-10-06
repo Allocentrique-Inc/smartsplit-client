@@ -649,7 +649,10 @@
     "fin": {
       "created": "🚀 Vers la découvrabilité !",
       "maintenant": "Le titre {{titre}} est désormais connu. Félicitations !",
-      "resume": "Voir le condensé"
+      "maintenantPartage": "La proposition de partage existe. Bravo !",
+      "resume": "Voir le condensé",
+      "partage": "Voir le partage",
+      "partageCree": "⭐️ Le partage est créé"
     }
   },
   "accueil": {
