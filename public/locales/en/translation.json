@@ -152,7 +152,8 @@
     "acr": {
       "titre": "Your musical work is recognized",
       "oui": "Let's do this !",
-      "non": "No, thanks."
+      "non": "No, thanks.",
+      "importer": "Do I import this data?"
     },
     "split": {
       "sommaire": {
@@ -571,10 +572,12 @@
         "studio": "Studio",
         "graphist": "Graphist",
         "arranger": "Arranger",
-        "songwriter": "songwriter",
+        "songwriter": "Songwriter",
         "composer": "Composer",
         "singer": "Singer",
-        "musicien": "Musician"
+        "musicien": "Musician",
+        "remixer": "Remixer",
+        "publisher": "Publisher"
       },
       "partage": {
         "auteur": {
@@ -705,7 +708,10 @@
     "anglais": "English",
     "deconnexion": "Disconnect"
   },
-  "reussi": "Lugin successful",
+  "deconnexion": {
+    "reussie": "Succesfully disconnected"
+  },
+  "reussi": "Login successful",
   "obligatoire": "Mendatory",
   "connexion": "Login mendatory",
   "connecter": "You must be connected to vote",

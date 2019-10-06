@@ -1,7 +1,7 @@
 let AWS = require("aws-sdk");
 
 exports.listCognitoUsers = () => {
-    const REGION = 'us-east-2'
+    const REGION = 'us-east-1'
     const USER_POOL_ID = 'us-east-1_W3bnhMGGM'
 
   var params = {

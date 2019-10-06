@@ -19,6 +19,7 @@ import { Auth } from 'aws-amplify'
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
 import { Modal } from 'semantic-ui-react'
+import Declaration from '../auth/Declaration'
 
 const ROLES = {
     COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a31",
@@ -333,6 +334,13 @@ class AssistantPartage extends Component {
     modaleConnexion(ouvert = true) {
         this.setState({modaleConnexion: ouvert})
     }
+  
+    modaleDeclaration(ouvert = true, fn) {
+        console.log('modale declaration, ouverture', ouvert )
+        this.setState({fnSoumettre: fn}, ()=>{
+            this.setState({modaleDeclaration: ouvert})
+        })
+    }
 
     enregistrerEtQuitter(t, valeurs) {
         this.soumettre(t, valeurs, "BROUILLON", () => {
@@ -436,6 +444,7 @@ class AssistantPartage extends Component {
                 <Translation>
                     {
                         (t, i18n) =>
+                        <>
                             <div className="ui grid" style={ { padding: "10px" } }>
                                 {
                                     lectureSeule && (
@@ -462,7 +471,9 @@ class AssistantPartage extends Component {
                                             onSubmit={
                                                 (values) => {
                                                     if(!lectureSeule) {
-                                                        this.soumettre(t, values, "PRET")
+                                                        this.modaleDeclaration(true, ()=>{
+                                                            this.soumettre(t, values, "PRET")
+                                                        })
                                                     }                                              
                                                 }
                                             }
@@ -484,6 +495,19 @@ class AssistantPartage extends Component {
                                     </div>
                                 </div>
                             </div>
+                            { 
+                                this.state.user &&
+                                <Declaration
+                                    firstName={this.state.user.firstName} 
+                                    lastName={this.state.user.lastName} 
+                                    songTitle={this.state.media.title} 
+                                    open={this.state.modaleDeclaration} 
+                                    fn={()=>{
+                                        this.state.fnSoumettre()
+
+                                }} />  
+                            }
+                        </>    
                     }
                 </Translation>
             )

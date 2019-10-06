@@ -49,7 +49,7 @@ import OeuvreResume from "./components/oeuvre/oeuvre-resume";
 import "moment/locale/fr";
 import "moment/locale/en-ca";
 
-const REGION = "us-east-2";
+const REGION = "us-east-1;
 
 Amplify.configure({
   Auth: {

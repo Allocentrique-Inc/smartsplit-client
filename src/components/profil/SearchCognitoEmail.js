@@ -1,5 +1,5 @@
 let AWS = require("aws-sdk");
-AWS.config.update({ region: "us-east-2" });
+AWS.config.update({ region: "us-east-1" });
 
 const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider();
 const EMAIL_ADDRESS = "david@iptoki.com";

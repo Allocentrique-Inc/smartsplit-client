@@ -112,6 +112,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
   }
 
   handleAddItem = (event, { value }) => {
+    event.preventDefault()
     this.setState({
       modalOpen: true,
       modalFirstName: value
@@ -162,6 +163,13 @@ class ChampSelectionMultipleAyantDroit extends Component {
           firstName={this.state.modalFirstName}
           onClose={() =>
             this.setState({ modalOpen: false, modalFirstName: "" })
+          }
+          fn={
+            (e)=>{
+              let values = this.state.selectedValues
+              values.push(e)
+              this.setState({selectedValues: values})
+            }
           }
         />
       </>
