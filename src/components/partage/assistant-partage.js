@@ -18,8 +18,12 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
-import { Modal } from 'semantic-ui-react'
+import { Modal, Button } from 'semantic-ui-react'
 import Declaration from '../auth/Declaration'
+
+import closeIcon from "../../assets/svg/icons/x.svg";
+import "../../assets/scss/page-assistant/modal.scss";
+import positiveImage from "../../assets/images/positive.png";
 
 const ROLES = {
     COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a31",
@@ -45,6 +49,7 @@ class AssistantPartage extends Component {
         }
         this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
         this.soumettre = this.soumettre.bind(this)
+        this.modaleFin = this.modaleFin.bind(this)
     }
 
     componentWillMount() {
@@ -291,9 +296,7 @@ class AssistantPartage extends Component {
                             if(typeof cb === "function") {
                                 cb()
                             } else {
-                                setTimeout(()=>{
-                                    window.location.href = `/partager/${this.state.mediaId}`
-                                }, 3000)
+                                this.modaleFin()
                             }
                         })
                         .catch(err=>{
@@ -308,9 +311,7 @@ class AssistantPartage extends Component {
                             if(typeof cb === "function") {
                                 cb()
                             } else {
-                                setTimeout(()=>{
-                                    window.location.href = `/partager/${this.state.mediaId}`
-                                }, 3000)
+                                this.modaleFin()
                             }
                         })
                         .catch(err=>{
@@ -336,7 +337,6 @@ class AssistantPartage extends Component {
     }
   
     modaleDeclaration(ouvert = true, fn) {
-        console.log('modale declaration, ouverture', ouvert )
         this.setState({fnSoumettre: fn}, ()=>{
             this.setState({modaleDeclaration: ouvert})
         })
@@ -353,6 +353,10 @@ class AssistantPartage extends Component {
                 })
                 .catch(error => console.log(error))
         })
+    }
+
+    modaleFin(ouvert = true) {
+        this.setState({modaleFin: ouvert})
     }
 
     render() {
@@ -498,8 +502,9 @@ class AssistantPartage extends Component {
                             { 
                                 this.state.user &&
                                 <Declaration
-                                    firstName={this.state.user.firstName} 
-                                    lastName={this.state.user.lastName} 
+                                    firstName={this.state.user.attributes.given_name} 
+                                    lastName={this.state.user.attributes.family_name}
+                                    artistName={this.state.user.attributes["custom:artistName"]} 
                                     songTitle={this.state.media.title} 
                                     open={this.state.modaleDeclaration} 
                                     fn={()=>{
@@ -507,6 +512,50 @@ class AssistantPartage extends Component {
 
                                 }} />  
                             }
+                            <Modal open={this.state.modaleFin} onClose={()=>this.modaleFin(false)}>
+                                <div className="modal-navbar">
+                                <div className="left">
+                                    <div className="title">{t("flot.fin.partageCree")}</div>
+                                </div>
+
+                                <div className="right">
+                                    <a className="close-icon" onClick={this.props.onClose}>
+                                    <img src={closeIcon} alt={"close"} />
+                                    </a>
+                                </div>
+                                </div>
+
+                                <div className="modal-content">
+                                <img
+                                    className={"success-image"}
+                                    src={positiveImage}
+                                    alt={"Positive"}
+                                />
+
+                                <h4 className={"h4-style"}>
+                                    {t("flot.fin.maintenantPartage")}
+                                </h4>
+                                {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
+                                    <p className={"description"}>
+                                    Hourray, your successfully created a share proposal. <em>Click</em> on the button below 
+                                    to <em>review</em> it's content and to <em>send by email</em> to your collaborators.
+                                    </p>
+                                )}
+                                {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
+                                    <p className={"description"}>
+                                    Bravo, tu as créé une proposition de partage de droits avec succès ! <em>Clique</em> sur 
+                                    le bouton ci-dessous afin de <em>revoir</em> et <em>envoyer par courriel</em> la proposition à
+                                    tes collaborateurs.
+                                    </p>
+                                )}
+                                </div>
+
+                                <div className={"modal-bottom-bar"}>
+                                <a href={`/partager/${this.state.mediaId}`}>
+                                    <Button>{t("flot.fin.partage")}</Button>
+                                </a>
+                                </div>
+                            </Modal>
                         </>    
                     }
                 </Translation>

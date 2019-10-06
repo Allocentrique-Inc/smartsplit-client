@@ -323,7 +323,10 @@ export class ChampListeCollaborateurAssistant extends Component {
                         })                        
                     }}
                     fn={()=>{
-                        this.listeAyantsDroit()                    
+                        this.listeAyantsDroit()
+                        if(this.props.fn) {
+                            this.props.fn()
+                        }                        
                     }}
                     />  
             </div>

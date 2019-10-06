@@ -25,6 +25,7 @@ import {
   hasRoles,
   updateRole
 } from "../page-assistant/right-holder-helpers";
+import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
 
 export default class PageCreation extends Component {
   constructor(props) {
@@ -104,6 +105,7 @@ export default class PageCreation extends Component {
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={20000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}

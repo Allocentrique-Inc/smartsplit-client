@@ -4,6 +4,9 @@
 import React, { Component } from 'react';
 import { Wizard } from "semantic-ui-react-formik";
 import axios from 'axios';
+
+import moment from 'moment'
+
 // Pages de l'assistant
 import PageCreation from './page-creation';
 import PageInterpretation from './page-interpretation';
@@ -24,6 +27,8 @@ import Login from '../auth/Login';
 import ModalFin from "./modal-fin";
 import { confirmAlert } from 'react-confirm-alert';
 import ModaleConnexion from '../auth/Connexion';
+import { ConsoleLogger } from '@aws-amplify/core';
+
 
 // Modèle
 
@@ -90,13 +95,13 @@ class AssistantOeuvre extends Component {
 
         if(!_m) {
             valeurs = {
+                mediaId: this.state.mediaId,
                 title: "",
                 album: "",
                 artist: "",
                 cover: "false",
                 rightHolders: [],
-                jurisdiction: "",
-                rightsType: [],
+                jurisdiction: "",            
                 lyrics: {
                     text: "",
                     languages: [],
@@ -147,61 +152,38 @@ class AssistantOeuvre extends Component {
             }
         } else {
             valeurs = {
+                mediaId: this.state.mediaId,
                 title: _m.title,
                 album: _m.album,
                 artist: _m.artist,
-                cover: "false",
-                rightHolders: [],
-                jurisdiction: "",
-                rightsType: [],
-                lyrics: {
-                    text: "",
-                    languages: [],
-                    access: "private"
-                },
+                cover: _m.cover,
+                rightHolders: _m.rightHolders ? _m.rightHolders : [],
+                jurisdiction: _m.jurisdiction,
+                lyrics: _m.lyrics,
                 isrc: _m.isrc,
                 iswc: _m.iswc,
                 upc: _m.upc,
                 msDuration: _m.msDuration,
-                duration: "",
-                bpm: "",
-                influence: "",
+                bpm: _m.bpm,
+                influence: _m.influence,
                 genre: _m.genre,
-                secondaryGenres: [],
+                secondaryGenres: _m.secondaryGenres,
                 socialMediaLinks: _m.socialMediaLinks || [],
                 streamingServiceLinks: _m.streamingServiceLinks || [],
                 pressArticleLinks: _m.pressArticleLinks || [],
                 playlistLinks: _m.playlistLinks || [],
-                creationDate: _m.creationDate,
+                creationDate: moment(_m.creationDate).locale('fr').format("L"),
                 modificationDate: _m.modificationDate,
                 publishDate: _m.publishDate,
                 publisher: _m.publisher,
-                studio: "",
-                studioAddress: "",
-                label: "",
-                labelAddress: "",
-                distributor: "",
-                distributorAddress: "",
-                rightsSplit: {},
-                files: {
-                    cover: {
-                        file: null,
-                        access: "private"
-                    },
-                    audio: {
-                        file: _m.fichier,
-                        access: "private"
-                    },
-                    score: {
-                        file: null,
-                        access: "private"
-                    },
-                    midi: {
-                        file: null,
-                        access: "private"
-                    }
-                }
-            }
+                studio: _m.studio,
+                studioAddress: _m.studioAddress,
+                label: _m.label,
+                labelAddress: _m.labelAddress,
+                distributor: _m.distributor,
+                distributorAddress: _m.distributorAddress,                
+                files: _m.files
+            } 
         }
         return valeurs
     }
@@ -219,16 +201,12 @@ class AssistantOeuvre extends Component {
             endModalOpen: true
         });
 
-        //let oeuvre = new Oeuvre(values);
-        //let body = oeuvre.get();
-
         axios.post('http://api.smartsplit.org:8080/v1/media', values)
             .then((response) => {
-                actions.setSubmitting(false);
-                toast(t('flot.envoi.reussi'));
+                actions.setSubmitting(false);                
             })
             .catch((error) => {
-                toast.error(error);
+                console.log(error)
             });
     };
 
@@ -253,13 +231,11 @@ class AssistantOeuvre extends Component {
                                             initialValues={ this.getInitialValues() }
                                             onPageChanged={ this.onPageChanged }
                                             onSubmit={ this.onSubmit }
-
                                             buttonLabels={ {
                                                 previous: t('navigation.precedent'),
                                                 next: t('navigation.suivant'),
                                                 submit: t('navigation.envoi')
                                             } }
-
                                             debug={ false }
                                         >
                                             <Wizard.Page>
@@ -302,6 +278,7 @@ class AssistantOeuvre extends Component {
 
                                             <Wizard.Page>
                                                 <PageParoles
+                                                    i18n={ i18n }
                                                     pochette={ this.props.pochette }
                                                 />
                                             </Wizard.Page>
@@ -313,7 +290,7 @@ class AssistantOeuvre extends Component {
                                             </Wizard.Page>
                                         </Wizard>
                                         <ModalFin
-                                            songTitle={ this.state.title }
+                                            titre={ this.state.title }
                                             open={ this.state.endModalOpen }
                                             onClose={ () => this.setState({ endModalOpen: false }) }
                                         />
