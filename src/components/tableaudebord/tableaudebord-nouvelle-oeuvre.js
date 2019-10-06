@@ -518,7 +518,6 @@ export default class NouvelleOeuvre extends Component {
             },
             remixer: values.arrangeur
         }
-        body.mediaId = this.state.mediaId
         this.props.parent.state.audio.stop()
 
         axios.post(`http://api.smartsplit.org:8080/v1/media`, body)
