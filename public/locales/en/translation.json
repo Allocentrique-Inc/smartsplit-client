@@ -152,7 +152,8 @@
     "acr": {
       "titre": "Your musical work is recognized",
       "oui": "Let's do this !",
-      "non": "No, thanks."
+      "non": "No, thanks.",
+      "importer": "Do I import this data?"
     },
     "split": {
       "sommaire": {
