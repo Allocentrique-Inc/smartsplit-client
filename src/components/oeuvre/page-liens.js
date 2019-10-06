@@ -19,6 +19,7 @@ import { Dropdown } from "semantic-ui-react";
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg";
 import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg";
 import "../../assets/scss/page-assistant/champ.scss";
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
 
 export default class PageLiens extends React.Component {
   defaultStreamingApps = [
@@ -169,6 +170,7 @@ export default class PageLiens extends React.Component {
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={15000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}

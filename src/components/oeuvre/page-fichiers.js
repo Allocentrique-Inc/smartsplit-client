@@ -7,6 +7,7 @@ import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg";
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 import ChampTeleversement from "../page-assistant/champ-televersement";
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
 
 export default class PageFichiers extends React.Component {
   icon() {
@@ -34,6 +35,7 @@ export default class PageFichiers extends React.Component {
       <Translation>
         {(t, i18n) => (
           <Page pochette={this.props.pochette}>
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={15000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}

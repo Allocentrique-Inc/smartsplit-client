@@ -6,6 +6,7 @@ import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
 import * as roles from '../../assets/listes/role-uuids.json';
 import { isUnique, updateRightHolders } from "./right-holder-helpers";
+import { Translation } from 'react-i18next';
 
 export class ChampSelectionInterprete extends Component {
 
@@ -43,12 +44,13 @@ export class ChampSelectionInterprete extends Component {
 
     isUnselectedItem = item => !this.isSelectedItem(item);
 
-    renderSelectedItems() {
+    renderSelectedItems(langue) {
         return this.selectedItems().map(item => {
             const musician = this.props.musicians.find(musician => musician.id === item.value);
 
             return (
                 <FormulaireMusicien
+                    langue={langue}
                     key={ item.value }
                     pochette={ this.props.pochette }
                     item={ item }
@@ -117,26 +119,38 @@ export class ChampSelectionInterprete extends Component {
 
     render() {
         return (
-            <label>
-                <TitreChamp
-                    label={ this.props.label }
-                    description={ this.props.description }
-                />
+            <Translation>
+                {
+                    (t, i18n) => 
+                        <label>
 
-                { this.renderSelectedItems() }
+                            {
+                                i18n &&
+                                <>
+                                    <TitreChamp
+                                        label={ this.props.label }
+                                        description={ this.props.description }
+                                    />
 
-                <Dropdown
-                    placeholder={ this.props.placeholder }
-                    fluid
-                    search
-                    selection
-                    selectOnBlur={ false }
-                    selectOnNavigation={ false }
-                    value={ this.state.dropdownValue }
-                    options={ this.unselectedItems() }
-                    onChange={ this.handleChange }
-                />
-            </label>
+                                    { this.renderSelectedItems(i18n.lng.substring(0,2)) }
+
+                                    <Dropdown
+                                        placeholder={ this.props.placeholder }
+                                        fluid
+                                        search
+                                        selection
+                                        selectOnBlur={ false }
+                                        selectOnNavigation={ false }
+                                        value={ this.state.dropdownValue }
+                                        options={ this.unselectedItems() }
+                                        onChange={ this.handleChange }
+                                    />
+                                </>
+                            }
+                            
+                        </label>
+                }
+            </Translation>            
         );
     }
 }

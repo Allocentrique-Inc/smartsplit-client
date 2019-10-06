@@ -31,7 +31,7 @@ export default class ModalFin extends React.Component {
               />
 
               <h4 className={"h4-style"}>
-                {this.props.songTitle} {t("flot.fin.maintenant")}
+                {this.props.songTitle} {t("flot.fin.maintenant", {titre: this.props.titre})}
               </h4>
               {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
                 <p className={"description"}>

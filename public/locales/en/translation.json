@@ -69,7 +69,7 @@
         "juridiction": "Jurisdiction",
         "ayantDroit": "Collaborators",
         "genre": "Main genra",
-        "genre2": "Secondary genra",
+        "genre2": "Secondary genras",
         "ajouter-genre": "Add a genre",
         "paroles": "Lyrics",
         "langueParoles": "Lyric's languages",
@@ -293,6 +293,7 @@
           "preambule": "Genre, style, kind of...?"
         },
         "documenter": {
+          "sauvegarde": "Documentation auto-saved",
           "entete": {
             "creation": "Creation",
             "interpretation": "Performance",
