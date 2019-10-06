@@ -561,6 +561,11 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     selection={true}
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitAuteur}
+                                                                                    fn={(_aD)=>{
+                                                                                        // Ajoute le nouvel ayantdroit à la liste comme si il était déjà
+                                                                                        // dans la liste.
+                                                                                        
+                                                                                    }}
                                                                                 />                                                                                
                                                                             </div>
                                                                             <div className="four wide column">

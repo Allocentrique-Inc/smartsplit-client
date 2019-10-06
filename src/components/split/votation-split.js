@@ -91,7 +91,7 @@ class VotationSplit extends Component {
                                     <div className="ui row">
                                         <div className="ui one wide column" />
                                         <div className="ui twelve wide column">
-                                            {this.state.jeton && (<SommairePartage uuid={this.state.proposition.uuid} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi}/>)}
+                                            {this.state.jeton && (<SommairePartage titre={this.state.media.title} uuid={this.state.proposition.uuid} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi}/>)}
                                         </div>                            
                                         <div className="ui one wide column">
                                         </div>

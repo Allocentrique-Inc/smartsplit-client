@@ -18,14 +18,16 @@ class Declaration extends Component {
     this.state = {
       firstName: props.firstName,
       lastName: props.lastName,
+      artistName: props.artistName,
       songTitle: props.songTitle,
       identity: false,
       share: false,
       open: props.open,
       fn: props.fn
     };
-    // BIND TODO
+  
     this.click = this.click.bind(this);
+  
   }
 
   closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
@@ -45,9 +47,13 @@ class Declaration extends Component {
     }
   };
 
-  handleIdentityCheck = (e, { value }) => this.setState({ identity: true });
+  handleIdentityCheck = (e, { value }) => {
+    this.setState({ identity: !value });
+  }
 
-  handleShareCheck = (e, { value }) => this.setState({ share: true });
+  handleShareCheck = (e, { value }) => {
+    this.setState({ share: !value })
+  }
 
   componentDidMount() {}
 
@@ -76,56 +82,52 @@ class Declaration extends Component {
             open={open}
             closeOnDimmerClick={closeOnDimmerClick}
             onClose={this.close}
-            size="small"
+            size="large"
             closeIcon
           >
             <Modal.Header>
               {t("collaborateur.declaration.identite")}{" "}
             </Modal.Header>
 
-            <span className="ui row">
+            <div className="ui row">
               <div className="declare">
                 <Checkbox
                   value={this.state.identity}
-                  key={identity}
+                  key={'identity'}
                   label=""
                   onChange={this.handleIdentityCheck}
                   className="checkbox"
                 />
                 {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                  <div className="en">
+                  <div className="accepte">
                     <p>
                       <strong>
-                        I declare to really be {this.state.firstName}{" "}
-                        {this.state.lastName}.
+                        I declare to really be {this.state.firstName} {this.state.lastName} (aka. {this.state.artistName}).
                       </strong>{" "}
                       I understand that pretending to be someone else would be a
                       serious misconduct liable to legal prosecution.
                     </p>
                   </div>
                 )}
-              </div>
-            </span>
-
-            <span className="ui row">
-              <div className="declare">
                 {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                  <div className="fr">
+                  <div className="accepte">
                     <p>
                       <strong>
-                        Je déclare être réellement {this.state.firstName}{" "}
-                        {this.state.lastName}.
-                      </strong>{" "}
-                      Je comprends que le fait me faire passer pour quelqu’un
+                        Je déclare être réellement {this.state.firstName} {this.state.lastName} ({this.state.artistName}).
+                      </strong> Je comprends que le fait me faire passer pour quelqu’un
                       d’autre constituerait une faute grave passible de
                       poursuites judiciaires.
                     </p>
                   </div>
                 )}
+              </div>              
+            </div>
 
+            <div className="ui row">
+              <div className="declare">                
                 <Checkbox
                   value={this.state.share}
-                  key={share}
+                  key={'share'}
                   label=""
                   onChange={this.handleShareCheck}
                   className="checkbox"
@@ -136,8 +138,7 @@ class Declaration extends Component {
                       <strong>I accept these rights splits</strong> between
                       myself and any collaborator. This represents the desired
                       agreement. I understand that these percentages will now
-                      apply to any revenue sharing related to{" "}
-                      {this.state.songTitle}.
+                      apply to any revenue sharing related to <em>{this.state.songTitle}</em>.
                     </p>
                   </div>
                 )}
@@ -148,23 +149,28 @@ class Declaration extends Component {
                       intervenus entre moi-même et tout collaborateur. Cela
                       représente l’entente souhaitée. Je comprends que ces
                       pourcentages s’appliqueront désormais à tout partage de
-                      revenus en lien avec {this.state.songTitle}."
+                      revenus en lien sur <em>{this.state.songTitle}</em>.
                     </p>
                   </div>
                 )}
               </div>
-            </span>
+            </div>
+
+
             <Modal.Actions>
               <Button onClick={this.close} negative>
                 {t("collaborateur.attribut.bouton.annuler")}
               </Button>
+
               <Button
                 onClick={this.click}
+                className={!this.state.identity || !this.state.share ? 'ui disabled' : ''}
                 positive
                 icon="checkmark"
                 labelPosition="right"
                 content={t("collaborateur.declaration.accepter")}
-              />
+                />
+
             </Modal.Actions>
           </Modal>
         )}

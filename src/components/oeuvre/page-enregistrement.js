@@ -17,6 +17,7 @@ import {
   updateRole
 } from "../page-assistant/right-holder-helpers";
 import * as roles from "../../assets/listes/role-uuids.json";
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
 
 export default class PageEnregistrement extends React.Component {
   constructor(props) {
@@ -120,6 +121,7 @@ export default class PageEnregistrement extends React.Component {
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={20000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}

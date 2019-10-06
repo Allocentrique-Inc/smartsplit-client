@@ -10,13 +10,38 @@ import ChampTexte from "../page-assistant/champ-texte";
 import ChampSelection from "../page-assistant/champ-selection";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import SelectOption from "../../model/select-option/select-option";
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
 
-export default class PageInformationsGenerales extends React.Component {
-  genres = ["ska", "rap", "Sweet Pickle"];
+export default class PageInformationsGenerales extends React.Component {  
+
+  constructor(props) {
+    super(props)
+
+    let langue = props.i18n.lng.substring(0,2)
+    let genres = require(`../../assets/listes/${langue}/genres`).genres;
+
+    // Épuration de la liste des instruments pour éviter les doublons
+    let _genres = {}
+    this.genres = []
+
+    genres.forEach(i=>{
+      if(!_genres[i.nom])
+        _genres[i.nom] = i
+    })
+
+    Object.keys(_genres).forEach(_g=>{
+      let g = _genres[_g]
+      this.genres.push({
+        key: g.nom,
+        value: g.nom,
+        text: g.nom
+      })
+    })
+  }
 
   genreOptions() {
     return this.genres.map(
-      genre => new SelectOption({ text: genre, value: genre })
+      genre => new SelectOption(genre)
     );
   }
 
@@ -25,10 +50,12 @@ export default class PageInformationsGenerales extends React.Component {
   }
 
   render() {
+
     return (
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={20000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}
@@ -48,16 +75,16 @@ export default class PageInformationsGenerales extends React.Component {
                         "flot.split.documente-ton-oeuvre.documenter.duree"
                       )}
                       placeholder="MM:SS"
-                      msDuration={this.props.values.msDuration}
+                      msDuration={parseInt(this.props.values.msDuration)}
                       onChange={value =>
-                        this.props.setFieldValue("msDuration", value)
+                        this.props.setFieldValue("msDuration", `${value}`)
                       }
                     />
                   </div>
 
                   <div className="ui sixteen wide mobile eight wide tablet eight wide computer column">
                     <ChampTexte
-                      pochette={this.props.pochette}
+                      pochette={this.props.pochette}                      
                       label="BPM"
                       placeholder="888"
                       value={this.props.values.bpm}
