@@ -676,7 +676,7 @@ export default class SommairePartage extends Component {
                                             droits: this.state.mesVotes,
                                             jeton: this.state.jetonApi
                                         }
-                                        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/voter', body)
+                                        axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
                                         .then((res)=>{
                                             window.location.href = `/partager/${this.state.proposition.mediaId}`
                                         })

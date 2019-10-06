@@ -120,7 +120,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
 
     listeEntites() {
         // Récupérer la liste des ayant-droits        
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/entities`)
+        axios.get(`http://api.smartsplit.org:8080/v1/entities`)
         .then(res=>{
 
             let aOptions = []
