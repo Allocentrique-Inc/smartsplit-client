@@ -51,7 +51,7 @@ class MenuProfil extends Component {
   deconnexion() {
     Auth.signOut()
       .then(data => {
-        toast.success(this.props.t("reussi"));
+        toast.success(this.props.t("deconnexion.reussie"));
         setTimeout(() => {
           window.location.href = "/accueil";
         }, 1000);

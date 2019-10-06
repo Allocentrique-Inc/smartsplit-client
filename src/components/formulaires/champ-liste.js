@@ -76,6 +76,119 @@ export class ChampListeAssistant extends Component {
 
 }
 
+export class ChampListeEntiteMusicaleAssistant extends Component {
+
+    constructor(props) {
+        super(props)
+        if(this.props.onRef)
+            this.props.onRef(this)
+        this.state = {
+            rightHolderId: props.rightHolderId, // uuid de l'ayant-droit qui consulte la liste
+            etiquette: props.etiquette,
+            indication: props.indication,
+            modele: props.modele,
+            autoFocus: props.autoFocus,
+            requis: props.requis,
+            fluid: props.fluid,
+            multiple: props.multiple,
+            recherche: props.recherche,
+            selection: props.selection,
+            onInput: props.onInput,
+            ajout: true,
+            nomCommeCle: props.nomCommeCle
+        }
+        this.OPTIONS = undefined
+        this.listeAyantsDroit = this.listeEntites.bind(this)
+        this.onChange = props.onChange
+    }
+
+    componentWillMount() {
+        this.listeEntites()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.etiquette !== nextProps.etiquette) {
+            this.setState({etiquette: nextProps.etiquette})
+        }
+        if (this.props.indication !== nextProps.indication) {
+            this.setState({indication: nextProps.indication})
+        }
+        if (this.props.collaborateurs !== nextProps.collaborateurs) {            
+            this.recalculerOptions(nextProps.collaborateurs)
+        }
+    }
+
+    listeEntites() {
+        // Récupérer la liste des ayant-droits        
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/entities`)
+        .then(res=>{
+
+            let aOptions = []
+
+            res.data.forEach((elem)=>{
+                if(!this.state.rightHolderId || elem.members.includes(this.state.rightHolderId)) {
+                    aOptions.push({
+                        key: elem.uuid,
+                        text: elem.name,
+                        value: elem.name
+                    })
+                }
+            })            
+            if(!this.OPTIONS) {
+                this.OPTIONS = aOptions
+            }            
+            this.setState({options: aOptions})
+        })
+        .catch(err=>{
+            toast.error(err)
+        })
+    }
+
+    render() {
+        return(
+            <div>
+                {
+                    this.state.options && (
+                        <Wizard.Field                
+                            name={this.state.modele}
+                            component={Form.Dropdown}
+                            componentProps={{
+                                id: "entiteArtistique",
+                                label: this.state.etiquette,
+                                placeholder: this.state.indication,
+                                required: this.state.requis,
+                                autoFocus: this.state.autoFocus,
+                                fluid: true,
+                                search: true,
+                                selection: false,
+                                multiple: false,
+                                options: this.state.options,                                
+                                allowAdditions: false,
+                                clearable: false
+                            }}
+                            
+                        />
+                    ) 
+                }       
+                <ModifyUser 
+                    open={this.state.open} 
+                    firstName={this.state.firstName}
+                    close={()=>{
+                        this.setState({open: false}, ()=>{
+                            if(this.props.close) {
+                                this.props.close()
+                            }
+                        })                        
+                    }}
+                    fn={()=>{
+                        this.listeEntites()                    
+                    }}
+                    />  
+            </div>
+        )        
+    }
+}
+
 export class ChampListeCollaborateurAssistant extends Component {
 
     constructor(props) {
