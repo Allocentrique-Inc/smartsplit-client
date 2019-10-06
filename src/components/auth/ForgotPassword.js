@@ -163,7 +163,7 @@ class ForgotPassword extends Component {
                           className="ui medium button is-success"
                           style={{
                             position: "relative",
-                            left: "350px"
+                            left: "334px;"
                           }}
                           onClick={this.handleOpen}
                         >

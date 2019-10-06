@@ -55,7 +55,7 @@ class Register extends Component {
       currentValue: [],
       currentRoleValue: [],
       image: "",
-      uploadURL: "",
+      uploadURL: ""
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -406,7 +406,9 @@ class Register extends Component {
                           <div>
                             <div className="lregisterHeade">
                               <h1>
-                                En route vers la <br /> professionalisation.
+                                En route vers la
+                                <br />
+                                professionalisation.
                               </h1>
                               <br />
                               <br />
@@ -507,31 +509,33 @@ class Register extends Component {
                           </div>
 
                           <div>
-                            <div
-                              className="ui row"
-                              style={{ marginTop: "30px" }}
-                            >
-                              <label style={{ fontWeight: "bold" }}>
-                                {t("collaborateur.attribut.etiquette.groupe")}
-                              </label>
-                              <br />
+                            <div className="dropdown-container">
+                              <div
+                                className="ui row"
+                                style={{ marginTop: "30px" }}
+                              >
+                                <label style={{ fontWeight: "bold" }}>
+                                  {t("collaborateur.attribut.etiquette.groupe")}
+                                </label>
+                                <br />
+                              </div>
+                              <Dropdown
+                                id="prompt"
+                                type="text"
+                                options={this.state.groups}
+                                placeholder={t(
+                                  "collaborateur.attribut.indication.groupe"
+                                )}
+                                search
+                                multiple={true}
+                                selection
+                                fluid
+                                allowAdditions
+                                value={currentValue}
+                                onAddItem={this.handleAddition}
+                                onChange={this.handleChange}
+                              />
                             </div>
-                            <Dropdown
-                              id="prompt"
-                              type="text"
-                              options={this.state.groups}
-                              placeholder={t(
-                                "collaborateur.attribut.indication.groupe"
-                              )}
-                              search
-                              multiple={true}
-                              selection
-                              fluid
-                              allowAdditions
-                              value={currentValue}
-                              onAddItem={this.handleAddition}
-                              onChange={this.handleChange}
-                            />
                           </div>
 
                           <div>
@@ -548,21 +552,63 @@ class Register extends Component {
                               icon="ui search icon"
                               id="roles"
                               type="text"
-                              options={
-                                [
-                                  { key: t('flot.split.roles.principal'), text: "Principal", value: "Principal" },
-                                  { key: t('flot.split.roles.accompaniment'), text: "Accompaniment", value: "Accompaniment" },
-                                  { key: t('flot.split.roles.songwriter'), text: "Songwriter", value: "Songwriter" },
-                                  { key: t('flot.split.roles.composer'), text: "Composer", value: "Composer" },
-                                  { key: t('flot.split.roles.remixer'), text: "Remixer", value: "Remixer" },
-                                  { key: t('flot.split.roles.studio'), text: "Studio", value: "Studio" },
-                                  { key: t('flot.split.roles.publisher'), text: "Publisher", value: "Publisher" },
-                                  { key: t('flot.split.roles.graphist'), text: "Graphist", value: "Graphist" },
-                                  { key: t('flot.split.roles.producer'), text: "Producer", value: "Producer" },
-                                  { key: t('flot.split.roles.singer'), text: "Singer", value: "Singer" },
-                                  { key: t('flot.split.roles.musician'), text: "Musician", value: "Musician" }
-                                ]
-                              }
+                              options={[
+                                {
+                                  key: t("flot.split.roles.principal"),
+                                  text: t("flot.split.roles.principal"),
+                                  value: t("flot.split.roles.principal")
+                                },
+                                {
+                                  key: t("flot.split.roles.accompaniment"),
+                                  text: t("flot.split.roles.accompaniment"),
+                                  value: t("flot.split.roles.accompaniment")
+                                },
+                                {
+                                  key: t("flot.split.roles.songwriter"),
+                                  text: t("flot.split.roles.songwriter"),
+                                  value: t("flot.split.roles.songwriter")
+                                },
+                                {
+                                  key: t("flot.split.roles.composer"),
+                                  text: t("flot.split.roles.composer"),
+                                  value: t("flot.split.roles.composer")
+                                },
+                                {
+                                  key: t("flot.split.roles.remixer"),
+                                  text: t("flot.split.roles.remixer"),
+                                  value: t("flot.split.roles.remixer")
+                                },
+                                {
+                                  key: t("flot.split.roles.studio"),
+                                  text: t("flot.split.roles.studio"),
+                                  value: t("flot.split.roles.studio")
+                                },
+                                {
+                                  key: t("flot.split.roles.publisher"),
+                                  text: t("flot.split.roles.publisher"),
+                                  value: t("flot.split.roles.publisher")
+                                },
+                                {
+                                  key: t("flot.split.roles.graphist"),
+                                  text: t("flot.split.roles.graphist"),
+                                  value: t("flot.split.roles.graphist")
+                                },
+                                {
+                                  key: t("flot.split.roles.producer"),
+                                  text: t("flot.split.roles.producer"),
+                                  value: t("flot.split.roles.producer")
+                                },
+                                {
+                                  key: t("flot.split.roles.singer"),
+                                  text: t("flot.split.roles.singer"),
+                                  value: t("flot.split.roles.singer")
+                                },
+                                {
+                                  key: t("flot.split.roles.musician"),
+                                  text: t("flot.split.roles.musician"),
+                                  value: t("flot.split.roles.musician")
+                                }
+                              ]}
                               placeholder={t(
                                 "collaborateur.attribut.indication.role"
                               )}

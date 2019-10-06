@@ -16,6 +16,13 @@ import { Field } from 'formik'
 import moment from 'moment'
 import { ChampListeCollaborateurAssistant } from '../formulaires/champ-liste'
 
+const etiquetteStyle = {
+    fontFamily: "IBM Plex Sans",
+    backgroundColor: 'transparent',
+    fontSize: "16px",
+    margin: "0"
+  };
+
 const ORIGINALE = 0, ARRANGEMENT = 1, REPRISE = 2
 
 class Apercu extends Component {
@@ -44,7 +51,7 @@ class Apercu extends Component {
                                     fontFamily: "IBM Plex Sans",
                                     fontStyle: "normal",
                                     fontWeight: "bold",
-                                    fontSize: "12px",
+                                    fontSize: "16px",
                                     lineHeight: "16px",
                                     letterSpacing: "1px",
                                     textTransform: "uppercase",
@@ -90,7 +97,7 @@ class Base extends Component {
                     {
                         t=>    
                             <>                        
-                                <div className="ui row" style={{width: "360px", margin: "20px 20px 0 0"}}>
+                                <div className="ui row" style={{width: "360px", margin: "20px 20px 0 0", fontSize: "16px", fontFamily: "IBM Plex Sans"}}>
                                     <ChampTexteAssistant 
                                         soustexte={t('oeuvre.attribut.indication.titre-soustexte')}
                                         modele="title"
@@ -317,7 +324,7 @@ class Page2NouvellePiece extends Component {
                                         {
                                             this.props.values.type === ""+ORIGINALE && (
                                                 <>
-                                                    <div style={{marginTop: "20px"}} className="ui row">
+                                                    <div style={{marginTop: "20px", fontSize: "16px", fontFamily: "IBM Plex Sans"}} className="ui row">
                                                     <ChampListeCollaborateurAssistant
                                                         modele={"artist"} 
                                                         etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})} 
@@ -383,12 +390,12 @@ class Page2NouvellePiece extends Component {
                                             onClose={()=>this.modaleReconnaissance(false)}>    
                                             <Modal.Header>{t('flot.acr.titre')}</Modal.Header>
                                             <Modal.Content>
-                                                <Label>{t('oeuvre.attribut.etiquette.titre')}</Label><span>{this.state.analyse.title}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.artiste')}</Label><span>{this.state.analyse.artists && this.state.analyse.artists[0] && this.state.analyse.artists[0].name}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.editeur')}</Label><span>{this.state.analyse.label}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.album')}</Label><span>{this.state.analyse.album && this.state.analyse.album.name}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.isrc')}</Label><span>{this.state.analyse.external_ids && this.state.analyse.external_ids.isrc}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.datePublication')}</Label><span>{this.state.analyse.release_date}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.titre')}</Label><span>{this.state.analyse.title}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.artiste')}</Label><span>{this.state.analyse.artists && this.state.analyse.artists[0] && this.state.analyse.artists[0].name}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.editeur')}</Label><span>{this.state.analyse.label}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.album')}</Label><span>{this.state.analyse.album && this.state.analyse.album.name}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.isrc')}</Label><span>{this.state.analyse.external_ids && this.state.analyse.external_ids.isrc}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.datePublication')}</Label><span>{this.state.analyse.release_date}</span><p/>
                                             </Modal.Content>
                                             <Modal.Actions>
                                                     <Button onClick={()=>this.modaleReconnaissance(false)} negative>{t('flot.acr.non')}</Button>

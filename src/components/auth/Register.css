@@ -367,3 +367,11 @@ header#registerHeader h3 {
 input[placeholder] {
   line-height: 30px;
 }
+
+.dropdown-container {
+  overflow: hidden;
+  width: "460px";
+}
+.Dropdown {
+  position: fixed;
+}

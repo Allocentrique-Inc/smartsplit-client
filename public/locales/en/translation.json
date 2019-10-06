@@ -59,13 +59,13 @@
   "oeuvre": {
     "attribut": {
       "etiquette": {
-        "titre": "Title",
-        "album": "Album",
+        "titre": "Title:",
+        "album": "Album:",
         "piecePar": "{{titre}}, by",
         "arrangementPar": "{{titre}}, remixed by",
         "reprise": "This work is a cover",
         "instrumental": "This work is instrumental",
-        "artiste": "Artist or original group",
+        "artiste": "Artist or original group:",
         "juridiction": "Jurisdiction",
         "ayantDroit": "Collaborators",
         "genre": "Main genra",
@@ -73,8 +73,8 @@
         "ajouter-genre": "Add a genre",
         "paroles": "Lyrics",
         "langueParoles": "Lyric's languages",
-        "isrc": "ISRC #",
-        "upc": "UPC #",
+        "isrc": "ISRC number:",
+        "upc": "UPC number",
         "dureeMs": "Duration (milliseconds)",
         "vedette": "Add a featuring artist or group",
         "liensSociaux": "Social links",
@@ -83,8 +83,8 @@
         "liensListes": "Playlist links",
         "dateCreation": "Creation date",
         "dateModification": "Modification date",
-        "datePublication": "Publication date",
-        "editeur": "Publisher",
+        "datePublication": "Publication date:",
+        "editeur": "Publisher:",
         "repartition": "Rights split (%)"
       },
       "indication": {
@@ -151,7 +151,7 @@
   "flot": {
     "acr": {
       "titre": "Your musical work is recognized",
-      "oui": "Let's do this !",
+      "oui": "Let's do this!",
       "non": "No, thanks."
     },
     "split": {

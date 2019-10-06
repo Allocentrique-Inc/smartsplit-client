@@ -10,9 +10,9 @@
   "options": {
     "piece": {
       "titre": "Cette oeuvre est ...",
-      "originale": "une création originale",
-      "arrangement": "un arrangement (remix)",
-      "reprise": "une reprise (cover)"
+      "originale": "Une création originale",
+      "arrangement": "Un arrangement (remix)",
+      "reprise": "Une reprise (cover)"
     }
   },
   "titre": {
@@ -59,13 +59,13 @@
   "oeuvre": {
     "attribut": {
       "etiquette": {
-        "titre": "Titre",
-        "album": "Album",
+        "titre": "Titre :",
+        "album": "Album :",
         "piecePar": "{{titre}}, par",
         "arrangementPar": "{{titre}}, arrangé par",
         "reprise": "Cette œuvre est une reprise",
         "instrumental": "Cette œuvre est instrumentale",
-        "artiste": "Artiste ou groupe originel",
+        "artiste": "Artiste ou groupe originel :",
         "juridiction": "Juridiction",
         "ayantDroit": "Collaborateurs",
         "commentaire": "Commentaire",
@@ -74,7 +74,7 @@
         "ajouter-genre": "Ajouter un genre",
         "paroles": "Paroles",
         "langueParoles": "Langue des paroles",
-        "isrc": "Numéro ISRC",
+        "isrc": "Numéro ISRC :",
         "upc": "Numéro UPC",
         "dureeMs": "Durée (millisecondes)",
         "liensSociaux": "Lien vers un média social",
@@ -85,8 +85,8 @@
         "liensListes": "Lien vers une liste de lecture",
         "dateCreation": "Date de création",
         "dateModification": "Date de modification",
-        "datePublication": "Date de publication",
-        "editeur": "Éditeur",
+        "datePublication": "Date de publication :",
+        "editeur": "Éditeur :",
         "repartition": "Répartition des droits (%)"
       },
       "indication": {
