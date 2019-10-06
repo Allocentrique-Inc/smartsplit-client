@@ -14,7 +14,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import AudioLecture from '../oeuvre/audio-lecture'
 import { Field } from 'formik'
 import moment from 'moment'
-import { ChampListeCollaborateurAssistant } from '../formulaires/champ-liste'
+import { ChampListeCollaborateurAssistant, ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
 
 const etiquetteStyle = {
     fontFamily: "IBM Plex Sans",
@@ -325,17 +325,19 @@ class Page2NouvellePiece extends Component {
                                             this.props.values.type === ""+ORIGINALE && (
                                                 <>
                                                     <div style={{marginTop: "20px", fontSize: "16px", fontFamily: "IBM Plex Sans"}} className="ui row">
-                                                    <ChampListeCollaborateurAssistant
+                                                    <ChampListeEntiteMusicaleAssistant
+                                                        rightHolderId={this.props.parent.state.user.username}
                                                         modele={"artist"} 
                                                         etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})} 
                                                         indication={t('oeuvre.attribut.indication.artiste')} 
                                                         requis={true} 
-                                                        autoFocus={true}
+                                                        autoFocus={false}
                                                         multiple={false}
-                                                        nomCommeCle={true}
-                                                        onRef={ayantsDroit=>{
-                                                            this.setState({ayantsDroit: ayantsDroit})
-                                                        }}
+                                                        nomCommeCle={false}
+                                                        onRef={
+                                                            liste=>this.setState({entites: liste})
+                                                        }
+
                                                         />                                                                                                               
                                                     </div>                                                    
                                                 </>
@@ -345,25 +347,40 @@ class Page2NouvellePiece extends Component {
                                             this.props.values.type === ""+ARRANGEMENT && (
                                                 <>
                                                     <div style={{marginTop: "20px"}} className="ui row">
-                                                        <ChampTexteAssistant 
-                                                            modele="artist"
-                                                            etiquette={t('oeuvre.attribut.etiquette.artiste')}
-                                                            requis={true}
-                                                            />
+                                                    <ChampListeEntiteMusicaleAssistant
+                                                        rightHolderId={this.props.parent.state.user.username}
+                                                        modele={"artist"} 
+                                                        etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})} 
+                                                        indication={t('oeuvre.attribut.indication.artiste')} 
+                                                        requis={true} 
+                                                        autoFocus={false}
+                                                        multiple={false}
+                                                        nomCommeCle={false}
+                                                        onRef={
+                                                            liste=>this.setState({entites: liste})
+                                                        }
+
+                                                        />
                                                     </div>
-                                                    <div style={{marginTop: "20px"}} className="ui row">                                                    
-                                                        <ChampTexteAssistant 
-                                                            modele="arrangeur"
-                                                            etiquette={t('oeuvre.attribut.etiquette.arrangementPar', {titre: this.props.values.title})}
-                                                            indication={t('oeuvre.attribut.indication.arrangeur')}
-                                                            requis={true}
-                                                            />
+                                                    <div style={{marginTop: "20px"}} className="ui row">
+                                                    <ChampListeEntiteMusicaleAssistant
+                                                        modele="arrangeur"
+                                                        etiquette={t('oeuvre.attribut.etiquette.arrangementPar', {titre: this.props.values.title})}
+                                                        indication={t('oeuvre.attribut.indication.arrangeur')}
+                                                        requis={true} 
+                                                        autoFocus={false}
+                                                        multiple={false}
+                                                        nomCommeCle={false}
+                                                        onRef={
+                                                            liste=>this.setState({entites: liste})
+                                                        }
+                                                        />                                                        
                                                     </div>
                                                 </>
                                             )
                                         }
 
-                                        <div style={{margin: "20px 0 20px 0", width: "360px"}} className="ui row">
+                                        <div style={{margin: "20px 0 20px 0", width: "360px"}} className="ui row">                                            
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={ this.props.pochette }
                                                 items={ this.rightHolderOptions() }
@@ -398,6 +415,7 @@ class Page2NouvellePiece extends Component {
                                                 <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.datePublication')}</Label><span>{this.state.analyse.release_date}</span><p/>
                                             </Modal.Content>
                                             <Modal.Actions>
+                                                    <h3>{t('flot.acr.importer')}</h3>
                                                     <Button onClick={()=>this.modaleReconnaissance(false)} negative>{t('flot.acr.non')}</Button>
                                                     <Button onClick={()=>{this.remplirChampsAnalyse(i18n); ; this.modaleReconnaissance(false)}} positive icon='checkmark' labelPosition='right' content={t('flot.acr.oui')} />
                                             </Modal.Actions>
@@ -514,7 +532,8 @@ export default class NouvelleOeuvre extends Component {
                                 <Wizard
                                     initialValues={{
                                         title: undefined,
-                                        type: undefined
+                                        type: undefined,
+                                        vedettes: []
                                     }}
                                     buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti')}}
                                     debug={false}

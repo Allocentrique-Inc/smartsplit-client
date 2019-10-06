@@ -52,7 +52,7 @@ class AudioLecture extends Component {
             {
                 this.state.context && (
                     <div onClick={()=>{this.stop()}}>
-                        <i className="stop circle outline icon huge grey" style={{cursor: 'pointer'}} ></i> Stop Audio
+                        <i className="stop circle outline icon huge grey" style={{cursor: 'pointer'}} ></i> Audio
                     </div>
                 )
             }                             

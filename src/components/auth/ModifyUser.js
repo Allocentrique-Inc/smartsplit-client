@@ -101,15 +101,9 @@ class ModifyUser extends Component {
       given_name: this.state.firstName,
       family_name: this.state.lastName,
       "custom:artistName": this.state.artistName,
-      "custom:defaultRoles": Buffer.from(
-        JSON.stringify(this.state.currentRoleValue)
-      ).toString("base64"),
-      "custom:instruments": Buffer.from(
-        JSON.stringify(this.state.instruments)
-      ).toString("base64"),
-      "custom:groups": Buffer.from(
-        JSON.stringify(this.state.currentValue)
-      ).toString("base64"),
+      "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
+      "custom:instruments": JSON.stringify(this.state.instruments),
+      "custom:groups": JSON.stringify(this.state.currentValue),
       "custom:avatarImage": this.state.avatarImage
     };
     let username = this.state.email;
@@ -121,10 +115,11 @@ class ModifyUser extends Component {
         password,
         attributes: attributes
       })
-        .then(() => {
-          toast.success("user created / modified");
+        .then((res) => {
+          console.log(res)
+          this.setState({open: false})
           if (this.props.fn) {
-            this.props.fn();
+            this.props.fn(res.userSub);
           }
         })
         .catch(err => {
@@ -161,9 +156,7 @@ class ModifyUser extends Component {
         groupsUnique.forEach(function(elm) {
           groups.push({ key: elm, text: elm, value: elm });
         });
-        this.setState({ groups: groups }, () => {
-          console.log("this.state.groups", this.state.groups);
-        });
+        this.setState({ groups: groups });
       })
       .catch(err => {
         console.log(err);
@@ -302,7 +295,7 @@ class ModifyUser extends Component {
                   </label>
                   <span>
                     <Dropdown
-                      icon="ui search icon"
+                      icon="search"
                       id="prompt"
                       type="text"
                       options={this.state.groups}

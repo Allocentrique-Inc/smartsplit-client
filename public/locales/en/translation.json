@@ -151,8 +151,9 @@
   "flot": {
     "acr": {
       "titre": "Your musical work is recognized",
-      "oui": "Let's do this!",
-      "non": "No, thanks."
+      "oui": "Let's do this !",
+      "non": "No, thanks.",
+      "importer": "Do I import this data?"
     },
     "split": {
       "sommaire": {
