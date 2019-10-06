@@ -485,7 +485,7 @@ export default class NouvelleOeuvre extends Component {
 
         let body = {
             creator: this.props.user.username,
-            mediaId: this.state.mediaId,
+            mediaId: `${this.state.mediaId}`,
             title: values.title,
             album: values.album,
             artist: values.artist,
