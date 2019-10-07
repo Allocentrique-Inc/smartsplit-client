@@ -48,19 +48,9 @@ class ForgotPassword extends Component {
   forgotPasswordHandler = async event => {
     event.preventDefault();
 
-    // Form validation
-    // this.clearErrorState();
-    // const error = Validate(event, this.state);
-    // if (error) {
-    //   this.setState({
-    //     errors: { ...this.state.errors, ...error }
-    //   });
-    // }
-
     // AWS Cognito integration here
     try {
-      await Auth.forgotPassword(this.state.email);
-      // this.props.history.push("/forgot-password-verification");
+      await Auth.forgotPassword(this.state.email);        
     } catch (error) {
       console.log(error);
     }
