@@ -16,6 +16,7 @@ class PageAssistantPartageEditeur extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            ayantsDroit: props.ayantsDroit,
             parts: this.props.values.parts,     // Parts de tous les ayants-droits            
             song: this.props.values.song,
             editeur: this.props.values.editeur,
@@ -58,6 +59,7 @@ class PageAssistantPartageEditeur extends Component {
                 _aD.pourcent = 100
                 _aD.color = _rH[elem].color
                 _aD.nom = _rH[elem].nom
+                _aD.ayantDroit = this.state.ayantsDroit[elem]
 
                 // Ajout de l'utilisateur et de son pourcentage aux données du formulaire
                 this.props.setFieldValue('ayantDroit', _aD)
@@ -65,11 +67,11 @@ class PageAssistantPartageEditeur extends Component {
                 this.setState({partPrincipale: _rH[elem].pourcent})
 
                 // on pousse l'utilisateur ET l'éditeur
-                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: false})
-                donnees.push({color: "#bacada", nom: this.props.values.editeur.nom, pourcent: parseFloat(this.props.values.editeur.pourcent), alpha: false})
+                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: false, ayantDroit: this.state.ayantsDroit[elem]})
+                donnees.push({color: "#bacada", nom: this.props.values.editeur.nom, pourcent: parseFloat(this.props.values.editeur.pourcent), alpha: false, ayantDroit: this.props.values.editeur.ayantDroit})
             } else {
                 // on pousse l'ayant-droit
-                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: true})
+                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: true, ayantDroit: this.state.ayantsDroit[elem]})
             }            
         })
             
@@ -110,6 +112,7 @@ class PageAssistantPartageEditeur extends Component {
 
     render() {
       
+        // TODO: VDEG 
         let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees}/>)
                   
         let descriptif

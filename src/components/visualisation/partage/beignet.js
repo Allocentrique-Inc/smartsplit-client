@@ -21,7 +21,7 @@ export default class Beignet extends Component {
       colors: {},
       alphas: {},
       uuid: props.uuid
-    };
+    };    
   }
 
   componentDidMount() {
@@ -34,17 +34,22 @@ export default class Beignet extends Component {
     this.rafraichir(nextProps);
   }
 
-  rafraichir(props) {
+  rafraichir(props) {  
     let _d = {};
     let _c = {};
     let _a = {};
     if (props.data && props.data.length > 0) {
       props.data.forEach(elem => {
+        let nom
         if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-          _d[elem.nom] = elem.pourcent;
+          nom = `${elem.ayantDroit.firstName+ " "}${elem.ayantDroit.lastName}`
+          //_d[elem.nom] = elem.pourcent;
+          _d[nom] = elem.pourcent;
         }
-        _c[elem.nom] = elem.color;
-        _a[elem.nom] = elem.alpha;
+        _c[nom] = elem.color;
+        _a[nom] = elem.alpha;
+        //_c[elem.nom] = elem.color;
+        //_a[elem.nom] = elem.alpha;
       });
       this.setState({ data: _d });
       this.setState({ colors: _c });

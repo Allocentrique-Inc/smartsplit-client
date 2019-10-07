@@ -283,6 +283,7 @@ class PageAssistantPartageAuteur extends Component {
     render() {
         let visualisation
         if (this.state.parts.length > 0) {
+
             switch (this.state.mode) {
                 case MODES.egal:
                     // 1 beignet ou histogramme dépendant du nombre de collaborateurs
