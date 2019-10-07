@@ -9,22 +9,26 @@ import Entete from "../page-assistant/entete";
 import ChampTextArea from "../page-assistant/champ-textarea";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import ChampAccesVision from "../page-assistant/champ-acces-vision";
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
 
 export default class PageParoles extends React.Component {
-  languages = ["Français", "Anglais", "Esperanto"];
+  
+  constructor(props)  {
+    super(props)
+
+    let langue = props.i18n.lng.substring(0,2)
+    this.langues = require(`../../assets/listes/${langue}/codes_langues`).map(l=>{
+      return {key: l.key, value: l.text, text: l.text}
+    });    
+
+  }
 
   icon() {
     return this.props.pochette ? LyricsCircleOrange : LyricsCircleGreen;
   }
 
   languageOptions() {
-    return this.languages.map(language => {
-      return {
-        key: language,
-        value: language,
-        text: language
-      };
-    });
+    return this.langues
   }
 
   render() {
@@ -32,6 +36,7 @@ export default class PageParoles extends React.Component {
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={20000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}
@@ -65,7 +70,7 @@ export default class PageParoles extends React.Component {
 
               <ChampSelectionMultiple
                 pochette={this.props.pochette}
-                items={this.languageOptions()}
+                items={this.langues}
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.langueParole"
                 )}

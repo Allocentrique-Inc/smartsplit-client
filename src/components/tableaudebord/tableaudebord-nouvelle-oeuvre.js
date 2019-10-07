@@ -298,7 +298,9 @@ class Page2NouvellePiece extends Component {
             
                                                                 toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${ f.empreinte }`)
                                                                 this.setState({analyse: analyse}, ()=>this.modaleReconnaissance()) 
-                                                                this.props.setFieldValue('fichier', f.empreinte)                                                       
+                                                                this.props.setFieldValue('fichier', f.empreinte)
+                                                                this.props.setFieldValue('files.audio..file', f.name)
+                                                                this.props.setFieldValue('files.audio..md5', f.empreinte)
                                                                 
                                                             }
                                                         })
@@ -388,7 +390,7 @@ class Page2NouvellePiece extends Component {
                                                 createLabel={ t('flot.split.documente-ton-oeuvre.documenter.collabo') }
                                                 placeholder={ t('oeuvre.attribut.etiquette.vedette') }
                                                 value={ this.state.vedettes }
-                                                onChange={ ids => this.props.setFieldValue('vedettes', ids) }
+                                                onChange={ ids => this.props.setFieldValue('rightHolders', ids) }
                                             />
                                         </div>                                        
 
@@ -483,9 +485,14 @@ export default class NouvelleOeuvre extends Component {
 
     soumettre(values, t) {        
 
+        let rHs = []
+
+        // Participants créés avec le rôle d'auteur par défaut.
+        values.rightHolders.forEach(rH=>rHs.push({id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a33"]}))
+
         let body = {
             creator: this.props.user.username,
-            mediaId: this.state.mediaId,
+            mediaId: `${this.state.mediaId}`,
             title: values.title,
             album: values.album,
             artist: values.artist,
@@ -493,15 +500,31 @@ export default class NouvelleOeuvre extends Component {
             type: values.type,
             publishDate: values.publishDate,
             publisher: values.publisher,
-            rightHolders: values.rightHolders,
+            rightHolders: rHs,
             socialMediaLinks: values.socialMediaLinks,
             streamingServiceLinks: values.streamingServiceLinks,
             pressArticleLinks: values.pressArticleLinks,
             playlistLinks: values.playlistLinks,
-            audioFile: values.fichier,
+            files: {
+                audio: {
+                    file: values.fichier,
+                    access: "private"
+                },
+                cover: {
+                    file: " ",
+                    access: "private"
+                },
+                score: {
+                    file: " ",
+                    access: "private"
+                },
+                midi: {
+                    file: " ",
+                    access: "private"
+                }
+            },
             remixer: values.arrangeur
         }
-        body.mediaId = this.state.mediaId
         this.props.parent.state.audio.stop()
 
         axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
@@ -540,17 +563,16 @@ export default class NouvelleOeuvre extends Component {
                                     onPageChanged={no=>this.changementPage(no, t)}
                                     onSubmit={(values, {setSubmitting})=>{this.soumettre(values, t); setSubmitting(false) }}
                                     style={{width: "80%"}}
-
                                 >
                                     <Wizard.Page
-                                        validate={values=>{                                        
+                                        validate={values=>{
                                             this.changement(values)
                                             const errors = {};
                                             if (!values.title) {
                                                 errors.title = t("obligatoire")
                                             }
                                             return errors
-                                        }}>                                
+                                        }}>
                                         <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
                                     </Wizard.Page>
                                     <Wizard.Page>

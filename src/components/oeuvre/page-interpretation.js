@@ -16,6 +16,7 @@ import Entete from "../page-assistant/entete";
 
 import * as roles from "../../assets/listes/role-uuids.json";
 import { getRightHoldersByAnyRole } from "../page-assistant/right-holder-helpers";
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
 
 export default class PageInterpretation extends Component {
   musicianRoles = [roles.musician, roles.principal, roles.accompaniment];
@@ -40,6 +41,7 @@ export default class PageInterpretation extends Component {
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={20000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}

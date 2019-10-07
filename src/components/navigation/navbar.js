@@ -35,13 +35,12 @@ export class Navbar extends Component {
                                     </div>
                                 </div>
 
-                                <div className="right">
-                                    {this.state.profil && <MenuProfil user={this.state.profil} />}
-                                    <div className="save-and-quit-label">
-                                        <a href="#">
-                                            { t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter') }
-                                        </a>
-                                    </div>                                    
+                                <div className="right" style={{marginRight: "100px"}}>
+                                    
+                                        <div className="ui row">
+                                            {this.state.profil && <MenuProfil user={this.state.profil} />}                                    
+                                        </div>
+                                    
                                 </div>
                                 
                             </div>

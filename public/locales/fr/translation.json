@@ -70,7 +70,7 @@
         "ayantDroit": "Collaborateurs",
         "commentaire": "Commentaire",
         "genre": "Style musical principal",
-        "genre2": "Style musical secondaire",
+        "genre2": "Styles musicaux secondaires",
         "ajouter-genre": "Ajouter un genre",
         "paroles": "Paroles",
         "langueParoles": "Langue des paroles",
@@ -269,7 +269,7 @@
         "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
         "cest-parti": "C'est parti !"
       },
-      "documente-ton-oeuvre": {
+      "documente-ton-oeuvre": {        
         "titre": "Documente ton œuvre",
         "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre.",
         "composant": {
@@ -294,6 +294,7 @@
           "preambule": "Genre, style, comme... ?"
         },
         "documenter": {
+          "sauvegarde": "Documentation enregistrée automatiquement",
           "entete": {
             "creation": "Création",
             "interpretation": "Interprétation",
@@ -335,7 +336,7 @@
           "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
           "titre2-placeholder": "Ajouter un interprète",
           "options": {
-            "question1": "Quelle type d'interprétation ?",
+            "question1": "Quel type d'interprétation ?",
             "question1-choix-a": "Artiste principal",
             "question1-choix-b": "Artiste accompagnateur",
             "question2": "Quel rôle dans la pièce principale ?",
@@ -378,7 +379,7 @@
           "date-description": "Le moment de la sortie de la pièce sur les plateformes.",
           "date-choix": {
             "avenir": "À venir",
-            "determine": "Déterminé"
+            "determine": "Déterminée"
           },
           "titre4": "Quels fichiers veux-tu rendre accessible?",
           "titre4-description": "Ici tu peux ajouter tous les fichiers relatifs à cette pièce musicale.",
@@ -395,7 +396,8 @@
           "titre8-plus": "En savoir plus",
           "titre8-etape1": "Téléverser en format JPEG ou PNG",
           "titre8-etape2": "Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.",
-          "titre9-description": "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
+          "titre9": "Fichier audio",
+          "titre9-description": "Ici, tu peux téléverser ta pièce en format WAV ou MP3.",
           "titre9-etape1": "Téléverser le fichier de l’œuvre enregistrée",
           "titre9-etape2": "MP3 ou WAV acceptés.",
           "autre": "Autres fichiers l’œuvre",
@@ -645,9 +647,12 @@
       }
     },
     "fin": {
-      "created": "Created documentation",
-      "maintenant": "is now documented!",
-      "resume": "See the summary"
+      "created": "🚀 Vers la découvrabilité !",
+      "maintenant": "Le titre {{titre}} est désormais connu. Félicitations !",
+      "maintenantPartage": "La proposition de partage existe. Bravo !",
+      "resume": "Voir le condensé",
+      "partage": "Voir le partage",
+      "partageCree": "⭐️ Le partage est créé"
     }
   },
   "accueil": {

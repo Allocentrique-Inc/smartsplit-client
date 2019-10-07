@@ -18,13 +18,14 @@ class Declaration extends Component {
     this.state = {
       firstName: props.firstName,
       lastName: props.lastName,
+      artistName: props.artistName,
       songTitle: props.songTitle,
       identity: false,
       share: false,
       open: props.open,
       fn: props.fn
     };
-    // BIND TODO
+
     this.click = this.click.bind(this);
   }
 
@@ -45,9 +46,13 @@ class Declaration extends Component {
     }
   };
 
-  handleIdentityCheck = (e, { value }) => this.setState({ identity: true });
+  handleIdentityCheck = (e, { value }) => {
+    this.setState({ identity: !value });
+  };
 
-  handleShareCheck = (e, { value }) => this.setState({ share: true });
+  handleShareCheck = (e, { value }) => {
+    this.setState({ share: !value });
+  };
 
   componentDidMount() {}
 
@@ -76,7 +81,7 @@ class Declaration extends Component {
             open={open}
             closeOnDimmerClick={closeOnDimmerClick}
             onClose={this.close}
-            size="small"
+            size="large"
             closeIcon
           >
             <Modal.Header>
@@ -147,8 +152,12 @@ class Declaration extends Component {
               <Button onClick={this.close} negative>
                 {t("collaborateur.attribut.bouton.annuler")}
               </Button>
+
               <Button
                 onClick={this.click}
+                className={
+                  !this.state.identity || !this.state.share ? "ui disabled" : ""
+                }
                 positive
                 icon="checkmark"
                 labelPosition="right"
