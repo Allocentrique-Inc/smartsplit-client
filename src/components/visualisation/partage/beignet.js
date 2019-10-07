@@ -1,7 +1,6 @@
 /**
  * Assistant d'affichage du dashboard
  */
-import "./beignet.css";
 import React, { Component } from "react";
 
 // Traduction

@@ -129,7 +129,6 @@ class Register extends Component {
   };
 
   handleSubmit = values => {
-   
     // AWS Cognito integration here
     const username = values.username;
     const email = values.username; // username is used as email
@@ -156,10 +155,8 @@ class Register extends Component {
           "custom:groups": JSON.stringify(groups),
           "custom:avatarImage": avatarImage
         }
-      })        
-        .then(
-          toast.success(`${firstName}, compte créé !`)
-        )
+      })
+        .then(toast.success(`${firstName}, compte créé !`))
         .then(
           setTimeout(function() {
             window.location.reload();
@@ -285,12 +282,12 @@ class Register extends Component {
       strength >= 2 ? "visible" : "invisible"
     ]
       .join(" ")
-      .trim();    
+      .trim();
 
     return (
       <Formik
         initialValues={{
-          username: this.state.username,          
+          username: this.state.username,
           password: this.state.password,
           hidden: true,
           confirmpassword: this.state.confirmpassword,
@@ -542,9 +539,9 @@ class Register extends Component {
                                   value: t("flot.split.roles.singer")
                                 },
                                 {
-                                  key: t("flot.split.roles.musician"),
-                                  text: t("flot.split.roles.musician"),
-                                  value: t("flot.split.roles.musician")
+                                  key: t("flot.split.roles.musicien"),
+                                  text: t("flot.split.roles.musicien"),
+                                  value: t("flot.split.roles.musicien")
                                 }
                               ]}
                               placeholder={t(
@@ -719,17 +716,25 @@ class Register extends Component {
                             <div className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
                               <div className="container">
                                 <p className="control">
-                                  <div>                                    
+                                  <div>
                                     <button
-                                      className={`ui medium button register is-success ${!this.state.password || this.state.confirmpassword !== this.state.password ? 'disabled' : ''}`}
+                                      className={`ui medium button register is-success ${
+                                        !this.state.password ||
+                                        this.state.confirmpassword !==
+                                          this.state.password
+                                          ? "disabled"
+                                          : ""
+                                      }`}
                                       type="submit"
-                                      
-                                      onClick={e=>{
-                                        if(this.state.confirmpassword !== this.state.password) {
-                                          e.preventDefault()
+                                      onClick={e => {
+                                        if (
+                                          this.state.confirmpassword !==
+                                          this.state.password
+                                        ) {
+                                          e.preventDefault();
                                         } else {
-                                          this.closeModal()
-                                        }                                        
+                                          this.closeModal();
+                                        }
                                       }}
                                     >
                                       {t("entete.inscription")}
