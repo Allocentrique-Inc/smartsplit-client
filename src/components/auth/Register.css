@@ -354,6 +354,12 @@ header#registerHeader h3 {
   padding-top: 0px;
 }
 
+#roles {
+  max-width: 500px !important;
+  display: flex;
+  flex-flow: wrap;
+}
+
 .sous-titre {
   font-size: 14px;
   color: grey;
