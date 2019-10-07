@@ -36,7 +36,7 @@ export class SauvegardeAutomatiqueMedia extends Component {
                             // Sauvegarde des valeurs dans la base de données
                             axios.post('http://api.smartsplit.org:8080/v1/media', this.state.values)
                             .then((response) => {
-                                toast(t('flot.split.documente-ton-oeuvre.documenter.sauvegarde'))
+                                console.log(t('flot.split.documente-ton-oeuvre.documenter.sauvegarde'))
                             })
                             this.setState({autoDemarre: false})
                         }, this.state.interval)
