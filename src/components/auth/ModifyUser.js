@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./ModifyUser.css";
 import axios from "axios";
-import { base64EncArr } from "../../utils/base64EncArr";
 import {
   Button,
   Header,

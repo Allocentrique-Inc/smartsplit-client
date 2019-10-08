@@ -4,7 +4,6 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
-import { base64EncArr } from "../../utils/base64EncArr";
 
 
 import {
@@ -353,20 +352,9 @@ class Register extends Component {
                             </div>
                           </div>
                         )}
-                      </header>
-                      {/*<hr className="hrLogin" />*/}
-                      {/*<hr
-                        className="hrLogin"
-                        data-content={t("flot.split.inscription.ou")}
-                      />*/}
+                      </header>                     
                       <section className="section auth">
-                        <div className="container">
-                          {/*<img
-                            type="image"
-                            className="avatarImage"
-                            src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
-                          />*/}
-                          {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
+                        <div className="container">                          
                           <br></br>
                           <br></br>
                           <span
@@ -440,7 +428,7 @@ class Register extends Component {
                           </div>
 
                           <div>
-                            <div className="dropdown-container">
+                            <div>
                               <div
                                 className="ui row"
                                 style={{ marginTop: "30px" }}
@@ -450,22 +438,25 @@ class Register extends Component {
                                 </label>
                                 <br />
                               </div>
-                              <Dropdown
-                                id="prompt"
-                                type="text"
-                                options={this.state.groups}
-                                placeholder={t(
-                                  "collaborateur.attribut.indication.groupe"
-                                )}
-                                search
-                                multiple={true}
-                                selection
-                                fluid
-                                allowAdditions
-                                value={currentValue}
-                                onAddItem={this.handleAddition}
-                                onChange={this.handleChange}
-                              />
+                              <div className="ui row">
+                                <Dropdown
+                                  icon="ui search icon"
+                                  id="prompt"
+                                  type="text"
+                                  options={this.state.groups}
+                                  placeholder={t(
+                                    "collaborateur.attribut.indication.groupe"
+                                  )}
+                                  search
+                                  multiple={true}
+                                  selection
+                                  fluid
+                                  allowAdditions
+                                  value={currentValue}
+                                  onAddItem={this.handleAddition}
+                                  onChange={this.handleChange}
+                                />
+                              </div>                              
                             </div>
                           </div>
 

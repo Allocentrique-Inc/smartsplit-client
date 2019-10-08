@@ -37,7 +37,7 @@ class ForgotPasswordVerification extends Component {
     try {
       await Auth.forgotPasswordSubmit(
         this.state.email,
-        this.state.verificationCode,
+        this.state.verificationcode,
         this.state.newpassword
       );
 
