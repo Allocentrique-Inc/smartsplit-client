@@ -267,8 +267,7 @@ export class ChampListeCollaborateurAssistant extends Component {
             })            
             this.OPTIONS = _options
             this.setState({ayantDroit: _adParId}, ()=>{if(this.props.onRef) this.props.onRef(_adParId)})
-            this.setState({options: _options}, ()=>{                
-                this.recalculerOptions(this.props.collaborateurs)
+            this.setState({options: _options}, ()=>{
                 // recalcul des options
                 if(this.props.collaborateurs)
                     this.recalculerOptions(this.props.collaborateurs)
