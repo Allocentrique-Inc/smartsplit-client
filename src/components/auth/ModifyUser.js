@@ -84,12 +84,12 @@ class ModifyUser extends Component {
     }
   }
 
-  randomPassword(length) {
-    let chars =
-      "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
-    let password = "";
-    for (var x = 0; x < length; x++) {
-      var i = Math.floor(Math.random() * chars.length);
+  randomPassword(Length) {
+    let length = Length-4;
+    let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
+    let password = (Math.round(Math.random()) > 0.5) ? "A1a*" : "Z0z!";
+    for (let x = 3; x < length; x++) {
+      let i = Math.floor(Math.random() * chars.length);
       password += chars.charAt(i);
     }
 
