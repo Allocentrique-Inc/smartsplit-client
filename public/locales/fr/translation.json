@@ -643,7 +643,8 @@
         "correspond": "Les mots de passe ne correspondent pas",
         "password": "Mot de passe",
         "ou": "ou",
-        "bouton": "Créer mon compte"
+        "bouton": "Créer mon compte",
+        "courriel-confirm": "Confirmer le courriel"
       }
     },
     "fin": {
