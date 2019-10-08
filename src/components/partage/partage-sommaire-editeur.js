@@ -313,7 +313,7 @@ export default class PartageSommaireEditeur extends Component {
         
         if(this.state.beneficiaire && this.state.donateur) {
 
-            let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees} />)
+            let visualisation = (<Beignet type="workCopyrightSplit" uuid="auteur--beignet" data={this.state.donnees} />)
 
             return (
                 <div className="ui segment">

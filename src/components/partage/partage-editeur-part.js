@@ -113,7 +113,7 @@ class PageAssistantPartageEditeur extends Component {
     render() {
       
         // TODO: VDEG 
-        let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees}/>)
+        let visualisation = (<Beignet uuid="auteur--beignet" type="workCopyrightSplit" data={this.state.donnees}/>)
                   
         let descriptif
         if(this.props.i18n.lng.substring(0,2) === 'en') {

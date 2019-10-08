@@ -288,7 +288,7 @@ class PageAssistantPartageAuteur extends Component {
                 case MODES.egal:
                     // 1 beignet ou histogramme dépendant du nombre de collaborateurs
                     if(Object.keys(this.state.parts).length < 9) {
-                        visualisation = (<Beignet uuid="auteur--beignet" data={this.state.parts}/>)
+                        visualisation = (<Beignet type="workCopyrightSplit" uuid="auteur--beignet" data={this.state.parts}/>)
                     } else {
                         visualisation = (<Histogramme uuid="auteur--histogramme" data={this.state.parts}/>)
                     }
@@ -296,7 +296,7 @@ class PageAssistantPartageAuteur extends Component {
                 case MODES.manuel:
                     // 1 beignet ou histogramme dépendant du nombre de collaborateurs
                     if (Object.keys(this.state.parts).length < 9) {
-                        visualisation = (<Beignet uuid="auteur--beignet" data={this.state.parts}/>)
+                        visualisation = (<Beignet  type="workCopyrightSplit" uuid="auteur--beignet" data={this.state.parts}/>)
                     } else {
                         visualisation = (<Histogramme uuid="auteur--histogramme" data={this.state.parts}/>)
                     }
@@ -307,13 +307,13 @@ class PageAssistantPartageAuteur extends Component {
                         <div>
                             {this.state.parts && (
                                 <Beignet className="twelve wide field" titre="Total" uuid="auteur--beignet--1"
-                                         data={this.state.parts}/>)}
+                                         data={this.state.parts} type="workCopyrightSplit"/>)}
                             {this.state.partsMusique && (
                                 <Beignet className="six wide field" titre="Musique" uuid="auteur--beignet--2"
-                                         data={this.state.partsMusique}/>)}
+                                         data={this.state.partsMusique} type="workCopyrightSplit" />)}
                             {this.state.partsParoles && (
                                 <Beignet className="six wide field" titre="Paroles" uuid="auteur--beignet--3"
-                                         data={this.state.partsParoles}/>)}
+                                         data={this.state.partsParoles} type="workCopyrightSplit" />)}
                         </div>
                     )
                     break;

@@ -466,7 +466,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <br/>
                                     <br/>
                                     <div className="conteneur-beignet fourteen wide field">
-                                        {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="1" data={this.state.parts}/>)}
+                                        {Object.keys(this.state.parts).length < 9 && (<Beignet type="masterNeighboringRightSplit" uuid="1" data={this.state.parts}/>)}
                                         {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="1" data={this.state.parts}/>)}
                                     </div>
                                 </div>

@@ -414,7 +414,7 @@ class PageAssistantPartageInterpretation extends Component {
                                         <br/>
                                         <br/>
                                         <div className="conteneur-beignet fourteen wide field">
-                                            {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="interpretation--beignet" data={this.state.parts}/>)}
+                                            {Object.keys(this.state.parts).length < 9 && (<Beignet type="performanceNeighboringRightSplit" uuid="interpretation--beignet" data={this.state.parts}/>)}
                                             {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="interpretation--histogramme" data={this.state.parts}/>)}
                                         </div>
                                     </div>

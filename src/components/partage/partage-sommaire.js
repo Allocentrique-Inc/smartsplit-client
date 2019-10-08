@@ -74,7 +74,7 @@ class SommaireDroit extends Component {
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
-        this.changerVote = this.changerVote.bind(this)
+        this.changerVote = this.changerVote.bind(this)        
     }
 
     componentWillReceiveProps(nextProps) {
@@ -325,7 +325,7 @@ class SommaireDroit extends Component {
                                         {_parts}
                                     </div>
                                     <div className="ui six wide column">
-                                        {_data.length < 9 && (<Beignet uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                                        {_data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
                                         {_data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
                                     </div>
                                     <div className="ui one wide column">
