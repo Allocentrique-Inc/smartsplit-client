@@ -4,6 +4,7 @@ import { Form, Header, Image } from 'semantic-ui-react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import ModifyUser from '../auth/ModifyUser';
+import { Translation } from 'react-i18next'
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"
@@ -46,13 +47,17 @@ export class ChampListeAssistant extends Component {
 
     render() {
         return(
+            <Translation>
+                {
+                    t => 
             <div>
                 <Wizard.Field
+                    title={"Ajouter"}
                     name={this.state.modele}
                     component={Form.Dropdown}                
                     componentProps={{
                         label: this.state.etiquette,
-                        placeholder: this.state.indication,
+                        placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
                         required: this.state.requis,
                         autoFocus: this.state.autoFocus,
                         fluid: this.state.fluid,
@@ -71,6 +76,8 @@ export class ChampListeAssistant extends Component {
                     open={this.state.open} />
                 <i className="right info circle icon blue"></i>
             </div>
+            }
+            </Translation>
         )        
     }
 
@@ -146,16 +153,20 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
 
     render() {
         return(
+            <Translation>
+                {
+                    t =>
             <div>
                 {
                     this.state.options && (
-                        <Wizard.Field                
+                        <Wizard.Field   
+                            title={"Ajouter"}            
                             name={this.state.modele}
                             component={Form.Dropdown}
                             componentProps={{
                                 id: "entiteArtistique",
                                 label: this.state.etiquette,
-                                placeholder: this.state.indication,
+                                placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
                                 required: this.state.requis,
                                 autoFocus: this.state.autoFocus,
                                 fluid: true,
@@ -185,6 +196,8 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
                     }}
                     />  
             </div>
+            }
+        </Translation>
         )        
     }
 }
@@ -287,16 +300,20 @@ export class ChampListeCollaborateurAssistant extends Component {
 
     render() {
         return(
+            <Translation>
+            {
+                t =>
             <div>
                 {
                     this.state.options && (
-                        <Wizard.Field                
+                        <Wizard.Field        
+                            title={"Ajouter"}          
                             name={this.state.modele}
                             component={Form.Dropdown}
                             componentProps={{
                                 id: "collaborateur",
                                 label: this.state.etiquette,
-                                placeholder: this.state.indication,
+                                placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
                                 required: this.state.requis,
                                 autoFocus: this.state.autoFocus,
                                 fluid: true,
@@ -330,6 +347,8 @@ export class ChampListeCollaborateurAssistant extends Component {
                     }}
                     />  
             </div>
+            }
+            </Translation>
         )        
     }
 }
@@ -388,16 +407,20 @@ export class ChampListeEditeurAssistant extends Component {
 
     render() {
         return(
+            <Translation>
+                {
+                    t =>
             <div>
                 {
                     this.state.options && (
-                        <Wizard.Field                
+                        <Wizard.Field
+                            title={"Ajouter"}              
                             name={this.state.modele}
                             component={Form.Dropdown}
                             componentProps={{
                                 id: "collaborateur",
                                 label: this.state.etiquette,
-                                placeholder: this.state.indication,
+                                placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
                                 required: this.state.requis,
                                 autoFocus: this.state.autoFocus,
                                 fluid: true,
@@ -412,6 +435,8 @@ export class ChampListeEditeurAssistant extends Component {
                     )
                 }                
             </div>
+            }
+            </Translation>
         )        
     }
 }

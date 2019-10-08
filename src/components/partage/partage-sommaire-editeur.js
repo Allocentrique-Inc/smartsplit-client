@@ -56,6 +56,72 @@ export default class PartageSommaireEditeur extends Component {
             }
         })
 
+        // Récupère tous les ayant-droits
+        axios.get(`http://api.smartsplit.org:8080/v1/rightholders`)
+        .then(res=>{
+            let _rHs = {}
+            res.data.forEach(rh=>_rHs[rh.rightHolderId] = rh)
+            this.setState({ayantsDroit: _rHs}, ()=>{
+                Object.keys(this.state.ayantsDroit).forEach(adId=>{
+                    if(adId === this.state.part.rightHolderId) {
+                        this.setState({donateur: this.state.ayantsDroit[adId]})
+                    }
+                    if(adId === this.state.part.shareeId) {
+                        this.setState({beneficiaire: this.state.ayantsDroit[adId]}, ()=>{
+                            // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
+                            let _rH = {}
+                            let donnees = []
+                            let parts = this.state.proposition.rightsSplits.workCopyrightSplit                
+                            // Paroles
+                            parts.lyrics.forEach((elem, idx)=>{
+                                if(!_rH[elem.rightHolder.rightHolderId]) {
+                                    _rH[elem.rightHolder.rightHolderId] = {nom: undefined, pourcent: 0}
+                                }            
+                                _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
+                                _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
+                                _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
+                            })
+            
+                            // Musique
+                            parts.music.forEach((elem, idx)=>{
+                                if(!_rH[elem.rightHolder.rightHolderId]) {
+                                    _rH[elem.rightHolder.rightHolderId] = {nom: undefined, pourcent: 0}
+                                }            
+                                _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
+                                _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
+                                _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
+                            })
+            
+                            // Calcul des données pour le beignet par ayant-droit
+                            Object.keys(_rH).forEach((elem)=>{
+                                if(elem === this.state.part.rightHolderId) {
+                                    // c'est l'utlisateur connecté, on lui assigne 100 % du partage avec l'éditeur
+                                    let _aD = {}
+                                    _aD.pourcent = 100
+                                    _aD.color = _rH[elem].color
+                                    _aD.nom = _rH[elem].nom
+                                    this.setState({ayantDroit: _aD})
+                                    this.setState({partPrincipale: _rH[elem].pourcent})
+                                    // on pousse l'utilisateur ET l'éditeur
+                                    donnees.push({ayantDroit: this.state.donateur, color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent * this.state.part.rightHolderPct / 100)})
+                                    donnees.push({
+                                        ayantDroit: this.state.beneficiaire,
+                                        color: "#bacada", 
+                                        nom: this.state.beneficiaire.artistName ? this.state.beneficiaire.artistName : `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`,
+                                        pourcent: parseFloat(this.state.part.shareePct * _rH[elem].pourcent / 100)})
+                                } else {
+                                    // on pousse l'ayant-droit
+                                    donnees.push({ayantDroit: this.state.ayantsDroit[elem], color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent)})
+                                }            
+                            })
+                                
+                            this.setState({donnees: donnees})
+                        })
+                    }
+                })
+            })
+        })
+/* 
         // Récupérer l'ayant-droit
         axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.part.rightHolderId}`)
         .then(res=>{
@@ -114,7 +180,7 @@ export default class PartageSommaireEditeur extends Component {
                     
                 this.setState({donnees: donnees})
             })
-        })
+        }) */
         
     }  
 
@@ -243,11 +309,11 @@ export default class PartageSommaireEditeur extends Component {
         }
     }    
 
-    render() {
-
-        let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees} />)
+    render() {        
         
         if(this.state.beneficiaire && this.state.donateur) {
+
+            let visualisation = (<Beignet type="workCopyrightSplit" uuid="auteur--beignet" data={this.state.donnees} />)
 
             return (
                 <div className="ui segment">

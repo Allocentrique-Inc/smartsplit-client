@@ -58,6 +58,7 @@ class SommaireDroit extends Component {
     constructor(props){
         super(props)    
         this.state = {
+            ayantsDroit: props.ayantsDroit,
             parent: props.parent,
             voteTermine: props.voteTermine,
             type: props.type,
@@ -73,7 +74,7 @@ class SommaireDroit extends Component {
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
         this.boutonRefuser = this.boutonRefuser.bind(this)
-        this.changerVote = this.changerVote.bind(this)
+        this.changerVote = this.changerVote.bind(this)        
     }
 
     componentWillReceiveProps(nextProps) {
@@ -204,7 +205,10 @@ class SommaireDroit extends Component {
 
         Object.keys(this.state.donnees).forEach(uuid=>{
             let part = this.state.donnees[uuid]
-            _data.push({nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison})  
+
+            let _aD = this.state.ayantsDroit[uuid]
+
+            _data.push({ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison})  
             
             let _vote
             if(this.state.monVote) {
@@ -304,7 +308,7 @@ class SommaireDroit extends Component {
                     </div>
                 </div>
             )
-        })                    
+        })    
         
         return (
             <Translation>
@@ -321,7 +325,7 @@ class SommaireDroit extends Component {
                                         {_parts}
                                     </div>
                                     <div className="ui six wide column">
-                                        {_data.length < 9 && (<Beignet uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
+                                        {_data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
                                         {_data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data}/>)}
                                     </div>
                                     <div className="ui one wide column">
@@ -354,6 +358,14 @@ export default class SommairePartage extends Component {
     }
 
     componentWillMount() {
+
+        // Récupère tous les ayant-droits
+        axios.get(`http://api.smartsplit.org:8080/v1/rightholders`)
+        .then(res=>{
+            let _rHs = {} 
+            res.data.forEach(rh=>_rHs[rh.rightHolderId] = rh)
+            this.setState({ayantsDroit: _rHs})            
+        })
 
         this.setState({patience: true}, ()=>{
             // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
@@ -581,7 +593,7 @@ export default class SommairePartage extends Component {
 
         let droits = []
 
-        if(this.state.proposition) {
+        if(this.state.proposition && this.state.ayantsDroit) {
             TYPE_SPLIT.forEach(type=>{
 
                 let _aDonnees = false
@@ -594,6 +606,7 @@ export default class SommairePartage extends Component {
     
                 if(_aDonnees) {
                     droits.push( <SommaireDroit 
+                        ayantsDroit={this.state.ayantsDroit}
                         avatars={this.state.avatars}
                         type={type}
                         key={`sommaire_${this.state.uuid}_${type}`}

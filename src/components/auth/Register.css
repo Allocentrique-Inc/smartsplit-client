@@ -354,6 +354,13 @@ header#registerHeader h3 {
   padding-top: 0px;
 }
 
+#roles {
+  max-width: 500px !important;
+  display: flex;
+  flex-flow: wrap;
+  height: auto;
+}
+
 .sous-titre {
   font-size: 14px;
   color: grey;
@@ -366,4 +373,12 @@ header#registerHeader h3 {
 
 input[placeholder] {
   line-height: 30px;
+}
+
+.dropdown-container {
+  overflow: hidden;
+  width: "460px";
+}
+.Dropdown {
+  position: fixed;
 }

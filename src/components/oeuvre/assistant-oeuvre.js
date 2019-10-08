@@ -151,37 +151,42 @@ class AssistantOeuvre extends Component {
                 }
             }
         } else {
+
+            let lyrics = _m.lyrics
+
+            lyrics.text = lyrics.text.trim()
+
             valeurs = {
                 mediaId: this.state.mediaId,
-                title: _m.title,
-                album: _m.album,
-                artist: _m.artist,
-                cover: _m.cover,
+                title: _m.title.trim(),
+                album: _m.album.trim(),
+                artist: _m.artist.trim(),
+                cover: _m.cover.trim(),
                 rightHolders: _m.rightHolders ? _m.rightHolders : [],
-                jurisdiction: _m.jurisdiction,
-                lyrics: _m.lyrics,
-                isrc: _m.isrc,
-                iswc: _m.iswc,
-                upc: _m.upc,
-                msDuration: _m.msDuration,
-                bpm: _m.bpm,
-                influence: _m.influence,
-                genre: _m.genre,
+                jurisdiction: _m.jurisdiction.trim(),
+                lyrics: lyrics,
+                isrc: _m.isrc.trim(),
+                iswc: _m.iswc.trim(),
+                upc: _m.upc.trim(),
+                msDuration: _m.msDuration.trim(),
+                bpm: _m.bpm.trim(),
+                influence: _m.influence.trim(),
+                genre: _m.genre.trim(),
                 secondaryGenres: _m.secondaryGenres,
                 socialMediaLinks: _m.socialMediaLinks || [],
                 streamingServiceLinks: _m.streamingServiceLinks || [],
                 pressArticleLinks: _m.pressArticleLinks || [],
                 playlistLinks: _m.playlistLinks || [],
                 creationDate: moment(_m.creationDate).locale('fr').format("L"),
-                modificationDate: _m.modificationDate,
-                publishDate: _m.publishDate,
-                publisher: _m.publisher,
-                studio: _m.studio,
-                studioAddress: _m.studioAddress,
-                label: _m.label,
-                labelAddress: _m.labelAddress,
-                distributor: _m.distributor,
-                distributorAddress: _m.distributorAddress,                
+                modificationDate: _m.modificationDate.trim(),
+                publishDate: _m.publishDate.trim(),
+                publisher: _m.publisher.trim(),
+                studio: _m.studio.trim(),
+                studioAddress: _m.studioAddress.trim(),
+                label: _m.label.trim(),
+                labelAddress: _m.labelAddress.trim(),
+                distributor: _m.distributor.trim(),
+                distributorAddress: _m.distributorAddress.trim(),                
                 files: _m.files
             } 
         }

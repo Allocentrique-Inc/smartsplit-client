@@ -77,7 +77,6 @@ class LogIn extends Component {
         Auth.signIn(values.username, values.password)
           .then(user => {
             toast.success(`#${user.username} !`);
-
             if (this.props.fn) {
               this.props.fn();
             }
