@@ -25,9 +25,8 @@ class Declaration extends Component {
       open: props.open,
       fn: props.fn
     };
-  
+
     this.click = this.click.bind(this);
-  
   }
 
   closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
@@ -49,11 +48,11 @@ class Declaration extends Component {
 
   handleIdentityCheck = (e, { value }) => {
     this.setState({ identity: !value });
-  }
+  };
 
   handleShareCheck = (e, { value }) => {
-    this.setState({ share: !value })
-  }
+    this.setState({ share: !value });
+  };
 
   componentDidMount() {}
 
@@ -93,7 +92,7 @@ class Declaration extends Component {
               <div className="declare">
                 <Checkbox
                   value={this.state.identity}
-                  key={'identity'}
+                  key={"identity"}
                   label=""
                   onChange={this.handleIdentityCheck}
                   className="checkbox"
@@ -102,7 +101,8 @@ class Declaration extends Component {
                   <div className="accepte">
                     <p>
                       <strong>
-                        I declare to really be {this.state.firstName} {this.state.lastName} (aka. {this.state.artistName}).
+                        I declare to really be {this.state.firstName}{" "}
+                        {this.state.lastName} (aka. {this.state.artistName}).
                       </strong>{" "}
                       I understand that pretending to be someone else would be a
                       serious misconduct liable to legal prosecution.
@@ -113,21 +113,23 @@ class Declaration extends Component {
                   <div className="accepte">
                     <p>
                       <strong>
-                        Je déclare être réellement {this.state.firstName} {this.state.lastName} ({this.state.artistName}).
-                      </strong> Je comprends que le fait me faire passer pour quelqu’un
+                        Je déclare être réellement {this.state.firstName}{" "}
+                        {this.state.lastName} ({this.state.artistName}).
+                      </strong>{" "}
+                      Je comprends que le fait me faire passer pour quelqu’un
                       d’autre constituerait une faute grave passible de
                       poursuites judiciaires.
                     </p>
                   </div>
                 )}
-              </div>              
+              </div>
             </div>
 
             <div className="ui row">
-              <div className="declare">                
+              <div className="declare">
                 <Checkbox
                   value={this.state.share}
-                  key={'share'}
+                  key={"share"}
                   label=""
                   onChange={this.handleShareCheck}
                   className="checkbox"
@@ -138,7 +140,8 @@ class Declaration extends Component {
                       <strong>I accept these rights splits</strong> between
                       myself and any collaborator. This represents the desired
                       agreement. I understand that these percentages will now
-                      apply to any revenue sharing related to <em>{this.state.songTitle}</em>.
+                      apply to any revenue sharing related to{" "}
+                      <em>{this.state.songTitle}</em>.
                     </p>
                   </div>
                 )}
@@ -156,7 +159,6 @@ class Declaration extends Component {
               </div>
             </div>
 
-
             <Modal.Actions>
               <Button onClick={this.close} negative>
                 {t("collaborateur.attribut.bouton.annuler")}
@@ -164,13 +166,14 @@ class Declaration extends Component {
 
               <Button
                 onClick={this.click}
-                className={!this.state.identity || !this.state.share ? 'ui disabled' : ''}
+                className={
+                  !this.state.identity || !this.state.share ? "ui disabled" : ""
+                }
                 positive
                 icon="checkmark"
                 labelPosition="right"
                 content={t("collaborateur.declaration.accepter")}
-                />
-
+              />
             </Modal.Actions>
           </Modal>
         )}

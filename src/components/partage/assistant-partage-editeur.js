@@ -38,6 +38,14 @@ class AssistantPartageEditeur extends Component {
     charger(user) {
         this.setState({user: user})
 
+        // Récupère tous les ayant-droits
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
+        .then(res=>{
+            let _rHs = {} 
+            res.data.forEach(rh=>_rHs[rh.rightHolderId] = rh)
+            this.setState({ayantsDroit: _rHs})
+        })
+
         axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${user.username}`)
         .then(_r=>{
             if(_r.data.Item) {
@@ -153,7 +161,7 @@ class AssistantPartageEditeur extends Component {
 
     render() {
 
-        if(this.state.media) { // S'il y a un média, il y a forcément une proposition ( voir componentWillMount() ) et un utilisateur connecté
+        if(this.state.media && this.state.ayantsDroit) { // S'il y a un média, il y a forcément une proposition ( voir componentWillMount() ) et un utilisateur connecté
 
             return (
                 <Translation>
@@ -195,7 +203,7 @@ class AssistantPartageEditeur extends Component {
                                                     </Wizard.Page>
                     
                                                     <Wizard.Page>
-                                                        <PageAssistantPartageEditeurPart i18n={i18n} />
+                                                        <PageAssistantPartageEditeurPart ayantsDroit={this.state.ayantsDroit} i18n={i18n} />
                                                     </Wizard.Page>                                            
                     
                                                 </Wizard>
