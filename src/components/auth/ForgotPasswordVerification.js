@@ -7,15 +7,19 @@ import { Modal } from "semantic-ui-react";
 import ChangePasswordVerification from "./ChangePasswordVerification";
 
 class ForgotPasswordVerification extends Component {
-  state = {
-    verificationcode: "",
-    email: "",
-    newpassword: "",
-    errors: {
-      cognito: null,
-      blankfield: false
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      verificationcode: props.code,
+      email: props.email,
+      newpassword: "",
+      errors: {
+        cognito: null,
+        blankfield: false
+      }
     }
-  };
+  }  
 
   clearErrorState = () => {
     this.setState({
@@ -37,7 +41,7 @@ class ForgotPasswordVerification extends Component {
         this.state.newpassword
       );
 
-      this.props.history.push("/change-password-confirmation");
+      this.props.history.push("/accueil");
     } catch (error) {
       console.log(error);
     }
@@ -65,7 +69,6 @@ class ForgotPasswordVerification extends Component {
             >
               <h1>&nbsp;&nbsp;{t("flot.split.sommaire.definir")}</h1>
               <p>{t("flot.split.sommaire.code")}</p>
-              {/* <FormErrors formerrors={this.state.errors} /> */}
 
               <form onSubmit={this.passwordVerificationHandler}>
                 <div className="field">
@@ -115,7 +118,7 @@ class ForgotPasswordVerification extends Component {
                   </p>
                 </div>
                 <div className="field">
-                  <p className="control">
+                  <div className="control">
                     <Modal
                       trigger={
                         <button
@@ -133,7 +136,7 @@ class ForgotPasswordVerification extends Component {
                         <ChangePasswordVerification />
                       </Modal.Content>
                     </Modal>
-                  </p>
+                  </div>
                 </div>
               </form>
             </div>

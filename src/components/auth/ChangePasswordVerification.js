@@ -15,7 +15,7 @@ class ChangePasswordVerification extends Component {
           {t => (
             <section className="section auth">
               <div className="container">
-                <tbody
+                <div
                   style={{ FontFamily: "IBM Plex Sans", fontSize: "16px" }}
                 >
                   <tr>
@@ -27,15 +27,14 @@ class ChangePasswordVerification extends Component {
                       <p>{t("flot.split.auth.passwordchanged.indication")}</p>
                     </td>
                   </tr>
-                </tbody>
+                </div>
                 <div className="field">
-                  <p className="control">
+                  <div className="control">
                     <Modal
                       trigger={
                         <button
                           className="ui medium  button login is-success"
                           onClick={() => (window.location.href = "/accueil")}
-                          /*{this.handleOpen}*/
                         >
                           {t("entete.connexion")}
                         </button>
@@ -44,10 +43,9 @@ class ChangePasswordVerification extends Component {
                       size="small"
                     >
                       <Modal.Content>
-                        <Login />
                       </Modal.Content>
                     </Modal>
-                  </p>
+                  </div>
                 </div>
               </div>
             </section>
