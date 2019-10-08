@@ -144,6 +144,20 @@ class Register extends Component {
     const groups = this.state.currentValue;
 
     try {
+
+      // S'il n'y a pas de groupe, un en créé un éponyme
+      let groupes = groups
+      if(groupes.length === 0) {
+
+        let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
+
+        if(nom.trim() === "") {
+          nom = "Anonyme"
+        }
+
+        groupes.push(nom)
+      }
+
       Auth.signUp({
         username,
         password,
@@ -154,7 +168,7 @@ class Register extends Component {
           "custom:artistName": artistName,
           "custom:instruments": JSON.stringify(instruments),
           "custom:defaultRoles": JSON.stringify(defaultRoles),
-          "custom:groups": JSON.stringify(groups),
+          "custom:groups": JSON.stringify(groupes),
           "custom:avatarImage": avatarImage
         }
       })
