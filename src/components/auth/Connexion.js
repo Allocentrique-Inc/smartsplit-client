@@ -11,12 +11,8 @@ import ChangePasswordVerification from "./ChangePasswordVerification";
 const TYPE_LOGIN = 0,
   TYPE_REGISTER = 1,
   TYPE_FORGOT = 2,
-<<<<<<< HEAD
-  TYPE_PROFILE = 3
-=======
   TYPE_VERIFY = 3,
   TYPE_CHANGE = 4;
->>>>>>> develop
 
 export default class ModaleConnexion extends Component {
   constructor(props) {

@@ -85,52 +85,22 @@ class ModifyUser extends Component {
     }
   }
 
-  randomPassword(length) {
-    let chars =
-      "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
-    let password = "";
-    for (var x = 0; x < length; x++) {
-      var i = Math.floor(Math.random() * chars.length);
+  randomPassword(Length) {
+    let length = Length-4;
+    let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
+    let password = (Math.round(Math.random()) > 0.5) ? "A1a*" : "Z0z!";
+    for (let x = 3; x < length; x++) {
+      let i = Math.floor(Math.random() * chars.length);
       password += chars.charAt(i);
     }
     return password;
   }
 
   handleSubmit = values => {
-<<<<<<< HEAD
-    // Encode objects as aUTF16Base64 Strings
-    let groupsObject = this.state.currentValue;
-    let instrumentsObject = this.state.instruments;
-    let defaultRolesObject = this.state.currentRoleValue;
-
-    let aUTF16CodeUnitsRoles = new Uint16Array(JSON.stringify(defaultRolesObject).length);
-    Array.prototype.forEach.call(aUTF16CodeUnitsRoles, function (el, idx, arr) { arr[idx] = (JSON.stringify(defaultRolesObject)).charCodeAt(idx); });
-    let defaultRoles = base64EncArr(new Uint8Array(aUTF16CodeUnitsRoles.buffer));
-
-    let aUTF16CodeUnitsInstruments = new Uint16Array(JSON.stringify(instrumentsObject).length);
-    Array.prototype.forEach.call(aUTF16CodeUnitsInstruments, function (el, idx, arr) { arr[idx] = (JSON.stringify(instrumentsObject)).charCodeAt(idx); });
-    let instruments = base64EncArr(new Uint8Array(aUTF16CodeUnitsInstruments.buffer));
-
-    let aUTF16CodeUnitsGroups = new Uint16Array(JSON.stringify(groupsObject).length);
-    Array.prototype.forEach.call(aUTF16CodeUnitsGroups, function (el, idx, arr) { arr[idx] = (JSON.stringify(groupsObject)).charCodeAt(idx); });
-    let groups = base64EncArr(new Uint8Array(aUTF16CodeUnitsGroups.buffer));
-
-=======
->>>>>>> develop
     let attributes = {
       email: this.state.email,
       given_name: this.state.firstName,
       family_name: this.state.lastName,
-<<<<<<< HEAD
-      'custom:artistName': this.state.artistName,
-      'custom:defaultRoles': defaultRoles,
-      'custom:instruments': instruments,
-      'custom:groups': groups,
-      'custom:avatarImage': this.state.avatarImage
-    }
-    let username = this.state.email
-    let password = this.randomPassword(16)
-=======
       "custom:artistName": this.state.artistName,
       "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
       "custom:instruments": JSON.stringify(this.state.instruments),
@@ -139,7 +109,6 @@ class ModifyUser extends Component {
     };
     let username = this.state.email;
     let password = this.randomPassword(16);
->>>>>>> develop
 
     try {
       Auth.signUp({

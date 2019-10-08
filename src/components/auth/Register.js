@@ -59,14 +59,8 @@ class Register extends Component {
       currentValue: [],
       currentRoleValue: [],
       image: "",
-<<<<<<< HEAD
-      uploadURL: "",
-      roles: []
-    }
-=======
       uploadURL: ""
     };
->>>>>>> develop
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.validatePasswordStrong = this.validatePasswordStrong.bind(this);
@@ -146,28 +140,9 @@ class Register extends Component {
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const artistName = this.state.artistName;
-<<<<<<< HEAD
-    // Encode objects as aUTF16Base64 Strings
-    let groupsObject = this.state.currentValue;
-    let instrumentsObject = this.state.instruments;
-    let defaultRolesObject = this.state.currentRoleValue;
-
-    let aUTF16CodeUnitsRoles = new Uint16Array(JSON.stringify(defaultRolesObject).length);
-    Array.prototype.forEach.call(aUTF16CodeUnitsRoles, function (el, idx, arr) { arr[idx] = (JSON.stringify(defaultRolesObject)).charCodeAt(idx); });
-    let defaultRoles = base64EncArr(new Uint8Array(aUTF16CodeUnitsRoles.buffer));
-
-    let aUTF16CodeUnitsInstruments = new Uint16Array(JSON.stringify(instrumentsObject).length);
-    Array.prototype.forEach.call(aUTF16CodeUnitsInstruments, function (el, idx, arr) { arr[idx] = (JSON.stringify(instrumentsObject)).charCodeAt(idx); });
-    let instruments = base64EncArr(new Uint8Array(aUTF16CodeUnitsInstruments.buffer));
-
-    let aUTF16CodeUnitsGroups = new Uint16Array(JSON.stringify(groupsObject).length);
-    Array.prototype.forEach.call(aUTF16CodeUnitsGroups, function (el, idx, arr) { arr[idx] = (JSON.stringify(groupsObject)).charCodeAt(idx); });
-    let groups = base64EncArr(new Uint8Array(aUTF16CodeUnitsGroups.buffer));
-=======
     const defaultRoles = this.state.currentRoleValue;
     const instruments = this.state.instruments;
     const groups = this.state.currentValue;
->>>>>>> develop
 
     try {
       Auth.signUp({
@@ -227,8 +202,6 @@ class Register extends Component {
 
   handleConfirmPasswordChange(e) {
     this.setState({ confirmpassword: e.target.value });
-    // const value = e.target.value;
-    // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
   }
 
   toggleShow() {
@@ -296,9 +269,6 @@ class Register extends Component {
     const passwordStrong = strength >= this.minStrength;
     const passwordLong = passwordLength > this.thresholdLength;
 
-    // const errors = 7;
-    // const hasErrors = this.passwordmatch;
-    // password strength meter is only visible when password is not empty
     const strengthClass = [
       "strength-meter mt-2",
       passwordLength > 0 ? "visible" : "invisible"
@@ -308,7 +278,7 @@ class Register extends Component {
     // confirm password field is only visible when password is not empty
     const confirmClass = [
       "confirmPassword",
-      strength >= 2 ? "visible" : "invisible"
+      strength >= 4 ? "visible" : "invisible"
     ]
       .join(" ")
       .trim();
@@ -317,13 +287,6 @@ class Register extends Component {
       <Formik
         initialValues={{
           username: this.state.username,
-<<<<<<< HEAD
-          confirmEmail: this.state.confirmEmail,
-          // firstName: this.state.firstName,
-          // lastName: this.state.lastName,
-          // artistName: this.state.artistName,
-=======
->>>>>>> develop
           password: this.state.password,
           hidden: true,
           confirmpassword: this.state.confirmpassword,
@@ -395,125 +358,6 @@ class Register extends Component {
                         )}
                       </header>
                       {/*<hr className="hrLogin" />*/}
-<<<<<<< HEAD
-                      {/* <hr
-                        className="hrLogin"
-                        data-content={t("flot.split.inscription.ou")}
-                      /> */}
-                      <section className="section auth">
-                        <div className="container">
-                          {/* <img
-                            type="image"
-                            className="avatarImage"
-                            src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
-                          /> */}
-                          {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
-                          <br></br>
-                          <br></br>
-                          <label>
-                            {t("collaborateur.attribut.etiquette.prenom")}
-                          </label>
-                          <input
-                            type="text"
-                            className="firstName"
-                            placeholder={t(
-                              "collaborateur.attribut.etiquette.prenom"
-                            )}
-                            value={this.state.firstName}
-                            onChange={e =>
-                              this.setState({ firstName: e.target.value })
-                            }
-                          />
-                          <label>
-                            {t("collaborateur.attribut.etiquette.nom")}
-                          </label>
-                          <input
-                            type="text"
-                            className="lastName"
-                            placeholder={t(
-                              "collaborateur.attribut.etiquette.nom"
-                            )}
-                            value={this.state.lastName}
-                            onChange={e =>
-                              this.setState({ lastName: e.target.value })
-                            }
-                          />
-                          <label>
-                            {t("collaborateur.attribut.etiquette.artiste")}
-                          </label>
-                          <label id="Optionel">
-                            {t("collaborateur.attribut.etiquette.option")}
-                          </label>
-                          <input
-                            type="text"
-                            className="artistName"
-                            placeholder={t(
-                              "collaborateur.attribut.etiquette.artiste"
-                            )}
-                            value={this.state.artistName}
-                            onChange={e =>
-                              this.setState({ artistName: e.target.value })
-                            }
-                          />
-                          <div className="sous titre">
-                            {t("collaborateur.attribut.etiquette.na")}
-                          </div>
-                          <label>
-                            {t("collaborateur.attribut.etiquette.groupe")}
-                          </label>
-                          <Dropdown
-                            id="prompt"
-                            type="text"
-                            options={this.state.groups}
-                            placeholder={t(
-                              "collaborateur.attribut.indication.groupe"
-                            )}
-                            search
-                            multiple={true}
-                            selection
-                            fluid
-                            allowAdditions
-                            value={currentValue}
-                            onAddItem={this.handleAddition}
-                            onChange={this.handleChange}
-                          />
-                          {/*<i className="search icon"></i>*/}
-                          <label>
-                            {t("collaborateur.attribut.etiquette.role")}
-                          </label>
-                          <Dropdown
-                            id="roles"
-                            type="text"
-                            options={
-                              [
-                                { key: "Principal", text: "Principal", value: "Principal" },
-                                { key: "Accompaniment", text: "Accompaniment", value: "Accompaniment" },
-                                { key: "Songwriter", text: "Songwriter", value: "Songwriter" },
-                                { key: "Composer", text: "Composer", value: "Composer" },
-                                { key: "Remixer", text: "Remixer", value: "Remixer" },
-                                { key: "Studio", text: "Studio", value: "Studio" },
-                                { key: "Publisher", text: "Publisher", value: "Publisher" },
-                                { key: "Graphist", text: "Graphist", value: "Graphist" },
-                                { key: "Producer", text: "Producer", value: "Producer" },
-                                { key: "Singer", text: "Singer", value: "Singer" },
-                                { key: "Musician", text: "Musician", value: "Musician" }
-                              ]
-                            }
-                            placeholder={t(
-                              "collaborateur.attribut.indication.role"
-                            )}
-                            search
-                            multiple={true}
-                            selection
-                            fluid
-                            value={currentRoleValue}
-                            onChange={this.roleChange}
-                          />
-                          <div className="sous titre">
-                            {t("collaborateur.attribut.indication.role2")}
-                          </div>
-                          <br></br>
-=======
                       {/*<hr
                         className="hrLogin"
                         data-content={t("flot.split.inscription.ou")}
@@ -570,7 +414,6 @@ class Register extends Component {
                               />
                             </div>
                           </span>
->>>>>>> develop
 
                           <div className="ui row" style={{ marginTop: "30px" }}>
                             <span>
@@ -723,9 +566,7 @@ class Register extends Component {
                                 </label>
                                 <br />
                                 <Field
-                                  validate={val => {
-                                    this.validateUsername(val);
-                                  }}
+                                  validate={this.validateUsername}
                                   name="username"
                                   id="username"
                                   aria-describedby="userNameHelp"
@@ -750,6 +591,10 @@ class Register extends Component {
                                 {t("flot.split.inscription.courriel-confirm")}
                               </label>
                               <Field
+                                onPaste={e => {
+                                  e.preventDefault();
+                                  return false
+                                }}
                                 validate={val => {
                                   this.validateUsername(val);
                                 }}
@@ -765,7 +610,7 @@ class Register extends Component {
                                   this.setState({ confirmEmail: e.target.value })
                                 }
                               />
-                              {errors.username && touched.username && (
+                              {errors.confirmusername && touched.username && (
                                 <div style={{ color: "red" }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
@@ -794,13 +639,9 @@ class Register extends Component {
                                     }
                                     id="password"
                                     name="password"
-<<<<<<< HEAD
-                                    placeholder={t("flot.split.inscription.password")}
-=======
                                     placeholder={t(
                                       "flot.split.inscription.password"
                                     )}
->>>>>>> develop
                                     value={this.state.password}
                                     onChange={this.handlePasswordChange}
                                     /*onChange={this.stateChanged}*/
@@ -843,6 +684,10 @@ class Register extends Component {
                             <div className="control has-icons-left confirmPassword">
                               <div className="input-wrapper">
                                 <Field
+                                  onPaste={e => {
+                                    e.preventDefault();
+                                    return false
+                                  }}
                                   validate={val => {
                                     this.validateConfirmPassword(val);
                                   }}
@@ -851,6 +696,7 @@ class Register extends Component {
                                       ? "password"
                                       : "text"
                                   }
+
                                   id="confirmpassword"
                                   name="confirmpassword"
                                   placeholder="Confirm password"
@@ -946,8 +792,4 @@ class Register extends Component {
   }
 }
 
-<<<<<<< HEAD
-export default Register;
-=======
 export default withTranslation()(Register);
->>>>>>> develop
