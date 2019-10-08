@@ -102,6 +102,20 @@ class ModifyUser extends Component {
   }
 
   handleSubmit = values => {
+
+    // S'il n'y a pas de groupe, un en créé un éponyme
+    let groupes = this.state.currentValue
+    if(groupes.length === 0) {
+
+      let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
+
+      if(nom.trim() === "") {
+        nom = "Anonyme"
+      }
+
+      groupes.push(nom)
+    }
+
     let attributes = {
       email: this.state.email,
       given_name: this.state.firstName || "Unnamed",
@@ -109,7 +123,7 @@ class ModifyUser extends Component {
       "custom:artistName": this.state.artistName,
       "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
       "custom:instruments": JSON.stringify(this.state.instruments),
-      "custom:groups": JSON.stringify(this.state.currentValue),
+      "custom:groups": JSON.stringify(groupes),
       "custom:avatarImage": this.state.avatarImage
     };
     let username = this.state.email;
