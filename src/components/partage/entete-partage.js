@@ -21,7 +21,7 @@ class EntetePartage extends Component {
       <Translation>
         {t => (
           <div className="ui row">
-            <div className="ui sixteen wide column">
+            <div className="ui ten wide column">
               <i className="file image outline icon huge grey"></i>
               {this.state.media && (
                 <span style={{ marginLeft: "15px" }} className="medium-400">
@@ -29,9 +29,11 @@ class EntetePartage extends Component {
                 </span>
               )}
               <span className="heading4" style={{ marginLeft: "50px" }}>
-                {t("flot.split.documente-ton-oeuvre.etape.partage-titre")}
-              </span>
-              <span
+                {t("flot.split.documente-ton-oeuvre.partage.auteur.titre")}
+              </span>              
+            </div>
+            <div className="ui six wide column">
+            <span
                 style={{
                   cursor: "pointer",
                   position: "absolute",

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik'
-import { Form } from 'semantic-ui-react'
+import { Form, Header, Image } from 'semantic-ui-react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import ModifyUser from '../auth/ModifyUser';
+import { Translation } from 'react-i18next'
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"
@@ -46,13 +47,17 @@ export class ChampListeAssistant extends Component {
 
     render() {
         return(
+            <Translation>
+                {
+                    t => 
             <div>
                 <Wizard.Field
+                    title={"Ajouter"}
                     name={this.state.modele}
                     component={Form.Dropdown}                
                     componentProps={{
                         label: this.state.etiquette,
-                        placeholder: this.state.indication,
+                        placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
                         required: this.state.requis,
                         autoFocus: this.state.autoFocus,
                         fluid: this.state.fluid,
@@ -71,9 +76,130 @@ export class ChampListeAssistant extends Component {
                     open={this.state.open} />
                 <i className="right info circle icon blue"></i>
             </div>
+            }
+            </Translation>
         )        
     }
 
+}
+
+export class ChampListeEntiteMusicaleAssistant extends Component {
+
+    constructor(props) {
+        super(props)
+        if(this.props.onRef)
+            this.props.onRef(this)
+        this.state = {
+            rightHolderId: props.rightHolderId, // uuid de l'ayant-droit qui consulte la liste
+            etiquette: props.etiquette,
+            indication: props.indication,
+            modele: props.modele,
+            autoFocus: props.autoFocus,
+            requis: props.requis,
+            fluid: props.fluid,
+            multiple: props.multiple,
+            recherche: props.recherche,
+            selection: props.selection,
+            onInput: props.onInput,
+            ajout: true,
+            nomCommeCle: props.nomCommeCle
+        }
+        this.OPTIONS = undefined
+        this.listeAyantsDroit = this.listeEntites.bind(this)
+        this.onChange = props.onChange
+    }
+
+    componentWillMount() {
+        this.listeEntites()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.etiquette !== nextProps.etiquette) {
+            this.setState({etiquette: nextProps.etiquette})
+        }
+        if (this.props.indication !== nextProps.indication) {
+            this.setState({indication: nextProps.indication})
+        }
+        if (this.props.collaborateurs !== nextProps.collaborateurs) {            
+            this.recalculerOptions(nextProps.collaborateurs)
+        }
+    }
+
+    listeEntites() {
+        // Récupérer la liste des ayant-droits        
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/entities`)
+        .then(res=>{
+
+            let aOptions = []
+
+            res.data.forEach((elem)=>{
+                if(!this.state.rightHolderId || elem.members.includes(this.state.rightHolderId)) {
+                    aOptions.push({
+                        key: elem.uuid,
+                        text: elem.name,
+                        value: elem.name
+                    })
+                }
+            })            
+            if(!this.OPTIONS) {
+                this.OPTIONS = aOptions
+            }            
+            this.setState({options: aOptions})
+        })
+        .catch(err=>{
+            toast.error(err)
+        })
+    }
+
+    render() {
+        return(
+            <Translation>
+                {
+                    t =>
+            <div>
+                {
+                    this.state.options && (
+                        <Wizard.Field   
+                            title={"Ajouter"}            
+                            name={this.state.modele}
+                            component={Form.Dropdown}
+                            componentProps={{
+                                id: "entiteArtistique",
+                                label: this.state.etiquette,
+                                placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
+                                required: this.state.requis,
+                                autoFocus: this.state.autoFocus,
+                                fluid: true,
+                                search: true,
+                                selection: false,
+                                multiple: false,
+                                options: this.state.options,                                
+                                allowAdditions: false,
+                                clearable: false
+                            }}
+                            
+                        />
+                    ) 
+                }       
+                <ModifyUser 
+                    open={this.state.open} 
+                    firstName={this.state.firstName}
+                    close={()=>{
+                        this.setState({open: false}, ()=>{
+                            if(this.props.close) {
+                                this.props.close()
+                            }
+                        })                        
+                    }}
+                    fn={()=>{
+                        this.listeEntites()                    
+                    }}
+                    />  
+            </div>
+            }
+        </Translation>
+        )        
+    }
 }
 
 export class ChampListeCollaborateurAssistant extends Component {
@@ -90,10 +216,13 @@ export class ChampListeCollaborateurAssistant extends Component {
             multiple: props.multiple,
             recherche: props.recherche,
             selection: props.selection,
-            ajout: true            
+            onInput: props.onInput,
+            ajout: true,
+            nomCommeCle: props.nomCommeCle
         }
         this.OPTIONS = undefined
         this.listeAyantsDroit = this.listeAyantsDroit.bind(this)
+        this.onChange = props.onChange
     }
 
     componentWillMount() {
@@ -113,21 +242,38 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     listeAyantsDroit() {
-        // Récupérer la liste des ayant-droits
+        // Récupérer la liste des ayant-droits        
         axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
         .then(res=>{            
-            let _options = res.data.map(elem=>{
-                let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`
-                return {
-                    key: `${elem.rightHolderId}`, 
-                    text: nom, 
-                    value: nom
-                }
+            let _adParId = {}
+            let _options = res.data.map((elem, idx)=>{
+                let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
+                _adParId[elem.rightHolderId] = elem
+                let avatar = ''                
+                // Y a-t-il un avatar ?
+                if(elem.avatarImage) 
+                    avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${elem.avatarImage}`
+                else
+                    avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+
+                return (
+                    {
+                        key: this.state.nomCommeCle ? nom : elem.rightHolderId,
+                        text: nom,
+                        value: this.state.nomCommeCle ? nom : elem.rightHolderId,
+                        image: { avatar: true, src: avatar }
+                    }
+                )
             })            
             if(!this.OPTIONS) {
-                this.OPTIONS = _options
+                this.OPTIONS = _options                
             }
-            this.setState({options: _options})            
+            this.setState({ayantDroit: _adParId}, ()=>{if(this.props.onRef) this.props.onRef(_adParId)})
+            this.setState({options: _options}, ()=>{
+                // recalcul des options initiales
+                if(this.props.collaborateurs)
+                    this.recalculerOptions(this.props.collaborateurs)
+            })
         })
         .catch(err=>{
             toast.error(err)
@@ -135,6 +281,7 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     recalculerOptions(collaborateurs){
+        // collaborateurs est une liste de collaborateurs à exclure
         let options = Object.assign([], this.OPTIONS)
         collaborateurs.forEach(elem => {
             options.forEach((_e, idx)=>{
@@ -153,26 +300,30 @@ export class ChampListeCollaborateurAssistant extends Component {
 
     render() {
         return(
+            <Translation>
+            {
+                t =>
             <div>
                 {
                     this.state.options && (
-                        <Wizard.Field                
+                        <Wizard.Field        
+                            title={"Ajouter"}          
                             name={this.state.modele}
                             component={Form.Dropdown}
                             componentProps={{
                                 id: "collaborateur",
                                 label: this.state.etiquette,
-                                placeholder: this.state.indication,
+                                placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
                                 required: this.state.requis,
                                 autoFocus: this.state.autoFocus,
                                 fluid: true,
                                 search: true,
                                 selection: this.state.selection,
-                                multiple: true,
+                                multiple: this.state.multiple,
                                 options: this.state.options,
                                 onAddItem: this.handleAddition,
                                 allowAdditions: this.state.ajout,
-                                clearable: true
+                                clearable: false
                             }}
                             
                         />
@@ -189,10 +340,15 @@ export class ChampListeCollaborateurAssistant extends Component {
                         })                        
                     }}
                     fn={()=>{
-                        this.listeAyantsDroit()                    
+                        this.listeAyantsDroit()
+                        if(this.props.fn) {
+                            this.props.fn()
+                        }                        
                     }}
                     />  
             </div>
+            }
+            </Translation>
         )        
     }
 }
@@ -251,16 +407,20 @@ export class ChampListeEditeurAssistant extends Component {
 
     render() {
         return(
+            <Translation>
+                {
+                    t =>
             <div>
                 {
                     this.state.options && (
-                        <Wizard.Field                
+                        <Wizard.Field
+                            title={"Ajouter"}              
                             name={this.state.modele}
                             component={Form.Dropdown}
                             componentProps={{
                                 id: "collaborateur",
                                 label: this.state.etiquette,
-                                placeholder: this.state.indication,
+                                placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
                                 required: this.state.requis,
                                 autoFocus: this.state.autoFocus,
                                 fluid: true,
@@ -275,6 +435,8 @@ export class ChampListeEditeurAssistant extends Component {
                     )
                 }                
             </div>
+            }
+            </Translation>
         )        
     }
 }

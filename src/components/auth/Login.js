@@ -27,7 +27,7 @@ class LogIn extends Component {
       username: "",
       password: this.props.password,
       parent: props.parent
-    }
+    };
 
     this.toggleShow = this.toggleShow.bind(this);
     this.validateUsername = this.validateUsername.bind(this);
@@ -77,7 +77,6 @@ class LogIn extends Component {
         Auth.signIn(values.username, values.password)
           .then(user => {
             toast.success(`#${user.username} !`);
-
             if (this.props.fn) {
               this.props.fn();
             }
@@ -142,7 +141,12 @@ class LogIn extends Component {
                           // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
                           this.props.parent.afficher(1);
                         }}
-                        style={{ color: "#2DA84F", cursor: "pointer" }}
+                        style={{
+                          color: "#2DA84F",
+                          cursor: "pointer",
+                          position: "relative",
+                          bottom: "20px"
+                        }}
                       >
                         {t("entete.inscription")}
                       </div>
@@ -153,7 +157,7 @@ class LogIn extends Component {
                           <div>
                             <div className="loginHead">
                               <h1>
-                                Log into you SmartSplit <br />
+                                Login to your Smartsplit <br />
                                 account.
                               </h1>
                               <br></br>
@@ -168,7 +172,7 @@ class LogIn extends Component {
                             <div className="loginHead">
                               <h1>
                                 Connecte-toi à ton <br />
-                                compte SmartSplit.
+                                compte Smartsplit.
                               </h1>
                               <br></br>
                             </div>
@@ -193,13 +197,25 @@ class LogIn extends Component {
                                 name="username"
                                 id="username"
                                 aria-describedby="usernameHelp"
+<<<<<<< HEAD
                                 placeholder={t("flot.split.inscription.exemple")}
+=======
+                                placeholder={t(
+                                  "flot.split.inscription.exemple"
+                                )}
+>>>>>>> develop
                                 required={true}
                               />
                               {errors.username && touched.username && (
                                 <div style={{ color: "red" }}>
                                   {" "}
+<<<<<<< HEAD
                                   {t("flot.split.inscription.email-invalide")}{" "}
+=======
+                                  {t(
+                                    "flot.split.inscription.email-invalide"
+                                  )}{" "}
+>>>>>>> develop
                                 </div>
                               )}
                             </div>
@@ -215,7 +231,13 @@ class LogIn extends Component {
                                   type={this.state.hidden ? "password" : "text"}
                                   id="password"
                                   name="password"
+<<<<<<< HEAD
                                   placeholder={t("flot.split.inscription.motdepasse")}
+=======
+                                  placeholder={t(
+                                    "flot.split.inscription.motdepasse"
+                                  )}
+>>>>>>> develop
                                   required={true}
                                 />
                                 <button
@@ -231,7 +253,13 @@ class LogIn extends Component {
                             {errors.password && touched.password && (
                               <div style={{ color: "red" }}>
                                 {" "}
+<<<<<<< HEAD
                                 {t("flot.split.inscription.password-invalide")}{" "}
+=======
+                                {t(
+                                  "flot.split.inscription.password-invalide"
+                                )}{" "}
+>>>>>>> develop
                               </div>
                             )}
                           </div>

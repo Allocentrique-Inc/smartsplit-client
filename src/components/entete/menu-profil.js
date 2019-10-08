@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Translation, Trans } from "react-i18next";
+import { withTranslation, Translation, Trans } from "react-i18next";
 
 import axios from "axios";
 
@@ -13,7 +13,7 @@ import moment from "moment";
 import { Auth } from "aws-amplify";
 import Socan from "../auth/Socan";
 
-export default class MenuProfil extends Component {
+class MenuProfil extends Component {
   constructor(props) {
     super(props);
     if (props.onRef) {
@@ -51,7 +51,7 @@ export default class MenuProfil extends Component {
   deconnexion() {
     Auth.signOut()
       .then(data => {
-        toast.success("Déconnexion réussie");
+        toast.success(this.props.t("deconnexion.reussie"));
         setTimeout(() => {
           window.location.href = "/accueil";
         }, 1000);
@@ -84,7 +84,12 @@ export default class MenuProfil extends Component {
     let menu = (
       <Translation>
         {t => (
-          <span style={{ position: "relative" }}>
+          <span
+            style={{
+              position: "absolute",              
+              zIndex: "1"
+            }}
+          >
             <Dropdown text="" icon="angle down big black">
               <Dropdown.Menu icon="down small">
                 <Dropdown.Item
@@ -138,32 +143,36 @@ export default class MenuProfil extends Component {
     return (
       <Translation>
         {t => (
-          <div className="ui row">            
-            <div style={{ position: "relative", right: "45px" }}>
-              <div className="ui five wide column avatar--image">
-                <Label
-                  style={{
-                    background: "transparent",
-                    width: "150px",
-                    left: "30px",                  
-                    marginBottom: "10px"
-                  }}
-                >
-                  {nomComplet}
-                </Label>
-                {!userInitials && (
-                  <img
-                    src={avatarImage}
-                    alt="user--image"
-                    className="user--img"
-                  />
-                )}
-                {menu}
-              </div>
-            </div>
-          </div>
+          <>
+            <div
+              className="ui five wide column avatar--image profile"
+              style={{
+                position: "relative",
+                top: "30px",
+                right: "125px",
+                zIndex: "1"
+              }}
+            ></div>
+            <Label
+              style={{
+                background: "transparent",
+                width: "150px",
+                position: "relative",
+                top: "5px",
+                bottom: "10px"
+              }}
+            >
+              {nomComplet}
+            </Label>
+            {!userInitials && (
+              <img src={avatarImage} alt="user--image" className="user--img" />
+            )}
+            {menu}
+          </>
         )}
       </Translation>
     );
   }
 }
+
+export default withTranslation()(MenuProfil);

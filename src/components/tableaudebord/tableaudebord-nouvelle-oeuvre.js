@@ -14,6 +14,14 @@ import { confirmAlert } from 'react-confirm-alert'
 import AudioLecture from '../oeuvre/audio-lecture'
 import { Field } from 'formik'
 import moment from 'moment'
+import { ChampListeCollaborateurAssistant, ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
+
+const etiquetteStyle = {
+    fontFamily: "IBM Plex Sans",
+    backgroundColor: 'transparent',
+    fontSize: "16px",
+    margin: "0"
+  };
 
 const ORIGINALE = 0, ARRANGEMENT = 1, REPRISE = 2
 
@@ -37,13 +45,13 @@ class Apercu extends Component {
             <Translation>
                 {
                     t=>
-                        <div className="ui column">
-                            <div>                                        
+                        <div className="ui column" style={{position: "absolute", float: "right"}}>
+                            <div style={{position: "relative", left: "60px"}}>                                        
                                 <p style={{
                                     fontFamily: "IBM Plex Sans",
                                     fontStyle: "normal",
                                     fontWeight: "bold",
-                                    fontSize: "12px",
+                                    fontSize: "16px",
                                     lineHeight: "16px",
                                     letterSpacing: "1px",
                                     textTransform: "uppercase",
@@ -52,13 +60,11 @@ class Apercu extends Component {
                                 }}>{t('titre.apercu')}</p>
                                 <div className="ui grid">
                                     <div className="ui two wide column">
-                                        <i className="file image outline icon big grey" /> 
+                                        <i className="file image outline icon big grey" style={{marginBottom: "20px"}} /> 
                                     </div>
-                                    <div className="ui twelve wide column">
-                                        <p>
-                                            {this.state.values.artist || t('titre.oeil-ouvert')}
-                                        </p>
+                                    <div className="ui twelve wide column">                                        
                                         <p style={{fontWeight: "bolder"}}>{this.state.values.title || t('titre.apercu-sen-vient')}</p>
+                                        <p>{this.state.values.artist || t('titre.oeil-ouvert')}</p>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +97,7 @@ class Base extends Component {
                     {
                         t=>    
                             <>                        
-                                <div className="ui row">
+                                <div className="ui row" style={{width: "360px", margin: "20px 20px 0 0", fontSize: "16px", fontFamily: "IBM Plex Sans"}}>
                                     <ChampTexteAssistant 
                                         soustexte={t('oeuvre.attribut.indication.titre-soustexte')}
                                         modele="title"
@@ -194,20 +200,7 @@ class Page2NouvellePiece extends Component {
 
         this.props.setFieldValue('title', analyse.title, false)
         this.props.setFieldValue('publisher', analyse.label ? analyse.label : analyse.artists[0].name, false)
-        this.props.setFieldValue('artist', analyse.artists[0].name, false)
-
-        // Création des ayant-droits
-        /* let ayantDroits = []
-        analyse.artists.forEach((artiste, idx) => {            
-            let prenom = artiste.name.split(" ").length === 2 ? artiste.name.split(" ")[0] : ""
-            let nom = artiste.name.split(" ").length === 2 ? artiste.name.split(" ")[1] : ""
-            ayantDroits.push({
-                prenom: prenom,
-                nom: nom,
-                artiste: artiste.name
-            })
-        })
-        this.props.setFieldValue('rightHolders', ayantDroits, false) */
+        this.props.setFieldValue('artist', analyse.artists[0].name, false)        
         this.props.setFieldValue('instrumental', true, false)
         this.props.setFieldValue('album', analyse.album.name, false)
         this.props.setFieldValue('durationMs', `${ analyse.duration_ms }`, false)
@@ -259,7 +252,8 @@ class Page2NouvellePiece extends Component {
                                                 </div>
                                             )
                                         }
-                                        <ChampTeleversement                                          
+                                        <ChampTeleversement 
+                                            style={{width: "300px"}}                                         
                                             label={t('composant.televersement.titre')}
                                             access="private"
                                             undertext={t('composant.televersement.soustitre')}                                     
@@ -304,7 +298,9 @@ class Page2NouvellePiece extends Component {
             
                                                                 toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${ f.empreinte }`)
                                                                 this.setState({analyse: analyse}, ()=>this.modaleReconnaissance()) 
-                                                                this.props.setFieldValue('fichier', f.empreinte)                                                       
+                                                                this.props.setFieldValue('fichier', f.empreinte)
+                                                                this.props.setFieldValue('files.audio..file', f.name)
+                                                                this.props.setFieldValue('files.audio..md5', f.empreinte)
                                                                 
                                                             }
                                                         })
@@ -325,18 +321,26 @@ class Page2NouvellePiece extends Component {
 
                                             }                                            
                                             }
-                                            onAccessChange={value=>console.log(value)}
                                         />
                                         <Base values={this.props.values} setFieldValue={this.props.setFieldValue}/>
                                         {
                                             this.props.values.type === ""+ORIGINALE && (
                                                 <>
-                                                    <div style={{marginTop: "20px"}} className="ui row">
-                                                        <ChampTexteAssistant 
-                                                            modele="artist"
-                                                            etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})}
-                                                            requis={true}
-                                                            />
+                                                    <div style={{marginTop: "20px", fontSize: "16px", fontFamily: "IBM Plex Sans"}} className="ui row">
+                                                    <ChampListeEntiteMusicaleAssistant
+                                                        rightHolderId={this.props.parent.state.user.username}
+                                                        modele={"artist"} 
+                                                        etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})} 
+                                                        indication={t('oeuvre.attribut.indication.artiste')} 
+                                                        requis={true} 
+                                                        autoFocus={false}
+                                                        multiple={false}
+                                                        nomCommeCle={false}
+                                                        onRef={
+                                                            liste=>this.setState({entites: liste})
+                                                        }
+
+                                                        />                                                                                                               
                                                     </div>                                                    
                                                 </>
                                             )
@@ -345,25 +349,40 @@ class Page2NouvellePiece extends Component {
                                             this.props.values.type === ""+ARRANGEMENT && (
                                                 <>
                                                     <div style={{marginTop: "20px"}} className="ui row">
-                                                        <ChampTexteAssistant 
-                                                            modele="artist"
-                                                            etiquette={t('oeuvre.attribut.etiquette.artiste')}
-                                                            requis={true}
-                                                            />
+                                                    <ChampListeEntiteMusicaleAssistant
+                                                        rightHolderId={this.props.parent.state.user.username}
+                                                        modele={"artist"} 
+                                                        etiquette={t('oeuvre.attribut.etiquette.piecePar', {titre: this.props.values.title})} 
+                                                        indication={t('oeuvre.attribut.indication.artiste')} 
+                                                        requis={true} 
+                                                        autoFocus={false}
+                                                        multiple={false}
+                                                        nomCommeCle={false}
+                                                        onRef={
+                                                            liste=>this.setState({entites: liste})
+                                                        }
+
+                                                        />
                                                     </div>
-                                                    <div style={{marginTop: "20px"}} className="ui row">                                                    
-                                                        <ChampTexteAssistant 
-                                                            modele="arrangeur"
-                                                            etiquette={t('oeuvre.attribut.etiquette.arrangementPar', {titre: this.props.values.title})}
-                                                            indication={t('oeuvre.attribut.indication.arrangeur')}
-                                                            requis={true}
-                                                            />
+                                                    <div style={{marginTop: "20px"}} className="ui row">
+                                                    <ChampListeEntiteMusicaleAssistant
+                                                        modele="arrangeur"
+                                                        etiquette={t('oeuvre.attribut.etiquette.arrangementPar', {titre: this.props.values.title})}
+                                                        indication={t('oeuvre.attribut.indication.arrangeur')}
+                                                        requis={true} 
+                                                        autoFocus={false}
+                                                        multiple={false}
+                                                        nomCommeCle={false}
+                                                        onRef={
+                                                            liste=>this.setState({entites: liste})
+                                                        }
+                                                        />                                                        
                                                     </div>
                                                 </>
                                             )
                                         }
 
-                                        <div style={{marginTop: "20px"}} className="ui row">
+                                        <div style={{margin: "20px 0 20px 0", width: "360px"}} className="ui row">                                            
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={ this.props.pochette }
                                                 items={ this.rightHolderOptions() }
@@ -371,7 +390,7 @@ class Page2NouvellePiece extends Component {
                                                 createLabel={ t('flot.split.documente-ton-oeuvre.documenter.collabo') }
                                                 placeholder={ t('oeuvre.attribut.etiquette.vedette') }
                                                 value={ this.state.vedettes }
-                                                onChange={ ids => this.props.setFieldValue('vedettes', ids) }
+                                                onChange={ ids => this.props.setFieldValue('rightHolders', ids) }
                                             />
                                         </div>                                        
 
@@ -390,14 +409,15 @@ class Page2NouvellePiece extends Component {
                                             onClose={()=>this.modaleReconnaissance(false)}>    
                                             <Modal.Header>{t('flot.acr.titre')}</Modal.Header>
                                             <Modal.Content>
-                                                <Label>{t('oeuvre.attribut.etiquette.titre')}</Label><span>{this.state.analyse.title}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.artiste')}</Label><span>{this.state.analyse.artists && this.state.analyse.artists[0] && this.state.analyse.artists[0].name}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.editeur')}</Label><span>{this.state.analyse.label}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.album')}</Label><span>{this.state.analyse.album && this.state.analyse.album.name}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.isrc')}</Label><span>{this.state.analyse.external_ids && this.state.analyse.external_ids.isrc}</span><p/>
-                                                <Label>{t('oeuvre.attribut.etiquette.datePublication')}</Label><span>{this.state.analyse.release_date}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.titre')}</Label><span>{this.state.analyse.title}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.artiste')}</Label><span>{this.state.analyse.artists && this.state.analyse.artists[0] && this.state.analyse.artists[0].name}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.editeur')}</Label><span>{this.state.analyse.label}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.album')}</Label><span>{this.state.analyse.album && this.state.analyse.album.name}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.isrc')}</Label><span>{this.state.analyse.external_ids && this.state.analyse.external_ids.isrc}</span><p/>
+                                                <Label style ={etiquetteStyle}>{t('oeuvre.attribut.etiquette.datePublication')}</Label><span>{this.state.analyse.release_date}</span><p/>
                                             </Modal.Content>
                                             <Modal.Actions>
+                                                    <h3>{t('flot.acr.importer')}</h3>
                                                     <Button onClick={()=>this.modaleReconnaissance(false)} negative>{t('flot.acr.non')}</Button>
                                                     <Button onClick={()=>{this.remplirChampsAnalyse(i18n); ; this.modaleReconnaissance(false)}} positive icon='checkmark' labelPosition='right' content={t('flot.acr.oui')} />
                                             </Modal.Actions>
@@ -465,9 +485,15 @@ export default class NouvelleOeuvre extends Component {
 
     soumettre(values, t) {        
 
+        let rHs = []
+
+        // Participants créés avec le rôle d'auteur par défaut.
+        if(values.rightHolders)
+            values.rightHolders.forEach(rH=>rHs.push({id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a33"]}))
+
         let body = {
             creator: this.props.user.username,
-            mediaId: this.state.mediaId,
+            mediaId: `${this.state.mediaId}`,
             title: values.title,
             album: values.album,
             artist: values.artist,
@@ -475,15 +501,31 @@ export default class NouvelleOeuvre extends Component {
             type: values.type,
             publishDate: values.publishDate,
             publisher: values.publisher,
-            rightHolders: values.rightHolders,
+            rightHolders: rHs,
             socialMediaLinks: values.socialMediaLinks,
             streamingServiceLinks: values.streamingServiceLinks,
             pressArticleLinks: values.pressArticleLinks,
             playlistLinks: values.playlistLinks,
-            audioFile: values.fichier,
+            files: {
+                audio: {
+                    file: values.fichier,
+                    access: "private"
+                },
+                cover: {
+                    file: " ",
+                    access: "private"
+                },
+                score: {
+                    file: " ",
+                    access: "private"
+                },
+                midi: {
+                    file: " ",
+                    access: "private"
+                }
+            },
             remixer: values.arrangeur
         }
-        body.mediaId = this.state.mediaId
         this.props.parent.state.audio.stop()
 
         axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
@@ -505,40 +547,40 @@ export default class NouvelleOeuvre extends Component {
                 <Translation>
                     {
                         t=>
-                            <div>                                
+                            <div>
+                                {this.state.patience && (
+                                    <div style={{width: "100%"}} className="container ui active dimmer">
+                                        <div className="ui text loader">{t("entete.encours")}</div>
+                                    </div>
+                                )}                        
                                 <Wizard
                                     initialValues={{
                                         title: undefined,
-                                        type: undefined
+                                        type: undefined,
+                                        vedettes: []
                                     }}
                                     buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti')}}
-                                    debug={false}         
-                                    onPageChanged={no=>this.changementPage(no, t)}                       
+                                    debug={false}
+                                    onPageChanged={no=>this.changementPage(no, t)}
                                     onSubmit={(values, {setSubmitting})=>{this.soumettre(values, t); setSubmitting(false) }}
                                     style={{width: "80%"}}
-
                                 >
                                     <Wizard.Page
-                                        validate={values=>{                                        
+                                        validate={values=>{
                                             this.changement(values)
                                             const errors = {};
                                             if (!values.title) {
                                                 errors.title = t("obligatoire")
                                             }
                                             return errors
-                                        }}>                                
+                                        }}>
                                         <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
                                     </Wizard.Page>
                                     <Wizard.Page>
                                         <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} parent={this} />
                                     </Wizard.Page>                                    
 
-                                </Wizard>                               
-                                {this.state.patience && (
-                                    <div className="container ui active dimmer">
-                                        <div className="ui text loader">{t("entete.encours")}</div>
-                                    </div>
-                                )}
+                                </Wizard>
                             </div>
                     }                
                 </Translation>            

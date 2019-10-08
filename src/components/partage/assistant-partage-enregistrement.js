@@ -14,11 +14,13 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
-import avatar from "../../assets/images/elliot.jpg"
-
 const MODES = {egal: "0", manuel: "1"}
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
+
+const arrondir = function(nombre) {
+    return Math.round(nombre * 10000) / 10000
+}
 
 class PageAssistantPartageEnregistrement extends Component {
 
@@ -43,6 +45,9 @@ class PageAssistantPartageEnregistrement extends Component {
         if(this.props.values.droitEnregistrement !== nextProps.values.droitEnregistrement) {
             this.setState({parts: nextProps.values.droitEnregistrement})
         }
+        if(this.props.ayantsDroit !== nextProps.ayantsDroit){
+            this.setState({ayantsDroit: nextProps.ayantsDroit})
+        }
     }
 
     recalculerPartage() {
@@ -51,11 +56,11 @@ class PageAssistantPartageEnregistrement extends Component {
             case MODES.egal:
                 // Calcul le pourcentage égal
                 let _parts = this.props.values.droitEnregistrement
-                pourcent = (pourcent / (_parts.length)).toFixed(4)
+                pourcent = (pourcent / _parts.length)
                 // Applique le pourcentage aux données existantes
                 _parts.forEach((elem, idx)=>{
                     _parts[idx].nom = elem.nom
-                    _parts[idx].pourcent = pourcent
+                    _parts[idx].pourcent = `${pourcent}`
                 })
                 this.props.setFieldValue("droitEnregistrement", _parts)
                 break          
@@ -68,7 +73,7 @@ class PageAssistantPartageEnregistrement extends Component {
         this.props.values.droitEnregistrement.forEach(elem=>{
             _pctDelta = _pctDelta - parseFloat(elem.pourcent)
         })
-        return `${_pctDelta < 0 ? 0 : _pctDelta}`
+        return _pctDelta < 0 ? 0 : _pctDelta
     }
 
     // Changement d'un gradateur
@@ -78,6 +83,12 @@ class PageAssistantPartageEnregistrement extends Component {
         let invariable = this.state.partsInvariables
         let droits = this.props.values.droitEnregistrement        
         
+        // extraction de l'index numérique du gradateur
+        // pour récupération du droit (derniers caractères après le dernier _)
+        let idxG = index.substring(index.lastIndexOf('_') + 1,index.length)
+
+        delta = delta - (parseFloat(droits[idxG].pourcent) % 1) // différence décimale à soustraire du delta à répartir
+
         let deltaParCollaborateurVariable = 0.0
 
         let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
@@ -93,7 +104,7 @@ class PageAssistantPartageEnregistrement extends Component {
     
         droits.forEach((elem, idx)=>{
             if(!invariable[idx]) { // Ajustement si l'index est variable
-                droits[idx].pourcent = parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable)                
+                droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
             }
         })        
 
@@ -134,81 +145,88 @@ class PageAssistantPartageEnregistrement extends Component {
 
     ajouterCollaborateur(arrayHelpers) {
         let ayants = {}
+        
         let _coll = this.props.values.collaborateur
-        //let _index = arrayHelpers.data.length
-        let _index = this.props.values.droitEnregistrement.length + 
-                    this.props.values.droitInterpretation.length +
-                    this.props.values.droitEnregistrement.length
-        this.props.values.droitEnregistrement.forEach(droit=>{
-            ayants[droit["nom"]] = droit["color"]
-        })
-        this.props.values.droitInterpretation.forEach(droit=>{
-            ayants[droit["nom"]] = droit["color"]
-        })
-                                                            
-        _coll.forEach((elem, idx)=>{
+
+        if(_coll) {
+            let ayantDroit = this.state.ayantsDroit[_coll], nom            
+        
+            if(ayantDroit) {
+                nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
+            }
+
+            let _index = this.props.values.droitEnregistrement.length + 
+                        this.props.values.droitInterpretation.length +
+                        this.props.values.droitEnregistrement.length
+
+            this.props.values.droitEnregistrement.forEach(droit=>{
+                ayants[droit.ayantDroit.rightHolderId] = droit["color"]
+            })
+            this.props.values.droitInterpretation.forEach(droit=>{
+                ayants[droit.ayantDroit.rightHolderId] = droit["color"]
+            })
+                                                                
             if(this.state.mode === MODES.egal) {
-                if (elem in ayants) {
+                if (_coll in ayants) {
                     arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4),
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1) )}`,
                         principal: true,
                         chanteur: false,
                         musicien: false,
-                        color: ayants[elem]
+                        color: ayants[_coll]
                     })
                 } else {
                     arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (100 / (this.props.values.droitEnregistrement.length + _coll.length) ).toFixed(4),
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1) )}`,
                         principal: true,
                         chanteur: false,
                         musicien: false,
-                        color: COLORS[_index+idx]
+                        color: COLORS[_index]
                     })
-                    ayants[elem] = COLORS[_index+idx]
+                    ayants[_coll] = COLORS[_index]
                 }
             }
             if(this.state.mode === MODES.manuel) {  
-                if (elem in ayants) {     
+                if (_coll in ayants) {     
                     arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: `${arrondir(
                             this.pourcentRestant() / 
-                            (this.props.values.droitEnregistrement.length + _coll.length) )
-                            .toFixed(4),
+                            (this.props.values.droitEnregistrement.length + 1) )}`,
                         producteur: false,
                         realisateur: false,
                         graphiste: false,
                         studio: false,
-                        color: ayants[elem]
+                        color: ayants[_coll]
                     })
                 } else {
                     arrayHelpers.insert(0, {
-                        nom: elem, 
-                        pourcent: (
+                        nom: nom, 
+                        ayantDroit: ayantDroit,
+                        pourcent: `${arrondir(
                             this.pourcentRestant() / 
-                            (this.props.values.droitEnregistrement.length + _coll.length) )
-                            .toFixed(4),
+                            (this.props.values.droitEnregistrement.length + 1) )}`,
                         producteur: false,
                         realisateur: false,
                         graphiste: false,
                         studio: false,
-                        color: COLORS[_index+idx]
+                        color: COLORS[_index]
                     })
-                    ayants[elem] = COLORS[_index+idx]
+                    ayants[_coll] = COLORS[_index]
                 }
-            }
-            // création de l'entrée dans le tableau des invariables
-           /*  let _inv = this.state.partsInvariables
-            _inv.unshift(false)
-            this.setState({partsInvariables: _inv})
-            */ 
-        })                                                            
-        this.props.setFieldValue('collaborateur', [])
-        this.setState({ping: true}, ()=>{
-            this.recalculerPartage()
-        })
+            }        
+
+            this.props.setFieldValue('collaborateur', "")
+            this.setState({ping: true}, ()=>{
+                this.recalculerPartage()
+            })
+        }
+        
     }
 
     render() {
@@ -244,7 +262,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <Progress percent="85" size='tiny' indicating/>                                    
                                 </div>
                                 <div className="ui three wide column">
-                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(this.props.values)}}>
+                                    <div style={{top: "-15px", position: "relative", left: "30px", width: "150px"}} className="ui medium button" onClick={()=>{this.props.enregistrerEtQuitter(t, this.props.values)}}>
                                         {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                     </div>
                                 </div>
@@ -298,13 +316,22 @@ class PageAssistantPartageEnregistrement extends Component {
                                         render={arrayHelpers => (
                                             <div>
                                                 {
-                                                    this.props.values.droitEnregistrement.map((part, index)=>{
+                                                    this.state.ayantsDroit && this.props.values.droitEnregistrement.map((part, index)=>{
                                                         let roles = [
                                                             {id: "producteur", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.producteur')}, 
                                                             {id: "realisateur", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.realisateur')}, 
                                                             {id: "graphiste", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.graphiste')}, 
                                                             {id: "studio", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.studio')}
                                                         ]
+
+                                                        let avatar = ''
+                                                            let _aD = part.ayantDroit
+                                                            // Y a-t-il un avatar ?
+                                                            if(_aD.avatarImage) 
+                                                                avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
+                                                            else
+                                                                avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+
                                                         return (
                                                             <div key={`part-${index}`}>                                                                
                                                                 <div className="gray-fields">
@@ -318,7 +345,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                         <div className="ui thirteen wide column">
                                                                             <div className="holder-name">
                                                                                 {part.nom}
-                                                                                <i className="right floated ellipsis horizontal icon" onClick={() => {
+                                                                                <i className="right floated close icon" onClick={() => {
                                                                                     arrayHelpers.remove(index)
                                                                                     this.setState({ping: true}, ()=>{
                                                                                         this.recalculerPartage()
@@ -401,6 +428,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                         <div className="ui row">                                 
                                                             <div className="ui ten wide column">
                                                                 <ChampListeCollaborateurAssistant
+                                                                    onRef={ayantsDroit=>this.setState({ayantsDroit: ayantsDroit})}
                                                                     indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                     modele="collaborateur"
                                                                     autoFocus={false}
@@ -409,11 +437,8 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     multiple={false}
                                                                     recherche={true}
                                                                     selection={true}
-                                                                    ajout={false}
-                                                                    collaborateurs={this.props.values.droitEnregistrement}
-                                                                    close={()=>{
-                                                                        this.props.setFieldValue('collaborateur', [])
-                                                                    }}
+                                                                    ajout={true}
+                                                                    collaborateurs={this.props.values.droitEnregistrement}                                                                    
                                                                 />                                               
                                                             </div>
                                                             <div className="four wide column">
@@ -441,7 +466,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                     <br/>
                                     <br/>
                                     <div className="conteneur-beignet fourteen wide field">
-                                        {Object.keys(this.state.parts).length < 9 && (<Beignet uuid="1" data={this.state.parts}/>)}
+                                        {Object.keys(this.state.parts).length < 9 && (<Beignet type="masterNeighboringRightSplit" uuid="1" data={this.state.parts}/>)}
                                         {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="1" data={this.state.parts}/>)}
                                     </div>
                                 </div>

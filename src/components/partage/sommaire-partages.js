@@ -119,10 +119,10 @@ export default class SommairePartages extends Component {
                 <Translation>
                     {
                         t =>
-                            <div className="ui ten wide column">
+                            <div className="ui seven wide column">
                                 <i className="file image outline icon huge grey"></i>
                                     {this.state.media && (<span style={{marginLeft: "15px"}} className="medium-400">{this.state.media.title}</span>)}
-                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>                            
+                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.split.documente-ton-oeuvre.partage.auteur.titre')}</span>                            
                             </div>
                     }                    
                 </Translation>
@@ -188,7 +188,7 @@ export default class SommairePartages extends Component {
                     continuerDisabled = false
                 }
                 if(_p.etat === 'ACCEPTE') {
-                    // Essst-ce que l'utilisateur est dans les ayant-droits ?
+                    // Est-ce que l'utilisateur est dans les ayant-droits ?
                     let estCollaborateur = false
                     if(_p.rightsSplits.workCopyrightSplit) {
                         Object.keys(_p.rightsSplits.workCopyrightSplit).forEach(type=>{

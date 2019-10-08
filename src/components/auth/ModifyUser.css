@@ -1,11 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
 
-.input-container .ui.small.modal .Titre {
+.ui.small.modal .input-container {
   font-family: "IBM Plex Sans";
-  font-weight: normal;
   font-size: 16px;
   line-height: 35px;
   margin: 0 20px 0 80px;
+  align-items: center;
+}
+
+.Modal.Header.Titre {
+  font-size: 18px;
+  color: black;
+  margin: 0px 0px 50px 65px;
 }
 
 ::placeholder {
@@ -18,17 +24,16 @@
   color: #8da0b3;
 }
 
-.Titre {
-  font-size: 20px;
-  font-weight: normal;
-  margin: 0;
-}
-
 #prompt,
 #roles {
+  height: 30px;
   padding: 10px 0 0 0;
+  max-width: 500px !important;
+  display: flex;
+  flex-flow: wrap;
+  height: auto;
 }
 
-.ui.search.icon {
+.ui .search .icon {
   float: left;
 }

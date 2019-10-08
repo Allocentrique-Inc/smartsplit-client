@@ -2,34 +2,38 @@
   "info": {
     "oeuvre": {
       "creation": "Work # {{id}} created. :)"
+    },
+    "partage": {
+      "vide": "Cannot share an empty proposal. Add at least one collaborator to a right."
     }
   },
   "options": {
     "piece": {
-      "titre": "This work is ...",
-      "originale": "an original creation",
-      "arrangement": "a remix",
-      "reprise": "a cover"
+      "titre": "This work is...",
+      "originale": "An original creation",
+      "arrangement": "A remix",
+      "reprise": "A cover"
     }
   },
   "titre": {
-    "principal": "Welcome to SmartSplit Alpha - Client",
+    "principal": "Welcome to Smartsplit Beta",
     "accueil": "Home",
     "liste-media": "Media list returned by the API",
     "apercu": "Preview",
     "oeil-ouvert": "Keep your eyes opened",
-    "apercu-sen-vient": "Your preview will be shown here"
+    "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
     "titre": "Add a collaborating artist",
+    "titre2": "Add as a collaborator:",
     "attribut": {
       "etiquette": {
         "nom": "Legal Name",
         "prenom": "Legal First Name",
         "artiste": "Artist Name",
-        "option": " (optional)",
-        "na": "If not applicable, the complete name is displayed.",
-        "role": "Role in the work",
+        "option": " Optional",
+        "na": "If not applicable, the complete name will be displayed.",
+        "role": "Role(s) by default",
         "courriel": "Email",
         "groupe": "Groups"
       },
@@ -39,7 +43,7 @@
         "artiste": "Artist name",
         "role": "Choose one or more role",
         "role2": "These roles can be modified later.",
-        "groupe": "Choose a group"
+        "groupe": "Search among groups"
       },
       "bouton": {
         "annuler": "Cancel",
@@ -55,22 +59,22 @@
   "oeuvre": {
     "attribut": {
       "etiquette": {
-        "titre": "Title",
-        "album": "Album",
+        "titre": "Title:",
+        "album": "Album:",
         "piecePar": "{{titre}}, by",
         "arrangementPar": "{{titre}}, remixed by",
         "reprise": "This work is a cover",
         "instrumental": "This work is instrumental",
-        "artiste": "Artist or original group",
+        "artiste": "Artist or original group:",
         "juridiction": "Jurisdiction",
         "ayantDroit": "Collaborators",
         "genre": "Main genra",
-        "genre2": "Secondary genra",
+        "genre2": "Secondary genras",
         "ajouter-genre": "Add a genre",
         "paroles": "Lyrics",
         "langueParoles": "Lyric's languages",
-        "isrc": "ISRC #",
-        "upc": "UPC #",
+        "isrc": "ISRC number:",
+        "upc": "UPC number",
         "dureeMs": "Duration (milliseconds)",
         "vedette": "Add a featuring artist or group",
         "liensSociaux": "Social links",
@@ -79,13 +83,13 @@
         "liensListes": "Playlist links",
         "dateCreation": "Creation date",
         "dateModification": "Modification date",
-        "datePublication": "Publication date",
-        "editeur": "Publisher",
+        "datePublication": "Publication date:",
+        "editeur": "Publisher:",
         "repartition": "Rights split (%)"
       },
       "indication": {
         "titre": "Work title",
-        "titre-soustexte": "Do not include guests (featuring, remixed by, etc., in the title",
+        "titre-soustexte": "Do not include guests (featuring, remixed by, etc.) in the title.",
         "arrangeur": "Artist or group...",
         "album": "Work album",
         "reprise": "",
@@ -134,8 +138,8 @@
   "composant": {
     "televersement": {
       "titre": "Upload your source file",
-      "indication": "Drag the file you want to upload and drop it here, or clic here to choose the file.",
       "soustitre": "WAV or MP3 format only, 100 Mo maximum.",
+      "indication": "Drag the file you want to upload and drop it here, or clic to choose the file.",
       "preambule": "Here you can upload your source file. It will be accessible only to those who have private access. You could then share your work with radio stations, broadcasters and so on. The link to the file is not publicly available."
     }
   },
@@ -148,7 +152,8 @@
     "acr": {
       "titre": "Your musical work is recognized",
       "oui": "Let's do this !",
-      "non": "No, thanks."
+      "non": "No, thanks.",
+      "importer": "Do I import this data?"
     },
     "split": {
       "sommaire": {
@@ -172,6 +177,10 @@
         "password": "Forgot Password",
         "password2": "Password Verification",
         "password3": "Change Verification",
+        "definir": "Set new password",
+        "nouveau": "New password",
+        "code": "Please enter the verification code sent to your email address below, your email address and a new password.",
+        "verification": "Enter verification code",
         "welcome": "Welcome",
         "tableau": "Dashboard",
         "media": "Split Rights for a Media:",
@@ -206,7 +215,7 @@
         }
       },
       "titre": {
-        "principal": "Welcome to SmartSplit Alpha - Client",
+        "principal": "Welcome to Smartsplit Beta",
         "accueil": "Home",
         "liste-media": "Media list returned by the API",
         "apercu": "Preview",
@@ -284,6 +293,7 @@
           "preambule": "Genre, style, kind of...?"
         },
         "documenter": {
+          "sauvegarde": "Documentation auto-saved",
           "entete": {
             "creation": "Creation",
             "interpretation": "Performance",
@@ -437,7 +447,7 @@
         },
         "etape": {
           "partage-etape": "Step 2",
-          "partage-titre": "Split your rights",
+          "partage-titre": "© Copyright",
           "enregistrerEtQuitter": "Save and Quit",
           "vote-titre": "Validate the share proposal"
         },
@@ -522,7 +532,7 @@
           "titre": "Password Reset",
           "indication": "Your password has been changed successfully."
         },
-        "titre": "Connexion à SmartSplit",
+        "titre": "Connexion à Smartsplit",
         "err": {
           "username": "Le nom d'utilisateur est un courriel invalide",
           "mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
@@ -537,7 +547,7 @@
         }
       },
       "tableaudebord": {
-        "bonjour": "Here is the SmartSplit dashboard.",
+        "bonjour": "Here is the Smartsplit dashboard.",
         "navigation": {
           "0": "My musical works",
           "1": "My public profile",
@@ -563,10 +573,12 @@
         "studio": "Studio",
         "graphist": "Graphist",
         "arranger": "Arranger",
-        "songwriter": "songwriter",
+        "songwriter": "Songwriter",
         "composer": "Composer",
         "singer": "Singer",
-        "musicien": "Musician"
+        "musicien": "Musician",
+        "remixer": "Remixer",
+        "publisher": "Publisher"
       },
       "partage": {
         "auteur": {
@@ -637,11 +649,12 @@
     "fin": {
       "created": "Created documentation",
       "maintenant": "is now documented!",
-      "resume": "See the summary"
+      "resume": "See the summary",
+      "partage": "See the proposal"
     }
   },
   "accueil": {
-    "titre": "Login to your Smart Split account.",
+    "titre": "Login to your Smartsplit account.",
     "sous-titre": "Enter your information below.",
     "courriel": "Enter email",
     "motdepasse": "My password",
@@ -698,6 +711,10 @@
     "anglais": "English",
     "deconnexion": "Disconnect"
   },
+  "deconnexion": {
+    "reussie": "Succesfully disconnected"
+  },
+  "reussi": "Login successful",
   "obligatoire": "Mendatory",
   "connexion": "Login mendatory",
   "connecter": "You must be connected to vote",

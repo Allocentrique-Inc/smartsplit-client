@@ -4,18 +4,19 @@ import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
 import Login from "../auth/Login";
 import Register from "./Register";
-import Register2 from "./Register-2"
 import ForgotPassword from "./ForgotPassword";
-import AWS from "aws-sdk";
-
-// AWS.config.update({ region: 'us-east-2'});
-// const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider()
-// const USER_POOL_ID = 'us-east-2_tK9rNdAB1'
+import ForgotPasswordVerification from "./ForgotPasswordVerification";
+import ChangePasswordVerification from "./ChangePasswordVerification";
 
 const TYPE_LOGIN = 0,
   TYPE_REGISTER = 1,
   TYPE_FORGOT = 2,
+<<<<<<< HEAD
   TYPE_PROFILE = 3
+=======
+  TYPE_VERIFY = 3,
+  TYPE_CHANGE = 4;
+>>>>>>> develop
 
 export default class ModaleConnexion extends Component {
   constructor(props) {
@@ -93,7 +94,12 @@ export default class ModaleConnexion extends Component {
           />
         )}
         {this.state.opened === TYPE_REGISTER && <Register parent={this} />}
-        {/* {this.state.opened === TYPE_PROFILE && <Register2 parent={this} />} */}
+        {this.state.opened === TYPE_VERIFY && (
+          <ForgotPasswordVerification parent={this} />
+        )}
+        {this.state.opened === TYPE_CHANGE && (
+          <ChangePasswordVerification parent={this} />
+        )}
         {this.state.opened === TYPE_FORGOT && <ForgotPassword parent={this} />}
       </Modal>
     );

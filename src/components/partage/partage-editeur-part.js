@@ -7,13 +7,16 @@ import Beignet from '../visualisation/partage/beignet'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
-import avatar from '../../assets/images/elliot.jpg'
+const arrondir = function(nombre) {
+    return Math.round(nombre * 10000) / 10000
+}
 
 class PageAssistantPartageEditeur extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
+            ayantsDroit: props.ayantsDroit,
             parts: this.props.values.parts,     // Parts de tous les ayants-droits            
             song: this.props.values.song,
             editeur: this.props.values.editeur,
@@ -56,6 +59,7 @@ class PageAssistantPartageEditeur extends Component {
                 _aD.pourcent = 100
                 _aD.color = _rH[elem].color
                 _aD.nom = _rH[elem].nom
+                _aD.ayantDroit = this.state.ayantsDroit[elem]
 
                 // Ajout de l'utilisateur et de son pourcentage aux données du formulaire
                 this.props.setFieldValue('ayantDroit', _aD)
@@ -63,11 +67,11 @@ class PageAssistantPartageEditeur extends Component {
                 this.setState({partPrincipale: _rH[elem].pourcent})
 
                 // on pousse l'utilisateur ET l'éditeur
-                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: false})
-                donnees.push({color: "#bacada", nom: this.props.values.editeur.nom, pourcent: parseFloat(this.props.values.editeur.pourcent), alpha: false})
+                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: false, ayantDroit: this.state.ayantsDroit[elem]})
+                donnees.push({color: "#bacada", nom: this.props.values.editeur.nom, pourcent: parseFloat(this.props.values.editeur.pourcent), alpha: false, ayantDroit: this.props.values.editeur.ayantDroit})
             } else {
                 // on pousse l'ayant-droit
-                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: true})
+                donnees.push({color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent), alpha: true, ayantDroit: this.state.ayantsDroit[elem]})
             }            
         })
             
@@ -78,10 +82,10 @@ class PageAssistantPartageEditeur extends Component {
         // Recalculer les parts pour le beignet
         let donnees = this.state.donnees.map(elem=>{
             if(elem.nom === this.props.values.ayantDroit.nom) {
-                elem.pourcent = (parseFloat(this.state.partPrincipale / 100) * parseFloat(this.props.values.ayantDroit.pourcent)).toFixed(4)
+                elem.pourcent = `${arrondir(parseFloat(this.state.partPrincipale / 100) * parseFloat(this.props.values.ayantDroit.pourcent))}`
                 return elem
             } else if(elem.nom === this.props.values.editeur.nom) {
-                elem.pourcent = (parseFloat(this.state.partPrincipale / 100) * parseFloat(this.props.values.editeur.pourcent)).toFixed(4)
+                elem.pourcent = `${arrondir(parseFloat(this.state.partPrincipale / 100) * parseFloat(this.props.values.editeur.pourcent))}`
                 return elem
             } else {
                 return elem
@@ -96,11 +100,11 @@ class PageAssistantPartageEditeur extends Component {
         let editeur = this.props.values.editeur    
         if(index === "gradateur_ayantDroit") {
             // On bouge l'éditeur du delta inverse
-            editeur.pourcent = parseInt(editeur.pourcent) + (-1 * delta)
+            editeur.pourcent = `${arrondir(parseInt(editeur.pourcent) + (-1 * delta))}`
             this.props.setFieldValue('editeur', editeur)
         } else if(index === "gradateur_editeur") {
             // On bouge l'ayant-droit du delta inverse
-            _aD.pourcent = parseInt(_aD.pourcent) + (-1 * delta)
+            _aD.pourcent = `${arrondir(parseInt(_aD.pourcent) + (-1 * delta))}`
             this.props.setFieldValue('ayantDroit', _aD)
         }
         setTimeout(()=>{this.recalculerPartage()}, 0)
@@ -108,7 +112,8 @@ class PageAssistantPartageEditeur extends Component {
 
     render() {
       
-        let visualisation = (<Beignet uuid="auteur--beignet" data={this.state.donnees}/>)
+        // TODO: VDEG 
+        let visualisation = (<Beignet uuid="auteur--beignet" type="workCopyrightSplit" data={this.state.donnees}/>)
                   
         let descriptif
         if(this.props.i18n.lng.substring(0,2) === 'en') {
@@ -121,6 +126,24 @@ class PageAssistantPartageEditeur extends Component {
                 C’est officiel, tu possèdes <strong>{this.state.partPrincipale.toFixed(2)}% du droit d’auteur de l’oeuvre {this.props.values.song}</strong>. 
                 Tu dois maintenant indiquer combien, de cette part, sera partagé avec ton éditeur.
             </div>)
+        }
+
+        let avatar = ''
+        let userAvatar = ''
+
+        let editeur = this.props.values.editeur
+        let __aD = this.props.values.ayantDroit
+
+        if(editeur && editeur.ayantDroit && editeur.ayantDroit.avatarImage) {            
+            avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${editeur.ayantDroit.avatarImage}`
+        } else {
+            avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+        }
+
+        if(__aD && __aD.aD && __aD.aD.avatarImage) {
+            userAvatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${__aD.aD.avatarImage}`
+        } else {
+            userAvatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
         }
 
         return (
@@ -144,7 +167,7 @@ class PageAssistantPartageEditeur extends Component {
                                         <div className="fields gray-fields">                                    
                                             <div className="twelve wide field">
                                                 <div className="holder-name">
-                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
+                                                    <img alt="avatar" className="ui spaced avatar image" src={userAvatar}/>
                                                     {this.state.ayantDroit.nom}
                                                 </div>
                                                 <br/>

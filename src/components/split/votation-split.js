@@ -73,7 +73,7 @@ class VotationSplit extends Component {
                             <div className="ui ten wide column">
                                 <i className="file image outline icon huge grey"></i>
                                     {this.state.media && (<span style={{marginLeft: "15px"}} className="medium-400">{this.state.media.title}</span>)}
-                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.etape.vote-titre')}</span>                            
+                                    <span className="heading4" style={{marginLeft: "50px"}}>{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>                            
                             </div>
                     }                    
                 </Translation>
@@ -91,7 +91,7 @@ class VotationSplit extends Component {
                                     <div className="ui row">
                                         <div className="ui one wide column" />
                                         <div className="ui twelve wide column">
-                                            {this.state.jeton && (<SommairePartage uuid={this.state.proposition.uuid} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi}/>)}
+                                            {this.state.jeton && (<SommairePartage titre={this.state.media.title} uuid={this.state.proposition.uuid} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi}/>)}
                                         </div>                            
                                         <div className="ui one wide column">
                                         </div>

@@ -39,18 +39,20 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
         .get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${rhId}`)
         .then(res => {
           let _aD = res.data.Item;
-          let _nom =
-            _aD.artistName !== ""
-              ? _aD.artistName
-              : `${_aD.firstName} ${_aD.lastName}`;
-          _aDs[rhId] = {
-            name: _nom,
-            rightHolderId: _aD.rightHolderId,
-            email: _aD.email
-          };
-          cpt = cpt + 1;
-          if (cpt >= taille) {
-            this.setState({ ayantDroits: _aDs });
+          if (_aD) {
+            let _nom =
+              _aD.artistName !== ""
+                ? _aD.artistName
+                : `${_aD.firstName} ${_aD.lastName}`;
+            _aDs[rhId] = {
+              name: _nom,
+              rightHolderId: _aD.rightHolderId,
+              email: _aD.email
+            };
+            cpt = cpt + 1;
+            if (cpt >= taille) {
+              this.setState({ ayantDroits: _aDs });
+            }
           }
         });
     });
@@ -137,6 +139,8 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
       <Translation>
         {t => (
           <div>
+            {ayantDroits}
+            <br></br>
             <div
               onClick={() => {
                 this.click();
@@ -146,7 +150,6 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             >
               {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
             </div>
-            {ayantDroits}
           </div>
         )}
       </Translation>

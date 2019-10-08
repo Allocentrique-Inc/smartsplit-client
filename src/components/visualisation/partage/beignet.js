@@ -2,6 +2,9 @@
  * Assistant d'affichage du dashboard
  */
 import './beignet.css'
+import copyIcon from './copyIcon.png'
+import starIcon from './starIcon.png'
+import prodIcon from './prodIcon.png'
 import React, { Component } from 'react'
 
 // Traduction
@@ -16,12 +19,14 @@ export default class Beignet extends Component {
         super(props)
         this.state = {
             width: 600, //550,
-            height: 200, //225,
-            margin: 0, //50,
+            height: 250, //225,
+            margin: 10, //50,
+            icon: "",
             data: {},
             colors: {},
             alphas: {},
-            uuid: props.uuid
+            uuid: props.uuid,
+            type: props.type
         }
                 
     } 
@@ -42,11 +47,14 @@ export default class Beignet extends Component {
         let _a = {}
         if(props.data && props.data.length > 0) {
             props.data.forEach(elem=>{
-                if(elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                    _d[elem.nom] = elem.pourcent
-                }
-                _c[elem.nom] = elem.color
-                _a[elem.nom] = elem.alpha
+              let nom
+              if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
+                nom = `${elem.ayantDroit.firstName+ " "}${elem.ayantDroit.lastName}`
+                //_d[elem.nom] = elem.pourcent;
+                _d[nom] = elem.pourcent;
+              }
+              _c[nom] = elem.color;
+              _a[nom] = elem.alpha;
             })
             this.setState({data: _d})
             this.setState({colors: _c})
@@ -56,6 +64,10 @@ export default class Beignet extends Component {
 
     genererBeignet() {     
         // Remettre à zéro le conteneur du beignet
+        //console.log(this.state.type)
+        if (this.state.type == "workCopyrightSplit") this.setState({icon: copyIcon})
+        if (this.state.type == "performanceNeighboringRightSplit") this.setState({icon: starIcon})
+        if (this.state.type == "masterNeighboringRightSplit") this.setState({icon: prodIcon})
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
         if(conteneur) {
             let enfants = conteneur.childNodes
@@ -74,10 +86,7 @@ export default class Beignet extends Component {
             .attr("height", this.state.height)
             .append("g")
             .attr("transform", "translate(" + this.state.width / 2 + "," + this.state.height / 2 + ")");
-
-        //let color = d3.scaleOrdinal() // D3 Version 4
-        //    .domain(domaineDeNoms)
-        //    .range(["#EBB1DC", "#F6BCC7", "#FED2AC", "#F8EBA3", "#C6F3B6", "#AAE7E8", "#A4B7F1", "#BDBCF9"]);
+        
         let color = d3.scaleOrdinal() // D3 Version 4
             .domain(Object.keys(this.state.colors))
             .range(Object.values(this.state.colors));
@@ -141,16 +150,58 @@ export default class Beignet extends Component {
             .append('text')
             .text( function(d) { return d.data.key + " " + parseFloat(d.data.value).toFixed(2) + "%" } )
             .attr('transform', function(d) {
-        let pos = outerArc.centroid(d);
-        let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-            pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
-            return 'translate(' + pos + ')';
-        })
-        .style('text-anchor', function(d) {
-            let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-            return (midangle < Math.PI ? 'start' : 'end')
-        })
+                let pos = outerArc.centroid(d);
+                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
+                return 'translate(' + pos + ')';
+            })
+            .style('text-anchor', function(d) {
+                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
+                return (midangle < Math.PI ? 'start' : 'end')
+            })
+            .call(this.wrapping, 150)
 
+        svg.append('image')
+            .attr('xlink:href',this.state.icon)
+            .attr('width', 50)
+            .attr('height', 50)
+            .attr('x', -25)
+            .attr('y', -25)
+
+    }
+    
+    wrapping(text, width) {
+        text.each(function () {
+            var text = d3.select(this),
+                words = text.text().split(/\s+/).reverse(),
+                word,
+                line = [],
+                lineNumber = 0,
+                lineHeight = 1.1, // ems
+                x = text.attr("x"),
+                y = text.attr("y"),
+                dy = 0, //parseFloat(text.attr("dy")),
+                tspan = text.text(null)
+                            .append("tspan")
+                            .attr("x", x)
+                            .attr("y", y)
+                            .attr("dy", dy + "em");
+            while (word = words.pop()) {
+                line.push(word);
+                tspan.text(line.join(" "));
+                if (tspan.node().getComputedTextLength() > width) {
+                    line.pop();
+                    x = 0;
+                    tspan.text(line.join(" "));
+                    line = [word];
+                    tspan = text.append("tspan")
+                                .attr("x", x)
+                                .attr("y", y)
+                                .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                                .text(word);
+                }
+            }
+        });
     }
 
     render() {
