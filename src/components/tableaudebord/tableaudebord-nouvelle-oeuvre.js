@@ -481,7 +481,8 @@ export default class NouvelleOeuvre extends Component {
         let rHs = []
 
         // Participants créés avec le rôle d'auteur par défaut.
-        values.rightHolders.forEach(rH=>rHs.push({id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a33"]}))
+        if(values.rightHolders)
+            values.rightHolders.forEach(rH=>rHs.push({id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a33"]}))
 
         let body = {
             creator: this.props.user.username,
