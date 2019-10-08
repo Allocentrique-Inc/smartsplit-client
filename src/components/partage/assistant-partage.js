@@ -473,8 +473,9 @@ class AssistantPartage extends Component {
                                             buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                             debug={false}
                                             onSubmit={
-                                                (values) => {
-                                                    if(!lectureSeule) {
+                                                (values, actions) => {
+                                                    actions.setSubmitting(false)
+                                                    if(!lectureSeule) {                                                        
                                                         this.modaleDeclaration(true, ()=>{
                                                             this.soumettre(t, values, "PRET")
                                                         })

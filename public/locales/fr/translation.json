@@ -653,7 +653,8 @@
       "maintenantPartage": "La proposition de partage existe. Bravo !",
       "resume": "Voir le condensé",
       "partage": "Voir le partage",
-      "partageCree": "⭐️ Le partage est créé"
+      "partageCree": "⭐️ Le partage est créé",
+      "recupMotDePasse": "Nouveau mot de passe"
     }
   },
   "accueil": {
