@@ -11,6 +11,7 @@ import { FieldArray } from "formik";
 
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
+import Axios from "axios"
 
 const MODES = {egal: "0", role: "1"}
 const TYPE = {principal: "0", accompagnement: "1"}
@@ -386,7 +387,86 @@ class PageAssistantPartageInterpretation extends Component {
                                                                         recherche={true}
                                                                         selection={true}
                                                                         ajout={true}
-                                                                        collaborateurs={this.props.values.droitInterpretation}                                                                        
+                                                                        collaborateurs={this.props.values.droitInterpretation}
+                                                                        fn={(_aD)=>{
+
+                                                                            // Fonction de rappel à la modale ModifyUser
+
+                                                                            // Ajoute le nouvel ayantdroit à la liste comme si il était déjà
+                                                                            // dans la liste.
+                                                                            this.props.setFieldValue('collaborateur', _aD)
+
+                                                                            let droitsInterpretation = this.props.values.droitInterpretation
+
+                                                                            // Rafraîchir ayants droit
+                                                                            // Récupérer la liste des ayant-droits        
+                                                                            Axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+                                                                            .then(res=>{            
+                                                                                let _adParId = {}
+                                                                                res.data.forEach((elem)=>{
+                                                                                    _adParId[elem.rightHolderId] = elem                                                                                                                                                                                                
+                                                                                })                                                                                                        
+                                                                                this.setState({ayantsDroit: _adParId}, ()=>{
+                                                                                    let ayantDroit = this.state.ayantsDroit[this.props.values.collaborateur], nom
+
+                                                                                    if(ayantDroit) {
+                                                                                        nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
+                                                                                    }
+
+                                                                                    let _index = this.props.values.droitAuteur.length +
+                                                                                                this.props.values.droitInterpretation.length +
+                                                                                                this.props.values.droitEnregistrement.length        
+
+                                                                                    if(this.state.mode === MODES.egal) {
+                                                                                        droitsInterpretation.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: `${arrondir(100 / (this.props.values.droitInterpretation.length + 1))}`,
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
+                                                                                        })                
+                                                                                    }
+
+                                                                                    if (this.state.mode === MODES.manuel) {
+                                                                                        let _pourcent = ( this.pourcentRestant() )
+                                                                                        droitsInterpretation.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: `${_pourcent}`,
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
+                                                                                        })
+                                                                                    }
+
+                                                                                    if (this.state.mode === MODES.role) {
+                                                                                        droitsInterpretation.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: "100",
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
+                                                                                        })
+                                                                                    }
+                                                                                    
+                                                                                    this.props.setFieldValue('droitInterpretation', droitsInterpretation)
+                                                                                    this.props.setFieldValue('collaborateur','')
+                                                                                    this.setState({ ping: true }, () => {
+                                                                                        this.recalculerPartage()
+                                                                                    })
+                                                                                })
+                                                                                
+                                                                            })
+                                                                            .catch(err=>{
+                                                                                console.log(err)
+                                                                            })
+
+                                                                        }}
                                                                     />
                                                                 </div> 
                                                                 <div className="four wide column">

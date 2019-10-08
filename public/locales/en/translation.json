@@ -649,7 +649,9 @@
       "created": "Created documentation",
       "maintenant": "is now documented!",
       "resume": "See the summary",
-      "partage": "See the proposal"
+      "partage": "See the proposal",
+      "partageCree": "⭐️ The share proposal is created",
+      "recupMotDePasse": "Password reset"
     }
   },
   "accueil": {

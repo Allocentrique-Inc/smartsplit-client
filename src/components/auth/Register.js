@@ -178,7 +178,6 @@ class Register extends Component {
   };
 
   handlePasswordChange(e) {
-    console.log("PASSWORD STRENGTH", this.state.strength);
     this.setState({
       password: e.target.value,
       strength: zxcvbn(e.target.value).score
@@ -199,8 +198,6 @@ class Register extends Component {
 
   handleConfirmPasswordChange(e) {
     this.setState({ confirmpassword: e.target.value });
-    // const value = e.target.value;
-    // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
   }
 
   toggleShow() {
@@ -236,9 +233,7 @@ class Register extends Component {
         groupsUnique.forEach(function(elm) {
           groups.push({ key: elm, text: elm, value: elm });
         });
-        this.setState({ groups: groups }, () => {
-          console.log("this.state.groups", this.state.groups);
-        });
+        this.setState({ groups: groups });
       })
       .catch(err => {
         console.log(err);
