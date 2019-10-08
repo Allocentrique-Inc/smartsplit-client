@@ -326,57 +326,57 @@ class ModifyUser extends Component {
                     options={[
                       {
                         key: t("flot.split.roles.principal"),
-                        text: "Principal",
+                        text: t("flot.split.roles.principal"),
                         value: "Principal"
                       },
                       {
                         key: t("flot.split.roles.accompaniment"),
-                        text: "Accompaniment",
+                        text: t("flot.split.roles.accompaniment"),
                         value: "Accompaniment"
                       },
                       {
                         key: t("flot.split.roles.songwriter"),
-                        text: "Songwriter",
+                        text: t("flot.split.roles.songwriter"),
                         value: "Songwriter"
                       },
                       {
                         key: t("flot.split.roles.composer"),
-                        text: "Composer",
+                        text: t("flot.split.roles.composer"),
                         value: "Composer"
                       },
                       {
                         key: t("flot.split.roles.remixer"),
-                        text: "Remixer",
+                        text: t("flot.split.roles.remixer"),
                         value: "Remixer"
                       },
                       {
                         key: t("flot.split.roles.studio"),
-                        text: "Studio",
+                        text: t("flot.split.roles.studio"),
                         value: "Studio"
                       },
                       {
                         key: t("flot.split.roles.publisher"),
-                        text: "Publisher",
+                        text: t("flot.split.roles.publisher"),
                         value: "Publisher"
                       },
                       {
                         key: t("flot.split.roles.graphist"),
-                        text: "Graphist",
+                        text: t("flot.split.roles.graphist"),
                         value: "Graphist"
                       },
                       {
                         key: t("flot.split.roles.producer"),
-                        text: "Producer",
+                        text: t("flot.split.roles.producer"),
                         value: "Producer"
                       },
                       {
                         key: t("flot.split.roles.singer"),
-                        text: "Singer",
+                        text: t("flot.split.roles.singer"),
                         value: "Singer"
                       },
                       {
                         key: t("flot.split.roles.musician"),
-                        text: "Musician",
+                        text: t("flot.split.roles.musician"),
                         value: "Musician"
                       }
                     ]}
