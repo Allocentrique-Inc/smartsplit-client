@@ -26,7 +26,12 @@
 
 #prompt,
 #roles {
+  height: 30px;
   padding: 10px 0 0 0;
+  max-width: 500px !important;
+  display: flex;
+  flex-flow: wrap;
+  height: auto;
 }
 
 .ui .search .icon {

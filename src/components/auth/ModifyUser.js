@@ -323,21 +323,63 @@ class ModifyUser extends Component {
                   <Dropdown
                     id="roles"
                     type="text"
-                    options={
-                      [
-                        { key: t('flot.split.roles.principal'), text: "Principal", value: "Principal" },
-                        { key: t('flot.split.roles.accompaniment'), text: "Accompaniment", value: "Accompaniment" },
-                        { key: t('flot.split.roles.songwriter'), text: "Songwriter", value: "Songwriter" },
-                        { key: t('flot.split.roles.composer'), text: "Composer", value: "Composer" },
-                        { key: t('flot.split.roles.remixer'), text: "Remixer", value: "Remixer" },
-                        { key: t('flot.split.roles.studio'), text: "Studio", value: "Studio" },
-                        { key: t('flot.split.roles.publisher'), text: "Publisher", value: "Publisher" },
-                        { key: t('flot.split.roles.graphist'), text: "Graphist", value: "Graphist" },
-                        { key: t('flot.split.roles.producer'), text: "Producer", value: "Producer" },
-                        { key: t('flot.split.roles.singer'), text: "Singer", value: "Singer" },
-                        { key: t('flot.split.roles.musician'), text: "Musician", value: "Musician" }
-                      ]
-                    }
+                    options={[
+                      {
+                        key: t("flot.split.roles.principal"),
+                        text: "Principal",
+                        value: "Principal"
+                      },
+                      {
+                        key: t("flot.split.roles.accompaniment"),
+                        text: "Accompaniment",
+                        value: "Accompaniment"
+                      },
+                      {
+                        key: t("flot.split.roles.songwriter"),
+                        text: "Songwriter",
+                        value: "Songwriter"
+                      },
+                      {
+                        key: t("flot.split.roles.composer"),
+                        text: "Composer",
+                        value: "Composer"
+                      },
+                      {
+                        key: t("flot.split.roles.remixer"),
+                        text: "Remixer",
+                        value: "Remixer"
+                      },
+                      {
+                        key: t("flot.split.roles.studio"),
+                        text: "Studio",
+                        value: "Studio"
+                      },
+                      {
+                        key: t("flot.split.roles.publisher"),
+                        text: "Publisher",
+                        value: "Publisher"
+                      },
+                      {
+                        key: t("flot.split.roles.graphist"),
+                        text: "Graphist",
+                        value: "Graphist"
+                      },
+                      {
+                        key: t("flot.split.roles.producer"),
+                        text: "Producer",
+                        value: "Producer"
+                      },
+                      {
+                        key: t("flot.split.roles.singer"),
+                        text: "Singer",
+                        value: "Singer"
+                      },
+                      {
+                        key: t("flot.split.roles.musician"),
+                        text: "Musician",
+                        value: "Musician"
+                      }
+                    ]}
                     placeholder={t("collaborateur.attribut.indication.role")}
                     search
                     multiple={true}
