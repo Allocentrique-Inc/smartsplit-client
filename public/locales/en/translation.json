@@ -488,7 +488,6 @@
           "sous-titre3": "Protect your work",
           "intro3": "In the good old days, a cassette was sent by registered mail to prove who did the work and when. Now we rather use a blockchain to create this proof :)"
         },
-
         "editeur": {
           "ajout": "Add an editor",
           "editeur": "Editor",
@@ -515,7 +514,6 @@
           "edito": "My Editor"
         }
       },
-
       "traitement": {
         "acr": {
           "erreur-mauvaise-lecture": "Bad media. Try another sample.",
@@ -597,7 +595,6 @@
         "lecture-seule": "A new proposal is in progress. You are in read-only mode.",
         "prete-a-envoyer": "Your proposal is ready to go by email to your collaborators. Take a time to review and clic on Send."
       },
-
       "connexion": {
         "titre": {
           "oeuvre": "Tu dois te connecter afin d'accéder à la page de votation !",
@@ -718,5 +715,10 @@
   "connexion": "Login mendatory",
   "connecter": "You must be connected to vote",
   "selection": "A selection in this list is mandatory",
-  "champ": "This text field is mandatory"
+  "champ": "This text field is mandatory",
+  "tooltip": {
+    "egal": "Divide the copyright by the number of people and assign the role “Author-Composer” by default to all. This way of sharing copyright avoids many disagreements among creators, particularly when the income starts to come in!",
+    "roles": "Divide the copyright into two: 50% goes to those who wrote the lyrics, and 50% to those who composed the music. This last “music” part is in return divided by the number of roles elected and the collaborators get a percentage according to their implication. For example: Alice only composes music, while Bob compose AND arrange music. Therefore, Alice has 1/3 and Bob has 2/3 of the music.",
+    "manuel": "Lets you determine the percentage and the roles for each collaborator. To set a percentage to a collaborator, you can use the lock."
+  }
 }
