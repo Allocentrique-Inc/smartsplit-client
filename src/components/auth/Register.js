@@ -147,11 +147,11 @@ class Register extends Component {
 
       // S'il n'y a pas de groupe, un en créé un éponyme
       let groupes = groups
-      if(groupes.length === 0) {
+      if (groupes.length === 0) {
 
         let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
 
-        if(nom.trim() === "") {
+        if (nom.trim() === "") {
           nom = "Anonyme"
         }
 
@@ -174,7 +174,7 @@ class Register extends Component {
       })
         .then(toast.success(`${firstName}, compte créé !`))
         .then(
-          setTimeout(function() {
+          setTimeout(function () {
             window.location.reload();
           }, 3000),
           this.props.history.push("/welcome")
@@ -237,7 +237,7 @@ class Register extends Component {
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
-        res.data.forEach(function(element) {
+        res.data.forEach(function (element) {
           groupers.push(element.groups);
           // Remove duplicates from multiple right holders and flattens arrays
           let GR = groupers
@@ -246,7 +246,7 @@ class Register extends Component {
             .filter(Boolean);
           groupsUnique = [...new Set(GR)];
         });
-        groupsUnique.forEach(function(elm) {
+        groupsUnique.forEach(function (elm) {
           groups.push({ key: elm, text: elm, value: elm });
         });
         this.setState({ groups: groups });
@@ -366,9 +366,9 @@ class Register extends Component {
                             </div>
                           </div>
                         )}
-                      </header>                     
+                      </header>
                       <section className="section auth">
-                        <div className="container">                          
+                        <div className="container">
                           <br></br>
                           <br></br>
                           <span
@@ -385,7 +385,7 @@ class Register extends Component {
                               <br />
                               <input
                                 type="text"
-                                className="firstName"
+                                className="firstName register"
                                 placeholder={t(
                                   "collaborateur.attribut.etiquette.prenom"
                                 )}
@@ -402,7 +402,7 @@ class Register extends Component {
                               <br />
                               <input
                                 type="text"
-                                className="lastName"
+                                className="lastName register"
                                 placeholder={t(
                                   "collaborateur.attribut.etiquette.nom"
                                 )}
@@ -414,7 +414,7 @@ class Register extends Component {
                             </div>
                           </span>
 
-                          <div className="ui row" style={{ marginTop: "30px" }}>
+                          {/*<div className="ui row" style={{ marginTop: "30px" }}>
                             <span>
                               <label style={{ fontWeight: "bold" }}>
                                 {t("collaborateur.attribut.etiquette.artiste")}
@@ -558,7 +558,7 @@ class Register extends Component {
                             <div className="sous-titre">
                               {t("collaborateur.attribut.indication.role2")}
                             </div>
-                          </div>
+                          </div>*/}
 
                           <div className="ui row" style={{ marginTop: "30px" }}>
                             <div className="field">
@@ -579,15 +579,18 @@ class Register extends Component {
                                   required={true}
                                 />
                               </div>
-
                               {errors.username && touched.username && (
-                                <div style={{ color: "red" }}>
+                                <div style={{
+                                  color: "red",
+                                  position: "absolute",
+                                  top: "450px"
+                                }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
                               )}
                             </div>
                           </div>
-                          <div className="field">
+                          {/*<div className="field">
                             <div className="control">
                               <label htmlFor="username">
                                 {t("flot.split.inscription.courriel-confirm")}
@@ -618,10 +621,11 @@ class Register extends Component {
                                 </div>
                               )}
                             </div>
-                          </div>
+                          </div>*/}
                           <span>
                             <div className="field">
-                              <div className="control has-icons-left">
+                              <div className="control has-icons-left"
+                                style={{ marginTop: "10px" }}>
                                 <label htmlFor="password">
                                   {t("flot.split.inscription.motdepasse")}
                                 </label>
@@ -648,7 +652,7 @@ class Register extends Component {
                                     onChange={this.handlePasswordChange}
                                     /*onChange={this.stateChanged}*/
                                     required={true}
-                                    // required={...restProps}
+                                  // required={...restProps}
                                   />
 
                                   <button
@@ -705,7 +709,7 @@ class Register extends Component {
                                   value={this.state.confirmpassword}
                                   onChange={this.handleConfirmPasswordChange}
                                   required={true}
-                                  /*className={controlClass}*/
+                                /*className={controlClass}*/
                                 />
                                 <button
                                   id="hide-confirm"
@@ -756,11 +760,11 @@ class Register extends Component {
                                     <button
                                       className={`ui medium button register is-success ${
                                         !this.state.password ||
-                                        this.state.confirmpassword !==
+                                          this.state.confirmpassword !==
                                           this.state.password
                                           ? "disabled"
                                           : ""
-                                      }`}
+                                        }`}
                                       type="submit"
                                       onClick={e => {
                                         if (
@@ -788,7 +792,8 @@ class Register extends Component {
               </Form>
             )}
           </Translation>
-        )}
+        )
+        }
       </Formik>
     );
   }
