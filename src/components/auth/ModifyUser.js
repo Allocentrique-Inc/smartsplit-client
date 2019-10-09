@@ -14,8 +14,10 @@ import {
 import { withTranslation, Translation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
+import zxcvbn from "zxcvbn";
 
 const MAX_IMAGE_SIZE = 10000000;
+const MIN_STRENGTH = 3;
 
 class ModifyUser extends Component {
   constructor(props) {
@@ -56,16 +58,14 @@ class ModifyUser extends Component {
 
   handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value });
 
-  roleChange = (e, { value }) => this.setState({ currentRoleValue: value });
+  roleChange = (e, { value }) => this.setState({ currentRoleValue: value });  
 
   handleFileDelete(e) {
     e.target.value = null;
     this.setState({ image: "" });
-    console.log("image: ", this.state.image);
   }
 
   handleFileUpload(e) {
-    console.log("FILE: ", e.target.files[0]);
     if (e.target.files[0].size > MAX_IMAGE_SIZE) {
       return alert("Image is loo large - 10Mb maximum");
     }
@@ -84,26 +84,46 @@ class ModifyUser extends Component {
     }
   }
 
-  randomPassword(length) {
-    let chars =
-      "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
-    let password = "";
-    for (var x = 0; x < length; x++) {
-      var i = Math.floor(Math.random() * chars.length);
+  randomPassword(Length) {
+    let length = Length-4;
+    let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
+    let password = (Math.round(Math.random()) > 0.5) ? "A1a*" : "Z0z!";
+    for (let x = 3; x < length; x++) {
+      let i = Math.floor(Math.random() * chars.length);
       password += chars.charAt(i);
     }
+
+    // Vérification de la force du mot de passe
+    if(zxcvbn(password).score < MIN_STRENGTH) {
+      password = this.randomPassword(16)
+    }
+
     return password;
   }
 
   handleSubmit = values => {
+
+    // S'il n'y a pas de groupe, un en créé un éponyme
+    let groupes = this.state.currentValue
+    if(groupes.length === 0) {
+
+      let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
+
+      if(nom.trim() === "") {
+        nom = "Anonyme"
+      }
+
+      groupes.push(nom)
+    }
+
     let attributes = {
       email: this.state.email,
-      given_name: this.state.firstName,
-      family_name: this.state.lastName,
+      given_name: this.state.firstName || "Unnamed",
+      family_name: this.state.lastName || "Unnamed",
       "custom:artistName": this.state.artistName,
       "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
       "custom:instruments": JSON.stringify(this.state.instruments),
-      "custom:groups": JSON.stringify(this.state.currentValue),
+      "custom:groups": JSON.stringify(groupes),
       "custom:avatarImage": this.state.avatarImage
     };
     let username = this.state.email;
@@ -115,11 +135,11 @@ class ModifyUser extends Component {
         password,
         attributes: attributes
       })
-        .then((res) => {
-          console.log(res)
+        .then((res) => {          
+          let userSub = res.userSub
           this.setState({open: false})
           if (this.props.fn) {
-            this.props.fn(res.userSub);
+            this.props.fn(userSub);
           }
         })
         .catch(err => {

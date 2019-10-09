@@ -4,6 +4,8 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
+
+
 import {
   Button,
   Header,
@@ -42,6 +44,7 @@ class Register extends Component {
       hidden: true,
       confirmhidden: true,
       password: "",
+      confirmEmail: "",
       confirmpassword: "",
       strength: 0,
       passwordmatch: false,
@@ -71,15 +74,15 @@ class Register extends Component {
     this.validateConfirmPassword = this.validateConfirmPassword.bind(this);
   }
 
-  clearErrorState = () => {
-    this.setState({
-      errors: {
-        cognito: null,
-        blankfield: false,
-        passwordmatch: false
-      }
-    });
-  };
+  // clearErrorState = () => {
+  //   this.setState({
+  //     errors: {
+  //       cognito: null,
+  //       blankfield: false,
+  //       passwordmatch: false
+  //     }
+  //   });
+  // };
 
   validateUsername(value) {
     if (!value) {
@@ -129,7 +132,6 @@ class Register extends Component {
   };
 
   handleSubmit = values => {
-    // AWS Cognito integration here
     const username = values.username;
     const email = values.username; // username is used as email
     const password = this.state.password;
@@ -142,6 +144,20 @@ class Register extends Component {
     const groups = this.state.currentValue;
 
     try {
+
+      // S'il n'y a pas de groupe, un en créé un éponyme
+      let groupes = groups
+      if(groupes.length === 0) {
+
+        let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
+
+        if(nom.trim() === "") {
+          nom = "Anonyme"
+        }
+
+        groupes.push(nom)
+      }
+
       Auth.signUp({
         username,
         password,
@@ -152,7 +168,7 @@ class Register extends Component {
           "custom:artistName": artistName,
           "custom:instruments": JSON.stringify(instruments),
           "custom:defaultRoles": JSON.stringify(defaultRoles),
-          "custom:groups": JSON.stringify(groups),
+          "custom:groups": JSON.stringify(groupes),
           "custom:avatarImage": avatarImage
         }
       })
@@ -178,7 +194,6 @@ class Register extends Component {
   };
 
   handlePasswordChange(e) {
-    console.log("PASSWORD STRENGTH", this.state.strength);
     this.setState({
       password: e.target.value,
       strength: zxcvbn(e.target.value).score
@@ -199,8 +214,6 @@ class Register extends Component {
 
   handleConfirmPasswordChange(e) {
     this.setState({ confirmpassword: e.target.value });
-    // const value = e.target.value;
-    // this.setState(({ dirty = false }) => ({ value, dirty: !dirty || dirty }), () => this.validateConfirmPassword(this.state));
   }
 
   toggleShow() {
@@ -236,9 +249,7 @@ class Register extends Component {
         groupsUnique.forEach(function(elm) {
           groups.push({ key: elm, text: elm, value: elm });
         });
-        this.setState({ groups: groups }, () => {
-          console.log("this.state.groups", this.state.groups);
-        });
+        this.setState({ groups: groups });
       })
       .catch(err => {
         console.log(err);
@@ -259,6 +270,7 @@ class Register extends Component {
       children,
       ...restProps
     } = this.props;
+
     const { password, strength, currentValue, currentRoleValue } = this.state;
 
     const { firstName, lastName, username } = this.state;
@@ -267,9 +279,6 @@ class Register extends Component {
     const passwordStrong = strength >= this.minStrength;
     const passwordLong = passwordLength > this.thresholdLength;
 
-    // const errors = 7;
-    // const hasErrors = this.passwordmatch;
-    // password strength meter is only visible when password is not empty
     const strengthClass = [
       "strength-meter mt-2",
       passwordLength > 0 ? "visible" : "invisible"
@@ -279,7 +288,7 @@ class Register extends Component {
     // confirm password field is only visible when password is not empty
     const confirmClass = [
       "confirmPassword",
-      strength >= 2 ? "visible" : "invisible"
+      strength >= 4 ? "visible" : "invisible"
     ]
       .join(" ")
       .trim();
@@ -357,20 +366,9 @@ class Register extends Component {
                             </div>
                           </div>
                         )}
-                      </header>
-                      {/*<hr className="hrLogin" />*/}
-                      {/*<hr
-                        className="hrLogin"
-                        data-content={t("flot.split.inscription.ou")}
-                      />*/}
+                      </header>                     
                       <section className="section auth">
-                        <div className="container">
-                          {/*<img
-                            type="image"
-                            className="avatarImage"
-                            src="https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
-                          />*/}
-                          {/* <input type="file" className="fileUpload" onChange={this.handleFileUpload}/> */}
+                        <div className="container">                          
                           <br></br>
                           <br></br>
                           <span
@@ -444,7 +442,7 @@ class Register extends Component {
                           </div>
 
                           <div>
-                            <div className="dropdown-container">
+                            <div>
                               <div
                                 className="ui row"
                                 style={{ marginTop: "30px" }}
@@ -454,22 +452,25 @@ class Register extends Component {
                                 </label>
                                 <br />
                               </div>
-                              <Dropdown
-                                id="prompt"
-                                type="text"
-                                options={this.state.groups}
-                                placeholder={t(
-                                  "collaborateur.attribut.indication.groupe"
-                                )}
-                                search
-                                multiple={true}
-                                selection
-                                fluid
-                                allowAdditions
-                                value={currentValue}
-                                onAddItem={this.handleAddition}
-                                onChange={this.handleChange}
-                              />
+                              <div className="ui row">
+                                <Dropdown
+                                  icon="ui search icon"
+                                  id="prompt"
+                                  type="text"
+                                  options={this.state.groups}
+                                  placeholder={t(
+                                    "collaborateur.attribut.indication.groupe"
+                                  )}
+                                  search
+                                  multiple={true}
+                                  selection
+                                  fluid
+                                  allowAdditions
+                                  value={currentValue}
+                                  onAddItem={this.handleAddition}
+                                  onChange={this.handleChange}
+                                />
+                              </div>                              
                             </div>
                           </div>
 
@@ -567,9 +568,7 @@ class Register extends Component {
                                 </label>
                                 <br />
                                 <Field
-                                  validate={val => {
-                                    this.validateUsername(val);
-                                  }}
+                                  validate={this.validateUsername}
                                   name="username"
                                   id="username"
                                   aria-describedby="userNameHelp"
@@ -582,6 +581,38 @@ class Register extends Component {
                               </div>
 
                               {errors.username && touched.username && (
+                                <div style={{ color: "red" }}>
+                                  {t("flot.split.inscription.email-invalide")}{" "}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="field">
+                            <div className="control">
+                              <label htmlFor="username">
+                                {t("flot.split.inscription.courriel-confirm")}
+                              </label>
+                              <Field
+                                onPaste={e => {
+                                  e.preventDefault();
+                                  return false
+                                }}
+                                validate={val => {
+                                  this.validateUsername(val);
+                                }}
+                                name="confirmUsername"
+                                id="confirmUsername"
+                                aria-describedby="userNameHelp"
+                                placeholder={t(
+                                  "flot.split.inscription.exemple"
+                                )}
+                                value={this.state.confirmEmail}
+                                required={true}
+                                onChange={e =>
+                                  this.setState({ confirmEmail: e.target.value })
+                                }
+                              />
+                              {errors.confirmusername && touched.username && (
                                 <div style={{ color: "red" }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
@@ -655,6 +686,10 @@ class Register extends Component {
                             <div className="control has-icons-left confirmPassword">
                               <div className="input-wrapper">
                                 <Field
+                                  onPaste={e => {
+                                    e.preventDefault();
+                                    return false
+                                  }}
                                   validate={val => {
                                     this.validateConfirmPassword(val);
                                   }}
@@ -663,6 +698,7 @@ class Register extends Component {
                                       ? "password"
                                       : "text"
                                   }
+
                                   id="confirmpassword"
                                   name="confirmpassword"
                                   placeholder="Confirm password"
@@ -688,16 +724,16 @@ class Register extends Component {
                                     <path
                                       d="M9.9 4.24002C10.5883 4.0789 11.2931 3.99836 12 4.00003C19 4.00003 23 12 23 12C22.393 13.1356 21.6691 14.2048 20.84 15.19M14.12 14.12C13.8454 14.4148 13.5141 14.6512 13.1462 14.8151C12.7782 14.9791 12.3809 15.0673 11.9781 15.0744C11.5753 15.0815 11.1752 15.0074 10.8016 14.8565C10.4281 14.7056 10.0887 14.4811 9.80385 14.1962C9.51897 13.9113 9.29439 13.572 9.14351 13.1984C8.99262 12.8249 8.91853 12.4247 8.92563 12.0219C8.93274 11.6191 9.02091 11.2219 9.18488 10.8539C9.34884 10.4859 9.58525 10.1547 9.88 9.88003M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.68192 3.96914 7.65663 6.06 6.06003L17.94 17.94Z"
                                       stroke="#8DA0B3"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
                                     />
                                     <path
                                       d="M1 1L23 23"
                                       stroke="#8DA0B3"
-                                      stroke-width="2"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
                                     />
                                   </svg>
                                 </button>
@@ -715,7 +751,7 @@ class Register extends Component {
                             </div>
                             <div className="d-flex flex-row justify-content-between align-items-center px-3 mb-5">
                               <div className="container">
-                                <p className="control">
+                                <div className="control">
                                   <div>
                                     <button
                                       className={`ui medium button register is-success ${
@@ -740,7 +776,7 @@ class Register extends Component {
                                       {t("entete.inscription")}
                                     </button>
                                   </div>
-                                </p>
+                                </div>
                               </div>
                             </div>
                           </div>

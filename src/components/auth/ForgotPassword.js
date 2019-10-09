@@ -3,8 +3,12 @@ import React, { Component } from "react";
 // import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
 import { Translation } from "react-i18next";
-import ForgotPasswordVerification from "./ForgotPasswordVerification";
 import { Modal } from "semantic-ui-react";
+
+import closeIcon from "../../assets/svg/icons/x.svg";
+import "../../assets/scss/page-assistant/modal.scss";
+import positiveImage from "../../assets/images/positive.png";
+import { toast } from "react-toastify";
 
 //import { withTranslation } from "react-i18next";
 
@@ -52,7 +56,8 @@ class ForgotPassword extends Component {
     try {
       await Auth.forgotPassword(this.state.email);        
     } catch (error) {
-      console.log(error);
+      toast.error(error.message)
+      console.log(error)
     }
   };
 
@@ -64,11 +69,9 @@ class ForgotPassword extends Component {
   };
 
   render() {
-    //const { t } = this.props;
-
     return (
       <Translation className="section auth">
-        {t => (
+        {(t, i18n) => (
           <React.Fragment>
             {!this.state.patience && (
               <span className="top-login">
@@ -87,25 +90,7 @@ class ForgotPassword extends Component {
                   {t("entete.connexion")}
                 </div>
               </span>
-            )}
-            {/*{!this.state.patience && (
-              <span
-                className="top-register"
-                style={{
-                  color: "#2DA84F",
-                  cursor: "pointer"
-                }}
-              >
-                <div
-                  onClick={() => {
-                    // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
-                    this.props.parent.afficher(1);
-                  }}
-                >
-                  {t("entete.inscription")}
-                </div>
-              </span>
-            )}*/}
+            )}            
             <div className="containerPassword" style={passwordStyle}>
               <h1
                 style={{
@@ -117,7 +102,6 @@ class ForgotPassword extends Component {
                 {t("flot.split.auth.oublier.titre")}
               </h1>
               <p>{t("flot.split.auth.oublier.preambule")}</p>
-              {/* <FormErrors formerrors={this.state.errors} /> */}
 
               <form onSubmit={this.forgotPasswordHandler}>
                 <div
@@ -161,11 +145,46 @@ class ForgotPassword extends Component {
                           {t("collaborateur.attribut.bouton.soumettre")}
                         </button>
                       }
+                      open={this.state.modalOpen}
                       onClose={this.handleClose}
                       size="small"
                     >
                       <Modal.Content>
-                        <ForgotPasswordVerification />
+                        
+                        <div className="modal-navbar">
+                          <div className="left">
+                              <div className="title">{t("flot.fin.recupMotDePasse")}</div>
+                          </div>
+
+                          <div className="right">
+                              <a className="close-icon" onClick={()=>{this.handleClose()}}>
+                              <img src={closeIcon} alt={"close"} />
+                              </a>
+                          </div>
+                        </div>
+
+                        <div className="modal-content">
+                          <img
+                              className={"success-image"}
+                              src={positiveImage}
+                              alt={"Positive"}
+                          />
+                          
+                          {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
+                              <p className={"description"}>
+                              I just sent an email with a link that you can use to reset your password. Please, check your emails.
+                              </p>
+                          )}
+                          {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
+                              <p className={"description"}>
+                              Je viens d'envoyer un courriel avec un lien pour réinitialiser ton mot de passe. Merci de vérifier tes messages.
+                              </p>
+                          )}
+                          </div>
+
+                          <div className={"modal-bottom-bar"}>                          
+                        </div>
+
                       </Modal.Content>
                     </Modal>
                   </p>

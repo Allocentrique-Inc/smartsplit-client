@@ -639,14 +639,17 @@
         "correspond": "The passwords do not match",
         "password": "Password",
         "ou": "or",
-        "bouton": "Create my account"
+        "bouton": "Create my account",
+        "courriel-confirm": "Confirm your email"
       }
     },
     "fin": {
       "created": "Created documentation",
       "maintenant": "is now documented!",
       "resume": "See the summary",
-      "partage": "See the proposal"
+      "partage": "See the proposal",
+      "partageCree": "⭐️ The share proposal is created",
+      "recupMotDePasse": "Password reset"
     }
   },
   "accueil": {

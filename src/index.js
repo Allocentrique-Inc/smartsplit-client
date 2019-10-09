@@ -94,7 +94,7 @@ const renderRoutes = () => {
             <Route
               exact
               path="/forgot-password-verification"
-              component={ForgotPasswordVerification}
+              component={DefinitMotDePasse}
             />
             <Route
               exact
@@ -171,6 +171,26 @@ const renderRoutes = () => {
     );
   }
 };
+
+const DefinitMotDePasse = ({match, location}) => {
+  
+  let search = location.search
+
+  let params = search.substring(1, search.length)
+  let _p = params.split("&")
+
+  let _params = {}
+
+  _p.forEach(__p=>{
+    let ___p = __p.split("=")
+    _params[___p[0]] = ___p[1]
+  })
+
+  let code = _params['confirmation_code']
+  let email = _params['email']
+
+  return <ForgotPasswordVerification code={code} email={email} />
+}
 
 function AccueilPochette() {
   return <AssistantOeuvre pochette={true} />;

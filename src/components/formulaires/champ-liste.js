@@ -265,18 +265,16 @@ export class ChampListeCollaborateurAssistant extends Component {
                     }
                 )
             })            
-            if(!this.OPTIONS) {
-                this.OPTIONS = _options                
-            }
+            this.OPTIONS = _options
             this.setState({ayantDroit: _adParId}, ()=>{if(this.props.onRef) this.props.onRef(_adParId)})
             this.setState({options: _options}, ()=>{
-                // recalcul des options initiales
+                // recalcul des options
                 if(this.props.collaborateurs)
                     this.recalculerOptions(this.props.collaborateurs)
             })
         })
         .catch(err=>{
-            toast.error(err)
+            console.log(err)
         })
     }
 
@@ -339,10 +337,10 @@ export class ChampListeCollaborateurAssistant extends Component {
                             }
                         })                        
                     }}
-                    fn={()=>{
+                    fn={(uuid)=>{
                         this.listeAyantsDroit()
                         if(this.props.fn) {
-                            this.props.fn()
+                            this.props.fn(uuid)
                         }                        
                     }}
                     />  
