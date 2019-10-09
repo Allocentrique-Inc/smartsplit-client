@@ -459,13 +459,13 @@
         },
         "etape": {
           "partage-etape": "Étape 2",
-          "partage-titre": "© Droit d'auteur",
+          "partage-titre": "Partage des droits",
           "enregistrerEtQuitter": "Enregistrer et quitter",
           "vote-titre": "Valider le partage de droits"
         },
         "partage": {
           "auteur": {
-            "titre": "Partage du droit d'auteur",
+            "titre": "Droit d'auteur",
             "role": {
               "auteur": "Auteur",
               "compositeur": "Compositeur",
@@ -473,14 +473,14 @@
             }
           },
           "interprete": {
-            "titre": "Partage du droit d'interprétation",
+            "titre": "Interprétation",
             "role": {
               "chanteur": "Chanteur",
               "musicien": "Musicien"
             }
           },
           "enregistrement": {
-            "titre": "Partage du droit d'enregistrement",
+            "titre": "Enregistrement sonore",
             "role": {
               "producteur": "Producteur",
               "graphiste": "Graphiste",
@@ -510,7 +510,7 @@
           "envoyer": "Envoyer aux collaborateurs",
           "continuer": "Continuer le partage",
           "sommaire": "Accéder au sommaire",
-          "voter": "Accéter au vote",
+          "voter": "Accéder au vote",
           "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition.",
           "pourquoi": "Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.",
           "refuse": "Pourquoi refuses-tu le split (optionel)",

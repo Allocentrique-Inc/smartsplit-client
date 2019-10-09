@@ -371,11 +371,11 @@ class PageAssistantPartageAuteur extends Component {
                                 </div>
                                 <div className="ui row">
                                     <div className="ui seven wide column">
-                                        <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.partage.auteur.titre')}</div>
+                                        <div className="wizard-title">{t('flot.split.droits.auteur')}</div>
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {t('flot.split.documente-ton-oeuvre.partage.auteur.titre', { oeuvre: this.state.song })}
+                                                {t('flot.split.partage.auteur.titre', { oeuvre: this.state.song })}
                                             </div>
                                             <br />
                                             {descriptif}
