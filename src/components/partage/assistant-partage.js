@@ -336,7 +336,7 @@ class AssistantPartage extends Component {
         this.setState({modaleConnexion: ouvert})
     }
   
-    modaleDeclaration(ouvert = true, fn) {
+    modaleDeclaration(ouvert = true, fn) {        
         this.setState({fnSoumettre: fn}, ()=>{
             this.setState({modaleDeclaration: ouvert})
         })
@@ -507,7 +507,8 @@ class AssistantPartage extends Component {
                                     lastName={this.state.user.attributes.family_name}
                                     artistName={this.state.user.attributes["custom:artistName"]} 
                                     songTitle={this.state.media.title} 
-                                    open={this.state.modaleDeclaration} 
+                                    open={this.state.modaleDeclaration}                                     
+                                    onClose={()=>this.modaleDeclaration(false)}
                                     fn={()=>{
                                         this.state.fnSoumettre()
 

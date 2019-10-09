@@ -33,7 +33,13 @@ class Declaration extends Component {
     this.setState({ closeOnEscape, closeOnDimmerClick, open: true });
   };
 
-  close = () => this.setState({ open: false });
+  close = () => this.setState({ open: false }, ()=>{
+    this.setState({identity: false})
+    this.setState({share: false})
+    if(this.props.onClose) {
+      this.props.onClose()
+    }
+  });
 
   click() {
     this.handleSubmit();
@@ -54,7 +60,8 @@ class Declaration extends Component {
     this.setState({ share: !value });
   };
 
-  componentDidMount() {}
+  componentDidMount() {    
+  }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.open !== nextProps.open) {
@@ -72,7 +79,7 @@ class Declaration extends Component {
   }
 
   render() {
-    const { open, closeOnDimmerClick, identity, share } = this.state;
+    const { open, closeOnDimmerClick } = this.state;
 
     return (
       <Translation>
