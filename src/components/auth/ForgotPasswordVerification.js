@@ -6,6 +6,8 @@ import { Translation } from "react-i18next";
 import { Modal } from "semantic-ui-react";
 import ChangePasswordVerification from "./ChangePasswordVerification";
 import Eye from "./Eye";
+import { Field, Form, Formik } from "formik";
+
 
 const styleWrapper = {
   position: 'relative',
@@ -25,11 +27,8 @@ class ForgotPasswordVerification extends Component {
         cognito: null,
         blankfield: false
       },
-      type: 'input',
-      score: 'null'
     }
     this.toggleShow = this.toggleShow.bind(this);
-    this.showHide = this.showHide.bind(this);
   }
 
   clearErrorState = () => {
@@ -67,14 +66,6 @@ class ForgotPasswordVerification extends Component {
 
   toggleShow() {
     this.setState({ hidden: !this.state.hidden });
-  }
-
-  showHide(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    this.setState({
-      type: this.state.type === 'input' ? 'password' : 'input'
-    })
   }
 
   render() {
@@ -137,21 +128,19 @@ class ForgotPasswordVerification extends Component {
                           type={
                             this.state.hidden ? "password" : "text"
                           }
-                          type="password"
                           className="input"
                           id="newpassword"
                           placeholder={t("flot.split.sommaire.definir")}
                           value={this.state.newpassword}
                           onChange={this.onInputChange}
                         />
-                        {/*<button
+                        <button
                           id="hide"
                           onClick={e => {
                             e.preventDefault();
                             this.toggleShow();
                           }}
-                        >*/}
-                        <button id="hide" onClick={this.showHide}>{this.state.type === 'input' ? 'Hide' : 'Show'}
+                        >
 
                           <Eye actif={this.state.hidden} />
                         </button>

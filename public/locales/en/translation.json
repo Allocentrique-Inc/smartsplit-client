@@ -636,7 +636,8 @@
         "password": "Password",
         "ou": "or",
         "bouton": "Create my account",
-        "courriel-confirm": "Confirm your email"
+        "courriel-confirm": "Confirm your email",
+        "password-confirm": "Confirm your password"
       }
     },
     "fin": {

@@ -625,7 +625,8 @@
         "password": "Mot de passe",
         "ou": "ou",
         "bouton": "Créer mon compte",
-        "courriel-confirm": "Confirmer le courriel"
+        "courriel-confirm": "Confirmer le courriel",
+        "password-confirm": "Confirmer le mot de passe"
       }
     },
     "fin": {

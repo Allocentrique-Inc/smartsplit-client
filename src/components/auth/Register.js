@@ -698,14 +698,14 @@ class Register extends Component {
                                     this.validateConfirmPassword(val);
                                   }}
                                   type={
-                                    this.state.confirmhidden
+                                    this.state.hidden && this.state.confirmhidden
                                       ? "password"
                                       : "text"
                                   }
 
                                   id="confirmpassword"
                                   name="confirmpassword"
-                                  placeholder="Confirm password"
+                                  placeholder={t("flot.split.inscription.password-confirm")}
                                   value={this.state.confirmpassword}
                                   onChange={this.handleConfirmPasswordChange}
                                   required={true}
