@@ -29,11 +29,11 @@ class EntetePartage extends Component {
                 </span>
               )}
               <span className="heading4" style={{ marginLeft: "50px" }}>
-                {t("flot.split.documente-ton-oeuvre.partage.auteur.titre")}
-              </span>              
+                {t("flot.split.documente-ton-oeuvre.etape.partage-titre")}
+              </span>
             </div>
             <div className="ui six wide column">
-            <span
+              <span
                 style={{
                   cursor: "pointer",
                   position: "absolute",
