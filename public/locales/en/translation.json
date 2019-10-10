@@ -44,11 +44,6 @@
         "role": "Choose one or more role",
         "role2": "These roles can be modified later.",
         "groupe": "Search among groups"
-      },
-      "bouton": {
-        "annuler": "Cancel",
-        "sauvegarder": "Save",
-        "soumettre": "Submit"
       }
     },
     "declaration": {

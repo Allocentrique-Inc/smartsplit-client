@@ -9,6 +9,7 @@ import closeIcon from "../../assets/svg/icons/x.svg";
 import "../../assets/scss/page-assistant/modal.scss";
 import positiveImage from "../../assets/images/positive.png";
 import { toast } from "react-toastify";
+import Eye from "./Eye";
 
 //import { withTranslation } from "react-i18next";
 
@@ -54,7 +55,7 @@ class ForgotPassword extends Component {
 
     // AWS Cognito integration here
     try {
-      await Auth.forgotPassword(this.state.email);        
+      await Auth.forgotPassword(this.state.email);
     } catch (error) {
       toast.error(error.message)
       console.log(error)
@@ -90,7 +91,7 @@ class ForgotPassword extends Component {
                   {t("entete.connexion")}
                 </div>
               </span>
-            )}            
+            )}
             <div className="containerPassword" style={passwordStyle}>
               <h1
                 style={{
@@ -102,7 +103,6 @@ class ForgotPassword extends Component {
                 {t("flot.split.auth.oublier.titre")}
               </h1>
               <p>{t("flot.split.auth.oublier.preambule")}</p>
-
               <form onSubmit={this.forgotPasswordHandler}>
                 <div
                   className="field"
@@ -142,7 +142,7 @@ class ForgotPassword extends Component {
                           }}
                           onClick={this.handleOpen}
                         >
-                          {t("collaborateur.attribut.bouton.soumettre")}
+                          {t("flot.split.collaborateur.attribut.bouton.soumettre")}
                         </button>
                       }
                       open={this.state.modalOpen}
@@ -150,39 +150,39 @@ class ForgotPassword extends Component {
                       size="small"
                     >
                       <Modal.Content>
-                        
+
                         <div className="modal-navbar">
                           <div className="left">
-                              <div className="title">{t("flot.fin.recupMotDePasse")}</div>
+                            <div className="title">{t("flot.fin.recupMotDePasse")}</div>
                           </div>
 
                           <div className="right">
-                              <a className="close-icon" onClick={()=>{this.handleClose()}}>
+                            <a className="close-icon" onClick={() => { this.handleClose() }}>
                               <img src={closeIcon} alt={"close"} />
-                              </a>
+                            </a>
                           </div>
                         </div>
 
                         <div className="modal-content">
                           <img
-                              className={"success-image"}
-                              src={positiveImage}
-                              alt={"Positive"}
+                            className={"success-image"}
+                            src={positiveImage}
+                            alt={"Positive"}
                           />
-                          
+
                           {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                              <p className={"description"}>
+                            <p className={"description"}>
                               I just sent an email with a link that you can use to reset your password. Please, check your emails.
                               </p>
                           )}
                           {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                              <p className={"description"}>
+                            <p className={"description"}>
                               Je viens d'envoyer un courriel avec un lien pour réinitialiser ton mot de passe. Merci de vérifier tes messages.
                               </p>
                           )}
-                          </div>
+                        </div>
 
-                          <div className={"modal-bottom-bar"}>                          
+                        <div className={"modal-bottom-bar"}>
                         </div>
 
                       </Modal.Content>

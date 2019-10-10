@@ -718,7 +718,9 @@ class Register extends Component {
                                     this.toggleConfirmShow();
                                   }}
                                 >
-                                  <svg
+                                  <Eye actif={this.state.hidden} />
+
+                                  {/*<svg
                                     width="24"
                                     height="24"
                                     viewBox="0 0 24 24"
@@ -739,7 +741,7 @@ class Register extends Component {
                                       strokeLinecap="round"
                                       strokeLinejoin="round"
                                     />
-                                  </svg>
+                                  </svg>*/}
                                 </button>
                               </div>
                               {errors.confirmpassword &&
