@@ -400,7 +400,7 @@ class PageAssistantPartageInterpretation extends Component {
 
                                                                                         // Rafraîchir ayants droit
                                                                                         // Récupérer la liste des ayant-droits        
-                                                                                        Axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+                                                                                        Axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
                                                                                             .then(res => {
                                                                                                 let _adParId = {}
                                                                                                 res.data.forEach((elem) => {

@@ -159,22 +159,22 @@ class Socan extends Component {
     };
 
     try {
-      axios.post("http://dev.api.smartsplit.org:8080/v1/socan/join", body);
-      console
-        .log("BODY: ", body)
-        .then(function(response) {
-          console.log("RESPONSE: ", response);
-          toast.success(`Application sent to SOCAN API, check your email!`);
-        })
-        .catch(err => {
-          toast.error(err.message);
-          console.log(err);
-        })
-        .finally(() => {
-          if (this.props.fn) {
-            this.props.fn();
-          }
-        });
+      axios.post('http://api.smartsplit.org:8080/v1/socan/join', body)
+      .then(
+        function (response) {
+          console.log("RESPONSE: ", response)
+          toast.success(`Application sent to SOCAN API, check your email!`)
+        }
+      )
+      .catch((err)=>{
+        toast.error(err.message)
+        console.log(err)
+      })
+      .finally(()=>{
+        if(this.props.fn) {
+          this.props.fn()
+        }
+      })
     } catch (err) {
       console.log(err);
     }

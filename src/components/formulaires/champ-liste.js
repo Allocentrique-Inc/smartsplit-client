@@ -273,9 +273,6 @@ export class ChampListeCollaborateurAssistant extends Component {
                         this.recalculerOptions(this.props.collaborateurs)
                 })
             })
-            .catch(err => {
-                console.log(err)
-            })
     }
 
     recalculerOptions(collaborateurs) {

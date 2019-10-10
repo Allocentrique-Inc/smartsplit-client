@@ -29,7 +29,7 @@ class ValiderSplit extends Component {
     componentWillMount() {
  
         // Récupère la proposition
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.props.proposition}`)
+        axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.props.proposition}`)
         .then((data)=>{
             // Construction de la structure des données de l'assistant
             let proposition = data.data.Item
@@ -86,7 +86,7 @@ class ValiderSplit extends Component {
 
             // Récupère le titre du média
             // Temporaire, devrait déjà être fourni dans le client à ce stade
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${proposition.mediaId}`)
+            axios.get(`http://api.smartsplit.org:8080/v1/media/${proposition.mediaId}`)
             .then(res=>{
                 let media = res.data.Item
                 this.setState({mediaTitle: media.title})
@@ -111,7 +111,7 @@ class ValiderSplit extends Component {
             }
             Object.keys(rightHolders).forEach((idx)=>{
                 reqs[idx] = '-->' // Marque comme envoyé
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolders[idx].rightHolderId}`)
+                axios.get(`http://api.smartsplit.org:8080/v1/rightHolders/${rightHolders[idx].rightHolderId}`)
                 .then(res=>{
                     rightHolders[idx].email = res.data.Item.email                    
                     reqs[idx] = '---'
@@ -139,7 +139,7 @@ class ValiderSplit extends Component {
             "rightHolders": modele.rightHolders
         }
 
-        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/invite', body)
+        axios.post('http://api.smartsplit.org:8080/v1/proposal/invite', body)
         .then((resp)=>{
             if(resp.data !== '') {
                 window.location.href=`/partager/${this.state.mediaId}`

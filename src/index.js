@@ -49,14 +49,14 @@ import OeuvreResume from "./components/oeuvre/oeuvre-resume";
 import "moment/locale/fr";
 import "moment/locale/en-ca";
 
-const REGION = "us-east-2";
+const REGION = "us-east-1";
 
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
     region: REGION,
-    userPoolId: "us-east-2_tK9rNdAB1",
-    userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
+    userPoolId: "us-east-1_W3bnhMGGM",
+    userPoolWebClientId: "26ucvf278ngc8hs3nsbm8flvl1"
   }
 });
 

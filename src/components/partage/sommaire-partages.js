@@ -74,12 +74,12 @@ export default class SommairePartages extends Component {
     openModal = () => this.setState({ modaleCourriels: true })
 
     initialisation() {
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
+        axios.get(`http://api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
             .then(res => {
                 this.setState({ media: res.data.Item }, () => {
-                    axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
+                    axios.get(`http://api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
                         .then(res => {
-                            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
+                            axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
                                 .then(_rAd => {
                                     this.setState({ ayantDroit: _rAd.data.Item }, () => {
                                         this.setState({ propositions: res.data })
@@ -87,7 +87,7 @@ export default class SommairePartages extends Component {
                                         let _ps = res.data
                                         _ps.forEach(p => {
                                             if (p.etat === 'ACCEPTE') {
-                                                axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${p.uuid}/${this.state.user.username}`)
+                                                axios.get(`http://api.smartsplit.org:8080/v1/splitShare/${p.uuid}/${this.state.user.username}`)
                                                     .then(res => {
                                                         this.setState({ partEditeur: res.data })
                                                     })

@@ -56,7 +56,7 @@ class AssistantPartage extends Component {
         Auth.currentAuthenticatedUser()
         .then(res=>{
             // Récupère les ayant-droits car on en aura besoin
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
             .then(_res=>{ 
                 if(_res.data) {
                     let _adParId = {}
@@ -71,7 +71,7 @@ class AssistantPartage extends Component {
 
                 // Une nouvelle proposition pour un média                
                 // Récupérer la dernière proposition pour le média                
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
+                axios.get(`http://api.smartsplit.org:8080/v1/proposal/derniere-proposition/${this.state.mediaId}`)
                 .then(res=>{
                     // Si elle existe, configuration de l'assistant avec cette dernière
                     if(res.data) {
@@ -86,7 +86,7 @@ class AssistantPartage extends Component {
                 })
             } else if (this.state.uuid) {
                 // Une proposition existante, poursuite de la proposition BROUILLON
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+                axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
                 .then(res=>{
                     let proposal = res.data.Item
                     this.setState({proposition: proposal}, ()=>{
@@ -110,7 +110,7 @@ class AssistantPartage extends Component {
 
     recupererOeuvre() {
         // Récupérer le média
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
+        axios.get(`http://api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
             .then(res => {
                 let media = res.data.Item;
                 this.setState({ media: media });
@@ -126,7 +126,7 @@ class AssistantPartage extends Component {
             let _association = {} // Associera le nom de l'ayant-droit avec son identitifiant unique
 
             // 1. Récupérer la liste des ayant-droits
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+            axios.get(`http://api.smartsplit.org:8080/v1/rightHolders`)
             .then(res=>{
                 res.data.forEach(elem=>{
                     //let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
@@ -289,7 +289,7 @@ class AssistantPartage extends Component {
                         // Reprise d'une proposition existante
                         // 3a. Soumettre la nouvelle proposition en PUT
                         body.uuid = values.uuid
-                        axios.put(`http://dev.api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
+                        axios.put(`http://api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
                         .then(res=>{
                             toast.success(`${res.data}`)
                             // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
@@ -304,7 +304,7 @@ class AssistantPartage extends Component {
                         })
                     } else {
                         // 3b. Soumettre la nouvelle proposition en POST
-                        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal', body)
+                        axios.post('http://api.smartsplit.org:8080/v1/proposal', body)
                         .then(res=>{
                             toast.success(`${res.data}`)
                             // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition

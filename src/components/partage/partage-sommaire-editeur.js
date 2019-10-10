@@ -57,7 +57,7 @@ export default class PartageSommaireEditeur extends Component {
         })
 
         // Récupère tous les ayant-droits
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
+        axios.get(`http://api.smartsplit.org:8080/v1/rightholders`)
         .then(res=>{
             let _rHs = {}
             res.data.forEach(rh=>_rHs[rh.rightHolderId] = rh)
@@ -123,13 +123,13 @@ export default class PartageSommaireEditeur extends Component {
         })
 /* 
         // Récupérer l'ayant-droit
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.part.rightHolderId}`)
+        axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.part.rightHolderId}`)
         .then(res=>{
             this.setState({donateur: res.data.Item})
         })
 
         // Récupérer l'éditeur
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.part.shareeId}`)
+        axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${this.state.part.shareeId}`)
         .then(res=>{
             this.setState({beneficiaire: res.data.Item}, ()=>{
                 // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
@@ -267,7 +267,7 @@ export default class PartageSommaireEditeur extends Component {
             choix: this.state.choix,
             jeton: this.state.jetonApi
         }
-        axios.post('http://dev.api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
+        axios.post('http://api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
         .then((res)=>{
             window.location.reload()
         })
@@ -299,7 +299,7 @@ export default class PartageSommaireEditeur extends Component {
 
     rafraichirDonnees(fn) {
         if (this.state.rafraichir){
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
+            axios.get(`http://api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
             .then(res=>{
                 this.setState({part: res.data})
             })            

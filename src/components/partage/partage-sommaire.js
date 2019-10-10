@@ -371,7 +371,7 @@ export default class SommairePartage extends Component {
     componentWillMount() {
 
         // Récupère tous les ayant-droits
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
+        axios.get(`http://api.smartsplit.org:8080/v1/rightholders`)
             .then(res => {
                 let _rHs = {}
                 res.data.forEach(rh => _rHs[rh.rightHolderId] = rh)
@@ -380,7 +380,7 @@ export default class SommairePartage extends Component {
 
         this.setState({ patience: true }, () => {
             // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
                 .then(res => {
                     let proposition = res.data.Item
                     // Chercher les avatars
@@ -392,7 +392,7 @@ export default class SommairePartage extends Component {
                                 if (!_avatars[_rH.rightHolderId]) {
                                     _avatars[_rH.rightHolderId] = {}
                                     // Récupération des avatars et intégration dans les éléments correspondants
-                                    axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
+                                    axios.get(`http://api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
                                         .then(r => {
                                             let avatar = r.data.Item.avatarImage
                                             _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
@@ -556,7 +556,7 @@ export default class SommairePartage extends Component {
 
     rafraichirDonnees(fn) {
         if (!this.state.proposition || this.state.rafraichir) {
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            axios.get(`http://api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
                 .then(res => {
                     let proposition = res.data.Item
                     this.calculMesVotes(proposition, fn)
@@ -707,7 +707,7 @@ export default class SommairePartage extends Component {
                                             droits: this.state.mesVotes,
                                             jeton: this.state.jetonApi
                                         }
-                                        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/voter', body)
+                                        axios.post('http://api.smartsplit.org:8080/v1/proposal/voter', body)
                                             .then((res) => {
                                                 window.location.href = `/partager/${this.state.proposition.mediaId}`
                                             })
