@@ -448,13 +448,13 @@
         },
         "etape": {
           "partage-etape": "Step 2",
-          "partage-titre": "© Copyright",
+          "partage-titre": "Copyright Sharing",
           "enregistrerEtQuitter": "Save and Quit",
           "vote-titre": "Validate the share proposal"
         },
         "partage": {
           "auteur": {
-            "titre": "Copyright sharing",
+            "titre": "Copyright",
             "role": {
               "auteur": "Author",
               "compositeur": "Composer",
