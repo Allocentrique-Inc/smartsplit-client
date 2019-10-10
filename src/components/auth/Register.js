@@ -641,7 +641,7 @@ class Register extends Component {
                                       this.validatePasswordStrong(val);
                                     }}
                                     type={
-                                      this.state.hidden ? "password" : "text"
+                                      this.state.hidden && this.state.confirmhidden ? "password" : "text"
                                     }
                                     id="password"
                                     name="password"
@@ -718,7 +718,7 @@ class Register extends Component {
                                     this.toggleConfirmShow();
                                   }}
                                 >
-                                  <Eye actif={this.state.hidden} />
+                                  <Eye actif={this.state.confirmhidden} />
 
                                   {/*<svg
                                     width="24"
