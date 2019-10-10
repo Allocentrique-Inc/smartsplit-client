@@ -269,7 +269,7 @@
         "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
         "cest-parti": "C'est parti !"
       },
-      "documente-ton-oeuvre": {        
+      "documente-ton-oeuvre": {
         "titre": "Documente ton œuvre",
         "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre.",
         "composant": {
@@ -459,13 +459,13 @@
         },
         "etape": {
           "partage-etape": "Étape 2",
-          "partage-titre": "© Droit d'auteur",
+          "partage-titre": "Partage des droits",
           "enregistrerEtQuitter": "Enregistrer et quitter",
           "vote-titre": "Valider le partage de droits"
         },
         "partage": {
           "auteur": {
-            "titre": "Partage du droit d'auteur",
+            "titre": "Droit d'auteur",
             "role": {
               "auteur": "Auteur",
               "compositeur": "Compositeur",
@@ -473,14 +473,14 @@
             }
           },
           "interprete": {
-            "titre": "Partage du droit d'interprétation",
+            "titre": "Interprétation",
             "role": {
               "chanteur": "Chanteur",
               "musicien": "Musicien"
             }
           },
           "enregistrement": {
-            "titre": "Partage du droit d'enregistrement",
+            "titre": "Enregistrement sonore",
             "role": {
               "producteur": "Producteur",
               "graphiste": "Graphiste",
@@ -510,7 +510,7 @@
           "envoyer": "Envoyer aux collaborateurs",
           "continuer": "Continuer le partage",
           "sommaire": "Accéder au sommaire",
-          "voter": "Accéter au vote",
+          "voter": "Accéder au vote",
           "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition.",
           "pourquoi": "Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.",
           "refuse": "Pourquoi refuses-tu le split (optionel)",
@@ -722,5 +722,10 @@
   "connexion": "Connexion obligatoire",
   "connecter": "Tu dois être connecté pour voter",
   "selection": "Une sélection dans cette liste est obligatoire",
-  "champ": "Ce champ texte est obligatoire"
+  "champ": "Ce champ texte est obligatoire",
+  "tooltip": {
+    "egal": "Divise le droit d'auteur par le nombre de personnes et attribue le rôle « Auteur-Compositeur » par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus commencent à rentrer !",
+    "roles": "Divise le droit d'auteur en deux : 50% va à ceux qui ont écrit les paroles, et 50% à ceux qui ont composé la musique. Cette dernière partie « musique » est à son tour divisée par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple : Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
+    "manuel": "Te laisse déterminer le pourcentage et les rôles pour chaque collaborateur. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas."
+  }
 }

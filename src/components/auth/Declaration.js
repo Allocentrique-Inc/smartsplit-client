@@ -33,10 +33,10 @@ class Declaration extends Component {
     this.setState({ closeOnEscape, closeOnDimmerClick, open: true });
   };
 
-  close = () => this.setState({ open: false }, ()=>{
-    this.setState({identity: false})
-    this.setState({share: false})
-    if(this.props.onClose) {
+  close = () => this.setState({ open: false }, () => {
+    this.setState({ identity: false })
+    this.setState({ share: false })
+    if (this.props.onClose) {
       this.props.onClose()
     }
   });
@@ -60,7 +60,7 @@ class Declaration extends Component {
     this.setState({ share: !value });
   };
 
-  componentDidMount() {    
+  componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
@@ -155,7 +155,7 @@ class Declaration extends Component {
                 {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
                   <div className="accepte">
                     <p>
-                      <strong>Jaccepte ces partages de droits</strong>{" "}
+                      <strong>J'accepte ces partages de droits</strong>{" "}
                       intervenus entre moi-même et tout collaborateur. Cela
                       représente l’entente souhaitée. Je comprends que ces
                       pourcentages s’appliqueront désormais à tout partage de

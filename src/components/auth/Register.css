@@ -366,6 +366,8 @@ header#registerHeader h3 {
   color: grey;
 }
 
+.firstName.register::placeholder,
+.lastName.register::placeholder,
 ::placeholder {
   color: #8da0b2;
   opacity: 1;
