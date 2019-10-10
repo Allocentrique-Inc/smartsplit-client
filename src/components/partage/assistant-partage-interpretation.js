@@ -200,7 +200,7 @@ class PageAssistantPartageInterpretation extends Component {
                 On sépare ici le <strong>droit voisin</strong> entre les <strong>interprètes</strong>,
                 autant les <i>musiciens</i> que les <i>chanteurs</i>. Dans le cas d’un <i>groupe</i>,
                 tous sont <i>Artiste principal</i> et partagent ce droit en parts égales. Dans le cas
-                d’un <i>artiste vedette</i>, celui-ci concerve 80% tandis que le 20% restant est
+                d’un <i>artiste vedette</i>, celui-ci conserve 80% tandis que le 20% restant est
                 partagé parmi ses accompagnateurs, le cas échéant.
             </div>)
         }

@@ -26,35 +26,15 @@
   "collaborateur": {
     "titre": "Ajouter un artiste collaborateur",
     "titre2": "Ajouter comme collaborateur :",
-    "attribut": {
-      "etiquette": {
-        "nom": "Nom légal",
-        "prenom": "Prénom légal",
-        "artiste": "Nom d'artiste",
-        "role": "Rôle dans l'œuvre",
-        "option": " Optionnel",
-        "na": "Si non applicable, nous afficherons le nom complet.",
-        "courriel": "Courriel",
-        "groupe": "Groupes"
-      },
-      "indication": {
-        "nom": "Indique un nom de famille",
-        "prenom": "Indique un prénom",
-        "artiste": "Indique un nom d'artiste",
-        "role": "Rôle(s) par défaut",
-        "role2": "Ces rôles peuvent être modifiés plus tard.",
-        "groupe": "Chercher parmi les groupes"
-      },
-      "bouton": {
-        "annuler": "Annuler",
-        "sauvegarder": "Sauvegarder",
-        "soumettre": "Soumette"
-      }
-    },
-    "declaration": {
-      "identite": "Déclaration d'identité",
-      "accepter": "Accepter"
+    "bouton": {
+      "annuler": "Annuler",
+      "sauvegarder": "Sauvegarder",
+      "soumettre": "Soumette"
     }
+  },
+  "declaration": {
+    "identite": "Déclaration d'identité",
+    "accepter": "Accepter"
   },
   "oeuvre": {
     "attribut": {
@@ -117,7 +97,7 @@
       }
     },
     "titre": {
-      "vedette": "Avec la participation de"
+      "vedette": "Avec la participation de (feat.)"
     },
     "creePar": "Créé par",
     "piece": "Pièce originale",
@@ -235,17 +215,18 @@
           "etiquette": {
             "nom": "Nom légal",
             "prenom": "Prénom légal",
-            "artiste": "Nom d'artiste",
+            "artiste": "Indique ton nom légal",
             "role": "Rôle dans la pièce musicale",
             "option": " (optionel)",
             "na": "Si non applicable, nous afficherons le nom complet.",
             "courriel": "Courriel",
-            "groupe": "Groupes"
+            "groupe": "Groupe/Entité",
+            "ajout": "Ajouter un groupe ou un artiste"
           },
           "indication": {
             "nom": "Indique un nom de famille",
             "prenom": "Indique un prénom",
-            "artiste": "Indique un nom d'artiste",
+            "artiste": "Indique ton nom d'artiste",
             "role": "Choisis un ou plusieurs rôles",
             "role2": "Ces rôles peuvent être modifiés plus tard.",
             "groupe": "Choisir un groupe"

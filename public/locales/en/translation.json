@@ -30,12 +30,12 @@
       "etiquette": {
         "nom": "Legal Name",
         "prenom": "Legal First Name",
-        "artiste": "Artist Name",
+        "artiste": "Enter your pseudoname/AKA",
         "option": " Optional",
         "na": "If not applicable, the complete name will be displayed.",
         "role": "Role(s) by default",
         "courriel": "Email",
-        "groupe": "Groups"
+        "groupe": "Group/Entity"
       },
       "indication": {
         "nom": "Last name",
@@ -234,12 +234,13 @@
             "na": "If not applicable, the complete name is displayed.",
             "role": "Role in the work",
             "courriel": "Email",
-            "groupe": "Groups"
+            "groupe": "Group/Entity",
+            "ajout": "Add a groupor or an artist"
           },
           "indication": {
             "nom": "Last name",
             "prenom": "First name",
-            "artiste": "Artist name",
+            "artiste": "Enter your artist name",
             "role": "Choose one or more role",
             "role2": "These roles can be modified later.",
             "groupe": "Choose a group"

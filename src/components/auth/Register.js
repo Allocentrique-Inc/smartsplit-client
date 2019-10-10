@@ -380,14 +380,14 @@ class Register extends Component {
                           >
                             <div style={{ width: "220px" }}>
                               <label style={{ fontWeight: "bold" }}>
-                                {t("collaborateur.attribut.etiquette.prenom")}
+                                {t("flot.split.collaborateur.attribut.etiquette.prenom")}
                               </label>
                               <br />
                               <input
                                 type="text"
                                 className="firstName register"
                                 placeholder={t(
-                                  "collaborateur.attribut.etiquette.prenom"
+                                  "flot.split.collaborateur.attribut.etiquette.prenom"
                                 )}
                                 value={this.state.firstName}
                                 onChange={e =>
@@ -397,14 +397,14 @@ class Register extends Component {
                             </div>
                             <div style={{ width: "220px", marginLeft: "25px" }}>
                               <label style={{ fontWeight: "bold" }}>
-                                {t("collaborateur.attribut.etiquette.nom")}
+                                {t("flot.split.collaborateur.attribut.etiquette.nom")}
                               </label>
                               <br />
                               <input
                                 type="text"
                                 className="lastName register"
                                 placeholder={t(
-                                  "collaborateur.attribut.etiquette.nom"
+                                  "flot.split.collaborateur.attribut.etiquette.nom"
                                 )}
                                 value={this.state.lastName}
                                 onChange={e =>
@@ -414,13 +414,13 @@ class Register extends Component {
                             </div>
                           </span>
 
-                          {/*<div className="ui row" style={{ marginTop: "30px" }}>
+                          <div className="ui row" style={{ marginTop: "30px" }}>
                             <span>
                               <label style={{ fontWeight: "bold" }}>
-                                {t("collaborateur.attribut.etiquette.artiste")}
+                                {t("flot.split.collaborateur.attribut.indication.artiste")}
                               </label>
                               <label style={{ color: "grey", float: "right" }}>
-                                {t("collaborateur.attribut.etiquette.option")}
+                                {t("flot.split.collaborateur.attribut.etiquette.option")}
                               </label>
                             </span>
                             <br />
@@ -429,7 +429,7 @@ class Register extends Component {
                               type="text"
                               className="artistName"
                               placeholder={t(
-                                "collaborateur.attribut.etiquette.artiste"
+                                "flot.split.collaborateur.attribut.etiquette.artiste"
                               )}
                               value={this.state.artistName}
                               onChange={e =>
@@ -437,7 +437,7 @@ class Register extends Component {
                               }
                             />
                             <div className="sous-titre">
-                              {t("collaborateur.attribut.etiquette.na")}
+                              {t("flot.split.collaborateur.attribut.etiquette.na")}
                             </div>
                           </div>
 
@@ -448,9 +448,9 @@ class Register extends Component {
                                 style={{ marginTop: "30px" }}
                               >
                                 <label style={{ fontWeight: "bold" }}>
-                                  {t("collaborateur.attribut.etiquette.groupe")}
+                                  {t("flot.split.collaborateur.attribut.etiquette.groupe")}
                                 </label>
-                                <br />
+                                <br /><br />
                               </div>
                               <div className="ui row">
                                 <Dropdown
@@ -459,7 +459,7 @@ class Register extends Component {
                                   type="text"
                                   options={this.state.groups}
                                   placeholder={t(
-                                    "collaborateur.attribut.indication.groupe"
+                                    "flot.split.collaborateur.attribut.indication.groupe"
                                   )}
                                   search
                                   multiple={true}
@@ -470,17 +470,17 @@ class Register extends Component {
                                   onAddItem={this.handleAddition}
                                   onChange={this.handleChange}
                                 />
-                              </div>                              
+                              </div>
                             </div>
                           </div>
 
-                          <div>
+                          {/*<div>
                             <div
                               className="ui row"
                               style={{ marginTop: "30px" }}
                             >
                               <label style={{ fontWeight: "bold" }}>
-                                {t("collaborateur.attribut.etiquette.role")}
+                                {t("flot.split.collaborateur.attribut.etiquette.role")}
                               </label>
                               <br />
                             </div>
@@ -546,7 +546,7 @@ class Register extends Component {
                                 }
                               ]}
                               placeholder={t(
-                                "collaborateur.attribut.indication.role"
+                                "flot.split.collaborateur.attribut.indication.role"
                               )}
                               search
                               multiple={true}
@@ -556,7 +556,7 @@ class Register extends Component {
                               onChange={this.roleChange}
                             />
                             <div className="sous-titre">
-                              {t("collaborateur.attribut.indication.role2")}
+                              {t("flot.split.collaborateur.attribut.indication.role2")}
                             </div>
                           </div>*/}
 
@@ -583,14 +583,14 @@ class Register extends Component {
                                 <div style={{
                                   color: "red",
                                   position: "absolute",
-                                  top: "450px"
+                                  top: "655px"
                                 }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
                               )}
                             </div>
                           </div>
-                          {/*<div className="field">
+                          <div className="field">
                             <div className="control">
                               <label htmlFor="username">
                                 {t("flot.split.inscription.courriel-confirm")}
@@ -621,7 +621,7 @@ class Register extends Component {
                                 </div>
                               )}
                             </div>
-                          </div>*/}
+                          </div>
                           <span>
                             <div className="field">
                               <div className="control has-icons-left"

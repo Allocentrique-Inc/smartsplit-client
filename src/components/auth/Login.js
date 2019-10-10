@@ -203,7 +203,11 @@ class LogIn extends Component {
                                 required={true}
                               />
                               {errors.username && touched.username && (
-                                <div style={{ color: "red" }}>
+                                <div style={{
+                                  color: "red",
+                                  position: "absolute",
+                                  top: "70px"
+                                }}>
                                   {" "}
                                   {t(
                                     "flot.split.inscription.email-invalide"
@@ -239,7 +243,11 @@ class LogIn extends Component {
                               </div>
                             </div>
                             {errors.password && touched.password && (
-                              <div style={{ color: "red" }}>
+                              <div style={{
+                                color: "red",
+                                position: "absolute",
+                                top: "435px"
+                              }}>
                                 {" "}
                                 {t(
                                   "flot.split.inscription.password-invalide"
