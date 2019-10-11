@@ -11,9 +11,10 @@ class ForgotPasswordVerification extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      verificationcode: props.code,
+      verificationCode: props.code,
       email: props.email,
-      newpassword: "",
+      newPassword: "",
+      confirmNewPassword: "",
       errors: {
         cognito: null,
         blankfield: false
@@ -67,20 +68,19 @@ class ForgotPasswordVerification extends Component {
                 fontSize: "16px"
               }}
             >
-              <h1>&nbsp;&nbsp;{t("flot.split.sommaire.definir")}</h1>
-              <p>{t("flot.split.sommaire.code")}</p>
-
+              <h1>&nbsp;&nbsp;{t("flot.split.inscription.choose-password")}</h1>
               <form onSubmit={this.passwordVerificationHandler}>
                 <div className="field">
                   <p className="control">
                     <input
                       type="text"
                       className="input"
-                      id="verificationcode"
+                      id="verificationCode"
                       aria-describedby="verificationCodeHelp"
                       placeholder={t("flot.split.sommaire.verification")}
-                      value={this.state.verificationcode}
+                      value={this.state.verificationCode}
                       onChange={this.onInputChange}
+                      style={{display: "none"}}
                     />
                   </p>
                 </div>
@@ -96,6 +96,7 @@ class ForgotPasswordVerification extends Component {
                       )}
                       value={this.state.email}
                       onChange={this.onInputChange}
+                      style={{display: "none"}}
                     />
                     <span className="icon is-small is-left">
                       <i className="fas fa-envelope"></i>
@@ -107,9 +108,24 @@ class ForgotPasswordVerification extends Component {
                     <input
                       type="password"
                       className="input"
-                      id="newpassword"
-                      placeholder={t("flot.split.sommaire.definir")}
-                      value={this.state.newpassword}
+                      id="newPassword"
+                      placeholder={t("flot.split.inscription.password")}
+                      value={this.state.newPassword}
+                      onChange={this.onInputChange}
+                    />
+                    <span className="icon is-small is-left">
+                      <i className="fas fa-lock"></i>
+                    </span>
+                  </p>
+                </div>
+                <div className="field">
+                  <p className="control has-icons-left">
+                    <input
+                      type="password"
+                      className="input"
+                      id="confirmNewPassword"
+                      placeholder={t("flot.split.inscription.confirm-password")}
+                      value={this.state.confirmNewPassword}
                       onChange={this.onInputChange}
                     />
                     <span className="icon is-small is-left">

@@ -16,6 +16,7 @@ import { withTranslation, Translation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
 import zxcvbn from "zxcvbn";
+import { ConsoleLogger } from "@aws-amplify/core";
 
 const MAX_IMAGE_SIZE = 10000000;
 const MIN_STRENGTH = 3;
@@ -36,7 +37,8 @@ class ModifyUser extends Component {
       open: props.open,
       defaultRoles: [],
       currentValue: [],
-      currentRoleValue: []
+      currentRoleValue: [],
+      locale: navigator.language || navigator.userLanguage
     };
 
     // BIND TODO
@@ -103,10 +105,12 @@ class ModifyUser extends Component {
   }
 
   handleSubmit = values => {
+
     let attributes = {
       email: this.state.email,
       given_name: this.state.firstName || "Unnamed",
       family_name: this.state.lastName || "Unnamed",
+      locale: this.state.locale || "fr",
       "custom:artistName": this.state.artistName,
       "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
       "custom:instruments": JSON.stringify(this.state.instruments),
