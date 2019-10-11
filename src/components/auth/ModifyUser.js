@@ -38,8 +38,9 @@ class ModifyUser extends Component {
       defaultRoles: [],
       currentValue: [],
       currentRoleValue: [],
-      locale: navigator.language || navigator.userLanguage
-    };
+      locale: navigator.language || navigator.userLanguage,
+      gender: "initiatorCreatedUser"  // Cognito Default Attribute Gender used as flag for user creation
+    }; 
 
     // BIND TODO
     this.click = this.click.bind(this);
@@ -111,6 +112,7 @@ class ModifyUser extends Component {
       given_name: this.state.firstName || "Unnamed",
       family_name: this.state.lastName || "Unnamed",
       locale: this.state.locale || "fr",
+      gender: this.state.gender,
       "custom:artistName": this.state.artistName,
       "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
       "custom:instruments": JSON.stringify(this.state.instruments),
