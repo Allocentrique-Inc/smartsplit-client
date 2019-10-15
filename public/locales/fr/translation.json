@@ -215,21 +215,21 @@
           "etiquette": {
             "nom": "Nom légal",
             "prenom": "Prénom légal",
-            "artiste": "Indique ton nom légal",
+            "artiste": "Nom d'artiste (alias)",
             "role": "Rôle dans la pièce musicale",
             "option": " (optionel)",
             "na": "Si non applicable, nous afficherons le nom complet.",
             "courriel": "Courriel",
-            "groupe": "Groupe/Entité",
+            "groupe": "Ajouter groupes, entités artistiques ou entreprises",
             "ajout": "Ajouter un groupe ou un artiste"
           },
           "indication": {
-            "nom": "Indique un nom de famille",
-            "prenom": "Indique un prénom",
-            "artiste": "Indique ton nom d'artiste",
+            "nom": "Nom de famille",
+            "prenom": "Prénom",
+            "artiste": "Pseudonyme d'artiste",
             "role": "Choisis un ou plusieurs rôles",
             "role2": "Ces rôles peuvent être modifiés plus tard.",
-            "groupe": "Choisir un groupe"
+            "groupe": "Rechercher parmi les entités"
           },
           "bouton": {
             "annuler": "Annuler",
@@ -619,6 +619,7 @@
         "courriel": "Entrer le courriel",
         "exemple": "nom@exemple.com",
         "email-invalide": "Courriel invalide",
+        "email-requis": "Courriel requis",
         "motdepasse": "Choix du mot de passe",
         "password-invalide": "Le mot de passe est invalide",
         "correspond": "Les mots de passe ne correspondent pas",

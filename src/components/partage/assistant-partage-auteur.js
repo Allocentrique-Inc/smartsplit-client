@@ -385,6 +385,7 @@ class PageAssistantPartageAuteur extends Component {
                                                 <div className="fourteen wide field">
                                                     <div className="fourteen wide field">
                                                         <BoutonsRadio
+
                                                             name="mode_auteur"
                                                             actif={this.state.mode} // Attribut dynamique
                                                             onClick={(e) => {
@@ -406,15 +407,18 @@ class PageAssistantPartageAuteur extends Component {
                                                             choix={[
                                                                 {
                                                                     nom: t('flot.split.modepartage.egal'),
-                                                                    valeur: MODES.egal
+                                                                    valeur: MODES.egal,
+                                                                    info: t('tooltip.egal'),
                                                                 },
                                                                 {
                                                                     nom: t('flot.split.modepartage.roles'),
-                                                                    valeur: MODES.role
+                                                                    valeur: MODES.role,
+                                                                    info: t('tooltip.roles')
                                                                 },
                                                                 {
                                                                     nom: t('flot.split.modepartage.manual'),
-                                                                    valeur: MODES.manuel
+                                                                    valeur: MODES.manuel,
+                                                                    info: t('tooltip.manuel')
                                                                 }
                                                             ]}
                                                         />

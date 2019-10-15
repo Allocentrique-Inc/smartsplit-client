@@ -123,7 +123,7 @@ class Declaration extends Component {
                         Je déclare être réellement {this.state.firstName}{" "}
                         {this.state.lastName} ({this.state.artistName}).
                       </strong>{" "}
-                      Je comprends que le fait me faire passer pour quelqu’un
+                      Je comprends que le fait de me faire passer pour quelqu’un
                       d’autre constituerait une faute grave passible de
                       poursuites judiciaires.
                     </p>
@@ -159,7 +159,7 @@ class Declaration extends Component {
                       intervenus entre moi-même et tout collaborateur. Cela
                       représente l’entente souhaitée. Je comprends que ces
                       pourcentages s’appliqueront désormais à tout partage de
-                      revenus en lien sur <em>{this.state.songTitle}</em>.
+                      revenus en lien avec <em>{this.state.songTitle}</em>.
                     </p>
                   </div>
                 )}
@@ -168,7 +168,7 @@ class Declaration extends Component {
 
             <Modal.Actions>
               <Button onClick={this.close} negative>
-                {t("collaborateur.attribut.bouton.annuler")}
+                {t("flot.split.collaborateur.attribut.bouton.annuler")}
               </Button>
 
               <Button

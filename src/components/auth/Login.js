@@ -227,9 +227,7 @@ class LogIn extends Component {
                                   type={this.state.hidden ? "password" : "text"}
                                   id="password"
                                   name="password"
-                                  placeholder={t(
-                                    "flot.split.inscription.motdepasse"
-                                  )}
+                                  placeholder=""
                                   required={true}
                                 />
                                 <button

@@ -68,6 +68,7 @@ input {
   padding-right: 0px;
   margin: 5px 0 5px 0;
   padding-right: 0px;
+
 }
 
 label[for="username"],
@@ -350,8 +351,13 @@ header#registerHeader h3 {
 
 #prompt,
 #roles {
-  height: 30px;
-  padding-top: 0px;
+  padding: initial;
+}
+
+.ui.icon.search {
+  position: absolute;
+  right: 430px;
+  top: 18px
 }
 
 #roles {
@@ -380,8 +386,9 @@ input[placeholder] {
 
 .dropdown-container {
   overflow: hidden;
-  width: "460px";
+  width: "464px";
 }
-.Dropdown {
-  position: fixed;
+.change-height-of-dropdown {
+  min-height: auto !important;
+  height: 1em;
 }

@@ -4,8 +4,6 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
-
-
 import {
   Button,
   Header,
@@ -417,7 +415,7 @@ class Register extends Component {
                           <div className="ui row" style={{ marginTop: "30px" }}>
                             <span>
                               <label style={{ fontWeight: "bold" }}>
-                                {t("flot.split.collaborateur.attribut.indication.artiste")}
+                                {t("flot.split.collaborateur.attribut.etiquette.artiste")}
                               </label>
                               <label style={{ color: "grey", float: "right" }}>
                                 {t("flot.split.collaborateur.attribut.etiquette.option")}
@@ -429,7 +427,7 @@ class Register extends Component {
                               type="text"
                               className="artistName"
                               placeholder={t(
-                                "flot.split.collaborateur.attribut.etiquette.artiste"
+                                "flot.split.collaborateur.attribut.indication.artiste"
                               )}
                               value={this.state.artistName}
                               onChange={e =>
@@ -457,6 +455,7 @@ class Register extends Component {
                                   icon="ui search icon"
                                   id="prompt"
                                   type="text"
+                                  style={{ maxHeight: "10px" }}
                                   options={this.state.groups}
                                   placeholder={t(
                                     "flot.split.collaborateur.attribut.indication.groupe"
@@ -571,6 +570,7 @@ class Register extends Component {
                                   validate={this.validateUsername}
                                   name="username"
                                   id="username"
+                                  style={{ marginBottom: "20px" }}
                                   aria-describedby="userNameHelp"
                                   placeholder={t(
                                     "flot.split.inscription.exemple"
@@ -662,7 +662,7 @@ class Register extends Component {
                                       this.toggleShow();
                                     }}
                                   >
-                                    <Eye actif={this.state.hidden} />
+                                    <Eye actif={this.state.hidden && this.state.confirmhidden} />
                                   </button>
                                 </div>
 
@@ -718,7 +718,7 @@ class Register extends Component {
                                     this.toggleConfirmShow();
                                   }}
                                 >
-                                  <Eye actif={this.state.confirmhidden} />
+                                  <Eye actif={this.state.confirmhidden && this.state.hidden} />
 
                                   {/*<svg
                                     width="24"

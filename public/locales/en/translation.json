@@ -30,12 +30,13 @@
       "etiquette": {
         "nom": "Legal Name",
         "prenom": "Legal First Name",
-        "artiste": "Enter your pseudoname/AKA",
+        "artiste": "Artist name (aka)",
         "option": " Optional",
         "na": "If not applicable, the complete name will be displayed.",
         "role": "Role(s) by default",
         "courriel": "Email",
-        "groupe": "Group/Entity"
+        "groupe": "Add groups, artistic enteties or compagnies",
+        "ajout": "Add a group or an artist"
       },
       "indication": {
         "nom": "Last name",
@@ -43,7 +44,7 @@
         "artiste": "Artist name",
         "role": "Choose one or more role",
         "role2": "These roles can be modified later.",
-        "groupe": "Search among groups"
+        "groupe": "Search among enteties"
       }
     },
     "declaration": {
@@ -453,7 +454,7 @@
             "role": {
               "auteur": "Author",
               "compositeur": "Composer",
-              "arrangeur": "Remixer"
+              "arrangeur": "Arranger"
             }
           },
           "interprete": {
@@ -571,7 +572,7 @@
         "composer": "Composer",
         "singer": "Singer",
         "musicien": "Musician",
-        "remixer": "Remixer",
+        "remixer": "Arranger",
         "publisher": "Publisher"
       },
       "partage": {
@@ -630,6 +631,7 @@
         "courriel": "Enter your email",
         "exemple": "name@example.com",
         "email-invalide": "Invalid email",
+        "email-requis": "Email required",
         "motdepasse": "Choose your password",
         "password-invalide": "Invalid password",
         "correspond": "The passwords do not match",
@@ -643,6 +645,7 @@
     "fin": {
       "created": "Created documentation",
       "maintenant": "is now documented!",
+      "maintenantPartage": "The split proposition now exists. Bravo!",
       "resume": "See the summary",
       "partage": "See the proposal",
       "partageCree": "⭐️ The share proposal is created",
