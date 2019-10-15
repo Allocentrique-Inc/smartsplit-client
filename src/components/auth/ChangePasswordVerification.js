@@ -7,7 +7,7 @@ function accueil() {
   window.location.assign("./Login.js");
 }
 
-class ChangePasswordVerification extends Component {
+class ChoosePasswordVerification extends Component {
   render() {
     return (
       <React.Fragment>
@@ -56,4 +56,4 @@ class ChangePasswordVerification extends Component {
   }
 }
 
-export default ChangePasswordVerification;
+export default ChoosePasswordVerification;

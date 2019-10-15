@@ -60,7 +60,8 @@ class Register extends Component {
       currentRoleValue: [],
       image: "",
       uploadURL: "",
-      locale: navigator.language || navigator.userLanguage
+      locale: navigator.language || navigator.userLanguage,
+      gender: "registeredUser"  // Cognito Default Attribute Gender used as flag for user creation
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -145,6 +146,7 @@ class Register extends Component {
     const instruments = this.state.instruments;
     const groups = this.state.currentValue;
     const locale = this.state.locale;
+    const gender = this.state.gender;
 
     try {
       Auth.signUp({
@@ -155,6 +157,7 @@ class Register extends Component {
           given_name: firstName,
           family_name: lastName,
           locale: locale,
+          gender: gender,
           "custom:artistName": artistName,
           "custom:instruments": JSON.stringify(instruments),
           "custom:defaultRoles": JSON.stringify(defaultRoles),
