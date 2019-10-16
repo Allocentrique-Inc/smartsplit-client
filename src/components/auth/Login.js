@@ -30,8 +30,6 @@ class LogIn extends Component {
     };
 
     this.toggleShow = this.toggleShow.bind(this);
-    this.validateUsername = this.validateUsername.bind(this);
-    this.validatePassword = this.validatePassword.bind(this);
   }
 
   handlePasswordChange(e) {
@@ -50,26 +48,6 @@ class LogIn extends Component {
       }
     });
   };
-
-  validateUsername(value) {
-    if (!value) {
-      return "Required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
-      return "Invalid username";
-    }
-  }
-
-  validatePassword(value) {
-    if (!value) {
-      return "Required";
-    } else if (
-      !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(
-        value
-      )
-    ) {
-      return "Invalid password";
-    }
-  }
 
   handleSubmit = values => {
     try {
@@ -193,7 +171,6 @@ class LogIn extends Component {
                                 {t("accueil.courriel")}
                               </label>
                               <Field
-                                validate={this.validateUsername}
                                 name="username"
                                 id="username"
                                 aria-describedby="usernameHelp"
@@ -202,14 +179,6 @@ class LogIn extends Component {
                                 )}
                                 required={true}
                               />
-                              {errors.username && touched.username && (
-                                <div style={{ color: "red" }}>
-                                  {" "}
-                                  {t(
-                                    "flot.split.inscription.email-invalide"
-                                  )}{" "}
-                                </div>
-                              )}
                             </div>
                           </div>
                           <div className="field">
@@ -219,7 +188,6 @@ class LogIn extends Component {
                               </label>
                               <div className="input-wrapper">
                                 <Field
-                                  validate={this.validatePassword}
                                   type={this.state.hidden ? "password" : "text"}
                                   id="password"
                                   name="password"
@@ -238,14 +206,6 @@ class LogIn extends Component {
                                 </button>
                               </div>
                             </div>
-                            {errors.password && touched.password && (
-                              <div style={{ color: "red" }}>
-                                {" "}
-                                {t(
-                                  "flot.split.inscription.password-invalide"
-                                )}{" "}
-                              </div>
-                            )}
                           </div>
                           {!this.state.patience && (
                             <div className="field">
