@@ -143,65 +143,65 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
     });
 
     return (
-      <Modal
+      /*<Modal
         open={this.state.open}
         onClose={this.handleClose}
         size="small"
         closeIcon
-      >
-        <Translation>
-          {t => (
+      >*/
+      <Translation>
+        {t => (
 
-            <div style={{
-              fontFamily: "IBM Plex Sans",
-              fontSize: "16px",
-              marginLeft: "10px"
-            }}>
-              <div style={{ margin: "10px 50px 10px 30px" }}>
-                <Modal.Header>
-                  <strong>{t("flot.split.documente-ton-oeuvre.proposition.titre")}</strong>
-                  <a className="close-icon"
-                    onClick={() => { this.handleClose() }}
-                    style={{
-                      right: "40px",
-                      position: "absolute"
-                    }}
-                  >
-                    <img src={closeIcon} alt={"close"} />
-                  </a>
-                </Modal.Header>
-                <br />
-                <Modal.Content style={{ color: "#687A8B" }}>
-                  {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
-                </Modal.Content>
-              </div>
-              {ayantDroits}
-              <div style={{ display: "flex" }}>
-                <Button
-                  onClick={this.handleClose}
+          <div style={{
+            fontFamily: "IBM Plex Sans",
+            fontSize: "16px",
+            marginLeft: "10px"
+          }}>
+            <div style={{ margin: "10px 50px 10px 30px" }}>
+              <Modal.Header>
+                <strong>{t("flot.split.documente-ton-oeuvre.proposition.titre")}</strong>
+                <a className="close-icon"
+                  onClick={() => { this.handleClose() }}
                   style={{
-                    margin: "20px 0px 0px 140px",
-                    height: "10%"
-                  }}>
-                  {t("flot.split.collaborateur.attribut.bouton.annuler")}
-                </Button>
-                <div
-                  onClick={this.handleClose}
-                  className={`ui medium button envoie`}
-                  style={{
-                    width: "45%",
-                    margin: "20px 50px 20px 0px",
-                    marginLeft: "auto"
+                    right: "40px",
+                    position: "absolute"
                   }}
                 >
-                  {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
-                </div>
+                  <img src={closeIcon} alt={"close"} />
+                </a>
+              </Modal.Header>
+              <br />
+              <Modal.Content style={{ color: "#687A8B" }}>
+                {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
+              </Modal.Content>
+            </div>
+            {ayantDroits}
+            <div style={{ display: "flex" }}>
+              <Button
+                onClick={this.handleClose}
+                style={{
+                  margin: "20px 0px 0px 140px",
+                  height: "10%"
+                }}>
+                {t("flot.split.collaborateur.attribut.bouton.annuler")}
+              </Button>
+              <div
+                onClick={this.handleClose}
+                className={`ui medium button envoie`}
+                style={{
+                  width: "45%",
+                  margin: "20px 50px 20px 0px",
+                  marginLeft: "auto"
+                }}
+              >
+                {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
               </div>
             </div>
+          </div>
 
-          )}
-        </Translation>
-      </Modal>
+        )}
+      </Translation>
+      /*</Modal>*/
     );
   }
 }
