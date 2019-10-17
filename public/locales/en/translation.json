@@ -24,7 +24,7 @@
     "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
-    "titre": "Add a collaborating artist",
+    "titre": "Add a collaborator",
     "titre2": "Add as a collaborator:",
     "attribut": {
       "etiquette": {
@@ -331,7 +331,7 @@
           "options": {
             "question1": "Which type of performance?",
             "question1-choix-a": "Main Artist",
-            "question1-choix-b": "Featuring Artist",
+            "question1-choix-b": "Backup Artist",
             "question2": "Which role in the musical piece?",
             "question2-choix-a": "Singer",
             "question2-choix-b": "Musician"
@@ -488,9 +488,11 @@
         "editeur": {
           "ajout": "Add an editor",
           "editeur": "Editor",
-          "donateur": "Donor"
+          "donateur": "Creator"
         },
         "proposition": {
+          "titre": "Send the copyright split",
+          "sous-titre": "To finalize this split, you have to invite your collaborators to validate it all. Indicate their email addresses to which you are sending your split proposition.",
           "nouvelle": "New musical work",
           "envoyer": "Send to collaborators",
           "continuer": "Continue to split the rights",
@@ -561,8 +563,8 @@
         }
       },
       "roles": {
-        "principal": "Principal",
-        "accompaniment": "Accompaniment",
+        "principal": "Featured Artist",
+        "accompaniment": "Backup Artist",
         "producer": "Producer",
         "director": "Director",
         "studio": "Studio",
@@ -644,7 +646,8 @@
     },
     "fin": {
       "created": "Created documentation",
-      "maintenant": "is now documented!",
+      "maintenant1": "The title ",
+      "maintenant2": "is now documented. Congrats!",
       "maintenantPartage": "The split proposition now exists. Bravo!",
       "resume": "See the summary",
       "partage": "See the proposal",

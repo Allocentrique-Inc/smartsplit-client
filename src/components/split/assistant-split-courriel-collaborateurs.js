@@ -1,6 +1,7 @@
 /**
  * Saisie du collaborateur principal de l'oeuvre
  */
+import { Header, Modal, Button } from "semantic-ui-react";
 
 import React, { Component, Fragment } from "react";
 import { Translation } from "react-i18next";
@@ -10,11 +11,12 @@ import { Input, Label } from "semantic-ui-react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
+import closeIcon from "../../assets/svg/icons/x.svg";
+
 const divEmail = {
   position: "relative",
   display: "block",
-  margin: "0 50px 0 30px",
-  background: "transparent"
+  margin: "0 50px 0 30px"
 };
 
 class PageAssistantSplitCourrielsCollaborateurs extends Component {
@@ -58,15 +60,6 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
     });
   }
 
-  click() {
-    this.handleSubmit();
-    this.close();
-  }
-
-  close() {
-    this.props.close();
-  }
-
   handleSubmit() {
     // Construire la structure des ayant-droits avec les courriels modifiés, au besoin
     let _aDs = {};
@@ -105,7 +98,16 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
     this._courrielsModifies[e.target.id] = e.target.value;
   }
 
+  handleOpen = () => {
+    this.setState({ open: true })
+  }
+
+  handleClose = () => {
+    this.setState({ open: false })
+  }
+
   render() {
+
     // Construction de la liste à afficher
     let ayantDroits = [];
     Object.keys(this.state.ayantDroits).forEach(elem => {
@@ -113,7 +115,12 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
 
       ayantDroits.push(
         <div key={`champ--courriel__${elem}`}>
-          <Label style={divEmail} htmlFor={`champ--courriel__${elem}`}>
+          <Label style={divEmail} htmlFor={`champ--courriel__${elem}`}
+            style={{
+              fontSize: "16px",
+              background: "transparent",
+              margin: "10px 0 0 20px"
+            }}>
             {_aD.name}
           </Label>
           <Translation>
@@ -136,23 +143,65 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
     });
 
     return (
-      <Translation>
-        {t => (
-          <div>
-            {ayantDroits}
-            <br></br>
-            <div
-              onClick={() => {
-                this.click();
-              }}
-              className={`ui medium button envoie`}
-              style={{ position: "relative", left: "365px" }}
-            >
-              {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
+      <Modal
+        open={this.state.open}
+        onClose={this.handleClose}
+        size="small"
+        closeIcon
+      >
+        <Translation>
+          {t => (
+
+            <div style={{
+              fontFamily: "IBM Plex Sans",
+              fontSize: "16px",
+              marginLeft: "10px"
+            }}>
+              <div style={{ margin: "10px 50px 10px 30px" }}>
+                <Modal.Header>
+                  <strong>{t("flot.split.documente-ton-oeuvre.proposition.titre")}</strong>
+                  <a className="close-icon"
+                    onClick={() => { this.handleClose() }}
+                    style={{
+                      right: "40px",
+                      position: "absolute"
+                    }}
+                  >
+                    <img src={closeIcon} alt={"close"} />
+                  </a>
+                </Modal.Header>
+                <br />
+                <Modal.Content style={{ color: "#687A8B" }}>
+                  {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
+                </Modal.Content>
+              </div>
+              {ayantDroits}
+              <div style={{ display: "flex" }}>
+                <Button
+                  onClick={this.handleClose}
+                  style={{
+                    margin: "20px 0px 0px 140px",
+                    height: "10%"
+                  }}>
+                  {t("flot.split.collaborateur.attribut.bouton.annuler")}
+                </Button>
+                <div
+                  onClick={this.handleClose}
+                  className={`ui medium button envoie`}
+                  style={{
+                    width: "45%",
+                    margin: "20px 50px 20px 0px",
+                    marginLeft: "auto"
+                  }}
+                >
+                  {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
+                </div>
+              </div>
             </div>
-          </div>
-        )}
-      </Translation>
+
+          )}
+        </Translation>
+      </Modal>
     );
   }
 }

@@ -99,6 +99,7 @@ class ForgotPasswordVerification extends Component {
                         aria-describedby="verificationCodeHelp"
                         placeholder={t("flot.split.sommaire.verification")}
                         value={this.state.verificationcode}
+                        style={{ color: "#212121" }}
                         onChange={this.onInputChange}
                       />
                     </p>
@@ -114,6 +115,7 @@ class ForgotPasswordVerification extends Component {
                           "flot.split.auth.oublier.indication.email"
                         )}
                         value={this.state.email}
+                        style={{ color: "#212121" }}
                         onChange={this.onInputChange}
                       />
                       <span className="icon is-small is-left">

@@ -24,17 +24,17 @@
     "apercu-sen-vient": "Votre aperçu s'affichere ici"
   },
   "collaborateur": {
-    "titre": "Ajouter un artiste collaborateur",
+    "titre": "Ajouter un collaborateur",
     "titre2": "Ajouter comme collaborateur :",
     "bouton": {
       "annuler": "Annuler",
       "sauvegarder": "Sauvegarder",
       "soumettre": "Soumette"
+    },
+    "declaration": {
+      "identite": "Déclaration d'identité",
+      "accepter": "Accepter"
     }
-  },
-  "declaration": {
-    "identite": "Déclaration d'identité",
-    "accepter": "Accepter"
   },
   "oeuvre": {
     "attribut": {
@@ -217,7 +217,7 @@
             "prenom": "Prénom légal",
             "artiste": "Nom d'artiste (alias)",
             "role": "Rôle dans la pièce musicale",
-            "option": " (optionel)",
+            "option": "(optionel)",
             "na": "Si non applicable, nous afficherons le nom complet.",
             "courriel": "Courriel",
             "groupe": "Ajouter groupes, entités artistiques ou entreprises",
@@ -484,9 +484,11 @@
         "editeur": {
           "ajout": "Ajouter un éditeur",
           "editeur": "Éditeur",
-          "donateur": "Donateur"
+          "donateur": "Créateur"
         },
         "proposition": {
+          "titre": "Envoyer le partage des droits",
+          "sous-titre": "Pour finaliser ce partage, tu dois inviter tes collabos à valider le tout. Indique leurs adresses courriels auxquelles envoyer ta proposition de partage.",
           "nouvelle": "Créer une nouvelle version",
           "envoyer": "Envoyer aux collaborateurs",
           "continuer": "Continuer le partage",
@@ -549,8 +551,8 @@
         }
       },
       "roles": {
-        "principal": "Principal",
-        "accompaniment": "Accompagnement",
+        "principal": "Artiste principal",
+        "accompaniment": "Artiste d'accompagnement",
         "producer": "Producteur",
         "director": "Réalisateur",
         "studio": "Studio",
@@ -632,7 +634,8 @@
     },
     "fin": {
       "created": "🚀 Vers la découvrabilité !",
-      "maintenant": "Le titre {{titre}} est désormais connu. Félicitations !",
+      "maintenant1": "Le titre ",
+      "maintenant2": "est désormais connu. Félicitations !",
       "maintenantPartage": "La proposition de partage existe. Bravo !",
       "resume": "Voir le condensé",
       "partage": "Voir le partage",
@@ -707,8 +710,8 @@
   "selection": "Une sélection dans cette liste est obligatoire",
   "champ": "Ce champ texte est obligatoire",
   "tooltip": {
-    "egal": "Divise le droit d'auteur par le nombre de personnes et attribue le rôle « Auteur-Compositeur » par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus commencent à rentrer !",
-    "roles": "Divise le droit d'auteur en deux : 50% va à ceux qui ont écrit les paroles, et 50% à ceux qui ont composé la musique. Cette dernière partie « musique » est à son tour divisée par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple : Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
+    "egal": "Divise le droit d'auteur par le nombre de personnes et attribue le rôle «Auteur-Compositeur» par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus commencent à rentrer !",
+    "roles": "Divise le droit d'auteur en deux : 50% va à ceux qui ont écrit les paroles, et 50% à ceux qui ont composé la musique. Cette dernière partie «musique» est à son tour divisée par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple : Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
     "manuel": "Te laisse déterminer le pourcentage et les rôles pour chaque collaborateur. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas."
   }
 }

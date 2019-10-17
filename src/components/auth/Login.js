@@ -240,7 +240,7 @@ class LogIn extends Component {
                                 </button>
                               </div>
                             </div>
-                            {errors.password && touched.password && (
+                            {/* {errors.password && touched.password && (
                               <div style={{
                                 color: "red",
                                 position: "absolute",
@@ -250,8 +250,8 @@ class LogIn extends Component {
                                 {t(
                                   "flot.split.inscription.password-invalide"
                                 )}{" "}
-                              </div>
-                            )}
+                              </div> 
+                            )}*/}
                           </div>
                           {!this.state.patience && (
                             <div className="field">

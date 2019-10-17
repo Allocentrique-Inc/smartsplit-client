@@ -31,16 +31,16 @@ export default class SommaireOeuvre extends Component {
                 this.setState({ user: res })
                 this.getMedia()
                 axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
-                .then(res=>{
-                    let _p0
-                    res.data.forEach(_p=>{
-                        if(!_p0)
-                            _p0 = _p
-                        if(_p0._d < _p._d)
-                            _p0 = _p
+                    .then(res => {
+                        let _p0
+                        res.data.forEach(_p => {
+                            if (!_p0)
+                                _p0 = _p
+                            if (_p0._d < _p._d)
+                                _p0 = _p
+                        })
+                        this.setState({ p0: _p0 })
                     })
-                    this.setState({p0: _p0})
-                })
             })
             .catch(err => {
                 toast.error(err.message)
@@ -62,10 +62,10 @@ export default class SommaireOeuvre extends Component {
                         <Translation>
                             {
                                 t =>
-                                    <Login message={ t('connexion.titre.oeuvre') } fn={ (user) => {
+                                    <Login message={t('connexion.titre.oeuvre')} fn={(user) => {
                                         onClose()
                                         this.setState({ user: user })
-                                    } }/>
+                                    }} />
                             }
                         </Translation>
                 })
@@ -73,7 +73,7 @@ export default class SommaireOeuvre extends Component {
     }
 
     getMedia() {
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.mediaId }`)
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
             .then(res => {
                 let media = res.data.Item
                 this.setState({ media: media })
@@ -82,13 +82,13 @@ export default class SommaireOeuvre extends Component {
 
     majTitre() {
         let titre = document.getElementById('titre').value
-        axios.patch(`http://dev.api.smartsplit.org:8080/v1/media/${ this.state.media.mediaId }/title`, {
+        axios.patch(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.media.mediaId}/title`, {
             mediaId: this.state.media.mediaId,
             title: titre
         })
-        .then(() => {
-            this.getMedia()
-        })
+            .then(() => {
+                this.getMedia()
+            })
     }
 
     editerTitre(edition) {
@@ -107,25 +107,25 @@ export default class SommaireOeuvre extends Component {
                         (t, i18n) =>
                             <div className="ui grid">
                                 <div className="ui row"
-                                     style={ { background: "#FAF8F9", paddingTop: "30px", paddingBottom: "0px" } }>
-                                    <div className="ui two wide column"/>
+                                    style={{ background: "#FAF8F9", paddingTop: "30px", paddingBottom: "0px" }}>
+                                    <div className="ui two wide column" />
                                     <div className="ui fourteen wide column">
-                                        <Entete contenu={ contenu } navigation={ '/accueil' }
-                                                profil={ this.state.user }/>
+                                        <Entete contenu={contenu} navigation={'/accueil'}
+                                            profil={this.state.user} />
                                     </div>
                                 </div>
-                                <div className="ui row" style={ { background: "#FAF8F9" } }>
+                                <div className="ui row" style={{ background: "#FAF8F9" }}>
                                     <div className="ui two wide column"></div>
                                     <div className="ui eleven wide column"></div>
                                 </div>
-                                <div className="ui row" style={ { background: "#FAF8F9" } }>
-                                    <div className="ui two wide column"/>
+                                <div className="ui row" style={{ background: "#FAF8F9" }}>
+                                    <div className="ui two wide column" />
                                     <div className="ui eleven wide column">
                                         <div className="ui row">
                                             <div className="ui twelve wide column grid">
                                                 <div className="ui one wide column">
                                                     <i className="file image outline icon huge grey"
-                                                       style={ { background: "#F2EFF0" } }></i>
+                                                        style={{ background: "#F2EFF0" }}></i>
                                                 </div>
                                                 <div className="ui fourteen wide column">
                                                     <div className="ui row">
@@ -138,25 +138,25 @@ export default class SommaireOeuvre extends Component {
                                                                         id="titre"
                                                                         type="text"
                                                                         placeholder="Saisir un titre"
-                                                                        defaultValue={ this.state.media.title }
-                                                                        onKeyPress={ (e) => {
+                                                                        defaultValue={this.state.media.title}
+                                                                        onKeyPress={(e) => {
                                                                             if (e.key === "Enter") {
                                                                                 this.majTitre()
                                                                                 this.editerTitre(false)
                                                                             }
-                                                                        } }
+                                                                        }}
                                                                     ></input>
                                                                     <i
-                                                                        onClick={ () => {
+                                                                        onClick={() => {
                                                                             this.majTitre();
                                                                             this.editerTitre(false)
-                                                                        } }
+                                                                        }}
                                                                         className="save alternate icon grey big"
-                                                                        style={ {
+                                                                        style={{
                                                                             cursor: "pointer",
                                                                             paddingTop: "5px",
                                                                             paddingLeft: "5px"
-                                                                        } }>
+                                                                        }}>
                                                                     </i>
                                                                 </div>
                                                             )
@@ -164,13 +164,13 @@ export default class SommaireOeuvre extends Component {
                                                         {
                                                             !this.state.editerTitre &&
                                                             (
-                                                                <h1>{ `${ this.state.media.title }` }&nbsp;&nbsp;&nbsp;
+                                                                <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
                                                                     <i
-                                                                        onClick={ () => {
+                                                                        onClick={() => {
                                                                             this.editerTitre(true)
-                                                                        } }
+                                                                        }}
                                                                         className="pencil alternate icon grey"
-                                                                        style={ { cursor: "pointer" } }>
+                                                                        style={{ cursor: "pointer" }}>
                                                                     </i>
                                                                 </h1>
                                                             )
@@ -178,11 +178,11 @@ export default class SommaireOeuvre extends Component {
                                                     </div>
                                                     <div className="ui row">
                                                         <div className="small-400"
-                                                             style={ { display: "inline-block" } }>{ t('oeuvre.creePar') }&nbsp;</div>
+                                                            style={{ display: "inline-block" }}>{t('oeuvre.creePar')}&nbsp;</div>
                                                         <div className="small-500-color"
-                                                             style={ { display: "inline-block" } }>{ `${ artiste }` }&nbsp;</div>
+                                                            style={{ display: "inline-block" }}>{`${artiste}`}&nbsp;</div>
                                                         <div className="small-400-color"
-                                                             style={ { display: "inline-block" } }>&bull; { i18n.lng && moment(this.state.media.creationDate).locale(i18n.lng.substring(0, 2)).fromNow() }</div>
+                                                            style={{ display: "inline-block" }}>&bull; {i18n.lng && moment(this.state.media.creationDate).locale(i18n.lng.substring(0, 2)).fromNow()}</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -190,55 +190,55 @@ export default class SommaireOeuvre extends Component {
                                     </div>
                                 </div>
                                 <div className="ui row">
-                                    <div className="ui two wide column"/>
+                                    <div className="ui two wide column" />
                                     <div className="ui six wide column">
                                         <div className="ui row etape">
-                                            <div className="ui heading3">{ t('flot.split.documente-ton-oeuvre.preambules.titre1') }</div>
-                                            <div className="ui heading1">{ t('flot.split.documente-ton-oeuvre.preambules.sous-titre1') }</div>
+                                            <div className="ui heading3">{t('flot.split.documente-ton-oeuvre.preambules.titre1')}</div>
+                                            <div className="ui heading1">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre1')}</div>
 
                                             <div className="ui medium-400">
-                                                { t('flot.split.documente-ton-oeuvre.preambules.intro1') }
+                                                {t('flot.split.documente-ton-oeuvre.preambules.intro1')}
                                             </div>
 
                                             <div className="ui medium button"
-                                                 style={ { marginTop: "50px", marginLeft: "0px" } } onClick={ () => {
-                                                
+                                                style={{ marginTop: "20px", marginLeft: "0px" }} onClick={() => {
+
                                                     let p0 = this.state.p0
 
-                                                    if(!p0) {
-                                                        window.location.href = `/partager/nouveau/${ this.state.mediaId }`
+                                                    if (!p0) {
+                                                        window.location.href = `/partager/nouveau/${this.state.mediaId}`
                                                     } else {
-                                                        window.location.href = `/partager/${ this.state.mediaId }`
+                                                        window.location.href = `/partager/${this.state.mediaId}`
                                                     }
-                                                                                                    
-                                            } }>
-                                                { t('flot.split.action.commencer') }
+
+                                                }}>
+                                                {t('flot.split.action.commencer')}
                                             </div>
                                         </div>
                                         <div className="ui row etape">
-                                            <div className="ui heading3">{ t('flot.split.documente-ton-oeuvre.preambules.titre2') }</div>
-                                            <div className="ui heading1">{ t('flot.split.documente-ton-oeuvre.preambules.sous-titre2') }</div>
+                                            <div className="ui heading3">{t('flot.split.documente-ton-oeuvre.preambules.titre2')}</div>
+                                            <div className="ui heading1">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre2')}</div>
                                             <div className="ui medium-400">
-                                                { t('flot.split.documente-ton-oeuvre.preambules.intro2') }
+                                                {t('flot.split.documente-ton-oeuvre.preambules.intro2')}
                                             </div>
                                             <div className="ui medium button"
-                                                 style={ { marginTop: "50px", marginLeft: "0px" } } onClick={ () => {
-                                                window.location.href = `/documenter/${ this.state.media.mediaId }`
-                                            } }>
-                                                { t('flot.split.action.commencer') }
+                                                style={{ marginTop: "20px", marginLeft: "0px" }} onClick={() => {
+                                                    window.location.href = `/documenter/${this.state.media.mediaId}`
+                                                }}>
+                                                {t('flot.split.action.commencer')}
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="ui five wide column" style={ { padding: "50px" } }>
-                                        <div style={ {
+                                    <div className="ui five wide column" style={{ padding: "50px" }}>
+                                        <div style={{
                                             position: "absolute",
                                             top: "85px",
                                             left: "135px",
                                             width: "55%"
-                                        } }>
-                                            { this.state.media.title } { t('oeuvre.par') } { artiste }
+                                        }}>
+                                            {this.state.media.title} {t('oeuvre.par')} {artiste}
                                         </div>
-                                        <img alt="médium" src={ cassette }/>
+                                        <img alt="médium" src={cassette} />
                                     </div>
                                 </div>
                             </div>
@@ -247,7 +247,7 @@ export default class SommaireOeuvre extends Component {
             )
         } else {
             return (
-                <div>{ _m }</div>
+                <div>{_m}</div>
             )
         }
     }

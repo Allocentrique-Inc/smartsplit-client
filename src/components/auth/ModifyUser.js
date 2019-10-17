@@ -58,7 +58,7 @@ class ModifyUser extends Component {
 
   handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value });
 
-  roleChange = (e, { value }) => this.setState({ currentRoleValue: value });  
+  roleChange = (e, { value }) => this.setState({ currentRoleValue: value });
 
   handleFileDelete(e) {
     e.target.value = null;
@@ -85,7 +85,7 @@ class ModifyUser extends Component {
   }
 
   randomPassword(Length) {
-    let length = Length-4;
+    let length = Length - 4;
     let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
     let password = (Math.round(Math.random()) > 0.5) ? "A1a*" : "Z0z!";
     for (let x = 3; x < length; x++) {
@@ -94,7 +94,7 @@ class ModifyUser extends Component {
     }
 
     // Vérification de la force du mot de passe
-    if(zxcvbn(password).score < MIN_STRENGTH) {
+    if (zxcvbn(password).score < MIN_STRENGTH) {
       password = this.randomPassword(16)
     }
 
@@ -105,11 +105,11 @@ class ModifyUser extends Component {
 
     // S'il n'y a pas de groupe, un en créé un éponyme
     let groupes = this.state.currentValue
-    if(groupes.length === 0) {
+    if (groupes.length === 0) {
 
       let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
 
-      if(nom.trim() === "") {
+      if (nom.trim() === "") {
         nom = "Anonyme"
       }
 
@@ -135,9 +135,9 @@ class ModifyUser extends Component {
         password,
         attributes: attributes
       })
-        .then((res) => {          
+        .then((res) => {
           let userSub = res.userSub
-          this.setState({open: false})
+          this.setState({ open: false })
           if (this.props.fn) {
             this.props.fn(userSub);
           }
@@ -164,7 +164,7 @@ class ModifyUser extends Component {
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
-        res.data.forEach(function(element) {
+        res.data.forEach(function (element) {
           groupers.push(element.groups);
           // Remove duplicates from multiple right holders and flattens arrays
           let GR = groupers
@@ -173,7 +173,7 @@ class ModifyUser extends Component {
             .filter(Boolean);
           groupsUnique = [...new Set(GR)];
         });
-        groupsUnique.forEach(function(elm) {
+        groupsUnique.forEach(function (elm) {
           groups.push({ key: elm, text: elm, value: elm });
         });
         this.setState({ groups: groups });
@@ -209,9 +209,10 @@ class ModifyUser extends Component {
             closeOnDimmerClick={false}
             onClose={this.props.close}
             size="small"
+            style={{ width: "auto" }}
           >
             <Modal.Header className="Titre">
-              <div className="ui row" style={{ margin: "20px 0 20px 65px" }}>
+              <div className="ui row" style={{ margin: "20px 0 20px 40px" }}>
                 <strong>{t("collaborateur.titre")}</strong>
               </div>
             </Modal.Header>
@@ -226,34 +227,34 @@ class ModifyUser extends Component {
                       width: "100%"
                     }}
                   >
-                    <div style={{ width: "220px" }}>
+                    <div style={{ width: "250px" }}>
                       <label htmlFor="prenom">
                         <strong>
-                          {t("collaborateur.attribut.etiquette.prenom")}
+                          {t("flot.split.collaborateur.attribut.etiquette.prenom")}
                         </strong>
                       </label>
                       <input
                         type="text"
-                        className="firstName"
+                        className="newFirstName"
                         placeholder={t(
-                          "collaborateur.attribut.etiquette.prenom"
+                          "flot.split.collaborateur.attribut.etiquette.prenom"
                         )}
                         value={this.state.firstName}
                         onChange={e => this.onTodoChange(e.target.value)}
                         style={{ marginRight: "5px" }}
                       />
                     </div>
-                    <div style={{ width: "220px" }}>
+                    <div style={{ width: "250px" }}>
                       <label>
                         <strong>
                           &nbsp;&nbsp;
-                          {t("collaborateur.attribut.etiquette.nom")}
+                          {t("flot.split.collaborateur.attribut.etiquette.nom")}
                         </strong>
                       </label>
                       <input
                         type="text"
-                        className="lastName"
-                        placeholder={t("collaborateur.attribut.etiquette.nom")}
+                        className="newLastName"
+                        placeholder={t("flot.split.collaborateur.attribut.etiquette.nom")}
                         value={this.state.lastName}
                         onChange={e =>
                           this.setState({ lastName: e.target.value })
@@ -268,17 +269,17 @@ class ModifyUser extends Component {
                   <span>
                     <label>
                       <strong>
-                        {t("collaborateur.attribut.etiquette.artiste")}
+                        {t("flot.split.collaborateur.attribut.etiquette.artiste")}
                       </strong>
                     </label>
                     <label style={{ float: "right", color: "gray" }}>
-                      {t("collaborateur.attribut.etiquette.option")}
+                      {t("flot.split.collaborateur.attribut.etiquette.option")}
                     </label>
                   </span>
                   <input
                     type="text"
-                    className="artistName"
-                    placeholder={t("collaborateur.attribut.etiquette.artiste")}
+                    className="newArtistName"
+                    placeholder={t("flot.split.collaborateur.attribut.etiquette.artiste")}
                     value={this.state.artistName}
                     onChange={e =>
                       this.setState({ artistName: e.target.value })
@@ -288,20 +289,20 @@ class ModifyUser extends Component {
                     className="sous titre"
                     style={{ color: "gray", fontSize: "small" }}
                   >
-                    {t("collaborateur.attribut.etiquette.na")}
+                    {t("flot.split.collaborateur.attribut.etiquette.na")}
                   </div>
                 </div>
 
                 <div className="ui row" style={{ marginTop: "30px" }}>
                   <label>
                     <strong>
-                      {t("collaborateur.attribut.etiquette.courriel")}
+                      {t("flot.split.collaborateur.attribut.etiquette.courriel")}
                     </strong>
                   </label>
                   <input
                     type="text"
-                    className="email"
-                    placeholder={t("collaborateur.attribut.etiquette.courriel")}
+                    className="Email"
+                    placeholder={t("flot.split.collaborateur.attribut.etiquette.courriel")}
                     value={this.state.email}
                     onChange={e => this.setState({ email: e.target.value })}
                   />
@@ -310,7 +311,7 @@ class ModifyUser extends Component {
                 <div className="ui row" style={{ marginTop: "30px" }}>
                   <label>
                     <strong>
-                      {t("collaborateur.attribut.etiquette.groupe")}
+                      {t("flot.split.collaborateur.attribut.etiquette.groupe")}
                     </strong>
                   </label>
                   <span>
@@ -318,9 +319,10 @@ class ModifyUser extends Component {
                       icon="search"
                       id="prompt"
                       type="text"
+                      style={{ maxHeight: "10px" }}
                       options={this.state.groups}
                       placeholder={t(
-                        "collaborateur.attribut.indication.groupe"
+                        "flot.split.collaborateur.attribut.indication.groupe"
                       )}
                       search
                       multiple={true}
@@ -337,12 +339,13 @@ class ModifyUser extends Component {
                 <div className="ui row" style={{ marginTop: "30px" }}>
                   <label>
                     <strong>
-                      {t("collaborateur.attribut.etiquette.role")}
+                      {t("flot.split.collaborateur.attribut.etiquette.role")}
                     </strong>
                   </label>
                   <Dropdown
                     id="roles"
                     type="text"
+                    style={{ maxHeight: "10px" }}
                     options={[
                       {
                         key: t("flot.split.roles.principal"),
@@ -400,7 +403,7 @@ class ModifyUser extends Component {
                         value: "Musician"
                       }
                     ]}
-                    placeholder={t("collaborateur.attribut.indication.role")}
+                    placeholder={t("flot.split.collaborateur.attribut.indication.role")}
                     search
                     multiple={true}
                     selection
@@ -412,7 +415,7 @@ class ModifyUser extends Component {
                     className="sous titre"
                     style={{ color: "gray", fontSize: "small" }}
                   >
-                    {t("collaborateur.attribut.indication.role2")}
+                    {t("flot.split.collaborateur.attribut.indication.role2")}
                   </div>
                 </div>
 
@@ -421,14 +424,14 @@ class ModifyUser extends Component {
             </div>
             <Modal.Actions>
               <Button onClick={this.props.close} negative>
-                {t("collaborateur.attribut.bouton.annuler")}
+                {t("flot.split.collaborateur.attribut.bouton.annuler")}
               </Button>
               <Button
                 onClick={this.click}
                 positive
                 icon="checkmark"
                 labelPosition="right"
-                content={t("collaborateur.attribut.bouton.sauvegarder")}
+                content={t("flot.split.collaborateur.attribut.bouton.sauvegarder")}
               />
             </Modal.Actions>
           </Modal>
