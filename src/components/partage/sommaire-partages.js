@@ -8,10 +8,8 @@ import { Translation } from 'react-i18next'
 
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import { Auth } from 'aws-amplify'
-import AWS from 'aws-sdk'
 
 import Login from '../auth/Login'
-import ChoosePasswordVerifacation from '../auth/ChoosePasswordVerification'
 
 import { confirmAlert } from 'react-confirm-alert'
 
@@ -31,10 +29,6 @@ const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
-const REGION = 'us-east-2'
-AWS.config.update({ region: REGION })
-const USER_POOL_ID = 'us-east-2_tK9rNdAB1'
-const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider()
 
 export default class SommairePartages extends Component {
 
@@ -45,7 +39,6 @@ export default class SommairePartages extends Component {
             activeIndex: 0,
             panneau: PANNEAU_PROPOSITIONS,
             modaleConnexion: false,
-            modaleChoosePassword: false,
             modaleNouvelle: false,
             modaleCourriels: false
         }
@@ -67,38 +60,7 @@ export default class SommairePartages extends Component {
             this.initialisation()
         })
         .catch(err=>{
-            // let body = {jeton: this.state.jetonApi}
-            let sub = this.state.ayantDroit.rightHolderId
-
-            let USERNAME_FILTER_STRING = 'sub = \"'+ sub + '\"';
-            let params = {
-            "AttributesToGet": ["gender", "email"],
-            "Filter": USERNAME_FILTER_STRING,
-            "Limit": 1,
-            "UserPoolId": USER_POOL_ID
-            }
-            console.log('Cognito Filter Params', params)
-            COGNITO_CLIENT.listUsers(params, (err, data) => {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                if (data.Users[0].Attributes[0].Value === "initiatorCreatedUser") {
-                // window.location.href = '/choose-password'
-                console.log(data.Users[0]);
-                console.log("************* User created by initiator ==> /choose-password", data.Users[0].Attributes[1].Value);
-                this.setState({modaleChoosePassword: true})
-                } else if (data.Users[0].Attributes[0].Value === "registeredUser"){
-                // window.location.href = '/login'
-                console.log(data.Users[0]);
-                console.log("************* Self registered User ==> /connexion")
-                this.setState({modaleConnexion: true})
-                } else {
-                console.log(data);
-                }
-            }
-            })
-
+            this.setState({modaleConnexion: true})
         })        
     }
 
@@ -460,24 +422,6 @@ export default class SommairePartages extends Component {
                                         Auth.currentAuthenticatedUser()
                                         .then(res=>{
                                             that.setState({user: res})                                    
-                                        })
-                                        .catch(err=>{
-                                            toast.error(err.message)
-                                        })
-                                    }} />
-                                </Modal>
-                                <Modal
-                                    open={this.state.modaleChoosePassword}
-                                    closeOnEscape={false}
-                                    closeOnDimmerClick={false}
-                                    onClose={this.props.close} 
-                                    size="small" >
-                                    <br/><br/><br/>
-                                    <ChoosePasswordVerifacation fn={()=>{
-                                        Auth.forgotPassword("creator@iptoki.com")
-                                        // Auth.forgotPassword(this.state.email)
-                                        .then(res=>{
-                                            that.setState({verificationCode: res})                                    
                                         })
                                         .catch(err=>{
                                             toast.error(err.message)
