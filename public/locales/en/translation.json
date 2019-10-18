@@ -636,6 +636,8 @@
         "password-invalide": "Invalid password",
         "correspond": "The passwords do not match",
         "password": "Password",
+        "confirm-password": "Confirm your password",
+        "choose-password": "Choose your password",
         "ou": "or",
         "bouton": "Create my account",
         "courriel-confirm": "Confirm your email",

@@ -5,15 +5,6 @@ import { Auth } from "aws-amplify";
 import { Translation } from "react-i18next";
 import { Modal } from "semantic-ui-react";
 import ChangePasswordVerification from "./ChangePasswordVerification";
-import Eye from "./Eye";
-import { Field, Form, Formik } from "formik";
-
-
-const styleWrapper = {
-  position: 'relative',
-  width: '464px',
-  fontFamily: "IBM Plex Sans"
-}
 
 class ForgotPasswordVerification extends Component {
 
@@ -27,10 +18,9 @@ class ForgotPasswordVerification extends Component {
       errors: {
         cognito: null,
         blankfield: false
-      },
+      }
     }
-    this.toggleShow = this.toggleShow.bind(this);
-  }
+  }  
 
   clearErrorState = () => {
     this.setState({
@@ -48,7 +38,7 @@ class ForgotPasswordVerification extends Component {
     try {
       await Auth.forgotPasswordSubmit(
         this.state.email,
-        this.state.verificationcode,
+        this.state.verificationCode,
         this.state.newpassword
       );
 
@@ -64,10 +54,6 @@ class ForgotPasswordVerification extends Component {
     });
     document.getElementById(event.target.id).classList.remove("is-danger");
   };
-
-  toggleShow() {
-    this.setState({ hidden: !this.state.hidden });
-  }
 
   render() {
     return (
@@ -150,29 +136,28 @@ class ForgotPasswordVerification extends Component {
                 <div className="field">
                   <div className="control">
                     <Modal
-                      trigger={                       
-                          <button
-                            className="ui medium button is-success"
-                            style={{ float: "right", margin: "0 0 50px 0" }}
-                            onClick={this.handleOpen}
-                          >
-                            {t("flot.split.collaborateur.attribut.bouton.soumettre")}
-                          </button>
-                        }
-                        onClose={this.handleClose}
-                        size="small"
-                      >
-                        <Modal.Content>
-                          <ChangePasswordVerification />
-                        </Modal.Content>
-                      </Modal>
-                    </div>
+                      trigger={
+                        <button
+                          className="ui medium button is-success"
+                          style={{ float: "right", margin: "0 0 50px 0" }}
+                          onClick={this.handleOpen}
+                        >
+                          {t("collaborateur.attribut.bouton.soumettre")}
+                        </button>
+                      }
+                      onClose={this.handleClose}
+                      size="small"
+                    >
+                      <Modal.Content>
+                        <ChangePasswordVerification />
+                      </Modal.Content>
+                    </Modal>
                   </div>
-                </form>
-              </div>
+                </div>
+              </form>
+            </div>
           </section>
-        )
-        }
+        )}
       </Translation>
     );
   }

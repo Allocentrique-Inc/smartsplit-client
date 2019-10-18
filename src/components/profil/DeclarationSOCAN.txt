@@ -1,5 +1,4 @@
-<h1>TERMS & CONDITIONS OF MEMBERSHIP</h1>
-<p>
+TERMS & CONDITIONS OF MEMBERSHIP
 Writer
 
 I am applying to SOCAN for membership and agree that, upon acceptance as a Member, I shall execute an agreement with SOCAN and shall abide by SOCAN’s By-laws and the Rules and Regulations of SOCAN as amended from time to time.
@@ -26,4 +25,3 @@ I warrant and represent that I am the creator of the work(s) stated in this noti
 When Viewing a Catalogue or Unidentified Lists
 
 I agree that the information to be viewed is private and confidential and may not be copied or reproduced in any form or disclosed to any third party by me other than to the rights holders associated with this work.
-</p>

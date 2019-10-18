@@ -364,7 +364,7 @@ header#registerHeader h3 {
   max-width: 500px !important;
   display: flex;
   flex-flow: wrap;
-  height: auto;
+  height: 30px;
 }
 
 .sous-titre {
