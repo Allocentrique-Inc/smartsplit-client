@@ -12,18 +12,9 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 
 import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
-import ChoosePasswordVerification from '../auth/ChoosePasswordVerification'
-
 
 import { Modal } from 'semantic-ui-react'
 import Declaration from '../auth/Declaration'
-
-import AWS from 'aws-sdk'
-const REGION = 'us-east-2'
-AWS.config.update({ region: REGION });
-
-const USER_POOL_ID = 'us-east-2_tK9rNdAB1'
-const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider();
 
 const ROLES = [
         "principal",
@@ -364,8 +355,6 @@ export default class SommairePartage extends Component {
         this.calculMesVotes = this.calculMesVotes.bind(this)
         this.envoi = this.envoi.bind(this)
         this.modaleConnexion = this.modaleConnexion.bind(this)
-        this.modaleChoosePassword = this.modaleChoosePassword.bind(this)
-
     }
 
     componentWillMount() {
@@ -591,49 +580,13 @@ export default class SommairePartage extends Component {
             }
         })
         .catch(err=>{
-                       // let body = {jeton: this.state.jetonApi}
-                       let sub = this.state.ayantDroit.rightHolderId
-
-                       let USERNAME_FILTER_STRING = 'sub = \"'+ sub + '\"';
-                       let params = {
-                       "AttributesToGet": ["gender", "email"],
-                       "Filter": USERNAME_FILTER_STRING,
-                       "Limit": 1,
-                       "UserPoolId": USER_POOL_ID
-                       }
-                       console.log('Cognito Filter Params', params)
-                       COGNITO_CLIENT.listUsers(params, (err, data) => {
-                       if (err) {
-                           console.log(err);
-                       }
-                       else {
-                           if (data.Users[0].Attributes[0].Value === "initiatorCreatedUser") {
-                           // window.location.href = '/choose-password'
-                           console.log(data.Users[0]);
-                           console.log("************* User created by initiator ==> /choose-password", data.Users[0].Attributes[1].Value);
-                           this.modaleChoosePassword()
-                           } else if (data.Users[0].Attributes[0].Value === "registeredUser"){
-                           // window.location.href = '/login'
-                           console.log(data.Users[0]);
-                           console.log("************* Self registered User ==> /connexion")
-                           this.modaleConnexion()    
-                           } else {
-                           console.log(data);
-                           }
-                       }
-                       })
-            
+            this.modaleConnexion()            
         })
         
     }
 
     modaleConnexion(ouvert = true) {
         this.setState({modaleConnexion: ouvert})
-    }
-
-
-    modaleChoosePassword(ouvert = true) {
-        this.setState({modaleChoosePassword: ouvert})
     }
 
     render() {
@@ -727,26 +680,6 @@ export default class SommairePartage extends Component {
                                         toast.error(err.message)
                                     })
 
-                                }} />
-                            </Modal>
-                            <Modal
-                                open={this.state.modaleChoosePassword}
-                                closeOnEscape={false}
-                                closeOnDimmerClick={false}
-                                onClose={this.props.close} 
-                                size="small" >
-                                <br/><br/><br/>
-                                <ChoosePasswordVerification fn={()=>{
-                                    Auth.forgotPassword("creator@iptoki.com")
-                                    // Auth.forgotPassword(this.state.email)
-                                    .then(res=>{
-                                        that.setState({verificationCode: res})
-                                        that.envoi()
-                                        that.modaleChoosePassword(false)                   
-                                    })
-                                    .catch(err=>{
-                                        toast.error(err.message)
-                                    })
                                 }} />
                             </Modal>  
                             { 
