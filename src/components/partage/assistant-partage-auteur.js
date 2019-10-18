@@ -408,7 +408,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                 {
                                                                     nom: t('flot.split.modepartage.egal'),
                                                                     valeur: MODES.egal,
-                                                                    info: t('tooltip.egal'),
+                                                                    info: t('tooltip.egal')
                                                                 },
                                                                 {
                                                                     nom: t('flot.split.modepartage.roles'),
