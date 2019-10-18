@@ -624,6 +624,8 @@
         "password-invalide": "Le mot de passe est invalide",
         "correspond": "Les mots de passe ne correspondent pas",
         "password": "Mot de passe",
+        "confirm-password": "Confirmer le mot de passe",
+        "choose-password": "Choisir ton mot de passe",
         "ou": "ou",
         "bouton": "Créer mon compte",
         "courriel-confirm": "Confirmer le courriel",

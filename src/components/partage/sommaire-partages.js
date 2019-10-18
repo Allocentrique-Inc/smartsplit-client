@@ -10,6 +10,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
+
 import { confirmAlert } from 'react-confirm-alert'
 
 import Entete from '../entete/entete'
@@ -27,6 +28,7 @@ import moment from 'moment'
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
+
 
 export default class SommairePartages extends Component {
 

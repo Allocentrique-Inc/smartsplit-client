@@ -15,6 +15,7 @@ import { withTranslation, Translation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
 import zxcvbn from "zxcvbn";
+import { ConsoleLogger } from "@aws-amplify/core";
 
 const MAX_IMAGE_SIZE = 10000000;
 const MIN_STRENGTH = 3;
@@ -35,7 +36,9 @@ class ModifyUser extends Component {
       open: props.open,
       defaultRoles: [],
       currentValue: [],
-      currentRoleValue: []
+      currentRoleValue: [],
+      locale: navigator.language || navigator.userLanguage,
+      gender: "initiatorCreatedUser"  // Cognito Default Attribute Gender used as flag for user creation
     };
 
     // BIND TODO
@@ -45,8 +48,6 @@ class ModifyUser extends Component {
   closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
     this.setState({ closeOnEscape, closeOnDimmerClick, open: true });
   };
-
-  //close = () => this.setState({ open: false })
 
   handleAddition = (e, { value }) => {
     this.setState(prevState => ({
@@ -103,7 +104,7 @@ class ModifyUser extends Component {
 
   handleSubmit = values => {
 
-    // S'il n'y a pas de groupe, un en créé un éponyme
+    // S'il n'y a pas de groupe, un en créé un éponyme, si non c'est un anonyme
     let groupes = this.state.currentValue
     if(groupes.length === 0) {
 
@@ -120,6 +121,8 @@ class ModifyUser extends Component {
       email: this.state.email,
       given_name: this.state.firstName || "Unnamed",
       family_name: this.state.lastName || "Unnamed",
+      locale: this.state.locale || "fr",
+      gender: this.state.gender,
       "custom:artistName": this.state.artistName,
       "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
       "custom:instruments": JSON.stringify(this.state.instruments),

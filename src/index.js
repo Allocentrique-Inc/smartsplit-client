@@ -36,6 +36,7 @@ import Declaration from "./components/auth/Declaration";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import ForgotPasswordVerification from "./components/auth/ForgotPasswordVerification";
 import ChangePasswordVerification from "./components/auth/ChangePasswordVerification";
+import ChoosePasswordVerification from "./components/auth/ChoosePasswordVerification";
 import Welcome from "./components/auth/Welcome";
 import SignInFacebook from "./components/auth/SignInFacebook";
 import SignInGoogle from "./components/auth/SignInGoogle";
@@ -84,13 +85,13 @@ const renderRoutes = () => {
             <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
             <Route exact path="/login" component={renderLogin} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/register-2" component={Register2} />
             <Route exact path="/modify-user" component={ModifyUser} />
             <Route exact path="/declaration" component={Declaration} />
             <Route exact path="/socan" component={Socan} />
             <Route exact path="/sign-in-facebook" component={SignInFacebook} />
             <Route exact path="/sign-in-google" component={SignInGoogle} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
+            <Route exact path="/choose-password" component={ChoosePasswordVerification} />
             <Route
               exact
               path="/forgot-password-verification"

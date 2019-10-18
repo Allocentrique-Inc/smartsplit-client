@@ -12,12 +12,6 @@ import { toast } from "react-toastify";
 
 import Eye from "./Eye";
 
-import { Connexion } from "./Connexion.js";
-
-const TYPE_LOGIN = 0,
-  TYPE_REGISTER = 1,
-  TYPE_FORGOT = 2;
-
 class LogIn extends Component {
   constructor(props) {
     super(props);
@@ -30,8 +24,6 @@ class LogIn extends Component {
     };
 
     this.toggleShow = this.toggleShow.bind(this);
-    this.validateUsername = this.validateUsername.bind(this);
-    this.validatePassword = this.validatePassword.bind(this);
   }
 
   handlePasswordChange(e) {
@@ -50,26 +42,6 @@ class LogIn extends Component {
       }
     });
   };
-
-  validateUsername(value) {
-    if (!value) {
-      return "Required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
-      return "Invalid username";
-    }
-  }
-
-  validatePassword(value) {
-    if (!value) {
-      return "Required";
-    } else if (
-      !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(
-        value
-      )
-    ) {
-      return "Invalid password";
-    }
-  }
 
   handleSubmit = values => {
     try {
@@ -193,7 +165,6 @@ class LogIn extends Component {
                                 {t("accueil.courriel")}
                               </label>
                               <Field
-                                validate={this.validateUsername}
                                 name="username"
                                 id="username"
                                 aria-describedby="usernameHelp"
@@ -223,7 +194,6 @@ class LogIn extends Component {
                               </label>
                               <div className="input-wrapper">
                                 <Field
-                                  validate={this.validatePassword}
                                   type={this.state.hidden ? "password" : "text"}
                                   id="password"
                                   name="password"
