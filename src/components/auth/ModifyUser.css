@@ -11,13 +11,16 @@
 .Modal.Header.Titre {
   font-size: 18px;
   color: black;
-  margin: 0px 0px 50px 65px;
 }
 
+.newFirstName::placeholder,
+.newLastName::placeholder,
+.Email::placeholder,
 ::placeholder {
   color: #8da0b3;
   opacity: 1;
 }
+
 /*IE*/
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */

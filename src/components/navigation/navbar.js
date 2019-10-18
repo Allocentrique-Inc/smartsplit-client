@@ -20,14 +20,14 @@ export class Navbar extends Component {
                 {
                     (t, i18n) =>
                         <div className="fixed-top">
-                            <div className={ 'smartsplit-navbar ' + (this.props.pochette ? 'pochette' : '') }>
+                            <div className={'smartsplit-navbar ' + (this.props.pochette ? 'pochette' : '')}>
                                 <div className="left">
                                     <div className="song-image">
-                                        <img alt="oeuvre" src={ placeholder }/>
+                                        <img alt="oeuvre" src={placeholder} />
                                     </div>
 
                                     <div className="song-title">
-                                        { this.props.songTitle }
+                                        <em>{this.props.songTitle}</em>
                                     </div>
 
                                     <div className="documentation-label">
@@ -35,19 +35,19 @@ export class Navbar extends Component {
                                     </div>
                                 </div>
 
-                                <div className="right" style={{marginRight: "100px"}}>
-                                    
-                                        <div className="ui row">
-                                            {this.state.profil && <MenuProfil user={this.state.profil} />}                                    
-                                        </div>
-                                    
+                                <div className="right" style={{ marginRight: "100px" }}>
+
+                                    <div className="ui row">
+                                        {this.state.profil && <MenuProfil user={this.state.profil} />}
+                                    </div>
+
                                 </div>
-                                
+
                             </div>
 
                             <Trackbar
-                                percentage={ this.props.progressPercentage }
-                                pochette={ this.props.pochette }
+                                percentage={this.props.progressPercentage}
+                                pochette={this.props.pochette}
                             />
                         </div>
                 }

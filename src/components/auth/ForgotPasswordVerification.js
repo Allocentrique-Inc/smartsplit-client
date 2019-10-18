@@ -94,7 +94,7 @@ class ForgotPasswordVerification extends Component {
                       placeholder={t("flot.split.sommaire.verification")}
                       value={this.state.verificationCode}
                       onChange={this.onInputChange}
-                      style={{display: "none"}}
+                      style={{display: "none", color:"#212121"}}
                     />
                   </p>
                 </div>
@@ -110,7 +110,7 @@ class ForgotPasswordVerification extends Component {
                       )}
                       value={this.state.email}
                       onChange={this.onInputChange}
-                      style={{display: "none"}}
+                      style={{display: "none", color:"#212121"}}
                     />
                     <span className="icon is-small is-left">
                       <i className="fas fa-envelope"></i>
@@ -126,6 +126,7 @@ class ForgotPasswordVerification extends Component {
                       placeholder={t("flot.split.inscription.password")}
                       value={this.state.newPassword}
                       onChange={this.onInputChange}
+                      style={{color:"#212121"}}
                     />
                     <span className="icon is-small is-left">
                       <i className="fas fa-lock"></i>
@@ -141,6 +142,7 @@ class ForgotPasswordVerification extends Component {
                       placeholder={t("flot.split.inscription.confirm-password")}
                       value={this.state.confirmNewPassword}
                       onChange={this.onInputChange}
+                      style={{color:"#212121"}}
                     />
                     <span className="icon is-small is-left">
                       <i className="fas fa-lock"></i>

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 // import Validate from "../utility/FormValidation";
 import { Auth } from "aws-amplify";
 import { Translation } from "react-i18next";
-import { Modal } from "semantic-ui-react";
+import { Modal, Header } from "semantic-ui-react";
 
 import closeIcon from "../../assets/svg/icons/x.svg";
 import "../../assets/scss/page-assistant/modal.scss";
@@ -167,7 +167,7 @@ class ForgotPassword extends Component {
                     >
                       {t("flot.split.auth.oublier.titre")}
                     </h1>
-                    <p>{t("flot.split.auth.oublier.preambule")}</p>
+                    <p style={{ marginLeft: "0px" }}>{t("flot.split.auth.oublier.preambule")}</p>
                     {/* <form onSubmit={this.forgotPasswordHandler}>
                     <div
                       className="field"
@@ -210,7 +210,7 @@ class ForgotPassword extends Component {
                       style={{
                         position: "relative",
                         float: "right",
-                        margin: "0px 35px 10px 0px"
+                        margin: "0px 123px 10px 0px"
                       }}
                       onClick={props.handleSubmit}
                     >
@@ -222,16 +222,26 @@ class ForgotPassword extends Component {
                         onClose={this.handleClose}
                         size="small"
                       >
-                        <Modal.Content>
-                          <div className="modal-navbar">
-                            <div className="left">
-                              <div className="title">{t("flot.fin.recupMotDePasse")}</div>
+                        <Modal.Header>
+                          <span style={{ display: "flex" }}>
+                            <div className="title">
+                              {t("flot.fin.recupMotDePasse")}
                             </div>
+                            <a className="close-icon"
+                              onClick={() => { this.handleClose() }}
+                              style={{
+                                right: "40px",
+                                position: "absolute"
+                              }}
+                            >
+                              <img src={closeIcon} alt={"close"} />
+                            </a>
+                          </span>
+                        </Modal.Header>
 
+                        <Modal.Content>
+                          <div className="left">
                             <div className="right">
-                              <a className="close-icon" onClick={() => { this.handleClose() }}>
-                                <img src={closeIcon} alt={"close"} />
-                              </a>
                             </div>
                           </div>
 
@@ -265,7 +275,7 @@ class ForgotPassword extends Component {
                   </div>
                 </div>
               )}
-            </Translation>
+            </ Translation>
           )
         }
       >

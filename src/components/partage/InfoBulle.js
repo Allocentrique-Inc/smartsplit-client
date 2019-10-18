@@ -14,6 +14,9 @@ const topStyle = {
     border: "1px solid #DCDFE1",
     boxShadow: "0px 8px 32px rgba(0, 0, 0, 0.25)",
     padding: "10px",
+    zIndex: "1",
+    bottom: "45%",
+    left: "30%"
 };
 
 class InfoBulle extends React.Component {

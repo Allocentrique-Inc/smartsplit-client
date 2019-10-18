@@ -59,7 +59,6 @@ button[id="google"] {
 
 input {
   /* styles génériques */
-  height: 40px;
   color: #8da0b3;
   border: 1px solid #dcdfe1;
   border-radius: 2px;
@@ -114,7 +113,7 @@ input[id="password"] {
 }
 
 input[id="confirmpassword"] {
-  margin-top: 35px;
+  margin-top: 20px;
   margin-bottom: 30px;
 }
 
