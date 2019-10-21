@@ -11,12 +11,12 @@ import { Input, Label } from "semantic-ui-react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-import closeIcon from "../../assets/svg/icons/x.svg";
+import SommairePartages from "../partage/sommaire-partages.js";
 
 const divEmail = {
   position: "relative",
   display: "block",
-  margin: "0 50px 0 30px"
+  margin: "0 20px 0 10px"
 };
 
 class PageAssistantSplitCourrielsCollaborateurs extends Component {
@@ -119,7 +119,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             style={{
               fontSize: "16px",
               background: "transparent",
-              margin: "10px 0 0 20px"
+              margin: "10px 0px 0px 0px"
             }}>
             {_aD.name}
           </Label>
@@ -141,67 +141,11 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
         </div>
       );
     });
-
+    //Séparation conteneur - contenu
     return (
-      /*<Modal
-        open={this.state.open}
-        onClose={this.handleClose}
-        size="small"
-        closeIcon
-      >*/
-      <Translation>
-        {t => (
-
-          <div style={{
-            fontFamily: "IBM Plex Sans",
-            fontSize: "16px",
-            marginLeft: "10px"
-          }}>
-            <div style={{ margin: "10px 50px 10px 30px" }}>
-              <Modal.Header>
-                <strong>{t("flot.split.documente-ton-oeuvre.proposition.titre")}</strong>
-                <a className="close-icon"
-                  onClick={() => { this.handleClose() }}
-                  style={{
-                    right: "40px",
-                    position: "absolute"
-                  }}
-                >
-                  <img src={closeIcon} alt={"close"} />
-                </a>
-              </Modal.Header>
-              <br />
-              <Modal.Content style={{ color: "#687A8B" }}>
-                {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
-              </Modal.Content>
-            </div>
-            {ayantDroits}
-            <div style={{ display: "flex" }}>
-              <Button
-                onClick={this.handleClose}
-                style={{
-                  margin: "20px 0px 0px 140px",
-                  height: "10%"
-                }}>
-                {t("flot.split.collaborateur.attribut.bouton.annuler")}
-              </Button>
-              <div
-                onClick={this.handleClose}
-                className={`ui medium button envoie`}
-                style={{
-                  width: "45%",
-                  margin: "20px 50px 20px 0px",
-                  marginLeft: "auto"
-                }}
-              >
-                {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
-              </div>
-            </div>
-          </div>
-
-        )}
-      </Translation>
-      /*</Modal>*/
+      <div>
+        {ayantDroits}
+      </div>
     );
   }
 }

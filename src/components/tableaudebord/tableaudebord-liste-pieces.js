@@ -203,7 +203,7 @@ export default class ListePieces extends Component {
                                                 <div className="illustration">
                                                     <div className="medium-500" style={{ textAlign: 'center' }}>👀</div>
                                                 </div>
-                                                <div className="ui fifteen wide column">
+                                                <div className="ui fifteen wide column" style={{ textAlign: "center" }}>
                                                     <br />
                                                     <div className="medium-500">{t('flot.split.tableaudebord.vide.preambule')}</div>
                                                     <div className="medium-500" style={{ fontWeight: '100', textAlign: 'center' }}>{t('flot.split.tableaudebord.vide.indication')}</div>
