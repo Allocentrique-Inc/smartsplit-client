@@ -17,9 +17,9 @@ export default class ModalFin extends React.Component {
               </div>
 
               <div className="right">
-                <a className="close-icon" onClick={this.props.onClose}>
+                <span className="close-icon" onClick={this.props.onClose}>
                   <img src={closeIcon} alt={"close"} />
-                </a>
+                </span>
               </div>
             </div>
 

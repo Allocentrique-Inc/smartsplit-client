@@ -7,14 +7,9 @@ import { ChampTexteAssistant } from '../formulaires/champ-texte'
 import BoutonsRadio from '../formulaires/champ-radio'
 import RightHolderOptions from '../page-assistant/right-holder-options'
 import ChampSelectionMultipleAyantDroit from '../page-assistant/champ-selection-multiple-ayant-droit'
-import { Translate } from 'aws-sdk'
 import ChampTeleversement from '../page-assistant/champ-televersement'
 import { toast } from 'react-toastify'
-import { confirmAlert } from 'react-confirm-alert'
-import AudioLecture from '../oeuvre/audio-lecture'
-import { Field } from 'formik'
-import moment from 'moment'
-import { ChampListeCollaborateurAssistant, ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
+import { ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
 
 const etiquetteStyle = {
     fontFamily: "IBM Plex Sans",
@@ -147,10 +142,6 @@ class Base extends Component {
 }
 
 class PageNouvellePiece extends Component {
-
-    constructor(props) {
-        super(props)
-    }
 
     render() {
 
@@ -577,7 +568,7 @@ export default class NouvelleOeuvre extends Component {
                                         <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} parent={this} />
+                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} />
                                     </Wizard.Page>
 
                                 </Wizard>

@@ -11,8 +11,6 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 
-import { confirmAlert } from 'react-confirm-alert'
-
 import Entete from '../entete/entete'
 import { Accordion, Icon } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
@@ -337,7 +335,6 @@ export default class SommairePartages extends Component {
                                                             style={{
                                                                 width: "200px",
                                                                 position: "relative",
-                                                                marginTop: "50px",
                                                                 marginTop: "150px"
                                                             }}>
 

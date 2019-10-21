@@ -3,13 +3,9 @@ import "./Declaration.css";
 import {
   Button,
   Modal,
-  Checkbox,
-  Dropdown,
-  Input,
-  Label
+  Checkbox
 } from "semantic-ui-react";
 import { Translation } from "react-i18next";
-import { toast } from "react-toastify";
 
 class Declaration extends Component {
   constructor(props) {

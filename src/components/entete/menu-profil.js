@@ -1,17 +1,16 @@
-import React, { Component } from "react";
-import { withTranslation, Translation, Trans } from "react-i18next";
+import React, { Component } from "react"
+import { withTranslation, Translation } from "react-i18next"
 
-import axios from "axios";
+import axios from "axios"
 
-import { toast } from "react-toastify";
-import { Dropdown, Label } from "semantic-ui-react";
+import { toast } from "react-toastify"
+import { Dropdown, Label } from "semantic-ui-react"
 
-import i18n from "i18next";
-import moment from "moment";
+import i18n from "i18next"
 
 // Authentification avec AWS
-import { Auth } from "aws-amplify";
-import Socan from "../auth/Socan";
+import { Auth } from "aws-amplify"
+import Socan from "../auth/Socan"
 
 class MenuProfil extends Component {
   constructor(props) {
@@ -104,7 +103,7 @@ class MenuProfil extends Component {
                     this.ouvrirSocan();
                   }}
                 />
-                {i18n.language && i18n.language.substring(0, 2) == "en" && (
+                {i18n.language && i18n.language.substring(0, 2) === "en" && (
                   <Dropdown.Item
                     text={t("menuprofil.francais")}
                     onClick={() => {
@@ -112,7 +111,7 @@ class MenuProfil extends Component {
                     }}
                   />
                 )}
-                {i18n.language && i18n.language.substring(0, 2) == "fr" && (
+                {i18n.language && i18n.language.substring(0, 2) === "fr" && (
                   <Dropdown.Item
                     text={t("menuprofil.anglais")}
                     onClick={() => {
@@ -165,7 +164,7 @@ class MenuProfil extends Component {
               {nomComplet}
             </Label>
             {!userInitials && (
-              <img src={avatarImage} alt="user--image" className="user--img" />
+              <img src={avatarImage} alt="user--avatar" className="user--img" />
             )}
             {menu}
           </>

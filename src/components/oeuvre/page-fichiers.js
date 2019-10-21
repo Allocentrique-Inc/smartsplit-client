@@ -1,17 +1,16 @@
-import React from "react";
-import { Translation } from "react-i18next";
-import Page from "../page-assistant/page";
-import { ChampDate } from "../page-assistant/champ-date";
-import FileCircleOrange from "../../assets/svg/icons/file-circle-orange.svg";
-import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg";
-import Colonne from "../page-assistant/colonne";
-import Entete from "../page-assistant/entete";
-import ChampTeleversement from "../page-assistant/champ-televersement";
-import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
+import React from "react"
+import { Translation } from "react-i18next"
+import Page from "../page-assistant/page"
+import FileCircleOrange from "../../assets/svg/icons/file-circle-orange.svg"
+import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg"
+import Colonne from "../page-assistant/colonne"
+import Entete from "../page-assistant/entete"
+import ChampTeleversement from "../page-assistant/champ-televersement"
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique"
 
 export default class PageFichiers extends React.Component {
   icon() {
-    return this.props.pochette ? FileCircleOrange : FileCircleGreen;
+    return this.props.pochette ? FileCircleOrange : FileCircleGreen
   }
 
   constructor(props) {
@@ -24,10 +23,8 @@ export default class PageFichiers extends React.Component {
   }
 
   handleSubmit = values => {
-    let body = {
-      TERMS: "Y"
-    };
-  };
+    
+  }
 
   render() {
     const { terms } = this.state;
@@ -61,11 +58,11 @@ export default class PageFichiers extends React.Component {
                     "flot.split.documente-ton-oeuvre.documenter.titre8-description"
                   )}{" "}
                   <br />
-                  <a href="#">
+                  <span>
                     {t(
                       "flot.split.documente-ton-oeuvre.documenter.titre8-plus"
                     )}
-                  </a>
+                  </span>
                 </p>
               </div>
 
@@ -130,10 +127,7 @@ export default class PageFichiers extends React.Component {
                 </p>
               </div>
 
-              <ChampTeleversement
-                label={t(
-                  "flot.split.documente-ton-oeuvre.documenter.autre-etape1"
-                )}
+              <ChampTeleversement                
                 undertext={t(
                   "flot.split.documente-ton-oeuvre.documenter.autre-etape2"
                 )} //Mette ça en toolkit
@@ -147,6 +141,7 @@ export default class PageFichiers extends React.Component {
                 label={
                   <a
                     target="_blank"
+                    rel="noopener noreferrer"
                     href={
                       i18n.lng &&
                       (i18n.lng.substring(0, 2) === "en"

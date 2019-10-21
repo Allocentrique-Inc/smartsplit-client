@@ -65,9 +65,9 @@ export default class Beignet extends Component {
     genererBeignet() {     
         // Remettre à zéro le conteneur du beignet
         //console.log(this.state.type)
-        if (this.state.type == "workCopyrightSplit") this.setState({icon: copyIcon})
-        if (this.state.type == "performanceNeighboringRightSplit") this.setState({icon: starIcon})
-        if (this.state.type == "masterNeighboringRightSplit") this.setState({icon: prodIcon})
+        if (this.state.type === "workCopyrightSplit") this.setState({icon: copyIcon})
+        if (this.state.type === "performanceNeighboringRightSplit") this.setState({icon: starIcon})
+        if (this.state.type === "masterNeighboringRightSplit") this.setState({icon: prodIcon})
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
         if(conteneur) {
             let enfants = conteneur.childNodes
@@ -186,7 +186,7 @@ export default class Beignet extends Component {
                             .attr("x", x)
                             .attr("y", y)
                             .attr("dy", dy + "em");
-            while (word = words.pop()) {
+            while ((word = words.pop())) {
                 line.push(word);
                 tspan.text(line.join(" "));
                 if (tspan.node().getComputedTextLength() > width) {

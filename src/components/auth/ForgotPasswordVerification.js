@@ -5,15 +5,6 @@ import { Auth } from "aws-amplify";
 import { Translation } from "react-i18next";
 import { Modal } from "semantic-ui-react";
 import ChangePasswordVerification from "./ChangePasswordVerification";
-import Eye from "./Eye";
-import { Field, Form, Formik } from "formik";
-
-
-const styleWrapper = {
-  position: 'relative',
-  width: '464px',
-  fontFamily: "IBM Plex Sans"
-}
 
 class ForgotPasswordVerification extends Component {
 

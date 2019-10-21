@@ -340,7 +340,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                         <div className="ui row">
                                                                                             <div className="ui two wide column">
                                                                                                 <div className="avatar-image">
-                                                                                                    <img className="ui spaced avatar image" src={avatar} />
+                                                                                                    <img alt="" className="ui spaced avatar image" src={avatar} />
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div className="ui thirteen wide column">

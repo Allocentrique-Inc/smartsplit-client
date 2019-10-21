@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik'
-import { Form, Header, Image } from 'semantic-ui-react'
+import { Form } from 'semantic-ui-react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import ModifyUser from '../auth/ModifyUser';

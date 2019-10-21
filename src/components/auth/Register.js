@@ -4,16 +4,7 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
-import {
-  Button,
-  Header,
-  Image,
-  Modal,
-  Checkbox,
-  Dropdown,
-  Input,
-  Label
-} from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
 import axios from "axios";
 // import * as Yup from 'yup'
 // Traduction
@@ -36,7 +27,6 @@ class Register extends Component {
 
   constructor(props) {
     super(props);
-    const { minStrength = 3, thresholdLength = 8 } = props;
 
     this.state = {
       hidden: true,
@@ -184,7 +174,6 @@ class Register extends Component {
           this.props.history.push("/welcome")
         )
         .catch(err => {
-          // toast.error(err.message)
           console.log(err);
         })
         .finally(() => {
@@ -267,23 +256,11 @@ class Register extends Component {
   }
 
   render() {
-    const {
-      type,
-      validator,
-      onStateChanged,
-      children,
-      ...restProps
-    } = this.props;
 
     console.log("LOCALE: ", this.state.locale)
 
-    const { password, strength, currentValue, currentRoleValue } = this.state;
-
-    const { firstName, lastName, username } = this.state;
-
+    const { password, strength, currentValue } = this.state;
     const passwordLength = password.length;
-    const passwordStrong = strength >= this.minStrength;
-    const passwordLong = passwordLength > this.thresholdLength;
 
     const strengthClass = [
       "strength-meter mt-2",

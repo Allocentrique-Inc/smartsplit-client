@@ -1,17 +1,12 @@
 /**
  * Saisie du collaborateur principal de l'oeuvre
  */
-import { Header, Modal, Button } from "semantic-ui-react";
-
-import React, { Component, Fragment } from "react";
-import { Translation } from "react-i18next";
-
-import { Input, Label } from "semantic-ui-react";
-
-import axios from "axios";
-import { toast } from "react-toastify";
-
-import closeIcon from "../../assets/svg/icons/x.svg";
+import { Modal, Button } from "semantic-ui-react"
+import React, { Component } from "react"
+import { Translation } from "react-i18next"
+import { Input, Label } from "semantic-ui-react"
+import axios from "axios"
+import closeIcon from "../../assets/svg/icons/x.svg"
 
 const divEmail = {
   position: "relative",
@@ -34,8 +29,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
   componentWillMount() {
     let _aDs = this.state.ayantDroits;
     let cpt = 0,
-      taille = Object.keys(this.props.ayantDroits).length,
-      aTous = false;
+      taille = Object.keys(this.props.ayantDroits).length
     Object.keys(this.props.ayantDroits).forEach(rhId => {
       axios
         .get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${rhId}`)
@@ -115,7 +109,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
 
       ayantDroits.push(
         <div key={`champ--courriel__${elem}`}>
-          <Label style={divEmail} htmlFor={`champ--courriel__${elem}`}
+          <Label htmlFor={`champ--courriel__${elem}`}
             style={{
               fontSize: "16px",
               background: "transparent",
@@ -160,7 +154,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             <div style={{ margin: "10px 50px 10px 30px" }}>
               <Modal.Header>
                 <strong>{t("flot.split.documente-ton-oeuvre.proposition.titre")}</strong>
-                <a className="close-icon"
+                <div className="close-icon"
                   onClick={() => { this.handleClose() }}
                   style={{
                     right: "40px",
@@ -168,7 +162,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
                   }}
                 >
                   <img src={closeIcon} alt={"close"} />
-                </a>
+                </div>
               </Modal.Header>
               <br />
               <Modal.Content style={{ color: "#687A8B" }}>

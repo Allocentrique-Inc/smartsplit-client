@@ -51,7 +51,6 @@ export default class InputFichier extends React.Component {
           <div
             className="file-input-container"
             style={{
-              display: "wrap",
               width: "270px",
               display: "inline-flex"
             }}

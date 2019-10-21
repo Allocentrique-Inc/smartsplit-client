@@ -1,6 +1,5 @@
 import React from 'react';
 import TitreChamp from "./titre-champ";
-import Input from "semantic-ui-react/dist/commonjs/elements/Input";
 import "../../assets/scss/page-assistant/champ.scss"
 import InputFichier from "./input-fichier";
 

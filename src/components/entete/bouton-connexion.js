@@ -1,9 +1,5 @@
 import React, {Component} from 'react'
-import { Translation } from 'react-i18next';
-
-import { Auth } from 'aws-amplify';
-
-import { toast } from 'react-toastify'
+import { Translation } from 'react-i18next'
 
 export default class BoutonConnexion extends Component {    
 

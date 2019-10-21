@@ -3,7 +3,6 @@ import { DateInput } from "semantic-ui-calendar-react";
 import { Translation } from "react-i18next";
 import "../../assets/scss/page-assistant/champ.scss";
 import TitreChamp from "./titre-champ";
-import CalendarIcon from "../../assets/svg/icons/calendar.svg";
 
 export default class ChampDate extends Component {
   render() {

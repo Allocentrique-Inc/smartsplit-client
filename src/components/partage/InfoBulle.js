@@ -19,7 +19,7 @@ const topStyle = {
     left: "30%"
 };
 
-class InfoBulle extends React.Component {
+class InfoBulle extends Component {
     constructor(props) {
         super(props);
         this.state = {

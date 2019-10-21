@@ -4,88 +4,15 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import {
   Button,
-  Header,
-  Image,
   Modal,
-  Checkbox,
-  Dropdown,
-  Input,
-  Label
+  Checkbox
 } from "semantic-ui-react";
 import { Translation } from "react-i18next";
 import { DateInput } from "semantic-ui-calendar-react";
 
 const divStyle = {
   padding: "0 0 0 15px"
-};
-
-/*const provinceOptions = [
-  {
-    key: 'Alberta',
-    text: 'Alberta',
-    value: 'AB',
-  },
-  {
-    key: 'British Columbia',
-    text: 'British Columbia',
-    value: 'BC',
-  },
-  {
-    key: 'Manitoba',
-    text: 'Manitoba',
-    value: 'MB',
-  },
-  {
-    key: 'New Brunswick',
-    text: 'New Brunswick',
-    value: 'NB',
-  },
-  {
-    key: 'Newfoundland and Labrador',
-    text: 'Newfoundland and Labrador',
-    value: 'NL',
-  },
-  {
-    key: 'Northwest Territories',
-    text: 'Northwest Territories',
-    value: 'NT',
-  },
-  {
-    key: 'Nova Scotia',
-    text: 'Nova Scotia',
-    value: 'NS',
-  },
-  {
-    key: 'Nunavut',
-    text: 'Nunavat',
-    value: 'NU',
-  },
-  {
-    key: 'Ontario',
-    text: 'Ontario',
-    value: 'ON',
-  },
-  {
-    key: 'Prince Edward Island',
-    text: 'Prince Edward Island',
-    value: 'PE',
-  },
-  {
-    key: 'Québec',
-    text: 'Québec',
-    value: 'QC',
-  },
-  {
-    key: 'Saskatchewan',
-    text: 'Saskatchewan',
-    value: 'SK',
-  },
-  {
-    key: 'Yukon Territory',
-    text: 'Yukon Territory',
-    value: 'YT',
-  }
-]*/
+}
 
 class Socan extends Component {
   constructor(props) {
@@ -190,8 +117,6 @@ class Socan extends Component {
     const {
       open,
       closeOnDimmerClick,
-      currentProvinceValue,
-      currentCountryValue,
       terms
     } = this.state;
 
@@ -360,6 +285,7 @@ class Socan extends Component {
                     <a
                       style={{ color: "black" }}
                       target="_blank"
+                      rel="noopener noreferrer"
                       href={
                         i18n.lng &&
                         (i18n.lng.substring(0, 2) === "en"

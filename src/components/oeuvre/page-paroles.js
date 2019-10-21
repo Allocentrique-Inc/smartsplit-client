@@ -1,15 +1,14 @@
-import React from "react";
-import { Translation } from "react-i18next";
-import Page from "../page-assistant/page";
-import { ChampDate } from "../page-assistant/champ-date";
-import LyricsCircleOrange from "../../assets/svg/icons/lyrics-circle-orange.svg";
-import LyricsCircleGreen from "../../assets/svg/icons/lyrics-circle-green.svg";
-import Colonne from "../page-assistant/colonne";
-import Entete from "../page-assistant/entete";
-import ChampTextArea from "../page-assistant/champ-textarea";
-import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
-import ChampAccesVision from "../page-assistant/champ-acces-vision";
-import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
+import React from "react"
+import { Translation } from "react-i18next"
+import Page from "../page-assistant/page"
+import LyricsCircleOrange from "../../assets/svg/icons/lyrics-circle-orange.svg"
+import LyricsCircleGreen from "../../assets/svg/icons/lyrics-circle-green.svg"
+import Colonne from "../page-assistant/colonne"
+import Entete from "../page-assistant/entete"
+import ChampTextArea from "../page-assistant/champ-textarea"
+import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple"
+import ChampAccesVision from "../page-assistant/champ-acces-vision"
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique"
 
 export default class PageParoles extends React.Component {
   

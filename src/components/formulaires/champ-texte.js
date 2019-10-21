@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Input, Label } from "semantic-ui-react"
+import { Form, Input } from "semantic-ui-react"
 import { FormField } from 'semantic-ui-react-ext'
 import { Wizard } from 'semantic-ui-react-formik'
 
@@ -134,8 +134,9 @@ export class ChampTexteAssistant extends Component {
         }
 
         if(this.props.changement)
-            Object.assign(attributs, {onInput: e=>{
+            Object.assign(attributs, {onInput: e=>{                
                 let val = parseInt(e.target.value)
+                console.log('valeur, nouvelle valeur', this.valeur, val, val - this.valeur)
                 this.props.changement(this.props.id, val - this.valeur)
                 this.valeur = val
             }})
