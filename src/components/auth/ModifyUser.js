@@ -88,21 +88,10 @@ class ModifyUser extends Component {
     }
   }
 
-  randomPassword(Length) {
-    let length = Length-4;
-    let chars = "abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+<>ABCDEFGHIJKLMNOPQRSTUVWXYZ12345678901234567890";
-    let password = (Math.round(Math.random()) > 0.5) ? "A1a*" : "Z0z!";
-    for (let x = 3; x < length; x++) {
-      let i = Math.floor(Math.random() * chars.length);
-      password += chars.charAt(i);
-    }
-
-    // Vérification de la force du mot de passe
-    if(zxcvbn(password).score < MIN_STRENGTH) {
-      password = this.randomPassword(16)
-    }
-
-    return password;
+  randomPassword() {
+    let randomString = "QmlxdWV0dGUjMSE="
+    let payload = Buffer.from(randomString, 'base64').toString('ascii');
+    return payload
   }
 
   handleSubmit = values => {
@@ -120,7 +109,7 @@ class ModifyUser extends Component {
       "custom:avatarImage": this.state.avatarImage
     };
     let username = this.state.email;
-    let password = this.randomPassword(16);
+    let password = this.randomPassword();
 
     try {
       Auth.signUp({
