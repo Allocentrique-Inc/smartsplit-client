@@ -17,6 +17,13 @@ import { Auth } from "aws-amplify";
 import zxcvbn from "zxcvbn";
 import { ConsoleLogger } from "@aws-amplify/core";
 
+const AWS = require("aws-sdk");
+const REGION = 'us-east-2'
+AWS.config.update({ region: REGION });
+
+const USER_POOL_ID = 'us-east-2_tK9rNdAB1'
+const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider();
+
 const MAX_IMAGE_SIZE = 10000000;
 const MIN_STRENGTH = 3;
 
