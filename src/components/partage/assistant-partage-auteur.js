@@ -429,7 +429,6 @@ class PageAssistantPartageAuteur extends Component {
                                                 <div className="fourteen wide field">
                                                     <div className="fourteen wide field">
                                                         <BoutonsRadio
-
                                                             name="mode_auteur"
                                                             actif={this.state.mode} // Attribut dynamique
                                                             onClick={(e) => {

@@ -31,13 +31,14 @@ export default class Beignet extends Component {
                 
     } 
 
-    componentDidMount() {
+    componentDidMount() {        
         this.rafraichir(this.props)
     }
 
     componentWillReceiveProps(nextProps) {
         // Le beignet rafraichit son affichage à chaque changement de propriétés.
         // Il n'y a pas de test sur les attributes (this.props.xyz !== nextProps.xyz)
+        console.log('Rafraîchir dans willReceiveProps')
         this.rafraichir(nextProps)
     }
 
@@ -50,8 +51,7 @@ export default class Beignet extends Component {
               let nom
               if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
                 nom = `${elem.ayantDroit.firstName+ " "}${elem.ayantDroit.lastName}`
-                //_d[elem.nom] = elem.pourcent;
-                _d[nom] = elem.pourcent;
+                _d[nom] = elem.pourcent
               }
               _c[nom] = elem.color;
               _a[nom] = elem.alpha;
@@ -60,11 +60,12 @@ export default class Beignet extends Component {
             this.setState({colors: _c})
             this.setState({alphas: _a})
         }
+        this.regenerer = true
     }
 
     genererBeignet() {     
         // Remettre à zéro le conteneur du beignet
-        //console.log(this.state.type)
+        console.log("Générer beignet")
         if (this.state.type === "workCopyrightSplit") this.setState({icon: copyIcon})
         if (this.state.type === "performanceNeighboringRightSplit") this.setState({icon: starIcon})
         if (this.state.type === "masterNeighboringRightSplit") this.setState({icon: prodIcon})
@@ -208,7 +209,10 @@ export default class Beignet extends Component {
         // Ajoute la génération de beignet comme prochaine exécution de la pile JavaScript
         // alors que l'élément my_dataviz est accessible dans le navigateur du client.
         setTimeout(()=>{
-            this.genererBeignet()
+            if(this.regenerer) {
+                this.genererBeignet()
+                this.regenerer = false
+            }            
         }, 0)
 
         return (

@@ -25,9 +25,11 @@ export default class TableauDeBord extends Component {
     componentWillMount() {
         Auth.currentAuthenticatedUser()
         .then(res=>{
+            console.log(res)
             this.setState({user: res}, ()=>console.log(this.state.user))
         })
         .catch(err=>{
+            console.log(err)
             this.setState({modaleConnexion: true})
         })
     }
@@ -46,14 +48,14 @@ export default class TableauDeBord extends Component {
         } else {            
             return (
                 <Translation>
-             {   
-                 t =>
-                 
-                <div className="tdb--cadre ui row accueil">
-                    <ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />
-                </div>
-            }
-            </Translation>
+                {   
+                    t =>
+                    
+                    <div className="tdb--cadre ui row accueil">
+                        <ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />
+                    </div>
+                }
+                </Translation>
             )
             
 

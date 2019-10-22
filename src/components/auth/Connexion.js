@@ -16,17 +16,17 @@ const TYPE_LOGIN = 0,
 
 export default class ModaleConnexion extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       isOpen: props.isOpen,
       opened: TYPE_LOGIN,
       parent: props.parent
-    };
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.isOpen === nextProps.isOpen) {
-      this.setState({ isOpen: nextProps.isOpen });
+    if (this.props.isOpen !== nextProps.isOpen) {
+      this.setState({ isOpen: nextProps.isOpen })
     }
   }
 

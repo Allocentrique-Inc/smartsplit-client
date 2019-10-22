@@ -76,7 +76,8 @@ export default class BoutonsRadio extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.actif !== nextProps.actif) {
-            this.setState({ actif: nextProps.actif })
+            this.setState({ actif: nextProps.actif },
+                ()=>{console.log('actif', this.state.actif)})
         }
         if (this.props.disabled !== nextProps.disabled) {
             this.setState({ disabled: nextProps.disabled })
@@ -107,7 +108,7 @@ export default class BoutonsRadio extends Component {
                             id={this.props.modele}
                             value={elem.valeur}
                             label={elem.nom}
-                            checked={idx === this.state.actif}
+                            checked={parseInt(idx) === parseInt(this.state.actif)}
                             disabled={this.state.disabled}
                         />
                         {elem.info && (<InfoBulle text={elem.info} />)}
