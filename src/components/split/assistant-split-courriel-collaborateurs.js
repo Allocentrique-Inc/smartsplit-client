@@ -136,13 +136,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
       );
     });
 
-    return (
-      /*<Modal
-        open={this.state.open}
-        onClose={this.handleClose}
-        size="small"
-        closeIcon
-      >*/
+    return (      
       <Translation>
         {t => (
 
@@ -172,7 +166,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
             {ayantDroits}
             <div style={{ display: "flex" }}>
               <Button
-                onClick={this.handleClose}
+                onClick={()=>this.handleClose()}
                 style={{
                   margin: "20px 0px 0px 140px",
                   height: "10%"
@@ -180,7 +174,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
                 {t("flot.split.collaborateur.attribut.bouton.annuler")}
               </Button>
               <div
-                onClick={this.handleClose}
+                onClick={()=>this.handleSubmit()}
                 className={`ui medium button envoie`}
                 style={{
                   width: "45%",
@@ -195,7 +189,6 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
 
         )}
       </Translation>
-      /*</Modal>*/
     );
   }
 }
