@@ -218,7 +218,7 @@
             "artiste": "Nom d'artiste (alias)",
             "role": "Rôle dans la pièce musicale",
             "option": "(optionel)",
-            "na": "Si non applicable, nous afficherons le nom complet.",
+            "na": "Par exemple, Jay-Z est le nom d'artiste de Shawn Corey Carter.",
             "courriel": "Courriel",
             "groupe": "Ajouter groupes, entités artistiques ou entreprises",
             "ajout": "Ajouter un groupe ou un artiste"
@@ -524,9 +524,9 @@
         },
         "oublier": {
           "titre": "Mot de passe oublié ?",
-          "preambule": "Veuillez indiquer l'adresse courriel associé à votre compte pour recevoir un lien afin de réinitialiser le mot de passe.",
+          "preambule": "Entre l'adresse courriel associée à ton compte pour recevoir un code et réinitialiser ton mot de passe.",
           "indication": {
-            "email": "Indiquer le courriel",
+            "email": "Ton courriel",
             "password": "Mot de passe oublié"
           }
         }

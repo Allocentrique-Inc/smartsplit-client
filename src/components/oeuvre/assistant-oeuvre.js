@@ -23,15 +23,10 @@ import { Navbar } from '../navigation/navbar';
 
 import { Auth } from 'aws-amplify';
 
-import Login from '../auth/Login';
 import ModalFin from "./modal-fin";
-import { confirmAlert } from 'react-confirm-alert';
 import ModaleConnexion from '../auth/Connexion';
-import { ConsoleLogger } from '@aws-amplify/core';
-
 
 // Modèle
-
 
 class AssistantOeuvre extends Component {
     pageProgressPercentages = [10, 20, 30, 40, 50, 70, 80, 100];

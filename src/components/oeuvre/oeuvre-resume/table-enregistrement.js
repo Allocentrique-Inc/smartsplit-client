@@ -26,27 +26,27 @@ export default class TableEnregistrement extends React.Component {
 
         {
             label: 'Réalisateur',
-            value: (<a href={'#'}>Carl Bastien</a>)
+            value: (<span>Carl Bastien</span>)
         },
 
         {
             label: 'Techniciens en enregistrement',
-            value: (<><a href={'#'}>Claude Bernard</a>, <a href={'#'}>Sébastien Longchamps</a></>)
+            value: (<><span>Claude Bernard</span>, <span>Sébastien Longchamps</span></>)
         },
 
         {
             label: 'Mixage',
-            value: (<><a href={'#'}>Sylvain Médrion</a></>)
+            value: (<><span>Sylvain Médrion</span></>)
         },
 
         {
             label: 'Mastering',
-            value: (<><a href={'#'}>Ryebread Mastering</a></>)
+            value: (<><span>Ryebread Mastering</span></>)
         },
 
         {
             label: 'Production',
-            value: (<><a href={'#'}>Paul Leinette</a>, <a href={'#'}>Steve Roquefort</a>, <a href={'#'}>Joanie Flan</a></>)
+            value: (<><span>Paul Leinette</span>, <span>Steve Roquefort</span>, <span>Joanie Flan</span></>)
         },
 
         {

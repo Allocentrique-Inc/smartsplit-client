@@ -32,7 +32,7 @@
         "prenom": "Legal First Name",
         "artiste": "Artist name (aka)",
         "option": " Optional",
-        "na": "If not applicable, the complete name will be displayed.",
+        "na": "For example, Jay-Z is the artist name of Shawn Corey Carter.",
         "role": "Role(s) by default",
         "courriel": "Email",
         "groupe": "Add groups, artistic enteties or compagnies",
@@ -536,9 +536,9 @@
         },
         "oublier": {
           "titre": "Forgot your password?",
-          "preambule": "Please enter the email address associated with your account and we'll email you a password reset link.",
+          "preambule": "Enter the email address associated with your account to receive a code and reset your password.",
           "indication": {
-            "email": "Enter email",
+            "email": "Your email",
             "password": "Forgot password"
           }
         }

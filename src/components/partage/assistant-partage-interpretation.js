@@ -293,7 +293,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                         <div className="ui row">
                                                                                             <div className="ui two wide column">
                                                                                                 <div className="avatar-image">
-                                                                                                    <img className="ui spaced avatar image" src={avatar} />
+                                                                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar} />
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div className="ui thirteen wide column">
@@ -312,20 +312,20 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                     name={`type_interpretation_${index}`}
                                                                                                     actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
                                                                                                     onClick={(e) => {
-
-                                                                                                        let valeur
-                                                                                                        // Clic de la puce ou de l'étiquette ?
-                                                                                                        if (e.target.nodeName === 'LABEL') {
-                                                                                                            valeur = e.target.parentNode.childNodes[0].value
-                                                                                                        }
-                                                                                                        if (e.target.nodeName === 'INPUT') {
-                                                                                                            valeur = e.target.value
-                                                                                                        }
-
-                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
-                                                                                                        this.setState({ ping: true }, () => {
-                                                                                                            this.recalculerPartage()
-                                                                                                        })
+                                                                                                        if(this.state.mode === MODES.role) {
+                                                                                                            let valeur
+                                                                                                            // Clic de la puce ou de l'étiquette ?
+                                                                                                            if (e.target.nodeName === 'LABEL') {
+                                                                                                                valeur = e.target.parentNode.childNodes[0].value
+                                                                                                            }
+                                                                                                            if (e.target.nodeName === 'INPUT') {
+                                                                                                                valeur = e.target.value
+                                                                                                            }
+                                                                                                            this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }                                                                                                        
                                                                                                     }}
                                                                                                     disabled={this.state.mode !== MODES.role}
                                                                                                     titre=""

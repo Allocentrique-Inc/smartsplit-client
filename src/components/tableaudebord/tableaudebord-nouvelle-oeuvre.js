@@ -7,14 +7,9 @@ import { ChampTexteAssistant } from '../formulaires/champ-texte'
 import BoutonsRadio from '../formulaires/champ-radio'
 import RightHolderOptions from '../page-assistant/right-holder-options'
 import ChampSelectionMultipleAyantDroit from '../page-assistant/champ-selection-multiple-ayant-droit'
-import { Translate } from 'aws-sdk'
 import ChampTeleversement from '../page-assistant/champ-televersement'
 import { toast } from 'react-toastify'
-import { confirmAlert } from 'react-confirm-alert'
-import AudioLecture from '../oeuvre/audio-lecture'
-import { Field } from 'formik'
-import moment from 'moment'
-import { ChampListeCollaborateurAssistant, ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
+import { ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
 
 const etiquetteStyle = {
     fontFamily: "IBM Plex Sans",
@@ -25,55 +20,165 @@ const etiquetteStyle = {
 
 const ORIGINALE = 0, ARRANGEMENT = 1, REPRISE = 2
 
-class Apercu extends Component {
+export default class NouvelleOeuvre extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            values: props.values
+            user: props.user
+        }
+        this.soumettre = this.soumettre.bind(this)
+        this.changementPage = this.changementPage.bind(this)
+        this.changement = this.changement.bind(this)
+    }
+
+    componentWillMount() {
+        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+            .then(res => {
+                this.setState({ rightHolders: res.data })
+            })
+    }
+
+    changement(values) {
+        this.setState({ valeurs: values })
+    }
+
+    changementPage(no, t) {
+        if (no === 1 && !this.state.mediaId) {
+            // On arrive sur la page 1 de la page 0
+            // Création de l'oeuvre avec uniquement le titre et le type
+
+            let title = this.state.valeurs.title
+            let type
+
+            if (this.state.valeurs.type === "0") {
+                type = "ORIGINALE"
+            }
+            if (this.state.valeurs.type === "1") {
+                type = "ARRANGEMENT"
+            }
+            if (this.state.valeurs.type === "2") {
+                type = "REPRISE"
+            }
+
+            axios.put(`http://dev.api.smartsplit.org:8080/v1/media`, { title: title, type: type, creator: this.state.user.username })
+                .then(res => {
+                    // Enregistrement du mediaId pour sauvegarde des données dans handleSubmit                
+                    toast.info(t('info.oeuvre.creation', { id: res.data.id }))
+                    this.setState({ mediaId: res.data.id })
+                    this.props.parent.setState({ mediaId: res.data.id }) // Condition d'apparition du lecteur audio
+                })
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.values !== nextProps.values) {
-            this.setState({ values: nextProps.values })
+    soumettre(values, t) {
+
+        let rHs = []
+
+        // Participants créés avec le rôle d'auteur par défaut.
+        if (values.rightHolders)
+            values.rightHolders.forEach(rH => rHs.push({ id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a33"] }))
+
+        let body = {
+            creator: this.props.user.username,
+            mediaId: `${this.state.mediaId}`,
+            title: values.title,
+            album: values.album,
+            artist: values.artist,
+            msDuration: values.durationMs,
+            type: values.type,
+            publishDate: values.publishDate,
+            publisher: values.publisher,
+            rightHolders: rHs,
+            socialMediaLinks: values.socialMediaLinks,
+            streamingServiceLinks: values.streamingServiceLinks,
+            pressArticleLinks: values.pressArticleLinks,
+            playlistLinks: values.playlistLinks,
+            files: {
+                audio: {
+                    file: values.fichier,
+                    access: "private"
+                },
+                cover: {
+                    file: " ",
+                    access: "private"
+                },
+                score: {
+                    file: " ",
+                    access: "private"
+                },
+                midi: {
+                    file: " ",
+                    access: "private"
+                }
+            },
+            remixer: values.arrangeur
         }
+        this.props.parent.state.audio.stop()
+
+        axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
+            .then(res => {
+                window.location.href = `/oeuvre/sommaire/${body.mediaId}`
+            })
+            .catch(err => console.log(err))
+
+    }
+
+    setFichier(fichier) {
+        this.setState({ fichier: fichier })
     }
 
     render() {
-        return (
-            <Translation>
-                {
-                    t =>
-                        <div className="ui column" style={{ position: "absolute", float: "right" }}>
-                            <div style={{ position: "relative", left: "60px" }}>
-                                {/*<p style={{
-                                    fontFamily: "IBM Plex Sans",
-                                    fontStyle: "normal",
-                                    fontWeight: "bold",
-                                    fontSize: "16px",
-                                    lineHeight: "16px",
-                                    letterSpacing: "1px",
-                                    textTransform: "uppercase",
-                                    paddingTop: "16px",
-                                    color: "#8DA0B3"
-                                }}>{t('titre.apercu')}</p>*/}
-                                <div className="ui grid">
-                                    {/*<div className="ui two wide column">
-                                        <i className="file image outline icon big grey" style={{ marginBottom: "20px" }} />
-                                    </div>*/}
-                                    <div className="ui twelve wide column">
-                                        <p style={{ fontWeight: "bolder" }}>{this.state.values.title /*|| t('titre.apercu-sen-vient')*/}</p>
-                                        <p>{this.state.values.artist /*|| t('titre.oeil-ouvert')*/}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                }
-            </Translation>
-        )
-    }
 
+        if (this.state.rightHolders) {
+            return (
+                <Translation>
+                    {
+                        t =>
+                            <div>
+                                {this.state.patience && (
+                                    <div style={{ width: "100%" }} className="container ui active dimmer">
+                                        <div className="ui text loader">{t("entete.encours")}</div>
+                                    </div>
+                                )}
+                                <Wizard
+                                    initialValues={{
+                                        title: undefined,
+                                        type: undefined,
+                                        vedettes: []
+                                    }}
+                                    buttonLabels={{ previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti') }}
+                                    debug={false}
+                                    onPageChanged={no => this.changementPage(no, t)}
+                                    onSubmit={(values, { setSubmitting }) => { this.soumettre(values, t); setSubmitting(false) }}
+                                    style={{ width: "80%" }}
+                                >
+                                    <Wizard.Page
+                                        validate={values => {
+                                            this.changement(values)
+                                            const errors = {};
+                                            if (!values.title) {
+                                                errors.title = t("obligatoire")
+                                            }
+                                            return errors
+                                        }}>
+                                        <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
+                                    </Wizard.Page>
+                                    <Wizard.Page>
+                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} />
+                                    </Wizard.Page>
+
+                                </Wizard>
+                            </div>
+                    }
+                </Translation>
+            )
+        } else {
+            return (<></>)
+        }
+
+
+    }
 }
 
 class Base extends Component {
@@ -148,22 +253,16 @@ class Base extends Component {
 
 class PageNouvellePiece extends Component {
 
-    constructor(props) {
-        super(props)
-    }
-
     render() {
 
         return (
             <React.Fragment>
-                <div className="ui two column grid">
-                    {/*<div className="ui column">*/}
-                    <Base values={this.props.values} setFieldValue={this.props.setFieldValue} />
-                    {/*</div>
-                <div className="ui column">*/}
-                    <Apercu values={this.props.values} setFieldValue={this.props.setFieldValue} />
+                <div className="ui grid">
+                    <div className="ui column">
+                        <h2>{this.props.values.title}</h2>
+                        <Base values={this.props.values} setFieldValue={this.props.setFieldValue} />
+                    </div>
                 </div>
-                {/*</div>*/}
             </React.Fragment>
         )
     }
@@ -242,7 +341,7 @@ class Page2NouvellePiece extends Component {
                     {
                         (t, i18n) =>
                             <>
-                                <div className="ui two column grid">
+                                <div className="ui column grid">
                                     <div className="ui column">
                                         {
                                             this.state.patience &&
@@ -396,10 +495,6 @@ class Page2NouvellePiece extends Component {
 
                                     </div>
 
-                                    <div className="ui column">
-                                        <Apercu parent={this} values={this.props.values} setFieldValue={this.props.setFieldValue} />
-                                    </div>
-
                                 </div>
 
                                 {
@@ -432,7 +527,7 @@ class Page2NouvellePiece extends Component {
     }
 }
 
-export default class NouvelleOeuvre extends Component {
+/* export default class NouvelleOeuvre extends Component {
 
     constructor(props) {
         super(props)
@@ -577,7 +672,7 @@ export default class NouvelleOeuvre extends Component {
                                         <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} parent={this} />
+                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} />
                                     </Wizard.Page>
 
                                 </Wizard>
@@ -592,3 +687,4 @@ export default class NouvelleOeuvre extends Component {
 
     }
 }
+ */

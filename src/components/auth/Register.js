@@ -4,16 +4,7 @@ import { Field, Form, Formik } from "formik";
 import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
-import {
-  Button,
-  Header,
-  Image,
-  Modal,
-  Checkbox,
-  Dropdown,
-  Input,
-  Label
-} from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
 import axios from "axios";
 // import * as Yup from 'yup'
 // Traduction
@@ -36,7 +27,6 @@ class Register extends Component {
 
   constructor(props) {
     super(props);
-    const { minStrength = 3, thresholdLength = 8 } = props;
 
     this.state = {
       hidden: true,
@@ -184,7 +174,6 @@ class Register extends Component {
           this.props.history.push("/welcome")
         )
         .catch(err => {
-          // toast.error(err.message)
           console.log(err);
         })
         .finally(() => {
@@ -267,23 +256,11 @@ class Register extends Component {
   }
 
   render() {
-    const {
-      type,
-      validator,
-      onStateChanged,
-      children,
-      ...restProps
-    } = this.props;
 
     console.log("LOCALE: ", this.state.locale)
 
-    const { password, strength, currentValue, currentRoleValue } = this.state;
-
-    const { firstName, lastName, username } = this.state;
-
+    const { password, strength, currentValue } = this.state;
     const passwordLength = password.length;
-    const passwordStrong = strength >= this.minStrength;
-    const passwordLong = passwordLength > this.thresholdLength;
 
     const strengthClass = [
       "strength-meter mt-2",
@@ -337,8 +314,8 @@ class Register extends Component {
                           <div>
                             <div className="registerHead">
                               <h1>
-                                On your way to <br />
-                                Professionalization.
+                                Create for free your <br />
+                                profile on Smart Split.
                               </h1>
                               <br />
                               <br />
@@ -356,9 +333,9 @@ class Register extends Component {
                           <div>
                             <div className="lregisterHeade">
                               <h1>
-                                En route vers la
+                                Crée gratuitement
                                 <br />
-                                professionalisation.
+                                ton profil sur Smartsplit.
                               </h1>
                               <br />
                               <br />
@@ -385,7 +362,7 @@ class Register extends Component {
                             }}
                           >
                             <div style={{ width: "220px" }}>
-                              <label style={{ fontWeight: "bold" }}>
+                              <label>
                                 {t("flot.split.collaborateur.attribut.etiquette.prenom")}
                               </label>
                               <br />
@@ -402,7 +379,7 @@ class Register extends Component {
                               />
                             </div>
                             <div style={{ width: "220px", marginLeft: "25px" }}>
-                              <label style={{ fontWeight: "bold" }}>
+                              <label>
                                 {t("flot.split.collaborateur.attribut.etiquette.nom")}
                               </label>
                               <br />
@@ -422,10 +399,10 @@ class Register extends Component {
 
                           <div className="ui row" style={{ marginTop: "30px" }}>
                             <span>
-                              <label style={{ fontWeight: "bold" }}>
+                              <label>
                                 {t("flot.split.collaborateur.attribut.etiquette.artiste")}
                               </label>
-                              <label style={{ color: "grey", float: "right" }}>
+                              <label style={{ color: "grey", float: "right", fontWeight: "normal" }}>
                                 {t("flot.split.collaborateur.attribut.etiquette.option")}
                               </label>
                             </span>
@@ -453,7 +430,7 @@ class Register extends Component {
                                 className="ui row"
                                 style={{ marginTop: "30px" }}
                               >
-                                <label style={{ fontWeight: "bold" }}>
+                                <label>
                                   {t("flot.split.collaborateur.attribut.etiquette.groupe")}
                                 </label>
                                 <br /><br />
@@ -591,7 +568,7 @@ class Register extends Component {
                                 <div style={{
                                   color: "red",
                                   position: "absolute",
-                                  top: "655px"
+                                  top: "660px"
                                 }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
@@ -710,7 +687,6 @@ class Register extends Component {
                                       ? "password"
                                       : "text"
                                   }
-
                                   id="confirmpassword"
                                   name="confirmpassword"
                                   placeholder={t("flot.split.inscription.password-confirm")}

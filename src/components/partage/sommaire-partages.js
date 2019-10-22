@@ -11,8 +11,6 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 
-import { confirmAlert } from 'react-confirm-alert'
-
 import Entete from '../entete/entete'
 import { Accordion, Icon } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
@@ -21,7 +19,7 @@ import PartageSommaireEditeur from './partage-sommaire-editeur'
 
 import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
 
-import { Modal } from 'semantic-ui-react'
+import { Modal, Button } from 'semantic-ui-react'
 
 import moment from 'moment'
 
@@ -335,29 +333,65 @@ export default class SommairePartages extends Component {
                                                         }} className={`ui medium button sommaire`}
 
                                                             style={{
-                                                                width: "200px",
+                                                                width: "90%",
                                                                 position: "relative",
-                                                                marginTop: "50px",
-                                                                marginTop: "150px"
+                                                                marginTop: "150px",
+                                                                right: "50px"
                                                             }}>
 
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                         </div>
-
-                                                        <Modal
-                                                            open={this.state.modaleCourriels}
-                                                            onClose={this.closeModal}
-                                                            size="small"
-                                                        >
-                                                            <PageAssistantSplitCourrielsCollaborateurs
-                                                                ayantDroits={rightHolders}
-                                                                propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
-                                                                close={(cb) => { this.closeModal(); if (cb) cb() }}
-                                                            />
-
-                                                        </Modal>
+                                                        <div style={{
+                                                            fontFamily: "IBM Plex Sans",
+                                                            fontSize: "16px",
+                                                            marginLeft: "10px"
+                                                        }}>
+                                                            <Modal
+                                                                open={this.state.modaleCourriels}
+                                                                onClose={this.closeModal}
+                                                                size="small"
+                                                                closeIcon
+                                                            >
+                                                                <Modal.Header>
+                                                                    <h2 style={{ display: "flex" }}>{t("flot.split.documente-ton-oeuvre.proposition.titre")}
+                                                                        <div 
+                                                                            className="close-icon"
+                                                                            onClick={() => { this.closeModal() }} >
+                                                                        </div>
+                                                                    </h2>
+                                                                </Modal.Header>
+                                                                <Modal.Content style={{ color: "#687A8B" }}>
+                                                                    {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
+                                                                    <PageAssistantSplitCourrielsCollaborateurs
+                                                                        ayantDroits={rightHolders}
+                                                                        propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
+                                                                        close={(cb) => { this.closeModal(); if (cb) cb() }}
+                                                                    />
+                                                                </Modal.Content>
+                                                                <Modal.Actions>
+                                                                    <div style={{ display: "flex", float: "right", marginBottom: "15px" }}>
+                                                                        <Button
+                                                                            onClick={this.closeModal}
+                                                                            style={{
+                                                                                background: "white",
+                                                                                color: "#2DA84F",
+                                                                            }}>
+                                                                            {t("flot.split.collaborateur.attribut.bouton.annuler")}
+                                                                        </Button>
+                                                                        <Button
+                                                                            onClick={this.closeModal}
+                                                                            className={`ui medium button envoie`}
+                                                                            style={{
+                                                                                height: "40px"
+                                                                            }}
+                                                                        >
+                                                                            {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
+                                                                        </Button>
+                                                                    </div>
+                                                                </Modal.Actions>
+                                                            </Modal>
+                                                        </div>
                                                     </div>
-
                                                 )
                                             }
                                         </div>

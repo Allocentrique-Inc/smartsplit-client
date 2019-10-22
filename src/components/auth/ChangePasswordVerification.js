@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import { Translation } from "react-i18next";
 import { Modal } from "semantic-ui-react";
-import Login from "./Login";
-
-function accueil() {
-  window.location.assign("./Login.js");
-}
 
 class ChoosePasswordVerification extends Component {
   render() {

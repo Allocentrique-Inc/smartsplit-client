@@ -87,7 +87,7 @@ export default class PageLiens extends React.Component {
   plusCircleLabel(labelString) {
     return (
       <span className={this.additionLabelClasses()}>
-        <img src={this.plusCircle()} /> {labelString}
+        <img alt="" src={this.plusCircle()} /> {labelString}
       </span>
     );
   }

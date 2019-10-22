@@ -29,7 +29,6 @@ import Troissplits from "./components/visualisation/partage/troissplits";
 // Composantes auth
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
-import Register2 from "./components/auth/Register-2";
 import ModifyUser from "./components/auth/ModifyUser";
 import Socan from "./components/auth/Socan";
 import Declaration from "./components/auth/Declaration";

@@ -2,20 +2,18 @@ import React, { Component } from "react";
 import "./ModifyUser.css";
 import axios from "axios";
 import {
-  Button,
-  Header,
-  Image,
+  Button,  
   Modal,
-  Checkbox,
-  Dropdown,
-  Input,
-  Label
+  Dropdown
 } from "semantic-ui-react";
 import { withTranslation, Translation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
 import zxcvbn from "zxcvbn";
-import { ConsoleLogger } from "@aws-amplify/core";
+
+const AWS = require("aws-sdk");
+const REGION = 'us-east-2'
+AWS.config.update({ region: REGION });
 
 const MAX_IMAGE_SIZE = 10000000;
 const MIN_STRENGTH = 3;
@@ -198,7 +196,6 @@ class ModifyUser extends Component {
   render() {
     const {
       open,
-      closeOnDimmerClick,
       currentValue,
       currentRoleValue
     } = this.state;

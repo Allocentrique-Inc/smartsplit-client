@@ -2,17 +2,11 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
-import Histogramme from '../visualisation/partage/histogramme'
 import { Translation } from 'react-i18next'
 
 import { Auth } from 'aws-amplify'
 
-import { confirmAlert } from 'react-confirm-alert'
-import 'react-confirm-alert/src/react-confirm-alert.css'
-
-import avatar_espece from '../../assets/images/elliot.jpg'
 import LogIn from '../auth/Login'
-import { truncate } from 'fs';
 import { Modal } from 'semantic-ui-react'
 
 export default class PartageSommaireEditeur extends Component {
@@ -49,7 +43,7 @@ export default class PartageSommaireEditeur extends Component {
 
     componentWillMount() {
         this.rafraichirDonnees(()=>{
-            if(!this.estVoteFinal() && this.estVoteClos() || this.state.rafraichirAuto) {
+            if(!this.estVoteFinal() && (this.estVoteClos() || this.state.rafraichirAuto)) {
                 this.setState({rafraichir: true}, ()=>{
                     this.rafraichissementAutomatique()                
                 })
@@ -326,7 +320,7 @@ export default class PartageSommaireEditeur extends Component {
                                     <div className="ui row">
                                         <div className="ui two wide column">
                                             <div className="holder-name">
-                                                <img className="ui spaced avatar image" src={`https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.beneficiaire.avatarImage}`} />
+                                                <img alt="" className="ui spaced avatar image" src={`https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.beneficiaire.avatarImage}`} />
                                             </div>
                                         </div>
                                         <div className="ui ten wide column">
@@ -405,7 +399,7 @@ export default class PartageSommaireEditeur extends Component {
                                     <div className="ui row">
                                         <div className="ui two wide column">
                                             <div className="holder-name">
-                                                <img className="ui spaced avatar image" src={`https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.donateur.avatarImage}`} />
+                                                <img alt="" className="ui spaced avatar image" src={`https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.donateur.avatarImage}`} />
                                             </div>
                                         </div>
                                         <div className="ui ten wide column">

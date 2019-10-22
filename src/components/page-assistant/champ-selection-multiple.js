@@ -109,7 +109,7 @@ export default class ChampSelectionMultiple extends Component {
                         selectOnBlur={ false }
                         selectOnNavigation={ false }
                         allowAdditions
-                        additionLabel={ <span className={ this.additionLabelClasses() }><img
+                        additionLabel={ <span className={ this.additionLabelClasses() }><img alt="" 
                             src={ this.plusCircle() }/> { this.createLabel() }</span> }
                         value={ this.state.dropdownValue }
                         options={ this.unselectedItems() }

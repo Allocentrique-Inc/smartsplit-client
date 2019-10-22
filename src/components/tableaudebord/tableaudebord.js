@@ -9,7 +9,6 @@ import Entete from '../entete/entete'
 import './tableaudebord.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import { Auth } from 'aws-amplify'
-import { toast } from 'react-toastify'
 
 import { Translation } from 'react-i18next'
 import ModaleConnexion from '../auth/Connexion'
@@ -26,9 +25,11 @@ export default class TableauDeBord extends Component {
     componentWillMount() {
         Auth.currentAuthenticatedUser()
         .then(res=>{
+            console.log(res)
             this.setState({user: res}, ()=>console.log(this.state.user))
         })
         .catch(err=>{
+            console.log(err)
             this.setState({modaleConnexion: true})
         })
     }
@@ -44,18 +45,17 @@ export default class TableauDeBord extends Component {
                     <Panneau entete={entete} selection={this.state.navigation} user={this.state.user} />
                 </div>                
             )
-        } else {
-            let that = this
+        } else {            
             return (
                 <Translation>
-             {   
-                 t =>
-                 
-                <div className="tdb--cadre ui row accueil">
-                    <ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />
-                </div>
-            }
-            </Translation>
+                {   
+                    t =>
+                    
+                    <div className="tdb--cadre ui row accueil">
+                        <ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />
+                    </div>
+                }
+                </Translation>
             )
             
 

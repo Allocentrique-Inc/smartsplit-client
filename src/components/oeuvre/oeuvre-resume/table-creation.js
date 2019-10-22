@@ -16,8 +16,8 @@ export default class TableCreation extends React.Component {
       label: "Auteurs (paroles)",
       value: (
         <>
-          <a href="#">Inscience</a>, <a href="#">Lores</a>,{" "}
-          <a href="#">Quest Love</a>, <a href="#">Jean-Pierre Cool</a>
+          <span>Inscience</span>, <span>Lores</span>,{" "}
+          <span>Quest Love</span>, <span>Jean-Pierre Cool</span>
         </>
       )
     },
@@ -25,8 +25,8 @@ export default class TableCreation extends React.Component {
       label: "Compositeurs (musique)",
       value: (
         <>
-          <a href="#">Inscience</a>, <a href="#">Lores</a>,{" "}
-          <a href="#">Quest Love</a>, <a href="#">Jean-Pierre Cool</a>
+          <span>Inscience</span>, <span>Lores</span>,{" "}
+          <span>Quest Love</span>, <span>Jean-Pierre Cool</span>
         </>
       )
     },
@@ -34,8 +34,8 @@ export default class TableCreation extends React.Component {
       label: "Arrangeurs (musique)",
       value: (
         <>
-          <a href="#">Inscience</a>, <a href="#">Lores</a>,{" "}
-          <a href="#">Quest Love</a>, <a href="#">Jean-Pierre Cool</a>
+          <span>Inscience</span>, <span>Lores</span>,{" "}
+          <span>Quest Love</span>, <span>Jean-Pierre Cool</span>
         </>
       )
     },
@@ -43,7 +43,7 @@ export default class TableCreation extends React.Component {
       label: "Éditeurs",
       value: (
         <>
-          <a href="#">Sync.mu</a>, <a href="#">Lepdup</a>
+          <span>Sync.mu</span>, <span>Lepdup</span>
         </>
       )
     }

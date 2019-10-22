@@ -6,7 +6,6 @@ const USER_POOL_ID = 'us-east-2_tK9rNdAB1'
 const COGNITO_CLIENT = new AWS.CognitoIdentityServiceProvider();
 const axios = require('axios');
 
-let body = {jeton: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InByb3Bvc2FsSWQiOiI2NjhlZDVjMC1lZjgwLTExZTktOWZkZi04NzM3YjBmOWYxZDUiLCJyaWdodEhvbGRlcklkIjoiNmNkOGU4ZjMtYWE1Ny00ZDI1LWFhZWYtMGRkYjNhOGQwYjU4In0sImlhdCI6MTU3MTE2NzA0NiwiZXhwIjoxNTcxNzcxODQ2fQ.5PZSnWoENIGU30B7hGG9pvXeb4TY_la76pgUXBB_17A"}
 axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/decode', body)
 .then((resp)=>{            
     let SUB = resp.data.rightHolderId

@@ -7,7 +7,6 @@ import { Translation } from 'react-i18next'
 
 import { Auth } from 'aws-amplify'
 
-import { confirmAlert } from 'react-confirm-alert'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 
 import avatar_espece from '../../assets/images/elliot.jpg'
@@ -46,12 +45,6 @@ const ROLES_NAMES = {
 }
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
-
-const TITRES = {
-    workCopyrightSplit: "Droits d'auteur",
-    performanceNeighboringRightSplit: "Interprétation",
-    masterNeighboringRightSplit: "Enregistrement sonore"
-}
 
 class SommaireDroit extends Component {
 
@@ -215,20 +208,13 @@ class SommaireDroit extends Component {
 
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
 
-                let _vote
-                if (this.state.monVote) {
-                    _vote = this.state.monVote.vote
-                } else {
-                    _vote = part.vote
-                }
-
                 _parts.push(
                     <div key={`part_${uuid}`}>
                         <div className="ui grid">
                             <div className="ui row">
                                 <div className="ui two wide column">
                                     <div className="holder-name">
-                                        <img className="ui spaced avatar image" src={
+                                        <img alt="" className="ui spaced avatar image" src={
                                             (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
                                                 this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
                                     </div>

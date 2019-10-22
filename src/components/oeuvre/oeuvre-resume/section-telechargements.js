@@ -9,23 +9,23 @@ export default class SectionTelechargements extends React.Component {
         {
             icon: downloadLockIcon,
             label: 'Visuel de l\'œuvre',
-            urls: (<><a href={ '#' }>Copier le lien</a></>)
+            urls: (<><div className="ui medium button">Copier le lien</div></>)
         },
         {
             icon: downloadCloudIcon,
             label: 'Fichier audio',
-            urls: (<><a href={ '#' }>Télécharger</a>&nbsp;&middot;&nbsp;<a href={ '#' }>Copier le lien</a></>)
+            urls: (<><div className="ui button medium">Télécharger</div>&nbsp;&middot;&nbsp;<button>Copier le lien</button></>)
         },
         {
             icon: downloadLockIcon,
             label: 'Partition/Tablature',
-            urls: (<><a href={ '#' }>Télécharger</a></>)
+            urls: (<><div className="ui medium button">Télécharger</div></>)
 
         },
         {
             icon: lockIcon,
             label: 'Fichier MIDI',
-            urls: (<><a href={ '#' }>Télécharger</a>&nbsp;&middot;&nbsp;<a href={ '#' }>Copier le lien</a></>)
+            urls: (<><div className="ui medium button">Télécharger</div>&nbsp;&middot;&nbsp;<div className="ui medium button">Copier le lien</div></>)
         },
     ];
 
