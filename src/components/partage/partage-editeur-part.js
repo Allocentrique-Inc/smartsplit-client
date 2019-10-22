@@ -95,6 +95,9 @@ class PageAssistantPartageEditeur extends Component {
     }
 
     changementGradateur(index, delta) {
+
+        // Modification graduelle des valeurs
+
         // Changement d'un gradateur
         let _aD = this.props.values.ayantDroit
         let editeur = this.props.values.editeur    
@@ -108,6 +111,38 @@ class PageAssistantPartageEditeur extends Component {
             this.props.setFieldValue('ayantDroit', _aD)
         }
         setTimeout(()=>{this.recalculerPartage()}, 0)
+    }
+
+    changementTexte(index, delta, e) {
+
+        // Modification empirique des valeurs
+
+        console.log(index, delta, e.target.value)
+        // Changement d'un gradateur
+        let _aD = this.props.values.ayantDroit
+        let editeur = this.props.values.editeur
+
+        // Première passe ajuste le pourcentage avec maximum
+        if( 
+            (e.target.value < 50 && index === "texte_ayantdroit") ||
+            (e.target.value > 50 && index === "texte_editeur")
+        ) {
+            e.target.value = 50
+            _aD.pourcent = 50
+            editeur.pourcent = 50    
+        }
+
+        if(index === "texte_ayantDroit") {
+            // On bouge l'éditeur du delta inverse
+            editeur.pourcent = 100 - arrondir(parseFloat(e.target.value))
+        } else if(index === "texte_editeur") {            
+            _aD.pourcent = 100 - arrondir(parseFloat(e.target.value))            
+        }
+
+        this.props.setFieldValue('editeur', editeur)
+        this.props.setFieldValue('ayantDroit', _aD)
+
+        setTimeout(()=>this.recalculerPartage(), 0)
     }
 
     render() {
@@ -179,8 +214,8 @@ class PageAssistantPartageEditeur extends Component {
                                                 />
                                                 <ChampTexteAssistant 
                                                     id={`texte_ayantdroit`}
-                                                    changement={(id, valeur)=>{
-                                                        this.changementGradateur(id, valeur)
+                                                    changement={(id, valeur, e)=>{
+                                                        this.changementTexte(id, valeur, e)
                                                     }}
                                                     modele="ayantDroit.pourcent"
                                                     valeur={this.props.values.ayantDroit.pourcent} />
@@ -203,8 +238,8 @@ class PageAssistantPartageEditeur extends Component {
                                                 />                                                                        
                                                 <ChampTexteAssistant 
                                                     id={`texte_editeur`}
-                                                    changement={(id, valeur)=>{
-                                                        this.changementGradateur(id, valeur)
+                                                    changement={(id, valeur, e)=>{
+                                                        this.changementTexte(id, valeur, e)
                                                     }}
                                                     modele="editeur.pourcent"
                                                     valeur={this.props.values.editeur.pourcent} />

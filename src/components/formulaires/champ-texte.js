@@ -141,7 +141,7 @@ export class ChampTexteAssistant extends Component {
                 if(Number.isNaN(val)) {
                     val = 0
                 }
-                this.props.changement(this.props.id, parseFloat((val - this.state.valeur).toFixed(4)))
+                this.props.changement(this.props.id, parseFloat((val - this.state.valeur).toFixed(4)), e)
                 this.setState({valeur: val})
             }})
 
