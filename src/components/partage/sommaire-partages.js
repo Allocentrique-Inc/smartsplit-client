@@ -22,6 +22,7 @@ import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-
 import { Modal, Button } from 'semantic-ui-react'
 
 import moment from 'moment'
+import SommairePartagesEditeur from './sommaire-partages-editeur'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
@@ -425,7 +426,9 @@ export default class SommairePartages extends Component {
                                     {
                                         this.state.panneau === PANNEAU_EDITEUR &&
                                         (
-                                            <div className="ui row">
+                                            <SommairePartagesEditeur proposition={_p0} />                        
+                                        )
+                                        /* <div className="ui row">
                                                 <div className="ui one wide column" />
                                                 {
                                                     !this.state.partEditeur &&
@@ -436,8 +439,8 @@ export default class SommairePartages extends Component {
                                                     <PartageSommaireEditeur ayantDroit={this.state.ayantDroit} part={this.state.partEditeur} proposition={_p0} />
                                                 }
                                                 <div className="ui one wide column" />
-                                            </div>
-                                        )
+                                            </div> 
+                                        */
                                     }
                                     {
                                         this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (

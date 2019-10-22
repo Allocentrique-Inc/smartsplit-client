@@ -62,9 +62,7 @@ export default class Beignet extends Component {
         this.regenerer = true
     }
 
-    genererBeignet() { 
-        
-        console.log('generer')
+    genererBeignet() {         
 
         // Remettre à zéro le conteneur du beignet
         if (this.state.type === "workCopyrightSplit") this.setState({icon: copyIcon})
@@ -122,7 +120,6 @@ export default class Beignet extends Component {
 
         svg.selectAll('allSlices')
         .on("activate", function(d) {
-            console.log('retrait des bulles', d)
             myDiv.transition()
             .style("opacity", 0)
         })
