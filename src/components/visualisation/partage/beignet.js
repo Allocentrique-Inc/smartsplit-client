@@ -18,8 +18,8 @@ export default class Beignet extends Component {
     constructor(props){
         super(props)
         this.state = {
-            width: 600, //550,
-            height: 250, //225,
+            width: 800, //550,
+            height: 350, //225,
             margin: 10, //50,
             icon: "",
             data: {},
@@ -60,6 +60,7 @@ export default class Beignet extends Component {
             this.setState({colors: _c})
             this.setState({alphas: _a})
         }
+        this.regenerer = true
     }
 
     genererBeignet() {     
@@ -112,6 +113,11 @@ export default class Beignet extends Component {
             .innerRadius(radius * 0.9)
             .outerRadius(radius * 0.9)
 
+        // Define the div for the tooltip
+        let myDiv = d3.select("body").append("div")	
+            .attr("class", "tooltip")				
+            .style("opacity", 0);
+
         // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
         svg
             .selectAll('allSlices')
@@ -122,8 +128,27 @@ export default class Beignet extends Component {
             .attr('fill', function(d){ return(color(d.data.key)) })
             .attr("stroke", "white")
             .style("stroke-width", "2px")
-            .style("opacity", function(d){ return(alpha(d.data.key) ? 0.1 : 0.9)})
+            .style("opacity", function(d){ return(alpha(d.data.key) ? 0.1 : 0.9)})	
+            .on("mouseover", function(d) {		
+                console.log("Mouse Over")
+                d3.select(this)
+                    .attr("stroke", "gray")
+                myDiv.transition()		
+                    .duration(50)		
+                    .style("opacity", .9);		
+                myDiv.html(d.data.key + " " + parseFloat(d.data.value).toFixed(2) + "%", 150)	
+                    .style("left", (d3.event.pageX) + "px")		
+                    .style("top", (d3.event.pageY - 28) + "px");	
+                })					
+            .on("mouseout", function(d) {	
+                d3.select(this)
+                    .attr("stroke", "white")
+                myDiv.transition()		
+                    .duration(500)		
+                    .style("opacity", 0);	
+            }).call(this.wrapping, 150)
 
+        /*
         // Add the polylines between chart and labels:
         svg
             .selectAll('allPolylines')
@@ -160,13 +185,16 @@ export default class Beignet extends Component {
                 return (midangle < Math.PI ? 'start' : 'end')
             })
             .call(this.wrapping, 150)
+        */
 
-        svg.append('image')
+        if (Object.keys(this.state.data).length > 0) {
+            svg.append('image')
             .attr('xlink:href',this.state.icon)
-            .attr('width', 50)
-            .attr('height', 50)
-            .attr('x', -25)
-            .attr('y', -25)
+            .attr('width', 60)
+            .attr('height', 60)
+            .attr('x', -30)
+            .attr('y', -30)
+        }
 
     }
     
@@ -208,7 +236,10 @@ export default class Beignet extends Component {
         // Ajoute la génération de beignet comme prochaine exécution de la pile JavaScript
         // alors que l'élément my_dataviz est accessible dans le navigateur du client.
         setTimeout(()=>{
-            this.genererBeignet()
+            if (this.regenerer) {
+                this.genererBeignet()
+                this.regenerer = false
+            }
         }, 0)
 
         return (
