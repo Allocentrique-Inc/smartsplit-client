@@ -62,11 +62,15 @@ export default class Beignet extends Component {
         this.regenerer = true
     }
 
-    genererBeignet() {     
+    genererBeignet() { 
+        
+        console.log('generer')
+
         // Remettre à zéro le conteneur du beignet
         if (this.state.type === "workCopyrightSplit") this.setState({icon: copyIcon})
         if (this.state.type === "performanceNeighboringRightSplit") this.setState({icon: starIcon})
         if (this.state.type === "masterNeighboringRightSplit") this.setState({icon: prodIcon})
+        
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
         if(conteneur) {
             let enfants = conteneur.childNodes
@@ -90,7 +94,7 @@ export default class Beignet extends Component {
             .domain(Object.keys(this.state.colors))
             .range(Object.values(this.state.colors));
         
-            let alpha = d3.scaleOrdinal() // D3 Version 4
+        let alpha = d3.scaleOrdinal() // D3 Version 4
             .domain(Object.keys(this.state.alphas))
             .range(Object.values(this.state.alphas));
 
@@ -115,6 +119,13 @@ export default class Beignet extends Component {
         let myDiv = d3.select("body").append("div")	
             .attr("class", "tooltip")				
             .style("opacity", 0);
+
+        svg.selectAll('allSlices')
+        .on("activate", function(d) {
+            console.log('retrait des bulles', d)
+            myDiv.transition()
+            .style("opacity", 0)
+        })
 
         // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
         svg
