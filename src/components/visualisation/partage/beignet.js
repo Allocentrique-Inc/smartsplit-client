@@ -38,7 +38,6 @@ export default class Beignet extends Component {
     componentWillReceiveProps(nextProps) {
         // Le beignet rafraichit son affichage à chaque changement de propriétés.
         // Il n'y a pas de test sur les attributes (this.props.xyz !== nextProps.xyz)
-        console.log('Rafraîchir dans willReceiveProps')
         this.rafraichir(nextProps)
     }
 
@@ -65,7 +64,6 @@ export default class Beignet extends Component {
 
     genererBeignet() {     
         // Remettre à zéro le conteneur du beignet
-        console.log("Générer beignet")
         if (this.state.type === "workCopyrightSplit") this.setState({icon: copyIcon})
         if (this.state.type === "performanceNeighboringRightSplit") this.setState({icon: starIcon})
         if (this.state.type === "masterNeighboringRightSplit") this.setState({icon: prodIcon})
@@ -212,7 +210,7 @@ export default class Beignet extends Component {
             if(this.regenerer) {
                 this.genererBeignet()
                 this.regenerer = false
-            }            
+            }
         }, 0)
 
         return (

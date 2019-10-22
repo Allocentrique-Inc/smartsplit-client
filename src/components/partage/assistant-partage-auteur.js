@@ -165,15 +165,9 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     changementTexte(index, delta) {
-         // Changement de la zone de texte associée au gradateur
-         let invariable = this.state.partsInvariables
+        // Changement de la zone de texte associée au gradateur
+        let invariable = this.state.partsInvariables
         let droits = this.props.values.droitAuteur
-
-        // extraction de l'index numérique du gradateur
-        // pour récupération du droit (derniers caractères après le dernier _)
-        //let idxG = index.substring(index.lastIndexOf('_') + 1, index.length)
-
-        //delta = delta - (parseFloat(droits[idxG].pourcent) % 1) // différence décimale à soustraire du delta à répartir
 
         let deltaParCollaborateurVariable = 0.0
 
@@ -188,8 +182,6 @@ class PageAssistantPartageAuteur extends Component {
             deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
         }
 
-        console.log('delta par collaborateur variable', deltaParCollaborateurVariable)
-
         droits.forEach((elem, idx) => {
             if (!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
@@ -197,14 +189,11 @@ class PageAssistantPartageAuteur extends Component {
                 droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
             }
         })
-
+        
         this.props.setFieldValue('droitAuteur', droits)
-
-        //this.setState({ ping: true }, () => this.recalculerPartage())
-
+        
         if (aMisInvariable) // Retrait de l'index des invariables
             delete invariable[index]
-
     }
 
     changementGradateur(index, delta) {

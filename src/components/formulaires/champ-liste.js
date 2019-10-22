@@ -242,7 +242,6 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     listeAyantsDroit() {
-        console.log('liste ...')
         // Récupérer la liste des ayant-droits        
         axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
             .then(res => {
@@ -277,7 +276,6 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     recalculerOptions(collaborateurs) {
-        console.log('recalcul ...')
         // collaborateurs est une liste de collaborateurs à exclure
         let options = Object.assign([], this.OPTIONS)
         collaborateurs.forEach(elem => {

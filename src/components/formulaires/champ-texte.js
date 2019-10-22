@@ -80,7 +80,8 @@ export class ChampTexteAssistant extends Component {
             lien: props.lien,
             typeLien: props.typeLien,
             disabled: props.disabled,
-            soustexte: props.soustexte
+            soustexte: props.soustexte,
+            valeur: props.valeur
         }
         this.valeur = props.valeur
     }
@@ -134,11 +135,14 @@ export class ChampTexteAssistant extends Component {
         }
 
         if(this.props.changement)
-            Object.assign(attributs, {onInput: e=>{                
-                let val = parseInt(e.target.value)
-                console.log('valeur, nouvelle valeur', this.valeur, val, val - this.valeur)
-                this.props.changement(this.props.id, val - this.valeur)
-                this.valeur = val
+            Object.assign(attributs, {onInput: e=>{
+                e.target.value = e.target.value.replace(',','.')
+                let val = parseFloat(e.target.value)
+                if(Number.isNaN(val)) {
+                    val = 0
+                }
+                this.props.changement(this.props.id, parseFloat((val - this.state.valeur).toFixed(4)))
+                this.setState({valeur: val})
             }})
 
         return(
