@@ -38,17 +38,17 @@ export default class Entete extends React.Component {
         const zIndex = displayedAvatars + 2 - index;
         return (
           <div className={"avatar"} style={{ zIndex }}>
-            <img src={avatar} alt={avatar} />
+            <img src={avatar} alt="avatar" />
           </div>
         );
       })
       .concat([moreLabel])
       .concat([
-        <a href={"#"}>
+        <div>
           <div className={"plus-button"}>
-            <img src={plusIcon} />
+            <img alt="" src={plusIcon} />
           </div>
-        </a>
+        </div>
       ]);
   }
 
@@ -67,20 +67,20 @@ export default class Entete extends React.Component {
               <div className={"song-info"}>
                 <h1 className={"h1-style"}>
                   Love You Baby (Remix)
-                  <a className={"edit-link"} href={"#"}>
+                  <div className={"edit-link"}>
                     <img
                       className={"edit-icon"}
                       src={editIcon}
                       alt={"Éditer"}
                     />
-                  </a>
+                  </div>
                 </h1>
 
                 <div className={"artist-line"}>
                   <div className={"left"}>
                     <span className={"tag"}>{t("oeuvre.piece")}</span>
-                    {t("oeuvre.par")} <a href={"#"}>{t("oeuvre.band")}</a> {t("oeuvre.feat")}{" "}
-                    <a href={"#"}>{t("oeuvre.artistName")}</a>
+                    {t("oeuvre.par")} <span>{t("oeuvre.band")}</span> {t("oeuvre.feat")}{" "}
+                    <span>{t("oeuvre.artistName")}</span>
                   </div>
 
                   <div className={"right"}>
@@ -91,7 +91,7 @@ export default class Entete extends React.Component {
                 <div className={"header-divider"}></div>
 
                 <div className={"other-info"}>
-                  {t("oeuvre.creePar")} <a href={"#"}>Inscience</a> &middot; Mis
+                  {t("oeuvre.creePar")} <span>Inscience</span> &middot; Mis
                   à jour il y a 3 heures
                 </div>
               </div>

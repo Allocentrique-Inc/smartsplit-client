@@ -65,10 +65,7 @@ class ForgotPasswordVerification extends Component {
   validateConfirmNewPassword(value) {
     if (!value) {
       return "Required";
-      // } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
-      //   console.log("VALUE confirm", value)
-      //   return "Passwords do not match"
-    } else if (value !== this.state.newPassword) {
+    } else if (value !== this.state.password) {
       console.log("VALUE confirm", value);
       return "Passwords do not match";
     } else {

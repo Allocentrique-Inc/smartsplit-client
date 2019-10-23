@@ -10,9 +10,9 @@ export default class ChampGradateurAssistant extends Component {
             etiquette: props.etiquette,
             pourcent: props.pourcent,
             modele: props.modele,
-            disabled: props.disabled
+            disabled: props.disabled,
+            valeur: props.valeur
         }
-        this.valeur = 0
     }
 
     componentWillReceiveProps(nextProps) {
@@ -21,6 +21,9 @@ export default class ChampGradateurAssistant extends Component {
         }
         if (this.props.disabled !== nextProps.disabled) {
             this.setState({disabled: nextProps.disabled})
+        }
+        if (this.props.valeur !== nextProps.valeur) {
+            this.setState({valeur: nextProps.valeur})
         }
     }
 
@@ -39,11 +42,11 @@ export default class ChampGradateurAssistant extends Component {
                     disabled: this.state.disabled,
                     onInput: e=>{ // Déclenché lorsque le gradateur change de valeur
                         let val = e.target.value
-                        this.props.changement(this.props.id, val - this.valeur)
-                        this.valeur=val
+                        this.props.changement(this.props.id, val - this.state.valeur)
+                        this.setState({valeur: val})
                     },
                     onMouseDown: e=>{
-                        this.valeur = e.target.value
+                        this.setState({valeur: e.target.value})
                     }
                 }}
             />

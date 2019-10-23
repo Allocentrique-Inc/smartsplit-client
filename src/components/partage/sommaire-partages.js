@@ -11,8 +11,6 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 
-import { confirmAlert } from 'react-confirm-alert'
-
 import Entete from '../entete/entete'
 import { Accordion, Icon } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
@@ -21,9 +19,10 @@ import PartageSommaireEditeur from './partage-sommaire-editeur'
 
 import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
 
-import { Modal, Header, Button } from 'semantic-ui-react'
+import { Modal, Button } from 'semantic-ui-react'
 
 import moment from 'moment'
+import SommairePartagesEditeur from './sommaire-partages-editeur'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
@@ -356,11 +355,10 @@ export default class SommairePartages extends Component {
                                                             >
                                                                 <Modal.Header>
                                                                     <h2 style={{ display: "flex" }}>{t("flot.split.documente-ton-oeuvre.proposition.titre")}
-                                                                        <div>
-                                                                            <a className="close-icon"
-                                                                                onClick={() => { this.closeModal() }}
-                                                                            >
-                                                                            </a></div>
+                                                                        <div 
+                                                                            className="close-icon"
+                                                                            onClick={() => { this.closeModal() }} >
+                                                                        </div>
                                                                     </h2>
                                                                 </Modal.Header>
                                                                 <Modal.Content style={{ color: "#687A8B" }}>
@@ -428,7 +426,9 @@ export default class SommairePartages extends Component {
                                     {
                                         this.state.panneau === PANNEAU_EDITEUR &&
                                         (
-                                            <div className="ui row">
+                                            <SommairePartagesEditeur proposition={_p0} />                        
+                                        )
+                                        /* <div className="ui row">
                                                 <div className="ui one wide column" />
                                                 {
                                                     !this.state.partEditeur &&
@@ -439,8 +439,8 @@ export default class SommairePartages extends Component {
                                                     <PartageSommaireEditeur ayantDroit={this.state.ayantDroit} part={this.state.partEditeur} proposition={_p0} />
                                                 }
                                                 <div className="ui one wide column" />
-                                            </div>
-                                        )
+                                            </div> 
+                                        */
                                     }
                                     {
                                         this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (

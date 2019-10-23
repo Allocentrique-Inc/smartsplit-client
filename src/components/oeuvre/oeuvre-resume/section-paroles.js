@@ -1,6 +1,5 @@
 import React from 'react';
 import downloadLock from '../../../assets/svg/icons/download-lock.svg';
-import downloadCloud from '../../../assets/svg/icons/download-cloud.svg';
 import TitreModifiable from "./titre-modifiable";
 
 export default class SectionParoles extends React.Component {
@@ -17,7 +16,7 @@ export default class SectionParoles extends React.Component {
                     <img className={ 'download-icon' } src={ downloadLock } alt={ 'Verouillé' }/>
 
                     <div className={ 'download-texts' }>
-                        <a href={'#'}>Voir les paroles</a>
+                        <span>Voir les paroles</span>
                     </div>
                 </div>
             </>

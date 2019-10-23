@@ -150,7 +150,7 @@ class AssistantPartageEditeur extends Component {
                 }
                 axios.post(`http://dev.api.smartsplit.org:8080/v1/editorsplitshare/invite`, body)
                 .then(()=>{
-                    window.location.reload()
+                    this.props.soumettre()
                 })
             })
             .catch(err=>{
@@ -169,17 +169,7 @@ class AssistantPartageEditeur extends Component {
                         (t, i18n)=>
                             <div className="ui grid" style={{padding: "10px"}}>
                                 {!this.state.sansentete && 
-                                    <EntetePartage enregistrer={
-                                        (cb)=>{
-                                            //this.soumettre(this.state.assistant.props.values, cb)
-                                        }} media={this.state.media} user={this.state.user} />}
-                                {!this.state.sansentete && 
-                                <div className="ui row">                                    
-                                    <div className="ui sixteen wide column">
-                                        <Progress percent="10" size='tiny' indicating/>
-                                    </div>
-                                </div>
-                                }
+                                    <EntetePartage media={this.state.media} user={this.state.user} />}                                
                                 <div className="ui row">
                                     <div className="ui two wide column" />
                                     <div className="ui twelve wide column">

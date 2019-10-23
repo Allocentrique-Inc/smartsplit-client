@@ -92,9 +92,8 @@ export default class BoutonsRadio extends Component {
     render() {
 
         let choix = this.state.choix.map((elem, idx) => {
-            console.log(elem.info)
             return (
-                <>
+                <div key={`radioOption_${this.props.name}_${idx}`}>
                     <div className="ui row"
                         style={{
                             display: "flex",
@@ -102,19 +101,18 @@ export default class BoutonsRadio extends Component {
                             flexDirection: "row",
                             width: "464px"
                         }}
-                        onClick={this.state.onClick}
-                        key={`radioOption_${this.props.name}_${idx}`}>
+                        onClick={this.state.onClick}>
                         <Field
                             component={RadioButton}
                             id={this.props.modele}
                             value={elem.valeur}
                             label={elem.nom}
-                            checked={idx == this.state.actif}
+                            checked={parseInt(idx) === parseInt(this.state.actif)}
                             disabled={this.state.disabled}
                         />
                         {elem.info && (<InfoBulle text={elem.info} />)}
                     </div>
-                </>
+                </div>
             )
         })
 

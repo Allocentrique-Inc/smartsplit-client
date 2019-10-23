@@ -4,7 +4,7 @@ import TableGauche from "./table-gauche";
 export default class TableInterpretation extends React.Component {
     rows = [
         {
-            label: (<a href="#">Inscience</a>),
+            label: (<span>Inscience</span>),
             value: (
                 <>
                     <div className={ 'mb-05' }>
@@ -20,7 +20,7 @@ export default class TableInterpretation extends React.Component {
         },
 
         {
-            label: (<a href="#">Quest Love</a>),
+            label: (<span>Quest Love</span>),
             value: (
                 <>
                     <div className={ 'mb-05' }>
@@ -41,7 +41,7 @@ export default class TableInterpretation extends React.Component {
         },
 
         {
-            label: (<a href="#">Benny Williams</a>),
+            label: (<span>Benny Williams</span>),
             value: (
                 <>
                     <div className={ 'mb-05' }>

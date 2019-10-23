@@ -6,7 +6,6 @@ import { Auth } from 'aws-amplify';
 import { toast } from 'react-toastify'
 import LigneMedia from './tableaudebord-ligne-media'
 import { Modal } from 'semantic-ui-react';
-import AssistantOeuvre from '../oeuvre/assistant-oeuvre';
 import NouvelleOeuvre from './tableaudebord-nouvelle-oeuvre';
 import AudioLecture from '../oeuvre/audio-lecture';
 
@@ -97,12 +96,12 @@ export default class ListePieces extends Component {
                                     if (item.initiator.id === USER_ID) {
                                         initiatorMediaIds.push(item.mediaId) // If initiator
                                     }
-                                    else if (item.initiator.id == undefined) {
+                                    else if (item.initiator.id === undefined) {
                                         toast.error("Initiator undefined")
                                     }
                                     if ((JSON.stringify(item.rightsSplits)).includes(USER_ID)) {
                                         collabMediaIds.push(item.mediaId) // If collaborator
-                                    } else if (item.rightsSplits == undefined) {
+                                    } else if (item.rightsSplits === undefined) {
                                         toast.error("rightsSplits object error")
                                     }
                                 })
@@ -121,7 +120,7 @@ export default class ListePieces extends Component {
                                         _medias.push(res.data.Item)
                                     }
                                     ii++
-                                    if (initiatorMediaIds.length == ii) {
+                                    if (initiatorMediaIds.length === ii) {
                                         that.setState({ medias: _medias })
                                     }
                                     that.collecte({ medias: true })
@@ -133,7 +132,7 @@ export default class ListePieces extends Component {
                                         _collabMedias.push(res.data.Item)
                                     }
                                     jj++
-                                    if (collabMediaIds.length == jj) {
+                                    if (collabMediaIds.length === jj) {
                                         that.setState({ collabMedias: _collabMedias })
                                     }
                                     that.collecte({ collab: true })
@@ -201,7 +200,7 @@ export default class ListePieces extends Component {
                                                 <br />
                                                 <br />
                                                 <div className="illustration">
-                                                    <div className="medium-500" style={{ textAlign: 'center' }}>👀</div>
+                                                    <span role="img" aria-label="" className="medium-500" style={{ textAlign: 'center' }}>👀</span>
                                                 </div>
                                                 <div className="ui fifteen wide column" style={{ textAlign: "center" }}>
                                                     <br />
@@ -237,8 +236,8 @@ export default class ListePieces extends Component {
         )
 
         if (
-            (!this.state.patience && (this.state.medias.length + this.state.creatorMedias.length) == 0 && this.state.panneau === PANNEAU_INITIATEUR) ||
-            (!this.state.patience && this.state.collabMedias.length == 0 && this.state.panneau === PANNEAU_COLLABORATEUR)
+            (!this.state.patience && (this.state.medias.length + this.state.creatorMedias.length) === 0 && this.state.panneau === PANNEAU_INITIATEUR) ||
+            (!this.state.patience && this.state.collabMedias.length === 0 && this.state.panneau === PANNEAU_COLLABORATEUR)
         ) {  // If no initiator musical pieces present for user
             rendu = aucuneOeuvre()
         } else {
@@ -258,6 +257,8 @@ export default class ListePieces extends Component {
                             return (
                                 <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />
                             )
+                        } else {
+                            return null
                         }
                     })
                 )

@@ -17,7 +17,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
-import { confirmAlert } from 'react-confirm-alert'
 import { Modal, Button } from 'semantic-ui-react'
 import Declaration from '../auth/Declaration'
 
@@ -141,8 +140,6 @@ class AssistantPartage extends Component {
                     let droitAuteurParoles = [];
 
                     values.droitAuteur.forEach(elem => {
-
-                        let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
 
                         let _rH = _association[elem.ayantDroit.rightHolderId]
                         let uuid = _rH.rightHolderId
@@ -521,9 +518,9 @@ class AssistantPartage extends Component {
                                         </div>
 
                                         <div className="rightModal" style={{ paddingRight: "10px" }}>
-                                            <a className="close-icon" onClick={this.props.onClose}>
+                                            <div className="close-icon" onClick={this.props.onClose}>
                                                 <img src={closeIcon} alt={"close"} style={{ float: "right" }} />
-                                            </a>
+                                            </div>
                                         </div>
                                     </div>
 

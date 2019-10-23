@@ -72,7 +72,7 @@ export default class ChampSelection extends Component {
                         search
                         selection
                         allowAdditions
-                        additionLabel={ <span className={ this.additionLabelClasses() }><img
+                        additionLabel={ <span className={ this.additionLabelClasses() }><img alt=""
                             src={ this.plusCircle() }/> { this.createLabel() }</span> }
                         value={ this.state.value }
                         onChange={ this.handleChange }

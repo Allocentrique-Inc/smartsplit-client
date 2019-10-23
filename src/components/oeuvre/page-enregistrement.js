@@ -265,7 +265,6 @@ export default class PageEnregistrement extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.codeiswc-placeholder"
                 )}
                 value={this.props.values.isrc}
-                placeholder={"XX-XXX-00-0000"}
                 onChange={value => this.props.setFieldValue("isrc", value)}
               />
               {/*{elem.info && (<InfoBulle text={elem.info} />)}*/}

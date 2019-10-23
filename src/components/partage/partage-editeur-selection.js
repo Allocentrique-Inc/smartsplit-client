@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Translation } from "react-i18next";
 
-import { ChampListeEditeurAssistant, ChampListeCollaborateurAssistant } from "../formulaires/champ-liste";
-
-import avatar from "../../assets/images/elliot.jpg";
+import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 
 class PageAssistantPartageChoixEditeur extends Component {
   constructor(props) {
@@ -79,7 +77,7 @@ class PageAssistantPartageChoixEditeur extends Component {
         {t => (
           <div className="ui grid">
             <div className="ui row">
-              <div className="ui seven wide column">
+              <div className="ui fourteen wide column">
                 <div className="wizard-title">
                   {t("flot.split.documente-ton-oeuvre.partage.auteur.titre")}
                 </div>
@@ -98,6 +96,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                       <div className="twelve wide field gray-fields">
                         <div className="holder-name">
                           <img
+                            alt=""
                             className="ui spaced avatar image"
                             src={avatar}
                           />

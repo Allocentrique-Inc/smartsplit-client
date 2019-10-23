@@ -77,8 +77,83 @@ class PageAssistantPartageEnregistrement extends Component {
         return _pctDelta < 0 ? 0 : _pctDelta
     }
 
-    // Changement d'un gradateur
+    changementTexte(index, delta) {
+        // Changement de la zone de texte associée au gradateur
+        let invariable = this.state.partsInvariables
+        let droits = this.props.values.droitEnregistrement
+
+        let deltaParCollaborateurVariable = 0.0
+
+        let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
+        if (!invariable[index])
+            aMisInvariable = true
+
+        invariable[index] = true // Le droit sélectionné lors de la transition est considéré invariable
+        let nbModifications = droits.length - Object.keys(invariable).length
+
+        if (nbModifications > 0) {
+            deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+        }
+
+        droits.forEach((elem, idx) => {
+            if (!invariable[idx]) { // Ajustement si l'index est variable
+                droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
+                droits[idx].pourcentParoles = `${arrondir(droits[idx].pourcent / 2)}`
+                droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
+            }
+        })
+        
+        this.props.setFieldValue('droitEnregistrement', droits)
+        
+        if (aMisInvariable) // Retrait de l'index des invariables
+            delete invariable[index]
+    }
+
     changementGradateur(index, delta) {
+
+        // Changement d'un gradateur
+
+        let invariable = this.state.partsInvariables
+        let droits = this.props.values.droitEnregistrement
+
+        // extraction de l'index numérique du gradateur
+        // pour récupération du droit (derniers caractères après le dernier _)
+        let idxG = index.substring(index.lastIndexOf('_') + 1, index.length)
+
+        delta = delta - (parseFloat(droits[idxG].pourcent) % 1) // différence décimale à soustraire du delta à répartir
+
+        let deltaParCollaborateurVariable = 0.0
+
+        let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
+        if (!invariable[index])
+            aMisInvariable = true
+
+        invariable[index] = true // Le droit sélectionné lors de la transition est considéré invariable
+        let nbModifications = droits.length - Object.keys(invariable).length
+
+        if (nbModifications > 0) {
+            deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+        }
+
+        droits.forEach((elem, idx) => {
+            if (!invariable[idx]) { // Ajustement si l'index est variable
+                droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
+                droits[idx].pourcentParoles = `${arrondir(droits[idx].pourcent / 2)}`
+                droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
+            }
+        })
+
+        this.props.setFieldValue('droitEnregistrement', droits)
+
+        this.setState({ ping: true }, () => this.recalculerPartage())
+
+        if (aMisInvariable) // Retrait de l'index des invariables
+            delete invariable[index]
+
+    }
+
+    // Changement d'un gradateur
+    /* changementGradateur(index, delta) {
         // Changement d'un gradateur
 
         let invariable = this.state.partsInvariables
@@ -114,7 +189,7 @@ class PageAssistantPartageEnregistrement extends Component {
         if (aMisInvariable) // Retrait de l'index des invariables
             delete invariable[index]
 
-    }
+    } */
 
     basculerVariable(index) {
 
@@ -340,7 +415,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                         <div className="ui row">
                                                                                             <div className="ui two wide column">
                                                                                                 <div className="avatar-image">
-                                                                                                    <img className="ui spaced avatar image" src={avatar} />
+                                                                                                    <img alt="" className="ui spaced avatar image" src={avatar} />
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div className="ui thirteen wide column">
@@ -405,7 +480,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                         <ChampTexteAssistant
                                                                                                             id={`texte_${index}`}
                                                                                                             changement={(id, valeur) => {
-                                                                                                                this.changementGradateur(id, valeur)
+                                                                                                                this.changementTexte(id, valeur)
                                                                                                             }}
                                                                                                             modele={`droitEnregistrement[${index}].pourcent`}
                                                                                                             disabled={this.state.partsInvariables[index] ||

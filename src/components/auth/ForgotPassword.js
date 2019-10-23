@@ -1,18 +1,13 @@
-import React, { Component } from "react";
-// import FormErrors from "../FormErrors";
-// import Validate from "../utility/FormValidation";
-import { Auth } from "aws-amplify";
-import { Translation } from "react-i18next";
-import { Modal, Header } from "semantic-ui-react";
+import React, { Component } from "react"
+import { Auth } from "aws-amplify"
+import { Translation } from "react-i18next"
+import { Modal } from "semantic-ui-react"
 
-import closeIcon from "../../assets/svg/icons/x.svg";
-import "../../assets/scss/page-assistant/modal.scss";
-import positiveImage from "../../assets/images/positive.png";
-import { toast } from "react-toastify";
-import { Formik, Form, Field } from "formik";
-import * as Yup from 'yup';
-
-//import { withTranslation } from "react-i18next";
+import closeIcon from "../../assets/svg/icons/x.svg"
+import "../../assets/scss/page-assistant/modal.scss"
+import positiveImage from "../../assets/images/positive.png"
+import { toast } from "react-toastify"
+import { Formik, Field } from "formik"
 
 const emailStyle = {
   display: "block",
@@ -119,7 +114,7 @@ class ForgotPassword extends Component {
   };
 
   handleSubmit = values => {
-    const email = values.email;
+    
   }
 
   render() {
@@ -227,7 +222,7 @@ class ForgotPassword extends Component {
                             <div className="title">
                               {t("flot.fin.recupMotDePasse")}
                             </div>
-                            <a className="close-icon"
+                            <div className="close-icon"
                               onClick={() => { this.handleClose() }}
                               style={{
                                 right: "40px",
@@ -235,7 +230,7 @@ class ForgotPassword extends Component {
                               }}
                             >
                               <img src={closeIcon} alt={"close"} />
-                            </a>
+                            </div>
                           </span>
                         </Modal.Header>
 

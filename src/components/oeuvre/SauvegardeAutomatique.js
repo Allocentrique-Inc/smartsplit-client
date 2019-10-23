@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import axios from 'axios'
-import { toast } from 'react-toastify'
 import { Translation } from 'react-i18next'
 
 export class SauvegardeAutomatiqueMedia extends Component {
