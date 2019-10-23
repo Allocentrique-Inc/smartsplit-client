@@ -24,7 +24,7 @@
     "apercu-sen-vient": "Votre aperçu s'affichere ici"
   },
   "collaborateur": {
-    "titre": "Ajouter un collaborateur",
+    "titre": "[Ajouter/Modifier] un collaborateur",
     "titre2": "Ajouter comme collaborateur :",
     "bouton": {
       "annuler": "Annuler",
@@ -158,8 +158,9 @@
         "password": "Mot de pass oublié",
         "password2": "Vérification de mot de passe",
         "password3": "Changer de vérification",
-        "definir": "Définir un nouveau mot de passe",
-        "nouveau": "Nouveau mot de passe",
+        "definir": "Indique et confirme ton nouveau mot de passe",
+        "nouveau": "Mon nouveau mot de passe",
+        "confirmer": "Confirmer mon nouveau mot de passe",
         "code": "Veuillez indiquer le code de vérification envoyé à l'adresse courriel ci-dessous, votre adresse courriel et un nouveau mot de passe.",
         "verification": "Indiquer le code de vérification",
         "welcome": "Bienvenue",
@@ -212,12 +213,16 @@
       "collaborateur": {
         "titre": "Ajouter un artiste collaborateur",
         "attribut": {
-          "etiquette": {
-            "nom": "Nom légal",
+          "placeholder": {
             "prenom": "Prénom légal",
+            "nom": "Nom légal"
+          },
+          "etiquette": {
+            "nom": "Mon nom",
+            "prenom": "Mon prénom",
             "artiste": "Nom d'artiste (alias)",
             "role": "Rôle dans la pièce musicale",
-            "option": "(optionel)",
+            "option": "Optionnel",
             "na": "Par exemple, Jay-Z est le nom d'artiste de Shawn Corey Carter.",
             "courriel": "Courriel",
             "groupe": "Ajouter groupes, entités artistiques ou entreprises",
@@ -234,7 +239,8 @@
           "bouton": {
             "annuler": "Annuler",
             "sauvegarder": "Sauvegarder",
-            "soumettre": "Soumette"
+            "soumettre": "Soumette",
+            "parti": "C'est parti !"
           }
         },
         "declaration": {
@@ -312,7 +318,7 @@
           "code-placeholder": "Ajouter un code",
           "codeiswc": "Code ISWC",
           "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
-          "codeiswc-placeholder": "Ajouter un code",
+          "codeiswc-placeholder": "T-012345678-1",
           "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
           "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
           "titre2-placeholder": "Ajouter un interprète",
@@ -627,7 +633,7 @@
         "correspond": "Les mots de passe ne correspondent pas",
         "password": "Mot de passe",
         "confirm-password": "Confirmer le mot de passe",
-        "choose-password": "Choisir ton mot de passe",
+        "choose-password": "Choisis ton nouveau mot de passe",
         "ou": "ou",
         "bouton": "Créer mon compte",
         "courriel-confirm": "Confirmer le courriel",
@@ -648,8 +654,8 @@
   "accueil": {
     "titre": "Connecte-toi à ton compte Smartsplit.",
     "sous-titre": "Entre tes informations ci-dessous.",
-    "courriel": "Entrer le courriel",
-    "motdepasse": "Mon mot de passe",
+    "courriel": "Entre ton courriel",
+    "motdepasse": "Entre ton passe",
     "oublie": "Mot de passe oublié ?"
   },
   "entete": {

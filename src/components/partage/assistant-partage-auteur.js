@@ -15,7 +15,6 @@ import { FieldArray } from "formik"
 
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
-import InfoBulle from "./InfoBulle"
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
 

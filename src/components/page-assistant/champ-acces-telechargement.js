@@ -7,8 +7,10 @@ import OptionAcces from "./option-acces";
 import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg";
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg";
 import { Translation } from "react-i18next";
+import { tsConstructorType } from "@babel/types";
 
 export default class ChampAccesTelechargement extends React.Component {
+
   options = [
     {
       key: "public",
@@ -58,12 +60,11 @@ export default class ChampAccesTelechargement extends React.Component {
       )
     }
   ];
-
   constructor(props) {
     super(props);
 
     this.state = {
-      value: this.props.value || this.options[0].value
+      value: this.props.value || this.options[0].value,
     };
   }
 
@@ -98,6 +99,7 @@ export default class ChampAccesTelechargement extends React.Component {
               />
 
               <Dropdown
+                style={{ width: "100px" }}
                 trigger={this.trigger()}
                 fluid
                 selection

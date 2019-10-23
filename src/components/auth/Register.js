@@ -393,7 +393,7 @@ class Register extends Component {
                                 type="text"
                                 className="firstName register"
                                 placeholder={t(
-                                  "flot.split.collaborateur.attribut.etiquette.prenom"
+                                  "flot.split.collaborateur.attribut.placeholder.prenom"
                                 )}
                                 value={this.state.firstName}
                                 onChange={e =>
@@ -410,7 +410,7 @@ class Register extends Component {
                                 type="text"
                                 className="lastName register"
                                 placeholder={t(
-                                  "flot.split.collaborateur.attribut.etiquette.nom"
+                                  "flot.split.collaborateur.attribut.placeholder.nom"
                                 )}
                                 value={this.state.lastName}
                                 onChange={e =>
@@ -443,7 +443,17 @@ class Register extends Component {
                               }
                             />
                             <div className="sous-titre">
-                              {t("flot.split.collaborateur.attribut.etiquette.na")}
+
+
+                              {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
+                                <p style={{ margin: "0px" }}>For example, <em>Jay-Z</em> is the artist name of <em>Shawn Corey Carter</em>.</p>
+                              )}
+                              <div className="sous-titre">
+                                {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
+                                  <p style={{ margin: "0px" }}>Par exemple, <em>Jay-Z</em> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>
+                                )}
+
+                              </div>
                             </div>
                           </div>
 
@@ -630,6 +640,7 @@ class Register extends Component {
                               )}
                             </div>
                           </div>
+
                           <span>
                             <div className="field">
                               <div className="control has-icons-left"
@@ -696,6 +707,7 @@ class Register extends Component {
                           </div>
                           <div className={confirmClass}>
                             <div className="control has-icons-left confirmPassword">
+                              <i className="fas fa-lock" />
                               <div className="input-wrapper">
                                 <Field
                                   onPaste={e => {
@@ -786,7 +798,7 @@ class Register extends Component {
                                         }
                                       }}
                                     >
-                                      {t("entete.inscription")}
+                                      {t("flot.split.collaborateur.attribut.bouton.parti")}
                                     </button>
                                   </div>
                                 </div>
