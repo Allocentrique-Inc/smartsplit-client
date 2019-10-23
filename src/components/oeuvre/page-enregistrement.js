@@ -17,7 +17,7 @@ import {
   updateRole
 } from "../page-assistant/right-holder-helpers";
 import * as roles from "../../assets/listes/role-uuids.json";
-import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
+import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
 
 export default class PageEnregistrement extends React.Component {
   constructor(props) {
@@ -267,7 +267,7 @@ export default class PageEnregistrement extends React.Component {
                 value={this.props.values.isrc}
                 onChange={value => this.props.setFieldValue("isrc", value)}
               />
-
+              {/*{elem.info && (<InfoBulle text={elem.info} />)}*/}
               <div className="section-divider"></div>
 
               <h3 className="section-title">

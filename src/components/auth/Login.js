@@ -127,9 +127,6 @@ class LogIn extends Component {
                               </h1>
                               <br></br>
                             </div>
-                            <div className="loginPrompt">
-                              <h3>Enter your information below.</h3>
-                            </div>
                           </div>
                         )}
                         {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
@@ -140,9 +137,6 @@ class LogIn extends Component {
                                 compte Smartsplit.
                               </h1>
                               <br></br>
-                            </div>
-                            <div className="loginPrompt">
-                              <h3>Entre tes informations ci-dessous.</h3>
                             </div>
                           </div>
                         )}

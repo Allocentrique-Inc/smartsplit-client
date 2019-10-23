@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik'
 import axios from 'axios'
 import { Translation } from 'react-i18next'
-import { Label, Modal, Button } from 'semantic-ui-react'
+import { Label, Modal, Button, Footer } from 'semantic-ui-react'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 import BoutonsRadio from '../formulaires/champ-radio'
 import RightHolderOptions from '../page-assistant/right-holder-options'
@@ -202,7 +202,7 @@ class Base extends Component {
                 {
                     t =>
                         <>
-                            <div className="ui row" style={{ width: "360px", margin: "20px 20px 0 0", fontSize: "16px", fontFamily: "IBM Plex Sans" }}>
+                            <div className="ui row" style={{ width: "400px", margin: "20px 20px 0 0", fontSize: "16px", fontFamily: "IBM Plex Sans" }}>
                                 <ChampTexteAssistant
                                     soustexte={t('oeuvre.attribut.indication.titre-soustexte')}
                                     modele="title"
@@ -481,7 +481,7 @@ class Page2NouvellePiece extends Component {
                                             )
                                         }
 
-                                        <div style={{ margin: "20px 0 20px 0", width: "360px" }} className="ui row">
+                                        <div style={{ margin: "20px 0 20px 0", width: "400px" }} className="ui row">
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={this.props.pochette}
                                                 items={this.rightHolderOptions()}
