@@ -358,6 +358,7 @@ export default class SommairePartages extends Component {
                                                                 <Modal.Content style={{ color: "#687A8B" }}>
                                                                     {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
                                                                     <PageAssistantSplitCourrielsCollaborateurs
+                                                                        onRef={m=>this.setState({courrielsCollaborateurs: m})}
                                                                         ayantDroits={rightHolders}
                                                                         propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
                                                                         close={(cb) => { this.closeModal(); if (cb) cb() }}
@@ -374,7 +375,10 @@ export default class SommairePartages extends Component {
                                                                             {t("flot.split.collaborateur.attribut.bouton.annuler")}
                                                                         </Button>
                                                                         <Button
-                                                                            onClick={this.closeModal}
+                                                                            onClick={()=>{
+                                                                                this.state.courrielsCollaborateurs.handleSubmit()
+                                                                                this.closeModal()
+                                                                            }}
                                                                             className={`ui medium button envoie`}
                                                                             style={{
                                                                                 height: "40px"

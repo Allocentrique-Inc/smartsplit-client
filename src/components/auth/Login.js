@@ -76,7 +76,6 @@ class LogIn extends Component {
   }
 
   render() {
-    console.log('rendu ... login')
     return (
       <Formik
         initialValues={{
