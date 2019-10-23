@@ -21,13 +21,13 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
-import { Progress } from 'semantic-ui-react';
 
 class AssistantPartageEditeur extends Component {
     
     constructor(props) {
         super(props)
         this.state = { 
+            version: this.props.version,
             propositionId: this.props.propositionId,
             sansentete: this.props.sansentete,
             user: null
@@ -136,7 +136,8 @@ class AssistantPartageEditeur extends Component {
                 shareeId: `${values.editeur.ayantDroit.rightHolderId}`,
                 rightHolderPct: `${values.ayantDroit.pourcent}`,
                 shareePct: `${values.editeur.pourcent}`,
-                proposalId: `${this.state.propositionId}`
+                proposalId: `${this.state.propositionId}`,
+                version: this.state.version
             }
 
             axios.post(`http://dev.api.smartsplit.org:8080/v1/editorsplitshare`, body)
@@ -146,7 +147,8 @@ class AssistantPartageEditeur extends Component {
                     rightHolder: {nom: values.ayantDroit.nom, uuid: values.ayantDroit.rightHolderId},
                     shareeId: values.editeur.ayantDroit.rightHolderId,
                     proposalId: this.state.propositionId,
-                    mediaId: this.state.media.mediaId
+                    mediaId: this.state.media.mediaId,
+                    version: this.state.version
                 }
                 axios.post(`http://dev.api.smartsplit.org:8080/v1/editorsplitshare/invite`, body)
                 .then(()=>{

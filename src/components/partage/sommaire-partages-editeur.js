@@ -26,7 +26,7 @@ export default class SommairePartagesEditeur extends Component {
         }
         this.initialisation = this.initialisation.bind(this)
         this.clic = this.clic.bind(this)
-        this.creerNouvelle = this.creerNouvelle.bind(this)
+        this.creerNouvelle = this.creerNouvelle.bind(this)        
     }
 
     componentWillMount() {
@@ -47,7 +47,7 @@ export default class SommairePartagesEditeur extends Component {
                 axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
                 .then(res => {
                     this.setState({ activeIndex: res.data.length - 1 })
-                    this.setState({ propositions: res.data })
+                    this.setState({ propositions: res.data.reverse() })
                 })
             })
         })
@@ -70,22 +70,12 @@ export default class SommairePartagesEditeur extends Component {
             let propositions = []
             
             let _p0
-
             // Trouver _p0, la proposition la plus récente
             this.state.propositions.forEach(elem => {
                 if (!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
 
-            let _rafraichir = false
-
-            if (_p0 && _p0.etat === 'VOTATION') {
-                _rafraichir = true
-            }
-
-            console.log(this.state.propositions)
-
             propositions = this.state.propositions.map((elem, idx) => {
-                console.log(elem)
                 return (
                     <Translation key={`sommaire_${idx}`} >
                         {
@@ -99,7 +89,7 @@ export default class SommairePartagesEditeur extends Component {
                                         <Accordion.Content active={this.state.activeIndex === idx}>                                    
                                             <div className="ui row">
                                                 <div className="ui one wide column" />                                            
-                                                    <PartageSommaireEditeur ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />
+                                                    <PartageSommaireEditeur idx={idx} ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />
                                                 <div className="ui one wide column" />
                                             </div>                                    
                                         </Accordion.Content>
@@ -112,12 +102,10 @@ export default class SommairePartagesEditeur extends Component {
             propositions = propositions.reverse()
 
             let nouveauDisabled = false
-            let _id0
 
             if (this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
-                _id0 = _p.uuid
                 if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
                     nouveauDisabled = true
                 }
@@ -162,15 +150,16 @@ export default class SommairePartagesEditeur extends Component {
                             <>
                                 { this.state.creerNouveauPartage &&
                                     <div className="ui row">
-                                        <div className="ui one column" />                                    
+                                        <div className="ui one column" />
                                         <AssistantPartageEditeur 
                                             sansentete
-                                            propositionId={this.state.proposition.uuid} 
+                                            propositionId={this.state.proposition.uuid}
+                                            version={propositions.length}
                                             className="ui twelve wide column" 
                                             soumettre={()=>{
                                                 this.creerNouvelle(false)
                                                 window.location.reload()
-                                            }} />                                    
+                                            }} />
                                     </div>
                                 }
                                 { !this.state.creerNouveauPartage &&
