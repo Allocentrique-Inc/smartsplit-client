@@ -313,7 +313,7 @@ class ForgotPasswordVerification extends Component {
                             required={true}
                           />
                           <button
-                            style={{ position: "absolute", bottom: "auto" }}
+                            style={{ position: "absolute", top: "-15px" }}
                             id="hide-confirm"
                             onClick={e => {
                               e.preventDefault();
