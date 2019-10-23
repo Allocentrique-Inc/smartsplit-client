@@ -1,14 +1,15 @@
-import React from "react";
-import { Dropdown } from "semantic-ui-react";
-import TitreChamp from "./titre-champ";
-import "../../assets/scss/page-assistant/champ-acces.scss";
-import DownloadCloudIcon from "../../assets/svg/icons/download-cloud.svg";
-import OptionAcces from "./option-acces";
-import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg";
-import LockFullIcon from "../../assets/svg/icons/lock-full.svg";
-import { Translation } from "react-i18next";
+import React from "react"
+import { Dropdown } from "semantic-ui-react"
+import TitreChamp from "./titre-champ"
+import "../../assets/scss/page-assistant/champ-acces.scss"
+import DownloadCloudIcon from "../../assets/svg/icons/download-cloud.svg"
+import OptionAcces from "./option-acces"
+import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg"
+import LockFullIcon from "../../assets/svg/icons/lock-full.svg"
+import { Translation } from "react-i18next"
 
 export default class ChampAccesTelechargement extends React.Component {
+
   options = [
     {
       key: "public",
@@ -58,12 +59,11 @@ export default class ChampAccesTelechargement extends React.Component {
       )
     }
   ];
-
   constructor(props) {
     super(props);
 
     this.state = {
-      value: this.props.value || this.options[0].value
+      value: this.props.value || this.options[0].value,
     };
   }
 
@@ -98,6 +98,7 @@ export default class ChampAccesTelechargement extends React.Component {
               />
 
               <Dropdown
+                style={{ width: "100px" }}
                 trigger={this.trigger()}
                 fluid
                 selection

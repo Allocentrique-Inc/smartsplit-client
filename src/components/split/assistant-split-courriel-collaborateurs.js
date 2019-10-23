@@ -14,14 +14,15 @@ const divEmail = {
 
 class PageAssistantSplitCourrielsCollaborateurs extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+    props.onRef(this)
     this.state = {
       open: false,
       ayantDroits: props.ayantDroits,
       propositionId: props.propositionId
-    };
-    this._courrielsModifies = [];
-    this.onChange = this.onChange.bind(this);
+    }
+    this._courrielsModifies = []
+    this.onChange = this.onChange.bind(this)
   }
 
   componentWillMount() {

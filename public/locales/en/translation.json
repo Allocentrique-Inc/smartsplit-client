@@ -24,14 +24,18 @@
     "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
-    "titre": "Add a collaborator",
+    "titre": "[Add/Modify] a collaborator",
     "titre2": "Add as a collaborator:",
     "attribut": {
+      "placeholder": {
+        "prenom": "Legal first name",
+        "nom": "Legal last name"
+      },
       "etiquette": {
-        "nom": "Legal Name",
-        "prenom": "Legal First Name",
+        "nom": "My name",
+        "prenom": "My first name",
         "artiste": "Artist name (aka)",
-        "option": " Optional",
+        "option": "Optional",
         "na": "For example, Jay-Z is the artist name of Shawn Corey Carter.",
         "role": "Role(s) by default",
         "courriel": "Email",
@@ -173,8 +177,9 @@
         "password": "Forgot Password",
         "password2": "Password Verification",
         "password3": "Change Verification",
-        "definir": "Set new password",
-        "nouveau": "New password",
+        "definir": "Set and confirm your new password",
+        "nouveau": "My new password",
+        "confirmer": "Confirm your new password",
         "code": "Please enter the verification code sent to your email address below, your email address and a new password.",
         "verification": "Enter verification code",
         "welcome": "Welcome",
@@ -244,7 +249,8 @@
           "bouton": {
             "annuler": "Cancel",
             "sauvegarder": "Save",
-            "soumettre": "Submit"
+            "soumettre": "Submit",
+            "parti": "Let's go!"
           }
         },
         "declaration": {
@@ -324,7 +330,7 @@
           "editeur-placeholder": "Add an editor",
           "codeiswc": "ISWC Code",
           "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
-          "codeiswc-placeholder": "Add a code",
+          "codeiswc-placeholder": "T-012345678-1",
           "titre2": "Who played the musical piece on this sound recording?",
           "titre2-description": "Here you mention who played which instrument.",
           "titre2-placeholder": "Add an Interpreter",
@@ -660,8 +666,8 @@
   "accueil": {
     "titre": "Login to your Smartsplit account.",
     "sous-titre": "Enter your information below.",
-    "courriel": "Enter email",
-    "motdepasse": "My password",
+    "courriel": "Enter your email",
+    "motdepasse": "Enter your password",
     "oublie": "Forgot password?"
   },
   "entete": {

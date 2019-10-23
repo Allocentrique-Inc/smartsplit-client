@@ -13,15 +13,15 @@ class ChoosePasswordVerification extends Component {
                 <div
                   style={{ FontFamily: "IBM Plex Sans", fontSize: "16px" }}
                 >
-                  <tr>
-                    <td>
+                  <div className="ui row">
+                    <div className="ui fourteen wide column">
                       <h2>
                         &nbsp;&nbsp;{t("flot.split.auth.passwordchanged.titre")}
                       </h2>
 
                       <p>{t("flot.split.auth.passwordchanged.indication")}</p>
-                    </td>
-                  </tr>
+                    </div>
+                  </div>
                 </div>
                 <div className="field">
                   <div className="control">

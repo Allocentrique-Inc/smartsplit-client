@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Translation } from 'react-i18next';
 
-const topStyle = {
+const tooltipStyle = {
     position: "absolute",
     background: "white",
     width: "224px",
@@ -16,7 +16,7 @@ const topStyle = {
     padding: "10px",
     zIndex: "1",
     bottom: "45%",
-    left: "30%"
+    left: "60%"
 };
 
 class InfoBulle extends Component {
@@ -47,7 +47,7 @@ class InfoBulle extends Component {
                                 onMouseOver={this.handleMouseIn.bind(this)}
                                 onMouseOut={this.handleMouseOut.bind(this)}>
                                 <i className="ui question circle icon" style={{ color: "#687A8B" }} />
-                                {this.state.hover && (<div style={topStyle}>
+                                {this.state.hover && (<div style={tooltipStyle}>
                                     {this.state.text}
                                 </div>)}
 
