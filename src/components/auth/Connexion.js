@@ -54,12 +54,17 @@ export default class ModaleConnexion extends Component {
                 .then(res => {
                   // Vérifier si le profil est complet, si non,
                   // Débloque la composante appelante
-                  this.state.parent.setState({ user: res });
+                  this.state.parent.setState({ user: res })
+
+                  if(this.props.fn) {
+                    this.props.fn()
+                  }
+
                   // Fermer la modale
-                  this.setState({ isOpen: false });
+                  this.setState({ isOpen: false })
                 })
                 .catch(err => {
-                  toast.error(err.message);
+                  toast.error(err.message)
                 });
             }}
           />
