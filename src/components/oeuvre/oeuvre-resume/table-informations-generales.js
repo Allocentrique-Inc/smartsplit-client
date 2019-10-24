@@ -9,7 +9,7 @@ export default class TableInformationsGenerales extends React.Component {
         },
         {
             label: 'BPM',
-            value: '122'
+            value: '136'
         },
         {
             label: 'Genre',
