@@ -48,7 +48,12 @@ export default class VotationPartTiers extends Component {
                                         // Récupère la part de partage avec le tier
                                         axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.jeton.proposalId}/${this.state.jeton.donateur}`)
                                             .then(res => {
-                                                this.setState({ part: res.data })
+                                                // Trouve la bonne version
+                                                res.data.forEach(e=>{
+                                                    if(e.version === _s.version) {
+                                                        this.setState({ part: e })
+                                                    }
+                                                })
                                             })
                                     })
                                     .catch((error) => {

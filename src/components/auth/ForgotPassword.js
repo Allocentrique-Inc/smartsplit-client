@@ -34,17 +34,11 @@ class ForgotPassword extends Component {
     };
     this.validateEmail = this.validateEmail.bind(this);
   }
-  /*validateEmail(value) {
-      if (!value) {
-        return "Required";
-      } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
-        return "Invalid Email";
-      }
-    }*/
+ 
   validateEmail(value) {
     let error;
     if (!value) {
-      error = ( /*Translation = dans JSX*/
+      error = ( 
         <Translation>
           {
             t =>
@@ -85,21 +79,22 @@ class ForgotPassword extends Component {
     });
   };
 
-  forgotPasswordHandler = async event => {
-    event.preventDefault();
-
-    // AWS Cognito integration here
-    try {
-      await Auth.forgotPassword(this.state.email);
-    } catch (error) {
+  forgotPasswordHandler = (courriel) => {
+    // AWS Cognito integration here    
+    console.log(courriel)
+    Auth.forgotPassword(courriel)
+    .then(res=>{
+      console.log(res)
+    })
+    .catch(error=>{
       toast.error(error.message)
       console.log(error)
-    }
+    })    
   };
 
   onInputChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
+      email: event.target.value
     });
     document.getElementById(event.target.id).classList.remove("is-danger");
   };
@@ -114,7 +109,7 @@ class ForgotPassword extends Component {
   };
 
   handleSubmit = values => {
-    
+    this.forgotPasswordHandler(values.email)
   }
 
   render() {

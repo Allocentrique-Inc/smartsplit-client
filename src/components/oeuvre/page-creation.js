@@ -27,8 +27,6 @@ import {
 } from "../page-assistant/right-holder-helpers";
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
 
-import InfoBulle from '../partage/InfoBulle';
-
 export default class PageCreation extends Component {
   constructor(props) {
     super(props);

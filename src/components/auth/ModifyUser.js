@@ -9,14 +9,12 @@ import {
 import { withTranslation, Translation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
-import zxcvbn from "zxcvbn";
 
 const AWS = require("aws-sdk");
 const REGION = 'us-east-2'
 AWS.config.update({ region: REGION });
 
 const MAX_IMAGE_SIZE = 10000000;
-const MIN_STRENGTH = 3;
 
 class ModifyUser extends Component {
   constructor(props) {

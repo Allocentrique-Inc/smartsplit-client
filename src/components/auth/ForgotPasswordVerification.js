@@ -1,28 +1,19 @@
-import React, { Component } from "react";
-// import FormErrors from "../FormErrors";
-// import Validate from "../utility/FormValidation";
-import { Auth } from "aws-amplify";
-import { Translation } from "react-i18next";
-import { Modal } from "semantic-ui-react";
-import ChangePasswordVerification from "./ChangePasswordVerification";
-import Eye from "./Eye";
-import { Field, Form, Formik } from "formik";
-import zxcvbn from "zxcvbn";
-import axios from "axios";
-import "./Register.css";
-import * as Yup from "yup";
-
-const styleWrapper = {
-  position: 'relative',
-  width: '464px',
-  fontFamily: "IBM Plex Sans"
-}
+import React, { Component } from "react"
+import { Auth } from "aws-amplify"
+import { Translation } from "react-i18next"
+import { Modal } from "semantic-ui-react"
+import ChangePasswordVerification from "./ChangePasswordVerification"
+import Eye from "./Eye"
+import { Field, Formik } from "formik"
+import zxcvbn from "zxcvbn"
+import axios from "axios"
+import "./Register.css"
+import * as Yup from "yup"
 
 class ForgotPasswordVerification extends Component {
 
   constructor(props) {
-    super(props);
-    const { minStrength = 3, thresholdLength = 8 } = props;
+    super(props)
 
     this.state = {
       hidden: true,
@@ -39,17 +30,20 @@ class ForgotPasswordVerification extends Component {
       },
     }
 
-    this.validatePasswordStrong = this.validatePasswordStrong.bind(this);
-    this.toggleShow = this.toggleShow.bind(this);
-    this.validateConfirmNewPassword = this.validateConfirmNewPassword.bind(this);
-    this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
-    this.toggleConfirmShow = this.toggleConfirmShow.bind(this);
-    this.validatePassword = this.validatePassword.bind(this);
-    this.validateConfirmNewPassword = this.validateConfirmNewPassword.bind(this);
+    this.validatePasswordStrong = this.validatePasswordStrong.bind(this)
+    this.toggleShow = this.toggleShow.bind(this)
+    this.validateConfirmNewPassword = this.validateConfirmNewPassword.bind(this)
+    this.toggleConfirmShow = this.toggleConfirmShow.bind(this)
+    this.toggleConfirmShow = this.toggleConfirmShow.bind(this)
+    this.validatePassword = this.validatePassword.bind(this)
+    this.validateConfirmNewPassword = this.validateConfirmNewPassword.bind(this)
+
+    console.log(this.state)
   }
 
 
   validatePassword(value) {
+    console.log('validatePassword', value)
     if (!value) {
       return "Required";
     } else if (
@@ -63,6 +57,7 @@ class ForgotPasswordVerification extends Component {
   }
 
   validateConfirmNewPassword(value) {
+    console.log("validateConfirmNewPassword", value, this.state)
     if (!value) {
       return "Required";
     } else if (value !== this.state.password) {
@@ -73,8 +68,10 @@ class ForgotPasswordVerification extends Component {
     }
   }
 
-  validatePasswordStrong = value => {
+  validatePasswordStrong = (value = this.state.newPassword) => {
     // ensure password is long enough
+    console.log("validatePasswordStrong", value)
+
     if (value.length <= this.thresholdLength) {
       throw new Error("Password is short");
     }
@@ -83,11 +80,7 @@ class ForgotPasswordVerification extends Component {
     if (zxcvbn(value).score < this.minStrength) {
       throw new Error("Password is weak");
     }
-  };
-
-  handleSubmit = values => {
-    const newPassword = this.state.newPassword;
-  };
+  }
 
   passwordVerificationHandler = async event => {
     event.preventDefault();
@@ -95,14 +88,16 @@ class ForgotPasswordVerification extends Component {
     // AWS Cognito integration here
     try {
       await Auth.forgotPasswordSubmit(
+        this.state.email,
+        this.state.verificationCode,
         this.state.newPassword
       );
 
-      this.props.history.push("/accueil");
+      window.location.href = "/"
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   onInputChange = event => {
     this.setState({
@@ -111,7 +106,7 @@ class ForgotPasswordVerification extends Component {
       strength: zxcvbn(event.target.value).score
     });
     document.getElementById(event.target.id).classList.remove("is-danger");
-  };
+  }
 
   toggleShow() {
     this.setState({ hidden: !this.state.hidden });
@@ -135,23 +130,11 @@ class ForgotPasswordVerification extends Component {
   }
 
   render() {
-    const {
-      values,
-      touched,
-      errors,
-      type,
-      validator,
-      onStateChanged,
-      children,
-      ...restProps
-    } = this.props;
-
-    const { newPassword, strength, currentValue, currentRoleValue } = this.state;
+    
+    const { newPassword, strength } = this.state;
 
     const passwordLength = newPassword.length;
-    const passwordStrong = strength >= this.minStrength;
-    const passwordLong = passwordLength > this.thresholdLength;
-
+   
     const strengthClass = [
       "strength-meter mt-2",
       passwordLength > 0 ? "visible" : "invisible"
@@ -170,7 +153,6 @@ class ForgotPasswordVerification extends Component {
       <Formik
         initialValues={{
           newPassword: this.state.newPassword,
-          confirmNewPassword: this.state.confirmNewPassword,
           hidden: true,
           confirmhidden: true,
           confirmNewPassword: this.state.confirmNewPassword,
@@ -219,7 +201,7 @@ class ForgotPasswordVerification extends Component {
                       </p>
                     </div>
                     <div className="field">
-                      <p className="control has-icons-left">
+                      <div className="control has-icons-left">
                         <input
                           className="input"
                           type="email"
@@ -235,17 +217,14 @@ class ForgotPasswordVerification extends Component {
                         <div className="icon is-small is-left">
                           <i className="fas fa-envelope"></i>
                         </div>
-                      </p>
+                      </div>
                     </div>
 
                     <div className="field">
                       <div className="control has-icons-left">
                         <div className="input-wrapper">
                           <Field
-                            style={{ position: "relative" }}
-                            validate={val => {
-                              this.validatePasswordStrong(val);
-                            }}
+                            validate={this.validatePasswordStrong}
                             type={this.state.hidden && this.state.confirmhidden ? "password" : "text"}
                             name="newPassword"
                             id="newPassword"

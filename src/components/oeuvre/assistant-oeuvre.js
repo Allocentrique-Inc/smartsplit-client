@@ -149,7 +149,8 @@ class AssistantOeuvre extends Component {
 
             let lyrics = _m.lyrics
 
-            lyrics.text = lyrics.text.trim()
+            if(lyrics && lyrics.text)
+                lyrics.text = lyrics.text.trim()
 
             valeurs = {
                 mediaId: this.state.mediaId,
@@ -199,16 +200,16 @@ class AssistantOeuvre extends Component {
     onSubmit = (values, actions, t) => {
         this.setState({
             endModalOpen: true
-        });
-
+        })
         axios.post('http://dev.api.smartsplit.org:8080/v1/media', values)
-            .then((response) => {
-                actions.setSubmitting(false);                
-            })
-            .catch((error) => {
-                console.log(error)
-            });
-    };
+        .then((response) => {
+            actions.setSubmitting(false)
+            window.location.href="/"
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
 
     render() {
         if (this.state.user) {
@@ -290,6 +291,7 @@ class AssistantOeuvre extends Component {
                                             </Wizard.Page>
                                         </Wizard>
                                         <ModalFin
+                                            songTitle={this.state.title}
                                             titre={ this.state.title }
                                             open={ this.state.endModalOpen }
                                             onClose={ () => this.setState({ endModalOpen: false }) }
