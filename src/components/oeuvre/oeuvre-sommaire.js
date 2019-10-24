@@ -3,17 +3,12 @@ import React, { Component } from 'react'
 import axios from 'axios'
 
 import Entete from '../entete/entete'
-
-import 'react-confirm-alert/src/react-confirm-alert.css'
 import { Auth } from 'aws-amplify'
-import { toast } from '@aws-amplify/ui'
-
-import Login from '../auth/Login'
-import { confirmAlert } from 'react-confirm-alert'
 
 import cassette from '../../assets/images/compact-cassette.png'
 import { Translation } from 'react-i18next';
 import moment from 'moment'
+import ModaleConnexion from '../auth/Connexion'
 
 export default class SommaireOeuvre extends Component {
 
@@ -43,32 +38,8 @@ export default class SommaireOeuvre extends Component {
                     })
             })
             .catch(err => {
-                toast.error(err.message)
-                confirmAlert({
-                    title: ``,
-                    message: ``,
-                    closeOnClickOutside: false,
-                    style: {
-                        position: "relative",
-                        width: "640px",
-                        height: "660px",
-                        margin: "0 auto",
-                        background: "#FFFFFF",
-                        border: "1px solid rgba(0, 0, 0, 0.5)",
-                        boxSizing: "border-box",
-                        boxShadow: "inset 0px -1px 0px #DCDFE1"
-                    },
-                    customUI: ({ onClose }) =>
-                        <Translation>
-                            {
-                                t =>
-                                    <Login message={t('connexion.titre.oeuvre')} fn={(user) => {
-                                        onClose()
-                                        this.setState({ user: user })
-                                    }} />
-                            }
-                        </Translation>
-                })
+                console.log(err)
+                this.setState({modaleConnexion: true})
             })
     }
 
@@ -96,7 +67,6 @@ export default class SommaireOeuvre extends Component {
     }
 
     render() {
-        let _m = ""
         if (this.state.media) {
             let artiste = this.state.media.artist
             let contenu = (<div className="ui nine wide column"></div>)
@@ -247,7 +217,22 @@ export default class SommaireOeuvre extends Component {
             )
         } else {
             return (
-                <div>{_m}</div>
+                <div className="tdb--cadre ui row accueil">
+                    <ModaleConnexion fn={()=>{
+                        this.getMedia()
+                        axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
+                        .then(res => {
+                            let _p0
+                            res.data.forEach(_p => {
+                                if (!_p0)
+                                    _p0 = _p
+                                if (_p0._d < _p._d)
+                                    _p0 = _p
+                            })
+                            this.setState({ p0: _p0 })
+                        })
+                    }} parent={this} isOpen={this.state.modaleConnexion} />
+                </div>
             )
         }
     }

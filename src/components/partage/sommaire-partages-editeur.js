@@ -1,5 +1,3 @@
-// Résumé du partage - US 64
-
 import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
@@ -106,10 +104,14 @@ export default class SommairePartagesEditeur extends Component {
             if (this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
-                if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
+                if (_p.etat !== 'REFUSE') {
                     nouveauDisabled = true
                 }
-            }                
+            }
+
+            if(this.state.propositions.length === 0) {
+                nouveauDisabled = true
+            }
             
             let that = this
             let message
@@ -148,7 +150,7 @@ export default class SommairePartagesEditeur extends Component {
                     {
                         t =>
                             <>
-                                { this.state.creerNouveauPartage &&
+                                { (this.state.creerNouveauPartage || this.state.propositions.length === 0) &&
                                     <div className="ui row">
                                         <div className="ui one column" />
                                         <AssistantPartageEditeur 

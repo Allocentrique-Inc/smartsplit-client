@@ -19,6 +19,7 @@ import { Modal, Button } from 'semantic-ui-react'
 
 import moment from 'moment'
 import SommairePartagesEditeur from './sommaire-partages-editeur'
+import ModaleConnexion from '../auth/Connexion'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
@@ -50,13 +51,13 @@ export default class SommairePartages extends Component {
 
     componentWillMount() {
         Auth.currentAuthenticatedUser()
-            .then(res => {
-                this.setState({ user: res })
-                this.initialisation()
-            })
-            .catch(err => {
-                this.setState({ modaleConnexion: true })
-            })
+        .then(res => {
+            this.setState({ user: res })
+            this.initialisation()
+        })
+        .catch(err => {
+            this.setState({ modaleConnexion: true })
+        })
     }
 
     afficherPanneauEditeur() {
@@ -448,6 +449,7 @@ export default class SommairePartages extends Component {
                                         Auth.currentAuthenticatedUser()
                                             .then(res => {
                                                 that.setState({ user: res })
+                                                that.setState({modaleConnexion: false})
                                             })
                                             .catch(err => {
                                                 toast.error(err.message)
@@ -460,7 +462,12 @@ export default class SommairePartages extends Component {
             )
         } else {
             return (
-                <div></div>
+                <div className="tdb--cadre ui row accueil">
+                    <ModaleConnexion fn={()=>{
+                        this.setState({ modaleConnexion: false})
+                        this.initialisation()
+                    }} parent={this} isOpen={this.state.modaleConnexion} />
+                </div>                
             )
         }
     }
