@@ -515,6 +515,11 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                     selection={true}
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitEnregistrement}
+                                                                                    fnSelect={
+                                                                                        ()=>{
+                                                                                            this.ajouterCollaborateur(arrayHelpers)
+                                                                                        }
+                                                                                    }
                                                                                     fn={(_aD) => {
 
                                                                                         // Fonction de rappel à la modale ModifyUser
@@ -595,16 +600,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
                                                                                     }}
                                                                                 />
-                                                                            </div>
-                                                                            <div className="four wide column">
-                                                                                <button
-                                                                                    className="ui medium button"
-                                                                                    onClick={(e) => {
-                                                                                        e.preventDefault()
-                                                                                        this.ajouterCollaborateur(arrayHelpers)
-                                                                                    }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
-                                                                                </button>
-                                                                            </div>
+                                                                            </div>                                                                            
                                                                         </div>
                                                                     </div>
                                                                 </div>
