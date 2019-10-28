@@ -228,7 +228,10 @@ class PageAssistantPartageInterpretation extends Component {
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {t('flot.split.partage.interprete.titre', { oeuvre: this.state.song })}
+                                                {/*{t('flot.split.partage.interprete.titre', { oeuvre: this.state.song })}*/}
+                                                {t('flot.split.partage.interprete.titre', {
+                                                    oeuvre: `${t('flot.split.partage.guillemets.guillemet1')}${this.state.song}${t('flot.split.partage.guillemets.guillemet2')}`
+                                                })}?
                                             </div>
                                             <br />
                                             {descriptif}
@@ -312,7 +315,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                     name={`type_interpretation_${index}`}
                                                                                                     actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
                                                                                                     onClick={(e) => {
-                                                                                                        if(this.state.mode === MODES.role) {
+                                                                                                        if (this.state.mode === MODES.role) {
                                                                                                             let valeur
                                                                                                             // Clic de la puce ou de l'étiquette ?
                                                                                                             if (e.target.nodeName === 'LABEL') {
@@ -325,7 +328,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                             this.setState({ ping: true }, () => {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
-                                                                                                        }                                                                                                        
+                                                                                                        }
                                                                                                     }}
                                                                                                     disabled={this.state.mode !== MODES.role}
                                                                                                     titre=""

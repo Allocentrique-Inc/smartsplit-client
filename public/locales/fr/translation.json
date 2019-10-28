@@ -11,7 +11,7 @@
     "piece": {
       "titre": "Cette oeuvre est ...",
       "originale": "Une création originale",
-      "arrangement": "Un arrangement (remix)",
+      "arrangement": "Une adaptation (remix)",
       "reprise": "Une reprise (cover)"
     }
   },
@@ -319,6 +319,8 @@
           "codeiswc": "Code ISWC",
           "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
           "codeiswc-placeholder": "T-012345678-1",
+          "codeisrc": "Code ISRC",
+          "codeisrc-description": "Le International Standard Recording Code (ISRC) permet l’identification des enregistrements sonores (pistes).",
           "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
           "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
           "titre2-placeholder": "Ajouter un interprète",
@@ -330,7 +332,7 @@
             "question2-choix-a": "Chanteur",
             "question2-choix-b": "Musicien"
           },
-          "titre3": "Qui a enregistré la pièce musicale ?",
+          "titre3": "Qui a enregistré ",
           "titre3-description": "Ici vous mentionner qui a contribué à l'enregistrement sonore de cette pièce.",
           "realisation": "Réalisation sonore ",
           "realisation-description": "Le réalisateur sonore donne un son à l'enregistrement.",
@@ -552,8 +554,9 @@
           "ajouter": "Ajouter une oeuvre"
         },
         "vide": {
-          "preambule": "Tes oeuvres apparaîtrons ici.",
-          "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton «Ajouter»."
+          "preambule": "Tes oeuvres apparaîtront ici.",
+          "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton ",
+          "indication-lien": "«Ajouter une œuvre»."
         }
       },
       "roles": {
@@ -572,14 +575,18 @@
         "publisher": "Éditeur"
       },
       "partage": {
+        "guillemets": {
+          "guillemet1": "«",
+          "guillemet2": "»"
+        },
         "auteur": {
-          "titre": "Qui a inventé {{oeuvre}} ?"
+          "titre": "Qui a inventé "
         },
         "interprete": {
-          "titre": "Qui a joué sur {{oeuvre}} ?"
+          "titre": "Qui a joué sur "
         },
         "enregistrement": {
-          "titre": "Qui possède l'enregistrement sonore de {{oeuvre}} ?"
+          "titre": "Qui possède l'enregistrement sonore de "
         },
         "editeur": {
           "titre": "Quel est le nom de ton éditeur ?",
@@ -655,7 +662,7 @@
     "titre": "Connecte-toi à ton compte Smartsplit.",
     "sous-titre": "Entre tes informations ci-dessous.",
     "courriel": "Entre ton courriel",
-    "motdepasse": "Entre ton passe",
+    "motdepasse": "Entre ton mot de passe",
     "oublie": "Mot de passe oublié ?"
   },
   "entete": {

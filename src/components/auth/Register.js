@@ -423,11 +423,11 @@ class Register extends Component {
 
 
                               {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                                <p style={{ margin: "0px" }}>For example, <em>Jay-Z</em> is the artist name of <em>Shawn Corey Carter</em>.</p>
+                                <p style={{ margin: "0px" }}>For example, <i>Jay-Z</i> is the artist name of <em>Shawn Corey Carter</em>.</p>
                               )}
                               <div className="sous-titre">
                                 {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                                  <p style={{ margin: "0px" }}>Par exemple, <em>Jay-Z</em> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>
+                                  <p style={{ margin: "0px" }}>Par exemple, <i>Jay-Z</i> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>
                                 )}
 
                               </div>
@@ -578,7 +578,7 @@ class Register extends Component {
                                 <div style={{
                                   color: "red",
                                   position: "absolute",
-                                  top: "660px"
+                                  top: "665px"
                                 }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
