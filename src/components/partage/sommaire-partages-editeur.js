@@ -116,24 +116,6 @@ export default class SommairePartagesEditeur extends Component {
             let that = this
             let message
 
-            if (this.state.user && _p0 && _p0.etat === "PRET" && _p0.initiator.id === this.state.user.username) {
-                message = (
-                    <Translation>
-                        {
-                            t =>
-                                <p className="ui color blue"
-                                    style={{
-                                        width: "800px",
-                                        fontFamily: "IBM Plex Sans",
-                                        fontWeight: "normal",
-                                        fontSize: "16px"
-                                    }}>
-                                    {t('flot.split.partage.prete-a-envoyer')}</p>
-                        }
-                    </Translation>
-                )
-            }
-
             if (this.state.user && _p0 && _p0.etat === "VOTATION" && !this.state.jetonApi) {
                 message = (
                     <Translation>
@@ -144,6 +126,8 @@ export default class SommairePartagesEditeur extends Component {
                     </Translation>
                 )
             }
+
+            console.log('Bouton Nouveau inactif ?', this.state.nouveauDisabled)
 
             return (
                 <Translation>
