@@ -203,7 +203,7 @@ export default class PageCreation extends Component {
                 value={this.props.values.iswc}
                 onChange={value => this.props.setFieldValue("iswc", value)}
               />
-              {this.props.values.iswc && (<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.codeiswc-description")} />)}
+              <InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.codeiswc-description")} />
             </Colonne>
           </Page>
         )}
