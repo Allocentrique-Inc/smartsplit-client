@@ -51,13 +51,13 @@ export default class SommairePartages extends Component {
 
     componentWillMount() {
         Auth.currentAuthenticatedUser()
-        .then(res => {
-            this.setState({ user: res })
-            this.initialisation()
-        })
-        .catch(err => {
-            this.setState({ modaleConnexion: true })
-        })
+            .then(res => {
+                this.setState({ user: res })
+                this.initialisation()
+            })
+            .catch(err => {
+                this.setState({ modaleConnexion: true })
+            })
     }
 
     afficherPanneauEditeur() {
@@ -350,7 +350,7 @@ export default class SommairePartages extends Component {
                                                             >
                                                                 <Modal.Header>
                                                                     <h2 style={{ display: "flex" }}>{t("flot.split.documente-ton-oeuvre.proposition.titre")}
-                                                                        <div 
+                                                                        <div
                                                                             className="close-icon"
                                                                             onClick={() => { this.closeModal() }} >
                                                                         </div>
@@ -359,7 +359,7 @@ export default class SommairePartages extends Component {
                                                                 <Modal.Content style={{ color: "#687A8B" }}>
                                                                     {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
                                                                     <PageAssistantSplitCourrielsCollaborateurs
-                                                                        onRef={m=>this.setState({courrielsCollaborateurs: m})}
+                                                                        onRef={m => this.setState({ courrielsCollaborateurs: m })}
                                                                         ayantDroits={rightHolders}
                                                                         propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
                                                                         close={(cb) => { this.closeModal(); if (cb) cb() }}
@@ -370,13 +370,13 @@ export default class SommairePartages extends Component {
                                                                         <Button
                                                                             onClick={this.closeModal}
                                                                             style={{
-                                                                                background: "white",
+                                                                                background: "transparent",
                                                                                 color: "#2DA84F",
                                                                             }}>
                                                                             {t("flot.split.collaborateur.attribut.bouton.annuler")}
                                                                         </Button>
                                                                         <Button
-                                                                            onClick={()=>{
+                                                                            onClick={() => {
                                                                                 this.state.courrielsCollaborateurs.handleSubmit()
                                                                                 this.closeModal()
                                                                             }}
@@ -425,8 +425,8 @@ export default class SommairePartages extends Component {
                                     {
                                         this.state.panneau === PANNEAU_EDITEUR &&
                                         (
-                                            <SommairePartagesEditeur proposition={_p0} />                        
-                                        )                                    
+                                            <SommairePartagesEditeur proposition={_p0} />
+                                        )
                                     }
                                     {
                                         this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
@@ -449,7 +449,7 @@ export default class SommairePartages extends Component {
                                         Auth.currentAuthenticatedUser()
                                             .then(res => {
                                                 that.setState({ user: res })
-                                                that.setState({modaleConnexion: false})
+                                                that.setState({ modaleConnexion: false })
                                             })
                                             .catch(err => {
                                                 toast.error(err.message)
@@ -463,11 +463,11 @@ export default class SommairePartages extends Component {
         } else {
             return (
                 <div className="tdb--cadre ui row accueil">
-                    <ModaleConnexion fn={()=>{
-                        this.setState({ modaleConnexion: false})
+                    <ModaleConnexion fn={() => {
+                        this.setState({ modaleConnexion: false })
                         this.initialisation()
                     }} parent={this} isOpen={this.state.modaleConnexion} />
-                </div>                
+                </div>
             )
         }
     }

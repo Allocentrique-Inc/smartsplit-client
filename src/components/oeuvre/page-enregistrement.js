@@ -129,9 +129,14 @@ export default class PageEnregistrement extends React.Component {
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.enregistrement"
                 )}
-                question={t(
-                  "flot.split.documente-ton-oeuvre.documenter.titre3"
-                )}
+                question={
+                  t("flot.split.documente-ton-oeuvre.documenter.titre3") +
+                  t('flot.split.partage.guillemets.guillemet1') +
+                  this.props.values.title +
+                  t('flot.split.partage.guillemets.guillemet2')
+                  +
+                  "?"
+                }
                 description={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre3-description"
                 )}
@@ -267,7 +272,6 @@ export default class PageEnregistrement extends React.Component {
                 value={this.props.values.isrc}
                 onChange={value => this.props.setFieldValue("isrc", value)}
               />
-              {/*{elem.info && (<InfoBulle text={elem.info} />)}*/}
               <div className="section-divider"></div>
 
               <h3 className="section-title">

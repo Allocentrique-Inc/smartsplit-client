@@ -205,6 +205,7 @@ class Base extends Component {
                             <div className="ui row" style={{ width: "400px", margin: "20px 20px 0 0", fontSize: "16px", fontFamily: "IBM Plex Sans" }}>
                                 <ChampTexteAssistant
                                     soustexte={t('oeuvre.attribut.indication.titre-soustexte')}
+                                    style={{ marginLeft: "0" }}
                                     modele="title"
                                     etiquette={t('oeuvre.attribut.indication.titre')}
                                     requis={true}
@@ -259,7 +260,7 @@ class PageNouvellePiece extends Component {
             <React.Fragment>
                 <div className="ui grid">
                     <div className="ui column">
-                        <h2>{this.props.values.title}</h2>
+
                         <Base values={this.props.values} setFieldValue={this.props.setFieldValue} />
                     </div>
                 </div>
@@ -352,6 +353,7 @@ class Page2NouvellePiece extends Component {
                                             )
                                         }
                                         <h2>{this.props.values.title}</h2>
+                                        {/*<h2>{`${this.props.values.title} + ${this.props.values.vedettes}`}</h2>*/}
                                         <ChampTeleversement
                                             style={{ width: "300px" }}
                                             label={t('composant.televersement.titre')}
