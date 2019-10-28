@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Translation } from 'react-i18next'
 import axios from 'axios'
 import { Auth } from 'aws-amplify';
-
 import { toast } from 'react-toastify'
 import LigneMedia from './tableaudebord-ligne-media'
 import { Modal } from 'semantic-ui-react';
@@ -199,14 +198,21 @@ export default class ListePieces extends Component {
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <div className="illustration">
-                                                    <span role="img" aria-label="" className="medium-500" style={{ textAlign: 'center' }}>👀</span>
-                                                </div>
-                                                <div className="ui fifteen wide column" style={{ textAlign: "center" }}>
-                                                    <br />
-                                                    <div className="medium-500">{t('flot.split.tableaudebord.vide.preambule')}</div>
-                                                    <div className="medium-500" style={{ fontWeight: '100', textAlign: 'center' }}>{t('flot.split.tableaudebord.vide.indication')}</div>
-                                                </div>
+                                                <span className="illustration" style={{ textAlign: 'center' }}>
+                                                    <div role="img" aria-label="" className="medium-500">👀</div>
+                                                    <div className="ui fifteen wide column">
+                                                        <br />
+                                                        <div className="medium-500">{t('flot.split.tableaudebord.vide.preambule')}</div>
+                                                        <div className="medium-500" style={{ fontWeight: '100' }}>
+                                                            {t('flot.split.tableaudebord.vide.indication')} <br />
+                                                            <div onClick={e => {
+                                                                this.modaleNouvelleOeuvre();
+                                                            }}>{t('flot.split.tableaudebord.vide.indication-lien')}</div>
+
+
+                                                        </div>
+                                                    </div>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

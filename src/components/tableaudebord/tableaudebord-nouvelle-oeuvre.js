@@ -352,8 +352,8 @@ class Page2NouvellePiece extends Component {
                                                 </div>
                                             )
                                         }
-
-                                        <h2>{this.props.values.title}, {this.props.values.artist}</h2>
+                                        <h2>{this.props.values.title}</h2>
+                                        {/*<h2>{`${this.props.values.title} + ${this.props.values.vedettes}`}</h2>*/}
                                         <ChampTeleversement
                                             style={{ width: "300px" }}
                                             label={t('composant.televersement.titre')}

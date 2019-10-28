@@ -17,6 +17,7 @@ import * as roles from "../../assets/listes/role-uuids.json";
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
+import InfoBulle from '../partage/InfoBulle';
 
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import {
@@ -114,7 +115,12 @@ export default class PageCreation extends Component {
                 question={
                   t("flot.split.documente-ton-oeuvre.documenter.titre1") +
                   " " +
-                  this.props.values.title +
+                  t('flot.split.partage.guillemets.guillemet1')
+                  +
+                  this.props.values.title
+                  +
+                  t('flot.split.partage.guillemets.guillemet2')
+                  +
                   "?"
                 }
                 description={t(
@@ -190,15 +196,14 @@ export default class PageCreation extends Component {
 
               <ChampTexte
                 label={t("flot.split.documente-ton-oeuvre.documenter.codeiswc")}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.codeiswc-description"
-                )}
+                info={t("flot.split.documente-ton-oeuvre.documenter.codeiswc-description")}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.codeiswc-placeholder"
                 )}
                 value={this.props.values.iswc}
                 onChange={value => this.props.setFieldValue("iswc", value)}
               />
+              {this.props.values.iswc && (<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.codeiswc-description")} />)}
             </Colonne>
           </Page>
         )}
