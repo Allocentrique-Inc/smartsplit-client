@@ -18,6 +18,7 @@ export default class ModaleConnexion extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      pochette: props.pochette,
       isOpen: props.isOpen,
       opened: TYPE_LOGIN,
       parent: props.parent
@@ -35,6 +36,7 @@ export default class ModaleConnexion extends Component {
   }
 
   render() {
+    console.log('pochette?', this.state.pochette)
     return (
       <Modal
         open={this.state.isOpen}
@@ -48,6 +50,7 @@ export default class ModaleConnexion extends Component {
         <br />
         {this.state.opened === TYPE_LOGIN && (
           <Login
+            pochette={this.state.pochette}
             parent={this}
             fn={() => {
               Auth.currentAuthenticatedUser()
@@ -69,14 +72,14 @@ export default class ModaleConnexion extends Component {
             }}
           />
         )}
-        {this.state.opened === TYPE_REGISTER && <Register parent={this} />}
+        {this.state.opened === TYPE_REGISTER && <Register parent={this} pochette={this.state.pochette} />}
         {this.state.opened === TYPE_VERIFY && (
-          <ForgotPasswordVerification parent={this} />
+          <ForgotPasswordVerification pochette={this.state.pochette} parent={this} />
         )}
         {this.state.opened === TYPE_CHANGE && (
-          <ChangePasswordVerification parent={this} />
+          <ChangePasswordVerification pochette={this.state.pochette} parent={this} />
         )}
-        {this.state.opened === TYPE_FORGOT && <ForgotPassword parent={this} />}
+        {this.state.opened === TYPE_FORGOT && <ForgotPassword pochette={this.state.pochette} parent={this} />}
       </Modal>
     );
   }
