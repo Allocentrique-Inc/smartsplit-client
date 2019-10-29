@@ -64,11 +64,20 @@ const browserHistory = createBrowserHistory();
 
 const renderRoutes = () => {
   if (window.location.href.includes("pochette.info")) {
+
+    toast.info('Tu es en pochette')
+
     return (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
-            <Route path="*" component={AccueilPochette} />
+            <Route exact path="/" component={AccueilPochette} />
+            <Route
+              exact
+              path="/oeuvre/sommaire/:mediaId"
+              component={sommaireOeuvre}
+            />
+            <Route exact path="/oeuvre/resume" component={OeuvreResume} />            
           </Switch>
         </Router>
       </I18nextProvider>
@@ -193,7 +202,7 @@ const DefinitMotDePasse = ({match, location}) => {
 }
 
 function AccueilPochette() {
-  return <AssistantOeuvre pochette={true} />;
+  return <TableauDeBord pochette={true} />
 }
 
 function ContinuerProposition(match) {

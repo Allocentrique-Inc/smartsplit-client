@@ -8,6 +8,7 @@ export default class LigneMedia extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      pochette: props.pochette,
       media: props.media,
       user: props.user
     };
@@ -35,6 +36,9 @@ export default class LigneMedia extends Component {
   }
 
   render() {
+
+    let pochette =this.state.pochette ? "pochette" : ""
+
     let elem = this.state.media;
     let _p = this.state.p0;
 
@@ -89,12 +93,12 @@ export default class LigneMedia extends Component {
                     &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
                   </div>
                   <div
-                    className="small-500-color"
+                    className={`small-500-color ${pochette}`}
                     style={{ display: "inline-block" }}
                   >{`${elem.artist}`}</div>
                   <br />
                   <div
-                    className="small-400-color"
+                    className={`small-400-color`}
                     style={{ display: "inline-block" }}
                   >
                     {i18n.lng &&
@@ -107,7 +111,7 @@ export default class LigneMedia extends Component {
                 <div className="ui six wide column">
                   {!continuerDisabled && (
                     <div
-                      className={`ui medium button`}
+                      className={`ui medium button ${pochette}`}
                       onClick={() => {
                         window.location.href = `/partager/existant/${_p.uuid}`;
                       }}
@@ -119,7 +123,7 @@ export default class LigneMedia extends Component {
                   )}
                   {!nouveauDisabled && (
                     <div
-                      className={`ui medium button`}
+                      className={`ui medium button ${pochette}`}
                       onClick={() => {
                         window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
                       }}
@@ -131,7 +135,7 @@ export default class LigneMedia extends Component {
                   )}
                   {!sommaireDisabled && (
                     <div
-                      className={`ui medium button`}
+                      className={`ui medium button ${pochette}`}
                       onClick={() => {
                         window.location.href = `/partager/${this.state.media.mediaId}`;
                       }}
@@ -141,7 +145,7 @@ export default class LigneMedia extends Component {
                   )}
                   {!votationDisabled && (
                     <div
-                      className={`ui medium button`}
+                      className={`ui medium button ${pochette}`}
                       onClick={() => {
                         window.location.href = `/partager/${this.state.media.mediaId}`;
                       }}
