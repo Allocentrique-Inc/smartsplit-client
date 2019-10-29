@@ -29,6 +29,7 @@ class Register extends Component {
     super(props);
 
     this.state = {
+      pochette: props.pochette,
       hidden: true,
       confirmhidden: true,
       password: "",
@@ -53,7 +54,6 @@ class Register extends Component {
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.validatePasswordStrong = this.validatePasswordStrong.bind(this);
-    // this.stateChanged = this.stateChanged.bind(this);
     this.toggleShow = this.toggleShow.bind(this);
     this.handleConfirmPasswordChange = this.handleConfirmPasswordChange.bind(
       this
@@ -63,16 +63,6 @@ class Register extends Component {
     this.validatePassword = this.validatePassword.bind(this);
     this.validateConfirmPassword = this.validateConfirmPassword.bind(this);
   }
-
-  // clearErrorState = () => {
-  //   this.setState({
-  //     errors: {
-  //       cognito: null,
-  //       blankfield: false,
-  //       passwordmatch: false
-  //     }
-  //   });
-  // };
 
   validateUsername(value) {
     if (!value) {
@@ -97,10 +87,7 @@ class Register extends Component {
 
   validateConfirmPassword(value) {
     if (!value) {
-      return "Required";
-      // } else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(value)) {
-      //   console.log("VALUE confirm", value)
-      //   return "Passwords do not match"
+      return "Required";      
     } else if (value !== this.state.password) {
       console.log("VALUE confirm", value);
       return "Passwords do not match";
@@ -257,7 +244,7 @@ class Register extends Component {
 
   render() {
 
-    console.log("LOCALE: ", this.state.locale)
+    let pochette =this.state.pochette ? "pochette" : ""
 
     const { password, strength, currentValue } = this.state;
     const passwordLength = password.length;
@@ -268,7 +255,7 @@ class Register extends Component {
     ]
       .join(" ")
       .trim();
-    // confirm password field is only visible when password is not empty
+    
     const confirmClass = [
       "confirmPassword",
       strength >= 4 ? "visible" : "invisible"
@@ -303,7 +290,7 @@ class Register extends Component {
                           // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
                           this.props.parent.afficher(0);
                         }}
-                        style={{ color: "#2DA84F", cursor: "pointer" }}
+                        className={`connexion-inscription ${pochette}`}
                       >
                         {t("entete.connexion")}
                       </div>
@@ -335,7 +322,7 @@ class Register extends Component {
                               <h1>
                                 Crée gratuitement
                                 <br />
-                                ton profil sur Smartsplit.
+                                ton profil sur {pochette ? "Pochette" : "Smartsplit"}.
                               </h1>
                               <br />
                               <br />
@@ -343,8 +330,14 @@ class Register extends Component {
                             <div className="registerPrompt">
                               <h3>
                                 Tu es à un clic de pouvoir documenter ta musique
-                                et de partager <br />
-                                tes droits avec tes collabos.
+                                {
+                                  !pochette && (
+                                    <>
+                                      &nbsp;et de partager <br />
+                                      tes droits avec tes collabos
+                                    </>
+                                  )
+                                }.
                               </h3>
                             </div>
                           </div>
@@ -370,7 +363,7 @@ class Register extends Component {
                                 type="text"
                                 className="firstName register"
                                 placeholder={t(
-                                  "flot.split.collaborateur.attribut.etiquette.prenom"
+                                  "flot.split.collaborateur.attribut.placeholder.prenom"
                                 )}
                                 value={this.state.firstName}
                                 onChange={e =>
@@ -387,7 +380,7 @@ class Register extends Component {
                                 type="text"
                                 className="lastName register"
                                 placeholder={t(
-                                  "flot.split.collaborateur.attribut.etiquette.nom"
+                                  "flot.split.collaborateur.attribut.placeholder.nom"
                                 )}
                                 value={this.state.lastName}
                                 onChange={e =>
@@ -420,7 +413,17 @@ class Register extends Component {
                               }
                             />
                             <div className="sous-titre">
-                              {t("flot.split.collaborateur.attribut.etiquette.na")}
+
+
+                              {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
+                                <p style={{ margin: "0px" }}>For example, <i>Jay-Z</i> is the artist name of <em>Shawn Corey Carter</em>.</p>
+                              )}
+                              <div className="sous-titre">
+                                {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
+                                  <p style={{ margin: "0px" }}>Par exemple, <i>Jay-Z</i> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>
+                                )}
+
+                              </div>
                             </div>
                           </div>
 
@@ -457,93 +460,6 @@ class Register extends Component {
                               </div>
                             </div>
                           </div>
-
-                          {/*<div>
-                            <div
-                              className="ui row"
-                              style={{ marginTop: "30px" }}
-                            >
-                              <label style={{ fontWeight: "bold" }}>
-                                {t("flot.split.collaborateur.attribut.etiquette.role")}
-                              </label>
-                              <br />
-                            </div>
-                            <Dropdown
-                              icon="ui search icon"
-                              id="roles"
-                              type="text"
-                              options={[
-                                {
-                                  key: t("flot.split.roles.principal"),
-                                  text: t("flot.split.roles.principal"),
-                                  value: t("flot.split.roles.principal")
-                                },
-                                {
-                                  key: t("flot.split.roles.accompaniment"),
-                                  text: t("flot.split.roles.accompaniment"),
-                                  value: t("flot.split.roles.accompaniment")
-                                },
-                                {
-                                  key: t("flot.split.roles.songwriter"),
-                                  text: t("flot.split.roles.songwriter"),
-                                  value: t("flot.split.roles.songwriter")
-                                },
-                                {
-                                  key: t("flot.split.roles.composer"),
-                                  text: t("flot.split.roles.composer"),
-                                  value: t("flot.split.roles.composer")
-                                },
-                                {
-                                  key: t("flot.split.roles.remixer"),
-                                  text: t("flot.split.roles.remixer"),
-                                  value: t("flot.split.roles.remixer")
-                                },
-                                {
-                                  key: t("flot.split.roles.studio"),
-                                  text: t("flot.split.roles.studio"),
-                                  value: t("flot.split.roles.studio")
-                                },
-                                {
-                                  key: t("flot.split.roles.publisher"),
-                                  text: t("flot.split.roles.publisher"),
-                                  value: t("flot.split.roles.publisher")
-                                },
-                                {
-                                  key: t("flot.split.roles.graphist"),
-                                  text: t("flot.split.roles.graphist"),
-                                  value: t("flot.split.roles.graphist")
-                                },
-                                {
-                                  key: t("flot.split.roles.producer"),
-                                  text: t("flot.split.roles.producer"),
-                                  value: t("flot.split.roles.producer")
-                                },
-                                {
-                                  key: t("flot.split.roles.singer"),
-                                  text: t("flot.split.roles.singer"),
-                                  value: t("flot.split.roles.singer")
-                                },
-                                {
-                                  key: t("flot.split.roles.musicien"),
-                                  text: t("flot.split.roles.musicien"),
-                                  value: t("flot.split.roles.musicien")
-                                }
-                              ]}
-                              placeholder={t(
-                                "flot.split.collaborateur.attribut.indication.role"
-                              )}
-                              search
-                              multiple={true}
-                              selection
-                              fluid
-                              value={currentRoleValue}
-                              onChange={this.roleChange}
-                            />
-                            <div className="sous-titre">
-                              {t("flot.split.collaborateur.attribut.indication.role2")}
-                            </div>
-                          </div>*/}
-
                           <div className="ui row" style={{ marginTop: "30px" }}>
                             <div className="field">
                               <div className="control">
@@ -568,7 +484,7 @@ class Register extends Component {
                                 <div style={{
                                   color: "red",
                                   position: "absolute",
-                                  top: "660px"
+                                  top: "665px"
                                 }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
@@ -607,6 +523,7 @@ class Register extends Component {
                               )}
                             </div>
                           </div>
+
                           <span>
                             <div className="field">
                               <div className="control has-icons-left"
@@ -618,10 +535,6 @@ class Register extends Component {
 
                                 <div className="input-wrapper">
                                   <Field
-                                    /*validate={ (val) => {
-                                    this.validatePassword(val)
-                                } }*/
-
                                     validate={val => {
                                       this.validatePasswordStrong(val);
                                     }}
@@ -635,9 +548,7 @@ class Register extends Component {
                                     )}
                                     value={this.state.password}
                                     onChange={this.handlePasswordChange}
-                                    /*onChange={this.stateChanged}*/
                                     required={true}
-                                  // required={...restProps}
                                   />
 
                                   <button
@@ -673,6 +584,7 @@ class Register extends Component {
                           </div>
                           <div className={confirmClass}>
                             <div className="control has-icons-left confirmPassword">
+                              <i className="fas fa-lock" />
                               <div className="input-wrapper">
                                 <Field
                                   onPaste={e => {
@@ -693,7 +605,6 @@ class Register extends Component {
                                   value={this.state.confirmpassword}
                                   onChange={this.handleConfirmPasswordChange}
                                   required={true}
-                                /*className={controlClass}*/
                                 />
                                 <button
                                   id="hide-confirm"
@@ -702,30 +613,7 @@ class Register extends Component {
                                     this.toggleConfirmShow();
                                   }}
                                 >
-                                  <Eye actif={this.state.confirmhidden && this.state.hidden} />
-
-                                  {/*<svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M9.9 4.24002C10.5883 4.0789 11.2931 3.99836 12 4.00003C19 4.00003 23 12 23 12C22.393 13.1356 21.6691 14.2048 20.84 15.19M14.12 14.12C13.8454 14.4148 13.5141 14.6512 13.1462 14.8151C12.7782 14.9791 12.3809 15.0673 11.9781 15.0744C11.5753 15.0815 11.1752 15.0074 10.8016 14.8565C10.4281 14.7056 10.0887 14.4811 9.80385 14.1962C9.51897 13.9113 9.29439 13.572 9.14351 13.1984C8.99262 12.8249 8.91853 12.4247 8.92563 12.0219C8.93274 11.6191 9.02091 11.2219 9.18488 10.8539C9.34884 10.4859 9.58525 10.1547 9.88 9.88003M17.94 17.94C16.2306 19.243 14.1491 19.9649 12 20C5 20 1 12 1 12C2.24389 9.68192 3.96914 7.65663 6.06 6.06003L17.94 17.94Z"
-                                      stroke="#8DA0B3"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                    <path
-                                      d="M1 1L23 23"
-                                      stroke="#8DA0B3"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    />
-                                  </svg>*/}
+                                  <Eye actif={this.state.confirmhidden && this.state.hidden} />                                  
                                 </button>
                               </div>
                               {errors.confirmpassword &&
@@ -744,7 +632,7 @@ class Register extends Component {
                                 <div className="control">
                                   <div>
                                     <button
-                                      className={`ui medium button register is-success ${
+                                      className={`ui medium button register is-success ${pochette} ${
                                         !this.state.password ||
                                           this.state.confirmpassword !==
                                           this.state.password
@@ -763,7 +651,7 @@ class Register extends Component {
                                         }
                                       }}
                                     >
-                                      {t("entete.inscription")}
+                                      {t("flot.split.collaborateur.attribut.bouton.parti")}
                                     </button>
                                   </div>
                                 </div>

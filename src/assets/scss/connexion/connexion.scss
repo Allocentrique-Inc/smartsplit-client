@@ -1,0 +1,50 @@
+@import '../colors';
+@import '../typography';
+
+.ui.medium.button.is-success {
+    &.pochette {
+        background-color: $pochette-color-link;
+    }
+
+    &.relatif {
+        position: relative;
+        float: right;
+        margin: 0px 123px 10px 0px;
+    }
+}
+
+.inscription {
+    cursor: pointer;
+    position: relative;
+    bottom: 20px;
+    color: $smartsplit-color-link;
+    &.pochette {
+        color: $pochette-color-link;
+    }    
+}
+
+.motdepasse-oublie {
+    cursor: pointer;
+    color: $smartsplit-color-link;
+    &.pochette {
+        color: $pochette-color-link;
+    }
+}
+
+.connexion {    
+    color: $smartsplit-color-link;
+    cursor: pointer;
+    position: relative;
+    bottom: 30px;
+    &.pochette {
+        color: $pochette-color-link;
+    } 
+}
+
+.connexion-inscription {    
+    color: $smartsplit-color-link;
+    cursor: pointer;    
+    &.pochette {
+        color: $pochette-color-link;
+    } 
+}

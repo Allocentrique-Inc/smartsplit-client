@@ -317,7 +317,12 @@ export class ChampListeCollaborateurAssistant extends Component {
                                             multiple: this.state.multiple,
                                             options: this.state.options,
                                             onAddItem: this.handleAddition,
-                                            allowAdditions: this.state.ajout,
+                                            allowAdditions: this.state.ajout,                                            
+                                            onSelect: (e)=>{
+                                                if(this.props.fnSelect) {
+                                                    this.props.fnSelect()
+                                                }
+                                            },
                                             clearable: false
                                         }}
 

@@ -189,9 +189,9 @@ class PageAssistantPartageAuteur extends Component {
                 droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
             }
         })
-        
+
         this.props.setFieldValue('droitAuteur', droits)
-        
+
         if (aMisInvariable) // Retrait de l'index des invariables
             delete invariable[index]
     }
@@ -408,7 +408,9 @@ class PageAssistantPartageAuteur extends Component {
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {t('flot.split.partage.auteur.titre', { oeuvre: this.state.song })}
+                                                {/*{t('flot.split.partage.auteur.titre', { oeuvre: this.state.song })}*/}
+                                                {t('flot.split.partage.auteur.titre')}
+                                                {t('flot.split.partage.guillemets.guillemet1')}{this.state.song}{t('flot.split.partage.guillemets.guillemet2')}?
                                             </div>
                                             <br />
                                             {descriptif}
@@ -544,7 +546,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                             )
                                                                                                         })
                                                                                                     }
-                                                                                                </div>                                                                                                
+                                                                                                </div>
                                                                                                 {
                                                                                                     this.state.mode === MODES.manuel && (
                                                                                                         <>
@@ -582,7 +584,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                 valeur={this.props.values.droitAuteur[index].pourcent} />
                                                                                                         </>
                                                                                                     )
-                                                                                                }                                                                                                
+                                                                                                }
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -610,6 +612,11 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     selection={true}
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitAuteur}
+                                                                                    fnSelect={
+                                                                                        ()=>{
+                                                                                            this.ajouterCollaborateur(arrayHelpers)
+                                                                                        }
+                                                                                    }
                                                                                     fn={(_aD) => {
 
                                                                                         // Fonction de rappel à la modale ModifyUser
@@ -690,16 +697,7 @@ class PageAssistantPartageAuteur extends Component {
 
                                                                                     }}
                                                                                 />
-                                                                            </div>
-                                                                            <div className="four wide column">
-                                                                                <button
-                                                                                    className="ui medium button"
-                                                                                    onClick={(e) => {
-                                                                                        e.preventDefault()
-                                                                                        this.ajouterCollaborateur(arrayHelpers)
-                                                                                    }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
-                                                                                </button>
-                                                                            </div>
+                                                                            </div>                                                                            
                                                                         </div>
                                                                     </div>
                                                                 </div>

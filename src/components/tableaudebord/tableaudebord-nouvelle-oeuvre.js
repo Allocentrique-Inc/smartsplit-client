@@ -202,9 +202,10 @@ class Base extends Component {
                 {
                     t =>
                         <>
-                            <div className="ui row" style={{ width: "360px", margin: "20px 20px 0 0", fontSize: "16px", fontFamily: "IBM Plex Sans" }}>
+                            <div className="ui row" style={{ width: "400px", margin: "20px 20px 0 0", fontSize: "16px", fontFamily: "IBM Plex Sans" }}>
                                 <ChampTexteAssistant
                                     soustexte={t('oeuvre.attribut.indication.titre-soustexte')}
+                                    style={{ marginLeft: "0" }}
                                     modele="title"
                                     etiquette={t('oeuvre.attribut.indication.titre')}
                                     requis={true}
@@ -259,7 +260,7 @@ class PageNouvellePiece extends Component {
             <React.Fragment>
                 <div className="ui grid">
                     <div className="ui column">
-                        <h2>{this.props.values.title}</h2>
+
                         <Base values={this.props.values} setFieldValue={this.props.setFieldValue} />
                     </div>
                 </div>
@@ -351,6 +352,8 @@ class Page2NouvellePiece extends Component {
                                                 </div>
                                             )
                                         }
+                                        <h2>{this.props.values.title}</h2>
+                                        {/*<h2>{`${this.props.values.title} + ${this.props.values.vedettes}`}</h2>*/}
                                         <ChampTeleversement
                                             style={{ width: "300px" }}
                                             label={t('composant.televersement.titre')}
@@ -481,7 +484,7 @@ class Page2NouvellePiece extends Component {
                                             )
                                         }
 
-                                        <div style={{ margin: "20px 0 20px 0", width: "360px" }} className="ui row">
+                                        <div style={{ margin: "20px 0 20px 0", width: "400px" }} className="ui row">
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={this.props.pochette}
                                                 items={this.rightHolderOptions()}
@@ -526,165 +529,3 @@ class Page2NouvellePiece extends Component {
         )
     }
 }
-
-/* export default class NouvelleOeuvre extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = {
-            user: props.user
-        }
-        this.soumettre = this.soumettre.bind(this)
-        this.changementPage = this.changementPage.bind(this)
-        this.changement = this.changement.bind(this)
-    }
-
-    componentWillMount() {
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
-            .then(res => {
-                this.setState({ rightHolders: res.data })
-            })
-    }
-
-    changement(values) {
-        this.setState({ valeurs: values })
-    }
-
-    changementPage(no, t) {
-        if (no === 1 && !this.state.mediaId) {
-            // On arrive sur la page 1 de la page 0
-            // Création de l'oeuvre avec uniquement le titre et le type
-
-            let title = this.state.valeurs.title
-            let type
-
-            if (this.state.valeurs.type === "0") {
-                type = "ORIGINALE"
-            }
-            if (this.state.valeurs.type === "1") {
-                type = "ARRANGEMENT"
-            }
-            if (this.state.valeurs.type === "2") {
-                type = "REPRISE"
-            }
-
-            axios.put(`http://dev.api.smartsplit.org:8080/v1/media`, { title: title, type: type, creator: this.state.user.username })
-                .then(res => {
-                    // Enregistrement du mediaId pour sauvegarde des données dans handleSubmit                
-                    toast.info(t('info.oeuvre.creation', { id: res.data.id }))
-                    this.setState({ mediaId: res.data.id })
-                    this.props.parent.setState({ mediaId: res.data.id }) // Condition d'apparition du lecteur audio
-                })
-        }
-    }
-
-    soumettre(values, t) {
-
-        let rHs = []
-
-        // Participants créés avec le rôle d'auteur par défaut.
-        if (values.rightHolders)
-            values.rightHolders.forEach(rH => rHs.push({ id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a33"] }))
-
-        let body = {
-            creator: this.props.user.username,
-            mediaId: `${this.state.mediaId}`,
-            title: values.title,
-            album: values.album,
-            artist: values.artist,
-            msDuration: values.durationMs,
-            type: values.type,
-            publishDate: values.publishDate,
-            publisher: values.publisher,
-            rightHolders: rHs,
-            socialMediaLinks: values.socialMediaLinks,
-            streamingServiceLinks: values.streamingServiceLinks,
-            pressArticleLinks: values.pressArticleLinks,
-            playlistLinks: values.playlistLinks,
-            files: {
-                audio: {
-                    file: values.fichier,
-                    access: "private"
-                },
-                cover: {
-                    file: " ",
-                    access: "private"
-                },
-                score: {
-                    file: " ",
-                    access: "private"
-                },
-                midi: {
-                    file: " ",
-                    access: "private"
-                }
-            },
-            remixer: values.arrangeur
-        }
-        this.props.parent.state.audio.stop()
-
-        axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
-            .then(res => {
-                window.location.href = `/oeuvre/sommaire/${body.mediaId}`
-            })
-            .catch(err => console.log(err))
-
-    }
-
-    setFichier(fichier) {
-        this.setState({ fichier: fichier })
-    }
-
-    render() {
-
-        if (this.state.rightHolders) {
-            return (
-                <Translation>
-                    {
-                        t =>
-                            <div>
-                                {this.state.patience && (
-                                    <div style={{ width: "100%" }} className="container ui active dimmer">
-                                        <div className="ui text loader">{t("entete.encours")}</div>
-                                    </div>
-                                )}
-                                <Wizard
-                                    initialValues={{
-                                        title: undefined,
-                                        type: undefined,
-                                        vedettes: []
-                                    }}
-                                    buttonLabels={{ previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti') }}
-                                    debug={false}
-                                    onPageChanged={no => this.changementPage(no, t)}
-                                    onSubmit={(values, { setSubmitting }) => { this.soumettre(values, t); setSubmitting(false) }}
-                                    style={{ width: "80%" }}
-                                >
-                                    <Wizard.Page
-                                        validate={values => {
-                                            this.changement(values)
-                                            const errors = {};
-                                            if (!values.title) {
-                                                errors.title = t("obligatoire")
-                                            }
-                                            return errors
-                                        }}>
-                                        <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
-                                    </Wizard.Page>
-                                    <Wizard.Page>
-                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} />
-                                    </Wizard.Page>
-
-                                </Wizard>
-                            </div>
-                    }
-                </Translation>
-            )
-        } else {
-            return (<></>)
-        }
-
-
-    }
-}
- */

@@ -24,19 +24,12 @@
     "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
-    "titre": "Add a collaborator",
+    "titre": "[Add/Modify] a collaborator",
     "titre2": "Add as a collaborator:",
     "attribut": {
-      "etiquette": {
-        "nom": "Legal Name",
-        "prenom": "Legal First Name",
-        "artiste": "Artist name (aka)",
-        "option": " Optional",
-        "na": "For example, Jay-Z is the artist name of Shawn Corey Carter.",
-        "role": "Role(s) by default",
-        "courriel": "Email",
-        "groupe": "Add groups, artistic enteties or compagnies",
-        "ajout": "Add a group or an artist"
+      "placeholder": {
+        "prenom": "Legal first name",
+        "nom": "Legal last name"
       },
       "indication": {
         "nom": "Last name",
@@ -173,8 +166,9 @@
         "password": "Forgot Password",
         "password2": "Password Verification",
         "password3": "Change Verification",
-        "definir": "Set new password",
-        "nouveau": "New password",
+        "definir": "Set and confirm your new password",
+        "nouveau": "Your new password",
+        "confirmer": "Confirm your new password",
         "code": "Please enter the verification code sent to your email address below, your email address and a new password.",
         "verification": "Enter verification code",
         "welcome": "Welcome",
@@ -225,7 +219,7 @@
           "etiquette": {
             "nom": "Legal Name",
             "prenom": "Legal First Name",
-            "artiste": "Artist Name",
+            "artiste": "Artist Name (aka)",
             "option": " (optional)",
             "na": "If not applicable, the complete name is displayed.",
             "role": "Role in the work",
@@ -244,7 +238,8 @@
           "bouton": {
             "annuler": "Cancel",
             "sauvegarder": "Save",
-            "soumettre": "Submit"
+            "soumettre": "Submit",
+            "parti": "Let's go!"
           }
         },
         "declaration": {
@@ -324,7 +319,7 @@
           "editeur-placeholder": "Add an editor",
           "codeiswc": "ISWC Code",
           "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
-          "codeiswc-placeholder": "Add a code",
+          "codeiswc-placeholder": "T-012345678-1",
           "titre2": "Who played the musical piece on this sound recording?",
           "titre2-description": "Here you mention who played which instrument.",
           "titre2-placeholder": "Add an Interpreter",
@@ -559,7 +554,8 @@
         },
         "vide": {
           "preambule": "Your works will appear here",
-          "indication": "Document and share the rights of your first musical work by clicking on the «Add» button"
+          "indication": "Document and share the rights of your first musical work by clicking on the ",
+          "indication-lien": "“Add a work”."
         }
       },
       "roles": {
@@ -578,14 +574,18 @@
         "publisher": "Publisher"
       },
       "partage": {
+        "guillemets": {
+          "guillemet1": "“",
+          "guillemet2": "”"
+        },
         "auteur": {
-          "titre": "Who invented {{oeuvre}} ?"
+          "titre": "Who invented "
         },
         "interprete": {
-          "titre": "Who played on {{oeuvre}} ?"
+          "titre": "Who played on "
         },
         "enregistrement": {
-          "titre": "Who owns the master for {{oeuvre}} ?"
+          "titre": "Who owns the master for "
         },
         "editeur": {
           "titre": "What's your publisher's name ?",
@@ -660,8 +660,8 @@
   "accueil": {
     "titre": "Login to your Smartsplit account.",
     "sous-titre": "Enter your information below.",
-    "courriel": "Enter email",
-    "motdepasse": "My password",
+    "courriel": "Enter your email",
+    "motdepasse": "Enter your password",
     "oublie": "Forgot password?"
   },
   "entete": {

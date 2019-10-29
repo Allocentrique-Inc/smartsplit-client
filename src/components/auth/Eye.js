@@ -42,7 +42,7 @@ export default class Eye extends Component {
     )
 
     return (
-      <span className="eye">
+      <div className="eye">
         {
           this.state.actif && oeilActif
 
@@ -52,7 +52,7 @@ export default class Eye extends Component {
 
         }
 
-      </span>
+      </div>
     )
   }
 

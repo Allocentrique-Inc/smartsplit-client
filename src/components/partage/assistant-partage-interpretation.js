@@ -228,7 +228,10 @@ class PageAssistantPartageInterpretation extends Component {
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {t('flot.split.partage.interprete.titre', { oeuvre: this.state.song })}
+                                                {/*{t('flot.split.partage.interprete.titre', { oeuvre: this.state.song })}*/}
+                                                {t('flot.split.partage.interprete.titre', {
+                                                    oeuvre: `${t('flot.split.partage.guillemets.guillemet1')}${this.state.song}${t('flot.split.partage.guillemets.guillemet2')}`
+                                                })}?
                                             </div>
                                             <br />
                                             {descriptif}
@@ -312,7 +315,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                     name={`type_interpretation_${index}`}
                                                                                                     actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
                                                                                                     onClick={(e) => {
-                                                                                                        if(this.state.mode === MODES.role) {
+                                                                                                        if (this.state.mode === MODES.role) {
                                                                                                             let valeur
                                                                                                             // Clic de la puce ou de l'étiquette ?
                                                                                                             if (e.target.nodeName === 'LABEL') {
@@ -325,7 +328,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                             this.setState({ ping: true }, () => {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
-                                                                                                        }                                                                                                        
+                                                                                                        }
                                                                                                     }}
                                                                                                     disabled={this.state.mode !== MODES.role}
                                                                                                     titre=""
@@ -388,6 +391,11 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                     selection={true}
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitInterpretation}
+                                                                                    fnSelect={
+                                                                                        ()=>{
+                                                                                            this.ajouterCollaborateur(arrayHelpers)
+                                                                                        }
+                                                                                    }
                                                                                     fn={(_aD) => {
 
                                                                                         // Fonction de rappel à la modale ModifyUser
@@ -468,16 +476,7 @@ class PageAssistantPartageInterpretation extends Component {
 
                                                                                     }}
                                                                                 />
-                                                                            </div>
-                                                                            <div className="four wide column">
-                                                                                <button
-                                                                                    className="ui medium button"
-                                                                                    onClick={(e) => {
-                                                                                        e.preventDefault()
-                                                                                        this.ajouterCollaborateur(arrayHelpers)
-                                                                                    }}>{t('flot.split.documente-ton-oeuvre.bouton.ajout')}
-                                                                                </button>
-                                                                            </div>
+                                                                            </div>                                                                            
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -18,7 +18,8 @@ export default class TableauDeBord extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            navigation: 0
+            navigation: 0,
+            pochette: props.pochette
         }
     }
 
@@ -41,8 +42,8 @@ export default class TableauDeBord extends Component {
             let entete = (<Entete contenu={contenu} profil={this.state.user} />)
             return (
                 <div className="tdb--cadre ui row">
-                    <Navigation parent={this} />
-                    <Panneau entete={entete} selection={this.state.navigation} user={this.state.user} />
+                    <Navigation parent={this} pochette={this.state.pochette} />
+                    <Panneau pochette={this.state.pochette} entete={entete} selection={this.state.navigation} user={this.state.user} />
                 </div>                
             )
         } else {            
@@ -52,7 +53,7 @@ export default class TableauDeBord extends Component {
                     t =>
                     
                     <div className="tdb--cadre ui row accueil">
-                        <ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />
+                        <ModaleConnexion pochette={this.state.pochette} parent={this} isOpen={this.state.modaleConnexion} />
                     </div>
                 }
                 </Translation>

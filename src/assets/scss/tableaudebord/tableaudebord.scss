@@ -1,0 +1,42 @@
+@import '../colors';
+
+.navigation {
+    display: block;
+    text-align: left;
+    margin-bottom: 32px;
+    padding-left: 20px;   
+    color: $smartsplit-color-link;    
+    &.pochette {
+        color: $pochette-color-link;        
+    }
+}
+
+.souligne {    
+    border-bottom: solid $smartsplit-color-link;
+    &.pochette {
+        border-bottom: solid $pochette-color-link;
+    }
+}
+
+.pochette {
+    color: $pochette-color-link;
+}
+
+.navigation-listes {
+    cursor: pointer;
+}
+
+.espace-10 {
+    padding-top: 10px;
+}
+
+.espace-15 {
+    padding-top: 15px;
+}
+
+.medium.button {
+    background-color: $smartsplit-color-link;
+    &.pochette{
+        background-color: $pochette-color-link;
+    }
+}
