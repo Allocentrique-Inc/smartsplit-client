@@ -5,6 +5,8 @@ import { Modal } from "semantic-ui-react"
 
 import closeIcon from "../../assets/svg/icons/x.svg"
 import "../../assets/scss/page-assistant/modal.scss"
+import "../../assets/scss/connexion/connexion.scss"
+
 import positiveImage from "../../assets/images/positive.png"
 import { toast } from "react-toastify"
 import { Formik, Field } from "formik"
@@ -25,6 +27,7 @@ class ForgotPassword extends Component {
     super(props);
 
     this.state = {
+      pochette: props.pochette,
       modalOpen: false,
       email: "",
       errors: {
@@ -113,6 +116,7 @@ class ForgotPassword extends Component {
   }
 
   render() {
+    let pochette =this.state.pochette ? "pochette" : ""
     return (
       <Formik
         initialValues={{
@@ -137,12 +141,7 @@ class ForgotPassword extends Component {
                           // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
                           this.props.parent.afficher(0);
                         }}
-                        style={{
-                          color: "#2DA84F",
-                          cursor: "pointer",
-                          position: "relative",
-                          bottom: "30px"
-                        }}
+                        className={`connexion ${pochette}`}
                       >
                         {t("entete.connexion")}
                       </div>
@@ -157,17 +156,8 @@ class ForgotPassword extends Component {
                     >
                       {t("flot.split.auth.oublier.titre")}
                     </h1>
-                    <p style={{ marginLeft: "0px" }}>{t("flot.split.auth.oublier.preambule")}</p>
-                    {/* <form onSubmit={this.forgotPasswordHandler}>
-                    <div
-                      className="field"
-                      style={{
-                        emailStyle,
-                        fontWeight: "normal"
-                      }}
-                    > */}
+                    <p style={{ marginLeft: "0px" }}>{t("flot.split.auth.oublier.preambule")}</p>                    
                     <div className="control has-icons-left has-icons-right">
-
                       <Field
                         validate={this.validateEmail}
                         type="email"
@@ -195,13 +185,8 @@ class ForgotPassword extends Component {
                   </div>
                   <div className="field">
                     <button
-                      className="ui medium button is-success"
-                      type="submit"
-                      style={{
-                        position: "relative",
-                        float: "right",
-                        margin: "0px 123px 10px 0px"
-                      }}
+                      className={`ui medium button is-success ${pochette} relatif`}
+                      type="submit"                     
                       onClick={props.handleSubmit}
                     >
                       {t("flot.split.collaborateur.attribut.bouton.soumettre")}
@@ -217,7 +202,7 @@ class ForgotPassword extends Component {
                             <div className="title">
                               {t("flot.fin.recupMotDePasse")}
                             </div>
-                            <div className="close-icon"
+                            <div className="close-icon cliquable"
                               onClick={() => { this.handleClose() }}
                               style={{
                                 right: "40px",

@@ -30,6 +30,7 @@ export default class ListePieces extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            pochette: props.pochette,
             medias: [],
             collabMedias: [],
             creatorMedias: [],
@@ -183,6 +184,8 @@ export default class ListePieces extends Component {
 
     render() {
 
+        let pochette = this.state.pochette ? "pochette" : ""
+
         let rendu
         let that = this
 
@@ -222,6 +225,10 @@ export default class ListePieces extends Component {
             )
         }
 
+        let souligneInitiateur, souligneCollaborateur
+        souligneInitiateur = this.state.panneau === PANNEAU_INITIATEUR
+        souligneCollaborateur = this.state.panneau === PANNEAU_COLLABORATEUR
+
         let toggle = (
             <Translation>
                 {
@@ -230,8 +237,8 @@ export default class ListePieces extends Component {
                             <div className="ui row">
                                 <div className="ui one wide column" />
                                 <div className="ui twelve wide column">
-                                    <span style={this.state.panneau === PANNEAU_INITIATEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`small-500${this.state.panneau === PANNEAU_INITIATEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauInitiateur() }}>{t('flot.split.tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                <span style={this.state.panneau === PANNEAU_COLLABORATEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`small-500${this.state.panneau === PANNEAU_COLLABORATEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauCollaborateur() }}>{t('flot.split.tableaudebord.pieces.1')}</span>
+                                    <span className={`small-500${souligneInitiateur ? '-color souligne' : ''} ${souligneInitiateur && pochette ? "pochette" : ""}`} onClick={() => { this.afficherPanneauInitiateur() }}>{t('flot.split.tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
+                                    <span className={`small-500${souligneCollaborateur ? '-color souligne' : ''} ${souligneCollaborateur && pochette ? "pochette" : ""}`} onClick={() => { this.afficherPanneauCollaborateur() }}>{t('flot.split.tableaudebord.pieces.1')}</span>
                                 </div>
                                 <div className="ui one wide column" />
                             </div>
@@ -253,14 +260,14 @@ export default class ListePieces extends Component {
                 tableauMedias = this.state.medias.map((elem, _idx) => {
                     _medias[elem.mediaId] = elem
                     return (
-                        <LigneMedia key={elem.mediaId} media={elem} user={this.state.user} />
+                        <LigneMedia pochette={this.state.pochette} key={elem.mediaId} media={elem} user={this.state.user} />
                     )
                 })
                 tableauMedias = tableauMedias.concat(
                     this.state.creatorMedias.map((elem, _idx) => {
                         if (elem && elem.mediaId && !_medias[elem.mediaId]) {
                             return (
-                                <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />
+                                <LigneMedia pochette={this.state.pochette} key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />
                             )
                         } else {
                             return null
@@ -271,7 +278,7 @@ export default class ListePieces extends Component {
             if (this.state.collabMedias.length > 0 && this.state.panneau === PANNEAU_COLLABORATEUR) {
                 tableauMedias = this.state.collabMedias.map((elem, _idx) => {
                     return (
-                        elem !== undefined && <LigneMedia key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />
+                        elem !== undefined && <LigneMedia pochette={this.state.pochette} key={`${elem.mediaId}_${elem._idx}`} media={elem} user={this.state.user} />
                     )
                 })
             }
@@ -289,7 +296,7 @@ export default class ListePieces extends Component {
                                         <div className="ui grid">
                                             <div className="ui row">
                                                 <div className="heading2 ten wide column">{t('flot.split.tableaudebord.navigation.0')}
-                                                    <div className="ui three wide column medium button"
+                                                    <div className={`ui three wide column medium button ${pochette}`}
                                                         onClick={() => { this.modaleNouvelleOeuvre() }}
                                                         style={{
                                                             position: "absolute",

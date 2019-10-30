@@ -10,6 +10,7 @@ export default class Panneau extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            pochette: props.pochette,
             selection: props.selection,
             entete: props.profil,
             user: props.user
@@ -27,7 +28,7 @@ export default class Panneau extends Component {
             <div className="tdb--panneau">                
                 {this.props.entete}
                 <div className="contenu">
-                    {this.state.selection === 0 && (<ListePieces parent={this} user={this.state.user} />)}
+                    {this.state.selection === 0 && (<ListePieces pochette={this.state.pochette} parent={this} user={this.state.user} />)}
                     {this.state.selection === 1 && (<MonProfil />)}
                     {this.state.selection === 2 && (<ListeCollaborateurs />)}
                 </div>                

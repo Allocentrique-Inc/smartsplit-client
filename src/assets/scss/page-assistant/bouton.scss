@@ -35,3 +35,9 @@
     }
 }
 
+.button {
+    background-color: $smartsplit-color-link;
+    &.pochette{
+        background-color: $pochette-color-link;
+    }
+}

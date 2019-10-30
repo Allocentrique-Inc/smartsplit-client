@@ -2,6 +2,9 @@ import React, { Component } from "react";
 
 import "./Login.css";
 
+// Importation pochette
+import '../../assets/scss/connexion/connexion.scss'
+
 import { Auth } from "aws-amplify";
 import { Translation } from "react-i18next";
 
@@ -17,6 +20,7 @@ class LogIn extends Component {
     super(props);
 
     this.state = {
+      pochette: props.pochette,
       hidden: true,
       username: "",
       password: this.props.password,
@@ -76,6 +80,7 @@ class LogIn extends Component {
   }
 
   render() {
+    let pochette =this.state.pochette ? "pochette" : ""
     return (
       <Formik
         initialValues={{
@@ -105,12 +110,7 @@ class LogIn extends Component {
                           // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
                           this.props.parent.afficher(1);
                         }}
-                        style={{
-                          color: "#2DA84F",
-                          cursor: "pointer",
-                          position: "relative",
-                          bottom: "20px"
-                        }}
+                        className={`inscription ${pochette}`}
                       >
                         {t("entete.inscription")}
                       </div>
@@ -121,7 +121,7 @@ class LogIn extends Component {
                           <div>
                             <div className="loginHead">
                               <h1>
-                                Login to your Smartsplit <br />
+                                Login to your {this.state.pochette ? "Pochette" : "Smartsplit"} <br />
                                 account.
                               </h1>
                               <br></br>
@@ -133,7 +133,7 @@ class LogIn extends Component {
                             <div className="loginHead">
                               <h1>
                                 Connecte-toi à ton <br />
-                                compte Smartsplit.
+                                compte {this.state.pochette ? "Pochette" : "Smartsplit"}.
                               </h1>
                               <br></br>
                             </div>
@@ -195,19 +195,7 @@ class LogIn extends Component {
                                   <Eye actif={this.state.hidden} />
                                 </button>
                               </div>
-                            </div>
-                            {/* {errors.password && touched.password && (
-                              <div style={{
-                                color: "red",
-                                position: "absolute",
-                                top: "435px"
-                              }}>
-                                {" "}
-                                {t(
-                                  "flot.split.inscription.password-invalide"
-                                )}{" "}
-                              </div> 
-                            )}*/}
+                            </div>                          
                           </div>
                           {!this.state.patience && (
                             <div className="field">
@@ -216,10 +204,7 @@ class LogIn extends Component {
                                   onClick={() => {
                                     this.state.parent.afficher(2);
                                   }}
-                                  style={{
-                                    color: "#2DA84F",
-                                    cursor: "pointer"
-                                  }}
+                                  className={`motdepasse-oublie ${pochette}`}
                                 >
                                   {t("accueil.oublie")}
                                 </div>
@@ -229,7 +214,7 @@ class LogIn extends Component {
 
                           <div className="field">
                             <p className="control">
-                              <button className="ui medium button login is-success">
+                              <button className={`ui medium button login is-success ${pochette}`}>
                                 {t("entete.connexion")}
                               </button>
                             </p>
