@@ -29,7 +29,7 @@
     "bouton": {
       "annuler": "Annuler",
       "sauvegarder": "Sauvegarder",
-      "soumettre": "Soumette"
+      "soumettre": "Soumettre"
     },
     "declaration": {
       "identite": "Déclaration d'identité",
@@ -299,7 +299,7 @@
             "langue-creer": "Indiquer la langue",
             "langue-ajouter": "Ajouter une langue"
           },
-          "titre1": "Qui a participé à la création de",
+          "titre1": "Qui a participé à la création de «{{titre}}»?",
           "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
           "date-creation": "Date de création",
           "date-placeholder": "Ajouter une date",

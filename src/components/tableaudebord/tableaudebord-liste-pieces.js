@@ -184,6 +184,7 @@ export default class ListePieces extends Component {
     render() {
 
         let rendu
+        let that = this
 
         function aucuneOeuvre() {
             return (
@@ -199,17 +200,15 @@ export default class ListePieces extends Component {
                                                 <br />
                                                 <br />
                                                 <span className="illustration" style={{ textAlign: 'center' }}>
-                                                    <div role="img" aria-label="" className="medium-500">👀</div>
+                                                    <div role="img" aria-label="" className="medium-500" style={{ fontSize: "3rem" }}>👀</div>
                                                     <div className="ui fifteen wide column">
                                                         <br />
                                                         <div className="medium-500">{t('flot.split.tableaudebord.vide.preambule')}</div>
                                                         <div className="medium-500" style={{ fontWeight: '100' }}>
                                                             {t('flot.split.tableaudebord.vide.indication')} <br />
-                                                            <div onClick={e => {
-                                                                this.modaleNouvelleOeuvre();
+                                                            <div className="cliquable" style={{ color: "#0645AD" }} onClick={e => { //Cliquable = pointeur lien, classe écrite Vincent
+                                                                that.modaleNouvelleOeuvre()
                                                             }}>{t('flot.split.tableaudebord.vide.indication-lien')}</div>
-
-
                                                         </div>
                                                     </div>
                                                 </span>

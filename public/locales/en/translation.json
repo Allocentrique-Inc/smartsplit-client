@@ -303,7 +303,7 @@
             "langueParole": "Language",
             "lien": "Streaming Links"
           },
-          "titre1": "Who participated in the creation of",
+          "titre1": "Who participated in the creation of “{{titre}}?”",
           "titre1-description": "That's where you mention who contributed to the creation of this piece.",
           "date-creation": "Creation Date",
           "date-placeholder": "Add a date",

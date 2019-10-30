@@ -380,11 +380,13 @@ class PageAssistantPartageEnregistrement extends Component {
                                                             choix={[
                                                                 {
                                                                     nom: t('flot.split.modepartage.egal'),
-                                                                    valeur: "" + MODES.egal
+                                                                    valeur: "" + MODES.egal,
+                                                                    info: t('tooltip.egal')
                                                                 },
                                                                 {
                                                                     nom: t('flot.split.modepartage.manual'),
-                                                                    valeur: "" + MODES.manuel
+                                                                    valeur: "" + MODES.manuel,
+                                                                    info: t('tooltip.egal')
                                                                 }
                                                             ]}
                                                         />
@@ -519,7 +521,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitEnregistrement}
                                                                                     fnSelect={
-                                                                                        ()=>{
+                                                                                        () => {
                                                                                             this.ajouterCollaborateur(arrayHelpers)
                                                                                         }
                                                                                     }
@@ -603,7 +605,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
                                                                                     }}
                                                                                 />
-                                                                            </div>                                                                            
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
