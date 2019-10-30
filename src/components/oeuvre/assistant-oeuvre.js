@@ -204,7 +204,7 @@ class AssistantOeuvre extends Component {
         axios.post('http://dev.api.smartsplit.org:8080/v1/media', values)
         .then((response) => {
             actions.setSubmitting(false)
-            window.location.href="/"
+            this.setState({endModalOpen: true})
         })
         .catch((error) => {
             console.log(error)
@@ -237,7 +237,7 @@ class AssistantOeuvre extends Component {
                                                 next: t('navigation.suivant'),
                                                 submit: t('navigation.envoi')
                                             } }
-                                            debug={ false }
+                                            debug={ true }
                                         >
                                             <Wizard.Page>
                                                 <PageCreation

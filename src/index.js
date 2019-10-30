@@ -64,6 +64,7 @@ const browserHistory = createBrowserHistory();
 
 const renderRoutes = () => {
   if (window.location.href.includes("pochette.info")) {  
+    window.document.title = "Pochette.info"
     return (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
@@ -78,6 +79,7 @@ const renderRoutes = () => {
       </I18nextProvider>
     );
   } else {
+    window.document.title = "Smartsplit"
     return (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
