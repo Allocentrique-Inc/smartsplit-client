@@ -237,7 +237,7 @@ class AssistantOeuvre extends Component {
                                                 next: t('navigation.suivant'),
                                                 submit: t('navigation.envoi')
                                             } }
-                                            debug={ true }
+                                            debug={ false }
                                         >
                                             <Wizard.Page>
                                                 <PageCreation
