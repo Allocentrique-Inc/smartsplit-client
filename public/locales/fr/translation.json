@@ -41,7 +41,7 @@
       "etiquette": {
         "titre": "Titre :",
         "album": "Album :",
-        "piecePar": "{{titre}}, par",
+        "piecePar": "{{titre}}, par...",
         "arrangementPar": "{{titre}}, arrangé par",
         "reprise": "Cette œuvre est une reprise",
         "instrumental": "Cette œuvre est instrumentale",
@@ -60,7 +60,7 @@
         "liensSociaux": "Lien vers un média social",
         "liensServices": "Lien direct de diffusion",
         "arrangeur": "Artiste ou groupe",
-        "vedette": "Ajouter un artiste ou groupe en vedette",
+        "vedette": "Ajouter un artiste vedette (feat.)",
         "liensPresse": "Lien vers une revue de presse",
         "liensListes": "Lien vers une liste de lecture",
         "dateCreation": "Date de création",
@@ -97,7 +97,7 @@
       }
     },
     "titre": {
-      "vedette": "Avec la participation de (feat.)"
+      "vedette": "Avec la participation spéciale de"
     },
     "creePar": "Créé par",
     "piece": "Pièce originale",
@@ -208,7 +208,7 @@
         "apercu": "Aperçu",
         "oeil-ouvert": "Gardez l'oeil ouvert",
         "apercu-sen-vient": "Votre aperçu s'affichera ici",
-        "creer": "Créer une nouvelle pièce musicale"
+        "creer": "[Créer/Modifier] une pièce musicale"
       },
       "collaborateur": {
         "titre": "Ajouter un artiste collaborateur",
@@ -254,7 +254,7 @@
         "precedent": "Précédent",
         "reinitialiser": "Réinitialiser",
         "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
-        "cest-parti": "C'est parti !"
+        "cest-parti": "C'est parti !/Sauvegarder"
       },
       "documente-ton-oeuvre": {
         "titre": "Documente ton œuvre",
@@ -549,7 +549,7 @@
         "pieces": {
           "0": "Mes ajouts",
           "1": "Partagées avec moi",
-          "par": "par",
+          "par": "par...",
           "partageAvec": "partagé avec",
           "ajouter": "Ajouter une oeuvre"
         },
@@ -580,13 +580,13 @@
           "guillemet2": "»"
         },
         "auteur": {
-          "titre": "Qui a inventé "
+          "titre": "Qui a inventé «{{titre}}»?"
         },
         "interprete": {
-          "titre": "Qui a joué sur "
+          "titre": "Qui a joué sur «{{titre}}»?"
         },
         "enregistrement": {
-          "titre": "Qui possède l'enregistrement sonore de "
+          "titre": "Qui possède l'enregistrement sonore de «{{titre}}»?"
         },
         "editeur": {
           "titre": "Quel est le nom de ton éditeur ?",

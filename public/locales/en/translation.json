@@ -50,7 +50,7 @@
       "etiquette": {
         "titre": "Title:",
         "album": "Album:",
-        "piecePar": "{{titre}}, by",
+        "piecePar": "{{titre}}, by...",
         "arrangementPar": "{{titre}}, remixed by",
         "reprise": "This work is a cover",
         "instrumental": "This work is instrumental",
@@ -65,7 +65,7 @@
         "isrc": "ISRC number:",
         "upc": "UPC number",
         "dureeMs": "Duration (milliseconds)",
-        "vedette": "Add a featuring artist or group",
+        "vedette": "Add a featuring artist",
         "liensSociaux": "Social links",
         "liensServices": "Streaming links",
         "liensPresse": "Press links",
@@ -211,7 +211,7 @@
         "apercu": "Preview",
         "oeil-ouvert": "Keep your eyes opened",
         "apercu-sen-vient": "Your preview will be shown here",
-        "creer": "Create a new track"
+        "creer": "[Create/Modify] a track"
       },
       "collaborateur": {
         "titre": "Add a collaborating artist",
@@ -253,7 +253,7 @@
         "precedent": "Previous",
         "reinitialiser": "Reset",
         "transfertEnCours": "Data transfer in progress, please be patient.",
-        "cest-parti": "Let's Go!"
+        "cest-parti": "Let's Go!/Save"
       },
       "accueil": {
         "connexion": "Connexion obligatoire",
@@ -548,7 +548,7 @@
         "pieces": {
           "0": "My Additions",
           "1": "Shared With Me",
-          "par": "by",
+          "par": "by...",
           "partageAvec": "shared with",
           "ajouter": "Add a musical work"
         },
@@ -579,13 +579,13 @@
           "guillemet2": "”"
         },
         "auteur": {
-          "titre": "Who invented "
+          "titre": "Who invented “{{titre}}”?"
         },
         "interprete": {
-          "titre": "Who played on "
+          "titre": "Who played on “{{titre}}”?"
         },
         "enregistrement": {
-          "titre": "Who owns the master for "
+          "titre": "Who owns the master for “{{titre}}”?"
         },
         "editeur": {
           "titre": "What's your publisher's name ?",

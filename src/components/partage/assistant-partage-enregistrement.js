@@ -350,9 +350,10 @@ class PageAssistantPartageEnregistrement extends Component {
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
                                                 {/*{t('flot.split.partage.enregistrement.titre', { oeuvre: this.state.song })}*/}
-                                                {t('flot.split.partage.enregistrement.titre', {
+                                                {/* {t('flot.split.partage.enregistrement.titre', {
                                                     oeuvre: `${t('flot.split.partage.guillemets.guillemet1')}${this.state.song}${t('flot.split.partage.guillemets.guillemet2')}`
-                                                })}?
+                                                })}? */}
+                                                {t('flot.split.partage.enregistrement.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
                                             {descriptif}

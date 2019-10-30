@@ -409,8 +409,8 @@ class PageAssistantPartageAuteur extends Component {
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
                                                 {/*{t('flot.split.partage.auteur.titre', { oeuvre: this.state.song })}*/}
-                                                {t('flot.split.partage.auteur.titre')}
-                                                {t('flot.split.partage.guillemets.guillemet1')}{this.state.song}{t('flot.split.partage.guillemets.guillemet2')}?
+                                                {/*{t('flot.split.partage.guillemets.guillemet1')}{this.state.song}{t('flot.split.partage.guillemets.guillemet2')}?*/}
+                                                {t('flot.split.partage.auteur.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
                                             {descriptif}
@@ -613,7 +613,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitAuteur}
                                                                                     fnSelect={
-                                                                                        ()=>{
+                                                                                        () => {
                                                                                             this.ajouterCollaborateur(arrayHelpers)
                                                                                         }
                                                                                     }
@@ -697,7 +697,7 @@ class PageAssistantPartageAuteur extends Component {
 
                                                                                     }}
                                                                                 />
-                                                                            </div>                                                                            
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
