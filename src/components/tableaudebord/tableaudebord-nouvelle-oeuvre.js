@@ -479,7 +479,7 @@ class Page2NouvellePiece extends Component {
                                     <div className="two wide column">
                                         <label>{t('composant.televersement.titre')}</label>
                                     </div>
-                                    <div className="fourteen wide column">
+                                    <div className="ten wide column">
                                         <InfoBulle text={t('composant.televersement.soustitre')} />
                                     </div>
 

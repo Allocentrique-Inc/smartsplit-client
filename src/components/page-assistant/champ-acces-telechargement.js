@@ -91,22 +91,23 @@ export default class ChampAccesTelechargement extends React.Component {
     return (
       <Translation>
         {t => (
-          <div className="champ champ-acces">
-            <label>
-              <TitreChamp
-                label={t("flot.split.documente-ton-oeuvre.documenter.acces")}
-              />
-
-              <Dropdown
-                style={{ width: "100px" }}
-                trigger={this.trigger()}
-                fluid
-                selection
-                direction="right"
-                options={this.options}
-                onChange={(event, { value }) => this.handleChange(value)}
-              />
-            </label>
+          <div className="ui grid">
+            <div className="two wide column">
+              <label>
+                <TitreChamp
+                  label={t("flot.split.documente-ton-oeuvre.documenter.acces")}
+                />
+                <Dropdown
+                  style={{ width: "100px" }}
+                  trigger={this.trigger()}
+                  fluid
+                  selection
+                  direction="right"
+                  options={this.options}
+                  onChange={(event, { value }) => this.handleChange(value)}
+                />
+              </label>
+            </div>
           </div>
         )}
       </Translation>
