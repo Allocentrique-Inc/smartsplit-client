@@ -152,45 +152,6 @@ class PageAssistantPartageEnregistrement extends Component {
 
     }
 
-    // Changement d'un gradateur
-    /* changementGradateur(index, delta) {
-        // Changement d'un gradateur
-
-        let invariable = this.state.partsInvariables
-        let droits = this.props.values.droitEnregistrement
-
-        // extraction de l'index numérique du gradateur
-        // pour récupération du droit (derniers caractères après le dernier _)
-        let idxG = index.substring(index.lastIndexOf('_') + 1, index.length)
-
-        delta = delta - (parseFloat(droits[idxG].pourcent) % 1) // différence décimale à soustraire du delta à répartir
-
-        let deltaParCollaborateurVariable = 0.0
-
-        let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
-        if (!invariable[index])
-            aMisInvariable = true
-
-        invariable[index] = true // Le droit sélectionné lors de la transition est considéré invariable
-        let nbModifications = droits.length - Object.keys(invariable).length
-
-        if (nbModifications > 0) {
-            deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
-        }
-
-        droits.forEach((elem, idx) => {
-            if (!invariable[idx]) { // Ajustement si l'index est variable
-                droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
-            }
-        })
-
-        this.props.setFieldValue('droitEnregistrement', droits)
-
-        if (aMisInvariable) // Retrait de l'index des invariables
-            delete invariable[index]
-
-    } */
-
     basculerVariable(index) {
 
         let invariables = this.state.partsInvariables
@@ -231,7 +192,7 @@ class PageAssistantPartageEnregistrement extends Component {
                 nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
             }
 
-            let _index = this.props.values.droitEnregistrement.length +
+            let _index = this.props.values.droitAuteur.length +
                 this.props.values.droitInterpretation.length +
                 this.props.values.droitEnregistrement.length
 
