@@ -74,7 +74,11 @@ export default class LigneMedia extends Component {
                 <div
                   className="ui one wide column cliquable"
                   onClick={() => {
-                    window.location.href = `/oeuvre/sommaire/${elem.mediaId}`;
+                    if(!pochette) {
+                      window.location.href = `/oeuvre/sommaire/${elem.mediaId}`;
+                    } else {
+                      window.location.href = `/documenter/${elem.mediaId}`;
+                    }
                   }}
                 >
                   <i className="file image outline icon big grey"></i>
@@ -82,7 +86,11 @@ export default class LigneMedia extends Component {
                 <div
                   className="ui seven wide column cliquable"
                   onClick={() => {
-                    window.location.href = `/oeuvre/sommaire/${elem.mediaId}`;
+                    if(!pochette) {
+                      window.location.href = `/oeuvre/sommaire/${elem.mediaId}`;
+                    } else {
+                      window.location.href = `/documenter/${elem.mediaId}`;
+                    }
                   }}
                 >
                   <div className="song-name">{`${elem.title}`}</div>
@@ -109,7 +117,7 @@ export default class LigneMedia extends Component {
                   </div>
                 </div>
                 <div className="ui six wide column">
-                  {!continuerDisabled && (
+                  {!pochette && !continuerDisabled && (
                     <div
                       className={`ui medium button ${pochette}`}
                       onClick={() => {
@@ -121,7 +129,7 @@ export default class LigneMedia extends Component {
                       )}
                     </div>
                   )}
-                  {!nouveauDisabled && (
+                  {!pochette && !nouveauDisabled && (
                     <div
                       className={`ui medium button ${pochette}`}
                       onClick={() => {
@@ -133,7 +141,7 @@ export default class LigneMedia extends Component {
                       )}
                     </div>
                   )}
-                  {!sommaireDisabled && (
+                  {!pochette && !sommaireDisabled && (
                     <div
                       className={`ui medium button ${pochette}`}
                       onClick={() => {
@@ -143,7 +151,7 @@ export default class LigneMedia extends Component {
                       {t("flot.split.sommaire.titre")}
                     </div>
                   )}
-                  {!votationDisabled && (
+                  {!pochette && !votationDisabled && (
                     <div
                       className={`ui medium button ${pochette}`}
                       onClick={() => {
@@ -153,7 +161,17 @@ export default class LigneMedia extends Component {
                       {t("flot.split.documente-ton-oeuvre.proposition.voter")}
                     </div>
                   )}
-                  {_p && <Label>{t(`flot.split.etat.${_p.etat}`)}</Label>}
+                  {pochette && (
+                    <div
+                      className={`ui medium button ${pochette}`}
+                      onClick={() => {
+                        window.location.href = `/documenter/${this.state.media.mediaId}`;
+                      }}
+                    >
+                      {t("flot.split.documente-ton-oeuvre.titre")}
+                    </div>
+                  )}
+                  {!pochette && _p && <Label>{t(`flot.split.etat.${_p.etat}`)}</Label>}
                 </div>
               </div>
             </div>

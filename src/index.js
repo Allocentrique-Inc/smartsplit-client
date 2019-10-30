@@ -63,21 +63,16 @@ Amplify.configure({
 const browserHistory = createBrowserHistory();
 
 const renderRoutes = () => {
-  if (window.location.href.includes("pochette.info")) {
-
-    toast.info('Tu es en pochette')
-
+  if (window.location.href.includes("pochette.info")) {  
     return (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
             <Route exact path="/" component={AccueilPochette} />
-            <Route
-              exact
-              path="/oeuvre/sommaire/:mediaId"
-              component={sommaireOeuvre}
-            />
-            <Route exact path="/oeuvre/resume" component={OeuvreResume} />            
+            <Route exact path="/accueil" component={AccueilPochette} />
+            <Route exact path="/documenter/:mediaId" component={DocumenterPochette} />
+            <Route exact path="/oeuvre/resume" component={OeuvreResume} pochette={true} />            
+            <Route exact path="*" component={AccueilPochette} />
           </Switch>
         </Router>
       </I18nextProvider>
@@ -223,6 +218,11 @@ function PartageEditeur(match) {
 function Documenter(match) {
   let mediaId = match.match.params.mediaId;
   return <AssistantOeuvre mediaId={mediaId} />;
+}
+
+function DocumenterPochette(match) {
+  let mediaId = match.match.params.mediaId;
+  return <AssistantOeuvre mediaId={mediaId} pochette={true} />;
 }
 
 function sommaireOeuvre(match) {
