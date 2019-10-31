@@ -26,7 +26,8 @@ export default class NouvelleOeuvre extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: props.user
+            user: props.user,
+            pochette: props.pochette
         }
         this.soumettre = this.soumettre.bind(this)
         this.changementPage = this.changementPage.bind(this)
@@ -119,7 +120,11 @@ export default class NouvelleOeuvre extends Component {
 
         axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
             .then(res => {
-                window.location.href = `/oeuvre/sommaire/${body.mediaId}`
+                if(this.state.pochette) {
+                    window.location.href = `/documenter/${body.mediaId}`
+                } else {
+                    window.location.href = `/partager/nouveau/${body.mediaId}`
+                }
             })
             .catch(err => console.log(err))
 
@@ -136,7 +141,7 @@ export default class NouvelleOeuvre extends Component {
                 <Translation>
                     {
                         t =>
-                            <div>
+                            <div className={`${this.state.pochette ? "pochette" : ""}`}>
                                 {this.state.patience && (
                                     <div style={{ width: "100%" }} className="container ui active dimmer">
                                         <div className="ui text loader">{t("entete.encours")}</div>
@@ -476,7 +481,7 @@ class Page2NouvellePiece extends Component {
                                                 access="private"
                                                 onFileChange={value => {
                                                     if (value) {
-                                                        toast.info(t('navigation.transfertEnCours'))
+                                                        //toast.info(t('navigation.transfertEnCours'))
                                                         this.setState({ patience: true })
 
                                                         let fichier = value
@@ -512,7 +517,7 @@ class Page2NouvellePiece extends Component {
 
                                                                     let analyse = f.music[0] // Il peut y avoir plus d'un résultat
 
-                                                                    toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${f.empreinte}`)
+                                                                    //toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${f.empreinte}`)
                                                                     this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
                                                                     this.props.setFieldValue('fichier', f.empreinte)
                                                                     this.props.setFieldValue('files.audio..file', f.name)
