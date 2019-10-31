@@ -24,7 +24,7 @@
     "apercu-sen-vient": "Votre aperçu s'affichere ici"
   },
   "collaborateur": {
-    "titre": "[Ajouter/Modifier] un collaborateur",
+    "titre": "Ajouter un collaborateur",
     "titre2": "Ajouter comme collaborateur :",
     "bouton": {
       "annuler": "Annuler",
@@ -208,7 +208,7 @@
         "apercu": "Aperçu",
         "oeil-ouvert": "Gardez l'oeil ouvert",
         "apercu-sen-vient": "Votre aperçu s'affichera ici",
-        "creer": "[Créer/Modifier] une pièce musicale"
+        "creer": "Créer une pièce musicale"
       },
       "collaborateur": {
         "titre": "Ajouter un artiste collaborateur",
@@ -254,10 +254,10 @@
         "precedent": "Précédent",
         "reinitialiser": "Réinitialiser",
         "transfertEnCours": "Transfert de données en cours. Merci d'être patient.",
-        "cest-parti": "C'est parti !/Sauvegarder"
+        "cest-parti": "C'est parti !"
       },
       "documente-ton-oeuvre": {
-        "titre": "Documente ton œuvre",
+        "titre": "Documenter",
         "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre.",
         "composant": {
           "televersement": {
@@ -389,7 +389,7 @@
           "titre9-description": "Ici, tu peux téléverser ta pièce en format WAV ou MP3.",
           "titre9-etape1": "Téléverser le fichier de l’œuvre enregistrée",
           "titre9-etape2": "MP3 ou WAV acceptés.",
-          "autre": "Autres fichiers l’œuvre",
+          "autre": "Autres fichiers de l’œuvre",
           "autre-description": "Ici, tu peux ajouter des documents permettant l’interprétation de l’œuvre, comme la partition ou le fichier MIDI.",
           "autre-etape1": "Partition ou tablature",
           "autre-etape2": "Vous pouvez téléverser une partition ou une tablature en format graphique (.PDF, .SVG, .PNG ou .JPEG). Vous pouvez aussi téléverser un fichier en format natif provenant de votre logiciel d’écriture musicale (comme .musicxml).",
@@ -551,7 +551,7 @@
           "1": "Partagées avec moi",
           "par": "par...",
           "partageAvec": "partagé avec",
-          "ajouter": "Ajouter une oeuvre"
+          "ajouter": "Ajouter"
         },
         "vide": {
           "preambule": "Tes oeuvres apparaîtront ici.",
@@ -608,7 +608,7 @@
       "vote": {
         "accept": "Approuvé",
         "reject": "Refusé",
-        "active": "En attente de décision",
+        "active": "Attente",
         "accepter": "ACCEPTER",
         "refuser": "REFUSER"
       },

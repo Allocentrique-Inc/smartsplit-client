@@ -1,7 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
+import "./assets/scss/_colors.scss"
+import "./assets/scss/_typography.scss"
+
+import React from "react";
+import ReactDOM from "react-dom";
 // Amplify + Auth
 import Amplify from "aws-amplify";
 // Traduction

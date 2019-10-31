@@ -11,6 +11,7 @@ export default class ChampFichier extends React.Component {
                     <TitreChamp
                         label={ this.props.label }
                         description={ this.props.description }
+                        info={this.props.info}
                     />
 
                     <InputFichier

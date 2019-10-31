@@ -14,9 +14,7 @@ const tooltipStyle = {
     border: "1px solid #DCDFE1",
     boxShadow: "0px 8px 32px rgba(0, 0, 0, 0.25)",
     padding: "10px",
-    zIndex: "1",
-    // bottom: "45%",
-    // left: "60%"
+    zIndex: "1"
 };
 
 class InfoBulle extends Component {
@@ -24,7 +22,7 @@ class InfoBulle extends Component {
         super(props);
         this.state = {
             hover: false,
-            text: props.text
+            text: props.text           
         }
         this.setXY = this.setXY.bind(this)
         this.handleMouseIn = this.handleMouseIn.bind(this)
@@ -32,7 +30,11 @@ class InfoBulle extends Component {
 
     //Modifie position x y
     setXY(e) {
-        this.setState({ pos: { x: e.clientX + 50, y: e.clientY - 105 } })
+        if(!this.props.pos) {
+            this.setState({ pos: { x: e.clientX + 10, y: e.clientY - 50} })
+        } else {
+            this.setState({ pos: { x: this.props.pos.x, y: this.props.pos.y} })
+        }        
     }
 
     //Attrape et passe ça à setXY pour reprendre contrôle
@@ -50,9 +52,9 @@ class InfoBulle extends Component {
                 {
                     t => (
                         <>
-
                             <div
                                 className="cliquable"
+                                style={{display: "inline"}}
                                 onMouseOver={e => { this.handleMouseIn(e); this.setXY(e) }}
                                 onMouseOut={this.handleMouseOut.bind(this)}>
                                 <i className="ui question circle icon" style={{ color: "#687A8B" }} />

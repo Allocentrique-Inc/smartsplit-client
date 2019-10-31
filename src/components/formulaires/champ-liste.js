@@ -59,7 +59,7 @@ export class ChampListeAssistant extends Component {
                                 componentProps={{
                                     label: this.state.etiquette,
                                     placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
-                                    /*required: this.state.requis,*/
+                                    required: this.state.requis,
                                     autoFocus: this.state.autoFocus,
                                     fluid: this.state.fluid,
                                     multiple: this.state.multiple,
@@ -168,7 +168,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
                                             id: "entiteArtistique",
                                             label: this.state.etiquette,
                                             placeholder: t("flot.split.collaborateur.attribut.etiquette.ajout"),
-                                            /*required: this.state.requis,*/
+                                            required: this.state.requis,
                                             autoFocus: this.state.autoFocus,
                                             fluid: true,
                                             search: true,
@@ -210,7 +210,7 @@ export class ChampListeCollaborateurAssistant extends Component {
             indication: props.indication,
             modele: props.modele,
             autoFocus: props.autoFocus,
-            /*requis: props.requis,*/
+            requis: props.requis,
             fluid: props.fluid,
             multiple: props.multiple,
             recherche: props.recherche,
@@ -308,7 +308,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                                             id: "collaborateur",
                                             label: this.state.etiquette,
                                             placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
-                                            /*required: this.state.requis,*/
+                                            required: this.state.requis,
                                             autoFocus: this.state.autoFocus,
                                             fluid: true,
                                             search: true,
@@ -420,7 +420,7 @@ export class ChampListeEditeurAssistant extends Component {
                                             id: "collaborateur",
                                             label: this.state.etiquette,
                                             placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
-                                            /*required: this.state.requis,*/
+                                            required: this.state.requis,
                                             autoFocus: this.state.autoFocus,
                                             fluid: true,
                                             search: true,
