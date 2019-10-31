@@ -6,7 +6,7 @@ import {
   Modal,
   Dropdown
 } from "semantic-ui-react";
-import { withTranslation, Translation } from "react-i18next";
+import { Translation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
 
@@ -427,4 +427,4 @@ class ModifyUser extends Component {
     );
   }
 }
-export default withTranslation()(ModifyUser);
+export default ModifyUser

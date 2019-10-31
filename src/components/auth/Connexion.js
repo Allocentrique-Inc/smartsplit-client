@@ -36,7 +36,7 @@ export default class ModaleConnexion extends Component {
   }
 
   render() {
-    console.log('pochette?', this.state.pochette)
+
     return (
       <Modal
         open={this.state.isOpen}
