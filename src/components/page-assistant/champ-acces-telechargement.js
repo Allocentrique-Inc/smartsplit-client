@@ -91,7 +91,7 @@ export default class ChampAccesTelechargement extends React.Component {
     return (
       <Translation>
         {t => (
-          <div className="two wide column">
+          <div className="champ champ-acces">
             <label>
               <TitreChamp
                 label={t("flot.split.documente-ton-oeuvre.documenter.acces")}
@@ -107,6 +107,7 @@ export default class ChampAccesTelechargement extends React.Component {
               />
             </label>
           </div>
+
         )}
       </Translation>
     );

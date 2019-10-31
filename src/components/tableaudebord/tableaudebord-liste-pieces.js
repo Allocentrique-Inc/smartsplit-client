@@ -229,7 +229,7 @@ export default class ListePieces extends Component {
         souligneInitiateur = this.state.panneau === PANNEAU_INITIATEUR
         souligneCollaborateur = this.state.panneau === PANNEAU_COLLABORATEUR
 
-        let toggle = (
+        let toggle = !this.state.pochette && (
             <Translation>
                 {
                     t =>
@@ -329,7 +329,7 @@ export default class ListePieces extends Component {
                                                 {t('flot.split.titre.creer')}
                                             </Modal.Header>
                                             <Modal.Content>
-                                                <NouvelleOeuvre audio={this.state.audio} parent={this} user={this.state.user} />
+                                                <NouvelleOeuvre pochette={this.state.pochette} audio={this.state.audio} parent={this} user={this.state.user} />
                                             </Modal.Content>
                                             <Modal.Actions>
                                                 <>

@@ -26,7 +26,8 @@ export default class NouvelleOeuvre extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: props.user
+            user: props.user,
+            pochette: props.pochette
         }
         this.soumettre = this.soumettre.bind(this)
         this.changementPage = this.changementPage.bind(this)
@@ -64,8 +65,7 @@ export default class NouvelleOeuvre extends Component {
 
             axios.put(`http://dev.api.smartsplit.org:8080/v1/media`, { title: title, type: type, creator: this.state.user.username })
                 .then(res => {
-                    // Enregistrement du mediaId pour sauvegarde des données dans handleSubmit                
-                    toast.info(t('info.oeuvre.creation', { id: res.data.id }))
+                    // Enregistrement du mediaId pour sauvegarde des données dans handleSubmit
                     this.setState({ mediaId: res.data.id })
                     this.props.parent.setState({ mediaId: res.data.id }) // Condition d'apparition du lecteur audio
                 })
@@ -120,7 +120,11 @@ export default class NouvelleOeuvre extends Component {
 
         axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
             .then(res => {
-                window.location.href = `/oeuvre/sommaire/${body.mediaId}`
+                if (this.state.pochette) {
+                    window.location.href = `/documenter/${body.mediaId}`
+                } else {
+                    window.location.href = `/partager/nouveau/${body.mediaId}`
+                }
             })
             .catch(err => console.log(err))
 
@@ -137,7 +141,7 @@ export default class NouvelleOeuvre extends Component {
                 <Translation>
                     {
                         t =>
-                            <div>
+                            <div className={`${this.state.pochette ? "pochette" : ""}`}>
                                 {this.state.patience && (
                                     <div style={{ width: "100%" }} className="container ui active dimmer">
                                         <div className="ui text loader">{t("entete.encours")}</div>
@@ -207,53 +211,61 @@ class Base extends Component {
                         <>
 
                             <div className="ui grid">
-                                <div className="six wide column">
-                                    <label>{t('oeuvre.attribut.indication.titre')}</label>
+                                <div className="ui row">
+                                    <div className="ui column" />
+                                    <div className="ui fifteen wide column">
+                                        <label>{t('oeuvre.attribut.indication.titre')}
+                                            &nbsp;&nbsp;<InfoBulle pos={{ x: 300, y: 80 }} text={t('oeuvre.attribut.indication.titre-soustexte')} />
+                                        </label>
+                                    </div>
                                 </div>
-                                <div className="ten wide column">
-                                    <InfoBulle text={t('oeuvre.attribut.indication.titre-soustexte')} />
+                                <div className="ui row">
+                                    <div className="ui column" />
+                                    <div className="ui twelve wide column">
+                                        <ChampTexteAssistant
+                                            style={{ marginLeft: "0" }}
+                                            modele="title"
+                                            requis={true}
+                                            autoFocus={true}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="ui row" style={{ width: "400px", margin: "20px 20px 0 0", fontSize: "16px", fontFamily: "IBM Plex Sans" }}>
-                                <ChampTexteAssistant
-                                    style={{ marginLeft: "0" }}
-                                    modele="title"
-                                    requis={true}
-                                    autoFocus={true}
-                                />
-                            </div>
-                            <div style={{ marginTop: "20px" }} className="ui row">
-                                <BoutonsRadio
-                                    modele="type"
-                                    etiquette={t('options.piece.titre')}
-                                    actif={this.state.values.type}
-                                    requis={true}
-                                    choix={[
-                                        {
-                                            nom: t('options.piece.originale'),
-                                            valeur: ORIGINALE
-                                        },
-                                        {
-                                            nom: t('options.piece.arrangement'),
-                                            valeur: ARRANGEMENT
-                                        },
-                                        {
-                                            nom: t('options.piece.reprise'),
-                                            valeur: REPRISE
-                                        }
-                                    ]}
-                                    onClick={(e) => {
-                                        let valeur
-                                        // Clic de la puce ou de l'étiquette ?
-                                        if (e.target.nodeName === 'LABEL') {
-                                            valeur = e.target.parentNode.childNodes[0].value
-                                        }
-                                        if (e.target.nodeName === 'INPUT') {
-                                            valeur = e.target.value
-                                        }
-                                        this.props.setFieldValue('type', valeur)
-                                    }}
-                                />
+                                <div style={{ marginTop: "20px" }} className="ui row">
+                                    <div className="ui column" />
+                                    <div className="ui fifteen wide column">
+                                        <BoutonsRadio
+                                            modele="type"
+                                            etiquette={t('options.piece.titre')}
+                                            actif={this.state.values.type || 0}
+                                            requis={true}
+                                            choix={[
+                                                {
+                                                    nom: t('options.piece.originale'),
+                                                    valeur: ORIGINALE,
+                                                },
+                                                {
+                                                    nom: t('options.piece.arrangement'),
+                                                    valeur: ARRANGEMENT
+                                                },
+                                                {
+                                                    nom: t('options.piece.reprise'),
+                                                    valeur: REPRISE
+                                                }
+                                            ]}
+                                            onClick={(e) => {
+                                                let valeur
+                                                // Clic de la puce ou de l'étiquette ?
+                                                if (e.target.nodeName === 'LABEL') {
+                                                    valeur = e.target.parentNode.childNodes[0].value
+                                                }
+                                                if (e.target.nodeName === 'INPUT') {
+                                                    valeur = e.target.value
+                                                }
+                                                this.props.setFieldValue('type', valeur)
+                                            }}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </>
                 }
@@ -285,6 +297,7 @@ class Page2NouvellePiece extends Component {
         }
         this.modaleReconnaissance = this.modaleReconnaissance.bind(this)
         this.remplirChampsAnalyse = this.remplirChampsAnalyse.bind(this)
+        props.setFieldValue('type', "0")
     }
 
     componentWillReceiveProps(nextProps) {
@@ -348,46 +361,73 @@ class Page2NouvellePiece extends Component {
                     {
                         (t, i18n) =>
                             <>
-                                <div className="ui column grid">
-                                    <div className="ui column">
-                                        {
-                                            this.state.patience &&
-                                            (
-                                                <div className="container ui active dimmer">
-                                                    <div className="ui text loader">{t("televersement.encours")}</div>
+                                <div className="ui grid">
+                                    {
+                                        this.state.patience &&
+                                        (
+                                            <div className="container ui active dimmer">
+                                                <div className="ui text loader">{t("televersement.encours")}</div>
+                                            </div>
+                                        )
+                                    }
+                                    <div className="ui row">
+                                        <div className="ui column" />
+                                        <div className="ui twelve wide column">
+                                            <h2 style={{ color: "#2DA84F" }}>
+                                                <i>{this.props.values.title}</i>
+                                                {this.state.vedettes && (
+                                                    <>
+                                                        &nbsp;(feat. <i>{this.props.values.vedettes}</i>)
+                                                    </>
+                                                )
+                                                }
+                                                {this.props.values.artist && (
+                                                    <>
+                                                        &nbsp;{t("oeuvre.par")}&nbsp;
+                                                        <i>{this.props.values.artist}</i>
+                                                    </>
+                                                )
+                                                }
+                                            </h2>
+                                        </div>
+                                    </div>
+
+                                    {
+                                        this.props.values.type === "" + ORIGINALE && (
+                                            <>
+                                                <div style={{ marginTop: "20px", fontSize: "16px", fontFamily: "IBM Plex Sans" }} className="ui row">
+                                                    <div className="ui column" />
+                                                    <div className="ui twelve wide column">
+                                                        <ChampListeEntiteMusicaleAssistant
+                                                            rightHolderId={this.props.parent.state.user.username}
+                                                            modele={"artist"}
+                                                            etiquette={t('oeuvre.attribut.etiquette.piecePar', { titre: this.props.values.title })}
+                                                            indication={t('oeuvre.attribut.indication.artiste')}
+                                                            requis={false}
+                                                            autoFocus={false}
+                                                            multiple={false}
+                                                            nomCommeCle={false}
+                                                            onRef={
+                                                                liste => this.setState({ entites: liste })
+                                                            }
+                                                        />
+                                                    </div>
                                                 </div>
-                                            )
-                                        }
-
-                                        <h2 style={{ color: "#2DA84F" }}>
-                                            <i>{this.props.values.title}</i>
-                                            {this.state.vedettes && (
-                                                <>
-                                                    &nbsp;(feat. <i>{this.props.values.vedettes}</i>)
-                                                </>
-                                            )
-                                            }
-                                            {this.props.values.artist && (
-                                                <>
-                                                    &nbsp;{t("oeuvre.par")}&nbsp;
- 			                                <i>{this.props.values.artist}</i>
-                                                </>
-                                            )
-                                            }
-                                        </h2>
-                                        {/*<h2>{`${this.props.values.title} + ${this.props.values.vedettes}`}</h2>*/}
-                                        <Base values={this.props.values} setFieldValue={this.props.setFieldValue} />
-
-                                        {
-                                            this.props.values.type === "" + ORIGINALE && (
-                                                <>
-                                                    <div style={{ marginTop: "20px", fontSize: "16px", fontFamily: "IBM Plex Sans" }} className="ui row">
+                                            </>
+                                        )
+                                    }
+                                    {
+                                        this.props.values.type === "" + ARRANGEMENT && (
+                                            <>
+                                                <div style={{ marginTop: "20px" }} className="ui row">
+                                                    <div className="ui column" />
+                                                    <div className="ui twelve wide column">
                                                         <ChampListeEntiteMusicaleAssistant
                                                             rightHolderId={this.props.parent.state.user.username}
                                                             modele={"artist"}
                                                             etiquette={t('oeuvre.attribut.etiquette.piecePar', { titre: this.props.values.title })}
                                                             indication={t('oeuvre.attribut.indication.artiste')}
-                                                            requis={true}
+                                                            requis={false}
                                                             autoFocus={false}
                                                             multiple={false}
                                                             nomCommeCle={false}
@@ -397,34 +437,15 @@ class Page2NouvellePiece extends Component {
 
                                                         />
                                                     </div>
-                                                </>
-                                            )
-                                        }
-                                        {
-                                            this.props.values.type === "" + ARRANGEMENT && (
-                                                <>
-                                                    <div style={{ marginTop: "20px" }} className="ui row">
-                                                        <ChampListeEntiteMusicaleAssistant
-                                                            rightHolderId={this.props.parent.state.user.username}
-                                                            modele={"artist"}
-                                                            etiquette={t('oeuvre.attribut.etiquette.piecePar', { titre: this.props.values.title })}
-                                                            indication={t('oeuvre.attribut.indication.artiste')}
-                                                            requis={true}
-                                                            autoFocus={false}
-                                                            multiple={false}
-                                                            nomCommeCle={false}
-                                                            onRef={
-                                                                liste => this.setState({ entites: liste })
-                                                            }
-
-                                                        />
-                                                    </div>
-                                                    <div style={{ marginTop: "20px" }} className="ui row">
+                                                </div>
+                                                <div style={{ marginTop: "20px" }} className="ui row">
+                                                    <div className="ui column" />
+                                                    <div className="ui twelve wide column">
                                                         <ChampListeEntiteMusicaleAssistant
                                                             modele="arrangeur"
                                                             etiquette={t('oeuvre.attribut.etiquette.arrangementPar', { titre: this.props.values.title })}
                                                             indication={t('oeuvre.attribut.indication.arrangeur')}
-                                                            requis={true}
+                                                            requis={false}
                                                             autoFocus={false}
                                                             multiple={false}
                                                             nomCommeCle={false}
@@ -433,11 +454,14 @@ class Page2NouvellePiece extends Component {
                                                             }
                                                         />
                                                     </div>
-                                                </>
-                                            )
-                                        }
+                                                </div>
+                                            </>
+                                        )
+                                    }
 
-                                        <div style={{ margin: "20px 0 20px 0", width: "400px" }} className="ui row">
+                                    <div style={{ margin: "20px 0 20px 0", width: "400px" }} className="ui row">
+                                        <div className="ui column" />
+                                        <div className="ui twelve wide column">
                                             <ChampSelectionMultipleAyantDroit
                                                 pochette={this.props.pochette}
                                                 items={this.rightHolderOptions()}
@@ -448,11 +472,84 @@ class Page2NouvellePiece extends Component {
                                                 onChange={ids => this.props.setFieldValue('rightHolders', ids)}
                                             />
                                         </div>
-
                                     </div>
+                                    <div className="ui row">
+                                        <div className="ui sixteen wide column">
+                                            <ChampTeleversement
+                                                label="Fichier"
+                                                info={<InfoBulle pos={{ x: 100, y: 450 }} text={t('composant.televersement.soustitre')} />}
+                                                access="private"
+                                                onFileChange={value => {
+                                                    if (value) {
+                                                        //toast.info(t('navigation.transfertEnCours'))
+                                                        this.setState({ patience: true })
 
+                                                        let fichier = value
+
+                                                        // Redémarre le lecteur audio
+                                                        this.props.parent.props.parent.state.audio.stopEtJouer(fichier)
+
+                                                        let fd = new FormData()
+                                                        fd.append('file', fichier)
+
+                                                        axios
+                                                            .post('http://envoi.smartsplit.org:3033/envoi', fd)
+                                                            .then(res => {
+
+                                                                let f = res.data
+
+                                                                if (f.music.err) {
+                                                                    switch (f.music.err) {
+                                                                        case "AUDIO-MAUVAISE-LECTURE":
+                                                                            toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
+                                                                            break;
+                                                                        case "AUDIO-INCONNU":
+                                                                            toast.warn(t('flot.split.traitement.acr.erreur-inconnu'))
+                                                                            break;
+                                                                        default:
+                                                                            toast.warn(f.music.err)
+                                                                    }
+                                                                }
+
+                                                                if (f && !f.music.err) {
+
+                                                                    //this.props.setFieldValue('fichiers', f, false)
+
+                                                                    let analyse = f.music[0] // Il peut y avoir plus d'un résultat
+
+                                                                    //toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${f.empreinte}`)
+                                                                    this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
+                                                                    this.props.setFieldValue('fichier', f.empreinte)
+                                                                    this.props.setFieldValue('files.audio..file', f.name)
+                                                                    this.props.setFieldValue('files.audio..md5', f.empreinte)
+
+                                                                }
+                                                            })
+                                                            .catch(err => {
+                                                                if (err) {
+                                                                    console.log(err)
+                                                                    if (fichier)
+                                                                        toast.error(t('flot.split.documente-ton-oeuvre.envoifichier.echec') + ` ${fichier.name}`)
+                                                                }
+                                                            })
+                                                            .finally(() => {
+                                                                this.setState({ patience: false })
+                                                            })
+
+                                                        this.props.parent.setState({ fichier: value })
+
+                                                    }
+                                                }
+                                                }
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="ui row">
+                                        <div className="ui sixteen wide column">
+                                            &nbsp;
+                                        </div>
+                                    </div>
                                 </div>
-
                                 {
                                     this.state.analyse && (
                                         <Modal
@@ -475,84 +572,7 @@ class Page2NouvellePiece extends Component {
                                         </Modal>
                                     )
                                 }
-                                <div className="ui grid">
-                                    <div className="two wide column">
-                                        <label>{t('composant.televersement.titre')}</label>
-                                    </div>
-                                    <div className="ten wide column">
-                                        <InfoBulle text={t('composant.televersement.soustitre')} />
-                                    </div>
-                                    <div className="fourteen wide colum">
-                                        <ChampTeleversement
-                                            style={{ width: "300px" }}
-                                            access="private"
-                                            onFileChange={value => {
 
-                                                if (value) {
-                                                    toast.info(t('navigation.transfertEnCours'))
-                                                    this.setState({ patience: true })
-
-                                                    let fichier = value
-
-                                                    // Redémarre le lecteur audio
-                                                    this.props.parent.props.parent.state.audio.stopEtJouer(fichier)
-
-                                                    let fd = new FormData()
-                                                    fd.append('file', fichier)
-
-                                                    axios
-                                                        .post('http://envoi.smartsplit.org:3033/envoi', fd)
-                                                        .then(res => {
-
-                                                            let f = res.data
-
-                                                            if (f.music.err) {
-                                                                switch (f.music.err) {
-                                                                    case "AUDIO-MAUVAISE-LECTURE":
-                                                                        toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
-                                                                        break;
-                                                                    case "AUDIO-INCONNU":
-                                                                        toast.warn(t('flot.split.traitement.acr.erreur-inconnu'))
-                                                                        break;
-                                                                    default:
-                                                                        toast.warn(f.music.err)
-                                                                }
-                                                            }
-
-                                                            if (f && !f.music.err) {
-
-                                                                //this.props.setFieldValue('fichiers', f, false)
-
-                                                                let analyse = f.music[0] // Il peut y avoir plus d'un résultat
-
-                                                                toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${f.empreinte}`)
-                                                                this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
-                                                                this.props.setFieldValue('fichier', f.empreinte)
-                                                                this.props.setFieldValue('files.audio..file', f.name)
-                                                                this.props.setFieldValue('files.audio..md5', f.empreinte)
-
-                                                            }
-                                                        })
-                                                        .catch(err => {
-                                                            if (err) {
-                                                                console.log(err)
-                                                                if (fichier)
-                                                                    toast.error(t('flot.split.documente-ton-oeuvre.envoifichier.echec') + ` ${fichier.name}`)
-                                                            }
-                                                        })
-                                                        .finally(() => {
-                                                            this.setState({ patience: false })
-                                                        })
-
-                                                    this.props.parent.setState({ fichier: value })
-
-                                                }
-
-                                            }
-                                            }
-                                        />
-                                    </div>
-                                </div>
                             </>
                     }
                 </Translation>

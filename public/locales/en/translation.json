@@ -24,7 +24,7 @@
     "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
-    "titre": "[Add/Modify] a collaborator",
+    "titre": "Add a collaborator",
     "titre2": "Add as a collaborator:",
     "attribut": {
       "placeholder": {
@@ -211,7 +211,7 @@
         "apercu": "Preview",
         "oeil-ouvert": "Keep your eyes opened",
         "apercu-sen-vient": "Your preview will be shown here",
-        "creer": "[Create/Modify] a track"
+        "creer": "Create a track"
       },
       "collaborateur": {
         "titre": "Add a collaborating artist",
@@ -253,7 +253,7 @@
         "precedent": "Previous",
         "reinitialiser": "Reset",
         "transfertEnCours": "Data transfer in progress, please be patient.",
-        "cest-parti": "Let's Go!/Save"
+        "cest-parti": "Let's Go!"
       },
       "accueil": {
         "connexion": "Connexion obligatoire",
@@ -261,7 +261,7 @@
         "login": "Connecte-toi pour accéder"
       },
       "documente-ton-oeuvre": {
-        "titre": "Split your Rights",
+        "titre": "Document",
         "preambule": "Hi! We will help you describe your work.",
         "composant": {
           "televersement": {
@@ -541,7 +541,7 @@
       "tableaudebord": {
         "bonjour": "Here is the Smartsplit dashboard.",
         "navigation": {
-          "0": "My musical works",
+          "0": "My work",
           "1": "My public profile",
           "2": "My collaborators"
         },
@@ -550,7 +550,7 @@
           "1": "Shared With Me",
           "par": "by...",
           "partageAvec": "shared with",
-          "ajouter": "Add a musical work"
+          "ajouter": "Add"
         },
         "vide": {
           "preambule": "Your works will appear here",
@@ -607,7 +607,7 @@
       "vote": {
         "accept": "Approved",
         "reject": "Rejected",
-        "active": "Waiting for a decision",
+        "active": "Waiting",
         "accepter": "ACCEPT",
         "refuser": "REJECT"
       },

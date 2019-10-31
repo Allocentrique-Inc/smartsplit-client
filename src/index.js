@@ -1,7 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
+import "./assets/scss/_colors.scss"
+import "./assets/scss/_typography.scss"
+
+import React from "react";
+import ReactDOM from "react-dom";
 // Amplify + Auth
 import Amplify from "aws-amplify";
 // Traduction
@@ -63,26 +66,23 @@ Amplify.configure({
 const browserHistory = createBrowserHistory();
 
 const renderRoutes = () => {
-  if (window.location.href.includes("pochette.info")) {
-
-    toast.info('Tu es en pochette')
-
+  if (window.location.href.includes("pochette.info")) {  
+    window.document.title = "Pochette.info"
     return (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
             <Route exact path="/" component={AccueilPochette} />
-            <Route
-              exact
-              path="/oeuvre/sommaire/:mediaId"
-              component={sommaireOeuvre}
-            />
-            <Route exact path="/oeuvre/resume" component={OeuvreResume} />            
+            <Route exact path="/accueil" component={AccueilPochette} />
+            <Route exact path="/documenter/:mediaId" component={DocumenterPochette} />
+            <Route exact path="/oeuvre/resume" component={OeuvreResume} pochette={true} />            
+            <Route exact path="*" component={AccueilPochette} />
           </Switch>
         </Router>
       </I18nextProvider>
     );
   } else {
+    window.document.title = "Smartsplit"
     return (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
@@ -223,6 +223,11 @@ function PartageEditeur(match) {
 function Documenter(match) {
   let mediaId = match.match.params.mediaId;
   return <AssistantOeuvre mediaId={mediaId} />;
+}
+
+function DocumenterPochette(match) {
+  let mediaId = match.match.params.mediaId;
+  return <AssistantOeuvre mediaId={mediaId} pochette={true} />;
 }
 
 function sommaireOeuvre(match) {

@@ -118,12 +118,18 @@ export default class Navigation extends Component {
               <div className="ui row">
                 {this.genererLien(PIECES, t, "music icon big")}
               </div>
-              <div className="ui row espace-15">
-                {this.genererLien(PROFIL, t, "id card outline icon big")}
-              </div>
-              <div className="ui row espace-15">
-                {this.genererLien(COLLABORATEURS, t, "users icon big")}
-              </div>                                          
+              {
+                !pochette && (
+                  <>
+                    <div className="ui row espace-15">
+                      {this.genererLien(PROFIL, t, "id card outline icon big")}
+                    </div>
+                    <div className="ui row espace-15">
+                      {this.genererLien(COLLABORATEURS, t, "users icon big")}
+                    </div>
+                  </>
+                )
+              }                                                        
             </div>
           </div>
         )}

@@ -328,20 +328,11 @@ export default class SommairePartages extends Component {
                                                             this.openModal()
                                                         }} className={`ui medium button sommaire`}
 
-                                                            style={{
-                                                                width: "90%",
-                                                                position: "relative",
-                                                                marginTop: "150px",
-                                                                right: "50px"
-                                                            }}>
+                                                       >
 
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                         </div>
-                                                        <div style={{
-                                                            fontFamily: "IBM Plex Sans",
-                                                            fontSize: "16px",
-                                                            marginLeft: "10px"
-                                                        }}>
+                                                        <div>
                                                             <Modal
                                                                 open={this.state.modaleCourriels}
                                                                 onClose={this.closeModal}
