@@ -482,75 +482,76 @@ class Page2NouvellePiece extends Component {
                                     <div className="ten wide column">
                                         <InfoBulle text={t('composant.televersement.soustitre')} />
                                     </div>
+                                    <div className="fourteen wide colum">
+                                        <ChampTeleversement
+                                            style={{ width: "300px" }}
+                                            access="private"
+                                            onFileChange={value => {
 
-                                    <ChampTeleversement
-                                        style={{ width: "300px" }}
-                                        access="private"
-                                        onFileChange={value => {
+                                                if (value) {
+                                                    toast.info(t('navigation.transfertEnCours'))
+                                                    this.setState({ patience: true })
 
-                                            if (value) {
-                                                toast.info(t('navigation.transfertEnCours'))
-                                                this.setState({ patience: true })
+                                                    let fichier = value
 
-                                                let fichier = value
+                                                    // Redémarre le lecteur audio
+                                                    this.props.parent.props.parent.state.audio.stopEtJouer(fichier)
 
-                                                // Redémarre le lecteur audio
-                                                this.props.parent.props.parent.state.audio.stopEtJouer(fichier)
+                                                    let fd = new FormData()
+                                                    fd.append('file', fichier)
 
-                                                let fd = new FormData()
-                                                fd.append('file', fichier)
+                                                    axios
+                                                        .post('http://envoi.smartsplit.org:3033/envoi', fd)
+                                                        .then(res => {
 
-                                                axios
-                                                    .post('http://envoi.smartsplit.org:3033/envoi', fd)
-                                                    .then(res => {
+                                                            let f = res.data
 
-                                                        let f = res.data
-
-                                                        if (f.music.err) {
-                                                            switch (f.music.err) {
-                                                                case "AUDIO-MAUVAISE-LECTURE":
-                                                                    toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
-                                                                    break;
-                                                                case "AUDIO-INCONNU":
-                                                                    toast.warn(t('flot.split.traitement.acr.erreur-inconnu'))
-                                                                    break;
-                                                                default:
-                                                                    toast.warn(f.music.err)
+                                                            if (f.music.err) {
+                                                                switch (f.music.err) {
+                                                                    case "AUDIO-MAUVAISE-LECTURE":
+                                                                        toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
+                                                                        break;
+                                                                    case "AUDIO-INCONNU":
+                                                                        toast.warn(t('flot.split.traitement.acr.erreur-inconnu'))
+                                                                        break;
+                                                                    default:
+                                                                        toast.warn(f.music.err)
+                                                                }
                                                             }
-                                                        }
 
-                                                        if (f && !f.music.err) {
+                                                            if (f && !f.music.err) {
 
-                                                            //this.props.setFieldValue('fichiers', f, false)
+                                                                //this.props.setFieldValue('fichiers', f, false)
 
-                                                            let analyse = f.music[0] // Il peut y avoir plus d'un résultat
+                                                                let analyse = f.music[0] // Il peut y avoir plus d'un résultat
 
-                                                            toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${f.empreinte}`)
-                                                            this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
-                                                            this.props.setFieldValue('fichier', f.empreinte)
-                                                            this.props.setFieldValue('files.audio..file', f.name)
-                                                            this.props.setFieldValue('files.audio..md5', f.empreinte)
+                                                                toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${f.empreinte}`)
+                                                                this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
+                                                                this.props.setFieldValue('fichier', f.empreinte)
+                                                                this.props.setFieldValue('files.audio..file', f.name)
+                                                                this.props.setFieldValue('files.audio..md5', f.empreinte)
 
-                                                        }
-                                                    })
-                                                    .catch(err => {
-                                                        if (err) {
-                                                            console.log(err)
-                                                            if (fichier)
-                                                                toast.error(t('flot.split.documente-ton-oeuvre.envoifichier.echec') + ` ${fichier.name}`)
-                                                        }
-                                                    })
-                                                    .finally(() => {
-                                                        this.setState({ patience: false })
-                                                    })
+                                                            }
+                                                        })
+                                                        .catch(err => {
+                                                            if (err) {
+                                                                console.log(err)
+                                                                if (fichier)
+                                                                    toast.error(t('flot.split.documente-ton-oeuvre.envoifichier.echec') + ` ${fichier.name}`)
+                                                            }
+                                                        })
+                                                        .finally(() => {
+                                                            this.setState({ patience: false })
+                                                        })
 
-                                                this.props.parent.setState({ fichier: value })
+                                                    this.props.parent.setState({ fichier: value })
+
+                                                }
 
                                             }
-
-                                        }
-                                        }
-                                    />
+                                            }
+                                        />
+                                    </div>
                                 </div>
                             </>
                     }

@@ -48,25 +48,29 @@ export default class InputFichier extends React.Component {
     return (
       <Translation>
         {t => (
-          <div
-            className="file-input-container"
-            style={{
-              width: "270px",
-              display: "inline-flex"
-            }}
-          >
-            <div className="ui button" onClick={this.clickFileInput}>
-              {t("flot.split.documente-ton-oeuvre.documenter.choix")}
+          <div className="ui grid">
+            <div className="ten wide column">
+              <div
+                className="file-input-container"
+                style={{
+                  width: "270px",
+                  display: "inline-flex"
+                }}
+              >
+                <div className="ui button" onClick={this.clickFileInput}>
+                  {t("flot.split.documente-ton-oeuvre.documenter.choix")}
+                </div>
+
+                <div className="placeholder">{this.placeholder()}</div>
+
+                <input
+                  ref={this.fileInputRef}
+                  className="hidden"
+                  type="file"
+                  onChange={this.handleFileInputChange}
+                />
+              </div>
             </div>
-
-            <div className="placeholder">{this.placeholder()}</div>
-
-            <input
-              ref={this.fileInputRef}
-              className="hidden"
-              type="file"
-              onChange={this.handleFileInputChange}
-            />
           </div>
         )}
       </Translation>

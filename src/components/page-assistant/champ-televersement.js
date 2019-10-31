@@ -15,7 +15,6 @@ export default class ChampTeleversement extends Component {
     render() {
         return (
             <div>
-
                 <ChampFichier
                     label={this.props.label}
                     undertext={this.props.undertext}
