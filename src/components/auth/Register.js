@@ -6,9 +6,8 @@ import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
 import { Dropdown } from "semantic-ui-react";
 import axios from "axios";
-// import * as Yup from 'yup'
-// Traduction
-import { withTranslation, Translation } from "react-i18next";
+
+import { Translation } from "react-i18next";
 import Eye from "./Eye";
 
 class Register extends Component {
@@ -673,4 +672,4 @@ class Register extends Component {
   }
 }
 
-export default withTranslation()(Register);
+export default Register;

@@ -28,6 +28,12 @@ class InfoBulle extends Component {
         this.handleMouseIn = this.handleMouseIn.bind(this)
     }
 
+    componentWillReceiveProps(nextProps) {
+        if(this.props.text !== nextProps.text) {
+            this.setState({text: nextProps.text})
+        }
+    }
+
     //Modifie position x y
     setXY(e) {
         if(!this.props.pos) {
