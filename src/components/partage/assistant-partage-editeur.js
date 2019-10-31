@@ -142,7 +142,7 @@ class AssistantPartageEditeur extends Component {
 
             axios.post(`http://dev.api.smartsplit.org:8080/v1/editorsplitshare`, body)
             .then(res=>{
-                toast.success(res.data)
+                //toast.success(res.data)
                 body = {
                     rightHolder: {nom: values.ayantDroit.nom, uuid: values.ayantDroit.rightHolderId},
                     shareeId: values.editeur.ayantDroit.rightHolderId,

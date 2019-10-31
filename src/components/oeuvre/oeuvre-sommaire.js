@@ -5,7 +5,7 @@ import axios from 'axios'
 import Entete from '../entete/entete'
 import { Auth } from 'aws-amplify'
 
-import cassette from '../../assets/images/compact-cassette.png'
+import cassette from '../../assets/images/compact-cassette.svg'
 import { Translation } from 'react-i18next';
 import moment from 'moment'
 import ModaleConnexion from '../auth/Connexion'
@@ -68,25 +68,21 @@ export default class SommaireOeuvre extends Component {
 
     render() {
         if (this.state.media) {
+
             let artiste = this.state.media.artist
             let contenu = (<div className="ui nine wide column"></div>)
-            //let misAJourLe = moment(this.state.media.modificationDate).fromNow()
+
             return (
                 <Translation>
                     {
                         (t, i18n) =>
-                            <div className="ui grid">
-                                <div className="ui row"
-                                    style={{ background: "#FAF8F9", paddingTop: "30px", paddingBottom: "0px" }}>
-                                    <div className="ui two wide column" />
-                                    <div className="ui fourteen wide column">
-                                        <Entete contenu={contenu} navigation={'/accueil'}
-                                            profil={this.state.user} />
-                                    </div>
-                                </div>
+                        <>                                                        
+                            <div className="ui grid">                                 
                                 <div className="ui row" style={{ background: "#FAF8F9" }}>
-                                    <div className="ui two wide column"></div>
-                                    <div className="ui eleven wide column"></div>
+                                    <div className="ui one wide column"></div>
+                                    <div className="ui twelve wide column">
+                                        <Entete contenu={contenu} navigation={'/accueil'} profil={this.state.user} />                               
+                                    </div>
                                 </div>
                                 <div className="ui row" style={{ background: "#FAF8F9" }}>
                                     <div className="ui two wide column" />
@@ -212,6 +208,7 @@ export default class SommaireOeuvre extends Component {
                                     </div>
                                 </div>
                             </div>
+                        </>
                     }
                 </Translation>
             )

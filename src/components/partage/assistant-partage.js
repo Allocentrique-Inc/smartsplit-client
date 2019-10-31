@@ -288,7 +288,7 @@ class AssistantPartage extends Component {
                             body.uuid = values.uuid
                             axios.put(`http://dev.api.smartsplit.org:8080/v1/proposal/${body.uuid}`, body)
                                 .then(res => {
-                                    toast.success(`${res.data}`)
+                                    //toast.success(`${res.data}`)
                                     // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
                                     if (typeof cb === "function") {
                                         cb()
@@ -303,7 +303,7 @@ class AssistantPartage extends Component {
                             // 3b. Soumettre la nouvelle proposition en POST
                             axios.post('http://dev.api.smartsplit.org:8080/v1/proposal', body)
                                 .then(res => {
-                                    toast.success(`${res.data}`)
+                                   // toast.success(`${res.data}`)
                                     // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
                                     if (typeof cb === "function") {
                                         cb()
@@ -343,7 +343,7 @@ class AssistantPartage extends Component {
         this.soumettre(t, valeurs, "BROUILLON", () => {
             Auth.signOut()
                 .then(data => {
-                    toast.success("Déconnexion réussie")
+                    //toast.success("Déconnexion réussie")
                     setTimeout(() => {
                         window.location.href = '/accueil'
                     }, 1000)

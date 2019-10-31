@@ -24,7 +24,7 @@
     "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
-    "titre": "[Add/Modify] a collaborator",
+    "titre": "Add a collaborator",
     "titre2": "Add as a collaborator:",
     "attribut": {
       "placeholder": {
@@ -50,7 +50,7 @@
       "etiquette": {
         "titre": "Title:",
         "album": "Album:",
-        "piecePar": "{{titre}}, by",
+        "piecePar": "{{titre}}, by...",
         "arrangementPar": "{{titre}}, remixed by",
         "reprise": "This work is a cover",
         "instrumental": "This work is instrumental",
@@ -65,7 +65,7 @@
         "isrc": "ISRC number:",
         "upc": "UPC number",
         "dureeMs": "Duration (milliseconds)",
-        "vedette": "Add a featuring artist or group",
+        "vedette": "Add a featuring artist",
         "liensSociaux": "Social links",
         "liensServices": "Streaming links",
         "liensPresse": "Press links",
@@ -211,7 +211,7 @@
         "apercu": "Preview",
         "oeil-ouvert": "Keep your eyes opened",
         "apercu-sen-vient": "Your preview will be shown here",
-        "creer": "Create a new track"
+        "creer": "Create a track"
       },
       "collaborateur": {
         "titre": "Add a collaborating artist",
@@ -261,7 +261,7 @@
         "login": "Connecte-toi pour accéder"
       },
       "documente-ton-oeuvre": {
-        "titre": "Document your work",
+        "titre": "Document",
         "preambule": "Hi! We will help you describe your work.",
         "composant": {
           "televersement": {
@@ -303,7 +303,7 @@
             "langueParole": "Language",
             "lien": "Streaming Links"
           },
-          "titre1": "Who participated in the creation of",
+          "titre1": "Who participated in the creation of “{{titre}}?”",
           "titre1-description": "That's where you mention who contributed to the creation of this piece.",
           "date-creation": "Creation Date",
           "date-placeholder": "Add a date",
@@ -541,16 +541,16 @@
       "tableaudebord": {
         "bonjour": "Here is the Smartsplit dashboard.",
         "navigation": {
-          "0": "My musical works",
+          "0": "My work",
           "1": "My public profile",
           "2": "My collaborators"
         },
         "pieces": {
           "0": "My Additions",
           "1": "Shared With Me",
-          "par": "by",
+          "par": "by...",
           "partageAvec": "shared with",
-          "ajouter": "Add a musical work"
+          "ajouter": "Add"
         },
         "vide": {
           "preambule": "Your works will appear here",
@@ -579,13 +579,13 @@
           "guillemet2": "”"
         },
         "auteur": {
-          "titre": "Who invented "
+          "titre": "Who invented “{{titre}}”?"
         },
         "interprete": {
-          "titre": "Who played on "
+          "titre": "Who played on “{{titre}}”?"
         },
         "enregistrement": {
-          "titre": "Who owns the master for "
+          "titre": "Who owns the master for “{{titre}}”?"
         },
         "editeur": {
           "titre": "What's your publisher's name ?",
@@ -607,7 +607,7 @@
       "vote": {
         "accept": "Approved",
         "reject": "Rejected",
-        "active": "Waiting for a decision",
+        "active": "Waiting",
         "accepter": "ACCEPT",
         "refuser": "REJECT"
       },

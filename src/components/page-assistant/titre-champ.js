@@ -7,6 +7,7 @@ export default function TitreChamp(props) {
             <div className="input-title">
                 { inputLabel(props) }
                 { inputDescription(props) }
+                { props.info }
             </div>
         ) :
         (<></>);
@@ -14,7 +15,7 @@ export default function TitreChamp(props) {
 
 function inputLabel(props) {
     return props.label ?
-        (<div className="input-label">{ props.label }</div>) :
+        (<div className="input-label" style={{display: "inline"}}>{ props.label }</div>) :
         (<></>);
 }
 

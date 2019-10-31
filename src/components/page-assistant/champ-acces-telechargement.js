@@ -90,13 +90,12 @@ export default class ChampAccesTelechargement extends React.Component {
   render() {
     return (
       <Translation>
-        {t => (
+        {t => (          
           <div className="champ champ-acces">
             <label>
               <TitreChamp
                 label={t("flot.split.documente-ton-oeuvre.documenter.acces")}
               />
-
               <Dropdown
                 style={{ width: "100px" }}
                 trigger={this.trigger()}
@@ -108,6 +107,7 @@ export default class ChampAccesTelechargement extends React.Component {
               />
             </label>
           </div>
+          
         )}
       </Translation>
     );

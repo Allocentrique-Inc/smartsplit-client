@@ -5,6 +5,7 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import ModifyUser from '../auth/ModifyUser';
 import { Translation } from 'react-i18next'
+import ChampSelectionMultipleAyantDroit from '../page-assistant/champ-selection-multiple-ayant-droit'
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"
@@ -176,9 +177,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
                                             options: this.state.options,
                                             allowAdditions: false,
                                             clearable: false
-                                        }}
-
-                                    />
+                                        }} />
                                 )
                             }
                             <ModifyUser
@@ -317,9 +316,9 @@ export class ChampListeCollaborateurAssistant extends Component {
                                             multiple: this.state.multiple,
                                             options: this.state.options,
                                             onAddItem: this.handleAddition,
-                                            allowAdditions: this.state.ajout,                                            
-                                            onSelect: (e)=>{
-                                                if(this.props.fnSelect) {
+                                            allowAdditions: this.state.ajout,
+                                            onSelect: (e) => {
+                                                if (this.props.fnSelect) {
                                                     this.props.fnSelect()
                                                 }
                                             },
