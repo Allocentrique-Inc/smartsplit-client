@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChampFichier from "./champ-fichier";
 import ChampAccesTelechargement from "./champ-acces-telechargement";
+import "../formulaires.css";
 
 export default class ChampTeleversement extends Component {
 
@@ -15,10 +16,10 @@ export default class ChampTeleversement extends Component {
     render() {
         return (
             <div className="section-televersement" style={{ display: "-webkit-box" }}>
-                <div className="ui grid" style={{ width: "100%" }}>
+                <div className="ui grid" style={{ width: "100%", height: "50px", marginBottom: "20px" }}>
                     <div className="ui row">
                         <div className="ui column" />
-                        <div className="ui twelve wide column">
+                        <div className="ui nine wide column">
                             <ChampFichier
                                 label={this.props.label}
                                 info={this.props.info}

@@ -17,18 +17,18 @@ export default class ChampGradateurAssistant extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.etiquette !== nextProps.etiquette) {
-            this.setState({etiquette: nextProps.etiquette})
+            this.setState({ etiquette: nextProps.etiquette })
         }
         if (this.props.disabled !== nextProps.disabled) {
-            this.setState({disabled: nextProps.disabled})
+            this.setState({ disabled: nextProps.disabled })
         }
         if (this.props.valeur !== nextProps.valeur) {
-            this.setState({valeur: nextProps.valeur})
+            this.setState({ valeur: nextProps.valeur })
         }
     }
 
     render() {
-        return(
+        return (
             <Wizard.Field
                 name={this.state.modele}
                 component={Form.Input}
@@ -40,16 +40,16 @@ export default class ChampGradateurAssistant extends Component {
                     step: 1,
                     type: "range",
                     disabled: this.state.disabled,
-                    onInput: e=>{ // Déclenché lorsque le gradateur change de valeur
+                    onInput: e => { // Déclenché lorsque le gradateur change de valeur
                         let val = e.target.value
                         this.props.changement(this.props.id, val - this.state.valeur)
-                        this.setState({valeur: val})
+                        this.setState({ valeur: val })
                     },
-                    onMouseDown: e=>{
-                        this.setState({valeur: e.target.value})
+                    onMouseDown: e => {
+                        this.setState({ valeur: e.target.value })
                     }
                 }}
             />
-        )        
+        )
     }
 }

@@ -18,6 +18,7 @@ import {
 } from "../page-assistant/right-holder-helpers";
 import * as roles from "../../assets/listes/role-uuids.json";
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import InfoBulle from '../partage/InfoBulle'
 
 export default class PageEnregistrement extends React.Component {
   constructor(props) {
@@ -130,12 +131,15 @@ export default class PageEnregistrement extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.entete.enregistrement"
                 )}
                 question={
-                  t("flot.split.documente-ton-oeuvre.documenter.titre3") +
+                  t("flot.split.documente-ton-oeuvre.documenter.titre3",
+                    { titre: this.props.values.title })
+                  /*
+                  +
                   t('flot.split.partage.guillemets.guillemet1') +
                   this.props.values.title +
                   t('flot.split.partage.guillemets.guillemet2')
                   +
-                  "?"
+                  "?"*/
                 }
                 description={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre3-description"
@@ -262,12 +266,10 @@ export default class PageEnregistrement extends React.Component {
               />
 
               <ChampTexte
-                label={t("flot.split.documente-ton-oeuvre.documenter.codeiswc")}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.codeiswc-description"
-                )}
+                label={t("oeuvre.attribut.etiquette.isrc")}
+                info={<InfoBulle text={t('oeuvre.attribut.indication.isrc')} />}
                 placeholder={t(
-                  "flot.split.documente-ton-oeuvre.documenter.codeiswc-placeholder"
+                  "oeuvre.attribut.indication.isrc-placeholder"
                 )}
                 value={this.props.values.isrc}
                 onChange={value => this.props.setFieldValue("isrc", value)}

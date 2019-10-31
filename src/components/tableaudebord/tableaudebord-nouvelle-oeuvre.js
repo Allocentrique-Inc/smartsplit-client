@@ -476,7 +476,7 @@ class Page2NouvellePiece extends Component {
                                     <div className="ui row">
                                         <div className="ui sixteen wide column">
                                             <ChampTeleversement
-                                                label="Fichier"
+                                                label="Fichier  "
                                                 info={<InfoBulle pos={{ x: 100, y: 450 }} text={t('composant.televersement.soustitre')} />}
                                                 access="private"
                                                 onFileChange={value => {
