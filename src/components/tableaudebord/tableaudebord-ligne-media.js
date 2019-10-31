@@ -37,7 +37,7 @@ export default class LigneMedia extends Component {
 
   render() {
 
-    let pochette =this.state.pochette ? "pochette" : ""
+    let pochette = this.state.pochette ? "pochette" : ""
 
     let elem = this.state.media;
     let _p = this.state.p0;

@@ -14,7 +14,8 @@ export default class ChampTeleversement extends Component {
 
     render() {
         return (
-            <div className="section-televersement" style={{ display: "-webkit-box" }}>
+            <div>
+
                 <ChampFichier
                     label={this.props.label}
                     undertext={this.props.undertext}
@@ -26,6 +27,8 @@ export default class ChampTeleversement extends Component {
                     onChange={value => this.props.onAccessChange(value)}
                 />
             </div>
+
+
         )
     }
 
