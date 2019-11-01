@@ -329,6 +329,10 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     render() {
+        function StyleInput(props) {
+            return <input style={props.style} />
+        }
+
         let visualisation
         if (this.state.parts.length > 0) {
 
@@ -554,7 +558,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                         <span className="pourcentage-wrapper">
                                                                                                             <div className="ui grid">
                                                                                                                 <div className="ui row">
-                                                                                                                    <div className="ui two wide column">
+                                                                                                                    <div className="ui one wide column">
                                                                                                                         <Lock />
                                                                                                                         {/* <i className={`lock ${!(this.state.partsInvariables[index] || this.props.values.droitAuteur.length <= 1) ? 'open' : ''} icon golden`}
                                                                                                                             onClick={() => {
@@ -580,36 +584,47 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                             }
                                                                                                                         />
                                                                                                                     </div>
-                                                                                                                    <div className="ui two wide column">
-                                                                                                                        <strong>{this.props.values.droitAuteur[index].pourcent}%</strong>
+
+                                                                                                                    <div className="ui four wide column">
+
+                                                                                                                        {/* <StyleInput style={{ background: "red", border: "none", width: "50px", fontWeight: "bold" }}
+                                                                                                                            value={this.props.values.droitAuteur[index].pourcent}
+                                                                                                                            input={this.props.changement} /> */}
+
+                                                                                                                        <ChampTexteAssistant
+                                                                                                                            id={`texte_${index}`}
+                                                                                                                            changement={(id, valeur) => {
+                                                                                                                                this.changementTexte(id, valeur)
+                                                                                                                            }}
+                                                                                                                            modele={`droitAuteur[${index}].pourcent`}
+                                                                                                                            disabled={(
+                                                                                                                                this.props.values.droitAuteur.length <= 1) ||
+                                                                                                                                this.state.partsInvariables[index] ||
+                                                                                                                                (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
+                                                                                                                            valeur={`${this.props.values.droitAuteur[index].pourcent}%`}
+                                                                                                                            input={this.props.changement}
+                                                                                                                        />
+
+                                                                                                                        <div />
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </span>
-                                                                                                        /*<ChampTexteAssistant
-                                                                                                            id={`texte_${index}`}
-                                                                                                            changement={(id, valeur) => {
-                                                                                                                this.changementTexte(id, valeur)
-                                                                                                            }}
-                                                                                                            modele={`droitAuteur[${index}].pourcent`}
-                                                                                                            disabled={(
-                                                                                                                this.props.values.droitAuteur.length <= 1) ||
-                                                                                                                this.state.partsInvariables[index] ||
-                                                                                                                (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
-                                                                                                            valeur={this.props.values.droitAuteur[index].pourcent} />*/
+
                                                                                                     )
                                                                                                 }
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                                <div className="blank-text">A</div>
                                                                             </div>
                                                                         )
                                                                     })
                                                                 }
                                                                 <br></br>
                                                                 <br></br>
-                                                                <div style={{ margin: "0 auto" }}>
+                                                                <div style={{ margin: "0 auto", height: "100px" }}>
                                                                     <div className="ui grid">
                                                                         <div className="ui row">
                                                                             <div className="ui ten wide column">

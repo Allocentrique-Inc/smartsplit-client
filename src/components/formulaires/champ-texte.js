@@ -131,7 +131,7 @@ export class ChampTexteAssistant extends Component {
             placeholder: this.state.indication,
             required: this.state.requis,
             autoFocus: this.state.autoFocus,
-            disabled: this.state.disabled
+            disabled: this.state.disabled,
         }
 
         if (this.props.changement)

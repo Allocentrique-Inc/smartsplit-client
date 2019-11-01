@@ -420,6 +420,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                         })
                                                                                                     }
                                                                                                 </div>
+
                                                                                                 <ChampGradateurAssistant
                                                                                                     changement={(id, delta) => { this.changementGradateur(id, delta) }}
                                                                                                     id={`gradateur_droitEnregistrement_${index}`}
@@ -462,11 +463,12 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                                <div className="blank-text">A</div>
                                                                             </div>
                                                                         )
                                                                     })
                                                                 }
-                                                                <div style={{ margin: "0 auto", height: "50px" }}>
+                                                                <div style={{ margin: "0 auto", height: "100px" }}>
                                                                     <div className="ui grid">
                                                                         <div className="ui row">
                                                                             <div className="ui ten wide column">
