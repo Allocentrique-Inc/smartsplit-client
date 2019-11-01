@@ -131,52 +131,53 @@ class ChampSelectionMultipleAyantDroit extends Component {
     return (
       <Translation>
         {
-          t=>
-          <>
-            <div className="champ with-trigger-icon">
-              <label>
-                <TitreChamp
-                  label={this.props.label}
-                  description={this.props.description}
-                />
+          t =>
+            <>
+              <div className="champ with-trigger-icon">
+                <label>
+                  <TitreChamp
+                    label={this.props.label}
+                    info={this.props.info}//Fait passer info dans les TitreChamp
+                    description={this.props.description}
+                  />
 
-                {this.renderSelectedItems()}
+                  {this.renderSelectedItems()}
 
-                <Dropdown
-                  trigger={this.triggerLabel()}
-                  fluid
-                  search
-                  selection
-                  selectOnBlur={false}
-                  selectOnNavigation={false}
-                  allowAdditions
-                  additionLabel={this.additionLabel(t)}
-                  value={this.state.dropdownValue}
-                  options={this.unselectedItems()}
-                  onBlur={this.handleBlur}
-                  onChange={this.handleChange}
-                  onAddItem={this.handleAddItem}
-                  onSearchChange={this.handleSearchChange}
-                />
-              </label>
-            </div>
+                  <Dropdown
+                    trigger={this.triggerLabel()}
+                    fluid
+                    search
+                    selection
+                    selectOnBlur={false}
+                    selectOnNavigation={false}
+                    allowAdditions
+                    additionLabel={this.additionLabel(t)}
+                    value={this.state.dropdownValue}
+                    options={this.unselectedItems()}
+                    onBlur={this.handleBlur}
+                    onChange={this.handleChange}
+                    onAddItem={this.handleAddItem}
+                    onSearchChange={this.handleSearchChange}
+                  />
+                </label>
+              </div>
 
-            <ModifyUser
-              open={this.state.modalOpen}
-              firstName={this.state.modalFirstName}
-              close={() =>
-                this.setState({ modalOpen: false, modalFirstName: "" })
-              }
-              fn={
-                (e)=>{
-                  let values = this.state.selectedValues
-                  values.push(e)
-                  this.setState({selectedValues: values})
+              <ModifyUser
+                open={this.state.modalOpen}
+                firstName={this.state.modalFirstName}
+                close={() =>
+                  this.setState({ modalOpen: false, modalFirstName: "" })
                 }
-              }
-            />
-          </>
-        }        
+                fn={
+                  (e) => {
+                    let values = this.state.selectedValues
+                    values.push(e)
+                    this.setState({ selectedValues: values })
+                  }
+                }
+              />
+            </>
+        }
       </Translation>
     );
   }

@@ -2,6 +2,7 @@ import React from "react";
 import TitreChamp from "./titre-champ";
 import ChampDate from "./champ-date";
 import { Translation } from "react-i18next";
+import InfoBulle from '../partage/InfoBulle'
 
 export default class FormulaireDateSortie extends React.Component {
   constructor(props) {
@@ -35,8 +36,8 @@ export default class FormulaireDateSortie extends React.Component {
         />
       </div>
     ) : (
-      <></>
-    );
+        <></>
+      );
   }
 
   render() {
@@ -46,9 +47,7 @@ export default class FormulaireDateSortie extends React.Component {
           <div className="champ">
             <TitreChamp
               label={t("flot.split.documente-ton-oeuvre.documenter.date")}
-              description={t(
-                "flot.split.documente-ton-oeuvre.documenter.date-description"
-              )}
+              info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.date-description")} />}
             />
 
             <div>

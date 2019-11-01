@@ -135,7 +135,6 @@ export default class NouvelleOeuvre extends Component {
     }
 
     render() {
-
         if (this.state.rightHolders) {
             return (
                 <Translation>

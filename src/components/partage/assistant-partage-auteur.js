@@ -16,6 +16,8 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
+import Lock from "./Lock"
+
 const MODES = { egal: "0", role: "1", manuel: "2" }
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -549,40 +551,52 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                 </div>
                                                                                                 {
                                                                                                     this.state.mode === MODES.manuel && (
-                                                                                                        <>
-                                                                                                            <ChampGradateurAssistant
-                                                                                                                changement={(id, delta) => {
-                                                                                                                    this.changementGradateur(id, delta)
-                                                                                                                }}
-                                                                                                                id={`gradateur_droitAuteur_${index}`}
-                                                                                                                modele={`droitAuteur[${index}].pourcent`}
-                                                                                                                disabled={
-                                                                                                                    this.state.partsInvariables[index] ||
-                                                                                                                    this.state.mode !== MODES.manuel ||
-                                                                                                                    this.props.values.droitAuteur.length <= 1 ||
-                                                                                                                    (
-                                                                                                                        1 ===
-                                                                                                                        (this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)
-                                                                                                                    )
-                                                                                                                }
-                                                                                                            />
-                                                                                                            <i className={`lock ${!(this.state.partsInvariables[index] || this.props.values.droitAuteur.length <= 1) ? 'open' : ''} icon golden`}
-                                                                                                                onClick={() => {
-                                                                                                                    this.basculerVariable(index)
-                                                                                                                }}>
-                                                                                                            </i>
-                                                                                                            <ChampTexteAssistant
-                                                                                                                id={`texte_${index}`}
-                                                                                                                changement={(id, valeur) => {
-                                                                                                                    this.changementTexte(id, valeur)
-                                                                                                                }}
-                                                                                                                modele={`droitAuteur[${index}].pourcent`}
-                                                                                                                disabled={(
-                                                                                                                    this.props.values.droitAuteur.length <= 1) ||
-                                                                                                                    this.state.partsInvariables[index] ||
-                                                                                                                    (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
-                                                                                                                valeur={this.props.values.droitAuteur[index].pourcent} />
-                                                                                                        </>
+                                                                                                        <span className="pourcentage-wrapper">
+                                                                                                            <div className="ui grid">
+                                                                                                                <div className="ui row">
+                                                                                                                    <div className="ui two wide column">
+                                                                                                                        <Lock />
+                                                                                                                        {/* <i className={`lock ${!(this.state.partsInvariables[index] || this.props.values.droitAuteur.length <= 1) ? 'open' : ''} icon golden`}
+                                                                                                                            onClick={() => {
+                                                                                                                                this.basculerVariable(index)
+                                                                                                                            }}>
+                                                                                                                        </i> */}
+                                                                                                                    </div>
+                                                                                                                    <div className="ui ten wide column">
+                                                                                                                        <ChampGradateurAssistant
+                                                                                                                            changement={(id, delta) => {
+                                                                                                                                this.changementGradateur(id, delta)
+                                                                                                                            }}
+                                                                                                                            id={`gradateur_droitAuteur_${index}`}
+                                                                                                                            modele={`droitAuteur[${index}].pourcent`}
+                                                                                                                            disabled={
+                                                                                                                                this.state.partsInvariables[index] ||
+                                                                                                                                this.state.mode !== MODES.manuel ||
+                                                                                                                                this.props.values.droitAuteur.length <= 1 ||
+                                                                                                                                (
+                                                                                                                                    1 ===
+                                                                                                                                    (this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)
+                                                                                                                                )
+                                                                                                                            }
+                                                                                                                        />
+                                                                                                                    </div>
+                                                                                                                    <div className="ui two wide column">
+                                                                                                                        <strong>{this.props.values.droitAuteur[index].pourcent}%</strong>
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </span>
+                                                                                                        /*<ChampTexteAssistant
+                                                                                                            id={`texte_${index}`}
+                                                                                                            changement={(id, valeur) => {
+                                                                                                                this.changementTexte(id, valeur)
+                                                                                                            }}
+                                                                                                            modele={`droitAuteur[${index}].pourcent`}
+                                                                                                            disabled={(
+                                                                                                                this.props.values.droitAuteur.length <= 1) ||
+                                                                                                                this.state.partsInvariables[index] ||
+                                                                                                                (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
+                                                                                                            valeur={this.props.values.droitAuteur[index].pourcent} />*/
                                                                                                     )
                                                                                                 }
                                                                                             </div>

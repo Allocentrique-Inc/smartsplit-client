@@ -20,6 +20,7 @@ export default class ChampTeleversement extends Component {
                     <div className="ui row">
                         <div className="ui column" />
                         <div className="ui nine wide column">
+
                             <ChampFichier
                                 label={this.props.label}
                                 info={this.props.info}
