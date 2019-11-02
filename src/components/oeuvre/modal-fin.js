@@ -17,6 +17,12 @@ export default class ModalFin extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(this.props.open !== nextProps.open) {
+      this.setState({open: true})
+    }
+  }
+
   render() {
     return (
       <Translation>
@@ -42,7 +48,7 @@ export default class ModalFin extends Component {
               />
 
               <h4 className={"h4-style"}>
-                <em>{this.state.songTitle}</em> {t("flot.fin.maintenant1")}, <em>{{ titre: this.state.titre }}</em>, {t("flot.fin.maintenant2")}
+                {t("flot.fin.maintenant1")}, <em>{this.state.titre}</em>, {t("flot.fin.maintenant2")}
               </h4>
               {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
                 <p className={"description"}>

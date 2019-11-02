@@ -158,6 +158,7 @@ export default class PageFichiers extends React.Component {
               />
 
               <ChampTeleversement
+                extraStyle={{marginTop: "70px"}}
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.autre-etape3"
                 )}

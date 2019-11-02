@@ -14,6 +14,7 @@ import axios from 'axios'
 
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
+import Lock from "./Lock"
 
 const MODES = { egal: "0", manuel: "1" }
 
@@ -134,6 +135,30 @@ class PageAssistantPartageEnregistrement extends Component {
         if (nbModifications > 0) {
             deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
         }
+
+         // Détection des limites pour ne pas dépasser 0
+         droits.forEach((elem, idx) => {
+            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
+            //console.log(elem.pourcent, _pred, deltaParCollaborateurVariable)
+            if(!invariable[idx] && _pred <= 0) {
+                console.log(droits[idx].pourcent, _pred, droits[idx].pourcent + _pred)
+                let reste = parseFloat(droits[idx].pourcent) + _pred
+                
+                console.log('reste', 0-reste)
+            
+                // Mettre à zéro
+                invariable[idx] = true
+                droits[idx].pourcent = 0
+                droits[idx].pourcentParoles = 0
+                droits[idx].pourcentMusique = 0
+
+                // Recalculer avec le reste réparti
+                let nbModifications = droits.length - Object.keys(invariable).length
+                if (nbModifications > 0) {
+                    deltaParCollaborateurVariable = parseFloat(deltaParCollaborateurVariable) - parseFloat(reste / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+                }
+            }
+        })
 
         droits.forEach((elem, idx) => {
             if (!invariable[idx]) { // Ajustement si l'index est variable
@@ -310,10 +335,6 @@ class PageAssistantPartageEnregistrement extends Component {
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {/*{t('flot.split.partage.enregistrement.titre', { oeuvre: this.state.song })}*/}
-                                                {/* {t('flot.split.partage.enregistrement.titre', {
-                                                    oeuvre: `${t('flot.split.partage.guillemets.guillemet1')}${this.state.song}${t('flot.split.partage.guillemets.guillemet2')}`
-                                                })}? */}
                                                 {t('flot.split.partage.enregistrement.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
@@ -420,43 +441,61 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                         })
                                                                                                     }
                                                                                                 </div>
+                                                                                             
+                                                                                                {
+                                                                                                    this.state.mode === MODES.manuel && !(this.props.values.droitEnregistrement.length <= 1) && (
+                                                                                                        <span className="pourcentage-wrapper">
+                                                                                                            <div className="ui grid">
+                                                                                                                <div className="ui row">
+                                                                                                                    <div className="ui one wide column">
+                                                                                                                        <Lock actif={this.state.partsInvariables[index]} onClick={()=>this.basculerVariable(index)} />
+                                                                                                                    </div>
+                                                                                                                    <div className="ui ten wide column">
+                                                                                                                        <ChampGradateurAssistant
+                                                                                                                            changement={(id, delta) => {
+                                                                                                                                this.changementGradateur(id, delta)
+                                                                                                                            }}
+                                                                                                                            id={`gradateur_droitEnregistrement_${index}`}
+                                                                                                                            modele={`droitEnregistrement[${index}].pourcent`}
+                                                                                                                            disabled={
+                                                                                                                                this.state.partsInvariables[index] ||
+                                                                                                                                this.state.mode !== MODES.manuel ||
+                                                                                                                                this.props.values.droitEnregistrement.length <= 1 ||
+                                                                                                                                (
+                                                                                                                                    1 ===
+                                                                                                                                    (this.props.values.droitEnregistrement.length - Object.keys(this.state.partsInvariables).length)
+                                                                                                                                )
+                                                                                                                            }
+                                                                                                                        />
+                                                                                                                    </div>
 
-                                                                                                <ChampGradateurAssistant
-                                                                                                    changement={(id, delta) => { this.changementGradateur(id, delta) }}
-                                                                                                    id={`gradateur_droitEnregistrement_${index}`}
-                                                                                                    modele={`droitEnregistrement[${index}].pourcent`}
-                                                                                                    disabled={
-                                                                                                        this.state.partsInvariables[index] ||
-                                                                                                        this.state.mode !== MODES.manuel ||
-                                                                                                        this.props.values.droitEnregistrement.length <= 1 ||
-                                                                                                        (
-                                                                                                            1 ===
-                                                                                                            (this.props.values.droitEnregistrement.length - Object.keys(this.state.partsInvariables).length)
-                                                                                                        )}
-                                                                                                />
-                                                                                                {
-                                                                                                    this.state.mode === MODES.manuel && !(this.props.values.droitEnregistrement.length <= 1) && (
-                                                                                                        <i className={`lock ${!this.state.partsInvariables[index] ? 'open' : ''} icon golden`}
-                                                                                                            onClick={() => {
-                                                                                                                this.basculerVariable(index)
-                                                                                                            }}>
-                                                                                                        </i>
-                                                                                                    )
-                                                                                                }
-                                                                                                {
-                                                                                                    this.state.mode === MODES.manuel && !(this.props.values.droitEnregistrement.length <= 1) && (
-                                                                                                        <ChampTexteAssistant
-                                                                                                            id={`texte_${index}`}
-                                                                                                            changement={(id, valeur) => {
-                                                                                                                this.changementTexte(id, valeur)
-                                                                                                            }}
-                                                                                                            modele={`droitEnregistrement[${index}].pourcent`}
-                                                                                                            disabled={this.state.partsInvariables[index] ||
-                                                                                                                (
-                                                                                                                    1 ===
-                                                                                                                    (this.props.values.droitEnregistrement.length - Object.keys(this.state.partsInvariables).length)
-                                                                                                                )}
-                                                                                                            valeur={this.props.values.droitEnregistrement[index].pourcent} />
+                                                                                                                    <div className="ui four wide column">
+                                                                                                                        <ChampTexteAssistant                                                                                                                            
+                                                                                                                            id={`texte_${index}`}
+                                                                                                                            changement={(id, valeur) => {
+                                                                                                                                this.changementTexte(id, valeur)
+                                                                                                                            }}
+                                                                                                                            modele={`droitEnregistrement[${index}].pourcent`}
+                                                                                                                            disabled={(
+                                                                                                                                this.props.values.droitEnregistrement.length <= 1) ||
+                                                                                                                                this.state.partsInvariables[index] ||
+                                                                                                                                (1 === this.props.values.droitEnregistrement.length - Object.keys(this.state.partsInvariables).length)}
+                                                                                                                            valeur={`${this.props.values.droitEnregistrement[index].pourcent}`}
+                                                                                                                            input={this.props.changement}
+                                                                                                                        />                                                                                                                        
+                                                                                                                    </div>
+                                                                                                                    {
+                                                                                                                        document.getElementsByName("droitEnregistrement["+index+"].pourcent").forEach((e, idx)=>{                                                                                                                                
+                                                                                                                            if(e.type==="text") {
+                                                                                                                                e.style.backgroundColor = "#faf8f9"
+                                                                                                                                e.style.border = "none"
+                                                                                                                                e.style.paddingBottom = "12px"
+                                                                                                                            }
+                                                                                                                        })
+                                                                                                                    }
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </span>                                                                                                      
                                                                                                     )
                                                                                                 }
                                                                                             </div>

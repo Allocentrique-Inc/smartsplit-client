@@ -72,6 +72,7 @@ export class ChampTexteAssistant extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            className: props.className,
             etiquette: props.etiquette,
             indication: props.indication,
             modele: props.modele,
@@ -81,6 +82,7 @@ export class ChampTexteAssistant extends Component {
             typeLien: props.typeLien,
             disabled: props.disabled,
             soustexte: props.soustexte,
+            style: props.style || {},
             valeur: props.valeur
         }
         this.valeur = props.valeur
@@ -108,23 +110,12 @@ export class ChampTexteAssistant extends Component {
         if (this.props.soustexte !== nextProps.soustexte) {
             this.setState({ soustexte: nextProps.soustexte })
         }
+        if (this.props.style !== nextProps.style) {
+            this.setState({ style: nextProps.style })
+        }
     }
 
     render() {
-
-        let classType
-
-        switch (this.state.typeLien) {
-            case "spotify":
-                classType = "spotify"
-                break;
-            case "youtube":
-                classType = "youtube"
-                break;
-            default:
-                classType = "external alternate"
-                break;
-        }
 
         let attributs = {
             label: !this.state.lien && this.state.etiquette,
@@ -132,6 +123,7 @@ export class ChampTexteAssistant extends Component {
             required: this.state.requis,
             autoFocus: this.state.autoFocus,
             disabled: this.state.disabled,
+            className: this.state.className
         }
 
         if (this.props.changement)
@@ -153,9 +145,8 @@ export class ChampTexteAssistant extends Component {
                     name={this.state.modele}
                     component={FormField}
                     componentProps={attributs}
-                    validate={this.state.requis && required}
+                    validate={this.state.requis && required}                    
                 />
-                {this.state.lien && (<a href={this.state.lien} target={`lien--${classType}`}><i className={`right ${classType} icon big`}></i></a>)}
                 {this.props.info && (<i className="right info circle icon blue"></i>)}
                 {this.state.soustexte && (<p className="undertext">{this.state.soustexte}</p>)}
             </div>
