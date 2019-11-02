@@ -120,7 +120,7 @@ export default class NouvelleOeuvre extends Component {
 
         axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
             .then(res => {
-                if(this.state.pochette) {
+                if (this.state.pochette) {
                     window.location.href = `/documenter/${body.mediaId}`
                 } else {
                     window.location.href = `/partager/nouveau/${body.mediaId}`
@@ -135,7 +135,6 @@ export default class NouvelleOeuvre extends Component {
     }
 
     render() {
-
         if (this.state.rightHolders) {
             return (
                 <Translation>
@@ -213,15 +212,15 @@ class Base extends Component {
                             <div className="ui grid">
                                 <div className="ui row">
                                     <div className="ui column" />
-                                    <div className="ui fifteen wide column">       
+                                    <div className="ui fifteen wide column">
                                         <label>{t('oeuvre.attribut.indication.titre')}
-                                            &nbsp;&nbsp;<InfoBulle pos={{x:300,y:80}} text={t('oeuvre.attribut.indication.titre-soustexte')} />                                    
-                                        </label>                                        
+                                            &nbsp;&nbsp;<InfoBulle pos={{ x: 300, y: 80 }} text={t('oeuvre.attribut.indication.titre-soustexte')} />
+                                        </label>
                                     </div>
                                 </div>
                                 <div className="ui row">
                                     <div className="ui column" />
-                                    <div className="ui twelve wide column">       
+                                    <div className="ui twelve wide column">
                                         <ChampTexteAssistant
                                             style={{ marginLeft: "0" }}
                                             modele="title"
@@ -232,7 +231,7 @@ class Base extends Component {
                                 </div>
                                 <div style={{ marginTop: "20px" }} className="ui row">
                                     <div className="ui column" />
-                                    <div className="ui fifteen wide column">       
+                                    <div className="ui fifteen wide column">
                                         <BoutonsRadio
                                             modele="type"
                                             etiquette={t('options.piece.titre')}
@@ -241,7 +240,7 @@ class Base extends Component {
                                             choix={[
                                                 {
                                                     nom: t('options.piece.originale'),
-                                                    valeur: ORIGINALE,                                                    
+                                                    valeur: ORIGINALE,
                                                 },
                                                 {
                                                     nom: t('options.piece.arrangement'),
@@ -266,7 +265,7 @@ class Base extends Component {
                                         />
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </>
                 }
             </Translation>
@@ -391,13 +390,13 @@ class Page2NouvellePiece extends Component {
                                             </h2>
                                         </div>
                                     </div>
-                                        
+
                                     {
                                         this.props.values.type === "" + ORIGINALE && (
                                             <>
                                                 <div style={{ marginTop: "20px", fontSize: "16px", fontFamily: "IBM Plex Sans" }} className="ui row">
                                                     <div className="ui column" />
-                                                    <div className="ui twelve wide column">                                                        
+                                                    <div className="ui twelve wide column">
                                                         <ChampListeEntiteMusicaleAssistant
                                                             rightHolderId={this.props.parent.state.user.username}
                                                             modele={"artist"}
@@ -411,7 +410,7 @@ class Page2NouvellePiece extends Component {
                                                                 liste => this.setState({ entites: liste })
                                                             }
                                                         />
-                                                    </div>                                                    
+                                                    </div>
                                                 </div>
                                             </>
                                         )
@@ -436,7 +435,7 @@ class Page2NouvellePiece extends Component {
                                                             }
 
                                                         />
-                                                    </div>                                                    
+                                                    </div>
                                                 </div>
                                                 <div style={{ marginTop: "20px" }} className="ui row">
                                                     <div className="ui column" />
@@ -454,7 +453,7 @@ class Page2NouvellePiece extends Component {
                                                             }
                                                         />
                                                     </div>
-                                                    </div>                                                    
+                                                </div>
                                             </>
                                         )
                                     }
@@ -471,13 +470,13 @@ class Page2NouvellePiece extends Component {
                                                 value={this.props.values.vedettes}
                                                 onChange={ids => this.props.setFieldValue('rightHolders', ids)}
                                             />
-                                        </div>                                        
+                                        </div>
                                     </div>
                                     <div className="ui row">
                                         <div className="ui sixteen wide column">
-                                            <ChampTeleversement  
-                                                label="Fichier"
-                                                info={<InfoBulle pos={{x:100,y: 450}} text={t('composant.televersement.soustitre')} />}
+                                            <ChampTeleversement
+                                                label="Fichier  "
+                                                info={<InfoBulle pos={{ x: 100, y: 450 }} text={t('composant.televersement.soustitre')} />}
                                                 access="private"
                                                 onFileChange={value => {
                                                     if (value) {
@@ -542,14 +541,14 @@ class Page2NouvellePiece extends Component {
                                                 }
                                                 }
                                             />
-                                        </div>                                        
+                                        </div>
                                     </div>
                                     <div className="ui row">
                                         <div className="ui sixteen wide column">
                                             &nbsp;
                                         </div>
                                     </div>
-                                </div>                                
+                                </div>
                                 {
                                     this.state.analyse && (
                                         <Modal
@@ -571,8 +570,8 @@ class Page2NouvellePiece extends Component {
                                             </Modal.Actions>
                                         </Modal>
                                     )
-                                }                                                                    
-                                    
+                                }
+
                             </>
                     }
                 </Translation>

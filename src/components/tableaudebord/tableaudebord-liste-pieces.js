@@ -7,6 +7,7 @@ import LigneMedia from './tableaudebord-ligne-media'
 import { Modal } from 'semantic-ui-react';
 import NouvelleOeuvre from './tableaudebord-nouvelle-oeuvre';
 import AudioLecture from '../oeuvre/audio-lecture';
+import Yeux from "../../assets/images/yeux.png";
 
 const PANNEAU_INITIATEUR = 1, PANNEAU_COLLABORATEUR = 0
 
@@ -203,7 +204,15 @@ export default class ListePieces extends Component {
                                                 <br />
                                                 <br />
                                                 <span className="illustration" style={{ textAlign: 'center' }}>
-                                                    <div role="img" aria-label="" className="medium-500" style={{ fontSize: "3rem" }}>👀</div>
+                                                    <div>
+                                                        <img
+                                                            style={{ fontSize: "3rem" }}
+                                                            aria-label=""
+                                                            className={"yeux"}
+                                                            src={Yeux}
+                                                            alt={"Yeux"}
+                                                        />
+                                                    </div>
                                                     <div className="ui fifteen wide column">
                                                         <br />
                                                         <div className="medium-500">{t('flot.split.tableaudebord.vide.preambule')}</div>

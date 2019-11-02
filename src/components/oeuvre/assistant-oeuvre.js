@@ -52,7 +52,7 @@ class AssistantOeuvre extends Component {
                 .then(res=>{                    
                     if(res.data.Item) {
                         let media = res.data.Item
-                        this.setState({media: media}, ()=>this.fetchApiRightHolders())
+                        this.setState({ media: media }, ()=>this.fetchApiRightHolders())
                         this.setState({ user: response })
                     }
                 })
@@ -291,8 +291,7 @@ class AssistantOeuvre extends Component {
                                             </Wizard.Page>
                                         </Wizard>
                                         <ModalFin
-                                            songTitle={this.state.title}
-                                            titre={ this.state.title }
+                                            titre={ this.state.media.title }
                                             open={ this.state.endModalOpen }
                                             onClose={ () => this.setState({ endModalOpen: false }) }
                                         />
