@@ -25,6 +25,11 @@ export default class TableEnregistrement extends React.Component {
         },
 
         {
+            label: 'Release',
+            value: (<><span>Album</span>, <span>EP</span></>)
+        },
+
+        {
             label: 'Réalisateur',
             value: (<span>Carl Bastien</span>)
         },
