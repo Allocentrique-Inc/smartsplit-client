@@ -52,7 +52,7 @@ class AssistantOeuvre extends Component {
                 .then(res=>{                    
                     if(res.data.Item) {
                         let media = res.data.Item
-                        this.setState({media: media}, ()=>this.fetchApiRightHolders())
+                        this.setState({ media: media }, ()=>this.fetchApiRightHolders())
                         this.setState({ user: response })
                     }
                 })
@@ -154,35 +154,35 @@ class AssistantOeuvre extends Component {
 
             valeurs = {
                 mediaId: this.state.mediaId,
-                title: _m.title.trim(),
-                album: _m.album.trim(),
-                artist: _m.artist.trim(),
-                cover: _m.cover.trim(),
+                title: _m.title ? _m.title.trim() : "",
+                album: _m.album ? _m.album.trim() : "",
+                artist: _m.artist ? _m.artist.trim() : "",
+                cover: _m.cover ? _m.cover : false,
                 rightHolders: _m.rightHolders ? _m.rightHolders : [],
-                jurisdiction: _m.jurisdiction.trim(),
+                jurisdiction: _m.jurisdiction ? _m.jurisdiction.trim() : "",
                 lyrics: lyrics,
-                isrc: _m.isrc.trim(),
-                iswc: _m.iswc.trim(),
-                upc: _m.upc.trim(),
-                msDuration: _m.msDuration.trim(),
-                bpm: _m.bpm.trim(),
-                influence: _m.influence.trim(),
-                genre: _m.genre.trim(),
-                secondaryGenres: _m.secondaryGenres,
+                isrc: _m.isrc ? _m.isrc.trim() : "",
+                iswc: _m.iswc ? _m.iswc.trim() : "",
+                upc: _m.upc ? _m.upc.trim() : "",
+                msDuration: _m.msDuration ? _m.msDuration.trim() : "",
+                bpm: _m.bpm ? _m.bpm.trim() : "",
+                influence: _m.influence ? _m.influence.trim() : "",
+                genre: _m.genre ? _m.genre.trim() : "",
+                secondaryGenres: _m.secondaryGenres || [],
                 socialMediaLinks: _m.socialMediaLinks || [],
                 streamingServiceLinks: _m.streamingServiceLinks || [],
                 pressArticleLinks: _m.pressArticleLinks || [],
                 playlistLinks: _m.playlistLinks || [],
-                creationDate: moment(_m.creationDate).locale('fr').format("L"),
-                modificationDate: _m.modificationDate.trim(),
-                publishDate: _m.publishDate.trim(),
-                publisher: _m.publisher.trim(),
-                studio: _m.studio.trim(),
-                studioAddress: _m.studioAddress.trim(),
-                label: _m.label.trim(),
-                labelAddress: _m.labelAddress.trim(),
-                distributor: _m.distributor.trim(),
-                distributorAddress: _m.distributorAddress.trim(),                
+                creationDate: _m.creationDate ? moment(_m.creationDate).locale('fr').format("L") : moment().locale('fr').format("L"),
+                modificationDate: _m.modificationDate ? _m.modificationDate.trim() : "",
+                publishDate: _m.publishDate ? _m.publishDate.trim() : "",
+                publisher: _m.publisher ? _m.publisher.trim() : "",
+                studio: _m.studio ? _m.studio.trim() : "",
+                studioAddress: _m.studioAddress ? _m.studioAddress.trim() : "",
+                label: _m.label ? _m.label.trim() : "",
+                labelAddress: _m.labelAddress ? _m.labelAddress.trim() : "",
+                distributor: _m.distributor ? _m.distributor.trim() : "",
+                distributorAddress: _m.distributorAddress ? _m.distributorAddress.trim() : "",                
                 files: _m.files
             } 
         }
@@ -204,15 +204,24 @@ class AssistantOeuvre extends Component {
         axios.post('http://dev.api.smartsplit.org:8080/v1/media', values)
         .then((response) => {
             actions.setSubmitting(false)
-            window.location.href="/"
+            this.setState({endModalOpen: true})
         })
         .catch((error) => {
             console.log(error)
         })
     }
 
+    boutonsCouleurPochette() {
+        console.log(document.getElementsByClassName("ui right floated button"))
+        let boutons = document.getElementsByClassName("ui right floated button")
+        for(var i = 0; i<boutons.length; i++) {
+            boutons[i].style.backgroundColor = "#F2724A"
+        }        
+    }
+
     render() {
         if (this.state.user) {
+
             return (
                 <Translation>
                     {
@@ -291,15 +300,19 @@ class AssistantOeuvre extends Component {
                                             </Wizard.Page>
                                         </Wizard>
                                         <ModalFin
-                                            songTitle={this.state.title}
-                                            titre={ this.state.title }
+                                            titre={ this.state.media.title }
                                             open={ this.state.endModalOpen }
                                             onClose={ () => this.setState({ endModalOpen: false }) }
+                                            pochette={ this.props.pochette }
                                         />
                                     </>
                                     )
                                 }                                
-                                
+                                {                                    
+                                    this.props.pochette &&
+                                    (document.getElementsByClassName("ui right floated button").length > 0) &&
+                                    (this.boutonsCouleurPochette())
+                                }
                             </>
                     }
                 </Translation>

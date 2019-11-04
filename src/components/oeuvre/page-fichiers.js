@@ -73,8 +73,8 @@ export default class PageFichiers extends React.Component {
                 undertext={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre8-etape2"
                 )}
-                file={this.props.values.files.cover.file}
-                access={this.props.values.files.cover.access || "public"}
+                file={this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.file}
+                access={(this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.access) || "public"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.cover.file", value)
                 }
@@ -104,7 +104,7 @@ export default class PageFichiers extends React.Component {
                 undertext={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre9-etape2"
                 )}
-                access={this.props.values.files.audio.access || "on-invite"}
+                access={(this.props.values.files && this.props.values.files.audio && this.props.values.files.audio.access) || "on-invite"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.audio.file", value)
                 }
@@ -131,7 +131,7 @@ export default class PageFichiers extends React.Component {
                 undertext={t(
                   "flot.split.documente-ton-oeuvre.documenter.autre-etape2"
                 )} //Mette ça en toolkit
-                access={this.props.values.files.score.access || "on-invite"}
+                access={(this.props.values.files && this.props.values.files.score && this.props.values.files.score.access) || "on-invite"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.score.file", value)
                 }
@@ -148,7 +148,7 @@ export default class PageFichiers extends React.Component {
                         ? "https://en.wikipedia.org/wiki/Graphic_notation_(music)"
                         : "https://fr.wikipedia.org/wiki/Partition_graphique")
                     }
-                    style={{ color: "#2DA84F" }}
+                    style={{ color: this.props.pochette ? "#F2724A": "#2DA84F" }}
                   >
                     {t("flot.split.documente-ton-oeuvre.documenter.autre-plus")}
                   </a>
@@ -158,13 +158,14 @@ export default class PageFichiers extends React.Component {
               />
 
               <ChampTeleversement
+                extraStyle={{marginTop: "70px"}}
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.autre-etape3"
                 )}
                 undertext={t(
                   "flot.split.documente-ton-oeuvre.documenter.autre-etape4"
                 )}
-                access={this.props.values.files.midi.access || "on-invite"}
+                access={(this.props.values.files && this.props.values.files.midi && this.props.values.files.midi.access) || "on-invite"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.midi.file", value)
                 }

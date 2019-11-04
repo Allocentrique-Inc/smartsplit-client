@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
+
+.sousTitre {
+    margin-left: "auto";
+}
+
+label.nouvelAuteur {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "IBM Plex Sans";
+} 
+
+.codeiswc::placeholder,
+.nouvelleDate::placeholder {
+    height: 50px;
+}
+.nouvelleDate::placeholder {
+    color: #8da0b3;
+}
+
+
+

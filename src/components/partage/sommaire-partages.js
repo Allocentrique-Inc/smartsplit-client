@@ -76,13 +76,13 @@ export default class SommairePartages extends Component {
             .then(res => {
                 this.setState({ media: res.data.Item }, () => {
                     axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
-                        .then(res => {
+                        .then(_res => {
                             axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
                                 .then(_rAd => {
                                     this.setState({ ayantDroit: _rAd.data.Item }, () => {
-                                        this.setState({ propositions: res.data })
-                                        this.setState({ activeIndex: res.data.length - 1 })
-                                        let _ps = res.data
+                                        this.setState({ propositions: _res.data })
+                                        this.setState({ activeIndex: _res.data.length - 1 })
+                                        let _ps = _res.data
                                         _ps.forEach(p => {
                                             if (p.etat === 'ACCEPTE') {
                                                 axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${p.uuid}/${this.state.user.username}`)
@@ -328,20 +328,11 @@ export default class SommairePartages extends Component {
                                                             this.openModal()
                                                         }} className={`ui medium button sommaire`}
 
-                                                            style={{
-                                                                width: "90%",
-                                                                position: "relative",
-                                                                marginTop: "150px",
-                                                                right: "50px"
-                                                            }}>
+                                                       >
 
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                         </div>
-                                                        <div style={{
-                                                            fontFamily: "IBM Plex Sans",
-                                                            fontSize: "16px",
-                                                            marginLeft: "10px"
-                                                        }}>
+                                                        <div>
                                                             <Modal
                                                                 open={this.state.modaleCourriels}
                                                                 onClose={this.closeModal}

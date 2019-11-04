@@ -24,7 +24,7 @@
     "apercu-sen-vient": "Your preview is shown here"
   },
   "collaborateur": {
-    "titre": "[Add/Modify] a collaborator",
+    "titre": "Add a collaborator",
     "titre2": "Add as a collaborator:",
     "attribut": {
       "placeholder": {
@@ -50,7 +50,7 @@
       "etiquette": {
         "titre": "Title:",
         "album": "Album:",
-        "piecePar": "{{titre}}, by",
+        "piecePar": "{{titre}}, by...",
         "arrangementPar": "{{titre}}, remixed by",
         "reprise": "This work is a cover",
         "instrumental": "This work is instrumental",
@@ -62,10 +62,11 @@
         "ajouter-genre": "Add a genre",
         "paroles": "Lyrics",
         "langueParoles": "Lyric's languages",
-        "isrc": "ISRC number:",
+        "isrc": "ISRC Code  ",
+        "isrc-placeholder": "CAA509711403",
         "upc": "UPC number",
         "dureeMs": "Duration (milliseconds)",
-        "vedette": "Add a featuring artist or group",
+        "vedette": "Add a featuring artist",
         "liensSociaux": "Social links",
         "liensServices": "Streaming links",
         "liensPresse": "Press links",
@@ -90,7 +91,7 @@
         "genre2": "Select the secondary work genra",
         "paroles": "Type in the lyrics",
         "langueParoles": "Select one or more lyrics language",
-        "isrc": "Recording unique identified",
+        "isrc": "The International Standard Recording Code (ISRC) allows the identification of audio recordings (tracks).",
         "upc": "Product unique identifier",
         "dureeMs": "Type in the duration (in milliseconds)",
         "liensSociaux": "URL for social link",
@@ -211,7 +212,7 @@
         "apercu": "Preview",
         "oeil-ouvert": "Keep your eyes opened",
         "apercu-sen-vient": "Your preview will be shown here",
-        "creer": "Create a new track"
+        "creer": "Create a track"
       },
       "collaborateur": {
         "titre": "Add a collaborating artist",
@@ -261,7 +262,7 @@
         "login": "Connecte-toi pour accéder"
       },
       "documente-ton-oeuvre": {
-        "titre": "Split your Rights",
+        "titre": "Document",
         "preambule": "Hi! We will help you describe your work.",
         "composant": {
           "televersement": {
@@ -303,21 +304,21 @@
             "langueParole": "Language",
             "lien": "Streaming Links"
           },
-          "titre1": "Who participated in the creation of",
+          "titre1": "Who participated in the creation of “{{titre}}?”",
           "titre1-description": "That's where you mention who contributed to the creation of this piece.",
           "date-creation": "Creation Date",
           "date-placeholder": "Add a date",
-          "auteur": "Authors",
+          "auteur": "Authors  ",
           "collabo": "Create a new controbutor",
           "auteur-description": "Who wrote the lyrics of this musical piece?",
           "auteur-placeholder": "Add an Author",
-          "compositeur": "Composers",
+          "compositeur": "Composers  ",
           "compositeur-description": "Who composed the music of this piece?",
           "compositeur-placeholder": "Add a Composer",
-          "editeur": "Editors",
+          "editeur": "Editors  ",
           "editeur-description": "Who represents these authors and/or composers?",
           "editeur-placeholder": "Add an editor",
-          "codeiswc": "ISWC Code",
+          "codeiswc": "ISWC Code  ",
           "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
           "codeiswc-placeholder": "T-012345678-1",
           "titre2": "Who played the musical piece on this sound recording?",
@@ -331,39 +332,39 @@
             "question2-choix-a": "Singer",
             "question2-choix-b": "Musician"
           },
-          "titre3": "Who recorded the musical piece?",
+          "titre3": "Who recorded “{{titre}}?”",
           "titre3-description": "Here you mention who contributed to the sound recording of this piece.",
-          "realisation": "Sound Production",
+          "realisation": "Sound Production  ",
           "realisation-description": "The Sound Producer creates the sound environement of the music track.",
           "realisation-placeholder": "Add a Sound Producer",
-          "son": "Sound Recording",
+          "son": "Sound Recording  ",
           "son-description": "Who's the Recording Engineer on your music track?",
           "son-placeholder": "Add an Engineer",
-          "mix": "Mix",
+          "mix": "Mix  ",
           "mix-description": "This is the step of volume and frequency adjustment.",
           "mix-placeholder": "Add an Engineer",
-          "master": "Mastering",
+          "master": "Mastering  ",
           "master-description": "This is the step of compression and overall equalization of the song.",
           "master-placeholder": "Add an Engineer",
-          "studio": "Recording Studio",
+          "studio": "Recording Studio  ",
           "studio-description": "The place(s) where the song was recorded.",
           "studio-placeholder": "Search for a recording studio",
           "studio-adresse": "Address of the recording studio",
-          "production": "Executive Producer",
+          "production": "Executive Producer  ",
           "production-description": "The person or compagny that invest time or money to make sound recording possible.",
           "production-placeholder": "Add a Producer",
-          "etiquette": "Label",
+          "etiquette": "Label  ",
           "etiquette-description": "That's the organisation that handles the marketing of your track.",
           "etiquette-placeholder": "Add a label",
           "etiquette-adresse": "Address of the label",
-          "distribution": "Distributor",
+          "distribution": "Distributor  ",
           "distribution-description": "That's the organisation that delivers your music track to streaming and downloading stores.",
           "distribution-placeholder": "Add a Distributor",
           "distribution-adresse": "Address of the Distributor",
-          "codeupc": "UPC/EAN Code",
+          "codeupc": "UPC/EAN Code  ",
           "codeupc-description": "A UPC (Universal Product Code) or EAN (International Article Number) is a unique code used to identify a digital product.",
           "codeupc-placeholder": "Enter the code (optional)",
-          "date": "Release date of the musical piece (if applicable)",
+          "date": "Release date of the musical piece (if applicable)  ",
           "date-description": "The moment when the piece is launched on platforms.",
           "date-choix": {
             "avenir": "Coming Up",
@@ -541,21 +542,21 @@
       "tableaudebord": {
         "bonjour": "Here is the Smartsplit dashboard.",
         "navigation": {
-          "0": "My musical works",
+          "0": "My work",
           "1": "My public profile",
           "2": "My collaborators"
         },
         "pieces": {
           "0": "My Additions",
           "1": "Shared With Me",
-          "par": "by",
+          "par": "by...",
           "partageAvec": "shared with",
-          "ajouter": "Add a musical work"
+          "ajouter": "Add"
         },
         "vide": {
           "preambule": "Your works will appear here",
           "indication": "Document and share the rights of your first musical work by clicking on the ",
-          "indication-lien": "“Add a work”."
+          "indication-lien": "“Add”."
         }
       },
       "roles": {
@@ -579,13 +580,13 @@
           "guillemet2": "”"
         },
         "auteur": {
-          "titre": "Who invented "
+          "titre": "Who invented “{{titre}}”?"
         },
         "interprete": {
-          "titre": "Who played on "
+          "titre": "Who played on “{{titre}}”?"
         },
         "enregistrement": {
-          "titre": "Who owns the master for "
+          "titre": "Who owns the master for “{{titre}}”?"
         },
         "editeur": {
           "titre": "What's your publisher's name ?",
@@ -607,7 +608,7 @@
       "vote": {
         "accept": "Approved",
         "reject": "Rejected",
-        "active": "Waiting for a decision",
+        "active": "Waiting",
         "accepter": "ACCEPT",
         "refuser": "REJECT"
       },

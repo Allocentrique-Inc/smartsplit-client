@@ -6,7 +6,7 @@ import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg";
 import ModifyUser from "../auth/ModifyUser";
 import "../../assets/scss/page-assistant/champ.scss";
 import TitreChamp from "./titre-champ";
-import { withTranslation } from "react-i18next";
+import { Translation } from "react-i18next";
 
 class ChampSelectionMultipleAyantDroit extends Component {
   constructor(props) {
@@ -50,8 +50,8 @@ class ChampSelectionMultipleAyantDroit extends Component {
       : this.plusCircleLabel(this.props.placeholder);
   }
 
-  additionLabel() {
-    return this.plusCircleLabel(this.props.t("collaborateur.titre2"));
+  additionLabel(t) {
+    return this.plusCircleLabel(t("collaborateur.titre2"));
   }
 
   selectedItems() {
@@ -129,52 +129,59 @@ class ChampSelectionMultipleAyantDroit extends Component {
 
   render() {
     return (
-      <>
-        <div className="champ with-trigger-icon">
-          <label>
-            <TitreChamp
-              label={this.props.label}
-              description={this.props.description}
-            />
+      <Translation>
+        {
+          t =>
+            <>
+              <div className="champ with-trigger-icon">
+                <label>
+                  <TitreChamp
+                    label={this.props.label}
+                    info={this.props.info}//Fait passer info dans les TitreChamp
+                    description={this.props.description}
+                  />
 
-            {this.renderSelectedItems()}
+                  {this.renderSelectedItems()}
 
-            <Dropdown
-              trigger={this.triggerLabel()}
-              fluid
-              search
-              selection
-              selectOnBlur={false}
-              selectOnNavigation={false}
-              allowAdditions
-              additionLabel={this.additionLabel()}
-              value={this.state.dropdownValue}
-              options={this.unselectedItems()}
-              onBlur={this.handleBlur}
-              onChange={this.handleChange}
-              onAddItem={this.handleAddItem}
-              onSearchChange={this.handleSearchChange}
-            />
-          </label>
-        </div>
+                  <Dropdown
+                    trigger={this.triggerLabel()}
+                    fluid
+                    search
+                    selection
+                    selectOnBlur={false}
+                    selectOnNavigation={false}
+                    allowAdditions
+                    additionLabel={this.additionLabel(t)}
+                    value={this.state.dropdownValue}
+                    options={this.unselectedItems()}
+                    onBlur={this.handleBlur}
+                    onChange={this.handleChange}
+                    onAddItem={this.handleAddItem}
+                    onSearchChange={this.handleSearchChange}
+                  />
+                </label>
+              </div>
 
-        <ModifyUser
-          open={this.state.modalOpen}
-          firstName={this.state.modalFirstName}
-          close={() =>
-            this.setState({ modalOpen: false, modalFirstName: "" })
-          }
-          fn={
-            (e)=>{
-              let values = this.state.selectedValues
-              values.push(e)
-              this.setState({selectedValues: values})
-            }
-          }
-        />
-      </>
+              <ModifyUser
+                open={this.state.modalOpen}
+                pochette={this.props.pochette}
+                firstName={this.state.modalFirstName}
+                close={() =>
+                  this.setState({ modalOpen: false, modalFirstName: "" })
+                }
+                fn={
+                  (e) => {
+                    let values = this.state.selectedValues
+                    values.push(e)
+                    this.setState({ selectedValues: values })
+                  }
+                }
+              />
+            </>
+        }
+      </Translation>
     );
   }
 }
 
-export default withTranslation()(ChampSelectionMultipleAyantDroit);
+export default ChampSelectionMultipleAyantDroit

@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 // Composantes
 import Entete from '../entete/entete'
 import SommairePartage from '../partage/partage-sommaire'
+import { Auth } from 'aws-amplify'
 
 class VotationSplit extends Component {
 
@@ -28,39 +29,44 @@ class VotationSplit extends Component {
         // Décoder le jeton        
         let body = { jeton: this.state.jetonApi }
         axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/decode', body)
-            .then((resp) => {
-                let _s = resp.data
-                this.setState({ jeton: _s })
-                // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${_s.rightHolderId}`)
-                    .then(res => {
-                        let _rH = res.data.Item
-                        this.setState({ ayantDroit: _rH })
-                        // Récupère la proposition       
-                        axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
-                            .then(_r => {
-                                this.setState({ proposition: _r.data.Item })
-                                // Récupère le média
-                                axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${_r.data.Item.mediaId}`)
-                                    .then(_rMedia => {
-                                        this.setState({ media: _rMedia.data.Item })
-                                    })
-                                    .catch((error) => {
-                                        toast.error(error.message)
-                                    })
-                            })
-                            .catch((error) => {
-                                toast.error(error.message)
-                            })
-                    })
-                    .catch((error) => {
-                        toast.error(error.message)
-                    })
-            })
-            .catch((error) => {
-                toast.error(error)
+        .then((resp) => {
+            let _s = resp.data
+            this.setState({ jeton: _s })
+            // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${_s.rightHolderId}`)
+                .then(res => {
+                    let _rH = res.data.Item
+                    this.setState({ ayantDroit: _rH })
+                    // Récupère la proposition       
+                    axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
+                        .then(_r => {
+                            this.setState({ proposition: _r.data.Item })
+                            // Récupère le média
+                            axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${_r.data.Item.mediaId}`)
+                                .then(_rMedia => {
+                                    this.setState({ media: _rMedia.data.Item })
+                                })
+                                .catch((error) => {
+                                    toast.error(error.message)
+                                })
+                        })
+                        .catch((error) => {
+                            toast.error(error.message)
+                        })
+                })
+                .catch((error) => {
+                    toast.error(error.message)
+                })
+        })
+        .catch((error) => {
+            toast.error(error)
 
-            })
+        })
+
+        Auth.currentAuthenticatedUser()
+        .then(res=>{
+            this.setState({user: res})
+        })
     }
 
     render() {
@@ -70,7 +76,7 @@ class VotationSplit extends Component {
                 <Translation>
                     {
                         t =>
-                            <div className="ui ten wide column">
+                            <div className="ui six wide column">
                                 <i className="file image outline icon huge grey"></i>
                                 {this.state.media && (<span style={{ marginLeft: "15px" }} className="medium-400">{this.state.media.title}</span>)}
                                 <span className="heading4" style={{ marginLeft: "50px" }}>{t('flot.split.documente-ton-oeuvre.partage.auteur.titre')}</span>
@@ -86,7 +92,7 @@ class VotationSplit extends Component {
                             <div className="ui segment">
                                 <div className="ui grid" style={{ padding: "10px" }}>
                                     <div className="ui row">
-                                        <Entete contenu={contenu} sansconnexion={true} />
+                                        <Entete contenu={contenu} profil={this.state.user} />
                                     </div>
                                     <div className="ui row">
                                         <div className="ui one wide column" />

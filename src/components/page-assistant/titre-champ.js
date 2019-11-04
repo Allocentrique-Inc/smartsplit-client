@@ -5,8 +5,9 @@ export default function TitreChamp(props) {
     return props.label || props.description ?
         (
             <div className="input-title">
-                { inputLabel(props) }
-                { inputDescription(props) }
+                {inputLabel(props)}
+                {inputDescription(props)}
+                {props.info} {/*Indique que tous les champs auront propriété info, composantes remontent à cette source*/}
             </div>
         ) :
         (<></>);
@@ -14,12 +15,12 @@ export default function TitreChamp(props) {
 
 function inputLabel(props) {
     return props.label ?
-        (<div className="input-label">{ props.label }</div>) :
+        (<div className="input-label" style={{ display: "inline" }}>{props.label}</div>) :
         (<></>);
 }
 
 function inputDescription(props) {
     return props.description ?
-        (<p className="input-description">{ props.description }</p>) :
+        (<p className="input-description">{props.description}</p>) :
         (<></>);
 }

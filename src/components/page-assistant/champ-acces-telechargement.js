@@ -7,6 +7,7 @@ import OptionAcces from "./option-acces"
 import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg"
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg"
 import { Translation } from "react-i18next"
+import "../formulaires.css";
 
 export default class ChampAccesTelechargement extends React.Component {
 
@@ -96,9 +97,8 @@ export default class ChampAccesTelechargement extends React.Component {
               <TitreChamp
                 label={t("flot.split.documente-ton-oeuvre.documenter.acces")}
               />
-
               <Dropdown
-                style={{ width: "100px" }}
+                style={{ width: "85px" }}
                 trigger={this.trigger()}
                 fluid
                 selection
@@ -108,6 +108,7 @@ export default class ChampAccesTelechargement extends React.Component {
               />
             </label>
           </div>
+
         )}
       </Translation>
     );

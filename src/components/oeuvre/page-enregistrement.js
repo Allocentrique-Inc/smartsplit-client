@@ -18,6 +18,7 @@ import {
 } from "../page-assistant/right-holder-helpers";
 import * as roles from "../../assets/listes/role-uuids.json";
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import InfoBulle from '../partage/InfoBulle'
 
 export default class PageEnregistrement extends React.Component {
   constructor(props) {
@@ -130,12 +131,15 @@ export default class PageEnregistrement extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.entete.enregistrement"
                 )}
                 question={
-                  t("flot.split.documente-ton-oeuvre.documenter.titre3") +
+                  t("flot.split.documente-ton-oeuvre.documenter.titre3",
+                    { titre: this.props.values.title })
+                  /*
+                  +
                   t('flot.split.partage.guillemets.guillemet1') +
                   this.props.values.title +
                   t('flot.split.partage.guillemets.guillemet2')
                   +
-                  "?"
+                  "?"*/
                 }
                 description={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre3-description"
@@ -154,12 +158,7 @@ export default class PageEnregistrement extends React.Component {
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.realisation"
                 )}
-                createLabel={t(
-                  "flot.split.documente-ton-oeuvre.documenter.collabo"
-                )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.realisation-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.realisation-description")} />}// -> ChampSelectionMultipleAyantDroit -> TitreChamp
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.realisation-placeholder"
                 )}
@@ -171,12 +170,7 @@ export default class PageEnregistrement extends React.Component {
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
                 label={t("flot.split.documente-ton-oeuvre.documenter.son")}
-                createLabel={t(
-                  "flot.split.documente-ton-oeuvre.documenter.collabo"
-                )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.son-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.son-description")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.son-placeholder"
                 )}
@@ -188,12 +182,7 @@ export default class PageEnregistrement extends React.Component {
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
                 label={t("flot.split.documente-ton-oeuvre.documenter.mix")}
-                createLabel={t(
-                  "flot.split.documente-ton-oeuvre.documenter.collabo"
-                )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.mix-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.mix-description")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.mix-placeholder"
                 )}
@@ -205,12 +194,7 @@ export default class PageEnregistrement extends React.Component {
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
                 label={t("flot.split.documente-ton-oeuvre.documenter.master")}
-                createLabel={t(
-                  "flot.split.documente-ton-oeuvre.documenter.collabo"
-                )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.master-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.master-description")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.master-placeholder"
                 )}
@@ -221,9 +205,7 @@ export default class PageEnregistrement extends React.Component {
               <ChampTexte
                 pochette={this.props.pochette}
                 label={t("flot.split.documente-ton-oeuvre.documenter.studio")}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.studio-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.studio-description")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.studio-placeholder"
                 )}
@@ -248,12 +230,7 @@ export default class PageEnregistrement extends React.Component {
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.production"
                 )}
-                createLabel={t(
-                  "flot.split.documente-ton-oeuvre.documenter.collabo"
-                )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.production-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.production-description")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.production-placeholder"
                 )}
@@ -262,12 +239,10 @@ export default class PageEnregistrement extends React.Component {
               />
 
               <ChampTexte
-                label={t("flot.split.documente-ton-oeuvre.documenter.codeiswc")}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.codeiswc-description"
-                )}
+                label={t("oeuvre.attribut.etiquette.isrc")}
+                info={<InfoBulle text={t('oeuvre.attribut.indication.isrc')} />}
                 placeholder={t(
-                  "flot.split.documente-ton-oeuvre.documenter.codeiswc-placeholder"
+                  "oeuvre.attribut.indication.isrc-placeholder"
                 )}
                 value={this.props.values.isrc}
                 onChange={value => this.props.setFieldValue("isrc", value)}
@@ -283,9 +258,7 @@ export default class PageEnregistrement extends React.Component {
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.etiquette"
                 )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.etiquette-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.etiquette-description")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.etiquette-placeholder"
                 )}
@@ -309,9 +282,7 @@ export default class PageEnregistrement extends React.Component {
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.distribution"
                 )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.distribution-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.distribution-description")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.distribution-placeholder"
                 )}
@@ -341,9 +312,7 @@ export default class PageEnregistrement extends React.Component {
 
               <ChampTexte
                 label={t("flot.split.documente-ton-oeuvre.documenter.codeupc")}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.codeupc-description"
-                )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.codeupc-description")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.codeupc-placeholder"
                 )}

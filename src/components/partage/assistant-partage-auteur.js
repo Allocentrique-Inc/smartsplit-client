@@ -16,6 +16,8 @@ import { FieldArray } from "formik"
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
+import Lock from "./Lock"
+
 const MODES = { egal: "0", role: "1", manuel: "2" }
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -180,8 +182,8 @@ class PageAssistantPartageAuteur extends Component {
 
         if (nbModifications > 0) {
             deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
-        }
-
+        }        
+        
         droits.forEach((elem, idx) => {
             if (!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
@@ -221,6 +223,27 @@ class PageAssistantPartageAuteur extends Component {
         if (nbModifications > 0) {
             deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
         }
+
+        // Détection des limites pour ne pas dépasser 0
+        droits.forEach((elem, idx) => {
+            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
+            //console.log(elem.pourcent, _pred, deltaParCollaborateurVariable)
+            if(!invariable[idx] && _pred <= 0) {
+                let reste = parseFloat(droits[idx].pourcent) + _pred
+            
+                // Mettre à zéro
+                invariable[idx] = true
+                droits[idx].pourcent = 0
+                droits[idx].pourcentParoles = 0
+                droits[idx].pourcentMusique = 0
+
+                // Recalculer avec le reste réparti
+                let nbModifications = droits.length - Object.keys(invariable).length
+                if (nbModifications > 0) {
+                    deltaParCollaborateurVariable = parseFloat(deltaParCollaborateurVariable) - parseFloat(reste / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+                }
+            }
+        })
 
         droits.forEach((elem, idx) => {
             if (!invariable[idx]) { // Ajustement si l'index est variable
@@ -327,7 +350,11 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     render() {
-        let visualisation
+        function StyleInput(props) {
+            return <input style={props.style} />
+        }
+
+        let visualisation        
         if (this.state.parts.length > 0) {
 
             switch (this.state.mode) {
@@ -408,9 +435,7 @@ class PageAssistantPartageAuteur extends Component {
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {/*{t('flot.split.partage.auteur.titre', { oeuvre: this.state.song })}*/}
-                                                {t('flot.split.partage.auteur.titre')}
-                                                {t('flot.split.partage.guillemets.guillemet1')}{this.state.song}{t('flot.split.partage.guillemets.guillemet2')}?
+                                                {t('flot.split.partage.auteur.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
                                             {descriptif}
@@ -549,53 +574,71 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                 </div>
                                                                                                 {
                                                                                                     this.state.mode === MODES.manuel && (
-                                                                                                        <>
-                                                                                                            <ChampGradateurAssistant
-                                                                                                                changement={(id, delta) => {
-                                                                                                                    this.changementGradateur(id, delta)
-                                                                                                                }}
-                                                                                                                id={`gradateur_droitAuteur_${index}`}
-                                                                                                                modele={`droitAuteur[${index}].pourcent`}
-                                                                                                                disabled={
-                                                                                                                    this.state.partsInvariables[index] ||
-                                                                                                                    this.state.mode !== MODES.manuel ||
-                                                                                                                    this.props.values.droitAuteur.length <= 1 ||
-                                                                                                                    (
-                                                                                                                        1 ===
-                                                                                                                        (this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)
-                                                                                                                    )
-                                                                                                                }
-                                                                                                            />
-                                                                                                            <i className={`lock ${!(this.state.partsInvariables[index] || this.props.values.droitAuteur.length <= 1) ? 'open' : ''} icon golden`}
-                                                                                                                onClick={() => {
-                                                                                                                    this.basculerVariable(index)
-                                                                                                                }}>
-                                                                                                            </i>
-                                                                                                            <ChampTexteAssistant
-                                                                                                                id={`texte_${index}`}
-                                                                                                                changement={(id, valeur) => {
-                                                                                                                    this.changementTexte(id, valeur)
-                                                                                                                }}
-                                                                                                                modele={`droitAuteur[${index}].pourcent`}
-                                                                                                                disabled={(
-                                                                                                                    this.props.values.droitAuteur.length <= 1) ||
-                                                                                                                    this.state.partsInvariables[index] ||
-                                                                                                                    (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
-                                                                                                                valeur={this.props.values.droitAuteur[index].pourcent} />
-                                                                                                        </>
+                                                                                                        <span className="pourcentage-wrapper">
+                                                                                                            <div className="ui grid">
+                                                                                                                <div className="ui row">
+                                                                                                                    <div  onClick={()=>this.basculerVariable(index)} className="ui one wide column">
+                                                                                                                        <Lock actif={this.state.partsInvariables[index]} />
+                                                                                                                    </div>
+                                                                                                                    <div className="ui ten wide column">
+                                                                                                                        <ChampGradateurAssistant
+                                                                                                                            changement={(id, delta) => {
+                                                                                                                                this.changementGradateur(id, delta)
+                                                                                                                            }}
+                                                                                                                            id={`gradateur_droitAuteur_${index}`}
+                                                                                                                            modele={`droitAuteur[${index}].pourcent`}
+                                                                                                                            disabled={
+                                                                                                                                this.state.partsInvariables[index] ||
+                                                                                                                                this.state.mode !== MODES.manuel ||
+                                                                                                                                this.props.values.droitAuteur.length <= 1 ||
+                                                                                                                                (
+                                                                                                                                    1 ===
+                                                                                                                                    (this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)
+                                                                                                                                )
+                                                                                                                            }
+                                                                                                                        />
+                                                                                                                    </div>
+
+                                                                                                                    <div className="ui four wide column">
+                                                                                                                        <ChampTexteAssistant                                                                                                                                                                                                                                                     
+                                                                                                                            id={`texte_${index}`}
+                                                                                                                            changement={(id, valeur) => {                                                                                                                                
+                                                                                                                                this.changementTexte(id, valeur)
+                                                                                                                            }}
+                                                                                                                            modele={`droitAuteur[${index}].pourcent`}
+                                                                                                                            disabled={(
+                                                                                                                                this.props.values.droitAuteur.length <= 1) ||
+                                                                                                                                this.state.partsInvariables[index] ||
+                                                                                                                                (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
+                                                                                                                            valeur={`${this.props.values.droitAuteur[index].pourcent}`}
+                                                                                                                        />
+                                                                                                                        {
+                                                                                                                            document.getElementsByName("droitAuteur["+index+"].pourcent").forEach((e, idx)=>{
+                                                                                                                                if(e.type==="text") {
+                                                                                                                                    e.style.backgroundColor = "#faf8f9"
+                                                                                                                                    e.style.border = "none"
+                                                                                                                                    e.style.paddingBottom = "12px"
+                                                                                                                                }
+                                                                                                                            })
+                                                                                                                        }
+                                                                                                                    </div>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </span>
                                                                                                     )
                                                                                                 }
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                                <div className="blank-text">A</div>
                                                                             </div>
                                                                         )
                                                                     })
                                                                 }
                                                                 <br></br>
                                                                 <br></br>
-                                                                <div style={{ margin: "0 auto" }}>
+                                                                <div style={{ margin: "0 auto", height: "100px" }}>
                                                                     <div className="ui grid">
                                                                         <div className="ui row">
                                                                             <div className="ui ten wide column">
@@ -605,7 +648,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                                     modele="collaborateur"
                                                                                     autoFocus={false}
-                                                                                    requis={false}
+                                                                                    requis={this.props.values.droitAuteur.length === 0}
                                                                                     fluid={true}
                                                                                     multiple={false}
                                                                                     recherche={true}
@@ -613,7 +656,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitAuteur}
                                                                                     fnSelect={
-                                                                                        ()=>{
+                                                                                        () => {                                                                                            
                                                                                             this.ajouterCollaborateur(arrayHelpers)
                                                                                         }
                                                                                     }
@@ -697,7 +740,7 @@ class PageAssistantPartageAuteur extends Component {
 
                                                                                     }}
                                                                                 />
-                                                                            </div>                                                                            
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

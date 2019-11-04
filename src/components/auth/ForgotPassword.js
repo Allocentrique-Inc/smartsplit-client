@@ -84,14 +84,11 @@ class ForgotPassword extends Component {
 
   forgotPasswordHandler = (courriel) => {
     // AWS Cognito integration here    
-    console.log(courriel)
     Auth.forgotPassword(courriel)
     .then(res=>{
-      console.log(res)
     })
     .catch(error=>{
       toast.error(error.message)
-      console.log(error)
     })    
   };
 

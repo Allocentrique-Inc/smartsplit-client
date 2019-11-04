@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { withTranslation, Translation } from "react-i18next"
+import { Translation } from "react-i18next"
 
 import axios from "axios"
 
@@ -50,7 +50,6 @@ class MenuProfil extends Component {
   deconnexion() {
     Auth.signOut()
       .then(data => {
-        toast.success(this.props.t("deconnexion.reussie"));
         setTimeout(() => {
           window.location.href = "/accueil";
         }, 1000);
@@ -174,4 +173,4 @@ class MenuProfil extends Component {
   }
 }
 
-export default withTranslation()(MenuProfil);
+export default MenuProfil;

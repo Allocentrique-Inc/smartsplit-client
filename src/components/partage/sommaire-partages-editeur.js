@@ -45,7 +45,7 @@ export default class SommairePartagesEditeur extends Component {
                 axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
                 .then(res => {
                     this.setState({ activeIndex: res.data.length - 1 })
-                    this.setState({ propositions: res.data.reverse() })
+                    this.setState({ propositions: res.data })
                 })
             })
         })
@@ -109,7 +109,7 @@ export default class SommairePartagesEditeur extends Component {
                 }
             }
 
-            if(this.state.propositions.length === 0) {
+            if(this.state.propositions.length === 0 || this.state.jetonApi) {
                 nouveauDisabled = true
             }
             
@@ -127,7 +127,7 @@ export default class SommairePartagesEditeur extends Component {
                 )
             }
 
-            console.log('Bouton Nouveau inactif ?', this.state.nouveauDisabled)
+
 
             return (
                 <Translation>

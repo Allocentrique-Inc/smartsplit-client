@@ -229,9 +229,10 @@ class PageAssistantPartageInterpretation extends Component {
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
                                                 {/*{t('flot.split.partage.interprete.titre', { oeuvre: this.state.song })}*/}
-                                                {t('flot.split.partage.interprete.titre', {
+                                                {/* {t('flot.split.partage.interprete.titre', {
                                                     oeuvre: `${t('flot.split.partage.guillemets.guillemet1')}${this.state.song}${t('flot.split.partage.guillemets.guillemet2')}`
-                                                })}?
+                                                })}? */}
+                                                {t('flot.split.partage.interprete.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
                                             {descriptif}
@@ -261,11 +262,13 @@ class PageAssistantPartageInterpretation extends Component {
                                                             choix={[
                                                                 {
                                                                     nom: t('flot.split.modepartage.egal'),
-                                                                    valeur: MODES.egal
+                                                                    valeur: MODES.egal,
+                                                                    info: t('tooltip.egal')
                                                                 },
                                                                 {
                                                                     nom: t('flot.split.modepartage.roles'),
-                                                                    valeur: MODES.role
+                                                                    valeur: MODES.role,
+                                                                    info: t('tooltip.roles')
                                                                 }
                                                             ]}
                                                         />
@@ -392,7 +395,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitInterpretation}
                                                                                     fnSelect={
-                                                                                        ()=>{
+                                                                                        () => {
                                                                                             this.ajouterCollaborateur(arrayHelpers)
                                                                                         }
                                                                                     }
@@ -476,7 +479,7 @@ class PageAssistantPartageInterpretation extends Component {
 
                                                                                     }}
                                                                                 />
-                                                                            </div>                                                                            
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>

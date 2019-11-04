@@ -24,46 +24,46 @@ export class ChampCourrielAssistant extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.etiquette !== nextProps.etiquette) {
-            this.setState({etiquette: nextProps.etiquette})
+            this.setState({ etiquette: nextProps.etiquette })
         }
         if (this.props.indication !== nextProps.indication) {
-            this.setState({indication: nextProps.indication})
-        }  
+            this.setState({ indication: nextProps.indication })
+        }
         if (this.props.modele !== nextProps.modele) {
-            this.setState({modele: nextProps.modele})
-        }        
+            this.setState({ modele: nextProps.modele })
+        }
     }
 
     validerCourriel(valeur) {
         let erreur;
         if (!valeur) {
-          erreur = 'Requis';
+            erreur = 'Requis';
         } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,10}$/i.test(valeur)) {
-          erreur = 'Adresse invalide';
+            erreur = 'Adresse invalide';
         }
         return erreur;
     }
 
-    onChange (e) {
-        this.setState({modele: e.target.value})
+    onChange(e) {
+        this.setState({ modele: e.target.value })
     }
 
     render() {
 
-        return(
-            <div>      
-                {this.state.etiquette}           
-                <Input 
-                    value = {this.state.modele}
-                    placeholder = {this.state.indication}
-                    required = {this.state.requis}
-                    autoFocus = {this.state.autoFocus}
-                    type = "email" 
-                    onChange = {this.onChange}                 
-                />                
+        return (
+            <div>
+                {this.state.etiquette}
+                <Input
+                    value={this.state.modele}
+                    placeholder={this.state.indication}
+                    required={this.state.requis}
+                    autoFocus={this.state.autoFocus}
+                    type="email"
+                    onChange={this.onChange}
+                />
                 {this.props.info && (<i className="right info circle icon blue"></i>)}
             </div>
-        )        
+        )
     }
 }
 
@@ -72,6 +72,7 @@ export class ChampTexteAssistant extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            className: props.className,
             etiquette: props.etiquette,
             indication: props.indication,
             modele: props.modele,
@@ -81,6 +82,7 @@ export class ChampTexteAssistant extends Component {
             typeLien: props.typeLien,
             disabled: props.disabled,
             soustexte: props.soustexte,
+            style: props.style || {},
             valeur: props.valeur
         }
         this.valeur = props.valeur
@@ -88,76 +90,67 @@ export class ChampTexteAssistant extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.etiquette !== nextProps.etiquette) {
-            this.setState({etiquette: nextProps.etiquette})
+            this.setState({ etiquette: nextProps.etiquette })
         }
         if (this.props.indication !== nextProps.indication) {
-            this.setState({indication: nextProps.indication})
+            this.setState({ indication: nextProps.indication })
         }
         if (this.props.lien !== nextProps.lien) {
-            this.setState({estLien: nextProps.estLien})
+            this.setState({ estLien: nextProps.estLien })
         }
         if (this.props.lien !== nextProps.lien) {
-            this.setState({typeLien: nextProps.typeLien})
+            this.setState({ typeLien: nextProps.typeLien })
         }
         if (this.props.disabled !== nextProps.disabled) {
-            this.setState({disabled: nextProps.disabled})
+            this.setState({ disabled: nextProps.disabled })
         }
         if (this.props.valeur !== nextProps.valeur) {
-            this.setState({valeur: nextProps.valeur})
+            this.setState({ valeur: nextProps.valeur })
         }
         if (this.props.soustexte !== nextProps.soustexte) {
-            this.setState({soustexte: nextProps.soustexte})
+            this.setState({ soustexte: nextProps.soustexte })
+        }
+        if (this.props.style !== nextProps.style) {
+            this.setState({ style: nextProps.style })
         }
     }
 
     render() {
-
-        let classType
-
-        switch (this.state.typeLien) {
-            case "spotify":
-                classType = "spotify"
-                break;
-            case "youtube":
-                classType = "youtube"
-                break;
-            default:
-                classType = "external alternate"
-                break;
-        }
 
         let attributs = {
             label: !this.state.lien && this.state.etiquette,
             placeholder: this.state.indication,
             required: this.state.requis,
             autoFocus: this.state.autoFocus,
-            disabled: this.state.disabled
+            disabled: this.state.disabled,
+            className: this.state.className
         }
 
-        if(this.props.changement)
-            Object.assign(attributs, {onInput: e=>{
-                e.target.value = e.target.value.replace(',','.')
-                let val = parseFloat(e.target.value)
-                if(Number.isNaN(val)) {
-                    val = 0
+        if (this.props.changement)
+            Object.assign(attributs, {
+                onInput: e => {
+                    e.target.value = e.target.value.replace(',', '.')
+                    let val = parseFloat(e.target.value)
+                    if (Number.isNaN(val)) {
+                        val = 0
+                    }
+                    this.props.changement(this.props.id, parseFloat((val - this.state.valeur).toFixed(4)), e)
+                    this.setState({ valeur: val })
                 }
-                this.props.changement(this.props.id, parseFloat((val - this.state.valeur).toFixed(4)), e)
-                this.setState({valeur: val})
-            }})
+            })
 
-        return(
+        return (
             <div>
                 <Wizard.Field
                     name={this.state.modele}
                     component={FormField}
                     componentProps={attributs}
-                    validate={this.state.requis && required}
+                    validate={this.state.requis && required}                    
                 />
-                {this.state.lien && (<a href={this.state.lien} target={`lien--${classType}`}><i className={`right ${classType} icon big`}></i></a>)}
                 {this.props.info && (<i className="right info circle icon blue"></i>)}
                 {this.state.soustexte && (<p className="undertext">{this.state.soustexte}</p>)}
             </div>
-        )        
+        )
     }
 }
 
@@ -176,15 +169,15 @@ export class ChampTexteLongAssistant extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.etiquette !== nextProps.etiquette) {
-            this.setState({etiquette: nextProps.etiquette})
+            this.setState({ etiquette: nextProps.etiquette })
         }
         if (this.props.indication !== nextProps.indication) {
-            this.setState({indication: nextProps.indication})
+            this.setState({ indication: nextProps.indication })
         }
     }
 
     render() {
-        return(
+        return (
             <div>
                 <Wizard.Field
                     name={this.state.modele}
@@ -199,6 +192,6 @@ export class ChampTexteLongAssistant extends Component {
                 />
                 <i className="right info circle icon blue"></i>
             </div>
-        )        
+        )
     }
 }
