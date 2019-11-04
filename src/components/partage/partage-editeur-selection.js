@@ -127,24 +127,16 @@ class PageAssistantPartageChoixEditeur extends Component {
                             fluid={true}
                             multiple={false}
                             recherche={true}
-                            selection={false}
-                            ajout={true}                            
+                            selection={true}
+                            ajout={true}
+                            fnSelect={
+                              () => {
+                                  this.ajouterEditeur()
+                              }
+                          }
                         />                        
                       </div>
-                      <br></br>
-                      <button
-                        className="ui medium button"
-                        style={{
-                          float: "right",
-                          margin: "auto"
-                        }}
-                        onClick={e => {
-                          e.preventDefault();
-                          this.ajouterEditeur();
-                        }}
-                      >
-                        {t("flot.split.documente-ton-oeuvre.bouton.ajout")}
-                      </button>
+                      <br></br>                      
                     </div>
                   )}
                 </div>

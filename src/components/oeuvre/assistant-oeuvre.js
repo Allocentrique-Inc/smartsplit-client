@@ -52,7 +52,7 @@ class AssistantOeuvre extends Component {
                 .then(res=>{                    
                     if(res.data.Item) {
                         let media = res.data.Item
-                        this.setState({media: media}, ()=>this.fetchApiRightHolders())
+                        this.setState({ media: media }, ()=>this.fetchApiRightHolders())
                         this.setState({ user: response })
                     }
                 })
@@ -211,8 +211,17 @@ class AssistantOeuvre extends Component {
         })
     }
 
+    boutonsCouleurPochette() {
+        console.log(document.getElementsByClassName("ui right floated button"))
+        let boutons = document.getElementsByClassName("ui right floated button")
+        for(var i = 0; i<boutons.length; i++) {
+            boutons[i].style.backgroundColor = "#F2724A"
+        }        
+    }
+
     render() {
         if (this.state.user) {
+
             return (
                 <Translation>
                     {
@@ -291,15 +300,19 @@ class AssistantOeuvre extends Component {
                                             </Wizard.Page>
                                         </Wizard>
                                         <ModalFin
-                                            songTitle={this.state.title}
-                                            titre={ this.state.title }
+                                            titre={ this.state.media.title }
                                             open={ this.state.endModalOpen }
                                             onClose={ () => this.setState({ endModalOpen: false }) }
+                                            pochette={ this.props.pochette }
                                         />
                                     </>
                                     )
                                 }                                
-                                
+                                {                                    
+                                    this.props.pochette &&
+                                    (document.getElementsByClassName("ui right floated button").length > 0) &&
+                                    (this.boutonsCouleurPochette())
+                                }
                             </>
                     }
                 </Translation>

@@ -127,7 +127,7 @@ export default class PageFichiers extends React.Component {
                         ? "https://en.wikipedia.org/wiki/Graphic_notation_(music)"
                         : "https://fr.wikipedia.org/wiki/Partition_graphique")
                     }
-                    style={{ color: "#2DA84F" }}
+                    style={{ color: this.props.pochette ? "#F2724A": "#2DA84F" }}
                   >
                     {t("flot.split.documente-ton-oeuvre.documenter.autre-plus")}
                   </a>
@@ -136,6 +136,7 @@ export default class PageFichiers extends React.Component {
                 value={this.state.terms}
               />
               <ChampTeleversement
+                extraStyle={{marginTop: "70px"}}
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.autre-etape3"
                 )}

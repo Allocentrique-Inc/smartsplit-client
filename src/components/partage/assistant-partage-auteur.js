@@ -226,6 +226,27 @@ class PageAssistantPartageAuteur extends Component {
             deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
         }
 
+        // Détection des limites pour ne pas dépasser 0
+        droits.forEach((elem, idx) => {
+            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
+            //console.log(elem.pourcent, _pred, deltaParCollaborateurVariable)
+            if (!invariable[idx] && _pred <= 0) {
+                let reste = parseFloat(droits[idx].pourcent) + _pred
+
+                // Mettre à zéro
+                invariable[idx] = true
+                droits[idx].pourcent = 0
+                droits[idx].pourcentParoles = 0
+                droits[idx].pourcentMusique = 0
+
+                // Recalculer avec le reste réparti
+                let nbModifications = droits.length - Object.keys(invariable).length
+                if (nbModifications > 0) {
+                    deltaParCollaborateurVariable = parseFloat(deltaParCollaborateurVariable) - parseFloat(reste / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
+                }
+            }
+        })
+
         droits.forEach((elem, idx) => {
             if (!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
@@ -416,8 +437,6 @@ class PageAssistantPartageAuteur extends Component {
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {/*{t('flot.split.partage.auteur.titre', { oeuvre: this.state.song })}*/}
-                                                {/*{t('flot.split.partage.guillemets.guillemet1')}{this.state.song}{t('flot.split.partage.guillemets.guillemet2')}?*/}
                                                 {t('flot.split.partage.auteur.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
@@ -560,13 +579,8 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                         <span className="pourcentage-wrapper">
                                                                                                             <div className="ui grid">
                                                                                                                 <div className="ui row">
-                                                                                                                    <div className="ui one wide column">
-                                                                                                                        <Lock />
-                                                                                                                        {/* <i className={`lock ${!(this.state.partsInvariables[index] || this.props.values.droitAuteur.length <= 1) ? 'open' : ''} icon golden`}
-                                                                                                                            onClick={() => {
-                                                                                                                                this.basculerVariable(index)
-                                                                                                                            }}>
-                                                                                                                        </i> */}
+                                                                                                                    <div onClick={() => this.basculerVariable(index)} className="ui one wide column">
+                                                                                                                        <Lock actif={this.state.partsInvariables[index]} />
                                                                                                                     </div>
                                                                                                                     <div className="ui ten wide column">
                                                                                                                         <ChampGradateurAssistant
@@ -588,14 +602,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                     </div>
 
                                                                                                                     <div className="ui four wide column">
-
-                                                                                                                        {/* <StyleInput style={{ background: "red", border: "none", width: "50px", fontWeight: "bold" }}
-                                                                                                                            valeur={this.props.values.droitAuteur[index].pourcent}
-                                                                                                                            input={this.props.changement} /> */}
-
                                                                                                                         <ChampTexteAssistant
-                                                                                                                            type={FormField}
-                                                                                                                            style={{ background: "transparent", border: "none", width: "50px", fontWeight: "bold" }}
                                                                                                                             id={`texte_${index}`}
                                                                                                                             changement={(id, valeur) => {
                                                                                                                                 this.changementTexte(id, valeur)
@@ -605,15 +612,21 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                                 this.props.values.droitAuteur.length <= 1) ||
                                                                                                                                 this.state.partsInvariables[index] ||
                                                                                                                                 (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
-                                                                                                                            valeur={`${this.props.values.droitAuteur[index].pourcent}%`}
-                                                                                                                            input={this.props.changement}
+                                                                                                                            valeur={`${this.props.values.droitAuteur[index].pourcent}`}
                                                                                                                         />
-                                                                                                                        <div />
+                                                                                                                        {
+                                                                                                                            document.getElementsByName("droitAuteur[" + index + "].pourcent").forEach((e, idx) => {
+                                                                                                                                if (e.type === "text") {
+                                                                                                                                    e.style.backgroundColor = "#faf8f9"
+                                                                                                                                    e.style.border = "none"
+                                                                                                                                    e.style.paddingBottom = "12px"
+                                                                                                                                }
+                                                                                                                            })
+                                                                                                                        }
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                             </div>
                                                                                                         </span>
-
                                                                                                     )
                                                                                                 }
                                                                                             </div>
@@ -637,7 +650,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                                     modele="collaborateur"
                                                                                     autoFocus={false}
-                                                                                    requis={false}
+                                                                                    requis={this.props.values.droitAuteur.length === 0}
                                                                                     fluid={true}
                                                                                     multiple={false}
                                                                                     recherche={true}

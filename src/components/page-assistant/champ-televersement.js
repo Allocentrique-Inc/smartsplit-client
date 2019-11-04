@@ -10,14 +10,14 @@ export default class ChampTeleversement extends Component {
         this.state = {
             audio: props.audio,
             apres: props.apres,
-            info: props.info
+            extraStyle: props.extraStyle || {}
         }
     }
 
     render() {
         return (
             <div className="section-televersement" style={{ display: "-webkit-box" }}>
-                <div className="ui grid" style={{ width: "100%", height: "50px", marginBottom: "20px" }}>
+                <div className="ui grid" style={Object.assign({ width: "100%", height: "50px", marginBottom: "20px" }, this.state.extraStyle)}>
                     <div className="ui row">
                         <div className="ui column" />
                         <div className="ui twelve wide column">

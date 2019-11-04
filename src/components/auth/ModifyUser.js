@@ -123,17 +123,17 @@ class ModifyUser extends Component {
         password,
         attributes: attributes
       })
-        .then((res) => {
-          let userSub = res.userSub
-          this.setState({ open: false })
-          if (this.props.fn) {
-            this.props.fn(userSub);
-          }
-        })
-        .catch(err => {
-          toast.error(err);
-          console.log(err);
-        });
+      .then((res) => {
+        let userSub = res.userSub
+        this.setState({ open: false })
+        if (this.props.fn) {
+          this.props.fn(userSub);
+        }
+      })
+      .catch(err => {
+        toast.error(err.message);
+        console.log(err);
+      });
     } catch (err) {
       console.log("try", err);
     }
@@ -180,12 +180,25 @@ class ModifyUser extends Component {
     }
   }
 
+  boutonsCouleurPochette() {
+    let boutons
+    boutons  = document.getElementsByClassName("ui positive button")
+    for(var i = 0; i<boutons.length; i++) {
+        boutons[i].style.backgroundColor = "#F2724A"
+        boutons[i].style.color = "white"
+    }
+    boutons = document.getElementsByClassName("ui negative button")
+    for(var i = 0; i<boutons.length; i++) {
+        boutons[i].style.color = "#F2724A"
+    }        
+  }
+
   render() {
     const {
       open,
       currentValue,
       currentRoleValue
-    } = this.state;
+    } = this.state
 
     return (
       <Translation>
@@ -222,6 +235,7 @@ class ModifyUser extends Component {
                       </label>
                       <input
                         type="text"
+                        required
                         className="newFirstName"
                         placeholder={t(
                           "flot.split.collaborateur.attribut.etiquette.prenom"
@@ -240,6 +254,7 @@ class ModifyUser extends Component {
                       </label>
                       <input
                         type="text"
+                        required
                         className="newLastName"
                         placeholder={t("flot.split.collaborateur.attribut.etiquette.nom")}
                         value={this.state.lastName}
@@ -288,6 +303,7 @@ class ModifyUser extends Component {
                   </label>
                   <input
                     type="text"
+                    required
                     className="Email"
                     placeholder={t("flot.split.collaborateur.attribut.etiquette.courriel")}
                     value={this.state.email}
@@ -420,9 +436,14 @@ class ModifyUser extends Component {
                 labelPosition="right"
                 content={t("flot.split.collaborateur.attribut.bouton.sauvegarder")}
               />
+              {                                    
+              this.props.pochette &&
+                  (document.getElementsByClassName("ui button").length > 0) &&
+                  (this.boutonsCouleurPochette())
+              }
             </Modal.Actions>
           </Modal>
-        )}
+        )}        
       </Translation>
     );
   }

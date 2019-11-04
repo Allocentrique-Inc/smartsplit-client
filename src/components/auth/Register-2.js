@@ -96,11 +96,9 @@ class Register2 extends Component {
     this.setState(
       { image: '' },
     );
-    console.log('image: ', this.state.image);
   }
 
   handleFileUpload(e) {
-    console.log("FILE: ", e.target.files[0]);
     if (e.target.files[0].size > MAX_IMAGE_SIZE) {
       return alert('Image is loo large - 10Mb maximum')
     }
@@ -197,7 +195,7 @@ class Register2 extends Component {
 
   handleFileUpload(e) {
     // console.log(e.target.files[0]);
-    console.log("FILE: ", e.target.files[0]);
+  
     if (e.target.files[0].size > MAX_IMAGE_SIZE) {
       return alert('Image is loo large - 10Mb maximum')
     }
@@ -215,7 +213,6 @@ class Register2 extends Component {
     this.setState(
       { image: '' },
     );
-    console.log('image: ', this.state.image);
   }
 
   handleArtistNameChange(e) {
@@ -245,7 +242,7 @@ class Register2 extends Component {
       groupsUnique.forEach(function(elm) {
         groups.push( {key: elm, text: elm, value: elm} )
       })
-      this.setState({groups: groups}, ()=>{console.log("this.state.groups", this.state.groups)})
+      this.setState({groups: groups})
     })
     .catch(err=>{
       console.log(err);
