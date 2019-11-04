@@ -38,12 +38,10 @@ class ForgotPasswordVerification extends Component {
     this.validatePassword = this.validatePassword.bind(this)
     this.validateConfirmNewPassword = this.validateConfirmNewPassword.bind(this)
 
-    console.log(this.state)
   }
 
 
   validatePassword(value) {
-    console.log('validatePassword', value)
     if (!value) {
       return "Required";
     } else if (
@@ -51,17 +49,14 @@ class ForgotPasswordVerification extends Component {
         value
       )
     ) {
-      console.log("VALUE", value);
       return "Invalid password";
     }
   }
 
   validateConfirmNewPassword(value) {
-    console.log("validateConfirmNewPassword", value, this.state)
     if (!value) {
       return "Required";
     } else if (value !== this.state.password) {
-      console.log("VALUE confirm", value);
       return "Passwords do not match";
     } else {
       this.setState({ passwordmatch: true });
@@ -70,7 +65,6 @@ class ForgotPasswordVerification extends Component {
 
   validatePasswordStrong = (value = this.state.newPassword) => {
     // ensure password is long enough
-    console.log("validatePasswordStrong", value)
 
     if (value.length <= this.thresholdLength) {
       throw new Error("Password is short");

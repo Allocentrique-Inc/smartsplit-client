@@ -171,8 +171,6 @@ class PageAssistantPartageAuteur extends Component {
         let invariable = this.state.partsInvariables
         let droits = this.props.values.droitAuteur
 
-        console.log(droits)
-
         let deltaParCollaborateurVariable = 0.0
 
         let aMisInvariable = false // Identifier si on doit retirer l'index des invariables
@@ -231,10 +229,7 @@ class PageAssistantPartageAuteur extends Component {
             let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
             //console.log(elem.pourcent, _pred, deltaParCollaborateurVariable)
             if(!invariable[idx] && _pred <= 0) {
-                console.log(droits[idx].pourcent, _pred, droits[idx].pourcent + _pred)
                 let reste = parseFloat(droits[idx].pourcent) + _pred
-                
-                console.log('reste', 0-reste)
             
                 // Mettre à zéro
                 invariable[idx] = true
@@ -359,7 +354,7 @@ class PageAssistantPartageAuteur extends Component {
             return <input style={props.style} />
         }
 
-        let visualisation
+        let visualisation        
         if (this.state.parts.length > 0) {
 
             switch (this.state.mode) {
@@ -653,7 +648,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
                                                                                     modele="collaborateur"
                                                                                     autoFocus={false}
-                                                                                    requis={false}
+                                                                                    requis={this.props.values.droitAuteur.length === 0}
                                                                                     fluid={true}
                                                                                     multiple={false}
                                                                                     recherche={true}
@@ -661,7 +656,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitAuteur}
                                                                                     fnSelect={
-                                                                                        () => {
+                                                                                        () => {                                                                                            
                                                                                             this.ajouterCollaborateur(arrayHelpers)
                                                                                         }
                                                                                     }

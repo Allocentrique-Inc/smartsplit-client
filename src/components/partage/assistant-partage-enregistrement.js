@@ -141,10 +141,8 @@ class PageAssistantPartageEnregistrement extends Component {
             let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
             //console.log(elem.pourcent, _pred, deltaParCollaborateurVariable)
             if(!invariable[idx] && _pred <= 0) {
-                console.log(droits[idx].pourcent, _pred, droits[idx].pourcent + _pred)
-                let reste = parseFloat(droits[idx].pourcent) + _pred
-                
-                console.log('reste', 0-reste)
+
+                let reste = parseFloat(droits[idx].pourcent) + _pred            
             
                 // Mettre à zéro
                 invariable[idx] = true
@@ -523,6 +521,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                     selection={true}
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitEnregistrement}
+                                                                                    selectionne={this.props.values.collaborateur}
                                                                                     fnSelect={
                                                                                         () => {
                                                                                             this.ajouterCollaborateur(arrayHelpers)

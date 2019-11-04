@@ -79,7 +79,6 @@ class Register extends Component {
         value
       )
     ) {
-      console.log("VALUE", value);
       return "Invalid password";
     }
   }

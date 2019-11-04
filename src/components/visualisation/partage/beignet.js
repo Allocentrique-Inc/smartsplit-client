@@ -28,7 +28,7 @@ export default class Beignet extends Component {
             uuid: props.uuid,
             type: props.type
         }
-                
+
     } 
 
     componentDidMount() {        
@@ -46,10 +46,13 @@ export default class Beignet extends Component {
         let _c = {}
         let _a = {}
         if(props.data && props.data.length > 0) {
+
+            // construction
+
             props.data.forEach(elem=>{
               let nom
               if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                nom = `${elem.ayantDroit.firstName+ " "}${elem.ayantDroit.lastName}`
+                nom = `${elem.ayantDroit.firstName+ " "}${elem.ayantDroit.lastName} ${elem.ayantDroit.artistName ? `(${elem.ayantDroit.artistName}) ` : ""}`
                 _d[nom] = elem.pourcent
               }
               _c[nom] = elem.color;

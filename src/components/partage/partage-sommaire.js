@@ -29,21 +29,6 @@ const ROLES = [
     "musician"
 ]
 
-// À passer dans le système de traduction
-const ROLES_NAMES = {
-    "principal": "Principal",
-    "accompaniment": "Accompaniment",
-    "producer": "Producer",
-    "director": "Director",
-    "studio": "Studio",
-    "graphist": "Graphist",
-    "remixer": "Arranger",
-    "songwriter": "Songwriter",
-    "composer": "Composer",
-    "singer": "Singer",
-    "musician": "Musician"
-}
-
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
 class SommaireDroit extends Component {
@@ -208,7 +193,7 @@ class SommaireDroit extends Component {
 
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
 
-                _parts.push(
+                _parts.push(                    
                     <div key={`part_${uuid}`}>
                         <div className="ui grid">
                             <div className="ui row">
@@ -224,9 +209,14 @@ class SommaireDroit extends Component {
                                         {part.nom}
                                     </div>
                                     <div className="small-400-color">
-                                        {part.roles.map((_e, idx) => {
-                                            return ROLES_NAMES[_e] + `${idx === part.roles.length - 1 ? '' : ', '}`
-                                        })}
+                                        <Translation>
+                                            {
+                                                t =>                                                    
+                                                    part.roles.map((_e, idx) => {
+                                                        return t('flot.split.roles.'+_e) + `${idx === part.roles.length - 1 ? '' : ', '}`
+                                                    })
+                                            }
+                                        </Translation>                                        
                                     </div>
                                     <div style={{ position: "relative", marginTop: "5px" }}>
                                         {
