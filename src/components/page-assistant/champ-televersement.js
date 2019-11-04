@@ -9,7 +9,8 @@ export default class ChampTeleversement extends Component {
         super(props)
         this.state = {
             audio: props.audio,
-            apres: props.apres
+            apres: props.apres,
+            info: props.info
         }
     }
 
@@ -19,7 +20,7 @@ export default class ChampTeleversement extends Component {
                 <div className="ui grid" style={{ width: "100%", height: "50px", marginBottom: "20px" }}>
                     <div className="ui row">
                         <div className="ui column" />
-                        <div className="ui nine wide column">
+                        <div className="ui twelve wide column">
 
                             <ChampFichier
                                 label={this.props.label}

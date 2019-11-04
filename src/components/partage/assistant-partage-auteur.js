@@ -18,6 +18,8 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import Lock from "./Lock"
 
+import { FormField } from 'semantic-ui-react-ext'
+
 const MODES = { egal: "0", role: "1", manuel: "2" }
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -329,7 +331,7 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     render() {
-        function StyleInput(props) {
+        function FormField(props) {
             return <input style={props.style} />
         }
 
@@ -588,10 +590,12 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                     <div className="ui four wide column">
 
                                                                                                                         {/* <StyleInput style={{ background: "red", border: "none", width: "50px", fontWeight: "bold" }}
-                                                                                                                            value={this.props.values.droitAuteur[index].pourcent}
+                                                                                                                            valeur={this.props.values.droitAuteur[index].pourcent}
                                                                                                                             input={this.props.changement} /> */}
 
                                                                                                                         <ChampTexteAssistant
+                                                                                                                            type={FormField}
+                                                                                                                            style={{ background: "transparent", border: "none", width: "50px", fontWeight: "bold" }}
                                                                                                                             id={`texte_${index}`}
                                                                                                                             changement={(id, valeur) => {
                                                                                                                                 this.changementTexte(id, valeur)
@@ -604,7 +608,6 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                             valeur={`${this.props.values.droitAuteur[index].pourcent}%`}
                                                                                                                             input={this.props.changement}
                                                                                                                         />
-
                                                                                                                         <div />
                                                                                                                     </div>
                                                                                                                 </div>
