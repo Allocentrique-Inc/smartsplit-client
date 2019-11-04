@@ -119,16 +119,7 @@ export default class PageCreation extends Component {
                 icon={this.icon()}
                 label={t("flot.documenter.entete.creation")}
                 question={t("flot.split.documente-ton-oeuvre.documenter.titre1",
-                  { titre: this.props.values.title })}
-                /*+
-                " " +
-                t('flot.split.partage.guillemets.guillemet1')
-                +
-                this.props.values.title
-                +
-                t('flot.split.partage.guillemets.guillemet2')
-                +
-                "?"*/
+                  { titre: this.props.values.title })}                  
                 description={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre1-description"
                 )}
@@ -147,15 +138,7 @@ export default class PageCreation extends Component {
                   this.props.setFieldValue("creationDate", value)
                 }
               />
-              <br />
-              {/*<div className="fields">
-                <div className="fourwide field">
-                  <label>{t("flot.split.documente-ton-oeuvre.documenter.auteur")}</label>
-                </div>
-                <div className="twelve wide field">
-                  <InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.auteur-description")} />
-                </div>
-              </div>*/}
+              <br />    
               <ChampSelectionMultipleAyantDroit
                 label={t("flot.split.documente-ton-oeuvre.documenter.auteur")}
                 pochette={this.props.pochette}
@@ -202,7 +185,7 @@ export default class PageCreation extends Component {
                 value={this.props.values.iswc}
                 onChange={value => this.props.setFieldValue("iswc", value)}
               />
-            </Colonne>
+            </Colonne>            
           </Page>
         )}
       </Translation>

@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 // Composantes
 import Entete from '../entete/entete'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
+import { Auth } from 'aws-amplify'
 
 export default class VotationPartTiers extends Component {
 
@@ -29,49 +30,53 @@ export default class VotationPartTiers extends Component {
         // Décoder le jeton        
         let body = { jeton: this.state.jetonApi }
         axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/decode', body)
-            .then((resp) => {
-                let _s = resp.data
-                this.setState({ jeton: _s })
-                // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${_s.beneficiaire}`)
-                    .then(res => {
-                        let _rH = res.data.Item
-                        this.setState({ ayantDroit: _rH })
-                        // Récupère la proposition       
-                        axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
-                            .then(_r => {
-                                this.setState({ proposition: _r.data.Item })
-                                // Récupère le média
-                                axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${_r.data.Item.mediaId}`)
-                                    .then(_rMedia => {
-                                        this.setState({ media: _rMedia.data.Item })
-                                        // Récupère la part de partage avec le tier
-                                        axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.jeton.proposalId}/${this.state.jeton.donateur}`)
-                                            .then(res => {
-                                                // Trouve la bonne version
-                                                res.data.forEach(e=>{
-                                                    if(e.version === _s.version) {
-                                                        this.setState({ part: e })
-                                                    }
-                                                })
+        .then((resp) => {
+            let _s = resp.data
+            this.setState({ jeton: _s })
+            // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)
+            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${_s.beneficiaire}`)
+                .then(res => {
+                    let _rH = res.data.Item
+                    this.setState({ ayantDroit: _rH })
+                    // Récupère la proposition       
+                    axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${_s.proposalId}`)
+                        .then(_r => {
+                            this.setState({ proposition: _r.data.Item })
+                            // Récupère le média
+                            axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${_r.data.Item.mediaId}`)
+                                .then(_rMedia => {
+                                    this.setState({ media: _rMedia.data.Item })
+                                    // Récupère la part de partage avec le tier
+                                    axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.jeton.proposalId}/${this.state.jeton.donateur}`)
+                                        .then(res => {
+                                            // Trouve la bonne version
+                                            res.data.forEach(e=>{
+                                                if(e.version === _s.version) {
+                                                    this.setState({ part: e })
+                                                }
                                             })
-                                    })
-                                    .catch((error) => {
-                                        toast.error(error.message)
-                                    })
-                            })
-                            .catch((error) => {
-                                toast.error(error.message)
-                            })
-                    })
-                    .catch((error) => {
-                        toast.error(error.message)
-                    })
-            })
-            .catch((error) => {
-                toast.error(error.message)
+                                        })
+                                })
+                                .catch((error) => {
+                                    toast.error(error.message)
+                                })
+                        })
+                        .catch((error) => {
+                            toast.error(error.message)
+                        })
+                })
+                .catch((error) => {
+                    toast.error(error.message)
+                })
+        })
+        .catch((error) => {
+            toast.error(error.message)
+        })
 
-            })
+        Auth.currentAuthenticatedUser()
+        .then(res=>{
+            this.setState({user: res})
+        })
     }
 
     render() {
@@ -81,7 +86,7 @@ export default class VotationPartTiers extends Component {
                 <Translation>
                     {
                         t =>
-                            <div className="ui ten wide column">
+                            <div className="ui six wide column">
                                 <i className="file image outline icon huge grey"></i>
                                 {this.state.media && (<span style={{ marginLeft: "15px" }} className="medium-400">{this.state.media.title}</span>)}
                                 <span className="heading4" style={{ marginLeft: "50px" }}>{t('flot.split.documente-ton-oeuvre.partage.auteur.titre')}</span>
@@ -97,8 +102,8 @@ export default class VotationPartTiers extends Component {
                             <div className="ui segment">
                                 <div className="ui grid" style={{ padding: "10px" }}>
                                     <div className="ui row">
-                                        <Entete contenu={contenu} sansconnexion={true} />
-                                    </div>
+                                        <Entete profil={this.state.user} contenu={contenu} />
+                                    </div>                                                              
                                     <div className="ui row">
                                         <div className="ui one wide column" />
                                         <div className="ui twelve wide column">

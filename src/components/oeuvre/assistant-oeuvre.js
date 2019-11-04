@@ -211,8 +211,17 @@ class AssistantOeuvre extends Component {
         })
     }
 
+    boutonsCouleurPochette() {
+        console.log(document.getElementsByClassName("ui right floated button"))
+        let boutons = document.getElementsByClassName("ui right floated button")
+        for(var i = 0; i<boutons.length; i++) {
+            boutons[i].style.backgroundColor = "#F2724A"
+        }        
+    }
+
     render() {
         if (this.state.user) {
+
             return (
                 <Translation>
                     {
@@ -294,11 +303,16 @@ class AssistantOeuvre extends Component {
                                             titre={ this.state.media.title }
                                             open={ this.state.endModalOpen }
                                             onClose={ () => this.setState({ endModalOpen: false }) }
+                                            pochette={ this.props.pochette }
                                         />
                                     </>
                                     )
                                 }                                
-                                
+                                {                                    
+                                    this.props.pochette &&
+                                    (document.getElementsByClassName("ui right floated button").length > 0) &&
+                                    (this.boutonsCouleurPochette())
+                                }
                             </>
                     }
                 </Translation>

@@ -164,6 +164,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
 
               <ModifyUser
                 open={this.state.modalOpen}
+                pochette={this.props.pochette}
                 firstName={this.state.modalFirstName}
                 close={() =>
                   this.setState({ modalOpen: false, modalFirstName: "" })

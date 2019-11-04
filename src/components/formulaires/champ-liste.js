@@ -217,7 +217,8 @@ export class ChampListeCollaborateurAssistant extends Component {
             selection: props.selection,
             onInput: props.onInput,
             ajout: true,
-            nomCommeCle: props.nomCommeCle
+            nomCommeCle: props.nomCommeCle,
+            selectionne: props.selection
         }
         this.OPTIONS = undefined
         this.listeAyantsDroit = this.listeAyantsDroit.bind(this)
@@ -229,6 +230,9 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        if (this.props.requis !== nextProps.requis) {
+            this.setState({requis: nextProps.requis})
+        }
         if (this.props.etiquette !== nextProps.etiquette) {
             this.setState({ etiquette: nextProps.etiquette })
         }
@@ -238,6 +242,9 @@ export class ChampListeCollaborateurAssistant extends Component {
         if (this.props.collaborateurs !== nextProps.collaborateurs) {
             this.recalculerOptions(nextProps.collaborateurs)
         }
+        if (this.props.selection !== nextProps.selection) {
+            this.setState({selectionne: nextProps.selection})
+        }
     }
 
     listeAyantsDroit() {
@@ -245,10 +252,12 @@ export class ChampListeCollaborateurAssistant extends Component {
         axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
             .then(res => {
                 let _adParId = {}
+                let nomsConnus = []
                 let _options = res.data.map((elem, idx) => {
                     let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
                     _adParId[elem.rightHolderId] = elem
                     let avatar = ''
+                    nomsConnus.push(nom)
                     // Y a-t-il un avatar ?
                     if (elem.avatarImage)
                         avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${elem.avatarImage}`
@@ -265,6 +274,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                     )
                 })
                 this.OPTIONS = _options
+                this.setState({ nomsConnus: nomsConnus })
                 this.setState({ ayantDroit: _adParId }, () => { if (this.props.onRef) this.props.onRef(_adParId) })
                 this.setState({ options: _options }, () => {
                     // recalcul des options
@@ -293,6 +303,7 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     render() {
+
         return (
             <Translation>
                 {
@@ -304,11 +315,16 @@ export class ChampListeCollaborateurAssistant extends Component {
                                         title={"Ajouter"}
                                         name={this.state.modele}
                                         component={Form.Dropdown}
+                                        validate={(val)=>{
+                                            if (this.state.requis) {
+                                                const result = val ? undefined : t('validation.requis');
+                                                return result;                                                
+                                            }
+                                        }}
                                         componentProps={{
                                             id: "collaborateur",
                                             label: this.state.etiquette,
                                             placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
-                                            required: this.state.requis,
                                             autoFocus: this.state.autoFocus,
                                             fluid: true,
                                             search: true,
@@ -317,12 +333,14 @@ export class ChampListeCollaborateurAssistant extends Component {
                                             options: this.state.options,
                                             onAddItem: this.handleAddition,
                                             allowAdditions: this.state.ajout,
+                                            required: this.state.requis,
                                             onSelect: (e) => {
-                                                if (this.props.fnSelect) {
+                                                let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText                                                
+                                                if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
                                                     this.props.fnSelect()
                                                 }
                                             },
-                                            clearable: false
+                                            clearable: false                                            
                                         }}
 
                                     />

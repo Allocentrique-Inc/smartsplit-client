@@ -17,7 +17,6 @@ exports.listCognitoUsers = () => {
         console.log(err);
         reject(err);
       } else {
-        console.log("data", data);
         resolve(data);
       }
     });

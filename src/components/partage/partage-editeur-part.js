@@ -116,8 +116,7 @@ class PageAssistantPartageEditeur extends Component {
     changementTexte(index, delta, e) {
 
         // Modification empirique des valeurs
-
-        console.log(index, delta, e.target.value)
+        
         // Changement d'un gradateur
         let _aD = this.props.values.ayantDroit
         let editeur = this.props.values.editeur
@@ -198,7 +197,88 @@ class PageAssistantPartageEditeur extends Component {
                                     {descriptif}
                                     <br/>
 
-                                    <div className="ui row">
+                                    <span className="pourcentage-wrapper">
+                                        <div className="ui grid">
+                                            <div className="ui row fields gray-fields">
+                                                <div className="holder-name">
+                                                    <img alt="avatar" className="ui spaced avatar image" src={userAvatar}/>
+                                                    {this.state.ayantDroit.nom}
+                                                </div>
+                                                <br/>
+                                                <div className="ui eleven wide column">
+                                                    <ChampGradateurAssistant
+                                                        changement={(id, delta) => {
+                                                            this.changementGradateur(id, delta)
+                                                        }}
+                                                        changement={(id, delta)=>{this.changementGradateur(id, delta)}}
+                                                        id={`gradateur_ayantDroit`}
+                                                        modele="ayantDroit.pourcent"
+                                                        min={50}                                                        
+                                                    />
+                                                </div>
+
+                                                <div className="ui four wide column">
+                                                    <ChampTexteAssistant                                                                                                                            
+                                                        id={`texte_ayantdroit`}
+                                                        changement={(id, valeur, e)=>{
+                                                            this.changementTexte(id, valeur, e)
+                                                        }}
+                                                        modele="ayantDroit.pourcent"
+                                                        valeur={this.props.values.ayantDroit.pourcent}                                                        
+                                                    />                                                                                                                        
+                                                </div>
+                                                {
+                                                    document.getElementsByName("ayantDroit.pourcent").forEach((e, idx)=>{                                                                                                                                
+                                                        if(e.type==="text") {
+                                                            e.style.backgroundColor = "#faf8f9"
+                                                            e.style.border = "none"
+                                                            e.style.paddingBottom = "12px"
+                                                        }
+                                                    })
+                                                }
+                                            </div>
+                                            <div className="ui row fields gray-fields">
+                                                <div className="holder-name">
+                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
+                                                    {this.state.editeur.nom}
+                                                </div>
+                                                <br/>
+                                                <div className="ui eleven wide column">
+                                                    <ChampGradateurAssistant
+                                                        changement={(id, delta) => {
+                                                            this.changementGradateur(id, delta)
+                                                        }}
+                                                        changement={(id, delta)=>{this.changementGradateur(id, delta)}}
+                                                        id={`gradateur_editeur`}
+                                                        modele="editeur.pourcent"
+                                                        max={50}                                                        
+                                                    />
+                                                </div>
+
+                                                <div className="ui four wide column">
+                                                    <ChampTexteAssistant                                                                                                                            
+                                                        id={`texte_editeur`}
+                                                        changement={(id, valeur, e)=>{
+                                                            this.changementTexte(id, valeur, e)
+                                                        }}
+                                                        modele="editeur.pourcent"
+                                                        valeur={this.props.values.editeur.pourcent}                                                        
+                                                    />                                                                                                                        
+                                                </div>
+                                                {
+                                                    document.getElementsByName("editeur.pourcent").forEach((e, idx)=>{                                                                                                                                
+                                                        if(e.type==="text") {
+                                                            e.style.backgroundColor = "#faf8f9"
+                                                            e.style.border = "none"
+                                                            e.style.paddingBottom = "12px"
+                                                        }
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                    </span>    
+
+                                    {/* <div className="ui row">
                                         <div className="fields gray-fields">                                    
                                             <div className="twelve wide field">
                                                 <div className="holder-name">
@@ -222,6 +302,8 @@ class PageAssistantPartageEditeur extends Component {
                                             </div>
                                         </div>
                                     </div>
+
+
                                     <div className="ui row">
                                         <div className="fields gray-fields">
                                             <div className="twelve wide field">
@@ -245,7 +327,7 @@ class PageAssistantPartageEditeur extends Component {
                                                     valeur={this.props.values.editeur.pourcent} />
                                             </div>
                                         </div>
-                                    </div>                                    
+                                    </div>      */}                               
                                 
                                 </div>
                             </div>

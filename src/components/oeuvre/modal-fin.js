@@ -66,11 +66,10 @@ export default class ModalFin extends Component {
               )}
             </div>
 
-            <div className={"modal-bottom-bar"}>
-              <a href={"/oeuvre/resume"}>
-                <Button>{t("flot.fin.resume")}</Button>
-              </a>
+            <div className={"modal-bottom-bar"}>            
+              <Button onClick={()=>window.location.href="/oeuvre/resume"}style={this.props.pochette ? {backgroundColor: "#F2724A"} : {}}>{t("flot.fin.resume")}</Button>
             </div>
+
           </Modal>
         )}
       </Translation>
