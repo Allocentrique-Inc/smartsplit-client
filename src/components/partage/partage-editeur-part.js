@@ -221,7 +221,9 @@ class PageAssistantPartageEditeur extends Component {
                                                     <ChampTexteAssistant                                                                                                                            
                                                         id={`texte_ayantdroit`}
                                                         changement={(id, valeur, e)=>{
-                                                            this.changementTexte(id, valeur, e)
+                                                            if(!isNaN(parseFloat(valeur))){
+                                                                this.changementTexte(id, valeur, e)
+                                                            }
                                                         }}
                                                         modele="ayantDroit.pourcent"
                                                         valeur={this.props.values.ayantDroit.pourcent}                                                        
@@ -259,7 +261,9 @@ class PageAssistantPartageEditeur extends Component {
                                                     <ChampTexteAssistant                                                                                                                            
                                                         id={`texte_editeur`}
                                                         changement={(id, valeur, e)=>{
-                                                            this.changementTexte(id, valeur, e)
+                                                            if(!isNaN(parseFloat(valeur))){
+                                                                this.changementTexte(id, valeur, e)
+                                                            }
                                                         }}
                                                         modele="editeur.pourcent"
                                                         valeur={this.props.values.editeur.pourcent}                                                        
@@ -276,58 +280,7 @@ class PageAssistantPartageEditeur extends Component {
                                                 }
                                             </div>
                                         </div>
-                                    </span>    
-
-                                    {/* <div className="ui row">
-                                        <div className="fields gray-fields">                                    
-                                            <div className="twelve wide field">
-                                                <div className="holder-name">
-                                                    <img alt="avatar" className="ui spaced avatar image" src={userAvatar}/>
-                                                    {this.state.ayantDroit.nom}
-                                                </div>
-                                                <br/>
-                                                <ChampGradateurAssistant 
-                                                        changement={(id, delta)=>{this.changementGradateur(id, delta)}}
-                                                        id={`gradateur_ayantDroit`}
-                                                        modele="ayantDroit.pourcent"
-                                                        min={50}
-                                                />
-                                                <ChampTexteAssistant 
-                                                    id={`texte_ayantdroit`}
-                                                    changement={(id, valeur, e)=>{
-                                                        this.changementTexte(id, valeur, e)
-                                                    }}
-                                                    modele="ayantDroit.pourcent"
-                                                    valeur={this.props.values.ayantDroit.pourcent} />
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div className="ui row">
-                                        <div className="fields gray-fields">
-                                            <div className="twelve wide field">
-                                                <div className="holder-name">
-                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
-                                                    {this.state.editeur.nom}
-                                                </div>
-                                                <br/>
-                                                <ChampGradateurAssistant 
-                                                        changement={(id, delta)=>{this.changementGradateur(id, delta)}} 
-                                                        id="gradateur_editeur"
-                                                        modele="editeur.pourcent"
-                                                        max={50}
-                                                />                                                                        
-                                                <ChampTexteAssistant 
-                                                    id={`texte_editeur`}
-                                                    changement={(id, valeur, e)=>{
-                                                        this.changementTexte(id, valeur, e)
-                                                    }}
-                                                    modele="editeur.pourcent"
-                                                    valeur={this.props.values.editeur.pourcent} />
-                                            </div>
-                                        </div>
-                                    </div>      */}                               
+                                    </span>
                                 
                                 </div>
                             </div>

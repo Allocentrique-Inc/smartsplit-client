@@ -471,7 +471,9 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                                         <ChampTexteAssistant                                                                                                                            
                                                                                                                             id={`texte_${index}`}
                                                                                                                             changement={(id, valeur) => {
-                                                                                                                                this.changementTexte(id, valeur)
+                                                                                                                                if(!isNaN(parseFloat(valeur))){
+                                                                                                                                    this.changementTexte(id, valeur)
+                                                                                                                                }                                                                                                                                
                                                                                                                             }}
                                                                                                                             modele={`droitEnregistrement[${index}].pourcent`}
                                                                                                                             disabled={(
