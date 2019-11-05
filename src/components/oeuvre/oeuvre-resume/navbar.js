@@ -35,9 +35,13 @@ export class Navbar extends React.Component {
                                     </div>
 
                                     <div className={ 'right' }>
-                                        <MenuProfil                  
-                                            user={this.props.profil}
-                                        />
+                                        {
+                                            this.props.profil && (
+                                                <MenuProfil                  
+                                                    user={this.props.profil}
+                                                />
+                                            )
+                                        }                                        
                                         {/* <Button basic>
                                             Aperçu
                                         </Button>
