@@ -4,6 +4,7 @@ import { Navbar } from "./oeuvre-resume/navbar";
 import Entete from "./oeuvre-resume/entete";
 import Corps from "./oeuvre-resume/corps";
 import axios from 'axios';
+import { Auth } from 'aws-amplify';
 
 export default class OeuvreResume extends React.Component {
 
@@ -18,6 +19,7 @@ export default class OeuvreResume extends React.Component {
         axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.props.mediaId}`)
         .then(res=>{
             let _m = res.data.Item
+            console.log(_m)
             this.setState({media: _m},
                 ()=>{
                     axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
@@ -32,18 +34,23 @@ export default class OeuvreResume extends React.Component {
                     });
                 })
         })
+        Auth.currentAuthenticatedUser()
+        .then(res=>{
+            this.setState({user: res})
+        })
+        .catch(err=>console.log(err))
     }
 
     render() {
-        if(this.state.media) {
+        if(this.state.media && this.state.user && this.state.rightHolders) {
             return (
                 <Translation>
                     {
                         (t) =>
                             <>
-                                <Navbar media={this.state.media} />
-                                <Entete media={this.state.media} />
-                                <Corps media={this.state.media} />
+                                <Navbar media={this.state.media} profil={this.state.user} />
+                                <Entete media={this.state.media} rightHolders={this.state.rightHolders} />
+                                <Corps media={this.state.media} rightHolders={this.state.rightHolders} />
                             </>
                     }
                 </Translation>

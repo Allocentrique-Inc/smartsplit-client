@@ -9,8 +9,10 @@ import avatar5 from "../../../assets/images/positive.png";
 import plusIcon from "../../../assets/svg/icons/plus-white.svg";
 import editIcon from "../../../assets/svg/icons/edit.svg";
 import { Translation } from "react-i18next";
+import moment from "moment";
 
 export default class Entete extends React.Component {
+  
   avatars = [
     avatar1,
     avatar2,
@@ -55,32 +57,32 @@ export default class Entete extends React.Component {
   render() {
     return (
       <Translation>
-        {t => (
+        {(t, i18n) => (
           <header className="entete">
             <div className={"ui container flex"}>
               <img
                 className={"song-image"}
                 src={placeholder}
-                alt={"Love you baby"}
+                alt={this.props.media.title}
               />
 
               <div className={"song-info"}>
                 <h1 className={"h1-style"}>
-                  Love You Baby (Remix)
-                  <div className={"edit-link"}>
+                  {this.props.media.title}
+                  {/* <div className={"edit-link"}>
                     <img
                       className={"edit-icon"}
                       src={editIcon}
                       alt={"Éditer"}
                     />
-                  </div>
+                  </div> */}
                 </h1>
 
                 <div className={"artist-line"}>
                   <div className={"left"}>
                     <span className={"tag"}>{t("oeuvre.piece")}</span>
-                    {t("oeuvre.par")} <span>{t("oeuvre.band")}</span> {t("oeuvre.feat")}{" "}
-                    <span>{t("oeuvre.artistName")}</span>
+                    {t("oeuvre.par")} <span>{this.props.media.artist}</span> {/* t("oeuvre.feat") */}{" "}
+                    <span>{/* t("oeuvre.artistName") */}</span>
                   </div>
 
                   <div className={"right"}>
@@ -91,8 +93,11 @@ export default class Entete extends React.Component {
                 <div className={"header-divider"}></div>
 
                 <div className={"other-info"}>
-                  {t("oeuvre.creePar")} <span>Inscience</span> &middot; Mis
-                  à jour il y a 3 heures
+                  {t("oeuvre.creePar")} <span>{this.props.rightHolders[this.props.media.creator].artistName}</span> &middot; Mis
+                  à jour {i18n.lng &&
+                      moment(this.props.media.modificationDate ? this.props.media.modificationDate : this.props.media.creationDate)
+                        .locale(i18n.lng.substring(0, 2))
+                        .fromNow()}
                 </div>
               </div>
             </div>
