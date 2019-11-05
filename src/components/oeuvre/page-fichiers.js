@@ -78,7 +78,7 @@ export default class PageFichiers extends React.Component {
       <Translation>
         {(t, i18n) => (
           <Page pochette={this.props.pochette}>
-            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={20000} />
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}
