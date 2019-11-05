@@ -3,6 +3,7 @@ import { DateInput } from "semantic-ui-calendar-react";
 import { Translation } from "react-i18next";
 import "../../assets/scss/page-assistant/champ.scss";
 import TitreChamp from "./titre-champ";
+import moment from "moment";
 
 export default class ChampDate extends Component {
   render() {
@@ -21,7 +22,11 @@ export default class ChampDate extends Component {
                 "flot.split.documente-ton-oeuvre.documenter.date-placeholder"
               )}
               value={this.props.value}
-              onChange={(event, { value }) => this.props.onChange(value)}
+              onChange={(event, { value }) => {
+                // s'assure que la date est valide pour momentjs                
+                let a = value.substr(6,4), m = value.substr(3,2), j = value.substr(0,2)
+                this.props.onChange(`${a}-${m}-${j}`)}
+              }
               icon="calendar outline"
             />
           </label>

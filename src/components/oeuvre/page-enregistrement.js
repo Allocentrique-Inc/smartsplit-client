@@ -132,14 +132,7 @@ export default class PageEnregistrement extends React.Component {
                 )}
                 question={
                   t("flot.split.documente-ton-oeuvre.documenter.titre3",
-                    { titre: this.props.values.title })
-                  /*
-                  +
-                  t('flot.split.partage.guillemets.guillemet1') +
-                  this.props.values.title +
-                  t('flot.split.partage.guillemets.guillemet2')
-                  +
-                  "?"*/
+                    { titre: this.props.values.title })                  
                 }
                 description={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre3-description"
@@ -306,7 +299,9 @@ export default class PageEnregistrement extends React.Component {
               <FormulaireDateSortie
                 value={this.props.values.publishDate}
                 onChange={value =>
-                  this.props.setFieldValue("publishDate", value)
+                  {
+                    this.props.setFieldValue("publishDate", value)
+                  }
                 }
               />
 

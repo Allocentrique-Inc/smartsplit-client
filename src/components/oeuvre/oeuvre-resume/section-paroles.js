@@ -1,9 +1,14 @@
 import React from 'react';
-import downloadLock from '../../../assets/svg/icons/download-lock.svg';
+import publicIcon from '../../../assets/svg/icons/eye.svg';
 import TitreModifiable from "./titre-modifiable";
 
 export default class SectionParoles extends React.Component {
     render() {
+        let paroles = this.props.media.lyrics
+        let texte = "Voir les paroles"
+        if(paroles.access === "public" && paroles.text.trim()) {
+            texte = paroles.text
+        }
         return (
             <>
                 <TitreModifiable
@@ -13,10 +18,10 @@ export default class SectionParoles extends React.Component {
                 </TitreModifiable>
 
                 <div className={ 'download-section' }>
-                    <img className={ 'download-icon' } src={ downloadLock } alt={ 'Verouillé' }/>
+                    <img className={ 'download-icon' } src={ publicIcon } alt={ 'Verouillé' }/>
 
-                    <div className={ 'download-texts' }>
-                        <span>Voir les paroles</span>
+                    <div className={ 'download-texts' }>                        
+                        <pre>{texte}</pre>
                     </div>
                 </div>
             </>

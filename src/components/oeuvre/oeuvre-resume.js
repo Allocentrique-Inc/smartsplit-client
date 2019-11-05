@@ -5,6 +5,7 @@ import Entete from "./oeuvre-resume/entete";
 import Corps from "./oeuvre-resume/corps";
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
+import roles from '../../assets/listes/role-uuids'
 
 export default class OeuvreResume extends React.Component {
 
@@ -50,7 +51,7 @@ export default class OeuvreResume extends React.Component {
                             <>
                                 <Navbar media={this.state.media} profil={this.state.user} />
                                 <Entete media={this.state.media} rightHolders={this.state.rightHolders} />
-                                <Corps media={this.state.media} rightHolders={this.state.rightHolders} />
+                                <Corps media={this.state.media} rightHolders={this.state.rightHolders} roles={roles }/>
                             </>
                     }
                 </Translation>

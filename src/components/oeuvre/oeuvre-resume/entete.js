@@ -13,16 +13,12 @@ import moment from "moment";
 
 export default class Entete extends React.Component {
   
-  avatars = [
-    avatar1,
-    avatar2,
-    avatar3,
-    avatar4,
-    avatar5,
-    "dummy",
-    "dummy",
-    "dummy"
-  ];
+  constructor(props){
+    super(props)
+    this.avatars = props.media.rightHolders.map(r=>{
+      return `https://smartsplit-images.s3.us-east-2.amazonaws.com/${props.rightHolders[r.id].avatarImage}`
+    })
+  }  
 
   renderAvatars() {
     const maxDisplayedAvatars = 5;
