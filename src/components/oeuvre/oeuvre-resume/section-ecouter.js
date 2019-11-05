@@ -1,4 +1,5 @@
 import React from 'react';
+import deezerIcon from '../../../assets/svg/icons/deezer.svg';
 import appleIcon from '../../../assets/svg/icons/apple-green.svg';
 import youtubeIcon from '../../../assets/svg/icons/youtube-green.svg';
 import amazonIcon from '../../../assets/svg/icons/amazonmusic-green.svg';
@@ -6,8 +7,52 @@ import googleIcon from '../../../assets/svg/icons/googleplaymusic-green.svg';
 import soundcloudIcon from '../../../assets/svg/icons/soundcloud-green.svg';
 import spotifyIcon from '../../../assets/svg/icons/spotify-green.svg';
 import TitreModifiable from "./titre-modifiable";
+import { Translation } from 'react-i18next';
 
 export default class SectionEcouter extends React.Component {
+
+    constructor(props) {
+        super(props)
+        
+        this.state={
+            liens: this.props.media.streamingServiceLinks.map(l=>{
+                let name=l.name, icon, url = l.url
+                switch(name) {
+                    case "Spotify":
+                        icon = spotifyIcon
+                        break
+                    case "Deezer":
+                        icon = deezerIcon
+                        break
+                    case "Google Play":
+                        icon = googleIcon
+                        break
+                    case "Apple Music":
+                        icon = appleIcon
+                        break
+                    case "Amazon Music":
+                        icon = amazonIcon
+                        break
+                    case "Youtube":
+                        icon = youtubeIcon
+                        break
+                    case "Pandora":
+                        icon = null
+                        break
+                    case "SoundCloud":
+                        icon = soundcloudIcon
+                        break
+                    default:
+
+                }
+                return {
+                    name: name, icon: icon, url: url
+                }
+            })
+        }
+
+    }
+
     links = [
         {
             icon: appleIcon,
@@ -43,7 +88,7 @@ export default class SectionEcouter extends React.Component {
 
     renderLink(link) {
         return (
-            <a key={`${link.label}-${link.url}`} href={ link.url }>
+            <a key={`${link.label}-${link.url}`} target="_blank" href={ link.url }>
                 <img className={'listen-icon'} src={ link.icon } alt={ link.label }/>
             </a>
         );
@@ -51,17 +96,22 @@ export default class SectionEcouter extends React.Component {
 
     render() {
         return (
-            <>
-                <TitreModifiable
-                    href={'#'}
-                >
-                    <h4 className={ 'corps-title-2' }>Écouter</h4>
-                </TitreModifiable>
+            <Translation>
+                {
+                    (t, i18n) =>
+                    <>
+                        <TitreModifiable
+                            href={'#'}
+                        >
+                            <h4 className={ 'corps-title-2' }>Écouter</h4>
+                        </TitreModifiable>
 
-                <div className={ 'listen-icons' }>
-                    { this.links.map(link => this.renderLink(link)) }
-                </div>
-            </>
+                        <div className={ 'listen-icons' }>
+                            { this.state.liens.map(link => this.renderLink(link)) }
+                        </div>
+                    </>
+                }
+                </Translation>
         );
     }
 }
