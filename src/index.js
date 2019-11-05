@@ -75,7 +75,7 @@ const renderRoutes = () => {
             <Route exact path="/" component={AccueilPochette} />
             <Route exact path="/accueil" component={AccueilPochette} />
             <Route exact path="/documenter/:mediaId" component={DocumenterPochette} />
-            <Route exact path="/oeuvre/resume" component={OeuvreResume} pochette={true} />            
+            <Route exact path="/oeuvre/:mediaId/resume" component={ResumePochette} />
             <Route exact path="*" component={AccueilPochette} />
           </Switch>
         </Router>
@@ -168,7 +168,7 @@ const renderRoutes = () => {
               path="/oeuvre/sommaire/:mediaId"
               component={sommaireOeuvre}
             />
-            <Route exact path="/oeuvre/resume" component={OeuvreResume} />
+            <Route exact path="/oeuvre/:mediaId/resume" component={Resume} />
             <Route
               exact
               path="/partage/editeur/vote/:jeton"
@@ -180,6 +180,20 @@ const renderRoutes = () => {
     );
   }
 };
+
+const Resume = (match) => {
+  let mediaId = match.match.params.mediaId
+  return (
+    <OeuvreResume mediaId={mediaId} />
+  )
+}
+
+const ResumePochette = (match) => {
+  let mediaId = match.match.params.mediaId;
+  return (
+    <OeuvreResume mediaId={mediaId} pochette={true} />
+  )
+}
 
 const DefinitMotDePasse = ({match, location}) => {
   

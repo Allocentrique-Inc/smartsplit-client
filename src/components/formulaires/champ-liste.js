@@ -102,12 +102,13 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
             recherche: props.recherche,
             selection: props.selection,
             onInput: props.onInput,
-            ajout: true,
+            ajout: props.ajout,
             nomCommeCle: props.nomCommeCle
         }
         this.OPTIONS = undefined
         this.listeAyantsDroit = this.listeEntites.bind(this)
         this.onChange = props.onChange
+        this.surAjout = this.surAjout.bind(this)
     }
 
     componentWillMount() {
@@ -127,7 +128,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
     }
 
     listeEntites() {
-        // Récupérer la liste des ayant-droits        
+        // Récupérer la liste des ayant-droits          
         axios.get(`http://dev.api.smartsplit.org:8080/v1/entities`)
             .then(res => {
 
@@ -150,6 +151,10 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
             .catch(err => {
                 toast.error(err)
             })
+    }
+
+    surAjout(e) {
+        this.props.surAjout(e, ()=>{this.listeEntites()})
     }
 
     render() {
@@ -175,7 +180,8 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
                                             selection: false,
                                             multiple: false,
                                             options: this.state.options,
-                                            allowAdditions: false,
+                                            allowAdditions: this.state.ajout,
+                                            onAddItem: this.surAjout,
                                             clearable: false
                                         }} />
                                 )

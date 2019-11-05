@@ -83,7 +83,8 @@ export class ChampTexteAssistant extends Component {
             disabled: props.disabled,
             soustexte: props.soustexte,
             style: props.style || {},
-            valeur: props.valeur
+            valeur: props.valeur,
+            type: props.type || "text"
         }
         this.valeur = props.valeur
     }
@@ -123,7 +124,8 @@ export class ChampTexteAssistant extends Component {
             required: this.state.requis,
             autoFocus: this.state.autoFocus,
             disabled: this.state.disabled,
-            className: this.state.className
+            className: this.state.className,
+            type: this.state.type
         }
 
         if (this.props.changement)

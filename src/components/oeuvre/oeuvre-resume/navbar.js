@@ -5,9 +5,10 @@ import placeholder from '../../../assets/images/placeholder.png';
 import { Button } from "semantic-ui-react";
 import { Translation } from "react-i18next";
 import arrowLeftIcon from '../../../assets/svg/icons/arrow-left.svg';
+import MenuProfil from '../../entete/menu-profil';
 
 export class Navbar extends React.Component {
-    render() {
+    render() {        
         return (
             <Translation>
                 {
@@ -15,17 +16,17 @@ export class Navbar extends React.Component {
                         <div className="fixed-top">
                             <div className={ 'oeuvre-resume-navbar ' + (this.props.pochette ? 'pochette' : '') }>
                                 <div className={ 'back-button-section' }>
-                                    <div className="ui medium button">
+                                    <div className="ui cliquable" onClick={()=>window.location.href="/accueil"}>
                                         <img src={ arrowLeftIcon } alt={ 'Retour' }/>
                                     </div>
                                 </div>
 
                                 <div className={ 'ui container' }>
                                     <div className={ 'left' }>
-                                        <img className={ 'song-image' } src={ placeholder } alt={ 'Love you baby' }/>
+                                        <img className={ 'song-image' } src={ placeholder } alt={ this.props.media.title }/>
 
                                         <div className={ 'medium-500-style' }>
-                                            Love you baby
+                                            {this.props.media.title}
                                         </div>
 
                                         <div className={ 'medium-400-style' }>
@@ -34,14 +35,18 @@ export class Navbar extends React.Component {
                                     </div>
 
                                     <div className={ 'right' }>
-                                        <Button basic>
+                                        <MenuProfil                  
+                                            user={this.props.profil}
+                                        />
+                                        {/* <Button basic>
                                             Aperçu
                                         </Button>
 
                                         <Button>
                                             Partager
-                                        </Button>
+                                        </Button> */}
                                     </div>
+
                                 </div>
                             </div>
                         </div>

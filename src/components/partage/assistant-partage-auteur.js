@@ -17,6 +17,7 @@ import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
 import Lock from "./Lock"
+import { toast } from "react-toastify"
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
 
@@ -201,7 +202,7 @@ class PageAssistantPartageAuteur extends Component {
     changementGradateur(index, delta) {
 
         // Changement d'un gradateur
-
+        const DELTA = delta
         let invariable = this.state.partsInvariables
         let droits = this.props.values.droitAuteur
 
@@ -224,27 +225,6 @@ class PageAssistantPartageAuteur extends Component {
             deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
         }
 
-        // Détection des limites pour ne pas dépasser 0
-        droits.forEach((elem, idx) => {
-            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
-            //console.log(elem.pourcent, _pred, deltaParCollaborateurVariable)
-            if(!invariable[idx] && _pred <= 0) {
-                let reste = parseFloat(droits[idx].pourcent) + _pred
-            
-                // Mettre à zéro
-                invariable[idx] = true
-                droits[idx].pourcent = 0
-                droits[idx].pourcentParoles = 0
-                droits[idx].pourcentMusique = 0
-
-                // Recalculer avec le reste réparti
-                let nbModifications = droits.length - Object.keys(invariable).length
-                if (nbModifications > 0) {
-                    deltaParCollaborateurVariable = parseFloat(deltaParCollaborateurVariable) - parseFloat(reste / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
-                }
-            }
-        })
-
         droits.forEach((elem, idx) => {
             if (!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
@@ -254,12 +234,10 @@ class PageAssistantPartageAuteur extends Component {
         })
 
         this.props.setFieldValue('droitAuteur', droits)
-
         this.setState({ ping: true }, () => this.recalculerPartage())
 
         if (aMisInvariable) // Retrait de l'index des invariables
             delete invariable[index]
-
     }
 
     basculerVariable(index) {
@@ -578,11 +556,14 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                             <div className="ui grid">
                                                                                                                 <div className="ui row">
                                                                                                                     <div  onClick={()=>this.basculerVariable(index)} className="ui one wide column">
-                                                                                                                        <Lock actif={this.state.partsInvariables[index]} />
+                                                                                                                        <Lock actif={this.state.partsInvariables[index] || this.props.values.droitAuteur.length === 1} />
                                                                                                                     </div>
                                                                                                                     <div className="ui ten wide column">
                                                                                                                         <ChampGradateurAssistant
                                                                                                                             changement={(id, delta) => {
+                                                                                                                                // Permet le changment seulement si personne ne sera à zéro
+                                                                                                                                
+
                                                                                                                                 this.changementGradateur(id, delta)
                                                                                                                             }}
                                                                                                                             id={`gradateur_droitAuteur_${index}`}
@@ -602,15 +583,17 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                     <div className="ui four wide column">
                                                                                                                         <ChampTexteAssistant                                                                                                                                                                                                                                                     
                                                                                                                             id={`texte_${index}`}
-                                                                                                                            changement={(id, valeur) => {                                                                                                                                
-                                                                                                                                this.changementTexte(id, valeur)
+                                                                                                                            changement={(id, valeur) => {
+                                                                                                                                if(!isNaN(parseFloat(valeur))){
+                                                                                                                                    this.changementTexte(id, valeur)
+                                                                                                                                }
                                                                                                                             }}
                                                                                                                             modele={`droitAuteur[${index}].pourcent`}
                                                                                                                             disabled={(
                                                                                                                                 this.props.values.droitAuteur.length <= 1) ||
                                                                                                                                 this.state.partsInvariables[index] ||
                                                                                                                                 (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
-                                                                                                                            valeur={`${this.props.values.droitAuteur[index].pourcent}`}
+                                                                                                                            valeur={`${this.props.values.droitAuteur[index].pourcent}`}                                                                                                                            
                                                                                                                         />
                                                                                                                         {
                                                                                                                             document.getElementsByName("droitAuteur["+index+"].pourcent").forEach((e, idx)=>{

@@ -11,6 +11,7 @@ import ChampTeleversement from '../page-assistant/champ-televersement'
 import { toast } from 'react-toastify'
 import { ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
 import InfoBulle from '../partage/InfoBulle'
+import { Auth } from 'aws-amplify'
 
 const etiquetteStyle = {
     fontFamily: "IBM Plex Sans",
@@ -36,8 +37,15 @@ export default class NouvelleOeuvre extends Component {
 
     componentWillMount() {
         axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
-            .then(res => {
-                this.setState({ rightHolders: res.data })
+            .then(res => {                
+                // Ordonnancement simple uuid -> nom d'artiste
+                let assocUuidArtiste = {}
+                res.data.forEach(e=>{
+                    assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
+                })
+                this.setState({assocUuidArtiste: assocUuidArtiste},
+                    ()=>this.setState({ rightHolders: res.data })
+                )
             })
     }
 
@@ -171,7 +179,7 @@ export default class NouvelleOeuvre extends Component {
                                         <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} />
+                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} assocUuidArtiste={this.state.assocUuidArtiste} />
                                     </Wizard.Page>
 
                                 </Wizard>
@@ -292,16 +300,23 @@ class Page2NouvellePiece extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            auteur: props.auteur
+            auteur: props.auteur,
+            rightHolders: props.rightHolders,
+            assocUuidArtiste: props.assocUuidArtiste
         }
         this.modaleReconnaissance = this.modaleReconnaissance.bind(this)
         this.remplirChampsAnalyse = this.remplirChampsAnalyse.bind(this)
+        this.ajouterEntiteArtistique = this.ajouterEntiteArtistique.bind(this)
+
         props.setFieldValue('type', "0")
     }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.auteur !== nextProps.auteur) {
             this.setState({ auteur: nextProps.auteur })
+        }
+        if (this.props.assocUuidArtiste !== nextProps.assocUuidArtiste) {
+            this.setState({ assocUuidArtiste: nextProps.assocUuidArtiste })
         }
     }
 
@@ -310,7 +325,7 @@ class Page2NouvellePiece extends Component {
     }
 
     rightHolderOptions() {
-        return RightHolderOptions(this.props.rightHolders);
+        return RightHolderOptions(this.state.rightHolders);
     }
 
     remplirChampsAnalyse(i18n) {
@@ -353,7 +368,39 @@ class Page2NouvellePiece extends Component {
         this.props.setFieldValue('streamingServiceLinks', liensCommerciaux)
     }
 
+    ajouterEntiteArtistique(e, cb) {
+        this.props.setFieldValue('artist', e)
+        Auth.currentAuthenticatedUser()
+        .then(res=>{
+            let username = res.username
+            let body= {username: username, entite: e}
+            axios.post('http://dev.api.smartsplit.org:8080/v1/entities/', body)
+            .then((err, res)=>{
+                if(err) {
+                    console.log(err)
+                }
+                if(cb) {
+                    cb()
+                }
+            })
+        })
+        .catch(err=>{
+            // ...
+        })
+    }
+
     render() {
+
+        let vedettes = ""
+        let rHs = this.props.values.rightHolders
+        rHs && this.state.assocUuidArtiste && rHs.forEach((rH, idx)=>{       
+            if(idx < rHs.length - 1) {
+                vedettes = vedettes + this.state.assocUuidArtiste[rH] + ", "
+            } else {
+                vedettes = vedettes + this.state.assocUuidArtiste[rH]
+            }
+        })
+
         return (
             < React.Fragment >
                 <Translation>
@@ -374,9 +421,9 @@ class Page2NouvellePiece extends Component {
                                         <div className="ui twelve wide column">
                                             <h2 style={{ color: "#2DA84F" }}>
                                                 <i>{this.props.values.title}</i>
-                                                {this.state.vedettes && (
+                                                {vedettes && (
                                                     <>
-                                                        &nbsp;(feat. <i>{this.props.values.vedettes}</i>)
+                                                        &nbsp;(feat. <i>{vedettes}</i>)
                                                     </>
                                                 )
                                                 }
@@ -406,6 +453,11 @@ class Page2NouvellePiece extends Component {
                                                             autoFocus={false}
                                                             multiple={false}
                                                             nomCommeCle={false}
+                                                            ajout={true}
+                                                            surAjout={(e, cb)=>{
+                                                                let entite = e.target.parentElement.childNodes[1].innerText
+                                                                this.ajouterEntiteArtistique(entite, cb)
+                                                            }}
                                                             onRef={
                                                                 liste => this.setState({ entites: liste })
                                                             }
@@ -430,6 +482,11 @@ class Page2NouvellePiece extends Component {
                                                             autoFocus={false}
                                                             multiple={false}
                                                             nomCommeCle={false}
+                                                            ajout={true}
+                                                            surAjout={(e, cb)=>{
+                                                                let entite = e.target.parentElement.childNodes[1].innerText
+                                                                this.ajouterEntiteArtistique(entite, cb)
+                                                            }}
                                                             onRef={
                                                                 liste => this.setState({ entites: liste })
                                                             }
@@ -448,6 +505,11 @@ class Page2NouvellePiece extends Component {
                                                             autoFocus={false}
                                                             multiple={false}
                                                             nomCommeCle={false}
+                                                            ajout={true}
+                                                            surAjout={(e, cb)=>{
+                                                                let entite = e.target.parentElement.childNodes[1].innerText
+                                                                this.ajouterEntiteArtistique(entite, cb)
+                                                            }}
                                                             onRef={
                                                                 liste => this.setState({ entites: liste })
                                                             }
@@ -468,7 +530,40 @@ class Page2NouvellePiece extends Component {
                                                 createLabel={t('flot.split.documente-ton-oeuvre.documenter.collabo')}
                                                 placeholder={t('oeuvre.attribut.etiquette.vedette')}
                                                 value={this.props.values.vedettes}
-                                                onChange={ids => this.props.setFieldValue('rightHolders', ids)}
+                                                onChange={ids => { 
+                                                    // Protéger la liste des valeurs non-uuid
+                                                    let _ids = []
+                                                    const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}")
+                                                    if(ids) {
+                                                        ids.forEach(id=>{
+                                                            if(UUID_REGEXP.test(id)) {
+                                                                _ids.push(id)
+                                                            }
+                                                        })
+                                                        this.props.setFieldValue('rightHolders', _ids)}
+                                                    }                                                                                                        
+                                                }
+                                                fn={(nouveau)=>{
+                                                    let _rHs = this.props.values.rightHolders
+                                                    // Ajoute le nouveau s'il ne fait pas déjà partie de la liste
+                                                    if(!_rHs.includes(nouveau))
+                                                        _rHs.push(nouveau)
+                                                    this.props.setFieldValue('rightHolders', _rHs)
+                                                    
+                                                    // recharger les ayant-droits
+                                                    axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+                                                    .then(res => {
+                                                        // Ordonnancement simple uuid -> nom d'artiste
+                                                        let assocUuidArtiste = this.state.assocUuidArtiste
+                                                        res.data.forEach(e=>{
+                                                            assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
+                                                        })
+                                                        this.setState({rightHolders: res.data},
+                                                            ()=>this.setState({ assocUuidArtiste: assocUuidArtiste })
+                                                        )
+                                                    })
+
+                                                }}
                                             />
                                         </div>
                                     </div>

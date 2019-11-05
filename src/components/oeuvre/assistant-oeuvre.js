@@ -276,6 +276,7 @@ class AssistantOeuvre extends Component {
                                                 <PageFichiers
                                                     pochette={ this.props.pochette }
                                                     i18n={ i18n }
+                                                    rightHolders={ this.state.rightHolders }
                                                 />
                                             </Wizard.Page>
 
@@ -300,6 +301,7 @@ class AssistantOeuvre extends Component {
                                             </Wizard.Page>
                                         </Wizard>
                                         <ModalFin
+                                            mediaId={ this.state.media.mediaId }
                                             titre={ this.state.media.title }
                                             open={ this.state.endModalOpen }
                                             onClose={ () => this.setState({ endModalOpen: false }) }
