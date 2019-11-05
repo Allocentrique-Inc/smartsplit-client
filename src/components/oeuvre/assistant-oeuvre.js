@@ -276,6 +276,7 @@ class AssistantOeuvre extends Component {
                                                 <PageFichiers
                                                     pochette={ this.props.pochette }
                                                     i18n={ i18n }
+                                                    rightHolders={ this.state.rightHolders }
                                                 />
                                             </Wizard.Page>
 
