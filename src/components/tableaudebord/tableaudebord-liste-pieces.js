@@ -203,10 +203,10 @@ export default class ListePieces extends Component {
                                                 <br />
                                                 <br />
                                                 <br />
-                                                <span className="illustration" style={{ textAlign: 'center' }}>
+                                                <div className="illustration" style={{ textAlign: 'center' }}>
                                                     <div>
                                                         <img
-                                                            style={{ fontSize: "3rem" }}
+                                                            style={{ fontSize: "3rem", textAlign: 'center' }}
                                                             aria-label=""
                                                             className={"yeux"}
                                                             src={Yeux}
@@ -223,7 +223,7 @@ export default class ListePieces extends Component {
                                                             }}>{t('flot.split.tableaudebord.vide.indication-lien')}</div>
                                                         </div>
                                                     </div>
-                                                </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
