@@ -13,7 +13,8 @@ export default class ModalFin extends Component {
       open: props.open,
       onClose: props.onClose,
       titre: props.titre,
-      songTitle: props.songTitle
+      songTitle: props.songTitle,
+      mediaId: props.mediaId
     }
   }
 
@@ -67,7 +68,7 @@ export default class ModalFin extends Component {
             </div>
 
             <div className={"modal-bottom-bar"}>            
-              <Button onClick={()=>window.location.href="/oeuvre/resume"}style={this.props.pochette ? {backgroundColor: "#F2724A"} : {}}>{t("flot.fin.resume")}</Button>
+              <Button onClick={()=>window.location.href="/oeuvre/"+this.state.mediaId+"/resume"}style={this.props.pochette ? {backgroundColor: "#F2724A"} : {}}>{t("flot.fin.resume")}</Button>
             </div>
 
           </Modal>

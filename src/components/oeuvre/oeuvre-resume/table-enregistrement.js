@@ -56,7 +56,7 @@ export default class TableEnregistrement extends React.Component {
 
         {
             label: 'Studio d\'enregistrement',
-            value: (<>Studio Piccolo<br/><span class={'color-secondary'}>1234 rue du Rock, Montréal (QC) H2J 2K9</span></>)
+            value: (<>Studio Piccolo<br/><span className={'color-secondary'}>1234 rue du Rock, Montréal (QC) H2J 2K9</span></>)
         },
     ];
 

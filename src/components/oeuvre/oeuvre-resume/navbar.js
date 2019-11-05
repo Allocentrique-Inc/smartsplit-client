@@ -15,7 +15,7 @@ export class Navbar extends React.Component {
                         <div className="fixed-top">
                             <div className={ 'oeuvre-resume-navbar ' + (this.props.pochette ? 'pochette' : '') }>
                                 <div className={ 'back-button-section' }>
-                                    <div className="ui medium button">
+                                    <div className="ui cliquable" onClick={()=>window.location.href="/accueil"}>
                                         <img src={ arrowLeftIcon } alt={ 'Retour' }/>
                                     </div>
                                 </div>
@@ -42,6 +42,7 @@ export class Navbar extends React.Component {
                                             Partager
                                         </Button>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>

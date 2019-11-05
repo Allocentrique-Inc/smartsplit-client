@@ -31,7 +31,7 @@ export default class SectionTelechargements extends React.Component {
 
     renderDownload(download) {
         return (
-            <div className={ 'download-section' }>
+            <div key={`download-${download.label}`} className={ 'download-section' }>
                 <img className={ 'download-icon' } src={ download.icon } alt={ download.label }/>
 
                 <div className={ 'download-texts' }>

@@ -27,7 +27,7 @@ export default class Entete extends React.Component {
     const displayedAvatars = Math.min(maxDisplayedAvatars, this.avatars.length);
     const undisplayedAvatars = this.avatars.length - displayedAvatars;
     const moreLabel = undisplayedAvatars ? (
-      <div className={"more-tag"}>+{undisplayedAvatars}</div>
+      <div key={`more-tag-avatar`} className={"more-tag"}>+{undisplayedAvatars}</div>
     ) : (
       <></>
     );
@@ -37,14 +37,14 @@ export default class Entete extends React.Component {
       .map((avatar, index) => {
         const zIndex = displayedAvatars + 2 - index;
         return (
-          <div className={"avatar"} style={{ zIndex }}>
+          <div key={`avatar_${index}`} className={"avatar"} style={{ zIndex }}>
             <img src={avatar} alt="avatar" />
           </div>
         );
       })
       .concat([moreLabel])
       .concat([
-        <div>
+        <div key="plus-bouton-avatar">
           <div className={"plus-button"}>
             <img alt="" src={plusIcon} />
           </div>
