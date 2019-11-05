@@ -43,7 +43,7 @@ export default class OeuvreResume extends React.Component {
     }
 
     render() {
-        if(this.state.media && this.state.user && this.state.rightHolders) {
+        if(this.state.media && this.state.rightHolders) {
             return (
                 <Translation>
                     {
