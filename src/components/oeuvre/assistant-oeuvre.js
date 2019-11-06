@@ -168,12 +168,12 @@ class AssistantOeuvre extends Component {
                 bpm: _m.bpm ? _m.bpm.trim() : "",
                 influence: _m.influence ? _m.influence.trim() : "",
                 genre: _m.genre ? _m.genre.trim() : "",
-                secondaryGenres: _m.secondaryGenres || [],
+                secondaryGenres: _m.secondaryGenre || [],
                 socialMediaLinks: _m.socialMediaLinks || [],
                 streamingServiceLinks: _m.streamingServiceLinks || [],
                 pressArticleLinks: _m.pressArticleLinks || [],
                 playlistLinks: _m.playlistLinks || [],
-                creationDate: _m.creationDate ? moment(_m.creationDate).locale('fr').format("L") : moment().locale('fr').format("L"),
+                creationDate: _m.creationDate ? moment(_m.creationDate).locale('en').format("L") : moment().locale('en').format("L"),
                 modificationDate: _m.modificationDate ? _m.modificationDate.trim() : "",
                 publishDate: _m.publishDate ? _m.publishDate.trim() : "",
                 publisher: _m.publisher ? _m.publisher.trim() : "",
@@ -276,6 +276,7 @@ class AssistantOeuvre extends Component {
                                                 <PageFichiers
                                                     pochette={ this.props.pochette }
                                                     i18n={ i18n }
+                                                    rightHolders={ this.state.rightHolders }
                                                 />
                                             </Wizard.Page>
 
@@ -300,6 +301,7 @@ class AssistantOeuvre extends Component {
                                             </Wizard.Page>
                                         </Wizard>
                                         <ModalFin
+                                            mediaId={ this.state.media.mediaId }
                                             titre={ this.state.media.title }
                                             open={ this.state.endModalOpen }
                                             onClose={ () => this.setState({ endModalOpen: false }) }

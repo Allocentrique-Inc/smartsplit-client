@@ -10,7 +10,7 @@ import { Translation } from "react-i18next";
 
 class ChampSelectionMultipleAyantDroit extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       modalOpen: false,
@@ -18,12 +18,12 @@ class ChampSelectionMultipleAyantDroit extends Component {
       selectedValues: this.props.value || [],
       dropdownValue: null,
       searchQuery: ""
-    };
+    }    
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.selectedValues !== prevState.selectedValues) {
-      this.props.onChange(this.state.selectedValues);
+      this.props.onChange(this.state.selectedValues)
     }
   }
 
@@ -66,7 +66,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
 
   isUnselectedItem = item => !this.isSelectedItem(item);
 
-  renderSelectedItems() {
+  renderSelectedItems() {    
     return this.selectedItems().map(item => {
       return (
         <ItemSelectionne
@@ -170,10 +170,13 @@ class ChampSelectionMultipleAyantDroit extends Component {
                   this.setState({ modalOpen: false, modalFirstName: "" })
                 }
                 fn={
-                  (e) => {
+                  (e) => {                    
                     let values = this.state.selectedValues
                     values.push(e)
                     this.setState({ selectedValues: values })
+                    if(this.props.fn) {
+                      this.props.fn(e)
+                    }
                   }
                 }
               />
