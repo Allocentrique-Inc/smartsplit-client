@@ -30,6 +30,7 @@ class ForgotPassword extends Component {
       pochette: props.pochette,
       modalOpen: false,
       email: "",
+      requestSource: window.location.href || "",
       errors: {
         cognito: null,
         blankfield: false
@@ -83,13 +84,38 @@ class ForgotPassword extends Component {
   };
 
   forgotPasswordHandler = (courriel) => {
-    // AWS Cognito integration here    
-    Auth.forgotPassword(courriel)
-    .then(res=>{
-    })
-    .catch(error=>{
-      toast.error(error.message)
-    })    
+    // patch requestSource flag in dynamoDB from userId
+    // let requestSource = window.location.href
+    // if (requestSource.includes("pochette")){
+    if (this.state.requestSource.includes("pochette")){
+      axios.post('http://dev.api.smartsplit.org:8080/v1/rightHolders/emailToRightHolderId', {
+        "email": courriel
+      })
+      .then(res=>{
+        let rightHolderId = res.data
+        axios.patch(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolderId}/requestSource`, {
+          requestSource: "pochette"
+        })
+        .then(() => {
+          Auth.forgotPassword(courriel)
+          .then(res=>{
+          })
+          .catch(error=>{
+            toast.error(error.message)
+          }) 
+
+        })
+      
+      })
+
+    } else {
+      Auth.forgotPassword(courriel)
+      .then(res=>{
+      })
+      .catch(error=>{
+        toast.error(error.message)
+      }) 
+    } 
   };
 
   onInputChange = event => {
