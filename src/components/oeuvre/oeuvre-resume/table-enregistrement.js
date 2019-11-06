@@ -63,24 +63,12 @@ export default class TableEnregistrement extends React.Component {
         },
  */
 
-<<<<<<< HEAD
-        {
-            label: 'Release',
-            value: (<><span>Album</span>, <span>EP</span></>)
-        },
-
-        {
-            label: 'Réalisateur',
-            value: (<span>Carl Bastien</span>)
-        },
-=======
         return [
             
             {
                 label: 'Date de sortie',
                 value: this.props.media.publishDate ? moment(this.props.media.publishDate).locale(i18n.lng.substring(0, 2)).format("LL") : "À venir"
             },
->>>>>>> ecde631f3be5d9108f45af0851d4635c140920ab
 
             {
                 label: 'Titre de la piste',

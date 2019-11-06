@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Auth } from "aws-amplify"
 import { Translation } from "react-i18next"
 import { Modal } from "semantic-ui-react"
+import axios from "axios"
 
 import closeIcon from "../../assets/svg/icons/x.svg"
 import "../../assets/scss/page-assistant/modal.scss"
@@ -30,7 +31,7 @@ class ForgotPassword extends Component {
       pochette: props.pochette,
       modalOpen: false,
       email: "",
-      requestSource: window.location.href || "",
+      // requestSource: window.location.href || "", // this.props.location
       errors: {
         cognito: null,
         blankfield: false
@@ -85,15 +86,17 @@ class ForgotPassword extends Component {
 
   forgotPasswordHandler = (courriel) => {
     // patch requestSource flag in dynamoDB from userId
-    // let requestSource = window.location.href
-    // if (requestSource.includes("pochette")){
-    if (this.state.requestSource.includes("pochette")){
-      axios.post('http://dev.api.smartsplit.org:8080/v1/rightHolders/emailToRightHolderId', {
+    let requestSource = window.location.href
+    console.log("REQUEST", requestSource, requestSource.includes("pochette"))
+    console.log("EMAIL", courriel)
+    if (requestSource.includes("pochette")) {
+      axios.post('http://localhost:8080/v1/rightHolders/emailToRightHolderId', {
         "email": courriel
       })
       .then(res=>{
+        console.log("RES.data", res.data)
         let rightHolderId = res.data
-        axios.patch(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolderId}/requestSource`, {
+        axios.patch(`http://localhost:8080/v1/rightHolders/${rightHolderId}/requestSource`, {
           requestSource: "pochette"
         })
         .then(() => {
