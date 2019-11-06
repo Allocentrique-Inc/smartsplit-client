@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./ModifyUser.css";
 import axios from "axios";
 import {
-  Button,  
+  Button,
   Modal,
   Dropdown
 } from "semantic-ui-react";
@@ -123,17 +123,17 @@ class ModifyUser extends Component {
         password,
         attributes: attributes
       })
-      .then((res) => {
-        let userSub = res.userSub
-        this.setState({ open: false })
-        if (this.props.fn) {
-          this.props.fn(userSub);
-        }
-      })
-      .catch(err => {
-        toast.error(err.message);
-        console.log(err);
-      });
+        .then((res) => {
+          let userSub = res.userSub
+          this.setState({ open: false })
+          if (this.props.fn) {
+            this.props.fn(userSub);
+          }
+        })
+        .catch(err => {
+          toast.error(err.message);
+          console.log(err);
+        });
     } catch (err) {
       console.log("try", err);
     }
@@ -182,15 +182,15 @@ class ModifyUser extends Component {
 
   boutonsCouleurPochette() {
     let boutons
-    boutons  = document.getElementsByClassName("ui positive button")
-    for(var i = 0; i<boutons.length; i++) {
-        boutons[i].style.backgroundColor = "#F2724A"
-        boutons[i].style.color = "white"
+    boutons = document.getElementsByClassName("ui positive button")
+    for (var i = 0; i < boutons.length; i++) {
+      boutons[i].style.backgroundColor = "#F2724A"
+      boutons[i].style.color = "white"
     }
     boutons = document.getElementsByClassName("ui negative button")
-    for(var i = 0; i<boutons.length; i++) {
-        boutons[i].style.color = "#F2724A"
-    }        
+    for (var i = 0; i < boutons.length; i++) {
+      boutons[i].style.color = "#F2724A"
+    }
   }
 
   render() {
@@ -238,7 +238,7 @@ class ModifyUser extends Component {
                         required
                         className="newFirstName"
                         placeholder={t(
-                          "flot.split.collaborateur.attribut.etiquette.prenom"
+                          "flot.split.collaborateur.attribut.etiquette.placeholder.prenom"
                         )}
                         value={this.state.firstName}
                         onChange={e => this.onTodoChange(e.target.value)}
@@ -256,7 +256,7 @@ class ModifyUser extends Component {
                         type="text"
                         required
                         className="newLastName"
-                        placeholder={t("flot.split.collaborateur.attribut.etiquette.nom")}
+                        placeholder={t("flot.split.collaborateur.attribut.etiquette.placeholder.nom")}
                         value={this.state.lastName}
                         onChange={e =>
                           this.setState({ lastName: e.target.value })
@@ -281,7 +281,7 @@ class ModifyUser extends Component {
                   <input
                     type="text"
                     className="newArtistName"
-                    placeholder={t("flot.split.collaborateur.attribut.etiquette.artiste")}
+                    placeholder={t("flot.split.collaborateur.attribut.etiquette.placeholder.artiste")}
                     value={this.state.artistName}
                     onChange={e =>
                       this.setState({ artistName: e.target.value })
@@ -436,14 +436,14 @@ class ModifyUser extends Component {
                 labelPosition="right"
                 content={t("flot.split.collaborateur.attribut.bouton.sauvegarder")}
               />
-              {                                    
-              this.props.pochette &&
-                  (document.getElementsByClassName("ui button").length > 0) &&
-                  (this.boutonsCouleurPochette())
+              {
+                this.props.pochette &&
+                (document.getElementsByClassName("ui button").length > 0) &&
+                (this.boutonsCouleurPochette())
               }
             </Modal.Actions>
           </Modal>
-        )}        
+        )}
       </Translation>
     );
   }

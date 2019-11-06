@@ -218,15 +218,20 @@
         "titre": "Add a collaborating artist",
         "attribut": {
           "etiquette": {
-            "nom": "Legal Name",
-            "prenom": "Legal First Name",
+            "nom": "Name",
+            "prenom": "First Name",
             "artiste": "Artist Name (aka)",
             "option": " (optional)",
             "na": "If not applicable, the complete name is displayed.",
             "role": "Role in the work",
             "courriel": "Email",
             "groupe": "Group/Entity",
-            "ajout": "Add a groupor or an artist"
+            "ajout": "Add a groupor or an artist",
+            "placeholder": {
+              "nom": "Entre their first name",
+              "prenom": "Enter their last name",
+              "artiste": "Enter their artist name (aka)"
+            }
           },
           "indication": {
             "nom": "Last name",
@@ -654,7 +659,7 @@
       "maintenantPartage": "The split proposition now exists. Bravo!",
       "resume": "See the summary",
       "partage": "See the proposal",
-      "partageCree": "⭐️ The share proposal is created",
+      "partageCree": "⭐️ Sahred proposal created",
       "recupMotDePasse": "Password reset"
     }
   },
@@ -729,5 +734,12 @@
     "egal": "Divide the copyright by the number of people and assign the role “Author-Composer” by default to all. This way of sharing copyright avoids many disagreements among creators, particularly when the income starts to come in!",
     "roles": "Divide the copyright into two: 50% goes to those who wrote the lyrics, and 50% to those who composed the music. This last “music” part is in return divided by the number of roles elected and the collaborators get a percentage according to their implication. For example: Alice only composes music, while Bob compose AND arrange music. Therefore, Alice has 1/3 and Bob has 2/3 of the music.",
     "manuel": "Lets you determine the percentage and the roles for each collaborator. To set a percentage to a collaborator, you can use the lock."
+  },
+  "options-acces": {
+    "public": "Public – Downloadable by everyone.",
+    "tous": "All users can download the original file.",
+    "certains": "On invitation - Downloadable by some.",
+    "lien": "Users with the unique shareable link can download the original file. Useful for reporters and the professionals!",
+    "prive": "Private - Prevent download.",
+    "personne": "Nobody will be able to download, except you."
   }
-}

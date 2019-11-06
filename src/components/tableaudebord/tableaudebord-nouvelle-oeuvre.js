@@ -377,6 +377,7 @@ class Page2NouvellePiece extends Component {
                                                 {this.state.vedettes && (
                                                     <>
                                                         &nbsp;(feat. <i>{this.props.values.vedettes}</i>)
+                                                        <br />
                                                     </>
                                                 )
                                                 }
