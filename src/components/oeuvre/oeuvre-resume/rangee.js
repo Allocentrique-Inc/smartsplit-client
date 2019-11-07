@@ -1,11 +1,12 @@
-import React from 'react';
-import helpIcon from "../../../assets/svg/icons/help-circle-full.svg";
+import React from 'react'
+import helpIcon from "../../../assets/svg/icons/help-circle-full.svg"
+const uuidv1 = require("uuid/v1")
 
 export default function Rangee(props) {
     const placeholder = 'Ajouter cette information';
-
+    let uuid = uuidv1()
     return (
-        <tr>
+        <tr key={`rangee-${uuid}`}>
             <td className={ 'table-label' }>
                 { props.label } { renderHelpIcon(props) }
             </td>

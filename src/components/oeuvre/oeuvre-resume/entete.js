@@ -9,25 +9,23 @@ import avatar5 from "../../../assets/images/positive.png";
 import plusIcon from "../../../assets/svg/icons/plus-white.svg";
 import editIcon from "../../../assets/svg/icons/edit.svg";
 import { Translation } from "react-i18next";
+import moment from "moment";
 
 export default class Entete extends React.Component {
-  avatars = [
-    avatar1,
-    avatar2,
-    avatar3,
-    avatar4,
-    avatar5,
-    "dummy",
-    "dummy",
-    "dummy"
-  ];
+  
+  constructor(props){
+    super(props)
+    this.avatars = props.media.rightHolders.map(r=>{
+      return `https://smartsplit-images.s3.us-east-2.amazonaws.com/${props.rightHolders[r.id].avatarImage}`
+    })
+  }  
 
   renderAvatars() {
     const maxDisplayedAvatars = 5;
     const displayedAvatars = Math.min(maxDisplayedAvatars, this.avatars.length);
     const undisplayedAvatars = this.avatars.length - displayedAvatars;
     const moreLabel = undisplayedAvatars ? (
-      <div className={"more-tag"}>+{undisplayedAvatars}</div>
+      <div key={`more-tag-avatar`} className={"more-tag"}>+{undisplayedAvatars}</div>
     ) : (
       <></>
     );
@@ -37,14 +35,14 @@ export default class Entete extends React.Component {
       .map((avatar, index) => {
         const zIndex = displayedAvatars + 2 - index;
         return (
-          <div className={"avatar"} style={{ zIndex }}>
+          <div key={`avatar_${index}`} className={"avatar"} style={{ zIndex }}>
             <img src={avatar} alt="avatar" />
           </div>
         );
       })
       .concat([moreLabel])
       .concat([
-        <div>
+        <div key="plus-bouton-avatar">
           <div className={"plus-button"}>
             <img alt="" src={plusIcon} />
           </div>
@@ -55,32 +53,32 @@ export default class Entete extends React.Component {
   render() {
     return (
       <Translation>
-        {t => (
+        {(t, i18n) => (
           <header className="entete">
             <div className={"ui container flex"}>
               <img
                 className={"song-image"}
                 src={placeholder}
-                alt={"Love you baby"}
+                alt={this.props.media.title}
               />
 
               <div className={"song-info"}>
                 <h1 className={"h1-style"}>
-                  Love You Baby (Remix)
-                  <div className={"edit-link"}>
+                  {this.props.media.title}
+                  {/* <div className={"edit-link"}>
                     <img
                       className={"edit-icon"}
                       src={editIcon}
                       alt={"Éditer"}
                     />
-                  </div>
+                  </div> */}
                 </h1>
 
                 <div className={"artist-line"}>
                   <div className={"left"}>
                     <span className={"tag"}>{t("oeuvre.piece")}</span>
-                    {t("oeuvre.par")} <span>{t("oeuvre.band")}</span> {t("oeuvre.feat")}{" "}
-                    <span>{t("oeuvre.artistName")}</span>
+                    {t("oeuvre.par")} <span>{this.props.media.artist}</span> {/* t("oeuvre.feat") */}{" "}
+                    <span>{/* t("oeuvre.artistName") */}</span>
                   </div>
 
                   <div className={"right"}>
@@ -91,8 +89,11 @@ export default class Entete extends React.Component {
                 <div className={"header-divider"}></div>
 
                 <div className={"other-info"}>
-                  {t("oeuvre.creePar")} <span>Inscience</span> &middot; Mis
-                  à jour il y a 3 heures
+                  {t("oeuvre.creePar")} <span>{this.props.rightHolders[this.props.media.creator].artistName}</span> &middot; Mis
+                  à jour {i18n.lng &&
+                      moment(this.props.media.modificationDate ? this.props.media.modificationDate : this.props.media.creationDate)
+                        .locale(i18n.lng.substring(0, 2))
+                        .fromNow()}
                 </div>
               </div>
             </div>

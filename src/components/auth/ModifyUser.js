@@ -148,22 +148,11 @@ class ModifyUser extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
+      .get("http://dev.api.smartsplit.org:8080/v1/entities")
       .then(res => {
-        let groupers = [];
-        let groupsUnique = [];
-        res.data.forEach(function (element) {
-          groupers.push(element.groups);
-          // Remove duplicates from multiple right holders and flattens arrays
-          let GR = groupers
-            .sort()
-            .flat()
-            .filter(Boolean);
-          groupsUnique = [...new Set(GR)];
-        });
-        groupsUnique.forEach(function (elm) {
-          groups.push({ key: elm, text: elm, value: elm });
-        });
+        res.data.forEach(g=>{
+          groups.push({key: g.uuid, text: g.name, value: g.name})
+        })
         this.setState({ groups: groups });
       })
       .catch(err => {

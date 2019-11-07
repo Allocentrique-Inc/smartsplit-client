@@ -1,36 +1,66 @@
 import React from 'react';
 import TableDroite from "./table-droite";
+import { Translation } from 'react-i18next';
 
 export default class TableInformationsGenerales extends React.Component {
-    rows = [
-        {
-            label: 'Durée',
-            value: '3:12'
-        },
-        {
-            label: 'BPM',
-            value: '122'
-        },
-        {
-            label: 'Genre',
-            value: 'Rock'
-        },
-        {
-            label: 'Styles',
-            value: 'Rockabilly, Dubtrap, British Rock, Black Metal'
-        },
-        {
-            label: 'Influences',
-            value: 'The Rolling Stones, Ivy and the Pearls, Frankie and the Lights, Kanye West, Apollo Brown'
-        },
-    ];
+    
+    constructor(props) {
+        super(props)
+    }
+
+    rangees(t, i18n) {
+
+        let duree = Math.round(this.props.media.msDuration / 1000)
+
+        let minutes, secondes
+        if(duree > 0) {
+            let _min = Math.floor(duree / 60)
+            let _sec = duree % 60
+            minutes = ""+_min
+            secondes = ""+_sec
+        }
+
+        return [
+            {
+                label: 'Durée',
+                value: secondes ? minutes+":"+secondes : "Inconnue"
+            },
+            {
+                label: 'BPM',
+                value: this.props.media.bpm
+            },
+            {
+                label: 'Genre',
+                value: this.props.media.genre
+            },
+            {
+                label: 'Styles',
+                value: this.props.media.secondaryGenre.map((e, idx)=>{
+                    if(idx < this.props.media.secondaryGenre.length - 1) {
+                        return e + ", "
+                    } else {
+                        return e
+                    }
+                })
+            },
+            {
+                label: 'Influences',
+                value: this.props.media.influence
+            },
+        ]
+    }
 
     render() {
         return (
-            <TableDroite
-                title={ 'Information générales' }
-                rows={ this.rows }
-            />
+            <Translation>
+                {
+                    (t, i18n) =>
+                        <TableDroite
+                            title={ 'Information générales' }
+                            rows={ this.rangees(t, i18n) }
+                        />                    
+                }
+            </Translation>            
         );
     }
 }

@@ -6,8 +6,24 @@ import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg"
 import Colonne from "../page-assistant/colonne"
 import Entete from "../page-assistant/entete"
 import ChampTeleversement from "../page-assistant/champ-televersement"
+<<<<<<< HEAD
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
 import InfoBulle from '../partage/InfoBulle'
+=======
+import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique"
+import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit"
+import RightHolderOptions from "../page-assistant/right-holder-options";
+import InfoBulle from "../partage/InfoBulle"
+
+import * as roles from "../../assets/listes/role-uuids.json";
+
+import {
+  addRightHolderIfMissing,
+  getRightHolderIdsByRole,
+  hasRoles,
+  updateRole
+} from "../page-assistant/right-holder-helpers";
+>>>>>>> origin/develop
 
 export default class PageFichiers extends React.Component {
   icon() {
@@ -18,13 +34,52 @@ export default class PageFichiers extends React.Component {
     super(props);
 
     this.state = {
+      graphists: getRightHolderIdsByRole(
+        roles.graphist,
+        props.values.rightHolders
+      ),
       open: props.open,
       terms: "Y"
     };
   }
 
+<<<<<<< HEAD
   handleSubmit = values => {
 
+=======
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.graphists !== prevState.graphists
+    ) {
+      
+      const creationRightHolderIds = this.state.graphists
+
+      const updatedRightHolders = creationRightHolderIds
+        .reduce(addRightHolderIfMissing, [...this.props.values.rightHolders])
+        .map(this.getUpdatedRightHolder)
+        .filter(hasRoles);
+
+      this.props.setFieldValue("rightHolders", updatedRightHolders);
+    }
+  }
+
+  getUpdatedRightHolder = rightHolder => {
+    const rightHolderRoles = rightHolder.roles || [];
+    const id = rightHolder.id || null;
+
+    const graphistsRoles = updateRole(
+      roles.graphist,
+      this.state.graphists,
+      id,
+      rightHolderRoles
+    );    
+
+    return Object.assign({}, rightHolder, { roles: graphistsRoles });
+  };
+
+  rightHolderOptions() {
+    return RightHolderOptions(this.props.rightHolders);
+>>>>>>> origin/develop
   }
 
   render() {
@@ -33,7 +88,7 @@ export default class PageFichiers extends React.Component {
       <Translation>
         {(t, i18n) => (
           <Page pochette={this.props.pochette}>
-            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={20000} />
+            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}
@@ -56,6 +111,20 @@ export default class PageFichiers extends React.Component {
                 </h3>
               </div>
 
+<<<<<<< HEAD
+=======
+              <ChampSelectionMultipleAyantDroit
+                label={t("flot.split.documente-ton-oeuvre.documenter.graphiste")}
+                pochette={this.props.pochette}
+                items={this.rightHolderOptions()}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.graphiste-description")} />}
+                placeholder={t(
+                  "flot.split.documente-ton-oeuvre.documenter.graphiste-placeholder"
+                )}
+                value={this.state.graphists}
+                onChange={ids => this.setState({ graphists: ids })}
+              />
+>>>>>>> origin/develop
               <br />
 
               <ChampTeleversement

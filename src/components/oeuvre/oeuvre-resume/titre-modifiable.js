@@ -7,9 +7,9 @@ export default function TitreModifiable(props) {
         <div className={ 'editable-title' }>
             { props.children }
 
-            <a className={ 'edit-link' } href={ props.href }>
+            {/* <a className={ 'edit-link' } href={ props.href }>
                 <img className={ 'edit-icon' } src={ editIcon } alt={ 'Édition' }/>
-            </a>
+            </a> */}
         </div>
     );
 }
