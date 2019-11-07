@@ -23,50 +23,57 @@ export default class ModalFin extends Component {
       this.setState({ open: true })
     }
   }
+  closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
+    this.setState({ closeOnEscape, closeOnDimmerClick, open: true });
+  };
+
+  onClose = () => {
+    this.props.open(false);
+  };
 
   render() {
     return (
       <Translation>
         {(t, i18n) => (
-          <Modal open={this.state.open} onClose={this.state.onClose}>
+          <Modal open={this.props.open} onClose={this.props.onClose}>
             <div className="modal-navbar">
-              <div style={{ textAlign: "center" }}>
-                <div className="left">
+              <div className="left">
+                <div style={{ textAlign: "center" }}>
                   <div className="title">{t("flot.fin.created")}</div>
                 </div>
-
-                <div className="right">
-                  <span className="close-icon" onClick={this.state.onClose}>
-                    <img src={closeIcon} alt={"close"} />
-                  </span>
-                </div>
               </div>
 
-              <div className="modal-content">
-                <img
-                  className={"success-image"}
-                  src={positiveImage}
-                  alt={"Positive"}
-                />
+              <div className="right">
+                <span className="close-icon cliquable" onClick={this.props.onClose}>
+                  <img src={closeIcon} alt={"close"} />
+                </span>
+              </div>
+            </div>
 
-                <h4 className={"h4-style"}>
-                  {t("flot.fin.maintenant1")}, <em>{this.state.titre}</em>, {t("flot.fin.maintenant2")}
-                </h4>
-                {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                  <p className={"description"}>
-                    You're one <em>click</em> away from publishing this track's
-                    credits on a web page and thus increasing your discoverability
+            <div className="modal-content">
+              <img
+                className={"success-image"}
+                src={positiveImage}
+                alt={"Positive"}
+              />
+
+              <h4 className={"h4-style"}>
+                {t("flot.fin.maintenant1")}, <em>{this.state.titre}</em>, {t("flot.fin.maintenant2")}
+              </h4>
+              {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
+                <p className={"description"}>
+                  You're one <em>click</em> away from publishing this track's
+                  credits on a web page and thus increasing your discoverability
                   in <em>data web</em>.
                 </p>
-                )}
-                {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                  <p className={"description"}>
-                    Tu es à un <em>clic</em> de pouvoir publier les crédits de
-                    cette pièce sur une page web et ainsi d’augmenter ta
+              )}
+              {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
+                <p className={"description"}>
+                  Tu es à un <em>clic</em> de pouvoir publier les crédits de
+                  cette pièce sur une page web et ainsi d’augmenter ta
                   découvrabilité dans le <em>web des données</em>.
                 </p>
-                )}
-              </div>
+              )}
             </div>
 
             <div className={"modal-bottom-bar"}>
@@ -74,7 +81,8 @@ export default class ModalFin extends Component {
             </div>
 
           </Modal>
-        )}
+        )
+        }
       </Translation>
     );
   }

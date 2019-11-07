@@ -60,7 +60,7 @@ export default class PageParoles extends React.Component {
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.ajouter-parole"
                 )}
-                value={this.props.values.lyrics.text}
+                value={this.props.values.lyrics.undertext}
                 onChange={value =>
                   this.props.setFieldValue("lyrics.text", value)
                 }
