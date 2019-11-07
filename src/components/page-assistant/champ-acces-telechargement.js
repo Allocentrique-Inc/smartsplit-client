@@ -6,7 +6,7 @@ import DownloadCloudIcon from "../../assets/svg/icons/download-cloud.svg"
 import OptionAcces from "./option-acces"
 import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg"
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg"
-import { Translation, useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import "../formulaires.css";
 
 export default function ChampAccesTelechargement(props) {
@@ -92,27 +92,23 @@ export class BaseChampAccesTelechargement extends React.Component {
 
   render() {
     return (
-      <Translation>
-        {t => (
-          <div className="champ champ-acces">
-            <label>
-              <TitreChamp
-                label={t("flot.split.documente-ton-oeuvre.documenter.acces")}
-              />
-              <Dropdown
-                style={{ width: "85px" }}
-                trigger={this.trigger()}
-                fluid
-                selection
-                direction="right"
-                options={this.options}
-                onChange={(event, { value }) => this.handleChange(value)}
-              />
-            </label>
-          </div>
+      <div className="champ champ-acces">
+        <label>
+          <TitreChamp
+            label={this.props.t("flot.split.documente-ton-oeuvre.documenter.acces")}
+          />
+          <Dropdown
+            style={{ width: "85px" }}
+            trigger={this.trigger()}
+            fluid
+            selection
+            direction="right"
+            options={this.options}
+            onChange={(event, { value }) => this.handleChange(value)}
+          />
+        </label>
+      </div>
 
-        )}
-      </Translation>
     );
   }
 }

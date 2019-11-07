@@ -150,8 +150,8 @@ class ModifyUser extends Component {
     axios
       .get("http://dev.api.smartsplit.org:8080/v1/entities")
       .then(res => {
-        res.data.forEach(g=>{
-          groups.push({key: g.uuid, text: g.name, value: g.name})
+        res.data.forEach(g => {
+          groups.push({ key: g.uuid, text: g.name, value: g.name })
         })
         this.setState({ groups: groups });
       })
@@ -390,8 +390,8 @@ class ModifyUser extends Component {
                         value: "Singer"
                       },
                       {
-                        key: t("flot.split.roles.musician"),
-                        text: t("flot.split.roles.musician"),
+                        key: t("flot.split.roles.musicien"),
+                        text: t("flot.split.roles.musicien"),
                         value: "Musician"
                       }
                     ]}

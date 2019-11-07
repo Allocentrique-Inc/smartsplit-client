@@ -6,11 +6,7 @@ import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg"
 import Colonne from "../page-assistant/colonne"
 import Entete from "../page-assistant/entete"
 import ChampTeleversement from "../page-assistant/champ-televersement"
-<<<<<<< HEAD
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
-import InfoBulle from '../partage/InfoBulle'
-=======
-import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique"
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit"
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import InfoBulle from "../partage/InfoBulle"
@@ -23,7 +19,6 @@ import {
   hasRoles,
   updateRole
 } from "../page-assistant/right-holder-helpers";
->>>>>>> origin/develop
 
 export default class PageFichiers extends React.Component {
   icon() {
@@ -43,15 +38,11 @@ export default class PageFichiers extends React.Component {
     };
   }
 
-<<<<<<< HEAD
-  handleSubmit = values => {
-
-=======
   componentDidUpdate(prevProps, prevState) {
     if (
       this.state.graphists !== prevState.graphists
     ) {
-      
+
       const creationRightHolderIds = this.state.graphists
 
       const updatedRightHolders = creationRightHolderIds
@@ -72,14 +63,13 @@ export default class PageFichiers extends React.Component {
       this.state.graphists,
       id,
       rightHolderRoles
-    );    
+    );
 
     return Object.assign({}, rightHolder, { roles: graphistsRoles });
   };
 
   rightHolderOptions() {
     return RightHolderOptions(this.props.rightHolders);
->>>>>>> origin/develop
   }
 
   render() {
@@ -111,8 +101,6 @@ export default class PageFichiers extends React.Component {
                 </h3>
               </div>
 
-<<<<<<< HEAD
-=======
               <ChampSelectionMultipleAyantDroit
                 label={t("flot.split.documente-ton-oeuvre.documenter.graphiste")}
                 pochette={this.props.pochette}
@@ -124,7 +112,6 @@ export default class PageFichiers extends React.Component {
                 value={this.state.graphists}
                 onChange={ids => this.setState({ graphists: ids })}
               />
->>>>>>> origin/develop
               <br />
 
               <ChampTeleversement
@@ -196,7 +183,7 @@ export default class PageFichiers extends React.Component {
                         ? "https://en.wikipedia.org/wiki/Graphic_notation_(music)"
                         : "https://fr.wikipedia.org/wiki/Partition_graphique")
                     }
-                    style={{ color: this.props.pochette ? "#F2724A": "#2DA84F" }}
+                    style={{ color: this.props.pochette ? "#F2724A" : "#2DA84F" }}
                   >
                     {t("flot.split.documente-ton-oeuvre.documenter.autre-plus")}
                   </a>
@@ -205,7 +192,7 @@ export default class PageFichiers extends React.Component {
                 value={this.state.terms}
               />
               <ChampTeleversement
-                extraStyle={{marginTop: "70px"}}
+                extraStyle={{ marginTop: "70px" }}
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.autre-etape3"
                 )}

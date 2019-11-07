@@ -19,8 +19,8 @@ export default class ModalFin extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.open !== nextProps.open) {
-      this.setState({open: true})
+    if (this.props.open !== nextProps.open) {
+      this.setState({ open: true })
     }
   }
 
@@ -30,45 +30,47 @@ export default class ModalFin extends Component {
         {(t, i18n) => (
           <Modal open={this.state.open} onClose={this.state.onClose}>
             <div className="modal-navbar">
-              <div className="left">
-                <div className="title">{t("flot.fin.created")}</div>
+              <div style={{ textAlign: "center" }}>
+                <div className="left">
+                  <div className="title">{t("flot.fin.created")}</div>
+                </div>
+
+                <div className="right">
+                  <span className="close-icon" onClick={this.state.onClose}>
+                    <img src={closeIcon} alt={"close"} />
+                  </span>
+                </div>
               </div>
 
-              <div className="right">
-                <span className="close-icon" onClick={this.state.onClose}>
-                  <img src={closeIcon} alt={"close"} />
-                </span>
-              </div>
-            </div>
+              <div className="modal-content">
+                <img
+                  className={"success-image"}
+                  src={positiveImage}
+                  alt={"Positive"}
+                />
 
-            <div className="modal-content">
-              <img
-                className={"success-image"}
-                src={positiveImage}
-                alt={"Positive"}
-              />
-
-              <h4 className={"h4-style"}>
-                {t("flot.fin.maintenant1")}, <em>{this.state.titre}</em>, {t("flot.fin.maintenant2")}
-              </h4>
-              {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                <p className={"description"}>
-                  You're one <em>click</em> away from publishing this track's
-                  credits on a web page and thus increasing your discoverability
+                <h4 className={"h4-style"}>
+                  {t("flot.fin.maintenant1")}, <em>{this.state.titre}</em>, {t("flot.fin.maintenant2")}
+                </h4>
+                {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
+                  <p className={"description"}>
+                    You're one <em>click</em> away from publishing this track's
+                    credits on a web page and thus increasing your discoverability
                   in <em>data web</em>.
                 </p>
-              )}
-              {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                <p className={"description"}>
-                  Tu es à un <em>clic</em> de pouvoir publier les crédits de
-                  cette pièce sur une page web et ainsi d’augmenter ta
+                )}
+                {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
+                  <p className={"description"}>
+                    Tu es à un <em>clic</em> de pouvoir publier les crédits de
+                    cette pièce sur une page web et ainsi d’augmenter ta
                   découvrabilité dans le <em>web des données</em>.
                 </p>
-              )}
+                )}
+              </div>
             </div>
 
-            <div className={"modal-bottom-bar"}>            
-              <Button onClick={()=>window.location.href="/oeuvre/"+this.state.mediaId+"/resume"}style={this.props.pochette ? {backgroundColor: "#F2724A"} : {}}>{t("flot.fin.resume")}</Button>
+            <div className={"modal-bottom-bar"}>
+              <Button onClick={() => window.location.href = "/oeuvre/" + this.state.mediaId + "/resume"} style={this.props.pochette ? { backgroundColor: "#F2724A" } : {}}>{t("flot.fin.resume")}</Button>
             </div>
 
           </Modal>

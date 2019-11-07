@@ -99,7 +99,7 @@ export default class PageInformationsGenerales extends React.Component {
                 pochette={this.props.pochette}
                 items={this.genreOptions()}
                 label={t("oeuvre.attribut.etiquette.genre")}
-                createLabel={t("oeuvre.attribut.etiquette.creer-genre")}
+                /*createLabel={t("oeuvre.attribut.etiquette.creer-genre")}*/
                 placeholder={t("oeuvre.attribut.etiquette.ajouter-genre")}
                 value={this.props.values.genre}
                 onChange={value => this.props.setFieldValue("genre", value)}
@@ -109,7 +109,7 @@ export default class PageInformationsGenerales extends React.Component {
                 pochette={this.props.pochette}
                 items={this.genreOptions()}
                 label={t("oeuvre.attribut.etiquette.genre2")}
-                createLabel={t("oeuvre.attribut.etiquette.creer-genre")}
+                /*createLabel={t("oeuvre.attribut.etiquette.creer-genre")}*/
                 placeholder={t("oeuvre.attribut.etiquette.ajouter-genre")}
                 value={this.props.values.secondaryGenres}
                 onChange={value =>

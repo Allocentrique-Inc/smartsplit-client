@@ -37,14 +37,14 @@ export default class NouvelleOeuvre extends Component {
 
     componentWillMount() {
         axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
-            .then(res => {                
+            .then(res => {
                 // Ordonnancement simple uuid -> nom d'artiste
                 let assocUuidArtiste = {}
-                res.data.forEach(e=>{
+                res.data.forEach(e => {
                     assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
                 })
-                this.setState({assocUuidArtiste: assocUuidArtiste},
-                    ()=>this.setState({ rightHolders: res.data })
+                this.setState({ assocUuidArtiste: assocUuidArtiste },
+                    () => this.setState({ rightHolders: res.data })
                 )
             })
     }
@@ -371,30 +371,30 @@ class Page2NouvellePiece extends Component {
     ajouterEntiteArtistique(e, cb) {
         this.props.setFieldValue('artist', e)
         Auth.currentAuthenticatedUser()
-        .then(res=>{
-            let username = res.username
-            let body= {username: username, entite: e}
-            axios.post('http://dev.api.smartsplit.org:8080/v1/entities/', body)
-            .then((err, res)=>{
-                if(err) {
-                    console.log(err)
-                }
-                if(cb) {
-                    cb()
-                }
+            .then(res => {
+                let username = res.username
+                let body = { username: username, entite: e }
+                axios.post('http://dev.api.smartsplit.org:8080/v1/entities/', body)
+                    .then((err, res) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        if (cb) {
+                            cb()
+                        }
+                    })
             })
-        })
-        .catch(err=>{
-            // ...
-        })
+            .catch(err => {
+                // ...
+            })
     }
 
     render() {
 
         let vedettes = ""
         let rHs = this.props.values.rightHolders
-        rHs && this.state.assocUuidArtiste && rHs.forEach((rH, idx)=>{       
-            if(idx < rHs.length - 1) {
+        rHs && this.state.assocUuidArtiste && rHs.forEach((rH, idx) => {
+            if (idx < rHs.length - 1) {
                 vedettes = vedettes + this.state.assocUuidArtiste[rH] + ", "
             } else {
                 vedettes = vedettes + this.state.assocUuidArtiste[rH]
@@ -423,12 +423,7 @@ class Page2NouvellePiece extends Component {
                                                 <i>{this.props.values.title}</i>
                                                 {vedettes && (
                                                     <>
-<<<<<<< HEAD
-                                                        &nbsp;(feat. <i>{this.props.values.vedettes}</i>)
-                                                        <br />
-=======
                                                         &nbsp;(feat. <i>{vedettes}</i>)
->>>>>>> origin/develop
                                                     </>
                                                 )
                                                 }
@@ -459,7 +454,7 @@ class Page2NouvellePiece extends Component {
                                                             multiple={false}
                                                             nomCommeCle={false}
                                                             ajout={true}
-                                                            surAjout={(e, cb)=>{
+                                                            surAjout={(e, cb) => {
                                                                 let entite = e.target.parentElement.childNodes[1].innerText
                                                                 this.ajouterEntiteArtistique(entite, cb)
                                                             }}
@@ -488,7 +483,7 @@ class Page2NouvellePiece extends Component {
                                                             multiple={false}
                                                             nomCommeCle={false}
                                                             ajout={true}
-                                                            surAjout={(e, cb)=>{
+                                                            surAjout={(e, cb) => {
                                                                 let entite = e.target.parentElement.childNodes[1].innerText
                                                                 this.ajouterEntiteArtistique(entite, cb)
                                                             }}
@@ -511,7 +506,7 @@ class Page2NouvellePiece extends Component {
                                                             multiple={false}
                                                             nomCommeCle={false}
                                                             ajout={true}
-                                                            surAjout={(e, cb)=>{
+                                                            surAjout={(e, cb) => {
                                                                 let entite = e.target.parentElement.childNodes[1].innerText
                                                                 this.ajouterEntiteArtistique(entite, cb)
                                                             }}
@@ -535,38 +530,39 @@ class Page2NouvellePiece extends Component {
                                                 createLabel={t('flot.split.documente-ton-oeuvre.documenter.collabo')}
                                                 placeholder={t('oeuvre.attribut.etiquette.vedette')}
                                                 value={this.props.values.vedettes}
-                                                onChange={ids => { 
+                                                onChange={ids => {
                                                     // Protéger la liste des valeurs non-uuid
                                                     let _ids = []
                                                     const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}")
-                                                    if(ids) {
-                                                        ids.forEach(id=>{
-                                                            if(UUID_REGEXP.test(id)) {
+                                                    if (ids) {
+                                                        ids.forEach(id => {
+                                                            if (UUID_REGEXP.test(id)) {
                                                                 _ids.push(id)
                                                             }
                                                         })
-                                                        this.props.setFieldValue('rightHolders', _ids)}
-                                                    }                                                                                                        
+                                                        this.props.setFieldValue('rightHolders', _ids)
+                                                    }
                                                 }
-                                                fn={(nouveau)=>{
+                                                }
+                                                fn={(nouveau) => {
                                                     let _rHs = this.props.values.rightHolders
                                                     // Ajoute le nouveau s'il ne fait pas déjà partie de la liste
-                                                    if(!_rHs.includes(nouveau))
+                                                    if (!_rHs.includes(nouveau))
                                                         _rHs.push(nouveau)
                                                     this.props.setFieldValue('rightHolders', _rHs)
-                                                    
+
                                                     // recharger les ayant-droits
                                                     axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
-                                                    .then(res => {
-                                                        // Ordonnancement simple uuid -> nom d'artiste
-                                                        let assocUuidArtiste = this.state.assocUuidArtiste
-                                                        res.data.forEach(e=>{
-                                                            assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
+                                                        .then(res => {
+                                                            // Ordonnancement simple uuid -> nom d'artiste
+                                                            let assocUuidArtiste = this.state.assocUuidArtiste
+                                                            res.data.forEach(e => {
+                                                                assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
+                                                            })
+                                                            this.setState({ rightHolders: res.data },
+                                                                () => this.setState({ assocUuidArtiste: assocUuidArtiste })
+                                                            )
                                                         })
-                                                        this.setState({rightHolders: res.data},
-                                                            ()=>this.setState({ assocUuidArtiste: assocUuidArtiste })
-                                                        )
-                                                    })
 
                                                 }}
                                             />
