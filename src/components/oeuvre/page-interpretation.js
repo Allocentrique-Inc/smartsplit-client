@@ -65,7 +65,15 @@ export default class PageInterpretation extends Component {
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre2-placeholder"
                 )}
-                onChange={newRightHolders => this.handleChange(newRightHolders)}
+               /*  onChange={newRightHolders => this.handleChange(newRightHolders)} */
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.handleChange(_ids)
+                  //this.setState({songwriters: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.musician)
+                }}
               />
             </Colonne>
           </Page>

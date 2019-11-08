@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { Auth } from "aws-amplify"
 import { Translation } from "react-i18next"
 import { Modal } from "semantic-ui-react"
+import axios from "axios"
 
 import closeIcon from "../../assets/svg/icons/x.svg"
 import "../../assets/scss/page-assistant/modal.scss"
@@ -30,6 +31,7 @@ class ForgotPassword extends Component {
       pochette: props.pochette,
       modalOpen: false,
       email: "",
+      // requestSource: window.location.href || "", // this.props.location
       errors: {
         cognito: null,
         blankfield: false
@@ -83,13 +85,27 @@ class ForgotPassword extends Component {
   };
 
   forgotPasswordHandler = (courriel) => {
-    // AWS Cognito integration here    
-    Auth.forgotPassword(courriel)
-    .then(res=>{
-    })
-    .catch(error=>{
-      toast.error(error.message)
-    })    
+      axios.post('http://dev.api.smartsplit.org:8080/v1/rightHolders/emailToRightHolderId', {
+        "email": courriel
+      })
+      .then(res=>{
+        console.log("RES.data", res.data.Users.Username)
+        let rightHolderId = res.data
+        let requestSource = window.location.href
+        axios.patch(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolderId}/requestSource`, {
+          requestSource: ((requestSource === "pochette") ? "pochette" : "smartsplit")
+        })
+        .then(() => {
+          Auth.forgotPassword(courriel)
+          .then(res=>{
+          })
+          .catch(error=>{
+            toast.error(error.message)
+          }) 
+
+        })
+      
+      })
   };
 
   onInputChange = event => {

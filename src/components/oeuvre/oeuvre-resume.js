@@ -20,7 +20,6 @@ export default class OeuvreResume extends React.Component {
         axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.props.mediaId}`)
         .then(res=>{
             let _m = res.data.Item
-            console.log(_m)
             this.setState({media: _m},
                 ()=>{
                     axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')

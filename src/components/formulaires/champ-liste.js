@@ -170,7 +170,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
                                         name={this.state.modele}
                                         component={Form.Dropdown}
                                         componentProps={{
-                                            id: "entiteArtistique",
+                                            id: "artist",
                                             label: this.state.etiquette,
                                             placeholder: t("flot.split.collaborateur.attribut.etiquette.ajout"),
                                             required: this.state.requis,
