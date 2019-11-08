@@ -162,7 +162,7 @@ export default class NouvelleOeuvre extends Component {
                                         vedettes: []
                                     }}
                                     buttonLabels={{ previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti') }}
-                                    debug={ true }
+                                    debug={ false }
                                     onPageChanged={no => this.changementPage(no, t)}
                                     onSubmit={(values, { setSubmitting }) => { this.soumettre(values, t); setSubmitting(false) }}
                                     style={{ width: "80%" }}
