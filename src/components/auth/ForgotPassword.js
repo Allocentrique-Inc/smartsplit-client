@@ -85,19 +85,15 @@ class ForgotPassword extends Component {
   };
 
   forgotPasswordHandler = (courriel) => {
-    // patch requestSource flag in dynamoDB from userId
-    let requestSource = window.location.href
-    console.log("REQUEST", requestSource, requestSource.includes("pochette"))
-    console.log("EMAIL", courriel)
-    if (requestSource.includes("pochette")) {
-      axios.post('http://localhost:8080/v1/rightHolders/emailToRightHolderId', {
+      axios.post('http://dev.api.smartsplit.org:8080/v1/rightHolders/emailToRightHolderId', {
         "email": courriel
       })
       .then(res=>{
-        console.log("RES.data", res.data)
+        console.log("RES.data", res.data.Users.Username)
         let rightHolderId = res.data
-        axios.patch(`http://localhost:8080/v1/rightHolders/${rightHolderId}/requestSource`, {
-          requestSource: "pochette"
+        let requestSource = window.location.href
+        axios.patch(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolderId}/requestSource`, {
+          requestSource: ((requestSource === "pochette") ? "pochette" : "smartsplit")
         })
         .then(() => {
           Auth.forgotPassword(courriel)
@@ -110,15 +106,6 @@ class ForgotPassword extends Component {
         })
       
       })
-
-    } else {
-      Auth.forgotPassword(courriel)
-      .then(res=>{
-      })
-      .catch(error=>{
-        toast.error(error.message)
-      }) 
-    } 
   };
 
   onInputChange = event => {
