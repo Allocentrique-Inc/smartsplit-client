@@ -87,6 +87,20 @@ class ModifyUser extends Component {
     return payload
   }
 
+  fermerModale() {
+    // Réinitialiser les valeurs du formulaire
+    this.setState({groups: []})
+    this.setState({image: ""})
+    this.setState({firstName: ""})
+    this.setState({lastName: ""})
+    this.setState({email: ""})
+    this.setState({defaultRoles: []})
+    this.setState({currentValue: []})
+    this.setState({currentRoleValue: []})
+    this.setState({instruments: []})
+    this.setState({ open: false })
+  }
+
   handleSubmit = values => {
 
     // S'il n'y a pas de groupe, un en créé un éponyme, si non c'est un anonyme
@@ -125,9 +139,11 @@ class ModifyUser extends Component {
       })
       .then((res) => {
         let userSub = res.userSub
-        this.setState({ open: false })
+        
+        this.fermerModale()
+
         if (this.props.fn) {
-          this.props.fn(userSub);
+          this.props.fn(userSub)
         }
       })
       .catch(err => {

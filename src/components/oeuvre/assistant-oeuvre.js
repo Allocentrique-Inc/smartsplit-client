@@ -52,8 +52,12 @@ class AssistantOeuvre extends Component {
                 .then(res=>{                    
                     if(res.data.Item) {
                         let media = res.data.Item
-                        this.setState({ media: media }, ()=>this.fetchApiRightHolders())
-                        this.setState({ user: response })
+                        if(response.username === media.creator) {
+                            this.setState({ media: media }, ()=>this.fetchApiRightHolders())
+                            this.setState({ user: response })
+                        } else {
+                            window.location.href=`/oeuvre/${media.mediaId}/resume`
+                        }
                     }
                 })
             } else {
@@ -67,10 +71,25 @@ class AssistantOeuvre extends Component {
         })          
     }
 
+    nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
+        let _rHs = rightHolders    
+        _rHs.push({id: nouveau, roles: [role] })
+        fnSetValues('rightHolders', _rHs)
+        // recharger les ayant-droits
+        this.fetchApiRightHolders()
+    }
+
     fetchApiRightHolders() {
         axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
             .then(response => {
-                this.setState({ rightHolders: response.data });
+                // Ordonnancement simple uuid -> nom d'artiste
+                let assocUuidArtiste = {}
+                response.data.forEach(e=>{
+                    assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
+                })
+                this.setState({assocUuidArtiste: assocUuidArtiste},
+                    ()=>this.setState({ rightHolders: response.data })
+                )
             })
             .catch(error => {
                 toast.error(error.message);
@@ -211,8 +230,7 @@ class AssistantOeuvre extends Component {
         })
     }
 
-    boutonsCouleurPochette() {
-        console.log(document.getElementsByClassName("ui right floated button"))
+    boutonsCouleurPochette() {        
         let boutons = document.getElementsByClassName("ui right floated button")
         for(var i = 0; i<boutons.length; i++) {
             boutons[i].style.backgroundColor = "#F2724A"
@@ -246,13 +264,15 @@ class AssistantOeuvre extends Component {
                                                 next: t('navigation.suivant'),
                                                 submit: t('navigation.envoi')
                                             } }
-                                            debug={ false }
+                                            debug={ true }
                                         >
                                             <Wizard.Page>
                                                 <PageCreation
                                                     pochette={ this.props.pochette }
                                                     i18n={ i18n }
                                                     rightHolders={ this.state.rightHolders }
+                                                    assocUuidArtiste={ this.state.assocUuidArtiste }
+                                                    parent={this}
                                                 />
                                             </Wizard.Page>
 
@@ -261,6 +281,8 @@ class AssistantOeuvre extends Component {
                                                     pochette={ this.props.pochette }
                                                     i18n={ i18n }
                                                     rightHolders={ this.state.rightHolders }
+                                                    assocUuidArtiste={ this.state.assocUuidArtiste }
+                                                    parent={this}
                                                 />
                                             </Wizard.Page>
 
@@ -269,6 +291,8 @@ class AssistantOeuvre extends Component {
                                                     pochette={ this.props.pochette }
                                                     i18n={ i18n }
                                                     rightHolders={ this.state.rightHolders }
+                                                    assocUuidArtiste={ this.state.assocUuidArtiste }
+                                                    parent={this}
                                                 />
                                             </Wizard.Page>
 
@@ -277,6 +301,8 @@ class AssistantOeuvre extends Component {
                                                     pochette={ this.props.pochette }
                                                     i18n={ i18n }
                                                     rightHolders={ this.state.rightHolders }
+                                                    assocUuidArtiste={ this.state.assocUuidArtiste }
+                                                    parent={this}
                                                 />
                                             </Wizard.Page>
 

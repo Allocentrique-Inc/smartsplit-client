@@ -7,6 +7,7 @@ import RightHolderOptions from "./right-holder-options";
 import * as roles from '../../assets/listes/role-uuids.json';
 import { isUnique, updateRightHolders } from "./right-holder-helpers";
 import { Translation } from 'react-i18next';
+import ModifyUser from '../auth/ModifyUser';
 
 export class ChampSelectionInterprete extends Component {
 
@@ -65,6 +66,7 @@ export class ChampSelectionInterprete extends Component {
     }
 
     updateRightHolder = newRightHolder => {
+        console.log('updateRightHolder', newRightHolder)
         const newRightHolders = [...this.props.values.rightHolders]
             .filter(rightHolder => rightHolder.id !== newRightHolder.id)
             .concat([newRightHolder]);
@@ -98,16 +100,14 @@ export class ChampSelectionInterprete extends Component {
         this.selectItem(value);
     };
 
-    selectItem(id) {
+    selectItem(id) {        
         const existingMusician = this.props.values.rightHolders.find(rightHolder => rightHolder.id === id) || {};
         const existingRoles = existingMusician.roles || [];
         const newRoles = existingRoles.concat([roles.musician]).filter(isUnique);
         const emptyMusician = { id: id, roles: [], instruments: [] };
 
         const newMusician = Object.assign({}, emptyMusician, existingMusician, { roles: newRoles });
-
         const newRightHolders = updateRightHolders(this.props.values.rightHolders, newMusician);
-
 
         this.props.onChange(newRightHolders);
 
@@ -116,6 +116,19 @@ export class ChampSelectionInterprete extends Component {
         });
     }
 
+    triggerLabel() {
+        return this.state.searchQuery
+          ? ""
+          : this.plusCircleLabel(this.props.placeholder);
+      }
+
+    handleAddItem = (event, { value }) => {
+        event.preventDefault()
+        this.setState({
+          modalOpen: true,
+          modalFirstName: value
+        });
+    };
 
     render() {
         return (
@@ -135,6 +148,7 @@ export class ChampSelectionInterprete extends Component {
                                     { this.renderSelectedItems(i18n.lng.substring(0,2)) }
 
                                     <Dropdown
+                                        trigger={this.triggerLabel()}
                                         placeholder={ this.props.placeholder }
                                         fluid
                                         search
@@ -144,6 +158,28 @@ export class ChampSelectionInterprete extends Component {
                                         value={ this.state.dropdownValue }
                                         options={ this.unselectedItems() }
                                         onChange={ this.handleChange }
+                                        allowAdditions={true}
+                                        onAddItem={this.handleAddItem}
+                                    />
+
+                                    <ModifyUser
+                                        open={this.state.modalOpen}
+                                        pochette={this.props.pochette}
+                                        firstName={this.state.modalFirstName}
+                                        close={() =>
+                                            this.setState({ modalOpen: false, modalFirstName: "" })
+                                        }
+                                        fn={
+                                            (e) => {
+                                                this.selectItem(e)                                    
+                                                /* let values = this.state.selectedValues
+                                                values.push(e)
+                                                this.setState({ selectedValues: values }) */
+                                                if(this.props.fn) {
+                                                    this.props.fn(e)
+                                                }
+                                            }
+                                        }
                                     />
                                 </>
                             }

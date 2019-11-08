@@ -1,11 +1,7 @@
 import React from "react";
 import placeholder from "../../../assets/images/placeholder.png";
 import "../../../assets/scss/oeuvre-resume/entete.scss";
-import avatar1 from "../../../assets/images/compact-cassette.png";
-import avatar2 from "../../../assets/images/elliot.jpg";
-import avatar3 from "../../../assets/images/steve.jpg";
-import avatar4 from "../../../assets/images/stevie.jpg";
-import avatar5 from "../../../assets/images/positive.png";
+
 import plusIcon from "../../../assets/svg/icons/plus-white.svg";
 import editIcon from "../../../assets/svg/icons/edit.svg";
 import { Translation } from "react-i18next";
@@ -15,6 +11,7 @@ export default class Entete extends React.Component {
   
   constructor(props){
     super(props)
+    // VDEG Correction à apporter si pas d'ayant droit avec l'id    
     this.avatars = props.media.rightHolders.map(r=>{
       return `https://smartsplit-images.s3.us-east-2.amazonaws.com/${props.rightHolders[r.id].avatarImage}`
     })

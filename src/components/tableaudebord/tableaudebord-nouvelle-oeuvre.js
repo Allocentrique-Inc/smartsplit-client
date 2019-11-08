@@ -37,7 +37,7 @@ export default class NouvelleOeuvre extends Component {
 
     componentWillMount() {
         axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
-            .then(res => {                
+            .then(res => {             
                 // Ordonnancement simple uuid -> nom d'artiste
                 let assocUuidArtiste = {}
                 res.data.forEach(e=>{
@@ -162,7 +162,7 @@ export default class NouvelleOeuvre extends Component {
                                         vedettes: []
                                     }}
                                     buttonLabels={{ previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti') }}
-                                    debug={false}
+                                    debug={ true }
                                     onPageChanged={no => this.changementPage(no, t)}
                                     onSubmit={(values, { setSubmitting }) => { this.soumettre(values, t); setSubmitting(false) }}
                                     style={{ width: "80%" }}
@@ -454,9 +454,29 @@ class Page2NouvellePiece extends Component {
                                                             multiple={false}
                                                             nomCommeCle={false}
                                                             ajout={true}
-                                                            surAjout={(e, cb)=>{
-                                                                let entite = e.target.parentElement.childNodes[1].innerText
-                                                                this.ajouterEntiteArtistique(entite, cb)
+                                                            surAjout={(e, cb)=>{                                                                
+                                                                let elem = e.target.parentElement.childNodes                                                                
+                                                                let entite
+                                                                if(elem.length === 2) {
+                                                                    entite = elem[1].innerText
+                                                                } else {
+                                                                    if(elem[0].childNodes.length === 2) {
+                                                                        entite = elem[0].childNodes[1].innerText
+                                                                    } else {
+                                                                        if(elem.childNodes) {
+                                                                            entite = elem.childNodes[0].childNodes[1].innerText
+                                                                        } else {
+                                                                            if(elem.length === 1 && elem[0].childNodes && elem[0].childNodes[1]) {
+                                                                                entite = elem[0].childNodes[0].childNodes[1].innerText
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                if(entite) {
+                                                                    this.ajouterEntiteArtistique(entite, cb)
+                                                                } else {
+                                                                    this.props.setFieldValue('artist', '')
+                                                                }
                                                             }}
                                                             onRef={
                                                                 liste => this.setState({ entites: liste })
@@ -541,7 +561,7 @@ class Page2NouvellePiece extends Component {
                                                             }
                                                         })
                                                         this.props.setFieldValue('rightHolders', _ids)}
-                                                    }                                                                                                        
+                                                    }                                                                                                   
                                                 }
                                                 fn={(nouveau)=>{
                                                     let _rHs = this.props.values.rightHolders
