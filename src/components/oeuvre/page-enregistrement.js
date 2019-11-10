@@ -117,6 +117,20 @@ export default class PageEnregistrement extends React.Component {
     return this.props.pochette ? RecordOrange : RecordGreen;
   }
 
+  idsSiUUID(ids) {
+    // Protéger la liste des valeurs non-uuid
+    let _ids = []
+    const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}")
+    if(ids) {
+        ids.forEach(id=>{
+            if(UUID_REGEXP.test(id)) {
+                _ids.push(id)
+            }
+        })
+        return _ids        
+    }
+  }
+
   render() {
     return (
       <Translation>
@@ -155,8 +169,14 @@ export default class PageEnregistrement extends React.Component {
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.realisation-placeholder"
                 )}
-                value={this.state.directors}
-                onChange={ids => this.setState({ directors: ids })}
+                value={this.state.directors}                
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({directors: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.director)                  
+                }}
               />
 
               <ChampSelectionMultipleAyantDroit
@@ -168,7 +188,13 @@ export default class PageEnregistrement extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.son-placeholder"
                 )}
                 value={this.state.soundRecordists}
-                onChange={ids => this.setState({ soundRecordists: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({soundRecordists: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.soundRecordist)                  
+                }}
               />
 
               <ChampSelectionMultipleAyantDroit
@@ -180,7 +206,13 @@ export default class PageEnregistrement extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.mix-placeholder"
                 )}
                 value={this.state.mixEngineers}
-                onChange={ids => this.setState({ mixEngineers: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({mixEngineers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.mixEngineer)                  
+                }}
               />
 
               <ChampSelectionMultipleAyantDroit
@@ -192,7 +224,13 @@ export default class PageEnregistrement extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.master-placeholder"
                 )}
                 value={this.state.masterEngineers}
-                onChange={ids => this.setState({ masterEngineers: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({masterEngineers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.masterEngineer)                  
+                }}
               />
 
               <ChampTexte
@@ -228,7 +266,13 @@ export default class PageEnregistrement extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.production-placeholder"
                 )}
                 value={this.state.producers}
-                onChange={ids => this.setState({ producers: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({producers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.producer)                  
+                }}
               />
 
               <ChampTexte

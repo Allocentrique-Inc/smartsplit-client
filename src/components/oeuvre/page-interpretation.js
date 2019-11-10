@@ -28,7 +28,7 @@ export default class PageInterpretation extends Component {
     );
   }
 
-  handleChange(newRightHolders) {
+  handleChange(newRightHolders) {    
     this.props.setFieldValue("rightHolders", newRightHolders);
   }
 
@@ -80,10 +80,8 @@ export default class PageInterpretation extends Component {
                   "flot.split.documente-ton-oeuvre.documenter.titre2-placeholder"
                 )}
                /*  onChange={newRightHolders => this.handleChange(newRightHolders)} */
-                onChange={ids => {
-                  let _ids = this.idsSiUUID(ids)
-                  this.handleChange(_ids)
-                  //this.setState({songwriters: _ids})
+                onChange={ids => {                  
+                  this.handleChange(ids)                  
                 }}
                 fn={(nouveau)=>{
                   this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.musician)

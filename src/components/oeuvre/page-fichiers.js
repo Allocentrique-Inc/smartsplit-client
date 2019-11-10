@@ -72,6 +72,20 @@ export default class PageFichiers extends React.Component {
     return RightHolderOptions(this.props.rightHolders);
   }
 
+  idsSiUUID(ids) {
+    // Protéger la liste des valeurs non-uuid
+    let _ids = []
+    const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}")
+    if(ids) {
+        ids.forEach(id=>{
+            if(UUID_REGEXP.test(id)) {
+                _ids.push(id)
+            }
+        })
+        return _ids        
+    }
+  }
+
   render() {
     const { terms } = this.state;
     return (
@@ -121,7 +135,13 @@ export default class PageFichiers extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.graphiste-placeholder"
                 )}
                 value={this.state.graphists}
-                onChange={ids => this.setState({ graphists: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({graphists: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.graphist)                  
+                }}
               />
               <br />
 
