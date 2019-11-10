@@ -451,7 +451,7 @@ export default class SommairePartages extends Component {
                     }
                 </Translation>
             )
-        } else {
+        } else {            
             return (
                 <div className="tdb--cadre ui row accueil">
                     <ModaleConnexion fn={() => {

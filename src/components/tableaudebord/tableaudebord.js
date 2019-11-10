@@ -35,6 +35,12 @@ export default class TableauDeBord extends Component {
     }
 
     render() {
+
+        let accueil = "accueil"
+
+        if(this.props.pochette) {
+            accueil = "accueil-pochette"
+        }
         
         if(this.state.user) {
             let contenu = (<div className="ui seven wide column"></div>)
@@ -51,7 +57,7 @@ export default class TableauDeBord extends Component {
                 {   
                     t =>
                     
-                    <div className="tdb--cadre ui row accueil">
+                    <div className={`tdb--cadre ui row ${accueil}`}>
                         <ModaleConnexion pochette={this.state.pochette} parent={this} isOpen={this.state.modaleConnexion} />
                     </div>
                 }

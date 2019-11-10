@@ -233,6 +233,10 @@
   background-image: url('http://smartsplit.org/wp-content/uploads/2019/05/h-v02-005-test-2.jpg'); 
 }
 
+.accueil-pochette {
+  background-image: url('https://images-publiques.s3.amazonaws.com/2ec6dec3-9ff6-408c-a61b-72b1e0c62225.jpeg'); 
+}
+
 input[type='radio'] {
   width: 15px;
   height: 15px;
