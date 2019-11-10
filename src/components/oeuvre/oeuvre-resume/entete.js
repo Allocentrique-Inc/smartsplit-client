@@ -13,7 +13,11 @@ export default class Entete extends React.Component {
     super(props)
     // VDEG Correction à apporter si pas d'ayant droit avec l'id    
     this.avatars = props.media.rightHolders.map(r=>{
-      return `https://smartsplit-images.s3.us-east-2.amazonaws.com/${props.rightHolders[r.id].avatarImage}`
+      if(props.rightHolders[r.id]) {
+        return `https://smartsplit-images.s3.us-east-2.amazonaws.com/${props.rightHolders[r.id].avatarImage}`
+      } else {
+        return `https://smartsplit-images.s3.us-east-2.amazonaws.com/image.jpg`
+      }
     })
   }  
 
