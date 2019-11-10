@@ -153,10 +153,10 @@ class ChampSelectionMultipleAyantDroit extends Component {
                     allowAdditions
                     additionLabel={this.additionLabel(t)}
                     value={this.state.dropdownValue}
-                    options={this.unselectedItems()}
-                    onBlur={this.handleBlur}
+                    options={this.unselectedItems()}                    
                     onChange={this.handleChange}
                     onAddItem={this.handleAddItem}
+                    onBlur={this.handleBlur}
                     onSearchChange={this.handleSearchChange}
                   />
                 </label>

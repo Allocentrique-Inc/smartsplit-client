@@ -9,6 +9,9 @@ import { isUnique, updateRightHolders } from "./right-holder-helpers";
 import { Translation } from 'react-i18next';
 import ModifyUser from '../auth/ModifyUser';
 
+import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
+import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
+
 export class ChampSelectionInterprete extends Component {
 
     musicianRoles = [
@@ -116,11 +119,36 @@ export class ChampSelectionInterprete extends Component {
         });
     }
 
+    additionLabelClasses() {
+        const pochetteClass = this.props.pochette ? " pochette" : "";
+        return "addition-label" + pochetteClass;
+    }
+
+    plusCircle() {
+        return this.props.pochette ? plusCircleOrange : plusCircleGreen;
+    }
+
+    plusCircleLabel(labelString) {
+        return (
+          <span className={this.additionLabelClasses()}>
+            <img alt="" src={this.plusCircle()} /> {labelString}
+          </span>
+        );
+    }
+
     triggerLabel() {
         return this.state.searchQuery
           ? ""
           : this.plusCircleLabel(this.props.placeholder);
-      }
+    }
+
+    handleSearchChange = (event, { searchQuery }) => {
+        this.setState({ searchQuery: searchQuery });
+    };
+
+    handleBlur = () => {
+        this.setState({ searchQuery: "" });
+    };
 
     handleAddItem = (event, { value }) => {
         event.preventDefault()
@@ -160,6 +188,8 @@ export class ChampSelectionInterprete extends Component {
                                         onChange={ this.handleChange }
                                         allowAdditions={true}
                                         onAddItem={this.handleAddItem}
+                                        onBlur={this.handleBlur}
+                                        onSearchChange={this.handleSearchChange}
                                     />
 
                                     <ModifyUser
