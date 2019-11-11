@@ -8,8 +8,9 @@
 
 .file-input-container {
     border: 1px solid $color-stroke;
+    display: "inline-flex";
     border-radius: 2px;
-    width: 100%;
+    width: 430px;
     height: 40px;
 
     display: flex;

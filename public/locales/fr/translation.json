@@ -265,6 +265,8 @@
       "documente-ton-oeuvre": {
         "titre": "Documenter",
         "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre.",
+        "chanteur": "Ajouter un type de chanteur",
+        "instrument": "Ajouter un instrument",
         "composant": {
           "televersement": {
             "titre": "Fichier",
@@ -389,7 +391,7 @@
           "titre7-description": "Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
           "sur": "sur...",
           "platforme": "Ajouter comme plateforme",
-          "titre8": "Illustration",
+          "titre8": "Illustration  ",
           "titre8-description": "Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
           "titre8-etape1": "Téléverser en format JPEG ou PNG  ",
           "titre8-etape2": "Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.",

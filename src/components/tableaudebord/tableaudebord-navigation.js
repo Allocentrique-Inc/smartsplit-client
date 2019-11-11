@@ -41,17 +41,21 @@ export default class Navigation extends Component {
     }
   }
 
-  genererLien(choix, t, classes) {
+  genererLien(choix, t, image) {
 
     return (
+
       <div className="cliquable" onClick={() => {
         this.naviguer(choix);
       }}>
         <i
-          className={`navigation ${classes} ${
+          className={`navigation ${
             this.state.selection === choix ? (this.state.pochette ? "pochette" : "") : "grismauve"
             }`}
         >
+          <img alt="image" src={image} />
+
+
         </i>
         <span
           className={`${
@@ -123,19 +127,16 @@ export default class Navigation extends Component {
 
             <div className="tdb--navigation__liens">
               <div className="ui row">
-                {this.genererLien(PIECES, t)}
-                <img alt="music" src={Music} />
+                {this.genererLien(PIECES, t, Music)}
               </div>
               {
                 !pochette && (
                   <>
                     <div className="ui row espace-15">
-                      {this.genererLien(PROFIL, t, "id card outline icon big")}
-                      <img alt="userCard" src={UserCard} />
+                      {this.genererLien(PROFIL, t, UserCard)}
                     </div>
                     <div className="ui row espace-15">
-                      {this.genererLien(COLLABORATEURS, t, "users icon big")}
-                      <img alt="users" src={Users} />
+                      {this.genererLien(COLLABORATEURS, t, Users)}
                     </div>
                   </>
                 )

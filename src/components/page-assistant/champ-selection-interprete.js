@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { FormulaireMusicien } from "./formulaire-musicien";
+import FormulaireMusicien from "./formulaire-musicien";
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
@@ -51,14 +51,14 @@ export class ChampSelectionInterprete extends Component {
             return (
                 <FormulaireMusicien
                     langue={langue}
-                    key={ item.value }
-                    pochette={ this.props.pochette }
-                    item={ item }
-                    rightHolder={ musician }
-                    onClick={ (event) => {
+                    key={item.value}
+                    pochette={this.props.pochette}
+                    item={item}
+                    rightHolder={musician}
+                    onClick={(event) => {
                         this.unselectItem(event, item);
-                    } }
-                    onChange={ this.updateRightHolder }
+                    }}
+                    onChange={this.updateRightHolder}
                 />
             );
         });
@@ -121,36 +121,36 @@ export class ChampSelectionInterprete extends Component {
         return (
             <Translation>
                 {
-                    (t, i18n) => 
+                    (t, i18n) =>
                         <label>
 
                             {
                                 i18n &&
                                 <>
                                     <TitreChamp
-                                        label={ this.props.label }
-                                        description={ this.props.description }
+                                        label={this.props.label}
+                                        description={this.props.description}
                                     />
 
-                                    { this.renderSelectedItems(i18n.lng.substring(0,2)) }
+                                    {this.renderSelectedItems(i18n.lng.substring(0, 2))}
 
                                     <Dropdown
-                                        placeholder={ this.props.placeholder }
+                                        placeholder={this.props.placeholder}
                                         fluid
                                         search
                                         selection
-                                        selectOnBlur={ false }
-                                        selectOnNavigation={ false }
-                                        value={ this.state.dropdownValue }
-                                        options={ this.unselectedItems() }
-                                        onChange={ this.handleChange }
+                                        selectOnBlur={false}
+                                        selectOnNavigation={false}
+                                        value={this.state.dropdownValue}
+                                        options={this.unselectedItems()}
+                                        onChange={this.handleChange}
                                     />
                                 </>
                             }
-                            
+
                         </label>
                 }
-            </Translation>            
+            </Translation>
         );
     }
 }

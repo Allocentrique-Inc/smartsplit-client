@@ -9,6 +9,7 @@ import NouvelleOeuvre from './tableaudebord-nouvelle-oeuvre';
 import AudioLecture from '../oeuvre/audio-lecture';
 import Yeux from "../../assets/images/yeux.png";
 
+
 const PANNEAU_INITIATEUR = 1, PANNEAU_COLLABORATEUR = 0
 
 // Retrait des doublons
@@ -195,40 +196,38 @@ export default class ListePieces extends Component {
                 <Translation>
                     {
                         t =>
-                            <div style={{ marginTop: "20px" }}>
-                                <div className="ui three column grid">
-                                    <div className="ui row">
-                                        <div className="ui thirteen wide column">
-                                            <div className="ui row">
-                                                <br />
-                                                <br />
-                                                <br />
-                                                <div className="illustration" style={{ textAlign: 'center' }}>
-                                                    <div>
-                                                        <img
-                                                            style={{ fontSize: "3rem", textAlign: 'center' }}
-                                                            aria-label=""
-                                                            className={"yeux"}
-                                                            src={Yeux}
-                                                            alt={"Yeux"}
-                                                        />
-                                                    </div>
-                                                    <div className="ui fifteen wide column">
-                                                        <br />
-                                                        <div className="medium-500">{t('flot.split.tableaudebord.vide.preambule')}</div>
-                                                        <div className="medium-500" style={{ fontWeight: '100' }}>
-                                                            {t('flot.split.tableaudebord.vide.indication')} <br />
-                                                            <div className="cliquable" style={{ color: "#0645AD" }} onClick={e => { //Cliquable = pointeur lien, classe écrite Vincent
-                                                                that.modaleNouvelleOeuvre()
-                                                            }}>{t('flot.split.tableaudebord.vide.indication-lien')}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+                            <div style={{ marginTop: "20px" }} className="ui three column grid">
+
+
+                                <br />
+                                <br />
+                                <br />
+                                <div className="illustration" style={{ textAlign: 'center' }}>
+                                    <div>
+                                        <img
+                                            style={{ fontSize: "3rem" }}
+                                            aria-label=""
+                                            className={"yeux"}
+                                            src={Yeux}
+                                            alt={"Yeux"}
+                                        />
+
+                                        <br />
+                                        <div className="medium-500-nomargin">{t('flot.split.tableaudebord.vide.preambule')}</div>
+                                        <div className="medium-500-nomargin" style={{ fontWeight: '100' }}>
+                                            {t('flot.split.tableaudebord.vide.indication')} <br />
+                                            <div className="cliquable" style={{ color: "#0645AD" }} onClick={e => { //Cliquable = pointeur lien, classe écrite Vincent
+                                                that.modaleNouvelleOeuvre()
+                                            }}>{t('flot.split.tableaudebord.vide.indication-lien')}</div>
+
                                         </div>
+
                                     </div>
                                 </div>
+
                             </div>
+
                     }
                 </Translation>
             )
@@ -291,7 +290,11 @@ export default class ListePieces extends Component {
                     )
                 })
             }
-            rendu = tableauMedias
+            rendu = (
+                <>
+                    {tableauMedias}
+                </>
+            )
         }
 
         return (
@@ -323,7 +326,7 @@ export default class ListePieces extends Component {
                                                 <div className="fifteen wide column">
                                                     <div className="medium-500">{toggle}</div>
                                                     <br />
-                                                    <ul>{rendu}</ul>
+                                                    {rendu}
                                                 </div>
                                             </div>
                                         </div>

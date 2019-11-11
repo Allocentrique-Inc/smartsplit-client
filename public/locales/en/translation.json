@@ -269,6 +269,8 @@
       "documente-ton-oeuvre": {
         "titre": "Document",
         "preambule": "Hi! We will help you describe your work.",
+        "chanteur": "Add a type of singer",
+        "instrument": "Add an instrument",
         "composant": {
           "televersement": {
             "titre": "File",
@@ -388,7 +390,7 @@
           "titre7-description": "To increase the chances for your track to be discovered and listened to, document its streaming and online shopping links.",
           "sur": "on...",
           "platforme": "Add as a platform",
-          "titre8": "Cover Artwork",
+          "titre8": "Cover Artwork  ",
           "titre8-description": "An album has a cover, a song or an instrumental track must also have a cover artwork to represent it. Learn more",
           "titre8-etape1": "Upload in JPEG or PNG format  ",
           "titre8-etape2": "Recommended: Square image of 1600 x 1600 pixels with a resolution of 300 dpi.",
@@ -746,3 +748,4 @@
     "prive": "Private - Prevent download.",
     "personne": "Nobody will be able to download, except you."
   }
+}
