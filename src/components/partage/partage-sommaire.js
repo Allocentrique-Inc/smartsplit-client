@@ -549,8 +549,7 @@ export default class SommairePartage extends Component {
         this.setState({ modaleDeclaration: ouvert })
     }
 
-    envoi() {
-
+    envoi() {        
         // Ouvrir Modale déclaration et c'est dans celle-ci
         // que l'envoi est réellement fait.
         this.modaleDeclaration()
@@ -672,11 +671,13 @@ export default class SommairePartage extends Component {
                             {
                                 this.state.ayantDroit &&
                                 <Declaration
+                                    votes={this.state.mesVotes}
                                     firstName={this.state.ayantDroit.firstName}
                                     lastName={this.state.ayantDroit.lastName}
                                     artistName={this.state.ayantDroit.artistName}
                                     songTitle={this.props.titre}
                                     open={this.state.modaleDeclaration}
+                                    onClose={()=>{this.setState({modaleDeclaration: false})}}
                                     fn={() => {
                                         let body = {
                                             userId: `${this.state.ayantDroit.rightHolderId}`,

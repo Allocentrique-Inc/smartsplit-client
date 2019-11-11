@@ -7,6 +7,7 @@ import Register from "./Register";
 import ForgotPassword from "./ForgotPassword";
 import ForgotPasswordVerification from "./ForgotPasswordVerification";
 import ChangePasswordVerification from "./ChangePasswordVerification";
+import { Translation } from 'react-i18next'
 
 const TYPE_LOGIN = 0,
   TYPE_REGISTER = 1,
@@ -35,52 +36,80 @@ export default class ModaleConnexion extends Component {
     this.setState({ opened: type });
   }
 
-  render() {
+  render() {  
+    
+    let pochette = this.state.pochette ? "pochette" : ""
 
     return (
-      <Modal
-        open={this.state.isOpen}
-        closeOnEscape={false}
-        closeOnDimmerClick={false}
-        onClose={this.props.close}
-        size="small"
-      >
-        <br />
-        <br />
-        <br />
-        {this.state.opened === TYPE_LOGIN && (
-          <Login
-            pochette={this.state.pochette}
-            parent={this}
-            fn={() => {
-              Auth.currentAuthenticatedUser()
-                .then(res => {
-                  // Vérifier si le profil est complet, si non,
-                  // Débloque la composante appelante
-                  this.state.parent.setState({ user: res })
-
-                  if(this.props.fn) {
-                    this.props.fn()
-                  }
-
-                  // Fermer la modale
-                  this.setState({ isOpen: false })
-                })
-                .catch(err => {
-                  toast.error(err.message)
-                });
-            }}
-          />
-        )}
-        {this.state.opened === TYPE_REGISTER && <Register parent={this} pochette={this.state.pochette} />}
-        {this.state.opened === TYPE_VERIFY && (
-          <ForgotPasswordVerification pochette={this.state.pochette} parent={this} />
-        )}
-        {this.state.opened === TYPE_CHANGE && (
-          <ChangePasswordVerification pochette={this.state.pochette} parent={this} />
-        )}
-        {this.state.opened === TYPE_FORGOT && <ForgotPassword pochette={this.state.pochette} parent={this} />}
-      </Modal>
-    );
+      <Translation>
+        {
+          (t, i18n) =>
+            <Modal
+              open={this.state.isOpen}
+              closeOnEscape={false}
+              closeOnDimmerClick={false}
+              onClose={this.props.close}
+              size="small"
+            >
+              {
+                i18n.lng && (
+                  <div className="ui row floated left">
+                    {
+                      i18n.lng.substring(0,2) === "en" && (
+                        <div className={`ui medium button ${pochette}`} onClick={()=>{i18n.i18n.init({ lng: "fr" })}} >
+                          FR
+                        </div>
+                      )
+                    }
+                    {
+                      i18n.lng.substring(0,2) === "fr" && (
+                        <div className={`ui medium button ${pochette}`} onClick={()=>{i18n.i18n.init({ lng: "en" })}} >
+                          EN
+                        </div>
+                      )
+                    }
+                  </div>
+                )
+              }              
+              <br />
+              <br />
+              <br />
+              {this.state.opened === TYPE_LOGIN && (
+                <Login
+                  pochette={this.state.pochette}
+                  parent={this}
+                  fn={() => {
+                    Auth.currentAuthenticatedUser()
+                      .then(res => {
+                        // Vérifier si le profil est complet, si non,
+                        // Débloque la composante appelante
+                        this.state.parent.setState({ user: res })
+      
+                        if(this.props.fn) {
+                          this.props.fn()
+                        }
+      
+                        // Fermer la modale
+                        this.setState({ isOpen: false })
+                      })
+                      .catch(err => {
+                        toast.error(err.message)
+                      });
+                  }}
+                />
+              )}
+              {this.state.opened === TYPE_REGISTER && <Register parent={this} pochette={this.state.pochette} />}
+              {this.state.opened === TYPE_VERIFY && (
+                <ForgotPasswordVerification pochette={this.state.pochette} parent={this} />
+              )}
+              {this.state.opened === TYPE_CHANGE && (
+                <ChangePasswordVerification pochette={this.state.pochette} parent={this} />
+              )}
+              {this.state.opened === TYPE_FORGOT && <ForgotPassword pochette={this.state.pochette} parent={this} />}
+            </Modal>
+        }
+      </Translation>
+      
+    )
   }
 }

@@ -214,6 +214,8 @@ class AssistantOeuvre extends Component {
         this.setState({
             progressPercentage: newProgressPercentage
         });
+
+        window.scrollTo(0, 0)
     };
 
     onSubmit = (values, actions, t) => {

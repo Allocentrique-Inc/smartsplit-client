@@ -42,7 +42,8 @@
     },
     "declaration": {
       "identite": "Declaration of identity",
-      "accepter": "Accept"
+      "accepter": "Accept",
+      "compris": "Understood"
     }
   },
   "oeuvre": {
