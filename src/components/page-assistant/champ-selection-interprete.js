@@ -7,6 +7,10 @@ import RightHolderOptions from "./right-holder-options";
 import * as roles from '../../assets/listes/role-uuids.json';
 import { isUnique, updateRightHolders } from "./right-holder-helpers";
 import { Translation } from 'react-i18next';
+import ModifyUser from '../auth/ModifyUser';
+
+import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
+import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 
 export class ChampSelectionInterprete extends Component {
 
@@ -65,6 +69,7 @@ export class ChampSelectionInterprete extends Component {
     }
 
     updateRightHolder = newRightHolder => {
+        console.log('updateRightHolder', newRightHolder)
         const newRightHolders = [...this.props.values.rightHolders]
             .filter(rightHolder => rightHolder.id !== newRightHolder.id)
             .concat([newRightHolder]);
@@ -105,9 +110,7 @@ export class ChampSelectionInterprete extends Component {
         const emptyMusician = { id: id, roles: [], instruments: [] };
 
         const newMusician = Object.assign({}, emptyMusician, existingMusician, { roles: newRoles });
-
         const newRightHolders = updateRightHolders(this.props.values.rightHolders, newMusician);
-
 
         this.props.onChange(newRightHolders);
 
@@ -116,6 +119,44 @@ export class ChampSelectionInterprete extends Component {
         });
     }
 
+    additionLabelClasses() {
+        const pochetteClass = this.props.pochette ? " pochette" : "";
+        return "addition-label" + pochetteClass;
+    }
+
+    plusCircle() {
+        return this.props.pochette ? plusCircleOrange : plusCircleGreen;
+    }
+
+    plusCircleLabel(labelString) {
+        return (
+            <span className={this.additionLabelClasses()}>
+                <img alt="" src={this.plusCircle()} /> {labelString}
+            </span>
+        );
+    }
+
+    triggerLabel() {
+        return this.state.searchQuery
+            ? ""
+            : this.plusCircleLabel(this.props.placeholder);
+    }
+
+    handleSearchChange = (event, { searchQuery }) => {
+        this.setState({ searchQuery: searchQuery });
+    };
+
+    handleBlur = () => {
+        this.setState({ searchQuery: "" });
+    };
+
+    handleAddItem = (event, { value }) => {
+        event.preventDefault()
+        this.setState({
+            modalOpen: true,
+            modalFirstName: value
+        });
+    };
 
     render() {
         return (
@@ -135,6 +176,7 @@ export class ChampSelectionInterprete extends Component {
                                     {this.renderSelectedItems(i18n.lng.substring(0, 2))}
 
                                     <Dropdown
+                                        trigger={this.triggerLabel()}
                                         placeholder={this.props.placeholder}
                                         fluid
                                         search
@@ -144,6 +186,30 @@ export class ChampSelectionInterprete extends Component {
                                         value={this.state.dropdownValue}
                                         options={this.unselectedItems()}
                                         onChange={this.handleChange}
+                                        allowAdditions={true}
+                                        onAddItem={this.handleAddItem}
+                                        onBlur={this.handleBlur}
+                                        onSearchChange={this.handleSearchChange}
+                                    />
+
+                                    <ModifyUser
+                                        open={this.state.modalOpen}
+                                        pochette={this.props.pochette}
+                                        firstName={this.state.modalFirstName}
+                                        close={() =>
+                                            this.setState({ modalOpen: false, modalFirstName: "" })
+                                        }
+                                        fn={
+                                            (e) => {
+                                                this.selectItem(e)
+                                                /* let values = this.state.selectedValues
+                                                values.push(e)
+                                                this.setState({ selectedValues: values }) */
+                                                if (this.props.fn) {
+                                                    this.props.fn(e)
+                                                }
+                                            }
+                                        }
                                     />
                                 </>
                             }

@@ -455,8 +455,28 @@ class Page2NouvellePiece extends Component {
                                                             nomCommeCle={false}
                                                             ajout={true}
                                                             surAjout={(e, cb) => {
-                                                                let entite = e.target.parentElement.childNodes[1].innerText
-                                                                this.ajouterEntiteArtistique(entite, cb)
+                                                                let elem = e.target.parentElement.childNodes
+                                                                let entite
+                                                                if (elem.length === 2) {
+                                                                    entite = elem[1].innerText
+                                                                } else {
+                                                                    if (elem[0].childNodes.length === 2) {
+                                                                        entite = elem[0].childNodes[1].innerText
+                                                                    } else {
+                                                                        if (elem.childNodes) {
+                                                                            entite = elem.childNodes[0].childNodes[1].innerText
+                                                                        } else {
+                                                                            if (elem.length === 1 && elem[0].childNodes && elem[0].childNodes[1]) {
+                                                                                entite = elem[0].childNodes[0].childNodes[1].innerText
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                                if (entite) {
+                                                                    this.ajouterEntiteArtistique(entite, cb)
+                                                                } else {
+                                                                    this.props.setFieldValue('artist', '')
+                                                                }
                                                             }}
                                                             onRef={
                                                                 liste => this.setState({ entites: liste })

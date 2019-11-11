@@ -29,6 +29,7 @@ import {
   updateRole
 } from "../page-assistant/right-holder-helpers";
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
+import Axios from "axios";
 
 export default class PageCreation extends Component {
   constructor(props) {
@@ -104,6 +105,20 @@ export default class PageCreation extends Component {
     return this.props.pochette ? copyrightIconOrange : copyrightIconGreen;
   }
 
+  idsSiUUID(ids) {
+    // Protéger la liste des valeurs non-uuid
+    let _ids = []
+    const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}")
+    if(ids) {
+        ids.forEach(id=>{
+            if(UUID_REGEXP.test(id)) {
+                _ids.push(id)
+            }
+        })
+        return _ids        
+    }
+  }
+
   render() {
     const { x, y } = this.state;
 
@@ -148,7 +163,13 @@ export default class PageCreation extends Component {
                   "flot.split.documente-ton-oeuvre.documenter.auteur-placeholder"
                 )}
                 value={this.state.songwriters}
-                onChange={ids => this.setState({ songwriters: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({songwriters: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.songwriter)                  
+                }}
               />
               <br />
               <ChampSelectionMultipleAyantDroit
@@ -160,7 +181,13 @@ export default class PageCreation extends Component {
                   "flot.split.documente-ton-oeuvre.documenter.compositeur-placeholder"
                 )}
                 value={this.state.composers}
-                onChange={ids => this.setState({ composers: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({composers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.composer)                  
+                }}
               />
               <br />
               <ChampSelectionMultipleAyantDroit
@@ -172,7 +199,13 @@ export default class PageCreation extends Component {
                   "flot.split.documente-ton-oeuvre.documenter.editeur-placeholder"
                 )}
                 value={this.state.publishers}
-                onChange={ids => this.setState({ publishers: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({publishers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.publisher)                  
+                }}
               />
               <br />
               <ChampTexte
