@@ -10,6 +10,7 @@ import Eye from "./Eye";
 import axios from "axios"
 import InfoBulle from '../partage/InfoBulle';
 
+
 class Register extends Component {
   state = {
     showModal: false,
@@ -395,15 +396,12 @@ class Register extends Component {
                             <span>
                               <label>
                                 {t("flot.split.collaborateur.attribut.etiquette.artiste")}
-                                <InfoBulle
-                                  className="sous-titre"
-                                  text={i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                                    <p style={{ margin: "0px" }}>For example, <i>Jay-Z</i> is the artist name of <em>Shawn Corey Carter</em>.</p>
-                                  )}
-                                  text={i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                                    <p style={{ margin: "0px" }}>Par exemple, <i>Jay-Z</i> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>
-                                  )}
-                                />
+
+                                <span className="sous-titre" style={{ margin: "0px" }}>
+                                  {i18n.lng && i18n.lng.substring(0, 2) === "en" && <InfoBulle pos={{ x: "250px", y: "350px" }} text={<p>For example, <i>Jay-Z</i> is the artist name of <em>Shawn Corey Carter</em>.</p>} />}
+                                  {i18n.lng && i18n.lng.substring(0, 2) !== "en" && <InfoBulle pos={{ x: "250px", y: "350px" }} text={<p>Par exemple, <i>Jay-Z</i> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>} />}
+                                </span>
+
                               </label>
                               <label style={{ color: "grey", float: "right", fontWeight: "normal" }}>
                                 {t("flot.split.collaborateur.attribut.etiquette.option")}
