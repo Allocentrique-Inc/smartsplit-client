@@ -33,7 +33,8 @@
     },
     "declaration": {
       "identite": "Déclaration d'identité",
-      "accepter": "Accepter"
+      "accepter": "Accepter",
+      "compris": "J'ai compris"
     }
   },
   "oeuvre": {

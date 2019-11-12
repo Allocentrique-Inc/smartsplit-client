@@ -13,6 +13,8 @@ import { ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
 import InfoBulle from '../partage/InfoBulle'
 import { Auth } from 'aws-amplify'
 
+import "../../assets/scss/assistant-form.scss";
+
 const etiquetteStyle = {
     fontFamily: "IBM Plex Sans",
     backgroundColor: 'transparent',
@@ -84,9 +86,9 @@ export default class NouvelleOeuvre extends Component {
 
         let rHs = []
 
-        // Participants créés avec le rôle d'auteur par défaut.
+        // Participants créés avec le rôle d'interprète par défaut.
         if (values.rightHolders)
-            values.rightHolders.forEach(rH => rHs.push({ id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a33"] }))
+            values.rightHolders.forEach(rH => rHs.push({ id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] }))
 
         let body = {
             creator: this.props.user.username,
@@ -179,10 +181,11 @@ export default class NouvelleOeuvre extends Component {
                                         <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
                                     </Wizard.Page>
                                     <Wizard.Page>
-                                        <Page2NouvellePiece parent={this} rightHolders={this.state.rightHolders} assocUuidArtiste={this.state.assocUuidArtiste} />
+                                        <Page2NouvellePiece pochette={this.props.pochette} parent={this} rightHolders={this.state.rightHolders} assocUuidArtiste={this.state.assocUuidArtiste} />
                                     </Wizard.Page>
 
                                 </Wizard>
+
                             </div>
                     }
                 </Translation>
@@ -282,14 +285,10 @@ class Base extends Component {
 }
 
 class PageNouvellePiece extends Component {
-
     render() {
-
         return (
             <React.Fragment>
-
                 <Base values={this.props.values} setFieldValue={this.props.setFieldValue} />
-
             </React.Fragment>
         )
     }
@@ -419,7 +418,7 @@ class Page2NouvellePiece extends Component {
                                     <div className="ui row">
                                         <div className="ui column" />
                                         <div className="ui twelve wide column">
-                                            <h2 style={{ color: "#2DA84F" }}>
+                                            <h2>
                                                 <i>{this.props.values.title}</i>
                                                 {vedettes && (
                                                     <>
@@ -628,11 +627,8 @@ class Page2NouvellePiece extends Component {
 
                                                                 if (f && !f.music.err) {
 
-                                                                    //this.props.setFieldValue('fichiers', f, false)
-
                                                                     let analyse = f.music[0] // Il peut y avoir plus d'un résultat
 
-                                                                    //toast.success(t('flot.split.documente-ton-oeuvre.envoifichier.reussi') + ` ${f.empreinte}`)
                                                                     this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
                                                                     this.props.setFieldValue('fichier', f.empreinte)
                                                                     this.props.setFieldValue('files.audio..file', f.name)
