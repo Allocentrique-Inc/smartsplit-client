@@ -128,7 +128,7 @@ class ModifyUser extends Component {
       "custom:instruments": JSON.stringify(this.state.instruments),
       "custom:groups": JSON.stringify(groupes),
       "custom:avatarImage": this.state.avatarImage,
-      "custom:requestSource": (source.includes("pochette") ? "pochette" : "smartsplit")
+      "custom:requestSource":((source.includes("pochette")) ? "pochette" : "smartsplit")
     };
     let username = this.state.email;
     let password = this.randomPassword();

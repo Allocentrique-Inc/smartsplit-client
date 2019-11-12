@@ -93,7 +93,7 @@ class ForgotPassword extends Component {
         let rightHolderId = res.data
         let requestSource = window.location.href
         axios.patch(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolderId}/requestSource`, {
-          requestSource: ((requestSource.includes("pochette") ? "pochette" : "smartsplit")
+          requestSource: ((requestSource.includes("pochette")) ? "pochette" : "smartsplit")
         })
         .then(() => {
           Auth.forgotPassword(courriel)

@@ -120,7 +120,7 @@ class Register extends Component {
     const groups = this.state.currentValue;
     const locale = this.state.locale;
     const gender = this.state.gender;
-    const requestSource = (source.includes("pochette") ? "pochette" : "smartsplit");
+    const requestSource = ((source.includes("pochette")) ? "pochette" : "smartsplit");
 
     try {
 
@@ -150,7 +150,8 @@ class Register extends Component {
           "custom:instruments": JSON.stringify(instruments),
           "custom:defaultRoles": JSON.stringify(defaultRoles),
           "custom:groups": JSON.stringify(groupes),
-          "custom:avatarImage": avatarImage
+          "custom:avatarImage": avatarImage,
+          "custom:requestSource": requestSource
         }
       })
         .then(toast.success(`${firstName}, compte créé !`))
