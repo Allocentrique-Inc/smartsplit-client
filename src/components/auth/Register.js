@@ -107,6 +107,7 @@ class Register extends Component {
   };
 
   handleSubmit = values => {
+    let source = window.location.href;
     const username = values.username;
     const email = values.username; // username is used as email
     const password = this.state.password;
@@ -119,6 +120,7 @@ class Register extends Component {
     const groups = this.state.currentValue;
     const locale = this.state.locale;
     const gender = this.state.gender;
+    const requestSource = (source.includes("pochette") ? "pochette" : "smartsplit");
 
     try {
 

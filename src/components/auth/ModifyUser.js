@@ -116,6 +116,7 @@ class ModifyUser extends Component {
       groupes.push(nom)
     }
 
+    let source = window.location.href
     let attributes = {
       email: this.state.email,
       given_name: this.state.firstName || "Unnamed",
@@ -126,7 +127,8 @@ class ModifyUser extends Component {
       "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
       "custom:instruments": JSON.stringify(this.state.instruments),
       "custom:groups": JSON.stringify(groupes),
-      "custom:avatarImage": this.state.avatarImage
+      "custom:avatarImage": this.state.avatarImage,
+      "custom:requestSource": (source.includes("pochette") ? "pochette" : "smartsplit")
     };
     let username = this.state.email;
     let password = this.randomPassword();
