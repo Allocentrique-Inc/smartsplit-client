@@ -305,22 +305,6 @@ class ModifyUser extends Component {
                 <div className="ui row" style={{ marginTop: "30px" }}>
                   <label>
                     <strong>
-                      {t("flot.split.collaborateur.attribut.etiquette.courriel")}
-                    </strong>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    className="Email"
-                    placeholder={t("flot.split.collaborateur.attribut.etiquette.courriel")}
-                    value={this.state.email}
-                    onChange={e => this.setState({ email: e.target.value })}
-                  />
-                </div>
-
-                <div className="ui row" style={{ marginTop: "30px" }}>
-                  <label>
-                    <strong>
                       {t("flot.split.collaborateur.attribut.etiquette.groupe")}
                     </strong>
                   </label>
@@ -347,6 +331,22 @@ class ModifyUser extends Component {
                 </div>
 
                 <div className="ui row" style={{ marginTop: "30px" }}>
+                  <label>
+                    <strong>
+                      {t("flot.split.collaborateur.attribut.etiquette.courriel")}
+                    </strong>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    className="Email"
+                    placeholder={t("flot.split.collaborateur.attribut.etiquette.courriel")}
+                    value={this.state.email}
+                    onChange={e => this.setState({ email: e.target.value })}
+                  />
+                </div>                
+
+                <div className="ui row" style={{ marginTop: "30px", display: "none" }}>
                   <label>
                     <strong>
                       {t("flot.split.collaborateur.attribut.etiquette.role")}
