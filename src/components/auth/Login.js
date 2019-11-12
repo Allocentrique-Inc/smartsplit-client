@@ -80,7 +80,7 @@ class LogIn extends Component {
   }
 
   render() {
-    let pochette =this.state.pochette ? "pochette" : ""
+    let pochette = this.state.pochette ? "pochette" : ""
     return (
       <Formik
         initialValues={{
@@ -187,15 +187,21 @@ class LogIn extends Component {
                                   required={true}
                                 />
                                 <button
+                                  type="button"
                                   id="hide"
                                   onClick={e => {
                                     this.toggleShow(e);
                                   }}
                                 >
-                                  <Eye actif={this.state.hidden} />
+                                  <Eye actif={this.state.hidden}
+                                    id="hide"
+                                    onClick={e => {
+                                      this.toggleShow(e);
+                                    }}
+                                  />
                                 </button>
                               </div>
-                            </div>                          
+                            </div>
                           </div>
                           {!this.state.patience && (
                             <div className="field">

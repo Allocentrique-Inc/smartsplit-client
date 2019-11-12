@@ -220,7 +220,7 @@
           "etiquette": {
             "nom": "Name",
             "prenom": "First Name",
-            "artiste": "Artist Name (aka)",
+            "artiste": "Artist Name (aka)  ",
             "option": " (optional)",
             "na": "If not applicable, the complete name is displayed.",
             "role": "Role in the work",

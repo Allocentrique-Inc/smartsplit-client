@@ -221,7 +221,7 @@
           "etiquette": {
             "nom": "Nom",
             "prenom": "Prénom",
-            "artiste": "Nom d'artiste (alias)",
+            "artiste": "Nom d'artiste (alias)  ",
             "role": "Rôle dans la pièce musicale",
             "option": "Optionnel",
             "na": "Par exemple, Jay-Z est le nom d'artiste de Shawn Corey Carter.",
