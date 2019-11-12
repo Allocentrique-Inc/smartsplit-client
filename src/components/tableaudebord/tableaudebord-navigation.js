@@ -4,11 +4,12 @@ import { Translation } from "react-i18next"
 import '../../assets/scss/tableaudebord/tableaudebord.scss'
 import '../../assets/scss/page-assistant/bouton.scss'
 
-import { Item, Image } from "semantic-ui-react"
-
 import Music from '../../assets/images/Music.png'
+import MusicGris from '../../assets/images/Music.png'
 import UserCard from '../../assets/images/UserCard.png'
+import UserCardGris from '../../assets/images/UserCard.png'
 import Users from '../../assets/images/Users.png'
+import UsersGris from '../../assets/images/Users.png'
 
 const PIECES = 0,
   PROFIL = 1,
@@ -127,16 +128,16 @@ export default class Navigation extends Component {
 
             <div className="tdb--navigation__liens">
               <div className="ui row">
-                {this.genererLien(PIECES, t, Music)}
+                {this.genererLien(PIECES, t, ( this.state.choix === PIECES ? Music : MusicGris ))}
               </div>
               {
                 !pochette && (
                   <>
                     <div className="ui row espace-15">
-                      {this.genererLien(PROFIL, t, UserCard)}
+                      {this.genererLien(PROFIL, t, ( this.state.choix === PROFIL ? UserCard : UserCardGris ) )}
                     </div>
                     <div className="ui row espace-15">
-                      {this.genererLien(COLLABORATEURS, t, Users)}
+                      {this.genererLien(COLLABORATEURS, t, ( this.state.choix === COLLABORATEURS ? Users : UsersGris ))}
                     </div>
                   </>
                 )
