@@ -356,17 +356,7 @@ class ModifyUser extends Component {
                     id="roles"
                     type="text"
                     style={{ maxHeight: "10px" }}
-                    options={[
-                      {
-                        key: t("flot.split.roles.principal"),
-                        text: t("flot.split.roles.principal"),
-                        value: "Principal"
-                      },
-                      {
-                        key: t("flot.split.roles.accompaniment"),
-                        text: t("flot.split.roles.accompaniment"),
-                        value: "Accompaniment"
-                      },
+                    options={[                     
                       {
                         key: t("flot.split.roles.songwriter"),
                         text: t("flot.split.roles.songwriter"),
