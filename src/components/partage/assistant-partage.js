@@ -378,7 +378,9 @@ class AssistantPartage extends Component {
                     enregistrement: {}
                 }
                 function creerAd(elem) {
-                    return { nom: elem.rightHolder.name, pourcent: 0.00, ayantDroit: that.state.ayantsDroit[elem.rightHolder.rightHolderId] }
+                    if(that.state.ayantsDroit) {
+                        return { nom: elem.rightHolder.name, pourcent: 0.00, ayantDroit: that.state.ayantsDroit[elem.rightHolder.rightHolderId] }
+                    }                    
                 }
                 // Droit d'auteur
                 _rS.workCopyrightSplit.music.forEach(elem => { // Musique
