@@ -19,7 +19,7 @@ import { Dropdown } from "semantic-ui-react";
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg";
 import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg";
 import "../../assets/scss/page-assistant/champ.scss";
-import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
+import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
 
 export default class PageLiens extends React.Component {
   defaultStreamingApps = [
@@ -153,11 +153,11 @@ export default class PageLiens extends React.Component {
     const newStreamingApps = streamingApps.find(app => app.label === value)
       ? streamingApps
       : streamingApps.concat([
-          {
-            icon: null,
-            label: value
-          }
-        ]);
+        {
+          icon: null,
+          label: value
+        }
+      ]);
 
     this.setState({
       dropdownValue: null,
@@ -185,12 +185,10 @@ export default class PageLiens extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.titre7-description"
                 )}
               />
-
               <TitreChamp
                 label={
-                  this.props.values.title +
-                  " " +
-                  t("flot.split.documente-ton-oeuvre.documenter.entete.lien")
+                  <>{this.props.values.title}<br />
+                    {t("flot.split.documente-ton-oeuvre.documenter.entete.lien")}</>
                 }
               />
 

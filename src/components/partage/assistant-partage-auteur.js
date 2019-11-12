@@ -183,8 +183,8 @@ class PageAssistantPartageAuteur extends Component {
 
         if (nbModifications > 0) {
             deltaParCollaborateurVariable = -(delta / nbModifications) // Calcul de la différence à répartir sur les autres collaborateurs
-        }        
-        
+        }
+
         droits.forEach((elem, idx) => {
             if (!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
@@ -328,11 +328,11 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     render() {
-        function StyleInput(props) {
+        function FormField(props) {
             return <input style={props.style} />
         }
 
-        let visualisation        
+        let visualisation
         if (this.state.parts.length > 0) {
 
             switch (this.state.mode) {
@@ -555,14 +555,14 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                         <span className="pourcentage-wrapper">
                                                                                                             <div className="ui grid">
                                                                                                                 <div className="ui row">
-                                                                                                                    <div  onClick={()=>this.basculerVariable(index)} className="ui one wide column">
+                                                                                                                    <div onClick={() => this.basculerVariable(index)} className="ui one wide column">
                                                                                                                         <Lock actif={this.state.partsInvariables[index] || this.props.values.droitAuteur.length === 1} />
                                                                                                                     </div>
                                                                                                                     <div className="ui ten wide column">
                                                                                                                         <ChampGradateurAssistant
                                                                                                                             changement={(id, delta) => {
                                                                                                                                 // Permet le changment seulement si personne ne sera à zéro
-                                                                                                                                
+
 
                                                                                                                                 this.changementGradateur(id, delta)
                                                                                                                             }}
@@ -581,10 +581,10 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                     </div>
 
                                                                                                                     <div className="ui four wide column">
-                                                                                                                        <ChampTexteAssistant                                                                                                                                                                                                                                                     
+                                                                                                                        <ChampTexteAssistant
                                                                                                                             id={`texte_${index}`}
                                                                                                                             changement={(id, valeur) => {
-                                                                                                                                if(!isNaN(parseFloat(valeur))){
+                                                                                                                                if (!isNaN(parseFloat(valeur))) {
                                                                                                                                     this.changementTexte(id, valeur)
                                                                                                                                 }
                                                                                                                             }}
@@ -593,11 +593,11 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                                 this.props.values.droitAuteur.length <= 1) ||
                                                                                                                                 this.state.partsInvariables[index] ||
                                                                                                                                 (1 === this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)}
-                                                                                                                            valeur={`${this.props.values.droitAuteur[index].pourcent}`}                                                                                                                            
+                                                                                                                            valeur={`${this.props.values.droitAuteur[index].pourcent}`}
                                                                                                                         />
                                                                                                                         {
-                                                                                                                            document.getElementsByName("droitAuteur["+index+"].pourcent").forEach((e, idx)=>{
-                                                                                                                                if(e.type==="text") {
+                                                                                                                            document.getElementsByName("droitAuteur[" + index + "].pourcent").forEach((e, idx) => {
+                                                                                                                                if (e.type === "text") {
                                                                                                                                     e.style.backgroundColor = "#faf8f9"
                                                                                                                                     e.style.border = "none"
                                                                                                                                     e.style.paddingBottom = "12px"
@@ -639,7 +639,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     ajout={true}
                                                                                     collaborateurs={this.props.values.droitAuteur}
                                                                                     fnSelect={
-                                                                                        () => {                                                                                            
+                                                                                        () => {
                                                                                             this.ajouterCollaborateur(arrayHelpers)
                                                                                         }
                                                                                     }

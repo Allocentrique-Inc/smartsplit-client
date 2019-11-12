@@ -92,7 +92,7 @@
         "genre2": "Select the secondary work genra",
         "paroles": "Type in the lyrics",
         "langueParoles": "Select one or more lyrics language",
-        "isrc": "The International Standard Recording Code (ISRC) allows the identification of audio recordings (tracks).",
+        "isrc": "ISRC Code",
         "upc": "Product unique identifier",
         "dureeMs": "Type in the duration (in milliseconds)",
         "liensSociaux": "URL for social link",
@@ -219,15 +219,20 @@
         "titre": "Add a collaborating artist",
         "attribut": {
           "etiquette": {
-            "nom": "Legal Name",
-            "prenom": "Legal First Name",
-            "artiste": "Artist Name (aka)",
+            "nom": "Name",
+            "prenom": "First Name",
+            "artiste": "Artist Name (aka)  ",
             "option": " (optional)",
             "na": "If not applicable, the complete name is displayed.",
             "role": "Role in the work",
             "courriel": "Email",
             "groupe": "Group/Entity",
-            "ajout": "Add a groupor or an artist"
+            "ajout": "Add a groupor or an artist",
+            "placeholder": {
+              "nom": "Entre their first name",
+              "prenom": "Enter their last name",
+              "artiste": "Enter their artist name (aka)"
+            }
           },
           "indication": {
             "nom": "Last name",
@@ -265,6 +270,8 @@
       "documente-ton-oeuvre": {
         "titre": "Document",
         "preambule": "Hi! We will help you describe your work.",
+        "chanteur": "Add a type of singer",
+        "instrument": "Add an instrument",
         "composant": {
           "televersement": {
             "titre": "File",
@@ -294,10 +301,10 @@
             "enregistrement": "Recording",
             "sortie": "Exit",
             "fichier": "Files",
-            "influence": "Inspirations",
+            "influence": "Inspirations  ",
             "influenceurs": "Mention one or more artists",
             "exemple": "Exemple : The Beatles, Dr Dre, Mozart, Jacques Brel, Stromae...",
-            "parole": "Lyrics",
+            "parole": "Lyrics  ",
             "ajouter-parole": "Add lyrics",
             "parole-only": "Lyrics only. Do not add Authors, Composers, year of creation, etc.",
             "langue-creer": "Mention the language",
@@ -315,7 +322,7 @@
           "auteur-placeholder": "Add an Author",
           "graphiste-placeholder": "Add an illustrator",
           "graphiste-description": "Who did the artwork?",
-          "graphiste": "Illustrators",
+          "graphiste": "Illustrators  ",
           "compositeur": "Composers  ",
           "compositeur-description": "Who composed the music of this piece?",
           "compositeur-placeholder": "Add a Composer",
@@ -384,21 +391,21 @@
           "titre7-description": "To increase the chances for your track to be discovered and listened to, document its streaming and online shopping links.",
           "sur": "on...",
           "platforme": "Add as a platform",
-          "titre8": "Cover Artwork",
-          "titre8-description": "An album has a cover, a song or an instrumental track must also have a cover artwork to represent it.",
-          "titre8-plus": "Learn more",
-          "titre8-etape1": "Upload in JPEG or PNG format",
+          "titre8": "Cover Artwork  ",
+          "titre8-description": "An album has a cover, a song or an instrumental track must also have a cover artwork to represent it. Learn more",
+          "titre8-etape1": "Upload in JPEG or PNG format  ",
           "titre8-etape2": "Recommended: Square image of 1600 x 1600 pixels with a resolution of 300 dpi.",
-          "titre9": "Audio File",
+          "titre9 ": "Audio File",
           "titre9-description": "Here you can upload your track in WAV or MP3 format.",
-          "titre9-etape1": "Upload the recording track",
-          "titre9-etape2": "MP3 or WAV accepted.",
-          "autre": "Other track files",
+          "titre9-etape1": "Upload the recording track  ",
+          "titre9-etape2": "MP3 or WAV accepted",
+          "autre": "Other track files  ",
+          "autre-titre": "Partition  ",
           "autre-description": "Here you can add documents for the track's performance, such as the partition or the MIDI file.",
           "autre-etape1": "Partition or Tablature",
           "autre-etape2": "You can upload a graphic score or tablature format format (.PDF, .SVG, .PNG ou .JPEG). You can also chose to upload a native scorewriters software file.",
           "autre-plus": "Learn more",
-          "autre-etape3": "MIDI Files",
+          "autre-etape3": "MIDI Files  ",
           "autre-etape4": "Upload .MID or .MIDI files only.",
           "acces": "Access",
           "choix": "Choose a file",
@@ -658,7 +665,7 @@
       "maintenantPartage": "The split proposition now exists. Bravo!",
       "resume": "See the summary",
       "partage": "See the proposal",
-      "partageCree": "⭐️ The share proposal is created",
+      "partageCree": "⭐️ Sahred proposal created",
       "recupMotDePasse": "Password reset"
     }
   },
@@ -733,5 +740,13 @@
     "egal": "Divide the copyright by the number of people and assign the role “Author-Composer” by default to all. This way of sharing copyright avoids many disagreements among creators, particularly when the income starts to come in!",
     "roles": "Divide the copyright into two: 50% goes to those who wrote the lyrics, and 50% to those who composed the music. This last “music” part is in return divided by the number of roles elected and the collaborators get a percentage according to their implication. For example: Alice only composes music, while Bob compose AND arrange music. Therefore, Alice has 1/3 and Bob has 2/3 of the music.",
     "manuel": "Lets you determine the percentage and the roles for each collaborator. To set a percentage to a collaborator, you can use the lock."
+  },
+  "options-acces": {
+    "public": "Public – Downloadable by everyone.",
+    "tous": "All users can download the original file.",
+    "certains": "On invitation - Downloadable by some.",
+    "lien": "Users with the unique shareable link can download the original file. Useful for reporters and the professionals!",
+    "prive": "Private - Prevent download.",
+    "personne": "Nobody will be able to download, except you."
   }
 }

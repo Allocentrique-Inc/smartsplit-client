@@ -19,23 +19,32 @@ export default class ModalFin extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.open !== nextProps.open) {
-      this.setState({open: true})
+    if (this.props.open !== nextProps.open) {
+      this.setState({ open: true })
     }
   }
+  closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
+    this.setState({ closeOnEscape, closeOnDimmerClick, open: true });
+  };
+
+  onClose = () => {
+    this.props.open(false);
+  };
 
   render() {
     return (
       <Translation>
         {(t, i18n) => (
-          <Modal open={this.state.open} onClose={this.state.onClose}>
+          <Modal open={this.props.open} onClose={this.props.onClose}>
             <div className="modal-navbar">
               <div className="left">
-                <div className="title">{t("flot.fin.created")}</div>
+                <div style={{ textAlign: "center" }}>
+                  <div className="title">{t("flot.fin.created")}</div>
+                </div>
               </div>
 
               <div className="right">
-                <span className="close-icon" onClick={this.state.onClose}>
+                <span className="close-icon cliquable" onClick={this.props.onClose}>
                   <img src={closeIcon} alt={"close"} />
                 </span>
               </div>
@@ -67,12 +76,13 @@ export default class ModalFin extends Component {
               )}
             </div>
 
-            <div className={"modal-bottom-bar"}>            
-              <Button onClick={()=>window.location.href="/oeuvre/"+this.state.mediaId+"/resume"}style={this.props.pochette ? {backgroundColor: "#F2724A"} : {}}>{t("flot.fin.resume")}</Button>
+            <div className={"modal-bottom-bar"}>
+              <Button onClick={() => window.location.href = "/oeuvre/" + this.state.mediaId + "/resume"} style={this.props.pochette ? { backgroundColor: "#F2724A" } : {}}>{t("flot.fin.resume")}</Button>
             </div>
 
           </Modal>
-        )}
+        )
+        }
       </Translation>
     );
   }

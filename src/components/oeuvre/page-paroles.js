@@ -8,17 +8,18 @@ import Entete from "../page-assistant/entete"
 import ChampTextArea from "../page-assistant/champ-textarea"
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple"
 import ChampAccesVision from "../page-assistant/champ-acces-vision"
-import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique"
+import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
+import InfoBulle from "../partage/InfoBulle"
 
 export default class PageParoles extends React.Component {
-  
-  constructor(props)  {
+
+  constructor(props) {
     super(props)
 
-    let langue = props.i18n.lng.substring(0,2)
-    this.langues = require(`../../assets/listes/${langue}/codes_langues`).map(l=>{
-      return {key: l.key, value: l.text, text: l.text}
-    });    
+    let langue = props.i18n.lng.substring(0, 2)
+    this.langues = require(`../../assets/listes/${langue}/codes_langues`).map(l => {
+      return { key: l.key, value: l.text, text: l.text }
+    });
 
   }
 
@@ -55,6 +56,7 @@ export default class PageParoles extends React.Component {
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.parole"
                 )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.entete.parole-only")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.ajouter-parole"
                 )}

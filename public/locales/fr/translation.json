@@ -220,15 +220,20 @@
             "nom": "Nom légal"
           },
           "etiquette": {
-            "nom": "Mon nom",
-            "prenom": "Mon prénom",
-            "artiste": "Nom d'artiste (alias)",
+            "nom": "Nom",
+            "prenom": "Prénom",
+            "artiste": "Nom d'artiste (alias)  ",
             "role": "Rôle dans la pièce musicale",
             "option": "Optionnel",
             "na": "Par exemple, Jay-Z est le nom d'artiste de Shawn Corey Carter.",
             "courriel": "Courriel",
             "groupe": "Ajouter groupes, entités artistiques ou entreprises",
-            "ajout": "Ajouter un groupe ou un artiste"
+            "ajout": "Ajouter un groupe ou un artiste",
+            "placeholder": {
+              "nom": "Entre son prénom",
+              "prenom": "Entre son nom de famille",
+              "artiste": "Entre son nom d'artiste (alias)"
+            }
           },
           "indication": {
             "nom": "Nom de famille",
@@ -261,6 +266,8 @@
       "documente-ton-oeuvre": {
         "titre": "Documenter",
         "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre.",
+        "chanteur": "Ajouter un type de chanteur",
+        "instrument": "Ajouter un instrument",
         "composant": {
           "televersement": {
             "titre": "Fichier",
@@ -290,10 +297,10 @@
             "enregistrement": "Enregistrement",
             "sortie": "Sortie",
             "fichier": "Fichiers",
-            "influence": "Influences",
+            "influence": "Influences  ",
             "influenceurs": "Indiquer un ou plusieurs artistes",
             "exemple": "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae...",
-            "parole": "Paroles",
+            "parole": "Paroles  ",
             "ajouter-parole": "Ajouter des paroles",
             "parole-only": "Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
             "lien": "Liens d'écoute",
@@ -311,7 +318,7 @@
           "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
           "graphiste-placeholder": "Ajouter un graphiste",
           "graphiste-description": "Qui a fait les compositions visuelles ?",
-          "graphiste": "Graphistes",
+          "graphiste": "Graphistes  ",
           "compositeur": "Compositeurs  ",
           "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
           "compositeur-placeholder": "Ajouter un compositeur",
@@ -324,7 +331,7 @@
           "codeiswc": "Code ISWC  ",
           "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
           "codeiswc-placeholder": "T-012345678-1",
-          "codeisrc": "Code ISRC ",
+          "codeisrc": "Code ISRC :",
           "codeisrc-description": "Le International Standard Recording Code (ISRC) permet l’identification des enregistrements sonores (pistes).",
           "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
           "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
@@ -375,7 +382,7 @@
             "avenir": "À venir",
             "determine": "Déterminée"
           },
-          "titre4": "Quels fichiers veux-tu rendre accessible?",
+          "titre4": "Quels fichiers veux-tu rendre accessible ?",
           "titre4-description": "Ici tu peux ajouter tous les fichiers relatifs à cette pièce musicale.",
           "titre5": "Informations générales",
           "titre5-description": "Ici tu mentionnes quel est le genre de la pièce musicale et quels sont les artistes ou influences qui l'ont inspiré.",
@@ -385,21 +392,21 @@
           "titre7-description": "Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
           "sur": "sur...",
           "platforme": "Ajouter comme plateforme",
-          "titre8": "Illustration",
+          "titre8": "Illustration  ",
           "titre8-description": "Comme l’album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
-          "titre8-plus": "En savoir plus",
-          "titre8-etape1": "Téléverser en format JPEG ou PNG",
+          "titre8-etape1": "Téléverser en format JPEG ou PNG  ",
           "titre8-etape2": "Recommandé : Image carrée de 1600 x 1600 pixels d’une résolution de 300 dpi.",
-          "titre9": "Fichier audio",
+          "titre9": "Fichier audio  ",
           "titre9-description": "Ici, tu peux téléverser ta pièce en format WAV ou MP3.",
-          "titre9-etape1": "Téléverser le fichier de l’œuvre enregistrée",
-          "titre9-etape2": "MP3 ou WAV acceptés.",
-          "autre": "Autres fichiers de l’œuvre",
+          "titre9-etape1": "Téléverser le fichier de l’œuvre enregistrée  ",
+          "titre9-etape2": "MP3 ou WAV acceptés",
+          "autre": "Autres fichiers de l’œuvre  ",
+          "autre-titre": "Partition  ",
           "autre-description": "Ici, tu peux ajouter des documents permettant l’interprétation de l’œuvre, comme la partition ou le fichier MIDI.",
           "autre-etape1": "Partition ou tablature",
           "autre-etape2": "Vous pouvez téléverser une partition ou une tablature en format graphique (.PDF, .SVG, .PNG ou .JPEG). Vous pouvez aussi téléverser un fichier en format natif provenant de votre logiciel d’écriture musicale (comme .musicxml).",
           "autre-plus": "Pour en savoir plus",
-          "autre-etape3": "Fichiers MIDI",
+          "autre-etape3": "Fichiers MIDI  ",
           "autre-etape4": "Téléverser des fichiers .MID ou .MIDI seulement",
           "acces": "Accès",
           "choix": "Fichier",
@@ -659,7 +666,7 @@
       "maintenantPartage": "La proposition de partage existe. Bravo !",
       "resume": "Voir le condensé",
       "partage": "Voir le partage",
-      "partageCree": "⭐️ Le partage est créé",
+      "partageCree": "⭐️ Partage créé",
       "recupMotDePasse": "Nouveau mot de passe"
     }
   },
@@ -733,5 +740,13 @@
     "egal": "Divise le droit d'auteur par le nombre de personnes et attribue le rôle «Auteur-Compositeur» par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus commencent à rentrer !",
     "roles": "Divise le droit d'auteur en deux : 50% va à ceux qui ont écrit les paroles, et 50% à ceux qui ont composé la musique. Cette dernière partie «musique» est à son tour divisée par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple : Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
     "manuel": "Te laisse déterminer le pourcentage et les rôles pour chaque collaborateur. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas."
+  },
+  "options-acces": {
+    "public": "Public – Téléchargeable par tous.",
+    "tous": "Tous les utilisateurs pourront télécharger le fichier original.",
+    "certains": "Sur invitation - Téléchargeable par certains.",
+    "lien": "Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
+    "prive": "Privé - Empêcher le téléchargement.",
+    "personne": "Personne ne pourra télécharger, sauf vous."
   }
 }

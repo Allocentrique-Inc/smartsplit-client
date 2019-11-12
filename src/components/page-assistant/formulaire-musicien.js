@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import { ItemSelectionne } from "./item-selectionne";
 import { Checkbox } from "semantic-ui-react";
 import ChampSelectionMultiple from "./champ-selection-multiple";
-import { Translation } from "react-i18next";
 import { isUnique } from "./right-holder-helpers";
 import * as roles from "../../assets/listes/role-uuids.json";
+import { useTranslation } from "react-i18next"
 
-export class FormulaireMusicien extends Component {
+export default function FormulaireMusicien(props) {
+  const { t, i18n } = useTranslation();
+
+  return <BaseFormulaireMusicien {...props} t={t} />
+}
+
+
+export class BaseFormulaireMusicien extends React.Component {
   singerRoleLabels = [
     {
       key: "leadVocal",
@@ -38,12 +45,12 @@ export class FormulaireMusicien extends Component {
     let _instruments = {}
     this.instrumentOptions = []
 
-    instruments.forEach(i=>{
-      if(!_instruments[i.nom])
-        _instruments[i.nom] = i      
+    instruments.forEach(i => {
+      if (!_instruments[i.nom])
+        _instruments[i.nom] = i
     })
 
-    Object.keys(_instruments).forEach(_i=>{
+    Object.keys(_instruments).forEach(_i => {
       let i = _instruments[_i]
       this.instrumentOptions.push({
         key: i.nom,
@@ -51,7 +58,7 @@ export class FormulaireMusicien extends Component {
         text: i.nom
       })
     })
-     
+
     this.state = {
       singer: this.props.rightHolder.roles.includes(roles.singer),
       musician: this.rightHolderHasInstruments()
@@ -159,14 +166,14 @@ export class FormulaireMusicien extends Component {
           key={this.props.rightHolder.id + "singer"}
           pochette={this.props.pochette}
           items={this.singerOptions}
-          placeholder="Ajouter un type de chanteur..."
+          placeholder={this.props.t("flot.split.documente-ton-oeuvre.chanteur")}
           value={this.rightHolderSingerSubroles()}
           onChange={this.onSingerRoleChange}
         />
       </div>
     ) : (
-      <></>
-    );
+        <></>
+      );
   }
 
   instrumentSelect() {
@@ -176,109 +183,97 @@ export class FormulaireMusicien extends Component {
         key={this.props.rightHolder.id + "instrument"}
         pochette={this.props.pochette}
         items={this.instrumentOptions}
-        placeholder="Ajouter un instrument..."
+        placeholder={this.props.t("flot.split.documente-ton-oeuvre.instrument")}
         value={this.rightHolderInstruments()}
         onChange={this.onInstrumentChange}
       />
     ) : (
-      <></>
-    );
+        <></>
+      );
   }
 
   render() {
     return (
-      <Translation>
-        {t => (
-          <>
-            <ItemSelectionne
-              key={this.props.item.key}
-              image={this.props.item.image.src}
-              nom={this.props.item.text}
-              onClick={this.props.onClick}
-            />
+      <>
+        <ItemSelectionne
+          key={this.props.item.key}
+          image={this.props.item.image.src}
+          nom={this.props.item.text}
+          onClick={this.props.onClick}
+        />
 
-            <div className="instrument-form">
-              <p className="input-label">
-                {t("flot.split.documente-ton-oeuvre.documenter.options.question1")}
-              </p>
+        <div className="instrument-form">
+          <p className="input-label">
+            {this.props.t("flot.split.documente-ton-oeuvre.documenter.options.question1")}
+          </p>
 
-              <div>
-                <div className="ui radio checkbox">
-                  <input
-                    type="radio"
-                    name={`${this.props.rightHolder.id}type`}
-                    value={"principal"}
-                    checked={this.props.rightHolder.roles.includes(
-                      roles.principal
-                    )}
-                    onChange={this.onTypeChange}
-                  />
+          <div>
+            <div className="ui radio checkbox">
+              <input
+                type="radio"
+                name={`${this.props.rightHolder.id}type`}
+                value={"principal"}
+                checked={this.props.rightHolder.roles.includes(
+                  roles.principal
+                )}
+                onChange={this.onTypeChange}
+              />
 
-                  <label>
-                    {t(
-                      "flot.split.documente-ton-oeuvre.documenter.options.question1-choix-a"
-                    )}
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <div className="ui radio checkbox">
-                  <input
-                    type="radio"
-                    name={`${this.props.rightHolder.id}type`}
-                    value={"accompaniment"}
-                    checked={this.props.rightHolder.roles.includes(
-                      roles.accompaniment
-                    )}
-                    onChange={this.onTypeChange}
-                  />
-
-                  <label>
-                    {t(
-                      "flot.split.documente-ton-oeuvre.documenter.options.question1-choix-b"
-                    )}
-                  </label>
-                </div>
-              </div>
-
-              <p className="input-label">
-                {t("flot.split.documente-ton-oeuvre.documenter.options.question2")}
-              </p>
-
-              <div>
-                <Checkbox
-                  label={t(
-                    "flot.split.documente-ton-oeuvre.documenter.options.question2-choix-a"
-                  )}
-                  checked={this.state.singer}
-                  onChange={(event, { checked }) =>
-                    this.handleSingerCheckboxChange(checked)
-                  }
-                />
-              </div>
-
-              <div className="instrument-select">{this.singerSelect()}</div>
-
-              <div>
-                <Checkbox
-                  label={t(
-                    "flot.split.documente-ton-oeuvre.documenter.options.question2-choix-b"
-                  )}
-                  checked={this.state.musician}
-                  onChange={(event, { checked }) =>
-                    this.handleInstrumentCheckboxChange(checked)
-                  }
-                />
-              </div>
-
-              <div className="instrument-select">{this.instrumentSelect()}</div>
+              <label>
+                {this.props.t("flot.split.documente-ton-oeuvre.documenter.options.question1-choix-a")}
+              </label>
             </div>
+          </div>
 
-            <div className="section-divider"></div>
-          </>
-        )}
-      </Translation>
+          <div>
+            <div className="ui radio checkbox">
+              <input
+                type="radio"
+                name={`${this.props.rightHolder.id}type`}
+                value={"accompaniment"}
+                checked={this.props.rightHolder.roles.includes(
+                  roles.accompaniment
+                )}
+                onChange={this.onTypeChange}
+              />
+
+              <label>
+                {this.props.t("flot.split.documente-ton-oeuvre.documenter.options.question1-choix-b")}
+              </label>
+            </div>
+          </div>
+
+          <p className="input-label">
+            {this.props.t("flot.split.documente-ton-oeuvre.documenter.options.question2")}
+          </p>
+
+          <div>
+            <Checkbox
+              label={this.props.t("flot.split.documente-ton-oeuvre.documenter.options.question2-choix-a")}
+              checked={this.state.singer}
+              onChange={(event, { checked }) =>
+                this.handleSingerCheckboxChange(checked)
+              }
+            />
+          </div>
+
+          <div className="instrument-select">{this.singerSelect()}</div>
+
+          <div>
+            <Checkbox
+              label={this.props.t("flot.split.documente-ton-oeuvre.documenter.options.question2-choix-b")}
+              checked={this.state.musician}
+              onChange={(event, { checked }) =>
+                this.handleInstrumentCheckboxChange(checked)
+              }
+            />
+          </div>
+
+          <div className="instrument-select">{this.instrumentSelect()}</div>
+        </div>
+
+        <div className="section-divider"></div>
+      </>
     );
   }
 }

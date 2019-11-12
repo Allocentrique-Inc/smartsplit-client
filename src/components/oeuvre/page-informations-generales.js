@@ -10,26 +10,27 @@ import ChampTexte from "../page-assistant/champ-texte";
 import ChampSelection from "../page-assistant/champ-selection";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import SelectOption from "../../model/select-option/select-option";
-import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
+import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import InfoBulle from '../partage/InfoBulle';
 
-export default class PageInformationsGenerales extends React.Component {  
+export default class PageInformationsGenerales extends React.Component {
 
   constructor(props) {
     super(props)
 
-    let langue = props.i18n.lng.substring(0,2)
+    let langue = props.i18n.lng.substring(0, 2)
     let genres = require(`../../assets/listes/${langue}/genres`).genres;
 
     // Épuration de la liste des instruments pour éviter les doublons
     let _genres = {}
     this.genres = []
 
-    genres.forEach(i=>{
-      if(!_genres[i.nom])
+    genres.forEach(i => {
+      if (!_genres[i.nom])
         _genres[i.nom] = i
     })
 
-    Object.keys(_genres).forEach(_g=>{
+    Object.keys(_genres).forEach(_g => {
       let g = _genres[_g]
       this.genres.push({
         key: g.nom,
@@ -84,7 +85,7 @@ export default class PageInformationsGenerales extends React.Component {
 
                   <div className="ui sixteen wide mobile eight wide tablet eight wide computer column">
                     <ChampTexte
-                      pochette={this.props.pochette}                      
+                      pochette={this.props.pochette}
                       label="BPM"
                       placeholder="888"
                       value={this.props.values.bpm}
@@ -98,7 +99,7 @@ export default class PageInformationsGenerales extends React.Component {
                 pochette={this.props.pochette}
                 items={this.genreOptions()}
                 label={t("oeuvre.attribut.etiquette.genre")}
-                createLabel={t("oeuvre.attribut.etiquette.creer-genre")}
+                /*createLabel={t("oeuvre.attribut.etiquette.creer-genre")}*/
                 placeholder={t("oeuvre.attribut.etiquette.ajouter-genre")}
                 value={this.props.values.genre}
                 onChange={value => this.props.setFieldValue("genre", value)}
@@ -108,7 +109,7 @@ export default class PageInformationsGenerales extends React.Component {
                 pochette={this.props.pochette}
                 items={this.genreOptions()}
                 label={t("oeuvre.attribut.etiquette.genre2")}
-                createLabel={t("oeuvre.attribut.etiquette.creer-genre")}
+                /*createLabel={t("oeuvre.attribut.etiquette.creer-genre")}*/
                 placeholder={t("oeuvre.attribut.etiquette.ajouter-genre")}
                 value={this.props.values.secondaryGenres}
                 onChange={value =>
@@ -121,11 +122,9 @@ export default class PageInformationsGenerales extends React.Component {
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.influence"
                 )}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.entete.exemple")} />}
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.influenceurs"
-                )}
-                undertext={t(
-                  "flot.split.documente-ton-oeuvre.documenter.entete.exemple"
                 )}
                 value={this.props.values.influence}
                 onChange={value => this.props.setFieldValue("influence", value)}

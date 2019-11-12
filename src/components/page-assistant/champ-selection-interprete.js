@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { FormulaireMusicien } from "./formulaire-musicien";
+import FormulaireMusicien from "./formulaire-musicien";
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
@@ -55,14 +55,14 @@ export class ChampSelectionInterprete extends Component {
             return (
                 <FormulaireMusicien
                     langue={langue}
-                    key={ item.value }
-                    pochette={ this.props.pochette }
-                    item={ item }
-                    rightHolder={ musician }
-                    onClick={ (event) => {
+                    key={item.value}
+                    pochette={this.props.pochette}
+                    item={item}
+                    rightHolder={musician}
+                    onClick={(event) => {
                         this.unselectItem(event, item);
-                    } }
-                    onChange={ this.updateRightHolder }
+                    }}
+                    onChange={this.updateRightHolder}
                 />
             );
         });
@@ -103,7 +103,7 @@ export class ChampSelectionInterprete extends Component {
         this.selectItem(value);
     };
 
-    selectItem(id) {        
+    selectItem(id) {
         const existingMusician = this.props.values.rightHolders.find(rightHolder => rightHolder.id === id) || {};
         const existingRoles = existingMusician.roles || [];
         const newRoles = existingRoles.concat([roles.musician]).filter(isUnique);
@@ -130,16 +130,16 @@ export class ChampSelectionInterprete extends Component {
 
     plusCircleLabel(labelString) {
         return (
-          <span className={this.additionLabelClasses()}>
-            <img alt="" src={this.plusCircle()} /> {labelString}
-          </span>
+            <span className={this.additionLabelClasses()}>
+                <img alt="" src={this.plusCircle()} /> {labelString}
+            </span>
         );
     }
 
     triggerLabel() {
         return this.state.searchQuery
-          ? ""
-          : this.plusCircleLabel(this.props.placeholder);
+            ? ""
+            : this.plusCircleLabel(this.props.placeholder);
     }
 
     handleSearchChange = (event, { searchQuery }) => {
@@ -153,8 +153,8 @@ export class ChampSelectionInterprete extends Component {
     handleAddItem = (event, { value }) => {
         event.preventDefault()
         this.setState({
-          modalOpen: true,
-          modalFirstName: value
+            modalOpen: true,
+            modalFirstName: value
         });
     };
 
@@ -162,30 +162,30 @@ export class ChampSelectionInterprete extends Component {
         return (
             <Translation>
                 {
-                    (t, i18n) => 
+                    (t, i18n) =>
                         <label>
 
                             {
                                 i18n &&
                                 <>
                                     <TitreChamp
-                                        label={ this.props.label }
-                                        description={ this.props.description }
+                                        label={this.props.label}
+                                        description={this.props.description}
                                     />
 
-                                    { this.renderSelectedItems(i18n.lng.substring(0,2)) }
+                                    {this.renderSelectedItems(i18n.lng.substring(0, 2))}
 
                                     <Dropdown
                                         trigger={this.triggerLabel()}
-                                        placeholder={ this.props.placeholder }
+                                        placeholder={this.props.placeholder}
                                         fluid
                                         search
                                         selection
-                                        selectOnBlur={ false }
-                                        selectOnNavigation={ false }
-                                        value={ this.state.dropdownValue }
-                                        options={ this.unselectedItems() }
-                                        onChange={ this.handleChange }
+                                        selectOnBlur={false}
+                                        selectOnNavigation={false}
+                                        value={this.state.dropdownValue}
+                                        options={this.unselectedItems()}
+                                        onChange={this.handleChange}
                                         allowAdditions={true}
                                         onAddItem={this.handleAddItem}
                                         onBlur={this.handleBlur}
@@ -201,11 +201,11 @@ export class ChampSelectionInterprete extends Component {
                                         }
                                         fn={
                                             (e) => {
-                                                this.selectItem(e)                                    
+                                                this.selectItem(e)
                                                 /* let values = this.state.selectedValues
                                                 values.push(e)
                                                 this.setState({ selectedValues: values }) */
-                                                if(this.props.fn) {
+                                                if (this.props.fn) {
                                                     this.props.fn(e)
                                                 }
                                             }
@@ -213,10 +213,10 @@ export class ChampSelectionInterprete extends Component {
                                     />
                                 </>
                             }
-                            
+
                         </label>
                 }
-            </Translation>            
+            </Translation>
         );
     }
 }

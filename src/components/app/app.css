@@ -70,6 +70,18 @@
   margin: 0px 0px 0px 40px;
 }
 
+.medium-500-nomargin {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.illustration {
+  text-align: 'center';
+  margin-left: 10%;
+}
+
 .medium-500-caps {
   font-family: 'IBM Plex Sans';
   font-weight: 700;
