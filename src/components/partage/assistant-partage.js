@@ -362,7 +362,7 @@ class AssistantPartage extends Component {
 
         let that = this
 
-        if (this.state.media) {
+        if (this.state.media && this.state.ayantsDroit) {
             let valeursInitiales = { droitAuteur: [], droitInterpretation: [], droitEnregistrement: [] }
             if (this.state.proposition) {
 
