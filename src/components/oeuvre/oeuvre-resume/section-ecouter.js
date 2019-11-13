@@ -15,7 +15,7 @@ export default class SectionEcouter extends React.Component {
         super(props)
         
         this.state={
-            liens: this.props.media.streamingServiceLinks.map(l=>{
+            liens: this.props.media.streamingServiceLinks ? this.props.media.streamingServiceLinks.map(l=>{
                 let name=l.name, icon, url = l.url
                 switch(name) {
                     case "Spotify":
@@ -48,7 +48,7 @@ export default class SectionEcouter extends React.Component {
                 return {
                     name: name, icon: icon, url: url
                 }
-            })
+            }) : []
         }
 
     }

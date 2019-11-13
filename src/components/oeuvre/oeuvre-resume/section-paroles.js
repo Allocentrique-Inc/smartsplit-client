@@ -6,9 +6,11 @@ export default class SectionParoles extends React.Component {
     render() {
         let paroles = this.props.media.lyrics
         let texte = "Voir les paroles"
-        if(paroles.access === "public" && paroles.text.trim()) {
-            texte = paroles.text
-        }
+        if(paroles) {
+            if(paroles.access === "public" && paroles.text.trim()) {
+                texte = paroles.text
+            }
+        }        
         return (
             <>
                 <TitreModifiable

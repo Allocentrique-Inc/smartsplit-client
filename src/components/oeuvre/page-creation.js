@@ -29,7 +29,6 @@ import {
   updateRole
 } from "../page-assistant/right-holder-helpers";
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
-import Axios from "axios";
 
 export default class PageCreation extends Component {
   constructor(props) {
@@ -48,6 +47,10 @@ export default class PageCreation extends Component {
         roles.publisher,
         props.values.rightHolders
       ),
+      remixers: getRightHolderIdsByRole(
+        roles.remixer,
+        props.values.rightHolders
+      ),
       x: 0, y: 0
     };
   }
@@ -56,16 +59,19 @@ export default class PageCreation extends Component {
     if (
       this.state.songwriters !== prevState.songwriters ||
       this.state.composers !== prevState.composers ||
-      this.state.publishers !== prevState.publishers
+      this.state.publishers !== prevState.publishers ||
+      this.state.remixers !== prevState.remixers
     ) {
-      const creationRightHolderIds = this.state.songwriters
+      const creationRightHolderIds = 
+        this.state.songwriters
         .concat(this.state.composers)
-        .concat(this.state.publishers);
+        .concat(this.state.publishers)
+        .concat(this.state.remixers)
 
       const updatedRightHolders = creationRightHolderIds
         .reduce(addRightHolderIfMissing, [...this.props.values.rightHolders])
         .map(this.getUpdatedRightHolder)
-        .filter(hasRoles);
+        .filter(hasRoles)
 
       this.props.setFieldValue("rightHolders", updatedRightHolders);
     }
@@ -87,11 +93,17 @@ export default class PageCreation extends Component {
       id,
       songwriterRoles
     );
+    const remixerRoles = updateRole(
+      roles.remixer,
+      this.state.remixers,
+      id,
+      composerRoles
+    );
     const newRoles = updateRole(
       roles.publisher,
       this.state.publishers,
       id,
-      composerRoles
+      remixerRoles
     );
 
     return Object.assign({}, rightHolder, { roles: newRoles });
@@ -187,6 +199,24 @@ export default class PageCreation extends Component {
                 }}
                 fn={(nouveau)=>{
                   this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.composer)                  
+                }}
+              />
+              <br />
+              <ChampSelectionMultipleAyantDroit
+                label={t("flot.split.documente-ton-oeuvre.documenter.arrangeur")}
+                pochette={this.props.pochette}
+                items={this.rightHolderOptions()}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.arrangeur-description")} />}
+                placeholder={t(
+                  "flot.split.documente-ton-oeuvre.documenter.arrangeur-placeholder"
+                )}
+                value={this.state.remixers}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({remixers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.remixer)                  
                 }}
               />
               <br />

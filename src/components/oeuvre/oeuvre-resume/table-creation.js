@@ -54,17 +54,17 @@ export default class TableCreation extends React.Component {
       {
         label: "ISWC",
         helpIcon: true,
-        value: this.props.media.iswc.trim()
+        value: this.props.media.iswc ? this.props.media.iswc.trim() : ""
       },
       {
         label: "Auteurs (paroles)",
-        value: this.auteurs.map((a, idx)=>{
+        value: this.auteurs ? this.auteurs.map((a, idx)=>{
           if(a && idx < this.auteurs.length - 1) {
             return <span key={`auteurs_${a.rightHolderId}`}>{a.artistName}, </span>
           } else {
             return <span key={`auteurs_${a.rightHolderId}`}>{a.artistName}</span>
           }
-        })
+        }) : []
       },
       {
         label: "Compositeurs (musique)",
