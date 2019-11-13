@@ -61,13 +61,13 @@ export default class TableEnregistrement extends React.Component {
             label: 'Date d\'enregistrement',
             value: this.props.media.publishDate ? moment(this.props.media.publishDate).locale(i18n.lng.substring(0, 2)).format("LLL") : ""
         },
- */
+ */        
 
         return [
             
             {
                 label: 'Date de sortie',
-                value: this.props.media.publishDate ? moment(this.props.media.publishDate).locale(i18n.lng.substring(0, 2)).format("LL") : "À venir"
+                value: this.props.media.publishDate && this.props.media.publishDate.trim() !== "" ? moment(this.props.media.publishDate).locale(i18n.lng.substring(0, 2)).format("LL") : "À venir"
             },
 
             {
