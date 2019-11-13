@@ -404,7 +404,9 @@ export default class PartageSommaireEditeur extends Component {
                         onClose={this.props.close} 
                         size="small" >
                         <br/><br/><br/>
-                        <LogIn fn={()=>{
+                        <LogIn 
+                            vote={true}
+                            fn={()=>{
                             Auth.currentAuthenticatedUser()
                             .then(res=>{                                
                                 this.envoi()

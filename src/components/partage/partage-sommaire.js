@@ -643,14 +643,16 @@ export default class SommairePartage extends Component {
                                     </div>
                                 )
                             }
-                            <Modal
+                            <Modal                                
                                 open={this.state.modaleConnexion}
                                 closeOnEscape={false}
                                 closeOnDimmerClick={false}
                                 onClose={this.props.close}
                                 size="small" >
                                 <br /><br /><br />
-                                <LogIn fn={() => {
+                                <LogIn
+                                    vote={true}
+                                    fn={() => {
                                     Auth.currentAuthenticatedUser()
                                         .then(res => {
                                             if (res.username === this.state.ayantDroit.rightHolderId) {
