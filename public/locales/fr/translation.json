@@ -183,7 +183,8 @@
       },
       "valider": {
         "titre": "Valide ton Split",
-        "soustitre": "Invite tes collaborateurs à valider ce Split"
+        "soustitre": "Invite tes collaborateurs à valider ce Split",
+        "pourquoi": "Pourquoi refuses-tu le split (optionel) ?"
       },
       "accueil": {
         "connexion": "Connexion obligatoire",

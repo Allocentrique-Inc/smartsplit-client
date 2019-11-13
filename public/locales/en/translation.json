@@ -191,7 +191,8 @@
       },
       "valider": {
         "titre": "Validate Your Split",
-        "soustitre": "Invite your contributers to validate this split"
+        "soustitre": "Invite your contributers to validate this split",
+        "pourquoi": "Why do you decline the split (optional)?"
       },
       "info": {
         "oeuvre": {
