@@ -232,9 +232,10 @@ class PageAssistantPartageEnregistrement extends Component {
                         nom: nom,
                         ayantDroit: ayantDroit,
                         pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1))}`,
-                        principal: true,
-                        chanteur: false,
-                        musicien: false,
+                        producteur: false,
+                        realisateur: false,
+                        graphiste: false,
+                        studio: false,
                         color: ayants[_coll]
                     })
                 } else {
@@ -242,9 +243,10 @@ class PageAssistantPartageEnregistrement extends Component {
                         nom: nom,
                         ayantDroit: ayantDroit,
                         pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1))}`,
-                        principal: true,
-                        chanteur: false,
-                        musicien: false,
+                        producteur: false,
+                        realisateur: false,
+                        graphiste: false,
+                        studio: false,
                         color: COLORS[_index]
                     })
                     ayants[_coll] = COLORS[_index]
