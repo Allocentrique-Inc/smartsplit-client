@@ -46,34 +46,34 @@ class AssistantOeuvre extends Component {
 
     componentWillMount() {
         Auth.currentAuthenticatedUser()
-        .then(response => {            
-            if(this.state.mediaId) {
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
-                .then(res=>{                    
-                    if(res.data.Item) {
-                        let media = res.data.Item
-                        if(response.username === media.creator) {
-                            this.setState({ media: media }, ()=>this.fetchApiRightHolders())
-                            this.setState({ user: response })
-                        } else {
-                            window.location.href=`/oeuvre/${media.mediaId}/resume`
-                        }
-                    }
-                })
-            } else {
-                this.setState({ user: response })
-                this.fetchApiRightHolders()
-            }
-        })
-        .catch(error => {
-            console.log(error)
-            this.setState({modaleConnexion: true})
-        })          
+            .then(response => {
+                if (this.state.mediaId) {
+                    axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
+                        .then(res => {
+                            if (res.data.Item) {
+                                let media = res.data.Item
+                                if (response.username === media.creator) {
+                                    this.setState({ media: media }, () => this.fetchApiRightHolders())
+                                    this.setState({ user: response })
+                                } else {
+                                    window.location.href = `/oeuvre/${media.mediaId}/resume`
+                                }
+                            }
+                        })
+                } else {
+                    this.setState({ user: response })
+                    this.fetchApiRightHolders()
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                this.setState({ modaleConnexion: true })
+            })
     }
 
     nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
-        let _rHs = rightHolders    
-        _rHs.push({id: nouveau, roles: [role] })
+        let _rHs = rightHolders
+        _rHs.push({ id: nouveau, roles: [role] })
         fnSetValues('rightHolders', _rHs)
         // recharger les ayant-droits
         this.fetchApiRightHolders()
@@ -84,11 +84,11 @@ class AssistantOeuvre extends Component {
             .then(response => {
                 // Ordonnancement simple uuid -> nom d'artiste
                 let assocUuidArtiste = {}
-                response.data.forEach(e=>{
+                response.data.forEach(e => {
                     assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
                 })
-                this.setState({assocUuidArtiste: assocUuidArtiste},
-                    ()=>this.setState({ rightHolders: response.data })
+                this.setState({ assocUuidArtiste: assocUuidArtiste },
+                    () => this.setState({ rightHolders: response.data })
                 )
             })
             .catch(error => {
@@ -107,7 +107,7 @@ class AssistantOeuvre extends Component {
         let _m = this.state.media
         let valeurs = {}
 
-        if(!_m) {
+        if (!_m) {
             valeurs = {
                 mediaId: this.state.mediaId,
                 title: "",
@@ -115,7 +115,7 @@ class AssistantOeuvre extends Component {
                 artist: "",
                 cover: "false",
                 rightHolders: [],
-                jurisdiction: "",            
+                jurisdiction: "",
                 lyrics: {
                     text: "",
                     languages: [],
@@ -168,7 +168,7 @@ class AssistantOeuvre extends Component {
 
             let lyrics = _m.lyrics
 
-            if(lyrics && lyrics.text)
+            if (lyrics && lyrics.text)
                 lyrics.text = lyrics.text.trim()
 
             valeurs = {
@@ -201,9 +201,9 @@ class AssistantOeuvre extends Component {
                 label: _m.label ? _m.label.trim() : "",
                 labelAddress: _m.labelAddress ? _m.labelAddress.trim() : "",
                 distributor: _m.distributor ? _m.distributor.trim() : "",
-                distributorAddress: _m.distributorAddress ? _m.distributorAddress.trim() : "",                
+                distributorAddress: _m.distributorAddress ? _m.distributorAddress.trim() : "",
                 files: _m.files
-            } 
+            }
         }
         return valeurs
     }
@@ -223,20 +223,20 @@ class AssistantOeuvre extends Component {
             endModalOpen: true
         })
         axios.post('http://dev.api.smartsplit.org:8080/v1/media', values)
-        .then((response) => {
-            actions.setSubmitting(false)
-            this.setState({endModalOpen: true})
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            .then((response) => {
+                actions.setSubmitting(false)
+                this.setState({ endModalOpen: true })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
 
-    boutonsCouleurPochette() {        
+    boutonsCouleurPochette() {
         let boutons = document.getElementsByClassName("ui right floated button")
-        for(var i = 0; i<boutons.length; i++) {
+        for (var i = 0; i < boutons.length; i++) {
             boutons[i].style.backgroundColor = "#F2724A"
-        }        
+        }
     }
 
     render() {
@@ -248,97 +248,97 @@ class AssistantOeuvre extends Component {
                         (t, i18n) =>
                             <>
                                 <Navbar
-                                    songTitle={ this.state.title }
-                                    pochette={ this.props.pochette }
-                                    progressPercentage={ this.state.progressPercentage }
+                                    songTitle={this.state.title}
+                                    pochette={this.props.pochette}
+                                    progressPercentage={this.state.progressPercentage}
                                     profil={this.state.user}
                                 />
 
                                 {
                                     this.state.rightHolders && (
-                                    <>
-                                        <Wizard
-                                            initialValues={ this.getInitialValues() }
-                                            onPageChanged={ this.onPageChanged }
-                                            onSubmit={ this.onSubmit }
-                                            buttonLabels={ {
-                                                previous: t('navigation.precedent'),
-                                                next: t('navigation.suivant'),
-                                                submit: t('navigation.envoi')
-                                            } }
-                                            debug={ false }
-                                        >
-                                            <Wizard.Page>
-                                                <PageCreation
-                                                    pochette={ this.props.pochette }
-                                                    i18n={ i18n }
-                                                    rightHolders={ this.state.rightHolders }
-                                                    assocUuidArtiste={ this.state.assocUuidArtiste }
-                                                    parent={this}
-                                                />
-                                            </Wizard.Page>
+                                        <>
+                                            <Wizard
+                                                initialValues={this.getInitialValues()}
+                                                onPageChanged={this.onPageChanged}
+                                                onSubmit={this.onSubmit}
+                                                buttonLabels={{
+                                                    previous: t('navigation.precedent'),
+                                                    next: t('navigation.suivant'),
+                                                    submit: t('navigation.envoi')
+                                                }}
+                                                debug={false}
+                                            >
+                                                <Wizard.Page>
+                                                    <PageCreation
+                                                        pochette={this.props.pochette}
+                                                        i18n={i18n}
+                                                        rightHolders={this.state.rightHolders}
+                                                        assocUuidArtiste={this.state.assocUuidArtiste}
+                                                        parent={this}
+                                                    />
+                                                </Wizard.Page>
 
-                                            <Wizard.Page>
-                                                <PageInterpretation
-                                                    pochette={ this.props.pochette }
-                                                    i18n={ i18n }
-                                                    rightHolders={ this.state.rightHolders }
-                                                    assocUuidArtiste={ this.state.assocUuidArtiste }
-                                                    parent={this}
-                                                />
-                                            </Wizard.Page>
+                                                <Wizard.Page>
+                                                    <PageInterpretation
+                                                        pochette={this.props.pochette}
+                                                        i18n={i18n}
+                                                        rightHolders={this.state.rightHolders}
+                                                        assocUuidArtiste={this.state.assocUuidArtiste}
+                                                        parent={this}
+                                                    />
+                                                </Wizard.Page>
 
-                                            <Wizard.Page>
-                                                <PageEnregistrement
-                                                    pochette={ this.props.pochette }
-                                                    i18n={ i18n }
-                                                    rightHolders={ this.state.rightHolders }
-                                                    assocUuidArtiste={ this.state.assocUuidArtiste }
-                                                    parent={this}
-                                                />
-                                            </Wizard.Page>
+                                                <Wizard.Page>
+                                                    <PageEnregistrement
+                                                        pochette={this.props.pochette}
+                                                        i18n={i18n}
+                                                        rightHolders={this.state.rightHolders}
+                                                        assocUuidArtiste={this.state.assocUuidArtiste}
+                                                        parent={this}
+                                                    />
+                                                </Wizard.Page>
 
-                                            <Wizard.Page>
-                                                <PageFichiers
-                                                    pochette={ this.props.pochette }
-                                                    i18n={ i18n }
-                                                    rightHolders={ this.state.rightHolders }
-                                                    assocUuidArtiste={ this.state.assocUuidArtiste }
-                                                    parent={this}
-                                                />
-                                            </Wizard.Page>
+                                                <Wizard.Page>
+                                                    <PageFichiers
+                                                        pochette={this.props.pochette}
+                                                        i18n={i18n}
+                                                        rightHolders={this.state.rightHolders}
+                                                        assocUuidArtiste={this.state.assocUuidArtiste}
+                                                        parent={this}
+                                                    />
+                                                </Wizard.Page>
 
-                                            <Wizard.Page>
-                                                <PageInformationsGenerales
-                                                    pochette={ this.props.pochette }
-                                                    i18n={ i18n }
-                                                />
-                                            </Wizard.Page>
+                                                <Wizard.Page>
+                                                    <PageInformationsGenerales
+                                                        pochette={this.props.pochette}
+                                                        i18n={i18n}
+                                                    />
+                                                </Wizard.Page>
 
-                                            <Wizard.Page>
-                                                <PageParoles
-                                                    i18n={ i18n }
-                                                    pochette={ this.props.pochette }
-                                                />
-                                            </Wizard.Page>
+                                                <Wizard.Page>
+                                                    <PageParoles
+                                                        i18n={i18n}
+                                                        pochette={this.props.pochette}
+                                                    />
+                                                </Wizard.Page>
 
-                                            <Wizard.Page>
-                                                <PageLiens
-                                                    pochette={ this.props.pochette }
-                                                />
-                                            </Wizard.Page>
-                                        </Wizard>
-                                        <ModalFin
-                                            mediaId={ this.state.media.mediaId }
-                                            titre={ this.state.media.title }
-                                            open={ this.state.endModalOpen }
-                                            onClose={ () => this.setState({ endModalOpen: false }) }
-                                            pochette={ this.props.pochette }
-                                        />
-                                    </>
+                                                <Wizard.Page>
+                                                    <PageLiens
+                                                        pochette={this.props.pochette}
+                                                    />
+                                                </Wizard.Page>
+                                            </Wizard>
+                                            <ModalFin
+                                                mediaId={this.state.media.mediaId}
+                                                titre={this.state.media.title}
+                                                open={this.state.endModalOpen}
+                                                onClose={() => this.setState({ endModalOpen: false })}
+                                                pochette={this.props.pochette}
+                                            />
+                                        </>
                                     )
-                                }                                
-                                {                                    
+                                }
+                                {
                                     this.props.pochette &&
                                     (document.getElementsByClassName("ui right floated button").length > 0) &&
                                     (this.boutonsCouleurPochette())

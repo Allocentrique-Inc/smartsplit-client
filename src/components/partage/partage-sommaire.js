@@ -31,7 +31,7 @@ const ROLES = [
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
-class SommaireDroit extends Component {
+export class SommaireDroit extends Component {
 
     constructor(props) {
         super(props)
@@ -77,34 +77,22 @@ class SommaireDroit extends Component {
         this.organiserDonnees()
     }
 
-    boutonAccepter() {
+    boutonAccepter(t) {
         return (
-            <Translation>
-                {
-                    t =>
-                        <div className="ui button medium" style={{ cursor: "pointer", display: "inline-block", width: "100px" }} onClick={() => {
-                            this.voter(true)
-                        }}>{t('flot.split.vote.accepter')}</div>
-                }
-            </Translation>
+            <div className="ui button medium" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
+                this.voter(true)
+            }}>{t('flot.split.vote.accepter')}</div>
         )
     }
 
-    boutonRefuser() {
+    boutonRefuser(t) {
         return (
-            <Translation>
-                {
-                    t =>
-                        <div style={{ display: "inline-block" }}>
-                            <div className="ui button medium red" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
-                                this.justifierRefus()
-                                this.voter(false)
-                            }}>
-                                {t('flot.split.vote.refuser')}
-                            </div>
-                        </div>
-                }
-            </Translation>
+            <div className="ui button medium red" style={{ cursor: "pointer", display: "inline-block", backgroundColor: "#D1180C" }} onClick={() => {
+                this.justifierRefus()
+                this.voter(false)
+            }}>
+                {t('flot.split.vote.refuser')}
+            </div>
         )
     }
 
@@ -180,7 +168,6 @@ class SommaireDroit extends Component {
     }
 
     render() {
-
         if (this.state.ayantsDroit) {
 
             let _parts = []
@@ -193,101 +180,101 @@ class SommaireDroit extends Component {
 
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
 
-                _parts.push(                    
-                    <div key={`part_${uuid}`}>
-                        <div className="ui grid">
-                            <div className="ui row">
-                                <div className="ui two wide column">
-                                    <div className="holder-name">
-                                        <img alt="" className="ui spaced avatar image" src={
-                                            (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
-                                                this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
+                _parts.push(
+                    <>
+                        <div key={`part_${uuid}`}>
+                            <div className="ui grid">
+                                <div className="ui row">
+                                    <div className="ui sixteen wide column">
+                                        <div className="holder-name">
+                                            <img alt="" className="ui spaced avatar image" src={
+                                                (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
+                                                    this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
+                                            {part.nom}
+                                        </div>
+                                        <div className="ui four wide column" style={{ paddingLeft: "45px" }}>
+                                            <Translation>
+                                                {
+                                                    t =>
+                                                        part.roles.map((_e, idx) => {
+                                                            return `${t('flot.split.roles.' + _e)}` + `${idx === part.roles.length - 1 ? '' : ', '}`
+                                                        })
+                                                }
+                                            </Translation>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="ui ten wide column">
-                                    <div className="holder-name">
-                                        {part.nom}
-                                    </div>
-                                    <div className="small-400-color">
-                                        <Translation>
-                                            {
-                                                t =>                                                    
-                                                    part.roles.map((_e, idx) => {
-                                                        return t('flot.split.roles.'+_e) + `${idx === part.roles.length - 1 ? '' : ', '}`
-                                                    })
-                                            }
-                                        </Translation>                                        
-                                    </div>
-                                    <div style={{ position: "relative", marginTop: "5px" }}>
-                                        {
+                            </div>
+
+                            <div style={{ position: "relative", marginTop: "5px" }}>
+                                <Translation>
+                                    {
+                                        t =>
                                             !this.state.voteTermine &&
                                             this.state.ayantDroit &&
                                             uuid === this.state.ayantDroit.rightHolderId &&
                                             (
-                                                <div className="ui five wide column">
-                                                    {!this.state.modifierVote && this.boutonRefuser()}
-                                                    {!this.state.modifierVote && this.boutonAccepter()}
-                                                    {
-                                                        this.state.modifierVote &&
-                                                        (
-                                                            <div>
-                                                                <i
-                                                                    className="pencil alternate icon big blue"
-                                                                    style={{ cursor: "pointer" }}
-                                                                    onClick={() => { this.changerVote() }}></i>
-                                                                {
-                                                                    this.state.justifierRefus && (
-                                                                        <div>
-                                                                            <textarea
-                                                                                cols={30}
-                                                                                rows={2}
-                                                                                placeholder="Pourquoi refuses-tu le split (optionel)"
-                                                                                onChange={(e) => {
-                                                                                    this.state.parent.refuser(this.state.type, e.target.value)
-                                                                                }}>
-                                                                            </textarea>
-                                                                        </div>
-                                                                    )
-                                                                }
-                                                            </div>
-                                                        )
-                                                    }
+                                                <div className="ui grid">
+                                                    <div className="ui eleven wide column">
+                                                        {!this.state.modifierVote && this.boutonRefuser(t)}
+                                                        {!this.state.modifierVote && this.boutonAccepter(t)}
+                                                    </div>
+                                                    <div className="ui three wide column">
+
+                                                        {parseFloat(part.sommePct).toFixed(2) + "%"}
+
+                                                        <div>
+                                                            {
+                                                                uuid !== this.state.ayantDroit.rightHolderId &&
+                                                                (
+                                                                    <div style={{ color: part.vote === 'accept' ? "green" : (part.vote === "reject" ? "red" : "grey") }}>
+                                                                        <strong>{t(`flot.split.vote.${part.vote}`)}</strong>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                            {
+                                                                uuid === this.state.ayantDroit.rightHolderId &&
+                                                                (
+                                                                    <div style={{ color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "green" : (this.state.monVote && this.state.monVote.vote === "reject" ? "red" : "grey") }}>
+                                                                        <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                            {
+                                                                this.state.modifierVote &&
+                                                                (
+                                                                    <div>
+                                                                        <i
+                                                                            className="pencil alternate icon big blue"
+                                                                            style={{ cursor: "pointer" }}
+                                                                            onClick={() => { this.changerVote() }}></i>
+                                                                        {
+                                                                            this.state.justifierRefus && (
+                                                                                <div>
+                                                                                    <textarea
+                                                                                        cols={30}
+                                                                                        rows={2}
+                                                                                        placeholder={t("flot.split.valider.pourquoi")}
+                                                                                        onChange={(e) => {
+                                                                                            this.state.parent.refuser(this.state.type, e.target.value)
+                                                                                        }}>
+                                                                                    </textarea>
+                                                                                </div>
+                                                                            )
+                                                                        }
+
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             )}
-                                        {part.raison ? part.raison : ""}
-                                    </div>
-                                </div>
-                                <div className="ui three wide column">
-                                    <p className="big">
-                                        {parseFloat(part.sommePct).toFixed(2)} %
-                                    </p>
-                                    <Translation>
-                                        {
-                                            t =>
-                                                <div>
-                                                    {
-                                                        uuid !== this.state.ayantDroit.rightHolderId &&
-                                                        (
-                                                            <div style={{ color: part.vote === 'accept' ? "green" : (part.vote === "reject" ? "red" : "grey") }}>
-                                                                <strong>{t(`flot.split.vote.${part.vote}`)}</strong>
-                                                            </div>
-                                                        )
-                                                    }
-                                                    {
-                                                        uuid === this.state.ayantDroit.rightHolderId &&
-                                                        (
-                                                            <div style={{ color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "green" : (this.state.monVote && this.state.monVote.vote === "reject" ? "red" : "grey") }}>
-                                                                <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                        }
-                                    </Translation>
-                                </div>
+                                </Translation>
+                                {part.raison ? part.raison : ""}
                             </div>
                         </div>
-                    </div>
+                    </>
                 )
             })
 
@@ -298,18 +285,16 @@ class SommaireDroit extends Component {
                             <div className="ui segment">
                                 <div className="wizard-title">{t(`flot.split.droits.titre.${this.state.titre}`)}</div>
                                 <br /><br />
+
+                                {/* Grille d'affichage des droits (à gauche) et à droite, de la visualisation */}
                                 <div className="ui grid">
                                     <div className="ui row">
-                                        <div className="ui one wide column">
-                                        </div>
-                                        <div className="ui six wide column">
+                                        <div className="ui eight wide column" style={{ marginTop: "30px" }}>
                                             {_parts}
                                         </div>
-                                        <div className="ui six wide column">
+                                        <div className="ui eight wide column">
                                             {_data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
                                             {_data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
-                                        </div>
-                                        <div className="ui one wide column">
                                         </div>
                                     </div>
                                 </div>
@@ -549,14 +534,13 @@ export default class SommairePartage extends Component {
         this.setState({ modaleDeclaration: ouvert })
     }
 
-    envoi() {        
+    envoi() {
         // Ouvrir Modale déclaration et c'est dans celle-ci
         // que l'envoi est réellement fait.
         this.modaleDeclaration()
     }
 
     transmettre(t) {
-
         Auth.currentAuthenticatedUser()
             .then(res => {
                 if (res.username === this.state.ayantDroit.rightHolderId) {
@@ -568,7 +552,6 @@ export default class SommairePartage extends Component {
             .catch(err => {
                 this.modaleConnexion()
             })
-
     }
 
     modaleConnexion(ouvert = true) {
@@ -621,6 +604,7 @@ export default class SommairePartage extends Component {
                         <div>
                             {
                                 !this.state.patience && (
+
                                     <div>
                                         {droits}
                                         {
@@ -634,13 +618,16 @@ export default class SommairePartage extends Component {
                                             )
                                         }
                                     </div>
+
                                 )
                             }
                             {
                                 this.state.patience && (
+
                                     <div className="ui active dimmer">
                                         <div className="ui text loader">{t('entete.encours')}</div>
                                     </div>
+
                                 )
                             }
                             <Modal                                
@@ -679,7 +666,7 @@ export default class SommairePartage extends Component {
                                     artistName={this.state.ayantDroit.artistName}
                                     songTitle={this.props.titre}
                                     open={this.state.modaleDeclaration}
-                                    onClose={()=>{this.setState({modaleDeclaration: false})}}
+                                    onClose={() => { this.setState({ modaleDeclaration: false }) }}
                                     fn={() => {
                                         let body = {
                                             userId: `${this.state.ayantDroit.rightHolderId}`,
@@ -695,11 +682,10 @@ export default class SommairePartage extends Component {
                                             })
                                     }} />
                             }
-
                         </div>
                 }
             </Translation>
+
         )
     }
-
 }

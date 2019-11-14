@@ -191,7 +191,8 @@
       },
       "valider": {
         "titre": "Validate Your Split",
-        "soustitre": "Invite your contributers to validate this split"
+        "soustitre": "Invite your contributers to validate this split",
+        "pourquoi": "Why do you decline the split (optional)?"
       },
       "info": {
         "oeuvre": {
@@ -669,7 +670,7 @@
       "maintenantPartage": "The split proposition now exists. Bravo!",
       "resume": "See the summary",
       "partage": "See the proposal",
-      "partageCree": "⭐️ Sahred proposal created",
+      "partageCree": "⭐️ Shared proposal created",
       "recupMotDePasse": "Password reset"
     }
   },

@@ -258,15 +258,19 @@ export default class SommairePartages extends Component {
                     <Translation>
                         {
                             t =>
-                                <p className="ui color blue"
-                                    style={{
-                                        width: "800px",
-                                        fontFamily: "IBM Plex Sans",
-                                        fontWeight: "normal",
-                                        fontSize: "16px"
-                                    }}>
-                                    {t('flot.split.partage.prete-a-envoyer')}</p>
+                                <>
+                                    <p className="ui color blue"
+                                        style={{
+                                            width: "800px",
+                                            fontFamily: "IBM Plex Sans",
+                                            fontWeight: "normal",
+                                            fontSize: "16px"
+                                        }}>
+                                        {t('flot.split.partage.prete-a-envoyer')}</p>
+                                    <br />
+                                </>
                         }
+
                     </Translation>
                 )
             }
@@ -327,8 +331,8 @@ export default class SommairePartages extends Component {
                                                         <div onClick={() => {
                                                             this.openModal()
                                                         }} className={`ui medium button sommaire`}
-
-                                                       >
+                                                            style={{ marginTop: "40px" }}
+                                                        >
 
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                         </div>
@@ -451,7 +455,7 @@ export default class SommairePartages extends Component {
                     }
                 </Translation>
             )
-        } else {            
+        } else {
             return (
                 <div className="tdb--cadre ui row accueil">
                     <ModaleConnexion fn={() => {
