@@ -25,7 +25,7 @@ export default class PageInterpretation extends Component {
     return getRightHoldersByAnyRole(
       this.musicianRoles,
       this.props.values.rightHolders
-    );
+    )
   }
 
   handleChange(newRightHolders) {    
@@ -79,7 +79,6 @@ export default class PageInterpretation extends Component {
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre2-placeholder"
                 )}
-               /*  onChange={newRightHolders => this.handleChange(newRightHolders)} */
                 onChange={ids => {                  
                   this.handleChange(ids)                  
                 }}

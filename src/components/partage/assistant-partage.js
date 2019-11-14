@@ -187,7 +187,7 @@ class AssistantPartage extends Component {
                         let uuid = _rH.rightHolderId
 
                         if (elem.principal) {
-                            let roles = {}
+                            let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a38": "principal"}
                             if (elem.chanteur) {
                                 roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
                             }

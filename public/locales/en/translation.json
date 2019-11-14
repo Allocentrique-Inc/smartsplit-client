@@ -471,7 +471,8 @@
             "titre": "Performance sharing",
             "role": {
               "chanteur": "Singer",
-              "musicien": "Musician"
+              "musicien": "Musician",            
+              "musician": "Musician"
             }
           },
           "enregistrement": {

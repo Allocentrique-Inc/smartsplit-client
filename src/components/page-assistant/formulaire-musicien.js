@@ -61,7 +61,7 @@ export class BaseFormulaireMusicien extends React.Component {
 
     this.state = {
       singer: this.props.rightHolder.roles.includes(roles.singer),
-      musician: this.rightHolderHasInstruments()
+      musician: this.props.rightHolder.roles.includes(roles.musician)
     };
   }
 
