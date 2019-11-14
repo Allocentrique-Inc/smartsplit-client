@@ -304,7 +304,7 @@ class Register extends Component {
                             <div className="registerHead">
                               <h1>
                                 Create for free your <br />
-                                profile on Smart Split.
+                                profile on Smartsplit.
                               </h1>
                               <br />
                               <br />
