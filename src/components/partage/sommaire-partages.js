@@ -261,7 +261,7 @@ export default class SommairePartages extends Component {
                                 <>
                                     <p className="ui color blue"
                                         style={{
-                                            width: "600px",
+                                            width: "800px",
                                             fontFamily: "IBM Plex Sans",
                                             fontWeight: "normal",
                                             fontSize: "16px"
@@ -331,7 +331,7 @@ export default class SommairePartages extends Component {
                                                         <div onClick={() => {
                                                             this.openModal()
                                                         }} className={`ui medium button sommaire`}
-
+                                                            style={{ marginTop: "40px" }}
                                                         >
 
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}

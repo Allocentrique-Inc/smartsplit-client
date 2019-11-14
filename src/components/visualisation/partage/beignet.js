@@ -15,11 +15,11 @@ const d3 = require('d3')
 
 export default class Beignet extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
-            width: 800, //550,
-            height: 350, //225,
+            width: 400, //550,
+            height: 320, //225,
             margin: 10, //50,
             icon: "",
             data: {},
@@ -29,9 +29,9 @@ export default class Beignet extends Component {
             type: props.type
         }
 
-    } 
+    }
 
-    componentDidMount() {        
+    componentDidMount() {
         this.rafraichir(this.props)
     }
 
@@ -45,37 +45,37 @@ export default class Beignet extends Component {
         let _d = {}
         let _c = {}
         let _a = {}
-        if(props.data && props.data.length > 0) {
+        if (props.data && props.data.length > 0) {
 
             // construction
 
-            props.data.forEach(elem=>{
-              let nom
-              if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                nom = `${elem.ayantDroit.firstName+ " "}${elem.ayantDroit.lastName} ${elem.ayantDroit.artistName ? `(${elem.ayantDroit.artistName}) ` : ""}`
-                _d[nom] = elem.pourcent
-              }
-              _c[nom] = elem.color;
-              _a[nom] = elem.alpha;
+            props.data.forEach(elem => {
+                let nom
+                if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
+                    nom = `${elem.ayantDroit.firstName + " "}${elem.ayantDroit.lastName} ${elem.ayantDroit.artistName ? `(${elem.ayantDroit.artistName}) ` : ""}`
+                    _d[nom] = elem.pourcent
+                }
+                _c[nom] = elem.color;
+                _a[nom] = elem.alpha;
             })
-            this.setState({data: _d})
-            this.setState({colors: _c})
-            this.setState({alphas: _a})
+            this.setState({ data: _d })
+            this.setState({ colors: _c })
+            this.setState({ alphas: _a })
         }
         this.regenerer = true
     }
 
-    genererBeignet() {         
+    genererBeignet() {
 
         // Remettre à zéro le conteneur du beignet
-        if (this.state.type === "workCopyrightSplit") this.setState({icon: copyIcon})
-        if (this.state.type === "performanceNeighboringRightSplit") this.setState({icon: starIcon})
-        if (this.state.type === "masterNeighboringRightSplit") this.setState({icon: prodIcon})
-        
+        if (this.state.type === "workCopyrightSplit") this.setState({ icon: copyIcon })
+        if (this.state.type === "performanceNeighboringRightSplit") this.setState({ icon: starIcon })
+        if (this.state.type === "masterNeighboringRightSplit") this.setState({ icon: prodIcon })
+
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
-        if(conteneur) {
+        if (conteneur) {
             let enfants = conteneur.childNodes
-            enfants.forEach(_e=>{
+            enfants.forEach(_e => {
                 conteneur.removeChild(_e)
             })
         }
@@ -90,11 +90,11 @@ export default class Beignet extends Component {
             .attr("height", this.state.height)
             .append("g")
             .attr("transform", "translate(" + this.state.width / 2 + "," + this.state.height / 2 + ")");
-        
+
         let color = d3.scaleOrdinal() // D3 Version 4
             .domain(Object.keys(this.state.colors))
             .range(Object.values(this.state.colors));
-        
+
         let alpha = d3.scaleOrdinal() // D3 Version 4
             .domain(Object.keys(this.state.alphas))
             .range(Object.values(this.state.alphas));
@@ -102,8 +102,8 @@ export default class Beignet extends Component {
         // Compute the position of each group on the pie:
         let pie = d3.pie()
             .sort(null) // Do not sort group by size
-            .value(function(d) {return d.value; })
-        
+            .value(function (d) { return d.value; })
+
         let data_ready = pie(d3.entries(this.state.data))
 
         // The arc generator
@@ -117,15 +117,15 @@ export default class Beignet extends Component {
             .outerRadius(radius * 0.9) */
 
         // Define the div for the tooltip
-        let myDiv = d3.select("body").append("div")	
-            .attr("class", "tooltip")				
+        let myDiv = d3.select("body").append("div")
+            .attr("class", "tooltip")
             .style("opacity", 0);
 
         svg.selectAll('allSlices')
-        .on("activate", function(d) {
-            myDiv.transition()
-            .style("opacity", 0)
-        })
+            .on("activate", function (d) {
+                myDiv.transition()
+                    .style("opacity", 0)
+            })
 
         // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
         svg
@@ -134,26 +134,26 @@ export default class Beignet extends Component {
             .enter()
             .append('path')
             .attr('d', arc)
-            .attr('fill', function(d){ return(color(d.data.key)) })
+            .attr('fill', function (d) { return (color(d.data.key)) })
             .attr("stroke", "white")
             .style("stroke-width", "2px")
-            .style("opacity", function(d){ return(alpha(d.data.key) ? 0.1 : 0.9)})	
-            .on("mouseover", function(d) {            
+            .style("opacity", function (d) { return (alpha(d.data.key) ? 0.1 : 0.9) })
+            .on("mouseover", function (d) {
                 d3.select(this)
                     .attr("stroke", "gray")
-                myDiv.transition()		
-                    .duration(50)		
-                    .style("opacity", .9);		
-                myDiv.html(d.data.key + " " + parseFloat(d.data.value).toFixed(2) + "%", 150)	
-                    .style("left", (d3.event.pageX) + "px")		
-                    .style("top", (d3.event.pageY - 28) + "px");	
-                })					
-            .on("mouseout", function(d) {	
+                myDiv.transition()
+                    .duration(50)
+                    .style("opacity", .9);
+                myDiv.html(d.data.key + " " + parseFloat(d.data.value).toFixed(2) + "%", 150)
+                    .style("left", (d3.event.pageX) + "px")
+                    .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function (d) {
                 d3.select(this)
                     .attr("stroke", "white")
-                myDiv.transition()		
-                    .duration(500)		
-                    .style("opacity", 0);	
+                myDiv.transition()
+                    .duration(500)
+                    .style("opacity", 0);
             }).call(this.wrapping, 150)
 
         /*
@@ -197,15 +197,15 @@ export default class Beignet extends Component {
 
         if (Object.keys(this.state.data).length > 0) {
             svg.append('image')
-            .attr('xlink:href',this.state.icon)
-            .attr('width', 60)
-            .attr('height', 60)
-            .attr('x', -30)
-            .attr('y', -30)
+                .attr('xlink:href', this.state.icon)
+                .attr('width', 60)
+                .attr('height', 60)
+                .attr('x', -30)
+                .attr('y', -30)
         }
 
     }
-    
+
     wrapping(text, width) {
         text.each(function () {
             var text = d3.select(this),
@@ -218,10 +218,10 @@ export default class Beignet extends Component {
                 y = text.attr("y"),
                 dy = 0, //parseFloat(text.attr("dy")),
                 tspan = text.text(null)
-                            .append("tspan")
-                            .attr("x", x)
-                            .attr("y", y)
-                            .attr("dy", dy + "em");
+                    .append("tspan")
+                    .attr("x", x)
+                    .attr("y", y)
+                    .attr("dy", dy + "em");
             while ((word = words.pop())) {
                 line.push(word);
                 tspan.text(line.join(" "));
@@ -231,10 +231,10 @@ export default class Beignet extends Component {
                     tspan.text(line.join(" "));
                     line = [word];
                     tspan = text.append("tspan")
-                                .attr("x", x)
-                                .attr("y", y)
-                                .attr("dy", ++lineNumber * lineHeight + dy + "em")
-                                .text(word);
+                        .attr("x", x)
+                        .attr("y", y)
+                        .attr("dy", ++lineNumber * lineHeight + dy + "em")
+                        .text(word);
                 }
             }
         });
@@ -243,7 +243,7 @@ export default class Beignet extends Component {
     render() {
         // Ajoute la génération de beignet comme prochaine exécution de la pile JavaScript
         // alors que l'élément my_dataviz est accessible dans le navigateur du client.
-        setTimeout(()=>{
+        setTimeout(() => {
             if (this.regenerer) {
                 this.genererBeignet()
                 this.regenerer = false
@@ -254,7 +254,7 @@ export default class Beignet extends Component {
             <Translation>
                 {
                     (t, i18n) =>
-                        <div style={{margin: "0 auto"}}>
+                        <div style={{ margin: "0 auto" }}>
                             {this.props.titre && (<h4>{this.props.titre}</h4>)}
                             <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
                             </div>
