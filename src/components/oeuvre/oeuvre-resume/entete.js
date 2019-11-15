@@ -21,6 +21,7 @@ export default class Entete extends React.Component {
   }  
 
   renderAvatars() {
+    console.log(this.props.media)
     const maxDisplayedAvatars = 5;
     const displayedAvatars = Math.min(maxDisplayedAvatars, this.avatars.length);
     const undisplayedAvatars = this.avatars.length - displayedAvatars;
