@@ -112,6 +112,8 @@ export default class TableInterpretation extends React.Component {
                 {
                     (t, i18n) =>
                         <TableGauche
+                            pageNo={ 2 }
+                            mediaId={ this.props.media.mediaId }
                             title={ 'Interprétation' }
                             rows={ this.rangees(t, i18n) }
                         />

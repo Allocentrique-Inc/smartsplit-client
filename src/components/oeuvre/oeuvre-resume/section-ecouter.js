@@ -101,7 +101,8 @@ export default class SectionEcouter extends React.Component {
                     (t, i18n) =>
                     <>
                         <TitreModifiable
-                            href={'#'}
+                            pageNo={7}
+                            mediaId={this.props.media.mediaId}
                         >
                             <h4 className={ 'corps-title-2' }>Écouter</h4>
                         </TitreModifiable>

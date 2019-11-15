@@ -2,18 +2,21 @@ import React from "react";
 import placeholder from "../../../assets/images/placeholder.png";
 import "../../../assets/scss/oeuvre-resume/entete.scss";
 
-import plusIcon from "../../../assets/svg/icons/plus-white.svg";
 import editIcon from "../../../assets/svg/icons/edit.svg";
 import { Translation } from "react-i18next";
 import moment from "moment";
+import axios from "axios"
 
 export default class Entete extends React.Component {
   
   constructor(props){
     super(props)
+    this.state = {
+      media: props.media
+    }
     this.avatars = []
     let _avatars = {}
-    props.media.rightHolders.forEach(r=>{
+    this.state.media.rightHolders.forEach(r=>{
       
       if(!this.avatars[r.id]) {        
         let nom, prenom, nomArtiste, avatar, uuid
@@ -41,14 +44,9 @@ export default class Entete extends React.Component {
   renderAvatars() {
     const maxDisplayedAvatars = 5;
     const displayedAvatars = Math.min(maxDisplayedAvatars, this.avatars.length);
-    const undisplayedAvatars = this.avatars.length - displayedAvatars;
-    const moreLabel = undisplayedAvatars ? (
-      <div key={`more-tag-avatar`} className={"more-tag"}>+{undisplayedAvatars}</div>
-    ) : (
-      <></>
-    );
+    const undisplayedAvatars = this.avatars.length - displayedAvatars;   
 
-    this.avatars = this.avatars
+    let _avatars = this.avatars
       .slice(0, maxDisplayedAvatars)
       .map((avatar, index) => {
         const zIndex = displayedAvatars + 2 - index;
@@ -57,27 +55,46 @@ export default class Entete extends React.Component {
             <img src={avatar.avatar} alt={`${avatar.prenom} ${avatar.nom} ${avatar.nomArtiste ? `(${avatar.nomArtiste})` : ""}`} title={`${avatar.prenom} ${avatar.nom} ${avatar.nomArtiste ? `(${avatar.nomArtiste})` : ""}`} />
           </div>
         );
-      })
-      .concat([moreLabel])
+      })      
 
-      if(this.avatars.length > maxDisplayedAvatars) {
+      if(this.avatars.length >= maxDisplayedAvatars) {
 
         let autres = ""
-        this.avatars.slice(maxDisplayedAvatars - 1, this.avatars.length).forEach(e=>{
-          autres = autres + `${e.prenom} ${e.nom} ${e.nomArtiste ? e.nomArtiste : ""}{"\n"}`
+        this.avatars.slice(maxDisplayedAvatars, this.avatars.length).forEach(e=>{
+          autres = autres + `${e.prenom} ${e.nom} ${e.nomArtiste ? `(${e.nomArtiste})` : ""}\n`
         })
 
-        this.avatars = this.concat([
-          <div key="plus-bouton-avatar">
-            <div className={"plus-button"}>
-              <img alt={autres} src={plusIcon} title={autres} />
-            </div>
+        _avatars = _avatars.concat([
+          <div key={`more-tag-avatar`} className={"more-tag"}  title={autres} >+{undisplayedAvatars}
           </div>
         ])
       }
 
-      return this.avatars
+      return _avatars
 
+  }
+
+  getMedia() {
+    axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.media.mediaId}`)
+    .then(res => {
+        let media = res.data.Item
+        this.setState({ media: media })
+    })
+  }
+
+  majTitre() {
+    let titre = document.getElementById('titre').value
+    axios.patch(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.media.mediaId}/title`, {
+        mediaId: this.state.media.mediaId,
+        title: titre
+    })
+    .then(() => {
+        this.getMedia()
+    })
+  }
+
+  editerTitre(edition) {
+      this.setState({ editerTitre: edition })
   }
 
   render() {
@@ -89,12 +106,62 @@ export default class Entete extends React.Component {
               <img
                 className={"song-image"}
                 src={placeholder}
-                alt={this.props.media.title}
+                alt={this.state.media.title}
               />
 
-              <div className={"song-info"}>
-                <h1 className={"h1-style"}>
-                  {this.props.media.title}
+              <div className={"song-info"}>                
+
+                {
+                  this.state.editerTitre &&
+                  (
+                    <div className="ui input">
+                      <input
+                          size="50"
+                          id="titre"
+                          type="text"
+                          placeholder="Saisir un titre"
+                          defaultValue={this.state.media.title}
+                          onKeyPress={(e) => {
+                              if (e.key === "Enter") {
+                                  this.majTitre()
+                                  this.editerTitre(false)
+                              }
+                          }}
+                      ></input>
+                      <i
+                          onClick={() => {
+                              this.majTitre();
+                              this.editerTitre(false)
+                          }}
+                          className="save alternate icon grey big"
+                          style={{
+                              cursor: "pointer",
+                              paddingTop: "5px",
+                              paddingLeft: "5px"
+                          }}>
+                      </i>
+                    </div>
+                  )
+                }
+                {
+                  !this.state.editerTitre &&
+                  (
+                    <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
+                      <img
+                        src={editIcon}
+                        alt="Éditer le titre"
+                        onClick={() => {
+                          this.editerTitre(true)
+                        }}
+                        className="pencil alternate icon grey"
+                        style={{ cursor: "pointer" }}>
+                      </img>
+                    </h1>
+                  )
+                }
+
+                {/* <h1 className={"h1-style"}>
+                  {this.state.media.title}
                   <div className={"edit-link"} style={{display: "inline"}}>
                     <img
                       className={"edit-icon"}
@@ -102,12 +169,12 @@ export default class Entete extends React.Component {
                       alt={"Éditer"}
                     />
                   </div>
-                </h1>
+                </h1> */}
 
                 <div className={"artist-line"}>
                   <div className={"left"}>
                     <span className={"tag"}>{t("oeuvre.piece")}</span>
-                    {t("oeuvre.par")} <span>{this.props.media.artist}</span> {/* t("oeuvre.feat") */}{" "}
+                    {t("oeuvre.par")} <span>{this.state.media.artist}</span> {/* t("oeuvre.feat") */}{" "}
                     <span>{/* t("oeuvre.artistName") */}</span>
                   </div>
 
@@ -119,9 +186,9 @@ export default class Entete extends React.Component {
                 <div className={"header-divider"}></div>
 
                 <div className={"other-info"}>
-                  {t("oeuvre.creePar")} <span>{this.props.rightHolders[this.props.media.creator].artistName}</span> &middot; Mis
+                  {t("oeuvre.creePar")} <span>{this.props.rightHolders[this.state.media.creator].artistName}</span> &middot; Mis
                   à jour {i18n.lng &&
-                      moment(this.props.media.modificationDate ? this.props.media.modificationDate : this.props.media.creationDate)
+                      moment(this.state.media.modificationDate ? this.state.media.modificationDate : this.state.media.creationDate)
                         .locale(i18n.lng.substring(0, 2))
                         .fromNow()}
                 </div>

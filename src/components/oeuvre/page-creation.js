@@ -31,8 +31,10 @@ import {
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
 
 export default class PageCreation extends Component {
-  constructor(props) {
+  constructor(props) {    
     super(props);
+
+    console.log("page création")
 
     this.state = {
       songwriters: getRightHolderIdsByRole(

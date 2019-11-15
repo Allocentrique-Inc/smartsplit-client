@@ -157,6 +157,8 @@ export default class TableEnregistrement extends React.Component {
                         <TableGauche
                             title={ 'Enregistrement sonore' }
                             rows={ this.rangees(t, i18n) }
+                            pageNo={ 3 }
+                            mediaId={ this.props.media.mediaId }
                         />
                 }
             </Translation>            

@@ -61,7 +61,8 @@ export default class SectionTelechargements extends React.Component {
         return (
             <>
                 <TitreModifiable
-                    href={'#'}
+                    pageNo={4}
+                    mediaId={this.props.media.mediaId}
                 >
                     <h4 className={ 'corps-title-2' }>Téléchargements</h4>
                 </TitreModifiable>

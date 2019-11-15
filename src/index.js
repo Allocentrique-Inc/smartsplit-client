@@ -51,6 +51,7 @@ import OeuvreResume from "./components/oeuvre/oeuvre-resume";
 
 import "moment/locale/fr";
 import "moment/locale/en-ca";
+import EditerOeuvre from "./components/oeuvre/editer-oeuvre";
 
 const REGION = "us-east-2";
 
@@ -75,6 +76,7 @@ const renderRoutes = () => {
             <Route exact path="/" component={AccueilPochette} />
             <Route exact path="/accueil" component={AccueilPochette} />
             <Route exact path="/documenter/:mediaId" component={DocumenterPochette} />
+            <Route exact path="/editer/:mediaId/:pageNo" component={EditerPochette} />
             <Route exact path="/oeuvre/:mediaId/resume" component={ResumePochette} />
             <Route exact path="*" component={AccueilPochette} />
           </Switch>
@@ -89,6 +91,7 @@ const renderRoutes = () => {
           <Switch>
             <Route exact path="/" component={Accueil} />
             <Route exact path="/documenter/:mediaId" component={Documenter} />
+            <Route exact path="/editer/:mediaId/:pageNo" component={Editer} />
             <Route exact path="/decrire-oeuvre" component={AssistantOeuvre} />
             <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
             <Route exact path="/login" component={renderLogin} />
@@ -180,6 +183,22 @@ const renderRoutes = () => {
     );
   }
 };
+
+const EditerPochette = (match) => {
+  let mediaId = match.match.params.mediaId
+  let pageNo = match.match.params.pageNo
+  return (
+    <EditerOeuvre mediaId={mediaId} pochette={true} pageNo={pageNo} />
+  )
+}
+
+const Editer = (match) => {
+  let mediaId = match.match.params.mediaId
+  let pageNo = match.match.params.pageNo
+  return (
+    <EditerOeuvre mediaId={mediaId} pochette={false} pageNo={pageNo} />
+  )
+}
 
 const Resume = (match) => {
   let mediaId = match.match.params.mediaId

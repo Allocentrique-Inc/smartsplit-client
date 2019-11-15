@@ -232,7 +232,7 @@ class PageAssistantPartageEnregistrement extends Component {
                         nom: nom,
                         ayantDroit: ayantDroit,
                         pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1))}`,
-                        producteur: false,
+                        producteur: true,
                         realisateur: false,
                         graphiste: false,
                         studio: false,
@@ -243,7 +243,7 @@ class PageAssistantPartageEnregistrement extends Component {
                         nom: nom,
                         ayantDroit: ayantDroit,
                         pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1))}`,
-                        producteur: false,
+                        producteur: true,
                         realisateur: false,
                         graphiste: false,
                         studio: false,
@@ -260,7 +260,7 @@ class PageAssistantPartageEnregistrement extends Component {
                         pourcent: `${arrondir(
                             this.pourcentRestant() /
                             (this.props.values.droitEnregistrement.length + 1))}`,
-                        producteur: false,
+                        producteur: true,
                         realisateur: false,
                         graphiste: false,
                         studio: false,
@@ -273,7 +273,7 @@ class PageAssistantPartageEnregistrement extends Component {
                         pourcent: `${arrondir(
                             this.pourcentRestant() /
                             (this.props.values.droitEnregistrement.length + 1))}`,
-                        producteur: false,
+                        producteur: true,
                         realisateur: false,
                         graphiste: false,
                         studio: false,
@@ -421,20 +421,23 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                 <div className="coches--role__droit">
                                                                                                     {
                                                                                                         roles.map((elem, idx) => {
-                                                                                                            return (
+                                                                                                            return (                                                                                                                
                                                                                                                 <Checkbox
                                                                                                                     key={`coche_role_droit_enregistrement_${index}_${idx}`}
+                                                                                                                    disabled={elem.id === "producteur"}
                                                                                                                     label={elem.nom}
                                                                                                                     checked={this.props.values.droitEnregistrement[index][elem.id]}
                                                                                                                     onClick={(e) => {
-                                                                                                                        if (e.currentTarget.className.includes("checked")) {
-                                                                                                                            this.props.setFieldValue(`droitEnregistrement[${index}][${elem.id}]`, false)
-                                                                                                                        } else {
-                                                                                                                            this.props.setFieldValue(`droitEnregistrement[${index}][${elem.id}]`, true)
-                                                                                                                        }
-                                                                                                                        setTimeout(() => {
-                                                                                                                            this.recalculerPartage()
-                                                                                                                        }, 0)
+                                                                                                                        if(elem.id !== "producteur") {
+                                                                                                                            if (e.currentTarget.className.includes("checked")) {
+                                                                                                                                this.props.setFieldValue(`droitEnregistrement[${index}][${elem.id}]`, false)
+                                                                                                                            } else {
+                                                                                                                                this.props.setFieldValue(`droitEnregistrement[${index}][${elem.id}]`, true)
+                                                                                                                            }
+                                                                                                                            setTimeout(() => {
+                                                                                                                                this.recalculerPartage()
+                                                                                                                            }, 0)
+                                                                                                                        }                                                                                                                        
                                                                                                                     }}
                                                                                                                 />
                                                                                                             )

@@ -9,7 +9,7 @@ export default function TitreModifiable(props) {
 
             <div className={ 'edit-link cliquable' } onClick={()=>{ 
                 // Rediriger vers ls modification de l'oeuvre à la page souhaitée
-
+                window.location.href=`/editer/${props.mediaId}/${props.pageNo}`
             }}>
                 <img className={ 'edit-icon' } src={ editIcon } alt={ 'Édition' }/>
             </div>

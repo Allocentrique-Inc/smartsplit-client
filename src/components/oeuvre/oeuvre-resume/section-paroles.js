@@ -14,7 +14,8 @@ export default class SectionParoles extends React.Component {
         return (
             <>
                 <TitreModifiable
-                    href={'#'}
+                    pageNo={6}
+                    mediaId={this.props.media.mediaId}
                 >
                     <h4 className={ 'corps-title-2' }>Paroles</h4>
                 </TitreModifiable>
