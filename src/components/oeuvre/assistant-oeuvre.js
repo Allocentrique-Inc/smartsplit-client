@@ -240,7 +240,7 @@ class AssistantOeuvre extends Component {
     }
 
     render() {
-        if (this.state.user) {
+        if (this.state.user && this.state.media) {
 
             return (
                 <Translation>
