@@ -28,34 +28,36 @@ export default class SectionTelechargements extends React.Component {
 
         let  downloads = []
 
-        if(this.props.media.files.audio) {
-            downloads.push({
-                icon: downloadLockIcon,
-                label: 'Visuel de l\'œuvre',
-                urls: ""
-            })
-        }
-        if(this.props.media.files.cover) {
-            downloads.push({
-                icon: downloadCloudIcon,
-                label: 'Fichier audio',
-                urls: ""
-            })
-        }
-        if(this.props.media.files.midi) {
-            downloads.push({
-                icon: downloadCloudIcon,
-                label: 'Fichier MIDI',
-                urls: ""
-            })
-        }
-        if(this.props.media.files.score) {
-            downloads.push({
-                icon: downloadCloudIcon,
-                label: 'Partition/Tablature',
-                urls: ""
-            })
-        }
+        if(this.props.media.files) {
+            if(this.props.media.files.audio) {
+                downloads.push({
+                    icon: downloadLockIcon,
+                    label: 'Visuel de l\'œuvre',
+                    urls: ""
+                })
+            }
+            if(this.props.media.files.cover) {
+                downloads.push({
+                    icon: downloadCloudIcon,
+                    label: 'Fichier audio',
+                    urls: ""
+                })
+            }
+            if(this.props.media.files.midi) {
+                downloads.push({
+                    icon: downloadCloudIcon,
+                    label: 'Fichier MIDI',
+                    urls: ""
+                })
+            }
+            if(this.props.media.files.score) {
+                downloads.push({
+                    icon: downloadCloudIcon,
+                    label: 'Partition/Tablature',
+                    urls: ""
+                })
+            }
+        }        
 
         return (
             <>

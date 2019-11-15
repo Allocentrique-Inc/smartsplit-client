@@ -24,7 +24,8 @@ class LogIn extends Component {
       hidden: true,
       username: "",
       password: this.props.password,
-      parent: props.parent
+      parent: props.parent,
+      vote: props.vote
     };
 
     this.toggleShow = this.toggleShow.bind(this);
@@ -72,15 +73,18 @@ class LogIn extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.password !== nextProps.password) {
-      this.setState({ password: nextProps.password });
+      this.setState({ password: nextProps.password })
     }
     if (this.props.parent !== nextProps.parent) {
-      this.setState({ parent: nextProps.parent });
+      this.setState({ parent: nextProps.parent })
+    }
+    if (this.props.vote !== nextProps.vote) {
+      this.setState({ vote: nextProps.vote })
     }
   }
 
   render() {
-    let pochette =this.state.pochette ? "pochette" : ""
+    let pochette = this.state.pochette ? "pochette" : ""
     return (
       <Formik
         initialValues={{
@@ -104,26 +108,41 @@ class LogIn extends Component {
                 )}
                 {!this.state.patience && (
                   <div>
-                    <span className="top-register">
-                      <div
-                        onClick={() => {
-                          // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
-                          this.props.parent.afficher(1);
-                        }}
-                        className={`inscription ${pochette}`}
-                      >
-                        {t("entete.inscription")}
-                      </div>
-                    </span>
+                    {
+                      !this.state.vote && (
+                        <span className="top-register">
+                          <div
+                            onClick={() => {
+                              // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
+                              this.props.parent.afficher(1);
+                            }}
+                            className={`inscription ${pochette}`}
+                          >
+                            {t("entete.inscription")}
+                          </div>
+                        </span>
+                      )
+                    }                    
                     <div className="container">
                       <header id="loginHeader">
                         {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
                           <div>
                             <div className="loginHead">
-                              <h1>
-                                Login to your {this.state.pochette ? "Pochette" : "Smartsplit"} <br />
-                                account.
-                              </h1>
+                              {
+                                !this.state.vote && (
+                                  <h1>
+                                    Login to your {this.state.pochette ? "Pochette" : "Smartsplit"} <br />
+                                    account
+                                  </h1>
+                                )
+                              }
+                              {
+                                this.state.vote && (
+                                  <h1>
+                                    Login to confirm your vote
+                                  </h1>
+                                )
+                              }                              
                               <br></br>
                             </div>
                           </div>
@@ -131,10 +150,22 @@ class LogIn extends Component {
                         {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
                           <div>
                             <div className="loginHead">
-                              <h1>
-                                Connecte-toi à ton <br />
-                                compte {this.state.pochette ? "Pochette" : "Smartsplit"}.
-                              </h1>
+                              {
+                                !this.state.vote && (
+                                  <h1>
+                                    Connecte-toi à ton <br />
+                                    compte {this.state.pochette ? "Pochette" : "Smartsplit"}
+                                  </h1>
+                                )
+                              }
+                              {
+                                this.state.vote && (
+                                  <h1>
+                                    Connecte-toi <br/>
+                                    pour confirmer ta décision
+                                  </h1>
+                                )
+                              }                              
                               <br></br>
                             </div>
                           </div>
@@ -187,15 +218,21 @@ class LogIn extends Component {
                                   required={true}
                                 />
                                 <button
+                                  type="button"
                                   id="hide"
                                   onClick={e => {
                                     this.toggleShow(e);
                                   }}
                                 >
-                                  <Eye actif={this.state.hidden} />
+                                  <Eye actif={this.state.hidden}
+                                    id="hide"
+                                    onClick={e => {
+                                      this.toggleShow(e);
+                                    }}
+                                  />
                                 </button>
                               </div>
-                            </div>                          
+                            </div>
                           </div>
                           {!this.state.patience && (
                             <div className="field">

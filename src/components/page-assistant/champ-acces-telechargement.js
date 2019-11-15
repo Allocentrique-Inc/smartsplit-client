@@ -6,10 +6,16 @@ import DownloadCloudIcon from "../../assets/svg/icons/download-cloud.svg"
 import OptionAcces from "./option-acces"
 import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg"
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg"
-import { Translation } from "react-i18next"
+import { useTranslation } from "react-i18next"
 import "../formulaires.css";
 
-export default class ChampAccesTelechargement extends React.Component {
+export default function ChampAccesTelechargement(props) {
+  const { t, i18n } = useTranslation();
+
+  return <BaseChampAccesTelechargement {...props} t={t} />
+}
+
+export class BaseChampAccesTelechargement extends React.Component {
 
   options = [
     {
@@ -18,13 +24,12 @@ export default class ChampAccesTelechargement extends React.Component {
       text: "Public",
       "icon-image": DownloadCloudIcon,
       content: (
-        <OptionAcces
-          icon={DownloadCloudIcon}
-          title={"Public – Téléchargeable par tous"}
-          description={
-            "Tous les utilisateurs pourront télécharger le fichier original."
-          }
-        />
+        (t, i18n) =>
+          <OptionAcces
+            icon={DownloadCloudIcon}
+            title={this.props.t("options-acces.public")}
+            description={this.props.t("options-acces.tous")}
+          />
       )
     },
 
@@ -36,10 +41,8 @@ export default class ChampAccesTelechargement extends React.Component {
       content: (
         <OptionAcces
           icon={DownloadLockIcon}
-          title={"Sur invitation - Téléchargeable par certains"}
-          description={
-            "Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !"
-          }
+          title={this.props.t("options-acces.certains")}
+          description={this.props.t("options-acces.lien")}
         />
       )
     },
@@ -52,14 +55,13 @@ export default class ChampAccesTelechargement extends React.Component {
       content: (
         <OptionAcces
           icon={LockFullIcon}
-          title={"Privé - Empêcher le téléchargement"}
-          description={
-            "Personne ne pourra télécharger l’image originale, sauf vous."
-          }
+          title={this.props.t("options-acces.prive")}
+          description={this.props.t("options-acces.personne")}
         />
       )
     }
   ];
+
   constructor(props) {
     super(props);
 
@@ -90,27 +92,23 @@ export default class ChampAccesTelechargement extends React.Component {
 
   render() {
     return (
-      <Translation>
-        {t => (
-          <div className="champ champ-acces">
-            <label>
-              <TitreChamp
-                label={t("flot.split.documente-ton-oeuvre.documenter.acces")}
-              />
-              <Dropdown
-                style={{ width: "85px" }}
-                trigger={this.trigger()}
-                fluid
-                selection
-                direction="right"
-                options={this.options}
-                onChange={(event, { value }) => this.handleChange(value)}
-              />
-            </label>
-          </div>
+      <div className="champ champ-acces">
+        <label>
+          <TitreChamp
+            label={this.props.t("flot.split.documente-ton-oeuvre.documenter.acces")}
+          />
+          <Dropdown
+            style={{ width: "85px" }}
+            trigger={this.trigger()}
+            fluid
+            selection
+            direction="right"
+            options={this.options}
+            onChange={(event, { value }) => this.handleChange(value)}
+          />
+        </label>
+      </div>
 
-        )}
-      </Translation>
     );
   }
 }

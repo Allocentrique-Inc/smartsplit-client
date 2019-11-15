@@ -213,8 +213,12 @@ export default class SommaireOeuvre extends Component {
                 </Translation>
             )
         } else {
+            let accueil = "accueil"
+            if(this.props.pochette) {
+                accueil = "accueil-pochette"
+            }
             return (
-                <div className="tdb--cadre ui row accueil">
+                <div className={`tdb--cadre ui row ${accueil}`}>
                     <ModaleConnexion fn={()=>{
                         this.getMedia()
                         axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { FormulaireMusicien } from "./formulaire-musicien";
+import FormulaireMusicien from "./formulaire-musicien";
 import '../../assets/scss/page-assistant/champ.scss';
 import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
 import * as roles from '../../assets/listes/role-uuids.json';
 import { isUnique, updateRightHolders } from "./right-holder-helpers";
 import { Translation } from 'react-i18next';
+import ModifyUser from '../auth/ModifyUser';
+
+import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
+import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 
 export class ChampSelectionInterprete extends Component {
 
@@ -51,20 +55,21 @@ export class ChampSelectionInterprete extends Component {
             return (
                 <FormulaireMusicien
                     langue={langue}
-                    key={ item.value }
-                    pochette={ this.props.pochette }
-                    item={ item }
-                    rightHolder={ musician }
-                    onClick={ (event) => {
+                    key={item.value}
+                    pochette={this.props.pochette}
+                    item={item}
+                    rightHolder={musician}
+                    onClick={(event) => {
                         this.unselectItem(event, item);
-                    } }
-                    onChange={ this.updateRightHolder }
+                    }}
+                    onChange={this.updateRightHolder}
                 />
             );
         });
     }
 
     updateRightHolder = newRightHolder => {
+        console.log('updateRightHolder', newRightHolder)
         const newRightHolders = [...this.props.values.rightHolders]
             .filter(rightHolder => rightHolder.id !== newRightHolder.id)
             .concat([newRightHolder]);
@@ -105,9 +110,7 @@ export class ChampSelectionInterprete extends Component {
         const emptyMusician = { id: id, roles: [], instruments: [] };
 
         const newMusician = Object.assign({}, emptyMusician, existingMusician, { roles: newRoles });
-
         const newRightHolders = updateRightHolders(this.props.values.rightHolders, newMusician);
-
 
         this.props.onChange(newRightHolders);
 
@@ -116,41 +119,104 @@ export class ChampSelectionInterprete extends Component {
         });
     }
 
+    additionLabelClasses() {
+        const pochetteClass = this.props.pochette ? " pochette" : "";
+        return "addition-label" + pochetteClass;
+    }
+
+    plusCircle() {
+        return this.props.pochette ? plusCircleOrange : plusCircleGreen;
+    }
+
+    plusCircleLabel(labelString) {
+        return (
+            <span className={this.additionLabelClasses()}>
+                <img alt="" src={this.plusCircle()} /> {labelString}
+            </span>
+        );
+    }
+
+    triggerLabel() {
+        return this.state.searchQuery
+            ? ""
+            : this.plusCircleLabel(this.props.placeholder);
+    }
+
+    handleSearchChange = (event, { searchQuery }) => {
+        this.setState({ searchQuery: searchQuery });
+    };
+
+    handleBlur = () => {
+        this.setState({ searchQuery: "" });
+    };
+
+    handleAddItem = (event, { value }) => {
+        event.preventDefault()
+        this.setState({
+            modalOpen: true,
+            modalFirstName: value
+        });
+    };
 
     render() {
         return (
             <Translation>
                 {
-                    (t, i18n) => 
+                    (t, i18n) =>
                         <label>
 
                             {
                                 i18n &&
                                 <>
                                     <TitreChamp
-                                        label={ this.props.label }
-                                        description={ this.props.description }
+                                        label={this.props.label}
+                                        description={this.props.description}
                                     />
 
-                                    { this.renderSelectedItems(i18n.lng.substring(0,2)) }
+                                    {this.renderSelectedItems(i18n.lng.substring(0, 2))}
 
                                     <Dropdown
-                                        placeholder={ this.props.placeholder }
+                                        trigger={this.triggerLabel()}
+                                        placeholder={this.props.placeholder}
                                         fluid
                                         search
                                         selection
-                                        selectOnBlur={ false }
-                                        selectOnNavigation={ false }
-                                        value={ this.state.dropdownValue }
-                                        options={ this.unselectedItems() }
-                                        onChange={ this.handleChange }
+                                        selectOnBlur={false}
+                                        selectOnNavigation={false}
+                                        value={this.state.dropdownValue}
+                                        options={this.unselectedItems()}
+                                        onChange={this.handleChange}
+                                        allowAdditions={true}
+                                        onAddItem={this.handleAddItem}
+                                        onBlur={this.handleBlur}
+                                        onSearchChange={this.handleSearchChange}
+                                    />
+
+                                    <ModifyUser
+                                        open={this.state.modalOpen}
+                                        pochette={this.props.pochette}
+                                        firstName={this.state.modalFirstName}
+                                        close={() =>
+                                            this.setState({ modalOpen: false, modalFirstName: "" })
+                                        }
+                                        fn={
+                                            (e) => {
+                                                this.selectItem(e)
+                                                /* let values = this.state.selectedValues
+                                                values.push(e)
+                                                this.setState({ selectedValues: values }) */
+                                                if (this.props.fn) {
+                                                    this.props.fn(e)
+                                                }
+                                            }
+                                        }
                                     />
                                 </>
                             }
-                            
+
                         </label>
                 }
-            </Translation>            
+            </Translation>
         );
     }
 }

@@ -24,6 +24,8 @@
 }
 
 .pochette {
+    .ui.primary.right.floated.button,
+    .ui.right.floated.button,
     .ui.button,
     .ui.button:focus {
         background-color: $pochette-color-link;

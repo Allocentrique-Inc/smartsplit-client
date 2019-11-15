@@ -187,7 +187,7 @@ class AssistantPartage extends Component {
                         let uuid = _rH.rightHolderId
 
                         if (elem.principal) {
-                            let roles = {}
+                            let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a38": "principal"}
                             if (elem.chanteur) {
                                 roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
                             }
@@ -362,7 +362,7 @@ class AssistantPartage extends Component {
 
         let that = this
 
-        if (this.state.media) {
+        if (this.state.media && this.state.ayantsDroit) {
             let valeursInitiales = { droitAuteur: [], droitInterpretation: [], droitEnregistrement: [] }
             if (this.state.proposition) {
 
@@ -378,7 +378,9 @@ class AssistantPartage extends Component {
                     enregistrement: {}
                 }
                 function creerAd(elem) {
-                    return { nom: elem.rightHolder.name, pourcent: 0.00, ayantDroit: that.state.ayantsDroit[elem.rightHolder.rightHolderId] }
+                    if(that.state.ayantsDroit) {
+                        return { nom: elem.rightHolder.name, pourcent: 0.00, ayantDroit: that.state.ayantsDroit[elem.rightHolder.rightHolderId] }
+                    }                    
                 }
                 // Droit d'auteur
                 _rS.workCopyrightSplit.music.forEach(elem => { // Musique

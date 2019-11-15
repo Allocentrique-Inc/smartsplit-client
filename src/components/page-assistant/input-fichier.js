@@ -50,10 +50,6 @@ export default class InputFichier extends React.Component {
         {t => (
           <div
             className="file-input-container"
-            style={{
-              width: "100%",
-              display: "inline-flex"
-            }}
           >
             <div className="ui button" onClick={this.clickFileInput}>
               {t("flot.split.documente-ton-oeuvre.documenter.choix")}

@@ -5,10 +5,11 @@ import zxcvbn from "zxcvbn";
 import { Auth } from "aws-amplify";
 import { toast } from "react-toastify";
 import { Dropdown } from "semantic-ui-react";
-import axios from "axios";
-
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
+import axios from "axios"
+import InfoBulle from '../partage/InfoBulle';
+
 
 class Register extends Component {
   state = {
@@ -66,7 +67,7 @@ class Register extends Component {
   validateUsername(value) {
     if (!value) {
       return "Required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,6}$/i.test(value)) {
+    } else if (!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(value)) {
       return "Invalid username";
     }
   }
@@ -85,7 +86,7 @@ class Register extends Component {
 
   validateConfirmPassword(value) {
     if (!value) {
-      return "Required";      
+      return "Required";
     } else if (value !== this.state.password) {
       console.log("VALUE confirm", value);
       return "Passwords do not match";
@@ -107,6 +108,7 @@ class Register extends Component {
   };
 
   handleSubmit = values => {
+    let source = window.location.href;
     const username = values.username;
     const email = values.username; // username is used as email
     const password = this.state.password;
@@ -119,6 +121,7 @@ class Register extends Component {
     const groups = this.state.currentValue;
     const locale = this.state.locale;
     const gender = this.state.gender;
+    const requestSource = ((source.includes("pochette")) ? "pochette" : "smartsplit");
 
     try {
 
@@ -148,7 +151,8 @@ class Register extends Component {
           "custom:instruments": JSON.stringify(instruments),
           "custom:defaultRoles": JSON.stringify(defaultRoles),
           "custom:groups": JSON.stringify(groupes),
-          "custom:avatarImage": avatarImage
+          "custom:avatarImage": avatarImage,
+          "custom:requestSource": requestSource
         }
       })
         .then(toast.success(`${firstName}, compte créé !`))
@@ -242,7 +246,7 @@ class Register extends Component {
 
   render() {
 
-    let pochette =this.state.pochette ? "pochette" : ""
+    let pochette = this.state.pochette ? "pochette" : ""
 
     const { password, strength, currentValue } = this.state;
     const passwordLength = password.length;
@@ -253,7 +257,7 @@ class Register extends Component {
     ]
       .join(" ")
       .trim();
-    
+
     const confirmClass = [
       "confirmPassword",
       strength >= 4 ? "visible" : "invisible"
@@ -300,7 +304,7 @@ class Register extends Component {
                             <div className="registerHead">
                               <h1>
                                 Create for free your <br />
-                                profile on Smart Split.
+                                profile on Smartsplit.
                               </h1>
                               <br />
                               <br />
@@ -392,6 +396,12 @@ class Register extends Component {
                             <span>
                               <label>
                                 {t("flot.split.collaborateur.attribut.etiquette.artiste")}
+
+                                <span className="sous-titre" style={{ margin: "0px" }}>
+                                  {i18n.lng && i18n.lng.substring(0, 2) === "en" && <InfoBulle pos={{ x: "250px", y: "350px" }} text={<p>For example, <i>Jay-Z</i> is the artist name of <em>Shawn Corey Carter</em>.</p>} />}
+                                  {i18n.lng && i18n.lng.substring(0, 2) !== "en" && <InfoBulle pos={{ x: "250px", y: "350px" }} text={<p>Par exemple, <i>Jay-Z</i> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>} />}
+                                </span>
+
                               </label>
                               <label style={{ color: "grey", float: "right", fontWeight: "normal" }}>
                                 {t("flot.split.collaborateur.attribut.etiquette.option")}
@@ -410,19 +420,6 @@ class Register extends Component {
                                 this.setState({ artistName: e.target.value })
                               }
                             />
-                            <div className="sous-titre">
-
-
-                              {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                                <p style={{ margin: "0px" }}>For example, <i>Jay-Z</i> is the artist name of <em>Shawn Corey Carter</em>.</p>
-                              )}
-                              <div className="sous-titre">
-                                {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                                  <p style={{ margin: "0px" }}>Par exemple, <i>Jay-Z</i> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>
-                                )}
-
-                              </div>
-                            </div>
                           </div>
 
                           <div>
@@ -550,6 +547,7 @@ class Register extends Component {
                                   />
 
                                   <button
+                                    type="button"
                                     id="hide"
                                     onClick={e => {
                                       e.preventDefault();
@@ -605,13 +603,14 @@ class Register extends Component {
                                   required={true}
                                 />
                                 <button
+                                  type="button"
                                   id="hide-confirm"
                                   onClick={e => {
                                     e.preventDefault();
                                     this.toggleConfirmShow();
                                   }}
                                 >
-                                  <Eye actif={this.state.confirmhidden && this.state.hidden} />                                  
+                                  <Eye actif={this.state.confirmhidden && this.state.hidden} />
                                 </button>
                               </div>
                               {errors.confirmpassword &&

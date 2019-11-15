@@ -22,25 +22,25 @@ class InfoBulle extends Component {
         super(props);
         this.state = {
             hover: false,
-            text: props.text           
+            text: props.text
         }
         this.setXY = this.setXY.bind(this)
         this.handleMouseIn = this.handleMouseIn.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
-        if(this.props.text !== nextProps.text) {
-            this.setState({text: nextProps.text})
+        if (this.props.text !== nextProps.text) {
+            this.setState({ text: nextProps.text })
         }
     }
 
     //Modifie position x y
     setXY(e) {
-        if(!this.props.pos) {
-            this.setState({ pos: { x: e.clientX + 10, y: e.clientY - 50} })
+        if (!this.props.pos) {
+            this.setState({ pos: { x: e.clientX + 10, y: e.clientY - 50 } })
         } else {
-            this.setState({ pos: { x: this.props.pos.x, y: this.props.pos.y} })
-        }        
+            this.setState({ pos: { x: this.props.pos.x, y: this.props.pos.y } })
+        }
     }
 
     //Attrape et passe ça à setXY pour reprendre contrôle
@@ -60,10 +60,10 @@ class InfoBulle extends Component {
                         <>
                             <div
                                 className="cliquable"
-                                style={{display: "inline"}}
+                                style={{ display: "inline" }}
                                 onMouseOver={e => { this.handleMouseIn(e); this.setXY(e) }}
                                 onMouseOut={this.handleMouseOut.bind(this)}>
-                                <i className="ui question circle icon" style={{ color: "#687A8B" }} />
+                                <i className="ui question circle icon" style={{ color: "#687A8B", fontSize: "10pt", display: "inline" }} />
                                 {/* Object Assign quand assigner plusieurs objets à var */}
                                 {/* tooltipStyle en dernier car = const: peut pas modifier */}
                                 {this.state.hover && (<div style={Object.assign({ top: this.state.pos.y, left: this.state.pos.x }, tooltipStyle)}>

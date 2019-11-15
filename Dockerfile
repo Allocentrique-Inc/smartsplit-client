@@ -12,6 +12,6 @@ RUN apk add --update \
     && apk --purge -v del py-pip \
     && rm -rf /var/cache/apk/*
 RUN npm install
-EXPOSE 3000
-ENV PORT 3000
+EXPOSE 80
+ENV PORT 80
 CMD [ "npm", "start" ]

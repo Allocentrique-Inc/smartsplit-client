@@ -75,13 +75,15 @@ export default class TableInterpretation extends React.Component {
             })
 
             if(principalOuAccompagnateur && musicien) {
-                _ad.instruments.forEach((i, idx)=>{
-                    if(idx < _ad.instruments.length - 1) {
-                        instruments = instruments + i + ", "
-                    } else {
-                        instruments = instruments + i
-                    }
-                })
+                if(_ad.instruments) {
+                    _ad.instruments.forEach((i, idx)=>{
+                        if(idx < _ad.instruments.length - 1) {
+                            instruments = instruments + i + ", "
+                        } else {
+                            instruments = instruments + i
+                        }
+                    })
+                }                
                 rang.label = (<span key={`${rhId}`}>{this.props.rightHolders[rhId].artistName}</span>)
             }
             // assemblage

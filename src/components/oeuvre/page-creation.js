@@ -47,6 +47,10 @@ export default class PageCreation extends Component {
         roles.publisher,
         props.values.rightHolders
       ),
+      remixers: getRightHolderIdsByRole(
+        roles.remixer,
+        props.values.rightHolders
+      ),
       x: 0, y: 0
     };
   }
@@ -55,16 +59,19 @@ export default class PageCreation extends Component {
     if (
       this.state.songwriters !== prevState.songwriters ||
       this.state.composers !== prevState.composers ||
-      this.state.publishers !== prevState.publishers
+      this.state.publishers !== prevState.publishers ||
+      this.state.remixers !== prevState.remixers
     ) {
-      const creationRightHolderIds = this.state.songwriters
+      const creationRightHolderIds = 
+        this.state.songwriters
         .concat(this.state.composers)
-        .concat(this.state.publishers);
+        .concat(this.state.publishers)
+        .concat(this.state.remixers)
 
       const updatedRightHolders = creationRightHolderIds
         .reduce(addRightHolderIfMissing, [...this.props.values.rightHolders])
         .map(this.getUpdatedRightHolder)
-        .filter(hasRoles);
+        .filter(hasRoles)
 
       this.props.setFieldValue("rightHolders", updatedRightHolders);
     }
@@ -86,11 +93,17 @@ export default class PageCreation extends Component {
       id,
       songwriterRoles
     );
+    const remixerRoles = updateRole(
+      roles.remixer,
+      this.state.remixers,
+      id,
+      composerRoles
+    );
     const newRoles = updateRole(
       roles.publisher,
       this.state.publishers,
       id,
-      composerRoles
+      remixerRoles
     );
 
     return Object.assign({}, rightHolder, { roles: newRoles });
@@ -102,6 +115,20 @@ export default class PageCreation extends Component {
 
   icon() {
     return this.props.pochette ? copyrightIconOrange : copyrightIconGreen;
+  }
+
+  idsSiUUID(ids) {
+    // Protéger la liste des valeurs non-uuid
+    let _ids = []
+    const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}")
+    if(ids) {
+        ids.forEach(id=>{
+            if(UUID_REGEXP.test(id)) {
+                _ids.push(id)
+            }
+        })
+        return _ids        
+    }
   }
 
   render() {
@@ -119,7 +146,7 @@ export default class PageCreation extends Component {
                 icon={this.icon()}
                 label={t("flot.documenter.entete.creation")}
                 question={t("flot.split.documente-ton-oeuvre.documenter.titre1",
-                  { titre: this.props.values.title })}                  
+                  { titre: this.props.values.title })}
                 description={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre1-description"
                 )}
@@ -138,7 +165,7 @@ export default class PageCreation extends Component {
                   this.props.setFieldValue("creationDate", value)
                 }
               />
-              <br />    
+              <br />
               <ChampSelectionMultipleAyantDroit
                 label={t("flot.split.documente-ton-oeuvre.documenter.auteur")}
                 pochette={this.props.pochette}
@@ -148,7 +175,13 @@ export default class PageCreation extends Component {
                   "flot.split.documente-ton-oeuvre.documenter.auteur-placeholder"
                 )}
                 value={this.state.songwriters}
-                onChange={ids => this.setState({ songwriters: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({songwriters: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.songwriter)                  
+                }}
               />
               <br />
               <ChampSelectionMultipleAyantDroit
@@ -160,7 +193,31 @@ export default class PageCreation extends Component {
                   "flot.split.documente-ton-oeuvre.documenter.compositeur-placeholder"
                 )}
                 value={this.state.composers}
-                onChange={ids => this.setState({ composers: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({composers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.composer)                  
+                }}
+              />
+              <br />
+              <ChampSelectionMultipleAyantDroit
+                label={t("flot.split.documente-ton-oeuvre.documenter.arrangeur")}
+                pochette={this.props.pochette}
+                items={this.rightHolderOptions()}
+                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.arrangeur-description")} />}
+                placeholder={t(
+                  "flot.split.documente-ton-oeuvre.documenter.arrangeur-placeholder"
+                )}
+                value={this.state.remixers}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({remixers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.remixer)                  
+                }}
               />
               <br />
               <ChampSelectionMultipleAyantDroit
@@ -172,7 +229,13 @@ export default class PageCreation extends Component {
                   "flot.split.documente-ton-oeuvre.documenter.editeur-placeholder"
                 )}
                 value={this.state.publishers}
-                onChange={ids => this.setState({ publishers: ids })}
+                onChange={ids => {
+                  let _ids = this.idsSiUUID(ids)
+                  this.setState({publishers: _ids})
+                }}
+                fn={(nouveau)=>{
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.publisher)                  
+                }}
               />
               <br />
               <ChampTexte
@@ -185,7 +248,7 @@ export default class PageCreation extends Component {
                 value={this.props.values.iswc}
                 onChange={value => this.props.setFieldValue("iswc", value)}
               />
-            </Colonne>            
+            </Colonne>
           </Page>
         )}
       </Translation>

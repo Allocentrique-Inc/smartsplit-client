@@ -18,8 +18,8 @@ export function ItemSelectionne(props) {
 
     return (
         <div className="selection-row"
-             onClick={ (event) => props.onClick(event) }
-        >
+            onClick={e=>e.preventDefault()}
+            >
             <div className="left">
                 { selectionAvatar(props) }
 
@@ -28,8 +28,8 @@ export function ItemSelectionne(props) {
                 </div>
             </div>
 
-            <div className="right">
-                <img className="x-icon"
+            <div className="right cliquable">
+                <img className="x-icon" onClick={ (event) => props.onClick(event) }
                      src={ xIcon }
                      alt={ 'Enlever ' + props.nom }
                 />

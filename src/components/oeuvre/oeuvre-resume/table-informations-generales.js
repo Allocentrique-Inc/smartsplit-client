@@ -35,13 +35,13 @@ export default class TableInformationsGenerales extends React.Component {
             },
             {
                 label: 'Styles',
-                value: this.props.media.secondaryGenre.map((e, idx)=>{
+                value: this.props.media.secondaryGenre ? this.props.media.secondaryGenre.map((e, idx)=>{
                     if(idx < this.props.media.secondaryGenre.length - 1) {
                         return e + ", "
                     } else {
                         return e
                     }
-                })
+                }) : []
             },
             {
                 label: 'Influences',
