@@ -305,13 +305,15 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                             <div className="ui thirteen wide column">
                                                                                                 <div className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right floated close icon cliquable" onClick={() => {
-                                                                                                        arrayHelpers.remove(index)
-                                                                                                        this.setState({ ping: true }, () => {
-                                                                                                            this.recalculerPartage()
-                                                                                                        })
-                                                                                                    }
-                                                                                                    }></i>
+                                                                                                    <i className="right floated close icon cliquable"
+                                                                                                        style={{ top: "0px", right: "10px", position: "absolute" }}
+                                                                                                        onClick={() => {
+                                                                                                            arrayHelpers.remove(index)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }
+                                                                                                        }></i>
                                                                                                     <div className="ui divider"></div>
                                                                                                 </div>
                                                                                                 <BoutonsRadio

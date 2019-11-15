@@ -324,7 +324,7 @@ class PageAssistantPartageAuteur extends Component {
 
     }
 
-    render() {        
+    render() {
 
         let visualisation
         if (this.state.parts.length > 0) {
@@ -510,6 +510,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                     className="holder-name">
                                                                                                     {part.nom}
                                                                                                     <i className="right flated close icon cliquable"
+                                                                                                        style={{ top: "0px", right: "10px", position: "absolute" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
                                                                                                             this.setState({ ping: true }, () => {

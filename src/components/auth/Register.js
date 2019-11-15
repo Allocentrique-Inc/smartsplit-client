@@ -479,7 +479,7 @@ class Register extends Component {
                                 <div style={{
                                   color: "red",
                                   position: "absolute",
-                                  top: "665px"
+                                  top: "690px"
                                 }}>
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
