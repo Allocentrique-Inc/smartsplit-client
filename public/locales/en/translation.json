@@ -220,7 +220,7 @@
         "titre": "Add a collaborating artist",
         "attribut": {
           "etiquette": {
-            "nom": "Name",
+            "nom": "Last Name",
             "prenom": "First Name",
             "artiste": "Artist Name (aka)  ",
             "option": " (optional)",
@@ -472,7 +472,7 @@
             "titre": "Performance sharing",
             "role": {
               "chanteur": "Singer",
-              "musicien": "Musician",            
+              "musicien": "Musician",
               "musician": "Musician"
             }
           },

@@ -352,7 +352,7 @@
           "titre3-description": "Ici vous mentionner qui a contribué à l'enregistrement sonore de cette pièce.",
           "realisation": "Réalisation sonore  ",
           "realisation-description": "Le réalisateur sonore donne un son à l'enregistrement.",
-          "realisation-placeholder": "Ajouter un directeur",
+          "realisation-placeholder": "Ajouter un réalisateur",
           "son": "Enregistrement sonore  ",
           "son-description": "Qui est le technicien en enregistrement sonore sur la pièce musicale ?",
           "son-placeholder": "Ajouter un technicien",

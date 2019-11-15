@@ -4,11 +4,14 @@ import { Translation } from "react-i18next"
 import '../../assets/scss/tableaudebord/tableaudebord.scss'
 import '../../assets/scss/page-assistant/bouton.scss'
 
-import Music from '../../assets/images/Music.png'
+import MusicVert from '../../assets/images/MusicVert.png'
+import UsersVert from '../../assets/images/UsersVert.png'
+import UserCardVert from '../../assets/images/UserCardVert.png'
+
+import MusicOrange from '../../assets/images/MusicOrange.png'
+
 import MusicGris from '../../assets/images/Music.png'
-import UserCard from '../../assets/images/UserCard.png'
 import UserCardGris from '../../assets/images/UserCard.png'
-import Users from '../../assets/images/Users.png'
 import UsersGris from '../../assets/images/Users.png'
 
 const PIECES = 0,
@@ -126,16 +129,16 @@ export default class Navigation extends Component {
 
             <div className="tdb--navigation__liens">
               <div className="ui row">
-                {this.genererLien(PIECES, t, ( this.state.choix === PIECES ? Music : MusicGris ))}
+                {this.genererLien(PIECES, t, (this.state.selection === PIECES ? (this.state.pochette ? MusicOrange : MusicVert) : MusicGris))}
               </div>
               {
                 !pochette && (
                   <>
                     <div className="ui row espace-15">
-                      {this.genererLien(PROFIL, t, ( this.state.choix === PROFIL ? UserCard : UserCardGris ) )}
+                      {this.genererLien(PROFIL, t, (this.state.selection === PROFIL ? UserCardVert : UserCardGris))}
                     </div>
                     <div className="ui row espace-15">
-                      {this.genererLien(COLLABORATEURS, t, ( this.state.choix === COLLABORATEURS ? Users : UsersGris ))}
+                      {this.genererLien(COLLABORATEURS, t, (this.state.selection === COLLABORATEURS ? UsersVert : UsersGris))}
                     </div>
                   </>
                 )

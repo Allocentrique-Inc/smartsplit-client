@@ -9,6 +9,7 @@ import {
 import { Translation } from "react-i18next";
 import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
+import InfoBulle from '../partage/InfoBulle';
 
 const AWS = require("aws-sdk");
 const REGION = 'us-east-2'
@@ -128,7 +129,7 @@ class ModifyUser extends Component {
       "custom:instruments": JSON.stringify(this.state.instruments),
       "custom:groups": JSON.stringify(groupes),
       "custom:avatarImage": this.state.avatarImage,
-      "custom:requestSource":((source.includes("pochette")) ? "pochette" : "smartsplit")
+      "custom:requestSource": ((source.includes("pochette")) ? "pochette" : "smartsplit")
     };
     let username = this.state.email;
     let password = this.randomPassword();
@@ -281,6 +282,7 @@ class ModifyUser extends Component {
                         {t("flot.split.collaborateur.attribut.etiquette.artiste")}
                       </strong>
                     </label>
+                    <InfoBulle text={t("flot.split.collaborateur.attribut.etiquette.na")} />
                     <label style={{ float: "right", color: "gray" }}>
                       {t("flot.split.collaborateur.attribut.etiquette.option")}
                     </label>
@@ -297,8 +299,8 @@ class ModifyUser extends Component {
                   <div
                     className="sous titre"
                     style={{ color: "gray", fontSize: "small" }}
+
                   >
-                    {t("flot.split.collaborateur.attribut.etiquette.na")}
                   </div>
                 </div>
 
@@ -344,7 +346,7 @@ class ModifyUser extends Component {
                     value={this.state.email}
                     onChange={e => this.setState({ email: e.target.value })}
                   />
-                </div>                
+                </div>
 
                 <div className="ui row" style={{ marginTop: "30px", display: "none" }}>
                   <label>
@@ -356,7 +358,7 @@ class ModifyUser extends Component {
                     id="roles"
                     type="text"
                     style={{ maxHeight: "10px" }}
-                    options={[                     
+                    options={[
                       {
                         key: t("flot.split.roles.songwriter"),
                         text: t("flot.split.roles.songwriter"),

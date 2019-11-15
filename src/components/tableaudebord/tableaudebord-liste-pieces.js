@@ -243,10 +243,10 @@ export default class ListePieces extends Component {
                     t =>
                         <div>
                             <div className="ui row">
-                                <div className="ui one wide column" />
+                                <div className="ui one wide column" style={{ fontSize: "16px" }} />
                                 <div className="ui twelve wide column">
-                                    <span className={`cliquable small-500${souligneInitiateur ? '-color souligne' : ''} ${souligneInitiateur && pochette ? "pochette" : ""}`} onClick={() => { this.afficherPanneauInitiateur() }}>{t('flot.split.tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
-                                    <span className={`cliquable small-500${souligneCollaborateur ? '-color souligne' : ''} ${souligneCollaborateur && pochette ? "pochette" : ""}`} onClick={() => { this.afficherPanneauCollaborateur() }}>{t('flot.split.tableaudebord.pieces.1')}</span>
+                                    <span className={`cliquable small-500${souligneInitiateur ? '-color souligne' : ''} ${souligneInitiateur && pochette ? "pochette" : ""}`} onClick={() => { this.afficherPanneauInitiateur() }} style={{ fontSize: "16px" }}>{t('flot.split.tableaudebord.pieces.0')}</span>&nbsp;&nbsp;
+                                    <span className={`cliquable small-500${souligneCollaborateur ? '-color souligne' : ''} ${souligneCollaborateur && pochette ? "pochette" : ""}`} onClick={() => { this.afficherPanneauCollaborateur() }} style={{ fontSize: "16px" }}>{t('flot.split.tableaudebord.pieces.1')}</span>
                                 </div>
                                 <div className="ui one wide column" />
                             </div>
