@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 
 import MenuProfil from './menu-profil'
-import BoutonConnexion from './bouton-connexion'
 
 import { Translation } from 'react-i18next'
 

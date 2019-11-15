@@ -1,7 +1,6 @@
 import React from 'react';
 import TableGauche from "./table-gauche";
 import { Translation } from 'react-i18next';
-import { Z_ASCII } from 'zlib';
 
 export default class TableInterpretation extends React.Component {
 
@@ -29,7 +28,6 @@ export default class TableInterpretation extends React.Component {
             let rhId = _ad.id
             let rang = {}            
             
-            let value = ""
             let principalOuAccompagnateur, chanteur, musicien, instruments = "", soliste, voix, choriste          
             _ad.roles.forEach(_r=>{                
                 switch(_r) {

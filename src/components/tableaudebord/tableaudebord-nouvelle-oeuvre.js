@@ -552,7 +552,7 @@ class Page2NouvellePiece extends Component {
                                                 onChange={ids => {
                                                     // Protéger la liste des valeurs non-uuid
                                                     let _ids = []
-                                                    const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}")
+                                                    const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
                                                     if (ids) {
                                                         ids.forEach(id => {
                                                             if (UUID_REGEXP.test(id)) {

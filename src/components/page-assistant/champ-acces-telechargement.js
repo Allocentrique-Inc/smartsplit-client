@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next"
 import "../formulaires.css";
 
 export default function ChampAccesTelechargement(props) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return <BaseChampAccesTelechargement {...props} t={t} />
 }

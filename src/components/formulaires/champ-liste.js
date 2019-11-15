@@ -5,7 +5,6 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import ModifyUser from '../auth/ModifyUser';
 import { Translation } from 'react-i18next'
-import ChampSelectionMultipleAyantDroit from '../page-assistant/champ-selection-multiple-ayant-droit'
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"

@@ -54,9 +54,7 @@ export default class Navigation extends Component {
             this.state.selection === choix ? (this.state.pochette ? "pochette" : "") : "grismauve"
             }`}
         >
-          <img alt="image" src={image} />
-
-
+          <img alt={`navigation_${choix}`} src={image} />
         </i>
         <span
           className={`${

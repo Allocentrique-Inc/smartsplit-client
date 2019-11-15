@@ -7,13 +7,12 @@ import * as roles from "../../assets/listes/role-uuids.json";
 import { useTranslation } from "react-i18next"
 
 export default function FormulaireMusicien(props) {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return <BaseFormulaireMusicien {...props} t={t} />
 }
 
-
-export class BaseFormulaireMusicien extends React.Component {
+export class BaseFormulaireMusicien extends Component {
   singerRoleLabels = [
     {
       key: "leadVocal",

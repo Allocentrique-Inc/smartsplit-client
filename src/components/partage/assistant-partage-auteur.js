@@ -17,10 +17,8 @@ import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
 import Lock from "./Lock"
-import { toast } from "react-toastify"
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
-
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
 
 const arrondir = function (nombre) {
@@ -202,7 +200,6 @@ class PageAssistantPartageAuteur extends Component {
     changementGradateur(index, delta) {
 
         // Changement d'un gradateur
-        const DELTA = delta
         let invariable = this.state.partsInvariables
         let droits = this.props.values.droitAuteur
 
@@ -327,10 +324,7 @@ class PageAssistantPartageAuteur extends Component {
 
     }
 
-    render() {
-        function FormField(props) {
-            return <input style={props.style} />
-        }
+    render() {        
 
         let visualisation
         if (this.state.parts.length > 0) {

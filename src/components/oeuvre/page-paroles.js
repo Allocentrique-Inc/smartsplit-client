@@ -63,7 +63,7 @@ export default class PageParoles extends React.Component {
                 undertext={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.parole-only"
                 )}
-                value={this.props.values.lyrics && this.props.values.lyrics.text || ""}
+                value={this.props.values.lyrics && this.props.values.lyrics.text ? this.props.values.lyrics.text : ""}
                 onChange={value =>
                   this.props.setFieldValue("lyrics.text", value)
                 }

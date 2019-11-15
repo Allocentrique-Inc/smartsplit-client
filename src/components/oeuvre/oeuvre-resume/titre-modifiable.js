@@ -7,9 +7,12 @@ export default function TitreModifiable(props) {
         <div className={ 'editable-title' }>
             { props.children }
 
-            {/* <a className={ 'edit-link' } href={ props.href }>
+            <div className={ 'edit-link cliquable' } onClick={()=>{ 
+                // Rediriger vers ls modification de l'oeuvre à la page souhaitée
+
+            }}>
                 <img className={ 'edit-icon' } src={ editIcon } alt={ 'Édition' }/>
-            </a> */}
+            </div>
         </div>
     );
 }

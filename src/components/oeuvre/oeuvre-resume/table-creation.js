@@ -2,7 +2,6 @@ import React from "react";
 import TableGauche from "./table-gauche";
 import moment from "moment";
 import { Translation } from "react-i18next";
-import { type } from "os";
 
 export default class TableCreation extends React.Component {
 

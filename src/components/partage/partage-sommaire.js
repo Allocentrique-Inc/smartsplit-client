@@ -197,7 +197,7 @@ export class SommaireDroit extends Component {
                                                 {
                                                     t =>
                                                         part.roles.map((_e, idx) => {
-                                                            return `${t('flot.split.roles.' + _e)}` + `${idx === part.roles.length - 1 ? '' : ', '}`
+                                                            return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
                                                         })
                                                 }
                                             </Translation>

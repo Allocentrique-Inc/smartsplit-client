@@ -206,10 +206,7 @@ class PageAssistantPartageEditeur extends Component {
                                                 </div>
                                                 <br/>
                                                 <div className="ui eleven wide column">
-                                                    <ChampGradateurAssistant
-                                                        changement={(id, delta) => {
-                                                            this.changementGradateur(id, delta)
-                                                        }}
+                                                    <ChampGradateurAssistant                                                        
                                                         changement={(id, delta)=>{this.changementGradateur(id, delta)}}
                                                         id={`gradateur_ayantDroit`}
                                                         modele="ayantDroit.pourcent"
@@ -247,9 +244,6 @@ class PageAssistantPartageEditeur extends Component {
                                                 <br/>
                                                 <div className="ui eleven wide column">
                                                     <ChampGradateurAssistant
-                                                        changement={(id, delta) => {
-                                                            this.changementGradateur(id, delta)
-                                                        }}
                                                         changement={(id, delta)=>{this.changementGradateur(id, delta)}}
                                                         id={`gradateur_editeur`}
                                                         modele="editeur.pourcent"

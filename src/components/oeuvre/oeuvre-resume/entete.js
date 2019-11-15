@@ -11,14 +11,31 @@ export default class Entete extends React.Component {
   
   constructor(props){
     super(props)
-    // VDEG Correction à apporter si pas d'ayant droit avec l'id    
-    this.avatars = props.media.rightHolders.map(r=>{
-      if(props.rightHolders[r.id]) {
-        return `https://smartsplit-images.s3.us-east-2.amazonaws.com/${props.rightHolders[r.id].avatarImage}`
-      } else {
-        return `https://smartsplit-images.s3.us-east-2.amazonaws.com/image.jpg`
+    this.avatars = []
+    let _avatars = {}
+    props.media.rightHolders.forEach(r=>{
+      
+      if(!this.avatars[r.id]) {        
+        let nom, prenom, nomArtiste, avatar, uuid
+        if(props.rightHolders[r.id]) {        
+          uuid = props.rightHolders[r.id].rightHolderId   
+          nom = props.rightHolders[r.id].lastName
+          prenom = props.rightHolders[r.id].firstName
+          nomArtiste = props.rightHolders[r.id].artistName
+          avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${props.rightHolders[r.id].avatarImage}`
+        } else {
+          uuid = " "
+          nom = " "
+          prenom = " "
+          nomArtiste = " "
+          avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/image.jpg`
+        }
+        _avatars[r.id] = {nom, prenom, nomArtiste, avatar, uuid}
       }
+     
     })
+
+    Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
   }  
 
   renderAvatars() {
@@ -31,24 +48,36 @@ export default class Entete extends React.Component {
       <></>
     );
 
-    return this.avatars
+    this.avatars = this.avatars
       .slice(0, maxDisplayedAvatars)
       .map((avatar, index) => {
         const zIndex = displayedAvatars + 2 - index;
         return (
           <div key={`avatar_${index}`} className={"avatar"} style={{ zIndex }}>
-            <img src={avatar} alt="avatar" />
+            <img src={avatar.avatar} alt={`${avatar.prenom} ${avatar.nom} ${avatar.nomArtiste ? `(${avatar.nomArtiste})` : ""}`} title={`${avatar.prenom} ${avatar.nom} ${avatar.nomArtiste ? `(${avatar.nomArtiste})` : ""}`} />
           </div>
         );
       })
       .concat([moreLabel])
-      .concat([
-        <div key="plus-bouton-avatar">
-          <div className={"plus-button"}>
-            <img alt="" src={plusIcon} />
+
+      if(this.avatars.length > maxDisplayedAvatars) {
+
+        let autres = ""
+        this.avatars.slice(maxDisplayedAvatars - 1, this.avatars.length).forEach(e=>{
+          autres = autres + `${e.prenom} ${e.nom} ${e.nomArtiste ? e.nomArtiste : ""}{"\n"}`
+        })
+
+        this.avatars = this.concat([
+          <div key="plus-bouton-avatar">
+            <div className={"plus-button"}>
+              <img alt={autres} src={plusIcon} title={autres} />
+            </div>
           </div>
-        </div>
-      ]);
+        ])
+      }
+
+      return this.avatars
+
   }
 
   render() {
@@ -66,13 +95,13 @@ export default class Entete extends React.Component {
               <div className={"song-info"}>
                 <h1 className={"h1-style"}>
                   {this.props.media.title}
-                  {/* <div className={"edit-link"}>
+                  <div className={"edit-link"} style={{display: "inline"}}>
                     <img
                       className={"edit-icon"}
                       src={editIcon}
                       alt={"Éditer"}
                     />
-                  </div> */}
+                  </div>
                 </h1>
 
                 <div className={"artist-line"}>

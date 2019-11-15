@@ -2,7 +2,6 @@ import React from 'react';
 import '../../../assets/scss/page-assistant/bouton.scss';
 import '../../../assets/scss/oeuvre-resume/navbar.scss';
 import placeholder from '../../../assets/images/placeholder.png';
-import { Button } from "semantic-ui-react";
 import { Translation } from "react-i18next";
 import arrowLeftIcon from '../../../assets/svg/icons/arrow-left.svg';
 import MenuProfil from '../../entete/menu-profil';

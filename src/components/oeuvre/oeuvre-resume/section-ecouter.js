@@ -88,7 +88,7 @@ export default class SectionEcouter extends React.Component {
 
     renderLink(link) {
         return (
-            <a key={`${link.label}-${link.url}`} target="_blank" href={ link.url }>
+            <a key={`${link.label}-${link.url}`} target="_blank" href={ link.url } rel="noopener noreferrer">
                 <img className={'listen-icon'} src={ link.icon } alt={ link.label }/>
             </a>
         );

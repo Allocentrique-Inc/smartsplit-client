@@ -1,9 +1,8 @@
-import React, { Component } from "react";
-import { DateInput } from "semantic-ui-calendar-react";
-import { Translation } from "react-i18next";
-import "../../assets/scss/page-assistant/champ.scss";
-import TitreChamp from "./titre-champ";
-import moment from "moment";
+import React, { Component } from "react"
+import { DateInput } from "semantic-ui-calendar-react"
+import { Translation } from "react-i18next"
+import "../../assets/scss/page-assistant/champ.scss"
+import TitreChamp from "./titre-champ"
 
 export default class ChampDate extends Component {
   render() {

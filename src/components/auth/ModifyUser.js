@@ -195,8 +195,8 @@ class ModifyUser extends Component {
       boutons[i].style.color = "white"
     }
     boutons = document.getElementsByClassName("ui negative button")
-    for (var i = 0; i < boutons.length; i++) {
-      boutons[i].style.color = "#F2724A"
+    for (var j = 0; j < boutons.length; j++) {
+      boutons[j].style.color = "#F2724A"
     }
   }
 

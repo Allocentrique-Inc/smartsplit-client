@@ -1,7 +1,6 @@
 import React from 'react';
 import downloadLockIcon from '../../../assets/svg/icons/download-lock.svg';
 import downloadCloudIcon from '../../../assets/svg/icons/download-cloud.svg';
-import lockIcon from '../../../assets/svg/icons/lock-full.svg';
 import TitreModifiable from "./titre-modifiable";
 
 export default class SectionTelechargements extends React.Component {   

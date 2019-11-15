@@ -6,6 +6,9 @@ export default class TableInformationsGenerales extends React.Component {
     
     constructor(props) {
         super(props)
+        this.state={
+            
+        }
     }
 
     rangees(t, i18n) {

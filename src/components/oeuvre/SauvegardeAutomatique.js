@@ -34,13 +34,21 @@ export class SauvegardeAutomatiqueMedia extends Component {
                         setTimeout(()=>{
                             // Sauvegarde des valeurs dans la base de données
 
-                            // Patch
-                            this.state.values.cover = typeof this.state.values.cover === "boolean" ? `${this.state.values.cover}` : this.state.values.cover
+                            // Correction de l'attribut cover si ce n'est pas une chaîne de caractères
+                            let _vals = this.state.values
+                            if(!typeof this.state.values.cover === "boolean") {                                
+                                _vals.cover = `${this.state.values.cover}`
+                            } else {
+                                _vals.cover = this.state.values.cover
+                            }
 
-                            axios.post('http://dev.api.smartsplit.org:8080/v1/media', this.state.values)
-                            .then((response) => {
+                            this.setState({values: _vals}, ()=>{
+                                axios.post('http://dev.api.smartsplit.org:8080/v1/media', this.state.values)
+                                .then((response) => {
+                                    this.setState({autoDemarre: false})
+                                })                                
                             })
-                            this.setState({autoDemarre: false})
+                            
                         }, this.state.interval)
                     }
                 )
