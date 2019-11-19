@@ -320,14 +320,14 @@ class PageEnregistrement extends React.Component {
                 }
               />
 
-              <Search
+             {/*  <Search
                 loading={isLoading}
                 onResultSelect={this.handleResultSelect}
                 onSearchChange={this.handleSearchChange}
                 results={results}
                 value={value}
                 {...this.props}
-              />
+              /> */}
 
               <ChampSelectionMultipleAyantDroit
                 pochette={this.props.pochette}

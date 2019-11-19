@@ -190,20 +190,7 @@ export default class PageFichiers extends React.Component {
                 onAccessChange={value =>
                   this.props.setFieldValue("files.score.access", value)
                 }
-                label={
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href={
-                      i18n.lng &&
-                      (i18n.lng.substring(0, 2) === "en"
-                        ? "https://en.wikipedia.org/wiki/Graphic_notation_(music)"
-                        : "https://fr.wikipedia.org/wiki/Partition_graphique")
-                    }
-                    style={{ color: this.props.pochette ? "#F2724A" : "#2DA84F" }}
-                  >
-                    {t("flot.split.documente-ton-oeuvre.documenter.autre-plus")}
-                  </a>
+                label={t("flot.split.documente-ton-oeuvre.documenter.autre-etape1")
                 }
                 key={terms}
                 value={this.state.terms}
