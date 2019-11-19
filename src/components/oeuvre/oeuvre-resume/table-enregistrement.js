@@ -15,6 +15,7 @@ export default class TableEnregistrement extends React.Component {
         this.ROLE_STUDIO = props.roles.studio
         this.ROLE_MIXAGE = props.roles.mixEngineer
         this.ROLE_VERSION = props.roles.masterEngineer
+        this.ROLE_GRAPHISTE = props.roles.graphist
     
         this.tech = []
         this.producteurs = []
@@ -22,6 +23,7 @@ export default class TableEnregistrement extends React.Component {
         this.studio = []
         this.mixeur = []
         this.master = []
+        this.graphistes = []
     
         let parts  = props.media.rightHolders
         parts.forEach(_ad=>{
@@ -45,6 +47,9 @@ export default class TableEnregistrement extends React.Component {
                 break
               case this.ROLE_VERSION:
                 this.master.push(props.rightHolders[rhId])
+                break
+              case this.ROLE_GRAPHISTE:
+                this.graphistes.push(props.rightHolders[rhId])
                 break
               default:
             }
@@ -124,7 +129,6 @@ export default class TableEnregistrement extends React.Component {
                       }
                 })
             },
-
             {
                 label: 'Production',
                 value: this.producteurs.map((r, idx)=>{
@@ -140,12 +144,22 @@ export default class TableEnregistrement extends React.Component {
                 value: this.props.media.label
             },
             {
-                label: 'Studio d\'enregistrement',
+                label: "Studio d'enregistrement",
                 value: (
                     <>
                         {this.props.media.studio}
                         <br/><span className={'color-secondary'}>{this.props.media.studioAddress}</span></>)
             },
+            {
+              label: 'Graphisme',
+              value: this.graphistes.map((r, idx)=>{
+                if(r && idx < this.graphistes.length - 1) {
+                    return <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}, </span>
+                  } else {
+                    return <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}</span>
+                  }
+              })
+            }
         ]
     }
 

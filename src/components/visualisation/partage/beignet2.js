@@ -83,7 +83,7 @@ export default class Beignet2 extends Component {
         if (this.state.type === "performanceNeighboringRightSplit" && this.state.accomp) chartRotation = 216
         let startAngle = 0
         let stopAngle = Math.PI
-        if (this.state.side == "left") {
+        if (this.state.side === "left") {
             startAngle = Math.PI
             stopAngle = 2 * Math.PI
         }
