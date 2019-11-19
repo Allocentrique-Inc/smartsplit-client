@@ -13,16 +13,16 @@ export default class Corps extends React.Component {
             <div className={ 'corps ui container' }>
                 <div className={ 'ui grid' }>
                     <div className={ 'ui sixteen wide mobile ten wide tablet ten wide computer column' }>
-                        <TableCreation media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <TableInterpretation media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <TableEnregistrement media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableCreation edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableInterpretation edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableEnregistrement edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
                     </div>
 
                     <div className={ 'ui sixteen wide mobile six wide tablet six wide computer column' }>
-                        <TableInformationsGenerales media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <SectionEcouter media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
-                        <SectionTelechargements media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <SectionParoles media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableInformationsGenerales edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <SectionEcouter edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
+                        <SectionTelechargements edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <SectionParoles edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
                     </div>
                 </div>
             </div>

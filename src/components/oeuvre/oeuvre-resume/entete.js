@@ -148,15 +148,19 @@ export default class Entete extends React.Component {
                   !this.state.editerTitre &&
                   (
                     <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
-                      <img
-                        src={editIcon}
-                        alt="Éditer le titre"
-                        onClick={() => {
-                          this.editerTitre(true)
-                        }}
-                        className="pencil alternate icon grey"
-                        style={{ cursor: "pointer" }}>
-                      </img>
+                      {
+                       this.props.edition && (
+                        <img
+                          src={editIcon}
+                          alt="Éditer le titre"
+                          onClick={() => {
+                            this.editerTitre(true)
+                          }}
+                          className="pencil alternate icon grey"
+                          style={{ cursor: "pointer" }}>
+                        </img>
+                       ) 
+                      }                      
                     </h1>
                   )
                 }

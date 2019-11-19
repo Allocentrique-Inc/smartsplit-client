@@ -14,6 +14,7 @@ export default class SectionParoles extends React.Component {
         return (
             <>
                 <TitreModifiable
+                    edition={this.props.edition} 
                     pageNo={6}
                     mediaId={this.props.media.mediaId}
                 >

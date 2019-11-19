@@ -6,13 +6,16 @@ export default function TitreModifiable(props) {
     return (
         <div className={ 'editable-title' }>
             { props.children }
-
-            <div className={ 'edit-link cliquable' } onClick={()=>{ 
-                // Rediriger vers ls modification de l'oeuvre à la page souhaitée
-                window.location.href=`/editer/${props.mediaId}/${props.pageNo}`
-            }}>
-                <img className={ 'edit-icon' } src={ editIcon } alt={ 'Édition' }/>
-            </div>
+            {
+                props.edition && (
+                    <div className={ 'edit-link cliquable' } onClick={()=>{ 
+                        // Rediriger vers ls modification de l'oeuvre à la page souhaitée
+                        window.location.href=`/editer/${props.mediaId}/${props.pageNo}`
+                    }}>
+                        <img className={ 'edit-icon' } src={ editIcon } alt={ 'Édition' }/>
+                    </div>
+                )
+            }            
         </div>
     );
 }

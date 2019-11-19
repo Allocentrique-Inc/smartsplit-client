@@ -4,6 +4,7 @@ import Table from "./table";
 export default function TableDroite(props) {
     return (
         <Table
+            edition={props.edition}
             rows={ props.rows }
             pageNo={ props.pageNo }
             mediaId={ props.mediaId }

@@ -59,6 +59,7 @@ export default class TableInformationsGenerales extends React.Component {
                 {
                     (t, i18n) =>
                         <TableDroite
+                            edition={this.props.edition} 
                             pageNo={ 5 }
                             mediaId={ this.props.media.mediaId }
                             title={ 'Information générales' }

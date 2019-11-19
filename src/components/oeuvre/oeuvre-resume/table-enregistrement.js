@@ -176,6 +176,7 @@ export default class TableEnregistrement extends React.Component {
                 {
                     (t, i18n) =>
                         <TableGauche
+                            edition={this.props.edition} 
                             title={ 'Enregistrement sonore' }
                             rows={ this.rangees(t, i18n) }
                             pageNo={ 3 }
