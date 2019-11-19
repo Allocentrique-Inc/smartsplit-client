@@ -7,6 +7,7 @@ import axios from 'axios'
 
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
+import Beignet2 from '../visualisation/partage/beignet2'
 import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
@@ -348,18 +349,16 @@ class PageAssistantPartageAuteur extends Component {
                     break;
                 case MODES.role:
                     // 2 beignets, 1 pour les droits Musique, l'autre pour les droits Paroles   
-                    visualisation = (
-                        <div>
-                            {this.state.parts && (
-                                <Beignet className="twelve wide field" titre="Total" uuid="auteur--beignet--1"
-                                    data={this.state.parts} type="workCopyrightSplit" />)}
-                            {this.state.partsMusique && (
-                                <Beignet className="six wide field" titre="Musique" uuid="auteur--beignet--2"
-                                    data={this.state.partsMusique} type="workCopyrightSplit" />)}
-                            {this.state.partsParoles && (
-                                <Beignet className="six wide field" titre="Paroles" uuid="auteur--beignet--3"
-                                    data={this.state.partsParoles} type="workCopyrightSplit" />)}
-                        </div>
+                    visualisation = (       
+                    <div>
+                        {this.state.partsParoles && (
+                            <Beignet2 className="six wide field" titre="Paroles" uuid="auteur--beignet--3"
+                                data={this.state.partsParoles} type="workCopyrightSplit" side ="left"/>)}
+
+                        {this.state.partsMusique && (
+                            <Beignet2 className="six wide field" titre="Musique" uuid="auteur--beignet--2"
+                                data={this.state.partsMusique} type="workCopyrightSplit" side="right" />)}
+                    </div>
                     )
                     break;
                 default:
@@ -621,7 +620,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                 <div style={{ margin: "0 auto", height: "100px" }}>
                                                                     <div className="ui grid">
                                                                         <div className="ui row">
-                                                                            <div className="ui ten wide column">
+                                                                            <div className="ui sixteen wide column">
                                                                                 <ChampListeCollaborateurAssistant
                                                                                     onRef={ayantsDroit => this.setState({ ayantsDroit: ayantsDroit })}
                                                                                     style={{ height: "50px" }}

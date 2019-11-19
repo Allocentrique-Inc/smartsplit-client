@@ -50,7 +50,7 @@ export default class OeuvreResume extends React.Component {
                             <>
                                 <Navbar media={this.state.media} profil={this.state.user} />
                                 <Entete media={this.state.media} rightHolders={this.state.rightHolders} />
-                                <Corps media={this.state.media} rightHolders={this.state.rightHolders} roles={roles }/>
+                                <Corps media={this.state.media} rightHolders={this.state.rightHolders} roles={roles}/>
                             </>
                     }
                 </Translation>

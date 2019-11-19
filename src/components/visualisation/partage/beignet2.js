@@ -13,7 +13,7 @@ import { Translation } from 'react-i18next'
 // D3
 const d3 = require('d3')
 
-export default class Beignet extends Component {
+export default class Beignet2 extends Component {
 
     constructor(props) {
         super(props)
@@ -27,7 +27,8 @@ export default class Beignet extends Component {
             alphas: {},
             uuid: props.uuid,
             type: props.type,
-            accomp: false
+            accomp: false,
+            side: "left"
         }
 
     }
@@ -66,6 +67,7 @@ export default class Beignet extends Component {
             this.setState({ colors: _c })
             this.setState({ alphas: _a })
             this.setState({ accomp: accomp })
+            this.setState({ side: props.side })
         }
         this.regenerer = true
     }
@@ -79,6 +81,12 @@ export default class Beignet extends Component {
         if (this.state.type === "masterNeighboringRightSplit") this.setState({ icon: prodIcon })
         let chartRotation = 0
         if (this.state.type === "performanceNeighboringRightSplit" && this.state.accomp) chartRotation = 216
+        let startAngle = 0
+        let stopAngle = Math.PI
+        if (this.state.side === "left") {
+            startAngle = Math.PI
+            stopAngle = 2 * Math.PI
+        }
 
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
         if (conteneur) {
@@ -111,6 +119,8 @@ export default class Beignet extends Component {
         let pie = d3.pie()
             .sort(null) // Do not sort group by size
             .value(function (d) { return d.value; })
+            .startAngle(startAngle)
+            .endAngle(stopAngle)
 
         let data_ready = pie(d3.entries(this.state.data))
 
@@ -118,11 +128,6 @@ export default class Beignet extends Component {
         let arc = d3.arc()
             .innerRadius(radius * 0.4)         // This is the size of the donut hole
             .outerRadius(radius * 0.95)
-
-        // Another arc that won't be drawn. Just for labels positioning
-        /* let outerArc = d3.arc()
-            .innerRadius(radius * 0.9)
-            .outerRadius(radius * 0.9) */
 
         // Define the div for the tooltip
         let myDiv = d3.select("body").append("div")
@@ -165,44 +170,6 @@ export default class Beignet extends Component {
                     .style("opacity", 0);
             }).call(this.wrapping, 150)
 
-        /*
-        // Add the polylines between chart and labels:
-        svg
-            .selectAll('allPolylines')
-            .data(data_ready)
-            .enter()
-            .append('polyline')
-            .attr("stroke", "black")
-            .style("fill", "none")
-            .attr("stroke-width", 1)
-            .attr('points', function(d) {
-                let posA = arc.centroid(d) // line insertion in the slice
-                let posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
-                let posC = outerArc.centroid(d); // Label position = almost the same as posB
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
-                posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
-                return [posA, posB, posC]
-            })
-
-        // Add the polylines between chart and labels:
-        svg
-            .selectAll('allLabels')
-            .data(data_ready)
-            .enter()
-            .append('text')
-            .text( function(d) { return d.data.key + " " + parseFloat(d.data.value).toFixed(2) + "%" } )
-            .attr('transform', function(d) {
-                let pos = outerArc.centroid(d);
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
-                return 'translate(' + pos + ')';
-            })
-            .style('text-anchor', function(d) {
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-                return (midangle < Math.PI ? 'start' : 'end')
-            })
-            .call(this.wrapping, 150)
-        */
 
         if (Object.keys(this.state.data).length > 0) {
             svg.append('image')

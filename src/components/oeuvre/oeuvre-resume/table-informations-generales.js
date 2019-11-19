@@ -59,7 +59,7 @@ export default class TableInformationsGenerales extends React.Component {
                 {
                     (t, i18n) =>
                         <TableDroite
-                            pageNo={ 4 }
+                            pageNo={ 5 }
                             mediaId={ this.props.media.mediaId }
                             title={ 'Information générales' }
                             rows={ this.rangees(t, i18n) }
