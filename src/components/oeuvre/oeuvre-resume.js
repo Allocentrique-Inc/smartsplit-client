@@ -12,7 +12,8 @@ export default class OeuvreResume extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            mediaId: props.mediaId            
+            mediaId: props.mediaId,
+            pochette: props.pochette
         }
     }
 
@@ -50,7 +51,7 @@ export default class OeuvreResume extends React.Component {
                             <>
                                 <Navbar media={this.state.media} profil={this.state.user} />
                                 <Entete media={this.state.media} rightHolders={this.state.rightHolders} />
-                                <Corps media={this.state.media} rightHolders={this.state.rightHolders} roles={roles}/>
+                                <Corps media={this.state.media} rightHolders={this.state.rightHolders} roles={roles} pochette={this.state.pochette} />
                             </>
                     }
                 </Translation>
