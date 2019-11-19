@@ -1,4 +1,6 @@
+
 import React from "react";
+import { Search } from 'semantic-ui-react'
 import { Translation } from "react-i18next";
 import Page from "../page-assistant/page";
 import RecordGreen from "../../assets/svg/icons/record-green.svg";
@@ -20,7 +22,12 @@ import * as roles from "../../assets/listes/role-uuids.json";
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
 import InfoBulle from '../partage/InfoBulle'
 
-export default class PageEnregistrement extends React.Component {
+/* global google */
+import scriptLoader from 'react-async-script-loader';
+const GOOGLE_PLACES_KEY = process.env.GOOGLE_PLACES_KEY;
+const PLACES_URL = "https://maps.googleapis.com/maps/api/js?key=" + GOOGLE_PLACES_KEY + "&libraries=places"   
+
+class PageEnregistrement extends React.Component {
   constructor(props) {
     super(props);
 
@@ -44,9 +51,29 @@ export default class PageEnregistrement extends React.Component {
       producers: getRightHolderIdsByRole(
         roles.producer,
         props.values.rightHolders
-      )
+      ),     
+      value: '', 
+      results: '', 
+      selectedPlace: '',
+      isLoading: false
     };
   }
+
+  // componentWillReceiveProps ({ isScriptLoaded, isScriptLoadSucceed }) {
+  //   if (isScriptLoaded && !this.props.isScriptLoaded) { // load finished
+  //     if (isScriptLoadSucceed) {
+  //       this.initEditor()
+  //     }
+  //     else this.props.onError()
+  //   }
+  // }
+
+  // componentDidMount () {
+  //   const { isScriptLoaded, isScriptLoadSucceed } = this.props
+  //   if (isScriptLoaded && isScriptLoadSucceed) {
+  //     this.initEditor()
+  //   }
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     if (
@@ -131,7 +158,46 @@ export default class PageEnregistrement extends React.Component {
     }
   }
 
+  resetComponent = () => {
+    this.setState({ isLoading: false, results: [], value: "" });
+  }
+
+  handleResultSelect = (e, { result }) => {
+    this.setState({ value: result.title, selectedPlace: result });
+  }
+
+  handleSearchChange = (e, { value }) => {
+    if (value.length === 0) {
+      return this.resetComponent();
+    }
+
+    this.setState({ isLoading: true, value });
+    const autocompleteService = new google.maps.places.AutocompleteService();
+    autocompleteService.getPlacePredictions(
+      { input: value },
+      this.handleAutocompleteResult
+    );
+  };
+
+  handleAutocompleteResult = (predictions, status) => {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      this.setState({
+        isLoading: false,
+        results: predictions.map(prediction => {
+          return {
+            key: prediction.id,
+            title: prediction.structured_formatting.main_text,
+            description: prediction.structured_formatting.secondary_text,
+            source: prediction
+          };
+        })
+      });
+    }
+  };
+
   render() {
+    const { isLoading, value, results, selectedPlace } = this.state;
+
     return (
       <Translation>
         {t => (
@@ -255,6 +321,15 @@ export default class PageEnregistrement extends React.Component {
                 }
               />
 
+              <Search
+                loading={isLoading}
+                onResultSelect={this.handleResultSelect}
+                onSearchChange={this.handleSearchChange}
+                results={results}
+                value={value}
+                {...this.props}
+              />
+
               <ChampSelectionMultipleAyantDroit
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
@@ -365,3 +440,6 @@ export default class PageEnregistrement extends React.Component {
     );
   }
 }
+
+export default scriptLoader([PLACES_URL])(PageEnregistrement);
+
