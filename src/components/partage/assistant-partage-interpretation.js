@@ -383,7 +383,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                 <div style={{ margin: "0 auto", height: "100px" }}>
                                                                     <div className="ui grid">
                                                                         <div className="ui row">
-                                                                            <div className="ui ten wide column">
+                                                                            <div className="ui sixteen wide column">
                                                                                 <ChampListeCollaborateurAssistant
                                                                                     onRef={ayantsDroit => this.setState({ ayantsDroit: ayantsDroit })}
                                                                                     indication={t('flot.split.documente-ton-oeuvre.collaborateurs.ajout')}
