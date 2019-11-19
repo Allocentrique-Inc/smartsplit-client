@@ -32,7 +32,6 @@ export class BaseChampAccesTelechargement extends React.Component {
           />
       )
     },
-
     {
       key: "on-invite",
       value: "on-invite",
@@ -46,7 +45,6 @@ export class BaseChampAccesTelechargement extends React.Component {
         />
       )
     },
-
     {
       key: "private",
       value: "private",

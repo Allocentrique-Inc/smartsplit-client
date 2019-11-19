@@ -15,7 +15,7 @@ class ChampAccesVision extends React.Component {
       {
         key: "public",
         value: "public",
-        text: this.props.t("flot.split.documente-ton-oeuvre.documenter.prive"),
+        text: this.props.t("flot.split.documente-ton-oeuvre.documenter.public"),
         "icon-image": EyeIcon,
         content: (
           <OptionAcces
@@ -24,7 +24,7 @@ class ChampAccesVision extends React.Component {
               "flot.split.documente-ton-oeuvre.documenter.public"
             )}
             description={this.props.t(
-              "flot.split.documente-ton-oeuvre.documenter.prive"
+              "flot.split.documente-ton-oeuvre.documenter.public"
             )}
           />
         )
@@ -49,7 +49,7 @@ class ChampAccesVision extends React.Component {
       {
         key: "private",
         value: "private",
-        text: this.props.t("flot.split.documente-ton-oeuvre.documenter.invite"),
+        text: this.props.t("flot.split.documente-ton-oeuvre.documenter.prive"),
         "icon-image": LockFullIcon,
         content: (
           <OptionAcces
