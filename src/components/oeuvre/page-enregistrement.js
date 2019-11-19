@@ -24,8 +24,7 @@ import InfoBulle from '../partage/InfoBulle'
 
 /* global google */
 import scriptLoader from 'react-async-script-loader';
-const GOOGLE_PLACES_KEY = process.env.GOOGLE_PLACES_KEY;
-const PLACES_URL = "https://maps.googleapis.com/maps/api/js?key=" + GOOGLE_PLACES_KEY + "&libraries=places"   
+const PLACES_URL = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDMqdhUeY8YrbkAaDp0VcYVsSk-NqWT65M&libraries=places"
 
 class PageEnregistrement extends React.Component {
   constructor(props) {
