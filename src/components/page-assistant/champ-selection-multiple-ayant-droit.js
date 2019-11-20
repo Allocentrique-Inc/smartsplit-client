@@ -10,7 +10,7 @@ import { Translation } from "react-i18next";
 
 class ChampSelectionMultipleAyantDroit extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       modalOpen: false,
@@ -18,12 +18,12 @@ class ChampSelectionMultipleAyantDroit extends Component {
       selectedValues: this.props.value || [],
       dropdownValue: null,
       searchQuery: ""
-    }    
+    };
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.selectedValues !== prevState.selectedValues) {
-      this.props.onChange(this.state.selectedValues)
+      this.props.onChange(this.state.selectedValues);
     }
   }
 
@@ -66,7 +66,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
 
   isUnselectedItem = item => !this.isSelectedItem(item);
 
-  renderSelectedItems() {    
+  renderSelectedItems() {
     return this.selectedItems().map(item => {
       return (
         <ItemSelectionne
@@ -112,7 +112,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
   }
 
   handleAddItem = (event, { value }) => {
-    event.preventDefault()
+    event.preventDefault();
     this.setState({
       modalOpen: true,
       modalFirstName: value
@@ -130,61 +130,58 @@ class ChampSelectionMultipleAyantDroit extends Component {
   render() {
     return (
       <Translation>
-        {
-          t =>
-            <>
-              <div className="champ with-trigger-icon">
-                <label>
-                  <TitreChamp
-                    label={this.props.label}
-                    info={this.props.info}//Fait passer info dans les TitreChamp
-                    description={this.props.description}
-                  />
+        {t => (
+          <>
+            <div className="champ with-trigger-icon">
+              <label>
+                <TitreChamp
+                  label={this.props.label}
+                  info={this.props.info} //Fait passer info dans les TitreChamp
+                  description={this.props.description}
+                />
 
-                  {this.renderSelectedItems()}
+                {this.renderSelectedItems()}
 
-                  <Dropdown
-                    trigger={this.triggerLabel()}
-                    fluid
-                    search
-                    selection
-                    selectOnBlur={false}
-                    selectOnNavigation={false}
-                    allowAdditions
-                    additionLabel={this.additionLabel(t)}
-                    value={this.state.dropdownValue}
-                    options={this.unselectedItems()}                    
-                    onChange={this.handleChange}
-                    onAddItem={this.handleAddItem}
-                    onBlur={this.handleBlur}
-                    onSearchChange={this.handleSearchChange}
-                  />
-                </label>
-              </div>
+                <Dropdown
+                  trigger={this.triggerLabel()}
+                  fluid
+                  search
+                  selection
+                  selectOnBlur={false}
+                  selectOnNavigation={false}
+                  allowAdditions
+                  additionLabel={this.additionLabel(t)}
+                  value={this.state.dropdownValue}
+                  options={this.unselectedItems()}
+                  onChange={this.handleChange}
+                  onAddItem={this.handleAddItem}
+                  onBlur={this.handleBlur}
+                  onSearchChange={this.handleSearchChange}
+                />
+              </label>
+            </div>
 
-              <ModifyUser
-                open={this.state.modalOpen}
-                pochette={this.props.pochette}
-                firstName={this.state.modalFirstName}
-                close={() =>
-                  this.setState({ modalOpen: false, modalFirstName: "" })
+            <ModifyUser
+              open={this.state.modalOpen}
+              pochette={this.props.pochette}
+              firstName={this.state.modalFirstName}
+              close={() =>
+                this.setState({ modalOpen: false, modalFirstName: "" })
+              }
+              fn={e => {
+                let values = this.state.selectedValues;
+                values.push(e);
+                this.setState({ selectedValues: values });
+                if (this.props.fn) {
+                  this.props.fn(e);
                 }
-                fn={
-                  (e) => {                    
-                    let values = this.state.selectedValues
-                    values.push(e)
-                    this.setState({ selectedValues: values })
-                    if(this.props.fn) {
-                      this.props.fn(e)
-                    }
-                  }
-                }
-              />
-            </>
-        }
+              }}
+            />
+          </>
+        )}
       </Translation>
     );
   }
 }
 
-export default ChampSelectionMultipleAyantDroit
+export default ChampSelectionMultipleAyantDroit;

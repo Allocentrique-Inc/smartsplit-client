@@ -2,127 +2,138 @@
 @import "layout";
 @import "typography";
 
+.right {
+  margin-right: "100px";
+}
+
 .assistant-container {
-    margin-top: $navbar-height + ($margin-step * 4);
+  margin-top: $navbar-height + ($margin-step * 4);
 }
 
 .form-column {
-    > .champ + .champ {
-        margin-top: $margin-step * 2;
-    }
+  > .champ + .champ {
+    margin-top: $margin-step * 2;
+  }
 }
 
 .section-title {
-    @extend .h3-style;
-    color: $color-primary;
-    margin-bottom: $margin-step * 2;
+  @extend .h3-style;
+  color: $color-primary;
+  margin-bottom: $margin-step * 2;
 
-    &.with-description {
-        margin-bottom: $margin-step;
-    }
+  &.with-description {
+    margin-bottom: $margin-step;
+  }
 }
 
 .entete-section {
-    margin-bottom: $margin-step * 2;
+  margin-bottom: $margin-step * 2;
 }
 
 .instrument-select {
-    margin-left: $margin-step * 2;
+  margin-left: $margin-step * 2;
 }
 
 .section-televersement + .section-televersement {
-    margin-top: $margin-step * 2;
+  margin-top: $margin-step * 2;
 }
 
 .add-musician-dropdown {
-    margin-top: $margin-step * 4;
+  margin-top: $margin-step * 4;
 }
 
 .instrument-form {
-    padding-left: 16px;
-    border-left: 4px $color-underground solid;
+  padding-left: 16px;
+  border-left: 4px $color-underground solid;
 }
 
 .ui.radio,
 .ui.checkbox.radio,
 .ui.checkbox {
-    margin-bottom: $margin-step;
-    @extend .medium-400-style;
+  margin-bottom: $margin-step;
+  @extend .medium-400-style;
 
-    input {
-        margin-right: $margin-step;
-    }
+  input {
+    margin-right: $margin-step;
+  }
 
-    input:checked,
-    input:focus:checked {
-        ~ label:after {
-            background-color: #2DA84F;
-        }
+  input:checked,
+  input:focus:checked {
+    ~ label:after {
+      background-color: #2da84f;
     }
+  }
 
-    label {
-        padding-left: $margin-step * 2;
-        color: $color-primary;
-    }
+  label {
+    padding-left: $margin-step * 2;
+    color: $color-primary;
+  }
 }
 
 .ui.checkbox.date-sortie-determinee {
-    margin-bottom: $margin-step / 2;
+  margin-bottom: $margin-step / 2;
 }
 
 .ui.radio.checkbox {
-    input[type='radio'] {
-        left: 0px;
-    }
+  input[type="radio"] {
+    left: 0px;
+  }
 }
 
 .section-divider {
-    margin: ($margin-step * 4) 0;
-    height: 1px;
-    width: 100%;
-    background-color: $color-stroke;
+  margin: ($margin-step * 4) 0;
+  height: 1px;
+  width: 100%;
+  background-color: $color-stroke;
 }
 
 .description {
-    margin-top: $margin-step;
+  margin-top: $margin-step;
 
-    @extend .medium-400-style;
-    color: $color-secondary;
+  @extend .medium-400-style;
+  color: $color-secondary;
 
-    a {
-        @extend .medium-500-style;
-        color: $color-action;
-    }
+  a {
+    @extend .medium-500-style;
+    color: $color-action;
+  }
 }
 
 .pochette {
-    .create-link {
-        color: $pochette-color-link;
+  .create-link {
+    color: $pochette-color-link;
 
-        &:hover {
-            color: $pochette-color-link-hover;
-        }
+    &:hover {
+      color: $pochette-color-link-hover;
     }
+  }
 
-    .description a {
-        color: $pochette-color-link;
-    }
+  .description a {
+    color: $pochette-color-link;
+  }
 
-    .ui.dropdown .menu > .item {
-        .addition-label {
-            color: $pochette-color-link;
-        }
+  .ui.dropdown .menu > .item {
+    .addition-label {
+      color: $pochette-color-link;
     }
+  }
 
-    .ui.checkbox,
-    .ui.radio.checkbox {
-        input:checked,
-        input:focus:checked {
-            ~ label:after {
-                background-color: $pochette-color-link;
-            }
-        }
+  .ui.checkbox,
+  .ui.radio.checkbox {
+    input:checked,
+    input:focus:checked {
+      ~ label:after {
+        background-color: $pochette-color-link;
+      }
     }
+  }
 }
 
+.espace {
+  margin-bottom: 100px;
+}
 
+.search input {
+  width: 550px !important;
+  margin: 40px 0 40px 0 !important;
+}
