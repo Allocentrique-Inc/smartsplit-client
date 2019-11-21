@@ -19,7 +19,7 @@ import { getRightHoldersByAnyRole } from "../page-assistant/right-holder-helpers
 import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
 
 export default class PageInterpretation extends Component {
-  musicianRoles = [roles.musician, roles.principal, roles.accompaniment];
+  musicianRoles = [roles.musician, roles.principal, roles.accompaniment, roles.singer];
 
   musicians() {
     return getRightHoldersByAnyRole(
@@ -83,7 +83,8 @@ export default class PageInterpretation extends Component {
                   this.handleChange(ids)                  
                 }}
                 fn={(nouveau)=>{
-                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.musician)
+                  console.log('Ajout nouvel a-d')
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.principal)
                 }}
               />
             </Colonne>

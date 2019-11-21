@@ -106,7 +106,7 @@ export class ChampSelectionInterprete extends Component {
     selectItem(id) {
         const existingMusician = this.props.values.rightHolders.find(rightHolder => rightHolder.id === id) || {};
         const existingRoles = existingMusician.roles || [];
-        const newRoles = existingRoles.concat([roles.musician]).filter(isUnique);
+        const newRoles = existingRoles.concat([roles.principal]).filter(isUnique);
         const emptyMusician = { id: id, roles: [], instruments: [] };
 
         const newMusician = Object.assign({}, emptyMusician, existingMusician, { roles: newRoles });

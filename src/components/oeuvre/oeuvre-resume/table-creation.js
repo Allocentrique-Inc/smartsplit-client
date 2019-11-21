@@ -103,7 +103,7 @@ export default class TableCreation extends React.Component {
       <Translation>
         {
           (t, i18n) =>
-            (<TableGauche pageNo={ 1 } mediaId={ this.props.media.mediaId }title={"Création"} rows={this.rangees(t, i18n)} />)
+            (<TableGauche edition={this.props.edition} pageNo={ 1 } mediaId={ this.props.media.mediaId }title={"Création"} rows={this.rangees(t, i18n)} />)
         }
       </Translation>
     )

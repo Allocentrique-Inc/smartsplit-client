@@ -151,6 +151,13 @@ export default class TableEnregistrement extends React.Component {
                         <br/><span className={'color-secondary'}>{this.props.media.studioAddress}</span></>)
             },
             {
+                label: "Distributeur",
+                value: (
+                    <>
+                        {this.props.media.distributor}
+                        <br/><span className={'color-secondary'}>{this.props.media.distributorAddress}</span></>)
+            },            
+            {
               label: 'Graphisme',
               value: this.graphistes.map((r, idx)=>{
                 if(r && idx < this.graphistes.length - 1) {
@@ -169,6 +176,7 @@ export default class TableEnregistrement extends React.Component {
                 {
                     (t, i18n) =>
                         <TableGauche
+                            edition={this.props.edition} 
                             title={ 'Enregistrement sonore' }
                             rows={ this.rangees(t, i18n) }
                             pageNo={ 3 }

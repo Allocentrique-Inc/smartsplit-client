@@ -61,6 +61,7 @@ export default class SectionTelechargements extends React.Component {
         return (
             <>
                 <TitreModifiable
+                    edition={this.props.edition} 
                     pageNo={4}
                     mediaId={this.props.media.mediaId}
                 >
