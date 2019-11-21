@@ -306,6 +306,7 @@ export class ChampListeCollaborateurAssistant extends Component {
     }
 
     handleAddition = (e, { value }) => {
+        this.ajoutEnCours = true
         this.setState({ open: true })
         this.setState({ firstName: value })
     }
@@ -370,9 +371,11 @@ export class ChampListeCollaborateurAssistant extends Component {
                                             additionLabel: this.additionLabel(t),
                                             trigger: this.triggerLabel(t("flot.split.documente-ton-oeuvre.bouton.ajout")),
                                             onSelect: (e) => {
-                                                let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText                                                
-                                                if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
-                                                    this.props.fnSelect()
+                                                if(!this.ajoutEnCours) {
+                                                    let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText
+                                                    if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
+                                                        this.props.fnSelect()
+                                                    }
                                                 }
                                             },
                                             clearable: false                                            
@@ -385,6 +388,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                                 open={this.state.open}
                                 firstName={this.state.firstName}
                                 close={() => {
+                                    this.ajoutEnCours = false
                                     this.setState({ open: false }, () => {
                                         if (this.props.close) {
                                             this.props.close()
