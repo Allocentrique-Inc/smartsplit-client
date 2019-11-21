@@ -271,7 +271,7 @@ export class BaseFormulaireMusicien extends Component {
           <div className="instrument-select">{this.instrumentSelect()}</div>
         </div>
 
-        <div className="section-divider"></div>
+        <br />
       </>
     );
   }

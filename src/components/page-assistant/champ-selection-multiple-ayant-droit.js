@@ -55,7 +55,16 @@ class ChampSelectionMultipleAyantDroit extends Component {
   }
 
   selectedItems() {
-    return this.props.items.filter(this.isSelectedItem);
+    let items = this.props.items.filter(this.isSelectedItem)
+    let _items = {}
+    let itemsOrdonnes = []    
+    items.forEach(e=>_items[e.value] = e)    
+    this.state.selectedValues.forEach((e,idx)=>{      
+      if(Object.keys(_items).includes(this.state.selectedValues[idx])) {
+        itemsOrdonnes.push(_items[this.state.selectedValues[idx]])
+      }
+    })
+    return itemsOrdonnes.reverse()
   }
 
   isSelectedItem = item => this.state.selectedValues.includes(item.value);
@@ -74,7 +83,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
           image={item.image.src}
           nom={item.text}
           onClick={event => {
-            this.unselectItem(event, item);
+            this.unselectItem(event, item)
           }}
         />
       );
@@ -86,7 +95,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
     this.selectItem(value);
   };
 
-  selectItem(itemValue) {
+  selectItem(itemValue) {    
     const selectedValues = [...this.state.selectedValues];
 
     if (!selectedValues.includes(itemValue)) {
@@ -139,9 +148,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
                     label={this.props.label}
                     info={this.props.info}//Fait passer info dans les TitreChamp
                     description={this.props.description}
-                  />
-
-                  {this.renderSelectedItems()}
+                  />                  
 
                   <Dropdown
                     trigger={this.triggerLabel()}
@@ -153,12 +160,16 @@ class ChampSelectionMultipleAyantDroit extends Component {
                     allowAdditions
                     additionLabel={this.additionLabel(t)}
                     value={this.state.dropdownValue}
-                    options={this.unselectedItems()}                    
+                    options={this.unselectedItems()}
                     onChange={this.handleChange}
                     onAddItem={this.handleAddItem}
                     onBlur={this.handleBlur}
                     onSearchChange={this.handleSearchChange}
                   />
+
+                  <br/>
+                  {this.renderSelectedItems()}
+
                 </label>
               </div>
 

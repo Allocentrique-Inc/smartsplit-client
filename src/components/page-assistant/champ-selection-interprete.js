@@ -28,7 +28,8 @@ export class ChampSelectionInterprete extends Component {
         super(props);
 
         this.state = {
-            dropdownValue: null
+            dropdownValue: null,
+            selectedValues: []
         };
     }
 
@@ -37,8 +38,22 @@ export class ChampSelectionInterprete extends Component {
     }
 
     selectedItems() {
-        return this.rightHolderOptions().filter(this.isSelectedItem);
-    }
+        console.log(this.props, this.state)
+        let items = this.rightHolderOptions().filter(this.isSelectedItem)
+
+        // Construire items de sorte que ce soit un tableau contenant uniquement les éléments sélectionnés
+        // (qui ont le rôle d'interprète)
+
+        let _items = {}
+        let itemsOrdonnes = []    
+        items.forEach(e=>_items[e.value] = e)    
+        this.props.rightHolders.forEach((e,idx)=>{      
+          if(Object.keys(_items).includes(this.state.selectedValues[idx])) {
+            itemsOrdonnes.push(_items[this.state.selectedValues[idx]])
+          }
+        })
+        return itemsOrdonnes.reverse()
+      }
 
     isSelectedItem = item => this.props.musicians.map(musician => musician.id).includes(item.value);
 
@@ -113,10 +128,11 @@ export class ChampSelectionInterprete extends Component {
         const newRightHolders = updateRightHolders(this.props.values.rightHolders, newMusician);
 
         this.props.onChange(newRightHolders);
-
-        this.setState({
+        
+        this.setState({            
             dropdownValue: null
-        });
+        })
+
     }
 
     additionLabelClasses() {
@@ -171,9 +187,7 @@ export class ChampSelectionInterprete extends Component {
                                     <TitreChamp
                                         label={this.props.label}
                                         description={this.props.description}
-                                    />
-
-                                    {this.renderSelectedItems(i18n.lng.substring(0, 2))}
+                                    />                                    
 
                                     <Dropdown
                                         trigger={this.triggerLabel()}
@@ -191,6 +205,9 @@ export class ChampSelectionInterprete extends Component {
                                         onBlur={this.handleBlur}
                                         onSearchChange={this.handleSearchChange}
                                     />
+
+                                    <br />
+                                    {this.renderSelectedItems(i18n.lng.substring(0, 2))}
 
                                     <ModifyUser
                                         open={this.state.modalOpen}
