@@ -49,7 +49,6 @@ export default class Beignet extends Component {
         if (props.data && props.data.length > 0) {
 
             // construction
-            console.log(props.data)
             let accomp = false
 
             props.data.forEach(elem => {
@@ -73,7 +72,6 @@ export default class Beignet extends Component {
     genererBeignet() {
 
         // Remettre à zéro le conteneur du beignet
-        console.log(this.state)
         if (this.state.type === "workCopyrightSplit") this.setState({ icon: copyIcon })
         if (this.state.type === "performanceNeighboringRightSplit") this.setState({ icon: starIcon })
         if (this.state.type === "masterNeighboringRightSplit") this.setState({ icon: prodIcon })

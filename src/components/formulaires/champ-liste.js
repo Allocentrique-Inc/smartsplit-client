@@ -311,6 +311,7 @@ export class ChampListeCollaborateurAssistant extends Component {
   }
 
   handleAddition = (e, { value }) => {
+    this.ajoutEnCours = true
     this.setState({ open: true });
     this.setState({ firstName: value });
   };
@@ -377,40 +378,38 @@ export class ChampListeCollaborateurAssistant extends Component {
                   trigger: this.triggerLabel(
                     t("flot.split.documente-ton-oeuvre.bouton.ajout")
                   ),
-                  onSelect: e => {
-                    let _nom = e.target.parentElement.getElementsByClassName(
-                      "text"
-                    )[0].innerText;
-                    if (
-                      this.props.fnSelect &&
-                      this.state.nomsConnus.includes(_nom)
-                    ) {
-                      this.props.fnSelect();
+                  onSelect: (e) => {
+                    if(!this.ajoutEnCours) {
+                        let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText
+                        if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
+                            this.props.fnSelect()
+                        }
                     }
-                  },
+                },
                   clearable: false
                 }}
               />
             )}
 
-            <ModifyUser
-              open={this.state.open}
-              firstName={this.state.firstName}
-              close={() => {
-                this.setState({ open: false }, () => {
-                  if (this.props.close) {
-                    this.props.close();
-                  }
-                });
-              }}
-              fn={uuid => {
-                this.listeAyantsDroit();
-                if (this.props.fn) {
-                  this.props.fn(uuid);
-                }
-              }}
-            />
-          </div>
+<ModifyUser
+                                open={this.state.open}
+                                firstName={this.state.firstName}
+                                close={() => {
+                                    this.ajoutEnCours = false
+                                    this.setState({ open: false }, () => {
+                                        if (this.props.close) {
+                                            this.props.close()
+                                        }
+                                    })
+                                }}
+                                fn={(uuid) => {
+                                    this.listeAyantsDroit()
+                                    if (this.props.fn) {
+                                        this.props.fn(uuid)
+                                    }
+                                }}
+                            />
+                        </div>
         )}
       </Translation>
     );
