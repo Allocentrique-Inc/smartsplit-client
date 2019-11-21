@@ -369,16 +369,44 @@ export class ChampListeCollaborateurAssistant extends Component {
                                             allowAdditions: this.state.ajout,
                                             required: this.state.requis,
                                             additionLabel: this.additionLabel(t),
-                                            trigger: this.triggerLabel(t("flot.split.documente-ton-oeuvre.bouton.ajout")),
-                                            onSelect: (e) => {
-                                                if(!this.ajoutEnCours) {
-                                                    let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText
-                                                    if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
-                                                        this.props.fnSelect()
-                                                    }
-                                                }
+                                            trigger: this.triggerLabel(t("flot.split.documente-ton-oeuvre.bouton.ajout")),                                          
+                                            onClick: (e)=>{
+                                                this.ouvertureListe = true
+                                                if(this.clicZone === true) {
+                                                    this.clicZone = false
+                                                } else {
+                                                    this.clicZone = true
+                                                }                                                
                                             },
-                                            clearable: false                                            
+                                            onSelect: (e) => {
+                                                if(!this.ouvertureListe) {
+                                                    this.clicZone = true
+                                                } else {
+                                                    if(!this.clicZone) {                                                   
+                                                        if(!this.ajoutEnCours) {
+                                                            let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText
+                                                            if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
+                                                                this.ouvertureListe = false
+                                                                this.clicZone = false
+                                                                this.selection = true
+                                                                this.props.fnSelect()
+                                                            }
+                                                        }
+                                                    } else {
+                                                        this.clicZone = false
+                                                    }                                            
+                                                }                                                
+                                            },
+                                            clearable: false,
+                                            onClose: ()=>{
+                                                setTimeout(()=>{        
+                                                    this.ouvertureListe = false
+                                                    this.clicZone = false                                         
+                                                    if(this.selection) {
+                                                        this.selection = false
+                                                    }
+                                                })
+                                            }
                                         }}
 
                                     />
@@ -400,6 +428,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                                     if (this.props.fn) {
                                         this.props.fn(uuid)
                                     }
+                                    this.ouvertureListe = false
                                 }}
                             />
                         </div>
