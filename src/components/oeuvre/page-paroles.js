@@ -81,14 +81,14 @@ export default class PageParoles extends React.Component {
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.langue-ajouter"
                 )}
-                value={this.props.values.lyrics.languages}
+                value={this.props.values.lyrics && this.props.values.lyrics.languages}
                 onChange={values =>
                   this.props.setFieldValue("lyrics.languages", values)
                 }
               />
 
               <ChampAccesVision
-                value={this.props.values.lyrics.access}
+                value={this.props.values.lyrics && this.props.values.lyrics.access}
                 onChange={value =>
                   this.props.setFieldValue("lyrics.access", value)
                 }
