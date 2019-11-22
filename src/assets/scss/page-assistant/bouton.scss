@@ -28,7 +28,21 @@
     .ui.right.floated.button,
     .ui.button,
     .ui.button:focus {
+        &:hover {
+            opacity: 80%;
+            background-color: $pochette-color-link;
+            color: white;
+        }
         background-color: $pochette-color-link;
+    }
+
+    .ui.negative {
+        background-color: whitesmoke;
+        color: $pochette-color-link;
+        &:hover {
+            background-color: $pochette-color-link;
+            color: white;
+        }
     }
 
     .ui.button.basic,

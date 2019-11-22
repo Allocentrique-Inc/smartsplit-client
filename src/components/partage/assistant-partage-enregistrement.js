@@ -409,7 +409,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                             <div className="ui thirteen wide column">
                                                                                                 <div className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right floated close icon"
+                                                                                                    <i className="right floated close icon cliquable"
                                                                                                         style={{ top: "0px", right: "10px", position: "absolute" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)

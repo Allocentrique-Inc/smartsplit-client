@@ -43,7 +43,7 @@ export default class ModalFin extends Component {
                 </div>
               </div>
 
-              <div className="right">
+              <div className="right-0">
                 <span className="close-icon cliquable" onClick={this.props.onClose}>
                   <img src={closeIcon} alt={"close"} />
                 </span>

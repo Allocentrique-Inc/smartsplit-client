@@ -21,10 +21,9 @@ export default class Entete extends Component {
                     t=>
                         <div className="tdb--entete">
                             <div className="entete--recherche">
-                                Biquette !
                             </div>
                             <div className="bouton--profil">
-                                {this.state.user && <MenuProfil user={this.state.user} />}
+                                {this.state.user && <MenuProfil pochette={this.props.pochette} user={this.state.user} />}
                                 {!this.state.user && <BoutonConnexion />}
                             </div>
                         </div>

@@ -9,6 +9,7 @@ export default class Entete extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            pochette: props.pochette,
             navigation: props.navigation,
             contenu: props.contenu,
             profil: props.profil,
@@ -31,7 +32,7 @@ export default class Entete extends Component {
                                 </div>                                
                                 {this.state.contenu}
                                 <div className="ui five wide column" style={{textAlign: "right"}}>
-                                    {this.state.profil && <MenuProfil user={this.state.profil} />}                                    
+                                    {this.state.profil && <MenuProfil pochette={this.props.pochette} user={this.state.profil} />}                                    
                                 </div>                                
                             </div>
                         </div>

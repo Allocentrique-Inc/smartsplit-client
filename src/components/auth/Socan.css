@@ -1,5 +1,17 @@
 @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
 
+/* 
+.ui.positive.buttons .button:hover {
+  background-color: #16ab39;
+  color: #fff;
+  text-shadow: none;
+}
+
+.ui.positive.buttons .button .pochette:hover {
+  background-color: #F2724A;
+  color: #fff;
+  text-shadow: none;
+} */
 .ui.small.modal .input-container {
   font-family: "Lato", sans-serif;
   font-weight: normal;

@@ -120,6 +120,9 @@ class Socan extends Component {
       terms
     } = this.state;
 
+    let pochette = this.props.pochette ? "pochette" : ""
+    console.log(pochette)
+
     return (
       <Translation>
         {(t, i18n) => (
@@ -144,7 +147,7 @@ class Socan extends Component {
               </div>
             </Modal.Header>
             <br></br>
-            <div className="input-container">
+            <div className={`input-container ${this.props.pochette}`}>
               <input
                 type="text"
                 className="firstName"
@@ -195,8 +198,8 @@ class Socan extends Component {
               />
               <br></br>
               {/*<Dropdown placeholder={t('socan.province')} search selection options={provinceOptions} onChange={this.handleProvinceChange}/>*/}
-              <div class="ui form">
-                <div class="province">
+              <div className="ui form">
+                <div className="province">
                   <select
                     multiple=""
                     className="ui dropdown"
@@ -301,11 +304,12 @@ class Socan extends Component {
                 value={this.state.terms}
               />
             </div>
-            <Modal.Actions>
-              <Button onClick={this.close} negative>
+            <Modal.Actions className={pochette}>
+              <Button className={pochette} onClick={this.close} negative>
                 {t("socan.bouton.annuler")}
               </Button>
               <Button
+                className={pochette} 
                 onClick={this.handleSubmit}
                 positive
                 icon="checkmark"
