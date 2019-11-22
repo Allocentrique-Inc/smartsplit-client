@@ -368,16 +368,15 @@ class PageEnregistrement extends React.Component {
                   this.props.setFieldValue("studioAddress", value)
                 }
               />
-
-             {/*  <Search
+              <Search
+                className="search"
                 loading={isLoading}
                 onResultSelect={this.handleResultSelect}
                 onSearchChange={this.handleSearchChange}
                 results={results}
                 value={value}
                 {...this.props}
-              /> */}
-
+              />{" "}
               <ChampSelectionMultipleAyantDroit
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}

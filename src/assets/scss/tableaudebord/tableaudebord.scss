@@ -41,10 +41,6 @@
   }
 }
 
-.cliquable {
-  display: flex;
-}
-
 .tdb--cadre {
   height: 100vh;
   width: 100vw;
@@ -171,4 +167,7 @@
 
 .icon--img {
   margin: 15px;
+}
+.cliquable.menu {
+  display: flex;
 }
