@@ -38,12 +38,13 @@ export class ChampSelectionInterprete extends Component {
     }
 
     selectedItems() {
-        console.log(this.props, this.state)
-        let items = this.rightHolderOptions().filter(this.isSelectedItem)
+        //console.log(this.props, this.state)
+        return this.rightHolderOptions().filter(this.isSelectedItem)
 
         // Construire items de sorte que ce soit un tableau contenant uniquement les éléments sélectionnés
         // (qui ont le rôle d'interprète)
-
+        
+        /* 
         let _items = {}
         let itemsOrdonnes = []    
         items.forEach(e=>_items[e.value] = e)    
@@ -52,7 +53,7 @@ export class ChampSelectionInterprete extends Component {
             itemsOrdonnes.push(_items[this.state.selectedValues[idx]])
           }
         })
-        return itemsOrdonnes.reverse()
+        return itemsOrdonnes.reverse() */
       }
 
     isSelectedItem = item => this.props.musicians.map(musician => musician.id).includes(item.value);
