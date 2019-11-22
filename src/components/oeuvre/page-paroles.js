@@ -72,9 +72,6 @@ export default class PageParoles extends React.Component {
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.ajouter-parole"
                 )}
-                undertext={t(
-                  "flot.split.documente-ton-oeuvre.documenter.entete.parole-only"
-                )}
                 value={
                   this.props.values.lyrics && this.props.values.lyrics.text
                     ? this.props.values.lyrics.text
