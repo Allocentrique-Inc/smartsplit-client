@@ -7,9 +7,8 @@ import { toast } from "react-toastify";
 import { Dropdown } from "semantic-ui-react";
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
-import axios from "axios"
-import InfoBulle from '../partage/InfoBulle';
-
+import axios from "axios";
+import InfoBulle from "../partage/InfoBulle";
 
 class Register extends Component {
   state = {
@@ -49,7 +48,7 @@ class Register extends Component {
       image: "",
       uploadURL: "",
       locale: navigator.language || navigator.userLanguage,
-      gender: "registeredUser"  // Cognito Default Attribute Gender used as flag for user creation
+      gender: "registeredUser" // Cognito Default Attribute Gender used as flag for user creation
     };
 
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -67,7 +66,11 @@ class Register extends Component {
   validateUsername(value) {
     if (!value) {
       return "Required";
-    } else if (!/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(value)) {
+    } else if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(
+        value
+      )
+    ) {
       return "Invalid username";
     }
   }
@@ -121,21 +124,23 @@ class Register extends Component {
     const groups = this.state.currentValue;
     const locale = this.state.locale;
     const gender = this.state.gender;
-    const requestSource = ((source.includes("pochette")) ? "pochette" : "smartsplit");
+    const requestSource = source.includes("pochette")
+      ? "pochette"
+      : "smartsplit";
 
     try {
-
       // S'il n'y a pas de groupe, un en créé un éponyme
-      let groupes = groups
+      let groupes = groups;
       if (groupes.length === 0) {
-
-        let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
+        let nom = this.state.artistName
+          ? this.state.artistName
+          : `${this.state.firstName} ${this.state.lastName}`;
 
         if (nom.trim() === "") {
-          nom = "Anonyme"
+          nom = "Anonyme";
         }
 
-        groupes.push(nom)
+        groupes.push(nom);
       }
 
       Auth.signUp({
@@ -157,7 +162,7 @@ class Register extends Component {
       })
         .then(toast.success(`${firstName}, compte créé !`))
         .then(
-          setTimeout(function () {
+          setTimeout(function() {
             window.location.reload();
           }, 3000),
           this.props.history.push("/welcome")
@@ -219,7 +224,7 @@ class Register extends Component {
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
-        res.data.forEach(function (element) {
+        res.data.forEach(function(element) {
           groupers.push(element.groups);
           // Remove duplicates from multiple right holders and flattens arrays
           let GR = groupers
@@ -228,7 +233,7 @@ class Register extends Component {
             .filter(Boolean);
           groupsUnique = [...new Set(GR)];
         });
-        groupsUnique.forEach(function (elm) {
+        groupsUnique.forEach(function(elm) {
           groups.push({ key: elm, text: elm, value: elm });
         });
         this.setState({ groups: groups });
@@ -245,8 +250,7 @@ class Register extends Component {
   }
 
   render() {
-
-    let pochette = this.state.pochette ? "pochette" : ""
+    let pochette = this.state.pochette ? "pochette" : "";
 
     const { password, strength, currentValue } = this.state;
     const passwordLength = password.length;
@@ -311,9 +315,9 @@ class Register extends Component {
                             </div>
                             <div className="registerPrompt">
                               <h3>
-                                You're one click away to documenting your music
-                                and share your <br />
-                                rights with your contributors.
+                                You're one click away to documenting your music{" "}
+                                <br />
+                                and share your rights with your contributors.
                               </h3>
                             </div>
                           </div>
@@ -324,7 +328,8 @@ class Register extends Component {
                               <h1>
                                 Crée gratuitement
                                 <br />
-                                ton profil sur {pochette ? "Pochette" : "Smartsplit"}.
+                                ton profil sur{" "}
+                                {pochette ? "Pochette" : "Smartsplit"}.
                               </h1>
                               <br />
                               <br />
@@ -332,14 +337,13 @@ class Register extends Component {
                             <div className="registerPrompt">
                               <h3>
                                 Tu es à un clic de pouvoir documenter ta musique
-                                {
-                                  !pochette && (
-                                    <>
-                                      &nbsp;et de partager <br />
-                                      tes droits avec tes collabos
-                                    </>
-                                  )
-                                }.
+                                {!pochette && (
+                                  <>
+                                    &nbsp;et de partager tes droits
+                                    <br /> avec tes collabos
+                                  </>
+                                )}
+                                .
                               </h3>
                             </div>
                           </div>
@@ -358,7 +362,9 @@ class Register extends Component {
                           >
                             <div style={{ width: "220px" }}>
                               <label>
-                                {t("flot.split.collaborateur.attribut.etiquette.prenom")}
+                                {t(
+                                  "flot.split.collaborateur.attribut.etiquette.prenom"
+                                )}
                               </label>
                               <br />
                               <input
@@ -375,7 +381,9 @@ class Register extends Component {
                             </div>
                             <div style={{ width: "220px", marginLeft: "25px" }}>
                               <label>
-                                {t("flot.split.collaborateur.attribut.etiquette.nom")}
+                                {t(
+                                  "flot.split.collaborateur.attribut.etiquette.nom"
+                                )}
                               </label>
                               <br />
                               <input
@@ -395,16 +403,52 @@ class Register extends Component {
                           <div className="ui row" style={{ marginTop: "30px" }}>
                             <span>
                               <label>
-                                {t("flot.split.collaborateur.attribut.etiquette.artiste")}
+                                {t(
+                                  "flot.split.collaborateur.attribut.etiquette.artiste"
+                                )}
 
-                                <span className="sous-titre" style={{ margin: "0px" }}>
-                                  {i18n.lng && i18n.lng.substring(0, 2) === "en" && <InfoBulle pos={{ x: "250px", y: "350px" }} text={<p>For example, <i>Jay-Z</i> is the artist name of <em>Shawn Corey Carter</em>.</p>} />}
-                                  {i18n.lng && i18n.lng.substring(0, 2) !== "en" && <InfoBulle pos={{ x: "250px", y: "350px" }} text={<p>Par exemple, <i>Jay-Z</i> est le nom d'artiste de <em>Shawn Corey Carter</em>.</p>} />}
+                                <span
+                                  className="sous-titre"
+                                  style={{ margin: "0px" }}
+                                >
+                                  {i18n.lng &&
+                                    i18n.lng.substring(0, 2) === "en" && (
+                                      <InfoBulle
+                                        pos={{ x: "250px", y: "350px" }}
+                                        text={
+                                          <p>
+                                            For example, <i>Jay-Z</i> is the
+                                            artist name of{" "}
+                                            <em>Shawn Corey Carter</em>.
+                                          </p>
+                                        }
+                                      />
+                                    )}
+                                  {i18n.lng &&
+                                    i18n.lng.substring(0, 2) !== "en" && (
+                                      <InfoBulle
+                                        pos={{ x: "250px", y: "350px" }}
+                                        text={
+                                          <p>
+                                            Par exemple, <i>Jay-Z</i> est le nom
+                                            d'artiste de{" "}
+                                            <em>Shawn Corey Carter</em>.
+                                          </p>
+                                        }
+                                      />
+                                    )}
                                 </span>
-
                               </label>
-                              <label style={{ color: "grey", float: "right", fontWeight: "normal" }}>
-                                {t("flot.split.collaborateur.attribut.etiquette.option")}
+                              <label
+                                style={{
+                                  color: "grey",
+                                  float: "right",
+                                  fontWeight: "normal"
+                                }}
+                              >
+                                {t(
+                                  "flot.split.collaborateur.attribut.etiquette.option"
+                                )}
                               </label>
                             </span>
                             <br />
@@ -429,9 +473,12 @@ class Register extends Component {
                                 style={{ marginTop: "30px" }}
                               >
                                 <label>
-                                  {t("flot.split.collaborateur.attribut.etiquette.groupe")}
+                                  {t(
+                                    "flot.split.collaborateur.attribut.etiquette.groupe"
+                                  )}
                                 </label>
-                                <br /><br />
+                                <br />
+                                <br />
                               </div>
                               <div className="ui row">
                                 <Dropdown
@@ -476,11 +523,13 @@ class Register extends Component {
                                 />
                               </div>
                               {errors.username && touched.username && (
-                                <div style={{
-                                  color: "red",
-                                  position: "absolute",
-                                  top: "690px"
-                                }}>
+                                <div
+                                  style={{
+                                    color: "red",
+                                    position: "absolute",
+                                    top: "690px"
+                                  }}
+                                >
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
                               )}
@@ -494,7 +543,7 @@ class Register extends Component {
                               <Field
                                 onPaste={e => {
                                   e.preventDefault();
-                                  return false
+                                  return false;
                                 }}
                                 validate={val => {
                                   this.validateUsername(val);
@@ -508,7 +557,9 @@ class Register extends Component {
                                 value={this.state.confirmEmail}
                                 required={true}
                                 onChange={e =>
-                                  this.setState({ confirmEmail: e.target.value })
+                                  this.setState({
+                                    confirmEmail: e.target.value
+                                  })
                                 }
                               />
                               {errors.confirmusername && touched.username && (
@@ -521,8 +572,10 @@ class Register extends Component {
 
                           <span>
                             <div className="field">
-                              <div className="control has-icons-left"
-                                style={{ marginTop: "10px" }}>
+                              <div
+                                className="control has-icons-left"
+                                style={{ marginTop: "10px" }}
+                              >
                                 <label htmlFor="password">
                                   {t("flot.split.inscription.motdepasse")}
                                 </label>
@@ -534,7 +587,10 @@ class Register extends Component {
                                       this.validatePasswordStrong(val);
                                     }}
                                     type={
-                                      this.state.hidden && this.state.confirmhidden ? "password" : "text"
+                                      this.state.hidden &&
+                                      this.state.confirmhidden
+                                        ? "password"
+                                        : "text"
                                     }
                                     id="password"
                                     name="password"
@@ -554,7 +610,12 @@ class Register extends Component {
                                       this.toggleShow();
                                     }}
                                   >
-                                    <Eye actif={this.state.hidden && this.state.confirmhidden} />
+                                    <Eye
+                                      actif={
+                                        this.state.hidden &&
+                                        this.state.confirmhidden
+                                      }
+                                    />
                                   </button>
                                 </div>
 
@@ -585,19 +646,22 @@ class Register extends Component {
                                 <Field
                                   onPaste={e => {
                                     e.preventDefault();
-                                    return false
+                                    return false;
                                   }}
                                   validate={val => {
                                     this.validateConfirmPassword(val);
                                   }}
                                   type={
-                                    this.state.hidden && this.state.confirmhidden
+                                    this.state.hidden &&
+                                    this.state.confirmhidden
                                       ? "password"
                                       : "text"
                                   }
                                   id="confirmpassword"
                                   name="confirmpassword"
-                                  placeholder={t("flot.split.inscription.password-confirm")}
+                                  placeholder={t(
+                                    "flot.split.inscription.password-confirm"
+                                  )}
                                   value={this.state.confirmpassword}
                                   onChange={this.handleConfirmPasswordChange}
                                   required={true}
@@ -610,7 +674,12 @@ class Register extends Component {
                                     this.toggleConfirmShow();
                                   }}
                                 >
-                                  <Eye actif={this.state.confirmhidden && this.state.hidden} />
+                                  <Eye
+                                    actif={
+                                      this.state.confirmhidden &&
+                                      this.state.hidden
+                                    }
+                                  />
                                 </button>
                               </div>
                               {errors.confirmpassword &&
@@ -631,11 +700,11 @@ class Register extends Component {
                                     <button
                                       className={`ui medium button register is-success ${pochette} ${
                                         !this.state.password ||
-                                          this.state.confirmpassword !==
+                                        this.state.confirmpassword !==
                                           this.state.password
                                           ? "disabled"
                                           : ""
-                                        }`}
+                                      }`}
                                       type="submit"
                                       onClick={e => {
                                         if (
@@ -648,7 +717,9 @@ class Register extends Component {
                                         }
                                       }}
                                     >
-                                      {t("flot.split.collaborateur.attribut.bouton.parti")}
+                                      {t(
+                                        "flot.split.collaborateur.attribut.bouton.parti"
+                                      )}
                                     </button>
                                   </div>
                                 </div>
@@ -663,8 +734,7 @@ class Register extends Component {
               </Form>
             )}
           </Translation>
-        )
-        }
+        )}
       </Formik>
     );
   }
