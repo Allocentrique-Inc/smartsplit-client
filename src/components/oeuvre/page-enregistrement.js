@@ -377,7 +377,6 @@ class PageEnregistrement extends React.Component {
                 value={value}
                 {...this.props}
               />{" "}
-              */}
               <ChampSelectionMultipleAyantDroit
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}

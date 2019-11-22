@@ -4,7 +4,7 @@ import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
 import Histogramme from '../visualisation/partage/histogramme'
 import { Translation } from 'react-i18next'
-import Edit from "../../assets/images/yeux.png";
+import Edit from "./Edit.png";
 
 import { Auth } from 'aws-amplify'
 
@@ -246,6 +246,7 @@ export class SommaireDroit extends Component {
                                                                 (
                                                                     <div>
                                                                         <Edit />
+                                                                        {Edit}
                                                                         <i
                                                                             className="pencil alternate icon big blue"
                                                                             style={{ cursor: "pointer" }}

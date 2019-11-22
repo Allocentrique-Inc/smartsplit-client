@@ -60,7 +60,7 @@ export default class Navigation extends Component {
 
     return (
       <div
-        className="cliquable"
+        className="cliquable menu"
         onClick={() => {
           this.naviguer(choix);
         }}

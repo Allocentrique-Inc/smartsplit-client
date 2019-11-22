@@ -11,39 +11,35 @@ import ChampSelection from "../page-assistant/champ-selection";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import SelectOption from "../../model/select-option/select-option";
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
-import InfoBulle from '../partage/InfoBulle';
+import InfoBulle from "../partage/InfoBulle";
 
 export default class PageInformationsGenerales extends React.Component {
-
   constructor(props) {
-    super(props)
+    super(props);
 
-    let langue = props.i18n.lng.substring(0, 2)
+    let langue = props.i18n.lng.substring(0, 2);
     let genres = require(`../../assets/listes/${langue}/genres`).genres;
 
     // Épuration de la liste des instruments pour éviter les doublons
-    let _genres = {}
-    this.genres = []
+    let _genres = {};
+    this.genres = [];
 
     genres.forEach(i => {
-      if (!_genres[i.nom])
-        _genres[i.nom] = i
-    })
+      if (!_genres[i.nom]) _genres[i.nom] = i;
+    });
 
     Object.keys(_genres).forEach(_g => {
-      let g = _genres[_g]
+      let g = _genres[_g];
       this.genres.push({
         key: g.nom,
         value: g.nom,
         text: g.nom
-      })
-    })
+      });
+    });
   }
 
   genreOptions() {
-    return this.genres.map(
-      genre => new SelectOption(genre)
-    );
+    return this.genres.map(genre => new SelectOption(genre));
   }
 
   icon() {
@@ -51,17 +47,20 @@ export default class PageInformationsGenerales extends React.Component {
   }
 
   render() {
-
     return (
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
-            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
+            <SauvegardeAutomatiqueMedia
+              etat={true}
+              values={this.props.values}
+              interval={10000}
+            />
             <Colonne>
               <Entete
                 pochette={this.props.pochette}
                 icon={this.icon()}
-                label={t("flot.documenter.titre5")}
+                label={t("flot.split.documente-ton-oeuvre.documenter.titre5")}
                 question={t(
                   "flot.split.documente-ton-oeuvre.documenter.details"
                 )}
@@ -122,7 +121,13 @@ export default class PageInformationsGenerales extends React.Component {
                 label={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.influence"
                 )}
-                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.entete.exemple")} />}
+                info={
+                  <InfoBulle
+                    text={t(
+                      "flot.split.documente-ton-oeuvre.documenter.entete.exemple"
+                    )}
+                  />
+                }
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.influenceurs"
                 )}
