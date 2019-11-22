@@ -96,12 +96,12 @@ class MenuProfil extends Component {
                     window.location.href = "/accueil";
                   }}
                 />
-                <Dropdown.Item
+               {/*  <Dropdown.Item
                   text={t("menuprofil.profil")}
                   onClick={() => {
                     this.ouvrirSocan();
                   }}
-                />
+                /> */}
                 {i18n.language && i18n.language.substring(0, 2) === "en" && (
                   <Dropdown.Item
                     text={t("menuprofil.francais")}
@@ -127,12 +127,13 @@ class MenuProfil extends Component {
                 />
               </Dropdown.Menu>
             </Dropdown>
-            <Socan
+           {/*  <Socan
+              pochette={this.props.pochette}
               open={this.state.modaleSocan}
               onClose={() => {
                 this.ouvrirSocan(false);
               }}
-            />
+            /> */}
           </span>
         )}
       </Translation>

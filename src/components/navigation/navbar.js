@@ -39,7 +39,7 @@ export class Navbar extends Component {
                 <div className="right">
                   <div className="ui row">
                     {this.state.profil && (
-                      <MenuProfil user={this.state.profil} />
+                      <MenuProfil pochette={this.props.pochette} user={this.state.profil} />
                     )}
                   </div>
                 </div>

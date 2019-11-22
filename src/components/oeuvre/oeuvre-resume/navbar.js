@@ -36,7 +36,8 @@ export class Navbar extends React.Component {
                                     <div className={ 'right' }>
                                         {
                                             this.props.profil && (
-                                                <MenuProfil                  
+                                                <MenuProfil   
+                                                    pochette={this.props.pochette}               
                                                     user={this.props.profil}
                                                 />
                                             )
