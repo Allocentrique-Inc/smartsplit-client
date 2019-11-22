@@ -553,6 +553,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                         <Lock actif={this.state.partsInvariables[index] || this.props.values.droitAuteur.length === 1} />
                                                                                                                     </div>
                                                                                                                     <div className="ui ten wide column">
+                                                                                                                       
                                                                                                                         <ChampGradateurAssistant
                                                                                                                             changement={(id, delta) => {
                                                                                                                                 // Permet le changment seulement si personne ne sera à zéro
@@ -572,6 +573,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                                 )
                                                                                                                             }
                                                                                                                         />
+                                                                                                                        
                                                                                                                     </div>
 
                                                                                                                     <div className="ui four wide column">

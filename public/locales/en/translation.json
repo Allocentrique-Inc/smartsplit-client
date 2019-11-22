@@ -51,7 +51,7 @@
       "etiquette": {
         "titre": "Title:",
         "album": "Album:",
-        "piecePar": "{{titre}}, by...",
+        "piecePar": "{{titre}}, by",
         "arrangementPar": "{{titre}}, remixed by",
         "reprise": "This work is a cover",
         "instrumental": "This work is instrumental",

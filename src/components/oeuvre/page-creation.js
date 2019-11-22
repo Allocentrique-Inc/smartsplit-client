@@ -17,7 +17,7 @@ import * as roles from "../../assets/listes/role-uuids.json";
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
-import InfoBulle from '../partage/InfoBulle';
+import InfoBulle from "../partage/InfoBulle";
 
 import "../formulaires.css";
 
@@ -28,13 +28,13 @@ import {
   hasRoles,
   updateRole
 } from "../page-assistant/right-holder-helpers";
-import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
+import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
 
 export default class PageCreation extends Component {
-  constructor(props) {    
+  constructor(props) {
     super(props);
 
-    console.log("page création")
+    console.log("page création");
 
     this.state = {
       songwriters: getRightHolderIdsByRole(
@@ -53,7 +53,8 @@ export default class PageCreation extends Component {
         roles.remixer,
         props.values.rightHolders
       ),
-      x: 0, y: 0
+      x: 0,
+      y: 0
     };
   }
 
@@ -64,16 +65,15 @@ export default class PageCreation extends Component {
       this.state.publishers !== prevState.publishers ||
       this.state.remixers !== prevState.remixers
     ) {
-      const creationRightHolderIds = 
-        this.state.songwriters
+      const creationRightHolderIds = this.state.songwriters
         .concat(this.state.composers)
         .concat(this.state.publishers)
-        .concat(this.state.remixers)
+        .concat(this.state.remixers);
 
       const updatedRightHolders = creationRightHolderIds
         .reduce(addRightHolderIfMissing, [...this.props.values.rightHolders])
         .map(this.getUpdatedRightHolder)
-        .filter(hasRoles)
+        .filter(hasRoles);
 
       this.props.setFieldValue("rightHolders", updatedRightHolders);
     }
@@ -121,15 +121,17 @@ export default class PageCreation extends Component {
 
   idsSiUUID(ids) {
     // Protéger la liste des valeurs non-uuid
-    let _ids = []
-    const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
-    if(ids) {
-        ids.forEach(id=>{
-            if(UUID_REGEXP.test(id)) {
-                _ids.push(id)
-            }
-        })
-        return _ids        
+    let _ids = [];
+    const UUID_REGEXP = new RegExp(
+      "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+    );
+    if (ids) {
+      ids.forEach(id => {
+        if (UUID_REGEXP.test(id)) {
+          _ids.push(id);
+        }
+      });
+      return _ids;
     }
   }
 
@@ -138,15 +140,23 @@ export default class PageCreation extends Component {
       <Translation>
         {t => (
           <Page pochette={this.props.pochette}>
-            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
+            <SauvegardeAutomatiqueMedia
+              etat={true}
+              values={this.props.values}
+              interval={10000}
+            />
             <Colonne>
               <Entete
                 className="sousTitre"
                 pochette={this.props.pochette}
                 icon={this.icon()}
-                label={t("flot.documenter.entete.creation")}
-                question={t("flot.split.documente-ton-oeuvre.documenter.titre1",
-                  { titre: this.props.values.title })}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.creation"
+                )}
+                question={t(
+                  "flot.split.documente-ton-oeuvre.documenter.titre1",
+                  { titre: this.props.values.title }
+                )}
                 description={t(
                   "flot.split.documente-ton-oeuvre.documenter.titre1-description"
                 )}
@@ -170,53 +180,90 @@ export default class PageCreation extends Component {
                 label={t("flot.split.documente-ton-oeuvre.documenter.auteur")}
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
-                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.auteur-description")} />}
+                info={
+                  <InfoBulle
+                    text={t(
+                      "flot.split.documente-ton-oeuvre.documenter.auteur-description"
+                    )}
+                  />
+                }
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.auteur-placeholder"
                 )}
                 value={this.state.songwriters}
                 onChange={ids => {
-                  let _ids = this.idsSiUUID(ids)
-                  this.setState({songwriters: _ids})
+                  let _ids = this.idsSiUUID(ids);
+                  this.setState({ songwriters: _ids });
                 }}
-                fn={(nouveau)=>{
-                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.songwriter)                  
+                fn={nouveau => {
+                  this.props.parent.nouvelAyantDroit(
+                    this.props.values.rightHolders,
+                    this.props.setFieldValue,
+                    nouveau,
+                    roles.songwriter
+                  );
                 }}
               />
               <br />
               <ChampSelectionMultipleAyantDroit
-                label={t("flot.split.documente-ton-oeuvre.documenter.compositeur")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.compositeur"
+                )}
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
-                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.compositeur-description")} />}
+                info={
+                  <InfoBulle
+                    text={t(
+                      "flot.split.documente-ton-oeuvre.documenter.compositeur-description"
+                    )}
+                  />
+                }
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.compositeur-placeholder"
                 )}
                 value={this.state.composers}
                 onChange={ids => {
-                  let _ids = this.idsSiUUID(ids)
-                  this.setState({composers: _ids})
+                  let _ids = this.idsSiUUID(ids);
+                  this.setState({ composers: _ids });
                 }}
-                fn={(nouveau)=>{
-                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.composer)                  
+                fn={nouveau => {
+                  this.props.parent.nouvelAyantDroit(
+                    this.props.values.rightHolders,
+                    this.props.setFieldValue,
+                    nouveau,
+                    roles.composer
+                  );
                 }}
               />
               <br />
               <ChampSelectionMultipleAyantDroit
-                label={t("flot.split.documente-ton-oeuvre.documenter.arrangeur")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.arrangeur"
+                )}
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
-                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.arrangeur-description")} />}
+                info={
+                  <InfoBulle
+                    text={t(
+                      "flot.split.documente-ton-oeuvre.documenter.arrangeur-description"
+                    )}
+                  />
+                }
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.arrangeur-placeholder"
                 )}
                 value={this.state.remixers}
                 onChange={ids => {
-                  let _ids = this.idsSiUUID(ids)
-                  this.setState({remixers: _ids})
+                  let _ids = this.idsSiUUID(ids);
+                  this.setState({ remixers: _ids });
                 }}
-                fn={(nouveau)=>{
-                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.remixer)                  
+                fn={nouveau => {
+                  this.props.parent.nouvelAyantDroit(
+                    this.props.values.rightHolders,
+                    this.props.setFieldValue,
+                    nouveau,
+                    roles.remixer
+                  );
                 }}
               />
               <br />
@@ -224,24 +271,41 @@ export default class PageCreation extends Component {
                 label={t("flot.split.documente-ton-oeuvre.documenter.editeur")}
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
-                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.editeur-description")} />}
+                info={
+                  <InfoBulle
+                    text={t(
+                      "flot.split.documente-ton-oeuvre.documenter.editeur-description"
+                    )}
+                  />
+                }
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.editeur-placeholder"
                 )}
                 value={this.state.publishers}
                 onChange={ids => {
-                  let _ids = this.idsSiUUID(ids)
-                  this.setState({publishers: _ids})
+                  let _ids = this.idsSiUUID(ids);
+                  this.setState({ publishers: _ids });
                 }}
-                fn={(nouveau)=>{
-                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.publisher)                  
+                fn={nouveau => {
+                  this.props.parent.nouvelAyantDroit(
+                    this.props.values.rightHolders,
+                    this.props.setFieldValue,
+                    nouveau,
+                    roles.publisher
+                  );
                 }}
               />
               <br />
               <ChampTexte
                 label={t("flot.split.documente-ton-oeuvre.documenter.codeiswc")}
                 className="codeiswc"
-                info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.codeiswc-description")} />}
+                info={
+                  <InfoBulle
+                    text={t(
+                      "flot.split.documente-ton-oeuvre.documenter.codeiswc-description"
+                    )}
+                  />
+                }
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.codeiswc-placeholder"
                 )}

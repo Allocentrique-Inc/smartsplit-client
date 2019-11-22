@@ -42,7 +42,7 @@
       "etiquette": {
         "titre": "Titre :",
         "album": "Album :",
-        "piecePar": "{{titre}}, par...",
+        "piecePar": "{{titre}}, par",
         "arrangementPar": "{{titre}}, arrangé par",
         "reprise": "Cette œuvre est une reprise",
         "instrumental": "Cette œuvre est instrumentale",

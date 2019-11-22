@@ -4,6 +4,7 @@ import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
 import Histogramme from '../visualisation/partage/histogramme'
 import { Translation } from 'react-i18next'
+import Edit from "../../assets/images/yeux.png";
 
 import { Auth } from 'aws-amplify'
 
@@ -244,6 +245,7 @@ export class SommaireDroit extends Component {
                                                                 this.state.modifierVote &&
                                                                 (
                                                                     <div>
+                                                                        <Edit />
                                                                         <i
                                                                             className="pencil alternate icon big blue"
                                                                             style={{ cursor: "pointer" }}
@@ -630,7 +632,7 @@ export default class SommairePartage extends Component {
 
                                 )
                             }
-                            <Modal                                
+                            <Modal
                                 open={this.state.modaleConnexion}
                                 closeOnEscape={false}
                                 closeOnDimmerClick={false}
@@ -640,22 +642,22 @@ export default class SommairePartage extends Component {
                                 <LogIn
                                     vote={true}
                                     fn={() => {
-                                    Auth.currentAuthenticatedUser()
-                                        .then(res => {
-                                            if (res.username === this.state.ayantDroit.rightHolderId) {
-                                                that.setState({ user: res })
-                                                that.envoi()
-                                                that.modaleConnexion(false)
-                                            } else {
-                                                toast.error(t('flot.split.erreur.volIdentite'))
-                                            }
+                                        Auth.currentAuthenticatedUser()
+                                            .then(res => {
+                                                if (res.username === this.state.ayantDroit.rightHolderId) {
+                                                    that.setState({ user: res })
+                                                    that.envoi()
+                                                    that.modaleConnexion(false)
+                                                } else {
+                                                    toast.error(t('flot.split.erreur.volIdentite'))
+                                                }
 
-                                        })
-                                        .catch(err => {
-                                            toast.error(err.message)
-                                        })
+                                            })
+                                            .catch(err => {
+                                                toast.error(err.message)
+                                            })
 
-                                }} />
+                                    }} />
                             </Modal>
                             {
                                 this.state.ayantDroit &&
