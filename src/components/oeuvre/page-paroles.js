@@ -45,7 +45,9 @@ export default class PageParoles extends React.Component {
               <Entete
                 pochette={this.props.pochette}
                 icon={this.icon()}
-                label={t("flot.documenter.entete.parole")}
+                label={t(
+                  "flot.split.documente-ton-oeuvre.documenter.entete.parole"
+                )}
                 question={
                   this.props.values.title +
                   " " +
@@ -69,9 +71,6 @@ export default class PageParoles extends React.Component {
                 }
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.entete.ajouter-parole"
-                )}
-                undertext={t(
-                  "flot.split.documente-ton-oeuvre.documenter.entete.parole-only"
                 )}
                 value={
                   this.props.values.lyrics && this.props.values.lyrics.text

@@ -28,8 +28,8 @@
     "titre2": "Add as a collaborator:",
     "attribut": {
       "placeholder": {
-        "prenom": "Legal first name",
-        "nom": "Legal last name"
+        "prenom": "Enter your first name",
+        "nom": "Enter your last name"
       },
       "indication": {
         "nom": "Last name",
@@ -220,8 +220,8 @@
         "titre": "Add a collaborating artist",
         "attribut": {
           "etiquette": {
-            "nom": "Last Name",
-            "prenom": "First Name",
+            "nom": "Last Name (legal)",
+            "prenom": "First Name (legal)",
             "artiste": "Artist Name (aka)  ",
             "option": " (optional)",
             "na": "If not applicable, the complete name is displayed.",
