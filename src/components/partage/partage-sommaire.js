@@ -207,75 +207,108 @@ export class SommaireDroit extends Component {
                                 </div>
                             </div>
 
-                            <div style={{ position: "relative", marginTop: "5px" }}>
-                                <Translation>
-                                    {
-                                        t =>
-                                            !this.state.voteTermine &&
-                                            this.state.ayantDroit &&
-                                            uuid === this.state.ayantDroit.rightHolderId &&
-                                            (
-                                                <div className="ui grid">
-                                                    <div className="ui eleven wide column">
-                                                        {!this.state.modifierVote && this.boutonRefuser(t)}
-                                                        {!this.state.modifierVote && this.boutonAccepter(t)}
-                                                    </div>
-                                                    <div className="ui three wide column">
-
-                                                        {parseFloat(part.sommePct).toFixed(2) + "%"}
-
-                                                        <div>
-                                                            {
-                                                                uuid !== this.state.ayantDroit.rightHolderId &&
-                                                                (
-                                                                    <div style={{ color: part.vote === 'accept' ? "green" : (part.vote === "reject" ? "red" : "grey") }}>
-                                                                        <strong>{t(`flot.split.vote.${part.vote}`)}</strong>
-                                                                    </div>
-                                                                )
-                                                            }
-                                                            {
-                                                                uuid === this.state.ayantDroit.rightHolderId &&
-                                                                (
-                                                                    <div style={{ color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "green" : (this.state.monVote && this.state.monVote.vote === "reject" ? "red" : "grey") }}>
-                                                                        <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
-                                                                    </div>
-                                                                )
-                                                            }
-                                                            {
-                                                                this.state.modifierVote &&
-                                                                (
-                                                                    <div>
-                                                                        <Edit />
-                                                                        {Edit}
-                                                                        <i
-                                                                            className="pencil alternate icon big blue"
-                                                                            style={{ cursor: "pointer" }}
-                                                                            onClick={() => { this.changerVote() }}></i>
+                            {
+                                uuid === this.state.ayantDroit.rightHolderId && (
+                                    <div style={{ position: "relative", marginTop: "5px" }}>
+                                        <Translation>
+                                            {
+                                                t =>
+                                                <>
+                                                    {
+                                                        !this.state.voteTermine &&                                                    
+                                                        (
+                                                            <div className="ui grid">
+                                                                <div className="ui row">
+                                                                    <div className="ui one wide column" />
+                                                                    <div className="ui eleven wide column">
+                                                                        <i>{part.raison ? part.raison : ""}</i>
+                                                                        {!this.state.modifierVote && this.boutonRefuser(t)}
+                                                                        {!this.state.modifierVote && this.boutonAccepter(t)}
                                                                         {
-                                                                            this.state.justifierRefus && (
-                                                                                <div>
-                                                                                    <textarea
-                                                                                        cols={30}
-                                                                                        rows={2}
-                                                                                        placeholder={t("flot.split.valider.pourquoi")}
-                                                                                        onChange={(e) => {
-                                                                                            this.state.parent.refuser(this.state.type, e.target.value)
-                                                                                        }}>
-                                                                                    </textarea>
+                                                                            this.state.modifierVote &&
+                                                                            (
+                                                                                <div>                                                                                                                                                                                                                    
+                                                                                    {
+                                                                                        this.state.justifierRefus && (
+                                                                                            <div>
+                                                                                                <textarea
+                                                                                                    cols={30}
+                                                                                                    rows={2}
+                                                                                                    placeholder={t("flot.split.valider.pourquoi")}
+                                                                                                    onChange={(e) => {
+                                                                                                        this.state.parent.refuser(this.state.type, e.target.value)
+                                                                                                    }}>
+                                                                                                </textarea>
+                                                                                            </div>
+                                                                                        )
+                                                                                    }
+
                                                                                 </div>
                                                                             )
                                                                         }
-
                                                                     </div>
-                                                                )
-                                                            }
-                                                        </div>
+                                                                    <div className="ui four wide column">
+                                                                        {parseFloat(part.sommePct).toFixed(2) + "%"}                                                                    
+                                                                        <div style={{ color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "green" : (this.state.monVote && this.state.monVote.vote === "reject" ? "red" : "grey") }}>
+                                                                            <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
+                                                                            {this.state.modifierVote && (<img className="cliquable" src={Edit} onClick={() => { this.changerVote() }} alt="Changer vote" />)}
+                                                                        </div>                                                                    
+                                                                    </div>
+                                                                </div>                                                            
+                                                            </div>
+                                                        )    
+                                                    }                                                
+                                                    {
+                                                        this.state.voteTermine && (
+                                                            <div className="ui grid">
+                                                                <div className="ui row">
+                                                                    <div className="ui one wide column" />
+                                                                    <div className="ui eleven wide column">
+                                                                        <i>{part.raison ? part.raison : ""}</i>
+                                                                    </div>
+                                                                    <div className="ui four wide column">
+                                                                        {parseFloat(part.sommePct).toFixed(2) + "%"}                                                                    
+                                                                        <div style={{ color: (part && part.vote === 'accept') ? "green" : (part && part.vote === "reject" ? "red" : "grey") }}>
+                                                                            <strong>{t(`flot.split.vote.${part && part.vote}`)}</strong>                                                                            
+                                                                        </div>                                                                    
+                                                                    </div>
+                                                                </div>                                                            
+                                                            </div>
+                                                        )
+                                                    }                                                
+                                                </>
+                                            }
+                                        </Translation>                                        
+                                    </div>
+                                )
+                            }
+                            {                                
+                                uuid !== this.state.ayantDroit.rightHolderId && (
+                                    <div style={{ position: "relative", marginTop: "5px" }}>
+                                        <Translation>
+                                            {
+                                                t =>
+                                                   <div className="ui grid">
+                                                        <div className="ui row">
+                                                            <div className="ui column" />
+                                                            <div className="ui eleven wide column"> 
+                                                                <i>{part.raison ? part.raison : ""}</i>
+                                                            </div>
+                                                            <div className="ui four wide column">
+                                                                {parseFloat(part.sommePct).toFixed(2) + "%"}                                                    
+                                                                <div style={{ color: (part && part.vote === 'accept') ? "green" : (part && part.vote === "reject" ? "red" : "grey") }}>
+                                                                    <strong>{t(`flot.split.vote.${part && part.vote}`)}</strong>                                                                
+                                                                </div>                                                        
+                                                            </div>
+                                                       </div>                                                        
                                                     </div>
-                                                </div>
-                                            )}
-                                </Translation>
-                                {part.raison ? part.raison : ""}
-                            </div>
+                                            }
+                                        </Translation>                                        
+                                    </div>
+                                )
+                            }
+
+                            
                         </div>
                     </>
                 )
@@ -546,6 +579,7 @@ export default class SommairePartage extends Component {
     transmettre(t) {
         Auth.currentAuthenticatedUser()
             .then(res => {
+                console.log(res.username, this.state.ayantDroit.rightHolderId)
                 if (res.username === this.state.ayantDroit.rightHolderId) {
                     this.envoi()
                 } else {
@@ -645,6 +679,7 @@ export default class SommairePartage extends Component {
                                     fn={() => {
                                         Auth.currentAuthenticatedUser()
                                             .then(res => {
+                                                console.log(res.username, this.state.ayantDroit.rightHolderId)
                                                 if (res.username === this.state.ayantDroit.rightHolderId) {
                                                     that.setState({ user: res })
                                                     that.envoi()
