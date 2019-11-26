@@ -180,7 +180,7 @@ export default class SommairePartages extends Component {
                         envoiDisabled = false
                     }
                 }
-                if (_p.etat === 'BROUILLON' && _p.initiator.id === this.state.user.username) {
+                if ( (_p.etat === 'BROUILLON' || _p.etat === 'PRET' ) && _p.initiator.id === this.state.user.username) {
                     continuerDisabled = false
                 }
                 if (_p.etat === 'ACCEPTE') {

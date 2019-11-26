@@ -366,7 +366,7 @@ class AssistantPartage extends Component {
             let valeursInitiales = { droitAuteur: [], droitInterpretation: [], droitEnregistrement: [] }
             if (this.state.proposition) {
 
-                if (this.state.proposition.etat !== 'BROUILLON' && this.state.proposition.etat !== 'REFUSE') {
+                if (this.state.proposition.etat !== 'BROUILLON' && this.state.proposition.etat !== 'PRET' && this.state.proposition.etat !== 'REFUSE') {
                     lectureSeule = true
                 }
 
