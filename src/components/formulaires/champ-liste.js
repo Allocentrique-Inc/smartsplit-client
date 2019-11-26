@@ -158,7 +158,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
     }
 
     surAjout(e) {
-        this.props.surAjout(e, ()=>{this.listeEntites()})
+        this.props.surAjout(e, () => { this.listeEntites() })
     }
 
     render() {
@@ -241,7 +241,7 @@ export class ChampListeCollaborateurAssistant extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.requis !== nextProps.requis) {
-            this.setState({requis: nextProps.requis})
+            this.setState({ requis: nextProps.requis })
         }
         if (this.props.etiquette !== nextProps.etiquette) {
             this.setState({ etiquette: nextProps.etiquette })
@@ -253,7 +253,7 @@ export class ChampListeCollaborateurAssistant extends Component {
             this.recalculerOptions(nextProps.collaborateurs)
         }
         if (this.props.selection !== nextProps.selection) {
-            this.setState({selectionne: nextProps.selection})
+            this.setState({ selectionne: nextProps.selection })
         }
     }
 
@@ -328,9 +328,9 @@ export class ChampListeCollaborateurAssistant extends Component {
 
     plusCircleLabel(labelString) {
         return (
-          <span className={this.additionLabelClasses()}>
-            <img alt="" src={this.plusCircle()} /> {labelString}
-          </span>
+            <span className={this.additionLabelClasses()}>
+                <img alt="" src={this.plusCircle()} /> {labelString}
+            </span>
         )
     }
 
@@ -351,10 +351,10 @@ export class ChampListeCollaborateurAssistant extends Component {
                                         title={"Ajouter"}
                                         name={this.state.modele}
                                         component={Form.Dropdown}
-                                        validate={(val)=>{
+                                        validate={(val) => {
                                             if (this.state.requis) {
                                                 const result = val ? undefined : t('validation.requis');
-                                                return result;                                                
+                                                return result;
                                             }
                                         }}
                                         componentProps={{
@@ -371,21 +371,21 @@ export class ChampListeCollaborateurAssistant extends Component {
                                             allowAdditions: this.state.ajout,
                                             required: this.state.requis,
                                             additionLabel: this.additionLabel(t),
-                                            trigger: this.triggerLabel(t("flot.split.documente-ton-oeuvre.bouton.ajout")),                                          
-                                            onClick: (e)=>{
+                                            trigger: this.triggerLabel(t("flot.split.documente-ton-oeuvre.bouton.ajout")),
+                                            onClick: (e) => {
                                                 this.ouvertureListe = true
-                                                if(this.clicZone === true) {
+                                                if (this.clicZone === true) {
                                                     this.clicZone = false
                                                 } else {
                                                     this.clicZone = true
-                                                }                                                
+                                                }
                                             },
                                             onSelect: (e) => {
-                                                if(!this.ouvertureListe) {
+                                                if (!this.ouvertureListe) {
                                                     this.clicZone = true
                                                 } else {
-                                                    if(!this.clicZone) {                                                   
-                                                        if(!this.ajoutEnCours) {
+                                                    if (!this.clicZone) {
+                                                        if (!this.ajoutEnCours) {
                                                             let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText
                                                             if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
                                                                 this.ouvertureListe = false
@@ -396,15 +396,15 @@ export class ChampListeCollaborateurAssistant extends Component {
                                                         }
                                                     } else {
                                                         this.clicZone = false
-                                                    }                                            
-                                                }                                                
+                                                    }
+                                                }
                                             },
                                             clearable: false,
-                                            onClose: ()=>{
-                                                setTimeout(()=>{        
+                                            onClose: () => {
+                                                setTimeout(() => {
                                                     this.ouvertureListe = false
-                                                    this.clicZone = false                                         
-                                                    if(this.selection) {
+                                                    this.clicZone = false
+                                                    if (this.selection) {
                                                         this.selection = false
                                                     }
                                                 })

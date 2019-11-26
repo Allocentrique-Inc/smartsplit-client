@@ -110,19 +110,25 @@ class LogIn extends Component {
                   <div>
                     {
                       !this.state.vote && (
-                        <span className="top-register">
-                          <div
-                            onClick={() => {
-                              // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
-                              this.props.parent.afficher(1);
-                            }}
-                            className={`inscription ${pochette}`}
-                          >
-                            {t("entete.inscription")}
+                        <div class="ui grid">
+                          <div class="four column row">
+                            <div class="right floated column">
+                              <div className="top-register">
+                                <div
+                                  onClick={() => {
+                                    // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
+                                    this.props.parent.afficher(1);
+                                  }}
+                                  className={`inscription ${pochette}`}
+                                >
+                                  {t("entete.inscription")}
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                        </span>
+                        </div>
                       )
-                    }                    
+                    }
                     <div className="container">
                       <header id="loginHeader">
                         {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
@@ -142,7 +148,7 @@ class LogIn extends Component {
                                     Login to confirm your vote
                                   </h1>
                                 )
-                              }                              
+                              }
                               <br></br>
                             </div>
                           </div>
@@ -161,11 +167,11 @@ class LogIn extends Component {
                               {
                                 this.state.vote && (
                                   <h1>
-                                    Connecte-toi <br/>
+                                    Connecte-toi <br />
                                     pour confirmer ta décision
                                   </h1>
                                 )
-                              }                              
+                              }
                               <br></br>
                             </div>
                           </div>
@@ -220,6 +226,7 @@ class LogIn extends Component {
                                 <button
                                   type="button"
                                   id="hide"
+                                  tabindex="-1"
                                   onClick={e => {
                                     this.toggleShow(e);
                                   }}

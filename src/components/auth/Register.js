@@ -289,18 +289,22 @@ class Register extends Component {
             {(t, i18n) => (
               <Form>
                 {!this.state.patience && (
-                  <div>
-                    <span className="top-login">
-                      <div
-                        onClick={() => {
-                          // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
-                          this.props.parent.afficher(0);
-                        }}
-                        className={`connexion-inscription ${pochette}`}
-                      >
-                        {t("entete.connexion")}
+                  <div class="ui grid">
+                    <div class="four column row">
+                      <div class="right floated column">
+                        <div className="top-login">
+                          <div
+                            onClick={() => {
+                              // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
+                              this.props.parent.afficher(0);
+                            }}
+                            className={`connexion-inscription ${pochette}`}
+                          >
+                            {t("entete.connexion")}
+                          </div>
+                        </div>
                       </div>
-                    </span>
+                    </div>
                     <div className="container">
                       <header id="registerHeader">
                         {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
@@ -605,6 +609,7 @@ class Register extends Component {
                                   <button
                                     type="button"
                                     id="hide"
+                                    tabindex="-1"
                                     onClick={e => {
                                       e.preventDefault();
                                       this.toggleShow();
@@ -669,6 +674,7 @@ class Register extends Component {
                                 <button
                                   type="button"
                                   id="hide-confirm"
+                                  tabindex="-1"
                                   onClick={e => {
                                     e.preventDefault();
                                     this.toggleConfirmShow();

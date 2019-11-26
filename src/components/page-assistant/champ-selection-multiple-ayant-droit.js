@@ -57,10 +57,10 @@ class ChampSelectionMultipleAyantDroit extends Component {
   selectedItems() {
     let items = this.props.items.filter(this.isSelectedItem)
     let _items = {}
-    let itemsOrdonnes = []    
-    items.forEach(e=>_items[e.value] = e)    
-    this.state.selectedValues.forEach((e,idx)=>{      
-      if(Object.keys(_items).includes(this.state.selectedValues[idx])) {
+    let itemsOrdonnes = []
+    items.forEach(e => _items[e.value] = e)
+    this.state.selectedValues.forEach((e, idx) => {
+      if (Object.keys(_items).includes(this.state.selectedValues[idx])) {
         itemsOrdonnes.push(_items[this.state.selectedValues[idx]])
       }
     })
@@ -95,7 +95,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
     this.selectItem(value);
   };
 
-  selectItem(itemValue) {    
+  selectItem(itemValue) {
     const selectedValues = [...this.state.selectedValues];
 
     if (!selectedValues.includes(itemValue)) {
@@ -148,13 +148,13 @@ class ChampSelectionMultipleAyantDroit extends Component {
                     label={this.props.label}
                     info={this.props.info}//Fait passer info dans les TitreChamp
                     description={this.props.description}
-                  />                  
+                  />
 
                   <Dropdown
-                    trigger={this.triggerLabel()}
+                    trigger={this.triggerLabel()} //Le +
                     fluid
                     search
-                    selection
+                    selection // Dit que c'est une sélection
                     selectOnBlur={false}
                     selectOnNavigation={false}
                     allowAdditions
@@ -167,7 +167,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
                     onSearchChange={this.handleSearchChange}
                   />
 
-                  <br/>
+                  <br />
                   {this.renderSelectedItems()}
 
                 </label>
@@ -181,17 +181,17 @@ class ChampSelectionMultipleAyantDroit extends Component {
                   this.setState({ modalOpen: false, modalFirstName: "" })
                 }
                 fn={
-                  (e) => {                    
+                  (e) => {
                     let values = this.state.selectedValues
                     values.push(e)
                     this.setState({ selectedValues: values })
-                    if(this.props.fn) {
+                    if (this.props.fn) {
                       this.props.fn(e)
                     }
                   }
-                }              
-            />
-          </>
+                }
+              />
+            </>
         }
       </Translation>
     );

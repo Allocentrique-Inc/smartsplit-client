@@ -221,8 +221,8 @@
             "nom": "Nom légal"
           },
           "etiquette": {
-            "nom": "Nom",
-            "prenom": "Prénom",
+            "nom": "Nom (légal)",
+            "prenom": "Prénom (légal)",
             "artiste": "Nom d'artiste (alias)  ",
             "role": "Rôle dans la pièce musicale",
             "option": "Optionnel",
@@ -231,8 +231,8 @@
             "groupe": "Ajouter groupes, entités artistiques ou entreprises",
             "ajout": "Ajouter un groupe ou un artiste",
             "placeholder": {
-              "nom": "Entre son prénom",
-              "prenom": "Entre son nom de famille",
+              "nom": "Entre ton nom",
+              "prenom": "Entre ton prénom",
               "artiste": "Entre son nom d'artiste (alias)"
             }
           },
