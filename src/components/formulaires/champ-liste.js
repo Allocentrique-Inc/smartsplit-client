@@ -371,44 +371,21 @@ export class ChampListeCollaborateurAssistant extends Component {
                                             allowAdditions: this.state.ajout,
                                             required: this.state.requis,
                                             additionLabel: this.additionLabel(t),
-                                            trigger: this.triggerLabel(t("flot.split.documente-ton-oeuvre.bouton.ajout")),
-                                            onClick: (e) => {
-                                                this.ouvertureListe = true
-                                                if (this.clicZone === true) {
-                                                    this.clicZone = false
-                                                } else {
-                                                    this.clicZone = true
-                                                }
-                                            },
-                                            onSelect: (e) => {
-                                                if (!this.ouvertureListe) {
-                                                    this.clicZone = true
-                                                } else {
-                                                    if (!this.clicZone) {
-                                                        if (!this.ajoutEnCours) {
-                                                            let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText
-                                                            if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
-                                                                this.ouvertureListe = false
-                                                                this.clicZone = false
-                                                                this.selection = true
-                                                                this.props.fnSelect()
-                                                            }
-                                                        }
-                                                    } else {
+                                            selectOnBlur: false,
+                                            selectOnNavigation: false,
+                                            trigger: this.triggerLabel(t("flot.split.documente-ton-oeuvre.bouton.ajout")),                                            
+                                            onSelect: (e) => {                                                
+                                                if (!this.ajoutEnCours) {
+                                                    let _nom = e.target.parentElement.getElementsByClassName("text")[0].innerText
+                                                    if (this.props.fnSelect && this.state.nomsConnus.includes(_nom)) {
+                                                        this.ouvertureListe = false
                                                         this.clicZone = false
+                                                        this.selection = true
+                                                        this.props.fnSelect()
                                                     }
-                                                }
+                                                }                                                
                                             },
-                                            clearable: false,
-                                            onClose: () => {
-                                                setTimeout(() => {
-                                                    this.ouvertureListe = false
-                                                    this.clicZone = false
-                                                    if (this.selection) {
-                                                        this.selection = false
-                                                    }
-                                                })
-                                            }
+                                            clearable: false
                                         }}
 
                                     />
@@ -515,7 +492,7 @@ export class ChampListeEditeurAssistant extends Component {
                                             selection: this.state.selection,
                                             multiple: this.state.multiple,
                                             options: this.state.options,
-                                            allowAdditions: this.state.ajout,
+                                            allowAdditions: this.state.ajout
                                         }}
                                         validate={this.state.requis && required}
                                     />
