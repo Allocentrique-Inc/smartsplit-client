@@ -79,13 +79,6 @@ export default class TableEnregistrement extends React.Component {
                 label: 'Titre de la piste',
                 value: this.props.media.title
             },
-
-            {
-                label: 'ISRC',
-                helpIcon: true,
-                value: this.props.media.isrc
-            },
-
             {
                 label: 'Réalisateur',
                 value: this.realisateurs.map((r, idx)=>{
@@ -96,7 +89,6 @@ export default class TableEnregistrement extends React.Component {
                       }
                 })
             },
-
             {
                 label: 'Techniciens en enregistrement',
                 value: this.tech.map((r, idx)=>{
@@ -107,7 +99,6 @@ export default class TableEnregistrement extends React.Component {
                       }
                 })
             },
-
             {
                 label: 'Mixage',
                 value: this.mixeur.map((r, idx)=>{
@@ -118,7 +109,6 @@ export default class TableEnregistrement extends React.Component {
                       }
                 })
             },
-
             {
                 label: 'Mastering',
                 value: this.master.map((r, idx)=>{
@@ -128,6 +118,13 @@ export default class TableEnregistrement extends React.Component {
                         return <span key={`masters_${r.rightHolderId}`}>{r.artistName}</span>
                       }
                 })
+            },
+            {
+              label: "Studio d'enregistrement",
+              value: (
+                  <>
+                      {this.props.media.studio}
+                      <br/><span className={'color-secondary'}>{this.props.media.studioAddress}</span></>)
             },
             {
                 label: 'Production',
@@ -140,25 +137,7 @@ export default class TableEnregistrement extends React.Component {
                 })
             },
             {
-                label: 'Étiquette',
-                value: this.props.media.label
-            },
-            {
-                label: "Studio d'enregistrement",
-                value: (
-                    <>
-                        {this.props.media.studio}
-                        <br/><span className={'color-secondary'}>{this.props.media.studioAddress}</span></>)
-            },
-            {
-                label: "Distributeur",
-                value: (
-                    <>
-                        {this.props.media.distributor}
-                        <br/><span className={'color-secondary'}>{this.props.media.distributorAddress}</span></>)
-            },            
-            {
-              label: 'Graphisme',
+              label: 'Illustration',
               value: this.graphistes.map((r, idx)=>{
                 if(r && idx < this.graphistes.length - 1) {
                     return <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}, </span>
@@ -166,6 +145,19 @@ export default class TableEnregistrement extends React.Component {
                     return <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}</span>
                   }
               })
+            },
+            {
+              label: 'ISRC',
+              helpIcon: true,
+              value: this.props.media.isrc
+            },
+            {
+                label: 'Étiquette',
+                value: this.props.media.label
+            },            
+            {
+                label: "Distributeur",
+                value: this.props.media.distributor
             }
         ]
     }
