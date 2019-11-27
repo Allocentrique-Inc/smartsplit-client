@@ -42,7 +42,7 @@ export default class Entete extends React.Component {
   }  
 
   renderAvatars() {
-    console.log(this.props.media)
+
     const maxDisplayedAvatars = 5;
     const displayedAvatars = Math.min(maxDisplayedAvatars, this.avatars.length);
     const undisplayedAvatars = this.avatars.length - displayedAvatars;   
@@ -99,16 +99,54 @@ export default class Entete extends React.Component {
   }
 
   render() {
+
+    this.ROLE_GRAPHISTE = "45745c60-7b1a-11e8-9c9c-2d42b21b1a43"
+    this.graphistes = []
+    
+    let illustrateurs
+
+    if(this.state.media) {      
+      let parts  = this.state.media.rightHolders
+      parts.forEach(_ad=>{
+        let rhId = _ad.id
+        _ad.roles.forEach(_r=>{
+          switch(_r) {          
+            case this.ROLE_GRAPHISTE:
+              this.graphistes.push(this.props.rightHolders[rhId])
+              break
+            default:
+          }
+        })
+      })
+
+      illustrateurs = this.graphistes.map((r, idx)=>{
+        if(r && idx < this.graphistes.length - 1) {
+            return <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}, </span>
+          } else {
+            return <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}</span>
+          }
+      })
+
+    }    
+
     return (
       <Translation>
         {(t, i18n) => (
           <header className="entete">
             <div className={"ui container flex"}>
-              <img
-                className={"song-image"}
-                src={placeholder}
-                alt={this.state.media.title}
-              />
+              <div className="other-info">
+                <img
+                  className={"song-image"}
+                  src={placeholder}
+                  alt={this.state.media.title}
+                />
+                <br/>
+                {
+                  illustrateurs.length > 0 && (
+                    <>{t('oeuvre.par')}{" "}{illustrateurs}</>
+                  )
+                }                
+              </div>              
 
               <div className={"song-info"}>                
 
@@ -165,22 +203,10 @@ export default class Entete extends React.Component {
                   )
                 }
 
-                {/* <h1 className={"h1-style"}>
-                  {this.state.media.title}
-                  <div className={"edit-link"} style={{display: "inline"}}>
-                    <img
-                      className={"edit-icon"}
-                      src={editIcon}
-                      alt={"Éditer"}
-                    />
-                  </div>
-                </h1> */}
-
                 <div className={"artist-line"}>
                   <div className={"left"}>
                     <span className={"tag"}>{t("oeuvre.piece")}</span>
-                    {t("oeuvre.par")} <span>{this.state.media.artist}</span> {/* t("oeuvre.feat") */}{" "}
-                    <span>{/* t("oeuvre.artistName") */}</span>
+                    {t("oeuvre.par")} <span>{this.state.media.artist}</span>{" "}
                   </div>
 
                   <div className={"right"}>

@@ -57,16 +57,7 @@ export default class TableEnregistrement extends React.Component {
         })
       }
     
-      rangees(t, i18n) {
-
-/*      
-        À INTÉGRER DANS LES PAGES
-
-        {
-            label: 'Date d\'enregistrement',
-            value: this.props.media.publishDate ? moment(this.props.media.publishDate).locale(i18n.lng.substring(0, 2)).format("LLL") : ""
-        },
- */        
+      rangees(t, i18n) {     
 
         return [
             
