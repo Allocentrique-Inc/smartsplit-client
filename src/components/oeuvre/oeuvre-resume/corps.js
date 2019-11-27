@@ -21,7 +21,7 @@ export default class Corps extends React.Component {
                     <div className={ 'ui sixteen wide mobile six wide tablet six wide computer column' }>
                         <TableInformationsGenerales edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
                         <SectionEcouter edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
-                        <SectionTelechargements edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <SectionTelechargements pochette={this.props.pochette} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
                         <SectionParoles edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
                     </div>
                 </div>

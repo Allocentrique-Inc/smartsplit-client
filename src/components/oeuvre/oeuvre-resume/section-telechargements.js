@@ -6,12 +6,15 @@ import TitreModifiable from "./titre-modifiable";
 export default class SectionTelechargements extends React.Component {   
 
     renderDownload(download) {
+
+        let pochette = this.props.pochette ? 'pochette' : 'smartsplit'
+
         return (
-            <div key={`download-${download.label}`} className={ 'download-section' }>
-                <img className={ 'download-icon' } src={ download.icon } alt={ download.label }/>
+            <div key={`download-${download.label}`} className={ `download-section cliquable` } >
+                <img className={ 'download-icon' } src={ download.icon } alt={ download.label } />
 
                 <div className={ 'download-texts' }>
-                    <div className={ 'download-label' }>
+                    <div className={ `download-label ${pochette}` }>
                         { download.label }
                     </div>
 
