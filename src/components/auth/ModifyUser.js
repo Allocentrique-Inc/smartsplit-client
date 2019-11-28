@@ -212,30 +212,24 @@ class ModifyUser extends Component {
       <Translation>
         {t => (
           <Modal
+            className="modal collabo"
             open={open}
             closeOnEscape={true}
             closeOnDimmerClick={false}
             onClose={this.props.close}
             size="small"
-            style={{ width: "auto" }}
           >
             <Modal.Header className="Titre">
-              <div className="ui row" style={{ margin: "20px 0 20px 40px" }}>
+              <div className="ui row titre">
                 <strong>{t("collaborateur.titre")}</strong>
               </div>
             </Modal.Header>
 
-            <div className="ui row" style={{ marginTop: "30px" }}>
+            <div className="ui row container">
               <div className="input-container">
                 <div className="userContainer">
-                  <span
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%"
-                    }}
-                  >
-                    <div style={{ width: "250px" }}>
+                  <span className="etiquettes">
+                    <div className="etiquettePrenom">
                       <label htmlFor="prenom">
                         <strong>
                           {t("flot.split.collaborateur.attribut.etiquette.prenom")}
@@ -250,10 +244,9 @@ class ModifyUser extends Component {
                         )}
                         value={this.state.firstName}
                         onChange={e => this.onTodoChange(e.target.value)}
-                        style={{ marginRight: "5px" }}
                       />
                     </div>
-                    <div style={{ width: "250px" }}>
+                    <div className="etiquetteNom">
                       <label>
                         <strong>
                           &nbsp;&nbsp;
@@ -269,24 +262,23 @@ class ModifyUser extends Component {
                         onChange={e =>
                           this.setState({ lastName: e.target.value })
                         }
-                        style={{ marginLeft: "5px" }}
                       />
                     </div>
                   </span>
                 </div>
 
-                <div className="ui row" style={{ marginTop: "30px" }}>
-                  <span>
-                    <label>
-                      <strong>
-                        {t("flot.split.collaborateur.attribut.etiquette.artiste")}
-                      </strong>
-                    </label>
-                    <InfoBulle text={t("flot.split.collaborateur.attribut.etiquette.na")} />
-                    <label style={{ float: "right", color: "gray" }}>
-                      {t("flot.split.collaborateur.attribut.etiquette.option")}
-                    </label>
-                  </span>
+                <div className="ui row artiste">
+                  <label>
+                    <strong>
+                      {t("flot.split.collaborateur.attribut.etiquette.artiste")}
+                    </strong>
+                  </label>
+                  <InfoBulle text={t("flot.split.collaborateur.attribut.etiquette.na")}
+                    pos={{ x: 220, y: 200 }}
+                  />
+                  <label className="option">
+                    {t("flot.split.collaborateur.attribut.etiquette.option")}
+                  </label>
                   <input
                     type="text"
                     className="newArtistName"
@@ -296,15 +288,12 @@ class ModifyUser extends Component {
                       this.setState({ artistName: e.target.value })
                     }
                   />
-                  <div
-                    className="sous titre"
-                    style={{ color: "gray", fontSize: "small" }}
-
-                  >
-                  </div>
+                  {/*<div
+                    className="sous titre">
+                  </div>*/}
                 </div>
 
-                <div className="ui row" style={{ marginTop: "30px" }}>
+                <div className="ui row group">
                   <label>
                     <strong>
                       {t("flot.split.collaborateur.attribut.etiquette.groupe")}
@@ -315,7 +304,6 @@ class ModifyUser extends Component {
                       icon="search"
                       id="prompt"
                       type="text"
-                      style={{ maxHeight: "10px" }}
                       options={this.state.groups}
                       placeholder={t(
                         "flot.split.collaborateur.attribut.indication.groupe"
@@ -332,7 +320,7 @@ class ModifyUser extends Component {
                   </span>
                 </div>
 
-                <div className="ui row" style={{ marginTop: "30px" }}>
+                <div className="ui row courriel">
                   <label>
                     <strong>
                       {t("flot.split.collaborateur.attribut.etiquette.courriel")}
@@ -348,16 +336,18 @@ class ModifyUser extends Component {
                   />
                 </div>
 
-                <div className="ui row" style={{ marginTop: "30px", display: "none" }}>
+                <div className="ui row role">
                   <label>
                     <strong>
                       {t("flot.split.collaborateur.attribut.etiquette.role")}
                     </strong>
                   </label>
+                  <InfoBulle text={t("flot.split.collaborateur.attribut.indication.role2")}
+                    pos={{ x: 270, y: 550 }}
+                  />
                   <Dropdown
                     id="roles"
                     type="text"
-                    style={{ maxHeight: "10px" }}
                     options={[
                       {
                         key: t("flot.split.roles.songwriter"),
@@ -413,12 +403,6 @@ class ModifyUser extends Component {
                     value={currentRoleValue}
                     onChange={this.roleChange}
                   />
-                  <div
-                    className="sous titre"
-                    style={{ color: "gray", fontSize: "small" }}
-                  >
-                    {t("flot.split.collaborateur.attribut.indication.role2")}
-                  </div>
                 </div>
 
                 <br></br>

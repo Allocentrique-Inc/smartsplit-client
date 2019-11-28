@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
+import { Translation } from "react-i18next"
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 import TitreChamp from "./titre-champ";
@@ -54,7 +55,15 @@ export default class ChampSelection extends Component {
     }
 
     createLabel() {
-        return this.props.createLabel || 'Ajouter comme instrument:';
+        return (
+            <Translation>
+                {
+                    (t) =>
+
+                        this.props.createLabel || t('oeuvre.attribut.etiquette.ajouter-genre')
+                }
+            </Translation>
+        )
     }
 
     render() {
@@ -62,22 +71,22 @@ export default class ChampSelection extends Component {
             <div className="champ">
                 <label>
                     <TitreChamp
-                        label={ this.props.label }
-                        description={ this.props.description }
+                        label={this.props.label}
+                        description={this.props.description}
                     />
 
                     <Dropdown
-                        placeholder={ this.props.placeholder }
+                        placeholder={this.props.placeholder}
                         fluid
                         search
                         selection
                         allowAdditions
-                        additionLabel={ <span className={ this.additionLabelClasses() }><img alt=""
-                            src={ this.plusCircle() }/> { this.createLabel() }</span> }
-                        value={ this.state.value }
-                        onChange={ this.handleChange }
-                        onAddItem={ this.handleAddItem }
-                        options={ this.state.options }
+                        additionLabel={<span className={this.additionLabelClasses()}><img alt=""
+                            src={this.plusCircle()} /> {this.createLabel()}</span>}
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                        onAddItem={this.handleAddItem}
+                        options={this.state.options}
                     />
                 </label>
             </div>

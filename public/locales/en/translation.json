@@ -35,7 +35,7 @@
         "nom": "Last name",
         "prenom": "First name",
         "artiste": "Artist name",
-        "role": "Choose one or more role",
+        "role": "Role in the musical piece  ",
         "role2": "These roles can be modified later.",
         "groupe": "Search among enteties"
       }
@@ -58,9 +58,9 @@
         "artiste": "Artist or original group:",
         "juridiction": "Jurisdiction",
         "ayantDroit": "Collaborators",
-        "genre": "Main genra",
-        "genre2": "Secondary genras",
-        "ajouter-genre": "Add a genre",
+        "genre": "Main genre",
+        "genre2": "Secondary genres",
+        "ajouter-genre": "Add as a genre:",
         "paroles": "Lyrics",
         "langueParoles": "Lyric's languages",
         "isrc": "ISRC Code  ",
@@ -522,7 +522,9 @@
         },
         "tableaudebord": {
           "collabo": "My Collaborators",
-          "edito": "My Editor"
+          "edito": "My Editor  ",
+          "as-tu": "Do you have an editor?",
+          "later": "Later"
         }
       },
       "traitement": {
