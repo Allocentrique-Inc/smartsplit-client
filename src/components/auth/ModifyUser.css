@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
 
+.modal.collabo {
+  width: auto;
+}
+
 .ui.small.modal .input-container {
   font-family: "IBM Plex Sans";
   font-size: 16px;
@@ -21,6 +25,19 @@
   opacity: 1;
 }
 
+.newFirstName {
+  margin-right: 5px;
+}
+
+.newLastName {
+  margin-left: 5px;
+}
+
+.etiquetteNom,
+.etiquettePrenom {
+  width: 250px;
+}
+
 /*IE*/
 :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
@@ -32,6 +49,7 @@
   height: 30px;
   padding: 10px 0 0 0;
   max-width: 500px !important;
+  max-height: 10px;
   display: flex;
   flex-flow: wrap;
   height: auto;
@@ -39,4 +57,39 @@
 
 .ui .search .icon {
   float: left;
+}
+
+.option {
+  float: right;
+  color: gray;
+}
+
+.sous.titre {
+color: gray;
+font-size: small;
+}
+
+.etiquettes {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.ui.row.titre {
+  margin: 20px 0 20px 40px;
+}
+
+.ui.row.container,
+.ui.row.group,
+.ui.row.role,
+.ui.row.artiste {
+margin-top: 30px;
+}
+
+.ui.row.courriel {
+  margin-top: 30px;
+}
+
+.InfoBulle {
+display: inline;
 }

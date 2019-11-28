@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { ItemSelectionne } from "./item-selectionne";
+import { Translation } from "react-i18next"
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 import TitreChamp from "./titre-champ";
@@ -43,11 +44,11 @@ export default class ChampSelectionMultiple extends Component {
         return this.state.selectedValues.map(value => {
             return (
                 <ItemSelectionne
-                    key={ value }
-                    nom={ value }
-                    onClick={ (event) => {
+                    key={value}
+                    nom={value}
+                    onClick={(event) => {
                         this.unselectItem(event, value);
-                    } }
+                    }}
                 />
             );
         });
@@ -86,7 +87,15 @@ export default class ChampSelectionMultiple extends Component {
     }
 
     createLabel() {
-        return this.props.createLabel || 'Ajouter comme instrument:';
+        return (
+            <Translation>
+                {
+                    (t) =>
+
+                        this.props.createLabel || t('oeuvre.attribut.etiquette.ajouter-genre')
+                }
+            </Translation>
+        )
     }
 
 
@@ -95,26 +104,26 @@ export default class ChampSelectionMultiple extends Component {
             <div className="champ">
                 <label>
                     <TitreChamp
-                        label={ this.props.label }
-                        description={ this.props.description }
+                        label={this.props.label}
+                        description={this.props.description}
                     />
 
-                    { this.renderSelectedItems() }
+                    {this.renderSelectedItems()}
 
                     <Dropdown
-                        placeholder={ this.props.placeholder }
+                        placeholder={this.props.placeholder}
                         fluid
                         search
                         selection
-                        selectOnBlur={ false }
-                        selectOnNavigation={ false }
+                        selectOnBlur={false}
+                        selectOnNavigation={false}
                         allowAdditions
-                        additionLabel={ <span className={ this.additionLabelClasses() }><img alt="" 
-                            src={ this.plusCircle() }/> { this.createLabel() }</span> }
-                        value={ this.state.dropdownValue }
-                        options={ this.unselectedItems() }
-                        onChange={ this.handleChange }
-                        onAddItem={ this.handleAddItem }
+                        additionLabel={<span className={this.additionLabelClasses()}><img alt=""
+                            src={this.plusCircle()} /> {this.createLabel()}</span>}
+                        value={this.state.dropdownValue}
+                        options={this.unselectedItems()}
+                        onChange={this.handleChange}
+                        onAddItem={this.handleAddItem}
                     />
                 </label>
             </div>

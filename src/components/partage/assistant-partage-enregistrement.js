@@ -364,12 +364,12 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                 {
                                                                     nom: t('flot.split.modepartage.egal'),
                                                                     valeur: "" + MODES.egal,
-                                                                    info: t('tooltip.egal')
+                                                                    info: t('tooltip.egal2')
                                                                 },
                                                                 {
                                                                     nom: t('flot.split.modepartage.manual'),
                                                                     valeur: "" + MODES.manuel,
-                                                                    info: t('tooltip.egal')
+                                                                    info: t('tooltip.manuel')
                                                                 }
                                                             ]}
                                                         />
@@ -529,14 +529,14 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                 <div className="coches--role__droit">
                                                                                                     {
                                                                                                         roles.map((elem, idx) => {
-                                                                                                            return (                                                                                                                
+                                                                                                            return (
                                                                                                                 <Checkbox
                                                                                                                     key={`coche_role_droit_enregistrement_${index}_${idx}`}
                                                                                                                     disabled={elem.id === "producteur"}
                                                                                                                     label={elem.nom}
                                                                                                                     checked={this.props.values.droitEnregistrement[index][elem.id]}
                                                                                                                     onClick={(e) => {
-                                                                                                                        if(elem.id !== "producteur") {
+                                                                                                                        if (elem.id !== "producteur") {
                                                                                                                             if (e.currentTarget.className.includes("checked")) {
                                                                                                                                 this.props.setFieldValue(`droitEnregistrement[${index}][${elem.id}]`, false)
                                                                                                                             } else {
@@ -545,7 +545,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                                             setTimeout(() => {
                                                                                                                                 this.recalculerPartage()
                                                                                                                             }, 0)
-                                                                                                                        }                                                                                                                        
+                                                                                                                        }
                                                                                                                     }}
                                                                                                                 />
                                                                                                             )
@@ -619,7 +619,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                             </div>
                                                                         )
                                                                     })
-                                                                }                                                                
+                                                                }
                                                             </div>
                                                         )}
                                                     />

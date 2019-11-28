@@ -76,13 +76,13 @@ export default class PageFichiers extends React.Component {
     // Protéger la liste des valeurs non-uuid
     let _ids = []
     const UUID_REGEXP = new RegExp("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
-    if(ids) {
-        ids.forEach(id=>{
-            if(UUID_REGEXP.test(id)) {
-                _ids.push(id)
-            }
-        })
-        return _ids        
+    if (ids) {
+      ids.forEach(id => {
+        if (UUID_REGEXP.test(id)) {
+          _ids.push(id)
+        }
+      })
+      return _ids
     }
   }
 
@@ -126,10 +126,10 @@ export default class PageFichiers extends React.Component {
                 value={this.state.graphists}
                 onChange={ids => {
                   let _ids = this.idsSiUUID(ids)
-                  this.setState({graphists: _ids})
+                  this.setState({ graphists: _ids })
                 }}
-                fn={(nouveau)=>{
-                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.graphist)                  
+                fn={(nouveau) => {
+                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.graphist)
                 }}
               />
               <br />
@@ -163,7 +163,7 @@ export default class PageFichiers extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.titre9-etape1"
                 )}
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.titre9-etape2")} />}
-                access={(this.props.values.files && this.props.values.files.audio && this.props.values.files.audio.access) || "on-invite"}
+                access={(this.props.values.files && this.props.values.files.audio && this.props.values.files.audio.access) || "public"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.audio.file", value)
                 }
@@ -181,9 +181,10 @@ export default class PageFichiers extends React.Component {
                 </h3>
               </div>
 
-              <ChampTeleversement               
+              <ChampTeleversement
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape2")} />}
-                access={(this.props.values.files && this.props.values.files.score && this.props.values.files.score.access) || "on-invite"}
+
+                access={(this.props.values.files && this.props.values.files.score && this.props.values.files.score.access) || "public"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.score.file", value)
                 }
@@ -201,7 +202,7 @@ export default class PageFichiers extends React.Component {
                   "flot.split.documente-ton-oeuvre.documenter.autre-etape3"
                 )}
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape4")} />}
-                access={(this.props.values.files && this.props.values.files.midi && this.props.values.files.midi.access) || "on-invite"}
+                access={(this.props.values.files && this.props.values.files.midi && this.props.values.files.midi.access) || "public"}
                 onFileChange={value =>
                   this.props.setFieldValue("files.midi.file", value)
                 }

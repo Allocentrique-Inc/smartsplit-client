@@ -52,7 +52,7 @@
         "commentaire": "Commentaire",
         "genre": "Style musical principal",
         "genre2": "Styles musicaux secondaires",
-        "ajouter-genre": "Ajouter un genre",
+        "ajouter-genre": "Ajouter comme genre :",
         "paroles": "Paroles",
         "langueParoles": "Langue des paroles",
         "isrc": "Code ISRC  ",
@@ -224,7 +224,7 @@
             "nom": "Nom (légal)",
             "prenom": "Prénom (légal)",
             "artiste": "Nom d'artiste (alias)  ",
-            "role": "Rôle dans la pièce musicale",
+            "role": "Rôle dans la pièce musicale  ",
             "option": "Optionnel",
             "na": "Par exemple, Jay-Z est le nom d'artiste de Shawn Corey Carter.",
             "courriel": "Courriel",
@@ -430,7 +430,9 @@
         },
         "tableaudebord": {
           "collabo": "Mes collaborateurs",
-          "edito": "Mon éditeur"
+          "edito": "Mon éditeur  ",
+          "as-tu": "As-tu un éditeur ?",
+          "later": "Plus tard"
         },
         "pro": {
           "titre": "Es-tu pro ?",
@@ -744,7 +746,8 @@
   "tooltip": {
     "egal": "Divise le droit d'auteur par le nombre de personnes et attribue le rôle «Auteur-Compositeur» par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus commencent à rentrer !",
     "roles": "Divise le droit d'auteur en deux : 50% va à ceux qui ont écrit les paroles, et 50% à ceux qui ont composé la musique. Cette dernière partie «musique» est à son tour divisée par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple : Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
-    "manuel": "Te laisse déterminer le pourcentage et les rôles pour chaque collaborateur. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas."
+    "manuel": "Te laisse déterminer le pourcentage et les rôles pour chaque collaborateur. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas.",
+    "egal2": "Divise la propriété de l'enregistrement sonore par le nombre de collaborateurs ajoutés. Cette manière de partager évite beaucoup de chicanes entre les collaborateurs, particulièrement lorsque les revenus se mettent à entrer !"
   },
   "options-acces": {
     "public": "Public – Téléchargeable par tous.",
