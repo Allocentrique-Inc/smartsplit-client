@@ -31,6 +31,7 @@ function cleanArray(array) {
 }
 
 export default class ListePieces extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -45,7 +46,7 @@ export default class ListePieces extends Component {
       },
       user: props.user
     };
-    this.modaleNouvelleOeuvre = this.modaleNouvelleOeuvre.bind(this);
+    this.modaleNouvelleOeuvre = this.modaleNouvelleOeuvre.bind(this);    
   }
 
   afficherPanneauInitiateur() {
@@ -88,6 +89,20 @@ export default class ListePieces extends Component {
           // 1. Récupérer tous les médias
           let initiatorMediaIds = [];
           let collabMediaIds = [];
+
+          axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
+          .then(res=>{
+            let _rHParID = {}
+            res.data.forEach(e=>{
+              e.name = `${e.firstName} ${e.lastName} (${e.artistName})`
+              _rHParID[e.rightHolderId] = e
+            })
+            this.setState({rightHolders: _rHParID})
+            
+          })
+          .catch(err=>{
+            console.log(err)
+          })
 
           // Médias depuis les propositions
           axios
@@ -305,6 +320,7 @@ export default class ListePieces extends Component {
               key={elem.mediaId}
               media={elem}
               user={this.state.user}
+              rightHolders={this.state.rightHolders}
             />
           );
         });
@@ -317,6 +333,7 @@ export default class ListePieces extends Component {
                   key={`${elem.mediaId}_${elem._idx}`}
                   media={elem}
                   user={this.state.user}
+                  rightHolders={this.state.rightHolders}
                 />
               );
             } else {
@@ -337,6 +354,7 @@ export default class ListePieces extends Component {
                 key={`${elem.mediaId}_${elem._idx}`}
                 media={elem}
                 user={this.state.user}
+                rightHolders={this.state.rightHolders}
               />
             )
           );

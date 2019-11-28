@@ -20,6 +20,8 @@ import { Modal, Button } from 'semantic-ui-react'
 import moment from 'moment'
 import SommairePartagesEditeur from './sommaire-partages-editeur'
 import ModaleConnexion from '../auth/Connexion'
+import ModalFin from '../oeuvre/modal-fin'
+import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
@@ -44,6 +46,7 @@ export default class SommairePartages extends Component {
         this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(this)
         this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
+        this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -108,6 +111,10 @@ export default class SommairePartages extends Component {
 
     ajouterNouvelleOeuvre() {
         this.setState({ modaleNouvelle: true })
+    }
+
+    modalePropositionEnCours(ouvrir = true) {
+        this.setState({modalePropositionEnCours: ouvrir})
     }
 
     render() {
@@ -260,8 +267,7 @@ export default class SommairePartages extends Component {
                             t =>
                                 <>
                                     <p className="ui color blue"
-                                        style={{
-                                            width: "800px",
+                                        style={{                                            
                                             fontFamily: "IBM Plex Sans",
                                             fontWeight: "normal",
                                             fontSize: "16px"
@@ -289,7 +295,7 @@ export default class SommairePartages extends Component {
             return (
                 <Translation>
                     {
-                        t =>
+                        (t, i18n) =>
                             <div className="ui segment">
                                 <div className="ui grid" style={{ padding: "10px" }}>
                                     <div className="ui row">
@@ -316,7 +322,21 @@ export default class SommairePartages extends Component {
                                                 !nouveauDisabled && (
                                                     <div className={`ui medium button`} onClick={
                                                         () => {
-                                                            window.location.href = `/partager/nouveau/${this.state.mediaId}`
+
+                                                            // Détecter si la proposition est verrouillée
+                                                            if(!this.state.media.initiateurPropositionEnCours.trim() || this.state.media.initiateurPropositionEnCours === this.state.user.username) {
+                                                                // Verrouiller la proposition
+                                                                axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,{rightHolderId: this.state.user.username})
+                                                                .then(res=>{
+                                                                    window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
+                                                                })
+                                                                .catch(err=>{
+                                                                    console.log(err)
+                                                                })
+                                                            } else {
+                                                                this.modalePropositionEnCours()                                                                
+                                                            }
+                                                            
                                                         }
                                                     }>
                                                         {t('flot.split.documente-ton-oeuvre.proposition.nouvelle')}
@@ -433,6 +453,15 @@ export default class SommairePartages extends Component {
                                         )
                                     }
                                 </div>
+                                {
+                                    this.state.media.initiateurPropositionEnCours &&
+                                    rightHolders[this.state.media.initiateurPropositionEnCours] &&
+                                    <ModalPropositionEnCours 
+                                        open={this.state.modalePropositionEnCours} 
+                                        titre={this.state.media.title} 
+                                        initiateur={rightHolders[this.state.media.initiateurPropositionEnCours].name}
+                                        onClose={()=>{this.modalePropositionEnCours(false)}} />
+                                }
                                 <Modal
                                     open={this.state.modaleConnexion}
                                     closeOnEscape={false}

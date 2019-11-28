@@ -582,7 +582,6 @@ class Page2NouvellePiece extends Component {
                                                                 () => this.setState({ assocUuidArtiste: assocUuidArtiste })
                                                             )
                                                         })
-
                                                 }}
                                             />
                                         </div>

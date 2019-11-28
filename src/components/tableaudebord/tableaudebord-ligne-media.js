@@ -3,6 +3,8 @@ import { Translation } from "react-i18next";
 import moment from "moment";
 import axios from "axios";
 import { Label } from "semantic-ui-react";
+import { toast } from "react-toastify";
+import ModalPropositionEnCours from "../modales/modale-proposition-encours";
 
 export default class LigneMedia extends Component {
   constructor(props) {
@@ -10,8 +12,16 @@ export default class LigneMedia extends Component {
     this.state = {
       pochette: props.pochette,
       media: props.media,
-      user: props.user
-    };
+      user: props.user,
+      rightHolders: props.rightHolders
+    }
+    this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.rightHolders !== nextProps.rightHolders) {
+      this.setState({rightHolders: nextProps.rightHolders})
+    }
   }
 
   componentWillMount() {
@@ -33,6 +43,10 @@ export default class LigneMedia extends Component {
         });
         this.setState({ p0: _p0 });
       });
+  }
+
+  modalePropositionEnCours(ouvrir = true) {
+    this.setState({modalePropositionEnCours: ouvrir})
   }
 
   render() {
@@ -133,7 +147,19 @@ export default class LigneMedia extends Component {
                     <div
                       className={`ui medium button ${pochette}`}
                       onClick={() => {
-                        window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
+                        // Détecter si la proposition est verrouillée
+                        if(!this.state.media.initiateurPropositionEnCours.trim() || this.state.media.initiateurPropositionEnCours === this.state.user.username) {
+                          // Verrouiller la proposition
+                          axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,{rightHolderId: this.state.user.username})
+                          .then(res=>{
+                              window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
+                          })
+                          .catch(err=>{
+                              console.log(err)
+                          })
+                        } else {
+                          this.modalePropositionEnCours()
+                        }                        
                       }}
                     >
                       {t(
@@ -172,6 +198,15 @@ export default class LigneMedia extends Component {
                     </div>
                   )}
                   {!pochette && _p && <Label>{t(`flot.split.etat.${_p.etat}`)}</Label>}
+                  {
+                    this.state.media.initiateurPropositionEnCours &&
+                    this.state.rightHolders[this.state.media.initiateurPropositionEnCours] &&
+                    <ModalPropositionEnCours
+                      open={this.state.modalePropositionEnCours} 
+                      titre={this.state.media.title} 
+                      initiateur={this.state.rightHolders[this.state.media.initiateurPropositionEnCours].name}
+                      onClose={()=>{this.modalePropositionEnCours(false)}} />
+                  }
                 </div>
               </div>
             </div>
