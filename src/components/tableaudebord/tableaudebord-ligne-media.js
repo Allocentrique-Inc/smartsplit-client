@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Translation } from "react-i18next";
 import moment from "moment";
 import axios from "axios";
-import { Label } from "semantic-ui-react";
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
 export default class LigneMedia extends Component {
   constructor(props) {
@@ -74,7 +74,7 @@ export default class LigneMedia extends Component {
                 <div
                   className="ui one wide column cliquable"
                   onClick={() => {
-                    if(!pochette) {
+                    if (!pochette) {
                       window.location.href = `/oeuvre/sommaire/${elem.mediaId}`;
                     } else {
                       window.location.href = `/documenter/${elem.mediaId}`;
@@ -86,7 +86,7 @@ export default class LigneMedia extends Component {
                 <div
                   className="ui seven wide column cliquable"
                   onClick={() => {
-                    if(!pochette) {
+                    if (!pochette) {
                       window.location.href = `/oeuvre/sommaire/${elem.mediaId}`;
                     } else {
                       window.location.href = `/documenter/${elem.mediaId}`;
@@ -95,19 +95,16 @@ export default class LigneMedia extends Component {
                 >
                   <div className="song-name">{`${elem.title}`}</div>
                   <div
-                    className="small-400"
-                    style={{ display: "inline-block" }}
-                  >
+                    className="small-400">
                     &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
                   </div>
+
                   <div
                     className={`small-500-color ${pochette}`}
-                    style={{ display: "inline-block" }}
                   >{`${elem.artist}`}</div>
                   <br />
                   <div
                     className={`small-400-color`}
-                    style={{ display: "inline-block" }}
                   >
                     {i18n.lng &&
                       moment(elem.creationDate)
@@ -116,10 +113,16 @@ export default class LigneMedia extends Component {
                     &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
                   </div>
                 </div>
-                <div className="ui six wide column">
+                <div className="ui six wide column etat">
+
+                  <div>
+                    {!pochette && _p && <div class="ui huge label etat">
+                      {t(`flot.split.etat.${_p.etat}`)}</div>}
+                  </div>
+
                   {!pochette && !continuerDisabled && (
                     <div
-                      className={`ui medium button ${pochette}`}
+                      className={`ui medium button options ${pochette}`}
                       onClick={() => {
                         window.location.href = `/partager/existant/${_p.uuid}`;
                       }}
@@ -129,9 +132,10 @@ export default class LigneMedia extends Component {
                       )}
                     </div>
                   )}
+
                   {!pochette && !nouveauDisabled && (
                     <div
-                      className={`ui medium button ${pochette}`}
+                      className={`ui medium button options ${pochette}`}
                       onClick={() => {
                         window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
                       }}
@@ -141,37 +145,39 @@ export default class LigneMedia extends Component {
                       )}
                     </div>
                   )}
-                  {!pochette && !sommaireDisabled && (
-                    <div
-                      className={`ui medium button ${pochette}`}
-                      onClick={() => {
-                        window.location.href = `/partager/${this.state.media.mediaId}`;
-                      }}
-                    >
-                      {t("flot.split.sommaire.titre")}
-                    </div>
-                  )}
-                  {!pochette && !votationDisabled && (
-                    <div
-                      className={`ui medium button ${pochette}`}
-                      onClick={() => {
-                        window.location.href = `/partager/${this.state.media.mediaId}`;
-                      }}
-                    >
-                      {t("flot.split.documente-ton-oeuvre.proposition.voter")}
-                    </div>
-                  )}
-                  {pochette && (
-                    <div
-                      className={`ui medium button ${pochette}`}
-                      onClick={() => {
-                        window.location.href = `/documenter/${this.state.media.mediaId}`;
-                      }}
-                    >
-                      {t("flot.split.documente-ton-oeuvre.titre")}
-                    </div>
-                  )}
-                  {!pochette && _p && <Label>{t(`flot.split.etat.${_p.etat}`)}</Label>}
+                  <div className="ui six wide column">
+                    {!pochette && !sommaireDisabled && (
+                      <div
+                        className={`ui medium button options ${pochette}`}
+                        onClick={() => {
+                          window.location.href = `/partager/${this.state.media.mediaId}`;
+                        }}
+                      >
+                        {t("flot.split.sommaire.titre")}
+                      </div>
+                    )}
+                    {!pochette && !votationDisabled && (
+                      <div
+                        className={`ui medium button options ${pochette}`}
+                        onClick={() => {
+                          window.location.href = `/partager/${this.state.media.mediaId}`;
+                        }}
+                      >
+                        {t("flot.split.documente-ton-oeuvre.proposition.voter")}
+                      </div>
+                    )}
+
+                    {pochette && (
+                      <div
+                        className={`ui medium button options ${pochette}`}
+                        onClick={() => {
+                          window.location.href = `/documenter/${this.state.media.mediaId}`;
+                        }}
+                      >
+                        {t("flot.split.documente-ton-oeuvre.titre")}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

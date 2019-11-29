@@ -1,16 +1,18 @@
-import React, { Component } from "react"
-import { Translation } from "react-i18next"
+import React, { Component } from "react";
+import { Translation } from "react-i18next";
 
-import axios from "axios"
+import axios from "axios";
 
-import { toast } from "react-toastify"
-import { Dropdown, Label } from "semantic-ui-react"
+import { toast } from "react-toastify";
+import { Dropdown, Label } from "semantic-ui-react";
 
-import i18n from "i18next"
+import i18n from "i18next";
 
 // Authentification avec AWS
-import { Auth } from "aws-amplify"
-import Socan from "../auth/Socan"
+import { Auth } from "aws-amplify";
+//import Socan from "../auth/Socan"
+
+import { LogOutSVG, SettingsSVG } from "../svg/SVG";
 
 class MenuProfil extends Component {
   constructor(props) {
@@ -84,7 +86,7 @@ class MenuProfil extends Component {
         {t => (
           <span
             style={{
-              position: "absolute",              
+              position: "absolute",
               zIndex: "1"
             }}
           >
@@ -96,7 +98,7 @@ class MenuProfil extends Component {
                     window.location.href = "/accueil";
                   }}
                 />
-               {/*  <Dropdown.Item
+                {/*  <Dropdown.Item
                   text={t("menuprofil.profil")}
                   onClick={() => {
                     this.ouvrirSocan();
@@ -121,13 +123,14 @@ class MenuProfil extends Component {
                 <Dropdown.Divider />
                 <Dropdown.Item
                   text={t("menuprofil.deconnexion")}
+                  image={<LogOutSVG />}
                   onClick={() => {
                     this.deconnexion();
                   }}
                 />
               </Dropdown.Menu>
             </Dropdown>
-           {/*  <Socan
+            {/*  <Socan
               pochette={this.props.pochette}
               open={this.state.modaleSocan}
               onClose={() => {
@@ -143,15 +146,7 @@ class MenuProfil extends Component {
       <Translation>
         {t => (
           <>
-            <div
-              className="ui five wide column avatar--image profile"
-              style={{
-                position: "relative",
-                top: "30px",
-                right: "125px",
-                zIndex: "1"
-              }}
-            ></div>
+            <div className="ui five wide column avatar--image profile"></div>
             <Label
               style={{
                 background: "transparent",
