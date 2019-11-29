@@ -10,8 +10,11 @@ import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit"
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import InfoBulle from "../partage/InfoBulle"
+import { toast } from 'react-toastify'
 
-import * as roles from "../../assets/listes/role-uuids.json";
+import * as roles from "../../assets/listes/role-uuids.json"
+
+import axios from 'axios'
 
 import {
   addRightHolderIfMissing,
@@ -35,7 +38,9 @@ export default class PageFichiers extends React.Component {
       ),
       open: props.open,
       terms: "Y"
-    };
+    }
+
+    this.televerser = this.televerser.bind(this)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -72,6 +77,29 @@ export default class PageFichiers extends React.Component {
     return RightHolderOptions(this.props.rightHolders);
   }
 
+  televerser(value, chemin) {
+    if (value) {
+      this.setState({ patience: true })
+      let fichier = value
+      let fd = new FormData()
+      fd.append('file', fichier)                    
+      let mediaId = this.props.values.mediaId                  
+      fd.append('mediaId', mediaId)
+      axios.post(`http://envoi.smartsplit.org:3033/${chemin}`, fd)
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+          if (err) {
+              console.log(err)                                
+          }
+      })
+      .finally(() => {
+          this.setState({ patience: false })
+      })
+    }
+  }  
+
   idsSiUUID(ids) {
     // Protéger la liste des valeurs non-uuid
     let _ids = []
@@ -92,6 +120,14 @@ export default class PageFichiers extends React.Component {
       <Translation>
         {(t, i18n) => (
           <Page pochette={this.props.pochette}>
+             {
+              this.state.patience &&
+              (
+                <div className="container ui active dimmer">
+                  <div className="ui text loader">{t("televersement.encours")}</div>
+                </div>
+              )
+            }
             <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
             <Colonne>
               <Entete
@@ -141,9 +177,10 @@ export default class PageFichiers extends React.Component {
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.titre8-etape2")} />}
                 file={this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.file}
                 access={(this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.access) || "public"}
-                onFileChange={value =>
+                onFileChange={value => {                   
                   this.props.setFieldValue("files.cover.file", value)
-                }
+                  this.televerser(value, 'uploadCoverArt')
+                }}
                 onAccessChange={value =>
                   this.props.setFieldValue("files.cover.access", value)
                 }
@@ -164,9 +201,10 @@ export default class PageFichiers extends React.Component {
                 )}
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.titre9-etape2")} />}
                 access={(this.props.values.files && this.props.values.files.audio && this.props.values.files.audio.access) || "public"}
-                onFileChange={value =>
+                onFileChange={value => {
                   this.props.setFieldValue("files.audio.file", value)
-                }
+                  this.televerser(value, 'upload')
+                }}
                 onAccessChange={value =>
                   this.props.setFieldValue("files.audio.access", value)
                 }
@@ -183,11 +221,11 @@ export default class PageFichiers extends React.Component {
 
               <ChampTeleversement
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape2")} />}
-
                 access={(this.props.values.files && this.props.values.files.score && this.props.values.files.score.access) || "public"}
-                onFileChange={value =>
+                onFileChange={value => {
                   this.props.setFieldValue("files.score.file", value)
-                }
+                  this.televerser(value, 'uploadScore')
+                }}
                 onAccessChange={value =>
                   this.props.setFieldValue("files.score.access", value)
                 }
@@ -203,9 +241,10 @@ export default class PageFichiers extends React.Component {
                 )}
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape4")} />}
                 access={(this.props.values.files && this.props.values.files.midi && this.props.values.files.midi.access) || "public"}
-                onFileChange={value =>
+                onFileChange={value => {
                   this.props.setFieldValue("files.midi.file", value)
-                }
+                  this.televerser(value, 'uploadMidi')
+                }}
                 onAccessChange={value =>
                   this.props.setFieldValue("files.midi.access", value)
                 }
