@@ -604,6 +604,12 @@ class Page2NouvellePiece extends Component {
 
                                                         let fd = new FormData()
                                                         fd.append('file', fichier)
+                                                        
+                                                        let mediaId
+                                                        if(this.props.parent) {
+                                                            mediaId = this.props.parent.state.mediaId
+                                                        }
+                                                        fd.append('mediaId', mediaId)
 
                                                         axios
                                                             .post('http://envoi.smartsplit.org:3033/envoi', fd)
