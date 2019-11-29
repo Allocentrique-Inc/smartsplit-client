@@ -148,7 +148,10 @@ export default class LigneMedia extends Component {
                       className={`ui medium button ${pochette}`}
                       onClick={() => {
                         // Détecter si la proposition est verrouillée
-                        if(!this.state.media.initiateurPropositionEnCours.trim() || this.state.media.initiateurPropositionEnCours === this.state.user.username) {
+                        if(
+                          this.state.media &&
+                          this.state.media.initiateurPropositionEnCours &&
+                          (!this.state.media.initiateurPropositionEnCours.trim() || this.state.media.initiateurPropositionEnCours === this.state.user.username)) {
                           // Verrouiller la proposition
                           axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,{rightHolderId: this.state.user.username})
                           .then(res=>{
