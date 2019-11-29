@@ -404,18 +404,18 @@ export default class PartageSommaireEditeur extends Component {
                         closeOnDimmerClick={false}
                         onClose={this.props.close}
                         size="small" >
-                        <br/><br/><br/>
-                        <LogIn 
+                        <br /><br /><br />
+                        <LogIn
                             vote={true}
-                            fn={()=>{
-                            Auth.currentAuthenticatedUser()
-                                .then(res => {
-                                    this.envoi()
-                                })
-                                .catch(err => {
-                                    toast.error(err.message)
-                                })
-                        }} />
+                            fn={() => {
+                                Auth.currentAuthenticatedUser()
+                                    .then(res => {
+                                        this.envoi()
+                                    })
+                                    .catch(err => {
+                                        toast.error(err.message)
+                                    })
+                            }} />
                     </Modal>
                 </div>
             )
