@@ -75,7 +75,7 @@ class MenuProfil extends Component {
       //avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
       avatarImage =
         this.state.user.avatarImage === null || this.state.user.avatarImage === "image.jpg"
-          ? "data:image/png;base64,"+biquetteBase64
+          ? (!this.props.pochette ? "data:image/png;base64,"+biquetteBase64 : "https://images-publiques.s3.amazonaws.com/avatar.png")
           : `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.user.avatarImage}`;
       userInitials =
         this.state.user.avatarImage === null ? this.state.initials : null;
