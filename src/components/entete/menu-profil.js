@@ -14,6 +14,9 @@ import { Auth } from "aws-amplify";
 
 import { LogOutSVG, SettingsSVG } from "../svg/SVG";
 
+import biquetteBase64 from "../../assets/base64/biquette.base64.js"
+
+
 class MenuProfil extends Component {
   constructor(props) {
     super(props);
@@ -71,8 +74,8 @@ class MenuProfil extends Component {
     if (this.state.user) {
       //avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
       avatarImage =
-        this.state.user.avatarImage === null
-          ? "https://www.imsa-search.com/wp-content/uploads/2018/06/avatar.png"
+        this.state.user.avatarImage === null || this.state.user.avatarImage === "image.jpg"
+          ? "data:image/png;base64,"+biquetteBase64
           : `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.user.avatarImage}`;
       userInitials =
         this.state.user.avatarImage === null ? this.state.initials : null;
