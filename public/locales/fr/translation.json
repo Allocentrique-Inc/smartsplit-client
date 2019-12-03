@@ -732,7 +732,8 @@
     "profil": "Mon profil SOCAN",
     "francais": "Français",
     "anglais": "English",
-    "deconnexion": "Déconnexion"
+    "deconnexion": "Déconnexion",
+    "parametre": "Paramètres"
   },
   "deconnexion": {
     "reussie": "Déconnexion réussie"

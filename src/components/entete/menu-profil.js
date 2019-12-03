@@ -12,7 +12,15 @@ import i18n from "i18next";
 import { Auth } from "aws-amplify";
 //import Socan from "../auth/Socan"
 
-import { LogOutSVG, SettingsSVG } from "../svg/SVG";
+import { LogOutSVG, SettingsSVG, AvatarInitialsSVG } from "../svg/SVG";
+
+function getInitials(firstName, lastName) {
+  let P = "",
+    N = "";
+  if (firstName && firstName.length > 0) P = firstName.charAt(0).toUpperCase();
+  if (lastName && lastName.length > 0) N = lastName.charAt(0).toUpperCase();
+  return P + N;
+}
 
 class MenuProfil extends Component {
   constructor(props) {
@@ -31,11 +39,11 @@ class MenuProfil extends Component {
     this.ouvrirSocan = this.ouvrirSocan.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount() { //requête pour aller chercher ayants droits
     axios
       .get(
         "http://dev.api.smartsplit.org:8080/v1/rightHolders/" +
-          this.state.auth.username
+        this.state.auth.username
       )
       .then(res => {
         this.setState({ user: res.data.Item });
@@ -72,7 +80,7 @@ class MenuProfil extends Component {
       //avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
       avatarImage =
         this.state.user.avatarImage === null
-          ? "https://www.imsa-search.com/wp-content/uploads/2018/06/avatar.png"
+          ? "https://images-publiques.s3.amazonaws.com/avatar.png"
           : `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.user.avatarImage}`;
       userInitials =
         this.state.user.avatarImage === null ? this.state.initials : null;
@@ -93,18 +101,18 @@ class MenuProfil extends Component {
             <Dropdown text="" icon="angle down big black">
               <Dropdown.Menu icon="down small">
                 <Dropdown.Item
-                  text={t("menuprofil.accueil")}
-                  onClick={() => {
-                    window.location.href = "/accueil";
-                  }}
+                  content={nomComplet}
+                  text={getInitials()}
+                  image={<AvatarInitialsSVG />}
                 />
+
                 {/*  <Dropdown.Item
                   text={t("menuprofil.profil")}
                   onClick={() => {
                     this.ouvrirSocan();
                   }}
                 /> */}
-                {i18n.language && i18n.language.substring(0, 2) === "en" && (
+                {/* {i18n.language && i18n.language.substring(0, 2) === "en" && (
                   <Dropdown.Item
                     text={t("menuprofil.francais")}
                     onClick={() => {
@@ -119,8 +127,18 @@ class MenuProfil extends Component {
                       i18n.init({ lng: "en" });
                     }}
                   />
-                )}
+                )} */}
+
                 <Dropdown.Divider />
+
+                <Dropdown.Item
+                  text={t("menuprofil.parametre")}
+                  image={<SettingsSVG />}
+                  onClick={() => {
+                    window.location.href = "/parametre"; // À faire
+                  }}
+                />
+
                 <Dropdown.Item
                   text={t("menuprofil.deconnexion")}
                   image={<LogOutSVG />}

@@ -118,7 +118,7 @@ export default class SommairePartages extends Component {
     }
 
     modalePropositionEnCours(ouvrir = true) {
-        this.setState({modalePropositionEnCours: ouvrir})
+        this.setState({ modalePropositionEnCours: ouvrir })
     }
     actionEditeur() {
         this.setState({ editeur: false }) // Déjà à false
@@ -273,14 +273,16 @@ export default class SommairePartages extends Component {
                         {
                             t =>
                                 <>
-                                    <p className="ui color blue"
-                                        style={{                                            
-                                            fontFamily: "IBM Plex Sans",
-                                            fontWeight: "normal",
-                                            fontSize: "16px"
-                                        }}>
-                                        {t('flot.split.partage.prete-a-envoyer')}</p>
-                                    <br />
+                                    <div class="ui sixteen column grid">
+                                        <div class="three column row" />
+                                        <p className="ui color blue"
+                                            style={{
+                                                fontFamily: "IBM Plex Sans",
+                                                fontWeight: "normal",
+                                                fontSize: "16px"
+                                            }}>
+                                            {t('flot.split.partage.prete-a-envoyer')}</p>
+                                    </div>
                                 </>
                         }
 
@@ -309,41 +311,43 @@ export default class SommairePartages extends Component {
                                         <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
                                     </div>
                                     <div className="ui row">
-                                        <div className="ui two wide column" />
-                                        <div className="ui eight wide column">
+                                        <div className="ui one wide column" />
+                                        <div className="ui twelve wide column">
                                             {message}
                                         </div>
-                                        <div className="ui four wide column">
-                                            {
-                                                !continuerDisabled && (
-                                                    <div className={`ui medium button`} onClick={
-                                                        () => {
-                                                            window.location.href = `/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                        }
-                                                    }>
-                                                        {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
-                                                    </div>
-                                                )
-                                            }
+                                        <div className="ui thirteen wide column">
+                                            <div class="right floated column">
+                                                {
+                                                    !continuerDisabled && (
+                                                        <div className={`ui medium button`} onClick={
+                                                            () => {
+                                                                window.location.href = `/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
+                                                            }
+                                                        }>
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
                                             {
                                                 !nouveauDisabled && (
                                                     <div className={`ui medium button`} onClick={
                                                         () => {
 
                                                             // Détecter si la proposition est verrouillée
-                                                            if(!this.state.media.initiateurPropositionEnCours.trim() || this.state.media.initiateurPropositionEnCours === this.state.user.username) {
+                                                            if (!this.state.media.initiateurPropositionEnCours.trim() || this.state.media.initiateurPropositionEnCours === this.state.user.username) {
                                                                 // Verrouiller la proposition
-                                                                axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,{rightHolderId: this.state.user.username})
-                                                                .then(res=>{
-                                                                    window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
-                                                                })
-                                                                .catch(err=>{
-                                                                    console.log(err)
-                                                                })
+                                                                axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`, { rightHolderId: this.state.user.username })
+                                                                    .then(res => {
+                                                                        window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
+                                                                    })
+                                                                    .catch(err => {
+                                                                        console.log(err)
+                                                                    })
                                                             } else {
-                                                                this.modalePropositionEnCours()                                                                
+                                                                this.modalePropositionEnCours()
                                                             }
-                                                            
+
                                                         }
                                                     }>
                                                         {t('flot.split.documente-ton-oeuvre.proposition.nouvelle')}
@@ -354,14 +358,19 @@ export default class SommairePartages extends Component {
                                                 !envoiDisabled && (
 
                                                     <div>
+                                                        <div className="ui row">
+                                                            <div className="ui thirteen wide column">
+                                                                <div class="right floated column">
+                                                                    <div onClick={() => {
+                                                                        this.openModal()
+                                                                    }} className={`ui medium button sommaire`}
+                                                                        style={{ marginTop: "40px" }}
+                                                                    >
 
-                                                        <div onClick={() => {
-                                                            this.openModal()
-                                                        }} className={`ui medium button sommaire`}
-                                                            style={{ marginTop: "40px" }}
-                                                        >
-
-                                                            {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
+                                                                        {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div>
                                                             <Modal
@@ -489,11 +498,11 @@ export default class SommairePartages extends Component {
                                 {
                                     this.state.media.initiateurPropositionEnCours &&
                                     rightHolders[this.state.media.initiateurPropositionEnCours] &&
-                                    <ModalPropositionEnCours 
-                                        open={this.state.modalePropositionEnCours} 
-                                        titre={this.state.media.title} 
+                                    <ModalPropositionEnCours
+                                        open={this.state.modalePropositionEnCours}
+                                        titre={this.state.media.title}
                                         initiateur={rightHolders[this.state.media.initiateurPropositionEnCours].name}
-                                        onClose={()=>{this.modalePropositionEnCours(false)}} />
+                                        onClose={() => { this.modalePropositionEnCours(false) }} />
                                 }
                                 <Modal
                                     open={this.state.modaleConnexion}

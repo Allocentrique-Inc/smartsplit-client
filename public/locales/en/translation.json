@@ -733,7 +733,8 @@
     "profil": "My Profile",
     "francais": "Français",
     "anglais": "English",
-    "deconnexion": "Disconnect"
+    "deconnexion": "Disconnect",
+    "parametres": "Settings"
   },
   "deconnexion": {
     "reussie": "Succesfully disconnected"
