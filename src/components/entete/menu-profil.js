@@ -22,6 +22,11 @@ function getInitials(firstName, lastName) {
   return P + N;
 }
 
+import biquetteBase64 from "../../assets/base64/biquette.base64.js"
+
+const textToImage = require('text-to-image')
+
+
 class MenuProfil extends Component {
   constructor(props) {
     super(props);
@@ -47,9 +52,18 @@ class MenuProfil extends Component {
       )
       .then(res => {
         this.setState({ user: res.data.Item });
+
+        let P = "", N = ""
+        if (res.data.Item.firstName && res.data.Item.firstName.length > 0) P = res.data.Item.firstName.charAt(0).toUpperCase()
+        if (res.data.Item.lastName && res.data.Item.lastName.length > 0) N = res.data.Item.lastName.charAt(0).toUpperCase()
+
         this.setState({
-          initials:
-            res.data.Item.firstName.charAt(0) + res.data.Item.lastName.charAt(0)
+          initials: P + N
+        }, () => {
+          textToImage.generate(this.state.initials, { maxWidth: 30, maxHeight: 30 })
+            .then(dataUri => {
+              this.setState({ avatarInitiales: dataUri })
+            })
         });
       })
       .catch(err => {
@@ -79,8 +93,10 @@ class MenuProfil extends Component {
     if (this.state.user) {
       //avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
       avatarImage =
-        this.state.user.avatarImage === null
-          ? "https://images-publiques.s3.amazonaws.com/avatar.png"
+        this.state.user.avatarImage === null || this.state.user.avatarImage === "image.jpg"
+          ? (!this.props.pochette ?
+            "data:image/png;base64," + biquetteBase64
+            : "https://images-publiques.s3.amazonaws.com/avatar.png")
           : `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.user.avatarImage}`;
       userInitials =
         this.state.user.avatarImage === null ? this.state.initials : null;

@@ -102,9 +102,12 @@
 
     a {
         @extend .medium-500-style;
-
-        color: $smartsplit-color-link;
+        
         transition: 0.2s color;
+
+        .pochette {
+            color: $pochette-color-link;
+        }
 
         &:hover {
             color: $smartsplit-color-link-hover;
@@ -112,7 +115,8 @@
     }
 }
 
-.pochette .download-section a {
+.download-section a .pochette {
+    
     color: $pochette-color-link;
 
     &:hover {
