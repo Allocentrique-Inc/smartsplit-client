@@ -12,6 +12,8 @@ RUN apk add --update \
     pixman-dev \
     cairo \
     cairo-dev \
+    pango \
+    pango-dev \
     && pip install awscli==$AWSCLI_VERSION --upgrade --user \
     && apk --purge -v del py-pip \
     && rm -rf /var/cache/apk/*
