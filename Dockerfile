@@ -10,11 +10,11 @@ RUN apk add --update \
     build-base \
     pixman \
     pixman-dev \
-    node-gyp \
     && pip install awscli==$AWSCLI_VERSION --upgrade --user \
     && apk --purge -v del py-pip \
     && rm -rf /var/cache/apk/*
 RUN npm config set user 0
+RUN npm install node-gyp
 RUN npm install
 EXPOSE 80
 ENV PORT 80
