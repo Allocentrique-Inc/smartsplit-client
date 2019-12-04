@@ -10,6 +10,8 @@ RUN apk add --update \
     build-base \
     pixman \
     pixman-dev \
+    cairo \
+    cairo-dev \
     && pip install awscli==$AWSCLI_VERSION --upgrade --user \
     && apk --purge -v del py-pip \
     && rm -rf /var/cache/apk/*
