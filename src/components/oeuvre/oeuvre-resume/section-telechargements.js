@@ -34,31 +34,35 @@ export default class SectionTelechargements extends React.Component {
 
         if(this.props.media.files) {
             if(this.props.media.files.audio) {
+                let nomfichierS3 = this.props.media.files.audio.file
                 downloads.push({
                     icon: downloadLockIcon,
-                    label: 'Visuel de l\'œuvre',
-                    urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/audio/audio`                     
+                    label: 'Fichier audio',
+                    urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/audio/${nomfichierS3}`                     
                 })
             }
             if(this.props.media.files.cover) {
+                let nomfichierS3 = this.props.media.files.cover.file
                 downloads.push({
                     icon: downloadCloudIcon,
-                    label: 'Fichier audio',
-                    urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/cover/cover` 
+                    label: 'Visuel de l\'œuvre',
+                    urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/cover/${nomfichierS3}` 
                 })
             }
             if(this.props.media.files.midi) {
+                let nomfichierS3 = this.props.media.files.midi.file
                 downloads.push({
                     icon: downloadCloudIcon,
                     label: 'Fichier MIDI',
-                    urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/midi/midi` 
+                    urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/midi/${nomfichierS3}` 
                 })
             }
             if(this.props.media.files.score) {
+                let nomfichierS3 = this.props.media.files.score.file
                 downloads.push({
                     icon: downloadCloudIcon,
                     label: 'Partition/Tablature',
-                    urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/score/score` 
+                    urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/score/${nomfichierS3}`
                 })
             }
         }        

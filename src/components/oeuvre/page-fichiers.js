@@ -177,8 +177,12 @@ export default class PageFichiers extends React.Component {
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.titre8-etape2")} />}
                 file={this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.file}
                 access={(this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.access) || "public"}
-                onFileChange={value => {                   
-                  this.props.setFieldValue("files.cover.file", value)
+                onFileChange={value => {
+                  let nom = value.name.replace(/ /g,'_') 
+                  this.props.setFieldValue("files.cover.file", nom)
+                  if(!this.props.values.files.cover || !this.props.values.files.cover.access) {
+                    this.props.setFieldValue("files.cover.access", 'public')
+                  }
                   this.televerser(value, 'uploadCoverArt')
                 }}
                 onAccessChange={value =>
@@ -202,7 +206,11 @@ export default class PageFichiers extends React.Component {
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.titre9-etape2")} />}
                 access={(this.props.values.files && this.props.values.files.audio && this.props.values.files.audio.access) || "public"}
                 onFileChange={value => {
-                  this.props.setFieldValue("files.audio.file", value)
+                  let nom = value.name.replace(/ /g,'_') 
+                  this.props.setFieldValue("files.audio.file", nom)
+                  if(!this.props.values.files.audio || !this.props.values.files.audio.access) {
+                    this.props.setFieldValue("files.audio.access", 'public')
+                  }
                   this.televerser(value, 'upload')
                 }}
                 onAccessChange={value =>
@@ -223,7 +231,11 @@ export default class PageFichiers extends React.Component {
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape2")} />}
                 access={(this.props.values.files && this.props.values.files.score && this.props.values.files.score.access) || "public"}
                 onFileChange={value => {
-                  this.props.setFieldValue("files.score.file", value)
+                  let nom = value.name.replace(/ /g,'_') 
+                  this.props.setFieldValue("files.score.file", nom)
+                  if(!this.props.values.files.score || !this.props.values.files.score.access) {
+                    this.props.setFieldValue("files.score.access", 'public')
+                  }
                   this.televerser(value, 'uploadScore')
                 }}
                 onAccessChange={value =>
@@ -242,7 +254,11 @@ export default class PageFichiers extends React.Component {
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape4")} />}
                 access={(this.props.values.files && this.props.values.files.midi && this.props.values.files.midi.access) || "public"}
                 onFileChange={value => {
-                  this.props.setFieldValue("files.midi.file", value)
+                  let nom = value.name.replace(/ /g,'_') 
+                  this.props.setFieldValue("files.midi.file", nom)
+                  if(!this.props.values.files.midi || !this.props.values.files.midi.access) {
+                    this.props.setFieldValue("files.midi.access", 'public')
+                  }
                   this.televerser(value, 'uploadMidi')
                 }}
                 onAccessChange={value =>
