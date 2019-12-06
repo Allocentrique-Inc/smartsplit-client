@@ -43,6 +43,8 @@ export default class Beignet extends Component {
     }
 
     rafraichir(props) {
+        let _pri = {}
+        let _acc = {}
         let _d = {}
         let _c = {}
         let _a = {}
@@ -55,12 +57,21 @@ export default class Beignet extends Component {
                 let nom
                 if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
                     nom = `${elem.ayantDroit.firstName + " "}${elem.ayantDroit.lastName} ${elem.ayantDroit.artistName ? `(${elem.ayantDroit.artistName}) ` : ""}`
-                    _d[nom] = elem.pourcent
+                    if (elem.principal) _pri[nom] = elem.pourcent
+                    else _acc[nom] = elem.pourcent
+                    //_d[nom] = elem.pourcent
                 }
                 _c[nom] = elem.color;
                 _a[nom] = elem.alpha;
-                if (!elem.principal) accomp = true
             })
+            //_d = _pri
+            //_acc.forEach(elem => {_d[elem.key] = elem.value})
+            _d = Object.assign({}, _pri, _acc);
+            console.log(_d)
+            console.log(_pri)
+            console.log(_acc)
+            console.log(Object.keys(_acc).length)
+            if (Object.keys(_pri).length > 0 && Object.keys(_acc).length > 0) accomp = true
             this.setState({ data: _d })
             this.setState({ colors: _c })
             this.setState({ alphas: _a })
