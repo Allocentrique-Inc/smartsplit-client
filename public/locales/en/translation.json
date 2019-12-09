@@ -555,6 +555,10 @@
             "email": "Your email",
             "password": "Forgot password"
           }
+        },
+        "protection": {
+          "titre": "Password",
+          "bouton": "ACCESS BETA"
         }
       },
       "tableaudebord": {

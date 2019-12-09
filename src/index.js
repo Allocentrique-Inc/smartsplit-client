@@ -30,6 +30,7 @@ import Beignet from "./components/visualisation/partage/beignet";
 import Histogramme from "./components/visualisation/partage/histogramme";
 import Troissplits from "./components/visualisation/partage/troissplits";
 // Composantes auth
+import Password from "./components/auth/Password";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import ModifyUser from "./components/auth/ModifyUser";
@@ -89,7 +90,8 @@ const renderRoutes = () => {
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
-            <Route exact path="/" component={Accueil} />
+            <Route exact path="/accueil" component={Accueil} />
+            <Route exact path="/" component={Password} />
             <Route exact path="/documenter/:mediaId" component={Documenter} />
             <Route exact path="/editer/:mediaId/:pageNo" component={Editer} />
             <Route exact path="/decrire-oeuvre" component={AssistantOeuvre} />
@@ -177,6 +179,7 @@ const renderRoutes = () => {
               path="/partage/editeur/vote/:jeton"
               component={VoterPartTiers}
             />
+            <Route exact path="*" component={Password} />
           </Switch>
         </Router>
       </I18nextProvider>
@@ -285,6 +288,10 @@ function PartagesOeuvres(match) {
 function Accueil() {
   return <TableauDeBord />;
 }
+
+// function Password() {
+//   return <Password />;
+// }
 
 function ConfirmerCourriel() {
   setTimeout(() => {

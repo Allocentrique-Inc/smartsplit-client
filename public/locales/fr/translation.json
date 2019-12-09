@@ -555,6 +555,10 @@
             "email": "Ton courriel",
             "password": "Mot de passe oublié"
           }
+        },
+        "protection": {
+          "titre": "Mot de passe",
+          "bouton": "ACCÈS BETA"
         }
       },
       "tableaudebord": {
