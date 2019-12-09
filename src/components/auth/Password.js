@@ -45,8 +45,8 @@ class Password extends Component {
       this.setState({ patience: true }, () => {
         let body = {"password": values.password}
         axios.post('http://dev.api.smartsplit.org:8080/v1/auth/verifyPassword', body)
-        .then((resp)=>{            
-            if (resp === "Success"){
+        .then((resp)=>{     
+            if (resp.data === "Success"){
                 this.props.history.push("/accueil");
             } else {
                 toast.error("Password Incorrect")
