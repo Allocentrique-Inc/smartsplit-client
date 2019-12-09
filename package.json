@@ -26,6 +26,7 @@
     "i18next-xhr-backend": "^3.2.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
+    "material-design-icons": "^3.0.1",
     "moment": "^2.24.0",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",

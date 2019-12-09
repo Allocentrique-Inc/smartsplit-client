@@ -18,7 +18,8 @@ import {
   LogOutSVG,
   SettingsSVG,
   AvatarInitialsSVG,
-  ChevronDownSVG
+  ChevronDownSVG,
+  LangueSVG
 } from "../svg/SVG";
 
 import biquetteBase64 from "../../assets/base64/biquette.base64.js";
@@ -123,7 +124,7 @@ class MenuProfil extends Component {
           <span>
             <Dropdown text="" icon={<ChevronDownSVG />} className="down angle">
               <Dropdown.Menu>
-                <Dropdown.Item>
+                <Dropdown.Item className="forName">
                   <React.Fragment>
                     <div className="custom-initials-holder">
                       <AvatarInitialsSVG />
@@ -131,7 +132,7 @@ class MenuProfil extends Component {
                         {this.state.initials}
                       </span>
                     </div>
-                    <span className="text">{nomComplet}</span>
+                    <span className="text nom">{nomComplet}</span>
                   </React.Fragment>
                 </Dropdown.Item>
 
@@ -147,9 +148,13 @@ class MenuProfil extends Component {
                     this.ouvrirSocan();
                   }}
                 /> */}
-                {/* {i18n.language && i18n.language.substring(0, 2) === "en" && (
+                <Dropdown.Divider />
+
+                {i18n.language && i18n.language.substring(0, 2) === "en" && (
                   <Dropdown.Item
+                    className="langue"
                     text={t("menuprofil.francais")}
+                    image={<LangueSVG />}
                     onClick={() => {
                       i18n.init({ lng: "fr" });
                     }}
@@ -157,14 +162,14 @@ class MenuProfil extends Component {
                 )}
                 {i18n.language && i18n.language.substring(0, 2) === "fr" && (
                   <Dropdown.Item
+                    className="langue"
                     text={t("menuprofil.anglais")}
+                    image={<LangueSVG />}
                     onClick={() => {
                       i18n.init({ lng: "en" });
                     }}
                   />
-                )} */}
-
-                <Dropdown.Divider />
+                )}
 
                 <Dropdown.Item
                   className="parametre"

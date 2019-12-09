@@ -313,7 +313,9 @@
           "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
           "date-creation": "Date de création",
           "date-placeholder": "Ajouter une date",
+          "date-sortie": "Date de sortie",
           "auteur": "Auteurs  ",
+          "auteur-parole": "Auteurs (paroles)",
           "collabo": "Créer un nouveau collaborateur",
           "auteur-placeholder": "Ajouter un auteur",
           "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
@@ -321,21 +323,25 @@
           "graphiste-description": "Qui a fait les compositions visuelles ?",
           "graphiste": "Graphistes  ",
           "compositeur": "Compositeurs  ",
+          "compositeur-musique": "Compositeurs (musique)",
           "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
           "compositeur-placeholder": "Ajouter un compositeur",
           "arrangeur": "Arrangeurs  ",
+          "arrangeur-musique": "Arrangeurs (musique)",
           "arrangeur-description": "Qui a arrangé la musique de cette pièce musicale ?",
           "arrangeur-placeholder": "Ajouter un arrangeur",
           "editeur": "Éditeurs  ",
           "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
           "editeur-placeholder": "Ajouter un éditeur",
           "code": "Code ISWC",
+          "iswc": "ISWC",
           "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
           "code-placeholder": "Ajouter un code",
           "codeiswc": "Code ISWC  ",
           "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
           "codeiswc-placeholder": "T-012345678-1",
           "codeisrc": "Code ISRC :",
+          "isrc": "ISRC",
           "codeisrc-description": "Le International Standard Recording Code (ISRC) permet l’identification des enregistrements sonores (pistes).",
           "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
           "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
@@ -757,5 +763,13 @@
     "lien": "Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
     "prive": "Privé - Empêcher le téléchargement.",
     "personne": "Personne ne pourra télécharger, sauf vous."
+  },
+  "sommaire": {
+    "autres": {
+      "info": "Ajouter cette information",
+      "piste": "Titre de la piste",
+      "tech": "Technicien en enregistrement",
+      "illustration": "Graphique"
+    }
   }
 }
