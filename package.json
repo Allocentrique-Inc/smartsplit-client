@@ -48,6 +48,7 @@
     "semantic-ui-react": "^0.87.3",
     "semantic-ui-react-ext": "^1.0.6",
     "semantic-ui-react-formik": "^1.0.7",
+    "serialize-javascript": "^2.1.1",
     "text-to-image": "^2.1.1",
     "yup": "^0.27.0",
     "zxcvbn": "^4.4.2"
