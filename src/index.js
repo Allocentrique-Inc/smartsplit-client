@@ -91,7 +91,8 @@ const renderRoutes = () => {
         <Router history={browserHistory}>
           <Switch>
             <Route exact path="/accueil" component={Accueil} />
-            <Route exact path="/" component={Password} />
+            <Route exact path="/" component={Accueil} />
+            <Route exact path="/password" component={Password} />
             <Route exact path="/documenter/:mediaId" component={Documenter} />
             <Route exact path="/editer/:mediaId/:pageNo" component={Editer} />
             <Route exact path="/decrire-oeuvre" component={AssistantOeuvre} />
@@ -288,10 +289,6 @@ function PartagesOeuvres(match) {
 function Accueil() {
   return <TableauDeBord />;
 }
-
-// function Password() {
-//   return <Password />;
-// }
 
 function ConfirmerCourriel() {
   setTimeout(() => {
