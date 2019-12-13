@@ -55,7 +55,7 @@ class MenuProfil extends Component {
     axios
       .get(
         "http://dev.api.smartsplit.org:8080/v1/rightHolders/" +
-          this.state.auth.username
+        this.state.auth.username
       )
       .then(res => {
         this.setState({ user: res.data.Item });
@@ -106,7 +106,7 @@ class MenuProfil extends Component {
       //avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
       avatarImage =
         this.state.user.avatarImage === null ||
-        this.state.user.avatarImage === "image.jpg"
+          this.state.user.avatarImage === "image.jpg"
           ? !this.props.pochette
             ? "data:image/png;base64," + biquetteBase64
             : "https://images-publiques.s3.amazonaws.com/avatar.png"

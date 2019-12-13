@@ -162,7 +162,7 @@ class Register extends Component {
       })
         .then(toast.success(`${firstName}, compte créé !`))
         .then(
-          setTimeout(function() {
+          setTimeout(function () {
             window.location.reload();
           }, 3000),
           this.props.history.push("/welcome")
@@ -224,7 +224,7 @@ class Register extends Component {
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
-        res.data.forEach(function(element) {
+        res.data.forEach(function (element) {
           groupers.push(element.groups);
           // Remove duplicates from multiple right holders and flattens arrays
           let GR = groupers
@@ -233,7 +233,7 @@ class Register extends Component {
             .filter(Boolean);
           groupsUnique = [...new Set(GR)];
         });
-        groupsUnique.forEach(function(elm) {
+        groupsUnique.forEach(function (elm) {
           groups.push({ key: elm, text: elm, value: elm });
         });
         this.setState({ groups: groups });
@@ -527,13 +527,7 @@ class Register extends Component {
                                 />
                               </div>
                               {errors.username && touched.username && (
-                                <div
-                                  style={{
-                                    color: "red",
-                                    position: "absolute",
-                                    top: "690px"
-                                  }}
-                                >
+                                <div className="invalide">
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
                               )}
@@ -592,7 +586,7 @@ class Register extends Component {
                                     }}
                                     type={
                                       this.state.hidden &&
-                                      this.state.confirmhidden
+                                        this.state.confirmhidden
                                         ? "password"
                                         : "text"
                                     }
@@ -658,7 +652,7 @@ class Register extends Component {
                                   }}
                                   type={
                                     this.state.hidden &&
-                                    this.state.confirmhidden
+                                      this.state.confirmhidden
                                       ? "password"
                                       : "text"
                                   }
@@ -706,11 +700,11 @@ class Register extends Component {
                                     <button
                                       className={`ui medium button register is-success ${pochette} ${
                                         !this.state.password ||
-                                        this.state.confirmpassword !==
+                                          this.state.confirmpassword !==
                                           this.state.password
                                           ? "disabled"
                                           : ""
-                                      }`}
+                                        }`}
                                       type="submit"
                                       onClick={e => {
                                         if (

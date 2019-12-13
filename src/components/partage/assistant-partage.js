@@ -44,7 +44,8 @@ class AssistantPartage extends Component {
         this.state = {
             mediaId: this.props.mediaId,
             uuid: this.props.uuid,
-            user: null
+            user: null,
+            currentWizardPage: 0 //Set
         }
         this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
         this.soumettre = this.soumettre.bind(this)
@@ -187,7 +188,7 @@ class AssistantPartage extends Component {
                         let uuid = _rH.rightHolderId
 
                         if (elem.principal) {
-                            let roles = {"45745c60-7b1a-11e8-9c9c-2d42b21b1a38": "principal"}
+                            let roles = { "45745c60-7b1a-11e8-9c9c-2d42b21b1a38": "principal" }
                             if (elem.chanteur) {
                                 roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a35"] = "singer"
                             }
@@ -303,7 +304,7 @@ class AssistantPartage extends Component {
                             // 3b. Soumettre la nouvelle proposition en POST
                             axios.post('http://dev.api.smartsplit.org:8080/v1/proposal', body)
                                 .then(res => {
-                                   // toast.success(`${res.data}`)
+                                    // toast.success(`${res.data}`)
                                     // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
                                     if (typeof cb === "function") {
                                         cb()
@@ -378,9 +379,9 @@ class AssistantPartage extends Component {
                     enregistrement: {}
                 }
                 function creerAd(elem) {
-                    if(that.state.ayantsDroit) {
+                    if (that.state.ayantsDroit) {
                         return { nom: elem.rightHolder.name, pourcent: 0.00, ayantDroit: that.state.ayantsDroit[elem.rightHolder.rightHolderId] }
-                    }                    
+                    }
                 }
                 // Droit d'auteur
                 _rS.workCopyrightSplit.music.forEach(elem => { // Musique
@@ -456,7 +457,7 @@ class AssistantPartage extends Component {
                                         </script>
                                         )
                                     }
-                                    <EntetePartage media={this.state.media} user={this.state.user} />
+                                    <EntetePartage media={this.state.media} user={this.state.user} currentPage={this.state.currentWizardPage} />
                                     <div className="ui row">
                                         <div className="ui two wide column" />
                                         <div className="ui twelve wide column">
@@ -469,8 +470,24 @@ class AssistantPartage extends Component {
                                                     uuid: this.state.uuid,
                                                     media: this.state.media
                                                 }}
-                                                buttonLabels={{ previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi') }}
+                                                ButtonsWrapper={(props) => <div style={{
+                                                    position: "fixed",
+                                                    bottom: 0,
+                                                    left: 0,
+                                                    right: 0,
+                                                    paddingTop: "15px",
+                                                    background: "#fff",
+                                                    boxShadow: "0 0 5px rgba(0,0,0,0.5)"
+                                                }}>
+                                                    <div className="ui grid">
+                                                        <div className="ui row">
+                                                            <div className="ui eight wide column">{props.children}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>}
+                                                buttonLabels={{ previous: t('navigation.retour'), next: t('navigation.suivant'), submit: t('navigation.envoi') }}
                                                 debug={false}
+                                                onPageChanged={index => this.setState({ currentWizardPage: index })}
                                                 onSubmit={
                                                     (values, actions) => {
                                                         actions.setSubmitting(false)
@@ -546,7 +563,7 @@ class AssistantPartage extends Component {
                                             <p className={"description"}>
                                                 Bravo, tu as créé une proposition de partage de droits avec succès ! <em>Clique</em> sur
                                     le bouton ci-dessous afin de <em>revoir</em> et <em>envoyer par courriel</em> la proposition à
-                                                                                    tes collaborateurs.
+                                                                                                                                                                                                                                                                                                                                    tes collaborateurs.
                                     </p>
                                         )}
                                     </div>

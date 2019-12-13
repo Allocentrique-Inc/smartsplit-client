@@ -118,6 +118,7 @@
   },
   "navigation": {
     "suivant": "Next",
+    "retour": "Back",
     "envoi": "Submit",
     "precedent": "Previous",
     "reinitialiser": "Reset",
