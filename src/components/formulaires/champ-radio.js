@@ -96,8 +96,8 @@ export default class BoutonsRadio extends Component {
             className="ui row"
             style={{
               display: "flex",
-              flexWrap: "wrap",
-              flexDirection: "row"
+              flexDirection: "row",
+              width: "250px"
             }}
             onClick={this.state.onClick}
           >

@@ -11,7 +11,6 @@ import Beignet2 from '../visualisation/partage/beignet2'
 import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
-import { Navbar } from "../oeuvre/oeuvre-resume/navbar.js"
 
 import { FieldArray } from "formik"
 
@@ -405,8 +404,8 @@ class PageAssistantPartageAuteur extends Component {
                             <div className="ui row">
                                 <div className="ui seven wide column">
                                     <div className="wizard-title">
-                                    <CopyrightSVG />{t('flot.split.droits.auteur')}</div>
-                                        
+                                        <CopyrightSVG />{t('flot.split.droits.auteur')}</div>
+
                                     <br />
                                     <div className="mode--partage__auteur">
                                         <div className="who-invented-title">
@@ -615,7 +614,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                             </div>
                                                                                         </div>
                                                                                         <div
-                                                                                            className="ui thirteen wide column">
+                                                                                            className="ui fourteen wide column">
                                                                                             <div
                                                                                                 className="holder-name">
                                                                                                 {part.nom}
@@ -627,7 +626,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                             this.recalculerPartage()
                                                                                                         })
                                                                                                     }
-                                                                                                    }/>
+                                                                                                    } />
                                                                                                 <div
                                                                                                     className="ui divider"></div>
                                                                                             </div>
