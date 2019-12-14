@@ -10,7 +10,6 @@ import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit"
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import InfoBulle from "../partage/InfoBulle"
-import { toast } from 'react-toastify'
 
 import * as roles from "../../assets/listes/role-uuids.json"
 
@@ -86,8 +85,7 @@ export default class PageFichiers extends React.Component {
       let mediaId = this.props.values.mediaId                  
       fd.append('mediaId', mediaId)
       axios.post(`http://envoi.smartsplit.org:3033/${chemin}`, fd)
-      .then(res => {
-        console.log(res.data)
+      .then(res => {        
       })
       .catch(err => {
           if (err) {

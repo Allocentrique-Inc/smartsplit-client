@@ -2,22 +2,6 @@ import React, { Component } from "react";
 import { Translation } from 'react-i18next';
 import { Popup } from "semantic-ui-react";
 
-const tooltipStyle = {
-    position: "fixed",
-    background: "white",
-    width: "224px",
-    fontFamily: "IBM Plex Sans",
-    fontColor: "#203548",
-    fontSize: "12px",
-    lineHeight: "16px",
-    display: "inline",
-    alignItems: "center",
-    border: "1px solid #DCDFE1",
-    boxShadow: "0px 8px 32px rgba(0, 0, 0, 0.25)",
-    padding: "10px",
-    zIndex: "1"
-};
-
 const icone = <i className="ui question circle icon" style={{ color: "#687A8B", fontSize: "10pt" }} />
 // Ou: 
 // declencheur: props.declencheur || <i className="ui question circle icon" style={{ color: "#687A8B", fontSize: "10pt" }} />,

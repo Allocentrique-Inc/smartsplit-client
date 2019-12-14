@@ -20,7 +20,7 @@ import { Modal, Button } from 'semantic-ui-react'
 import moment from 'moment'
 import SommairePartagesEditeur from './sommaire-partages-editeur'
 import ModaleConnexion from '../auth/Connexion'
-import ModalFin from '../oeuvre/modal-fin'
+
 import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 
 import InfoBulle from '../partage/InfoBulle';

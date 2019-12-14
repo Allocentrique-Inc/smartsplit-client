@@ -334,7 +334,6 @@ class EditerOeuvre extends Component {
 
   render() {
     if (this.state.user && this.state.media) {
-      console.log(typeof this.props.pageNo, this.props.pageNo);
       return (
         <Translation>
           {(t, i18n) => (

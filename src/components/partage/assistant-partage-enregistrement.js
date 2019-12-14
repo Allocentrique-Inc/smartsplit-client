@@ -138,8 +138,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
         // Détection des limites pour ne pas dépasser 0
         droits.forEach((elem, idx) => {
-            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
-            //console.log(elem.pourcent, _pred, deltaParCollaborateurVariable)
+            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))    
             if (!invariable[idx] && _pred <= 0) {
 
                 let reste = parseFloat(droits[idx].pourcent) + _pred

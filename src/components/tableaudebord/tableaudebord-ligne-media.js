@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Translation } from "react-i18next";
 import moment from "moment";
 import axios from "axios";
-import { Label } from "semantic-ui-react";
-import { toast } from "react-toastify";
 import ModalPropositionEnCours from "../modales/modale-proposition-encours";
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
@@ -131,7 +129,7 @@ export default class LigneMedia extends Component {
                 <div className="ui six wide column etat">
 
                   <div>
-                    {!pochette && _p && <div class="ui huge label etat">
+                    {!pochette && _p && <div className="ui huge label etat">
                       {t(`flot.split.etat.${_p.etat}`)}</div>}
                   </div>
 
