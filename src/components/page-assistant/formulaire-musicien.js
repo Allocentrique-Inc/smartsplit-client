@@ -38,8 +38,6 @@ export class BaseFormulaireMusicien extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props)
-
     let instruments = require(`../../assets/listes/${props.langue}/instruments`).instruments;
 
     // Épuration de la liste des instruments pour éviter les doublons
