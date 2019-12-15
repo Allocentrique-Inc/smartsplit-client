@@ -76,7 +76,7 @@ export default class PageFichiers extends React.Component {
     return RightHolderOptions(this.props.rightHolders);
   }
 
-  televerser(value, chemin) {
+  televerser(value, chemin, elem) {
     if (value) {
       this.setState({ patience: true })
       let fichier = value
@@ -85,7 +85,10 @@ export default class PageFichiers extends React.Component {
       let mediaId = this.props.values.mediaId                  
       fd.append('mediaId', mediaId)
       axios.post(`http://envoi.smartsplit.org:3033/${chemin}`, fd)
-      .then(res => {        
+      .then(res => {
+        console.log(elem)
+        // réinitialiser l'élément du DOM
+        // rafraîchir la liste des fichiers
       })
       .catch(err => {
           if (err) {
@@ -176,11 +179,15 @@ export default class PageFichiers extends React.Component {
                 file={this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.file}
                 access={(this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.access) || "public"}
                 onFileChange={value => {
-                  let nom = value.name.replace(/ /g,'_') 
-                  this.props.setFieldValue("files.cover.file", nom)
+                  let nom = value.name.replace(/ /g,'_')
+                  // Récupérer la liste de fichiers existante
+                  let fichiers = this.props.values.files.cover.files || []
+                  let f = {file: nom}
                   if(!this.props.values.files.cover || !this.props.values.files.cover.access) {
-                    this.props.setFieldValue("files.cover.access", 'public')
+                    f['access'] = 'public'
                   }
+                  fichiers.push(f)
+                  this.props.setFieldValue("files.cover.files", fichiers)
                   this.televerser(value, 'uploadCoverArt')
                 }}
                 onAccessChange={value =>

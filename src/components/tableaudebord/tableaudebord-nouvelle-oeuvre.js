@@ -636,8 +636,12 @@ class Page2NouvellePiece extends Component {
 
                                                                     this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
                                                                     this.props.setFieldValue('fichier', f.empreinte)
-                                                                    this.props.setFieldValue('files.audio..file', f.name)
-                                                                    this.props.setFieldValue('files.audio..md5', f.empreinte)
+
+                                                                    // gestions des fichiers
+                                                                    let fichiers = []
+                                                                    fichiers.push({file: f.name, md5: f.empreinte})
+
+                                                                    this.props.setFieldValue('files.audio.files', fichiers)                                                                    
 
                                                                 }
                                                             })

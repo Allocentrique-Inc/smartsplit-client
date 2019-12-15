@@ -355,7 +355,7 @@ class EditerOeuvre extends Component {
                       next: t("navigation.suivant"),
                       submit: t("navigation.envoi")
                     }}
-                    debug={false}
+                    debug={true}
                   >
                     {this.renduPage(i18n)}
                   </Wizard>

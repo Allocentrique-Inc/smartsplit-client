@@ -10,11 +10,17 @@ export default class ChampTeleversement extends Component {
         this.state = {
             audio: props.audio,
             apres: props.apres,
-            extraStyle: props.extraStyle || {}
+            extraStyle: props.extraStyle || {},
+            fichiers: props.fichiers
         }
     }
 
     render() {
+
+        let listeFichiers = []
+        // construit la liste des fichiers et les contrôles associés
+
+
         return (
             <div className="section-televersement" style={{ display: "-webkit-box" }}>
                 <div className="ui grid" style={Object.assign({ width: "100%", height: "50px", marginBottom: "20px" }, this.state.extraStyle)}>
@@ -37,6 +43,7 @@ export default class ChampTeleversement extends Component {
                             />
                         </div>
                     </div>
+                    {listeFichiers}
                 </div>
             </div>
 
