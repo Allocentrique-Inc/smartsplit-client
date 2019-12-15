@@ -5,7 +5,6 @@ import "./Login.css";
 // Importation pochette
 import '../../assets/scss/connexion/connexion.scss'
 
-import { Auth } from "aws-amplify";
 import { Translation } from "react-i18next";
 import axios from "axios";
 

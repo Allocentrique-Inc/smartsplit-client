@@ -21,8 +21,6 @@ import {
   ChevronDownSVG
 } from "../svg/SVG";
 
-import biquetteBase64 from "../../assets/base64/biquette.base64.js";
-
 const textToImage = require("text-to-image");
 
 class MenuProfil extends Component {
