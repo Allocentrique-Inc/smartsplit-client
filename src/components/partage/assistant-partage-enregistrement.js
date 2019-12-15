@@ -16,6 +16,8 @@ import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 import Lock from "./Lock"
 
+import biquette from '../../assets/base64/biquette.base64'
+
 const MODES = { egal: "0", manuel: "1" }
 
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -496,10 +498,10 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                         let avatar = ''
                                                                         let _aD = part.ayantDroit
                                                                         // Y a-t-il un avatar ?
-                                                                        if (_aD.avatarImage)
+                                                                        if (_aD && _aD.avatarImage)
                                                                             avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
                                                                         else
-                                                                            avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+                                                                            avatar = biquette;
 
                                                                         return (
                                                                             <div key={`part-${index}`}>
