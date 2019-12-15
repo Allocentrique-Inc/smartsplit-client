@@ -197,7 +197,7 @@ class PageEnregistrement extends React.Component {
   };
 
   render() {
-    const { isLoading, value, results, selectedPlace } = this.state;
+    const { isLoading, value, results } = this.state;
 
     return (
       <Translation>

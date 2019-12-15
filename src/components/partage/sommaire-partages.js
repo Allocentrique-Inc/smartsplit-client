@@ -20,7 +20,7 @@ import { Modal, Button } from 'semantic-ui-react'
 import moment from 'moment'
 import SommairePartagesEditeur from './sommaire-partages-editeur'
 import ModaleConnexion from '../auth/Connexion'
-import ModalFin from '../oeuvre/modal-fin'
+
 import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 
 import InfoBulle from '../partage/InfoBulle';
@@ -315,26 +315,25 @@ export default class SommairePartages extends Component {
                                         <div className="ui one wide column" />
                                         <div className="ui twelve wide column">
                                             {message}
-                                            < br />
-                                            <div class="four wide column">
-                                                <div className="right floated column">
-                                                    {
-                                                        !continuerDisabled && (
-                                                            <div className={`ui medium button`} onClick={
-                                                                () => {
-                                                                    window.location.href = `/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                                }
-                                                            }>
-                                                                {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-
+                                        </div>
+                                    </div>
+                                    <div className="ui row">
+                                        <div className="ui one wide column" />
+                                        <div className="ui twelve wide column">
+                                            {
+                                                !continuerDisabled && (
+                                                    <div className={`ui medium right floated button`} onClick={
+                                                        () => {
+                                                            window.location.href = `/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
+                                                        }
+                                                    }>
+                                                        {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
+                                                    </div>
+                                                )
+                                            }
                                             {
                                                 !nouveauDisabled && (
-                                                    <div className={`ui medium button`} onClick={
+                                                    <div className={`ui medium right floated button`} onClick={
                                                         () => {
 
                                                             // Détecter si la proposition est verrouillée
@@ -357,27 +356,18 @@ export default class SommairePartages extends Component {
                                                     </div>
                                                 )
                                             }
-                                            < br />
-                                            < br />
-                                            < br />
                                             {
-                                                !envoiDisabled && (
-
-                                                    <div className="ui grid">
-                                                        <div className="three column row">
-                                                            <div className="right floated column">
-                                                                <div onClick={() => {
-                                                                    this.openModal()
-                                                                }} className={`ui medium button sommaire`}
-                                                                    style={{ width: "250px" }}
-                                                                >
-                                                                    <div className="four wide column">
-                                                                        {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
-                                                                    </div>
-                                                                </div>
+                                                !envoiDisabled && (  
+                                                    <>                                              
+                                                        <div onClick={() => {
+                                                            this.openModal()
+                                                        }} className={`ui medium button sommaire`}
+                                                            style={{ width: "250px" }}
+                                                        >
+                                                            <div className="four wide column">
+                                                                {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                             </div>
                                                         </div>
-
                                                         <div>
                                                             <Modal
                                                                 open={this.state.modaleCourriels}
@@ -427,11 +417,11 @@ export default class SommairePartages extends Component {
                                                                     </div>
                                                                 </Modal.Actions>
                                                             </Modal>
-                                                        </div>
-                                                    </div>
+                                                        </div>                                                
+                                                    </>
                                                 )
                                             }
-                                        </div>
+                                        </div>                                                                                                                    
                                     </div>
                                     {
                                         partageEditeur && (

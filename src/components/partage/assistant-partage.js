@@ -237,6 +237,7 @@ class AssistantPartage extends Component {
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a41"] = "director"
                         }
                         if (elem.studio) {
+                            //roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a42"] = "studio"
                             roles["45745c60-7b1a-11e8-9c9c-2d42b21b1a42"] = "studio"
                         }
                         if (elem.graphiste) {

@@ -121,7 +121,6 @@ class Socan extends Component {
     } = this.state;
 
     let pochette = this.props.pochette ? "pochette" : ""
-    console.log(pochette)
 
     return (
       <Translation>

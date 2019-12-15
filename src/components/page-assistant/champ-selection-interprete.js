@@ -85,7 +85,6 @@ export class ChampSelectionInterprete extends Component {
     }
 
     updateRightHolder = newRightHolder => {
-        console.log('updateRightHolder', newRightHolder)
         const newRightHolders = [...this.props.values.rightHolders]
             .filter(rightHolder => rightHolder.id !== newRightHolder.id)
             .concat([newRightHolder]);

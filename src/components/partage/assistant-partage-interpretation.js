@@ -28,7 +28,7 @@ class PageAssistantPartageInterpretation extends Component {
         super(props)
         this.state = {
             parts: {},
-            mode: MODES.egal,
+            mode: MODES.role,
             principaux: [],
             accompagnement: [],
             song: ""
@@ -227,52 +227,14 @@ class PageAssistantPartageInterpretation extends Component {
                                         <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.documenter.entete.interpretation')}</div>
                                         <br />
                                         <div className="mode--partage__auteur">
-                                            <div className="who-invented-title">
-                                                {/*{t('flot.split.partage.interprete.titre', { oeuvre: this.state.song })}*/}
-                                                {/* {t('flot.split.partage.interprete.titre', {
-                                                    oeuvre: `${t('flot.split.partage.guillemets.guillemet1')}${this.state.song}${t('flot.split.partage.guillemets.guillemet2')}`
-                                                })}? */}
+                                            <div className="who-invented-title">                                               
                                                 {t('flot.split.partage.interprete.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
                                             {descriptif}
                                             <br />
                                             <div className="fields">
-                                                <div className="fourteen wide field">
-                                                    <div className="fourteen wide field">
-                                                        <BoutonsRadio
-                                                            name="mode_interpretation"
-                                                            actif={this.state.mode} // Attribut dynamique
-                                                            onClick={(e) => {
-
-                                                                let valeur
-                                                                // Clic de la puce ou de l'étiquette ?
-                                                                if (e.target.nodeName === 'LABEL') {
-                                                                    valeur = e.target.parentNode.childNodes[0].value
-                                                                }
-                                                                if (e.target.nodeName === 'INPUT') {
-                                                                    valeur = e.target.value
-                                                                }
-
-                                                                this.setState({ mode: valeur }, () => {
-                                                                    this.recalculerPartage()
-                                                                })
-                                                            }}
-                                                            titre=""
-                                                            choix={[
-                                                                {
-                                                                    nom: t('flot.split.modepartage.egal'),
-                                                                    valeur: MODES.egal,
-                                                                    info: t('tooltip.egal')
-                                                                },
-                                                                {
-                                                                    nom: t('flot.split.modepartage.roles'),
-                                                                    valeur: MODES.role,
-                                                                    info: t('tooltip.roles')
-                                                                }
-                                                            ]}
-                                                        />
-                                                    </div>
+                                                <div className="fourteen wide field">                                                    
                                                     <p style={{ height: "30px" }} />
                                                     <FieldArray
                                                         name="droitInterpretation"

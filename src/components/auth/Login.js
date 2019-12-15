@@ -110,9 +110,9 @@ class LogIn extends Component {
                   <div>
                     {
                       !this.state.vote && (
-                        <div class="ui grid">
-                          <div class="four column row">
-                            <div class="right floated column">
+                        <div className="ui grid">
+                          <div className="four column row">
+                            <div className="right floated column">
                               <div className="top-register">
                                 <div
                                   onClick={() => {
@@ -226,7 +226,7 @@ class LogIn extends Component {
                                 <button
                                   type="button"
                                   id="hide"
-                                  tabindex="-1"
+                                  tabIndex="-1"
                                   onClick={e => {
                                     this.toggleShow(e);
                                   }}

@@ -10,7 +10,7 @@ export class Navbar extends Component {
     super(props);
     this.state = {
       profil: props.profil
-    };
+    }    
   }
 
   render() {

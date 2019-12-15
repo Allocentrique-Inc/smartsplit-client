@@ -6,7 +6,7 @@ import "../../assets/scss/menu-profil.scss";
 import axios from "axios";
 
 import { toast } from "react-toastify";
-import { Dropdown, Label } from "semantic-ui-react";
+import { Dropdown } from "semantic-ui-react";
 
 import i18n from "i18next";
 
@@ -20,16 +20,6 @@ import {
   AvatarInitialsSVG,
   ChevronDownSVG
 } from "../svg/SVG";
-
-import biquetteBase64 from "../../assets/base64/biquette.base64.js";
-
-/* function getInitials(firstName, lastName) {
-  let P = "",
-    N = "";
-  if (firstName && firstName.length > 0) P = firstName.charAt(0).toUpperCase();
-  if (lastName && lastName.length > 0) N = lastName.charAt(0).toUpperCase();
-  return P + N;
-} */
 
 const textToImage = require("text-to-image");
 
@@ -51,12 +41,14 @@ class MenuProfil extends Component {
   }
 
   componentWillMount() {
+    
     axios
       .get(
         "http://dev.api.smartsplit.org:8080/v1/rightHolders/" +
-          this.state.auth.username
+        this.state.auth.username
       )
       .then(res => {
+
         this.setState({ user: res.data.Item });
 
         let P = "",
@@ -100,14 +92,13 @@ class MenuProfil extends Component {
     let avatarImage;
     let userInitials;
     let nomComplet;
-
     if (this.state.user) {
       //avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
       avatarImage =
         this.state.user.avatarImage === null ||
         this.state.user.avatarImage === "image.jpg"
           ? !this.props.pochette
-            ? "data:image/png;base64," + biquetteBase64
+            ? ""
             : "https://images-publiques.s3.amazonaws.com/avatar.png"
           : `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.user.avatarImage}`;
       userInitials =
@@ -123,17 +114,56 @@ class MenuProfil extends Component {
           <span>
             <Dropdown text="" icon={<ChevronDownSVG />} className="down angle">
               <Dropdown.Menu>
-                <Dropdown.Item>
+                <Dropdown.Item onClick={()=>window.location.href="/accueil"}>
                   <React.Fragment>
                     <div className="custom-initials-holder">
-                      <AvatarInitialsSVG />
-                      <span className="custom-initials">
-                        {this.state.initials}
-                      </span>
+                      {
+                        this.state.user && avatarImage && (
+                          <img className="ui image rounded" src={avatarImage} alt={`${this.state.user.firstName} ${this.state.user.lastName}`} />
+                        )
+                      }
+                      {
+                        this.state.user && !avatarImage && (
+                          <>
+                            <AvatarInitialsSVG />
+                            <span className="custom-initials">
+                              {this.state.initials}
+                            </span>
+                          </>
+                        )
+                      }                      
                     </div>
                     <span className="text">{nomComplet}</span>
                   </React.Fragment>
                 </Dropdown.Item>
+                {i18n.language && i18n.language.substring(0, 2) === "en" && (
+                  <Dropdown.Item onClick={() => {
+                    i18n.init({ lng: "fr" });
+                  }}>
+                    <React.Fragment>
+                      <div className="custom-initials-holder">
+                        <span className="custom-initials">
+                          FR
+                        </span>
+                      </div>
+                      <span className="text">{t("menuprofil.francais")}</span>
+                    </React.Fragment>
+                  </Dropdown.Item>                    
+                )}
+                {i18n.language && i18n.language.substring(0, 2) === "fr" && (
+                  <Dropdown.Item onClick={() => {
+                    i18n.init({ lng: "en" });
+                  }}>
+                    <React.Fragment>
+                      <div className="custom-initials-holder">
+                        <span className="custom-initials">
+                          EN
+                        </span>
+                      </div>
+                      <span className="text">{t("menuprofil.anglais")}</span>
+                    </React.Fragment>
+                  </Dropdown.Item>                  
+                )}
 
                 {/* <Dropdown.Item
                   content={nomComplet}
@@ -147,22 +177,6 @@ class MenuProfil extends Component {
                     this.ouvrirSocan();
                   }}
                 /> */}
-                {/* {i18n.language && i18n.language.substring(0, 2) === "en" && (
-                  <Dropdown.Item
-                    text={t("menuprofil.francais")}
-                    onClick={() => {
-                      i18n.init({ lng: "fr" });
-                    }}
-                  />
-                )}
-                {i18n.language && i18n.language.substring(0, 2) === "fr" && (
-                  <Dropdown.Item
-                    text={t("menuprofil.anglais")}
-                    onClick={() => {
-                      i18n.init({ lng: "en" });
-                    }}
-                  />
-                )} */}
 
                 <Dropdown.Divider />
 
@@ -207,8 +221,21 @@ class MenuProfil extends Component {
             </Label> */}
             {!userInitials && (
               <div className="custom-initials-holder2">
-                <AvatarInitialsSVG />
-                <span className="custom-initials2">{this.state.initials}</span>
+                {
+                  this.state.user && avatarImage && (
+                    <img width="30" className="ui image rounded" src={avatarImage} alt={`${this.state.user.firstName} ${this.state.user.lastName}`} />
+                  )
+                }
+                {
+                  this.state.user && !avatarImage && (
+                    <>
+                      <AvatarInitialsSVG />
+                      <span className="custom-initials">
+                        {this.state.initials}
+                      </span>
+                    </>
+                  )
+                }
               </div>
             )}
             {menu}

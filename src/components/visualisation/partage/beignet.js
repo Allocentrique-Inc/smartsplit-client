@@ -66,11 +66,7 @@ export default class Beignet extends Component {
             })
             //_d = _pri
             //_acc.forEach(elem => {_d[elem.key] = elem.value})
-            _d = Object.assign({}, _pri, _acc);
-            console.log(_d)
-            console.log(_pri)
-            console.log(_acc)
-            console.log(Object.keys(_acc).length)
+            _d = Object.assign({}, _pri, _acc);            
             if (Object.keys(_pri).length > 0 && Object.keys(_acc).length > 0) accomp = true
             this.setState({ data: _d })
             this.setState({ colors: _c })

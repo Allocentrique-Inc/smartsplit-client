@@ -60,8 +60,7 @@ export default class MediaCreate extends Component {
 
     axios
       .post("http://dev.api.smartsplit.org:8080/v1/media", body)
-      .then(function(response) {
-        console.log(response);
+      .then(function(response) {        
       })
       .catch(function(error) {
         toast.error(error);
