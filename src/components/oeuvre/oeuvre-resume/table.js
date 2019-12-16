@@ -6,13 +6,13 @@ export default class Table extends React.Component {
     render() {
         return (
             <>
-                <TitreModifiable edition={this.props.edition} pageNo={ this.props.pageNo } mediaId={ this.props.mediaId }>
-                    { this.props.children }
+                <TitreModifiable edition={this.props.edition} pageNo={this.props.pageNo} mediaId={this.props.mediaId}>
+                    {this.props.children}
                 </TitreModifiable>
 
-                <table className={ 'corps-table' }>
+                <table className={'corps-table'}>
                     <tbody>
-                        { this.props.rows.map(row => Rangee(row)) }
+                        {this.props.rows.map(row => <Rangee {...row} />)}
                     </tbody>
                 </table>
             </>

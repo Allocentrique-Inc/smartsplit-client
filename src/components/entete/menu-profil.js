@@ -18,7 +18,8 @@ import {
   LogOutSVG,
   SettingsSVG,
   AvatarInitialsSVG,
-  ChevronDownSVG
+  ChevronDownSVG,
+  LangueSVG
 } from "../svg/SVG";
 
 const textToImage = require("text-to-image");
@@ -96,7 +97,7 @@ class MenuProfil extends Component {
       //avatarLink = this.state.user.avatarS3Etag // avatarS3Etag taken as full url instead of Etag
       avatarImage =
         this.state.user.avatarImage === null ||
-        this.state.user.avatarImage === "image.jpg"
+          this.state.user.avatarImage === "image.jpg"
           ? !this.props.pochette
             ? ""
             : "https://images-publiques.s3.amazonaws.com/avatar.png"
@@ -133,7 +134,7 @@ class MenuProfil extends Component {
                         )
                       }                      
                     </div>
-                    <span className="text">{nomComplet}</span>
+                    <span className="text nom">{nomComplet}</span>
                   </React.Fragment>
                 </Dropdown.Item>
                 {i18n.language && i18n.language.substring(0, 2) === "en" && (
@@ -179,6 +180,28 @@ class MenuProfil extends Component {
                 /> */}
 
                 <Dropdown.Divider />
+                {/* <Dropdown.Divider />
+
+                {i18n.language && i18n.language.substring(0, 2) === "en" && (
+                  <Dropdown.Item
+                    className="langue"
+                    text={t("menuprofil.francais")}
+                    image={<LangueSVG />}
+                    onClick={() => {
+                      i18n.init({ lng: "fr" });
+                    }}
+                  />
+                )}
+                {i18n.language && i18n.language.substring(0, 2) === "fr" && (
+                  <Dropdown.Item
+                    className="langue"
+                    text={t("menuprofil.anglais")}
+                    image={<LangueSVG />}
+                    onClick={() => {
+                      i18n.init({ lng: "en" });
+                    }}
+                  />
+                )} */}
 
                 <Dropdown.Item
                   className="parametre"

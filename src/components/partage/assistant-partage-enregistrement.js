@@ -17,6 +17,8 @@ import BoutonsRadio from "../formulaires/champ-radio"
 import Lock from "./Lock"
 
 import biquette from '../../assets/base64/biquette.base64'
+import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
+import { RecordSVG, PlusHorizontalSVG } from "../svg/SVG";
 
 const MODES = { egal: "0", manuel: "1" }
 
@@ -320,7 +322,7 @@ class PageAssistantPartageEnregistrement extends Component {
                         <React.Fragment>
 
                             <div className="ui grid">
-                                <div className="ui row">
+                               {/*  <div className="ui row">
                                     <div className="ui thirteen wide column">
                                         <Progress percent="85" size='tiny' indicating />
                                     </div>
@@ -329,10 +331,10 @@ class PageAssistantPartageEnregistrement extends Component {
                                             {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="ui row">
                                     <div className="ui seven wide column">
-                                        <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.partage.enregistrement.titre')}</div>
+                                        <div className="wizard-title"> <RecordSVG />{t('flot.split.documente-ton-oeuvre.partage.enregistrement.titre')}</div>
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
@@ -516,15 +518,15 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                             <div className="ui thirteen wide column">
                                                                                                 <div className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right floated close icon cliquable"
-                                                                                                        style={{ top: "0px", right: "10px", position: "absolute" }}
+                                                                                                    <PlusHorizontalSVG
+                                                                                                        style={{ float: "right" }}  
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
                                                                                                             this.setState({ ping: true }, () => {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }></i>
+                                                                                                        }/>
                                                                                                     <div className="ui divider"></div>
                                                                                                 </div>
                                                                                                 <div className="coches--role__droit">

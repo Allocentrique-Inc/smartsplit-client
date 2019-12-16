@@ -13,6 +13,9 @@ import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 import Axios from "axios"
 
+import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
+import { StarSVG, PlusHorizontalSVG } from "../svg/SVG";
+
 const MODES = { egal: "0", role: "1" }
 const TYPE = { principal: "0", accompagnement: "1" }
 
@@ -212,7 +215,7 @@ class PageAssistantPartageInterpretation extends Component {
                         <React.Fragment>
 
                             <div className="ui grid">
-                                <div className="ui row">
+                                {/* <div className="ui row">
                                     <div className="ui thirteen wide column">
                                         <Progress percent="50" size='tiny' indicating />
                                     </div>
@@ -221,10 +224,11 @@ class PageAssistantPartageInterpretation extends Component {
                                             {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="ui row">
                                     <div className="ui seven wide column">
-                                        <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.documenter.entete.interpretation')}</div>
+                                        <div className="wizard-title">
+                                            <StarSVG />{t('flot.split.documente-ton-oeuvre.documenter.entete.interpretation')}</div>
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">                                               
@@ -364,57 +368,63 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                 <div className="gray-fields">
                                                                                     <div className="ui grid">
                                                                                         <div className="ui row">
-                                                                                            <div className="ui two wide column">
+                                                                                            <div className="ui one wide column">
                                                                                                 <div className="avatar-image">
                                                                                                     <img alt="avatar" className="ui spaced avatar image" src={avatar} />
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div className="ui thirteen wide column">
+                                                                                            <div className="ui ten wide column">
                                                                                                 <div className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right floated close icon cliquable"
-                                                                                                        style={{ top: "0px", right: "10px", position: "absolute" }}
+                                                                                                    <PlusHorizontalSVG
+                                                                                                        style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
                                                                                                             this.setState({ ping: true }, () => {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }></i>
+                                                                                                        }/>
                                                                                                     <div className="ui divider"></div>
                                                                                                 </div>
-                                                                                                <BoutonsRadio
-                                                                                                    name={`type_interpretation_${index}`}
-                                                                                                    actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
-                                                                                                    onClick={(e) => {
-                                                                                                        if (this.state.mode === MODES.role) {
-                                                                                                            let valeur
-                                                                                                            // Clic de la puce ou de l'étiquette ?
-                                                                                                            if (e.target.nodeName === 'LABEL') {
-                                                                                                                valeur = e.target.parentNode.childNodes[0].value
-                                                                                                            }
-                                                                                                            if (e.target.nodeName === 'INPUT') {
-                                                                                                                valeur = e.target.value
-                                                                                                            }
-                                                                                                            this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
-                                                                                                            this.setState({ ping: true }, () => {
-                                                                                                                this.recalculerPartage()
-                                                                                                            })
-                                                                                                        }
-                                                                                                    }}
-                                                                                                    disabled={this.state.mode !== MODES.role}
-                                                                                                    titre=""
-                                                                                                    choix={[
-                                                                                                        {
-                                                                                                            nom: 'Principal',
-                                                                                                            valeur: TYPE.principal
-                                                                                                        },
-                                                                                                        {
-                                                                                                            nom: 'Accompagnement',
-                                                                                                            valeur: TYPE.accompagnement
-                                                                                                        }
-                                                                                                    ]}
-                                                                                                />
+                                                                                                <Translation>
+                                                                                                    {
+                                                                                                        t => (
+                                                                                                            <BoutonsRadio
+                                                                                                            style={{display: "inline-flex"}}
+                                                                                                            className="ten wide column"
+                                                                                                                titre=""
+                                                                                                                name={`type_interpretation_${index}`}
+                                                                                                                actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
+                                                                                                                onClick={(e) => {
+                                                                                                                    if (this.state.mode === MODES.role) {
+                                                                                                                        let valeur
+                                                                                                                        // Clic de la puce ou de l'étiquette ?
+                                                                                                                        if (e.target.nodeName === 'LABEL') {
+                                                                                                                            valeur = e.target.parentNode.childNodes[0].value
+                                                                                                                        }
+                                                                                                                        if (e.target.nodeName === 'INPUT') {
+                                                                                                                            valeur = e.target.value
+                                                                                                                        }
+                                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
+                                                                                                                        this.setState({ ping: true }, () => {
+                                                                                                                            this.recalculerPartage()
+                                                                                                                        })
+                                                                                                                    }
+                                                                                                                }}
+                                                                                                                disabled={this.state.mode !== MODES.role}
+                                                                                                                choix={[
+                                                                                                                    {
+                                                                                                                        nom: t("flot.split.documente-ton-oeuvre.documenter.options.question1-choix-a"),
+                                                                                                                        valeur: TYPE.principal
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        nom: t("flot.split.documente-ton-oeuvre.documenter.options.question1-choix-b"),
+                                                                                                                        valeur: TYPE.accompagnement
+                                                                                                                    }
+                                                                                                                ]}
+                                                                                                            />)}
+                                                                                                </Translation>
                                                                                                 <div className="coches--role__droit">
                                                                                                     {
                                                                                                         roles.map((elem, idx) => {
@@ -446,7 +456,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                             </div>
                                                                         )
                                                                     })
-                                                                }                                                                
+                                                                }
                                                             </div>
                                                         )}
                                                     />

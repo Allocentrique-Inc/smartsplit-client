@@ -13,13 +13,13 @@ export default class LigneMedia extends Component {
       media: props.media,
       user: props.user,
       rightHolders: props.rightHolders
-    }
-    this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
+    };
+    this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.rightHolders !== nextProps.rightHolders) {
-      this.setState({rightHolders: nextProps.rightHolders})
+    if (this.props.rightHolders !== nextProps.rightHolders) {
+      this.setState({ rightHolders: nextProps.rightHolders });
     }
   }
 
@@ -45,12 +45,11 @@ export default class LigneMedia extends Component {
   }
 
   modalePropositionEnCours(ouvrir = true) {
-    this.setState({modalePropositionEnCours: ouvrir})
+    this.setState({ modalePropositionEnCours: ouvrir });
   }
 
   render() {
-
-    let pochette = this.state.pochette ? "pochette" : ""
+    let pochette = this.state.pochette ? "pochette" : "";
 
     let elem = this.state.media;
     let _p = this.state.p0;
@@ -81,7 +80,7 @@ export default class LigneMedia extends Component {
     return (
       <Translation>
         {(t, i18n) => (
-          <div style={{ marginTop: "20px" }}>
+          <div className="hautColonne">
             <div className="ui grid">
               <div className="ui row">
                 <div
@@ -107,8 +106,7 @@ export default class LigneMedia extends Component {
                   }}
                 >
                   <div className="song-name">{`${elem.title}`}</div>
-                  <div
-                    className="small-400">
+                  <div className="small-400">
                     &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
                   </div>
 
@@ -116,9 +114,7 @@ export default class LigneMedia extends Component {
                     className={`small-500-color ${pochette}`}
                   >{`${elem.artist}`}</div>
                   <br />
-                  <div
-                    className={`small-400-color`}
-                  >
+                  <div className={`small-400-color`}>
                     {i18n.lng &&
                       moment(elem.creationDate)
                         .locale(i18n.lng.substring(0, 2))
@@ -127,10 +123,12 @@ export default class LigneMedia extends Component {
                   </div>
                 </div>
                 <div className="ui six wide column etat">
-
                   <div>
-                    {!pochette && _p && <div className="ui huge label etat">
-                      {t(`flot.split.etat.${_p.etat}`)}</div>}
+                    {!pochette && _p && (
+                      <div class="ui huge label etat">
+                        {t(`flot.split.etat.${_p.etat}`)}
+                      </div>
+                    )}
                   </div>
 
                   {!pochette && !continuerDisabled && (
@@ -145,78 +143,95 @@ export default class LigneMedia extends Component {
                       )}
                     </div>
                   )}
-
-                  {!pochette && !nouveauDisabled && (
+                  <div className="two wide column" />
+                  <div className="ui six wide column etat">
+                    {!pochette && !nouveauDisabled && (
+                      <div
+                        className={`ui medium button options ${pochette}`}
+                        onClick={() => {
+                          // Détecter si la proposition est verrouillée
+                          if (
+                            this.state.media &&
+                            ((this.state.media.initiateurPropositionEnCours &&
+                              this.state.media.initiateurPropositionEnCours.trim() ===
+                                "") ||
+                              !this.state.media.initiateurPropositionEnCours ||
+                              this.state.media.initiateurPropositionEnCours ===
+                                this.state.user.username)
+                          ) {
+                            // Verrouiller la proposition
+                            axios
+                              .put(
+                                `http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,
+                                { rightHolderId: this.state.user.username }
+                              )
+                              .then(res => {
+                                window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
+                              })
+                              .catch(err => {
+                                console.log(err);
+                              });
+                          } else {
+                            this.modalePropositionEnCours();
+                          }
+                        }}
+                      >
+                        {t(
+                          "flot.split.documente-ton-oeuvre.proposition.nouvelle"
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  {!pochette && !sommaireDisabled && (
                     <div
                       className={`ui medium button options ${pochette}`}
                       onClick={() => {
-                        // Détecter si la proposition est verrouillée
-                        if(
-                          this.state.media &&                          
-                          (
-                            (this.state.media.initiateurPropositionEnCours && this.state.media.initiateurPropositionEnCours.trim() === "") ||
-                            !this.state.media.initiateurPropositionEnCours ||
-                            this.state.media.initiateurPropositionEnCours === this.state.user.username)) {
-                          // Verrouiller la proposition
-                          axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,{rightHolderId: this.state.user.username})
-                          .then(res=>{
-                              window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
-                          })
-                          .catch(err=>{
-                              console.log(err)
-                          })
-                        } else {
-                          this.modalePropositionEnCours()
-                        }                        
+                        window.location.href = `/partager/${this.state.media.mediaId}`;
                       }}
                     >
-                      {t(
-                        "flot.split.documente-ton-oeuvre.proposition.nouvelle"
-                      )}
+                      {t("flot.split.sommaire.titre")}
                     </div>
                   )}
-                  {!pochette && !sommaireDisabled && (
-                      <div
-                        className={`ui medium button options ${pochette}`}
-                        onClick={() => {
-                          window.location.href = `/partager/${this.state.media.mediaId}`;
+                  {!pochette && !votationDisabled && (
+                    <div
+                      className={`ui medium button options ${pochette}`}
+                      onClick={() => {
+                        window.location.href = `/partager/${this.state.media.mediaId}`;
+                      }}
+                    >
+                      {t("flot.split.documente-ton-oeuvre.proposition.voter")}
+                    </div>
+                  )}
+
+                  {pochette && (
+                    <div
+                      className={`ui medium button options ${pochette}`}
+                      onClick={() => {
+                        window.location.href = `/documenter/${this.state.media.mediaId}`;
+                      }}
+                    >
+                      {t("flot.split.documente-ton-oeuvre.titre")}
+                    </div>
+                  )}
+                  {this.state.media.initiateurPropositionEnCours &&
+                    this.state.rightHolders[
+                      this.state.media.initiateurPropositionEnCours
+                    ] && (
+                      <ModalPropositionEnCours
+                        open={this.state.modalePropositionEnCours}
+                        titre={this.state.media.title}
+                        initiateur={
+                          this.state.rightHolders[
+                            this.state.media.initiateurPropositionEnCours
+                          ].name
+                        }
+                        onClose={() => {
+                          this.modalePropositionEnCours(false);
                         }}
-                      >
-                        {t("flot.split.sommaire.titre")}
-                      </div>
-                    )}
-                    {!pochette && !votationDisabled && (
-                      <div
-                        className={`ui medium button options ${pochette}`}
-                        onClick={() => {
-                          window.location.href = `/partager/${this.state.media.mediaId}`;
-                        }}
-                      >
-                        {t("flot.split.documente-ton-oeuvre.proposition.voter")}
-                      </div>
+                      />
                     )}
 
-                    {pochette && (
-                      <div
-                        className={`ui medium button options ${pochette}`}
-                        onClick={() => {
-                          window.location.href = `/documenter/${this.state.media.mediaId}`;
-                        }}
-                      >
-                        {t("flot.split.documente-ton-oeuvre.titre")}
-                      </div>
-                    )}                  
-                  {
-                    this.state.media.initiateurPropositionEnCours &&
-                    this.state.rightHolders[this.state.media.initiateurPropositionEnCours] &&
-                    <ModalPropositionEnCours
-                      open={this.state.modalePropositionEnCours} 
-                      titre={this.state.media.title} 
-                      initiateur={this.state.rightHolders[this.state.media.initiateurPropositionEnCours].name}
-                      onClose={()=>{this.modalePropositionEnCours(false)}} />
-                  }
-
-{/* 
+                  {/* 
 
 <div className="ui six wide column">
                     {!pochette && !sommaireDisabled && (
@@ -252,8 +267,6 @@ export default class LigneMedia extends Component {
                     )}
                   </div>
 */}
-
-
                 </div>
               </div>
             </div>
