@@ -31,7 +31,7 @@ class PageAssistantPartageInterpretation extends Component {
         super(props)
         this.state = {
             parts: {},
-            mode: MODES.egal,
+            mode: MODES.role,
             principaux: [],
             accompagnement: [],
             song: ""
@@ -232,10 +232,6 @@ class PageAssistantPartageInterpretation extends Component {
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {/*{t('flot.split.partage.interprete.titre', { oeuvre: this.state.song })}*/}
-                                                {/* {t('flot.split.partage.interprete.titre', {
-                                                    oeuvre: `${t('flot.split.partage.guillemets.guillemet1')}${this.state.song}${t('flot.split.partage.guillemets.guillemet2')}`
-                                                })}? */}
                                                 {t('flot.split.partage.interprete.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
@@ -422,15 +418,15 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }/>
+                                                                                                        } />
                                                                                                     <div className="ui divider"></div>
                                                                                                 </div>
                                                                                                 <Translation>
                                                                                                     {
                                                                                                         t => (
                                                                                                             <BoutonsRadio
-                                                                                                            style={{display: "inline-flex"}}
-                                                                                                            className="ten wide column"
+                                                                                                                style={{ display: "inline-flex" }}
+                                                                                                                className="ten wide column"
                                                                                                                 titre=""
                                                                                                                 name={`type_interpretation_${index}`}
                                                                                                                 actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique

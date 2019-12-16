@@ -18,6 +18,7 @@ import Lock from "./Lock"
 
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
 import { RecordSVG, PlusHorizontalSVG } from "../svg/SVG";
+import biquette from '../../assets/base64/biquette.base64'
 
 const MODES = { egal: "0", manuel: "1" }
 
@@ -142,7 +143,6 @@ class PageAssistantPartageEnregistrement extends Component {
         // Détection des limites pour ne pas dépasser 0
         droits.forEach((elem, idx) => {
             let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
-            //console.log(elem.pourcent, _pred, deltaParCollaborateurVariable)
             if (!invariable[idx] && _pred <= 0) {
 
                 let reste = parseFloat(droits[idx].pourcent) + _pred
@@ -322,7 +322,7 @@ class PageAssistantPartageEnregistrement extends Component {
                         <React.Fragment>
 
                             <div className="ui grid">
-                               {/*  <div className="ui row">
+                                {/*  <div className="ui row">
                                     <div className="ui thirteen wide column">
                                         <Progress percent="85" size='tiny' indicating />
                                     </div>
@@ -500,10 +500,10 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                         let avatar = ''
                                                                         let _aD = part.ayantDroit
                                                                         // Y a-t-il un avatar ?
-                                                                        if (_aD.avatarImage)
+                                                                        if (_aD && _aD.avatarImage)
                                                                             avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
                                                                         else
-                                                                            avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+                                                                            avatar = biquette;
 
                                                                         return (
                                                                             <div key={`part-${index}`}>
@@ -519,14 +519,14 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                 <div className="holder-name">
                                                                                                     {part.nom}
                                                                                                     <PlusHorizontalSVG
-                                                                                                        style={{ float: "right" }}  
+                                                                                                        style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
                                                                                                             this.setState({ ping: true }, () => {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }/>
+                                                                                                        } />
                                                                                                     <div className="ui divider"></div>
                                                                                                 </div>
                                                                                                 <div className="coches--role__droit">

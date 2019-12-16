@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { Translation } from "react-i18next";
 import moment from "moment";
 import axios from "axios";
-import { Label } from "semantic-ui-react";
-import { toast } from "react-toastify";
 import ModalPropositionEnCours from "../modales/modale-proposition-encours";
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
@@ -126,11 +124,8 @@ export default class LigneMedia extends Component {
                 </div>
                 <div className="ui six wide column etat">
                   <div>
-                    {!pochette && _p && (
-                      <div class="ui huge label etat">
-                        {t(`flot.split.etat.${_p.etat}`)}
-                      </div>
-                    )}
+                    {!pochette && _p && <div className="ui huge label etat">
+                      {t(`flot.split.etat.${_p.etat}`)}</div>}
                   </div>
 
                   {!pochette && !continuerDisabled && (
@@ -156,10 +151,10 @@ export default class LigneMedia extends Component {
                             this.state.media &&
                             ((this.state.media.initiateurPropositionEnCours &&
                               this.state.media.initiateurPropositionEnCours.trim() ===
-                                "") ||
+                              "") ||
                               !this.state.media.initiateurPropositionEnCours ||
                               this.state.media.initiateurPropositionEnCours ===
-                                this.state.user.username)
+                              this.state.user.username)
                           ) {
                             // Verrouiller la proposition
                             axios
@@ -217,7 +212,7 @@ export default class LigneMedia extends Component {
                   )}
                   {this.state.media.initiateurPropositionEnCours &&
                     this.state.rightHolders[
-                      this.state.media.initiateurPropositionEnCours
+                    this.state.media.initiateurPropositionEnCours
                     ] && (
                       <ModalPropositionEnCours
                         open={this.state.modalePropositionEnCours}

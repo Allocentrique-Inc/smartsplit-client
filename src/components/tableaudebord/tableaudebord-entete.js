@@ -11,7 +11,7 @@ export default class Entete extends Component {
         super(props)
         this.state = {
             user: props.user
-        }
+        }        
     }
 
     render() {

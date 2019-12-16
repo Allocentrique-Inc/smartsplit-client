@@ -89,7 +89,6 @@ class ForgotPassword extends Component {
         "email": courriel
       })
       .then(res=>{
-        console.log("RES.data", res.data.Users.Username)
         let rightHolderId = res.data
         let requestSource = window.location.href
         axios.patch(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolderId}/requestSource`, {

@@ -20,7 +20,7 @@ import { Modal, Button } from 'semantic-ui-react'
 import moment from 'moment'
 import SommairePartagesEditeur from './sommaire-partages-editeur'
 import ModaleConnexion from '../auth/Connexion'
-import ModalFin from '../oeuvre/modal-fin'
+
 import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 
 import InfoBulle from '../partage/InfoBulle';
@@ -312,26 +312,25 @@ export default class SommairePartages extends Component {
                                         <div className="ui one wide column" />
                                         <div className="ui twelve wide column">
                                             {message}
-                                            < br />
-                                            <div class="four wide column">
-                                                <div className="right floated column">
-                                                    {
-                                                        !continuerDisabled && (
-                                                            <div className={`ui medium button`} onClick={
-                                                                () => {
-                                                                    window.location.href = `/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                                }
-                                                            }>
-                                                                {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
-                                                            </div>
-                                                        )
-                                                    }
-                                                </div>
-                                            </div>
-
+                                        </div>
+                                    </div>
+                                    <div className="ui row">
+                                        <div className="ui one wide column" />
+                                        <div className="ui twelve wide column">
+                                            {
+                                                !continuerDisabled && (
+                                                    <div className={`ui medium right floated button`} onClick={
+                                                        () => {
+                                                            window.location.href = `/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
+                                                        }
+                                                    }>
+                                                        {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
+                                                    </div>
+                                                )
+                                            }
                                             {
                                                 !nouveauDisabled && (
-                                                    <div className={`ui medium button`} onClick={
+                                                    <div className={`ui medium right floated button`} onClick={
                                                         () => {
 
                                                             // Détecter si la proposition est verrouillée
@@ -354,25 +353,19 @@ export default class SommairePartages extends Component {
                                                     </div>
                                                 )
                                             }
-                                            < br />
-                                            < br />
-                                            < br />
+
                                             {
                                                 !envoiDisabled && (
-
-                                                    <div className="ui grid">
-                                                        <div className="three column row">
-                                                            <div className="right floated column">
-                                                                <div onClick={() => {
-                                                                    this.openModal()
-                                                                }} className={`ui medium button sommaire`}>
-                                                                    <div className="four wide column">
-                                                                        {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
-                                                                    </div>
-                                                                </div>
+                                                    <>
+                                                        <div onClick={() => {
+                                                            this.openModal()
+                                                        }} className={`ui medium button sommaire`}
+                                                            style={{ width: "250px" }}
+                                                        >
+                                                            <div className="four wide column">
+                                                                {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                             </div>
                                                         </div>
-
                                                         <div>
                                                             <Modal
                                                                 open={this.state.modaleCourriels}
@@ -402,7 +395,7 @@ export default class SommairePartages extends Component {
                                                                         <div
                                                                             className="ui negative button"
                                                                             onClick={this.closeModal}
-                                                                            >
+                                                                        >
                                                                             {t("flot.split.collaborateur.attribut.bouton.annuler")}
                                                                         </div>
                                                                         <Button
@@ -418,7 +411,7 @@ export default class SommairePartages extends Component {
                                                                 </Modal.Actions>
                                                             </Modal>
                                                         </div>
-                                                    </div>
+                                                    </>
                                                 )
                                             }
                                         </div>
@@ -432,7 +425,7 @@ export default class SommairePartages extends Component {
                                                     <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={() => { this.afficherPanneauPropositions() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}</span>&nbsp;&nbsp;
                                                     {/* Doit être adjacent à encapsules */}
                                                     <InfoBulle
-                                                    className="proposition"
+                                                        className="proposition"
                                                         declencheur={(<span style={this.state.panneau === PANNEAU_EDITEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauEditeur() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}</span>)}
                                                         decoration={
                                                             <>
@@ -440,7 +433,7 @@ export default class SommairePartages extends Component {
                                                                 <br />
                                                                 <div className="ui negative button editeur"
                                                                     onClick={(e) => { this.actionEditeur() }} // () = activation passer paramètre true ou false
-                                                                    > {/* Chargé mais des fois faut l'importer à moins que composante déjà importée l'ait déjà chargée */}
+                                                                > {/* Chargé mais des fois faut l'importer à moins que composante déjà importée l'ait déjà chargée */}
                                                                     Non
                                                                 </div>
                                                                 <div className="ui positive button" onClick={(e) => {

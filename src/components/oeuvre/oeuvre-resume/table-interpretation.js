@@ -72,7 +72,7 @@ export default class TableInterpretation extends React.Component {
                 }
             })
 
-            if(principalOuAccompagnateur && musicien) {
+            if(principalOuAccompagnateur) {
                 if(_ad.instruments) {
                     _ad.instruments.forEach((i, idx)=>{
                         if(idx < _ad.instruments.length - 1) {
