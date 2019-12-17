@@ -4,6 +4,7 @@ import { Translation } from 'react-i18next'
 import { Checkbox, Progress } from 'semantic-ui-react'
 
 import axios from 'axios'
+import { Auth } from 'aws-amplify'
 
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
@@ -12,6 +13,8 @@ import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
+import EntetePartage from "./entete-partage"
+
 import { FieldArray } from "formik"
 
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
@@ -19,7 +22,7 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import Lock from "./Lock"
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { CopyrightSVG, PlusHorizontalSVG } from "../svg/SVG";
+import { CopyrightSVG, PlusHorizontalSVG, CroixSVG } from "../svg/SVG";
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -38,11 +41,25 @@ class PageAssistantPartageAuteur extends Component {
             partsInvariables: {},
             song: ""
         }
+        //this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
         this.changementGradateur = this.changementGradateur.bind(this)
         this.changementTexte = this.changementTexte.bind(this)
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
         this.pourcentRestant = this.pourcentRestant.bind(this)
     }
+
+    /* enregistrerEtQuitter(t, valeurs) {
+        this.soumettre(t, valeurs, "BROUILLON", () => {
+            Auth.signOut()
+                .then(data => {
+                    //toast.success("Déconnexion réussie")
+                    setTimeout(() => {
+                        window.location.href = '/accueil'
+                    }, 1000)
+                })
+                .catch(error => console.log(error))
+        })
+    } */
 
     componentDidMount() {
         this.setState({ parts: this.props.values.droitAuteur })
@@ -391,6 +408,7 @@ class PageAssistantPartageAuteur extends Component {
                     (t) =>
 
                         <div className="ui grid">
+                            <EntetePartage values={this.props.values} enregistrerEtQuitter={this.props.enregistrerEtQuitter} media={this.props.media} user={this.props.user} currentPage={1} />
                             {/* <div className="ui row">
                                     <div className="ui thirteen wide column">
                                         <Progress percent="20" size='tiny' indicating />
@@ -401,6 +419,11 @@ class PageAssistantPartageAuteur extends Component {
                                         </div>
                                     </div>
                                 </div> */}
+                            <div className="ui button negative" onClick={() => { this.props.enregistrerEtQuitter(t, this.props.values) }}>
+                                {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
+                            </div>
+
+
                             <div className="ui row">
                                 <div className="ui seven wide column">
                                     <div className="wizard-title">
@@ -618,7 +641,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                             <div
                                                                                                 className="holder-name">
                                                                                                 {part.nom}
-                                                                                                <PlusHorizontalSVG
+                                                                                                <i className="right flated close icon cliquable"
                                                                                                     style={{ float: "right" }}
                                                                                                     onClick={() => {
                                                                                                         arrayHelpers.remove(index)
@@ -626,7 +649,18 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                             this.recalculerPartage()
                                                                                                         })
                                                                                                     }
-                                                                                                    } />
+                                                                                                    }></i>
+                                                                                                {/*   Ceci est l'icône de Figma. J'ignore sa fonctionalité (menu déroulant ?).
+                                                                                                    Donc en attendant, je laisse l'icône pour supprimer l'ayant-droit fonctionnel.
+                                                                                                    <PlusHorizontalSVG
+                                                                                                    style={{ float: "right" }}
+                                                                                                    onClick={() => {
+                                                                                                        arrayHelpers.remove(index)
+                                                                                                        this.setState({ ping: true }, () => {
+                                                                                                            this.recalculerPartage()
+                                                                                                        })
+                                                                                                    }
+                                                                                                    } /> */}
                                                                                                 <div
                                                                                                     className="ui divider"></div>
                                                                                             </div>

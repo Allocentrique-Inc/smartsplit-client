@@ -142,7 +142,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
         // Détection des limites pour ne pas dépasser 0
         droits.forEach((elem, idx) => {
-            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))    
+            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
             if (!invariable[idx] && _pred <= 0) {
 
                 let reste = parseFloat(droits[idx].pourcent) + _pred
@@ -322,7 +322,7 @@ class PageAssistantPartageEnregistrement extends Component {
                         <React.Fragment>
 
                             <div className="ui grid">
-                               {/*  <div className="ui row">
+                                {/*  <div className="ui row">
                                     <div className="ui thirteen wide column">
                                         <Progress percent="85" size='tiny' indicating />
                                     </div>
@@ -518,15 +518,26 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                             <div className="ui thirteen wide column">
                                                                                                 <div className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <PlusHorizontalSVG
-                                                                                                        style={{ float: "right" }}  
+                                                                                                    <i className="right flated close icon cliquable"
+                                                                                                        style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
                                                                                                             this.setState({ ping: true }, () => {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }/>
+                                                                                                        }></i>
+                                                                                                    {/*   Ceci est l'icône de Figma. J'ignore sa fonctionalité (menu déroulant ?).
+                                                                                                    Donc en attendant, je laisse l'icône pour supprimer l'ayant-droit fonctionnel.
+                                                                                                    <PlusHorizontalSVG
+                                                                                                    style={{ float: "right" }}
+                                                                                                    onClick={() => {
+                                                                                                        arrayHelpers.remove(index)
+                                                                                                        this.setState({ ping: true }, () => {
+                                                                                                            this.recalculerPartage()
+                                                                                                        })
+                                                                                                    }
+                                                                                                    } /> */}
                                                                                                     <div className="ui divider"></div>
                                                                                                 </div>
                                                                                                 <div className="coches--role__droit">

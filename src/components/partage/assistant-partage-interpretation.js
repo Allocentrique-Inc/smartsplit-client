@@ -231,14 +231,14 @@ class PageAssistantPartageInterpretation extends Component {
                                             <StarSVG />{t('flot.split.documente-ton-oeuvre.documenter.entete.interpretation')}</div>
                                         <br />
                                         <div className="mode--partage__auteur">
-                                            <div className="who-invented-title">                                               
+                                            <div className="who-invented-title">
                                                 {t('flot.split.partage.interprete.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
                                             {descriptif}
                                             <br />
                                             <div className="fields">
-                                                <div className="fourteen wide field">                                                    
+                                                <div className="fourteen wide field">
                                                     <p style={{ height: "30px" }} />
                                                     <FieldArray
                                                         name="droitInterpretation"
@@ -376,7 +376,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                             <div className="ui ten wide column">
                                                                                                 <div className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <PlusHorizontalSVG
+                                                                                                    <i className="right flated close icon cliquable"
                                                                                                         style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
@@ -384,15 +384,26 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }/>
+                                                                                                        }></i>
+                                                                                                    {/*   Ceci est l'icône de Figma. J'ignore sa fonctionalité (menu déroulant ?).
+                                                                                                    Donc en attendant, je laisse l'icône pour supprimer l'ayant-droit fonctionnel.
+                                                                                                    <PlusHorizontalSVG
+                                                                                                    style={{ float: "right" }}
+                                                                                                    onClick={() => {
+                                                                                                        arrayHelpers.remove(index)
+                                                                                                        this.setState({ ping: true }, () => {
+                                                                                                            this.recalculerPartage()
+                                                                                                        })
+                                                                                                    }
+                                                                                                    } /> */}
                                                                                                     <div className="ui divider"></div>
                                                                                                 </div>
                                                                                                 <Translation>
                                                                                                     {
                                                                                                         t => (
                                                                                                             <BoutonsRadio
-                                                                                                            style={{display: "inline-flex"}}
-                                                                                                            className="ten wide column"
+                                                                                                                style={{ display: "inline-flex" }}
+                                                                                                                className="ten wide column"
                                                                                                                 titre=""
                                                                                                                 name={`type_interpretation_${index}`}
                                                                                                                 actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique

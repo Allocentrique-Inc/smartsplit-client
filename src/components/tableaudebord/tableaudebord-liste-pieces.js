@@ -329,7 +329,7 @@ export default class ListePieces extends Component {
               return (
                 <LigneMedia
                   pochette={this.state.pochette}
-                  key={`${elem.mediaId}_${elem._idx}`}
+                  key={`${elem.mediaId}_${_idx}`}
                   media={elem}
                   user={this.state.user}
                   rightHolders={this.state.rightHolders}

@@ -458,7 +458,7 @@ class AssistantPartage extends Component {
                                         </script>
                                         )
                                     }
-                                    <EntetePartage media={this.state.media} user={this.state.user} currentPage={this.state.currentWizardPage} />
+                                    {/* <EntetePartage media={this.state.media} user={this.state.user} currentPage={this.state.currentWizardPage} /> */}
                                     <div className="ui row">
                                         <div className="ui two wide column" />
                                         <div className="ui twelve wide column">
@@ -564,7 +564,7 @@ class AssistantPartage extends Component {
                                             <p className={"description"}>
                                                 Bravo, tu as créé une proposition de partage de droits avec succès ! <em>Clique</em> sur
                                     le bouton ci-dessous afin de <em>revoir</em> et <em>envoyer par courriel</em> la proposition à
-                                                                                                                                                                                                                                                                                                                                    tes collaborateurs.
+                                                                                                                                                                                                                                                                                                                                                tes collaborateurs.
                                     </p>
                                         )}
                                     </div>
