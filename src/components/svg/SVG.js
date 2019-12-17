@@ -344,10 +344,7 @@ export class ChevronDownSVG extends SVG {
 }
 
 export class LangueSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
-
+  
   render() {
     return (
       <svg
@@ -358,7 +355,6 @@ export class LangueSVG extends SVG {
         id="Calque_1"
         data-name="Calque 1"
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
       >
         <path class="cls-1" d="M0,0H24V24H0Z" />
         <path
@@ -371,9 +367,6 @@ export class LangueSVG extends SVG {
   }
 }
 export class CopyrightSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
@@ -395,9 +388,6 @@ export class CopyrightSVG extends SVG {
   }
 }
 export class StarSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
@@ -419,9 +409,6 @@ export class StarSVG extends SVG {
   }
 }
 export class RecordSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
@@ -443,9 +430,6 @@ export class RecordSVG extends SVG {
   }
 }
 export class PlusHorizontalSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
@@ -467,9 +451,6 @@ export class PlusHorizontalSVG extends SVG {
   }
 }
 export class CroixSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

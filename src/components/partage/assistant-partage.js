@@ -3,8 +3,7 @@ import React, { Component } from 'react'
 import { Wizard } from "semantic-ui-react-formik"
 // Traduction
 import { Translation } from 'react-i18next'
-// Composantes
-import EntetePartage from './entete-partage'
+
 // Pages de l'assistant
 import PageAssistantPartageDroitAuteur from './assistant-partage-auteur'
 import PageAssistantPartageDroitInterpretation from './assistant-partage-interpretation'
@@ -502,15 +501,27 @@ class AssistantPartage extends Component {
                                             >
 
                                                 <Wizard.Page>
-                                                    <PageAssistantPartageDroitAuteur ayantsDroit={this.state.ayantDroits} enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
+                                                    <PageAssistantPartageDroitAuteur 
+                                                        ayantsDroit={this.state.ayantDroits} 
+                                                        enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                                        i18n={i18n}
+                                                        user={this.state.user} />
                                                 </Wizard.Page>
 
                                                 <Wizard.Page>
-                                                    <PageAssistantPartageDroitInterpretation ayantsDroit={this.state.ayantDroits} enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
+                                                    <PageAssistantPartageDroitInterpretation 
+                                                        ayantsDroit={this.state.ayantDroits} 
+                                                        enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                                        i18n={i18n}
+                                                        user={this.state.user} />
                                                 </Wizard.Page>
 
                                                 <Wizard.Page>
-                                                    <PageAssistantPartageDroitEnregistrement ayantsDroit={this.state.ayantDroits} enregistrerEtQuitter={this.enregistrerEtQuitter} i18n={i18n} />
+                                                    <PageAssistantPartageDroitEnregistrement 
+                                                        ayantsDroit={this.state.ayantDroits} 
+                                                        enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                                        i18n={i18n} 
+                                                        user={this.state.user} />
                                                 </Wizard.Page>
 
                                             </Wizard>

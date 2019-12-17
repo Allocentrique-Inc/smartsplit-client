@@ -8,7 +8,6 @@ import { Progress } from "semantic-ui-react";
 
 import axios from 'axios'
 import { toast } from 'react-toastify'
-import { Auth } from 'aws-amplify'
 
 import MenuProfil from "../entete/menu-profil";
 
@@ -18,8 +17,7 @@ class EntetePartage extends Component {
     this.state = {
       media: this.props.media,
       user: this.props.user
-    };
-    //this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
+    }
     this.soumettre = this.soumettre.bind(this)
   }
 
@@ -234,20 +232,6 @@ class EntetePartage extends Component {
     }
   }
 
-  /* enregistrerEtQuitter(t, valeurs) {
-    consolel.log("Enregistrer et quitter", valeurs)
-    this.soumettre(t, valeurs, "BROUILLON", () => {
-      Auth.signOut()
-        .then(data => {
-          //toast.success("Déconnexion réussie")
-          setTimeout(() => {
-            window.location.href = '/accueil'
-          }, 1000)
-        })
-        .catch(error => console.log(error))
-    })
-  } */
-
   getProgressPercent = () => {
     switch (this.props.currentPage) {
       case 0:
@@ -256,6 +240,8 @@ class EntetePartage extends Component {
         return 50
       case 2:
         return 85
+      default:
+        return 100
     }
   }
 
@@ -268,7 +254,8 @@ class EntetePartage extends Component {
               className="fixed-top"
               style={{
                 background: "#ffff",
-                height: "4.4em"
+                height: "4.4em",
+                left: "0px"
               }}
             >
               <span className="menu-droite" style={{ display: "inline-flex" }}>

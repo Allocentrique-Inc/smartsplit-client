@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-import { Checkbox, Progress } from 'semantic-ui-react'
+import { Checkbox } from 'semantic-ui-react'
 
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
@@ -18,7 +18,8 @@ import Lock from "./Lock"
 
 import biquette from '../../assets/base64/biquette.base64'
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { RecordSVG, PlusHorizontalSVG } from "../svg/SVG";
+import { RecordSVG } from "../svg/SVG";
+import EntetePartage from "./entete-partage"
 
 const MODES = { egal: "0", manuel: "1" }
 
@@ -320,18 +321,14 @@ class PageAssistantPartageEnregistrement extends Component {
                 {
                     (t) =>
                         <React.Fragment>
-
+                            <EntetePartage 
+                                values={this.props.values} 
+                                enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
+                                media={this.props.media} 
+                                user={this.props.user} 
+                                currentPage={3} />
                             <div className="ui grid">
-                                {/*  <div className="ui row">
-                                    <div className="ui thirteen wide column">
-                                        <Progress percent="85" size='tiny' indicating />
-                                    </div>
-                                    <div className="ui three wide column">
-                                        <div style={{ top: "-15px", position: "relative", left: "30px", width: "150px" }} className="ui medium button" onClick={() => { this.props.enregistrerEtQuitter(t, this.props.values) }}>
-                                            {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
-                                        </div>
-                                    </div>
-                                </div> */}
+                                <div className="ui row" />
                                 <div className="ui row">
                                     <div className="ui seven wide column">
                                         <div className="wizard-title"> <RecordSVG />{t('flot.split.documente-ton-oeuvre.partage.enregistrement.titre')}</div>

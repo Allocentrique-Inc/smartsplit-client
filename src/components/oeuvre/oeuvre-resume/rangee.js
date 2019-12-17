@@ -33,11 +33,5 @@ export function BaseRangee(props) {
 function renderHelpIcon(props) {
     return props.helpIcon ?
         (<img className={'help-icon'} src={helpIcon} alt={'Aide'} />) :
-        (<></>);
-
-    function renderHelpIcon(props) {
-        return props.helpIcon ?
-            (<img className={'help-icon'} src={helpIcon} alt={'Aide'} />) :
-            (<></>);
-    }
+        (<></>)    
 }
