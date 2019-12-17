@@ -106,80 +106,24 @@ const renderRoutes = () => {
             <Route exact path="/sign-in-google" component={SignInGoogle} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/choose-password" component={ChoosePasswordVerification} />
-            <Route
-              exact
-              path="/forgot-password-verification"
-              component={DefinitMotDePasse}
-            />
-            <Route
-              exact
-              path="/change-password-verification"
-              component={ChangePasswordVerification}
-            />
+            <Route exact path="/forgot-password-verification" component={DefinitMotDePasse} />
+            <Route exact path="/change-password-verification" component={ChangePasswordVerification} />
             <Route exact path="/welcome" component={Welcome} />
-            <Route
-              exact
-              path="/proposition/approuver/:propositionId"
-              component={ApprouverSplit}
-            />
-            <Route
-              exact
-              path="/proposition/vote/:jeton"
-              component={VoterSplit}
-            />
-            <Route
-              exact
-              path="/proposition/confirmer-courriel"
-              component={ConfirmerCourriel}
-            />
-            <Route
-              exact
-              path="/proposition/sommaire/:uuid"
-              component={SommaireProposition}
-            />
+            <Route exact path="/proposition/approuver/:propositionId" component={ApprouverSplit} />
+            <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
+            <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
+            <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
             <Route exact path="/accueil" component={Accueil} />
             <Route exact path="/visualisation/beignet" component={Beignet} />
-            <Route
-              exact
-              path="/visualisation/histogramme"
-              component={Histogramme}
-            />
-            <Route
-              exact
-              path="/visualisation/troissplits"
-              component={Troissplits}
-            />
-            <Route
-              exact
-              path="/partager/:mediaId"
-              component={PartagesOeuvres}
-            />
-            <Route
-              exact
-              path="/partager/nouveau/:mediaId"
-              component={NouveauPartage}
-            />
-            <Route
-              exact
-              path="/partager/existant/:uuid"
-              component={ContinuerProposition}
-            />
-            <Route
-              exact
-              path="/partage-editeur/:propositionId"
-              component={PartageEditeur}
-            />
-            <Route
-              exact
-              path="/oeuvre/sommaire/:mediaId"
-              component={sommaireOeuvre}
-            />
+            <Route exact path="/visualisation/histogramme" component={Histogramme} />
+            <Route exact path="/visualisation/troissplits" component={Troissplits} />
+            <Route exact path="/partager/:mediaId" component={PartagesOeuvres} />
+            <Route exact path="/partager/nouveau/:mediaId" component={NouveauPartage} />
+            <Route exact path="/partager/existant/:uuid" component={ContinuerProposition} />
+            <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
+            <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
             <Route exact path="/oeuvre/:mediaId/resume" component={Resume} />
-            <Route
-              exact
-              path="/partage/editeur/vote/:jeton"
-              component={VoterPartTiers}
-            />
+            <Route exact path="/partage/editeur/vote/:jeton" component={VoterPartTiers} />
             <Route exact path="*" component={Password} />
           </Switch>
         </Router>
