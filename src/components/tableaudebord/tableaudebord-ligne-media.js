@@ -156,7 +156,7 @@ export default class LigneMedia extends Component {
                               this.state.media.initiateurPropositionEnCours.trim() ===
                                 "") ||
                               !this.state.media.initiateurPropositionEnCours ||
-                              this.state.media.initiateurPropositionEnCours ===
+                              this.state.media.initiateurPropositionEnCours.trim() ===
                                 this.state.user.username)
                           ) {
                             // Verrouiller la proposition
@@ -213,7 +213,7 @@ export default class LigneMedia extends Component {
                       {t("flot.split.documente-ton-oeuvre.titre")}
                     </div>
                   )}
-                  {this.state.media.initiateurPropositionEnCours &&
+                  {this.state.media.initiateurPropositionEnCours && this.state.rightHolders &&
                     this.state.rightHolders[
                       this.state.media.initiateurPropositionEnCours
                     ] && (
@@ -229,44 +229,7 @@ export default class LigneMedia extends Component {
                           this.modalePropositionEnCours(false);
                         }}
                       />
-                    )}
-
-                  {/* 
-
-<div className="ui six wide column">
-                    {!pochette && !sommaireDisabled && (
-                      <div
-                        className={`ui medium button options ${pochette}`}
-                        onClick={() => {
-                          window.location.href = `/partager/${this.state.media.mediaId}`;
-                        }}
-                      >
-                        {t("flot.split.sommaire.titre")}
-                      </div>
-                    )}
-                    {!pochette && !votationDisabled && (
-                      <div
-                        className={`ui medium button options ${pochette}`}
-                        onClick={() => {
-                          window.location.href = `/partager/${this.state.media.mediaId}`;
-                        }}
-                      >
-                        {t("flot.split.documente-ton-oeuvre.proposition.voter")}
-                      </div>
-                    )}
-
-                    {pochette && (
-                      <div
-                        className={`ui medium button options ${pochette}`}
-                        onClick={() => {
-                          window.location.href = `/documenter/${this.state.media.mediaId}`;
-                        }}
-                      >
-                        {t("flot.split.documente-ton-oeuvre.titre")}
-                      </div>
-                    )}
-                  </div>
-*/}
+                    )}                  
                 </div>
               </div>
             </div>
