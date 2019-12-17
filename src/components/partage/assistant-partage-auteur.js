@@ -409,6 +409,7 @@ class PageAssistantPartageAuteur extends Component {
 
                         <div className="ui grid">
                             <EntetePartage values={this.props.values} enregistrerEtQuitter={this.props.enregistrerEtQuitter} media={this.props.media} user={this.props.user} currentPage={1} />
+                            
                             {/* <div className="ui row">
                                     <div className="ui thirteen wide column">
                                         <Progress percent="20" size='tiny' indicating />
