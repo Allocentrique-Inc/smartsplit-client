@@ -15,12 +15,14 @@ RUN apk add --update \
     pango \
     pango-dev \
     libjpeg-turbo-dev \
+    nginx \
     && pip install awscli==$AWSCLI_VERSION --upgrade --user \
     && apk --purge -v del py-pip \
     && rm -rf /var/cache/apk/*
+RUN adduser -D -g 'www' www
 RUN npm config set user 0
 RUN npm install node-gyp
 RUN npm install
 EXPOSE 80
-ENV PORT 80
+ENV PORT 3000
 CMD [ "npm", "start" ]
