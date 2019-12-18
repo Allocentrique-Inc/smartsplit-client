@@ -118,6 +118,7 @@
   },
   "navigation": {
     "suivant": "Next",
+    "retour": "Back",
     "envoi": "Submit",
     "precedent": "Previous",
     "reinitialiser": "Reset",
@@ -317,7 +318,9 @@
           "titre1-description": "That's where you mention who contributed to the creation of this piece.",
           "date-creation": "Creation Date",
           "date-placeholder": "Add a date",
+          "date-sortie": "Release Date",
           "auteur": "Authors  ",
+          "auteur-parole": "Authors (lyrics)",
           "collabo": "Create a new controbutor",
           "auteur-description": "Who wrote the lyrics of this musical piece?",
           "auteur-placeholder": "Add an Author",
@@ -325,15 +328,18 @@
           "graphiste-description": "Who did the artwork?",
           "graphiste": "Illustrators  ",
           "compositeur": "Composers  ",
+          "compositeur-musique": "Composers (music)",
           "compositeur-description": "Who composed the music of this piece?",
           "compositeur-placeholder": "Add a Composer",
           "arrangeur": "Remixers  ",
+          "arrangeur-musique": "Remixers (music)",
           "arrangeur-description": "Who remixed the music of this piece?",
           "arrangeur-placeholder": "Add a remixer",
           "editeur": "Editors  ",
           "editeur-description": "Who represents these authors and/or composers?",
           "editeur-placeholder": "Add an editor",
           "codeiswc": "ISWC Code  ",
+          "iswc": "ISWC",
           "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
           "codeiswc-placeholder": "T-012345678-1",
           "titre2": "Who played the musical piece on this sound recording?",
@@ -761,5 +767,13 @@
     "lien": "Users with the unique shareable link can download the original file. Useful for reporters and the professionals!",
     "prive": "Private - Prevent download.",
     "personne": "Nobody will be able to download, except you."
+  },
+  "sommaire": {
+    "autres": {
+      "info": "Add this information",
+      "piste": "Track title",
+      "tech": "Recording technician",
+      "illustration": "Illustration"
+    }
   }
 }

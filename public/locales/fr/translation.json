@@ -110,6 +110,7 @@
   },
   "navigation": {
     "suivant": "Suivant",
+    "retour": "Retour",
     "envoi": "Soumettre",
     "precedent": "Précédent",
     "reinitialiser": "Réinitialiser",
@@ -294,7 +295,7 @@
           "sauvegarde": "Documentation enregistrée automatiquement",
           "entete": {
             "creation": "Création",
-            "interpretation": "Interprétation",
+            "interpretation": "  Interprétation",
             "enregistrement": "Enregistrement",
             "sortie": "Sortie",
             "fichier": "Fichiers",
@@ -313,7 +314,9 @@
           "titre1-description": "C’est ici que tu indiques qui a contribué à la création de cette pièce.",
           "date-creation": "Date de création",
           "date-placeholder": "Ajouter une date",
+          "date-sortie": "Date de sortie",
           "auteur": "Auteurs  ",
+          "auteur-parole": "Auteurs (paroles)",
           "collabo": "Créer un nouveau collaborateur",
           "auteur-placeholder": "Ajouter un auteur",
           "auteur-description": "Qui a écrit les paroles de cette pièce musicale ?",
@@ -321,21 +324,25 @@
           "graphiste-description": "Qui a fait les compositions visuelles ?",
           "graphiste": "Graphistes  ",
           "compositeur": "Compositeurs  ",
+          "compositeur-musique": "Compositeurs (musique)",
           "compositeur-description": "Qui a composé la musique de cette pièce musicale ?",
           "compositeur-placeholder": "Ajouter un compositeur",
           "arrangeur": "Arrangeurs  ",
+          "arrangeur-musique": "Arrangeurs (musique)",
           "arrangeur-description": "Qui a arrangé la musique de cette pièce musicale ?",
           "arrangeur-placeholder": "Ajouter un arrangeur",
           "editeur": "Éditeurs  ",
           "editeur-description": "Qui représente ces auteurs et/ou compositeurs ?",
           "editeur-placeholder": "Ajouter un éditeur",
           "code": "Code ISWC",
+          "iswc": "ISWC",
           "code-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
           "code-placeholder": "Ajouter un code",
           "codeiswc": "Code ISWC  ",
           "codeiswc-description": "L'International Standard Work Code est un code unique d'identification des œuvres musicales.",
           "codeiswc-placeholder": "T-012345678-1",
           "codeisrc": "Code ISRC :",
+          "isrc": "ISRC",
           "codeisrc-description": "Le International Standard Recording Code (ISRC) permet l’identification des enregistrements sonores (pistes).",
           "titre2": "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
           "titre2-description": "C’est ici que tu indiques qui a joué quel instrument.",
@@ -487,7 +494,7 @@
             }
           },
           "enregistrement": {
-            "titre": "Enregistrement sonore",
+            "titre": "  Enregistrement sonore",
             "role": {
               "producteur": "Producteur",
               "graphiste": "Graphiste",
@@ -641,7 +648,7 @@
         "manual": "Partager manuellement"
       },
       "droits": {
-        "auteur": "Droits d'auteur",
+        "auteur": "  Droits d'auteur",
         "titre": {
           "workCopyrightSplit": "Droits d'auteur",
           "performanceNeighboringRightSplit": "Interprétation",
@@ -749,7 +756,7 @@
   "selection": "Une sélection dans cette liste est obligatoire",
   "champ": "Ce champ texte est obligatoire",
   "tooltip": {
-    "egal": "Divise le droit d'auteur par le nombre de personnes et attribue le rôle «Auteur-Compositeur» par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus commencent à rentrer !",
+    "egal": "Divise le droit d'auteur par le nombre de personnes et attribue le rôle «Auteur-Compositeur» par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus commencent à rentrer!",
     "roles": "Divise le droit d'auteur en deux : 50% va à ceux qui ont écrit les paroles, et 50% à ceux qui ont composé la musique. Cette dernière partie «musique» est à son tour divisée par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple : Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
     "manuel": "Te laisse déterminer le pourcentage et les rôles pour chaque collaborateur. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas.",
     "egal2": "Divise la propriété de l'enregistrement sonore par le nombre de collaborateurs ajoutés. Cette manière de partager évite beaucoup de chicanes entre les collaborateurs, particulièrement lorsque les revenus se mettent à entrer !"
@@ -761,5 +768,13 @@
     "lien": "Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
     "prive": "Privé - Empêcher le téléchargement.",
     "personne": "Personne ne pourra télécharger, sauf vous."
+  },
+  "sommaire": {
+    "autres": {
+      "info": "Ajouter cette information",
+      "piste": "Titre de la piste",
+      "tech": "Technicien en enregistrement",
+      "illustration": "Graphique"
+    }
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-import { Checkbox, Progress } from 'semantic-ui-react'
+import { Checkbox } from 'semantic-ui-react'
 
 import axios from 'axios'
 
@@ -12,12 +12,17 @@ import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
+import EntetePartage from "./entete-partage"
+
 import { FieldArray } from "formik"
 
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 
 import Lock from "./Lock"
+import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
+import { CopyrightSVG, PlusHorizontalSVG } from "../svg/SVG";
+import closeIcon from "../../assets/svg/icons/x.svg";
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -34,7 +39,8 @@ class PageAssistantPartageAuteur extends Component {
             parts: {},
             mode: MODES.egal,
             partsInvariables: {},
-            song: ""
+            song: "",
+            open: props.open
         }
         this.changementGradateur = this.changementGradateur.bind(this)
         this.changementTexte = this.changementTexte.bind(this)
@@ -349,16 +355,16 @@ class PageAssistantPartageAuteur extends Component {
                     break;
                 case MODES.role:
                     // 2 beignets, 1 pour les droits Musique, l'autre pour les droits Paroles   
-                    visualisation = (       
-                    <div>
-                        {this.state.partsParoles && (
-                            <Beignet2 className="six wide field" titre="Paroles" uuid="auteur--beignet--3"
-                                data={this.state.partsParoles} type="workCopyrightSplit" side ="left"/>)}
+                    visualisation = (
+                        <div>
+                            {this.state.partsParoles && (
+                                <Beignet2 className="six wide field" titre="Paroles" uuid="auteur--beignet--3"
+                                    data={this.state.partsParoles} type="workCopyrightSplit" side="left" />)}
 
-                        {this.state.partsMusique && (
-                            <Beignet2 className="six wide field" titre="Musique" uuid="auteur--beignet--2"
-                                data={this.state.partsMusique} type="workCopyrightSplit" side="right" />)}
-                    </div>
+                            {this.state.partsMusique && (
+                                <Beignet2 className="six wide field" titre="Musique" uuid="auteur--beignet--2"
+                                    data={this.state.partsMusique} type="workCopyrightSplit" side="right" />)}
+                        </div>
                     )
                     break;
                 default:
@@ -388,21 +394,19 @@ class PageAssistantPartageAuteur extends Component {
                 {
                     (t) =>
                         <React.Fragment>
-
-                            <div className="ui grid">
-                                <div className="ui row">
-                                    <div className="ui thirteen wide column">
-                                        <Progress percent="20" size='tiny' indicating />
-                                    </div>
-                                    <div className="ui three wide column">
-                                        <div style={{ top: "-15px", position: "relative", left: "30px", width: "150px" }} className="ui medium button" onClick={() => { this.props.enregistrerEtQuitter(t, this.props.values) }}>
-                                            {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
-                                        </div>
-                                    </div>
-                                </div>
+                            <EntetePartage 
+                                values={this.props.values} 
+                                enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
+                                media={this.props.media} 
+                                user={this.props.user} 
+                                currentPage={1} />
+                            <div className="ui grid">                                                               
+                                <div className="ui row" />
                                 <div className="ui row">
                                     <div className="ui seven wide column">
-                                        <div className="wizard-title">{t('flot.split.droits.auteur')}</div>
+                                        <div className="wizard-title">
+                                            <CopyrightSVG />{t('flot.split.droits.auteur')}</div>
+
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
@@ -601,7 +605,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     <div className="ui grid">
                                                                                         <div className="ui row">
                                                                                             <div
-                                                                                                className="ui two wide column">
+                                                                                                className="ui three wide column">
                                                                                                 <div
                                                                                                     className="avatar-image">
                                                                                                     <img
@@ -611,22 +615,36 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div
-                                                                                                className="ui thirteen wide column">
+                                                                                                className="ui twelve wide column">
                                                                                                 <div
                                                                                                     className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right flated close icon cliquable"
-                                                                                                        style={{ top: "0px", right: "10px", position: "absolute" }}
+                                                                                                    
+                                                                                                    <div className="ui one wide column">
+                                                                                                    {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
+                                                                                                    <div className="close-icon cliquable" onClick={() => {
+                                                                                                            arrayHelpers.remove(index)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }
+                                                                                                        }>
+                                                                                                    <img src={closeIcon} alt={"close"} style={{ position: "absolute", top: "0", right: "20px" }} />
+                                                                                                </div>
+                                                                                                </div>
+                                                                                                </div>
+
+                                                                                                    {/* <i className="right flated close icon cliquable"
+                                                                                                        style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
                                                                                                             this.setState({ ping: true }, () => {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }></i>
+                                                                                                        }></i> */}
                                                                                                     <div
                                                                                                         className="ui divider"></div>
-                                                                                                </div>
                                                                                                 <div
                                                                                                     className="coches--role__droit">
                                                                                                     {
@@ -660,7 +678,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                         <Lock actif={this.state.partsInvariables[index] || this.props.values.droitAuteur.length === 1} />
                                                                                                                     </div>
                                                                                                                     <div className="ui ten wide column">
-                                                                                                                       
+
                                                                                                                         <ChampGradateurAssistant
                                                                                                                             changement={(id, delta) => {
                                                                                                                                 // Permet le changment seulement si personne ne sera à zéro
@@ -680,7 +698,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                                 )
                                                                                                                             }
                                                                                                                         />
-                                                                                                                        
+
                                                                                                                     </div>
 
                                                                                                                     <div className="ui four wide column">

@@ -31,7 +31,6 @@ function cleanArray(array) {
 }
 
 export default class ListePieces extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -46,7 +45,7 @@ export default class ListePieces extends Component {
       },
       user: props.user
     };
-    this.modaleNouvelleOeuvre = this.modaleNouvelleOeuvre.bind(this);    
+    this.modaleNouvelleOeuvre = this.modaleNouvelleOeuvre.bind(this);
   }
 
   afficherPanneauInitiateur() {
@@ -90,19 +89,19 @@ export default class ListePieces extends Component {
           let initiatorMediaIds = [];
           let collabMediaIds = [];
 
-          axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
-          .then(res=>{
-            let _rHParID = {}
-            res.data.forEach(e=>{
-              e.name = `${e.firstName} ${e.lastName} (${e.artistName})`
-              _rHParID[e.rightHolderId] = e
+          axios
+            .get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
+            .then(res => {
+              let _rHParID = {};
+              res.data.forEach(e => {
+                e.name = `${e.firstName} ${e.lastName} (${e.artistName})`;
+                _rHParID[e.rightHolderId] = e;
+              });
+              this.setState({ rightHolders: _rHParID });
             })
-            this.setState({rightHolders: _rHParID})
-            
-          })
-          .catch(err=>{
-            console.log(err)
-          })
+            .catch(err => {
+              console.log(err);
+            });
 
           // Médias depuis les propositions
           axios
@@ -330,7 +329,7 @@ export default class ListePieces extends Component {
               return (
                 <LigneMedia
                   pochette={this.state.pochette}
-                  key={`${elem.mediaId}_${elem._idx}`}
+                  key={`${elem.mediaId}_${_idx}`}
                   media={elem}
                   user={this.state.user}
                   rightHolders={this.state.rightHolders}

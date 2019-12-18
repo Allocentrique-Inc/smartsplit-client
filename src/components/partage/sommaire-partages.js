@@ -25,6 +25,8 @@ import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 
 import InfoBulle from '../partage/InfoBulle';
 
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
+
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
@@ -133,8 +135,8 @@ export default class SommairePartages extends Component {
                         t =>
                             <div className="ui seven wide column">
                                 <i className="file image outline icon huge grey"></i>
-                                {this.state.media && (<span style={{ marginLeft: "15px" }} className="medium-400">{this.state.media.title}</span>)}
-                                <span className="heading4" style={{ marginLeft: "50px" }}>{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>
+                                {this.state.media && (<span className="medium-400 media">{this.state.media.title}</span>)}
+                                <span className="heading4 partage">{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>
                             </div>
                     }
                 </Translation>
@@ -158,14 +160,14 @@ export default class SommairePartages extends Component {
                     <Translation key={`sommaire_${idx}`} >
                         {
                             (t, i18n) =>
-                                <div className="ui row" style={{ fontFamily: "IBM Plex Sans" }}>
+                                <div className="ui row">
                                     <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
                                         <Icon name='dropdown' />
                                         Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
                                         <div>
-                                            <div className="small-400" style={{ display: "inline-block" }}>&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
-                                            <div className="small-500-color" style={{ display: "inline-block" }}>{`${elem.initiator.name}`}</div>
-                                            <div className="small-400" style={{ display: "inline-block" }}>&nbsp;{i18n.lng && elem._d ? moment(elem._d).locale(i18n.lng.substring(0, 2)).fromNow() : moment().fromNow()}</div>
+                                            <div className="small-400">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
+                                            <div className="small-500-color">{`${elem.initiator.name}`}</div>
+                                            <div className="small-400">&nbsp;{i18n.lng && elem._d ? moment(elem._d).locale(i18n.lng.substring(0, 2)).fromNow() : moment().fromNow()}</div>
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
@@ -275,12 +277,7 @@ export default class SommairePartages extends Component {
                                 <>
                                     <div className="ui row">
                                         <div className="four wide column">
-                                            <p className="ui color blue"
-                                                style={{
-                                                    fontFamily: "IBM Plex Sans",
-                                                    fontWeight: "normal",
-                                                    fontSize: "16px"
-                                                }}>
+                                            <p className="ui color blue envoyer">
                                                 {t('flot.split.partage.prete-a-envoyer')}</p>
                                         </div>
                                     </div>
@@ -307,7 +304,7 @@ export default class SommairePartages extends Component {
                     {
                         (t, i18n) =>
                             <div className="ui segment">
-                                <div className="ui grid" style={{ padding: "10px" }}>
+                                <div className="ui grid sommaire">
                                     <div className="ui row">
                                         <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
                                     </div>
@@ -376,14 +373,14 @@ export default class SommairePartages extends Component {
                                                                 closeIcon
                                                             >
                                                                 <Modal.Header>
-                                                                    <h2 style={{ display: "flex" }}>{t("flot.split.documente-ton-oeuvre.proposition.titre")}
+                                                                    <h2 className="headerFin">{t("flot.split.documente-ton-oeuvre.proposition.titre")}
                                                                         <div
                                                                             className="close-icon"
                                                                             onClick={() => { this.closeModal() }} >
                                                                         </div>
                                                                     </h2>
                                                                 </Modal.Header>
-                                                                <Modal.Content style={{ color: "#687A8B" }}>
+                                                                <Modal.Content className="invitation">
                                                                     {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
                                                                     <PageAssistantSplitCourrielsCollaborateurs
                                                                         onRef={m => this.setState({ courrielsCollaborateurs: m })}
@@ -393,24 +390,19 @@ export default class SommairePartages extends Component {
                                                                     />
                                                                 </Modal.Content>
                                                                 <Modal.Actions>
-                                                                    <div style={{ display: "flex", float: "right", marginBottom: "15px" }}>
-                                                                        <Button
+                                                                    <div className="finaliser">
+                                                                        <div
+                                                                            className="ui negative button"
                                                                             onClick={this.closeModal}
-                                                                            style={{
-                                                                                background: "transparent",
-                                                                                color: "#2DA84F",
-                                                                            }}>
+                                                                            >
                                                                             {t("flot.split.collaborateur.attribut.bouton.annuler")}
-                                                                        </Button>
+                                                                        </div>
                                                                         <Button
                                                                             onClick={() => {
                                                                                 this.state.courrielsCollaborateurs.handleSubmit()
                                                                                 this.closeModal()
                                                                             }}
                                                                             className={`ui medium button envoie`}
-                                                                            style={{
-                                                                                height: "40px"
-                                                                            }}
                                                                         >
                                                                             {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
                                                                         </Button>
@@ -432,15 +424,15 @@ export default class SommairePartages extends Component {
                                                     <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={() => { this.afficherPanneauPropositions() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}</span>&nbsp;&nbsp;
                                                     {/* Doit être adjacent à encapsules */}
                                                     <InfoBulle
-                                                        style={{ textAlign: "center", fontWeight: "bold" }}
+                                                    className="proposition"
                                                         declencheur={(<span style={this.state.panneau === PANNEAU_EDITEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauEditeur() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}</span>)}
                                                         decoration={
                                                             <>
                                                                 <div className="header">{t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")} </div>
                                                                 <br />
-                                                                <div className="ui negative button"
+                                                                <div className="ui negative button editeur"
                                                                     onClick={(e) => { this.actionEditeur() }} // () = activation passer paramètre true ou false
-                                                                    style={{ border: "1px solid #DCDFE1" }}> {/* Chargé mais des fois faut l'importer à moins que composante déjà importée l'ait déjà chargée */}
+                                                                    > {/* Chargé mais des fois faut l'importer à moins que composante déjà importée l'ait déjà chargée */}
                                                                     Non
                                                                 </div>
                                                                 <div className="ui positive button" onClick={(e) => {
@@ -448,7 +440,7 @@ export default class SommairePartages extends Component {
                                                                     this.afficherPanneauEditeur() // L'affiche de suite après
                                                                 }}>Oui</div>
                                                                 <br /> <br />
-                                                                <div className="content" style={{ color: "#2DA84F" }}>{t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
+                                                                <div className="contenu">{t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
                                                             </> // nul
                                                         }
                                                         ouvert={this.state.editeur} // fonction passée à var pour changer état (= "swich"). Ligne 117

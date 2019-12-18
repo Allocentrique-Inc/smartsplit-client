@@ -36,8 +36,8 @@ export default class ModaleConnexion extends Component {
     this.setState({ opened: type });
   }
 
-  render() {  
-    
+  render() {
+
     let pochette = this.state.pochette ? "pochette" : ""
 
     return (
@@ -55,22 +55,22 @@ export default class ModaleConnexion extends Component {
                 i18n.lng && (
                   <div className="ui row floated left">
                     {
-                      i18n.lng.substring(0,2) === "en" && (
-                        <div className={`ui medium button ${pochette}`} onClick={()=>{i18n.i18n.init({ lng: "fr" })}} >
+                      i18n.lng.substring(0, 2) === "en" && (
+                        <div className={`ui medium button ${pochette}`} onClick={() => { i18n.i18n.init({ lng: "fr" }) }} >
                           FR
                         </div>
                       )
                     }
                     {
-                      i18n.lng.substring(0,2) === "fr" && (
-                        <div className={`ui medium button ${pochette}`} onClick={()=>{i18n.i18n.init({ lng: "en" })}} >
+                      i18n.lng.substring(0, 2) === "fr" && (
+                        <div className={`ui medium button ${pochette}`} onClick={() => { i18n.i18n.init({ lng: "en" }) }} >
                           EN
                         </div>
                       )
                     }
                   </div>
                 )
-              }              
+              }
               <br />
               <br />
               <br />
@@ -84,11 +84,11 @@ export default class ModaleConnexion extends Component {
                         // Vérifier si le profil est complet, si non,
                         // Débloque la composante appelante
                         this.state.parent.setState({ user: res })
-      
-                        if(this.props.fn) {
+
+                        if (this.props.fn) {
                           this.props.fn()
                         }
-      
+
                         // Fermer la modale
                         this.setState({ isOpen: false })
                       })
@@ -109,7 +109,7 @@ export default class ModaleConnexion extends Component {
             </Modal>
         }
       </Translation>
-      
+
     )
   }
 }
