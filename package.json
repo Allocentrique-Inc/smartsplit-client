@@ -28,6 +28,7 @@
     "lodash": "^4.17.15",
     "material-design-icons": "^3.0.1",
     "moment": "^2.24.0",
+    "node-gyp": "^5.0.7",
     "node-sass": "^4.13.0",
     "react": "^16.12.0",
     "react-async-script-loader": "^0.3.0",
@@ -48,14 +49,14 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.3",
     "semantic-ui-react-ext": "^1.0.6",
-    "semantic-ui-react-formik": "github:iptoki/semantic-ui-react-formik",
+    "semantic-ui-react-formik-iptoki": "^1.0.7",
     "serialize-javascript": "^2.1.1",
     "text-to-image": "^2.1.1",
     "yup": "^0.27.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {},
-  "scripts": {    
+  "scripts": {
     "start": "nginx && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
