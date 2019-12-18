@@ -70,6 +70,38 @@
   margin: 0px 0px 0px 40px;
 }
 
+.medium-500 {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px 0px 0px 40px;
+}
+
+.medium-500-tier {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px 0px 0px 0px;
+}
+
+.medium-500-tier-color {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color:#2DA84F;
+}
+
+.medium-500-color {
+  font-family: 'IBM Plex Sans';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color:#2DA84F;
+}
+
 .medium-500-nomargin {
   font-family: 'IBM Plex Sans';
   font-weight: 700;

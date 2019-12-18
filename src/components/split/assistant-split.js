@@ -167,7 +167,10 @@ class ValiderSplit extends Component {
                                 onSubmit={this.transmettreInvitation.bind(this)}>
 
                                 <Wizard.Page>
-                                    <PageAssistantSplitCourrielsCollaborateurs ayantDroits={this.state.rightHolders} titre={this.state.mediaTitle}/>
+                                    <PageAssistantSplitCourrielsCollaborateurs 
+                                        ayantDroits={this.state.rightHolders} 
+                                        titre={this.state.mediaTitle}
+                                        mediaId={this.state.mediaId} />
                                 </Wizard.Page>
 
                             </Wizard>
