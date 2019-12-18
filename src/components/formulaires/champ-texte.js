@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Input } from "semantic-ui-react"
 import { FormField } from 'semantic-ui-react-ext'
-import { Wizard } from 'semantic-ui-react-formik'
+import { Wizard } from 'semantic-ui-react-formik-iptoki'
 
 function required(value) {
     const result = value ? undefined : "Ce champ texte est obligatoire"

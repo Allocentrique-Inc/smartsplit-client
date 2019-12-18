@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Wizard } from 'semantic-ui-react-formik'
+import { Wizard } from 'semantic-ui-react-formik-iptoki'
 import axios from 'axios'
 import { Translation } from 'react-i18next'
 import { Label, Modal, Button } from 'semantic-ui-react'

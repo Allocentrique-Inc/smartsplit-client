@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 // Assistant
-import { Wizard } from "semantic-ui-react-formik"
+import { Wizard } from "semantic-ui-react-formik-iptoki"
 // Traduction
 import { Translation } from 'react-i18next'
 
