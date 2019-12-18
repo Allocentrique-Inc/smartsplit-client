@@ -232,8 +232,8 @@
             "groupe": "Ajouter groupes, entités artistiques ou entreprises",
             "ajout": "Ajouter un groupe ou un artiste",
             "placeholder": {
-              "nom": "Entre ton nom",
-              "prenom": "Entre ton prénom",
+              "nom": "Entre son nom",
+              "prenom": "Entre son prénom",
               "artiste": "Entre son nom d'artiste (alias)"
             }
           },

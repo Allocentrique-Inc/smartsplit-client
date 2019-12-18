@@ -79,7 +79,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
       .post("http://dev.api.smartsplit.org:8080/v1/proposal/invite", body)
       .then(resp => {
         this.props.close(() => {
-          window.location.reload();
+          window.location.href = `/oeuvre/sommaire/${this.props.mediaId}`
         });
       })
       .catch(error => {

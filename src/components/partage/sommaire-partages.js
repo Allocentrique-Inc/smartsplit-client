@@ -387,6 +387,7 @@ export default class SommairePartages extends Component {
                                                                         ayantDroits={rightHolders}
                                                                         propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
                                                                         close={(cb) => { this.closeModal(); if (cb) cb() }}
+                                                                        mediaId={this.state.mediaId}
                                                                     />
                                                                 </Modal.Content>
                                                                 <Modal.Actions>
@@ -421,11 +422,11 @@ export default class SommairePartages extends Component {
                                             <div className="ui row">
                                                 <div className="ui one wide column" />
                                                 <div className="ui twelve wide column">
-                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`small-500${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={() => { this.afficherPanneauPropositions() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}</span>&nbsp;&nbsp;
+                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`medium-500-tier${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={() => { this.afficherPanneauPropositions() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}</span>&nbsp;&nbsp;
                                                     {/* Doit être adjacent à encapsules */}
                                                     <InfoBulle
                                                     className="proposition"
-                                                        declencheur={(<span style={this.state.panneau === PANNEAU_EDITEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`small-500${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauEditeur() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}</span>)}
+                                                        declencheur={(<span style={this.state.panneau === PANNEAU_EDITEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`medium-500-tier${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauEditeur() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}</span>)}
                                                         decoration={
                                                             <>
                                                                 <div className="header">{t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")} </div>
