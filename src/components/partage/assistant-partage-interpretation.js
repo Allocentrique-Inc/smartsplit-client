@@ -14,7 +14,8 @@ import BoutonsRadio from "../formulaires/champ-radio"
 import Axios from "axios"
 
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { StarSVG } from "../svg/SVG";
+import { StarSVG, PlusHorizontalSVG } from "../svg/SVG";
+import closeIcon from "../../assets/svg/icons/x.svg";
 import EntetePartage from "./entete-partage"
 
 const MODES = { egal: "0", role: "1" }
@@ -365,15 +366,37 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                 <div className="gray-fields">
                                                                                     <div className="ui grid">
                                                                                         <div className="ui row">
-                                                                                            <div className="ui one wide column">
-                                                                                                <div className="avatar-image">
-                                                                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar} />
+                                                                                        <div
+                                                                                                className="ui three wide column">
+                                                                                                <div
+                                                                                                    className="avatar-image">
+                                                                                                    <img
+                                                                                                        alt=""
+                                                                                                        className="ui spaced avatar image"
+                                                                                                        src={avatar} />
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div className="ui ten wide column">
-                                                                                                <div className="holder-name">
+                                                                                            <div
+                                                                                                className="ui twelve wide column">
+                                                                                                <div
+                                                                                                    className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right flated close icon cliquable"
+                                                                                                    
+                                                                                                    <div className="ui one wide column">
+                                                                                                    {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
+                                                                                                    <div className="close-icon cliquable" onClick={() => {
+                                                                                                            arrayHelpers.remove(index)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }
+                                                                                                        }>
+                                                                                                    <img src={closeIcon} alt={"close"} style={{ position: "absolute", top: "0", right: "20px" }} />
+                                                                                                </div>
+                                                                                                </div>
+                                                                                                </div>
+
+                                                                                                    {/* <i className="right flated close icon cliquable"
                                                                                                         style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
@@ -381,20 +404,9 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }></i>
-                                                                                                    {/*   Ceci est l'icône de Figma. J'ignore sa fonctionalité (menu déroulant ?).
-                                                                                                    Donc en attendant, je laisse l'icône pour supprimer l'ayant-droit fonctionnel.
-                                                                                                    <PlusHorizontalSVG
-                                                                                                    style={{ float: "right" }}
-                                                                                                    onClick={() => {
-                                                                                                        arrayHelpers.remove(index)
-                                                                                                        this.setState({ ping: true }, () => {
-                                                                                                            this.recalculerPartage()
-                                                                                                        })
-                                                                                                    }
-                                                                                                    } /> */}
-                                                                                                    <div className="ui divider"></div>
-                                                                                                </div>
+                                                                                                        }></i> */}
+                                                                                                    <div
+                                                                                                        className="ui divider"></div>
                                                                                                 <Translation>
                                                                                                     {
                                                                                                         t => (

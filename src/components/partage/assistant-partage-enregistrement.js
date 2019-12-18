@@ -18,7 +18,9 @@ import Lock from "./Lock"
 
 import biquette from '../../assets/base64/biquette.base64'
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { RecordSVG } from "../svg/SVG";
+import { RecordSVG, PlusHorizontalSVG } from "../svg/SVG";
+import closeIcon from "../../assets/svg/icons/x.svg";
+
 import EntetePartage from "./entete-partage"
 
 const MODES = { egal: "0", manuel: "1" }
@@ -507,15 +509,37 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                 <div className="gray-fields">
                                                                                     <div className="ui grid">
                                                                                         <div className="ui row">
-                                                                                            <div className="ui two wide column">
-                                                                                                <div className="avatar-image">
-                                                                                                    <img alt="" className="ui spaced avatar image" src={avatar} />
+                                                                                        <div
+                                                                                                className="ui three wide column">
+                                                                                                <div
+                                                                                                    className="avatar-image">
+                                                                                                    <img
+                                                                                                        alt=""
+                                                                                                        className="ui spaced avatar image"
+                                                                                                        src={avatar} />
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div className="ui thirteen wide column">
-                                                                                                <div className="holder-name">
+                                                                                            <div
+                                                                                                className="ui twelve wide column">
+                                                                                                <div
+                                                                                                    className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right flated close icon cliquable"
+                                                                                                    
+                                                                                                    <div className="ui one wide column">
+                                                                                                    {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
+                                                                                                    <div className="close-icon cliquable" onClick={() => {
+                                                                                                            arrayHelpers.remove(index)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }
+                                                                                                        }>
+                                                                                                    <img src={closeIcon} alt={"close"} style={{ position: "absolute", top: "0", right: "20px" }} />
+                                                                                                </div>
+                                                                                                </div>
+                                                                                                </div>
+
+                                                                                                    {/* <i className="right flated close icon cliquable"
                                                                                                         style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
@@ -523,20 +547,9 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }></i>
-                                                                                                    {/*   Ceci est l'icône de Figma. J'ignore sa fonctionalité (menu déroulant ?).
-                                                                                                    Donc en attendant, je laisse l'icône pour supprimer l'ayant-droit fonctionnel.
-                                                                                                    <PlusHorizontalSVG
-                                                                                                    style={{ float: "right" }}
-                                                                                                    onClick={() => {
-                                                                                                        arrayHelpers.remove(index)
-                                                                                                        this.setState({ ping: true }, () => {
-                                                                                                            this.recalculerPartage()
-                                                                                                        })
-                                                                                                    }
-                                                                                                    } /> */}
-                                                                                                    <div className="ui divider"></div>
-                                                                                                </div>
+                                                                                                        }></i> */}
+                                                                                                    <div
+                                                                                                        className="ui divider"></div>
                                                                                                 <div className="coches--role__droit">
                                                                                                     {
                                                                                                         roles.map((elem, idx) => {

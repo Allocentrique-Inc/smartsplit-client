@@ -21,7 +21,8 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import Lock from "./Lock"
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { CopyrightSVG } from "../svg/SVG";
+import { CopyrightSVG, PlusHorizontalSVG } from "../svg/SVG";
+import closeIcon from "../../assets/svg/icons/x.svg";
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -38,7 +39,8 @@ class PageAssistantPartageAuteur extends Component {
             parts: {},
             mode: MODES.egal,
             partsInvariables: {},
-            song: ""
+            song: "",
+            open: props.open
         }
         this.changementGradateur = this.changementGradateur.bind(this)
         this.changementTexte = this.changementTexte.bind(this)
@@ -603,7 +605,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     <div className="ui grid">
                                                                                         <div className="ui row">
                                                                                             <div
-                                                                                                className="ui two wide column">
+                                                                                                className="ui three wide column">
                                                                                                 <div
                                                                                                     className="avatar-image">
                                                                                                     <img
@@ -613,11 +615,26 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                 </div>
                                                                                             </div>
                                                                                             <div
-                                                                                                className="ui fourteen wide column">
+                                                                                                className="ui twelve wide column">
                                                                                                 <div
                                                                                                     className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right flated close icon cliquable"
+                                                                                                    
+                                                                                                    <div className="ui one wide column">
+                                                                                                    {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
+                                                                                                    <div className="close-icon cliquable" onClick={() => {
+                                                                                                            arrayHelpers.remove(index)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }
+                                                                                                        }>
+                                                                                                    <img src={closeIcon} alt={"close"} style={{ position: "absolute", top: "0", right: "20px" }} />
+                                                                                                </div>
+                                                                                                </div>
+                                                                                                </div>
+
+                                                                                                    {/* <i className="right flated close icon cliquable"
                                                                                                         style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
@@ -625,21 +642,9 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }></i>
-                                                                                                    {/*   Ceci est l'icône de Figma. J'ignore sa fonctionalité (menu déroulant ?).
-                                                                                                        Donc en attendant, je laisse l'icône pour supprimer l'ayant-droit fonctionnel.
-                                                                                                        <PlusHorizontalSVG
-                                                                                                        style={{ float: "right" }}
-                                                                                                        onClick={() => {
-                                                                                                            arrayHelpers.remove(index)
-                                                                                                            this.setState({ ping: true }, () => {
-                                                                                                                this.recalculerPartage()
-                                                                                                            })
-                                                                                                        }
-                                                                                                        } /> */}
+                                                                                                        }></i> */}
                                                                                                     <div
                                                                                                         className="ui divider"></div>
-                                                                                                </div>
                                                                                                 <div
                                                                                                     className="coches--role__droit">
                                                                                                     {
