@@ -83,7 +83,6 @@ export default class PageInterpretation extends Component {
                   this.handleChange(ids)                  
                 }}
                 fn={(nouveau)=>{
-                  console.log('Ajout nouvel a-d')
                   this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.principal)
                 }}
               />

@@ -6,21 +6,20 @@ import "../../assets/scss/page-assistant/modal.scss";
 import { Translation } from "react-i18next";
 
 export default class ModalPropositionEnCours extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       open: props.open,
       onClose: props.onClose,
       titre: props.titre,
       songTitle: props.songTitle,
       mediaId: props.mediaId
-    }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.open !== nextProps.open) {
-      this.setState({ open: nextProps.open })
+      this.setState({ open: nextProps.open });
     }
   }
   closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
@@ -28,11 +27,10 @@ export default class ModalPropositionEnCours extends Component {
   };
 
   onClose = () => {
-    this.state.onClose()
+    this.state.onClose();
   };
 
   render() {
-
     return (
       <Translation>
         {(t, i18n) => (
@@ -57,26 +55,37 @@ export default class ModalPropositionEnCours extends Component {
                 src={positiveImage}
                 alt={"Positive"}
               />
-              
+
               {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-              <p className={"description"}>
-                <em>{this.props.initiateur}</em> is currently working on a new proposal for the <em>{this.props.titre}</em> split. As soon as it will be ready, you will receive an email inviting you to accept or refuse this proposal.
-              </p>
+                <p className={"description"}>
+                  <em>{this.props.initiateur}</em> is currently working on a new
+                  proposal for the <em>{this.props.titre}</em> split. As soon as
+                  it will be ready, you will receive an email inviting you to
+                  accept or refuse this proposal.
+                </p>
               )}
               {i18n.lng && i18n.lng.substring(0, 2) === "fr" && (
                 <p className={"description"}>
-                  <em>{this.props.initiateur}</em> est en train de faire une contre-proposition de split pour la chanson <em>{this.props.titre}</em>. Dès que celle-ci sera prête, tu recevras un courriel t'invitant à accepter ou refuser cette proposition.
+                  <em>{this.props.initiateur}</em> est en train de faire une
+                  contre-proposition de split pour la chanson{" "}
+                  <em>{this.props.titre}</em>. Dès que celle-ci sera prête, tu
+                  recevras un courriel t'invitant à accepter ou refuser cette
+                  proposition.
                 </p>
               )}
             </div>
 
             <div className={"modal-bottom-bar"}>
-              <Button onClick={() => {this.onClose()}}>OK</Button>
+              <Button
+                onClick={() => {
+                  this.onClose();
+                }}
+              >
+                OK
+              </Button>
             </div>
-
           </Modal>
-        )
-        }
+        )}
       </Translation>
     );
   }

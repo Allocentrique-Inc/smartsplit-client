@@ -2,7 +2,7 @@
  * Assistant de saisie de la description d'une oeuvre
  */
 import React, { Component } from "react";
-import { Wizard } from "semantic-ui-react-formik";
+import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from "axios";
 
 import moment from "moment";

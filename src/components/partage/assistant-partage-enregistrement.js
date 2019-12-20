@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-import { Checkbox, Progress } from 'semantic-ui-react'
+import { Checkbox } from 'semantic-ui-react'
 
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
@@ -17,6 +17,11 @@ import BoutonsRadio from "../formulaires/champ-radio"
 import Lock from "./Lock"
 
 import biquette from '../../assets/base64/biquette.base64'
+import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
+import { RecordSVG, PlusHorizontalSVG } from "../svg/SVG";
+import closeIcon from "../../assets/svg/icons/x.svg";
+
+import EntetePartage from "./entete-partage"
 
 const MODES = { egal: "0", manuel: "1" }
 
@@ -140,7 +145,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
         // Détection des limites pour ne pas dépasser 0
         droits.forEach((elem, idx) => {
-            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))    
+            let _pred = arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))
             if (!invariable[idx] && _pred <= 0) {
 
                 let reste = parseFloat(droits[idx].pourcent) + _pred
@@ -318,21 +323,17 @@ class PageAssistantPartageEnregistrement extends Component {
                 {
                     (t) =>
                         <React.Fragment>
-
+                            <EntetePartage 
+                                values={this.props.values} 
+                                enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
+                                media={this.props.media} 
+                                user={this.props.user} 
+                                currentPage={3} />
                             <div className="ui grid">
-                                <div className="ui row">
-                                    <div className="ui thirteen wide column">
-                                        <Progress percent="85" size='tiny' indicating />
-                                    </div>
-                                    <div className="ui three wide column">
-                                        <div style={{ top: "-15px", position: "relative", left: "30px", width: "150px" }} className="ui medium button" onClick={() => { this.props.enregistrerEtQuitter(t, this.props.values) }}>
-                                            {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
-                                        </div>
-                                    </div>
-                                </div>
+                                <div className="ui row" />
                                 <div className="ui row">
                                     <div className="ui seven wide column">
-                                        <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.partage.enregistrement.titre')}</div>
+                                        <div className="wizard-title"> <RecordSVG />{t('flot.split.documente-ton-oeuvre.partage.enregistrement.titre')}</div>
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
@@ -508,25 +509,47 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                 <div className="gray-fields">
                                                                                     <div className="ui grid">
                                                                                         <div className="ui row">
-                                                                                            <div className="ui two wide column">
-                                                                                                <div className="avatar-image">
-                                                                                                    <img alt="" className="ui spaced avatar image" src={avatar} />
+                                                                                        <div
+                                                                                                className="ui three wide column">
+                                                                                                <div
+                                                                                                    className="avatar-image">
+                                                                                                    <img
+                                                                                                        alt=""
+                                                                                                        className="ui spaced avatar image"
+                                                                                                        src={avatar} />
                                                                                                 </div>
                                                                                             </div>
-                                                                                            <div className="ui thirteen wide column">
-                                                                                                <div className="holder-name">
+                                                                                            <div
+                                                                                                className="ui twelve wide column">
+                                                                                                <div
+                                                                                                    className="holder-name">
                                                                                                     {part.nom}
-                                                                                                    <i className="right floated close icon cliquable"
-                                                                                                        style={{ top: "0px", right: "10px", position: "absolute" }}
+                                                                                                    
+                                                                                                    <div className="ui one wide column">
+                                                                                                    {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
+                                                                                                    <div className="close-icon cliquable" onClick={() => {
+                                                                                                            arrayHelpers.remove(index)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }
+                                                                                                        }>
+                                                                                                    <img src={closeIcon} alt={"close"} style={{ position: "absolute", top: "0", right: "20px" }} />
+                                                                                                </div>
+                                                                                                </div>
+                                                                                                </div>
+
+                                                                                                    {/* <i className="right flated close icon cliquable"
+                                                                                                        style={{ float: "right" }}
                                                                                                         onClick={() => {
                                                                                                             arrayHelpers.remove(index)
                                                                                                             this.setState({ ping: true }, () => {
                                                                                                                 this.recalculerPartage()
                                                                                                             })
                                                                                                         }
-                                                                                                        }></i>
-                                                                                                    <div className="ui divider"></div>
-                                                                                                </div>
+                                                                                                        }></i> */}
+                                                                                                    <div
+                                                                                                        className="ui divider"></div>
                                                                                                 <div className="coches--role__droit">
                                                                                                     {
                                                                                                         roles.map((elem, idx) => {
