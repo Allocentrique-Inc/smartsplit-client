@@ -457,7 +457,6 @@ class AssistantPartage extends Component {
                                         </script>
                                         )
                                     }
-                                    {/* <EntetePartage media={this.state.media} user={this.state.user} currentPage={this.state.currentWizardPage} /> */}
                                     <div className="ui row">
                                         <div className="ui two wide column" />
                                         <div className="ui twelve wide column">
