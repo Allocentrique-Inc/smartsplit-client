@@ -127,7 +127,19 @@ export default class Entete extends React.Component {
           }
       })
 
-    }    
+    }
+
+    let imageSrc = placeholder
+
+    if(this.state.media.files && this.state.media.files.cover && this.state.media.files.cover.files.length > 0) {
+      let _image 
+      this.state.media.files.cover.files.forEach(e=>{
+        console.log(e)
+        if(e.access === 'public') {
+          imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.state.media.mediaId}/cover/${e.file}`
+        }
+      })      
+    }
 
     return (
       <Translation>
@@ -137,7 +149,9 @@ export default class Entete extends React.Component {
               <div className="other-info">
                 <img
                   className={"song-image"}
-                  src={placeholder}
+                  src={imageSrc}
+                  width="144"
+                  heigth="144"
                   alt={this.state.media.title}
                 />
                 <br/>

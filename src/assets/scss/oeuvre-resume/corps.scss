@@ -85,7 +85,7 @@
 }
 
 .download-section {
-    margin-bottom: $margin-step * 2;
+    margin-bottom: 5px; /* $margin-step * 2 */
 
     display: flex;
     justify-content: flex-start;

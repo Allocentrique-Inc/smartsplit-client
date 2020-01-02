@@ -14,7 +14,7 @@ import BoutonsRadio from "../formulaires/champ-radio"
 import Axios from "axios"
 
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { StarSVG, PlusHorizontalSVG } from "../svg/SVG";
+import { StarSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";
 import EntetePartage from "./entete-partage"
 

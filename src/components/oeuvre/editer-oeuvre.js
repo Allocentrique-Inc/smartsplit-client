@@ -170,6 +170,22 @@ class EditerOeuvre extends Component {
 
       if (lyrics && lyrics.text) lyrics.text = lyrics.text.trim();
 
+      if(!_m.files) {
+        _m.files = {}
+      }
+      if(!_m.files.cover) {
+        _m.files.cover = {files: []}
+      }
+      if(!_m.files.midi) {
+          _m.files.midi = {files: []}
+      }
+      if(!_m.files.score) {
+          _m.files.score = {files: []}
+      }
+      if(!_m.files.audio) {
+        _m.files.audio = {files: []}
+    }
+
       valeurs = {
         mediaId: this.state.mediaId,
         title: _m.title ? _m.title.trim() : "",
@@ -355,7 +371,7 @@ class EditerOeuvre extends Component {
                       next: t("navigation.suivant"),
                       submit: t("navigation.envoi")
                     }}
-                    debug={true}
+                    debug={false}
                   >
                     {this.renduPage(i18n)}
                   </Wizard>

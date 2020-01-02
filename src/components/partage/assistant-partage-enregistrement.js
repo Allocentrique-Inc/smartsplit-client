@@ -18,7 +18,7 @@ import Lock from "./Lock"
 
 import biquette from '../../assets/base64/biquette.base64'
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { RecordSVG, PlusHorizontalSVG } from "../svg/SVG";
+import { RecordSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";
 
 import EntetePartage from "./entete-partage"

@@ -21,7 +21,7 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import Lock from "./Lock"
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { CopyrightSVG, PlusHorizontalSVG } from "../svg/SVG";
+import { CopyrightSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
