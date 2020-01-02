@@ -158,13 +158,15 @@ export default class TableEnregistrement extends React.Component {
       <Translation>
         {
           (t, i18n) =>
-            <TableGauche
-              edition={this.props.edition}
-              title={t("flot.split.documente-ton-oeuvre.partage.enregistrement.titre")}
-              rows={this.rangees(t, i18n)}
-              pageNo={3}
-              mediaId={this.props.media.mediaId}
-            />
+            <div className="table">
+              <TableGauche
+                edition={this.props.edition}
+                title={t("flot.split.documente-ton-oeuvre.partage.enregistrement.titre")}
+                rows={this.rangees(t, i18n)}
+                pageNo={3}
+                mediaId={this.props.media.mediaId}
+              />
+            </div>            
         }
       </Translation>
     )

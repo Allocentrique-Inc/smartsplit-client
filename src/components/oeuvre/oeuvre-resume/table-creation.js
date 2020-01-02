@@ -103,7 +103,9 @@ export default class TableCreation extends React.Component {
       <Translation>
         {
           (t, i18n) =>
-            (<TableGauche edition={this.props.edition} pageNo={1} mediaId={this.props.media.mediaId} title={t("flot.split.documente-ton-oeuvre.documenter.entete.creation")} rows={this.rangees(t, i18n)} />)
+            <div className="table">
+              <TableGauche edition={this.props.edition} pageNo={1} mediaId={this.props.media.mediaId} title={t("flot.split.documente-ton-oeuvre.documenter.entete.creation")} rows={this.rangees(t, i18n)} />
+            </div>
         }
       </Translation>
     )
