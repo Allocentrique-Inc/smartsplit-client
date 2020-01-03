@@ -18,5 +18,20 @@ label.nouvelAuteur {
     color: #8da0b3;
 }
 
+.conteneur--ligne--fichier {
+    min-height: 50px;
+}
 
+.conteneur--ligne--fichier > * {
+    padding-left: 13px;
+    vertical-align: top;
+}
 
+.table-interpretation {
+    padding: 15px;
+    background-color: #FAF8F9;
+}
+
+.table {
+    padding: 15px;
+}

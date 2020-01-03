@@ -11,6 +11,8 @@ import { toast } from 'react-toastify'
 
 import MenuProfil from "../entete/menu-profil";
 
+import placeholder from '../../assets/images/placeholder.png';
+
 class EntetePartage extends Component {
   constructor(props) {
     super(props);
@@ -246,6 +248,20 @@ class EntetePartage extends Component {
   }
 
   render() {
+
+    let imageSrc = placeholder
+    console.log(this.state)
+    if(this.state.media) {
+        let elem = this.state.media        
+        if(elem.files && elem.files.cover && elem.files.cover.files.length > 0) {
+            elem.files.cover.files.forEach(e=>{
+                if(e.access === 'public') {
+                    imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
+                }
+            })
+        }
+    }
+
     return (
       <Translation>
         {t => (
@@ -258,8 +274,8 @@ class EntetePartage extends Component {
                 left: "0px"
               }}
             >
-              <span className="menu-droite" style={{ display: "inline-flex" }}>
-                <i className="file image outline icon huge grey"></i>
+              <span className="menu-droite" style={{ display: "inline-flex", marginLeft: "20px", marginTop: "10px", marginBottom: "10px" }}>
+                <img src={imageSrc} style={{width: "40px", height: "40px"}} />
                 {this.state.media && (
                   <span
                     style={{ marginLeft: "15px", lineHeight: "40px" }}

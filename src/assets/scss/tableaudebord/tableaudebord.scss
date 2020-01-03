@@ -1,4 +1,5 @@
 @import "../colors";
+@import "../layout";
 
 .navigation {
   display: inline;
@@ -383,4 +384,12 @@
   font-size: 16px;
   font-family: "IBM Plex Sans";
   line-height: 1.4em;
+}
+
+.song-image {
+
+  img {
+      width: 40px;
+      height: 40px;
+  }
 }

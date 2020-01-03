@@ -111,13 +111,15 @@ export default class TableInterpretation extends React.Component {
             <Translation>
                 {
                     (t, i18n) =>
-                        <TableGauche
-                            edition={this.props.edition} 
-                            pageNo={ 2 }
-                            mediaId={ this.props.media.mediaId }
-                            title={ 'Interprétation' }
-                            rows={ this.rangees(t, i18n) }
-                        />
+                        <div className="table-interpretation">
+                            <TableGauche
+                                edition={this.props.edition} 
+                                pageNo={ 2 }
+                                mediaId={ this.props.media.mediaId }
+                                title={ 'Interprétation' }
+                                rows={ this.rangees(t, i18n) }
+                            />
+                        </div>                        
                 }
             </Translation>            
         )

@@ -1,11 +1,12 @@
 import React from "react"
 import { Translation } from "react-i18next"
 import Page from "../page-assistant/page"
+
 import FileCircleOrange from "../../assets/svg/icons/file-circle-orange.svg"
 import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg"
 import Colonne from "../page-assistant/colonne"
 import Entete from "../page-assistant/entete"
-import ChampTeleversement from "../page-assistant/champ-televersement"
+import ChampTeleversement, { ListeFichiers } from "../page-assistant/champ-televersement"
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit"
 import RightHolderOptions from "../page-assistant/right-holder-options";
@@ -76,7 +77,7 @@ export default class PageFichiers extends React.Component {
     return RightHolderOptions(this.props.rightHolders);
   }
 
-  televerser(value, chemin) {
+  televerser(value, chemin, elem) {
     if (value) {
       this.setState({ patience: true })
       let fichier = value
@@ -85,7 +86,8 @@ export default class PageFichiers extends React.Component {
       let mediaId = this.props.values.mediaId                  
       fd.append('mediaId', mediaId)
       axios.post(`http://envoi.smartsplit.org:3033/${chemin}`, fd)
-      .then(res => {        
+      .then(res => {
+        
       })
       .catch(err => {
           if (err) {
@@ -113,7 +115,29 @@ export default class PageFichiers extends React.Component {
   }
 
   render() {
-    const { terms } = this.state;
+    const { terms } = this.state
+    
+    let surSuppression = (type, idx)=>{
+      let files = this.props.values.files
+      files[type].files.splice(idx, 1)
+      this.props.setFieldValue('files', files)
+    }
+
+    let surEdition = (type, idx, valeur)=>{
+      let files = this.props.values.files
+      if(files && files[type].files && files[type].files[idx]) {
+        files[type].files[idx].access = valeur
+      }
+    }
+
+    // Désactiver le comportement par défaut
+    window.addEventListener("dragover",function(e){
+      e.preventDefault();
+    },true)
+    window.addEventListener("drop",function(e){      
+      e.preventDefault();
+    },true)
+
     return (
       <Translation>
         {(t, i18n) => (
@@ -176,16 +200,31 @@ export default class PageFichiers extends React.Component {
                 file={this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.file}
                 access={(this.props.values.files && this.props.values.files.cover && this.props.values.files.cover.access) || "public"}
                 onFileChange={value => {
-                  let nom = value.name.replace(/ /g,'_') 
-                  this.props.setFieldValue("files.cover.file", nom)
-                  if(!this.props.values.files.cover || !this.props.values.files.cover.access) {
-                    this.props.setFieldValue("files.cover.access", 'public')
+                  let nom = value.name.replace(/ /g,'_')
+                  // Récupérer la liste de fichiers existante
+                  let fichiers = (this.props.values.files.cover && this.props.values.files.cover.files) || []
+                  let f = {file: nom}
+                  if(!this.state.accesCover) {
+                    f['access'] = 'public'
+                  } else {
+                    f['access'] = this.state.accesCover
                   }
+                  fichiers.push(f)
+                  this.props.setFieldValue("files.cover.files", fichiers)
                   this.televerser(value, 'uploadCoverArt')
                 }}
                 onAccessChange={value =>
-                  this.props.setFieldValue("files.cover.access", value)
+                  this.setState({accesCover: value})
+                  //this.props.setFieldValue("files.cover.access", value)
                 }
+              />
+              <ListeFichiers 
+                mediaId={this.props.values.mediaId}
+                pochette={this.props.pochette}
+                liste={this.props.values.files}
+                type="cover"
+                surEdition={surEdition}
+                surSuppression={surSuppression}
               />
 
               <div className={"section-divider"}></div>
@@ -204,16 +243,35 @@ export default class PageFichiers extends React.Component {
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.titre9-etape2")} />}
                 access={(this.props.values.files && this.props.values.files.audio && this.props.values.files.audio.access) || "public"}
                 onFileChange={value => {
-                  let nom = value.name.replace(/ /g,'_') 
-                  this.props.setFieldValue("files.audio.file", nom)
-                  if(!this.props.values.files.audio || !this.props.values.files.audio.access) {
-                    this.props.setFieldValue("files.audio.access", 'public')
-                  }
-                  this.televerser(value, 'upload')
+                  let nom                  
+                  if(value.name) {
+                    nom = value.name.replace(/ /g,'_')
+                    // Récupérer la liste de fichiers existante
+                    let fichiers = (this.props.values.files.audio && this.props.values.files.audio.files) || []
+                    let f = {file: nom}
+                    if(!this.state.accesAudio) {
+                      f['access'] = 'public'
+                    } else {
+                      f['access'] = this.state.accesAudio
+                    }
+                    // Lire le fichier pour en extraire la donnée et en calculer la somme de contrôle                
+                    fichiers.push(f)
+                    this.props.setFieldValue("files.audio.files", fichiers)
+                    this.televerser(value, 'upload')
+                  }                                    
                 }}
                 onAccessChange={value =>
-                  this.props.setFieldValue("files.audio.access", value)
+                  this.setState({accesAudio: value})                  
                 }
+              />
+
+              <ListeFichiers 
+                mediaId={this.props.values.mediaId}
+                pochette={this.props.pochette}
+                liste={this.props.values.files}
+                surEdition={surEdition}
+                surSuppression={surSuppression}
+                type="audio"
               />
 
               <div className={"section-divider"}></div>
@@ -229,20 +287,34 @@ export default class PageFichiers extends React.Component {
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape2")} />}
                 access={(this.props.values.files && this.props.values.files.score && this.props.values.files.score.access) || "public"}
                 onFileChange={value => {
-                  let nom = value.name.replace(/ /g,'_') 
-                  this.props.setFieldValue("files.score.file", nom)
-                  if(!this.props.values.files.score || !this.props.values.files.score.access) {
-                    this.props.setFieldValue("files.score.access", 'public')
+                  let nom = value.name.replace(/ /g,'_')
+                  // Récupérer la liste de fichiers existante
+                  let fichiers = (this.props.values.files.score && this.props.values.files.score.files) || []
+                  let f = {file: nom}
+                  if(!this.state.accesScore) {
+                    f['access'] = 'public'
+                  } else {
+                    f['access'] = this.state.accesScore
                   }
+                  fichiers.push(f)
+                  this.props.setFieldValue("files.score.files", fichiers)
                   this.televerser(value, 'uploadScore')
                 }}
                 onAccessChange={value =>
-                  this.props.setFieldValue("files.score.access", value)
+                  this.setState({accesScore: value})
                 }
                 label={t("flot.split.documente-ton-oeuvre.documenter.autre-etape1")
                 }
                 key={terms}
                 value={this.state.terms}
+              />
+              <ListeFichiers 
+                mediaId={this.props.values.mediaId}
+                pochette={this.props.pochette}
+                liste={this.props.values.files}
+                type="score"
+                surSuppression={surSuppression}
+                surEdition={surEdition}
               />
               <ChampTeleversement
                 extraStyle={{ marginTop: "70px" }}
@@ -252,16 +324,31 @@ export default class PageFichiers extends React.Component {
                 info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape4")} />}
                 access={(this.props.values.files && this.props.values.files.midi && this.props.values.files.midi.access) || "public"}
                 onFileChange={value => {
-                  let nom = value.name.replace(/ /g,'_') 
-                  this.props.setFieldValue("files.midi.file", nom)
-                  if(!this.props.values.files.midi || !this.props.values.files.midi.access) {
-                    this.props.setFieldValue("files.midi.access", 'public')
+                  let nom = value.name.replace(/ /g,'_')
+                  // Récupérer la liste de fichiers existante
+                  let fichiers = (this.props.values.files.midi && this.props.values.files.midi.files) || []
+                  let f = {file: nom}
+                  if(!this.state.accesMidi) {
+                    f['access'] = 'public'
+                  } else {
+                    f['access'] = this.state.accesMidi
                   }
+                  fichiers.push(f)
+                  this.props.setFieldValue("files.midi.files", fichiers)
                   this.televerser(value, 'uploadMidi')
                 }}
                 onAccessChange={value =>
-                  this.props.setFieldValue("files.midi.access", value)
+                  this.setState({accesMidi: value})
+                  //this.props.setFieldValue("files.midi.access", value)
                 }
+              />
+              <ListeFichiers 
+                mediaId={this.props.values.mediaId}
+                pochette={this.props.pochette}
+                liste={this.props.values.files}
+                type="midi"
+                surSuppression={surSuppression}
+                surEdition={surEdition}
               />
             </Colonne>
           </Page>

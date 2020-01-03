@@ -21,7 +21,7 @@ import BoutonsRadio from "../formulaires/champ-radio"
 
 import Lock from "./Lock"
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { CopyrightSVG, PlusHorizontalSVG } from "../svg/SVG";
+import { CopyrightSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
@@ -40,7 +40,8 @@ class PageAssistantPartageAuteur extends Component {
             mode: MODES.egal,
             partsInvariables: {},
             song: "",
-            open: props.open
+            open: props.open,
+            media: props.media
         }
         this.changementGradateur = this.changementGradateur.bind(this)
         this.changementTexte = this.changementTexte.bind(this)
@@ -59,6 +60,9 @@ class PageAssistantPartageAuteur extends Component {
         }
         if (this.props.ayantsDroit !== nextProps.ayantsDroit) {
             this.setState({ ayantsDroit: nextProps.ayantsDroit })
+        }
+        if (this.props.media !== nextProps.media) {
+            this.setState({ media: nextProps.media })
         }
     }
 
@@ -397,7 +401,7 @@ class PageAssistantPartageAuteur extends Component {
                             <EntetePartage 
                                 values={this.props.values} 
                                 enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
-                                media={this.props.media} 
+                                media={this.state.media} 
                                 user={this.props.user} 
                                 currentPage={1} />
                             <div className="ui grid">                                                               

@@ -9,11 +9,31 @@ export class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profil: props.profil
+      profil: props.profil,
+      media: props.media
     }    
+  }  
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.media !== nextProps.media) {
+      this.setState({media: nextProps.media})
+    }
   }
 
   render() {
+
+    let imageSrc = placeholder
+    if(this.state.media) {
+      let elem = this.state.media
+      if(elem.files && elem.files.cover && elem.files.cover.files.length > 0) {
+          elem.files.cover.files.forEach(e=>{
+              if(e.access === 'public') {
+                imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
+              }
+          })
+      }
+    }    
+
     return (
       <Translation>
         {(t, i18n) => (
@@ -26,7 +46,7 @@ export class Navbar extends Component {
               >
                 <div className="left">
                   <div className="song-image">
-                    <img alt="oeuvre" src={placeholder} />
+                    <img alt="oeuvre" src={imageSrc} style={{marginRight: "15px", verticalAlign: "middle"}}/> {this.state.media && this.state.media.title}
                   </div>
 
                   <div className="song-title">

@@ -58,13 +58,15 @@ export default class TableInformationsGenerales extends React.Component {
             <Translation>
                 {
                     (t, i18n) =>
+                    <div style={{paddingTop: "15px"}}>
                         <TableDroite
                             edition={this.props.edition} 
                             pageNo={ 5 }
                             mediaId={ this.props.media.mediaId }
                             title={ 'Information générales' }
                             rows={ this.rangees(t, i18n) }
-                        />                    
+                        />
+                    </div>                        
                 }
             </Translation>            
         );

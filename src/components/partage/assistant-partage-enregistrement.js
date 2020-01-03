@@ -18,7 +18,7 @@ import Lock from "./Lock"
 
 import biquette from '../../assets/base64/biquette.base64'
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
-import { RecordSVG, PlusHorizontalSVG } from "../svg/SVG";
+import { RecordSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";
 
 import EntetePartage from "./entete-partage"
@@ -39,7 +39,8 @@ class PageAssistantPartageEnregistrement extends Component {
             parts: {},
             mode: MODES.egal,
             partsInvariables: {},
-            song: ""
+            song: "",
+            media: props.media
         }
         this.changementGradateur = this.changementGradateur.bind(this)
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
@@ -56,6 +57,9 @@ class PageAssistantPartageEnregistrement extends Component {
         }
         if (this.props.ayantsDroit !== nextProps.ayantsDroit) {
             this.setState({ ayantsDroit: nextProps.ayantsDroit })
+        }
+        if (this.props.media !== nextProps.media) {
+            this.setState({ media: nextProps.media })
         }
     }
 
@@ -326,7 +330,7 @@ class PageAssistantPartageEnregistrement extends Component {
                             <EntetePartage 
                                 values={this.props.values} 
                                 enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
-                                media={this.props.media} 
+                                media={this.state.media} 
                                 user={this.props.user} 
                                 currentPage={3} />
                             <div className="ui grid">

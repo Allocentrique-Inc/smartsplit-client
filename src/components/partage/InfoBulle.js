@@ -72,7 +72,7 @@ class InfoBulle extends Component {
                                 <Popup
                                     style={this.props.style} // Passer style dans InfoBulle
                                     trigger={this.state.declencheur}
-                                    position="right top"
+                                    position="top center"
                                     on={this.state.sur}
                                     open={this.state.ouvert} // Ouvre popUp automatiquement
                                 >

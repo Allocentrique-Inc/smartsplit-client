@@ -2,8 +2,8 @@ import React from "react"
 import { Dropdown } from "semantic-ui-react"
 import TitreChamp from "./titre-champ"
 import "../../assets/scss/page-assistant/champ-acces.scss"
-import DownloadCloudIcon from "../../assets/svg/icons/download-cloud.svg"
 import OptionAcces from "./option-acces"
+import DownloadCloudIcon from "../../assets/svg/icons/download-cloud.svg"
 import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg"
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg"
 import { useTranslation } from "react-i18next"
@@ -92,9 +92,12 @@ export class BaseChampAccesTelechargement extends React.Component {
     return (
       <div className="champ champ-acces">
         <label>
-          <TitreChamp
-            label={this.props.t("flot.split.documente-ton-oeuvre.documenter.acces")}
-          />
+          {
+            !this.props.sanstexte &&
+              <TitreChamp
+                label={this.props.t("flot.split.documente-ton-oeuvre.documenter.acces")}
+              />
+          }          
           <Dropdown
             style={{ width: "85px" }}
             trigger={this.trigger()}
