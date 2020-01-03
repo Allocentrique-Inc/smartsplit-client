@@ -131,7 +131,7 @@ export default class Entete extends React.Component {
 
     let imageSrc = placeholder
 
-    if(this.state.media.files && this.state.media.files.cover && this.state.media.files.cover.files.length > 0) {
+    if(this.state.media.files && this.state.media.files.cover && this.state.media.files.cover.files && this.state.media.files.cover.files.length > 0) {
       this.state.media.files.cover.files.forEach(e=>{
         if(e.access === 'public') {
           imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.state.media.mediaId}/cover/${e.file}`
