@@ -15,6 +15,7 @@ export default class ChampFichier extends React.Component {
                     />
 
                     <InputFichier
+                        conserverNomFichier={this.props.conserverNomFichier}
                         value={ this.props.value }
                         onChange={ value => this.props.onChange(value) }
                     />

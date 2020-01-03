@@ -33,7 +33,18 @@ export default class InputFichier extends React.Component {
   }
 
   handleFileInputChange = event => {
+
     this.props.onChange(event.target.files[0])
+
+    if(this.props.conserverNomFichier) {
+      const filename = event.target.files.length
+      ? event.target.files[0].name
+      : ""
+      this.setState({
+        filename: filename
+      })
+    }
+    
   }  
 
   render() {
