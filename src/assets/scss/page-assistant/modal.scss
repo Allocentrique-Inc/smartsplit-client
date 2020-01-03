@@ -32,7 +32,7 @@
     &.pochette {
         .ui.button {
             background-color: $pochette-color-link;
-        }
+        }        
     }
 }
 
@@ -63,4 +63,21 @@
     color: $color-primary;
 
     font-size: 16px;
+
+    .pochette.ui.button.negative {
+        background-color: whitesmoke;
+        color: $pochette-color-link;
+        &:hover {
+            background-color: $pochette-color-link;
+            color: white;
+        }        
+    }
+
+    .pochette.ui.button {
+        &:focus {
+            background-color: $pochette-color-link;
+            color: white;
+        }
+    }
+
 }

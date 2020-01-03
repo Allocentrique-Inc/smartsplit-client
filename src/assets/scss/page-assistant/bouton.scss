@@ -36,7 +36,7 @@
         background-color: $pochette-color-link;
     }
 
-    .ui.negative {
+    .ui.negative, .ui.button.negative {
         background-color: whitesmoke;
         color: $pochette-color-link;
         &:hover {
