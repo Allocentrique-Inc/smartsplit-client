@@ -79,7 +79,7 @@ export default class LigneMedia extends Component {
     }
 
     let imageSrc = placeholder
-    if(elem.files && elem.files.cover && elem.files.cover.files.length > 0) {
+    if(elem.files && elem.files.cover && elem.files.cover.files && elem.files.cover.files.length > 0) {
       elem.files.cover.files.forEach(e=>{
           if(e.access === 'public') {
             imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
