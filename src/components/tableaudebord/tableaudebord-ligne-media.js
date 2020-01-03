@@ -3,6 +3,7 @@ import { Translation } from "react-i18next";
 import moment from "moment";
 import axios from "axios";
 import ModalPropositionEnCours from "../modales/modale-proposition-encours";
+import placeholder from '../../assets/images/placeholder.png';
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
 export default class LigneMedia extends Component {
@@ -77,6 +78,15 @@ export default class LigneMedia extends Component {
       }
     }
 
+    let imageSrc = placeholder
+    if(elem.files && elem.files.cover && elem.files.cover.files.length > 0) {
+      elem.files.cover.files.forEach(e=>{
+          if(e.access === 'public') {
+            imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
+          }
+      })
+    }
+
     return (
       <Translation>
         {(t, i18n) => (
@@ -93,7 +103,7 @@ export default class LigneMedia extends Component {
                     }
                   }}
                 >
-                  <i className="file image outline icon big grey"></i>
+                  <img className={ 'song-image' } style={{width: "40px", height: "40PX", right: "0px", position: "absolute"}} src={ imageSrc } alt={ this.props.media.title } />
                 </div>
                 <div
                   className="ui seven wide column cliquable"

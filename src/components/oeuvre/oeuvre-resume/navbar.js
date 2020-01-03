@@ -31,6 +31,16 @@ export class Navbar extends React.Component {
                 </div>
         }
 
+        let imageSrc = placeholder
+
+        if(this.props.media.files && this.props.media.files.cover && this.props.media.files.cover.files.length > 0) {
+            this.props.media.files.cover.files.forEach(e=>{
+                if(e.access === 'public') {
+                imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/cover/${e.file}`
+                }
+            })
+        }
+
         return (
             <Translation>
                 {
@@ -45,7 +55,7 @@ export class Navbar extends React.Component {
 
                                 <div className={ 'ui container' }>
                                     <div className={ 'left' }>
-                                        <img className={ 'song-image' } src={ placeholder } alt={ this.props.media.title }/>
+                                        <img className={ 'song-image' } src={ imageSrc } alt={ this.props.media.title }/>
 
                                         <div className={ 'medium-500-style' }>
                                             {this.props.media.title}
