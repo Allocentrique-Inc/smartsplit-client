@@ -36,7 +36,8 @@ class PageAssistantPartageInterpretation extends Component {
             mode: MODES.role,
             principaux: [],
             accompagnement: [],
-            song: ""
+            song: "",
+            media: props.media
         }
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
     }
@@ -52,6 +53,9 @@ class PageAssistantPartageInterpretation extends Component {
         }
         if (this.props.ayantsDroit !== nextProps.ayantsDroit) {
             this.setState({ ayantsDroit: nextProps.ayantsDroit })
+        }
+        if (this.props.media !== nextProps.media) {
+            this.setState({ media: nextProps.media })
         }
     }
 
@@ -220,6 +224,7 @@ class PageAssistantPartageInterpretation extends Component {
                                 enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
                                 media={this.props.media} 
                                 user={this.props.user} 
+                                media={this.state.media} 
                                 currentPage={2} />
                             <div className="ui grid">
                                 <div className="ui row" />

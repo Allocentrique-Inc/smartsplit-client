@@ -504,7 +504,8 @@ class AssistantPartage extends Component {
                                                         ayantsDroit={this.state.ayantDroits} 
                                                         enregistrerEtQuitter={this.enregistrerEtQuitter} 
                                                         i18n={i18n}
-                                                        user={this.state.user} />
+                                                        user={this.state.user}
+                                                        media={this.state.media} />
                                                 </Wizard.Page>
 
                                                 <Wizard.Page>
@@ -512,7 +513,8 @@ class AssistantPartage extends Component {
                                                         ayantsDroit={this.state.ayantDroits} 
                                                         enregistrerEtQuitter={this.enregistrerEtQuitter} 
                                                         i18n={i18n}
-                                                        user={this.state.user} />
+                                                        user={this.state.user}
+                                                        media={this.state.media} />
                                                 </Wizard.Page>
 
                                                 <Wizard.Page>
@@ -520,7 +522,8 @@ class AssistantPartage extends Component {
                                                         ayantsDroit={this.state.ayantDroits} 
                                                         enregistrerEtQuitter={this.enregistrerEtQuitter} 
                                                         i18n={i18n} 
-                                                        user={this.state.user} />
+                                                        user={this.state.user}
+                                                        media={this.state.media} />
                                                 </Wizard.Page>
 
                                             </Wizard>
@@ -535,7 +538,7 @@ class AssistantPartage extends Component {
                                         artistName={this.state.user.attributes["custom:artistName"]}
                                         songTitle={this.state.media.title}
                                         open={this.state.modaleDeclaration}
-                                        onClose={() => this.modaleDeclaration(false)}
+                                        onClose={() => this.modaleDeclaration(false)}                                        
                                         fn={() => {
                                             this.state.fnSoumettre()
 

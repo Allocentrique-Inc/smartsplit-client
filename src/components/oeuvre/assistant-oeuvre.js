@@ -268,6 +268,7 @@ class AssistantOeuvre extends Component {
                                     songTitle={this.state.title}
                                     pochette={this.props.pochette}
                                     progressPercentage={this.state.progressPercentage}
+                                    media={this.state.media}
                                     profil={this.state.user}
                                 />
 

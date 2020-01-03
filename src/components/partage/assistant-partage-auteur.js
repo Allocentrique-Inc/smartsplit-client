@@ -40,7 +40,8 @@ class PageAssistantPartageAuteur extends Component {
             mode: MODES.egal,
             partsInvariables: {},
             song: "",
-            open: props.open
+            open: props.open,
+            media: props.media
         }
         this.changementGradateur = this.changementGradateur.bind(this)
         this.changementTexte = this.changementTexte.bind(this)
@@ -59,6 +60,9 @@ class PageAssistantPartageAuteur extends Component {
         }
         if (this.props.ayantsDroit !== nextProps.ayantsDroit) {
             this.setState({ ayantsDroit: nextProps.ayantsDroit })
+        }
+        if (this.props.media !== nextProps.media) {
+            this.setState({ media: nextProps.media })
         }
     }
 
@@ -397,7 +401,7 @@ class PageAssistantPartageAuteur extends Component {
                             <EntetePartage 
                                 values={this.props.values} 
                                 enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
-                                media={this.props.media} 
+                                media={this.state.media} 
                                 user={this.props.user} 
                                 currentPage={1} />
                             <div className="ui grid">                                                               

@@ -22,6 +22,7 @@ import SommairePartagesEditeur from './sommaire-partages-editeur'
 import ModaleConnexion from '../auth/Connexion'
 
 import ModalPropositionEnCours from '../modales/modale-proposition-encours'
+import placeholder from '../../assets/images/placeholder.png';
 
 import InfoBulle from '../partage/InfoBulle';
 
@@ -129,13 +130,26 @@ export default class SommairePartages extends Component {
     render() {
         if (this.state.propositions && this.state.media) {
             let propositions = []
+
+            let imageSrc = placeholder
+            if(this.state.media) {
+                let elem = this.state.media
+                if(elem.files && elem.files.cover && elem.files.cover.files.length > 0) {
+                    elem.files.cover.files.forEach(e=>{
+                        if(e.access === 'public') {
+                            imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
+                        }
+                    })
+                }
+            }
+
             let contenu = (
                 <Translation>
                     {
                         t =>
                             <div className="ui seven wide column">
-                                <i className="file image outline icon huge grey"></i>
-                                {this.state.media && (<span className="medium-400 media">{this.state.media.title}</span>)}
+                                <img src={imageSrc} style={{width: "55px", height: "55px", verticalAlign: "middle", marginRight: "15px"}}/>
+                                {this.state.media && (<span className="medium-400 media" style={{marginRight: "10px"}}>{this.state.media.title}</span>)}                                
                                 <span className="heading4 partage">{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>
                             </div>
                     }
