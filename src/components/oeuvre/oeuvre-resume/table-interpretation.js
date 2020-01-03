@@ -82,7 +82,7 @@ export default class TableInterpretation extends React.Component {
                         }
                     })
                 }                
-                rang.label = (<span key={`${rhId}`}>{this.props.rightHolders[rhId].artistName}</span>)
+                rang.label = (<span key={`${rhId}`}>{this.props.rightHolders[rhId] && this.props.rightHolders[rhId].artistName}</span>)
             }
             // assemblage
             rang.value = (
