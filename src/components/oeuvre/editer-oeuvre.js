@@ -359,6 +359,7 @@ class EditerOeuvre extends Component {
                 pochette={this.props.pochette}
                 progressPercentage={this.state.progressPercentage}
                 profil={this.state.user}
+                media={this.state.media}
               />
               {this.state.rightHolders && this.props.pageNo && (
                 <>

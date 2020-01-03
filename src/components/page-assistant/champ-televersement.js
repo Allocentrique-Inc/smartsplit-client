@@ -38,7 +38,7 @@ export class ListeFichiers extends Component {
         // Génère la liste en JSX
         let _liste = []
         
-        if(this.state.liste[this.state.type] && this.state.liste[this.state.type]) {
+        if(this.state.liste[this.state.type] && this.state.liste[this.state.type].files) {
             _liste = this.state.liste[this.state.type].files.map((elem, idx)=>{
                 // Une ligne de fichier avec bouton supprimer et éditer
                 // Le bouton éditer permet de faire basculer le contrôle d'accès
