@@ -43,7 +43,7 @@ export default class SectionTelechargements extends React.Component {
         // Check if current rightHolder is in media.rightHolders array, display the links
         let audio = [], cover = [], midi = [], score = []
         if(this.props.media.files) {
-            if(this.props.media.files.audio) {
+            if(this.props.media.files.audio && this.props.media.files.audio.files) {
                 this.props.media.files.audio.files.forEach(elem=>{
                     let nomfichierS3 = elem.file
                     audio.push({
@@ -53,7 +53,7 @@ export default class SectionTelechargements extends React.Component {
                     })
                 })
             }
-            if(this.props.media.files.cover) {
+            if(this.props.media.files.cover && this.props.media.files.cover.files) {
                 this.props.media.files.cover.files.forEach(elem=>{
                     let nomfichierS3 = elem.file
                     cover.push({
@@ -63,7 +63,7 @@ export default class SectionTelechargements extends React.Component {
                     })
                 })                
             }
-            if(this.props.media.files.midi) {
+            if(this.props.media.files.midi && this.props.media.files.midi.files) {
                 this.props.media.files.midi.files.forEach(elem=>{
                     let nomfichierS3 = elem.file
                     midi.push({
@@ -73,7 +73,7 @@ export default class SectionTelechargements extends React.Component {
                     })
                 })                
             }
-            if(this.props.media.files.score) {
+            if(this.props.media.files.score && this.props.media.files.score.files) {
                 this.props.media.files.score.files.forEach(elem=>{
                     let nomfichierS3 = elem.file
                     score.push({
