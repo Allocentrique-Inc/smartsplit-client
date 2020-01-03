@@ -33,7 +33,7 @@ export class Navbar extends React.Component {
 
         let imageSrc = placeholder
 
-        if(this.props.media.files && this.props.media.files.cover && this.props.media.files.cover.files.length > 0) {
+        if(this.props.media.files && this.props.media.files.cover && this.props.media.files.cover.files && this.props.media.files.cover.files.length > 0) {
             this.props.media.files.cover.files.forEach(e=>{
                 if(e.access === 'public') {
                 imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/cover/${e.file}`
