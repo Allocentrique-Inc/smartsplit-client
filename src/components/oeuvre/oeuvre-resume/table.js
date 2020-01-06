@@ -6,7 +6,7 @@ export default class Table extends React.Component {
     render() {
         return (
             <>
-                <TitreModifiable edition={this.props.edition} pageNo={this.props.pageNo} mediaId={this.props.mediaId}>
+                <TitreModifiable jeton={this.props.jeton} edition={this.props.edition} pageNo={this.props.pageNo} mediaId={this.props.mediaId}>
                     {this.props.children}
                 </TitreModifiable>
 

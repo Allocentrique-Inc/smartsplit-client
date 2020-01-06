@@ -60,6 +60,7 @@ export default class TableInformationsGenerales extends React.Component {
                     (t, i18n) =>
                     <div style={{paddingTop: "15px"}}>
                         <TableDroite
+                            jeton={this.props.jeton}
                             edition={this.props.edition} 
                             pageNo={ 5 }
                             mediaId={ this.props.media.mediaId }

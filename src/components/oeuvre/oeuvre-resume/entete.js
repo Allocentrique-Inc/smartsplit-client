@@ -12,7 +12,8 @@ export default class Entete extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      media: props.media
+      media: props.media,
+      acces: props.acces
     }
     this.avatars = []
     let _avatars = {}

@@ -24,15 +24,21 @@ export default class SectionParoles extends React.Component {
     render() {
         let paroles = this.props.media.lyrics
         let texte = "Voir les paroles"
-        if(paroles) {
-            texte = paroles.text
-            /* if(paroles.access === "public" && paroles.text.trim()) {
+        if(paroles) {            
+            if( (
+                    (this.props.acces === 3) ||
+                    (this.props.membreEquipe) ||
+                    (paroles.access === 'private' && this.props.membreEquipe) ||
+                    (paroles.access === 'on-invite' && this.props.acces > 1) ||
+                    (paroles.access === 'public')
+                ) && paroles.text.trim() ) {
                 texte = paroles.text
-            } */
+            }
         }
         return paroles && (
             <>
                 <TitreModifiable
+                    jeton={this.props.jeton}
                     edition={this.props.edition} 
                     pageNo={6}
                     mediaId={this.props.media.mediaId}

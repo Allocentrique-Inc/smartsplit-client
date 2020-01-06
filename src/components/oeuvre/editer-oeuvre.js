@@ -35,40 +35,68 @@ class EditerOeuvre extends Component {
       rightHolders: [],
       endModalOpen: false,
       modaleConnexion: false,
-      mediaId: props.mediaId
+      mediaId: props.mediaId,
+      jeton: props.jeton
     };
   }
 
   componentWillMount() {
-    Auth.currentAuthenticatedUser()
-      .then(response => {
-        if (this.state.mediaId) {
-          axios
-            .get(
-              `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
-            )
-            .then(res => {
-              if (res.data.Item) {
-                let media = res.data.Item;
-                if (response.username === media.creator) {
-                  this.setState({ media: media }, () =>
-                    this.fetchApiRightHolders()
-                  );
-                  this.setState({ user: response });
-                } else {
-                  window.location.href = `/oeuvre/${media.mediaId}/resume`;
-                }
-              }
-            });
-        } else {
-          this.setState({ user: response });
-          this.fetchApiRightHolders();
+
+    if(this.state.jeton) {
+      console.log('jeton', this.state.jeton)
+      axios.post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {jeton: this.state.jeton})
+      .then(res=>{
+        console.log(res, this.state.mediaId)
+        if(this.state.mediaId && parseInt(this.state.mediaId) === res.data.mediaId && res.data.acces === 3) {
+          this.chargement(true)
         }
+      })
+      .catch(err=>console.log(err))
+    } else {
+      this.chargement()
+    }
+    
+  }
+
+  getMedia(admin, response = false) {
+    if (this.state.mediaId) {
+      axios
+        .get(
+          `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
+        )
+        .then(res => {
+          if (res.data.Item) {
+            let media = res.data.Item;
+            if (admin || response.username === media.creator) {
+              this.setState({ media: media }, () =>
+                this.fetchApiRightHolders()
+              );
+              this.setState({ user: response });
+            } else {
+              window.location.href = `/oeuvre/${media.mediaId}/resume`;
+            }
+          }
+        });
+    } else {
+      this.setState({ user: response });
+      this.fetchApiRightHolders();
+    }
+  }
+
+  chargement(admin = false) {    
+    if(!admin) {
+      Auth.currentAuthenticatedUser()
+      .then(response => {
+        this.getMedia(admin, response)
       })
       .catch(error => {
         console.log(error);
         this.setState({ modaleConnexion: true });
-      });
+      })
+    } else {
+      this.getMedia(admin)
+    }
+    
   }
 
   nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
@@ -245,7 +273,11 @@ class EditerOeuvre extends Component {
       .post("http://dev.api.smartsplit.org:8080/v1/media", values)
       .then(response => {
         actions.setSubmitting(false);
-        window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
+        if(this.state.jeton) {
+          window.location.href = `/oeuvre/resume/${this.state.jeton}`;
+        } else {
+          window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
+        }        
       })
       .catch(error => {
         console.log(error);
@@ -345,7 +377,7 @@ class EditerOeuvre extends Component {
   }
 
   render() {
-    if (this.state.user && this.state.media) {
+    if ( (this.state.user || this.state.jeton) && this.state.media) {
       return (
         <Translation>
           {(t, i18n) => (

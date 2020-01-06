@@ -113,6 +113,7 @@ export default class TableInterpretation extends React.Component {
                     (t, i18n) =>
                         <div className="table-interpretation">
                             <TableGauche
+                                jeton={this.props.jeton}
                                 edition={this.props.edition} 
                                 pageNo={ 2 }
                                 mediaId={ this.props.media.mediaId }
