@@ -5,6 +5,7 @@ export default function TableDroite(props) {
     return (
         <div className="table">
             <Table
+                jeton={props.jeton}
                 edition={props.edition}
                 rows={ props.rows }
                 pageNo={ props.pageNo }

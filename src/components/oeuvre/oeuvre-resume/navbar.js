@@ -13,28 +13,16 @@ export class Navbar extends React.Component {
         super(props)
         this.state = {
             partage: false,
-            media: props.media
+            media: props.media,
+            acces: props.acces,
+            membreEquipe: props.membreEquipe
         }
     }
 
-    render() {
-
-        let membreEquipe = false
-        if(this.props.profil) {
-            if(this.props.profil.username === this.props.media.creator) {
-                membreEquipe = true
-            } else {
-                let _rH = this.props.media.rightHolders
-                Object.keys(_rH).forEach(e=>{                    
-                    if(_rH[e].id === this.props.profil.username) {
-                        membreEquipe = true
-                    }
-                })
-            }
-        }        
+    render() {            
 
         let boutonPartager
-        if(membreEquipe) {
+        if(this.state.membreEquipe) {
             boutonPartager = 
                 <div onClick={()=>{this.setState({partage: true})}} className={`ui button medium ${this.props.pochette ? "pochette" : ""}`}>
                     Partager

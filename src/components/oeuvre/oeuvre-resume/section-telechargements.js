@@ -38,56 +38,45 @@ export default class SectionTelechargements extends React.Component {
         }
     }
 
+    genererAffichage(type) {
+        let arr = []
+        if(this.props.media.files[type] && this.props.media.files[type].files) {
+            this.props.media.files[type].files.forEach(elem=>{
+                console.log(this.props.acces, elem.file, elem.access)
+                if(
+                    (this.props.acces === 3) ||
+                    (this.props.membreEquipe) ||
+                    (elem.access === 'private' && this.props.membreEquipe) ||
+                    (elem.access === 'on-invite' && this.props.acces > 1) ||
+                    (elem.access === 'public')
+                ) {
+                    let nomfichierS3 = elem.file
+                    arr.push({
+                        icon: this.iconeParAcces(elem.access),
+                        label: elem.file,
+                        urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/${type}/${nomfichierS3}`
+                    })
+                }                
+            })
+        }
+        return arr
+    }
+
     render() {
 
         // Check if current rightHolder is in media.rightHolders array, display the links
         let audio = [], cover = [], midi = [], score = []
         if(this.props.media.files) {
-            if(this.props.media.files.audio && this.props.media.files.audio.files) {
-                this.props.media.files.audio.files.forEach(elem=>{
-                    let nomfichierS3 = elem.file
-                    audio.push({
-                        icon: this.iconeParAcces(elem.access),
-                        label: elem.file,
-                        urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/audio/${nomfichierS3}`
-                    })
-                })
-            }
-            if(this.props.media.files.cover && this.props.media.files.cover.files) {
-                this.props.media.files.cover.files.forEach(elem=>{
-                    let nomfichierS3 = elem.file
-                    cover.push({
-                        icon: this.iconeParAcces(elem.access),
-                        label: elem.file,
-                        urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/cover/${nomfichierS3}`
-                    })
-                })                
-            }
-            if(this.props.media.files.midi && this.props.media.files.midi.files) {
-                this.props.media.files.midi.files.forEach(elem=>{
-                    let nomfichierS3 = elem.file
-                    midi.push({
-                        icon: this.iconeParAcces(elem.access),
-                        label: elem.file,
-                        urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/midi/${nomfichierS3}`
-                    })
-                })                
-            }
-            if(this.props.media.files.score && this.props.media.files.score.files) {
-                this.props.media.files.score.files.forEach(elem=>{
-                    let nomfichierS3 = elem.file
-                    score.push({
-                        icon: this.iconeParAcces(elem.access),
-                        label: elem.file,
-                        urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/score/${nomfichierS3}`
-                    })
-                })
-            }
+            audio = this.genererAffichage('audio')
+            cover = this.genererAffichage('cover')
+            midi = this.genererAffichage('midi')
+            score = this.genererAffichage('score')           
         }        
 
         return (
             <>
                 <TitreModifiable
+                    jeton={this.props.jeton}
                     edition={this.props.edition} 
                     pageNo={4}
                     mediaId={this.props.media.mediaId}

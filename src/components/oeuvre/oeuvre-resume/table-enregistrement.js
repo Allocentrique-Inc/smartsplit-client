@@ -160,6 +160,7 @@ export default class TableEnregistrement extends React.Component {
           (t, i18n) =>
             <div className="table">
               <TableGauche
+                jeton={this.props.jeton}
                 edition={this.props.edition}
                 title={t("flot.split.documente-ton-oeuvre.partage.enregistrement.titre")}
                 rows={this.rangees(t, i18n)}
