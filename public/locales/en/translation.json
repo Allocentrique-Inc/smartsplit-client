@@ -685,6 +685,30 @@
       "partage": "See the proposal",
       "partageCree": "⭐️ Shared proposal created",
       "recupMotDePasse": "Password reset"
+    },
+    "partage": {
+      "titre": "Share this page",
+      "titre1": "Public Page",
+      "titre2": "Secret Page",
+      "titre3": "Modification Page",
+      "sous-titre-1": "What access do you want to grant on this page ?",
+      "public-t": "Public Access",
+      "public-d": "Read-only, cannot modify",
+      "secret-t": "Secret Access",
+      "secret-d": "Read-only, download access to chosen files",
+      "admin-t": "Administrative Access",
+      "admin-d": "Read-write access to everything, can edit",
+      "btn-ok": "Authorize Access",
+      "btn-retour": "Return",
+      "adresse1": "Hyperlink to the public page:",
+      "adresse2": "Hyperlink to team and collaborator page:",
+      "adresse3": "Hyperlink to read-only page:",
+      "envoyer": "Send this link by email",
+      "nom": "Last name",
+      "prenom": "First name",
+      "courriel": "Email",
+      "adrCourriel": "Email adress",
+      "reussi": "Sharing successful, email sent."
     }
   },
   "accueil": {

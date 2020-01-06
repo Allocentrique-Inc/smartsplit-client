@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import BlockUi from "react-block-ui";
+import "react-block-ui/style.css";
 import Axios from 'axios'
 
 const CHARGER_ET_JOUER = 1, JOUER = 0
@@ -17,7 +19,8 @@ class AudioLecture extends Component {
             url: props.url,
             visible: props.visible,
             taille: props.taille || "huge",
-            mode: props.mode || JOUER
+            mode: props.mode || JOUER,
+            patience: false
         }
         if(this.props.onRef) {
             this.props.onRef(this)
@@ -38,6 +41,7 @@ class AudioLecture extends Component {
 
     chargerEtJouer() {        
         this.stop()
+        this.setState({patience: true})
         Axios.get(this.state.url, {
             responseType: 'arraybuffer'
         })
@@ -46,6 +50,7 @@ class AudioLecture extends Component {
             this.setState({context: new AudioContext()},
                 this.setState({fichier: blob}, ()=>{                    
                     this.jouer()
+                    this.setState({patience: false})
                 })
             )
         })
@@ -97,16 +102,16 @@ class AudioLecture extends Component {
 
     render() {
         return (
-            <div >
+            <>
             {
                 (this.state.visible || (this.state.context && this.state.fichier)) && (
-                    <div className="cliquable" onClick={()=>{ if(this.state.stop) { if(this.state.mode === 0){this.jouer()}else{this.chargerEtJouer()} }else{ if(this.state.pause){this.reprise()}else{this.pause()}}}}>
+                    <BlockUi tag="div" blocking={this.state.patience} className="cliquable" onClick={()=>{ if(this.state.stop) { if(this.state.mode === 0){this.jouer()}else{this.chargerEtJouer()} }else{ if(this.state.pause){this.reprise()}else{this.pause()}}}}>
                         {(this.state.stop || this.state.pause)&& (<><i className={`play circle outline icon ${this.state.taille} grey cliquable`}></i> {!this.props.sanstexte && (Audio)}</>)}
                         {!this.state.stop && !this.state.pause && (<><i className={`pause circle outline icon ${this.state.taille} grey cliauqble`}></i> {!this.props.sanstexte && (Audio)}</>)}
-                    </div>
+                    </BlockUi>
                 )
-            }                             
-            </div>
+            }
+            </>
         )
     }
 }

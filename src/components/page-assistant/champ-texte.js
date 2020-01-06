@@ -24,6 +24,7 @@ export default class ChampTexte extends React.Component {
                         fluid
                         placeholder={this.props.placeholder}
                         value={this.props.value}
+                        disabled={this.props.disabled}
                         onChange={(event, { value }) => this.props.onChange(value)}
                     />
 

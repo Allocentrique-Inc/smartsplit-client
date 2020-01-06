@@ -686,6 +686,30 @@
       "partage": "Voir le partage",
       "partageCree": "⭐️ Partage créé",
       "recupMotDePasse": "Nouveau mot de passe"
+    },
+    "partage": {
+      "titre": "Partager cette page",
+      "titre1": "Page publique",
+      "titre2": "Page secrète",
+      "titre3": "Page de modification",
+      "sous-titre-1": "De quelle manière veux-tu partager l'accès à cette page ?",
+      "public-t": "Accès public",
+      "public-d": "Accès en lecture, sans modification possible",
+      "secret-t": "Accès secret",
+      "secret-d": "Accès en lecture, avec téléchargement des fichiers autorisés",
+      "admin-t": "Accès administratif",
+      "admin-d": "Accès en écriture, avec modifications possibles",
+      "btn-ok": "Autoriser l'accès",
+      "btn-retour": "Retour",
+      "adresse1": "Lien vers la page publique :",
+      "adresse2": "Lien vers la page réservée à l'équipe et autres professionnels :",
+      "adresse3": "Lien d’accès en écriture :",
+      "envoyer": "Envoyer ce lien par courriel",
+      "nom": "Nom",
+      "prenom": "Prénom",
+      "courriel": "Courriel",
+      "adrCourriel": "Adresse courriel",
+      "reussi": "Partage de l'oeuvre réussi, courriel envoyé."
     }
   },
   "accueil": {

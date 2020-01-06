@@ -135,6 +135,7 @@ export default class ChampTeleversement extends Component {
                         <div className="ui twelve wide column">
 
                             <ChampFichier
+                                conserverNomFichier={this.props.conserverNomFichier}
                                 label={this.props.label}
                                 info={this.props.info}
                                 undertext={this.props.undertext}

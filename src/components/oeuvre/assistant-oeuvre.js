@@ -147,20 +147,16 @@ class AssistantOeuvre extends Component {
                 rightsSplit: {},
                 files: {
                     cover: {
-                        file: null,
-                        access: "private"
+                        files: []
                     },
                     audio: {
-                        file: null,
-                        access: "private"
+                        files: []
                     },
                     score: {
-                        file: null,
-                        access: "private"
+                        files: []
                     },
                     midi: {
-                        file: null,
-                        access: "private"
+                        files: []
                     }
                 }
             }
@@ -175,16 +171,16 @@ class AssistantOeuvre extends Component {
                 _m.files = {}
             }
 
-            if(!_m.files.cover) {
+            if(!_m.files.cover || !_m.files.cover.files) {
                 _m.files.cover = {files: []}
             }
-            if(!_m.files.midi) {
+            if(!_m.files.midi || !_m.files.midi.files) {
                 _m.files.midi = {files: []}
             }
-            if(!_m.files.score) {
+            if(!_m.files.score || !_m.files.score.files) {
                 _m.files.score = {files: []}
             }
-            if(!_m.files.audio) {
+            if(!_m.files.audio || !_m.files.audio.files) {
                 _m.files.audio = {files: []}
             }
 
