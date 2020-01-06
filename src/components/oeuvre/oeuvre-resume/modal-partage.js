@@ -9,6 +9,7 @@ import { Translation } from "react-i18next";
 
 import ChampTexte from '../../page-assistant/champ-texte'
 import Axios from "axios";
+import { toast } from "react-toastify";
 
 const PUBLIC = 1, SECRET = 2, ADMIN = 3
 
@@ -29,19 +30,20 @@ export default class ModalePartage extends Component {
     }
   }
 
-  autoriserAccess() {
-    if(this.state.prenom && this.state.nom && this.state.courriel) {
-      // Envoi Axios
+  autoriserAccess(t, contexte) {
+    if(this.state.prenom && this.state.nom && this.state.courriel) {      
       let data = {
         mediaId: this.state.media.mediaId,
-        access: this.state.selection,
+        acces: this.state.selection,
         nom: this.state.nom,
         prenom: this.state.prenom,
-        courriel: this.state.courriel
+        courriel: this.state.courriel,
+        contexte: contexte
       }      
-      Axios.post(`http://dev.api.smartsplit.org:8080/media/partage/`, data)
+      Axios.post(`http://dev.api.smartsplit.org:8080/v1/media/shareMedia`, data)
       .then(res=>{
         console.log(res)
+        toast.success(t('flot.partage.reussi'))
       })
       .catch(err=>console.log(err))
       .finally(()=>this.props.onClose())
@@ -88,10 +90,11 @@ export default class ModalePartage extends Component {
       }
     }
 
-    let url
-    let prefixe = "http://proto.smartsplit.org/"
+    let url, contexte = "smartsplit.org"
+    let prefixe = "http://dev.smartsplit.org/"
     if(this.props.pochette) {
-      prefixe = "http://proto.pochette.info/"      
+      prefixe = "http://dev.pochette.info/"
+      contexte = "pochette.info"
     }
 
     url = `${prefixe}oeuvre/${this.state.media.mediaId}/resume`
@@ -170,7 +173,7 @@ export default class ModalePartage extends Component {
                   <Button className={`negative ${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.setState({selection: 0})}}>
                     {t('flot.partage.btn-retour')}
                   </Button>
-                  <Button className={`${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.autoriserAccess()}}>
+                  <Button className={`${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.autoriserAccess(t, contexte)}}>
                     {t('flot.partage.btn-ok')}
                   </Button>
                 </div>

@@ -707,7 +707,8 @@
       "nom": "Last name",
       "prenom": "First name",
       "courriel": "Email",
-      "adrCourriel": "Email adress"
+      "adrCourriel": "Email adress",
+      "reussi": "Sharing successful, email sent."
     }
   },
   "accueil": {

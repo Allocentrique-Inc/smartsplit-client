@@ -708,7 +708,8 @@
       "nom": "Nom",
       "prenom": "Prénom",
       "courriel": "Courriel",
-      "adrCourriel": "Adresse courriel"
+      "adrCourriel": "Adresse courriel",
+      "reussi": "Partage de l'oeuvre réussi, courriel envoyé."
     }
   },
   "accueil": {
