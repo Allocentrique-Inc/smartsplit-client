@@ -3,7 +3,7 @@ import BlockUi from "react-block-ui";
 import "react-block-ui/style.css";
 import Axios from 'axios'
 
-const CHARGER_ET_JOUER = 1, JOUER = 0
+const JOUER = 0
 
 class AudioLecture extends Component {
 

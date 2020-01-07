@@ -124,16 +124,12 @@ export default class ChampTeleversement extends Component {
     }
 
     render() {
-
-        let listeFichiers = []
-
         return (
             <div className="section-televersement" style={{ display: "-webkit-box" }}>
                 <div className="ui grid" style={Object.assign({ width: "100%", marginBottom: "20px" }, this.state.extraStyle)}>
                     <div className="ui row">
                         <div className="ui column" />
                         <div className="ui twelve wide column">
-
                             <ChampFichier
                                 conserverNomFichier={this.props.conserverNomFichier}
                                 label={this.props.label}
@@ -150,7 +146,6 @@ export default class ChampTeleversement extends Component {
                             />
                         </div>
                     </div>
-                    {listeFichiers}
                 </div>
             </div>
 

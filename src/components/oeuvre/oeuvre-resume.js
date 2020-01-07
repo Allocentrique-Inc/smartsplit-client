@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify';
 import roles from '../../assets/listes/role-uuids'
 
-const ACCES_SECRET = 2, ACCES_ADMIN = 3
+const ACCES_ADMIN = 3
 
 export default class OeuvreResume extends React.Component {
 

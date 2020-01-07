@@ -27,13 +27,10 @@ export default class SectionTelechargements extends React.Component {
         switch (acces) {
             case "on-invite":
                 return downloadLockIcon
-                break;
             case "private":
                 return lockFullIcon
-                break;
             case "public":
                 return downloadCloudIcon
-                break;
             default:
         }
     }

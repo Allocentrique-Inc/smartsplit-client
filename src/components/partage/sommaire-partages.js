@@ -148,7 +148,7 @@ export default class SommairePartages extends Component {
                     {
                         t =>
                             <div className="ui seven wide column">
-                                <img src={imageSrc} style={{width: "55px", height: "55px", verticalAlign: "middle", marginRight: "15px"}}/>
+                                <img alt="Vignette" src={imageSrc} style={{width: "55px", height: "55px", verticalAlign: "middle", marginRight: "15px"}}/>
                                 {this.state.media && (<span className="medium-400 media" style={{marginRight: "10px"}}>{this.state.media.title}</span>)}                                
                                 <span className="heading4 partage">{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>
                             </div>
