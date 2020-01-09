@@ -19,6 +19,7 @@ export default class SommaireOeuvre extends Component {
         this.state = {
             mediaId: props.mediaId
         }
+        moment.defaultFormat = "DD-MM-YYYY HH:mm"
     }
 
     componentWillMount() {
@@ -161,7 +162,7 @@ export default class SommaireOeuvre extends Component {
                                                         <div className="small-500-color"
                                                             style={{ display: "inline-block" }}>{`${artiste}`}&nbsp;</div>
                                                         <div className="small-400-color"
-                                                            style={{ display: "inline-block" }}>&bull; {i18n.lng && moment(this.state.media.creationDate).locale(i18n.lng.substring(0, 2)).fromNow()}</div>
+                                                            style={{ display: "inline-block" }}>&bull; {i18n.lng && moment(this.state.media.creationDate, moment.defaultFormat).locale(i18n.lng.substring(0, 2)).fromNow()}</div>
                                                     </div>
                                                 </div>
                                             </div>
