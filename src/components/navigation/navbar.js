@@ -46,11 +46,11 @@ export class Navbar extends Component {
               >
                 <div className="left">
                   <div className="song-image">
-                    <img alt="oeuvre" src={imageSrc} style={{marginRight: "15px", verticalAlign: "middle"}}/> {this.state.media && this.state.media.title}
+                    <img alt="oeuvre" src={imageSrc} style={{marginRight: "15px", verticalAlign: "middle"}}/>
                   </div>
 
-                  <div className="song-title">
-                    <em>{this.props.songTitle}</em>
+                  <div className="song-title cliquable" onClick={()=>window.location.href=`/oeuvre/${this.state.media.mediaId}/resume`} >
+                    {this.state.media && this.state.media.title}
                   </div>
 
                   <div className="documentation-label">Documentation</div>

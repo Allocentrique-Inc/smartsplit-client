@@ -26,9 +26,6 @@ import VotationPartTiers from "./components/partage/votation-part-tiers";
 import AssistantPartage from "./components/partage/assistant-partage";
 // Tableau de bord
 import TableauDeBord from "./components/tableaudebord/tableaudebord";
-import Beignet from "./components/visualisation/partage/beignet";
-import Histogramme from "./components/visualisation/partage/histogramme";
-import Troissplits from "./components/visualisation/partage/troissplits";
 // Composantes auth
 import Password from "./components/auth/Password";
 import Login from "./components/auth/Login";

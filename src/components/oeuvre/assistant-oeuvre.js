@@ -205,7 +205,9 @@ class AssistantOeuvre extends Component {
                 streamingServiceLinks: _m.streamingServiceLinks || [],
                 pressArticleLinks: _m.pressArticleLinks || [],
                 playlistLinks: _m.playlistLinks || [],
-                creationDate: _m.creationDate ? moment(_m.creationDate).locale('en').format("L") : moment().locale('en').format("L"),
+                creationDate: _m.creationDate ? 
+                    `${moment(_m.creationDate).locale('en').format("L")} ${moment(_m.creationDate).locale('en').format("LTS")}` : 
+                    `${moment().locale('en').format("L")} ${moment().locale('en').format("LTS")}`,
                 modificationDate: _m.modificationDate ? _m.modificationDate.trim() : "",
                 publishDate: _m.publishDate ? _m.publishDate.trim() : "",
                 publisher: _m.publisher ? _m.publisher.trim() : "",

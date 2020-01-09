@@ -29,9 +29,7 @@ import InfoBulle from '../partage/InfoBulle';
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
-
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
-
 
 export default class SommairePartages extends Component {
 
@@ -54,6 +52,7 @@ export default class SommairePartages extends Component {
         this.closeModal = this.closeModal.bind(this)
         this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
         this.actionEditeur = this.actionEditeur.bind(this)
+        moment.defaultFormat = "DD-MM-YYYY HH:mm"
     }
 
     componentWillReceiveProps(nextProps) {
@@ -148,8 +147,8 @@ export default class SommairePartages extends Component {
                     {
                         t =>
                             <div className="ui seven wide column">
-                                <img src={imageSrc} style={{width: "55px", height: "55px", verticalAlign: "middle", marginRight: "15px"}}/>
-                                {this.state.media && (<span className="medium-400 media" style={{marginRight: "10px"}}>{this.state.media.title}</span>)}                                
+                                <img alt="Vignette" src={imageSrc} style={{width: "55px", height: "55px", verticalAlign: "middle", marginRight: "15px"}}/>
+                                {this.state.media && (<span className="medium-400 media cliquable" onClick={()=>window.location.href=`/oeuvre/${this.state.media.mediaId}/resume`} style={{marginRight: "10px"}}>{this.state.media.title}</span>)}
                                 <span className="heading4 partage">{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>
                             </div>
                     }
@@ -181,7 +180,7 @@ export default class SommairePartages extends Component {
                                         <div>
                                             <div className="small-400">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                             <div className="small-500-color">{`${elem.initiator.name}`}</div>
-                                            <div className="small-400">&nbsp;{i18n.lng && elem._d ? moment(elem._d).locale(i18n.lng.substring(0, 2)).fromNow() : moment().fromNow()}</div>
+                                            <div className="small-400">&nbsp;{i18n.lng && elem._d ? moment(elem.creationDate, moment.defaultFormat).locale(i18n.lng.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</div>
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
@@ -346,9 +345,10 @@ export default class SommairePartages extends Component {
                                                 !nouveauDisabled && (
                                                     <div className={`ui medium right floated button`} onClick={
                                                         () => {
-
                                                             // Détecter si la proposition est verrouillée
-                                                            if (!this.state.media.initiateurPropositionEnCours.trim() || this.state.media.initiateurPropositionEnCours === this.state.user.username) {
+                                                            if (
+                                                                (  (this.state.media.initiateurPropositionEnCours && !this.state.media.initiateurPropositionEnCours.trim() ) || 
+                                                                    this.state.media.initiateurPropositionEnCours === this.state.user.username)) {
                                                                 // Verrouiller la proposition
                                                                 axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`, { rightHolderId: this.state.user.username })
                                                                     .then(res => {

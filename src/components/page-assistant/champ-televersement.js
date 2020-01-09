@@ -73,10 +73,13 @@ export class ListeFichiers extends Component {
 
                 return (
                     <div key={`ligne--${this.state.type}--${idx}`} className={`ui row medium-500-color ${pochette}`}>
-                        <div className="ui four wide column">
-                            {acces}
+                        <div className="ui one wide column">
+                            {this.state.type === "audio" && <AudioLecture taille="normal" sanstexte={true} url={url} visible={true} nom={elem.file} mode={1} onRef={lecteur=>{this.setState({lecteur: lecteur})}} />}
                         </div>
-                        <div className="ui seven wide column">                            
+                        <div className="ui three wide column">
+                            {acces}
+                        </div>                        
+                        <div className="ui eight wide column">                            
                             { elem.file.length >= 20 && elem.file.substring(0,20) + "..." }
                             { elem.file.length < 23 && elem.file }
                         </div>
@@ -85,10 +88,7 @@ export class ListeFichiers extends Component {
                         </div>
                         <div className="ui one wide column">
                             <i className="ui trash alternate outline icon cliquable" onClick={()=>this.supprimer(idx)} />
-                        </div>
-                        <div className="ui one wide column">
-                            {this.state.type === "audio" && <AudioLecture taille="normal" sanstexte={true} url={url} visible={true} nom={elem.file} mode={1} onRef={lecteur=>{this.setState({lecteur: lecteur})}} />}
-                        </div>                                                    
+                        </div>                                                                            
                     </div>
                 )
             })
@@ -97,8 +97,8 @@ export class ListeFichiers extends Component {
         return (
             <div className="ui grid">
                 <div className="ui row">
-                    <div className="ui two wide column" />
-                    <div className="ui fourteen wide column">
+                    <div className="ui one wide column" />
+                    <div className="ui fifteen wide column">
                         <div className="ui grid">
                             {_liste}
                         </div>                        
@@ -124,16 +124,12 @@ export default class ChampTeleversement extends Component {
     }
 
     render() {
-
-        let listeFichiers = []
-
         return (
             <div className="section-televersement" style={{ display: "-webkit-box" }}>
                 <div className="ui grid" style={Object.assign({ width: "100%", marginBottom: "20px" }, this.state.extraStyle)}>
                     <div className="ui row">
                         <div className="ui column" />
                         <div className="ui twelve wide column">
-
                             <ChampFichier
                                 conserverNomFichier={this.props.conserverNomFichier}
                                 label={this.props.label}
@@ -150,7 +146,6 @@ export default class ChampTeleversement extends Component {
                             />
                         </div>
                     </div>
-                    {listeFichiers}
                 </div>
             </div>
 

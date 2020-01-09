@@ -9,14 +9,11 @@ export default class SectionParoles extends React.Component {
     iconeParAccess(type) {
         switch(type){
             case "public":
-                return downloadCloudIcon
-                break;
+                return downloadCloudIcon            
             case "private":
                 return lockFullIcon
-                break;
             case "on-invite":
                 return downloadLockIcon
-                break;
             default:
         }
     }

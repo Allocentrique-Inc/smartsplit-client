@@ -275,7 +275,7 @@ class EntetePartage extends Component {
               }}
             >
               <span className="menu-droite" style={{ display: "inline-flex", marginLeft: "20px", marginTop: "10px", marginBottom: "10px" }}>
-                <img src={imageSrc} style={{width: "40px", height: "40px"}} />
+                <img alt="Vignette" src={imageSrc} style={{width: "40px", height: "40px"}} />
                 {this.state.media && (
                   <span
                     style={{ marginLeft: "15px", lineHeight: "40px" }}

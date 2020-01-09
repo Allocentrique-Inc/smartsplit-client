@@ -87,6 +87,8 @@ export default class LigneMedia extends Component {
       })
     }
 
+    moment.defaultFormat = "DD-MM-YYYY HH:mm"
+
     return (
       <Translation>
         {(t, i18n) => (
@@ -126,7 +128,7 @@ export default class LigneMedia extends Component {
                   <br />
                   <div className={`small-400-color`}>
                     {i18n.lng &&
-                      moment(elem.creationDate)
+                      moment(elem.creationDate, moment.defaultFormat)
                         .locale(i18n.lng.substring(0, 2))
                         .fromNow()}{" "}
                     &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
@@ -135,7 +137,7 @@ export default class LigneMedia extends Component {
                 <div className="ui six wide column etat">
                   <div>
                     {!pochette && _p && (
-                      <div class="ui huge label etat">
+                      <div className="ui huge label etat">
                         {t(`flot.split.etat.${_p.etat}`)}
                       </div>
                     )}
