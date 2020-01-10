@@ -571,14 +571,14 @@
       "tableaudebord": {
         "bonjour": "Ici le panneau du tableau de bord Smartsplit.",
         "navigation": {
-          "0": "Mes pièces musicales",
-          "1": "Mon profil public",
+          "0": "Mes œuvres",
+          "1": "Mon profil",
           "2": "Mes collaborateurs"
         },
         "pieces": {
           "0": "Mes ajouts",
           "1": "Partagées avec moi",
-          "par": "par...",
+          "par": "par",
           "partageAvec": "partagé avec",
           "ajouter": "Ajouter"
         },

@@ -82,7 +82,7 @@ class ValiderSplit extends Component {
 
             // Affecte les objets construits
             this.setState({rights: rights})
-            this.setState({initiateur: proposition.initiator.name})
+            this.setState({initiateur: proposition.initiatorName})
 
             // Récupère le titre du média
             // Temporaire, devrait déjà être fourni dans le client à ce stade

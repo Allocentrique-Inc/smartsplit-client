@@ -179,7 +179,7 @@ export default class SommairePartages extends Component {
                                         Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
                                         <div>
                                             <div className="small-400">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
-                                            <div className="small-500-color">{`${elem.initiator.name}`}</div>
+                                            <div className="small-500-color">{`${elem.initiatorName}`}</div>
                                             <div className="small-400">&nbsp;{i18n.lng && elem._d ? moment(elem.creationDate, moment.defaultFormat).locale(i18n.lng.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</div>
                                         </div>
                                     </Accordion.Title>
@@ -205,11 +205,11 @@ export default class SommairePartages extends Component {
                 if (_p.etat !== 'PRET') {
                     envoiDisabled = true
                 } else {
-                    if (_p.initiator.id === this.state.user.username) {
+                    if (_p.initiatorUuid === this.state.user.username) {
                         envoiDisabled = false
                     }
                 }
-                if ((_p.etat === 'BROUILLON' || _p.etat === 'PRET') && _p.initiator.id === this.state.user.username) {
+                if ((_p.etat === 'BROUILLON' || _p.etat === 'PRET') && _p.initiatorUuid === this.state.user.username) {
                     continuerDisabled = false
                 }
                 if (_p.etat === 'ACCEPTE') {
@@ -282,7 +282,7 @@ export default class SommairePartages extends Component {
             let that = this
             let message
 
-            if (this.state.user && _p0 && _p0.etat === "PRET" && _p0.initiator.id === this.state.user.username) {
+            if (this.state.user && _p0 && _p0.etat === "PRET" && _p0.initiatorUuid === this.state.user.username) {
                 message = (
                     <Translation>
                         {
