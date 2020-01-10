@@ -117,7 +117,7 @@ export default class LigneMedia extends Component {
                     &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
                   </div>
                 </div>
-                <div className={`ui eight wide column etat`}>
+                <div className={`ui eight wide column etat`} style={{float: "right"}}>
                   {!pochette && _p && (
                     <div className="ui huge label etat">
                       {t(`flot.split.etat.${_p.etat}`)}
@@ -138,11 +138,7 @@ export default class LigneMedia extends Component {
                   )}
                   {!pochette && !nouveauDisabled && (
                       <div
-                        className={`ui medium button options ${pochette}`}
-                        style={{
-                          right: "37px",
-                          position: "absolute"
-                        }}
+                        className={`ui medium button options ${pochette}`}                        
                         onClick={() => {
                           // Détecter si la proposition est verrouillée
                           if (
