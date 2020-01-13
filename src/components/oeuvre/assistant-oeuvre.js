@@ -28,6 +28,10 @@ import ModaleConnexion from '../auth/Connexion';
 
 // Modèle
 
+/* const button = {
+  backgroundColor: "#F2724A"
+}; */
+
 class AssistantOeuvre extends Component {
     pageProgressPercentages = [10, 20, 30, 40, 50, 70, 80, 100];
 
@@ -367,7 +371,158 @@ class AssistantOeuvre extends Component {
             return (<ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />)
         }
 
-    }
+  }
+
+  /* render() {
+    if (this.state.user && this.state.media) {
+      let pochette;
+      if (this.props.pochette) {
+        pochette = `${this.props.pochette ? "pochette" : ""}`;
+      }
+      return (
+        <Translation>
+          {(t, i18n) => (
+            <>
+              <Navbar
+                pochette={this.props.pochette}
+                songTitle={this.state.title}
+                progressPercentage={this.state.progressPercentage}
+                profil={this.state.user}
+              />
+
+              {this.state.rightHolders && (
+                <div className="ui grid">
+                  <div className="ui row">
+                    <div className="ui two wide column" />
+                    <div className="ui twelve wide column">
+                      <Wizard
+                        pochette={this.props.pochette}
+                        initialValues={this.getInitialValues()}
+                        onPageChanged={this.onPageChanged}
+                        onSubmit={this.onSubmit}
+                        button={this.boutonsCouleurPochette}
+                        style={button}
+                        buttonLabels={{
+                          pochette: this.props.pochette,
+                          previous: t("navigation.precedent"),
+                          next: t("navigation.suivant"),
+
+                          submit: t("navigation.envoi"),
+                          button: this.boutonsCouleurPochette
+                        }}
+                        debug={false}
+                        ButtonsWrapper={props => (
+                          <div
+                            style={{
+                              position: "fixed",
+                              bottom: 0,
+                              left: 0,
+                              right: 0,
+                              paddingTop: "15px",
+                              background: "#fff",
+                              boxShadow: "0 0 5px rgba(0,0,0,0.5)",
+                              pochette: this.props.pochette
+                            }}
+                          >
+                            <div className="ui grid">
+                              <div className="ui row">
+                                <div className="ui nine wide column">
+                                  {props.children}
+                                  {this.props.pochette}
+                                  {this.boutonsCouleurPochette}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      >
+                        <Wizard.Page pochette={this.props.pochette} s>
+                          <PageCreation
+                            pochette={this.props.pochette}
+                            i18n={i18n}
+                            rightHolders={this.state.rightHolders}
+                            assocUuidArtiste={this.state.assocUuidArtiste}
+                            parent={this}
+                          />
+                        </Wizard.Page>
+                        <Wizard.Page pochette={this.props.pochette}>
+                          <PageInterpretation
+                            pochette={this.props.pochette}
+                            i18n={i18n}
+                            rightHolders={this.state.rightHolders}
+                            assocUuidArtiste={this.state.assocUuidArtiste}
+                            parent={this}
+                          />
+                        </Wizard.Page>
+
+                        <Wizard.Page pochette={this.props.pochette}>
+                          <PageEnregistrement
+                            pochette={this.props.pochette}
+                            i18n={i18n}
+                            rightHolders={this.state.rightHolders}
+                            assocUuidArtiste={this.state.assocUuidArtiste}
+                            parent={this}
+                          />
+                        </Wizard.Page>
+
+                        <Wizard.Page>
+                          <PageFichiers
+                            pochette={this.props.pochette}
+                            i18n={i18n}
+                            rightHolders={this.state.rightHolders}
+                            assocUuidArtiste={this.state.assocUuidArtiste}
+                            parent={this}
+                          />
+                        </Wizard.Page>
+
+                        <Wizard.Page>
+                          <PageInformationsGenerales
+                            pochette={this.props.pochette}
+                            i18n={i18n}
+                          />
+                        </Wizard.Page>
+
+                        <Wizard.Page>
+                          <PageParoles
+                            i18n={i18n}
+                            pochette={this.props.pochette}
+                          />
+                        </Wizard.Page>
+
+                        <Wizard.Page>
+                          <PageLiens pochette={this.props.pochette} />
+                        </Wizard.Page>
+
+                        {this.props.pochette &&
+                          document.getElementsByClassName(
+                            "ui right floated button pochette"
+                          ).length > 0 &&
+                          this.boutonsCouleurPochette()}
+                      </Wizard>
+                      <ModalFin
+                        mediaId={this.state.media.mediaId}
+                        titre={this.state.media.title}
+                        open={this.state.endModalOpen}
+                        onClose={() => this.setState({ endModalOpen: false })}
+                        pochette={this.props.pochette}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </Translation>
+      );
+    } else {
+      return (
+        <ModaleConnexion
+          pochette={this.props.pochette}
+          parent={this}
+          isOpen={this.state.modaleConnexion}
+        />
+      );
+    } */
 }
 
 export default AssistantOeuvre

@@ -1,59 +1,59 @@
-@import '../colors';
-@import '../layout';
-@import '../typography';
+@import "../colors";
+@import "../layout";
+@import "../typography";
 
 .ui.button,
 .ui.button:focus,
 .ui.button.basic,
 .ui.button.basic:focus {
-    padding: ($margin-step/2) $margin-step;
-    border-radius: 2px;
+  padding: ($margin-step/2) $margin-step;
+  border-radius: 2px;
 
-    @extend .medium-500-style;
+  @extend .medium-500-style;
 }
 
 .ui.button,
 .ui.button:focus {
-    background-color: $smartsplit-color-link;
-    color: white;
+  background-color: $smartsplit-color-link;
+  color: white;
 }
 
 .ui.button.basic,
 .ui.button.basic:focus {
-    color: $smartsplit-color-link !important;
+  color: $smartsplit-color-link !important;
 }
 
 .pochette {
-    .ui.primary.right.floated.button,
-    .ui.right.floated.button,
-    .ui.button,
-    .ui.button:focus {
-        &:hover {
-            opacity: 80%;
-            background-color: $pochette-color-link;
-            color: white;
-        }
-        background-color: $pochette-color-link;
+  .ui.primary.right.floated.button,
+  .ui.right.floated.button,
+  .ui.button,
+  .ui.button:focus {
+    &:hover {
+      opacity: 80%;
+      background-color: $pochette-color-link;
+      color: white;
     }
+    background-color: $pochette-color-link;
+  }
+  .ui.negative,
+  .ui.button.negative {
+    background-color: whitesmoke;
+    color: $pochette-color-link;
+    &:hover {
+      background-color: $pochette-color-link;
+      color: white;
+    }
+  }
 
-    .ui.negative, .ui.button.negative {
-        background-color: whitesmoke;
-        color: $pochette-color-link;
-        &:hover {
-            background-color: $pochette-color-link;
-            color: white;
-        }
-    }
-
-    .ui.button.basic,
-    .ui.button.basic:focus {
-        color: $pochette-color-link !important;
-    }
+  .ui.button.basic,
+  .ui.button.basic:focus {
+    color: $pochette-color-link !important;
+  }
 }
 
 .button {
-    background-color: $smartsplit-color-link;
-    &.pochette{
-        background-color: $pochette-color-link;
-    }
+  background-color: $smartsplit-color-link;
+  &.pochette {
+    background-color: $pochette-color-link;
+  }
 }
