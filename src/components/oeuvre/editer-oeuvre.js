@@ -2,7 +2,7 @@
  * Assistant de saisie de la description d'une oeuvre
  */
 import React, { Component } from "react";
-import { Wizard } from "semantic-ui-react-formik";
+import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from "axios";
 
 import moment from "moment";
@@ -35,40 +35,68 @@ class EditerOeuvre extends Component {
       rightHolders: [],
       endModalOpen: false,
       modaleConnexion: false,
-      mediaId: props.mediaId
+      mediaId: props.mediaId,
+      jeton: props.jeton
     };
   }
 
   componentWillMount() {
-    Auth.currentAuthenticatedUser()
-      .then(response => {
-        if (this.state.mediaId) {
-          axios
-            .get(
-              `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
-            )
-            .then(res => {
-              if (res.data.Item) {
-                let media = res.data.Item;
-                if (response.username === media.creator) {
-                  this.setState({ media: media }, () =>
-                    this.fetchApiRightHolders()
-                  );
-                  this.setState({ user: response });
-                } else {
-                  window.location.href = `/oeuvre/${media.mediaId}/resume`;
-                }
-              }
-            });
-        } else {
-          this.setState({ user: response });
-          this.fetchApiRightHolders();
+
+    if(this.state.jeton) {
+      console.log('jeton', this.state.jeton)
+      axios.post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {jeton: this.state.jeton})
+      .then(res=>{
+        console.log(res, this.state.mediaId)
+        if(this.state.mediaId && parseInt(this.state.mediaId) === res.data.mediaId && res.data.acces === 3) {
+          this.chargement(true)
         }
+      })
+      .catch(err=>console.log(err))
+    } else {
+      this.chargement()
+    }
+    
+  }
+
+  getMedia(admin, response = false) {
+    if (this.state.mediaId) {
+      axios
+        .get(
+          `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
+        )
+        .then(res => {
+          if (res.data.Item) {
+            let media = res.data.Item;
+            if (admin || response.username === media.creator) {
+              this.setState({ media: media }, () =>
+                this.fetchApiRightHolders()
+              );
+              this.setState({ user: response });
+            } else {
+              window.location.href = `/oeuvre/${media.mediaId}/resume`;
+            }
+          }
+        });
+    } else {
+      this.setState({ user: response });
+      this.fetchApiRightHolders();
+    }
+  }
+
+  chargement(admin = false) {    
+    if(!admin) {
+      Auth.currentAuthenticatedUser()
+      .then(response => {
+        this.getMedia(admin, response)
       })
       .catch(error => {
         console.log(error);
         this.setState({ modaleConnexion: true });
-      });
+      })
+    } else {
+      this.getMedia(admin)
+    }
+    
   }
 
   nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
@@ -148,20 +176,16 @@ class EditerOeuvre extends Component {
         rightsSplit: {},
         files: {
           cover: {
-            file: null,
-            access: "private"
+            files: []
           },
           audio: {
-            file: null,
-            access: "private"
+            files: []
           },
           score: {
-            file: null,
-            access: "private"
+            files: []
           },
           midi: {
-            file: null,
-            access: "private"
+            files: []
           }
         }
       };
@@ -169,6 +193,22 @@ class EditerOeuvre extends Component {
       let lyrics = _m.lyrics;
 
       if (lyrics && lyrics.text) lyrics.text = lyrics.text.trim();
+
+      if(!_m.files) {
+        _m.files = {}
+      }
+      if(!_m.files.cover || !_m.files.cover.files) {
+        _m.files.cover = {files: []}
+      }
+      if(!_m.files.midi || !_m.files.midi.files) {
+          _m.files.midi = {files: []}
+      }
+      if(!_m.files.score || !_m.files.score.files) {
+          _m.files.score = {files: []}
+      }
+      if(!_m.files.audio || !_m.files.audio.files) {
+          _m.files.audio = {files: []}
+      }
 
       valeurs = {
         mediaId: this.state.mediaId,
@@ -233,7 +273,11 @@ class EditerOeuvre extends Component {
       .post("http://dev.api.smartsplit.org:8080/v1/media", values)
       .then(response => {
         actions.setSubmitting(false);
-        window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
+        if(this.state.jeton) {
+          window.location.href = `/oeuvre/resume/${this.state.jeton}`;
+        } else {
+          window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
+        }        
       })
       .catch(error => {
         console.log(error);
@@ -333,8 +377,7 @@ class EditerOeuvre extends Component {
   }
 
   render() {
-    if (this.state.user && this.state.media) {
-      console.log(typeof this.props.pageNo, this.props.pageNo);
+    if ( (this.state.user || this.state.jeton) && this.state.media) {
       return (
         <Translation>
           {(t, i18n) => (
@@ -344,6 +387,7 @@ class EditerOeuvre extends Component {
                 pochette={this.props.pochette}
                 progressPercentage={this.state.progressPercentage}
                 profil={this.state.user}
+                media={this.state.media}
               />
               {this.state.rightHolders && this.props.pageNo && (
                 <>

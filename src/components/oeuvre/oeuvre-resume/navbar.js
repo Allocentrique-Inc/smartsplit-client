@@ -5,9 +5,40 @@ import placeholder from '../../../assets/images/placeholder.png';
 import { Translation } from "react-i18next";
 import arrowLeftIcon from '../../../assets/svg/icons/arrow-left.svg';
 import MenuProfil from '../../entete/menu-profil';
+import ModalePartage from "./modal-partage";
 
 export class Navbar extends React.Component {
-    render() {        
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            partage: false,
+            media: props.media,
+            acces: props.acces,
+            membreEquipe: props.membreEquipe
+        }
+    }
+
+    render() {            
+
+        let boutonPartager
+        if(this.state.membreEquipe) {
+            boutonPartager = 
+                <div onClick={()=>{this.setState({partage: true})}} className={`ui button medium ${this.props.pochette ? "pochette" : ""}`}>
+                    Partager
+                </div>
+        }
+
+        let imageSrc = placeholder
+
+        if(this.props.media.files && this.props.media.files.cover && this.props.media.files.cover.files && this.props.media.files.cover.files.length > 0) {
+            this.props.media.files.cover.files.forEach(e=>{
+                if(e.access === 'public') {
+                imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/cover/${e.file}`
+                }
+            })
+        }
+
         return (
             <Translation>
                 {
@@ -22,7 +53,7 @@ export class Navbar extends React.Component {
 
                                 <div className={ 'ui container' }>
                                     <div className={ 'left' }>
-                                        <img className={ 'song-image' } src={ placeholder } alt={ this.props.media.title }/>
+                                        <img className={ 'song-image' } src={ imageSrc } alt={ this.props.media.title }/>
 
                                         <div className={ 'medium-500-style' }>
                                             {this.props.media.title}
@@ -34,6 +65,7 @@ export class Navbar extends React.Component {
                                     </div>
 
                                     <div className={ 'right' }>
+                                        {boutonPartager}
                                         {
                                             this.props.profil && (
                                                 <MenuProfil   
@@ -53,7 +85,15 @@ export class Navbar extends React.Component {
 
                                 </div>
                             </div>
-                        </div>
+                            {this.state.media && 
+                                <ModalePartage
+                                    open={this.state.partage}
+                                    onClose={() => this.setState({ partage: false })}
+                                    pochette={this.props.pochette}
+                                    media={this.state.media}
+                                />
+                            }                            
+                        </div>                        
                 }
             </Translation>
         );

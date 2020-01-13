@@ -2,7 +2,7 @@
  * Assistant de saisie de la description d'une oeuvre
  */
 import React, { Component } from 'react';
-import { Wizard } from "semantic-ui-react-formik";
+import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from 'axios';
 
 import moment from 'moment'
@@ -147,20 +147,16 @@ class AssistantOeuvre extends Component {
                 rightsSplit: {},
                 files: {
                     cover: {
-                        file: null,
-                        access: "private"
+                        files: []
                     },
                     audio: {
-                        file: null,
-                        access: "private"
+                        files: []
                     },
                     score: {
-                        file: null,
-                        access: "private"
+                        files: []
                     },
                     midi: {
-                        file: null,
-                        access: "private"
+                        files: []
                     }
                 }
             }
@@ -170,6 +166,23 @@ class AssistantOeuvre extends Component {
 
             if (lyrics && lyrics.text)
                 lyrics.text = lyrics.text.trim()
+
+            if (!_m.files) {
+                _m.files = {}
+            }
+
+            if(!_m.files.cover || !_m.files.cover.files) {
+                _m.files.cover = {files: []}
+            }
+            if(!_m.files.midi || !_m.files.midi.files) {
+                _m.files.midi = {files: []}
+            }
+            if(!_m.files.score || !_m.files.score.files) {
+                _m.files.score = {files: []}
+            }
+            if(!_m.files.audio || !_m.files.audio.files) {
+                _m.files.audio = {files: []}
+            }
 
             valeurs = {
                 mediaId: this.state.mediaId,
@@ -192,7 +205,9 @@ class AssistantOeuvre extends Component {
                 streamingServiceLinks: _m.streamingServiceLinks || [],
                 pressArticleLinks: _m.pressArticleLinks || [],
                 playlistLinks: _m.playlistLinks || [],
-                creationDate: _m.creationDate ? moment(_m.creationDate).locale('en').format("L") : moment().locale('en').format("L"),
+                creationDate: _m.creationDate ? 
+                    `${moment(_m.creationDate).locale('en').format("L")} ${moment(_m.creationDate).locale('en').format("LTS")}` : 
+                    `${moment().locale('en').format("L")} ${moment().locale('en').format("LTS")}`,
                 modificationDate: _m.modificationDate ? _m.modificationDate.trim() : "",
                 publishDate: _m.publishDate ? _m.publishDate.trim() : "",
                 publisher: _m.publisher ? _m.publisher.trim() : "",
@@ -204,7 +219,7 @@ class AssistantOeuvre extends Component {
                 distributorAddress: _m.distributorAddress ? _m.distributorAddress.trim() : "",
                 files: _m.files
             }
-        }
+        }        
         return valeurs
     }
 
@@ -251,6 +266,7 @@ class AssistantOeuvre extends Component {
                                     songTitle={this.state.title}
                                     pochette={this.props.pochette}
                                     progressPercentage={this.state.progressPercentage}
+                                    media={this.state.media}
                                     profil={this.state.user}
                                 />
 

@@ -162,7 +162,7 @@ class Register extends Component {
       })
         .then(toast.success(`${firstName}, compte créé !`))
         .then(
-          setTimeout(function() {
+          setTimeout(function () {
             window.location.reload();
           }, 3000),
           this.props.history.push("/welcome")
@@ -224,7 +224,7 @@ class Register extends Component {
       .then(res => {
         let groupers = [];
         let groupsUnique = [];
-        res.data.forEach(function(element) {
+        res.data.forEach(function (element) {
           groupers.push(element.groups);
           // Remove duplicates from multiple right holders and flattens arrays
           let GR = groupers
@@ -233,7 +233,7 @@ class Register extends Component {
             .filter(Boolean);
           groupsUnique = [...new Set(GR)];
         });
-        groupsUnique.forEach(function(elm) {
+        groupsUnique.forEach(function (elm) {
           groups.push({ key: elm, text: elm, value: elm });
         });
         this.setState({ groups: groups });
@@ -289,18 +289,22 @@ class Register extends Component {
             {(t, i18n) => (
               <Form>
                 {!this.state.patience && (
-                  <div>
-                    <span className="top-login">
-                      <div
-                        onClick={() => {
-                          // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
-                          this.props.parent.afficher(0);
-                        }}
-                        className={`connexion-inscription ${pochette}`}
-                      >
-                        {t("entete.connexion")}
+                  <div class="ui grid">
+                    <div class="four column row">
+                      <div class="right floated column">
+                        <div className="top-login">
+                          <div
+                            onClick={() => {
+                              // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
+                              this.props.parent.afficher(0);
+                            }}
+                            className={`connexion-inscription ${pochette}`}
+                          >
+                            {t("entete.connexion")}
+                          </div>
+                        </div>
                       </div>
-                    </span>
+                    </div>
                     <div className="container">
                       <header id="registerHeader">
                         {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
@@ -523,13 +527,7 @@ class Register extends Component {
                                 />
                               </div>
                               {errors.username && touched.username && (
-                                <div
-                                  style={{
-                                    color: "red",
-                                    position: "absolute",
-                                    top: "690px"
-                                  }}
-                                >
+                                <div className="invalide">
                                   {t("flot.split.inscription.email-invalide")}{" "}
                                 </div>
                               )}
@@ -588,7 +586,7 @@ class Register extends Component {
                                     }}
                                     type={
                                       this.state.hidden &&
-                                      this.state.confirmhidden
+                                        this.state.confirmhidden
                                         ? "password"
                                         : "text"
                                     }
@@ -605,6 +603,7 @@ class Register extends Component {
                                   <button
                                     type="button"
                                     id="hide"
+                                    tabindex="-1"
                                     onClick={e => {
                                       e.preventDefault();
                                       this.toggleShow();
@@ -653,7 +652,7 @@ class Register extends Component {
                                   }}
                                   type={
                                     this.state.hidden &&
-                                    this.state.confirmhidden
+                                      this.state.confirmhidden
                                       ? "password"
                                       : "text"
                                   }
@@ -669,6 +668,7 @@ class Register extends Component {
                                 <button
                                   type="button"
                                   id="hide-confirm"
+                                  tabindex="-1"
                                   onClick={e => {
                                     e.preventDefault();
                                     this.toggleConfirmShow();
@@ -700,11 +700,11 @@ class Register extends Component {
                                     <button
                                       className={`ui medium button register is-success ${pochette} ${
                                         !this.state.password ||
-                                        this.state.confirmpassword !==
+                                          this.state.confirmpassword !==
                                           this.state.password
                                           ? "disabled"
                                           : ""
-                                      }`}
+                                        }`}
                                       type="submit"
                                       onClick={e => {
                                         if (

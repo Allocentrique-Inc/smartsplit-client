@@ -72,7 +72,7 @@ export default class TableInterpretation extends React.Component {
                 }
             })
 
-            if(principalOuAccompagnateur && musicien) {
+            if(principalOuAccompagnateur) {
                 if(_ad.instruments) {
                     _ad.instruments.forEach((i, idx)=>{
                         if(idx < _ad.instruments.length - 1) {
@@ -82,7 +82,7 @@ export default class TableInterpretation extends React.Component {
                         }
                     })
                 }                
-                rang.label = (<span key={`${rhId}`}>{this.props.rightHolders[rhId].artistName}</span>)
+                rang.label = (<span key={`${rhId}`}>{this.props.rightHolders[rhId] && this.props.rightHolders[rhId].artistName}</span>)
             }
             // assemblage
             rang.value = (
@@ -111,13 +111,16 @@ export default class TableInterpretation extends React.Component {
             <Translation>
                 {
                     (t, i18n) =>
-                        <TableGauche
-                            edition={this.props.edition} 
-                            pageNo={ 2 }
-                            mediaId={ this.props.media.mediaId }
-                            title={ 'Interprétation' }
-                            rows={ this.rangees(t, i18n) }
-                        />
+                        <div className="table-interpretation">
+                            <TableGauche
+                                jeton={this.props.jeton}
+                                edition={this.props.edition} 
+                                pageNo={ 2 }
+                                mediaId={ this.props.media.mediaId }
+                                title={ 'Interprétation' }
+                                rows={ this.rangees(t, i18n) }
+                            />
+                        </div>                        
                 }
             </Translation>            
         )

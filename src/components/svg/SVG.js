@@ -20,10 +20,6 @@ export class SVG extends Component {
 }
 
 export class MenuMusiqueSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <svg
@@ -36,16 +32,16 @@ export class MenuMusiqueSVG extends SVG {
         <path
           d="M9 17H5C4.46957 17 3.96086 17.2107 3.58579 17.5858C3.21071 17.9609 3 18.4696 3 19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H7C7.53043 21 8.03914 20.7893 8.41421 20.4142C8.78929 20.0391 9 19.5304 9 19V17ZM21 15H17C16.4696 15 15.9609 15.2107 15.5858 15.5858C15.2107 15.9609 15 16.4696 15 17C15 17.5304 15.2107 18.0391 15.5858 18.4142C15.9609 18.7893 16.4696 19 17 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V15Z"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M9 17V5L21 3V15"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
@@ -53,10 +49,6 @@ export class MenuMusiqueSVG extends SVG {
 }
 
 export class MenuProfilSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <svg
@@ -73,30 +65,30 @@ export class MenuProfilSVG extends SVG {
           height="14"
           rx="2"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M8 12C9.10457 12 10 11.1046 10 10C10 8.89543 9.10457 8 8 8C6.89543 8 6 8.89543 6 10C6 11.1046 6.89543 12 8 12Z"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M12 18V17C12 15.8954 11.1046 15 10 15H7C5.89543 15 5 15.8954 5 17V18"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M14 9H19M14 12H17"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
@@ -104,10 +96,6 @@ export class MenuProfilSVG extends SVG {
 }
 
 export class MenuCollaborateurSVG extends SVG {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <svg
@@ -120,30 +108,30 @@ export class MenuCollaborateurSVG extends SVG {
         <path
           d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M23 20.9999V18.9999C22.9993 18.1136 22.7044 17.2527 22.1614 16.5522C21.6184 15.8517 20.8581 15.3515 20 15.1299"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
         <path
           d="M16 3.12988C16.8604 3.35018 17.623 3.85058 18.1676 4.55219C18.7122 5.2538 19.0078 6.11671 19.0078 7.00488C19.0078 7.89305 18.7122 8.75596 18.1676 9.45757C17.623 10.1592 16.8604 10.6596 16 10.8799"
           stroke={this.state.couleur}
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
@@ -151,9 +139,6 @@ export class MenuCollaborateurSVG extends SVG {
 }
 
 export class LogoSmartsplit extends SVG {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <svg
@@ -178,9 +163,6 @@ export class LogoSmartsplit extends SVG {
 }
 
 export class LogoPochette extends SVG {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <svg
@@ -248,10 +230,216 @@ export class LogoPochette extends SVG {
           fill="white"
         />
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M30.2499 2H2.0166V30H30.2499V2ZM16.1333 20C18.3608 20 20.1666 18.2091 20.1666 16C20.1666 13.7909 18.3608 12 16.1333 12C13.9057 12 12.0999 13.7909 12.0999 16C12.0999 18.2091 13.9057 20 16.1333 20Z"
           fill="#F5752C"
+        />
+      </svg>
+    );
+  }
+}
+
+export class SettingsSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z"
+          stroke="#8DA0B3"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M19.4 15C19.2669 15.3016 19.2272 15.6362 19.286 15.9606C19.3448 16.285 19.4995 16.5843 19.73 16.82L19.79 16.88C19.976 17.0657 20.1235 17.2863 20.2241 17.5291C20.3248 17.7719 20.3766 18.0322 20.3766 18.295C20.3766 18.5578 20.3248 18.8181 20.2241 19.0609C20.1235 19.3037 19.976 19.5243 19.79 19.71C19.6043 19.896 19.3837 20.0435 19.1409 20.1441C18.8981 20.2448 18.6378 20.2966 18.375 20.2966C18.1122 20.2966 17.8519 20.2448 17.6091 20.1441C17.3663 20.0435 17.1457 19.896 16.96 19.71L16.9 19.65C16.6643 19.4195 16.365 19.2648 16.0406 19.206C15.7162 19.1472 15.3816 19.1869 15.08 19.32C14.7842 19.4468 14.532 19.6572 14.3543 19.9255C14.1766 20.1938 14.0813 20.5082 14.08 20.83V21C14.08 21.5304 13.8693 22.0391 13.4942 22.4142C13.1191 22.7893 12.6104 23 12.08 23C11.5496 23 11.0409 22.7893 10.6658 22.4142C10.2907 22.0391 10.08 21.5304 10.08 21V20.91C10.0723 20.579 9.96512 20.258 9.77251 19.9887C9.5799 19.7194 9.31074 19.5143 9 19.4C8.69838 19.2669 8.36381 19.2272 8.03941 19.286C7.71502 19.3448 7.41568 19.4995 7.18 19.73L7.12 19.79C6.93425 19.976 6.71368 20.1235 6.47088 20.2241C6.22808 20.3248 5.96783 20.3766 5.705 20.3766C5.44217 20.3766 5.18192 20.3248 4.93912 20.2241C4.69632 20.1235 4.47575 19.976 4.29 19.79C4.10405 19.6043 3.95653 19.3837 3.85588 19.1409C3.75523 18.8981 3.70343 18.6378 3.70343 18.375C3.70343 18.1122 3.75523 17.8519 3.85588 17.6091C3.95653 17.3663 4.10405 17.1457 4.29 16.96L4.35 16.9C4.58054 16.6643 4.73519 16.365 4.794 16.0406C4.85282 15.7162 4.81312 15.3816 4.68 15.08C4.55324 14.7842 4.34276 14.532 4.07447 14.3543C3.80618 14.1766 3.49179 14.0813 3.17 14.08H3C2.46957 14.08 1.96086 13.8693 1.58579 13.4942C1.21071 13.1191 1 12.6104 1 12.08C1 11.5496 1.21071 11.0409 1.58579 10.6658C1.96086 10.2907 2.46957 10.08 3 10.08H3.09C3.42099 10.0723 3.742 9.96512 4.0113 9.77251C4.28059 9.5799 4.48572 9.31074 4.6 9C4.73312 8.69838 4.77282 8.36381 4.714 8.03941C4.65519 7.71502 4.50054 7.41568 4.27 7.18L4.21 7.12C4.02405 6.93425 3.87653 6.71368 3.77588 6.47088C3.67523 6.22808 3.62343 5.96783 3.62343 5.705C3.62343 5.44217 3.67523 5.18192 3.77588 4.93912C3.87653 4.69632 4.02405 4.47575 4.21 4.29C4.39575 4.10405 4.61632 3.95653 4.85912 3.85588C5.10192 3.75523 5.36217 3.70343 5.625 3.70343C5.88783 3.70343 6.14808 3.75523 6.39088 3.85588C6.63368 3.95653 6.85425 4.10405 7.04 4.29L7.1 4.35C7.33568 4.58054 7.63502 4.73519 7.95941 4.794C8.28381 4.85282 8.61838 4.81312 8.92 4.68H9C9.29577 4.55324 9.54802 4.34276 9.72569 4.07447C9.90337 3.80618 9.99872 3.49179 10 3.17V3C10 2.46957 10.2107 1.96086 10.5858 1.58579C10.9609 1.21071 11.4696 1 12 1C12.5304 1 13.0391 1.21071 13.4142 1.58579C13.7893 1.96086 14 2.46957 14 3V3.09C14.0013 3.41179 14.0966 3.72618 14.2743 3.99447C14.452 4.26276 14.7042 4.47324 15 4.6C15.3016 4.73312 15.6362 4.77282 15.9606 4.714C16.285 4.65519 16.5843 4.50054 16.82 4.27L16.88 4.21C17.0657 4.02405 17.2863 3.87653 17.5291 3.77588C17.7719 3.67523 18.0322 3.62343 18.295 3.62343C18.5578 3.62343 18.8181 3.67523 19.0609 3.77588C19.3037 3.87653 19.5243 4.02405 19.71 4.21C19.896 4.39575 20.0435 4.61632 20.1441 4.85912C20.2448 5.10192 20.2966 5.36217 20.2966 5.625C20.2966 5.88783 20.2448 6.14808 20.1441 6.39088C20.0435 6.63368 19.896 6.85425 19.71 7.04L19.65 7.1C19.4195 7.33568 19.2648 7.63502 19.206 7.95941C19.1472 8.28381 19.1869 8.61838 19.32 8.92V9C19.4468 9.29577 19.6572 9.54802 19.9255 9.72569C20.1938 9.90337 20.5082 9.99872 20.83 10H21C21.5304 10 22.0391 10.2107 22.4142 10.5858C22.7893 10.9609 23 11.4696 23 12C23 12.5304 22.7893 13.0391 22.4142 13.4142C22.0391 13.7893 21.5304 14 21 14H20.91C20.5882 14.0013 20.2738 14.0966 20.0055 14.2743C19.7372 14.452 19.5268 14.7042 19.4 15V15Z"
+          stroke="#8DA0B3"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+}
+
+export class LogOutSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V4C3 3.46957 3.21071 2.96086 3.58579 2.58579C3.96086 2.21071 4.46957 2 5 2H10"
+          stroke="#8DA0B3"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M17 16L21 12L17 8"
+          stroke="#8DA0B3"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M21 12H9"
+          stroke="#8DA0B3"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+}
+
+export class AvatarInitialsSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="24" height="24" rx="12" fill="black" fillOpacity="0.1" />
+      </svg>
+    );
+  }
+}
+
+export class ChevronDownSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M6 9L12 15L18 9"
+          stroke="#8DA0B3"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  }
+}
+
+export class LangueSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        id="Calque_1"
+        data-name="Calque 1"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path className="cls-1" d="M0,0H24V24H0Z" />
+        <path
+          className="cls-2"
+          d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm6.93,6H16a15.65,15.65,0,0,0-1.38-3.56A8,8,0,0,1,18.92,8ZM12,4a14.09,14.09,0,0,1,1.91,4H10.09A14.09,14.09,0,0,1,12,4ZM4.26,14a7.82,7.82,0,0,1,0-4H7.64a16.52,16.52,0,0,0-.14,2,16.52,16.52,0,0,0,.14,2Zm.82,2H8a15.65,15.65,0,0,0,1.38,3.56A8,8,0,0,1,5.08,16ZM8,8H5.08A8,8,0,0,1,9.41,4.44,15.65,15.65,0,0,0,8,8Zm4,12a14.09,14.09,0,0,1-1.91-4h3.82A14.09,14.09,0,0,1,12,20Zm2.34-6H9.66a14.71,14.71,0,0,1-.16-2,14.58,14.58,0,0,1,.16-2h4.68a14.58,14.58,0,0,1,.16,2A14.71,14.71,0,0,1,14.34,14Zm.25,5.56A15.65,15.65,0,0,0,16,16h3A8,8,0,0,1,14.59,19.56ZM16.36,14a16.52,16.52,0,0,0,.14-2,16.52,16.52,0,0,0-.14-2h3.38a7.82,7.82,0,0,1,0,4Z"
+          fill="#8DA0B3"
+        />
+      </svg>
+    );
+  }
+}
+export class CopyrightSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM9.7071 14.2928C8.44076 13.0265 8.44076 10.9734 9.7071 9.70703C10.9734 8.44069 13.0266 8.44069 14.2929 9.70703C14.6834 10.0975 15.3166 10.0975 15.7071 9.70703C16.0976 9.3165 16.0976 8.68334 15.7071 8.29281C13.6597 6.24543 10.3403 6.24543 8.29288 8.29281C6.2455 10.3402 6.2455 13.6597 8.29288 15.707C10.3403 17.7544 13.6597 17.7544 15.7071 15.707C16.0976 15.3165 16.0976 14.6834 15.7071 14.2928C15.3166 13.9023 14.6834 13.9023 14.2929 14.2928C13.0266 15.5592 10.9734 15.5592 9.7071 14.2928Z"
+          fill="#2DA84F"
+        />
+      </svg>
+    );
+  }
+}
+export class StarSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12.4443 6.7706C12.3585 6.6044 12.1871 6.5 12 6.5C11.813 6.5 11.6416 6.6044 11.5557 6.7706L9.975 9.8319L6.43083 10.3271C6.2398 10.3538 6.08116 10.488 6.02316 10.6719C5.96516 10.8559 6.01813 11.0568 6.1593 11.1882L8.70972 13.5629L8.10887 16.9117C8.07543 17.0981 8.15016 17.2874 8.30192 17.4007C8.45367 17.514 8.6564 17.5318 8.82559 17.4467L12 15.8509L15.1744 17.4467C15.3436 17.5318 15.5464 17.514 15.6981 17.4007C15.8499 17.2874 15.9246 17.0981 15.8912 16.9117L15.2903 13.5629L17.8407 11.1882C17.9819 11.0568 18.0349 10.8559 17.9769 10.6719C17.9189 10.488 17.7602 10.3538 17.5692 10.3271L14.025 9.8319L12.4443 6.7706Z"
+          fill="#2DA84F"
+        />
+      </svg>
+    );
+  }
+}
+export class RecordSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM9 6C8.73478 6 8.48043 6.10536 8.29289 6.29289C8.10536 6.48043 8 6.73478 8 7V17C8 17.5523 8.44772 18 9 18C9.55228 18 10 17.5523 10 17V14H13C15.2091 14 17 12.2091 17 10C17 7.79086 15.2091 6 13 6H9ZM13 12H10V8H13C14.1046 8 15 8.89543 15 10C15 11.1046 14.1046 12 13 12Z"
+          fill="#2DA84F"
+        />
+      </svg>
+    );
+  }
+}
+export class PlusHorizontalSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M8 12C8 13.1046 7.10457 14 6 14C4.89543 14 4 13.1046 4 12C4 10.8954 4.89543 10 6 10C7.10457 10 8 10.8954 8 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12ZM18 14C19.1046 14 20 13.1046 20 12C20 10.8954 19.1046 10 18 10C16.8954 10 16 10.8954 16 12C16 13.1046 16.8954 14 18 14Z"
+          fill="#8DA0B3"
         />
       </svg>
     );

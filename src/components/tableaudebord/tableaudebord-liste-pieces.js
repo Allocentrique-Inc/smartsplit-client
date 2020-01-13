@@ -89,6 +89,20 @@ export default class ListePieces extends Component {
           let initiatorMediaIds = [];
           let collabMediaIds = [];
 
+          axios
+            .get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
+            .then(res => {
+              let _rHParID = {};
+              res.data.forEach(e => {
+                e.name = `${e.firstName} ${e.lastName} (${e.artistName})`;
+                _rHParID[e.rightHolderId] = e;
+              });
+              this.setState({ rightHolders: _rHParID });
+            })
+            .catch(err => {
+              console.log(err);
+            });
+
           // Médias depuis les propositions
           axios
             .get("http://dev.api.smartsplit.org:8080/v1/proposal")
@@ -305,6 +319,7 @@ export default class ListePieces extends Component {
               key={elem.mediaId}
               media={elem}
               user={this.state.user}
+              rightHolders={this.state.rightHolders}
             />
           );
         });
@@ -314,9 +329,10 @@ export default class ListePieces extends Component {
               return (
                 <LigneMedia
                   pochette={this.state.pochette}
-                  key={`${elem.mediaId}_${elem._idx}`}
+                  key={`${elem.mediaId}_${_idx}`}
                   media={elem}
                   user={this.state.user}
+                  rightHolders={this.state.rightHolders}
                 />
               );
             } else {
@@ -337,6 +353,7 @@ export default class ListePieces extends Component {
                 key={`${elem.mediaId}_${elem._idx}`}
                 media={elem}
                 user={this.state.user}
+                rightHolders={this.state.rightHolders}
               />
             )
           );

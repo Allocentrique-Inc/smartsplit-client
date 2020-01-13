@@ -59,6 +59,11 @@
     }
 }
 
+.smartsplit {
+    color: $smartsplit-color-link
+    
+}
+
 .pochette .corps-table td a {
     color: $pochette-color-link;
 
@@ -80,7 +85,7 @@
 }
 
 .download-section {
-    margin-bottom: $margin-step * 2;
+    margin-bottom: 5px; /* $margin-step * 2 */
 
     display: flex;
     justify-content: flex-start;
@@ -97,9 +102,12 @@
 
     a {
         @extend .medium-500-style;
-
-        color: $smartsplit-color-link;
+        
         transition: 0.2s color;
+
+        .pochette {
+            color: $pochette-color-link;
+        }
 
         &:hover {
             color: $smartsplit-color-link-hover;
@@ -107,7 +115,8 @@
     }
 }
 
-.pochette .download-section a {
+.download-section a .pochette {
+    
     color: $pochette-color-link;
 
     &:hover {

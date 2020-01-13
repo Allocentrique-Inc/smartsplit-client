@@ -197,7 +197,7 @@ class PageEnregistrement extends React.Component {
   };
 
   render() {
-    const { isLoading, value, results, selectedPlace } = this.state;
+    const { isLoading, value, results } = this.state;
 
     return (
       <Translation>
@@ -358,17 +358,17 @@ class PageEnregistrement extends React.Component {
                 value={this.props.values.studio}
                 onChange={value => this.props.setFieldValue("studio", value)}
               />
-              <ChampTexte
+              {/* <ChampTexte
                 pochette={this.props.pochette}
-                placeholder={t(
-                  "flot.split.documente-ton-oeuvre.documenter.studio-adresse"
-                )}
                 value={this.props.values.studioAddress}
                 onChange={value =>
                   this.props.setFieldValue("studioAddress", value)
                 }
-              />
+              /> */}
               <Search
+                placeholder={t(
+                  "flot.split.documente-ton-oeuvre.documenter.studio-adresse"
+                )}
                 className="search"
                 loading={isLoading}
                 onResultSelect={this.handleResultSelect}

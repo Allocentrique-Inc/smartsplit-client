@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import { Translation } from 'react-i18next'
 
-import { Checkbox, Progress } from 'semantic-ui-react'
+import { Checkbox } from 'semantic-ui-react'
 
 // Composantes
 import Beignet from '../visualisation/partage/beignet'
@@ -12,6 +12,11 @@ import { FieldArray } from "formik";
 import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
 import BoutonsRadio from "../formulaires/champ-radio"
 import Axios from "axios"
+
+import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
+import { StarSVG } from "../svg/SVG";
+import closeIcon from "../../assets/svg/icons/x.svg";
+import EntetePartage from "./entete-partage"
 
 const MODES = { egal: "0", role: "1" }
 const TYPE = { principal: "0", accompagnement: "1" }
@@ -28,10 +33,11 @@ class PageAssistantPartageInterpretation extends Component {
         super(props)
         this.state = {
             parts: {},
-            mode: MODES.egal,
+            mode: MODES.role,
             principaux: [],
             accompagnement: [],
-            song: ""
+            song: "",
+            media: props.media
         }
         this.ajouterCollaborateur = this.ajouterCollaborateur.bind(this)
     }
@@ -47,6 +53,9 @@ class PageAssistantPartageInterpretation extends Component {
         }
         if (this.props.ayantsDroit !== nextProps.ayantsDroit) {
             this.setState({ ayantsDroit: nextProps.ayantsDroit })
+        }
+        if (this.props.media !== nextProps.media) {
+            this.setState({ media: nextProps.media })
         }
     }
 
@@ -210,28 +219,21 @@ class PageAssistantPartageInterpretation extends Component {
                 {
                     (t) =>
                         <React.Fragment>
-
+                            <EntetePartage 
+                                values={this.props.values} 
+                                enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
+                                user={this.props.user} 
+                                media={this.state.media} 
+                                currentPage={2} />
                             <div className="ui grid">
-                                <div className="ui row">
-                                    <div className="ui thirteen wide column">
-                                        <Progress percent="50" size='tiny' indicating />
-                                    </div>
-                                    <div className="ui three wide column">
-                                        <div style={{ top: "-15px", position: "relative", left: "30px", width: "150px" }} className="ui medium button" onClick={() => { this.props.enregistrerEtQuitter(t, this.props.values) }}>
-                                            {t('flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter')}
-                                        </div>
-                                    </div>
-                                </div>
+                                <div className="ui row" />
                                 <div className="ui row">
                                     <div className="ui seven wide column">
-                                        <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.documenter.entete.interpretation')}</div>
+                                        <div className="wizard-title">
+                                            <StarSVG />{t('flot.split.documente-ton-oeuvre.documenter.entete.interpretation')}</div>
                                         <br />
                                         <div className="mode--partage__auteur">
                                             <div className="who-invented-title">
-                                                {/*{t('flot.split.partage.interprete.titre', { oeuvre: this.state.song })}*/}
-                                                {/* {t('flot.split.partage.interprete.titre', {
-                                                    oeuvre: `${t('flot.split.partage.guillemets.guillemet1')}${this.state.song}${t('flot.split.partage.guillemets.guillemet2')}`
-                                                })}? */}
                                                 {t('flot.split.partage.interprete.titre', { titre: this.state.song })}
                                             </div>
                                             <br />
@@ -239,147 +241,11 @@ class PageAssistantPartageInterpretation extends Component {
                                             <br />
                                             <div className="fields">
                                                 <div className="fourteen wide field">
-                                                    <div className="fourteen wide field">
-                                                        <BoutonsRadio
-                                                            name="mode_interpretation"
-                                                            actif={this.state.mode} // Attribut dynamique
-                                                            onClick={(e) => {
-
-                                                                let valeur
-                                                                // Clic de la puce ou de l'étiquette ?
-                                                                if (e.target.nodeName === 'LABEL') {
-                                                                    valeur = e.target.parentNode.childNodes[0].value
-                                                                }
-                                                                if (e.target.nodeName === 'INPUT') {
-                                                                    valeur = e.target.value
-                                                                }
-
-                                                                this.setState({ mode: valeur }, () => {
-                                                                    this.recalculerPartage()
-                                                                })
-                                                            }}
-                                                            titre=""
-                                                            choix={[
-                                                                {
-                                                                    nom: t('flot.split.modepartage.egal'),
-                                                                    valeur: MODES.egal,
-                                                                    info: t('tooltip.egal')
-                                                                },
-                                                                {
-                                                                    nom: t('flot.split.modepartage.roles'),
-                                                                    valeur: MODES.role,
-                                                                    info: t('tooltip.roles')
-                                                                }
-                                                            ]}
-                                                        />
-                                                    </div>
                                                     <p style={{ height: "30px" }} />
                                                     <FieldArray
                                                         name="droitInterpretation"
                                                         render={arrayHelpers => (
                                                             <div>
-                                                                {
-                                                                    this.state.ayantsDroit && this.props.values.droitInterpretation.map((part, index) => {
-                                                                        let roles = [
-                                                                            { id: "chanteur", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.chanteur') },
-                                                                            { id: "musicien", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.musicien') }
-                                                                        ]
-                                                                        let avatar = ''
-                                                                        let _aD = part.ayantDroit
-                                                                        // Y a-t-il un avatar ?
-                                                                        if (_aD.avatarImage)
-                                                                            avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
-                                                                        else
-                                                                            avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
-
-                                                                        return (
-                                                                            <div key={`part-${index}`}>
-                                                                                <div className="gray-fields">
-                                                                                    <div className="ui grid">
-                                                                                        <div className="ui row">
-                                                                                            <div className="ui two wide column">
-                                                                                                <div className="avatar-image">
-                                                                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar} />
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <div className="ui thirteen wide column">
-                                                                                                <div className="holder-name">
-                                                                                                    {part.nom}
-                                                                                                    <i className="right floated close icon cliquable"
-                                                                                                        style={{ top: "0px", right: "10px", position: "absolute" }}
-                                                                                                        onClick={() => {
-                                                                                                            arrayHelpers.remove(index)
-                                                                                                            this.setState({ ping: true }, () => {
-                                                                                                                this.recalculerPartage()
-                                                                                                            })
-                                                                                                        }
-                                                                                                        }></i>
-                                                                                                    <div className="ui divider"></div>
-                                                                                                </div>
-                                                                                                <BoutonsRadio
-                                                                                                    name={`type_interpretation_${index}`}
-                                                                                                    actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
-                                                                                                    onClick={(e) => {
-                                                                                                        if (this.state.mode === MODES.role) {
-                                                                                                            let valeur
-                                                                                                            // Clic de la puce ou de l'étiquette ?
-                                                                                                            if (e.target.nodeName === 'LABEL') {
-                                                                                                                valeur = e.target.parentNode.childNodes[0].value
-                                                                                                            }
-                                                                                                            if (e.target.nodeName === 'INPUT') {
-                                                                                                                valeur = e.target.value
-                                                                                                            }
-                                                                                                            this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
-                                                                                                            this.setState({ ping: true }, () => {
-                                                                                                                this.recalculerPartage()
-                                                                                                            })
-                                                                                                        }
-                                                                                                    }}
-                                                                                                    disabled={this.state.mode !== MODES.role}
-                                                                                                    titre=""
-                                                                                                    choix={[
-                                                                                                        {
-                                                                                                            nom: 'Principal',
-                                                                                                            valeur: TYPE.principal
-                                                                                                        },
-                                                                                                        {
-                                                                                                            nom: 'Accompagnement',
-                                                                                                            valeur: TYPE.accompagnement
-                                                                                                        }
-                                                                                                    ]}
-                                                                                                />
-                                                                                                <div className="coches--role__droit">
-                                                                                                    {
-                                                                                                        roles.map((elem, idx) => {
-                                                                                                            return (
-                                                                                                                <Checkbox
-                                                                                                                    key={`coche_role_droit_interpretation_${index}_${idx}`}
-                                                                                                                    label={elem.nom}
-                                                                                                                    checked={this.props.values.droitInterpretation[index][elem.id]}
-                                                                                                                    onClick={(e) => {
-                                                                                                                        if (e.currentTarget.className.includes("checked")) {
-                                                                                                                            this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, false)
-                                                                                                                        } else {
-                                                                                                                            this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, true)
-                                                                                                                        }
-                                                                                                                        setTimeout(() => {
-                                                                                                                            this.recalculerPartage()
-                                                                                                                        }, 0)
-                                                                                                                    }}
-                                                                                                                />
-                                                                                                            )
-                                                                                                        })
-                                                                                                    }
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div className="blank-text">A</div>
-                                                                            </div>
-                                                                        )
-                                                                    })
-                                                                }
                                                                 <div style={{ margin: "0 auto", height: "100px" }}>
                                                                     <div className="ui grid">
                                                                         <div className="ui row">
@@ -485,6 +351,136 @@ class PageAssistantPartageInterpretation extends Component {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                {
+                                                                    this.state.ayantsDroit && this.props.values.droitInterpretation.map((part, index) => {
+                                                                        let roles = [
+                                                                            { id: "chanteur", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.chanteur') },
+                                                                            { id: "musicien", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.musicien') }
+                                                                        ]
+                                                                        let avatar = ''
+                                                                        let _aD = part.ayantDroit
+                                                                        // Y a-t-il un avatar ?
+                                                                        if (_aD.avatarImage)
+                                                                            avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
+                                                                        else
+                                                                            avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+
+                                                                        return (
+                                                                            <div key={`part-${index}`}>
+                                                                                <div className="gray-fields">
+                                                                                    <div className="ui grid">
+                                                                                        <div className="ui row">
+                                                                                        <div
+                                                                                                className="ui three wide column">
+                                                                                                <div
+                                                                                                    className="avatar-image">
+                                                                                                    <img
+                                                                                                        alt=""
+                                                                                                        className="ui spaced avatar image"
+                                                                                                        src={avatar} />
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                className="ui twelve wide column">
+                                                                                                <div
+                                                                                                    className="holder-name">
+                                                                                                    {part.nom}
+                                                                                                    
+                                                                                                    <div className="ui one wide column">
+                                                                                                    {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
+                                                                                                    <div className="close-icon cliquable" onClick={() => {
+                                                                                                            arrayHelpers.remove(index)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }
+                                                                                                        }>
+                                                                                                    <img src={closeIcon} alt={"close"} style={{ position: "absolute", top: "0", right: "20px" }} />
+                                                                                                </div>
+                                                                                                </div>
+                                                                                                </div>
+
+                                                                                                    {/* <i className="right flated close icon cliquable"
+                                                                                                        style={{ float: "right" }}
+                                                                                                        onClick={() => {
+                                                                                                            arrayHelpers.remove(index)
+                                                                                                            this.setState({ ping: true }, () => {
+                                                                                                                this.recalculerPartage()
+                                                                                                            })
+                                                                                                        }
+                                                                                                        }></i> */}
+                                                                                                    <div
+                                                                                                        className="ui divider"></div>
+                                                                                                <Translation>
+                                                                                                    {
+                                                                                                        t => (
+                                                                                                            <BoutonsRadio
+                                                                                                                style={{ display: "inline-flex" }}
+                                                                                                                className="ten wide column"
+                                                                                                                titre=""
+                                                                                                                name={`type_interpretation_${index}`}
+                                                                                                                actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
+                                                                                                                onClick={(e) => {
+                                                                                                                    if (this.state.mode === MODES.role) {
+                                                                                                                        let valeur
+                                                                                                                        // Clic de la puce ou de l'étiquette ?
+                                                                                                                        if (e.target.nodeName === 'LABEL') {
+                                                                                                                            valeur = e.target.parentNode.childNodes[0].value
+                                                                                                                        }
+                                                                                                                        if (e.target.nodeName === 'INPUT') {
+                                                                                                                            valeur = e.target.value
+                                                                                                                        }
+                                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
+                                                                                                                        this.setState({ ping: true }, () => {
+                                                                                                                            this.recalculerPartage()
+                                                                                                                        })
+                                                                                                                    }
+                                                                                                                }}
+                                                                                                                disabled={this.state.mode !== MODES.role}
+                                                                                                                choix={[
+                                                                                                                    {
+                                                                                                                        nom: t("flot.split.documente-ton-oeuvre.documenter.options.question1-choix-a"),
+                                                                                                                        valeur: TYPE.principal
+                                                                                                                    },
+                                                                                                                    {
+                                                                                                                        nom: t("flot.split.documente-ton-oeuvre.documenter.options.question1-choix-b"),
+                                                                                                                        valeur: TYPE.accompagnement
+                                                                                                                    }
+                                                                                                                ]}
+                                                                                                            />)}
+                                                                                                </Translation>
+                                                                                                <div className="coches--role__droit">
+                                                                                                    {
+                                                                                                        roles.map((elem, idx) => {
+                                                                                                            return (
+                                                                                                                <Checkbox
+                                                                                                                    key={`coche_role_droit_interpretation_${index}_${idx}`}
+                                                                                                                    label={elem.nom}
+                                                                                                                    checked={this.props.values.droitInterpretation[index][elem.id]}
+                                                                                                                    onClick={(e) => {
+                                                                                                                        if (e.currentTarget.className.includes("checked")) {
+                                                                                                                            this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, false)
+                                                                                                                        } else {
+                                                                                                                            this.props.setFieldValue(`droitInterpretation[${index}][${elem.id}]`, true)
+                                                                                                                        }
+                                                                                                                        setTimeout(() => {
+                                                                                                                            this.recalculerPartage()
+                                                                                                                        }, 0)
+                                                                                                                    }}
+                                                                                                                />
+                                                                                                            )
+                                                                                                        })
+                                                                                                    }
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className="blank-text">A</div>
+                                                                            </div>
+                                                                        )
+                                                                    })
+                                                                }
                                                             </div>
                                                         )}
                                                     />

@@ -28,34 +28,38 @@ export default class InputFichier extends React.Component {
   }
 
   clickFileInput = event => {
-    event.preventDefault();
-    this.fileInputRef.current.click();
-  };
+    event.preventDefault()
+    this.fileInputRef.current.click()
+  }
 
   handleFileInputChange = event => {
-    const filename = event.target.files.length
+
+    this.props.onChange(event.target.files[0])
+
+    if(this.props.conserverNomFichier) {
+      const filename = event.target.files.length
       ? event.target.files[0].name
-      : "";
-
-    this.props.onChange(event.target.files[0]);
-
-    this.setState({
-      filename: filename
-    });
-  };
+      : ""
+      this.setState({
+        filename: filename
+      })
+    }
+    
+  }  
 
   render() {
+
     return (
       <Translation>
         {t => (
           <div
-            className="file-input-container"
+            className="file-input-container"            
           >
             <div className="ui button" onClick={this.clickFileInput}>
               {t("flot.split.documente-ton-oeuvre.documenter.choix")}
             </div>
 
-            <div className="placeholder">{this.placeholder()}</div>
+            <div className="placeholder cliquable">{this.placeholder()}</div>
 
             <input
               ref={this.fileInputRef}

@@ -5,8 +5,8 @@ import "./Login.css";
 // Importation pochette
 import '../../assets/scss/connexion/connexion.scss'
 
-import { Auth } from "aws-amplify";
 import { Translation } from "react-i18next";
+import axios from "axios";
 
 import { Formik, Form, Field } from "formik";
 
@@ -15,14 +15,13 @@ import { toast } from "react-toastify";
 
 import Eye from "./Eye";
 
-class LogIn extends Component {
+class Password extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       pochette: props.pochette,
       hidden: true,
-      username: "",
       password: this.props.password,
       parent: props.parent,
       vote: props.vote
@@ -43,19 +42,19 @@ class LogIn extends Component {
   handleSubmit = values => {
     try {
       this.setState({ patience: true }, () => {
-        Auth.signIn(values.username, values.password)
-          .then(user => {
-            //toast.success(`#${user.username} !`);
-            if (this.props.fn) {
-              this.props.fn();
+        let body = {"password": values.password}
+        axios.post('http://dev.api.smartsplit.org:8080/v1/auth/verifyPassword', body)
+        .then((resp)=>{     
+            if (resp.data === "Success"){
+                this.props.history.push("/accueil");
+            } else {
+                toast.error("Password Incorrect")
             }
-          })
-          .catch(err => {
-            toast.error(err.message);
-          })
-          .finally(() => {
-            this.setState({ patience: false });
-          });
+        })
+        .catch((error) => {
+            console.log(error.message)
+            toast.error(error.message)
+        })
       });
     } catch (err) {
       console.log(err);
@@ -88,7 +87,6 @@ class LogIn extends Component {
     return (
       <Formik
         initialValues={{
-          username: this.state.username,
           password: ""
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -129,91 +127,14 @@ class LogIn extends Component {
                         </div>
                       )
                     }
-                    <div className="container">
-                      <header id="loginHeader">
-                        {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                          <div>
-                            <div className="loginHead">
-                              {
-                                !this.state.vote && (
-                                  <h1>
-                                    Login to your {this.state.pochette ? "Pochette" : "Smartsplit"} <br />
-                                    account
-                                  </h1>
-                                )
-                              }
-                              {
-                                this.state.vote && (
-                                  <h1>
-                                    Login to confirm your vote
-                                  </h1>
-                                )
-                              }
-                              <br></br>
-                            </div>
-                          </div>
-                        )}
-                        {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                          <div>
-                            <div className="loginHead">
-                              {
-                                !this.state.vote && (
-                                  <h1>
-                                    Connecte-toi à ton <br />
-                                    compte {this.state.pochette ? "Pochette" : "Smartsplit"}
-                                  </h1>
-                                )
-                              }
-                              {
-                                this.state.vote && (
-                                  <h1>
-                                    Connecte-toi <br />
-                                    pour confirmer ta décision
-                                  </h1>
-                                )
-                              }
-                              <br></br>
-                            </div>
-                          </div>
-                        )}
-                      </header>
-                    </div>
                     <section className="section auth">
                       <div className="container">
                         <h1>{this.props.message}</h1>
                         <div className="field">
-                          <div className="input-wrapper">
-                            <div className="control">
-                              <label htmlFor="username">
-                                {t("accueil.courriel")}
-                              </label>
-                              <Field
-                                name="username"
-                                id="username"
-                                aria-describedby="usernameHelp"
-                                placeholder={t(
-                                  "flot.split.inscription.exemple"
-                                )}
-                                required={true}
-                              />
-                              {errors.username && touched.username && (
-                                <div style={{
-                                  color: "red",
-                                  position: "absolute",
-                                  top: "70px"
-                                }}>
-                                  {" "}
-                                  {t(
-                                    "flot.split.inscription.email-invalide"
-                                  )}{" "}
-                                </div>
-                              )}
-                            </div>
-                          </div>
                           <div className="field">
                             <div className="control has-icons-left">
                               <label htmlFor="password">
-                                {t("accueil.motdepasse")}
+                                {t('flot.split.auth.protection.titre')}
                               </label>
                               <div className="input-wrapper">
                                 <Field
@@ -241,25 +162,10 @@ class LogIn extends Component {
                               </div>
                             </div>
                           </div>
-                          {!this.state.patience && (
-                            <div className="field">
-                              <div className="control">
-                                <div
-                                  onClick={() => {
-                                    this.state.parent.afficher(2);
-                                  }}
-                                  className={`motdepasse-oublie ${pochette}`}
-                                >
-                                  {t("accueil.oublie")}
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
                           <div className="field">
                             <p className="control">
                               <button className={`ui medium button login is-success ${pochette}`}>
-                                {t("entete.connexion")}
+                                {t('flot.split.auth.protection.bouton')}
                               </button>
                             </p>
                           </div>
@@ -277,4 +183,4 @@ class LogIn extends Component {
   }
 }
 
-export default LogIn;
+export default Password;

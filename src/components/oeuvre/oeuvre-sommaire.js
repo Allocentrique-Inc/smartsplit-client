@@ -10,6 +10,8 @@ import { Translation } from 'react-i18next';
 import moment from 'moment'
 import ModaleConnexion from '../auth/Connexion'
 
+import placeholder from '../../assets/images/placeholder.png';
+
 export default class SommaireOeuvre extends Component {
 
     constructor(props) {
@@ -17,6 +19,7 @@ export default class SommaireOeuvre extends Component {
         this.state = {
             mediaId: props.mediaId
         }
+        moment.defaultFormat = "DD-MM-YYYY HH:mm"
     }
 
     componentWillMount() {
@@ -72,6 +75,18 @@ export default class SommaireOeuvre extends Component {
             let artiste = this.state.media.artist
             let contenu = (<div className="ui nine wide column"></div>)
 
+            let imageSrc = placeholder
+            if(this.state.media) {
+                let elem = this.state.media
+                if(elem.files && elem.files.cover && elem.files.cover.files && elem.files.cover.files.length > 0) {
+                    elem.files.cover.files.forEach(e=>{
+                        if(e.access === 'public') {
+                            imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
+                        }
+                    })
+                }
+            }
+
             return (
                 <Translation>
                     {
@@ -90,8 +105,7 @@ export default class SommaireOeuvre extends Component {
                                         <div className="ui row">
                                             <div className="ui twelve wide column grid">
                                                 <div className="ui one wide column">
-                                                    <i className="file image outline icon huge grey"
-                                                        style={{ background: "#F2EFF0" }}></i>
+                                                    <img alt="Vignette" style={{width: "64px", height: "64px"}} src={imageSrc} />                                                    
                                                 </div>
                                                 <div className="ui fourteen wide column">
                                                     <div className="ui row">
@@ -148,7 +162,7 @@ export default class SommaireOeuvre extends Component {
                                                         <div className="small-500-color"
                                                             style={{ display: "inline-block" }}>{`${artiste}`}&nbsp;</div>
                                                         <div className="small-400-color"
-                                                            style={{ display: "inline-block" }}>&bull; {i18n.lng && moment(this.state.media.creationDate).locale(i18n.lng.substring(0, 2)).fromNow()}</div>
+                                                            style={{ display: "inline-block" }}>&bull; {i18n.lng && moment(this.state.media.creationDate, moment.defaultFormat).locale(i18n.lng.substring(0, 2)).fromNow()}</div>
                                                     </div>
                                                 </div>
                                             </div>

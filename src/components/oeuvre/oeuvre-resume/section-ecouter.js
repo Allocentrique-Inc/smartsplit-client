@@ -129,6 +129,7 @@ export default class SectionEcouter extends React.Component {
                     (t, i18n) =>
                     <>
                         <TitreModifiable
+                            jeton={this.props.jeton}
                             edition={this.props.edition} 
                             pageNo={7}
                             mediaId={this.props.media.mediaId}

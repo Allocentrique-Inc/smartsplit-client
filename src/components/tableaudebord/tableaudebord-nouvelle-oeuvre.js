@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Wizard } from 'semantic-ui-react-formik'
+import { Wizard } from 'semantic-ui-react-formik-iptoki'
 import axios from 'axios'
 import { Translation } from 'react-i18next'
 import { Label, Modal, Button } from 'semantic-ui-react'
@@ -86,9 +86,9 @@ export default class NouvelleOeuvre extends Component {
 
         let rHs = []
 
-        // Participants créés avec le rôle d'interprète par défaut.
+        // Participants créés avec le rôle d'interprète principal par défaut.
         if (values.rightHolders)
-            values.rightHolders.forEach(rH => rHs.push({ id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a36"] }))
+            values.rightHolders.forEach(rH => rHs.push({ id: rH, roles: ["45745c60-7b1a-11e8-9c9c-2d42b21b1a38"] }))
 
         let body = {
             creator: this.props.user.username,
@@ -106,24 +106,7 @@ export default class NouvelleOeuvre extends Component {
             streamingServiceLinks: values.streamingServiceLinks,
             pressArticleLinks: values.pressArticleLinks,
             playlistLinks: values.playlistLinks,
-            files: {
-                audio: {
-                    file: values.fichier,
-                    access: "private"
-                },
-                cover: {
-                    file: " ",
-                    access: "private"
-                },
-                score: {
-                    file: " ",
-                    access: "private"
-                },
-                midi: {
-                    file: " ",
-                    access: "private"
-                }
-            },
+            files: values.files,
             remixer: values.arrangeur
         }
         this.props.parent.state.audio.stop()
@@ -333,7 +316,9 @@ class Page2NouvellePiece extends Component {
 
         this.props.setFieldValue('title', analyse.title, false)
         this.props.setFieldValue('publisher', analyse.label ? analyse.label : analyse.artists[0].name, false)
-        this.props.setFieldValue('artist', analyse.artists[0].name, false)
+
+        let oeuvrePar = analyse.artists[0].name
+        this.props.setFieldValue('artist', oeuvrePar, false)
         this.props.setFieldValue('instrumental', true, false)
         this.props.setFieldValue('album', analyse.album.name, false)
         this.props.setFieldValue('durationMs', `${analyse.duration_ms}`, false)
@@ -341,6 +326,20 @@ class Page2NouvellePiece extends Component {
         this.props.setFieldValue('upc', analyse.external_ids.upc, false)
         this.props.setFieldValue('publishDate', analyse.release_date, false)
 
+        // Si l'oeuvrePar n'existe pas déjà, créer l'entité t.q. oeuvrePar => entite(oeuvrePar)
+        let entites = this.state.entites
+        let entiteExiste = false        
+        entites.OPTIONS.forEach(e=>{            
+            if(e.text === oeuvrePar) {
+                entiteExiste = true
+            }
+        })
+        if(!entiteExiste) {
+            this.ajouterEntiteArtistique(oeuvrePar, ()=>{console.log(this.state.entites); this.state.entites.listeEntites()})
+            console.log("Entités", entites)
+        }
+
+        console.log("entités:", entiteExiste, this.state.entites)
         // Liens commerciaux
         let liensCommerciaux = []
         if (analyse.external_metadata.deezer) {
@@ -367,17 +366,14 @@ class Page2NouvellePiece extends Component {
         this.props.setFieldValue('streamingServiceLinks', liensCommerciaux)
     }
 
-    ajouterEntiteArtistique(e, cb) {
+    ajouterEntiteArtistique(e, cb) {        
         this.props.setFieldValue('artist', e)
         Auth.currentAuthenticatedUser()
             .then(res => {
                 let username = res.username
                 let body = { username: username, entite: e }
                 axios.post('http://dev.api.smartsplit.org:8080/v1/entities/', body)
-                    .then((err, res) => {
-                        if (err) {
-                            console.log(err)
-                        }
+                    .then(res => {                        
                         if (cb) {
                             cb()
                         }
@@ -401,7 +397,7 @@ class Page2NouvellePiece extends Component {
         })
 
         return (
-            < React.Fragment >
+            <React.Fragment>
                 <Translation>
                     {
                         (t, i18n) =>
@@ -582,7 +578,6 @@ class Page2NouvellePiece extends Component {
                                                                 () => this.setState({ assocUuidArtiste: assocUuidArtiste })
                                                             )
                                                         })
-
                                                 }}
                                             />
                                         </div>
@@ -591,27 +586,48 @@ class Page2NouvellePiece extends Component {
                                         <div className="ui sixteen wide column">
                                             <ChampTeleversement
                                                 label="Fichier  "
+                                                conserverNomFichier={true}
                                                 info={<InfoBulle pos={{ x: 100, y: 450 }} text={t('composant.televersement.soustitre')} />}
                                                 access="private"
+                                                onAccessChange={value =>{
+                                                        this.setState({accesAudio: value})                                                        
+                                                        let fichier
+                                                        let files = this.props.values.files
+                                                        if(files.audio) {
+                                                            fichier = files.audio.files[0] // Seul le premier est considéré
+                                                            if (fichier) {
+                                                                // Remplace l'accès du fichier existant
+                                                                fichier.access = value
+                                                                files.audio.files[0] = fichier
+                                                                this.props.setFieldValue('files', files)
+                                                            }                                                            
+                                                        }                                                        
+                                                    }                                                    
+                                                }
                                                 onFileChange={value => {
                                                     if (value) {
-                                                        //toast.info(t('navigation.transfertEnCours'))
+                                                        
                                                         this.setState({ patience: true })
 
                                                         let fichier = value
 
-                                                        // Redémarre le lecteur audio
+                                                        // Réinitialise le lecteur audio
                                                         this.props.parent.props.parent.state.audio.stopEtJouer(fichier)
 
                                                         let fd = new FormData()
                                                         fd.append('file', fichier)
+                                                        
+                                                        let mediaId
+                                                        if(this.props.parent) {
+                                                            mediaId = this.props.parent.state.mediaId
+                                                        }
+                                                        fd.append('mediaId', mediaId)
 
                                                         axios
                                                             .post('http://envoi.smartsplit.org:3033/envoi', fd)
                                                             .then(res => {
 
                                                                 let f = res.data
-
                                                                 if (f.music.err) {
                                                                     switch (f.music.err) {
                                                                         case "AUDIO-MAUVAISE-LECTURE":
@@ -627,13 +643,24 @@ class Page2NouvellePiece extends Component {
 
                                                                 if (f && !f.music.err) {
 
-                                                                    let analyse = f.music[0] // Il peut y avoir plus d'un résultat
-
+                                                                    let analyse = f.music[0] // NB. Il peut y avoir plus d'un résultat
                                                                     this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
                                                                     this.props.setFieldValue('fichier', f.empreinte)
-                                                                    this.props.setFieldValue('files.audio..file', f.name)
-                                                                    this.props.setFieldValue('files.audio..md5', f.empreinte)
 
+                                                                    // gestions des fichiers
+                                                                    let fichiers = []
+                                                                    
+                                                                    let access = this.state.accesAudio ? this.state.accesAudio : "private"
+                                                                    fichiers.push({file: f.nom, md5: f.empreinte, access: access})
+
+                                                                    this.props.setFieldValue('files.audio.files', fichiers)
+
+                                                                } else {
+                                                                    // gestions des fichiers
+                                                                    let fichiers = []                                                                    
+                                                                    let access = this.state.accesAudio ? this.state.accesAudio : "private"
+                                                                    fichiers.push({file: fichier.name, access: access})
+                                                                    this.props.setFieldValue('files.audio.files', fichiers)
                                                                 }
                                                             })
                                                             .catch(err => {

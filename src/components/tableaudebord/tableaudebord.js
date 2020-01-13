@@ -43,7 +43,7 @@ export default class TableauDeBord extends Component {
 
     if (this.state.user) {
       let contenu = <div className="ui seven wide column"></div>;
-      let entete = <Entete contenu={contenu} profil={this.state.user} />;
+      let entete = <Entete pochette={this.props.pochette} contenu={contenu} profil={this.state.user} />;
       return (
         <div className="tdb--cadre ui row">
           <Navigation parent={this} pochette={this.state.pochette} />

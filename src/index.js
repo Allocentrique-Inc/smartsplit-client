@@ -26,10 +26,8 @@ import VotationPartTiers from "./components/partage/votation-part-tiers";
 import AssistantPartage from "./components/partage/assistant-partage";
 // Tableau de bord
 import TableauDeBord from "./components/tableaudebord/tableaudebord";
-import Beignet from "./components/visualisation/partage/beignet";
-import Histogramme from "./components/visualisation/partage/histogramme";
-import Troissplits from "./components/visualisation/partage/troissplits";
 // Composantes auth
+import Password from "./components/auth/Password";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import ModifyUser from "./components/auth/ModifyUser";
@@ -77,8 +75,10 @@ const renderRoutes = () => {
             <Route exact path="/accueil" component={AccueilPochette} />
             <Route exact path="/documenter/:mediaId" component={DocumenterPochette} />
             <Route exact path="/editer/:mediaId/:pageNo" component={EditerPochette} />
+            <Route exact path="/editer/:mediaId/:pageNo/:jeton" component={EditerPochetteAvecJeton} />
             <Route exact path="/oeuvre/:mediaId/resume" component={ResumePochette} />
-            <Route exact path="*" component={AccueilPochette} />
+            <Route exact path="/oeuvre/resume/:jeton" component={ResumePochetteAvecJeton} />
+            <Route exact path="*" component={AccueilPochette} />            
           </Switch>
         </Router>
       </I18nextProvider>
@@ -89,9 +89,12 @@ const renderRoutes = () => {
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
+            <Route exact path="/accueil" component={Accueil} />
             <Route exact path="/" component={Accueil} />
+            <Route exact path="/password" component={Password} />
             <Route exact path="/documenter/:mediaId" component={Documenter} />
             <Route exact path="/editer/:mediaId/:pageNo" component={Editer} />
+            <Route exact path="/editer/:mediaId/:pageNo/:jeton" component={EditerAvecJeton} />
             <Route exact path="/decrire-oeuvre" component={AssistantOeuvre} />
             <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
             <Route exact path="/login" component={renderLogin} />
@@ -103,86 +106,44 @@ const renderRoutes = () => {
             <Route exact path="/sign-in-google" component={SignInGoogle} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/choose-password" component={ChoosePasswordVerification} />
-            <Route
-              exact
-              path="/forgot-password-verification"
-              component={DefinitMotDePasse}
-            />
-            <Route
-              exact
-              path="/change-password-verification"
-              component={ChangePasswordVerification}
-            />
+            <Route exact path="/forgot-password-verification" component={DefinitMotDePasse} />
+            <Route exact path="/change-password-verification" component={ChangePasswordVerification} />
             <Route exact path="/welcome" component={Welcome} />
-            <Route
-              exact
-              path="/proposition/approuver/:propositionId"
-              component={ApprouverSplit}
-            />
-            <Route
-              exact
-              path="/proposition/vote/:jeton"
-              component={VoterSplit}
-            />
-            <Route
-              exact
-              path="/proposition/confirmer-courriel"
-              component={ConfirmerCourriel}
-            />
-            <Route
-              exact
-              path="/proposition/sommaire/:uuid"
-              component={SommaireProposition}
-            />
-            <Route exact path="/accueil" component={Accueil} />
-            <Route exact path="/visualisation/beignet" component={Beignet} />
-            <Route
-              exact
-              path="/visualisation/histogramme"
-              component={Histogramme}
-            />
-            <Route
-              exact
-              path="/visualisation/troissplits"
-              component={Troissplits}
-            />
-            <Route
-              exact
-              path="/partager/:mediaId"
-              component={PartagesOeuvres}
-            />
-            <Route
-              exact
-              path="/partager/nouveau/:mediaId"
-              component={NouveauPartage}
-            />
-            <Route
-              exact
-              path="/partager/existant/:uuid"
-              component={ContinuerProposition}
-            />
-            <Route
-              exact
-              path="/partage-editeur/:propositionId"
-              component={PartageEditeur}
-            />
-            <Route
-              exact
-              path="/oeuvre/sommaire/:mediaId"
-              component={sommaireOeuvre}
-            />
+            <Route exact path="/proposition/approuver/:propositionId" component={ApprouverSplit} />
+            <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
+            <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
+            <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
+            <Route exact path="/accueil" component={Accueil} />        
+            <Route exact path="/partager/:mediaId" component={PartagesOeuvres} />
+            <Route exact path="/partager/nouveau/:mediaId" component={NouveauPartage} />
+            <Route exact path="/partager/existant/:uuid" component={ContinuerProposition} />
+            <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
+            <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
             <Route exact path="/oeuvre/:mediaId/resume" component={Resume} />
-            <Route
-              exact
-              path="/partage/editeur/vote/:jeton"
-              component={VoterPartTiers}
-            />
+            <Route exact path="/oeuvre/resume/:jeton" component={ResumeAvecJeton} />
+            <Route exact path="/partage/editeur/vote/:jeton" component={VoterPartTiers} />          
           </Switch>
         </Router>
       </I18nextProvider>
-    );
+    )
   }
-};
+}
+
+const ResumeAvecJeton = match => {
+  let jeton = match.match.params.jeton
+  let mediaId = match.match.params.mediaId
+  return (
+    <OeuvreResume jeton={jeton} mediaId={mediaId} />
+  )
+}
+
+const ResumePochetteAvecJeton = match => {
+  let jeton = match.match.params.jeton
+  let mediaId = match.match.params.mediaId
+  return (
+    <OeuvreResume jeton={jeton} mediaId={mediaId} pochette={true} />
+  )
+}
 
 const EditerPochette = (match) => {
   let mediaId = match.match.params.mediaId
@@ -192,11 +153,29 @@ const EditerPochette = (match) => {
   )
 }
 
+const EditerPochetteAvecJeton = (match) => {
+  let mediaId = match.match.params.mediaId
+  let pageNo = match.match.params.pageNo
+  let jeton = match.match.params.jeton
+  return (
+    <EditerOeuvre mediaId={mediaId} pochette={true} pageNo={pageNo} jeton={jeton} />
+  )
+}
+
 const Editer = (match) => {
   let mediaId = match.match.params.mediaId
   let pageNo = match.match.params.pageNo
   return (
     <EditerOeuvre mediaId={mediaId} pochette={false} pageNo={pageNo} />
+  )
+}
+
+const EditerAvecJeton = (match) => {
+  let mediaId = match.match.params.mediaId
+  let pageNo = match.match.params.pageNo
+  let jeton = match.match.params.jeton
+  return (
+    <EditerOeuvre mediaId={mediaId} pochette={false} pageNo={pageNo} jeton={jeton} />
   )
 }
 

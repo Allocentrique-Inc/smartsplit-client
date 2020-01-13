@@ -28,14 +28,14 @@
     "titre2": "Add as a collaborator:",
     "attribut": {
       "placeholder": {
-        "prenom": "Legal first name",
-        "nom": "Legal last name"
+        "prenom": "Enter your first name",
+        "nom": "Enter your last name"
       },
       "indication": {
         "nom": "Last name",
         "prenom": "First name",
         "artiste": "Artist name",
-        "role": "Choose one or more role",
+        "role": "Role in the musical piece  ",
         "role2": "These roles can be modified later.",
         "groupe": "Search among enteties"
       }
@@ -58,9 +58,9 @@
         "artiste": "Artist or original group:",
         "juridiction": "Jurisdiction",
         "ayantDroit": "Collaborators",
-        "genre": "Main genra",
-        "genre2": "Secondary genras",
-        "ajouter-genre": "Add a genre",
+        "genre": "Main genre",
+        "genre2": "Secondary genres",
+        "ajouter-genre": "Add as a genre:",
         "paroles": "Lyrics",
         "langueParoles": "Lyric's languages",
         "isrc": "ISRC Code  ",
@@ -118,6 +118,7 @@
   },
   "navigation": {
     "suivant": "Next",
+    "retour": "Back",
     "envoi": "Submit",
     "precedent": "Previous",
     "reinitialiser": "Reset",
@@ -220,8 +221,8 @@
         "titre": "Add a collaborating artist",
         "attribut": {
           "etiquette": {
-            "nom": "Last Name",
-            "prenom": "First Name",
+            "nom": "Last Name (legal)",
+            "prenom": "First Name (legal)",
             "artiste": "Artist Name (aka)  ",
             "option": " (optional)",
             "na": "If not applicable, the complete name is displayed.",
@@ -317,7 +318,9 @@
           "titre1-description": "That's where you mention who contributed to the creation of this piece.",
           "date-creation": "Creation Date",
           "date-placeholder": "Add a date",
+          "date-sortie": "Release Date",
           "auteur": "Authors  ",
+          "auteur-parole": "Authors (lyrics)",
           "collabo": "Create a new controbutor",
           "auteur-description": "Who wrote the lyrics of this musical piece?",
           "auteur-placeholder": "Add an Author",
@@ -325,15 +328,18 @@
           "graphiste-description": "Who did the artwork?",
           "graphiste": "Illustrators  ",
           "compositeur": "Composers  ",
+          "compositeur-musique": "Composers (music)",
           "compositeur-description": "Who composed the music of this piece?",
           "compositeur-placeholder": "Add a Composer",
           "arrangeur": "Remixers  ",
+          "arrangeur-musique": "Remixers (music)",
           "arrangeur-description": "Who remixed the music of this piece?",
           "arrangeur-placeholder": "Add a remixer",
           "editeur": "Editors  ",
           "editeur-description": "Who represents these authors and/or composers?",
           "editeur-placeholder": "Add an editor",
           "codeiswc": "ISWC Code  ",
+          "iswc": "ISWC",
           "codeiswc-description": "The International Standard Work Code is a unique identifying code for music work.",
           "codeiswc-placeholder": "T-012345678-1",
           "titre2": "Who played the musical piece on this sound recording?",
@@ -413,7 +419,7 @@
           "autre-etape4": "Upload .MID or .MIDI files only.",
           "acces": "Access",
           "choix": "Choose a file",
-          "glisse": "Or drag your file here",
+          "glisse": "Click here to choose your file",
           "details": "Tell us more about the track.",
           "duree": "Length",
           "public": "Public - Make the information visible for all",
@@ -522,7 +528,9 @@
         },
         "tableaudebord": {
           "collabo": "My Collaborators",
-          "edito": "My Editor"
+          "edito": "My Editor  ",
+          "as-tu": "Do you have an editor?",
+          "later": "Later"
         }
       },
       "traitement": {
@@ -553,6 +561,10 @@
             "email": "Your email",
             "password": "Forgot password"
           }
+        },
+        "protection": {
+          "titre": "Password",
+          "bouton": "ACCESS BETA"
         }
       },
       "tableaudebord": {
@@ -673,6 +685,30 @@
       "partage": "See the proposal",
       "partageCree": "⭐️ Shared proposal created",
       "recupMotDePasse": "Password reset"
+    },
+    "partage": {
+      "titre": "Share this page",
+      "titre1": "Public Page",
+      "titre2": "Secret Page",
+      "titre3": "Modification Page",
+      "sous-titre-1": "What access do you want to grant on this page ?",
+      "public-t": "Public Access",
+      "public-d": "Read-only, cannot modify",
+      "secret-t": "Secret Access",
+      "secret-d": "Read-only, download access to chosen files",
+      "admin-t": "Administrative Access",
+      "admin-d": "Read-write access to everything, can edit",
+      "btn-ok": "Authorize Access",
+      "btn-retour": "Return",
+      "adresse1": "Hyperlink to the public page:",
+      "adresse2": "Hyperlink to team and collaborator page:",
+      "adresse3": "Hyperlink to read-only page:",
+      "envoyer": "Send this link by email",
+      "nom": "Last name",
+      "prenom": "First name",
+      "courriel": "Email",
+      "adrCourriel": "Email adress",
+      "reussi": "Sharing successful, email sent."
     }
   },
   "accueil": {
@@ -731,7 +767,8 @@
     "profil": "My Profile",
     "francais": "Français",
     "anglais": "English",
-    "deconnexion": "Disconnect"
+    "deconnexion": "Disconnect",
+    "parametres": "Settings"
   },
   "deconnexion": {
     "reussie": "Succesfully disconnected"
@@ -754,5 +791,13 @@
     "lien": "Users with the unique shareable link can download the original file. Useful for reporters and the professionals!",
     "prive": "Private - Prevent download.",
     "personne": "Nobody will be able to download, except you."
+  },
+  "sommaire": {
+    "autres": {
+      "info": "Add this information",
+      "piste": "Track title",
+      "tech": "Recording technician",
+      "illustration": "Illustration"
+    }
   }
 }
