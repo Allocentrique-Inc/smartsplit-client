@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Translation } from "react-i18next";
 import axios from "axios";
 import { Auth } from "aws-amplify";
-import { toast } from "react-toastify";
 import LigneMedia from "./tableaudebord-ligne-media";
 import { Modal } from "semantic-ui-react";
 import NouvelleOeuvre from "./tableaudebord-nouvelle-oeuvre";
@@ -10,25 +9,7 @@ import AudioLecture from "../oeuvre/audio-lecture";
 import Yeux from "../../assets/images/yeux.png";
 
 const PANNEAU_INITIATEUR = 1,
-  PANNEAU_COLLABORATEUR = 0;
-
-// Retrait des doublons
-// cleanArray removes all duplicated elements
-// https://www.unicoda.com/?p=579
-function cleanArray(array) {
-  var i,
-    j,
-    len = array.length,
-    out = [],
-    obj = {};
-  for (i = 0; i < len; i++) {
-    obj[array[i]] = 0;
-  }
-  for (j in obj) {
-    out.push(j);
-  }
-  return out;
-}
+      PANNEAU_COLLABORATEUR = 0;
 
 export default class ListePieces extends Component {
   constructor(props) {
@@ -82,12 +63,7 @@ export default class ListePieces extends Component {
       });
       this.setState({ patience: true }, () => {
         Auth.currentSession().then(session => {
-          let that = this;
           let USER_ID = session.idToken.payload.sub;
-
-          // 1. Récupérer tous les médias
-          let initiatorMediaIds = [];
-          let collabMediaIds = [];
 
           axios
             .get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
@@ -100,101 +76,26 @@ export default class ListePieces extends Component {
               this.setState({ rightHolders: _rHParID });
             })
             .catch(err => {
-              console.log(err);
-            });
-
-          // Médias depuis les propositions
-          axios
-            .get("http://dev.api.smartsplit.org:8080/v1/proposal")
-            .then(res => {
-              res.data.forEach(function(item) {
-                if (item.initiator.id === USER_ID) {
-                  initiatorMediaIds.push(item.mediaId); // If initiator
-                } else if (item.initiator.id === undefined) {
-                  toast.error("Initiator undefined");
-                }
-                if (JSON.stringify(item.rightsSplits).includes(USER_ID)) {
-                  collabMediaIds.push(item.mediaId); // If collaborator
-                } else if (item.rightsSplits === undefined) {
-                  toast.error("rightsSplits object error");
-                }
-              });
-
-              initiatorMediaIds = cleanArray(initiatorMediaIds);
-              collabMediaIds = cleanArray(collabMediaIds);
-
-              let _medias = [];
-              let ii = "";
-              let _collabMedias = [];
-              let jj = "";
-
-              initiatorMediaIds.forEach(async function(element) {
-                const res = await axios.get(
-                  "http://dev.api.smartsplit.org:8080/v1/media/" + element
-                );
-                if (res.data.Item) {
-                  _medias.push(res.data.Item);
-                }
-                ii++;
-                if (initiatorMediaIds.length === ii) {
-                  that.setState({ medias: _medias });
-                }
-                that.collecte({ medias: true });
-              });
-
-              collabMediaIds.forEach(async function(elm) {
-                const res = await axios.get(
-                  "http://dev.api.smartsplit.org:8080/v1/media/" + elm
-                );
-                if (res.data.Item) {
-                  _collabMedias.push(res.data.Item);
-                }
-                jj++;
-                if (collabMediaIds.length === jj) {
-                  that.setState({ collabMedias: _collabMedias });
-                }
-                that.collecte({ collab: true });
-              });
-
-              if (initiatorMediaIds.length === 0) {
-                that.collecte({ medias: true });
-              }
-
-              if (collabMediaIds.length === 0) {
-                that.collecte({ collab: true });
-              }
+              console.log(err)
             })
-            .catch(error => {
-              toast.error(error.message);
-            });
 
-          // Médias depuis les médias
-          let _cM = [];
           axios
-            .get("http://dev.api.smartsplit.org:8080/v1/media")
+            .get(`http://dev.api.smartsplit.org:8080/v1/media/liste-createur/${USER_ID}`)
             .then(res => {
-              let kk = 0;
-              res.data.forEach(m => {
-                // Si l'usager est le créateur il peut voir l'oeuvre
-                if (USER_ID === m.creator) {
-                  _cM.push(m);
-                }
-                kk++;
-                if (kk === res.data.length) {
-                  this.setState({ creatorMedias: _cM });
-                }
-              });
+              // Associe la liste des médias créés ou les médias pour lesquels une proposition est créée,
+              // dans les deux cas, par l'usager.
+              this.setState({ creatorMedias: res.data }, ()=>this.setState({ patience: false }))
             })
-            .catch(err => console.log(err));
-        });
-      });
+            .catch(err => console.log(err))
+        })
+      })
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
   }
 
   modaleNouvelleOeuvre(ouvert = true) {
-    this.setState({ modaleOeuvre: ouvert });
+    this.setState({ modaleOeuvre: ouvert })
   }
 
   render() {
@@ -368,7 +269,7 @@ export default class ListePieces extends Component {
           <div>
             {!this.state.patience && (
               <div>
-                <div className="ui grid">
+                <div className="ui grid" style={{paddingLeft: "40px"}}>
                   <div className="ui row">
                     <div className="heading2 ten wide column">
                       {t("flot.split.tableaudebord.navigation.0")}

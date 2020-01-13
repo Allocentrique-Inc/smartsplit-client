@@ -104,7 +104,7 @@ export default class SommaireOeuvre extends Component {
                                     <div className="ui eleven wide column">
                                         <div className="ui row">
                                             <div className="ui twelve wide column grid">
-                                                <div className="ui one wide column">
+                                                <div className="ui two wide column">
                                                     <img alt="Vignette" style={{width: "64px", height: "64px"}} src={imageSrc} />                                                    
                                                 </div>
                                                 <div className="ui fourteen wide column">

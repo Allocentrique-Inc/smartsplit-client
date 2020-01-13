@@ -261,10 +261,8 @@ class AssistantPartage extends Component {
                         let body = {
                             uuid: "",
                             mediaId: parseInt(`${this.state.mediaId}`),
-                            initiator: {
-                                "name": `${this.state.user.attributes.given_name} ${this.state.user.attributes.family_name}`,
-                                "id": this.state.user.username
-                            },
+                            initiatorUuid: this.state.user.username,
+                            initiatorName: `${this.state.user.attributes.given_name} ${this.state.user.attributes.family_name}`,
                             rightsSplits: {
                                 "workCopyrightSplit": {
                                     "lyrics": droitAuteurParoles,

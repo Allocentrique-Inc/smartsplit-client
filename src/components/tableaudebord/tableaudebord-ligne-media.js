@@ -11,10 +11,11 @@ export default class LigneMedia extends Component {
     super(props);
     this.state = {
       pochette: props.pochette,
-      media: props.media,
+      media: props.media,      
       user: props.user,
-      rightHolders: props.rightHolders
-    };
+      rightHolders: props.rightHolders,
+      p0: props.media.propositions.length > 0 ? props.media.propositions[0] : undefined
+    }
     this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this);
   }
 
@@ -24,25 +25,7 @@ export default class LigneMedia extends Component {
     }
   }
 
-  componentWillMount() {
-    // Récupération de la dernière proposition du média
-    axios
-      .get(
-        `http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.media.mediaId}`
-      )
-      .then(res => {
-        let _pS = res.data;
-        let _p0;
-        _pS.forEach(elem => {
-          if (!_p0) {
-            _p0 = elem;
-          }
-          if (_p0._d < elem._d) {
-            _p0 = elem;
-          }
-        });
-        this.setState({ p0: _p0 });
-      });
+  componentWillMount() {    
   }
 
   modalePropositionEnCours(ouvrir = true) {
@@ -69,7 +52,7 @@ export default class LigneMedia extends Component {
       }
       if (
         _p.etat === "BROUILLON" &&
-        _p.initiator.id === this.state.user.username
+        _p.initiatorUuid === this.state.user.username
       ) {
         continuerDisabled = false;
       }
@@ -134,20 +117,18 @@ export default class LigneMedia extends Component {
                     &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
                   </div>
                 </div>
-                <div className="ui six wide column etat">
-                  <div>
-                    {!pochette && _p && (
-                      <div className="ui huge label etat">
-                        {t(`flot.split.etat.${_p.etat}`)}
-                      </div>
-                    )}
-                  </div>
+                <div className={`ui eight wide column etat`} style={{float: "right"}}>
+                  {!pochette && _p && (
+                    <div className="ui huge label etat">
+                      {t(`flot.split.etat.${_p.etat}`)}
+                    </div>
+                  )}
 
                   {!pochette && !continuerDisabled && (
                     <div
-                      className={`ui medium button options ${pochette}`}
+                      className={`ui medium button options ${pochette}`}                      
                       onClick={() => {
-                        window.location.href = `/partager/existant/${_p.uuid}`;
+                        window.location.href = `/partager/existant/${_p.uuid}`
                       }}
                     >
                       {t(
@@ -155,11 +136,9 @@ export default class LigneMedia extends Component {
                       )}
                     </div>
                   )}
-                  <div className="two wide column" />
-                  <div className="ui six wide column etat">
-                    {!pochette && !nouveauDisabled && (
+                  {!pochette && !nouveauDisabled && (
                       <div
-                        className={`ui medium button options ${pochette}`}
+                        className={`ui medium button options ${pochette}`}                        
                         onClick={() => {
                           // Détecter si la proposition est verrouillée
                           if (
@@ -193,7 +172,6 @@ export default class LigneMedia extends Component {
                         )}
                       </div>
                     )}
-                  </div>
                   {!pochette && !sommaireDisabled && (
                     <div
                       className={`ui medium button options ${pochette}`}
