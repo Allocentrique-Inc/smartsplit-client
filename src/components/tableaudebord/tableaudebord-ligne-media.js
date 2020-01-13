@@ -128,7 +128,7 @@ export default class LigneMedia extends Component {
                     <div
                       className={`ui medium button options ${pochette}`}                      
                       onClick={() => {
-                        window.location.href = `/partager/existant/${_p.uuid}`;
+                        window.location.href = `/partager/existant/${_p.uuid}`
                       }}
                     >
                       {t(

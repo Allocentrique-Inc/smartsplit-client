@@ -135,9 +135,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
         // Récupérer la liste des ayant-droits          
         axios.get(`http://dev.api.smartsplit.org:8080/v1/entities`)
             .then(res => {
-
                 let aOptions = []
-
                 res.data.forEach((elem) => {
                     if (!this.state.rightHolderId || elem.members.includes(this.state.rightHolderId)) {
                         aOptions.push({
@@ -186,7 +184,8 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
                                             options: this.state.options,
                                             allowAdditions: this.state.ajout,
                                             onAddItem: this.surAjout,
-                                            clearable: false
+                                            clearable: false,
+                                            trigger: (<div>Allô</div>)
                                         }} />
                                 )
                             }
