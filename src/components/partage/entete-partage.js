@@ -248,7 +248,6 @@ class EntetePartage extends Component {
   render() {
 
     let imageSrc = placeholder
-    console.log(this.state)
     if(this.state.media) {
         let elem = this.state.media        
         if(elem.files && elem.files.cover && elem.files.cover.files && elem.files.cover.files.length > 0) {

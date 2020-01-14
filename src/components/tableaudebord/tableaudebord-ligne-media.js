@@ -1,10 +1,14 @@
-import React, { Component } from "react";
-import { Translation } from "react-i18next";
-import moment from "moment";
-import axios from "axios";
-import ModalPropositionEnCours from "../modales/modale-proposition-encours";
-import placeholder from '../../assets/images/placeholder.png';
-import "../../assets/scss/tableaudebord/tableaudebord.scss";
+import React, { Component } from "react"
+import { Translation } from "react-i18next"
+import moment from "moment"
+import axios from "axios"
+import ModalPropositionEnCours from "../modales/modale-proposition-encours"
+import placeholder from '../../assets/images/placeholder.png'
+import "../../assets/scss/tableaudebord/tableaudebord.scss"
+import OptionsMedia from "./options-media"
+import Utilitaires from '../../utils/utilitaires'
+
+const textToImage = require("text-to-image")
 
 export default class LigneMedia extends Component {
   constructor(props) {
@@ -16,32 +20,130 @@ export default class LigneMedia extends Component {
       rightHolders: props.rightHolders,
       p0: props.media.propositions.length > 0 ? props.media.propositions[0] : undefined
     }
-    this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this);
+    if(this.props.rightHolders && Object.keys(this.props.rightHolders).length > 0) {
+      this.genererAvatars()
+    }
+    // Mise en contexte
+    this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
+    this.utils = new Utilitaires(1)
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.rightHolders !== nextProps.rightHolders) {
-      this.setState({ rightHolders: nextProps.rightHolders });
+      this.setState({ rightHolders: nextProps.rightHolders }, ()=>this.genererAvatars());
     }
   }
 
   componentWillMount() {    
   }
 
+  genererAvatars() {
+    // Structure des avatars
+    this.avatars = []
+    let _avatars = {}    
+    if(this.state.media.rightHolders) {
+      let cpt = 0 // Compteur du nombre d'avatar générés
+      this.state.media.rightHolders.forEach(r=>{      
+        if(!this.avatars[r.id]) {        
+          let nom, prenom, nomArtiste, dataUri, uuid
+          if(this.state.rightHolders[r.id]) {        
+            uuid = this.state.rightHolders[r.id].rightHolderId
+            nom = this.state.rightHolders[r.id].lastName
+            prenom = this.state.rightHolders[r.id].firstName
+            nomArtiste = this.state.rightHolders[r.id].artistName
+            // Afficher les initiales si l'avatar est 'image.jpg' ou est inconnu (vide)
+            if(!this.state.rightHolders[r.id].avatarImage || this.state.rightHolders[r.id].avatarImage === "image.jpg") {
+              console.log(this.state.rightHolders)
+              // Générer les initiales
+              let P = "", N = ""
+                if (this.state.rightHolders[r.id].firstName && this.state.rightHolders[r.id].firstName.length > 0)
+                  P = this.state.rightHolders[r.id].firstName.charAt(0).toUpperCase()
+                if (this.state.rightHolders[r.id].lastName && this.state.rightHolders[r.id].lastName.length > 0)
+                  N = this.state.rightHolders[r.id].lastName.charAt(0).toUpperCase()
+              console.log(P, N)
+              textToImage.generate(`${P}${N}`).then(dataUri => {
+                _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
+                cpt++
+                if(cpt === this.state.media.rightHolders.length) {
+                  // Tous les avatars sont générés
+                  Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
+                  this.setState({avatars: _avatars})
+                }
+              })
+            } else {
+              dataUri = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.rightHolders[r.id].avatarImage}`
+              _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
+              cpt++
+              if(cpt === this.state.media.rightHolders.length) {
+                // Tous les avatars sont générés
+                Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
+                this.setState({avatars: _avatars})
+              }
+            }
+          } else {
+            dataUri = `https://smartsplit-images.s3.us-east-2.amazonaws.com/image.jpg`
+            _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
+            cpt++
+            if(cpt === this.state.media.rightHolders.length) {
+              // Tous les avatars sont générés
+              Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
+              this.setState({avatars: _avatars})
+            }
+          }
+        }
+      })
+    }
+  }
+
   modalePropositionEnCours(ouvrir = true) {
     this.setState({ modalePropositionEnCours: ouvrir });
   }
 
-  render() {
-    let pochette = this.state.pochette ? "pochette" : "";
+  renderAvatars() {
+    let arrAvatars = []
+    Object.keys(this.state.avatars).forEach(a=>{
+      arrAvatars.push(this.state.avatars[a])
+    })
+    const maxDisplayedAvatars = 5
+    const displayedAvatars = Math.min(maxDisplayedAvatars, this.state.avatars.length)
+    const undisplayedAvatars = this.state.avatars.length - displayedAvatars
+    console.log(arrAvatars)
+    let _avatars = arrAvatars
+      .slice(0, maxDisplayedAvatars)
+      .map((avatar, index) => {
+        const zIndex = displayedAvatars + 2 - index;
+        return (
+          <div key={`avatar_${index}`} className={"avatar"} style={{ zIndex, display: "inline"}}>
+            <img height="12px" src={avatar.dataUri} alt={`${avatar.prenom} ${avatar.nom} ${avatar.nomArtiste ? `(${avatar.nomArtiste})` : ""}`} title={`${avatar.prenom} ${avatar.nom} ${avatar.nomArtiste ? `(${avatar.nomArtiste})` : ""}`} />
+          </div>
+        )
+      })
+    if(this.state.avatars.length >= maxDisplayedAvatars) {
+      let autres = ""
+      this.state.avatars.slice(maxDisplayedAvatars, this.state.avatars.length).forEach(e=>{
+        autres = autres + `${e.prenom} ${e.nom} ${e.nomArtiste ? `(${e.nomArtiste})` : ""}\n`
+      })
+      _avatars = _avatars.concat([
+        <div key={`more-tag-avatar`} className={"more-tag"}  title={autres} >+{undisplayedAvatars}
+        </div>
+      ])
+    }
+    return _avatars
+  }
 
-    let elem = this.state.media;
-    let _p = this.state.p0;
+  supprimer(mediaId) {
+    this.setState({mediaASupprimer: mediaId}, ()=>this.setState({supprimer: true}))
+  }
+
+  render() {
+    let pochette = this.state.pochette ? "pochette" : ""
+    let elem = this.state.media
+    let _p = this.state.p0
 
     let nouveauDisabled = false,
       continuerDisabled = true,
       sommaireDisabled = true,
-      votationDisabled = true;
+      votationDisabled = true
 
     if (_p && this.state.user) {
       if (_p.etat !== "REFUSE") {
@@ -72,10 +174,15 @@ export default class LigneMedia extends Component {
 
     moment.defaultFormat = "DD-MM-YYYY HH:mm"
 
+    let avatars
+    if(this.state.avatars) {
+      avatars = this.renderAvatars()
+    }
+
     return (
       <Translation>
         {(t, i18n) => (
-          <div className="hautColonne">
+          <div className="_hautColonne">
             <div className="ui grid">
               <div className="ui row">
                 <div
@@ -91,14 +198,7 @@ export default class LigneMedia extends Component {
                   <img className={ 'song-image' } style={{width: "40px", height: "40PX", right: "0px", position: "absolute"}} src={ imageSrc } alt={ this.props.media.title } />
                 </div>
                 <div
-                  className="ui seven wide column cliquable"
-                  onClick={() => {
-                    if (!pochette) {
-                      window.location.href = `/oeuvre/sommaire/${elem.mediaId}`;
-                    } else {
-                      window.location.href = `/documenter/${elem.mediaId}`;
-                    }
-                  }}
+                  className="ui eight wide column"                  
                 >
                   <div className="song-name">{`${elem.title}`}</div>
                   <div className="small-400">
@@ -115,9 +215,10 @@ export default class LigneMedia extends Component {
                         .locale(i18n.lng.substring(0, 2))
                         .fromNow()}{" "}
                     &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
+                    <div className={"avatars"} style={{display: "inline", marginLeft: "12px"}}>{avatars}</div>
                   </div>
                 </div>
-                <div className={`ui eight wide column etat`} style={{float: "right"}}>
+                <div className={`ui three wide column etat`} style={{float: "right"}}>
                   {!pochette && _p && (
                     <div className="ui huge label etat">
                       {t(`flot.split.etat.${_p.etat}`)}
@@ -126,7 +227,7 @@ export default class LigneMedia extends Component {
 
                   {!pochette && !continuerDisabled && (
                     <div
-                      className={`ui medium button options ${pochette}`}                      
+                      className={`ui medium button options ${pochette}`}
                       onClick={() => {
                         window.location.href = `/partager/existant/${_p.uuid}`
                       }}
@@ -138,7 +239,7 @@ export default class LigneMedia extends Component {
                   )}
                   {!pochette && !nouveauDisabled && (
                       <div
-                        className={`ui medium button options ${pochette}`}                        
+                        className={`small-500-color ${pochette} cliquable`}
                         onClick={() => {
                           // Détecter si la proposition est verrouillée
                           if (
@@ -163,7 +264,7 @@ export default class LigneMedia extends Component {
                                 console.log(err);
                               });
                           } else {
-                            this.modalePropositionEnCours();
+                            this.modalePropositionEnCours()
                           }
                         }}
                       >
@@ -192,17 +293,7 @@ export default class LigneMedia extends Component {
                       {t("flot.split.documente-ton-oeuvre.proposition.voter")}
                     </div>
                   )}
-
-                  {pochette && (
-                    <div
-                      className={`ui medium button options ${pochette}`}
-                      onClick={() => {
-                        window.location.href = `/documenter/${this.state.media.mediaId}`;
-                      }}
-                    >
-                      {t("flot.split.documente-ton-oeuvre.titre")}
-                    </div>
-                  )}
+                  
                   {this.state.media.initiateurPropositionEnCours && this.state.rightHolders &&
                     this.state.rightHolders[
                       this.state.media.initiateurPropositionEnCours
@@ -221,8 +312,18 @@ export default class LigneMedia extends Component {
                       />
                     )}                  
                 </div>
+                <div className={`ui three wide column`} style={{float: "right"}}>                  
+                  <div className={`small-500-color ${pochette} cliquable`} onClick={()=>this.utils.naviguerVersDocumentation(this.state.media.mediaId)}>
+                    {t(
+                      "flot.split.documente-ton-oeuvre.titre"
+                    )}
+                  </div>
+                </div>
+                <div className={`ui one wide column`} style={{float: "right"}}>
+                  <OptionsMedia reenvoyer={this.reenvoyerAuxCollaborateurs} supprimer={this.supprimer} user={this.state.user} ayantDroit={this.state.user.username} media={this.state.media} />
+                </div>
               </div>
-            </div>
+            </div>            
           </div>
         )}
       </Translation>

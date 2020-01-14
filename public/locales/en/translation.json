@@ -1,4 +1,11 @@
 {
+  "media": {
+    "options": {
+      "reenvoyer": "Resend to collaborators",
+      "sommaire": "Summary",
+      "supprimer": "Delete"
+    }
+  },
   "info": {
     "oeuvre": {
       "creation": "Work # {{id}} created. :)"
