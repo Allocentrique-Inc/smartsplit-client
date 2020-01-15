@@ -73,7 +73,7 @@ export default class SommaireOeuvre extends Component {
         if (this.state.media) {
 
             let artiste = this.state.media.artist
-            let contenu = (<div className="ui nine wide column"></div>)
+            let contenu = (<div className="ui seven wide column"></div>)
 
             let imageSrc = placeholder
             if(this.state.media) {
@@ -95,7 +95,7 @@ export default class SommaireOeuvre extends Component {
                             <div className="ui grid">                                 
                                 <div className="ui row" style={{ background: "#FAF8F9" }}>
                                     <div className="ui one wide column"></div>
-                                    <div className="ui twelve wide column">
+                                    <div className="ui sixteen wide column">
                                         <Entete contenu={contenu} navigation={'/accueil'} profil={this.state.user} />                               
                                     </div>
                                 </div>

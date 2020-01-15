@@ -13,7 +13,8 @@ export default class OptionsMedia extends Component {
         this.state = {
             ayantDroit: props.ayantDroit,
             media: props.media,
-            user: props.user
+            user: props.user,
+            etat: props.etat
         }
         this.utils = new Utilitaires(1) // Créé un utilitaire avec le contexte WEB
     }
@@ -33,7 +34,7 @@ export default class OptionsMedia extends Component {
                                     {
                                         this.state.media.propositions.length > 0 && 
                                         this.state.media.propositions[0].initiatorUuid === this.state.user.username &&
-                                        this.state.media.etat === "VOTATION" &&
+                                        this.state.media.propositions[0].etat === "VOTATION" &&
                                         (
                                             <Dropdown.Item
                                                 text={t("media.options.reenvoyer")}

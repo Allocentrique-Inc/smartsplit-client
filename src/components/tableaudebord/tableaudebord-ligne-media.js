@@ -7,6 +7,7 @@ import placeholder from '../../assets/images/placeholder.png'
 import "../../assets/scss/tableaudebord/tableaudebord.scss"
 import OptionsMedia from "./options-media"
 import Utilitaires from '../../utils/utilitaires'
+import EtatMedia from './etat-media'
 
 const textToImage = require("text-to-image")
 
@@ -135,32 +136,41 @@ export default class LigneMedia extends Component {
     this.setState({mediaASupprimer: mediaId}, ()=>this.setState({supprimer: true}))
   }
 
+  surNouveau() {
+    // Détecter si la proposition est verrouillée
+    if (
+      this.state.media &&
+      ((this.state.media.initiateurPropositionEnCours &&
+        this.state.media.initiateurPropositionEnCours.trim() ===
+          "") ||
+        !this.state.media.initiateurPropositionEnCours ||
+        this.state.media.initiateurPropositionEnCours.trim() ===
+          this.state.user.username)
+    ) {
+      // Verrouiller la proposition
+      axios
+        .put(
+          `http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,
+          { rightHolderId: this.state.user.username }
+        )
+        .then(res => this.utils.naviguerVersNouveauPartage(this.state.media.mediaId))
+        .catch(err => console.log(err))
+    } else {
+      this.modalePropositionEnCours()
+    }
+  }
+
   render() {
     let pochette = this.state.pochette ? "pochette" : ""
     let elem = this.state.media
     let _p = this.state.p0
 
-    let nouveauDisabled = false,
-      continuerDisabled = true,
-      sommaireDisabled = true,
-      votationDisabled = true
+    let nouveauDisabled = false
 
     if (_p && this.state.user) {
       if (_p.etat !== "REFUSE") {
         nouveauDisabled = true;
-      }
-      if (_p.etat === "PRET" || _p.etat === "ACCEPTE") {
-        sommaireDisabled = false;
-      }
-      if (
-        _p.etat === "BROUILLON" &&
-        _p.initiatorUuid === this.state.user.username
-      ) {
-        continuerDisabled = false;
-      }
-      if (_p.etat === "VOTATION") {
-        votationDisabled = false;
-      }
+      }      
     }
 
     let imageSrc = placeholder
@@ -219,81 +229,22 @@ export default class LigneMedia extends Component {
                   </div>
                 </div>
                 <div className={`ui three wide column etat`} style={{float: "right"}}>
-                  {!pochette && _p && (
-                    <div className="ui huge label etat">
-                      {t(`flot.split.etat.${_p.etat}`)}
-                    </div>
-                  )}
 
-                  {!pochette && !continuerDisabled && (
-                    <div
-                      className={`ui medium button options ${pochette}`}
-                      onClick={() => {
-                        window.location.href = `/partager/existant/${_p.uuid}`
-                      }}
-                    >
-                      {t(
-                        "flot.split.documente-ton-oeuvre.proposition.continuer"
-                      )}
-                    </div>
+                  {!pochette && _p && _p.etat && (
+                    <EtatMedia media={this.state.media} pochette={this.state.pochette} proposition={_p} />
                   )}
                   {!pochette && !nouveauDisabled && (
                       <div
                         className={`small-500-color ${pochette} cliquable`}
                         onClick={() => {
-                          // Détecter si la proposition est verrouillée
-                          if (
-                            this.state.media &&
-                            ((this.state.media.initiateurPropositionEnCours &&
-                              this.state.media.initiateurPropositionEnCours.trim() ===
-                                "") ||
-                              !this.state.media.initiateurPropositionEnCours ||
-                              this.state.media.initiateurPropositionEnCours.trim() ===
-                                this.state.user.username)
-                          ) {
-                            // Verrouiller la proposition
-                            axios
-                              .put(
-                                `http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,
-                                { rightHolderId: this.state.user.username }
-                              )
-                              .then(res => {
-                                window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
-                              })
-                              .catch(err => {
-                                console.log(err);
-                              });
-                          } else {
-                            this.modalePropositionEnCours()
-                          }
+                          this.surNouveau(this.state.media.mediaId)
                         }}
                       >
                         {t(
                           "flot.split.documente-ton-oeuvre.proposition.nouvelle"
                         )}
                       </div>
-                    )}
-                  {!pochette && !sommaireDisabled && (
-                    <div
-                      className={`ui medium button options ${pochette}`}
-                      onClick={() => {
-                        window.location.href = `/partager/${this.state.media.mediaId}`;
-                      }}
-                    >
-                      {t("flot.split.sommaire.titre")}
-                    </div>
-                  )}
-                  {!pochette && !votationDisabled && (
-                    <div
-                      className={`ui medium button options ${pochette}`}
-                      onClick={() => {
-                        window.location.href = `/partager/${this.state.media.mediaId}`;
-                      }}
-                    >
-                      {t("flot.split.documente-ton-oeuvre.proposition.voter")}
-                    </div>
-                  )}
-                  
+                    )}                  
                   {this.state.media.initiateurPropositionEnCours && this.state.rightHolders &&
                     this.state.rightHolders[
                       this.state.media.initiateurPropositionEnCours
@@ -320,7 +271,12 @@ export default class LigneMedia extends Component {
                   </div>
                 </div>
                 <div className={`ui one wide column`} style={{float: "right"}}>
-                  <OptionsMedia reenvoyer={this.reenvoyerAuxCollaborateurs} supprimer={this.supprimer} user={this.state.user} ayantDroit={this.state.user.username} media={this.state.media} />
+                  <OptionsMedia 
+                    reenvoi={()=>this.utils.naviguerVersEnvoyerAuxCollaborateurs(this.state.media.mediaId)} 
+                    supprimer={this.supprimer} 
+                    user={this.state.user} 
+                    ayantDroit={this.state.user.username} 
+                    media={this.state.media} />
                 </div>
               </div>
             </div>            

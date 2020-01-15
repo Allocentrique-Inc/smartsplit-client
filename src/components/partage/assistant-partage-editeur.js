@@ -171,7 +171,7 @@ class AssistantPartageEditeur extends Component {
                         (t, i18n)=>
                             <div className="ui grid" style={{padding: "10px"}}>
                                 {!this.state.sansentete && 
-                                    <EntetePartage media={this.state.media} user={this.state.user} />}                                
+                                    <EntetePartage enregistrerEtAllerAuSommaire={this.props.enregistrerEtAllerAuSommaire} media={this.state.media} user={this.state.user} />}                                
                                 <div className="ui row">
                                     <div className="ui two wide column" />
                                     <div className="ui twelve wide column">
