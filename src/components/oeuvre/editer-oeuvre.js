@@ -41,21 +41,26 @@ class EditerOeuvre extends Component {
   }
 
   componentWillMount() {
-
-    if(this.state.jeton) {
-      console.log('jeton', this.state.jeton)
-      axios.post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {jeton: this.state.jeton})
-      .then(res=>{
-        console.log(res, this.state.mediaId)
-        if(this.state.mediaId && parseInt(this.state.mediaId) === res.data.mediaId && res.data.acces === 3) {
-          this.chargement(true)
-        }
-      })
-      .catch(err=>console.log(err))
+    if (this.state.jeton) {
+      console.log("jeton", this.state.jeton);
+      axios
+        .post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {
+          jeton: this.state.jeton
+        })
+        .then(res => {
+          console.log(res, this.state.mediaId);
+          if (
+            this.state.mediaId &&
+            parseInt(this.state.mediaId) === res.data.mediaId &&
+            res.data.acces === 3
+          ) {
+            this.chargement(true);
+          }
+        })
+        .catch(err => console.log(err));
     } else {
-      this.chargement()
+      this.chargement();
     }
-    
   }
 
   getMedia(admin, response = false) {
@@ -83,20 +88,19 @@ class EditerOeuvre extends Component {
     }
   }
 
-  chargement(admin = false) {    
-    if(!admin) {
+  chargement(admin = false) {
+    if (!admin) {
       Auth.currentAuthenticatedUser()
-      .then(response => {
-        this.getMedia(admin, response)
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ modaleConnexion: true });
-      })
+        .then(response => {
+          this.getMedia(admin, response);
+        })
+        .catch(error => {
+          console.log(error);
+          this.setState({ modaleConnexion: true });
+        });
     } else {
-      this.getMedia(admin)
+      this.getMedia(admin);
     }
-    
   }
 
   nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
@@ -194,20 +198,20 @@ class EditerOeuvre extends Component {
 
       if (lyrics && lyrics.text) lyrics.text = lyrics.text.trim();
 
-      if(!_m.files) {
-        _m.files = {}
+      if (!_m.files) {
+        _m.files = {};
       }
-      if(!_m.files.cover || !_m.files.cover.files) {
-        _m.files.cover = {files: []}
+      if (!_m.files.cover || !_m.files.cover.files) {
+        _m.files.cover = { files: [] };
       }
-      if(!_m.files.midi || !_m.files.midi.files) {
-          _m.files.midi = {files: []}
+      if (!_m.files.midi || !_m.files.midi.files) {
+        _m.files.midi = { files: [] };
       }
-      if(!_m.files.score || !_m.files.score.files) {
-          _m.files.score = {files: []}
+      if (!_m.files.score || !_m.files.score.files) {
+        _m.files.score = { files: [] };
       }
-      if(!_m.files.audio || !_m.files.audio.files) {
-          _m.files.audio = {files: []}
+      if (!_m.files.audio || !_m.files.audio.files) {
+        _m.files.audio = { files: [] };
       }
 
       valeurs = {
@@ -273,11 +277,11 @@ class EditerOeuvre extends Component {
       .post("http://dev.api.smartsplit.org:8080/v1/media", values)
       .then(response => {
         actions.setSubmitting(false);
-        if(this.state.jeton) {
+        if (this.state.jeton) {
           window.location.href = `/oeuvre/resume/${this.state.jeton}`;
         } else {
           window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
-        }        
+        }
       })
       .catch(error => {
         console.log(error);
@@ -285,7 +289,9 @@ class EditerOeuvre extends Component {
   };
 
   boutonsCouleurPochette() {
-    let boutons = document.getElementsByClassName("ui right floated button");
+    let boutons = document.getElementsByClassName(
+      "ui right floated button pochette"
+    );
     for (var i = 0; i < boutons.length; i++) {
       boutons[i].style.backgroundColor = "#F2724A";
     }
@@ -377,7 +383,7 @@ class EditerOeuvre extends Component {
   }
 
   render() {
-    if ( (this.state.user || this.state.jeton) && this.state.media) {
+    if ((this.state.user || this.state.jeton) && this.state.media) {
       return (
         <Translation>
           {(t, i18n) => (

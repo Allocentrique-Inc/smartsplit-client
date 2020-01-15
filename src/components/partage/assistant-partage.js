@@ -23,6 +23,7 @@ import closeIcon from "../../assets/svg/icons/x.svg";
 import "../../assets/scss/page-assistant/modal.scss";
 import positiveImage from "../../assets/images/positive.png";
 
+
 const ROLES = {
     COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a31",
     AUTEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a33",
@@ -267,6 +268,7 @@ class AssistantPartage extends Component {
                                 "workCopyrightSplit": {
                                     "lyrics": droitAuteurParoles,
                                     "music": droitAuteurMusique
+                                    
                                 },
                                 "performanceNeighboringRightSplit": {
                                     "principal": droitInterpretePrincipal,
@@ -474,7 +476,8 @@ class AssistantPartage extends Component {
                                                     right: 0,
                                                     paddingTop: "15px",
                                                     background: "#fff",
-                                                    boxShadow: "0 0 5px rgba(0,0,0,0.5)"
+                                                    boxShadow: "0 0 5px rgba(0,0,0,0.5)",
+                                                    pochette: this.state.pochette
                                                 }}>
                                                     <div className="ui grid">
                                                         <div className="ui row">

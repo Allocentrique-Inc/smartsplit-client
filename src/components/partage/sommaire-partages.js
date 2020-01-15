@@ -28,6 +28,8 @@ import InfoBulle from '../partage/InfoBulle';
 
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
+import { StarSVG } from "../svg/SVG";
+
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
