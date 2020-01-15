@@ -5,13 +5,16 @@ import { Trackbar } from "./trackbar";
 import { Translation } from "react-i18next";
 import MenuProfil from "../entete/menu-profil";
 
+import Utilitaires from '../../utils/utilitaires'
+
 export class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       profil: props.profil,
       media: props.media
-    }    
+    }
+    this.utils = new Utilitaires(1) // Contexte WEB
   }  
 
   componentWillReceiveProps(nextProps) {
@@ -45,11 +48,11 @@ export class Navbar extends Component {
                 }
               >
                 <div className="left">
-                  <div className="song-image">
+                  <div className="song-image cliquable" onClick={()=>this.utils.naviguerVersSommaire(this.state.media.mediaId)}>
                     <img alt="oeuvre" src={imageSrc} style={{marginRight: "15px", verticalAlign: "middle"}}/>
                   </div>
 
-                  <div className="song-title cliquable" onClick={()=>window.location.href=`/oeuvre/${this.state.media.mediaId}/resume`} >
+                  <div className="song-title cliquable" onClick={()=>this.utils.naviguerVersSommaire(this.state.media.mediaId)} >
                     {this.state.media && this.state.media.title}
                   </div>
 

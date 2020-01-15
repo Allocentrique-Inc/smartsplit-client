@@ -9,6 +9,8 @@ import PageAssistantPartageDroitAuteur from './assistant-partage-auteur'
 import PageAssistantPartageDroitInterpretation from './assistant-partage-interpretation'
 import PageAssistantPartageDroitEnregistrement from './assistant-partage-enregistrement'
 
+import Utilitaires from '../../utils/utilitaires'
+
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
@@ -48,8 +50,10 @@ class AssistantPartage extends Component {
             currentWizardPage: 0 //Set
         }
         this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
+        this.enregistrerEtAllerAuSommaire = this.enregistrerEtAllerAuSommaire.bind(this)
         this.soumettre = this.soumettre.bind(this)
         this.modaleFin = this.modaleFin.bind(this)
+        this.utils = new Utilitaires(1) // Utilitaire avec version WEB
     }
 
     componentWillMount() {
@@ -120,7 +124,7 @@ class AssistantPartage extends Component {
             })
     }
 
-    soumettre(t, values, etat, cb) {
+    soumettre(t, values, etat, cb, sansBlocage) {
 
         if (this.state.user) {
             let _association = {} // Associera le nom de l'ayant-droit avec son identitifiant unique
@@ -256,7 +260,7 @@ class AssistantPartage extends Component {
                         })
                     })
 
-                    if (values.droitAuteur.length + values.droitInterpretation.length + values.droitEnregistrement.length === 0) {
+                    if (!sansBlocage && values.droitAuteur.length + values.droitInterpretation.length + values.droitEnregistrement.length === 0) {
                         toast.warn(t('info.partage.vide'))
                     } else {
                         let body = {
@@ -351,6 +355,12 @@ class AssistantPartage extends Component {
                 })
                 .catch(error => console.log(error))
         })
+    }
+
+    enregistrerEtAllerAuSommaire(t, valeurs, mediaId) {
+        this.soumettre(t, valeurs, "BROUILLON", () => {
+            this.utils.naviguerVersSommaire(mediaId)
+        }, true)
     }
 
     modaleFin(ouvert = true) {
@@ -504,6 +514,7 @@ class AssistantPartage extends Component {
                                                     <PageAssistantPartageDroitAuteur 
                                                         ayantsDroit={this.state.ayantDroits} 
                                                         enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
                                                         i18n={i18n}
                                                         user={this.state.user}
                                                         media={this.state.media} />
@@ -513,6 +524,7 @@ class AssistantPartage extends Component {
                                                     <PageAssistantPartageDroitInterpretation 
                                                         ayantsDroit={this.state.ayantDroits} 
                                                         enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
                                                         i18n={i18n}
                                                         user={this.state.user}
                                                         media={this.state.media} />
@@ -522,6 +534,7 @@ class AssistantPartage extends Component {
                                                     <PageAssistantPartageDroitEnregistrement 
                                                         ayantsDroit={this.state.ayantDroits} 
                                                         enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
                                                         i18n={i18n} 
                                                         user={this.state.user}
                                                         media={this.state.media} />

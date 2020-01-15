@@ -43,7 +43,7 @@ export default class SommairePartages extends Component {
             panneau: PANNEAU_PROPOSITIONS,
             modaleConnexion: false,
             modaleNouvelle: false,
-            modaleCourriels: false,
+            modaleCourriels: props.envoyer,
             editeur: true
         }
         this.initialisation = this.initialisation.bind(this)
@@ -380,53 +380,7 @@ export default class SommairePartages extends Component {
                                                             <div className="four wide column">
                                                                 {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                             </div>
-                                                        </div>
-                                                        <div>
-                                                            <Modal
-                                                                open={this.state.modaleCourriels}
-                                                                onClose={this.closeModal}
-                                                                size="small"
-                                                                closeIcon
-                                                            >
-                                                                <Modal.Header>
-                                                                    <h2 className="headerFin">{t("flot.split.documente-ton-oeuvre.proposition.titre")}
-                                                                        <div
-                                                                            className="close-icon"
-                                                                            onClick={() => { this.closeModal() }} >
-                                                                        </div>
-                                                                    </h2>
-                                                                </Modal.Header>
-                                                                <Modal.Content className="invitation">
-                                                                    {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
-                                                                    <PageAssistantSplitCourrielsCollaborateurs
-                                                                        onRef={m => this.setState({ courrielsCollaborateurs: m })}
-                                                                        ayantDroits={rightHolders}
-                                                                        propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
-                                                                        close={(cb) => { this.closeModal(); if (cb) cb() }}
-                                                                        mediaId={this.state.mediaId}
-                                                                    />
-                                                                </Modal.Content>
-                                                                <Modal.Actions>
-                                                                    <div className="finaliser">
-                                                                        <div
-                                                                            className="ui negative button"
-                                                                            onClick={this.closeModal}
-                                                                            >
-                                                                            {t("flot.split.collaborateur.attribut.bouton.annuler")}
-                                                                        </div>
-                                                                        <Button
-                                                                            onClick={() => {
-                                                                                this.state.courrielsCollaborateurs.handleSubmit()
-                                                                                this.closeModal()
-                                                                            }}
-                                                                            className={`ui medium button envoie`}
-                                                                        >
-                                                                            {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
-                                                                        </Button>
-                                                                    </div>
-                                                                </Modal.Actions>
-                                                            </Modal>
-                                                        </div>                                                
+                                                        </div>                                                                                                      
                                                     </>
                                                 )
                                             }
@@ -525,6 +479,50 @@ export default class SommairePartages extends Component {
                                                 toast.error(err.message)
                                             })
                                     }} />
+                                </Modal>
+                                <Modal
+                                    open={this.state.modaleCourriels}
+                                    onClose={this.closeModal}
+                                    size="small"
+                                    closeIcon
+                                >
+                                    <Modal.Header>
+                                        <h2 className="headerFin">{t("flot.split.documente-ton-oeuvre.proposition.titre")}
+                                            <div
+                                                className="close-icon"
+                                                onClick={() => { this.closeModal() }} >
+                                            </div>
+                                        </h2>
+                                    </Modal.Header>
+                                    <Modal.Content className="invitation">
+                                        {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
+                                        <PageAssistantSplitCourrielsCollaborateurs
+                                            onRef={m => this.setState({ courrielsCollaborateurs: m })}
+                                            ayantDroits={rightHolders}
+                                            propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
+                                            close={(cb) => { this.closeModal(); if (cb) cb() }}
+                                            mediaId={this.state.mediaId}
+                                        />
+                                    </Modal.Content>
+                                    <Modal.Actions>
+                                        <div className="finaliser">
+                                            <div
+                                                className="ui negative button"
+                                                onClick={this.closeModal}
+                                                >
+                                                {t("flot.split.collaborateur.attribut.bouton.annuler")}
+                                            </div>
+                                            <Button
+                                                onClick={() => {
+                                                    this.state.courrielsCollaborateurs.handleSubmit()
+                                                    this.closeModal()
+                                                }}
+                                                className={`ui medium button envoie`}
+                                            >
+                                                {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
+                                            </Button>
+                                        </div>
+                                    </Modal.Actions>
                                 </Modal>
                             </div>
                     }
