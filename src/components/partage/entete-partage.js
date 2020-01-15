@@ -248,7 +248,6 @@ class EntetePartage extends Component {
   render() {
 
     let imageSrc = placeholder
-    console.log(this.state)
     if(this.state.media) {
         let elem = this.state.media        
         if(elem.files && elem.files.cover && elem.files.cover.files && elem.files.cover.files.length > 0) {
@@ -272,52 +271,62 @@ class EntetePartage extends Component {
                 left: "0px"
               }}
             >
-              <span className="menu-droite" style={{ display: "inline-flex", marginLeft: "20px", marginTop: "10px", marginBottom: "10px" }}>
-                <img alt="Vignette" src={imageSrc} style={{width: "40px", height: "40px"}} />
-                {this.state.media && (
-                  <span
-                    style={{ marginLeft: "15px", lineHeight: "40px" }}
-                    className="medium-400 titre"
-                  >
-                    {this.state.media.title}
-                  </span>
-                )}
-                <div className="heading4" style={{ marginLeft: "50px" }}>
-                  {t("flot.split.documente-ton-oeuvre.etape.partage-titre")}
-
-                  <div
-                    className="ui button negative"
-                    style={{
-                      top: 0,
-                      position: "relative",
-                      left: "430px",
-                      width: "200px"
-                    }}
-                    onClick={() => {
-                      this.props.enregistrerEtQuitter(t, this.props.values);
-                    }}
-                  >
-                    {t(
-                      "flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter"
-                    )}
+              <div className="ui sixteen column grid">
+                <div className="ui row" style={{ display: "inline-flex", marginLeft: "20px", marginTop: "10px", marginBottom: "10px" }}>
+                  <div className="ui one wide column">
+                    <img className="cliquable" onClick={()=>this.props.enregistrerEtAllerAuSommaire(t, this.props.values, this.state.media.mediaId)} alt="Vignette" src={imageSrc} style={{width: "40px", height: "40px"}} />
                   </div>
+                  <div className="ui eight wide column">                    
+                    {this.state.media && (
+                      <span
+                        style={{ marginLeft: "15px", lineHeight: "40px" }}
+                        className="medium-400 titre"
+                      >
+                        {this.state.media.title}
+                      </span>
+                    )}
+                    <div className="heading4" style={{ display: "inline", marginLeft: "50px" }}>
+                      {t("flot.split.documente-ton-oeuvre.etape.partage-titre")}
+                    </div>
+                  </div>
+                  <div className="ui five wide column">
+                    <div
+                      className="ui button negative"
+                      style={{
+                        top: 0,
+                        position: "relative",
+                        float: "right",
+                      }}
+                      onClick={() => {
+                        this.props.enregistrerEtQuitter(t, this.props.values);
+                      }}
+                    >
+                      {t(
+                        "flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter"
+                      )}
+                    </div>
+                  </div>
+                  <div className="ui two wide column">
+                    <MenuProfil
+                      onRef={menu => {
+                        this.setState({ menu: menu });
+                      }}
+                      user={this.state.user}
+                    />
+                  </div>
+                  <span className="menu-droite" >                                                                            
+                    <div
+                      className="menuWrapper"
+                      style={{
+                        position: "absolute",
+                        right: "220px"
+                      }}
+                    >
+                      
+                    </div>
+                  </span>
                 </div>
-                <div
-                  className="menuWrapper"
-                  style={{
-                    position: "absolute",
-                    right: "220px"
-                  }}
-                >
-                  <MenuProfil
-                    onRef={menu => {
-                      this.setState({ menu: menu });
-                    }}
-                    user={this.state.user}
-                  />
-                </div>
-              </span>
-              <br />
+              </div>              
               <Progress percent={this.getProgressPercent()} size="tiny" indicating />
             </div>
             <div className="ui six wide column">

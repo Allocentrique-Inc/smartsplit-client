@@ -157,38 +157,32 @@ export default class ListePieces extends Component {
     let toggle = !this.state.pochette && (
       <Translation>
         {t => (
-          <div>
-            <div className="ui row">
-              <div
-                className="ui one wide column"
-                style={{ fontSize: "16px" }}
-              />
-              <div className="ui twelve wide column">
-                <span
-                  className={`cliquable small-500${
-                    souligneInitiateur ? "-color souligne" : ""
-                  } ${souligneInitiateur && pochette ? "pochette" : ""}`}
-                  onClick={() => {
-                    this.afficherPanneauInitiateur();
-                  }}
-                  style={{ fontSize: "16px" }}
-                >
-                  {t("flot.split.tableaudebord.pieces.0")}
-                </span>
-                &nbsp;&nbsp;
-                <span
-                  className={`cliquable small-500${
-                    souligneCollaborateur ? "-color souligne" : ""
-                  } ${souligneCollaborateur && pochette ? "pochette" : ""}`}
-                  onClick={() => {
-                    this.afficherPanneauCollaborateur();
-                  }}
-                  style={{ fontSize: "16px" }}
-                >
-                  {t("flot.split.tableaudebord.pieces.1")}
-                </span>
-              </div>
-              <div className="ui one wide column" />
+          <div style={{display: "inline"}}>
+            <div style={{paddingBottom: "20px", display: "inline"}} className={`small-500${
+                  souligneInitiateur ? "-color souligne" : " secondaire"
+                } ${souligneInitiateur && pochette ? "pochette" : ""}`}>
+              <span
+                className={`cliquable`}
+                onClick={() => {
+                  this.afficherPanneauInitiateur()
+                }}
+                style={{ fontSize: "16px", color: souligneInitiateur ? "black" : "" }}
+              >
+                {t("flot.split.tableaudebord.pieces.0")}
+              </span>
+            </div>
+            <div style={{paddingBottom: "20px", marginLeft: "40px", display: "inline"}} className={`small-500${
+                  souligneCollaborateur ? "-color souligne" : " secondaire"
+                } ${souligneCollaborateur && pochette ? "pochette" : ""}`}>
+              <span
+                className={`cliquable`}
+                onClick={() => {
+                  this.afficherPanneauCollaborateur()
+                }}
+                style={{ fontSize: "16px", color: souligneCollaborateur ? "black" : "" }}
+              >
+                {t("flot.split.tableaudebord.pieces.1")}
+              </span>
             </div>
           </div>
         )}
@@ -260,7 +254,7 @@ export default class ListePieces extends Component {
           );
         });
       }
-      rendu = <>{tableauMedias}</>;
+      rendu = <div style={{paddingLeft: "40px"}}>{tableauMedias}</div>;
     }
 
     return (
@@ -269,9 +263,9 @@ export default class ListePieces extends Component {
           <div>
             {!this.state.patience && (
               <div>
-                <div className="ui grid" style={{paddingLeft: "40px"}}>
+                <div className="ui grid">
                   <div className="ui row">
-                    <div className="heading2 ten wide column">
+                    <div className="heading2 fifteen wide column" style={{paddingLeft: "0rem", marginRight: "60px"}}>
                       {t("flot.split.tableaudebord.navigation.0")}
                       <div
                         className={`ui three wide column medium button ${pochette}`}
@@ -279,9 +273,7 @@ export default class ListePieces extends Component {
                           this.modaleNouvelleOeuvre();
                         }}
                         style={{
-                          position: "absolute",
-                          left: "100%",
-                          width: "30%"
+                          float: "right"
                         }}
                       >
                         {t("flot.split.tableaudebord.pieces.ajouter")}
@@ -289,12 +281,8 @@ export default class ListePieces extends Component {
                     </div>
                   </div>
                   <div className="ui row">
-                    <div className="ui nine wide column" />
-                  </div>
-                  <div className="ui row">
                     <div className="fifteen wide column">
-                      <div className="medium-500">{toggle}</div>
-                      <br />
+                      <div className="medium-500" style={{marginLeft: "25px", borderBottom: "0.5px solid lightgrey", paddingBottom: "20px", marginBottom: "50px"}}>{toggle}</div>
                       {rendu}
                     </div>
                   </div>

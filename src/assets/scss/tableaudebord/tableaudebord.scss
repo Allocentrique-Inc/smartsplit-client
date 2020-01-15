@@ -368,9 +368,17 @@
   display: flex;
 }
 
+.contenu {
+  padding-top: 40px;
+}
+
 .small-400,
 .small-500-color {
   display: inline-block;
+}
+
+.small-500.secondaire {
+  color: #687A8B
 }
 
 .ui.six.wide.column.etat {

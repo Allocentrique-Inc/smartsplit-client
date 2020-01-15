@@ -114,7 +114,7 @@ class MenuProfil extends Component {
         {t => (
           <span>
             <Dropdown text="" icon={<ChevronDownSVG />} className="down angle">
-              <Dropdown.Menu>
+              <Dropdown.Menu style={{right: "0", left: "auto"}}>
                 <Dropdown.Item onClick={() => window.location.href = "/accueil"}>
                   <React.Fragment>
                     <div className="custom-initials-holder">
@@ -166,43 +166,8 @@ class MenuProfil extends Component {
                   </Dropdown.Item>
                 )}
 
-                {/* <Dropdown.Item
-                  content={nomComplet}
-                  text={this.state.initials}
-                  image={<AvatarInitialsSVG />}
-                /> */}
-
-                {/*  <Dropdown.Item
-                  text={t("menuprofil.profil")}
-                  onClick={() => {
-                    this.ouvrirSocan();
-                  }}
-                /> */}
-
                 <Dropdown.Divider />
-                {/* <Dropdown.Divider />
-
-                {i18n.language && i18n.language.substring(0, 2) === "en" && (
-                  <Dropdown.Item
-                    className="langue"
-                    text={t("menuprofil.francais")}
-                    image={<LangueSVG />}
-                    onClick={() => {
-                      i18n.init({ lng: "fr" });
-                    }}
-                  />
-                )}
-                {i18n.language && i18n.language.substring(0, 2) === "fr" && (
-                  <Dropdown.Item
-                    className="langue"
-                    text={t("menuprofil.anglais")}
-                    image={<LangueSVG />}
-                    onClick={() => {
-                      i18n.init({ lng: "en" });
-                    }}
-                  />
-                )} */}
-
+                
                 <Dropdown.Item
                   className="parametre"
                   text={t("menuprofil.parametre")}
@@ -223,13 +188,7 @@ class MenuProfil extends Component {
               </Dropdown.Menu>
             </Dropdown>
           </span>
-          /*  <Socan
-              pochette={this.props.pochette}
-              open={this.state.modaleSocan}
-              onClose={() => {
-                this.ouvrirSocan(false);
-              }}
-            /> */
+          
         )}
       </Translation>
     );
@@ -237,11 +196,7 @@ class MenuProfil extends Component {
     return (
       <Translation>
         {t => (
-          <>
-            {/*<div className="ui five wide column avatar--image profile"></div>
-            <Label>
-              {nomComplet}
-            </Label> */}
+          <>            
             {!userInitials && (
               <div className="custom-initials-holder2">
                 {

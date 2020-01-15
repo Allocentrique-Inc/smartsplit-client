@@ -330,6 +330,7 @@ class PageAssistantPartageEnregistrement extends Component {
                             <EntetePartage 
                                 values={this.props.values} 
                                 enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
+                                enregistrerEtAllerAuSommaire={this.props.enregistrerEtAllerAuSommaire}
                                 media={this.state.media} 
                                 user={this.props.user} 
                                 currentPage={3} />

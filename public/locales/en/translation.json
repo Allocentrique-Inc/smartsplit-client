@@ -1,4 +1,11 @@
 {
+  "media": {
+    "options": {
+      "reenvoyer": "Resend to collaborators",
+      "sommaire": "Summary",
+      "supprimer": "Delete"
+    }
+  },
   "info": {
     "oeuvre": {
       "creation": "Work # {{id}} created. :)"
@@ -509,6 +516,14 @@
           "donateur": "Creator"
         },
         "proposition": {
+          "etat": {
+            "BROUILLON": "Writing in progress",
+            "PRET": "Ready to submit",
+            "VOTATION": "Waiting for validation",
+            "ACCEPTE": "Accepted",
+            "REFUSE": "Rejected"
+          },
+          "editer": "Edit",
           "titre": "Send the copyright split",
           "sous-titre": "To finalize this split, you have to invite your collaborators to validate it all. Indicate their email addresses to which you are sending your split proposition.",
           "nouvelle": "New musical work",

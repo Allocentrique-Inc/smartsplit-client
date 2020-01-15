@@ -314,7 +314,7 @@ export class SommaireDroit extends Component {
                         </div>
                     </>
                 )
-            })
+            })        
 
             return (
                 <Translation>
