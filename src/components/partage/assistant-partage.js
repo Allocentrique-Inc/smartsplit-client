@@ -479,6 +479,7 @@ class AssistantPartage extends Component {
                                                     uuid: this.state.uuid,
                                                     media: this.state.media
                                                 }}
+                                                pochette={this.props.pochette}
                                                 ButtonsWrapper={(props) => <div style={{
                                                     position: "fixed",
                                                     bottom: 0,

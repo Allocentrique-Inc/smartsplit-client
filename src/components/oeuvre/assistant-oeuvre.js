@@ -258,11 +258,7 @@ class AssistantOeuvre extends Component {
   }
 
   render() {
-    if (this.state.user && this.state.media) {
-      let pochette;
-      if (this.props.pochette) {
-        pochette = `${this.props.pochette ? "pochette" : ""}`;
-      }
+    if (this.state.user && this.state.media) {        
       return (
         <Translation>
           {(t, i18n) => (
