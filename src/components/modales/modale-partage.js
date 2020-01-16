@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Button, Modal } from "semantic-ui-react";
-import eye from "../../../assets/svg/icons/eye.svg";
-import downloadLock from "../../../assets/svg/icons/download-lock.svg";
-import edit from "../../../assets/svg/icons/edit.svg";
-import closeIcon from "../../../assets/svg/icons/x.svg";
-import "../../../assets/scss/page-assistant/modal.scss";
+import eye from "../../assets/svg/icons/eye.svg";
+import downloadLock from "../../assets/svg/icons/download-lock.svg";
+import edit from "../../assets/svg/icons/edit.svg";
+import closeIcon from "../../assets/svg/icons/x.svg";
+import "../../assets/scss/page-assistant/modal.scss";
 import { Translation } from "react-i18next";
 
-import ChampTexte from '../../page-assistant/champ-texte'
+import ChampTexte from '../page-assistant/champ-texte'
 import Axios from "axios";
 import { toast } from "react-toastify";
 

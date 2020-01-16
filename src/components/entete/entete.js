@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import MenuProfil from './menu-profil'
+import MenuProfil from '../navigation/menu-profil'
 
 import { Translation } from 'react-i18next'
 

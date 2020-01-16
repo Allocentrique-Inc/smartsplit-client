@@ -54,14 +54,12 @@ export default class LigneMedia extends Component {
             nomArtiste = this.state.rightHolders[r.id].artistName
             // Afficher les initiales si l'avatar est 'image.jpg' ou est inconnu (vide)
             if(!this.state.rightHolders[r.id].avatarImage || this.state.rightHolders[r.id].avatarImage === "image.jpg") {
-              console.log(this.state.rightHolders)
               // Générer les initiales
               let P = "", N = ""
                 if (this.state.rightHolders[r.id].firstName && this.state.rightHolders[r.id].firstName.length > 0)
                   P = this.state.rightHolders[r.id].firstName.charAt(0).toUpperCase()
                 if (this.state.rightHolders[r.id].lastName && this.state.rightHolders[r.id].lastName.length > 0)
                   N = this.state.rightHolders[r.id].lastName.charAt(0).toUpperCase()
-              console.log(P, N)
               textToImage.generate(`${P}${N}`).then(dataUri => {
                 _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
                 cpt++
@@ -197,20 +195,14 @@ export default class LigneMedia extends Component {
               <div className="ui row">
                 <div
                   className="ui one wide column cliquable"
-                  onClick={() => {
-                    if (!pochette) {
-                      window.location.href = `/oeuvre/sommaire/${elem.mediaId}`;
-                    } else {
-                      window.location.href = `/documenter/${elem.mediaId}`;
-                    }
-                  }}
+                  onClick={() => this.utils.naviguerVersSommaire(elem.mediaId) }
                 >
                   <img className={ 'song-image' } style={{width: "40px", height: "40PX", right: "0px", position: "absolute"}} src={ imageSrc } alt={ this.props.media.title } />
                 </div>
                 <div
                   className="ui eight wide column"                  
                 >
-                  <div className="song-name">{`${elem.title}`}</div>
+                  <div className="song-name cliquable" onClick={() => this.utils.naviguerVersSommaire(elem.mediaId) }>{`${elem.title}`}</div>
                   <div className="small-400">
                     &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
                   </div>
@@ -221,7 +213,7 @@ export default class LigneMedia extends Component {
                   <br />
                   <div className={`small-400-color`}>
                     {i18n.lng &&
-                      moment(elem.creationDate, moment.defaultFormat)
+                      moment(new Date(parseInt(elem.creationDate)))
                         .locale(i18n.lng.substring(0, 2))
                         .fromNow()}{" "}
                     &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}

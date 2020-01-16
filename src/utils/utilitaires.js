@@ -14,6 +14,14 @@ export default class Utilitaires {
         }
     }
 
+    naviguerVersSommaireOeuvre(mediaId) {
+        if(this.contexte === CONTEXTE_WEB) {
+            window.location.href = `/oeuvre/sommaire/${mediaId}`;
+        }
+        if(this.contexte === CONTEXTE_NATIF) {            
+        }
+    }    
+
     naviguerVersDocumentation(mediaId) {
         if(this.contexte === CONTEXTE_WEB) {
             window.location.href = `/documenter/${mediaId}`
