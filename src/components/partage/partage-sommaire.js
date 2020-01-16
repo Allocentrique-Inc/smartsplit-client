@@ -16,6 +16,8 @@ import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
 import Declaration from '../auth/Declaration'
 
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
+
 const ROLES = [
     "principal",
     "accompaniment",
@@ -80,7 +82,7 @@ export class SommaireDroit extends Component {
 
     boutonAccepter(t) {
         return (
-            <div className="ui button medium" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
+            <div className="ui button medium accepte" onClick={() => {
                 this.voter(true)
             }}>{t('flot.split.vote.accepter')}</div>
         )
@@ -88,7 +90,7 @@ export class SommaireDroit extends Component {
 
     boutonRefuser(t) {
         return (
-            <div className="ui button medium red" style={{ cursor: "pointer", display: "inline-block", backgroundColor: "#D1180C" }} onClick={() => {
+            <div className="ui button medium red refus" onClick={() => {
                 this.justifierRefus()
                 this.voter(false)
             }}>
@@ -186,14 +188,15 @@ export class SommaireDroit extends Component {
                         <div key={`part_${uuid}`}>
                             <div className="ui grid">
                                 <div className="ui row">
-                                    <div className="ui sixteen wide column">
+                                    <div className="ui eight wide column">
                                         <div className="holder-name">
                                             <img alt="" className="ui spaced avatar image" src={
                                                 (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
                                                     this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
                                             {part.nom}
                                         </div>
-                                        <div className="ui four wide column" style={{ paddingLeft: "45px" }}>
+                                        <div className="ui four wide column">
+                                        <div className="role">
                                             <Translation>
                                                 {
                                                     t =>
@@ -202,6 +205,7 @@ export class SommaireDroit extends Component {
                                                         })
                                                 }
                                             </Translation>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +213,7 @@ export class SommaireDroit extends Component {
 
                             {
                                 uuid === this.state.ayantDroit.rightHolderId && (
-                                    <div style={{ position: "relative", marginTop: "5px" }}>
+                                    
                                         <Translation>
                                             {
                                                 t =>
@@ -219,18 +223,14 @@ export class SommaireDroit extends Component {
                                                             (
                                                                 <div className="ui grid">
                                                                     <div className="ui row">
-                                                                        <div className="ui one wide column" />
-                                                                        <div className="ui eleven wide column">
+                                                                        <div className="ui eight wide column">
                                                                             <i>{part.raison ? part.raison : ""}</i>
                                                                             {!this.state.modifierVote && this.boutonRefuser(t)}
                                                                             {!this.state.modifierVote && this.boutonAccepter(t)}
                                                                             {
                                                                                 this.state.modifierVote &&
-                                                                                (
-                                                                                    <div>
-                                                                                        {
+                                                                              
                                                                                             this.state.justifierRefus && (
-                                                                                                <div>
                                                                                                     <textarea
                                                                                                         cols={30}
                                                                                                         rows={2}
@@ -238,16 +238,12 @@ export class SommaireDroit extends Component {
                                                                                                         onChange={(e) => {
                                                                                                             this.state.parent.refuser(this.state.type, e.target.value)
                                                                                                         }}>
-                                                                                                    </textarea>
-                                                                                                </div>
+                                                                                                    </textarea>              
                                                                                             )
-                                                                                        }
-
-                                                                                    </div>
-                                                                                )
                                                                             }
                                                                         </div>
-                                                                        <div className="ui four wide column">
+                                                                        </div>
+                                                                        <div className="vote">
                                                                             {parseFloat(part.sommePct).toFixed(2) + "%"}
                                                                             <div style={{ color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "green" : (this.state.monVote && this.state.monVote.vote === "reject" ? "red" : "grey") }}>
                                                                                 <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
@@ -255,7 +251,6 @@ export class SommaireDroit extends Component {
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
                                                             )
                                                         }
                                                         {
@@ -265,28 +260,27 @@ export class SommaireDroit extends Component {
                                                                     <div className="ui row">
                                                                         <div className="ui column" />
 
-                                                                        <div className="ui ten wide column">
+                                                                        <div className="ui eight wide column">
                                                                             <i>{part.raison ? part.raison : ""}</i>
                                                                         </div>
-                                                                        <div className="ui four wide column">
                                                                             {parseFloat(part.sommePct).toFixed(2) + "%"}
                                                                             <div style={{ color: (part && part.vote === 'accept') ? "green" : (part && part.vote === "reject" ? "red" : "grey") }}>
                                                                                 <strong>{t(`flot.split.vote.${part && part.vote}`)}</strong>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                
                                                             )
                                                         }
                                                     </>
                                             }
                                         </Translation>
-                                    </div>
+                                   
                                 )
                             }
                             {
                                 uuid !== this.state.ayantDroit.rightHolderId && (
-                                    <div style={{ position: "relative", marginTop: "5px" }}>
+                                    
                                         <Translation>
                                             {
                                                 t =>
@@ -306,7 +300,7 @@ export class SommaireDroit extends Component {
                                                     </div>
                                             }
                                         </Translation>
-                                    </div>
+                                    
                                 )
                             }
 
