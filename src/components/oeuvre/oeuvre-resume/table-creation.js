@@ -49,7 +49,7 @@ export default class TableCreation extends React.Component {
     return [
       {
         label: t("oeuvre.attribut.etiquette.dateCreation"),
-        value: moment(this.props.media.creationDate, moment.defaultFormat).locale(i18n.lng.substring(0, 2)).format("LL")
+        value: moment( new Date(parseInt(this.props.media.creationDate) ), moment.defaultFormat).locale(i18n.lng.substring(0, 2)).format("LL")
       },
       {
         label: t("flot.split.documente-ton-oeuvre.documenter.iswc"),

@@ -233,7 +233,7 @@ export default class Entete extends React.Component {
                 <div className={"other-info"}>
                   {t("oeuvre.creePar")} <span>{this.props.rightHolders[this.state.media.creator].artistName}</span> &middot; Mis
                   à jour {i18n.lng &&
-                      moment((this.state.media.modificationDate ? this.state.media.modificationDate : this.state.media.creationDate), moment.defaultFormat)
+                      moment(new Date(parseInt((this.state.media.modificationDate ? this.state.media.modificationDate : this.state.media.creationDate), moment.defaultFormat)))
                         .locale(i18n.lng.substring(0, 2))
                         .fromNow()}
                 </div>

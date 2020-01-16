@@ -5,8 +5,6 @@ import React, { Component } from "react";
 import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from "axios";
 
-import moment from "moment";
-
 // Pages de l'assistant
 import PageCreation from "./page-creation";
 import PageInterpretation from "./page-interpretation";
@@ -42,13 +40,11 @@ class EditerOeuvre extends Component {
 
   componentWillMount() {
     if (this.state.jeton) {
-      console.log("jeton", this.state.jeton);
       axios
         .post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {
           jeton: this.state.jeton
         })
         .then(res => {
-          console.log(res, this.state.mediaId);
           if (
             this.state.mediaId &&
             parseInt(this.state.mediaId) === res.data.mediaId &&
@@ -168,7 +164,6 @@ class EditerOeuvre extends Component {
         pressArticleLinks: [],
         playlistLinks: [],
         creationDate: "",
-        modificationDate: "",
         publishDate: "",
         publisher: "",
         studio: "",
@@ -180,16 +175,20 @@ class EditerOeuvre extends Component {
         rightsSplit: {},
         files: {
           cover: {
-            files: []
+            file: null,
+            access: "private"
           },
           audio: {
-            files: []
+            file: null,
+            access: "private"
           },
           score: {
-            files: []
+            file: null,
+            access: "private"
           },
           midi: {
-            files: []
+            file: null,
+            access: "private"
           }
         }
       };
@@ -236,14 +235,9 @@ class EditerOeuvre extends Component {
         pressArticleLinks: _m.pressArticleLinks || [],
         playlistLinks: _m.playlistLinks || [],
         creationDate: _m.creationDate
-          ? moment(_m.creationDate)
-              .locale("en")
-              .format("L")
-          : moment()
-              .locale("en")
-              .format("L"),
-        modificationDate: _m.modificationDate ? _m.modificationDate.trim() : "",
-        publishDate: _m.publishDate ? _m.publishDate.trim() : "",
+          ? new Date(parseInt(_m.creationDate))
+          : new Date(),
+        publishDate: _m.publishDate ? _m.publishDate : "",
         publisher: _m.publisher ? _m.publisher.trim() : "",
         studio: _m.studio ? _m.studio.trim() : "",
         studioAddress: _m.studioAddress ? _m.studioAddress.trim() : "",
@@ -273,6 +267,10 @@ class EditerOeuvre extends Component {
     this.setState({
       endModalOpen: true
     });
+
+    // Traitement des dates
+
+
     axios
       .post("http://dev.api.smartsplit.org:8080/v1/media", values)
       .then(response => {

@@ -575,7 +575,6 @@ export default class SommairePartage extends Component {
     transmettre(t) {
         Auth.currentAuthenticatedUser()
             .then(res => {
-                console.log(res.username, this.state.ayantDroit.rightHolderId)
                 if (res.username === this.state.ayantDroit.rightHolderId) {
                     this.envoi()
                 } else {
@@ -675,7 +674,6 @@ export default class SommairePartage extends Component {
                                     fn={() => {
                                         Auth.currentAuthenticatedUser()
                                             .then(res => {
-                                                console.log(res.username, this.state.ayantDroit.rightHolderId)
                                                 if (res.username === this.state.ayantDroit.rightHolderId) {
                                                     that.setState({ user: res })
                                                     that.envoi()

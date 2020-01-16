@@ -1,6 +1,6 @@
 import React from 'react';
 import { Translation } from "react-i18next";
-import { Navbar } from "./oeuvre-resume/navbar";
+import { Navbar } from "../navigation/navbar";
 import Entete from "./oeuvre-resume/entete";
 import Corps from "./oeuvre-resume/corps";
 import axios from 'axios';

@@ -5,8 +5,6 @@ import React, { Component } from "react";
 import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from "axios";
 
-import moment from "moment";
-
 // Pages de l'assistant
 import PageCreation from "./page-creation";
 import PageInterpretation from "./page-interpretation";
@@ -107,7 +105,7 @@ class AssistantOeuvre extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props.audio !== nextProps.audio) {
-      this.setState({ audio: nextProps.audio });
+      this.setState({ audio: nextProps.audio })
     }
   }
 
@@ -143,7 +141,6 @@ class AssistantOeuvre extends Component {
         pressArticleLinks: [],
         playlistLinks: [],
         creationDate: "",
-        modificationDate: "",
         publishDate: "",
         publisher: "",
         studio: "",
@@ -171,11 +168,11 @@ class AssistantOeuvre extends Component {
             access: "private"
           }
         }
-      };
+      }
     } else {
-      let lyrics = _m.lyrics;
+      let lyrics = _m.lyrics
 
-      if (lyrics && lyrics.text) lyrics.text = lyrics.text.trim();
+      if (lyrics && lyrics.text) lyrics.text = lyrics.text.trim()
 
       valeurs = {
         mediaId: this.state.mediaId,
@@ -199,14 +196,9 @@ class AssistantOeuvre extends Component {
         pressArticleLinks: _m.pressArticleLinks || [],
         playlistLinks: _m.playlistLinks || [],
         creationDate: _m.creationDate
-          ? moment(_m.creationDate)
-              .locale("en")
-              .format("L")
-          : moment()
-              .locale("en")
-              .format("L"),
-        modificationDate: _m.modificationDate ? _m.modificationDate.trim() : "",
-        publishDate: _m.publishDate ? _m.publishDate.trim() : "",
+          ? new Date(parseInt(_m.creationDate))
+          : new Date(),
+        publishDate: _m.publishDate ? _m.publishDate : "",
         publisher: _m.publisher ? _m.publisher.trim() : "",
         studio: _m.studio ? _m.studio.trim() : "",
         studioAddress: _m.studioAddress ? _m.studioAddress.trim() : "",
@@ -248,7 +240,6 @@ class AssistantOeuvre extends Component {
   };
 
   boutonsCouleurPochette() {
-    console.log("ui right floated button pochette");
     let boutons = document.getElementsByClassName(
       "ui right floated button pochette"
     );
@@ -268,6 +259,9 @@ class AssistantOeuvre extends Component {
                 songTitle={this.state.title}
                 progressPercentage={this.state.progressPercentage}
                 profil={this.state.user}
+                media={this.state.media}
+                resume={true}
+                menuProfil={false}
               />
 
               {this.state.rightHolders && (

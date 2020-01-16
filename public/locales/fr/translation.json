@@ -2,7 +2,7 @@
   "media": {
     "options": {
       "reenvoyer": "Réenvoyer la proposition",
-      "sommaire": "Page publique",
+      "sommaire": "Voir le résumé",
       "supprimer": "Supprimer"
     }
   },
@@ -481,6 +481,7 @@
         "etape": {
           "partage-etape": "Étape 2",
           "partage-titre": "Partage des droits",
+          "documentation": "Documentation",
           "enregistrerEtQuitter": "Enregistrer et quitter",
           "vote-titre": "Valider le partage de droits"
         },
@@ -737,7 +738,9 @@
   "entete": {
     "connexion": "Connexion",
     "inscription": "Inscription",
-    "encours": "Connexion en cours..."
+    "encours": "Connexion en cours...",
+    "sommaire": "Voir le résumé",
+    "partage": "Partager"
   },
   "televersement": {
     "encours": "Merci de patienter pendant l'envoi et l'analyse du fichier"

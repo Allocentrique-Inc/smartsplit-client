@@ -9,7 +9,7 @@ import { Progress } from "semantic-ui-react";
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-import MenuProfil from "../entete/menu-profil";
+import MenuProfil from "../navigation/menu-profil";
 
 import placeholder from '../../assets/images/placeholder.png';
 
@@ -289,31 +289,22 @@ class EntetePartage extends Component {
                       {t("flot.split.documente-ton-oeuvre.etape.partage-titre")}
                     </div>
                   </div>
-                  <div className="ui five wide column">
+                  <div className="ui seven wide column">
                     <div
                       className="ui button negative"
                       style={{
                         top: 0,
                         position: "relative",
                         float: "right",
+                        marginRight: "20px"
                       }}
-                      onClick={() => {
-                        this.props.enregistrerEtQuitter(t, this.props.values);
-                      }}
+                      onClick={() => this.props.enregistrerEtAllerAuSommaire(t, this.props.values, this.state.media.mediaId)}
                     >
                       {t(
                         "flot.split.documente-ton-oeuvre.etape.enregistrerEtQuitter"
                       )}
                     </div>
-                  </div>
-                  <div className="ui two wide column">
-                    <MenuProfil
-                      onRef={menu => {
-                        this.setState({ menu: menu });
-                      }}
-                      user={this.state.user}
-                    />
-                  </div>
+                  </div>                  
                   <span className="menu-droite" >                                                                            
                     <div
                       className="menuWrapper"
@@ -321,8 +312,7 @@ class EntetePartage extends Component {
                         position: "absolute",
                         right: "220px"
                       }}
-                    >
-                      
+                    >                      
                     </div>
                   </span>
                 </div>

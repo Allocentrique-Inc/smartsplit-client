@@ -39,7 +39,6 @@ export default class SectionTelechargements extends React.Component {
         let arr = []
         if(this.props.media.files[type] && this.props.media.files[type].files) {
             this.props.media.files[type].files.forEach(elem=>{
-                console.log(this.props.acces, elem.file, elem.access)
                 if(
                     (this.props.acces === 3) ||
                     (this.props.membreEquipe) ||

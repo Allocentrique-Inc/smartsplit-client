@@ -169,7 +169,9 @@ export default class PageCreation extends Component {
                 )}
                 value={this.props.values.creationDate}
                 onChange={value =>
-                  this.props.setFieldValue("creationDate", value)
+                  {
+                    this.props.setFieldValue("creationDate", value)
+                  }
                 }
               />
               <br />
