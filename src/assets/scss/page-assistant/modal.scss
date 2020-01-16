@@ -1,83 +1,82 @@
-@import '../typography';
-@import '../navbar';
-@import '../bottom-bar';
+@import "../typography";
+@import "../navbar";
+@import "../bottom-bar";
 
 .ui.modal {
-    border-radius: 2px;
-    max-width: 624px;
+  border-radius: 2px;
+  max-width: 624px;
 }
 
 .modal-navbar {
-    @extend .smartsplit-navbar;
+  @extend .smartsplit-navbar;
 
-    border-bottom: 1px solid $color-stroke;
+  border-bottom: 1px solid $color-stroke;
 
-    .title {
-        margin-left: $margin-step;
-        @extend .h4-style;
-    }
+  .title {
+    margin-left: $margin-step;
+    @extend .h4-style;
+  }
 
-    .close-icon {
-        margin-right: 6px;
-    }
+  .close-icon {
+    margin-right: 6px;
+  }
 }
 
 .modal-bottom-bar {
-    @extend .bottom-bar;
+  @extend .bottom-bar;
 
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
-    &.pochette {
-        .ui.button {
-            background-color: $pochette-color-link;
-        }        
+  &.pochette {
+    .ui.button {
+      background-color: $pochette-color-link;
     }
+  }
 }
 
 .modal-content {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
 
-    .success-image {
-        margin: ($margin-step * 2) 0;
-        width: 144px;
-        height: 144px;
-    }
+  .success-image {
+    margin: ($margin-step * 2) 0;
+    width: 144px;
+    height: 144px;
+  }
 
-    .description {
-        margin: 0 ($margin-step * 2) ($margin-step * 2);
-        @extend .medium-400-style;
-        text-align: center;
-    }
+  .description {
+    margin: 0 ($margin-step * 2) ($margin-step * 2);
+    @extend .medium-400-style;
+    text-align: center;
+  }
 }
 
 .bottom-bar {
-    height: $navbar-height;
-    width: 100%;
-    padding: 5px 16px;
+  height: $navbar-height;
+  width: 100%;
+  padding: 5px 16px;
 
-    background-color: white;
-    color: $color-primary;
+  background-color: white;
+  color: $color-primary;
 
-    font-size: 16px;
+  font-size: 16px;
 
-    .pochette.ui.button.negative {
-        background-color: whitesmoke;
-        color: $pochette-color-link;
-        &:hover {
-            background-color: $pochette-color-link;
-            color: white;
-        }        
+  .pochette.ui.button.negative {
+    background-color: whitesmoke;
+    color: $pochette-color-link;
+    &:hover {
+      background-color: $pochette-color-link;
+      color: white;
     }
+  }
 
-    .pochette.ui.button {
-        &:focus {
-            background-color: $pochette-color-link;
-            color: white;
-        }
+  .pochette.ui.button {
+    &:focus {
+      background-color: $pochette-color-link;
+      color: white;
     }
-
+  }
 }

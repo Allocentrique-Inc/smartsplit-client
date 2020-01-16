@@ -35,8 +35,8 @@
     }
     background-color: $pochette-color-link;
   }
-  .ui.negative,
-  .ui.button.negative {
+
+  .ui.negative {
     background-color: whitesmoke;
     color: $pochette-color-link;
     &:hover {
@@ -55,5 +55,15 @@
   background-color: $smartsplit-color-link;
   &.pochette {
     background-color: $pochette-color-link;
+  }
+}
+
+.ui.right.floated.button.pochette,
+.ui.primary.right.floated.button.pochette {
+  background-color: $pochette-color-link;
+  // background-color: "#F2724A";
+  &:focus {
+    background-color: $pochette-color-link;
+    color: white;
   }
 }

@@ -87,6 +87,15 @@ export default class ListePieces extends Component {
               this.setState({ creatorMedias: res.data }, ()=>this.setState({ patience: false }))
             })
             .catch(err => console.log(err))
+
+          axios
+            .get(`http://dev.api.smartsplit.org:8080/v1/media/liste-collaborations/${USER_ID}`)
+            .then(res => {
+              // Associe la liste des médias créés ou les médias pour lesquels une proposition est créée,
+              // dans les deux cas, par l'usager.
+              this.setState({ collabMedias: res.data }, ()=>this.setState({ patience: false }))
+            })
+            .catch(err => console.log(err))
         })
       })
     } catch (err) {

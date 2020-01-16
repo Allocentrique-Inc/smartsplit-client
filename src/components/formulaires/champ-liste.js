@@ -184,8 +184,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
                                             options: this.state.options,
                                             allowAdditions: this.state.ajout,
                                             onAddItem: this.surAjout,
-                                            clearable: false,
-                                            trigger: (<div>Allô</div>)
+                                            clearable: false
                                         }} />
                                 )
                             }

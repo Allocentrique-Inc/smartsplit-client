@@ -12,6 +12,7 @@ import { toast } from 'react-toastify'
 import { ChampListeEntiteMusicaleAssistant } from '../formulaires/champ-liste'
 import InfoBulle from '../partage/InfoBulle'
 import { Auth } from 'aws-amplify'
+import Utilitaires from '../../utils/utilitaires'
 
 import "../../assets/scss/assistant-form.scss";
 
@@ -35,6 +36,7 @@ export default class NouvelleOeuvre extends Component {
         this.soumettre = this.soumettre.bind(this)
         this.changementPage = this.changementPage.bind(this)
         this.changement = this.changement.bind(this)
+        this.utils = new Utilitaires(1) // Contexte WEB
     }
 
     componentWillMount() {
@@ -114,9 +116,9 @@ export default class NouvelleOeuvre extends Component {
         axios.post(`http://dev.api.smartsplit.org:8080/v1/media`, body)
             .then(res => {
                 if (this.state.pochette) {
-                    window.location.href = `/documenter/${body.mediaId}`
+                    this.utils.naviguerVersDocumentation(body.mediaId)                    
                 } else {
-                    window.location.href = `/partager/nouveau/${body.mediaId}`
+                    this.utils.naviguerVersNouveauPartage(body.mediaId)
                 }
             })
             .catch(err => console.log(err))
@@ -335,11 +337,9 @@ class Page2NouvellePiece extends Component {
             }
         })
         if(!entiteExiste) {
-            this.ajouterEntiteArtistique(oeuvrePar, ()=>{console.log(this.state.entites); this.state.entites.listeEntites()})
-            console.log("Entités", entites)
+            this.ajouterEntiteArtistique(oeuvrePar)
         }
 
-        console.log("entités:", entiteExiste, this.state.entites)
         // Liens commerciaux
         let liensCommerciaux = []
         if (analyse.external_metadata.deezer) {
@@ -611,7 +611,7 @@ class Page2NouvellePiece extends Component {
 
                                                         let fichier = value
 
-                                                        // Réinitialise le lecteur audio
+                                                        // Réinitialise le lecteur audio, qui est contenu dans la liste des médias
                                                         this.props.parent.props.parent.state.audio.stopEtJouer(fichier)
 
                                                         let fd = new FormData()

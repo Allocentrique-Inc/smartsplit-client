@@ -5,8 +5,6 @@ import React, { Component } from "react";
 import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from "axios";
 
-import moment from "moment";
-
 // Pages de l'assistant
 import PageCreation from "./page-creation";
 import PageInterpretation from "./page-interpretation";
@@ -41,21 +39,24 @@ class EditerOeuvre extends Component {
   }
 
   componentWillMount() {
-
-    if(this.state.jeton) {
-      console.log('jeton', this.state.jeton)
-      axios.post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {jeton: this.state.jeton})
-      .then(res=>{
-        console.log(res, this.state.mediaId)
-        if(this.state.mediaId && parseInt(this.state.mediaId) === res.data.mediaId && res.data.acces === 3) {
-          this.chargement(true)
-        }
-      })
-      .catch(err=>console.log(err))
+    if (this.state.jeton) {
+      axios
+        .post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {
+          jeton: this.state.jeton
+        })
+        .then(res => {
+          if (
+            this.state.mediaId &&
+            parseInt(this.state.mediaId) === res.data.mediaId &&
+            res.data.acces === 3
+          ) {
+            this.chargement(true);
+          }
+        })
+        .catch(err => console.log(err));
     } else {
-      this.chargement()
+      this.chargement();
     }
-    
   }
 
   getMedia(admin, response = false) {
@@ -83,20 +84,19 @@ class EditerOeuvre extends Component {
     }
   }
 
-  chargement(admin = false) {    
-    if(!admin) {
+  chargement(admin = false) {
+    if (!admin) {
       Auth.currentAuthenticatedUser()
-      .then(response => {
-        this.getMedia(admin, response)
-      })
-      .catch(error => {
-        console.log(error);
-        this.setState({ modaleConnexion: true });
-      })
+        .then(response => {
+          this.getMedia(admin, response);
+        })
+        .catch(error => {
+          console.log(error);
+          this.setState({ modaleConnexion: true });
+        });
     } else {
-      this.getMedia(admin)
+      this.getMedia(admin);
     }
-    
   }
 
   nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
@@ -164,7 +164,6 @@ class EditerOeuvre extends Component {
         pressArticleLinks: [],
         playlistLinks: [],
         creationDate: "",
-        modificationDate: "",
         publishDate: "",
         publisher: "",
         studio: "",
@@ -176,16 +175,20 @@ class EditerOeuvre extends Component {
         rightsSplit: {},
         files: {
           cover: {
-            files: []
+            file: null,
+            access: "private"
           },
           audio: {
-            files: []
+            file: null,
+            access: "private"
           },
           score: {
-            files: []
+            file: null,
+            access: "private"
           },
           midi: {
-            files: []
+            file: null,
+            access: "private"
           }
         }
       };
@@ -194,20 +197,20 @@ class EditerOeuvre extends Component {
 
       if (lyrics && lyrics.text) lyrics.text = lyrics.text.trim();
 
-      if(!_m.files) {
-        _m.files = {}
+      if (!_m.files) {
+        _m.files = {};
       }
-      if(!_m.files.cover || !_m.files.cover.files) {
-        _m.files.cover = {files: []}
+      if (!_m.files.cover || !_m.files.cover.files) {
+        _m.files.cover = { files: [] };
       }
-      if(!_m.files.midi || !_m.files.midi.files) {
-          _m.files.midi = {files: []}
+      if (!_m.files.midi || !_m.files.midi.files) {
+        _m.files.midi = { files: [] };
       }
-      if(!_m.files.score || !_m.files.score.files) {
-          _m.files.score = {files: []}
+      if (!_m.files.score || !_m.files.score.files) {
+        _m.files.score = { files: [] };
       }
-      if(!_m.files.audio || !_m.files.audio.files) {
-          _m.files.audio = {files: []}
+      if (!_m.files.audio || !_m.files.audio.files) {
+        _m.files.audio = { files: [] };
       }
 
       valeurs = {
@@ -232,14 +235,9 @@ class EditerOeuvre extends Component {
         pressArticleLinks: _m.pressArticleLinks || [],
         playlistLinks: _m.playlistLinks || [],
         creationDate: _m.creationDate
-          ? moment(_m.creationDate)
-              .locale("en")
-              .format("L")
-          : moment()
-              .locale("en")
-              .format("L"),
-        modificationDate: _m.modificationDate ? _m.modificationDate.trim() : "",
-        publishDate: _m.publishDate ? _m.publishDate.trim() : "",
+          ? new Date(parseInt(_m.creationDate))
+          : new Date(),
+        publishDate: _m.publishDate ? _m.publishDate : "",
         publisher: _m.publisher ? _m.publisher.trim() : "",
         studio: _m.studio ? _m.studio.trim() : "",
         studioAddress: _m.studioAddress ? _m.studioAddress.trim() : "",
@@ -269,15 +267,19 @@ class EditerOeuvre extends Component {
     this.setState({
       endModalOpen: true
     });
+
+    // Traitement des dates
+
+
     axios
       .post("http://dev.api.smartsplit.org:8080/v1/media", values)
       .then(response => {
         actions.setSubmitting(false);
-        if(this.state.jeton) {
+        if (this.state.jeton) {
           window.location.href = `/oeuvre/resume/${this.state.jeton}`;
         } else {
           window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
-        }        
+        }
       })
       .catch(error => {
         console.log(error);
@@ -285,7 +287,9 @@ class EditerOeuvre extends Component {
   };
 
   boutonsCouleurPochette() {
-    let boutons = document.getElementsByClassName("ui right floated button");
+    let boutons = document.getElementsByClassName(
+      "ui right floated button pochette"
+    );
     for (var i = 0; i < boutons.length; i++) {
       boutons[i].style.backgroundColor = "#F2724A";
     }
@@ -377,7 +381,7 @@ class EditerOeuvre extends Component {
   }
 
   render() {
-    if ( (this.state.user || this.state.jeton) && this.state.media) {
+    if ((this.state.user || this.state.jeton) && this.state.media) {
       return (
         <Translation>
           {(t, i18n) => (

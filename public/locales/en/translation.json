@@ -2,7 +2,7 @@
   "media": {
     "options": {
       "reenvoyer": "Resend to collaborators",
-      "sommaire": "Summary",
+      "sommaire": "See summary",
       "supprimer": "Delete"
     }
   },
@@ -469,6 +469,7 @@
         "etape": {
           "partage-etape": "Step 2",
           "partage-titre": "Copyright Sharing",
+          "documentation": "Documentation",
           "enregistrerEtQuitter": "Save and Quit",
           "vote-titre": "Validate the share proposal"
         },
@@ -737,7 +738,9 @@
     "connexion": "Login",
     "inscription": "Register",
     "bonjour": "Hello",
-    "encours": "Connecting..."
+    "encours": "Connecting...",
+    "sommaire": "See summary",
+    "partage": "Share"
   },
   "televersement": {
     "encours": "Please wait while we store and analyse your file"

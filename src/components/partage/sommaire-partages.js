@@ -27,6 +27,10 @@ import placeholder from '../../assets/images/placeholder.png';
 import InfoBulle from '../partage/InfoBulle';
 
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
+import { NavBar } from 'aws-amplify-react'
+import { Navbar } from '../navigation/navbar'
+
+//import { StarSVG } from "../svg/SVG";
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
@@ -180,7 +184,7 @@ export default class SommairePartages extends Component {
                                         <div>
                                             <div className="small-400">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                             <div className="small-500-color">{`${elem.initiatorName}`}</div>
-                                            <div className="small-400">&nbsp;{i18n.lng && elem._d ? moment(elem.creationDate, moment.defaultFormat).locale(i18n.lng.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</div>
+                                            <div className="small-400">&nbsp;{i18n.lng && elem._d ? moment( new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.lng.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</div>
                                         </div>
                                     </Accordion.Title>
                                     <Accordion.Content active={this.state.activeIndex === idx}>
@@ -316,141 +320,144 @@ export default class SommairePartages extends Component {
                 <Translation>
                     {
                         (t, i18n) =>
-                            <div className="ui segment">
-                                <div className="ui grid sommaire">
-                                    <div className="ui row">
-                                        <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
-                                    </div>
-                                    <div className="ui row">
-                                        <div className="ui one wide column" />
-                                        <div className="ui twelve wide column">
-                                            {message}
+                            <div>
+                                <Navbar pochette={this.props.pochette}
+                                    songTitle={this.state.title}
+                                    progressPercentage={this.state.progressPercentage}
+                                    profil={this.state.user}
+                                    media={this.state.media}
+                                    resume={false}
+                                    proposition={true}
+                                    menuProfil={false} />
+                                <div className="ui container">
+                                    <div className="ui grid sommaire">
+                                        {/* <div className="ui row">
+                                            <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
+                                        </div> */}
+                                        <div className="ui row">
+                                            <div className="ui twelve wide column">
+                                                {message}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="ui row">
-                                        <div className="ui one wide column" />
-                                        <div className="ui twelve wide column">
-                                            {
-                                                !continuerDisabled && (
-                                                    <div className={`ui medium right floated button`} onClick={
-                                                        () => {
-                                                            window.location.href = `/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
-                                                        }
-                                                    }>
-                                                        {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
-                                                    </div>
-                                                )
-                                            }
-                                            {
-                                                !nouveauDisabled && (
-                                                    <div className={`ui medium right floated button`} onClick={
-                                                        () => {
-                                                            // Détecter si la proposition est verrouillée
-                                                            if (
-                                                                (  (this.state.media.initiateurPropositionEnCours && !this.state.media.initiateurPropositionEnCours.trim() ) || 
-                                                                    this.state.media.initiateurPropositionEnCours === this.state.user.username)) {
-                                                                // Verrouiller la proposition
-                                                                axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`, { rightHolderId: this.state.user.username })
-                                                                    .then(res => {
-                                                                        window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
-                                                                    })
-                                                                    .catch(err => {
-                                                                        console.log(err)
-                                                                    })
-                                                            } else {
-                                                                this.modalePropositionEnCours()
+                                        <div className="ui row">
+                                            <div className="ui twelve wide column">
+                                                {
+                                                    !continuerDisabled && (
+                                                        <div className={`ui medium right floated button`} onClick={
+                                                            () => {
+                                                                window.location.href = `/partager/existant/${this.state.propositions[this.state.propositions.length - 1].uuid}`
                                                             }
+                                                        }>
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.continuer')}
+                                                        </div>
+                                                    )
+                                                }
+                                                {
+                                                    !nouveauDisabled && (
+                                                        <div className={`ui medium right floated button`} onClick={
+                                                            () => {
+                                                                // Détecter si la proposition est verrouillée
+                                                                if (
+                                                                    (  (this.state.media.initiateurPropositionEnCours && !this.state.media.initiateurPropositionEnCours.trim() ) || 
+                                                                        this.state.media.initiateurPropositionEnCours === this.state.user.username)) {
+                                                                    // Verrouiller la proposition
+                                                                    axios.put(`http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`, { rightHolderId: this.state.user.username })
+                                                                        .then(res => {
+                                                                            window.location.href = `/partager/nouveau/${this.state.media.mediaId}`;
+                                                                        })
+                                                                        .catch(err => {
+                                                                            console.log(err)
+                                                                        })
+                                                                } else {
+                                                                    this.modalePropositionEnCours()
+                                                                }
 
-                                                        }
-                                                    }>
-                                                        {t('flot.split.documente-ton-oeuvre.proposition.nouvelle')}
-                                                    </div>
-                                                )
-                                            }
-                                            {
-                                                !envoiDisabled && (  
-                                                    <>                                              
-                                                        <div onClick={() => {
-                                                            this.openModal()
-                                                        }} className={`ui medium button sommaire`}
-                                                            style={{ width: "250px" }}
-                                                        >
-                                                            <div className="four wide column">
-                                                                {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
-                                                            </div>
-                                                        </div>                                                                                                      
-                                                    </>
-                                                )
-                                            }
-                                        </div>                                                                                                                    
-                                    </div>
-                                    {
-                                        partageEditeur && (
-
-                                            <div className="ui row">
-                                                <div className="ui one wide column" />
-                                                <div className="ui twelve wide column">
-                                                    <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`medium-500-tier${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={() => { this.afficherPanneauPropositions() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}</span>&nbsp;&nbsp;
-                                                    {/* Doit être adjacent à encapsules */}
-                                                    <InfoBulle
-                                                    className="proposition"
-                                                        declencheur={(<span style={this.state.panneau === PANNEAU_EDITEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`medium-500-tier${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauEditeur() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}</span>)}
-                                                        decoration={
-                                                            <>
-                                                                <div className="header">{t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")} </div>
-                                                                <br />
-                                                                <div className="ui negative button editeur"
-                                                                    onClick={(e) => { this.actionEditeur() }} // () = activation passer paramètre true ou false
-                                                                    > {/* Chargé mais des fois faut l'importer à moins que composante déjà importée l'ait déjà chargée */}
-                                                                    Non
+                                                            }
+                                                        }>
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.nouvelle')}
+                                                        </div>
+                                                    )
+                                                }
+                                                {
+                                                    !envoiDisabled && (  
+                                                        <>                                              
+                                                            <div onClick={() => {
+                                                                this.openModal()
+                                                            }} className={`ui medium button sommaire`}
+                                                                style={{ width: "250px" }}
+                                                            >
+                                                                <div className="four wide column">
+                                                                    {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                                                                 </div>
-                                                                <div className="ui positive button" onClick={(e) => {
-                                                                    this.actionEditeur() // Ensuite ligne 116
-                                                                    this.afficherPanneauEditeur() // L'affiche de suite après
-                                                                }}>Oui</div>
-                                                                <br /> <br />
-                                                                <div className="contenu">{t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
-                                                            </> // nul
-                                                        }
-                                                        ouvert={this.state.editeur} // fonction passée à var pour changer état (= "swich"). Ligne 117
-                                                    // Défini dans state puis dans setState de InfoBulle
-                                                    />
+                                                            </div>                                                                                                      
+                                                        </>
+                                                    )
+                                                }
+                                            </div>                                                                                                                    
+                                        </div>
+                                        {
+                                            partageEditeur && (
+                                                <div className="ui row">
+                                                    <div className="ui twelve wide column">
+                                                        <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`medium-500-tier${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={() => { this.afficherPanneauPropositions() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}</span>&nbsp;&nbsp;
+                                                        {/* Doit être adjacent à encapsules */}
+                                                        <InfoBulle
+                                                        className="proposition"
+                                                            declencheur={(<span style={this.state.panneau === PANNEAU_EDITEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`medium-500-tier${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauEditeur() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}</span>)}
+                                                            decoration={
+                                                                <>
+                                                                    <div className="header">{t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")} </div>
+                                                                    <br />
+                                                                    <div className="ui negative button editeur"
+                                                                        onClick={(e) => { this.actionEditeur() }} // () = activation passer paramètre true ou false
+                                                                        > {/* Chargé mais des fois faut l'importer à moins que composante déjà importée l'ait déjà chargée */}
+                                                                        Non
+                                                                    </div>
+                                                                    <div className="ui positive button" onClick={(e) => {
+                                                                        this.actionEditeur() // Ensuite ligne 116
+                                                                        this.afficherPanneauEditeur() // L'affiche de suite après
+                                                                    }}>Oui</div>
+                                                                    <br /> <br />
+                                                                    <div className="contenu">{t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
+                                                                </> // nul
+                                                            }
+                                                            ouvert={this.state.editeur} // fonction passée à var pour changer état (= "swich"). Ligne 117
+                                                        // Défini dans state puis dans setState de InfoBulle
+                                                        />
+                                                    </div>
+                                                    <div className="ui one wide column" />
                                                 </div>
-                                                <div className="ui one wide column" />
-                                            </div>
 
 
-                                        )
-                                    }
-                                    {
-                                        this.state.panneau === PANNEAU_PROPOSITIONS &&
-                                        (
-                                            <div className="ui row">
-                                                <div className="ui one wide column" />
-                                                <Accordion fluid styled className="ui twelve wide column">
-                                                    {propositions}
-                                                </Accordion>
-                                                <div className="ui one wide column">
+                                            )
+                                        }
+                                        {
+                                            this.state.panneau === PANNEAU_PROPOSITIONS &&
+                                            (
+                                                <div className="ui row">
+                                                    <Accordion fluid styled className="ui sixteen wide column">
+                                                        {propositions}
+                                                    </Accordion>
                                                 </div>
-                                            </div>
-                                        )
-                                    }
-                                    {
-                                        this.state.panneau === PANNEAU_EDITEUR &&
-                                        (
-                                            <SommairePartagesEditeur proposition={_p0} />
-                                        )
-                                    }
-                                    {
-                                        this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
-                                            <script language="javascript">
-                                                setTimeout(()=>{
-                                                    toast.warn(t('flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton'))
-                                                })
-                                            </script>
-                                        )
-                                    }
-                                </div>
+                                            )
+                                        }
+                                        {
+                                            this.state.panneau === PANNEAU_EDITEUR &&
+                                            (
+                                                <SommairePartagesEditeur proposition={_p0} />
+                                            )
+                                        }
+                                        {
+                                            this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
+                                                <script language="javascript">
+                                                    setTimeout(()=>{
+                                                        toast.warn(t('flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton'))
+                                                    })
+                                                </script>
+                                            )
+                                        }
+                                    </div>
+                                </div>                                
                                 {
                                     this.state.media.initiateurPropositionEnCours &&
                                     rightHolders[this.state.media.initiateurPropositionEnCours] &&
