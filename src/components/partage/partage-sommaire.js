@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
+import Beignet2 from '../visualisation/partage/beignet2'
 import Histogramme from '../visualisation/partage/histogramme'
 import { Translation } from 'react-i18next'
 import Edit from "./Edit.png";
@@ -316,6 +317,11 @@ export class SommaireDroit extends Component {
                 )
             })
 
+            let beignet2 = false
+            console.log("LE TYPE: "+this.state.type)
+            console.log(_data)
+            if (this.state.type == "workCopyrightSplit") beignet2 = true
+
             return (
                 <Translation>
                     {
@@ -331,7 +337,9 @@ export class SommaireDroit extends Component {
                                             {_parts}
                                         </div>
                                         <div className="ui eight wide column">
-                                            {_data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                            {beignet2 && _data.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                            {beignet2 && _data.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                            {!beignet2 && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
                                             {_data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
                                         </div>
                                     </div>
