@@ -163,7 +163,7 @@ export default class ListePieces extends Component {
     souligneInitiateur = this.state.panneau === PANNEAU_INITIATEUR;
     souligneCollaborateur = this.state.panneau === PANNEAU_COLLABORATEUR;
 
-    let toggle = !this.state.pochette && (
+    let optionsAffichage = !this.state.pochette && (
       <Translation>
         {t => (
           <div style={{display: "inline"}}>
@@ -196,7 +196,7 @@ export default class ListePieces extends Component {
           </div>
         )}
       </Translation>
-    );
+    )
 
     if (
       (!this.state.patience &&
@@ -291,7 +291,7 @@ export default class ListePieces extends Component {
                   </div>
                   <div className="ui row">
                     <div className="fifteen wide column">
-                      <div className="medium-500" style={{marginLeft: "25px", borderBottom: "0.5px solid lightgrey", paddingBottom: "20px", marginBottom: "50px"}}>{toggle}</div>
+                      <div className="medium-500" style={{marginLeft: "25px", borderBottom: "0.5px solid lightgrey", paddingBottom: "20px", marginBottom: "50px"}}>{optionsAffichage}</div>
                       {rendu}
                     </div>
                   </div>

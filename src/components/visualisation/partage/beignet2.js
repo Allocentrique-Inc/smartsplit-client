@@ -100,6 +100,7 @@ export default class Beignet2 extends Component {
         // append the svg object to the div called 'my_dataviz'
         let svg = d3.select(`#my_dataviz_${this.state.uuid}`)
             .append("svg")
+            .attr("style", "position: absolute; top: 0px")
             .attr("width", this.state.width)
             .attr("height", this.state.height)
             .append("g")
@@ -224,12 +225,15 @@ export default class Beignet2 extends Component {
             }
         }, 0)
 
+        let flush = { float: 'left' }
+        if (this.props.titre === "Musique") flush = { float: 'right' }
+
         return (
             <Translation>
                 {
                     (t, i18n) =>
                         <div style={{ margin: "0 auto" }}>
-                            {this.props.titre && (<h4>{this.props.titre}</h4>)}
+                            {this.props.titre && (<h4 style={ flush }>{this.props.titre}</h4>)}
                             <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
                             </div>
                         </div>
