@@ -402,16 +402,59 @@
   }
 }
 
-.ui.button.medium.red.refus,
-.ui.button.medium.accepte {
+/* .boutons.vote {
+  margin-left: 25px;
+} */
+
+/* .ui.button.medium.accepte.true {
+  color: #2da84f;
+}
+
+.ui.button.medium.refus.true {
+  color: #ac1616;
+}  */
+/* 
+.ui.button.medium.refus.false {
+  background-color: #ac1616;
+}
+
+.ui.button.medium.accepte.false {
+  background-color: #2da84f;
+} */
+
+/* .ui.button.medium.refus.false,
+.ui.button.medium.accepte.false {
+  color: white;
+} */
+
+.ui.button.medium,
+.ui.button.medium {
   cursor: pointer;
   display: inline-block;
   width: 179px;
   height: 40px;
+  background-color: white;
+  &.accepte {
+    color: $smartsplit-color-link;
+    border: 1px solid lightgrey;
+  }
+  &.refus {
+    color: red;
+  }
+  &.actif {
+    &.accepte {
+      background-color: $smartsplit-color-link;
+      color: white;
+    }
+    &.refus {
+      background-color: red;
+      color: white;
+    }
+  }
 }
 
-.ui.button.medium.red.refus {
-  background-color: #ac1616;
+.ui.button.medium.refus {
+  border: 1px solid #dcdfe1;
 }
 
 .role {
