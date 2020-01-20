@@ -7,8 +7,6 @@ import Histogramme from '../visualisation/partage/histogramme'
 import { Translation } from 'react-i18next'
 import Edit from "./Edit.png";
 
- 
-
 import { Auth } from 'aws-amplify'
 
 import 'react-confirm-alert/src/react-confirm-alert.css'
@@ -54,9 +52,8 @@ export class SommaireDroit extends Component {
             avatars: props.avatars,
             uuid: props.uuid
         }
-        this.boutonAccepter = this.boutonAccepter.bind(this)
-        this.boutonRefuser = this.boutonRefuser.bind(this)
-        this.changerVote = this.changerVote.bind(this)
+         
+        this.changerVote = this.changerVote.bind(this) 
     }
 
     componentWillReceiveProps(nextProps) {
@@ -80,31 +77,7 @@ export class SommaireDroit extends Component {
     componentWillMount() {
         this.organiserDonnees()
     }
-
-    boutonAccepter(t) {
-        return (
-            <div className={`ui button medium accepte ${this.state.accepter ? 'actif' : ''}`}
-            onClick={() => {
-                this.setState({accepter: true})
-                this.setState({refuser: false})
-                this.voter(true)
-            }}>{t('flot.split.vote.accepter')}</div>
-        )
-    }
-
-    boutonRefuser(t) {
-        return (
-            <div className={`ui button medium refus ${this.state.refuser ? 'actif' : ''}`}
-            onClick={() => {
-                this.setState({accepter: false})
-                this.setState({refuser: true})
-                this.voter(false)
-            }}>
-                {t('flot.split.vote.refuser')}
-            </div>
-        )
-    }
-
+ 
     justifierRefus() {
         this.setState({ justifierRefus: true })
     }
@@ -239,12 +212,22 @@ export class SommaireDroit extends Component {
                                                                         <div className="ui one wide column" />
                                                                         <div className="ui eight wide column">
                                                                             <i>{part.raison ? part.raison : ""}</i>
-                                                                            {this.boutonRefuser(t)}
-                                                                            {this.boutonAccepter(t)}
+                                                                            <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
+                                                                                onClick={() => {
+                                                                                    this.setState({accepter: false})
+                                                                                    this.setState({refuser: true})
+                                                                                    this.voter(false)
+                                                                                }}>
+                                                                                    {t('flot.split.vote.refuser')}
+                                                                            </div>
+                                                                            <div className={`ui button medium vote accepte ${this.state.accepter ? 'actif' : ''}`}
+                                                                                onClick={() => {
+                                                                                    this.setState({accepter: true})
+                                                                                    this.setState({refuser: false})
+                                                                                    this.voter(true)
+                                                                                }}>{t('flot.split.vote.accepter')}</div>
                                                                             </div>
                                                                             {
-                                                                                
-                                                                              
                                                                                             this.state.refuser && (
                                                                                                     <textarea
                                                                                                         cols={30}
@@ -257,13 +240,13 @@ export class SommaireDroit extends Component {
                                                                                             )
                                                                             }
                                                                         </div>
-                                                                        <div className="vote">
+                                                                        {/* <div className="vote">
                                                                             {parseFloat(part.sommePct).toFixed(2) + "%"}
                                                                             <div style={{ color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "#2da84f" : (this.state.monVote && this.state.monVote.vote === "reject" ? "ac1616" : "grey") }}>
                                                                                 <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
                                                                                 {this.state.modifierVote && (<img className="cliquable" src={Edit} onClick={() => { this.changerVote() }} alt="Changer vote" />)}
                                                                             </div>
-                                                                        </div>
+                                                                        </div> */}
                                                                     </>
                                                             )
                                                         }
