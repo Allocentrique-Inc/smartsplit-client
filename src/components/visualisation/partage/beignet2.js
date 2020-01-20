@@ -226,7 +226,7 @@ export default class Beignet2 extends Component {
         }, 0)
 
         let flush = { float: 'left' }
-        if (this.props.titre == "Musique") flush = { float: 'right' }
+        if (this.props.titre === "Musique") flush = { float: 'right' }
 
         return (
             <Translation>

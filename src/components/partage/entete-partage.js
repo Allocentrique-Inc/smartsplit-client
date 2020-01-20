@@ -9,8 +9,6 @@ import { Progress } from "semantic-ui-react";
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
-import MenuProfil from "../navigation/menu-profil";
-
 import placeholder from '../../assets/images/placeholder.png';
 
 class EntetePartage extends Component {

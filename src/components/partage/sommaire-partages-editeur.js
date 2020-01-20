@@ -136,7 +136,6 @@ export default class SommairePartagesEditeur extends Component {
                             <>
                                 { (this.state.creerNouveauPartage || this.state.propositions.length === 0) &&
                                     <div className="ui row">
-                                        <div className="ui one column" />
                                         <AssistantPartageEditeur 
                                             sansentete
                                             propositionId={this.state.proposition.uuid}

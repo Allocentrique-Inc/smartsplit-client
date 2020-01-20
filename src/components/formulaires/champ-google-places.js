@@ -25,16 +25,16 @@ class ChampGooglePlaces extends React.Component {
   render() {
     return <Search
       isLoading={this.state.enCharchement}
-      onSearchChange={this.rechercheChangée}
-      onResultSelect={this.résultatSélectionné}
-      onFocus={this.rechercheChangée}
+      onSearchChange={this.rechercheChangee}
+      onResultSelect={this.resultatSelectionne}
+      onFocus={this.rechercheChangee}
       results={this.state.résultats}
       value={this.state.valeur}
       {...this.props}
     />
   }
 
-  rechercheChangée = (e, {value}) => {
+  rechercheChangee = (e, {value}) => {
     const rechercheValide = value.length > 0;
 
     this.setState({
@@ -49,12 +49,12 @@ class ChampGooglePlaces extends React.Component {
     if(rechercheValide) {
       new google.maps.places.AutocompleteService().getPlacePredictions(
         {input: value},
-        this.rechercheChargée
+        this.rechercheChargee
       );
     }
   };
 
-  rechercheChargée = (predictions, status) => {
+  rechercheChargee = (predictions, status) => {
     if (status !== google.maps.places.PlacesServiceStatus.OK) {
       return; // on laisse "loader" sans rien faire
     }
@@ -74,7 +74,7 @@ class ChampGooglePlaces extends React.Component {
     });
   };
 
-  résultatSélectionné = (e, { result }) => {
+  resultatSelectionne = (e, { result }) => {
     this.setState({
       valeur: result.title,
       placeSélectionnée: result
@@ -89,11 +89,11 @@ class ChampGooglePlaces extends React.Component {
     new google.maps.places.PlacesService(fauxConteneur).getDetails({
       placeId: result.place_id,
       fields: ["formatted_address"]
-    }, this.auDétailsChargés)
+    }, this.auDetailsCharges)
   };
 
-  auDétailsChargés = (place, status) => {
-    if(status != google.maps.places.PlacesServiceStatus.OK) {
+  auDetailsCharges = (place, status) => {
+    if(status !== google.maps.places.PlacesServiceStatus.OK) {
       return; // on laisse l'adresse non-formattée
     }
 

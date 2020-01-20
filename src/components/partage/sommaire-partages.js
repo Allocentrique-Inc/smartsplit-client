@@ -9,8 +9,7 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 
-import Entete from '../entete/entete'
-import { Accordion, Icon } from 'semantic-ui-react'
+import { Accordion, Icon, Checkbox } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
 
 import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
@@ -22,18 +21,17 @@ import SommairePartagesEditeur from './sommaire-partages-editeur'
 import ModaleConnexion from '../auth/Connexion'
 
 import ModalPropositionEnCours from '../modales/modale-proposition-encours'
-import placeholder from '../../assets/images/placeholder.png';
 
 import InfoBulle from '../partage/InfoBulle';
 
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
-import { NavBar } from 'aws-amplify-react'
 import { Navbar } from '../navigation/navbar'
 
 //import { StarSVG } from "../svg/SVG";
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
+const ETAT_EDITEUR_NON = 1, ETAT_EDITEUR_OUI = 2, ETAT_EDITEUR_PLUSTARD = 3
 
 export default class SommairePartages extends Component {
 
@@ -45,8 +43,7 @@ export default class SommairePartages extends Component {
             panneau: PANNEAU_PROPOSITIONS,
             modaleConnexion: false,
             modaleNouvelle: false,
-            modaleCourriels: props.envoyer,
-            editeur: true
+            modaleCourriels: props.envoyer
         }
         this.initialisation = this.initialisation.bind(this)
         this.clic = this.clic.bind(this)
@@ -55,7 +52,7 @@ export default class SommairePartages extends Component {
         this.openModal = this.openModal.bind(this)
         this.closeModal = this.closeModal.bind(this)
         this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
-        this.actionEditeur = this.actionEditeur.bind(this)
+        this.fermerInfobulleEditeur = this.fermerInfobulleEditeur.bind(this)
         moment.defaultFormat = "DD-MM-YYYY HH:mm"
     }
 
@@ -126,38 +123,28 @@ export default class SommairePartages extends Component {
     modalePropositionEnCours(ouvrir = true) {
         this.setState({ modalePropositionEnCours: ouvrir })
     }
-    actionEditeur() {
-        this.setState({ editeur: false }) // Déjà à false
-    } // affecte état, rafraîchi contenu
+
+    fermerInfobulleEditeur(etat) {        
+        switch(etat) {
+            case ETAT_EDITEUR_NON:
+                this.setState({ fermerInfobulleEditeur: true })
+                this.setState({ editeur: false })
+                break;
+            case ETAT_EDITEUR_OUI:
+                this.setState({ fermerInfobulleEditeur: true })
+                this.setState({ editeur: true })
+                break;
+            case ETAT_EDITEUR_PLUSTARD:
+                this.setState({ fermerInfobulleEditeur: true })
+                break;
+            default:
+
+        }
+    }
 
     render() {
         if (this.state.propositions && this.state.media) {
             let propositions = []
-
-            let imageSrc = placeholder
-            if(this.state.media) {
-                let elem = this.state.media
-                if(elem.files && elem.files.cover && elem.files.cover.files && elem.files.cover.files.length > 0) {
-                    elem.files.cover.files.forEach(e=>{
-                        if(e.access === 'public') {
-                            imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
-                        }
-                    })
-                }
-            }
-
-            let contenu = (
-                <Translation>
-                    {
-                        t =>
-                            <div className="ui seven wide column">
-                                <img alt="Vignette" src={imageSrc} style={{width: "55px", height: "55px", verticalAlign: "middle", marginRight: "15px"}}/>
-                                {this.state.media && (<span className="medium-400 media cliquable" onClick={()=>window.location.href=`/oeuvre/${this.state.media.mediaId}/resume`} style={{marginRight: "10px"}}>{this.state.media.title}</span>)}
-                                <span className="heading4 partage">{t('flot.split.documente-ton-oeuvre.etape.partage-titre')}</span>
-                            </div>
-                    }
-                </Translation>
-            )
 
             let _p0
 
@@ -234,6 +221,90 @@ export default class SommairePartages extends Component {
                 }
             }
 
+            let optionsAffichage = !this.state.pochette && (
+                <Translation>
+                  {t => (
+                    <div style={{display: "inline"}}>
+                      <div style={{paddingBottom: "20px", display: "inline"}} className={`small-500${
+                            souligneInitiateur ? "-color souligne" : " secondaire"
+                          } ${souligneInitiateur && this.state.pochette ? "pochette" : ""}`}>
+
+                        <span
+                          className={`cliquable`}
+                          onClick={() => {
+                            this.afficherPanneauPropositions()
+                          }}
+                          style={{ fontSize: "16px", color: souligneInitiateur ? "black" : "" }}
+                        >
+                          {t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}
+                        </span>
+                      </div>
+                      <div style={{paddingBottom: "20px", marginLeft: "40px", display: "inline"}} className={`small-500${
+                            souligneCollaborateur ? "-color souligne" : " secondaire"
+                          } ${souligneCollaborateur && this.state.pochette ? "pochette" : ""}`}>
+
+                        <InfoBulle
+                            className="proposition"
+                            declencheur={(
+                                <span
+                                    className={`cliquable`}
+                                    onClick={() => {
+                                        if(partageEditeur) this.afficherPanneauEditeur()
+                                    }}
+                                    style={{ fontSize: "16px", color: souligneCollaborateur ? "black" : "", cursor: !partageEditeur ? "not-allowed" : "pointer" }}
+                                    >
+                                    {t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}
+                                </span>
+                            )}
+                            style={{
+                                background: "#FAF8F9",
+                                border: "1px solid #DCDFE1",
+                                boxShadow: "0px 8px 32px rgba(0, 0, 0, 0.25)"
+                            }}
+                            decoration={
+                                <>
+                                    <div className="header" style={
+                                        {
+                                            textAlign: "center", 
+                                            fontSize: "16px", 
+                                            color: "black", 
+                                            margin: "0 auto", 
+                                            fontFamily: "IBM Plex Sans", 
+                                            fontWeight: "700",
+                                            width: "240px"                                            
+                                        }}>
+                                        {t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")}
+                                    </div>
+                                    <br />
+                                    <div className="ui medium button inverse infobulle" style={{width: "110px", marginLeft: "0px", marginRight: "0px"}}
+                                        onClick={ () => { this.fermerInfobulleEditeur(ETAT_EDITEUR_NON) }}
+                                        >
+                                        Non
+                                    </div>
+                                    <div className="ui medium button infobulle" style={{width: "110px", marginLeft: "20px", marginRight: "0px"}} onClick={(e) => {
+                                        this.fermerInfobulleEditeur(ETAT_EDITEUR_OUI)
+                                        this.afficherPanneauEditeur()
+                                    }}>Oui</div>
+                                    <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={()=>this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)} style={
+                                        {
+                                            paddingTop: "10px",
+                                            textAlign: "center", 
+                                            fontSize: "16px", 
+                                            fontFamily: "IBM Plex Sans", 
+                                            fontWeight: "700"                                            
+                                        }}>{t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
+                                </>
+                            }
+                            orientation="bottom center"
+                            ouvert={partageEditeur && !this.state.fermerInfobulleEditeur}                                                    
+                        />
+                        
+                      </div>
+                    </div>
+                  )}
+                </Translation>
+              )
+
             // Extraction de la liste des ayants droit de la proposition la plus récente
             // Construction de la structure des données de l'assistant
             let proposition = _p0
@@ -281,40 +352,10 @@ export default class SommairePartages extends Component {
                         default:
                     }
                 }
-            })
+            })        
 
-            let that = this
-            let message
-
-            if (this.state.user && _p0 && _p0.etat === "PRET" && _p0.initiatorUuid === this.state.user.username) {
-                message = (
-                    <Translation>
-                        {
-                            t =>
-                                <>
-                                    <div className="ui row">
-                                        <div className="four wide column">
-                                            <p className="ui color blue envoyer">
-                                                {t('flot.split.partage.prete-a-envoyer')}</p>
-                                        </div>
-                                    </div>
-                                </>
-                        }
-
-                    </Translation>
-                )
-            }
-
-            if (this.state.user && _p0 && _p0.etat === "VOTATION" && !this.state.jetonApi) {
-                message = (
-                    <Translation>
-                        {
-                            t =>
-                                <h4 className="ui color orange">{t('flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton')}</h4>
-                        }
-                    </Translation>
-                )
-            }
+            let souligneInitiateur = this.state.panneau === PANNEAU_PROPOSITIONS
+            let souligneCollaborateur = this.state.panneau === PANNEAU_EDITEUR    
 
             return (
                 <Translation>
@@ -329,14 +370,11 @@ export default class SommairePartages extends Component {
                                     resume={false}
                                     proposition={true}
                                     menuProfil={false} />
-                                <div className="ui container">
+                                <div className="ui container" style={{marginTop: "100px"}}>
                                     <div className="ui grid sommaire">
-                                        {/* <div className="ui row">
-                                            <Entete navigation={`/oeuvre/sommaire/${this.state.media.mediaId}`} contenu={contenu} profil={this.state.user} />
-                                        </div> */}
                                         <div className="ui row">
                                             <div className="ui twelve wide column">
-                                                {message}
+                                                <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume')}</h1>
                                             </div>
                                         </div>
                                         <div className="ui row">
@@ -395,56 +433,65 @@ export default class SommairePartages extends Component {
                                                 }
                                             </div>                                                                                                                    
                                         </div>
-                                        {
-                                            partageEditeur && (
-                                                <div className="ui row">
-                                                    <div className="ui twelve wide column">
-                                                        <span style={this.state.panneau === PANNEAU_PROPOSITIONS ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`medium-500-tier${this.state.panneau === PANNEAU_PROPOSITIONS ? '-color' : ''}`} onClick={() => { this.afficherPanneauPropositions() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}</span>&nbsp;&nbsp;
-                                                        {/* Doit être adjacent à encapsules */}
-                                                        <InfoBulle
-                                                        className="proposition"
-                                                            declencheur={(<span style={this.state.panneau === PANNEAU_EDITEUR ? { cursor: "pointer", borderBottom: "solid green" } : { cursor: "pointer" }} className={`medium-500-tier${this.state.panneau === PANNEAU_EDITEUR ? '-color' : ''}`} onClick={() => { this.afficherPanneauEditeur() }}>{t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}</span>)}
-                                                            decoration={
-                                                                <>
-                                                                    <div className="header">{t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")} </div>
-                                                                    <br />
-                                                                    <div className="ui negative button editeur"
-                                                                        onClick={(e) => { this.actionEditeur() }} // () = activation passer paramètre true ou false
-                                                                        > {/* Chargé mais des fois faut l'importer à moins que composante déjà importée l'ait déjà chargée */}
-                                                                        Non
-                                                                    </div>
-                                                                    <div className="ui positive button" onClick={(e) => {
-                                                                        this.actionEditeur() // Ensuite ligne 116
-                                                                        this.afficherPanneauEditeur() // L'affiche de suite après
-                                                                    }}>Oui</div>
-                                                                    <br /> <br />
-                                                                    <div className="contenu">{t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
-                                                                </> // nul
-                                                            }
-                                                            ouvert={this.state.editeur} // fonction passée à var pour changer état (= "swich"). Ligne 117
-                                                        // Défini dans state puis dans setState de InfoBulle
-                                                        />
-                                                    </div>
-                                                    <div className="ui one wide column" />
-                                                </div>
+                                        
+                                        <div className="ui row">
+                                            <div className="ui sixteen wide column" style={{borderBottom: "0.5px solid lightgrey", paddingBottom: "20px"}}>
+                                                {optionsAffichage}
+                                            </div>
+                                        </div>                                        
 
-
-                                            )
-                                        }
                                         {
                                             this.state.panneau === PANNEAU_PROPOSITIONS &&
                                             (
-                                                <div className="ui row">
-                                                    <Accordion fluid styled className="ui sixteen wide column">
-                                                        {propositions}
-                                                    </Accordion>
-                                                </div>
+                                                <>
+                                                    <div className="ui row">
+                                                        <div className="ui sixteen wide column">
+                                                            <div className="ui medium button inverse" style={{marginLeft: "0px"}}>{t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
+                                                            <div style={{float: "right"}}>
+                                                                {!nouveauDisabled && (
+                                                                    <div className="ui medium button inverse">{t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
+                                                                )}
+                                                                {!envoiDisabled && (
+                                                                    <div style={{marginRight: "0px"}} className="ui medium button">{t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
+                                                                )}                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>                                        
+                                                    <div className="ui row">
+                                                        <Accordion fluid styled className="ui sixteen wide column">
+                                                            {propositions}
+                                                        </Accordion>
+                                                    </div>
+                                                </>
                                             )
                                         }
                                         {
                                             this.state.panneau === PANNEAU_EDITEUR &&
                                             (
-                                                <SommairePartagesEditeur proposition={_p0} />
+                                                <>
+                                                    {
+                                                        !this.state.nouvellePropositionEditeur && (
+                                                            <div className="ui row">
+                                                                <div className="ui sixteen wide column">
+                                                                    <Checkbox 
+                                                                        checked={this.state.editeur} 
+                                                                        onChange={
+                                                                            () => this.setState({ editeur: !this.state.editeur })
+                                                                        } 
+                                                                        label={{ children: t('flot.split.documente-ton-oeuvre.proposition.jai-un-editeur') }} />
+                                                                    <div style={{float: "right"}}>
+                                                                        <div onClick={ ()=> {if(this.state.editeur) this.setState({nouvellePropositionEditeur: true})} }className={`ui medium button ${!this.state.editeur ? 'disabled' : ''}`}>{t('flot.split.documente-ton-oeuvre.proposition.partage')}</div>                                                                                                                                
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    {
+                                                        this.state.nouvellePropositionEditeur && (
+                                                            <SommairePartagesEditeur proposition={_p0} />
+                                                        )
+                                                    }
+                                                </>                                                
                                             )
                                         }
                                         {
@@ -477,8 +524,8 @@ export default class SommairePartages extends Component {
                                     <Login fn={() => {
                                         Auth.currentAuthenticatedUser()
                                             .then(res => {
-                                                that.setState({ user: res })
-                                                that.setState({ modaleConnexion: false })
+                                                this.setState({ user: res })
+                                                this.setState({ modaleConnexion: false })
                                             })
                                             .catch(err => {
                                                 toast.error(err.message)

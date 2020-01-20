@@ -320,13 +320,13 @@ export class SommaireDroit extends Component {
             let beignet2 = false
             console.log("LE TYPE: "+this.state.type)
             console.log(_data)
-            if (this.state.type == "workCopyrightSplit") beignet2 = true
+            if (this.state.type === "workCopyrightSplit") beignet2 = true
 
             return (
                 <Translation>
                     {
                         t =>
-                            <div className="ui segment">
+                            <div className="ui segment" style={{minHeight: "450px"}}>
                                 <div className="wizard-title">{t(`flot.split.droits.titre.${this.state.titre}`)}</div>
                                 <br /><br />
 
