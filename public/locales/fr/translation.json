@@ -544,6 +544,7 @@
           "continuer": "Continuer le partage",
           "sommaire": "Accéder au sommaire",
           "voter": "Accéder au vote",
+          "change": "Changer vote",
           "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition.",
           "pourquoi": "Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.",
           "refuse": "Pourquoi refuses-tu le split (optionel)",
@@ -822,6 +823,26 @@
       "piste": "Titre de la piste",
       "tech": "Technicien en enregistrement",
       "illustration": "Graphique"
+    },
+    "telechargement": {
+      "telechargement": "Téléchargements",
+      "visuel": "Visuels de l'œuvre",
+      "audio": "Fichiers audio",
+      "midi": "Fichiers MIDI",
+      "partition": "Partitions/Tablatures"
+    },
+    "parole": {
+      "parole": "Paroles",
+      "voir": "Voir les paroles"
+    },
+    "info": {
+      "info": "Informations générales",
+      "inconnue": "Inconnue",
+      "duree": "Durée",
+      "influence": "Influences"
+    },
+    "ecouter": {
+      "ecouter": "Écouter"
     }
   }
 }

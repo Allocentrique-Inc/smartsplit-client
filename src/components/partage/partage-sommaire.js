@@ -175,12 +175,26 @@ export class SommaireDroit extends Component {
                         <div key={`part_${uuid}`}>
                             <div className="ui grid">
                                 <div className="ui row">
-                                    <div className="ui eight wide column">
+                                    <div className="ui sixteen wide column">
                                         <div className="holder-name">
                                             <img alt="" className="ui spaced avatar image" src={
                                                 (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
                                                     this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
                                             {part.nom}
+                                            <Translation>
+                                            {
+                                                t =>
+                                                <div className="vote">
+                                                {parseFloat(part.sommePct).toFixed(2) + "%"}
+                                                <div style={{ color: (part.vote === 'accept') ? "#2da84f" : (part.vote === "reject" ? "#ac1616" : "grey") }}>
+                                                <strong>{t(`flot.split.vote.${part.vote}`)}</strong>
+                                                {this.state.modifierVote && (<img className="cliquable" src={Edit} onClick={() => { this.changerVote() }} alt={t("flot.split.documente-ton-oeuvre.proposition")} />)}
+                                                </div>
+                                                </div>
+                                                                        } 
+                                            </Translation>
+                                        </div>
+                                        </div>
                                         </div>
                                         </div>
                                         </div>
@@ -196,7 +210,7 @@ export class SommaireDroit extends Component {
                                             </Translation>
                                             </div>
                                             </div>
-                                    </div>
+                                    
                             {
                                 uuid === this.state.ayantDroit.rightHolderId && (
                                     
@@ -240,13 +254,6 @@ export class SommaireDroit extends Component {
                                                                                             )
                                                                             }
                                                                         </div>
-                                                                        {/* <div className="vote">
-                                                                            {parseFloat(part.sommePct).toFixed(2) + "%"}
-                                                                            <div style={{ color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "#2da84f" : (this.state.monVote && this.state.monVote.vote === "reject" ? "ac1616" : "grey") }}>
-                                                                                <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
-                                                                                {this.state.modifierVote && (<img className="cliquable" src={Edit} onClick={() => { this.changerVote() }} alt="Changer vote" />)}
-                                                                            </div>
-                                                                        </div> */}
                                                                     </>
                                                             )
                                                         }
@@ -294,7 +301,7 @@ export class SommaireDroit extends Component {
                             }
 
 
-                        </div>
+                       
                     </>
                 )
             })        
