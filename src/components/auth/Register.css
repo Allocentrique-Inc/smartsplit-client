@@ -8,13 +8,16 @@
   font-weight: bold;
   font-size: 16px;
   line-height: 0px;
+  position: relative;
+  float: right;
+  margin-right: 20px;
 }
 
 .container {
   display: block;
   margin: 0 auto;
   width: 464px;
-  font-family: "IBM Plex Sans"
+  font-family: "IBM Plex Sans";
 }
 
 /*button[id="facebook"],
@@ -66,7 +69,6 @@ input {
   padding-right: 0px;
   margin: 5px 0 5px 0;
   padding-right: 0px;
-
 }
 
 label[for="username"],
@@ -352,7 +354,7 @@ header#registerHeader h3 {
 .ui.icon.search {
   position: absolute;
   right: 430px;
-  top: 18px
+  top: 18px;
 }
 
 #roles {
@@ -396,7 +398,6 @@ input[placeholder] {
 
 .invalide {
   color: red;
- position: absolute;
- top: 730px;
+  position: absolute;
+  top: 730px;
 }
-

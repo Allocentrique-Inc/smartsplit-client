@@ -379,7 +379,7 @@
 }
 
 .small-500.secondaire {
-  color: #687A8B
+  color: #687a8b;
 }
 
 .ui.six.wide.column.etat {
@@ -397,9 +397,37 @@
 }
 
 .song-image {
-
   img {
-      width: 40px;
-      height: 40px;
+    width: 40px;
+    height: 40px;
   }
+}
+
+.ui.button.medium.vote {
+  cursor: pointer;
+  display: inline-block;
+  width: 179px;
+  height: 40px;
+  background-color: white;
+  border: 1px solid #dcdfe1;
+  &.accepte {
+    color: $smartsplit-color-link;
+  }
+  &.refus {
+    color: #ac1616;
+  }
+  &.actif {
+    &.accepte {
+      background-color: $smartsplit-color-link;
+      color: white;
+    }
+    &.refus {
+      background-color: #ac1616;
+      color: white;
+    }
+  }
+}
+
+.role {
+  padding-left: 45px;
 }
