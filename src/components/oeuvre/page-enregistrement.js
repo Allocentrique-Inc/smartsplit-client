@@ -1,5 +1,4 @@
 import React from "react";
-import { Search } from "semantic-ui-react";
 import { Translation } from "react-i18next";
 import Page from "../page-assistant/page";
 import RecordGreen from "../../assets/svg/icons/record-green.svg";
@@ -20,11 +19,7 @@ import {
 import * as roles from "../../assets/listes/role-uuids.json";
 import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
 import InfoBulle from "../partage/InfoBulle";
-
-/* global google */
-import scriptLoader from "react-async-script-loader";
-const PLACES_URL =
-  "https://maps.googleapis.com/maps/api/js?key=AIzaSyDMqdhUeY8YrbkAaDp0VcYVsSk-NqWT65M&libraries=places";
+import ChampGooglePlaces from "../formulaires/champ-google-places";
 
 class PageEnregistrement extends React.Component {
   constructor(props) {
@@ -50,11 +45,7 @@ class PageEnregistrement extends React.Component {
       producers: getRightHolderIdsByRole(
         roles.producer,
         props.values.rightHolders
-      ),
-      value: "",
-      results: "",
-      selectedPlace: "",
-      isLoading: false
+      )
     };
   }
 
@@ -159,46 +150,7 @@ class PageEnregistrement extends React.Component {
     }
   }
 
-  resetComponent = () => {
-    this.setState({ isLoading: false, results: [], value: "" });
-  };
-
-  handleResultSelect = (e, { result }) => {
-    this.setState({ value: result.title, selectedPlace: result });
-  };
-
-  handleSearchChange = (e, { value }) => {
-    if (value.length === 0) {
-      return this.resetComponent();
-    }
-
-    this.setState({ isLoading: true, value });
-    const autocompleteService = new google.maps.places.AutocompleteService();
-    autocompleteService.getPlacePredictions(
-      { input: value },
-      this.handleAutocompleteResult
-    );
-  };
-
-  handleAutocompleteResult = (predictions, status) => {
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      this.setState({
-        isLoading: false,
-        results: predictions.map(prediction => {
-          return {
-            key: prediction.id,
-            title: prediction.structured_formatting.main_text,
-            description: prediction.structured_formatting.secondary_text,
-            source: prediction
-          };
-        })
-      });
-    }
-  };
-
   render() {
-    const { isLoading, value, results } = this.state;
-
     return (
       <Translation>
         {t => (
@@ -365,18 +317,14 @@ class PageEnregistrement extends React.Component {
                   this.props.setFieldValue("studioAddress", value)
                 }
               /> */}
-              <Search
+              <ChampGooglePlaces
                 placeholder={t(
                   "flot.split.documente-ton-oeuvre.documenter.studio-adresse"
                 )}
                 className="search"
-                loading={isLoading}
-                onResultSelect={this.handleResultSelect}
-                onSearchChange={this.handleSearchChange}
-                results={results}
-                value={value}
-                {...this.props}
-              />{" "}
+                valeurInitiale={this.props.values.studioAddress}
+                auChangement={valeur => this.props.setFieldValue("studioAddress", valeur)}
+              />
               <ChampSelectionMultipleAyantDroit
                 pochette={this.props.pochette}
                 items={this.rightHolderOptions()}
@@ -505,4 +453,4 @@ class PageEnregistrement extends React.Component {
   }
 }
 
-export default scriptLoader([PLACES_URL])(PageEnregistrement);
+export default PageEnregistrement;

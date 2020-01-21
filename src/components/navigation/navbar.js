@@ -12,6 +12,7 @@ export class Navbar extends React.Component {
 
     constructor(props) {
         super(props)
+        this.utils = new Utilitaires(1) // Contexte WEB
         this.state = {
             partage: false,
             resume: props.resume,
@@ -19,9 +20,12 @@ export class Navbar extends React.Component {
             media: props.media,
             acces: props.acces,
             membreEquipe: props.membreEquipe,
-            menuProfil: props.menuProfil
+            menuProfil: props.menuProfil,
+            navigation: props.navigation
         }
-        this.utils = new Utilitaires(1) // Contexte WEB
+        if(!this.state.navigation) {
+            this.state.navigation = () => this.utils.naviguerVersAccueil()
+        }
     }
 
     render() {                
@@ -43,7 +47,7 @@ export class Navbar extends React.Component {
                         <div className="fixed-top">
                             <div className={ 'oeuvre-resume-navbar ' + (this.props.pochette ? 'pochette' : '') }>
                                 <div className={ 'back-button-section' }>
-                                    <div className="ui cliquable" onClick={()=>window.location.href="/accueil"}>
+                                    <div className="ui cliquable" onClick={this.state.navigation}>
                                         <img src={ arrowLeftIcon } alt={ 'Retour' }/>
                                     </div>
                                 </div>

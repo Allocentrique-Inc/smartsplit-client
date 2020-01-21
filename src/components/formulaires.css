@@ -35,3 +35,12 @@ label.nouvelAuteur {
 .table {
     padding: 15px;
 }
+
+.ui.search > .icon.input {
+    float: none;
+    width: 100%;
+}
+
+.ui.search > .results {
+    top: 80px;
+}

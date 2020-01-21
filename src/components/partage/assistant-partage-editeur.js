@@ -6,9 +6,6 @@ import { Wizard } from "semantic-ui-react-formik-iptoki"
 // Traduction
 import { Translation } from 'react-i18next'
 
-// Composantes
-import EntetePartage from './entete-partage'
-
 // Pages de l'assistant
 import PageAssistantPartageEditeurChoix from './partage-editeur-selection'
 import PageAssistantPartageEditeurPart from './partage-editeur-part'
@@ -168,42 +165,35 @@ class AssistantPartageEditeur extends Component {
             return (
                 <Translation>
                     {
-                        (t, i18n)=>
-                            <div className="ui grid" style={{padding: "10px"}}>
-                                {!this.state.sansentete && 
-                                    <EntetePartage enregistrerEtAllerAuSommaire={this.props.enregistrerEtAllerAuSommaire} media={this.state.media} user={this.state.user} />}                                
-                                <div className="ui row">
-                                    <div className="ui two wide column" />
-                                    <div className="ui twelve wide column">
-                                        {
-                                            this.state.uaD && (
-                                                <Wizard
-                                                    initialValues={{                                                                                                
-                                                        editeur: {},
-                                                        editeurListe: "",
-                                                        song: this.state.media.title,
-                                                        parts: this.state.proposition.rightsSplits.workCopyrightSplit,
-                                                        ayantDroit: {rightHolderId: this.state.user.username, pourcent: undefined, aD: this.state.uaD}
-                                                    }}
-                                                    buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                                    debug={false}
-                                                    onSubmit={this.soumettre.bind(this)}                                            
-                                                    >                                            
-                    
-                                                    <Wizard.Page>
-                                                        <PageAssistantPartageEditeurChoix i18n={i18n} />
-                                                    </Wizard.Page>
-                    
-                                                    <Wizard.Page>
-                                                        <PageAssistantPartageEditeurPart ayantsDroit={this.state.ayantsDroit} i18n={i18n} />
-                                                    </Wizard.Page>                                            
-                    
-                                                </Wizard>
-                                            )
-                                        }                                        
-                                    </div>
-                                </div>                                
-                            </div>
+                        (t, i18n)=>                                
+                            <>
+                                {
+                                    this.state.uaD && (
+                                        <Wizard
+                                            initialValues={{                                                                                                
+                                                editeur: {},
+                                                editeurListe: "",
+                                                song: this.state.media.title,
+                                                parts: this.state.proposition.rightsSplits.workCopyrightSplit,
+                                                ayantDroit: {rightHolderId: this.state.user.username, pourcent: undefined, aD: this.state.uaD}
+                                            }}
+                                            buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
+                                            debug={false}
+                                            onSubmit={this.soumettre.bind(this)}                                            
+                                            >                                            
+            
+                                            <Wizard.Page>
+                                                <PageAssistantPartageEditeurChoix i18n={i18n} />
+                                            </Wizard.Page>
+            
+                                            <Wizard.Page>
+                                                <PageAssistantPartageEditeurPart ayantsDroit={this.state.ayantsDroit} i18n={i18n} />
+                                            </Wizard.Page>                                            
+            
+                                        </Wizard>
+                                    )
+                                }                                                                                                        
+                            </>
                     }
                 </Translation>                                
             )

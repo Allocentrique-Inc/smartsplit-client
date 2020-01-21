@@ -187,8 +187,6 @@ class PageAssistantPartageEditeur extends Component {
                         <div className="ui grid">          
                             <div className="ui row">
                                 <div className="ui seven wide column">
-                                    <div className="wizard-title">{t('flot.split.documente-ton-oeuvre.partage.auteur.titre')}</div>
-                                    <br/>
                                     <div className="mode--partage__auteur">
                                     <div className="who-invented-title">
                                         { t('flot.split.partage.editeur.titre-part') }

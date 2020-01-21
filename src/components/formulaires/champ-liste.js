@@ -10,6 +10,7 @@ import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg"
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg"
 
 import '../../assets/scss/page-assistant/champ.scss'
+import AideAyantDroit from '../../utils/ayantdroit'
 
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"
@@ -262,7 +263,7 @@ export class ChampListeCollaborateurAssistant extends Component {
                 let _adParId = {}
                 let nomsConnus = []
                 let _options = res.data.map((elem, idx) => {
-                    let nom = `${elem.firstName || ""} ${elem.lastName || ""} ${elem.artistName ? `(${elem.artistName})` : ""}`
+                    let nom = AideAyantDroit.affichageDuNom(elem)
                     _adParId[elem.rightHolderId] = elem
                     let avatar = ''
                     nomsConnus.push(nom)

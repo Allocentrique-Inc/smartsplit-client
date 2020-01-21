@@ -15,7 +15,9 @@ class InfoBulle extends Component {
             declencheur: props.declencheur || icone, // propriété de l'InfoBulle
             decoration: props.decoration, // propriété de PopUp
             sur: props.sur || "hover",
-            ouvert: props.ouvert // attribut état interne, quand appellé étant changé
+            ouvert: props.ouvert, // attribut état interne, quand appellé étant changé
+            orientation: props.orientation || "top center",
+            style: props.style || {}
         }
         this.setXY = this.setXY.bind(this)
         this.handleMouseIn = this.handleMouseIn.bind(this) // (): appel de la fonction, (this): fonction
@@ -35,10 +37,7 @@ class InfoBulle extends Component {
             this.setState({ decoration: nextProps.decoration })
         }
     }
-    //Méthode cycle de vie
-    //Changer dans parent (lui dire quoi faire) pour appliquer à enfant
-
-    //Modifie position x y
+   
     setXY(e) {
         if (!this.props.pos) {
             this.setState({ pos: { x: e.clientX + 10, y: e.clientY - 50 } })
@@ -47,7 +46,6 @@ class InfoBulle extends Component {
         }
     }
 
-    //Attrape et passe ça à setXY pour reprendre contrôle
     handleMouseIn() {
         this.setState({ hover: true })
     }
@@ -67,12 +65,10 @@ class InfoBulle extends Component {
                                 style={{ display: "inline" }}
                                 onMouseOver={e => { this.handleMouseIn(e); this.setXY(e) }}
                                 onMouseOut={this.handleMouseOut.bind(this)}>
-                                {/* fonction créee dans constructeur ou directement quand appellée  */}
-
                                 <Popup
-                                    style={this.props.style} // Passer style dans InfoBulle
+                                    style={this.state.style} // Passer style dans InfoBulle
                                     trigger={this.state.declencheur}
-                                    position="top center"
+                                    position={this.state.orientation}
                                     on={this.state.sur}
                                     open={this.state.ouvert} // Ouvre popUp automatiquement
                                 >

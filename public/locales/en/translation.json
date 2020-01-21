@@ -524,6 +524,7 @@
             "ACCEPTE": "Accepted",
             "REFUSE": "Rejected"
           },
+          "resume": "Split summary",
           "editer": "Edit",
           "titre": "Send the copyright split",
           "sous-titre": "To finalize this split, you have to invite your collaborators to validate it all. Indicate their email addresses to which you are sending your split proposition.",
@@ -536,7 +537,11 @@
           "pourquoi": "Mention to your contributors why you're not comfortable with this split.",
           "refuse": "Why you decline this split (optional)",
           "refuse2": "Decline this split",
-          "termine": "The voting is done!"
+          "termine": "The voting is done!",
+          "telecharger-contrat": "Download the contract",
+          "nouvelle-version": "Create a new version",
+          "jai-un-editeur": "I have a publisher",
+          "partage": "Propose a split"
         },
         "bouton": {
           "ajout": "Add",

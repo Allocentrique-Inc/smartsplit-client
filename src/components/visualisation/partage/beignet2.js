@@ -9,6 +9,7 @@ import React, { Component } from 'react'
 
 // Traduction
 import { Translation } from 'react-i18next'
+import AideAyantDroit from '../../../utils/ayantdroit'
 
 // D3
 const d3 = require('d3')
@@ -22,7 +23,7 @@ export default class Beignet2 extends Component {
             height: 320, //225,
             margin: 10, //50,
             icon: "",
-            data: {},
+            data: props.data,
             colors: {},
             alphas: {},
             uuid: props.uuid,
@@ -30,7 +31,7 @@ export default class Beignet2 extends Component {
             accomp: false,
             side: "left"
         }
-
+        if(props.data) { this.rafraichir(props) }
     }
 
     componentDidMount() {
@@ -55,7 +56,7 @@ export default class Beignet2 extends Component {
             props.data.forEach(elem => {
                 let nom
                 if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                    nom = `${elem.ayantDroit.firstName + " "}${elem.ayantDroit.lastName} ${elem.ayantDroit.artistName ? `(${elem.ayantDroit.artistName}) ` : ""}`
+                    nom = AideAyantDroit.affichageDuNom(elem.ayantDroit)
                     _d[nom] = elem.pourcent
                 }
                 _c[nom] = elem.color;
@@ -100,6 +101,7 @@ export default class Beignet2 extends Component {
         // append the svg object to the div called 'my_dataviz'
         let svg = d3.select(`#my_dataviz_${this.state.uuid}`)
             .append("svg")
+            .attr("style", "position: absolute; top: 0px")
             .attr("width", this.state.width)
             .attr("height", this.state.height)
             .append("g")
@@ -224,12 +226,15 @@ export default class Beignet2 extends Component {
             }
         }, 0)
 
+        let flush = { float: 'left' }
+        if (this.props.titre === "Musique") flush = { float: 'right' }
+
         return (
             <Translation>
                 {
                     (t, i18n) =>
                         <div style={{ margin: "0 auto" }}>
-                            {this.props.titre && (<h4>{this.props.titre}</h4>)}
+                            {this.props.titre && (<h4 style={ flush }>{this.props.titre}</h4>)}
                             <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
                             </div>
                         </div>
