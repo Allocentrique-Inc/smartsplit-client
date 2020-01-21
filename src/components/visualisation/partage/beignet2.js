@@ -22,7 +22,7 @@ export default class Beignet2 extends Component {
             height: 320, //225,
             margin: 10, //50,
             icon: "",
-            data: {},
+            data: props.data,
             colors: {},
             alphas: {},
             uuid: props.uuid,
@@ -30,7 +30,7 @@ export default class Beignet2 extends Component {
             accomp: false,
             side: "left"
         }
-
+        if(props.data) { this.rafraichir(props) }
     }
 
     componentDidMount() {

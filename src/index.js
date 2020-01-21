@@ -3,13 +3,16 @@ import "./index.css";
 import "./assets/scss/_colors.scss"
 import "./assets/scss/_typography.scss"
 
-import React from "react";
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom";
 // Amplify + Auth
 import Amplify from "aws-amplify";
 // Traduction
 import i18n from "./utils/i18n"; //Module React (dans dossier modules). npm install
-import { I18nextProvider, Translation } from "react-i18next";
+import { I18nextProvider } from "react-i18next";
 // Routeur applicatif
 import { Route, Router, Switch } from "react-router";
 import { createBrowserHistory } from "history";
@@ -65,9 +68,10 @@ Amplify.configure({
 const browserHistory = createBrowserHistory();
 
 const renderRoutes = () => {
+  let routage
   if (window.location.href.includes("pochette.info")) {  
     window.document.title = "Pochette.info"
-    return (
+    routage = (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
@@ -85,7 +89,7 @@ const renderRoutes = () => {
     );
   } else {
     window.document.title = "Smartsplit"
-    return (
+    routage = (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
@@ -128,6 +132,17 @@ const renderRoutes = () => {
       </I18nextProvider>
     )
   }
+
+  return (
+    <Suspense fallback={<Loader
+      type="Circles"
+      color="#00BFFF"
+      width="100%"
+      height="800px"
+    />}>
+      {routage}
+    </Suspense>
+  )
 }
 
 const ResumeAvecJeton = match => {
@@ -256,18 +271,14 @@ function SommaireProposition(match) {
 function PartagesOeuvres(match) {
   let mediaId = match.match.params.mediaId;
   return (
-    <Translation>
-      {(t, i18n) => <SommairePartages i18n={i18n} mediaId={mediaId} />}
-    </Translation>
+    <SommairePartages mediaId={mediaId} />
   )
 }
 
 function PartagesOeuvresEnvoyer(match) {
   let mediaId = match.match.params.mediaId;
   return (
-    <Translation>
-      {(t, i18n) => <SommairePartages i18n={i18n} mediaId={mediaId} envoyer={true} />}
-    </Translation>
+    <SommairePartages mediaId={mediaId} envoyer={true} />
   )
 }
 

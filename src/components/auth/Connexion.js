@@ -7,7 +7,7 @@ import Register from "./Register";
 import ForgotPassword from "./ForgotPassword";
 import ForgotPasswordVerification from "./ForgotPasswordVerification";
 import ChangePasswordVerification from "./ChangePasswordVerification";
-import { Translation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 const TYPE_LOGIN = 0,
   TYPE_REGISTER = 1,
@@ -15,7 +15,7 @@ const TYPE_LOGIN = 0,
   TYPE_VERIFY = 3,
   TYPE_CHANGE = 4;
 
-export default class ModaleConnexion extends Component {
+class ModaleConnexion extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -24,6 +24,7 @@ export default class ModaleConnexion extends Component {
       opened: TYPE_LOGIN,
       parent: props.parent
     }
+    console.log(props.i18n)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,75 +42,71 @@ export default class ModaleConnexion extends Component {
     let pochette = this.state.pochette ? "pochette" : ""
 
     return (
-      <Translation>
+      <Modal
+        open={this.state.isOpen}
+        closeOnEscape={false}
+        closeOnDimmerClick={false}
+        onClose={this.props.close}
+        size="small"
+      >
         {
-          (t, i18n) =>
-            <Modal
-              open={this.state.isOpen}
-              closeOnEscape={false}
-              closeOnDimmerClick={false}
-              onClose={this.props.close}
-              size="small"
-            >
+          this.props.i18n.language && (
+            <div className="ui row floated left">
               {
-                i18n.lng && (
-                  <div className="ui row floated left">
-                    {
-                      i18n.lng.substring(0, 2) === "en" && (
-                        <div className={`ui medium button ${pochette}`} onClick={() => { i18n.i18n.init({ lng: "fr" }) }} >
-                          FR
-                        </div>
-                      )
-                    }
-                    {
-                      i18n.lng.substring(0, 2) === "fr" && (
-                        <div className={`ui medium button ${pochette}`} onClick={() => { i18n.i18n.init({ lng: "en" }) }} >
-                          EN
-                        </div>
-                      )
-                    }
+                this.props.i18n.language.substring(0, 2) === "en" && (
+                  <div className={`ui medium button ${pochette}`} onClick={() => { this.props.i18n.init({ lng: "fr" }) }} >
+                    FR
                   </div>
                 )
               }
-              <br />
-              <br />
-              <br />
-              {this.state.opened === TYPE_LOGIN && (
-                <Login
-                  pochette={this.state.pochette}
-                  parent={this}
-                  fn={() => {
-                    Auth.currentAuthenticatedUser()
-                      .then(res => {
-                        // Vérifier si le profil est complet, si non,
-                        // Débloque la composante appelante
-                        this.state.parent.setState({ user: res })
-
-                        if (this.props.fn) {
-                          this.props.fn()
-                        }
-
-                        // Fermer la modale
-                        this.setState({ isOpen: false })
-                      })
-                      .catch(err => {
-                        toast.error(err.message)
-                      });
-                  }}
-                />
-              )}
-              {this.state.opened === TYPE_REGISTER && <Register parent={this} pochette={this.state.pochette} />}
-              {this.state.opened === TYPE_VERIFY && (
-                <ForgotPasswordVerification pochette={this.state.pochette} parent={this} />
-              )}
-              {this.state.opened === TYPE_CHANGE && (
-                <ChangePasswordVerification pochette={this.state.pochette} parent={this} />
-              )}
-              {this.state.opened === TYPE_FORGOT && <ForgotPassword pochette={this.state.pochette} parent={this} />}
-            </Modal>
+              {
+                this.props.i18n.language.substring(0, 2) === "fr" && (
+                  <div className={`ui medium button ${pochette}`} onClick={() => { this.props.i18n.init({ lng: "en" }) }} >
+                    EN
+                  </div>
+                )
+              }
+            </div>
+          )
         }
-      </Translation>
+        <br />
+        <br />
+        <br />
+        {this.state.opened === TYPE_LOGIN && (
+          <Login
+            pochette={this.state.pochette}
+            parent={this}
+            fn={() => {
+              Auth.currentAuthenticatedUser()
+                .then(res => {
+                  // Vérifier si le profil est complet, si non,
+                  // Débloque la composante appelante
+                  this.state.parent.setState({ user: res })
 
+                  if (this.props.fn) {
+                    this.props.fn()
+                  }
+
+                  // Fermer la modale
+                  this.setState({ isOpen: false })
+                })
+                .catch(err => {
+                  toast.error(err.message)
+                });
+            }}
+          />
+        )}
+        {this.state.opened === TYPE_REGISTER && <Register parent={this} pochette={this.state.pochette} />}
+        {this.state.opened === TYPE_VERIFY && (
+          <ForgotPasswordVerification pochette={this.state.pochette} parent={this} />
+        )}
+        {this.state.opened === TYPE_CHANGE && (
+          <ChangePasswordVerification pochette={this.state.pochette} parent={this} />
+        )}
+        {this.state.opened === TYPE_FORGOT && <ForgotPassword pochette={this.state.pochette} parent={this} />}
+      </Modal>     
     )
   }
 }
+
+export default withTranslation()(ModaleConnexion)
