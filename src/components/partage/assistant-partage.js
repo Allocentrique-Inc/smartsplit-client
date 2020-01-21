@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 // Assistant
 import { Wizard } from "semantic-ui-react-formik-iptoki"
 // Traduction
-import { Translation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
 // Pages de l'assistant
 import PageAssistantPartageDroitAuteur from './assistant-partage-auteur'
@@ -454,158 +454,151 @@ class AssistantPartage extends Component {
                 Object.keys(_droit.enregistrement).forEach(elem => { valeursInitiales.droitEnregistrement.push(_droit.enregistrement[elem]) })
             }
 
-            return (
-                <Translation>
-                    {
-                        (t, i18n) =>
-                            <>
-                                <div className="ui grid" style={{ padding: "10px" }}>
-                                    {
-                                        lectureSeule && (
-                                            <script>
-                                                setTimeout(()=>{toast.info(t('flot.split.partage.lecture-seule'))})
-                                        </script>
-                                        )
-                                    }
-                                    <div className="ui row">
-                                        <div className="ui two wide column" />
-                                        <div className="ui twelve wide column">
-                                            <Wizard
-                                                initialValues={{
-                                                    droitAuteur: valeursInitiales.droitAuteur,
-                                                    droitInterpretation: valeursInitiales.droitInterpretation,
-                                                    droitEnregistrement: valeursInitiales.droitEnregistrement,
-                                                    collaborateur: "",
-                                                    uuid: this.state.uuid,
-                                                    media: this.state.media
-                                                }}
-                                                pochette={this.props.pochette}
-                                                ButtonsWrapper={(props) => <div style={{
-                                                    position: "fixed",
-                                                    bottom: 0,
-                                                    left: 0,
-                                                    right: 0,
-                                                    paddingTop: "15px",
-                                                    background: "#fff",
-                                                    boxShadow: "0 0 5px rgba(0,0,0,0.5)",
-                                                    pochette: this.state.pochette
-                                                }}>
-                                                    <div className="ui grid">
-                                                        <div className="ui row">
-                                                            <div className="ui eight wide column">{props.children}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>}
-                                                buttonLabels={{ previous: t('navigation.retour'), next: t('navigation.suivant'), submit: t('navigation.envoi') }}
-                                                debug={false}
-                                                onPageChanged={index => this.setState({ currentWizardPage: index })}
-                                                onSubmit={
-                                                    (values, actions) => {
-                                                        actions.setSubmitting(false)
-                                                        if (!lectureSeule) {
-                                                            this.modaleDeclaration(true, () => {
-                                                                this.soumettre(t, values, "PRET")
-                                                            })
-                                                        }
-                                                    }
-                                                }
-                                            >
+            let t = this.props.t
 
-                                                <Wizard.Page>
-                                                    <PageAssistantPartageDroitAuteur 
-                                                        ayantsDroit={this.state.ayantDroits} 
-                                                        enregistrerEtQuitter={this.enregistrerEtQuitter} 
-                                                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
-                                                        i18n={i18n}
-                                                        user={this.state.user}
-                                                        media={this.state.media} />
-                                                </Wizard.Page>
-
-                                                <Wizard.Page>
-                                                    <PageAssistantPartageDroitInterpretation 
-                                                        ayantsDroit={this.state.ayantDroits} 
-                                                        enregistrerEtQuitter={this.enregistrerEtQuitter} 
-                                                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
-                                                        i18n={i18n}
-                                                        user={this.state.user}
-                                                        media={this.state.media} />
-                                                </Wizard.Page>
-
-                                                <Wizard.Page>
-                                                    <PageAssistantPartageDroitEnregistrement 
-                                                        ayantsDroit={this.state.ayantDroits} 
-                                                        enregistrerEtQuitter={this.enregistrerEtQuitter} 
-                                                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
-                                                        i18n={i18n} 
-                                                        user={this.state.user}
-                                                        media={this.state.media} />
-                                                </Wizard.Page>
-
-                                            </Wizard>
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    this.state.user &&
-                                    <Declaration
-                                        firstName={this.state.user.attributes.given_name}
-                                        lastName={this.state.user.attributes.family_name}
-                                        artistName={this.state.user.attributes["custom:artistName"]}
-                                        songTitle={this.state.media.title}
-                                        open={this.state.modaleDeclaration}
-                                        onClose={() => this.modaleDeclaration(false)}                                        
-                                        fn={() => {
-                                            this.state.fnSoumettre()
-
-                                        }} />
-                                }
-                                <Modal open={this.state.modaleFin} onClose={() => this.modaleFin(false)}>
-                                    <div className="modal-navbar">
-                                        <div className="leftModal">
-                                            <div className="title" style={{ width: "464px" }}>{t("flot.fin.partageCree")}</div>
-                                        </div>
-
-                                        <div className="rightModal" style={{ paddingRight: "10px" }}>
-                                            <div className="close-icon cliquable" onClick={this.props.onClose}>
-                                                <img src={closeIcon} alt={"close"} style={{ float: "right" }} />
+            return (                
+                <>
+                    <div className="ui grid" style={{ padding: "10px" }}>
+                        {
+                            lectureSeule && (
+                                <script>
+                                    setTimeout(()=>{toast.info(t('flot.split.partage.lecture-seule'))})
+                            </script>
+                            )
+                        }
+                        <div className="ui row">
+                            <div className="ui two wide column" />
+                            <div className="ui twelve wide column">
+                                <Wizard
+                                    initialValues={{
+                                        droitAuteur: valeursInitiales.droitAuteur,
+                                        droitInterpretation: valeursInitiales.droitInterpretation,
+                                        droitEnregistrement: valeursInitiales.droitEnregistrement,
+                                        collaborateur: "",
+                                        uuid: this.state.uuid,
+                                        media: this.state.media
+                                    }}
+                                    pochette={this.props.pochette}
+                                    ButtonsWrapper={(props) => <div style={{
+                                        position: "fixed",
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                        paddingTop: "15px",
+                                        background: "#fff",
+                                        boxShadow: "0 0 5px rgba(0,0,0,0.5)",
+                                        pochette: this.state.pochette
+                                    }}>
+                                        <div className="ui grid">
+                                            <div className="ui row">
+                                                <div className="ui eight wide column">{props.children}</div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>}
+                                    buttonLabels={{ previous: t('navigation.retour'), next: t('navigation.suivant'), submit: t('navigation.envoi') }}
+                                    debug={false}
+                                    onPageChanged={index => this.setState({ currentWizardPage: index })}
+                                    onSubmit={
+                                        (values, actions) => {
+                                            actions.setSubmitting(false)
+                                            if (!lectureSeule) {
+                                                this.modaleDeclaration(true, () => {
+                                                    this.soumettre(t, values, "PRET")
+                                                })
+                                            }
+                                        }
+                                    }
+                                >
 
-                                    <div className="modal-content">
-                                        <img
-                                            className={"success-image"}
-                                            src={positiveImage}
-                                            alt={"Positive"}
-                                        />
+                                    <Wizard.Page>
+                                        <PageAssistantPartageDroitAuteur 
+                                            ayantsDroit={this.state.ayantDroits} 
+                                            enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                            enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
+                                            user={this.state.user}
+                                            media={this.state.media} />
+                                    </Wizard.Page>
 
-                                        <h4 className={"h4-style"}>
-                                            {t("flot.fin.maintenantPartage")}
-                                        </h4>
-                                        {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                                            <p className={"description"}>
-                                                Hourray, your successfully created a share proposal. <em>Click</em> on the button below
-                                    to <em>review</em> it's content and to <em>send by email</em> to your collaborators.
-                                    </p>
-                                        )}
-                                        {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                                            <p className={"description"}>
-                                                Bravo, tu as créé une proposition de partage de droits avec succès ! <em>Clique</em> sur
-                                    le bouton ci-dessous afin de <em>revoir</em> et <em>envoyer par courriel</em> la proposition à
-                                                                                                                                                                                                                                                                                                                                                tes collaborateurs.
-                                    </p>
-                                        )}
-                                    </div>
+                                    <Wizard.Page>
+                                        <PageAssistantPartageDroitInterpretation 
+                                            ayantsDroit={this.state.ayantDroits} 
+                                            enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                            enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
+                                            user={this.state.user}
+                                            media={this.state.media} />
+                                    </Wizard.Page>
 
-                                    <div className={"modal-bottom-bar"}>
-                                        <a href={`/partager/${this.state.mediaId}`}>
-                                            <Button>{t("flot.fin.partage")}</Button>
-                                        </a>
-                                    </div>
-                                </Modal>
-                            </>
+                                    <Wizard.Page>
+                                        <PageAssistantPartageDroitEnregistrement 
+                                            ayantsDroit={this.state.ayantDroits} 
+                                            enregistrerEtQuitter={this.enregistrerEtQuitter} 
+                                            enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
+                                            user={this.state.user}
+                                            media={this.state.media} />
+                                    </Wizard.Page>
+
+                                </Wizard>
+                            </div>
+                        </div>
+                    </div>
+                    {
+                        this.state.user &&
+                        <Declaration
+                            firstName={this.state.user.attributes.given_name}
+                            lastName={this.state.user.attributes.family_name}
+                            artistName={this.state.user.attributes["custom:artistName"]}
+                            songTitle={this.state.media.title}
+                            open={this.state.modaleDeclaration}
+                            onClose={() => this.modaleDeclaration(false)}                                        
+                            fn={() => {
+                                this.state.fnSoumettre()
+
+                            }} />
                     }
-                </Translation>
+                    <Modal open={this.state.modaleFin} onClose={() => this.modaleFin(false)}>
+                        <div className="modal-navbar">
+                            <div className="leftModal">
+                                <div className="title" style={{ width: "464px" }}>{t("flot.fin.partageCree")}</div>
+                            </div>
+
+                            <div className="rightModal" style={{ paddingRight: "10px" }}>
+                                <div className="close-icon cliquable" onClick={this.props.onClose}>
+                                    <img src={closeIcon} alt={"close"} style={{ float: "right" }} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="modal-content">
+                            <img
+                                className={"success-image"}
+                                src={positiveImage}
+                                alt={"Positive"}
+                            />
+
+                            <h4 className={"h4-style"}>
+                                {t("flot.fin.maintenantPartage")}
+                            </h4>
+                            {this.props.i18n.language.substring(0, 2) === "en" && (
+                                <p className={"description"}>
+                                    Hourray, your successfully created a share proposal. <em>Click</em> on the button below
+                        to <em>review</em> it's content and to <em>send by email</em> to your collaborators.
+                        </p>
+                            )}
+                            {this.props.i18n.language.substring(0, 2) !== "en" && (
+                                <p className={"description"}>
+                                    Bravo, tu as créé une proposition de partage de droits avec succès ! <em>Clique</em> sur
+                                    le bouton ci-dessous afin de <em>revoir</em> et <em>envoyer par courriel</em> la proposition 
+                                    à tes collaborateurs.
+                                </p>
+                            )}
+                        </div>
+                        <div className={"modal-bottom-bar"}>
+                            <a href={`/partager/${this.state.mediaId}`}>
+                                <Button>{t("flot.fin.partage")}</Button>
+                            </a>
+                        </div>
+                    </Modal>
+                </>                   
             )
         } else {
             return (
@@ -636,4 +629,4 @@ class AssistantPartage extends Component {
     }
 }
 
-export default AssistantPartage
+export default withTranslation()(AssistantPartage)
