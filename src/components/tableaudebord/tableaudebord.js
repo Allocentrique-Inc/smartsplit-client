@@ -11,7 +11,6 @@ import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Auth } from "aws-amplify";
 
-import { Translation } from "react-i18next";
 import ModaleConnexion from "../auth/Connexion";
 
 export default class TableauDeBord extends Component {
@@ -57,18 +56,14 @@ export default class TableauDeBord extends Component {
       );
     } else {
       return (
-        <Translation>
-          {t => (
-            <div className={`tdb--cadre ui row ${accueil}`}>
-              <ModaleConnexion
-                pochette={this.state.pochette}
-                parent={this}
-                isOpen={this.state.modaleConnexion}
-              />
-            </div>
-          )}
-        </Translation>
-      );
+        <div className={`tdb--cadre ui row ${accueil}`}>
+          <ModaleConnexion
+            pochette={this.state.pochette}
+            parent={this}
+            isOpen={this.state.modaleConnexion}
+          />
+        </div>
+      )
     }
   }
 }

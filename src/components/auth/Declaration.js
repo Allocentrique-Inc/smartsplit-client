@@ -5,7 +5,7 @@ import {
   Modal,
   Checkbox
 } from "semantic-ui-react";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 class Declaration extends Component {
   constructor(props) {
@@ -90,167 +90,165 @@ class Declaration extends Component {
       })
     }
 
-    return (
-      <Translation>
-        {(t, i18n) => (
-          <Modal
-            open={open}
-            closeOnDimmerClick={closeOnDimmerClick}
-            onClose={this.close}
-            size="large"
-            closeIcon
-          >
-            <Modal.Header>
-              {t("collaborateur.declaration.identite")}{" "}
-            </Modal.Header>
+    let t = this.props.t, i18n = this.props.i18n
 
-            <div className="ui row">
-              <div className="declare">
-                {
-                  !contientRefus && (
-                    <>
-                      <Checkbox
-                        value={this.state.identity}
-                        key={"identity"}
-                        label=""
-                        onChange={this.handleIdentityCheck}
-                        className="checkbox"
-                      />
-                      {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                        <div className="accepte">
-                          <p>
-                            <strong>
-                              I declare to really be {this.state.firstName}{" "}
-                              {this.state.lastName} (aka. {this.state.artistName}).
-                            </strong>{" "}
-                            I understand that pretending to be someone else would be a
-                            serious misconduct liable to legal prosecution.
-                          </p>
-                        </div>
-                      )}
-                      {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                        <div className="accepte">
-                          <p>
-                            <strong>
-                              Je déclare être réellement {this.state.firstName}{" "}
-                              {this.state.lastName} ({this.state.artistName}).
-                            </strong>{" "}
-                            Je comprends que le fait de me faire passer pour quelqu’un
-                            d’autre constituerait une faute grave passible de
-                            poursuites judiciaires.
-                          </p>
-                        </div>
-                      )}
-                    </>
-                  )
-                }
-                {
-                  contientRefus && (
-                    <>
-                      {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                        <div className="accepte">
-                          <p>
-                            <strong>
-                              Thanks for making a decision.
-                              You will receive another email inviting you to see the results. You'll be able to create a new split proposal from there.
-                            </strong>
-                          </p>
-                        </div>
-                      )}
-                      {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                        <div className="accepte">
-                          <p>
-                            <strong>
-                              Merci d'avoir rendu ta décision. 
-                              Lorsque tout le monde se sera exprimé, tu recevras par courriel une invitation à voir le résumé et à soumettre un nouveau split.
-                            </strong>
-                          </p>
-                        </div>
-                      )}
-                    </>
-                  )
-                }
-              </div>
-            </div>
+    return (      
+      <Modal
+        open={open}
+        closeOnDimmerClick={closeOnDimmerClick}
+        onClose={this.close}
+        size="large"
+        closeIcon
+      >
+        <Modal.Header>
+          {t("collaborateur.declaration.identite")}{" "}
+        </Modal.Header>
 
-            <div className="ui row">
-              <div className="declare">
-                {
-                  !contientRefus && (
-                    <>
-                      <Checkbox
-                        value={this.state.share}
-                        key={"share"}
-                        label=""
-                        onChange={this.handleShareCheck}
-                        className="checkbox"
-                      />
-                      {i18n.lng && i18n.lng.substring(0, 2) === "en" && (
-                        <div className="accepte">
-                          <p>
-                            <strong>I accept these rights splits</strong> between
-                            myself and any collaborator. This represents the desired
-                            agreement. I understand that these percentages will now
-                            apply to any revenue sharing related to{" "}
-                            <em>{this.state.songTitle}</em>.
-                          </p>
-                        </div>
-                      )}
-                      {i18n.lng && i18n.lng.substring(0, 2) !== "en" && (
-                        <div className="accepte">
-                          <p>
-                            <strong>J'accepte ces partages de droits</strong>{" "}
-                            intervenus entre moi-même et tout collaborateur. Cela
-                            représente l’entente souhaitée. Je comprends que ces
-                            pourcentages s’appliqueront désormais à tout partage de
-                            revenus en lien avec <em>{this.state.songTitle}</em>.
-                          </p>
-                        </div>
-                      )}
-                    </>
-                  )
-                }                
-              </div>
-            </div>
-
-            <Modal.Actions>
-
-              {
-                !contientRefus && (
-                  <>
-                    <Button onClick={this.close} negative>
-                      {t("flot.split.collaborateur.attribut.bouton.annuler")}
-                    </Button>
-
-                    <Button
-                      onClick={this.click}
-                      className={
-                        !this.state.identity || !this.state.share ? "ui disabled" : ""
-                      }
-                      positive
-                      icon="checkmark"
-                      labelPosition="right"
-                      content={t("collaborateur.declaration.accepter")}
-                    />
-                  </>                  
-                )
-              }
-              {
-                contientRefus && (
-                  <Button
-                    onClick={this.click}                    
-                    positive
-                    icon="checkmark"
-                    labelPosition="right"
-                    content={t("collaborateur.declaration.compris")}
+        <div className="ui row">
+          <div className="declare">
+            {
+              !contientRefus && (
+                <>
+                  <Checkbox
+                    value={this.state.identity}
+                    key={"identity"}
+                    label=""
+                    onChange={this.handleIdentityCheck}
+                    className="checkbox"
                   />
-                )
-              }              
-            </Modal.Actions>
-          </Modal>
-        )}
-      </Translation>
+                  {i18n.language && i18n.language.substring(0, 2) === "en" && (
+                    <div className="accepte">
+                      <p>
+                        <strong>
+                          I declare to really be {this.state.firstName}{" "}
+                          {this.state.lastName} (aka. {this.state.artistName}).
+                        </strong>{" "}
+                        I understand that pretending to be someone else would be a
+                        serious misconduct liable to legal prosecution.
+                      </p>
+                    </div>
+                  )}
+                  {i18n.language && i18n.language.substring(0, 2) !== "en" && (
+                    <div className="accepte">
+                      <p>
+                        <strong>
+                          Je déclare être réellement {this.state.firstName}{" "}
+                          {this.state.lastName} ({this.state.artistName}).
+                        </strong>{" "}
+                        Je comprends que le fait de me faire passer pour quelqu’un
+                        d’autre constituerait une faute grave passible de
+                        poursuites judiciaires.
+                      </p>
+                    </div>
+                  )}
+                </>
+              )
+            }
+            {
+              contientRefus && (
+                <>
+                  {i18n.language && i18n.language.substring(0, 2) === "en" && (
+                    <div className="accepte">
+                      <p>
+                        <strong>
+                          Thanks for making a decision.
+                          You will receive another email inviting you to see the results. You'll be able to create a new split proposal from there.
+                        </strong>
+                      </p>
+                    </div>
+                  )}
+                  {i18n.language && i18n.language.substring(0, 2) !== "en" && (
+                    <div className="accepte">
+                      <p>
+                        <strong>
+                          Merci d'avoir rendu ta décision. 
+                          Lorsque tout le monde se sera exprimé, tu recevras par courriel une invitation à voir le résumé et à soumettre un nouveau split.
+                        </strong>
+                      </p>
+                    </div>
+                  )}
+                </>
+              )
+            }
+          </div>
+        </div>
+
+        <div className="ui row">
+          <div className="declare">
+            {
+              !contientRefus && (
+                <>
+                  <Checkbox
+                    value={this.state.share}
+                    key={"share"}
+                    label=""
+                    onChange={this.handleShareCheck}
+                    className="checkbox"
+                  />
+                  {i18n.language && i18n.language.substring(0, 2) === "en" && (
+                    <div className="accepte">
+                      <p>
+                        <strong>I accept these rights splits</strong> between
+                        myself and any collaborator. This represents the desired
+                        agreement. I understand that these percentages will now
+                        apply to any revenue sharing related to{" "}
+                        <em>{this.state.songTitle}</em>.
+                      </p>
+                    </div>
+                  )}
+                  {i18n.language && i18n.language.substring(0, 2) !== "en" && (
+                    <div className="accepte">
+                      <p>
+                        <strong>J'accepte ces partages de droits</strong>{" "}
+                        intervenus entre moi-même et tout collaborateur. Cela
+                        représente l’entente souhaitée. Je comprends que ces
+                        pourcentages s’appliqueront désormais à tout partage de
+                        revenus en lien avec <em>{this.state.songTitle}</em>.
+                      </p>
+                    </div>
+                  )}
+                </>
+              )
+            }                
+          </div>
+        </div>
+
+        <Modal.Actions>
+
+          {
+            !contientRefus && (
+              <>
+                <Button onClick={this.close} negative>
+                  {t("flot.split.collaborateur.attribut.bouton.annuler")}
+                </Button>
+
+                <Button
+                  onClick={this.click}
+                  className={
+                    !this.state.identity || !this.state.share ? "ui disabled" : ""
+                  }
+                  positive
+                  icon="checkmark"
+                  labelPosition="right"
+                  content={t("collaborateur.declaration.accepter")}
+                />
+              </>                  
+            )
+          }
+          {
+            contientRefus && (
+              <Button
+                onClick={this.click}                    
+                positive
+                icon="checkmark"
+                labelPosition="right"
+                content={t("collaborateur.declaration.compris")}
+              />
+            )
+          }              
+        </Modal.Actions>
+      </Modal>      
     );
   }
 }
-export default Declaration;
+export default withTranslation()(Declaration);

@@ -12,7 +12,7 @@ import ReactDOM from "react-dom";
 import Amplify from "aws-amplify";
 // Traduction
 import i18n from "./utils/i18n"; //Module React (dans dossier modules). npm install
-import { I18nextProvider, Translation } from "react-i18next";
+import { I18nextProvider } from "react-i18next";
 // Routeur applicatif
 import { Route, Router, Switch } from "react-router";
 import { createBrowserHistory } from "history";
@@ -271,18 +271,14 @@ function SommaireProposition(match) {
 function PartagesOeuvres(match) {
   let mediaId = match.match.params.mediaId;
   return (
-    <Translation>
-      {(t, i18n) => <SommairePartages i18n={i18n} mediaId={mediaId} />}
-    </Translation>
+    <SommairePartages mediaId={mediaId} />
   )
 }
 
 function PartagesOeuvresEnvoyer(match) {
   let mediaId = match.match.params.mediaId;
   return (
-    <Translation>
-      {(t, i18n) => <SommairePartages i18n={i18n} mediaId={mediaId} envoyer={true} />}
-    </Translation>
+    <SommairePartages mediaId={mediaId} envoyer={true} />
   )
 }
 

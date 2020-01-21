@@ -6,6 +6,14 @@ export default class Utilitaires {
         this.contexte = contexte
     }
 
+    naviguerVersAccueil() {
+        if(this.contexte === CONTEXTE_WEB) {
+            window.location.href = `/accueil`
+        }
+        if(this.contexte === CONTEXTE_NATIF) {            
+        }
+    }
+
     naviguerVersSommaire(mediaId) {
         if(this.contexte === CONTEXTE_WEB) {
             window.location.href = `/oeuvre/${mediaId}/resume`
@@ -62,4 +70,12 @@ export default class Utilitaires {
         }
     }
 
+    naviguerVersPoursuivrePartage(uuid) {
+        if(this.contexte === CONTEXTE_WEB) {
+            window.location.href = `/partager/existant/${uuid}`
+        }
+        if(this.contexte === CONTEXTE_NATIF) {            
+        }        
+    }
+    
 }
