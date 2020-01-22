@@ -9,6 +9,7 @@ import React, { Component } from 'react'
 
 // Traduction
 import { Translation } from 'react-i18next'
+import AideAyantDroit from '../../../utils/ayantdroit'
 
 // D3
 const d3 = require('d3')
@@ -55,7 +56,7 @@ export default class Beignet2 extends Component {
             props.data.forEach(elem => {
                 let nom
                 if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                    nom = `${elem.ayantDroit.firstName + " "}${elem.ayantDroit.lastName} ${elem.ayantDroit.artistName ? `(${elem.ayantDroit.artistName}) ` : ""}`
+                    nom = AideAyantDroit.affichageDuNom(elem.ayantDroit)
                     _d[nom] = elem.pourcent
                 }
                 _c[nom] = elem.color;
