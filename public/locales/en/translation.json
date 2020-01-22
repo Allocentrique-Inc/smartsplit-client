@@ -533,6 +533,7 @@
           "continuer": "Continue to split the rights",
           "sommaire": "Split summary",
           "voter": "Go to vote page",
+          "change": "Change vote",
           "voter-avec-jeton": "You can only vote by clicking on the email that was sent to you when the proposal was created.",
           "pourquoi": "Mention to your contributors why you're not comfortable with this split.",
           "refuse": "Why you decline this split (optional)",
@@ -822,6 +823,26 @@
       "piste": "Track title",
       "tech": "Recording technician",
       "illustration": "Illustration"
+    },
+    "telechargement": {
+      "telechargement": "Downloads",
+      "visuel": "Work Visual",
+      "audio": "Audio files",
+      "midi": "MIDI files",
+      "partition": "Partition/Tablature"
+    },
+    "parole": {
+      "parole": "Lyrics",
+      "voir": "See the lyrics"
+    },
+    "info": {
+      "info": "General Information",
+      "inconnue": "Unknown",
+      "duree": "Duration",
+      "influence": "Inspirations"
+    },
+    "ecouter": {
+      "ecouter": "Listen"
     }
   }
 }
