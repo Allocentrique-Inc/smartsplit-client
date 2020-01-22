@@ -605,6 +605,7 @@
         },
         "vide": {
           "preambule": "Tes oeuvres apparaîtront ici.",
+          "preambule-collaborations": "Les œuvres sur lesquelles tu collabores apparaîtront ici.",
           "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton ",
           "indication-lien": "«Ajouter»."
         }

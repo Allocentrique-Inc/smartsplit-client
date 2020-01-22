@@ -604,6 +604,7 @@
         },
         "vide": {
           "preambule": "Your works will appear here",
+          "preambule-collaborations": "The works you collaborate on will appear here.",
           "indication": "Document and share the rights of your first musical work by clicking on the ",
           "indication-lien": "“Add”."
         }
