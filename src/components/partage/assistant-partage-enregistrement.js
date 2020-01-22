@@ -305,7 +305,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
         let t = this.props.t, i18n = this.props.i18n
 
-        if (this.props.i18n.language.substring(0, 2) === 'en') {
+        if (i18n.language.substring(0, 2) === 'en') {
             descriptif = (<div className="medium-400">
                 Here we separate the <strong>neighboring right</strong> of <strong>producers</strong>,
                 ie those who have invested their time and / or their money to record and

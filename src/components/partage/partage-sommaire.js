@@ -539,10 +539,8 @@ class SommairePartage extends Component {
                         ayantsDroit={this.state.ayantsDroit}
                         avatars={this.state.avatars}
                         type={type}
-                        key={`sommaire_${this.state.uuid}_${type}`}
-                        
+                        key={`sommaire_${this.state.uuid}_${type}`}                        
                         parts={this.state.proposition.rightsSplits[type]}
-
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
                         monVote={this.state.mesVotes[type]}
