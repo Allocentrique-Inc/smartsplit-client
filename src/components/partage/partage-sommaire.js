@@ -122,13 +122,8 @@ class SommaireDroit extends Component {
 
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
-                console.log(part, part.rightHolderId)
-
-                // console.log("Part d'un ayant-droit", part, _aD)
 
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
-
-                console.log(this.state)
 
                 _parts.push(
                     <>
@@ -136,7 +131,7 @@ class SommaireDroit extends Component {
                             <div className="ui grid">
                                 <div className="ui row">
                                     <div className="ui fourteen wide column">
-                                        <div className="holder-name">
+                                        <div className="holder-name" style={{marginTop: "30px"}}>
                                             <img alt="" className="ui spaced avatar image" src={
                                                 (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
                                                     this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
@@ -230,24 +225,22 @@ class SommaireDroit extends Component {
           const Icon = Map[this.state.titre]
 
             return (      
-                <div className="ui segment types">
-                    <div className="wizard-title types row"> 
-                    <div className="ui column">
-                          {Icon}
-                    </div>
-                        <div className="ui column">
-                    {t(`flot.split.droits.titre.${this.state.titre}`)} 
-                    </div>
-
-                    </div>
-
+                <div className="ui segment types">                    
                     {/* Grille d'affichage des droits (à gauche) et à droite, de la visualisation */}
                     <div className="ui grid">
                         <div className="ui row">
                             <div className="ui eight wide column">
+                                <div className="wizard-title types row" style={{marginTop: "0px"}}> 
+                                    <div className="ui column">
+                                        {Icon}
+                                    </div>
+                                    <div className="ui column">
+                                        {t(`flot.split.droits.titre.${this.state.titre}`)} 
+                                    </div>
+                                </div>
                                 {_parts}
                             </div>
-                            <div className="ui eight wide column">
+                            <div className="ui eight wide column">                                
                                 {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} />)}
                                 {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} />)}
                                 {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
