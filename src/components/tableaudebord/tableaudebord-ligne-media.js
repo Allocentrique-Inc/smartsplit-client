@@ -19,7 +19,7 @@ export default class LigneMedia extends Component {
       media: props.media,      
       user: props.user,
       rightHolders: props.rightHolders,
-      p0: props.media.propositions.length > 0 ? props.media.propositions[0] : undefined
+      p0: (props.media && props.media.propositions && props.media.propositions.length > 0) ? props.media.propositions[0] : undefined
     }
     if(this.props.rightHolders && Object.keys(this.props.rightHolders).length > 0) {
       this.genererAvatars()
