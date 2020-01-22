@@ -19,8 +19,8 @@ export default class Beignet extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            width: 400, //550,
-            height: 320, //225,
+            width: 600, //550,
+            height: 480, //225,
             margin: 10, //50,
             icon: "",
             data: {},
@@ -125,11 +125,6 @@ export default class Beignet extends Component {
             .innerRadius(radius * 0.4)         // This is the size of the donut hole
             .outerRadius(radius * 0.95)
 
-        // Another arc that won't be drawn. Just for labels positioning
-        /* let outerArc = d3.arc()
-            .innerRadius(radius * 0.9)
-            .outerRadius(radius * 0.9) */
-
         // Define the div for the tooltip
         let myDiv = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -170,46 +165,7 @@ export default class Beignet extends Component {
                     .duration(500)
                     .style("opacity", 0);
             }).call(this.wrapping, 150)
-
-        /*
-        // Add the polylines between chart and labels:
-        svg
-            .selectAll('allPolylines')
-            .data(data_ready)
-            .enter()
-            .append('polyline')
-            .attr("stroke", "black")
-            .style("fill", "none")
-            .attr("stroke-width", 1)
-            .attr('points', function(d) {
-                let posA = arc.centroid(d) // line insertion in the slice
-                let posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
-                let posC = outerArc.centroid(d); // Label position = almost the same as posB
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
-                posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
-                return [posA, posB, posC]
-            })
-
-        // Add the polylines between chart and labels:
-        svg
-            .selectAll('allLabels')
-            .data(data_ready)
-            .enter()
-            .append('text')
-            .text( function(d) { return d.data.key + " " + parseFloat(d.data.value).toFixed(2) + "%" } )
-            .attr('transform', function(d) {
-                let pos = outerArc.centroid(d);
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
-                return 'translate(' + pos + ')';
-            })
-            .style('text-anchor', function(d) {
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-                return (midangle < Math.PI ? 'start' : 'end')
-            })
-            .call(this.wrapping, 150)
-        */
-
+     
         if (Object.keys(this.state.data).length > 0) {
             svg.append('image')
                 .attr('xlink:href', this.state.icon)
