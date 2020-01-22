@@ -22,8 +22,6 @@ import {CopyrightSVG, StarSVG, RecordSVG } from '../svg/SVG.js'
 
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
-const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
-
 class SommaireDroit extends Component {
 
     constructor(props) {
@@ -163,7 +161,7 @@ class SommaireDroit extends Component {
                                         </div>
                                         </div>
                                         </div>
-                                        {/* <hr className="division"/> */}
+                                        <hr className="division"/>
                             </div>         
                             {
                                 uuid === this.state.ayantDroit.rightHolderId && (
@@ -216,30 +214,32 @@ class SommaireDroit extends Component {
             })        
             
           /*   console.log("LE TYPE: "+this.state.type)
-            console.log(_data)   */          
+            console.log(_data)   
+            Trop de console.log, mais garder err*/  
+
             console.log(this.state.titre, "*")
-            const Map = {"workCopyrightSplit": "Icon 1  ",
-          "performanceNeighboringRightSplit": "Icon 2",
-          "masterNeighboringRightSplit": "Icon 3" }
+
+            const Map = {"workCopyrightSplit": <CopyrightSVG />, 
+                        "performanceNeighboringRightSplit": <StarSVG />,
+                         "masterNeighboringRightSplit": <RecordSVG /> }
 
           const Icon = Map[this.state.titre]
 
             return (       
-                      
+                <div className="row"><div className="column"></div> <div className="column"><div/></div>
+
                 <div className="ui segment types">
-                    <div className="wizard-title types row">
-                    <div className="ui two wide column">
-                        {Icon}
+                    <div className="wizard-title types row"> 
+
+                    <div className="ui column">
+                          {Icon}
                     </div>
-                        <div className="ui ten wide column">
-                    {t(`flot.split.droits.titre.${this.state.titre}`)}
-                    
-                    </div>
+                        <div className="ui column">
+                    {t(`flot.split.droits.titre.${this.state.titre}`)} 
                     </div>
 
-                     {/* {workCopyrightSplit && <CopyrightSVG />}
-                    {performanceNeighboringRightSplit && <StarSVG />}
-                    {masterNeighboringRightSplit && <RecordSVG />} */}
+                    </div>
+                    </div>
 
                     {/* Grille d'affichage des droits (à gauche) et à droite, de la visualisation */}
                     <div className="ui grid">
@@ -495,6 +495,7 @@ class SommairePartage extends Component {
         this.modaleDeclaration()
     }
 
+    //Identité ayant-droit. L'utilisateur connecté en cours
     transmettre(t) {
         Auth.currentAuthenticatedUser()
             .then(res => {
