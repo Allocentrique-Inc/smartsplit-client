@@ -19,8 +19,8 @@ export default class Beignet2 extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            width: 400, //550,
-            height: 320, //225,
+            width: 600, //550,
+            height: 480, //225,
             margin: 10, //50,
             icon: "",
             data: props.data,
@@ -226,8 +226,8 @@ export default class Beignet2 extends Component {
             }
         }, 0)
 
-        let flush = { float: 'left' }
-        if (this.props.titre === "Musique") flush = { float: 'right' }
+        let flush = { position: "absolute", top: "0px", left: "0px" }
+        if (this.props.titre === "Musique") flush = { position: "absolute", top: "0px", right: "20px" }
 
         return (
             <Translation>

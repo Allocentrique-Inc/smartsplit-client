@@ -358,8 +358,9 @@ class AssistantPartage extends Component {
     }
 
     enregistrerEtAllerAuSommaire(t, valeurs, mediaId) {
-        this.soumettre(t, valeurs, "BROUILLON", () => {
-            this.utils.naviguerVersSommaire(mediaId)
+        this.soumettre(t, valeurs, "BROUILLON", () => {            
+            //this.utils.naviguerVersSommaire(mediaId)
+            this.utils.naviguerVersAccueil()
         }, true)
     }
 

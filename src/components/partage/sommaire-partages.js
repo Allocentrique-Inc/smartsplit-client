@@ -88,8 +88,9 @@ class SommairePartages extends Component {
                 this.setState({ media: res.data.Item }, () => {
                     axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
                         .then(_res => {
+                            //Certain que c'est l'ayant-droit
                             axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
-                                .then(_rAd => {
+                                .then(_rAd => { 
                                     this.setState({ ayantDroit: _rAd.data.Item }, () => {
                                         this.setState({ propositions: _res.data })
                                         this.setState({ activeIndex: _res.data.length - 1 })
@@ -278,6 +279,7 @@ class SommairePartages extends Component {
                                 <div className="ui medium button infobulle" style={{width: "110px", marginLeft: "20px", marginRight: "0px"}} onClick={(e) => {
                                     this.fermerInfobulleEditeur(ETAT_EDITEUR_OUI)
                                     this.afficherPanneauEditeur()
+                                    this.setState({nouvellePropositionEditeur: true})
                                 }}>Oui</div>
                                 <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={()=>this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)} style={
                                     {
@@ -374,10 +376,12 @@ class SommairePartages extends Component {
                                     <>
                                         <div className="ui row">
                                             <div className="ui sixteen wide column">
-                                                <div 
-                                                    className="ui medium button inverse" 
-                                                    style={{marginLeft: "0px"}}>
-                                                        {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
+                                                {
+                                                    proposition.etat === 'ACCEPTE' && <div 
+                                                        className="ui medium button inverse" 
+                                                        style={{marginLeft: "0px"}}>
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
+                                                }
                                                 <div style={{float: "right"}}>
                                                     {!nouveauDisabled && (
                                                         <div 

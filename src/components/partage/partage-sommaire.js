@@ -18,20 +18,23 @@ import Declaration from '../auth/Declaration'
 import Utilitaires from '../../utils/utilitaires'
 
 import AideDroits from '../../utils/droits'
+import {CopyrightSVG, StarSVG, RecordSVG } from '../svg/SVG.js'
+
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
 class SommaireDroit extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            ayantsDroit: props.ayantsDroit,
+            ayantsDroit: props.ayantsDroit, // Les ayant-droits
+            ayantDroit: props.ayantDroit,   // L'utilisateur en cours
             parent: props.parent,
             voteTermine: props.voteTermine,
             type: props.type,
             parts: props.parts,
             titre: props.titre,
             donnees: [],
-            ayantDroit: props.ayantDroit,
             jetonApi: props.jetonApi,
             modifierVote: false,
             monVote: props.monVote,
@@ -91,7 +94,7 @@ class SommaireDroit extends Component {
             let donneesMusique = donnees[AideDroits.nomSousTypeMusique()]
             let donneesCompletes = AideDroits.donneesVisualisation(this.state.parts)
 
-            console.log('Données paroles et musique', donneesParoles, donneesMusique)
+            // console.log('Données paroles et musique', donneesParoles, donneesMusique)
 
             this.setState({ donnees: donneesCompletes })
             this.setState({ donneesMusique }, ()=>console.log('musique', this.state.donneesMusique))
@@ -113,14 +116,12 @@ class SommaireDroit extends Component {
 
             let beignetDouble = (this.state.type === "workCopyrightSplit")
 
-            console.log('LES DONNÉES', this.state.donnees)
+            // console.log('LES DONNÉES', this.state.donnees)
 
             Object.keys(this.state.donnees).forEach(uuid => {
 
-                let part = this.state.donnees[uuid]                
+                let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
-
-                console.log("Part d'un ayant-droit", part, _aD)
 
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
 
@@ -129,25 +130,38 @@ class SommaireDroit extends Component {
                         <div key={`part_${uuid}`}>
                             <div className="ui grid">
                                 <div className="ui row">
-                                    <div className="ui eight wide column">
-                                        <div className="holder-name">
+                                    <div className="ui fourteen wide column">
+                                        <div className="holder-name" style={{marginTop: "30px"}}>
                                             <img alt="" className="ui spaced avatar image" src={
                                                 (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
                                                     this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
                                             {part.nom}
-                                        </div>
-                                        </div>
-                                        </div>
-                                        <div className="ui eight wide column">
-                                            <div className="role">                                                
-                                                {
-                                                    part.roles.map((_e, idx) => {
-                                                        return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
-                                                    })
-                                                }                                            
+                                             {/* this.state.monVote = avant le vote, part.vote = après le vote. Référence aux bonnes données */}
+                                            <div className="vote">
+                                                {parseFloat(part.sommePct).toFixed(2) + "%"}
+                                                <div style={{ color: (part.vote === 'accept') ? "#2da84f" : (part.vote === "reject" ? "#ac1616" : "grey") }}>
+                                                    <strong>{t(`flot.split.vote.${part.vote}`)}</strong>    
+
+                                                    <div className="ui eight wide column">
+                                                        <div className="role">                                                
+                                                        {
+                                                            part.roles.map((_e, idx) => { 
+                                                                console.log(_e)
+                                                                return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
+                                                            })
+                                                        }                                            
+                                                        </div>
+                                                    </div>
+                                                                                           
+                                                </div>
                                             </div>
+                                               
                                         </div>
-                                    </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <hr className="division"/>
+                            </div>         
                             {
                                 uuid === this.state.ayantDroit.rightHolderId && (
                                     <>
@@ -187,68 +201,46 @@ class SommaireDroit extends Component {
                                                                 )
                                                             }
                                                         </div>
-                                                        {/* <div className="vote">
-                                                            {parseFloat(part.sommePct).toFixed(2) + "%"}
-                                                            <div style={{ color: (this.state.monVote && this.state.monVote.vote === 'accept') ? "#2da84f" : (this.state.monVote && this.state.monVote.vote === "reject" ? "ac1616" : "grey") }}>
-                                                                <strong>{t(`flot.split.vote.${this.state.monVote && this.state.monVote.vote}`)}</strong>
-                                                                {this.state.modifierVote && (<img className="cliquable" src={Edit} onClick={() => { this.changerVote() }} alt="Changer vote" />)}
-                                                            </div>
-                                                        </div> */}
                                                     </>
-                                            )
-                                        }
-                                        {
-                                            this.state.voteTermine && (
-                                                <div className="ui row">
-                                                    <div className="ui eight wide column">
-                                                        <i>{part.raison ? part.raison : ""}</i>
-                                                    </div>
-                                                    {parseFloat(part.sommePct).toFixed(2) + "%"}
-                                                    <div style={{ color: (part && part.vote === 'accept') ? "#2da84f" : (part && part.vote === "reject" ? "#ac1616" : "grey") }}>
-                                                        <strong>{t(`flot.split.vote.${part && part.vote}`)}</strong>
-                                                    </div>
-                                                </div>
                                             )
                                         }
                                     </>                                            
                                 )
                             }
-                            {
-                                uuid !== this.state.ayantDroit.rightHolderId && (
-                                    <div className="ui row">
-                                        <div className="ui column" />
-                                        <div className="ui eight wide column">
-                                            <i>{part.raison ? part.raison : ""}</i>
-                                        </div>
-                                        <div className="ui four wide column">
-                                            {parseFloat(part.sommePct).toFixed(2) + "%"}
-                                            <div style={{ color: (part && part.vote === 'accept') ? "green" : (part && part.vote === "#2da84f" ? "#ac1616" : "grey") }}>
-                                                <strong>{t(`flot.split.vote.${part && part.vote}`)}</strong>
-                                            </div>
-                                        </div>
-                                    </div>                                         
-                                )
-                            }
-                        </div>
+                         
                     </>
                 )
             })        
             
-            console.log("LE TYPE: "+this.state.type)
-            console.log(_data)            
+          /*   console.log("LE TYPE: "+this.state.type)
+            console.log(_data)   
+            Trop de console.log, mais garder err*/  
 
-            return (               
-                <div className="ui segment" style={{minHeight: "450px"}}>
-                    <div className="wizard-title">{t(`flot.split.droits.titre.${this.state.titre}`)}</div>
-                    <br /><br />
+            console.log(this.state.titre, "*")
 
+            const Map = {"workCopyrightSplit": <CopyrightSVG />, 
+                        "performanceNeighboringRightSplit": <StarSVG />,
+                         "masterNeighboringRightSplit": <RecordSVG /> }
+
+          const Icon = Map[this.state.titre]
+
+            return (      
+                <div className="ui segment types">                    
                     {/* Grille d'affichage des droits (à gauche) et à droite, de la visualisation */}
                     <div className="ui grid">
                         <div className="ui row">
                             <div className="ui eight wide column">
+                                <div className="wizard-title types row" style={{marginTop: "0px"}}> 
+                                    <div className="ui column">
+                                        {Icon}
+                                    </div>
+                                    <div className="ui column">
+                                        {t(`flot.split.droits.titre.${this.state.titre}`)} 
+                                    </div>
+                                </div>
                                 {_parts}
                             </div>
-                            <div className="ui eight wide column">
+                            <div className="ui eight wide column">                                
                                 {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} />)}
                                 {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} />)}
                                 {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
@@ -496,6 +488,7 @@ class SommairePartage extends Component {
         this.modaleDeclaration()
     }
 
+    //Identité ayant-droit. L'utilisateur connecté en cours
     transmettre(t) {
         Auth.currentAuthenticatedUser()
             .then(res => {
@@ -535,10 +528,8 @@ class SommairePartage extends Component {
                         ayantsDroit={this.state.ayantsDroit}
                         avatars={this.state.avatars}
                         type={type}
-                        key={`sommaire_${this.state.uuid}_${type}`}
-                        
+                        key={`sommaire_${this.state.uuid}_${type}`}                        
                         parts={this.state.proposition.rightsSplits[type]}
-
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
                         monVote={this.state.mesVotes[type]}
@@ -557,7 +548,7 @@ class SommairePartage extends Component {
 
         let t = this.props.t
 
-        return (            
+        return (          
             <div>
                 {
                     !this.state.patience && (
