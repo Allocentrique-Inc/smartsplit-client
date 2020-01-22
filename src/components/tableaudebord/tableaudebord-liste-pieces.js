@@ -113,15 +113,15 @@ export default class ListePieces extends Component {
     let rendu;
     let that = this;
 
-    function aucuneOeuvre() {
+    function aucuneOeuvre(collaborations = false) {
       return (
         <Translation>
           {t => (
-            <div style={{ marginTop: "20px" }} className="ui three column grid">
+            <div style={{ marginTop: "20px" }} className="ui sixteen column grid">
               <br />
               <br />
               <br />
-              <div className="illustration" style={{ textAlign: "center" }}>
+              <div style={{ width: "100%", textAlign: "center" }}>
                 <div>
                   <img
                     style={{ fontSize: "3rem" }}
@@ -133,23 +133,30 @@ export default class ListePieces extends Component {
 
                   <br />
                   <div className="medium-500-nomargin">
-                    {t("flot.split.tableaudebord.vide.preambule")}
+                    {collaborations && t("flot.split.tableaudebord.vide.preambule-collaborations")}
+                    {!collaborations && t("flot.split.tableaudebord.vide.preambule")}
                   </div>
                   <div
                     className="medium-500-nomargin"
                     style={{ fontWeight: "100" }}
                   >
-                    {t("flot.split.tableaudebord.vide.indication")} <br />
-                    <div
-                      className="cliquable"
-                      style={{ color: "#0645AD" }}
-                      onClick={e => {
-                        //Cliquable = pointeur lien, classe écrite Vincent
-                        that.modaleNouvelleOeuvre();
-                      }}
-                    >
-                      {t("flot.split.tableaudebord.vide.indication-lien")}
-                    </div>
+                    {!collaborations &&                   
+                      (
+                        <>
+                          {t("flot.split.tableaudebord.vide.indication")} <br />
+                          <div
+                            className="cliquable"
+                            style={{ color: "#0645AD" }}
+                            onClick={e => {
+                              //Cliquable = pointeur lien, classe écrite Vincent
+                              that.modaleNouvelleOeuvre();
+                            }}
+                          >
+                            {t("flot.split.tableaudebord.vide.indication-lien")}
+                          </div>
+                        </>
+                      )
+                    }
                   </div>
                 </div>
               </div>
@@ -207,7 +214,7 @@ export default class ListePieces extends Component {
         this.state.panneau === PANNEAU_COLLABORATEUR)
     ) {
       // If no initiator musical pieces present for user
-      rendu = aucuneOeuvre();
+      rendu = aucuneOeuvre(this.state.panneau === PANNEAU_COLLABORATEUR);
     } else {
       let tableauMedias = [];
       let _medias = {};

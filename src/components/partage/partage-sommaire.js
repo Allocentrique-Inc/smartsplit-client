@@ -27,7 +27,8 @@ class SommaireDroit extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            ayantsDroit: props.ayantsDroit, //Utilisateur en cours
+            ayantsDroit: props.ayantsDroit, // Les ayant-droits
+            ayantDroit: props.ayantDroit,   // L'utilisateur en cours
             parent: props.parent,
             voteTermine: props.voteTermine,
             type: props.type,
@@ -119,12 +120,15 @@ class SommaireDroit extends Component {
 
             Object.keys(this.state.donnees).forEach(uuid => {
 
-                let part = this.state.donnees[uuid]                
+                let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
+                console.log(part, part.rightHolderId)
 
                 // console.log("Part d'un ayant-droit", part, _aD)
 
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
+
+                console.log(this.state)
 
                 _parts.push(
                     <>
