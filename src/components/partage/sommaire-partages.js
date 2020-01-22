@@ -88,8 +88,9 @@ class SommairePartages extends Component {
                 this.setState({ media: res.data.Item }, () => {
                     axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
                         .then(_res => {
+                            //Certain que c'est l'ayant-droit
                             axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
-                                .then(_rAd => {
+                                .then(_rAd => { 
                                     this.setState({ ayantDroit: _rAd.data.Item }, () => {
                                         this.setState({ propositions: _res.data })
                                         this.setState({ activeIndex: _res.data.length - 1 })
