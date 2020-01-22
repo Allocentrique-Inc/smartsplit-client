@@ -229,12 +229,9 @@ class SommaireDroit extends Component {
 
           const Icon = Map[this.state.titre]
 
-            return (       
-                <div className="row"><div className="column"></div> <div className="column"><div/></div>
-
+            return (      
                 <div className="ui segment types">
                     <div className="wizard-title types row"> 
-
                     <div className="ui column">
                           {Icon}
                     </div>
@@ -242,7 +239,6 @@ class SommaireDroit extends Component {
                     {t(`flot.split.droits.titre.${this.state.titre}`)} 
                     </div>
 
-                    </div>
                     </div>
 
                     {/* Grille d'affichage des droits (à gauche) et à droite, de la visualisation */}
