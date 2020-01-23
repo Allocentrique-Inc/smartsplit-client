@@ -9,9 +9,9 @@ import OptionsMedia from "./options-media"
 import Utilitaires from '../../utils/utilitaires'
 import EtatMedia from './etat-media'
 
-import { aideAyantDroit, journal } from '../../utils/application'
+import { aideAyantDroit } from '../../utils/application'
 
-const NOM = "LigneMedia"
+// const NOM = "LigneMedia"
 
 export default class LigneMedia extends Component {
   constructor(props) {

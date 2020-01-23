@@ -12,8 +12,12 @@ const NOM = "AideAyantDroit"
 
 export default class AideAyantDroit {
 
+    /**
+     * Chargement des ayants-droit.
+     * D'abord, il y a chargement de tous les ayants-droit depuis l'API
+     * Puis, chargement des avatars de chacun.
+     */
     async chargement() {
-
         async function chargerAvatar(ayantDroit, fn) {
             let uuid = ayantDroit.rightHolderId,
                 nom = ayantDroit.lastName,
@@ -35,7 +39,6 @@ export default class AideAyantDroit {
             ayantDroit.avatar = avatar
             fn()
         }
-
         function chargerTousLesAvatars(aDs) {
             return new Promise( (res, rej) => {
                 let _aDs = {}, cpt = 0            
@@ -51,13 +54,11 @@ export default class AideAyantDroit {
                 })
             } )
         }
-
         // Chargement des ayant-droits
         let reponse = await Axios.get( `${config.APIURL}rightholders/` )
         // Classer les ayants-droits par identifiant
         this.ayantsDroit = await chargerTousLesAvatars(reponse.data)
-        journal.debug(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`)
-        
+        journal.debug(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`)        
     }
 
     // Méthode de singleton asynchrone
