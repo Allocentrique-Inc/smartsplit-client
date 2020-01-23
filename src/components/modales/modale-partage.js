@@ -11,6 +11,9 @@ import ChampTexte from '../page-assistant/champ-texte'
 import Axios from "axios";
 import { toast } from "react-toastify";
 
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
+
 const PUBLIC = 1, SECRET = 2, ADMIN = 3
 
 export default class ModalePartage extends Component {
@@ -40,7 +43,7 @@ export default class ModalePartage extends Component {
         courriel: this.state.courriel,
         contexte: contexte
       }      
-      Axios.post(`http://dev.api.smartsplit.org:8080/v1/media/shareMedia`, data)
+      Axios.post(`${config.APIURL}media/shareMedia`, data)
       .then(res=>{
         console.log(res)
         toast.success(t('flot.partage.reussi'))

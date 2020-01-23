@@ -12,6 +12,9 @@ import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg"
 import '../../assets/scss/page-assistant/champ.scss'
 import AideAyantDroit from '../../utils/ayantdroit'
 
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
+
 function required(value) {
     const result = value ? undefined : "Une sélection dans cette liste est obligatoire"
     return result
@@ -134,7 +137,7 @@ export class ChampListeEntiteMusicaleAssistant extends Component {
 
     listeEntites() {
         // Récupérer la liste des ayant-droits          
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/entities`)
+        axios.get(`${config.APIURL}entities`)
             .then(res => {
                 let aOptions = []
                 res.data.forEach((elem) => {
@@ -258,7 +261,7 @@ export class ChampListeCollaborateurAssistant extends Component {
 
     listeAyantsDroit() {
         // Récupérer la liste des ayant-droits        
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`${config.APIURL}rightHolders`)
             .then(res => {
                 let _adParId = {}
                 let nomsConnus = []
@@ -269,9 +272,9 @@ export class ChampListeCollaborateurAssistant extends Component {
                     nomsConnus.push(nom)
                     // Y a-t-il un avatar ?
                     if (elem.avatarImage)
-                        avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${elem.avatarImage}`
+                        avatar = `${config.IMAGES_SRV_URL}${elem.avatarImage}`
                     else
-                        avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+                        avatar = `${config.IMAGES_SRV_URL}faceapp.jpg`
 
                     return (
                         {
@@ -441,7 +444,7 @@ export class ChampListeEditeurAssistant extends Component {
         let editeurs = {}
 
         // Récupérer la liste des ayant-droits (éditeurs)
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
+        axios.get(`${config.APIURL}rightHolders`)
             .then(res => {
                 let _options = res.data.map(elem => {
                     let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`

@@ -10,6 +10,9 @@ import {
 import { Translation } from "react-i18next";
 import { DateInput } from "semantic-ui-calendar-react";
 
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
+
 const divStyle = {
   padding: "0 0 0 15px"
 }
@@ -86,7 +89,7 @@ class Socan extends Component {
     };
 
     try {
-      axios.post('http://dev.api.smartsplit.org:8080/v1/socan/join', body)
+      axios.post(`${config.APIURL}socan/join`, body)
       .then(
         function (response) {
           console.log("RESPONSE: ", response)

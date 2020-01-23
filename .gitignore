@@ -32,3 +32,6 @@ node_modules/
 aws-exports.js
 awsconfiguration.json
 /amplify
+
+# Utilitaire de démarrage de l'application
+demarrage.sh

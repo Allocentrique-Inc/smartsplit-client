@@ -94,11 +94,9 @@ class SommaireDroit extends Component {
             let donneesMusique = donnees[AideDroits.nomSousTypeMusique()]
             let donneesCompletes = AideDroits.donneesVisualisation(this.state.parts)
 
-            // console.log('Données paroles et musique', donneesParoles, donneesMusique)
-
             this.setState({ donnees: donneesCompletes })
-            this.setState({ donneesMusique }, ()=>console.log('musique', this.state.donneesMusique))
-            this.setState({ donneesParoles }, ()=>console.log('paroles', this.state.donneesParoles))
+            this.setState({ donneesMusique })
+            this.setState({ donneesParoles })
         } else {
             let donnees = AideDroits.donneesVisualisation(this.state.parts)
             this.setState({ donnees })
@@ -115,8 +113,6 @@ class SommaireDroit extends Component {
             let _data = []
 
             let beignetDouble = (this.state.type === "workCopyrightSplit")
-
-            // console.log('LES DONNÉES', this.state.donnees)
 
             Object.keys(this.state.donnees).forEach(uuid => {
 
@@ -146,7 +142,6 @@ class SommaireDroit extends Component {
                                                         <div className="role">                                                
                                                         {
                                                             part.roles.map((_e, idx) => { 
-                                                                console.log(_e)
                                                                 return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
                                                             })
                                                         }                                            
@@ -212,12 +207,6 @@ class SommaireDroit extends Component {
                 )
             })        
             
-          /*   console.log("LE TYPE: "+this.state.type)
-            console.log(_data)   
-            Trop de console.log, mais garder err*/  
-
-            console.log(this.state.titre, "*")
-
             const Map = {"workCopyrightSplit": <CopyrightSVG />, 
                         "performanceNeighboringRightSplit": <StarSVG />,
                          "masterNeighboringRightSplit": <RecordSVG /> }

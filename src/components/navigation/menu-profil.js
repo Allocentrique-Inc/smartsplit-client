@@ -22,6 +22,9 @@ import {
   LangueSVG
 } from "../svg/SVG";
 
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
+
 const textToImage = require("text-to-image");
 
 class MenuProfil extends Component {
@@ -45,8 +48,7 @@ class MenuProfil extends Component {
 
     axios
       .get(
-        "http://dev.api.smartsplit.org:8080/v1/rightHolders/" +
-        this.state.auth.username
+        `${config.APIURL}rightHolders/${this.state.auth.username}`      
       )
       .then(res => {
 

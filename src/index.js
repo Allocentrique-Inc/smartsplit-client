@@ -52,16 +52,16 @@ import OeuvreResume from "./components/oeuvre/oeuvre-resume";
 
 import "moment/locale/fr";
 import "moment/locale/en-ca";
-import EditerOeuvre from "./components/oeuvre/editer-oeuvre";
+import EditerOeuvre from "./components/oeuvre/editer-oeuvre"
 
-const REGION = "us-east-2";
+import { config } from './utils/application'
 
 Amplify.configure({
   Auth: {
     mandatorySignIn: true,
-    region: REGION,
-    userPoolId: "us-east-2_tK9rNdAB1",
-    userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
+    region: config.AWS_REGION,
+    userPoolId: config.AWS_USERPOOLID,
+    userPoolWebClientId: config.AWS_USERPOOLWEBID
   }
 });
 
@@ -137,8 +137,8 @@ const renderRoutes = () => {
     <Suspense fallback={<Loader
       type="Circles"
       color="#00BFFF"
-      width="100%"
-      height="800px"
+      width={800}
+      height={800}
     />}>
       {routage}
     </Suspense>

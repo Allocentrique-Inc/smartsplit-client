@@ -14,6 +14,9 @@ import { Formik, Field } from "formik";
 
 import "./Register.css";
 
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
+
 const emailStyle = {
   display: "block",
   width: "464px",
@@ -82,7 +85,7 @@ class ForgotPassword extends Component {
   forgotPasswordHandler = courriel => {
     axios
       .post(
-        "http://dev.api.smartsplit.org:8080/v1/rightHolders/emailToRightHolderId",
+        `${config.APIURL}rightHolders/emailToRightHolderId`,
         {
           email: courriel
         }
@@ -92,7 +95,7 @@ class ForgotPassword extends Component {
         let requestSource = window.location.href;
         axios
           .patch(
-            `http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolderId}/requestSource`,
+            `${config.APIURL}rightHolders/${rightHolderId}/requestSource`,
             {
               requestSource: requestSource.includes("pochette")
                 ? "pochette"

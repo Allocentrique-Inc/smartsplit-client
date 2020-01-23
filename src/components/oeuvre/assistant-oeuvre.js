@@ -26,6 +26,9 @@ import ModaleConnexion from "../auth/Connexion";
 
 import "../../assets/scss/page-assistant/bouton.scss";
 
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
+
 // Modèle
 
 class AssistantOeuvre extends Component {
@@ -50,7 +53,7 @@ class AssistantOeuvre extends Component {
         if (this.state.mediaId) {
           axios
             .get(
-              `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
+              `${config.APIURL}media/${this.state.mediaId}`
             )
             .then(res => {
               if (res.data.Item) {
@@ -86,7 +89,7 @@ class AssistantOeuvre extends Component {
 
   fetchApiRightHolders() {
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
+      .get(`${config.APIRUL}rightHolders`)
       .then(response => {
         // Ordonnancement simple uuid -> nom d'artiste
         let assocUuidArtiste = {};
@@ -229,7 +232,7 @@ class AssistantOeuvre extends Component {
       endModalOpen: true
     });
     axios
-      .post("http://dev.api.smartsplit.org:8080/v1/media", values)
+      .post(`${config.APIURL}media`, values)
       .then(response => {
         actions.setSubmitting(false);
         this.setState({ endModalOpen: true });

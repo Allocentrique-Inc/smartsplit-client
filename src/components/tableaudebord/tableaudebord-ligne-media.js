@@ -9,7 +9,9 @@ import OptionsMedia from "./options-media"
 import Utilitaires from '../../utils/utilitaires'
 import EtatMedia from './etat-media'
 
-const textToImage = require("text-to-image")
+import { aideAyantDroit, journal } from '../../utils/application'
+
+const NOM = "LigneMedia"
 
 export default class LigneMedia extends Component {
   constructor(props) {
@@ -20,10 +22,7 @@ export default class LigneMedia extends Component {
       user: props.user,
       rightHolders: props.rightHolders,
       p0: (props.media && props.media.propositions && props.media.propositions.length > 0) ? props.media.propositions[0] : undefined
-    }
-    if(this.props.rightHolders && Object.keys(this.props.rightHolders).length > 0) {
-      this.genererAvatars()
-    }
+    }    
     // Mise en contexte
     this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
     this.utils = new Utilitaires(1)
@@ -35,63 +34,15 @@ export default class LigneMedia extends Component {
     }
   }
 
-  componentWillMount() {    
+  componentDidMount() {    
+    if(this.props.rightHolders && Object.keys(this.props.rightHolders).length > 0) {
+      this.genererAvatars()
+    }
   }
 
-  genererAvatars() {
-    // Structure des avatars
-    this.avatars = []
-    let _avatars = {}    
-    if(this.state.media.rightHolders) {
-      let cpt = 0 // Compteur du nombre d'avatar générés
-      this.state.media.rightHolders.forEach(r=>{      
-        if(!this.avatars[r.id]) {        
-          let nom, prenom, nomArtiste, dataUri, uuid
-          if(this.state.rightHolders[r.id]) {        
-            uuid = this.state.rightHolders[r.id].rightHolderId
-            nom = this.state.rightHolders[r.id].lastName
-            prenom = this.state.rightHolders[r.id].firstName
-            nomArtiste = this.state.rightHolders[r.id].artistName
-            // Afficher les initiales si l'avatar est 'image.jpg' ou est inconnu (vide)
-            if(!this.state.rightHolders[r.id].avatarImage || this.state.rightHolders[r.id].avatarImage === "image.jpg") {
-              // Générer les initiales
-              let P = "", N = ""
-                if (this.state.rightHolders[r.id].firstName && this.state.rightHolders[r.id].firstName.length > 0)
-                  P = this.state.rightHolders[r.id].firstName.charAt(0).toUpperCase()
-                if (this.state.rightHolders[r.id].lastName && this.state.rightHolders[r.id].lastName.length > 0)
-                  N = this.state.rightHolders[r.id].lastName.charAt(0).toUpperCase()
-              textToImage.generate(`${P}${N}`).then(dataUri => {
-                _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
-                cpt++
-                if(cpt === this.state.media.rightHolders.length) {
-                  // Tous les avatars sont générés
-                  Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
-                  this.setState({avatars: _avatars})
-                }
-              })
-            } else {
-              dataUri = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.rightHolders[r.id].avatarImage}`
-              _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
-              cpt++
-              if(cpt === this.state.media.rightHolders.length) {
-                // Tous les avatars sont générés
-                Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
-                this.setState({avatars: _avatars})
-              }
-            }
-          } else {
-            dataUri = `https://smartsplit-images.s3.us-east-2.amazonaws.com/image.jpg`
-            _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
-            cpt++
-            if(cpt === this.state.media.rightHolders.length) {
-              // Tous les avatars sont générés
-              Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
-              this.setState({avatars: _avatars})
-            }
-          }
-        }
-      })
-    }
+  genererAvatars() {    
+    let avatars = aideAyantDroit.genererAvatars(this.state.media.rightHolders)
+    this.setState({ avatars })
   }
 
   modalePropositionEnCours(ouvrir = true) {
@@ -106,7 +57,6 @@ export default class LigneMedia extends Component {
     const maxDisplayedAvatars = 5
     const displayedAvatars = Math.min(maxDisplayedAvatars, this.state.avatars.length)
     const undisplayedAvatars = this.state.avatars.length - displayedAvatars
-    console.log(arrAvatars)
     let _avatars = arrAvatars
       .slice(0, maxDisplayedAvatars)
       .map((avatar, index) => {

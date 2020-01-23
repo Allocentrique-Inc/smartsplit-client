@@ -11,6 +11,9 @@ import { toast } from "react-toastify";
 import { Auth } from "aws-amplify";
 import InfoBulle from '../partage/InfoBulle';
 
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
+
 const AWS = require("aws-sdk");
 const REGION = 'us-east-2'
 AWS.config.update({ region: REGION });
@@ -167,7 +170,7 @@ class ModifyUser extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/entities")
+      .get(`${config.APIURL}entities`)
       .then(res => {
         res.data.forEach(g => {
           groups.push({ key: g.uuid, text: g.name, value: g.name })

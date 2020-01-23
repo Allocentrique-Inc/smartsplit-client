@@ -4,6 +4,9 @@ import moment from "moment";
 import * as Yup from "yup";
 import axios from "axios";
 
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
+
 // Traduction
 import { Translation } from "react-i18next";
 
@@ -59,7 +62,7 @@ export default class MediaCreate extends Component {
     const body = media.get();
 
     axios
-      .post("http://dev.api.smartsplit.org:8080/v1/media", body)
+      .post(`${config.APIURL}media`, body)
       .then(function(response) {        
       })
       .catch(function(error) {

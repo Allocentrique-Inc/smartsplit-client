@@ -2,7 +2,10 @@ import React, { Component } from 'react'
 import JSONPretty from 'react-json-prettify'
 
 // Traduction
-import { Translation } from 'react-i18next';
+import { Translation } from 'react-i18next'
+
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
 
 export default class MediaList extends Component {
 
@@ -28,7 +31,7 @@ export default class MediaList extends Component {
             }
         }        
 
-        fetch('http://dev.api.smartsplit.org:8080/v1/media', options).then((response) => {
+        fetch(`${config.APIURL}media`, options).then((response) => {
             return response.json()
         })
         .then((jsonObject) => {

@@ -8,7 +8,10 @@ import { Dropdown } from "semantic-ui-react";
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
 import axios from "axios";
-import InfoBulle from "../partage/InfoBulle";
+import InfoBulle from "../partage/InfoBulle"
+
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
 
 class Register extends Component {
   state = {
@@ -220,7 +223,7 @@ class Register extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
+      .get(`${config.APIURL}rightHolders`)
       .then(res => {
         let groupers = [];
         let groupsUnique = [];

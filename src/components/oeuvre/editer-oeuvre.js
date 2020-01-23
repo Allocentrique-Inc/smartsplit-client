@@ -23,7 +23,8 @@ import { Auth } from "aws-amplify";
 
 import ModaleConnexion from "../auth/Connexion";
 
-// Modèle
+import Configuration from '../../utils/configuration'
+let config = Configuration.getInstance()
 
 class EditerOeuvre extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class EditerOeuvre extends Component {
   componentWillMount() {
     if (this.state.jeton) {
       axios
-        .post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {
+        .post(`${config.APIURL}media/decodeMedia`, {
           jeton: this.state.jeton
         })
         .then(res => {
@@ -63,7 +64,7 @@ class EditerOeuvre extends Component {
     if (this.state.mediaId) {
       axios
         .get(
-          `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
+          `${config.APIURL}media/${this.state.mediaId}`
         )
         .then(res => {
           if (res.data.Item) {
@@ -109,7 +110,7 @@ class EditerOeuvre extends Component {
 
   fetchApiRightHolders() {
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
+      .get(`${config.APIURL}rightHolders`)
       .then(response => {
         // Ordonnancement simple uuid -> nom d'artiste
         let assocUuidArtiste = {};
@@ -268,11 +269,8 @@ class EditerOeuvre extends Component {
       endModalOpen: true
     });
 
-    // Traitement des dates
-
-
     axios
-      .post("http://dev.api.smartsplit.org:8080/v1/media", values)
+      .post(`${config.APIURL}media`, values)
       .then(response => {
         actions.setSubmitting(false);
         if (this.state.jeton) {
