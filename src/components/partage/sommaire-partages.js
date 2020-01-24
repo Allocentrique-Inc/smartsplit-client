@@ -169,22 +169,22 @@ class SommairePartages extends Component {
             propositions = this.state.propositions.map((elem, idx) => {
                 const accordionIsOpen = idx === this.state.activeIndex;
                 return (
-                <div className="ui row" key={`sommaire_${idx}`}>
-                <Accordion.Title active={accordionIsOpen} index={idx} onClick={this.clic}>
-                <div className="fleche">
-                {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
-                </div>
-                Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
-                <div>
-                <div className="small-400">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
-                <div className="small-500-color">{`${elem.initiatorName}`}</div>
-                <div className="small-400">&nbsp;{i18n.language && elem._d ? moment( new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</div>
-                </div>
-                </Accordion.Title>
-                <Accordion.Content active={accordionIsOpen}>
-                <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
-                </Accordion.Content>
-                </div>
+                    <div className="ui row" key={`sommaire_${idx}`}>
+                    <Accordion.Title active={accordionIsOpen} index={idx} onClick={this.clic}>
+                    <div className="fleche">
+                    {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
+                    </div>
+                    &nbsp; Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
+                    <div>
+                    <div className="small-400">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
+                    <div className="small-500-color">{`${elem.initiatorName}`}</div>
+                    <div className="">&nbsp;&nbsp;{i18n.language && elem._d ? moment( new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</div>
+                    </div>
+                    </Accordion.Title>
+                    <Accordion.Content active={accordionIsOpen}>
+                    <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
+                    </Accordion.Content>
+                    </div>
                 )
                 })
             propositions = propositions.reverse()

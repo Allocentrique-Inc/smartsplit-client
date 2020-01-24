@@ -835,6 +835,9 @@
       "parole": "Lyrics",
       "voir": "See the lyrics"
     },
+    "musique": {
+      "musique": "Musique"
+    },
     "info": {
       "info": "General Information",
       "inconnue": "Unknown",
