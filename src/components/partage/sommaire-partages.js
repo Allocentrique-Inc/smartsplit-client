@@ -9,7 +9,7 @@ import { Auth } from 'aws-amplify'
 
 import Login from '../auth/Login'
 
-import { Accordion, Icon, Checkbox } from 'semantic-ui-react'
+import { Accordion, Checkbox } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
 
 import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
@@ -28,6 +28,8 @@ import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import { Navbar } from '../navigation/navbar'
 
 import Utilitaires from "../../utils/utilitaires"
+
+import {FlecheBasSVG, FlecheHautSVG} from '../svg/SVG.js'
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
@@ -165,23 +167,26 @@ class SommairePartages extends Component {
             }
 
             propositions = this.state.propositions.map((elem, idx) => {
-                return (                    
-                    <div className="ui row" key={`sommaire_${idx}`}>
-                        <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
-                            <Icon name='dropdown' />
-                            Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
-                            <div>
-                                <div className="small-400">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
-                                <div className="small-500-color">{`${elem.initiatorName}`}</div>
-                                <div className="small-400">&nbsp;{i18n.language && elem._d ? moment( new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</div>
-                            </div>
-                        </Accordion.Title>
-                        <Accordion.Content active={this.state.activeIndex === idx}>
-                            <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
-                        </Accordion.Content>
-                    </div>                       
+                const accordionIsOpen = idx === this.state.activeIndex;
+                return (
+                <div className="ui row" key={`sommaire_${idx}`}>
+                <Accordion.Title active={accordionIsOpen} index={idx} onClick={this.clic}>
+                <div className="fleche">
+                {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
+                </div>
+                Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
+                <div>
+                <div className="small-400">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
+                <div className="small-500-color">{`${elem.initiatorName}`}</div>
+                <div className="small-400">&nbsp;{i18n.language && elem._d ? moment( new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</div>
+                </div>
+                </Accordion.Title>
+                <Accordion.Content active={accordionIsOpen}>
+                <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
+                </Accordion.Content>
+                </div>
                 )
-            })
+                })
             propositions = propositions.reverse()
 
             let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true

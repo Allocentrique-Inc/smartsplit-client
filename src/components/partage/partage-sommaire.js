@@ -105,8 +105,9 @@ class SommaireDroit extends Component {
         }        
     }
 
-    render() {
 
+    render() {
+        
         let t = this.state.t
 
         if (this.state.ayantsDroit) {
@@ -122,7 +123,7 @@ class SommaireDroit extends Component {
 
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
-
+                
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
 
                 _parts.push(
@@ -131,18 +132,23 @@ class SommaireDroit extends Component {
                             <div className="ui grid">
                                 <div className="ui row">
                                     <div className="ui fourteen wide column">
-                                        <div className="holder-name" style={{marginTop: "30px"}}>
+                                        <div className="holder-name">
                                             <img alt="" className="ui spaced avatar image" src={
                                                 (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
                                                     this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
                                             {part.nom}
                                              {/* this.state.monVote = avant le vote, part.vote = après le vote. Référence aux bonnes données */}
                                             <div className="vote">
+                                                <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId  ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
                                                 {parseFloat(part.sommePct).toFixed(2) + "%"}
-                                                <div style={{ color: (part.vote === 'accept') ? "#2da84f" : (part.vote === "reject" ? "#ac1616" : "grey") }}>
-                                                    <strong>{t(`flot.split.vote.${part.vote}`)}</strong>    
-
-                                                    <div className="ui eight wide column">
+                                                </span>
+                                                <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}
+                                                style={{fontWeight: "normal"}}> {/* SCSS classes */}
+                                                        {t(`flot.split.vote.${part.vote}`)} 
+                                                    </div> 
+                                                    </div> 
+                                                    </div>
+                                                    <div className="ui row">
                                                         <div className="role">                                                
                                                         {
                                                             part.roles.map((_e, idx) => { 
@@ -158,10 +164,7 @@ class SommaireDroit extends Component {
                                                
                                         </div>
                                         </div>
-                                        </div>
-                                        </div>
-                                        <hr className="division"/>
-                            </div>         
+                                        <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />
                             {
                                 uuid === this.state.ayantDroit.rightHolderId && (
                                     <>
@@ -188,6 +191,7 @@ class SommaireDroit extends Component {
                                                                     this.voter(true)
                                                                 }}>{t('flot.split.vote.accepter')}</div>
                                                             </div>
+                                                            
                                                             {
                                                                 this.state.refuser && (
                                                                     <textarea
@@ -230,9 +234,9 @@ class SommaireDroit extends Component {
                     <div className="ui grid">
                         <div className="ui row">
                             <div className="ui eight wide column">
-                                <div className="wizard-title types row" style={{marginTop: "0px"}}> 
+                                <div className="wizard-title types row"> 
                                     <div className="ui column">
-                                        {Icon}
+                                        {Icon} &nbsp;
                                     </div>
                                     <div className="ui column">
                                         {t(`flot.split.droits.titre.${this.state.titre}`)} 

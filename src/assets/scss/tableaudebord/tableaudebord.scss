@@ -429,12 +429,18 @@
 }
 
 .role {
-  padding-left: 45px;
+  padding-left: 48px;
+  color: #687a8b;
 }
 
 .vote {
   display: inline;
   float: right;
+}
+
+.role,
+.vote {
+  font-family: IBM Plex Sans;
 }
 
 .ui.segment.types {
@@ -443,4 +449,32 @@
 
 .division {
   color: #dcdfe1;
+}
+
+.utilisateurConnecte {
+  color: black;
+}
+
+.utilisateurInvite {
+  color: #687a8b;
+}
+
+.approuve {
+  color: #2da84f;
+}
+
+.desaprouve {
+  color: #ac1616;
+}
+
+.attente {
+  color: #687a8b;
+}
+
+.border-bottom.devide {
+  border-bottom: 0.5px solid #687a8b;
+}
+
+.fleche {
+  float: right;
 }
