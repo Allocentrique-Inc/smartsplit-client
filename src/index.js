@@ -1,3 +1,5 @@
+import { config, journal, aideAyantDroit } from './utils/application'
+
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
 import "./assets/scss/_colors.scss"
@@ -54,7 +56,7 @@ import "moment/locale/fr";
 import "moment/locale/en-ca";
 import EditerOeuvre from "./components/oeuvre/editer-oeuvre"
 
-import { config } from './utils/application'
+const NOM = "index.js"
 
 Amplify.configure({
   Auth: {
@@ -335,4 +337,16 @@ toast.configure({
   position: toast.POSITION.TOP_CENTER
 });
 
-ReactDOM.render(renderRoutes(), document.getElementById("root"));
+let cpt = 0
+
+function renduLorsqueApplicationEstPrete() {  
+  if(aideAyantDroit.ayantsDroit) {
+    cpt++
+    journal.debug(NOM, `Application prête en ${cpt / 1000} secondes`)
+    ReactDOM.render(renderRoutes(), document.getElementById("root"))
+  } else {
+    setTimeout( ()=>renduLorsqueApplicationEstPrete(), 1)
+  }
+}
+
+renduLorsqueApplicationEstPrete()

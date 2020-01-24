@@ -1,3 +1,4 @@
+import { aideAyantDroit } from '../../utils/application'
 import React, { Component } from "react"
 import { Translation } from "react-i18next"
 import moment from "moment"
@@ -8,8 +9,6 @@ import "../../assets/scss/tableaudebord/tableaudebord.scss"
 import OptionsMedia from "./options-media"
 import Utilitaires from '../../utils/utilitaires'
 import EtatMedia from './etat-media'
-
-import { aideAyantDroit } from '../../utils/application'
 
 // const NOM = "LigneMedia"
 
@@ -150,7 +149,7 @@ export default class LigneMedia extends Component {
                   <img className={ 'song-image' } style={{width: "40px", height: "40PX", right: "0px", position: "absolute"}} src={ imageSrc } alt={ this.props.media.title } />
                 </div>
                 <div
-                  className="ui eight wide column"                  
+                  className="ui six wide column"
                 >
                   <div className="song-name cliquable" onClick={() => this.utils.naviguerVersSommaire(elem.mediaId) }>{`${elem.title}`}</div>
                   <div className="small-400">
@@ -170,7 +169,7 @@ export default class LigneMedia extends Component {
                     <div className={"avatars"} style={{display: "inline", marginLeft: "12px"}}>{avatars}</div>
                   </div>
                 </div>
-                <div className={`ui three wide column etat`} style={{float: "right"}}>
+                <div className={`ui four wide column etat`} style={{float: "right"}}>
 
                   {!pochette && _p && _p.etat && (
                     <EtatMedia media={this.state.media} pochette={this.state.pochette} proposition={_p} />
@@ -205,7 +204,7 @@ export default class LigneMedia extends Component {
                       />
                     )}                  
                 </div>
-                <div className={`ui three wide column`} style={{float: "right"}}>                  
+                <div className={`ui four wide column`} style={{float: "right"}}>                  
                   <div className={`small-500-color ${pochette} cliquable`} onClick={()=>this.utils.naviguerVersDocumentation(this.state.media.mediaId)}>
                     {t(
                       "flot.split.documente-ton-oeuvre.titre"

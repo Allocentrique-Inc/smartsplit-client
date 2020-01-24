@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import MenuProfil from '../navigation/menu-profil'
 
 import { Translation } from 'react-i18next'
+import { aideAyantDroit } from '../../utils/application'
 
 export default class Entete extends Component {
 
@@ -13,7 +14,7 @@ export default class Entete extends Component {
             navigation: props.navigation,
             contenu: props.contenu,
             profil: props.profil,
-            connexion: !props.sansconnexion
+            connexion: !props.sansconnexion            
         }
     }
 
@@ -32,7 +33,7 @@ export default class Entete extends Component {
                                 </div>                                
                                 {this.state.contenu}
                                 <div className="ui seven wide column" style={{textAlign: "right", marginTop: "10px"}}>
-                                    {this.state.profil && <MenuProfil pochette={this.props.pochette} user={this.state.profil} />}                                    
+                                    {this.state.profil && aideAyantDroit.ayantsDroit && <MenuProfil pochette={this.props.pochette} user={this.state.profil} />}                                    
                                 </div>                                
                             </div>
                         </div>

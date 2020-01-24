@@ -1,30 +1,20 @@
+import {aideAyantDroit, config} from '../../utils/application'
 import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
-
 import { Checkbox } from 'semantic-ui-react'
-
-import axios from 'axios'
-
-// Composantes
 import Beignet from '../visualisation/partage/beignet'
 import Beignet2 from '../visualisation/partage/beignet2'
 import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
-
 import EntetePartage from "./entete-partage"
-
 import { FieldArray } from "formik"
-
-import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
+import ChampListeCollaborateurAssistant from "../formulaires/champ-liste-collaborateur"
 import BoutonsRadio from "../formulaires/champ-radio"
-
 import Lock from "./Lock"
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
 import { CopyrightSVG } from "../svg/SVG"
 import closeIcon from "../../assets/svg/icons/x.svg"
-
-import AideAyantDroit from '../../utils/ayantdroit'
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -251,44 +241,33 @@ class PageAssistantPartageAuteur extends Component {
     }
 
     basculerVariable(index) {
-
         let invariables = this.state.partsInvariables
-
         let nbAvant = Object.keys(invariables).length
         invariables[index] = !invariables[index]
-
         if (!invariables[index]) {
             delete invariables[index]
         }
-
         let nbApres = Object.keys(invariables).length
-
         if (((nbAvant === 0 && nbApres === 1) || nbAvant < nbApres) && (this.props.values.droitAuteur.length - 1 === nbApres)) {
             // Trouver le gradateur restant et l'inscrire comme invariable
             let nbGradateurs = this.props.values.droitAuteur.length // Autant de gradateurs que de droits
-
             for (let i = 0; i < nbGradateurs; i++) { // Pour gradateur_droitAuteur_[0 à N-1]
                 if (!invariables[i]) {
                     invariables[i] = true
                 }
             }
         }
-
         this.setState({ partsInvariables: invariables })
     }
 
     ajouterCollaborateur(arrayHelpers) {
-
         let _coll = this.props.values.collaborateur
-
         if (_coll) {
             let ayantDroit = this.state.ayantsDroit[_coll], 
-                nom = AideAyantDroit.affichageDuNom(ayantDroit)
-
+                nom = aideAyantDroit.affichageDuNom(ayantDroit)
             let _index = this.props.values.droitAuteur.length +
                 this.props.values.droitInterpretation.length +
                 this.props.values.droitEnregistrement.length
-
             if (this.state.mode === MODES.egal) {
                 arrayHelpers.insert(0, {
                     nom: nom,
@@ -300,7 +279,6 @@ class PageAssistantPartageAuteur extends Component {
                     color: COLORS[_index]
                 })
             }
-
             if (this.state.mode === MODES.manuel) {
                 let _pourcent = (this.pourcentRestant())
                 arrayHelpers.insert(0, {
@@ -313,7 +291,6 @@ class PageAssistantPartageAuteur extends Component {
                     color: COLORS[_index]
                 })
             }
-
             if (this.state.mode === MODES.role) {
                 arrayHelpers.insert(0, {
                     nom: nom,
@@ -325,20 +302,16 @@ class PageAssistantPartageAuteur extends Component {
                     color: COLORS[_index]
                 })
             }
-
             this.props.setFieldValue('collaborateur', '')
             this.setState({ ping: true }, () => {
                 this.recalculerPartage()
             })
         }
-
     }
 
     render() {
-
         let visualisation
         if (this.state.parts.length > 0) {
-
             switch (this.state.mode) {
                 case MODES.egal:
                     // 1 beignet ou histogramme dépendant du nombre de collaborateurs
@@ -363,7 +336,6 @@ class PageAssistantPartageAuteur extends Component {
                             {this.state.partsParoles && (
                                 <Beignet2 className="six wide field" titre="Paroles" uuid="auteur--beignet--3"
                                     data={this.state.partsParoles} type="workCopyrightSplit" side="left" />)}
-
                             {this.state.partsMusique && (
                                 <Beignet2 className="six wide field" titre="Musique" uuid="auteur--beignet--2"
                                     data={this.state.partsMusique} type="workCopyrightSplit" side="right" />)}
@@ -373,10 +345,8 @@ class PageAssistantPartageAuteur extends Component {
                 default:
             }
         }
-
         let descriptif
         let t = this.props.t, i18n = this.props.i18n
-
         if (i18n.language.substring(0, 2) === 'en') {
             descriptif = (<div className="medium-400">
                 Split the copyright between the creators, ie the authors of the
@@ -391,8 +361,7 @@ class PageAssistantPartageAuteur extends Component {
                 Il est d’usage de partager le droit d’auteur équitablement.
                 Mais tu peux faire autrement.
             </div>)
-        }        
-
+        }
         return (            
             <React.Fragment>
                 <EntetePartage 
@@ -483,100 +452,68 @@ class PageAssistantPartageAuteur extends Component {
                                                                             }
                                                                         }
                                                                         fn={(_aD) => {
-
                                                                             // Fonction de rappel à la modale ModifyUser
-
                                                                             // Ajoute le nouvel ayantdroit à la liste comme si il était déjà
                                                                             // dans la liste.
                                                                             this.props.setFieldValue('collaborateur', _aD)
-
                                                                             let droitsAuteur = this.props.values.droitAuteur
-
-                                                                            // Rafraîchir ayants droit
-                                                                            // Récupérer la liste des ayant-droits        
-                                                                            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
-                                                                                .then(res => {
-                                                                                    let _adParId = {}
-                                                                                    res.data.forEach((elem) => {
-                                                                                        _adParId[elem.rightHolderId] = elem
-                                                                                    })
-                                                                                    this.setState({ ayantsDroit: _adParId }, () => {
-                                                                                        let ayantDroit = this.state.ayantsDroit[this.props.values.collaborateur], nom
-
-                                                                                        if (ayantDroit) {
-                                                                                            nom = `${ayantDroit.firstName} ${ayantDroit.lastName}`
-                                                                                            if(ayantDroit.artistName !== nom) {
-                                                                                                nom = `${nom} (${ayantDroit.artistName})`
-                                                                                            }
-                                                                                        }
-
-                                                                                        let _index = this.props.values.droitAuteur.length +
-                                                                                            this.props.values.droitInterpretation.length +
-                                                                                            this.props.values.droitEnregistrement.length
-
-                                                                                        if (this.state.mode === MODES.egal) {
-                                                                                            droitsAuteur.push({
-                                                                                                nom: nom,
-                                                                                                ayantDroit: ayantDroit,
-                                                                                                pourcent: `${arrondir(100 / (this.props.values.droitAuteur.length + 1))}`,
-                                                                                                auteur: true,
-                                                                                                compositeur: true,
-                                                                                                arrangeur: false,
-                                                                                                color: COLORS[_index]
-                                                                                            })
-                                                                                        }
-
-                                                                                        if (this.state.mode === MODES.manuel) {
-                                                                                            let _pourcent = (this.pourcentRestant())
-                                                                                            droitsAuteur.push({
-                                                                                                nom: nom,
-                                                                                                ayantDroit: ayantDroit,
-                                                                                                pourcent: `${_pourcent}`,
-                                                                                                auteur: true,
-                                                                                                compositeur: true,
-                                                                                                arrangeur: false,
-                                                                                                color: COLORS[_index]
-                                                                                            })
-                                                                                        }
-
-                                                                                        if (this.state.mode === MODES.role) {
-                                                                                            droitsAuteur.push({
-                                                                                                nom: nom,
-                                                                                                ayantDroit: ayantDroit,
-                                                                                                pourcent: "100",
-                                                                                                auteur: true,
-                                                                                                compositeur: true,
-                                                                                                arrangeur: false,
-                                                                                                color: COLORS[_index]
-                                                                                            })
-                                                                                        }
-
-                                                                                        this.props.setFieldValue('droitAuteur', droitsAuteur)
-                                                                                        this.props.setFieldValue('collaborateur', '')
-                                                                                        this.setState({ ping: true }, () => {
-                                                                                            this.recalculerPartage()
+                                                                            aideAyantDroit.rafraichirListe( ()=>{
+                                                                                this.setState({ayantsDroit: aideAyantDroit.ayantsDroit}, ()=>{
+                                                                                    let ayantDroit = this.state.ayantsDroit[this.props.values.collaborateur]
+                                                                                    let _index = this.props.values.droitAuteur.length +
+                                                                                        this.props.values.droitInterpretation.length +
+                                                                                        this.props.values.droitEnregistrement.length
+                                                                                    let nom = aideAyantDroit.genererNom(ayantDroit)
+                                                                                    if (this.state.mode === MODES.egal) {
+                                                                                        droitsAuteur.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: `${arrondir(100 / (this.props.values.droitAuteur.length + 1))}`,
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
                                                                                         })
+                                                                                    }
+                                                                                    if (this.state.mode === MODES.manuel) {
+                                                                                        let _pourcent = (this.pourcentRestant())
+                                                                                        droitsAuteur.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: `${_pourcent}`,
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
+                                                                                        })
+                                                                                    }
+                                                                                    if (this.state.mode === MODES.role) {
+                                                                                        droitsAuteur.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: "100",
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
+                                                                                        })
+                                                                                    }
+                                                                                    this.props.setFieldValue('droitAuteur', droitsAuteur)
+                                                                                    this.props.setFieldValue('collaborateur', '')
+                                                                                    this.setState({ ping: true }, () => {
+                                                                                        this.recalculerPartage()
                                                                                     })
-
                                                                                 })
-                                                                                .catch(err => {
-                                                                                    console.log(err)
-                                                                                })
-
+                                                                            })
                                                                         }}
                                                                     />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                     {
                                                         this.state.ayantsDroit && this.props.values.droitAuteur.map((part, index) => {
-
-                                                            // Composante de carte controlable
-
                                                             let _aD = part.ayantDroit
-
                                                             let roles = [
                                                                 {
                                                                     id: "auteur",
@@ -591,15 +528,11 @@ class PageAssistantPartageAuteur extends Component {
                                                                     nom: t('flot.split.documente-ton-oeuvre.partage.auteur.role.arrangeur')
                                                                 }
                                                             ]
-
                                                             let avatar = ''
-
-                                                            // Y a-t-il un avatar ?
                                                             if (_aD.avatarImage)
-                                                                avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
+                                                                avatar = `${config.IMAGE_SRV_URL}${_aD.avatarImage}`
                                                             else
-                                                                avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
-
+                                                                avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`;
                                                             return (
                                                                 <div key={`part-${index}`}>
                                                                     <div className="gray-fields">
@@ -619,10 +552,8 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     className="ui twelve wide column">
                                                                                     <div
                                                                                         className="holder-name">
-                                                                                        {part.nom}
-                                                                                        
+                                                                                        {part.nom}                                                                                        
                                                                                         <div className="ui one wide column">
-                                                                                        {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
                                                                                         <div className="close-icon cliquable" onClick={() => {
                                                                                                 arrayHelpers.remove(index)
                                                                                                 this.setState({ ping: true }, () => {
@@ -634,42 +565,30 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     </div>
                                                                                     </div>
                                                                                     </div>
-
-                                                                                        {/* <i className="right flated close icon cliquable"
-                                                                                            style={{ float: "right" }}
-                                                                                            onClick={() => {
-                                                                                                arrayHelpers.remove(index)
-                                                                                                this.setState({ ping: true }, () => {
-                                                                                                    this.recalculerPartage()
+                                                                                        <div className="ui divider"></div>
+                                                                                        <div className="coches--role__droit">
+                                                                                            {
+                                                                                                roles.map((elem, idx) => {
+                                                                                                    return (
+                                                                                                        <Checkbox
+                                                                                                            key={`coche_role_droit_auteur_${index}_${idx}`}
+                                                                                                            label={elem.nom}
+                                                                                                            checked={this.props.values.droitAuteur[index][elem.id]}
+                                                                                                            onClick={(e) => {
+                                                                                                                if (e.currentTarget.className.includes("checked")) {
+                                                                                                                    this.props.setFieldValue(`droitAuteur[${index}][${elem.id}]`, false)
+                                                                                                                } else {
+                                                                                                                    this.props.setFieldValue(`droitAuteur[${index}][${elem.id}]`, true)
+                                                                                                                }
+                                                                                                                setTimeout(() => {
+                                                                                                                    this.recalculerPartage()
+                                                                                                                }, 0)
+                                                                                                            }}
+                                                                                                        />
+                                                                                                    )
                                                                                                 })
                                                                                             }
-                                                                                            }></i> */}
-                                                                                        <div
-                                                                                            className="ui divider"></div>
-                                                                                    <div
-                                                                                        className="coches--role__droit">
-                                                                                        {
-                                                                                            roles.map((elem, idx) => {
-                                                                                                return (
-                                                                                                    <Checkbox
-                                                                                                        key={`coche_role_droit_auteur_${index}_${idx}`}
-                                                                                                        label={elem.nom}
-                                                                                                        checked={this.props.values.droitAuteur[index][elem.id]}
-                                                                                                        onClick={(e) => {
-                                                                                                            if (e.currentTarget.className.includes("checked")) {
-                                                                                                                this.props.setFieldValue(`droitAuteur[${index}][${elem.id}]`, false)
-                                                                                                            } else {
-                                                                                                                this.props.setFieldValue(`droitAuteur[${index}][${elem.id}]`, true)
-                                                                                                            }
-                                                                                                            setTimeout(() => {
-                                                                                                                this.recalculerPartage()
-                                                                                                            }, 0)
-                                                                                                        }}
-                                                                                                    />
-                                                                                                )
-                                                                                            })
-                                                                                        }
-                                                                                    </div>
+                                                                                        </div>
                                                                                     {
                                                                                         this.state.mode === MODES.manuel && (
                                                                                             <span className="pourcentage-wrapper">

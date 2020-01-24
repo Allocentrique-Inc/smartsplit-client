@@ -42,7 +42,7 @@ class EditerOeuvre extends Component {
   componentWillMount() {
     if (this.state.jeton) {
       axios
-        .post(`${config.APIURL}media/decodeMedia`, {
+        .post(`${config.API_URL}media/decodeMedia`, {
           jeton: this.state.jeton
         })
         .then(res => {
@@ -64,7 +64,7 @@ class EditerOeuvre extends Component {
     if (this.state.mediaId) {
       axios
         .get(
-          `${config.APIURL}media/${this.state.mediaId}`
+          `${config.API_URL}media/${this.state.mediaId}`
         )
         .then(res => {
           if (res.data.Item) {
@@ -110,7 +110,7 @@ class EditerOeuvre extends Component {
 
   fetchApiRightHolders() {
     axios
-      .get(`${config.APIURL}rightHolders`)
+      .get(`${config.API_URL}rightHolders`)
       .then(response => {
         // Ordonnancement simple uuid -> nom d'artiste
         let assocUuidArtiste = {};
@@ -270,7 +270,7 @@ class EditerOeuvre extends Component {
     });
 
     axios
-      .post(`${config.APIURL}media`, values)
+      .post(`${config.API_URL}media`, values)
       .then(response => {
         actions.setSubmitting(false);
         if (this.state.jeton) {

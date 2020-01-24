@@ -62,7 +62,7 @@ export default class MediaCreate extends Component {
     const body = media.get();
 
     axios
-      .post(`${config.APIURL}media`, body)
+      .post(`${config.API_URL}media`, body)
       .then(function(response) {        
       })
       .catch(function(error) {

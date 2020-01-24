@@ -24,7 +24,6 @@ class ModaleConnexion extends Component {
       opened: TYPE_LOGIN,
       parent: props.parent
     }
-    console.log(props.i18n)
   }
 
   componentWillReceiveProps(nextProps) {

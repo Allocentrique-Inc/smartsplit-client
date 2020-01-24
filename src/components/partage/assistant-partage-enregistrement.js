@@ -1,26 +1,19 @@
+import { aideAyantDroit, config } from "../../utils/application"
 import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
-
 import { Checkbox } from 'semantic-ui-react'
-
-// Composantes
 import Beignet from '../visualisation/partage/beignet'
 import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
-
 import { FieldArray } from "formik"
-import axios from 'axios'
-
-import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
+import ChampListeCollaborateurAssistant from "../formulaires/champ-liste-collaborateur"
 import BoutonsRadio from "../formulaires/champ-radio"
 import Lock from "./Lock"
-
 import biquette from '../../assets/base64/biquette.base64'
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
 import { RecordSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";
-
 import EntetePartage from "./entete-partage"
 import AideAyantDroit from "../../utils/ayantdroit"
 
@@ -406,83 +399,59 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                             }
                                                                         }
                                                                         fn={(_aD) => {
-
                                                                             // Fonction de rappel à la modale ModifyUser
-
                                                                             // Ajoute le nouvel ayantdroit à la liste comme si il était déjà
                                                                             // dans la liste.
                                                                             this.props.setFieldValue('collaborateur', _aD)
-
                                                                             let droitsEnregistrement = this.props.values.droitEnregistrement
-
-                                                                            // Rafraîchir ayants droit
-                                                                            // Récupérer la liste des ayant-droits        
-                                                                            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders`)
-                                                                                .then(res => {
-                                                                                    let _adParId = {}
-                                                                                    res.data.forEach((elem) => {
-                                                                                        _adParId[elem.rightHolderId] = elem
-                                                                                    })
-                                                                                    this.setState({ ayantsDroit: _adParId }, () => {
-                                                                                        let ayantDroit = this.state.ayantsDroit[this.props.values.collaborateur], nom
-
-                                                                                        if (ayantDroit) {
-                                                                                            nom = `${ayantDroit.firstName || ""} ${ayantDroit.lastName || ""} ${ayantDroit.artistName ? `(${ayantDroit.artistName})` : ""}`
-                                                                                        }
-
-                                                                                        let _index = this.props.values.droitAuteur.length +
-                                                                                            this.props.values.droitInterpretation.length +
-                                                                                            this.props.values.droitEnregistrement.length
-
-                                                                                        if (this.state.mode === MODES.egal) {
-                                                                                            droitsEnregistrement.push({
-                                                                                                nom: nom,
-                                                                                                ayantDroit: ayantDroit,
-                                                                                                pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1))}`,
-                                                                                                auteur: true,
-                                                                                                compositeur: true,
-                                                                                                arrangeur: false,
-                                                                                                color: COLORS[_index]
-                                                                                            })
-                                                                                        }
-
-                                                                                        if (this.state.mode === MODES.manuel) {
-                                                                                            let _pourcent = (this.pourcentRestant())
-                                                                                            droitsEnregistrement.push({
-                                                                                                nom: nom,
-                                                                                                ayantDroit: ayantDroit,
-                                                                                                pourcent: `${_pourcent}`,
-                                                                                                auteur: true,
-                                                                                                compositeur: true,
-                                                                                                arrangeur: false,
-                                                                                                color: COLORS[_index]
-                                                                                            })
-                                                                                        }
-
-                                                                                        if (this.state.mode === MODES.role) {
-                                                                                            droitsEnregistrement.push({
-                                                                                                nom: nom,
-                                                                                                ayantDroit: ayantDroit,
-                                                                                                pourcent: "100",
-                                                                                                auteur: true,
-                                                                                                compositeur: true,
-                                                                                                arrangeur: false,
-                                                                                                color: COLORS[_index]
-                                                                                            })
-                                                                                        }
-
-                                                                                        this.props.setFieldValue('droitEnregistrement', droitsEnregistrement)
-                                                                                        this.props.setFieldValue('collaborateur', '')
-                                                                                        this.setState({ ping: true }, () => {
-                                                                                            this.recalculerPartage()
+                                                                            aideAyantDroit.rafraichirListe( ()=>{
+                                                                                this.setState({ ayantsDroit: aideAyantDroit.ayantsDroit }, () => {
+                                                                                    let ayantDroit = this.state.ayantsDroit[this.props.values.collaborateur]
+                                                                                    let nom = aideAyantDroit.genererNom(ayantDroit)
+                                                                                    let _index = this.props.values.droitAuteur.length +
+                                                                                        this.props.values.droitInterpretation.length +
+                                                                                        this.props.values.droitEnregistrement.length
+                                                                                    if (this.state.mode === MODES.egal) {
+                                                                                        droitsEnregistrement.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: `${arrondir(100 / (this.props.values.droitEnregistrement.length + 1))}`,
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
                                                                                         })
+                                                                                    }
+                                                                                    if (this.state.mode === MODES.manuel) {
+                                                                                        let _pourcent = (this.pourcentRestant())
+                                                                                        droitsEnregistrement.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: `${_pourcent}`,
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
+                                                                                        })
+                                                                                    }
+                                                                                    if (this.state.mode === MODES.role) {
+                                                                                        droitsEnregistrement.push({
+                                                                                            nom: nom,
+                                                                                            ayantDroit: ayantDroit,
+                                                                                            pourcent: "100",
+                                                                                            auteur: true,
+                                                                                            compositeur: true,
+                                                                                            arrangeur: false,
+                                                                                            color: COLORS[_index]
+                                                                                        })
+                                                                                    }
+                                                                                    this.props.setFieldValue('droitEnregistrement', droitsEnregistrement)
+                                                                                    this.props.setFieldValue('collaborateur', '')
+                                                                                    this.setState({ ping: true }, () => {
+                                                                                        this.recalculerPartage()
                                                                                     })
-
                                                                                 })
-                                                                                .catch(err => {
-                                                                                    console.log(err)
-                                                                                })
-
+                                                                            })
                                                                         }}
                                                                     />
                                                                 </div>
@@ -502,7 +471,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                             let _aD = part.ayantDroit
                                                             // Y a-t-il un avatar ?
                                                             if (_aD && _aD.avatarImage)
-                                                                avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
+                                                                avatar = `${config.IMAGE_SRV_URL}${_aD.avatarImage}`
                                                             else
                                                                 avatar = biquette;
 
@@ -511,10 +480,8 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                     <div className="gray-fields">
                                                                         <div className="ui grid">
                                                                             <div className="ui row">
-                                                                            <div
-                                                                                    className="ui three wide column">
-                                                                                    <div
-                                                                                        className="avatar-image">
+                                                                            <div className="ui three wide column">
+                                                                                    <div className="avatar-image">
                                                                                         <img
                                                                                             alt=""
                                                                                             className="ui spaced avatar image"
@@ -523,10 +490,8 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                 </div>
                                                                                 <div
                                                                                     className="ui twelve wide column">
-                                                                                    <div
-                                                                                        className="holder-name">
+                                                                                    <div className="holder-name">
                                                                                         {part.nom}
-                                                                                        
                                                                                         <div className="ui one wide column">
                                                                                         {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
                                                                                         <div className="close-icon cliquable" onClick={() => {
@@ -539,19 +504,8 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                         <img src={closeIcon} alt={"close"} style={{ position: "absolute", top: "0", right: "20px" }} />
                                                                                     </div>
                                                                                     </div>
-                                                                                    </div>
-
-                                                                                        {/* <i className="right flated close icon cliquable"
-                                                                                            style={{ float: "right" }}
-                                                                                            onClick={() => {
-                                                                                                arrayHelpers.remove(index)
-                                                                                                this.setState({ ping: true }, () => {
-                                                                                                    this.recalculerPartage()
-                                                                                                })
-                                                                                            }
-                                                                                            }></i> */}
-                                                                                        <div
-                                                                                            className="ui divider"></div>
+                                                                                    </div>                                                                                 
+                                                                                    <div className="ui divider"></div>
                                                                                     <div className="coches--role__droit">
                                                                                         {
                                                                                             roles.map((elem, idx) => {

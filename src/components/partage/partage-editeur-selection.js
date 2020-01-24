@@ -1,7 +1,7 @@
+import {config} from '../../utils/application'
 import React, { Component } from "react";
-import { Translation } from "react-i18next";
-
-import { ChampListeCollaborateurAssistant } from "../formulaires/champ-liste"
+import { withTranslation } from "react-i18next";
+import ChampListeCollaborateurAssistant from "../formulaires/champ-liste-collaborateur"
 
 class PageAssistantPartageChoixEditeur extends Component {
   constructor(props) {
@@ -43,9 +43,10 @@ class PageAssistantPartageChoixEditeur extends Component {
   }
 
   render() {
-    let descriptif;
+    let t = this.props.t, i18n = this.props.i18n
+    let descriptif
 
-    if (this.props.i18n.lng.substring(0, 2) === "en") {
+    if (i18n.language.substring(0, 2) === "en") {
       descriptif = (
         <div className="medium-400">
           The music publisher is the representative of the creator's works. It
@@ -67,85 +68,81 @@ class PageAssistantPartageChoixEditeur extends Component {
     if(this.state.editeur) {
       // Y a-t-il un avatar ?
       if(this.state.editeur.ayantDroit && this.state.editeur.ayantDroit.avatarImage) 
-        avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.editeur.ayantDroit.avatarImage}`
+        avatar = `${config.IMAGE_SRV_URL}${this.state.editeur.ayantDroit.avatarImage}`
       else
-        avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+        avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
     }    
 
-    return (
-      <Translation>
-        {t => (
-          <div className="ui grid">
-            <div className="ui row">
-              <div className="ui eight wide column">
-                <div className="medium-500 mode--partage__auteur">
-                  <div className="who-invented-title">
-                    {t("flot.split.partage.editeur.titre", {
-                      oeuvre: this.state.song
-                    })}
-                  </div>
-                  <br />
-                  {descriptif}
-                  <br />
-                  <div className="fields">
-                    {this.state.editeur && (
-                      <div className="twelve wide field gray-fields">
-                        <div className="holder-name">
-                          <img
-                            alt=""
-                            className="ui spaced avatar image"
-                            src={avatar}
-                          />
-                          <i
-                            className="delete icon"
-                            onClick={() => {
-                              this.props.setFieldValue("editeur", undefined);
-                              this.setState({ editeur: undefined });
-                            }}
-                          ></i>
-                          {this.state.editeur.nom}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <br></br>
-                  <br></br>
-                  {!this.state.editeur && (
-                    <div style={{ margin: "0 auto", height: "50px" }}>
-                      <div>
-                        <ChampListeCollaborateurAssistant
-                            onRef={ayantsDroit=>this.setEditeurs(ayantsDroit)}
-                            style={{height: "50px" }}
-                            indication={t("flot.split.documente-ton-oeuvre.editeur.ajout")}
-                            modele="editeurListe"
-                            autoFocus={false}
-                            requis={true}
-                            fluid={true}
-                            multiple={false}
-                            recherche={true}
-                            selection={true}
-                            ajout={true}
-                            fnSelect={
-                              () => {
-                                  this.ajouterEditeur()
-                              }
-                          }
-                        />                        
-                      </div>
-                      <br></br>                      
+    return (      
+      <div className="ui grid">
+        <div className="ui row">
+          <div className="ui eight wide column">
+            <div className="medium-500 mode--partage__auteur">
+              <div className="who-invented-title">
+                {t("flot.split.partage.editeur.titre", {
+                  oeuvre: this.state.song
+                })}
+              </div>
+              <br />
+              {descriptif}
+              <br />
+              <div className="fields">
+                {this.state.editeur && (
+                  <div className="twelve wide field gray-fields">
+                    <div className="holder-name">
+                      <img
+                        alt=""
+                        className="ui spaced avatar image"
+                        src={avatar}
+                      />
+                      <i
+                        className="delete icon"
+                        onClick={() => {
+                          this.props.setFieldValue("editeur", undefined);
+                          this.setState({ editeur: undefined });
+                        }}
+                      ></i>
+                      {this.state.editeur.nom}
                     </div>
-                  )}
+                  </div>
+                )}
+              </div>
+              <br></br>
+              <br></br>
+              {!this.state.editeur && (
+                <div style={{ margin: "0 auto", height: "50px" }}>
+                  <div>
+                    <ChampListeCollaborateurAssistant
+                        onRef={ayantsDroit=>this.setEditeurs(ayantsDroit)}
+                        style={{height: "50px" }}
+                        indication={t("flot.split.documente-ton-oeuvre.editeur.ajout")}
+                        modele="editeurListe"
+                        autoFocus={false}
+                        requis={true}
+                        fluid={true}
+                        multiple={false}
+                        recherche={true}
+                        selection={true}
+                        ajout={true}
+                        fnSelect={
+                          () => {
+                              this.ajouterEditeur()
+                          }
+                      }
+                    />                        
+                  </div>
+                  <br></br>                      
                 </div>
-              </div>
-              <div className="ui seven wide column">
-                <div className="nine fourteen field">&nbsp;</div>
-              </div>
+              )}
             </div>
           </div>
-        )}
-      </Translation>
-    );
+          <div className="ui seven wide column">
+            <div className="nine fourteen field">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    )
   }
 }
 
-export default PageAssistantPartageChoixEditeur
+export default withTranslation()(PageAssistantPartageChoixEditeur)

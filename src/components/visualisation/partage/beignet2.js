@@ -1,20 +1,14 @@
-/** 
- * Assistant d'affichage du dashboard
- */
+import { aideAyantDroit } from '../../../utils/application'
 import './beignet.css'
 import copyIcon from './copyIcon.png'
 import starIcon from './starIcon.png'
 import prodIcon from './prodIcon.png'
 import React, { Component } from 'react'
+import { withTranslation } from 'react-i18next'
 
-// Traduction
-import { Translation } from 'react-i18next'
-import AideAyantDroit from '../../../utils/ayantdroit'
-
-// D3
 const d3 = require('d3')
 
-export default class Beignet2 extends Component {
+class Beignet2 extends Component {
 
     constructor(props) {
         super(props)
@@ -56,7 +50,7 @@ export default class Beignet2 extends Component {
             props.data.forEach(elem => {
                 let nom
                 if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                    nom = AideAyantDroit.affichageDuNom(elem.ayantDroit)
+                    nom = aideAyantDroit.affichageDuNom(elem.ayantDroit)
                     _d[nom] = elem.pourcent
                 }
                 _c[nom] = elem.color;
@@ -217,6 +211,7 @@ export default class Beignet2 extends Component {
     }
 
     render() {
+
         // Ajoute la génération de beignet comme prochaine exécution de la pile JavaScript
         // alors que l'élément my_dataviz est accessible dans le navigateur du client.
         setTimeout(() => {
@@ -229,17 +224,14 @@ export default class Beignet2 extends Component {
         let flush = { position: "absolute", top: "0px", left: "0px" }
         if (this.props.titre === "Musique") flush = { position: "absolute", top: "0px", right: "20px" }
 
-        return (
-            <Translation>
-                {
-                    (t, i18n) =>
-                        <div style={{ margin: "0 auto" }}>
-                            {this.props.titre && (<h4 style={ flush }>{this.props.titre}</h4>)}
-                            <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
-                            </div>
-                        </div>
-                }
-            </Translation>
+        return (            
+            <div style={{ margin: "0 auto" }}>
+                {this.props.titre && (<h4 style={ flush }>{this.props.titre}</h4>)}
+                <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
+                </div>
+            </div>
         )
     }
 }
+
+export default withTranslation()(Beignet2)

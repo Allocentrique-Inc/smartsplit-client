@@ -31,7 +31,7 @@ export default class MediaList extends Component {
             }
         }        
 
-        fetch(`${config.APIURL}media`, options).then((response) => {
+        fetch(`${config.API_URL}media`, options).then((response) => {
             return response.json()
         })
         .then((jsonObject) => {

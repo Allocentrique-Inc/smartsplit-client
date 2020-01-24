@@ -170,7 +170,7 @@ class ModifyUser extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get(`${config.APIURL}entities`)
+      .get(`${config.API_URL}entities`)
       .then(res => {
         res.data.forEach(g => {
           groups.push({ key: g.uuid, text: g.name, value: g.name })

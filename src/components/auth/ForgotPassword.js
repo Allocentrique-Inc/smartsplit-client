@@ -85,7 +85,7 @@ class ForgotPassword extends Component {
   forgotPasswordHandler = courriel => {
     axios
       .post(
-        `${config.APIURL}rightHolders/emailToRightHolderId`,
+        `${config.API_URL}rightHolders/emailToRightHolderId`,
         {
           email: courriel
         }
@@ -95,7 +95,7 @@ class ForgotPassword extends Component {
         let requestSource = window.location.href;
         axios
           .patch(
-            `${config.APIURL}rightHolders/${rightHolderId}/requestSource`,
+            `${config.API_URL}rightHolders/${rightHolderId}/requestSource`,
             {
               requestSource: requestSource.includes("pochette")
                 ? "pochette"

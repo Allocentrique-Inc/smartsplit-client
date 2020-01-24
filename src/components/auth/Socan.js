@@ -89,7 +89,7 @@ class Socan extends Component {
     };
 
     try {
-      axios.post(`${config.APIURL}socan/join`, body)
+      axios.post(`${config.API_URL}socan/join`, body)
       .then(
         function (response) {
           console.log("RESPONSE: ", response)

@@ -43,7 +43,7 @@ export default class ModalePartage extends Component {
         courriel: this.state.courriel,
         contexte: contexte
       }      
-      Axios.post(`${config.APIURL}media/shareMedia`, data)
+      Axios.post(`${config.API_URL}media/shareMedia`, data)
       .then(res=>{
         console.log(res)
         toast.success(t('flot.partage.reussi'))

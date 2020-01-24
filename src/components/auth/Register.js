@@ -1,3 +1,4 @@
+import {aideAyantDroit, journal} from '../../utils/application'
 import React, { Component } from "react";
 import "./Register.css";
 import { Field, Form, Formik } from "formik";
@@ -7,11 +8,9 @@ import { toast } from "react-toastify";
 import { Dropdown } from "semantic-ui-react";
 import { Translation } from "react-i18next";
 import Eye from "./Eye";
-import axios from "axios";
 import InfoBulle from "../partage/InfoBulle"
 
-import Configuration from '../../utils/configuration'
-let config = Configuration.getInstance()
+const NOM = "Register"
 
 class Register extends Component {
   state = {
@@ -94,7 +93,6 @@ class Register extends Component {
     if (!value) {
       return "Required";
     } else if (value !== this.state.password) {
-      console.log("VALUE confirm", value);
       return "Passwords do not match";
     } else {
       this.setState({ passwordmatch: true });
@@ -171,7 +169,7 @@ class Register extends Component {
           this.props.history.push("/welcome")
         )
         .catch(err => {
-          console.log(err);
+          journal.error(NOM, err);
         })
         .finally(() => {
           if (this.props.fn) {
@@ -179,7 +177,7 @@ class Register extends Component {
           }
         });
     } catch (err) {
-      console.log(err);
+      journal.error(NOM, err);
     }
   };
 
@@ -222,28 +220,23 @@ class Register extends Component {
 
   componentDidMount() {
     let groups = [];
-    axios
-      .get(`${config.APIURL}rightHolders`)
-      .then(res => {
-        let groupers = [];
-        let groupsUnique = [];
-        res.data.forEach(function (element) {
-          groupers.push(element.groups);
-          // Remove duplicates from multiple right holders and flattens arrays
-          let GR = groupers
-            .sort()
-            .flat()
-            .filter(Boolean);
-          groupsUnique = [...new Set(GR)];
-        });
-        groupsUnique.forEach(function (elm) {
-          groups.push({ key: elm, text: elm, value: elm });
-        });
-        this.setState({ groups: groups });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    let res = aideAyantDroit.ayantsDroitBrut    
+    let groupers = [];
+    let groupsUnique = [];
+    res.data.forEach(function (element) {
+      groupers.push(element.groups);
+      // Remove duplicates from multiple right holders and flattens arrays
+      let GR = groupers
+        .sort()
+        .flat()
+        .filter(Boolean);
+      groupsUnique = [...new Set(GR)];
+    });
+    groupsUnique.forEach(function (elm) {
+      groups.push({ key: elm, text: elm, value: elm });
+    });
+    this.setState({ groups: groups });
+
     if (this.props.password) {
       this.setState({ password: this.props.password });
     }

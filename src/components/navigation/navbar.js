@@ -7,6 +7,7 @@ import arrowLeftIcon from '../../assets/svg/icons/arrow-left.svg';
 import MenuProfil from './menu-profil';
 import ModalePartage from "../modales/modale-partage";
 import Utilitaires from '../../utils/utilitaires'
+import { aideAyantDroit } from '../../utils/application';
 
 export class Navbar extends React.Component {
 
@@ -75,17 +76,16 @@ export class Navbar extends React.Component {
                                             <div onClick={()=>this.utils.naviguerVersSommaire(this.state.media.mediaId) } className={`ui button medium ${this.props.pochette ? "pochette" : ""}`}>
                                                 {t('entete.sommaire')}
                                             </div>
-                                        )}                               
+                                        )}
                                         {
-                                            this.props.profil && this.state.menuProfil && (
-                                                <MenuProfil   
-                                                    pochette={this.props.pochette}               
+                                            this.props.profil && this.state.menuProfil && aideAyantDroit.ayantsDroit && (
+                                                <MenuProfil
+                                                    pochette={this.props.pochette}
                                                     user={this.props.profil}
                                                 />
                                             )
                                         }
                                     </div>
-
                                 </div>
                             </div>
                             {this.state.media && 

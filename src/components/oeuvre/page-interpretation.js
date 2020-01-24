@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from "react";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 import starIconOrange from "../../assets/svg/icons/star-orange.svg";
 import starIconGreen from "../../assets/svg/icons/star-green.svg";
@@ -18,7 +18,7 @@ import * as roles from "../../assets/listes/role-uuids.json";
 import { getRightHoldersByAnyRole } from "../page-assistant/right-holder-helpers";
 import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
 
-export default class PageInterpretation extends Component {
+class PageInterpretation extends Component {
   musicianRoles = [roles.musician, roles.principal, roles.accompaniment, roles.singer];
 
   musicians() {
@@ -51,45 +51,44 @@ export default class PageInterpretation extends Component {
   }
   
   render() {
+    let t = this.props.t
     return (
-      <Translation>
-        {t => (
-          <Page pochette={this.props.pochette}>
-            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
-            <Colonne>
-              <Entete
-                pochette={this.props.pochette}
-                icon={this.icon()}
-                label={t(
-                  "flot.split.documente-ton-oeuvre.documenter.entete.interpretation"
-                )}
-                question={t(
-                  "flot.split.documente-ton-oeuvre.documenter.titre2"
-                )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.titre2-description"
-                )}
-              />
+      <Page pochette={this.props.pochette}>
+        <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
+        <Colonne>
+          <Entete
+            pochette={this.props.pochette}
+            icon={this.icon()}
+            label={t(
+              "flot.split.documente-ton-oeuvre.documenter.entete.interpretation"
+            )}
+            question={t(
+              "flot.split.documente-ton-oeuvre.documenter.titre2"
+            )}
+            description={t(
+              "flot.split.documente-ton-oeuvre.documenter.titre2-description"
+            )}
+          />
 
-              <ChampSelectionInterprete
-                pochette={this.props.pochette}
-                rightHolders={this.props.rightHolders}
-                musicians={this.musicians()}
-                values={this.props.values}
-                placeholder={t(
-                  "flot.split.documente-ton-oeuvre.documenter.titre2-placeholder"
-                )}
-                onChange={ids => {                  
-                  this.handleChange(ids)                  
-                }}
-                fn={(nouveau)=>{
-                  this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.principal)
-                }}
-              />
-            </Colonne>
-          </Page>
-        )}
-      </Translation>
+          <ChampSelectionInterprete
+            pochette={this.props.pochette}
+            rightHolders={this.props.rightHolders}
+            musicians={this.musicians()}
+            values={this.props.values}
+            placeholder={t(
+              "flot.split.documente-ton-oeuvre.documenter.titre2-placeholder"
+            )}
+            onChange={ids => {                  
+              this.handleChange(ids)                  
+            }}
+            fn={(nouveau)=>{
+              this.props.parent.nouvelAyantDroit(this.props.values.rightHolders, this.props.setFieldValue, nouveau, roles.principal)
+            }}
+          />
+        </Colonne>
+      </Page>        
     );
   }
 }
+
+export default withTranslation()(PageInterpretation)

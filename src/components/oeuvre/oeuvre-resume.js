@@ -1,5 +1,6 @@
+import {aideAyantDroit} from '../../utils/application'
 import React from 'react';
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { Navbar } from "../navigation/navbar";
 import Entete from "./oeuvre-resume/entete";
 import Corps from "./oeuvre-resume/corps";
@@ -10,7 +11,7 @@ import Utilitaires from '../../utils/utilitaires'
 
 const ACCES_ADMIN = 3
 
-export default class OeuvreResume extends React.Component {
+class OeuvreResume extends React.Component {
 
     constructor(props) {
         super(props)
@@ -55,16 +56,7 @@ export default class OeuvreResume extends React.Component {
             let _m = res.data.Item            
             this.setState({media: _m},
                 ()=>{
-                    axios.get('http://dev.api.smartsplit.org:8080/v1/rightHolders')
-                    .then(response => {
-                        let _adParUuid = { }
-                        response.data.forEach(e => {
-                          _adParUuid[e.rightHolderId] = e
-                        })
-                        this.setState({ rightHolders: _adParUuid });
-                    })
-                    .catch(error => {                        
-                    });
+                    this.setState({ rightHolders: aideAyantDroit.ayantsDroit });                    
                 })
         })
     }
@@ -90,33 +82,30 @@ export default class OeuvreResume extends React.Component {
                 membreEquipe = true
             }
 
-            return (
-                <Translation>
-                    {
-                        (t) =>
-                            <>
-                                <Navbar 
-                                    navigation={()=>this.utils.naviguerVersSommaireOeuvre(this.state.media.mediaId)} 
-                                    membreEquipe={membreEquipe} acces={this.state.acces} 
-                                    media={this.state.media} profil={this.state.user} 
-                                    pochette={this.state.pochette} />
-                                <Entete 
-                                    edition={ (this.state.user && this.state.user.username === this.state.media.creator) || 
-                                                this.state.acces === ACCES_ADMIN ? true : false} 
-                                    media={this.state.media} 
-                                    rightHolders={this.state.rightHolders} />
-                                <Corps jeton={this.props.jeton} membreEquipe={membreEquipe} 
-                                    acces={this.state.acces} 
-                                    edition={ (this.state.user && this.state.user.username === this.state.media.creator) || 
-                                                this.state.acces === ACCES_ADMIN ? true : false} 
-                                    media={this.state.media} rightHolders={this.state.rightHolders} 
-                                    roles={roles} pochette={this.state.pochette} />
-                            </>
-                    }
-                </Translation>
+            return (                
+                <>
+                    <Navbar 
+                        navigation={()=>this.utils.naviguerVersSommaireOeuvre(this.state.media.mediaId)} 
+                        membreEquipe={membreEquipe} acces={this.state.acces} 
+                        media={this.state.media} profil={this.state.user} 
+                        pochette={this.state.pochette} />
+                    <Entete 
+                        edition={ (this.state.user && this.state.user.username === this.state.media.creator) || 
+                                    this.state.acces === ACCES_ADMIN ? true : false} 
+                        media={this.state.media} 
+                        rightHolders={this.state.rightHolders} />
+                    <Corps jeton={this.props.jeton} membreEquipe={membreEquipe} 
+                        acces={this.state.acces} 
+                        edition={ (this.state.user && this.state.user.username === this.state.media.creator) || 
+                                    this.state.acces === ACCES_ADMIN ? true : false} 
+                        media={this.state.media} rightHolders={this.state.rightHolders} 
+                        roles={roles} pochette={this.state.pochette} />
+                </>                   
             )
         } else {
             return (<></>)
         }    
     }
 }
+
+export default withTranslation()(OeuvreResume)

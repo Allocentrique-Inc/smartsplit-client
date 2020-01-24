@@ -6,12 +6,9 @@ import ChangePasswordVerification from "./ChangePasswordVerification"
 import Eye from "./Eye"
 import { Field, Formik } from "formik"
 import zxcvbn from "zxcvbn"
-import axios from "axios"
+
 import "./Register.css"
 import * as Yup from "yup"
-
-import Configuration from '../../utils/configuration'
-let config = Configuration.getInstance()
 
 class ForgotPasswordVerification extends Component {
 
@@ -112,12 +109,7 @@ class ForgotPasswordVerification extends Component {
     this.setState({ confirmhidden: !this.state.confirmhidden });
   }
 
-  componentDidMount() {
-    axios
-      .get(`${config.APIURL}rightHolders`)
-      .catch(err => {
-        console.log(err);
-      });
+  componentDidMount() {    
     if (this.props.newPassword) {
       this.setState({ password: this.props.newPassword });
     }

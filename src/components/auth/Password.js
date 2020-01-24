@@ -46,7 +46,7 @@ class Password extends Component {
     try {
       this.setState({ patience: true }, () => {
         let body = {"password": values.password}
-        axios.post(`${config.APIURL}auth/verifyPassword`, body)
+        axios.post(`${config.API_URL}auth/verifyPassword`, body)
         .then((resp)=>{     
             if (resp.data === "Success"){
                 this.props.history.push("/accueil");

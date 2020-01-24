@@ -4,6 +4,7 @@ import { Translation } from 'react-i18next';
 // Composantes
 import MenuProfil from '../entete/menu-profil'
 import BoutonConnexion from '../entete/bouton-connexion'
+import { aideAyantDroit } from '../../utils/application';
 
 export default class Entete extends Component {
 
@@ -23,7 +24,7 @@ export default class Entete extends Component {
                             <div className="entete--recherche">
                             </div>
                             <div className="bouton--profil">
-                                {this.state.user && <MenuProfil pochette={this.props.pochette} user={this.state.user} />}
+                                {this.state.user && aideAyantDroit.ayantsDroit && <MenuProfil pochette={this.props.pochette} user={this.state.user} />}
                                 {!this.state.user && <BoutonConnexion />}
                             </div>
                         </div>

@@ -1,23 +1,25 @@
 import Configuration from './configuration'
 import Journalisation from  './journalisation'
-
 import Axios from "axios"
 
-let config = Configuration.getInstance()
-let journal = Journalisation.getInstance()
+const config = Configuration.getInstance()
+const journal = Journalisation.getInstance()
 
 const textToImage = require("text-to-image")
-
 const NOM = "AideAyantDroit"
 
 export default class AideAyantDroit {
+
+    constructor() {
+        this.chargement()
+    }
 
     /**
      * Chargement des ayants-droit.
      * D'abord, il y a chargement de tous les ayants-droit depuis l'API
      * Puis, chargement des avatars de chacun.
      */
-    async chargement() {
+    async chargement() {        
         async function chargerAvatar(ayantDroit, fn) {
             let uuid = ayantDroit.rightHolderId,
                 nom = ayantDroit.lastName,
@@ -25,9 +27,8 @@ export default class AideAyantDroit {
                 nomArtiste = ayantDroit.artistName,
                 dataUri
             // L'ayant-droit n'a pas d'avatar ou son avatar est l'image par défaut
-            if(!ayantDroit.avatarImage || ayantDroit.avatarImage === config.AVATAR_PAR_DEFAUT) {            
-                // Générer les initiales
-                let P = "", N = ""
+            if(!ayantDroit.avatarImage || ayantDroit.avatarImage === config.AVATAR_PAR_DEFAUT) {
+                let P = "", N = "", prenom = ayantDroit.firstName, nom = ayantDroit.lastName
                 if (prenom && prenom.length > 0) { P = prenom.charAt(0).toUpperCase() }
                 if (nom && nom.length > 0) { N = nom.charAt(0).toUpperCase() }
                 dataUri = await textToImage.generate(`${P}${N}`, {maxWidth: 40})
@@ -35,15 +36,20 @@ export default class AideAyantDroit {
                 // L'ayant-droit a une image d'avatar personnalisée
                 dataUri = `${config.IMAGE_SRV_URL}${ayantDroit.avatarImage}`
             }
-            let avatar = {nom, prenom, nomArtiste, dataUri, uuid} 
+            let avatar = {nom, prenom, nomArtiste, dataUri, uuid}
             ayantDroit.avatar = avatar
             fn()
         }
-        function chargerTousLesAvatars(aDs) {
+        /**
+         * Ordonnancement par identifiant unique dans un dictionnaire
+         * et génération des avatars en représentation directe (dataUri inclus)
+         * @param {*} aDs 
+         */
+        function ordonnerParUuidEtGenererAvatars(aDs) {
             return new Promise( (res, rej) => {
                 let _aDs = {}, cpt = 0            
                 aDs.forEach(ad=>{
-                    // Chargement de l'avatar (nom, prénom, nom d'artiste, url image, uuid)
+                    // Chargement de l'avatar (nom, prénom, nom d'artiste, dataUri, uuid)
                     chargerAvatar(ad, ()=>{
                         _aDs[ad.rightHolderId] = ad
                         cpt++
@@ -55,17 +61,21 @@ export default class AideAyantDroit {
             } )
         }
         // Chargement des ayant-droits
-        let reponse = await Axios.get( `${config.APIURL}rightholders/` )
+        let reponse = await Axios.get( `${config.API_URL}rightholders/`).catch(err=>journal.error(NOM, err))
+        // Sauvegarde des données brutes (utiles par certaines fonctions qui ne
+        // trient pas par identifiant unique dans un dictionnaire)
+        this.ayantsDroitBrut = reponse.data
         // Classer les ayants-droits par identifiant
-        this.ayantsDroit = await chargerTousLesAvatars(reponse.data)
-        journal.debug(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`)        
+        this.ayantsDroit = await ordonnerParUuidEtGenererAvatars(reponse.data)
+        // Chargement complété
+        this.chargementEstComplet = true
+        journal.debug(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`)
     }
 
     // Méthode de singleton asynchrone
-    static getInstance = ()=>{
+    static getInstance = () => {
         if(!AideAyantDroit.instance) {
-            AideAyantDroit.instance = new AideAyantDroit()
-            AideAyantDroit.instance.chargement()
+            AideAyantDroit.instance = new AideAyantDroit()            
         }
         return AideAyantDroit.instance
     }
@@ -102,6 +112,14 @@ export default class AideAyantDroit {
             }            
         })
         return avatars
+    }
+
+    /**
+     * Recharger la liste et exécuter une fonction de rappel
+     */
+    rafraichirListe(fn) {
+        this.chargement()
+        fn()
     }
 
 }

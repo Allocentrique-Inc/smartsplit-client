@@ -43,7 +43,11 @@ export default class Journalisation {
 
         this.verbose = (nom, msg) => {
             this.moteur.verbose(msg, {label: nom})
-        }                
+        }
+
+        this.http = (nom, msg) => {
+            this.moteur.http(msg, {label: nom})
+        }
 
         this.info = (nom, msg) => {
             this.moteur.info(msg, {label: nom})
@@ -55,13 +59,7 @@ export default class Journalisation {
     
         this.error = (nom, msg) => {
             this.moteur.error(msg, {label: nom})
-        }
-    
-        this.crit = (nom, msg) => {
-            this.moteur.crit(msg, {label: nom})
-        }
-
-        this.debug(NOM, "Engin créé")
+        }        
 
     }
 
@@ -69,6 +67,14 @@ export default class Journalisation {
         if(!Journalisation.instance) {
             Journalisation.instance = new Journalisation()
             Object.freeze(Journalisation.instance)
+            // Test de la journalisation
+            Journalisation.instance.silly(NOM, "🎼")
+            Journalisation.instance.debug(NOM, "🎼")
+            Journalisation.instance.verbose(NOM, "🎼")
+            Journalisation.instance.http(NOM, "🎼")
+            Journalisation.instance.info(NOM, "🎼")            
+            Journalisation.instance.warn(NOM, "🎼")
+            Journalisation.instance.error(NOM, "🎼")            
         }        
         return Journalisation.instance
     }    
