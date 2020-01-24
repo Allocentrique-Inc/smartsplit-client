@@ -11,7 +11,6 @@ import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre 
 import { StarSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";
 import EntetePartage from "./entete-partage"
-import AideAyantDroit from "../../utils/ayantdroit"
 const MODES = { egal: "0", role: "1" }
 const TYPE = { principal: "0", accompagnement: "1" }
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -115,7 +114,7 @@ class PageAssistantPartageInterpretation extends Component {
 
         if (_coll) {
             let ayantDroit = this.state.ayantsDroit[_coll], 
-                nom = AideAyantDroit.affichageDuNom(ayantDroit)
+                nom = aideAyantDroit.affichageDuNom(ayantDroit)
 
             //let _index = arrayHelpers.data.length
             let _index = this.props.values.droitAuteur.length +
