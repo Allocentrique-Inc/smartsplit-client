@@ -435,7 +435,7 @@
 
 .vote {
   display: inline;
-  float: right;
+  text-align: right;
 }
 
 .role,
@@ -459,16 +459,24 @@
   color: #687a8b;
 }
 
+.utilisateurConnecte,
+.utilisateurInvite {
+  float: right;
+}
+
 .approuve {
   color: #2da84f;
+  font-weight: bold;
 }
 
 .desaprouve {
   color: #ac1616;
+  font-weight: bold;
 }
 
 .attente {
   color: #687a8b;
+  font-weight: normal;
 }
 
 .border-bottom.devide {

@@ -131,7 +131,7 @@ class SommaireDroit extends Component {
                         <div key={`part_${uuid}`}>
                             <div className="ui grid">
                                 <div className="ui row">
-                                    <div className="ui fourteen wide column">
+                                    <div className="ui ten wide column">
                                         <div className="holder-name">
                                             <img alt="" className="ui spaced avatar image" src={
                                                 (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
@@ -139,11 +139,12 @@ class SommaireDroit extends Component {
                                             {part.nom}
                                              {/* this.state.monVote = avant le vote, part.vote = après le vote. Référence aux bonnes données */}
                                             <div className="vote">
-                                                <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId  ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
+                                                <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId  ? 'utilisateurInvite' : 'utilisateurConnecte'}`}
+                                                style={{textAlign: "right"}}>
                                                 {parseFloat(part.sommePct).toFixed(2) + "%"}
                                                 </span>
-                                                <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}
-                                                style={{fontWeight: "normal"}}> {/* SCSS classes */}
+                                                <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}> 
+                                                {/* SCSS classes */}
                                                         {t(`flot.split.vote.${part.vote}`)} 
                                                     </div> 
                                                     </div> 
@@ -160,8 +161,8 @@ class SommaireDroit extends Component {
                                                     </div>
                                                                                            
                                                 </div>
-                                            </div>
-                                               
+                                                <div className="border-bottom devide" />
+                                            </div>     
                                         </div>
                                         </div>
                                         <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />
@@ -174,7 +175,7 @@ class SommaireDroit extends Component {
                                                 <>
                                                     <div className="ui row">
                                                         <div className="ui one wide column" />
-                                                        <div className="ui eight wide column">
+                                                        <div className="ui nine wide column">
                                                             <i>{part.raison ? part.raison : ""}</i>
                                                             <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
                                                                 onClick={() => {
@@ -233,7 +234,7 @@ class SommaireDroit extends Component {
                     {/* Grille d'affichage des droits (à gauche) et à droite, de la visualisation */}
                     <div className="ui grid">
                         <div className="ui row">
-                            <div className="ui eight wide column">
+                            <div className="ui ten wide column">
                                 <div className="wizard-title types row"> 
                                     <div className="ui column">
                                         {Icon} &nbsp;
@@ -244,7 +245,7 @@ class SommaireDroit extends Component {
                                 </div>
                                 {_parts}
                             </div>
-                            <div className="ui eight wide column">                             
+                            <div className="ui six wide column">                             
                                 {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre={t("sommaire.parole.parole")} side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} />)} 
                                 {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre={t("sommaire.musique.musique")} side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} />)}
                                 {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
