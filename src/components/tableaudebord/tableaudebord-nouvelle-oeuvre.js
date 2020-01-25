@@ -32,7 +32,7 @@ class NouvelleOeuvre extends Component {
             assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
         })
         this.setState({ assocUuidArtiste: assocUuidArtiste },
-            () => this.setState({ rightHolders: res.data })
+            () => this.setState({ rightHolders: res })
         )
     }
 

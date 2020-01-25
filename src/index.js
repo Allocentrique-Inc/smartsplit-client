@@ -337,16 +337,15 @@ toast.configure({
   position: toast.POSITION.TOP_CENTER
 });
 
+// Affichage quand le chargement est complété
 let cpt = 0
-
 function renduLorsqueApplicationEstPrete() {  
   if(aideAyantDroit.ayantsDroit) {
     cpt++
-    journal.debug(NOM, `Application prête en ${cpt / 1000} secondes`)
+    journal.silly(NOM, `Application prête en ${cpt / 1000} secondes`)
     ReactDOM.render(renderRoutes(), document.getElementById("root"))
   } else {
     setTimeout( ()=>renduLorsqueApplicationEstPrete(), 1)
   }
 }
-
 renduLorsqueApplicationEstPrete()

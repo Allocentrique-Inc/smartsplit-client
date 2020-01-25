@@ -1,11 +1,9 @@
-import {config} from '../../utils/application'
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
-import axios from 'axios'
-import { toast } from 'react-toastify'
 import { Wizard } from 'semantic-ui-react-formik-iptoki'
-import { Form } from 'formik'
+import { Form } from 'semantic-ui-react'
 import ModifyUser from '../auth/ModifyUser'
+import {aideEntites} from '../../utils/application'
 
 class ChampListeEntiteMusicaleAssistant extends Component {
 
@@ -28,7 +26,7 @@ class ChampListeEntiteMusicaleAssistant extends Component {
             ajout: props.ajout,
             nomCommeCle: props.nomCommeCle
         }
-        this.OPTIONS = undefined
+        this.OPTIONS = []
         this.listeAyantsDroit = this.listeEntites.bind(this)
         this.onChange = props.onChange
         this.surAjout = this.surAjout.bind(this)
@@ -51,27 +49,23 @@ class ChampListeEntiteMusicaleAssistant extends Component {
     }
 
     listeEntites() {
-        // Récupérer la liste des ayant-droits          
-        axios.get(`${config.API_URL}entities`)
-            .then(res => {
-                let aOptions = []
-                res.data.forEach((elem) => {
-                    if (!this.state.rightHolderId || elem.members.includes(this.state.rightHolderId)) {
-                        aOptions.push({
-                            key: elem.uuid,
-                            text: elem.name,
-                            value: elem.name
-                        })
-                    }
+        // Récupérer la liste des ayant-droits
+        let aOptions = []
+        aideEntites.entites.forEach((elem) => {
+            if (!this.state.rightHolderId || elem.members.includes(this.state.rightHolderId)) {
+                aOptions.push({
+                    key: elem.uuid,
+                    text: elem.name,
+                    value: elem.name
                 })
-                if (!this.OPTIONS) {
-                    this.OPTIONS = aOptions
-                }
-                this.setState({ options: aOptions })
-            })
-            .catch(err => {
-                toast.error(err)
-            })
+            }
+        })
+        if (!this.OPTIONS) {
+            this.OPTIONS = aOptions
+        }
+        if(aOptions) {
+            this.setState({ options: aOptions })
+        }
     }
 
     surAjout(e) {

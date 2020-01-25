@@ -405,7 +405,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                             aideAyantDroit.rafraichirListe( ()=>{
                                                                                 this.setState({ ayantsDroit: aideAyantDroit.ayantsDroit }, () => {
                                                                                     let ayantDroit = this.state.ayantsDroit[this.props.values.collaborateur]
-                                                                                    let nom = aideAyantDroit.genererNom(ayantDroit)
+                                                                                    let nom = aideAyantDroit.affichageDuNom(ayantDroit)
                                                                                     let _index = this.props.values.droitAuteur.length +
                                                                                         this.props.values.droitInterpretation.length +
                                                                                         this.props.values.droitEnregistrement.length

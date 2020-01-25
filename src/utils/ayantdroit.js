@@ -11,7 +11,7 @@ const NOM = "AideAyantDroit"
 export default class AideAyantDroit {
 
     constructor() {
-        this.chargement()
+        this.rafraichirListe()
     }
 
     /**
@@ -67,12 +67,9 @@ export default class AideAyantDroit {
         this.ayantsDroitBrut = reponse.data
         // Classer les ayants-droits par identifiant
         this.ayantsDroit = await ordonnerParUuidEtGenererAvatars(reponse.data)
-        // Chargement complété
-        this.chargementEstComplet = true
-        journal.debug(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`)
+        journal.silly(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`)
     }
 
-    // Méthode de singleton asynchrone
     static getInstance = () => {
         if(!AideAyantDroit.instance) {
             AideAyantDroit.instance = new AideAyantDroit()            
@@ -104,22 +101,24 @@ export default class AideAyantDroit {
      */
     genererAvatars(ayantsDroitMedia) {
         let avatars = []
-        ayantsDroitMedia.forEach(_aDm=>{
-            if(this.ayantsDroit[_aDm.id]) {
-                avatars.push(this.ayantsDroit[_aDm.id].avatar)
-            } else {
-                journal.error(NOM, `Aucun usager actif pour identifié par ${_aDm.id}`)
-            }            
-        })
+        if(ayantsDroitMedia) { 
+            ayantsDroitMedia.forEach(_aDm=>{
+                if(this.ayantsDroit[_aDm.id]) {
+                    avatars.push(this.ayantsDroit[_aDm.id].avatar)
+                } else {
+                    journal.error(NOM, `Aucun usager actif pour identifié par ${_aDm.id}`)
+                }            
+            })
+        }
         return avatars
     }
 
     /**
-     * Recharger la liste et exécuter une fonction de rappel
+     * Recharger la liste et exécuter une fonction de rappel au besoin
      */
-    rafraichirListe(fn) {
-        this.chargement()
-        fn()
+    async rafraichirListe(fn) {
+        await this.chargement()
+        if(fn) { fn() }
     }
 
 }

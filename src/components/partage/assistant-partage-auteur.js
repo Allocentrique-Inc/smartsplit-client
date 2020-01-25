@@ -463,7 +463,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     let _index = this.props.values.droitAuteur.length +
                                                                                         this.props.values.droitInterpretation.length +
                                                                                         this.props.values.droitEnregistrement.length
-                                                                                    let nom = aideAyantDroit.genererNom(ayantDroit)
+                                                                                    let nom = aideAyantDroit.affichageDuNom(ayantDroit)
                                                                                     if (this.state.mode === MODES.egal) {
                                                                                         droitsAuteur.push({
                                                                                             nom: nom,

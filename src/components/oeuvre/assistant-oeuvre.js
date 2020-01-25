@@ -1,4 +1,4 @@
-import {config, aideAyantDroit} from '../../utils/application'
+import {config, aideAyantDroit, journal} from '../../utils/application'
 import React, { Component } from "react";
 import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from "axios";
@@ -16,7 +16,8 @@ import ModalFin from "./modal-fin";
 import ModaleConnexion from "../auth/Connexion";
 import "../../assets/scss/page-assistant/bouton.scss";
 
-// Modèle
+// eslint-disable-next-line
+const NOM = "AssistantOeuvre"
 
 class AssistantOeuvre extends Component {
   pageProgressPercentages = [10, 20, 30, 40, 50, 70, 80, 100];
@@ -61,7 +62,7 @@ class AssistantOeuvre extends Component {
         }
       })
       .catch(error => {
-        console.log(error);
+        journal.error(error)
         this.setState({ modaleConnexion: true });
       });
   }
@@ -75,13 +76,13 @@ class AssistantOeuvre extends Component {
   }
 
   fetchApiRightHolders() {
-    let response = aideAyantDroit.ayantsDroitBrut
+    let response = aideAyantDroit.ayantsDroitBrut    
     let assocUuidArtiste = {}
-    response.data.forEach(e => {
+    response.forEach(e => {      
       assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
     })
     this.setState({ assocUuidArtiste: assocUuidArtiste }, () =>
-      this.setState({ rightHolders: response.data })
+      this.setState({ rightHolders: response })
     )
   }
 

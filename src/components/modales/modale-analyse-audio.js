@@ -16,7 +16,8 @@ class ModaleAnalyseAudio extends Component {
         this.state = {
             open: props.open,
             onClose: props.onClose,
-            action: props.action
+            action: props.action,
+            analyse: props.analyse
         }
     }
 
@@ -24,8 +25,8 @@ class ModaleAnalyseAudio extends Component {
         let t = this.props.t
         return (
             <Modal
-                open={this.state.modaleReconnaissance}
-                onClose={() => this.modaleReconnaissance(false)}>
+                open={this.state.open}
+                onClose={this.state.onClose}>
                 <Modal.Header>{t('flot.acr.titre')}</Modal.Header>
                 <Modal.Content>
                     <Label style={etiquetteStyle}>{t('oeuvre.attribut.etiquette.titre')}</Label><span>{this.state.analyse.title}</span><p />

@@ -1,4 +1,4 @@
-import {config, journal} from '../../utils/application'
+import {config, journal, aideAyantDroit} from '../../utils/application'
 import React, { Component } from 'react'
 import RightHolderOptions from '../page-assistant/right-holder-options'
 import ChampSelectionMultipleAyantDroit from '../page-assistant/champ-selection-multiple-ayant-droit'
@@ -257,17 +257,16 @@ class Page2NouvellePiece extends Component {
                                     if (!_rHs.includes(nouveau)) {_rHs.push(nouveau)}
                                     this.props.setFieldValue('rightHolders', _rHs)
                                     // recharger les ayant-droits
-                                    axios.get(`${config.API_URL}rightHolders`)
-                                    .then(res => {
+                                    aideAyantDroit.rafraichirListe( ()=>{
                                         // Ordonnancement simple uuid -> nom d'artiste
                                         let assocUuidArtiste = this.state.assocUuidArtiste
-                                        res.data.forEach(e => {
+                                        aideAyantDroit.ayantsDroitBrut.forEach(e => {
                                             assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
-                                        })
-                                        this.setState({ rightHolders: res.data },
+                                        })                                        
+                                        this.setState({ rightHolders: aideAyantDroit.ayantsDroitBrut }, 
                                             () => this.setState({ assocUuidArtiste: assocUuidArtiste })
                                         )
-                                    })
+                                    })                                   
                                 }}
                             />
                         </div>
@@ -358,9 +357,9 @@ class Page2NouvellePiece extends Component {
                     </div>                    
                 </div>
                 {
-                    this.state.analyse && (
+                    this.state.modaleReconnaissance && (
                         <ModaleAnalyseAudio
-                            open={this.state.modaleReconnaissance} 
+                            open={this.state.modaleReconnaissance} analyse={this.state.analyse}
                             onClose={()=>this.modaleReconnaissance(false)} action={()=>{this.remplirChampsAnalyse()}} />                        
                     )
                 }

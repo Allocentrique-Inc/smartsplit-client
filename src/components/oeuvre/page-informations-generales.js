@@ -17,7 +17,7 @@ class PageInformationsGenerales extends React.Component {
   constructor(props) {
     super(props);
 
-    let langue = props.i18n.lng.substring(0, 2);
+    let langue = props.i18n.language.substring(0, 2);
     let genres = require(`../../assets/listes/${langue}/genres`).genres;
 
     // Épuration de la liste des instruments pour éviter les doublons

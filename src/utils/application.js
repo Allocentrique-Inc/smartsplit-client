@@ -11,6 +11,7 @@
 import Configuration from './configuration'
 import AideAyantDroit from './ayantdroit'
 import Journalisation from './journalisation'
+import AideEntites from './entites'
 
 class Application {
 
@@ -18,6 +19,7 @@ class Application {
         this.journal = Journalisation.getInstance()
         this.config = Configuration.getInstance()
         this.aideAyantDroit = AideAyantDroit.getInstance()
+        this.aideEntites = AideEntites.getInstance()
     }    
 
     static getInstance() { // Prévient la modification
@@ -33,5 +35,6 @@ const i = Application.getInstance()
 const config = i.config
 const aideAyantDroit = i.aideAyantDroit
 const journal = i.journal
+const aideEntites = i.aideEntites
 
-export { config, aideAyantDroit, journal }
+export { config, journal, aideAyantDroit, aideEntites }
