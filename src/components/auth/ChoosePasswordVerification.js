@@ -1,10 +1,8 @@
-import React, { Component } from "react";
-// import FormErrors from "../FormErrors";
-// import Validate from "../utility/FormValidation";
-import { Auth } from "aws-amplify";
-import { withTranslation } from "react-i18next";
-import { Modal } from "semantic-ui-react";
-import ChangePasswordVerification from "./ChangePasswordVerification";
+import React, { Component } from "react"
+import {Identite, utils} from '../../utils/application'
+import { withTranslation } from "react-i18next"
+import { Modal } from "semantic-ui-react"
+import ChangePasswordVerification from "./ChangePasswordVerification"
 
 class ForgotPasswordVerification extends Component {
 
@@ -32,21 +30,10 @@ class ForgotPasswordVerification extends Component {
   };
 
   passwordVerificationHandler = async event => {
-    event.preventDefault();
-
-    // AWS Cognito integration here
-    try {
-      await Auth.forgotPasswordSubmit(
-        this.state.email,
-        this.state.verificationCode,
-        this.state.newpassword
-      );
-
-      this.props.history.push("/accueil");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    event.preventDefault()
+    Identite.oubliMotDePasse( {courriel: this.state.email, code: this.state.verificationCode, nouveauMdp: this.state.newPassword} )
+    utils.naviguerVerAccueil()
+  }
 
   onInputChange = event => {
     this.setState({

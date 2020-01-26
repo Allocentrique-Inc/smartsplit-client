@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
 import { ItemSelectionne } from "./item-selectionne";
-import { Translation } from "react-i18next"
+import { withTranslation } from "react-i18next"
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 import TitreChamp from "./titre-champ";
 import '../../assets/scss/page-assistant/champ.scss';
 import '../../assets/scss/page-assistant/champ-selection-multiple.scss';
 
-export default class ChampSelectionMultiple extends Component {
+class ChampSelectionMultiple extends Component {
     constructor(props) {
         super(props);
 
@@ -87,19 +87,11 @@ export default class ChampSelectionMultiple extends Component {
     }
 
     createLabel() {
-        return (
-            <Translation>
-                {
-                    (t) =>
-
-                        this.props.createLabel || t('oeuvre.attribut.etiquette.ajouter-genre')
-                }
-            </Translation>
-        )
+        const t = this.props.t
+        return (this.props.createLabel || t('oeuvre.attribut.etiquette.ajouter-genre'))
     }
 
-
-    render() {
+    render() {        
         return (
             <div className="champ">
                 <label>
@@ -107,9 +99,7 @@ export default class ChampSelectionMultiple extends Component {
                         label={this.props.label}
                         description={this.props.description}
                     />
-
                     {this.renderSelectedItems()}
-
                     <Dropdown
                         placeholder={this.props.placeholder}
                         fluid
@@ -130,3 +120,4 @@ export default class ChampSelectionMultiple extends Component {
         );
     }
 }
+export default withTranslation()(ChampSelectionMultiple)

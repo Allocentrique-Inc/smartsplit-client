@@ -1,4 +1,4 @@
-import {aideAyantDroit} from '../../utils/application'
+import {AyantsDroit} from '../../utils/application'
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik-iptoki'
 import { Form } from 'semantic-ui-react'
@@ -55,12 +55,12 @@ class ChampListeCollaborateurAssistant extends Component {
 
     listeAyantsDroit() {
         // Récupérer la liste des ayant-droits 
-        let _adParId = aideAyantDroit.ayantsDroit
+        let _adParId = AyantsDroit.ayantsDroit
         let _options = []
         let nomsConnus = []
         Object.keys(_adParId).forEach((id, idx) => {
             let elem = _adParId[id]   
-            let nom = aideAyantDroit.affichageDuNom(elem)
+            let nom = AyantsDroit.affichageDuNom(elem)
             nomsConnus.push(nom)           
             _options.push (
                 {

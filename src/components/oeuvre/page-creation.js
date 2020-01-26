@@ -1,26 +1,17 @@
-/**
- * Saisie du collaborateur principal de l'oeuvre
- */
-
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
-
 import copyrightIconOrange from "../../assets/svg/icons/copyright-orange.svg";
 import copyrightIconGreen from "../../assets/svg/icons/copyright-green.svg";
 import "../../assets/scss/assistant-form.scss";
-
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit";
 import ChampDate from "../page-assistant/champ-date";
 import Page from "../page-assistant/page";
-
 import * as roles from "../../assets/listes/role-uuids.json";
 import Colonne from "../page-assistant/colonne";
 import Entete from "../page-assistant/entete";
 import ChampTexte from "../page-assistant/champ-texte";
 import InfoBulle from "../partage/InfoBulle";
-
 import "../formulaires.css";
-
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import {
   addRightHolderIfMissing,
@@ -28,7 +19,7 @@ import {
   hasRoles,
   updateRole
 } from "../page-assistant/right-holder-helpers";
-import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique"
 
 class PageCreation extends Component {
   constructor(props) {

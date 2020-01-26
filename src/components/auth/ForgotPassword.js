@@ -1,21 +1,13 @@
 import React, { Component } from "react";
-import { Auth } from "aws-amplify";
 import { withTranslation } from "react-i18next";
 import { Modal } from "semantic-ui-react";
-import axios from "axios";
-
 import closeIcon from "../../assets/svg/icons/x.svg";
 import "../../assets/scss/page-assistant/modal.scss";
 import "../../assets/scss/connexion/connexion.scss";
-
 import positiveImage from "../../assets/images/positive.png";
-import { toast } from "react-toastify";
 import { Formik, Field } from "formik";
-
 import "./Register.css";
-
-import Configuration from '../../utils/configuration'
-let config = Configuration.getInstance()
+import { Identite } from "../../utils/application";
 
 const emailStyle = {
   display: "block",
@@ -36,7 +28,6 @@ class ForgotPassword extends Component {
       pochette: props.pochette,
       modalOpen: false,
       email: "",
-      // requestSource: window.location.href || "", // this.props.location
       errors: {
         cognito: null,
         blankfield: false
@@ -76,33 +67,7 @@ class ForgotPassword extends Component {
   };
 
   forgotPasswordHandler = courriel => {
-    axios
-      .post(
-        `${config.API_URL}rightHolders/emailToRightHolderId`,
-        {
-          email: courriel
-        }
-      )
-      .then(res => {
-        let rightHolderId = res.data;
-        let requestSource = window.location.href;
-        axios
-          .patch(
-            `${config.API_URL}rightHolders/${rightHolderId}/requestSource`,
-            {
-              requestSource: requestSource.includes("pochette")
-                ? "pochette"
-                : "smartsplit"
-            }
-          )
-          .then(() => {
-            Auth.forgotPassword(courriel)
-              .then(res => {})
-              .catch(error => {
-                toast.error(error.message);
-              });
-          });
-      });
+    Identite.oubliMotDePasse(courriel)
   };
 
   onInputChange = event => {

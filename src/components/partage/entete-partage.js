@@ -1,4 +1,4 @@
-import {config, aideAyantDroit, journal} from '../../utils/application'
+import {config, AyantsDroit, journal} from '../../utils/application'
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
 import { Progress } from "semantic-ui-react";
@@ -21,7 +21,7 @@ class EntetePartage extends Component {
   soumettre(t, values, etat, cb) {
     if (this.state.user) {
       // 1. Récupérer la liste des ayant-droits
-      let _association = aideAyantDroit.ayantsDroit
+      let _association = AyantsDroit.ayantsDroit
       // 2. Générer la structure à envoyer à Dynamo
       let droitEnregistrement = [];
       let droitInterpretePrincipal = [];
@@ -218,7 +218,7 @@ class EntetePartage extends Component {
         if(elem.files && elem.files.cover && elem.files.cover.files && elem.files.cover.files.length > 0) {
             elem.files.cover.files.forEach(e=>{
                 if(e.access === 'public') {
-                    imageSrc = `${config.IMAGE_SRV_URL}${elem.mediaId}/cover/${e.file}`
+                    imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${elem.mediaId}/cover/${e.file}`
                 }
             })
         }

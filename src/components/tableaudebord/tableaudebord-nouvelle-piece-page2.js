@@ -1,4 +1,4 @@
-import {config, journal, aideAyantDroit} from '../../utils/application'
+import {config, journal, AyantsDroit, Identite} from '../../utils/application'
 import React, { Component } from 'react'
 import RightHolderOptions from '../page-assistant/right-holder-options'
 import ChampSelectionMultipleAyantDroit from '../page-assistant/champ-selection-multiple-ayant-droit'
@@ -6,7 +6,6 @@ import ChampTeleversement from '../page-assistant/champ-televersement'
 import { toast } from 'react-toastify'
 import ChampListeEntiteMusicaleAssistant from '../formulaires/champ-liste-entite-musicales'
 import InfoBulle from '../partage/InfoBulle'
-import { Auth } from 'aws-amplify'
 import { withTranslation } from 'react-i18next'
 import axios from 'axios'
 import ModaleAnalyseAudio from '../modales/modale-analyse-audio'
@@ -89,15 +88,13 @@ class Page2NouvellePiece extends Component {
 
     ajouterEntiteArtistique(e, cb) {        
         this.props.setFieldValue('artist', e)
-        Auth.currentAuthenticatedUser()
-            .then(res => {
-                let username = res.username
-                let body = { username: username, entite: e }
-                axios.post(`${config.API_URL}entities/`, body)
-                .then(res => { if (cb) { cb() } })
-                .catch(err => journal.error(NOM, err))
-            })
+        if(Identite.usager) {
+            let username = Identite.usager.username
+            let body = { username: username, entite: e }
+            axios.post(`${config.API_URL}entities/`, body)
+            .then(res => { if (cb) { cb() } })
             .catch(err => journal.error(NOM, err))
+        }        
     }
 
     render() {
@@ -257,13 +254,13 @@ class Page2NouvellePiece extends Component {
                                     if (!_rHs.includes(nouveau)) {_rHs.push(nouveau)}
                                     this.props.setFieldValue('rightHolders', _rHs)
                                     // recharger les ayant-droits
-                                    aideAyantDroit.rafraichirListe( ()=>{
+                                    AyantsDroit.rafraichirListe( ()=>{
                                         // Ordonnancement simple uuid -> nom d'artiste
                                         let assocUuidArtiste = this.state.assocUuidArtiste
-                                        aideAyantDroit.ayantsDroitBrut.forEach(e => {
+                                        AyantsDroit.ayantsDroitBrut.forEach(e => {
                                             assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
                                         })                                        
-                                        this.setState({ rightHolders: aideAyantDroit.ayantsDroitBrut }, 
+                                        this.setState({ rightHolders: AyantsDroit.ayantsDroitBrut }, 
                                             () => this.setState({ assocUuidArtiste: assocUuidArtiste })
                                         )
                                     })                                   

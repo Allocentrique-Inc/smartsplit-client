@@ -1,4 +1,4 @@
-import { aideAyantDroit, config } from "../../utils/application"
+import { AyantsDroit, config } from "../../utils/application"
 import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
 import { Checkbox } from 'semantic-ui-react'
@@ -212,7 +212,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
         if (_coll) {
             let ayantDroit = this.state.ayantsDroit[_coll],
-                nom = aideAyantDroit.affichageDuNom(ayantDroit)
+                nom = AyantsDroit.affichageDuNom(ayantDroit)
             
             let _index = this.props.values.droitAuteur.length +
                 this.props.values.droitInterpretation.length +
@@ -317,7 +317,6 @@ class PageAssistantPartageEnregistrement extends Component {
             <React.Fragment>
                 <EntetePartage 
                     values={this.props.values} 
-                    enregistrerEtQuitter={this.props.enregistrerEtQuitter} 
                     enregistrerEtAllerAuSommaire={this.props.enregistrerEtAllerAuSommaire}
                     media={this.state.media} 
                     user={this.props.user} 
@@ -402,10 +401,10 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                             // dans la liste.
                                                                             this.props.setFieldValue('collaborateur', _aD)
                                                                             let droitsEnregistrement = this.props.values.droitEnregistrement
-                                                                            aideAyantDroit.rafraichirListe( ()=>{
-                                                                                this.setState({ ayantsDroit: aideAyantDroit.ayantsDroit }, () => {
+                                                                            AyantsDroit.rafraichirListe( ()=>{
+                                                                                this.setState({ ayantsDroit: AyantsDroit.ayantsDroit }, () => {
                                                                                     let ayantDroit = this.state.ayantsDroit[this.props.values.collaborateur]
-                                                                                    let nom = aideAyantDroit.affichageDuNom(ayantDroit)
+                                                                                    let nom = AyantsDroit.affichageDuNom(ayantDroit)
                                                                                     let _index = this.props.values.droitAuteur.length +
                                                                                         this.props.values.droitInterpretation.length +
                                                                                         this.props.values.droitEnregistrement.length

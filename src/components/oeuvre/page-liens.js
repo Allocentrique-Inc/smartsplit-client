@@ -19,7 +19,7 @@ import { Dropdown } from "semantic-ui-react";
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg";
 import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg";
 import "../../assets/scss/page-assistant/champ.scss";
-import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique";
 
 class PageLiens extends React.Component {
   defaultStreamingApps = [

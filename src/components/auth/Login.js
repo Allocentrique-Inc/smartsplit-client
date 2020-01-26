@@ -1,19 +1,14 @@
-import React, { Component } from "react";
-
-import "./Login.css";
-
-// Importation pochette
+// eslint-disable-next-line
+import {Identite, journal} from '../../utils/application'
+import React, { Component } from "react"
+import "./Login.css"
 import '../../assets/scss/connexion/connexion.scss'
+import { withTranslation } from "react-i18next"
+import { Formik, Form, Field } from "formik"
+import Eye from "./Eye"
 
-import { Auth } from "aws-amplify";
-import { withTranslation } from "react-i18next";
-
-import { Formik, Form, Field } from "formik";
-
-// Rétroaction utilisateur
-import { toast } from "react-toastify";
-
-import Eye from "./Eye";
+// eslint-disable-next-line
+const NOM = "LogIn"
 
 class LogIn extends Component {
   constructor(props) {
@@ -40,27 +35,16 @@ class LogIn extends Component {
     });
   };
 
-  handleSubmit = values => {
-    try {
-      this.setState({ patience: true }, () => {
-        Auth.signIn(values.username, values.password)
-          .then(user => {
-            //toast.success(`#${user.username} !`);
-            if (this.props.fn) {
-              this.props.fn();
-            }
-          })
-          .catch(err => {
-            toast.error(err.message);
-          })
-          .finally(() => {
-            this.setState({ patience: false });
-          });
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  handleSubmit = values => {    
+    this.setState({ patience: true }, () => {
+      Identite.connexion({utilisateur: values.username, secret: values.password}, ()=>{        
+        if (this.props.fn) {
+          this.props.fn()
+        }
+        this.setState({ patience: false })
+      })            
+    })    
+  }
 
   handlePasswordChange(e) {
     this.setState({ password: e.target.value });

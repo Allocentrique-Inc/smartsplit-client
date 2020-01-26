@@ -1,4 +1,4 @@
-import { aideAyantDroit } from '../../../utils/application'
+import { AyantsDroit } from '../../../utils/application'
 import './beignet.css'
 import copyIcon from './copyIcon.png'
 import starIcon from './starIcon.png'
@@ -50,7 +50,7 @@ class Beignet2 extends Component {
             props.data.forEach(elem => {
                 let nom
                 if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                    nom = aideAyantDroit.affichageDuNom(elem.ayantDroit)
+                    nom = AyantsDroit.affichageDuNom(elem.ayantDroit)
                     _d[nom] = elem.pourcent
                 }
                 _c[nom] = elem.color;

@@ -1,33 +1,21 @@
 import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
-
 import { withTranslation } from 'react-i18next'
-
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import { Auth } from 'aws-amplify'
-
 import Login from '../auth/Login'
-
 import { Accordion, Icon, Checkbox } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
-
 import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
-
 import { Modal, Button } from 'semantic-ui-react'
-
 import moment from 'moment'
 import SommairePartagesEditeur from './sommaire-partages-editeur'
 import ModaleConnexion from '../auth/Connexion'
-
 import ModalPropositionEnCours from '../modales/modale-proposition-encours'
-
 import InfoBulle from '../partage/InfoBulle';
-
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
-import { Navbar } from '../navigation/navbar'
-
-import Utilitaires from "../../utils/utilitaires"
+import Navbar from '../navigation/navbar'
+import {config,utils,Identite,AyantsDroit} from "../../utils/application"
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
@@ -37,7 +25,6 @@ class SommairePartages extends Component {
 
     constructor(props) {
         super(props)
-        this.utils = new Utilitaires(1) // Contexte WEB
         this.state = {
             mediaId: props.mediaId,
             activeIndex: 0,
@@ -57,18 +44,12 @@ class SommairePartages extends Component {
         moment.defaultFormat = "DD-MM-YYYY HH:mm"
     }
 
-    componentWillReceiveProps(nextProps) {
-    }
-
     componentWillMount() {
-        Auth.currentAuthenticatedUser()
-            .then(res => {
-                this.setState({ user: res })
-                this.initialisation()
-            })
-            .catch(err => {
-                this.setState({ modaleConnexion: true })
-            })
+        if(Identite.usager) {
+            this.setState({ user: Identite.usager }, ()=>this.initialisation())
+        } else {
+            this.setState({ modaleConnexion: true })
+        }        
     }
 
     afficherPanneauEditeur() {
@@ -82,39 +63,29 @@ class SommairePartages extends Component {
     closeModal = () => this.setState({ modaleCourriels: false })
     openModal = () => this.setState({ modaleCourriels: true })
 
-    initialisation() {
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
-            .then(res => {
-                this.setState({ media: res.data.Item }, () => {
-                    axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
-                        .then(_res => {
-                            //Certain que c'est l'ayant-droit
-                            axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${this.state.user.username}`)
-                                .then(_rAd => { 
-                                    this.setState({ ayantDroit: _rAd.data.Item }, () => {
-                                        this.setState({ propositions: _res.data })
-                                        this.setState({ activeIndex: _res.data.length - 1 })
-                                        let _ps = _res.data
-                                        _ps.forEach(p => {
-                                            if (p.etat === 'ACCEPTE') {
-                                                axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${p.uuid}/${this.state.user.username}`)
-                                                    .then(res => {
-                                                        this.setState({ partEditeur: res.data })
-                                                    })
-                                            }
-                                        })
-                                    })
-                                })
-                        })
+    async initialisation() {        
+        let res = await axios.get(`${config.API_URL}media/${this.state.mediaId}`)
+        this.setState({ media: res.data.Item }, async () => {
+            let _res = await axios.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)
+            let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]                    
+            this.setState({ ayantDroit: _rAd }, () => {
+                this.setState({ propositions: _res.data })
+                this.setState({ activeIndex: _res.data.length - 1 })
+                let _ps = _res.data
+                _ps.forEach(p => {
+                    if (p.etat === 'ACCEPTE') {
+                        axios.get(`${config.API_URL}splitShare/${p.uuid}/${this.state.user.username}`)
+                        .then(res =>this.setState({ partEditeur: res.data }))
+                    }
                 })
             })
+        })
     }
 
     clic = (e, titleProps) => {
         const { index } = titleProps
         const { activeIndex } = this.state
         const newIndex = activeIndex === index ? -1 : index
-
         this.setState({ activeIndex: newIndex })
     }
 
@@ -391,7 +362,7 @@ class SommairePartages extends Component {
                                                     {!continuerDisabled && (
                                                             <div className={`ui medium button inverse`} onClick={
                                                                 () => {
-                                                                    this.utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)                                                                    
+                                                                    utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)                                                                    
                                                                 }
                                                             }>
                                                                 {t('flot.split.documente-ton-oeuvre.proposition.continuer')}</div>
@@ -472,14 +443,10 @@ class SommairePartages extends Component {
                         size="small" >
                         <br /><br /><br />
                         <Login fn={() => {
-                            Auth.currentAuthenticatedUser()
-                                .then(res => {
-                                    this.setState({ user: res })
-                                    this.setState({ modaleConnexion: false })
-                                })
-                                .catch(err => {
-                                    toast.error(err.message)
-                                })
+                            if(Identite.usager) {
+                                this.setState({ user: Identite.usager })
+                                this.setState({ modaleConnexion: false })
+                            }                            
                         }} />
                     </Modal>
                     <Modal

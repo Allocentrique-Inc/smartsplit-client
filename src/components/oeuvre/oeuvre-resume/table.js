@@ -12,7 +12,7 @@ export default class Table extends React.Component {
 
                 <table className={'corps-table'}>
                     <tbody>
-                        {this.props.rows.map(row => <Rangee {...row} />)}
+                        {this.props.rows.map((row, idx )=> <Rangee key={`rangee_${idx}`} {...row} />)}
                     </tbody>
                 </table>
             </>

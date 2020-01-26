@@ -1,10 +1,9 @@
-import {aideAyantDroit, config, journal} from '../../utils/application'
+import {Identite, AyantsDroit, config, journal} from '../../utils/application'
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import axios from 'axios'
 import Entete from '../entete/entete'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
-import { Auth } from 'aws-amplify'
 
 const NOM = "VotationParTiers"
 
@@ -26,7 +25,7 @@ class VotationPartTiers extends Component {
             let _s = resp.data
             this.setState({ jeton: _s })
             // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)
-            this.setState({ ayantDroit: aideAyantDroit.ayantsDroit[_s.beneficiaire] })
+            this.setState({ ayantDroit: AyantsDroit.ayantsDroit[_s.beneficiaire] })
             // Récupère la proposition       
             axios.get(`${config.API_URL}proposal/${_s.proposalId}`)
             .then(_r => {
@@ -57,10 +56,9 @@ class VotationPartTiers extends Component {
         .catch((error) => {
             journal.error(NOM, error.message)
         })
-        Auth.currentAuthenticatedUser()
-        .then(res=>{
-            this.setState({user: res})
-        })
+        if(Identite.usager) {
+            this.setState({user: Identite.usager})
+        }        
     }
 
     render() {

@@ -10,7 +10,7 @@ import ChampTexte from "../page-assistant/champ-texte";
 import ChampSelection from "../page-assistant/champ-selection";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import SelectOption from "../../model/select-option/select-option";
-import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique";
 import InfoBulle from "../partage/InfoBulle";
 
 class PageInformationsGenerales extends React.Component {

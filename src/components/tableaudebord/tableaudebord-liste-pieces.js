@@ -1,17 +1,18 @@
-import React, { Component } from "react";
-import { Translation } from "react-i18next";
-import axios from "axios";
-import { Auth } from "aws-amplify";
-import LigneMedia from "./tableaudebord-ligne-media";
-import { Modal } from "semantic-ui-react";
-import NouvelleOeuvre from "./tableaudebord-nouvelle-oeuvre";
-import AudioLecture from "../oeuvre/audio-lecture";
-import Yeux from "../../assets/images/yeux.png";
+import React, { Component } from "react"
+import { withTranslation } from "react-i18next"
+import axios from "axios"
+import LigneMedia from "./tableaudebord-ligne-media"
+import { Modal } from "semantic-ui-react"
+import NouvelleOeuvre from "./tableaudebord-nouvelle-oeuvre"
+import AudioLecture from "../oeuvre/audio-lecture"
+import Yeux from "../../assets/images/yeux.png"
+import { AyantsDroit, Identite, config, journal } from '../../utils/application'
 
 const PANNEAU_INITIATEUR = 1,
       PANNEAU_COLLABORATEUR = 0;
+const NOM = "ListePieces"
 
-export default class ListePieces extends Component {
+class ListePieces extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -62,41 +63,24 @@ export default class ListePieces extends Component {
         }
       });
       this.setState({ patience: true }, () => {
-        Auth.currentSession().then(session => {
-          let USER_ID = session.idToken.payload.sub;
-
-          axios
-            .get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
-            .then(res => {
-              let _rHParID = {};
-              res.data.forEach(e => {
-                e.name = `${e.firstName} ${e.lastName} (${e.artistName})`;
-                _rHParID[e.rightHolderId] = e;
-              });
-              this.setState({ rightHolders: _rHParID });
-            })
-            .catch(err => {
-              console.log(err)
-            })
-
-          axios
-            .get(`http://dev.api.smartsplit.org:8080/v1/media/liste-createur/${USER_ID}`)
+        if(Identite.usager) {
+          this.setState({ rightHolders: AyantsDroit.ayantsDroit }, ()=>{
+            axios.get(`${config.API_URL}media/liste-createur/${Identite.usager.username}`)
             .then(res => {
               // Associe la liste des médias créés ou les médias pour lesquels une proposition est créée,
               // dans les deux cas, par l'usager.
               this.setState({ creatorMedias: res.data }, ()=>this.setState({ patience: false }))
             })
-            .catch(err => console.log(err))
-
-          axios
-            .get(`http://dev.api.smartsplit.org:8080/v1/media/liste-collaborations/${USER_ID}`)
+            .catch(err => journal.error(NOM, err))            
+            axios.get(`${config.API_URL}liste-collaborations/${Identite.usager.username}`)
             .then(res => {
               // Associe la liste des médias créés ou les médias pour lesquels une proposition est créée,
               // dans les deux cas, par l'usager.
               this.setState({ collabMedias: res.data }, ()=>this.setState({ patience: false }))
             })
             .catch(err => console.log(err))
-        })
+          })
+        }                
       })
     } catch (err) {
       console.log(err)
@@ -108,101 +92,95 @@ export default class ListePieces extends Component {
   }
 
   render() {
+    
+    const t = this.props.t
+    
     let pochette = this.state.pochette ? "pochette" : "";
-
-    let rendu;
+    let rendu
     let that = this;
 
     function aucuneOeuvre(collaborations = false) {
-      return (
-        <Translation>
-          {t => (
-            <div style={{ marginTop: "20px" }} className="ui sixteen column grid">
-              <br />
-              <br />
-              <br />
-              <div style={{ width: "100%", textAlign: "center" }}>
-                <div>
-                  <img
-                    style={{ fontSize: "3rem" }}
-                    aria-label=""
-                    className={"yeux"}
-                    src={Yeux}
-                    alt={"Yeux"}
-                  />
+      return (        
+        <div style={{ marginTop: "20px" }} className="ui sixteen column grid">
+          <br />
+          <br />
+          <br />
+          <div style={{ width: "100%", textAlign: "center" }}>
+            <div>
+              <img
+                style={{ fontSize: "3rem" }}
+                aria-label=""
+                className={"yeux"}
+                src={Yeux}
+                alt={"Yeux"}
+              />
 
-                  <br />
-                  <div className="medium-500-nomargin">
-                    {collaborations && t("flot.split.tableaudebord.vide.preambule-collaborations")}
-                    {!collaborations && t("flot.split.tableaudebord.vide.preambule")}
-                  </div>
-                  <div
-                    className="medium-500-nomargin"
-                    style={{ fontWeight: "100" }}
-                  >
-                    {!collaborations &&                   
-                      (
-                        <>
-                          {t("flot.split.tableaudebord.vide.indication")} <br />
-                          <div
-                            className="cliquable"
-                            style={{ color: "#0645AD" }}
-                            onClick={e => {
-                              //Cliquable = pointeur lien, classe écrite Vincent
-                              that.modaleNouvelleOeuvre();
-                            }}
-                          >
-                            {t("flot.split.tableaudebord.vide.indication-lien")}
-                          </div>
-                        </>
-                      )
-                    }
-                  </div>
-                </div>
+              <br />
+              <div className="medium-500-nomargin">
+                {collaborations && t("flot.split.tableaudebord.vide.preambule-collaborations")}
+                {!collaborations && t("flot.split.tableaudebord.vide.preambule")}
+              </div>
+              <div
+                className="medium-500-nomargin"
+                style={{ fontWeight: "100" }}
+              >
+                {!collaborations &&                   
+                  (
+                    <>
+                      {t("flot.split.tableaudebord.vide.indication")} <br />
+                      <div
+                        className="cliquable"
+                        style={{ color: "#0645AD" }}
+                        onClick={e => {
+                          //Cliquable = pointeur lien, classe écrite Vincent
+                          that.modaleNouvelleOeuvre();
+                        }}
+                      >
+                        {t("flot.split.tableaudebord.vide.indication-lien")}
+                      </div>
+                    </>
+                  )
+                }
               </div>
             </div>
-          )}
-        </Translation>
-      );
+          </div>
+        </div>          
+      )
     }
 
     let souligneInitiateur, souligneCollaborateur;
     souligneInitiateur = this.state.panneau === PANNEAU_INITIATEUR;
     souligneCollaborateur = this.state.panneau === PANNEAU_COLLABORATEUR;
 
-    let optionsAffichage = !this.state.pochette && (
-      <Translation>
-        {t => (
-          <div style={{display: "inline"}}>
-            <div style={{paddingBottom: "20px", display: "inline"}} className={`small-500${
-                  souligneInitiateur ? "-color souligne" : " secondaire"
-                } ${souligneInitiateur && pochette ? "pochette" : ""}`}>
-              <span
-                className={`cliquable`}
-                onClick={() => {
-                  this.afficherPanneauInitiateur()
-                }}
-                style={{ fontSize: "16px", color: souligneInitiateur ? "black" : "" }}
-              >
-                {t("flot.split.tableaudebord.pieces.0")}
-              </span>
-            </div>
-            <div style={{paddingBottom: "20px", marginLeft: "40px", display: "inline"}} className={`small-500${
-                  souligneCollaborateur ? "-color souligne" : " secondaire"
-                } ${souligneCollaborateur && pochette ? "pochette" : ""}`}>
-              <span
-                className={`cliquable`}
-                onClick={() => {
-                  this.afficherPanneauCollaborateur()
-                }}
-                style={{ fontSize: "16px", color: souligneCollaborateur ? "black" : "" }}
-              >
-                {t("flot.split.tableaudebord.pieces.1")}
-              </span>
-            </div>
-          </div>
-        )}
-      </Translation>
+    let optionsAffichage = !this.state.pochette && (      
+      <div style={{display: "inline"}}>
+        <div style={{paddingBottom: "20px", display: "inline"}} className={`small-500${
+              souligneInitiateur ? "-color souligne" : " secondaire"
+            } ${souligneInitiateur && pochette ? "pochette" : ""}`}>
+          <span
+            className={`cliquable`}
+            onClick={() => {
+              this.afficherPanneauInitiateur()
+            }}
+            style={{ fontSize: "16px", color: souligneInitiateur ? "black" : "" }}
+          >
+            {t("flot.split.tableaudebord.pieces.0")}
+          </span>
+        </div>
+        <div style={{paddingBottom: "20px", marginLeft: "40px", display: "inline"}} className={`small-500${
+              souligneCollaborateur ? "-color souligne" : " secondaire"
+            } ${souligneCollaborateur && pochette ? "pochette" : ""}`}>
+          <span
+            className={`cliquable`}
+            onClick={() => {
+              this.afficherPanneauCollaborateur()
+            }}
+            style={{ fontSize: "16px", color: souligneCollaborateur ? "black" : "" }}
+          >
+            {t("flot.split.tableaudebord.pieces.1")}
+          </span>
+        </div>
+      </div>        
     )
 
     if (
@@ -274,76 +252,73 @@ export default class ListePieces extends Component {
     }
 
     return (
-      <Translation>
-        {t => (
+      <div>
+        {!this.state.patience && (
           <div>
-            {!this.state.patience && (
-              <div>
-                <div className="ui grid">
-                  <div className="ui row">
-                    <div className="heading2 fifteen wide column" style={{paddingLeft: "0rem", marginRight: "60px"}}>
-                      {t("flot.split.tableaudebord.navigation.0")}
-                      <div
-                        className={`ui three wide column medium button ${pochette}`}
-                        onClick={() => {
-                          this.modaleNouvelleOeuvre();
-                        }}
-                        style={{
-                          float: "right"
-                        }}
-                      >
-                        {t("flot.split.tableaudebord.pieces.ajouter")}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="ui row">
-                    <div className="fifteen wide column">
-                      <div className="medium-500" style={{marginLeft: "25px", borderBottom: "0.5px solid lightgrey", paddingBottom: "20px", marginBottom: "50px"}}>{optionsAffichage}</div>
-                      {rendu}
-                    </div>
+            <div className="ui grid">
+              <div className="ui row">
+                <div className="heading2 fifteen wide column" style={{paddingLeft: "0rem", marginRight: "60px"}}>
+                  {t("flot.split.tableaudebord.navigation.0")}
+                  <div
+                    className={`ui three wide column medium button ${pochette}`}
+                    onClick={() => {
+                      this.modaleNouvelleOeuvre();
+                    }}
+                    style={{
+                      float: "right"
+                    }}
+                  >
+                    {t("flot.split.tableaudebord.pieces.ajouter")}
                   </div>
                 </div>
-                <Modal
-                  open={this.state.modaleOeuvre}
-                  onClose={() => {
-                    this.modaleNouvelleOeuvre(false);
-                    if (this.state.audio) this.state.audio.stop();
-                  }}
-                  size="large"
-                  closeIcon
-                  closeOnDimmerClick={false}
-                >
-                  <Modal.Header>{t("flot.split.titre.creer")}</Modal.Header>
-                  <Modal.Content>
-                    <NouvelleOeuvre
-                      pochette={this.state.pochette}
-                      audio={this.state.audio}
-                      parent={this}
-                      user={this.state.user}
+              </div>
+              <div className="ui row">
+                <div className="fifteen wide column">
+                  <div className="medium-500" style={{marginLeft: "25px", borderBottom: "0.5px solid lightgrey", paddingBottom: "20px", marginBottom: "50px"}}>{optionsAffichage}</div>
+                  {rendu}
+                </div>
+              </div>
+            </div>
+            <Modal
+              open={this.state.modaleOeuvre}
+              onClose={() => {
+                this.modaleNouvelleOeuvre(false);
+                if (this.state.audio) this.state.audio.stop();
+              }}
+              size="large"
+              closeIcon
+              closeOnDimmerClick={false}
+            >
+              <Modal.Header>{t("flot.split.titre.creer")}</Modal.Header>
+              <Modal.Content>
+                <NouvelleOeuvre
+                  pochette={this.state.pochette}
+                  audio={this.state.audio}
+                  parent={this}
+                  user={this.state.user}
+                />
+              </Modal.Content>
+              <Modal.Actions>
+                <>
+                  {this.state.mediaId && (
+                    <AudioLecture
+                      onRef={audio => {
+                        this.setState({ audio: audio });
+                      }}
                     />
-                  </Modal.Content>
-                  <Modal.Actions>
-                    <>
-                      {this.state.mediaId && (
-                        <AudioLecture
-                          onRef={audio => {
-                            this.setState({ audio: audio });
-                          }}
-                        />
-                      )}
-                    </>
-                  </Modal.Actions>
-                </Modal>
-              </div>
-            )}
-            {this.state.patience && (
-              <div className="ui active dimmer">
-                <div className="ui text loader">{t("entete.encours")}</div>
-              </div>
-            )}
+                  )}
+                </>
+              </Modal.Actions>
+            </Modal>
           </div>
         )}
-      </Translation>
-    );
+        {this.state.patience && (
+          <div className="ui active dimmer">
+            <div className="ui text loader">{t("entete.encours")}</div>
+          </div>
+        )}
+      </div>        
+    )
   }
 }
+export default withTranslation()(ListePieces)

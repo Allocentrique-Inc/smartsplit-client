@@ -8,14 +8,14 @@ import Entete from "../page-assistant/entete";
 import ChampTextArea from "../page-assistant/champ-textarea";
 import ChampSelectionMultiple from "../page-assistant/champ-selection-multiple";
 import ChampAccesVision from "../page-assistant/champ-acces-vision";
-import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique";
 import InfoBulle from "../partage/InfoBulle";
 
 class PageParoles extends React.Component {
   constructor(props) {
     super(props);
 
-    let langue = props.i18n.lng.substring(0, 2);
+    let langue = props.i18n.language.substring(0, 2);
     this.langues = require(`../../assets/listes/${langue}/codes_langues`).map(
       l => {
         return { key: l.key, value: l.text, text: l.text };

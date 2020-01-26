@@ -1,10 +1,9 @@
-import {config, aideAyantDroit, journal} from '../../utils/application'
+import {config, AyantsDroit, journal, utils} from '../../utils/application'
 import React, {Component} from 'react'
 import axios from 'axios'
 import { Wizard } from "semantic-ui-react-formik-iptoki"
 import { withTranslation } from 'react-i18next'
 import PageAssistantSplitCourrielsCollaborateurs from './assistant-split-courriel-collaborateurs'
-import Utilitaires from '../../utils/utilitaires'
 
 const NOM = "ValiderSplit"
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
@@ -18,8 +17,7 @@ class ValiderSplit extends Component {
             rights: {},
             mediaTitle: "",
             initiateur: ""
-        }
-        this.utils = new Utilitaires(1) // Contexte WEB
+        }    
     }
 
     componentWillMount() {
@@ -101,7 +99,7 @@ class ValiderSplit extends Component {
             }            
             Object.keys(rightHolders).forEach((idx)=>{
                 reqs[idx] = '-->' // Marque comme envoyé
-                let res = aideAyantDroit.ayantDroits[rightHolders[idx].rightHolderId]
+                let res = AyantsDroit.ayantDroits[rightHolders[idx].rightHolderId]
                 rightHolders[idx].email = res.email
                 reqs[idx] = '---'
                 if(aToutRecu()) {
@@ -122,7 +120,7 @@ class ValiderSplit extends Component {
         axios.post(`${config.API_URL}proposal/invite`, body)
         .then((resp)=>{
             if(resp.data !== '') {
-                this.utils.naviguerVersSommairePartage(this.state.mediaId)
+                utils.naviguerVersSommairePartage(this.state.mediaId)
             }                
         })
         .catch((error) => {

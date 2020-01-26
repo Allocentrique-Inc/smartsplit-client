@@ -17,7 +17,7 @@ import {
   updateRole
 } from "../page-assistant/right-holder-helpers";
 import * as roles from "../../assets/listes/role-uuids.json";
-import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique";
 import InfoBulle from "../partage/InfoBulle";
 import ChampGooglePlaces from "../formulaires/champ-google-places";
 

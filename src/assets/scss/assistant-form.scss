@@ -2,12 +2,10 @@
 @import "layout";
 @import "typography";
 
-.right {
-  margin-right: "100px";
-}
-
 .assistant-container {
   margin-top: $navbar-height + ($margin-step * 4);
+  padding-bottom: 100px;
+  padding-top: 100px;
 }
 
 .form-column {

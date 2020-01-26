@@ -1,4 +1,4 @@
-import {config, aideAyantDroit} from '../../utils/application'
+import {config, AyantsDroit, Identite} from '../../utils/application'
 import React, {Component} from 'react'
 import { Wizard } from "semantic-ui-react-formik-iptoki"
 import { withTranslation } from 'react-i18next'
@@ -7,7 +7,6 @@ import PageAssistantPartageEditeurPart from './partage-editeur-part'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import { Auth } from 'aws-amplify'
 import Login from '../auth/Login'
 import { confirmAlert } from 'react-confirm-alert'
 
@@ -26,8 +25,8 @@ class AssistantPartageEditeur extends Component {
 
     charger(user) {
         this.setState({user: user})
-        this.setState({ayantsDroit: aideAyantDroit.ayantsDroit})
-        this.setState({uaD: aideAyantDroit.ayantsDroit[user.username]})
+        this.setState({ayantsDroit: AyantsDroit.ayantsDroit})
+        this.setState({uaD: AyantsDroit.ayantsDroit[user.username]})
         axios.get(`${config.API_URL}proposal/${this.state.propositionId}`)
         .then(res=>{
             let proposition = res.data.Item            
@@ -54,12 +53,9 @@ class AssistantPartageEditeur extends Component {
 
     componentWillMount() {        
 
-        Auth.currentAuthenticatedUser()
-        .then(res=>{            
-            this.charger(res)
-        })
-        .catch(err=>{
-            toast.error(err.message)
+        if(Identite.usager) {
+            this.charger(Identite.usager)
+        } else {
             confirmAlert({
                 title: ``,
                 message: ``,
@@ -82,7 +78,7 @@ class AssistantPartageEditeur extends Component {
                         }} />
                 </div>
             })
-        })
+        }    
     }
 
     recupererOeuvre() {
@@ -133,7 +129,7 @@ class AssistantPartageEditeur extends Component {
 
     render() {
 
-        if(this.state.media && this.state.ayantsDroit) { // S'il y a un média, il y a forcément une proposition ( voir componentWillMount() ) et un utilisateur connecté
+        if(this.state.media && this.state.ayantsDroit) {
             let t = this.props.t
             return (                
                 <>

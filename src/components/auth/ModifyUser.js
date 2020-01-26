@@ -7,12 +7,8 @@ import {
   Dropdown
 } from "semantic-ui-react";
 import { withTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { Auth } from "aws-amplify";
 import InfoBulle from '../partage/InfoBulle';
-
-import Configuration from '../../utils/configuration'
-let config = Configuration.getInstance()
+import { Identite, config, AyantsDroit } from "../../utils/application";
 
 const AWS = require("aws-sdk");
 const REGION = 'us-east-2'
@@ -106,20 +102,15 @@ class ModifyUser extends Component {
   }
 
   handleSubmit = values => {
-
     // S'il n'y a pas de groupe, un en créé un éponyme, si non c'est un anonyme
     let groupes = this.state.currentValue
     if (groupes.length === 0) {
-
       let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
-
       if (nom.trim() === "") {
         nom = "Anonyme"
       }
-
       groupes.push(nom)
     }
-
     let source = window.location.href
     let attributes = {
       email: this.state.email,
@@ -133,33 +124,20 @@ class ModifyUser extends Component {
       "custom:groups": JSON.stringify(groupes),
       "custom:avatarImage": this.state.avatarImage,
       "custom:requestSource": ((source.includes("pochette")) ? "pochette" : "smartsplit")
-    };
-    let username = this.state.email;
-    let password = this.randomPassword();
-
-    try {
-      Auth.signUp({
-        username,
-        password,
-        attributes: attributes
-      })
-        .then((res) => {
-          let userSub = res.userSub
-
-          this.fermerModale()
-
+    }
+    let username = this.state.email
+    let password = this.randomPassword()
+    Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes},
+      async (res) => {
+        await AyantsDroit.rafraichirListe( ()=>{
+            this.fermerModale()
           if (this.props.fn) {
-            this.props.fn(userSub)
+            this.props.fn(res)
           }
         })
-        .catch(err => {
-          toast.error(err.message);
-          console.log(err);
-        });
-    } catch (err) {
-      console.log("try", err);
-    }
-  };
+      }
+    )
+  }
 
   onTodoChange(value) {
     this.setState({

@@ -1,18 +1,18 @@
-import {aideAyantDroit} from '../../utils/application'
-import React, { Component } from "react";
-import { withTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { Dropdown } from "semantic-ui-react";
-import i18n from "i18next";
-import { Auth } from "aws-amplify";
-import "../../assets/scss/menu-profil.scss";
+import {AyantsDroit, Identite, utils, journal} from '../../utils/application'
+import React, { Component } from "react"
+import { withTranslation } from "react-i18next"
+import { Dropdown } from "semantic-ui-react"
+import i18n from "i18next"
+import "../../assets/scss/menu-profil.scss"
 import {
   LogOutSVG,
   SettingsSVG,
   AvatarInitialsSVG,
   ChevronDownSVG,
   LangueSVG
-} from "../svg/SVG";
+} from "../svg/SVG"
+
+const NOM = "MenuProfil"
 
 class MenuProfil extends Component {
   constructor(props) {
@@ -32,19 +32,16 @@ class MenuProfil extends Component {
   }
 
   componentWillMount() {
-    let user = aideAyantDroit.ayantsDroit[this.state.auth.username]    
+    let user = AyantsDroit.ayantsDroit[this.state.auth.username]    
     this.setState({ user })
     this.setState({ avatarInitiales: user.avatar.dataUri })              
   }
 
   deconnexion() {
-    Auth.signOut()
-      .then(data => {
-        setTimeout(() => {
-          window.location.href = "/accueil";
-        }, 1000);
-      })
-      .catch(error => toast.error("Erreur..."));
+    Identite.deconnexion(()=>{
+      journal.debug(NOM, "retour accueil")
+      utils.naviguerVersAccueil()
+    })
   }
 
   ouvrirSocan(val = true) {

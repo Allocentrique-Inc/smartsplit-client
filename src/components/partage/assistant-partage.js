@@ -1,15 +1,13 @@
-import { aideAyantDroit, config, journal } from '../../utils/application'
+import { AyantsDroit, config, journal, utils, Identite } from '../../utils/application'
 import React, { Component } from 'react'
 import { Wizard } from "semantic-ui-react-formik-iptoki"
 import { withTranslation } from 'react-i18next'
 import PageAssistantPartageDroitAuteur from './assistant-partage-auteur'
 import PageAssistantPartageDroitInterpretation from './assistant-partage-interpretation'
 import PageAssistantPartageDroitEnregistrement from './assistant-partage-enregistrement'
-import Utilitaires from '../../utils/utilitaires'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import 'react-confirm-alert/src/react-confirm-alert.css'
-import { Auth } from 'aws-amplify'
 import Login from '../auth/Login'
 import { Modal, Button } from 'semantic-ui-react'
 import Declaration from '../auth/Declaration'
@@ -42,55 +40,50 @@ class AssistantPartage extends Component {
             user: null,
             currentWizardPage: 0 //Set
         }
-        this.enregistrerEtQuitter = this.enregistrerEtQuitter.bind(this)
         this.enregistrerEtAllerAuSommaire = this.enregistrerEtAllerAuSommaire.bind(this)
         this.soumettre = this.soumettre.bind(this)
         this.modaleFin = this.modaleFin.bind(this)
-        this.utils = new Utilitaires(1) // Utilitaire avec version WEB
     }
 
     componentWillMount() {
-        Auth.currentAuthenticatedUser()
-            .then(res => {
-                this.setState({ ayantsDroit: aideAyantDroit.ayantsDroit })                
-                this.setState({ user: res })
-                if (this.state.mediaId) {
-                    // Une nouvelle proposition pour un média                
-                    // Récupérer la dernière proposition pour le média                
-                    axios.get(`${config.API_URL}proposal/derniere-proposition/${this.state.mediaId}`)
-                        .then(res => {
-                            // Si elle existe, configuration de l'assistant avec cette dernière
-                            if (res.data) {
-                                this.setState({ proposition: res.data })
-                            }
-                        })
-                        .catch(err => {
-                            journal.error(NOM, err)
-                        })
-                        .finally(() => {
-                            this.recupererOeuvre()
-                        })
-                } else if (this.state.uuid) {
-                    // Une proposition existante, poursuite de la proposition BROUILLON
-                    axios.get(`${config.API_URL}proposal/${this.state.uuid}`)
+        if (Identite.usager) {
+            this.setState({ ayantsDroit: AyantsDroit.ayantsDroit })                
+            this.setState({ user: Identite.usager })
+            if (this.state.mediaId) {
+                // Une nouvelle proposition pour un média                
+                // Récupérer la dernière proposition pour le média                
+                axios.get(`${config.API_URL}proposal/derniere-proposition/${this.state.mediaId}`)
                     .then(res => {
-                        let proposal = res.data.Item
-                        this.setState({ proposition: proposal }, () => {
-                            this.setState({ mediaId: proposal.mediaId }, () => {
-                                this.recupererOeuvre()
-                            })
-                        })
+                        // Si elle existe, configuration de l'assistant avec cette dernière
+                        if (res.data) {
+                            this.setState({ proposition: res.data })
+                        }
                     })
-                    .catch((err) => {
+                    .catch(err => {
                         journal.error(NOM, err)
                     })
-                }
-            })
-            .catch(err => {
-                toast.error(err)
-                journal.error(NOM, err)
-                this.modaleConnexion()
-            })
+                    .finally(() => {
+                        this.recupererOeuvre()
+                    })
+            } else if (this.state.uuid) {
+                // Une proposition existante, poursuite de la proposition BROUILLON
+                axios.get(`${config.API_URL}proposal/${this.state.uuid}`)
+                .then(res => {
+                    let proposal = res.data.Item
+                    this.setState({ proposition: proposal }, () => {
+                        this.setState({ mediaId: proposal.mediaId }, () => {
+                            this.recupererOeuvre()
+                        })
+                    })
+                })
+                .catch((err) => {
+                    journal.error(NOM, err)
+                })
+            }
+        } else {
+            this.modaleConnexion()
+        }
+            
     }
 
     recupererOeuvre() {
@@ -108,7 +101,7 @@ class AssistantPartage extends Component {
     soumettre(t, values, etat, cb, sansBlocage) {
         if (this.state.user) {            
             // 1. Récupérer la liste des ayant-droits
-            let _association = aideAyantDroit.ayantsDroit
+            let _association = AyantsDroit.ayantsDroit
             // 2. Générer la structure à envoyer à Dynamo
             let droitEnregistrement = [];
             let droitInterpretePrincipal = [];
@@ -296,24 +289,11 @@ class AssistantPartage extends Component {
         this.setState({ fnSoumettre: fn }, () => {
             this.setState({ modaleDeclaration: ouvert })
         })
-    }
-
-    enregistrerEtQuitter(t, valeurs) {
-        this.soumettre(t, valeurs, "BROUILLON", () => {
-            Auth.signOut()
-                .then(data => {
-                    //toast.success("Déconnexion réussie")
-                    setTimeout(() => {
-                        window.location.href = '/accueil'
-                    }, 1000)
-                })
-                .catch(error => console.log(error))
-        })
-    }
+    }    
 
     enregistrerEtAllerAuSommaire(t, valeurs, mediaId) {
         this.soumettre(t, valeurs, "BROUILLON", () => {
-            this.utils.naviguerVersAccueil()
+            utils.naviguerVersAccueil()
         }, true)
     }
 
@@ -467,7 +447,6 @@ class AssistantPartage extends Component {
                                     <Wizard.Page>
                                         <PageAssistantPartageDroitAuteur 
                                             ayantsDroit={this.state.ayantDroits} 
-                                            enregistrerEtQuitter={this.enregistrerEtQuitter} 
                                             enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
                                             user={this.state.user}
                                             media={this.state.media} />
@@ -476,7 +455,6 @@ class AssistantPartage extends Component {
                                     <Wizard.Page>
                                         <PageAssistantPartageDroitInterpretation 
                                             ayantsDroit={this.state.ayantDroits} 
-                                            enregistrerEtQuitter={this.enregistrerEtQuitter} 
                                             enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
                                             user={this.state.user}
                                             media={this.state.media} />
@@ -485,7 +463,6 @@ class AssistantPartage extends Component {
                                     <Wizard.Page>
                                         <PageAssistantPartageDroitEnregistrement 
                                             ayantsDroit={this.state.ayantDroits} 
-                                            enregistrerEtQuitter={this.enregistrerEtQuitter} 
                                             enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
                                             user={this.state.user}
                                             media={this.state.media} />
@@ -565,15 +542,11 @@ class AssistantPartage extends Component {
                         size="small" >
                         <br /><br /><br />
                         <Login fn={() => {
-                            Auth.currentAuthenticatedUser()
-                                .then(res => {
-                                    this.setState({ user: res }, () => {
-                                        this.recupererOeuvre()
-                                    })
+                            if(Identite.usager) {
+                                this.setState({ user: Identite.usager }, () => {
+                                    this.recupererOeuvre()
                                 })
-                                .catch(err => {
-                                    toast.error(err)
-                                })
+                            }                            
                         }} />
                     </Modal>
                 </div>

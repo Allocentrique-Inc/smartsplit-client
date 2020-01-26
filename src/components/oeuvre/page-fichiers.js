@@ -7,7 +7,7 @@ import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg"
 import Colonne from "../page-assistant/colonne"
 import Entete from "../page-assistant/entete"
 import ChampTeleversement, { ListeFichiers } from "../page-assistant/champ-televersement"
-import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique"
+import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique"
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit"
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import InfoBulle from "../partage/InfoBulle"

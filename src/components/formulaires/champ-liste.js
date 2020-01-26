@@ -1,4 +1,4 @@
-import { aideAyantDroit } from '../../utils/application'
+import { AyantsDroit } from '../../utils/application'
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik-iptoki'
 import { Form } from 'semantic-ui-react'
@@ -100,7 +100,7 @@ export class ChampListeEditeurAssistant extends Component {
     componentWillMount() {
         // Conserver la structure des éditeurs classé par nom (permet au parent de retrouver le rightHolderId correspondant au nom)
         let editeurs = {}
-        let res = aideAyantDroit.ayantsDroitBrut
+        let res = AyantsDroit.ayantsDroitBrut
         // Récupérer la liste des ayant-droits (éditeurs)        
         let _options = res.data.map(elem => {
             let nom = `${elem.artistName ? elem.artistName : `${elem.firstName} ${elem.lastName}`}`

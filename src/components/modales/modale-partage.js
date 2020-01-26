@@ -5,18 +5,15 @@ import downloadLock from "../../assets/svg/icons/download-lock.svg";
 import edit from "../../assets/svg/icons/edit.svg";
 import closeIcon from "../../assets/svg/icons/x.svg";
 import "../../assets/scss/page-assistant/modal.scss";
-import { Translation } from "react-i18next";
-
+import { withTranslation } from "react-i18next";
 import ChampTexte from '../page-assistant/champ-texte'
 import Axios from "axios";
 import { toast } from "react-toastify";
-
-import Configuration from '../../utils/configuration'
-let config = Configuration.getInstance()
+import {config} from '../../utils/application'
 
 const PUBLIC = 1, SECRET = 2, ADMIN = 3
 
-export default class ModalePartage extends Component {
+class ModalePartage extends Component {
 
   constructor(props) {
     super(props)
@@ -63,6 +60,8 @@ export default class ModalePartage extends Component {
 
   render() {
 
+    const t = this.props.t
+
     let genererLigne = (idx, imgSrc, cleTradTitre, cleTradDesc) => {
       return (
         <div onClick={()=>{this.setState({selection: idx})}} className="ui row cliquable">
@@ -94,98 +93,94 @@ export default class ModalePartage extends Component {
     }
 
     let url, contexte = "smartsplit.org"
-    let prefixe = "http://dev.smartsplit.org/"
+    let prefixe = config.BASE
     if(this.props.pochette) {
-      prefixe = "http://dev.pochette.info/"
+      prefixe = config.BASE_POCHETTE
       contexte = "pochette.info"
     }
 
     url = `${prefixe}oeuvre/${this.state.media.mediaId}/resume`
 
-    return (
-      <Translation>
-        {(t, i18n) => (
-          <Modal open={this.props.open} onClose={this.props.onClose}>
-            <div className="modal-navbar">
-              <div className="left">
-                <div style={{ textAlign: "center" }}>
-                  <div className="title">{t(titre)}</div>
-                </div>
-              </div>
-              <div className="right-0">
-                <span className="close-icon cliquable" onClick={this.props.onClose}>
-                  <img src={closeIcon} alt={"close"} />
-                </span>
-              </div>
+    return (      
+      <Modal open={this.props.open} onClose={this.props.onClose}>
+        <div className="modal-navbar">
+          <div className="left">
+            <div style={{ textAlign: "center" }}>
+              <div className="title">{t(titre)}</div>
             </div>
-            {!this.state.selection && (
-              <div className="modal-content">
-                <h4 className={"h4-style"} style={{marginTop: "30px"}} >
-                  {t("flot.partage.sous-titre-1")}
-                </h4>
-                <div className="ui grid" style={{width: "78%", marginBottom: "35px"}}>
-                  {genererLigne(PUBLIC, eye, t('flot.partage.public-t'), t('flot.partage.public-d'))}
-                  {genererLigne(SECRET, downloadLock, t('flot.partage.secret-t'), t('flot.partage.secret-d'))}
-                  {genererLigne(ADMIN, edit, t('flot.partage.admin-t'), t('flot.partage.admin-d'))}
-                </div>
-              </div>
-            )}
-            {this.state.selection && (
-              <>              
-                <div className="modal-content">                  
-                  <div className="ui grid" style={{width: "90%", marginBottom: "35px", marginTop: "20px"}}>
-                    <div className="ui row">
-                      <div className="ui sixteen wide column">
-                        <ChampTexte 
-                          label={t(`flot.partage.adresse${this.state.selection}`)}                          
-                          disabled={true}
-                          value={url} />
-                      </div>
-                    </div>
-                    <div className="ui row">
-                      <div className="ui eight wide column">
-                        <ChampTexte 
-                          required={true}
-                          label={t(`flot.partage.envoyer`)}
-                          placeholder={t(`flot.partage.prenom`)}
-                          onChange={val=>this.setState({prenom: val})}
-                        />
-                      </div>                                        
-                      <div className="ui eight wide column">
-                        <ChampTexte 
-                          label=""
-                          required={true}
-                          placeholder={t(`flot.partage.nom`)}
-                          onChange={val=>this.setState({nom: val})}
-                        />
-                      </div>
-                    </div>
-                    <div className="ui row">
-                      <div className="ui sixteen wide column">
-                      <ChampTexte 
-                        required={true}
-                        label={t(`flot.partage.courriel`)}
-                        placeholder={t(`flot.partage.adrCourriel`)}
-                        onChange={val=>this.setState({courriel: val})}
-                      />
-                      </div>
-                    </div>
+          </div>
+          <div className="right-0">
+            <span className="close-icon cliquable" onClick={this.props.onClose}>
+              <img src={closeIcon} alt={"close"} />
+            </span>
+          </div>
+        </div>
+        {!this.state.selection && (
+          <div className="modal-content">
+            <h4 className={"h4-style"} style={{marginTop: "30px"}} >
+              {t("flot.partage.sous-titre-1")}
+            </h4>
+            <div className="ui grid" style={{width: "78%", marginBottom: "35px"}}>
+              {genererLigne(PUBLIC, eye, t('flot.partage.public-t'), t('flot.partage.public-d'))}
+              {genererLigne(SECRET, downloadLock, t('flot.partage.secret-t'), t('flot.partage.secret-d'))}
+              {genererLigne(ADMIN, edit, t('flot.partage.admin-t'), t('flot.partage.admin-d'))}
+            </div>
+          </div>
+        )}
+        {this.state.selection && (
+          <>              
+            <div className="modal-content">                  
+              <div className="ui grid" style={{width: "90%", marginBottom: "35px", marginTop: "20px"}}>
+                <div className="ui row">
+                  <div className="ui sixteen wide column">
+                    <ChampTexte 
+                      label={t(`flot.partage.adresse${this.state.selection}`)}                          
+                      disabled={true}
+                      value={url} />
                   </div>
                 </div>
-                <div className="modal-bottom-bar">
-                  <Button className={`negative ${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.setState({selection: 0})}}>
-                    {t('flot.partage.btn-retour')}
-                  </Button>
-                  <Button className={`${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.autoriserAccess(t, contexte)}}>
-                    {t('flot.partage.btn-ok')}
-                  </Button>
+                <div className="ui row">
+                  <div className="ui eight wide column">
+                    <ChampTexte 
+                      required={true}
+                      label={t(`flot.partage.envoyer`)}
+                      placeholder={t(`flot.partage.prenom`)}
+                      onChange={val=>this.setState({prenom: val})}
+                    />
+                  </div>                                        
+                  <div className="ui eight wide column">
+                    <ChampTexte 
+                      label=""
+                      required={true}
+                      placeholder={t(`flot.partage.nom`)}
+                      onChange={val=>this.setState({nom: val})}
+                    />
+                  </div>
                 </div>
-              </>
-            )}
-          </Modal>
-        )
-        }
-      </Translation>
-    );
+                <div className="ui row">
+                  <div className="ui sixteen wide column">
+                  <ChampTexte 
+                    required={true}
+                    label={t(`flot.partage.courriel`)}
+                    placeholder={t(`flot.partage.adrCourriel`)}
+                    onChange={val=>this.setState({courriel: val})}
+                  />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="modal-bottom-bar">
+              <Button className={`negative ${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.setState({selection: 0})}}>
+                {t('flot.partage.btn-retour')}
+              </Button>
+              <Button className={`${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.autoriserAccess(t, contexte)}}>
+                {t('flot.partage.btn-ok')}
+              </Button>
+            </div>
+          </>
+        )}
+      </Modal>
+    )
   }
 }
+export default withTranslation()(ModalePartage)

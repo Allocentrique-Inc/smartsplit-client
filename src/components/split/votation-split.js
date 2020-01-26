@@ -1,10 +1,9 @@
-import { aideAyantDroit, config, journal } from '../../utils/application'
+import { Identite, AyantsDroit, config, journal } from '../../utils/application'
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import axios from 'axios'
 import Entete from '../entete/entete'
 import SommairePartage from '../partage/partage-sommaire'
-import { Auth } from 'aws-amplify'
 
 const NOM = "VotationSplit"
 
@@ -26,7 +25,7 @@ class VotationSplit extends Component {
             let _s = resp.data
             this.setState({ jeton: _s })
             // Récupère le nom de l'ayant-droit, pour affichage (il peut ne pas être connecté)            
-            this.setState({ ayantDroit: aideAyantDroit.ayantsDroit[_s.rightHolderId] })
+            this.setState({ ayantDroit: AyantsDroit.ayantsDroit[_s.rightHolderId] })
             // Récupère la proposition
             axios.get(`${config.API_URL}proposal/${_s.proposalId}`)
                 .then(_r => {
@@ -47,10 +46,9 @@ class VotationSplit extends Component {
         .catch((error) => {
             journal.error(NOM, error)
         })
-        Auth.currentAuthenticatedUser()
-        .then(res=>{
-            this.setState({user: res})
-        })
+        if(Identite.usager) {
+            this.setState({user: Identite.usager})
+        }        
     }
 
     render() {

@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next'
 import { Wizard } from 'semantic-ui-react-formik-iptoki'
 import { Form } from 'semantic-ui-react'
 import ModifyUser from '../auth/ModifyUser'
-import {aideEntites} from '../../utils/application'
+import {Entites} from '../../utils/application'
 
 class ChampListeEntiteMusicaleAssistant extends Component {
 
@@ -51,7 +51,7 @@ class ChampListeEntiteMusicaleAssistant extends Component {
     listeEntites() {
         // Récupérer la liste des ayant-droits
         let aOptions = []
-        aideEntites.entites.forEach((elem) => {
+        Entites.entites.forEach((elem) => {
             if (!this.state.rightHolderId || elem.members.includes(this.state.rightHolderId)) {
                 aOptions.push({
                     key: elem.uuid,

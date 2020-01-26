@@ -17,28 +17,28 @@ class Entete extends React.Component {
     }
     this.avatars = []
     let _avatars = {}
-    this.state.media.rightHolders.forEach(r=>{
-      
-      if(!this.avatars[r.id]) {        
-        let nom, prenom, nomArtiste, avatar, uuid
-        if(props.rightHolders[r.id]) {        
-          uuid = props.rightHolders[r.id].rightHolderId   
-          nom = props.rightHolders[r.id].lastName
-          prenom = props.rightHolders[r.id].firstName
-          nomArtiste = props.rightHolders[r.id].artistName
-          avatar = `${config.IMAGE_SRV_URL}${props.rightHolders[r.id].avatarImage}`
-        } else {
-          uuid = " "
-          nom = " "
-          prenom = " "
-          nomArtiste = " "
-          avatar = `${config.IMAGE_SRV_URL}image.jpg`
-        }
-        _avatars[r.id] = {nom, prenom, nomArtiste, avatar, uuid}
-      }
-     
-    })
 
+    if(this.state.media.rightHolders) {
+      this.state.media.rightHolders.forEach(r=>{      
+        if(!this.avatars[r.id]) {        
+          let nom, prenom, nomArtiste, avatar, uuid
+          if(props.rightHolders[r.id]) {        
+            uuid = props.rightHolders[r.id].rightHolderId   
+            nom = props.rightHolders[r.id].lastName
+            prenom = props.rightHolders[r.id].firstName
+            nomArtiste = props.rightHolders[r.id].artistName
+            avatar = `${config.IMAGE_SRV_URL}${props.rightHolders[r.id].avatarImage}`
+          } else {
+            uuid = " "
+            nom = " "
+            prenom = " "
+            nomArtiste = " "
+            avatar = `${config.IMAGE_SRV_URL}image.jpg`
+          }
+          _avatars[r.id] = {nom, prenom, nomArtiste, avatar, uuid}
+        }
+      })
+    }
     Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
     moment.defaultFormat = "DD-MM-YYYY HH:mm"
   }  
@@ -111,18 +111,19 @@ class Entete extends React.Component {
 
     if(this.state.media) {      
       let parts  = this.state.media.rightHolders
-      parts.forEach(_ad=>{
-        let rhId = _ad.id
-        _ad.roles.forEach(_r=>{
-          switch(_r) {          
-            case this.ROLE_GRAPHISTE:
-              this.graphistes.push(this.props.rightHolders[rhId])
-              break
-            default:
-          }
+      if(parts){
+        parts.forEach(_ad=>{
+          let rhId = _ad.id
+          _ad.roles.forEach(_r=>{
+            switch(_r) {          
+              case this.ROLE_GRAPHISTE:
+                this.graphistes.push(this.props.rightHolders[rhId])
+                break
+              default:
+            }
+          })
         })
-      })
-
+      }      
       illustrateurs = this.graphistes.map((r, idx)=>{
         if(r && idx < this.graphistes.length - 1) {
             return <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}, </span>
@@ -138,7 +139,7 @@ class Entete extends React.Component {
     if(this.state.media.files && this.state.media.files.cover && this.state.media.files.cover.files && this.state.media.files.cover.files.length > 0) {
       this.state.media.files.cover.files.forEach(e=>{
         if(e.access === 'public') {
-          imageSrc = `${config.IMAGE_SRV_URL}${this.state.media.mediaId}/cover/${e.file}`
+          imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${this.state.media.mediaId}/cover/${e.file}`
         }
       })      
     }    

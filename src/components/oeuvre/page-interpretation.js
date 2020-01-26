@@ -1,24 +1,29 @@
-/**
- * Saisie du collaborateur principal de l'oeuvre
- */
-
-import React, { Component } from "react";
-import { withTranslation } from "react-i18next";
-
-import starIconOrange from "../../assets/svg/icons/star-orange.svg";
-import starIconGreen from "../../assets/svg/icons/star-green.svg";
-
-import "../../assets/scss/assistant-form.scss";
-import { ChampSelectionInterprete } from "../page-assistant/champ-selection-interprete";
-import Page from "../page-assistant/page";
-import Colonne from "../page-assistant/colonne";
-import Entete from "../page-assistant/entete";
-
-import * as roles from "../../assets/listes/role-uuids.json";
-import { getRightHoldersByAnyRole } from "../page-assistant/right-holder-helpers";
-import {SauvegardeAutomatiqueMedia} from "./SauvegardeAutomatique";
+// eslint-disable-next-line
+import { journal } from '../../utils/application'
+import React, { Component } from "react"
+import { withTranslation } from "react-i18next"
+import starIconOrange from "../../assets/svg/icons/star-orange.svg"
+import starIconGreen from "../../assets/svg/icons/star-green.svg"
+import "../../assets/scss/assistant-form.scss"
+import ChampSelectionInterprete from "../page-assistant/champ-selection-interprete"
+import Page from "../page-assistant/page"
+import Colonne from "../page-assistant/colonne"
+import Entete from "../page-assistant/entete"
+import * as roles from "../../assets/listes/role-uuids.json"
+import { getRightHoldersByAnyRole } from "../page-assistant/right-holder-helpers"
+import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique"
+// eslint-disable-next-line
+const NOM = "PageInterpretation"
 
 class PageInterpretation extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      rightHolders: props.rightHolders
+    }    
+  }
+
   musicianRoles = [roles.musician, roles.principal, roles.accompaniment, roles.singer];
 
   musicians() {
@@ -72,7 +77,7 @@ class PageInterpretation extends Component {
 
           <ChampSelectionInterprete
             pochette={this.props.pochette}
-            rightHolders={this.props.rightHolders}
+            rightHolders={this.state.rightHolders}
             musicians={this.musicians()}
             values={this.props.values}
             placeholder={t(

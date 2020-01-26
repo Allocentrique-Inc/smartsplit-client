@@ -1,9 +1,8 @@
-import {config, aideAyantDroit, journal} from '../../utils/application'
+import {config, AyantsDroit, journal, utils} from '../../utils/application'
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik-iptoki'
 import axios from 'axios'
 import { withTranslation } from 'react-i18next'
-import Utilitaires from '../../utils/utilitaires'
 import Base from './tableaudebord-nouvelle-oeuvre-base'
 import Page2NouvellePiece from './tableaudebord-nouvelle-piece-page2'
 import "../../assets/scss/assistant-form.scss";
@@ -21,11 +20,10 @@ class NouvelleOeuvre extends Component {
         this.soumettre = this.soumettre.bind(this)
         this.changementPage = this.changementPage.bind(this)
         this.changement = this.changement.bind(this)
-        this.utils = new Utilitaires(1) // Contexte WEB
     }
 
     componentWillMount() {
-        let res = aideAyantDroit.ayantsDroitBrut        
+        let res = AyantsDroit.ayantsDroitBrut        
         // Ordonnancement simple uuid -> nom d'artiste
         let assocUuidArtiste = {}
         res.forEach(e => {
@@ -97,9 +95,9 @@ class NouvelleOeuvre extends Component {
         axios.post(`${config.API_URL}media`, body)
             .then(res => {
                 if (this.state.pochette) {
-                    this.utils.naviguerVersDocumentation(body.mediaId)                    
+                    utils.naviguerVersDocumentation(body.mediaId)                    
                 } else {
-                    this.utils.naviguerVersNouveauPartage(body.mediaId)
+                    utils.naviguerVersNouveauPartage(body.mediaId)
                 }
             })
             .catch(err => console.log(err))

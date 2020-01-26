@@ -1,9 +1,6 @@
 import React, { Component } from "react"
-import { Translation } from 'react-i18next'
-
-// Composantes
+import { withTranslation } from 'react-i18next'
 import Beignet from '../visualisation/partage/beignet'
-
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 
@@ -27,10 +24,8 @@ class PageAssistantPartageEditeur extends Component {
     }
 
     componentWillMount() {
-        // Créer une structure pour les données du beignet
         let _rH = {}
-        let donnees = []
-        
+        let donnees = []        
         // Paroles
         this.state.parts.lyrics.forEach((elem, idx)=>{
             if(!_rH[elem.rightHolder.rightHolderId]) {
@@ -146,11 +141,11 @@ class PageAssistantPartageEditeur extends Component {
 
     render() {
       
-        // TODO: VDEG 
+        const t = this.props.t
         let visualisation = (<Beignet uuid="auteur--beignet" type="workCopyrightSplit" data={this.state.donnees}/>)
                   
         let descriptif
-        if(this.props.i18n.lng.substring(0,2) === 'en') {
+        if(this.props.i18n.language.substring(0,2) === 'en') {
             descriptif = (<div className="medium-400">
                 It's official, you own <strong>{this.state.partPrincipale.toFixed(2)}% of {this.props.values.song}'s Copyright</strong>. 
                 You must now determine how much your publisher should get from this share.
@@ -180,116 +175,111 @@ class PageAssistantPartageEditeur extends Component {
             userAvatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
         }
 
-        return (
-            <Translation>
-                {
-                    (t) =>
-                        <div className="ui grid">          
-                            <div className="ui row">
-                                <div className="ui seven wide column">
-                                    <div className="mode--partage__auteur">
-                                    <div className="who-invented-title">
-                                        { t('flot.split.partage.editeur.titre-part') }
-                                    </div>
-                                    <br/>
-                                    {descriptif}
-                                    <br/>
+        return (            
+            <div className="ui grid">          
+                <div className="ui row">
+                    <div className="ui seven wide column">
+                        <div className="mode--partage__auteur">
+                            <div className="who-invented-title">
+                                { t('flot.split.partage.editeur.titre-part') }
+                            </div>
+                            <br/>
+                            {descriptif}
+                            <br/>
 
-                                    <span className="pourcentage-wrapper">
-                                        <div className="ui grid">
-                                            <div className="ui row fields gray-fields">
-                                                <div className="holder-name">
-                                                    <img alt="avatar" className="ui spaced avatar image" src={userAvatar}/>
-                                                    {this.state.ayantDroit.nom}
-                                                </div>
-                                                <br/>
-                                                <div className="ui eleven wide column">
-                                                    <ChampGradateurAssistant                                                        
-                                                        changement={(id, delta)=>{this.changementGradateur(id, delta)}}
-                                                        id={`gradateur_ayantDroit`}
-                                                        modele="ayantDroit.pourcent"
-                                                        min={50}                                                        
-                                                    />
-                                                </div>
-
-                                                <div className="ui four wide column">
-                                                    <ChampTexteAssistant                                                                                                                            
-                                                        id={`texte_ayantdroit`}
-                                                        changement={(id, valeur, e)=>{
-                                                            if(!isNaN(parseFloat(valeur))){
-                                                                this.changementTexte(id, valeur, e)
-                                                            }
-                                                        }}
-                                                        modele="ayantDroit.pourcent"
-                                                        valeur={this.props.values.ayantDroit.pourcent}                                                        
-                                                    />                                                                                                                        
-                                                </div>
-                                                {
-                                                    document.getElementsByName("ayantDroit.pourcent").forEach((e, idx)=>{                                                                                                                                
-                                                        if(e.type==="text") {
-                                                            e.style.backgroundColor = "#faf8f9"
-                                                            e.style.border = "none"
-                                                            e.style.paddingBottom = "12px"
-                                                        }
-                                                    })
-                                                }
-                                            </div>
-                                            <div className="ui row fields gray-fields">
-                                                <div className="holder-name">
-                                                    <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
-                                                    {this.state.editeur.nom}
-                                                </div>
-                                                <br/>
-                                                <div className="ui eleven wide column">
-                                                    <ChampGradateurAssistant
-                                                        changement={(id, delta)=>{this.changementGradateur(id, delta)}}
-                                                        id={`gradateur_editeur`}
-                                                        modele="editeur.pourcent"
-                                                        max={50}                                                        
-                                                    />
-                                                </div>
-
-                                                <div className="ui four wide column">
-                                                    <ChampTexteAssistant                                                                                                                            
-                                                        id={`texte_editeur`}
-                                                        changement={(id, valeur, e)=>{
-                                                            if(!isNaN(parseFloat(valeur))){
-                                                                this.changementTexte(id, valeur, e)
-                                                            }
-                                                        }}
-                                                        modele="editeur.pourcent"
-                                                        valeur={this.props.values.editeur.pourcent}                                                        
-                                                    />                                                                                                                        
-                                                </div>
-                                                {
-                                                    document.getElementsByName("editeur.pourcent").forEach((e, idx)=>{                                                                                                                                
-                                                        if(e.type==="text") {
-                                                            e.style.backgroundColor = "#faf8f9"
-                                                            e.style.border = "none"
-                                                            e.style.paddingBottom = "12px"
-                                                        }
-                                                    })
-                                                }
-                                            </div>
+                            <span className="pourcentage-wrapper">
+                                <div className="ui grid">
+                                    <div className="ui row fields gray-fields">
+                                        <div className="holder-name">
+                                            <img alt="avatar" className="ui spaced avatar image" src={userAvatar}/>
+                                            {this.state.ayantDroit.nom}
                                         </div>
-                                    </span>
-                                
+                                        <br/>
+                                        <div className="ui eleven wide column">
+                                            <ChampGradateurAssistant                                                        
+                                                changement={(id, delta)=>{this.changementGradateur(id, delta)}}
+                                                id={`gradateur_ayantDroit`}
+                                                modele="ayantDroit.pourcent"
+                                                min={50}                                                        
+                                            />
+                                        </div>
+
+                                        <div className="ui four wide column">
+                                            <ChampTexteAssistant                                                                                                                            
+                                                id={`texte_ayantdroit`}
+                                                changement={(id, valeur, e)=>{
+                                                    if(!isNaN(parseFloat(valeur))){
+                                                        this.changementTexte(id, valeur, e)
+                                                    }
+                                                }}
+                                                modele="ayantDroit.pourcent"
+                                                valeur={this.props.values.ayantDroit.pourcent}                                                        
+                                            />                                                                                                                        
+                                        </div>
+                                        {
+                                            document.getElementsByName("ayantDroit.pourcent").forEach((e, idx)=>{                                                                                                                                
+                                                if(e.type==="text") {
+                                                    e.style.backgroundColor = "#faf8f9"
+                                                    e.style.border = "none"
+                                                    e.style.paddingBottom = "12px"
+                                                }
+                                            })
+                                        }
+                                    </div>
+                                    <div className="ui row fields gray-fields">
+                                        <div className="holder-name">
+                                            <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
+                                            {this.state.editeur.nom}
+                                        </div>
+                                        <br/>
+                                        <div className="ui eleven wide column">
+                                            <ChampGradateurAssistant
+                                                changement={(id, delta)=>{this.changementGradateur(id, delta)}}
+                                                id={`gradateur_editeur`}
+                                                modele="editeur.pourcent"
+                                                max={50}                                                        
+                                            />
+                                        </div>
+
+                                        <div className="ui four wide column">
+                                            <ChampTexteAssistant                                                                                                                            
+                                                id={`texte_editeur`}
+                                                changement={(id, valeur, e)=>{
+                                                    if(!isNaN(parseFloat(valeur))){
+                                                        this.changementTexte(id, valeur, e)
+                                                    }
+                                                }}
+                                                modele="editeur.pourcent"
+                                                valeur={this.props.values.editeur.pourcent}                                                        
+                                            />                                                                                                                        
+                                        </div>
+                                        {
+                                            document.getElementsByName("editeur.pourcent").forEach((e, idx)=>{                                                                                                                                
+                                                if(e.type==="text") {
+                                                    e.style.backgroundColor = "#faf8f9"
+                                                    e.style.border = "none"
+                                                    e.style.paddingBottom = "12px"
+                                                }
+                                            })
+                                        }
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="ui seven wide column">
-                                <br/>
-                                <br/>
-                                <br/>
-                                <div className="conteneur-beignet nine wide field">
-                                    {visualisation}
-                                </div>
-                            </div>
+                            </span>
+                        
                         </div>
                     </div>
-                }
-            </Translation>    
+                    <div className="ui seven wide column">
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div className="conteneur-beignet nine wide field">
+                            {visualisation}
+                        </div>
+                    </div>
+                </div>
+            </div>                
         )
     }
 }
 
-export default PageAssistantPartageEditeur
+export default withTranslation()(PageAssistantPartageEditeur)

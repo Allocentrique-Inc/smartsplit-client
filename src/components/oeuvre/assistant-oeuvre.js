@@ -1,4 +1,4 @@
-import {config, aideAyantDroit, journal} from '../../utils/application'
+import {config, AyantsDroit, journal, Identite, utils} from '../../utils/application'
 import React, { Component } from "react";
 import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from "axios";
@@ -10,8 +10,7 @@ import PageLiens from "./page-liens";
 import PageEnregistrement from "./page-enregistrement";
 import PageFichiers from "./page-fichiers";
 import { withTranslation } from "react-i18next";
-import { Navbar } from "../navigation/navbar";
-import { Auth } from "aws-amplify";
+import Navbar from "../navigation/navbar";
 import ModalFin from "./modal-fin";
 import ModaleConnexion from "../auth/Connexion";
 import "../../assets/scss/page-assistant/bouton.scss";
@@ -36,8 +35,9 @@ class AssistantOeuvre extends Component {
   }
 
   componentWillMount() {
-    Auth.currentAuthenticatedUser()
-      .then(response => {
+
+    if(Identite.usager) {
+      this.setState({user: Identite.usager}, ()=>{
         if (this.state.mediaId) {
           axios
             .get(
@@ -45,26 +45,24 @@ class AssistantOeuvre extends Component {
             )
             .then(res => {
               if (res.data.Item) {
-                let media = res.data.Item;
-                if (response.username === media.creator) {
+                let media = res.data.Item
+                if (Identite.usager.username === media.creator) {
                   this.setState({ media: media }, () =>
                     this.fetchApiRightHolders()
-                  );
-                  this.setState({ user: response });
+                  )
                 } else {
-                  window.location.href = `/oeuvre/${media.mediaId}/resume`;
+                  utils.naviguerVersSommaire()                  
                 }
               }
             });
         } else {
-          this.setState({ user: response });
-          this.fetchApiRightHolders();
+          this.fetchApiRightHolders()
         }
       })
-      .catch(error => {
-        journal.error(error)
-        this.setState({ modaleConnexion: true });
-      });
+    } else {
+      journal.warn(NOM, "L'accès requiert une session active")
+      this.setState({ modaleConnexion: true });
+    }    
   }
 
   nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
@@ -76,7 +74,7 @@ class AssistantOeuvre extends Component {
   }
 
   fetchApiRightHolders() {
-    let response = aideAyantDroit.ayantsDroitBrut    
+    let response = AyantsDroit.ayantsDroitBrut    
     let assocUuidArtiste = {}
     response.forEach(e => {      
       assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
