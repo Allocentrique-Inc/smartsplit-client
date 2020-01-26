@@ -483,7 +483,7 @@
           "partage-titre": "Partage des droits",
           "documentation": "Documentation",
           "enregistrerEtQuitter": "Enregistrer et quitter",
-          "vote-titre": "Valider le partage de droits"
+          "vote-titre": "Valider le split de {{oeuvre}}"
         },
         "partage": {
           "auteur": {
@@ -661,7 +661,7 @@
       "vote": {
         "accept": "Approuvé",
         "reject": "Refusé",
-        "active": "Attente",
+        "active": "En attente de décision",
         "accepter": "ACCEPTER",
         "refuser": "REFUSER"
       },
@@ -835,6 +835,9 @@
     "parole": {
       "parole": "Paroles",
       "voir": "Voir les paroles"
+    },
+    "musique": {
+      "musique": "Musique"
     },
     "info": {
       "info": "Informations générales",

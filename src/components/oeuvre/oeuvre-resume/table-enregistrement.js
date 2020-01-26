@@ -1,9 +1,9 @@
 import React from "react";
 import TableGauche from "./table-gauche";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import moment from "moment";
 
-export default class TableEnregistrement extends React.Component {
+class TableEnregistrement extends React.Component {
   constructor(props) {
     super(props);
     this.rangees = this.rangees.bind(this);
@@ -24,39 +24,43 @@ export default class TableEnregistrement extends React.Component {
     this.master = [];
     this.graphistes = [];
 
-    let parts = props.media.rightHolders;
-    parts.forEach(_ad => {
-      let rhId = _ad.id;
-      _ad.roles.forEach(_r => {
-        switch (_r) {
-          case this.ROLE_TECH:
-            this.tech.push(props.rightHolders[rhId]);
-            break;
-          case this.ROLE_PRODUCTION:
-            this.producteurs.push(props.rightHolders[rhId]);
-            break;
-          case this.ROLE_REALISATEUR:
-            this.realisateurs.push(props.rightHolders[rhId]);
-            break;
-          case this.ROLE_STUDIO:
-            this.studio.push(props.rightHolders[rhId]);
-            break;
-          case this.ROLE_MIXAGE:
-            this.mixeur.push(props.rightHolders[rhId]);
-            break;
-          case this.ROLE_VERSION:
-            this.master.push(props.rightHolders[rhId]);
-            break;
-          case this.ROLE_GRAPHISTE:
-            this.graphistes.push(props.rightHolders[rhId]);
-            break;
-          default:
-        }
-      });
-    });
+    let parts = props.media.rightHolders
+
+    if(parts) {
+      parts.forEach(_ad => {
+        let rhId = _ad.id;
+        _ad.roles.forEach(_r => {
+          switch (_r) {
+            case this.ROLE_TECH:
+              this.tech.push(props.rightHolders[rhId]);
+              break;
+            case this.ROLE_PRODUCTION:
+              this.producteurs.push(props.rightHolders[rhId]);
+              break;
+            case this.ROLE_REALISATEUR:
+              this.realisateurs.push(props.rightHolders[rhId]);
+              break;
+            case this.ROLE_STUDIO:
+              this.studio.push(props.rightHolders[rhId]);
+              break;
+            case this.ROLE_MIXAGE:
+              this.mixeur.push(props.rightHolders[rhId]);
+              break;
+            case this.ROLE_VERSION:
+              this.master.push(props.rightHolders[rhId]);
+              break;
+            case this.ROLE_GRAPHISTE:
+              this.graphistes.push(props.rightHolders[rhId]);
+              break;
+            default:
+          }
+        })
+      })
+    }    
   }
 
-  rangees(t, i18n) {
+  rangees() {
+    const t = this.props.t, i18n = this.props.i18n
     return [
       {
         label: t("flot.split.documente-ton-oeuvre.documenter.date-sortie"),
@@ -64,7 +68,7 @@ export default class TableEnregistrement extends React.Component {
           this.props.media.publishDate &&
           this.props.media.publishDate.trim() !== ""
             ? moment(this.props.media.publishDate)
-                .locale(i18n.lng.substring(0, 2))
+                .locale(i18n.language.substring(0, 2))
                 .format("LL")
             : t("flot.split.documente-ton-oeuvre.documenter.date-choix.avenir")
       },
@@ -192,9 +196,8 @@ export default class TableEnregistrement extends React.Component {
   }
 
   render() {
-    return (
-      <Translation>
-        {(t, i18n) => (
+    const t = this.props.t
+    return (      
           <div className="table">
             <TableGauche
               jeton={this.props.jeton}
@@ -202,13 +205,12 @@ export default class TableEnregistrement extends React.Component {
               title={t(
                 "flot.split.documente-ton-oeuvre.partage.enregistrement.titre"
               )}
-              rows={this.rangees(t, i18n)}
+              rows={this.rangees()}
               pageNo={3}
               mediaId={this.props.media.mediaId}
             />
-          </div>
-        )}
-      </Translation>
-    );
+          </div>        
+    )
   }
 }
+export default withTranslation()(TableEnregistrement)

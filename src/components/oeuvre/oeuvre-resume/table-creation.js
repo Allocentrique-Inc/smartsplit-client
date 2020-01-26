@@ -1,9 +1,9 @@
 import React from "react";
 import TableGauche from "./table-gauche";
 import moment from "moment";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
-export default class TableCreation extends React.Component {
+class TableCreation extends React.Component {
 
   constructor(props) {
     super(props)
@@ -20,36 +20,39 @@ export default class TableCreation extends React.Component {
     this.editeurs = []
 
     let parts = props.media.rightHolders
-    parts.forEach(_ad => {
-      let rhId = _ad.id
-      _ad.roles.forEach(_r => {
-        switch (_r) {
-          case this.ROLE_AUTEUR:
-            this.auteurs.push(props.rightHolders[rhId])
-            break
-          case this.ROLE_COMPOSITEUR:
-            this.compositeurs.push(props.rightHolders[rhId])
-            break
-          case this.ROLE_ARRANGEUR:
-            this.arrangeurs.push(props.rightHolders[rhId])
-            break
-          case this.ROLE_EDITEUR:
-            this.editeurs.push(props.rightHolders[rhId])
-            break
-          default:
-        }
+    if(parts) {
+      parts.forEach(_ad => {
+        let rhId = _ad.id
+        _ad.roles.forEach(_r => {
+          switch (_r) {
+            case this.ROLE_AUTEUR:
+              this.auteurs.push(props.rightHolders[rhId])
+              break
+            case this.ROLE_COMPOSITEUR:
+              this.compositeurs.push(props.rightHolders[rhId])
+              break
+            case this.ROLE_ARRANGEUR:
+              this.arrangeurs.push(props.rightHolders[rhId])
+              break
+            case this.ROLE_EDITEUR:
+              this.editeurs.push(props.rightHolders[rhId])
+              break
+            default:
+          }
+        })
       })
-    })
+    }    
 
     moment.defaultFormat = "DD-MM-YYYY HH:mm"
   }
 
-  rangees(t, i18n) {
+  rangees() {
+    const t = this.props.t, i18n = this.props.i18n
 
     return [
       {
         label: t("oeuvre.attribut.etiquette.dateCreation"),
-        value: moment( new Date(parseInt(this.props.media.creationDate) ), moment.defaultFormat).locale(i18n.lng.substring(0, 2)).format("LL")
+        value: moment( new Date(parseInt(this.props.media.creationDate) ), moment.defaultFormat).locale(i18n.language.substring(0, 2)).format("LL")
       },
       {
         label: t("flot.split.documente-ton-oeuvre.documenter.iswc"),
@@ -100,15 +103,13 @@ export default class TableCreation extends React.Component {
   }
 
   render() {
-    return (
-      <Translation>
-        {
-          (t, i18n) =>
+    const t = this.props.t
+    return (      
             <div className="table">
-              <TableGauche jeton={this.props.jeton} edition={this.props.edition} pageNo={1} mediaId={this.props.media.mediaId} title={t("flot.split.documente-ton-oeuvre.documenter.entete.creation")} rows={this.rangees(t, i18n)} />
-            </div>
-        }
-      </Translation>
+              <TableGauche jeton={this.props.jeton} edition={this.props.edition} pageNo={1} mediaId={this.props.media.mediaId} title={t("flot.split.documente-ton-oeuvre.documenter.entete.creation")} rows={this.rangees()} />
+            </div>        
     )
   }
 }
+
+export default withTranslation()(TableCreation)

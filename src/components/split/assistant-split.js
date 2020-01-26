@@ -1,17 +1,11 @@
+import {config, AyantsDroit, journal, utils} from '../../utils/application'
 import React, {Component} from 'react'
 import axios from 'axios'
-
-import { toast } from 'react-toastify'
-
-// Assistant
 import { Wizard } from "semantic-ui-react-formik-iptoki"
-
-// Traduction
-import { Translation } from 'react-i18next'
-
-// Pages de l'assistant
+import { withTranslation } from 'react-i18next'
 import PageAssistantSplitCourrielsCollaborateurs from './assistant-split-courriel-collaborateurs'
 
+const NOM = "ValiderSplit"
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 
 class ValiderSplit extends Component {
@@ -23,20 +17,18 @@ class ValiderSplit extends Component {
             rights: {},
             mediaTitle: "",
             initiateur: ""
-        }
+        }    
     }
 
     componentWillMount() {
  
         // Récupère la proposition
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.props.proposition}`)
+        axios.get(`${config.API_URL}proposal/${this.props.proposition}`)
         .then((data)=>{
             // Construction de la structure des données de l'assistant
             let proposition = data.data.Item
-
             let rightHolders = {}
             let rights = {}
-
             function traitementDroit(objDroit, type) {
                 if (objDroit) {
                     objDroit.forEach(droit=>{
@@ -49,7 +41,6 @@ class ValiderSplit extends Component {
                     })
                 }                
             }
-
             // Extraire les différents ayant-droits et ordonnancement dans un tableau
             TYPE_SPLIT.forEach(type=>{
                 if(!rights[type]) {
@@ -76,24 +67,21 @@ class ValiderSplit extends Component {
                             break
                         default:
                     }
-                                        
                 }
-            })            
-
+            })
             // Affecte les objets construits
             this.setState({rights: rights})
             this.setState({initiateur: proposition.initiatorName})
-
             // Récupère le titre du média
             // Temporaire, devrait déjà être fourni dans le client à ce stade
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${proposition.mediaId}`)
+            axios.get(`${config.API_URL}media/${proposition.mediaId}`)
             .then(res=>{
                 let media = res.data.Item
                 this.setState({mediaTitle: media.title})
                 this.setState({mediaId: media.mediaId})
             })
             .catch((error) => {
-                toast.error(error.message)                
+                journal.error(NOM, error)                
             })
 
             // Récupération du courriel de l'ayant-droit
@@ -108,77 +96,60 @@ class ValiderSplit extends Component {
                     }
                 })
                 return !_r
-            }
+            }            
             Object.keys(rightHolders).forEach((idx)=>{
                 reqs[idx] = '-->' // Marque comme envoyé
-                axios.get(`http://dev.api.smartsplit.org:8080/v1/rightHolders/${rightHolders[idx].rightHolderId}`)
-                .then(res=>{
-                    rightHolders[idx].email = res.data.Item.email                    
-                    reqs[idx] = '---'
-                    if(aToutRecu()) {
-                        this.setState({rightHolders: rightHolders})   
-                    }
-                })
-                .catch((error) => {
-                    toast.error(error.message)                    
-                })
-            })            
-            
+                let res = AyantsDroit.ayantDroits[rightHolders[idx].rightHolderId]
+                rightHolders[idx].email = res.email
+                reqs[idx] = '---'
+                if(aToutRecu()) {
+                    this.setState({rightHolders: rightHolders})
+                }
+            })
         })
         .catch((error) => {
-            toast.error(error)
-            
+            journal.error(NOM, error)
         })
-
     }
 
     transmettreInvitation(modele) {
-
         let body = {
             "proposalId": this.props.proposition,
             "rightHolders": modele.rightHolders
         }
-
-        axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/invite', body)
+        axios.post(`${config.API_URL}proposal/invite`, body)
         .then((resp)=>{
             if(resp.data !== '') {
-                window.location.href=`/partager/${this.state.mediaId}`
+                utils.naviguerVersSommairePartage(this.state.mediaId)
             }                
         })
         .catch((error) => {
-            toast.error(error)
+            journal.error(NOM, error)
         })
 
     }
 
     render() {
-
-        return ( Object.keys(this.state.rightHolders).length > 0 &&         
-            <Translation>
-                {
-                    (t, i18n)=>
-                        <div>
-                            <Wizard
-                                initialValues={{
-                                    rightHolders: this.state.rightHolders
-                                }}
-                                buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
-                                debug={false}
-                                onSubmit={this.transmettreInvitation.bind(this)}>
-
-                                <Wizard.Page>
-                                    <PageAssistantSplitCourrielsCollaborateurs 
-                                        ayantDroits={this.state.rightHolders} 
-                                        titre={this.state.mediaTitle}
-                                        mediaId={this.state.mediaId} />
-                                </Wizard.Page>
-
-                            </Wizard>
-                        </div>
-                }
-            </Translation>                                
+        let t = this.props.t
+        return ( Object.keys(this.state.rightHolders).length > 0 &&
+            <div>
+                <Wizard
+                    initialValues={{
+                        rightHolders: this.state.rightHolders
+                    }}
+                    buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
+                    debug={false}
+                    onSubmit={this.transmettreInvitation.bind(this)}>
+                    <Wizard.Page>
+                        <PageAssistantSplitCourrielsCollaborateurs 
+                            ayantDroits={this.state.rightHolders} 
+                            titre={this.state.mediaTitle}
+                            mediaId={this.state.mediaId} />
+                    </Wizard.Page>
+                </Wizard>
+            </div>                
         )
     }
 }
 
-export default ValiderSplit
+export default withTranslation()(ValiderSplit)

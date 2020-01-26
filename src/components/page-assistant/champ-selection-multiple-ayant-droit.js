@@ -1,12 +1,15 @@
-import React, { Component } from "react";
-import { Dropdown } from "semantic-ui-react";
-import { ItemSelectionne } from "./item-selectionne";
-import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg";
-import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg";
-import ModifyUser from "../auth/ModifyUser";
-import "../../assets/scss/page-assistant/champ.scss";
-import TitreChamp from "./titre-champ";
-import { Translation } from "react-i18next";
+import React, { Component } from "react"
+import { Dropdown } from "semantic-ui-react"
+import { ItemSelectionne } from "./item-selectionne"
+import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg"
+import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg"
+import ModifyUser from "../auth/ModifyUser"
+import "../../assets/scss/page-assistant/champ.scss"
+import TitreChamp from "./titre-champ"
+import { withTranslation } from "react-i18next"
+
+// eslint-disable-next-line
+const NOM = "ChampSelectionMultipleAyantDroit"
 
 class ChampSelectionMultipleAyantDroit extends Component {
   constructor(props) {
@@ -137,65 +140,62 @@ class ChampSelectionMultipleAyantDroit extends Component {
   };
 
   render() {
-    return (
-      <Translation>
-        {
-          t =>
-            <>
-              <div className="champ with-trigger-icon">
-                <label>
-                  <TitreChamp
-                    label={this.props.label}
-                    info={this.props.info}//Fait passer info dans les TitreChamp
-                    description={this.props.description}
-                  />
-
-                  <Dropdown
-                    trigger={this.triggerLabel()} //Le +
-                    fluid
-                    search
-                    selection // Dit que c'est une sélection
-                    selectOnBlur={false}
-                    selectOnNavigation={false}
-                    allowAdditions
-                    additionLabel={this.additionLabel(t)}
-                    value={this.state.dropdownValue}
-                    options={this.unselectedItems()}
-                    onChange={this.handleChange}
-                    onAddItem={this.handleAddItem}
-                    onBlur={this.handleBlur}
-                    onSearchChange={this.handleSearchChange}
-                  />
-
-                  <br />
-                  {this.renderSelectedItems()}
-
-                </label>
-              </div>
-
-              <ModifyUser
-                open={this.state.modalOpen}
-                pochette={this.props.pochette}
-                firstName={this.state.modalFirstName}
-                close={() =>
-                  this.setState({ modalOpen: false, modalFirstName: "" })
-                }
-                fn={
-                  (e) => {
-                    let values = this.state.selectedValues
-                    values.push(e)
-                    this.setState({ selectedValues: values })
-                    if (this.props.fn) {
-                      this.props.fn(e)
-                    }
-                  }
-                }
+    const t = this.props.t
+    return (      
+        <>
+          <div className="champ with-trigger-icon">
+            <label>
+              <TitreChamp
+                label={this.props.label}
+                info={this.props.info}//Fait passer info dans les TitreChamp
+                description={this.props.description}
               />
-            </>
-        }
-      </Translation>
-    );
+
+              <Dropdown
+                trigger={this.triggerLabel()} //Le +
+                fluid
+                search
+                selection // Dit que c'est une sélection
+                selectOnBlur={false}
+                selectOnNavigation={false}
+                allowAdditions
+                additionLabel={this.additionLabel(t)}
+                value={this.state.dropdownValue}
+                options={this.unselectedItems()}
+                onChange={this.handleChange}
+                onAddItem={this.handleAddItem}
+                onBlur={this.handleBlur}
+                onSearchChange={this.handleSearchChange}
+              />
+
+              <br />
+              {this.renderSelectedItems()}
+
+            </label>
+          </div>
+
+          <ModifyUser
+            open={this.state.modalOpen}
+            pochette={this.props.pochette}
+            firstName={this.state.modalFirstName}
+            close={() =>
+              this.setState({ modalOpen: false, modalFirstName: "" })
+            }
+            fn={
+              /** foction de rappel après ajout. */
+              (rightHolderId) => {                
+                let values = this.state.selectedValues
+                values.push(rightHolderId)
+                this.setState({ selectedValues: values })
+                if (this.props.fn) {
+                  this.props.fn(rightHolderId)
+                }
+              }
+            }
+          />
+        </>        
+    )
   }
 }
 
-export default ChampSelectionMultipleAyantDroit;
+export default withTranslation()(ChampSelectionMultipleAyantDroit)

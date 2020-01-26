@@ -221,8 +221,19 @@
   background-color: $smartsplit-color-link;
   &.pochette {
     background-color: $pochette-color-link;
+  }  
+}
+
+.ui.medium.button.infobulle {
+  border: 1px solid #dcdfe1;
+  background-color: #FAF8F9;
+  color: $smartsplit-color-link;
+  &:hover {
+    color:  #FAF8F9;    
+    background-color: $smartsplit-color-link;
   }
 }
+
 .medium.button.options {
   background-color: $smartsplit-color-link;
   width: auto;
@@ -429,12 +440,18 @@
 }
 
 .role {
-  padding-left: 45px;
+  padding-left: 48px;
+  color: #687a8b;
 }
 
 .vote {
   display: inline;
-  float: right;
+  text-align: right;
+}
+
+.role,
+.vote {
+  font-family: IBM Plex Sans;
 }
 
 .ui.segment.types {
@@ -443,4 +460,40 @@
 
 .division {
   color: #dcdfe1;
+}
+
+.utilisateurConnecte {
+  color: black;
+}
+
+.utilisateurInvite {
+  color: #687a8b;
+}
+
+.utilisateurConnecte,
+.utilisateurInvite {
+  float: right;
+}
+
+.approuve {
+  color: #2da84f;
+  font-weight: bold;
+}
+
+.desaprouve {
+  color: #ac1616;
+  font-weight: bold;
+}
+
+.attente {
+  color: #687a8b;
+  font-weight: normal;
+}
+
+.border-bottom.devide {
+  border-bottom: 0.5px solid #687a8b;
+}
+
+.fleche {
+  float: right;
 }

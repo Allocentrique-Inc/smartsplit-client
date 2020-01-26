@@ -3,9 +3,10 @@ import downloadLockIcon from "../../../assets/svg/icons/download-lock.svg";
 import downloadCloudIcon from "../../../assets/svg/icons/download-cloud.svg";
 import lockFullIcon from "../../../assets/svg/icons/lock-full.svg";
 import TitreModifiable from "./titre-modifiable";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
+import { config } from '../../../utils/application'
 
-export default class SectionTelechargements extends React.Component {
+class SectionTelechargements extends React.Component {
   renderDownload(download) {
     let pochette = this.props.pochette ? "pochette" : "smartsplit";
 
@@ -63,7 +64,7 @@ export default class SectionTelechargements extends React.Component {
           arr.push({
             icon: this.iconeParAcces(elem.access),
             label: elem.file,
-            urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/${type}/${nomfichierS3}`
+            urls: `${config.IMAGE_SRV_ARTISTES_URL}${this.props.media.mediaId}/${type}/${nomfichierS3}`
           });
         }
       });
@@ -72,7 +73,7 @@ export default class SectionTelechargements extends React.Component {
   }
 
   render() {
-    // Check if current rightHolder is in media.rightHolders array, display the links
+    const t = this.props.t
     let audio = [],
       cover = [],
       midi = [],
@@ -84,56 +85,53 @@ export default class SectionTelechargements extends React.Component {
       score = this.genererAffichage("score");
     }
 
-    return (
-      <Translation>
-        {t => (
-          <>
-            <TitreModifiable
-              jeton={this.props.jeton}
-              edition={this.props.edition}
-              pageNo={4}
-              mediaId={this.props.media.mediaId}
-            >
-              <h4 className={"corps-title-2"}>
-                {t("sommaire.telechargement.telechargement")}
-              </h4>
-            </TitreModifiable>
+    return (      
+      <>
+        <TitreModifiable
+          jeton={this.props.jeton}
+          edition={this.props.edition}
+          pageNo={4}
+          mediaId={this.props.media.mediaId}
+        >
+          <h4 className={"corps-title-2"}>
+            {t("sommaire.telechargement.telechargement")}
+          </h4>
+        </TitreModifiable>
 
-            <span
-              className="corps-table"
-              style={{ color: "#687A8B", marginBottom: "5px;" }}
-            >
-              {t("sommaire.telechargement.visuel")}
-            </span>
-            {cover && cover.map(download => this.renderDownload(download))}
-            <p style={{ height: "15px" }} />
-            <span
-              className="corps-table"
-              style={{ color: "#687A8B", marginBottom: "5px;" }}
-            >
-              {t("sommaire.telechargement.audio")}
-            </span>
-            {audio && audio.map(download => this.renderDownload(download))}
-            <p style={{ height: "15px" }} />
-            <span
-              className="corps-table"
-              style={{ color: "#687A8B", marginBottom: "5px;" }}
-            >
-              {t("sommaire.telechargement.midi")}
-            </span>
-            {midi && midi.map(download => this.renderDownload(download))}
-            <p style={{ height: "15px" }} />
-            <span
-              className="corps-table"
-              style={{ color: "#687A8B", marginBottom: "5px;" }}
-            >
-              {t("sommaire.telechargement.partition")}
-            </span>
-            <p style={{ height: "15px" }} />
-            {score && score.map(download => this.renderDownload(download))}
-          </>
-        )}
-      </Translation>
-    );
+        <span
+          className="corps-table"
+          style={{ color: "#687A8B", marginBottom: "5px" }}
+        >
+          {t("sommaire.telechargement.visuel")}
+        </span>
+        {cover && cover.map(download => this.renderDownload(download))}
+        <p style={{ height: "15px" }} />
+        <span
+          className="corps-table"
+          style={{ color: "#687A8B", marginBottom: "5px" }}
+        >
+          {t("sommaire.telechargement.audio")}
+        </span>
+        {audio && audio.map(download => this.renderDownload(download))}
+        <p style={{ height: "15px" }} />
+        <span
+          className="corps-table"
+          style={{ color: "#687A8B", marginBottom: "5px" }}
+        >
+          {t("sommaire.telechargement.midi")}
+        </span>
+        {midi && midi.map(download => this.renderDownload(download))}
+        <p style={{ height: "15px" }} />
+        <span
+          className="corps-table"
+          style={{ color: "#687A8B", marginBottom: "5px" }}
+        >
+          {t("sommaire.telechargement.partition")}
+        </span>
+        <p style={{ height: "15px" }} />
+        {score && score.map(download => this.renderDownload(download))}
+      </>        
+    )
   }
 }
+export default withTranslation()(SectionTelechargements)

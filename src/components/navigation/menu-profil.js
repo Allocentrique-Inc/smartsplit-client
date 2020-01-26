@@ -1,28 +1,18 @@
-import React, { Component } from "react";
-import { Translation } from "react-i18next";
-
-import "../../assets/scss/menu-profil.scss";
-
-import axios from "axios";
-
-import { toast } from "react-toastify";
-import { Dropdown } from "semantic-ui-react";
-
-import i18n from "i18next";
-
-// Authentification avec AWS
-import { Auth } from "aws-amplify";
-//import Socan from "../auth/Socan"
-
+import {AyantsDroit, Identite, utils, journal, config} from '../../utils/application'
+import React, { Component } from "react"
+import { withTranslation } from "react-i18next"
+import { Dropdown } from "semantic-ui-react"
+import i18n from "i18next"
+import "../../assets/scss/menu-profil.scss"
 import {
   LogOutSVG,
   SettingsSVG,
   AvatarInitialsSVG,
   ChevronDownSVG,
   LangueSVG
-} from "../svg/SVG";
+} from "../svg/SVG"
 
-const textToImage = require("text-to-image");
+const NOM = "MenuProfil"
 
 class MenuProfil extends Component {
   constructor(props) {
@@ -42,47 +32,16 @@ class MenuProfil extends Component {
   }
 
   componentWillMount() {
-
-    axios
-      .get(
-        "http://dev.api.smartsplit.org:8080/v1/rightHolders/" +
-        this.state.auth.username
-      )
-      .then(res => {
-
-        this.setState({ user: res.data.Item });
-
-        let P = "",
-          N = "";
-        if (res.data.Item.firstName && res.data.Item.firstName.length > 0)
-          P = res.data.Item.firstName.charAt(0).toUpperCase();
-        if (res.data.Item.lastName && res.data.Item.lastName.length > 0)
-          N = res.data.Item.lastName.charAt(0).toUpperCase();
-
-        this.setState(
-          {
-            initials: P + N
-          },
-          () => {
-            textToImage.generate(this.state.initials).then(dataUri => {
-              this.setState({ avatarInitiales: dataUri });
-            });
-          }
-        );
-      })
-      .catch(err => {
-        toast.error(err.message);
-      });
+    let user = AyantsDroit.ayantsDroit[this.state.auth.username]    
+    this.setState({ user })
+    this.setState({ avatarInitiales: user.avatar.dataUri })              
   }
 
   deconnexion() {
-    Auth.signOut()
-      .then(data => {
-        setTimeout(() => {
-          window.location.href = "/accueil";
-        }, 1000);
-      })
-      .catch(error => toast.error("Erreur..."));
+    Identite.deconnexion(()=>{
+      journal.debug(NOM, "retour accueil")
+      utils.naviguerVersAccueil()
+    })
   }
 
   ouvrirSocan(val = true) {
@@ -90,6 +49,7 @@ class MenuProfil extends Component {
   }
 
   render() {
+    let t = this.props.t
     let avatarImage;
     let userInitials;
     let nomComplet;
@@ -100,8 +60,8 @@ class MenuProfil extends Component {
           this.state.user.avatarImage === "image.jpg"
           ? !this.props.pochette
             ? ""
-            : "https://images-publiques.s3.amazonaws.com/avatar.png"
-          : `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.user.avatarImage}`;
+            : `${config.IMAGE_SRV_URL}avatar.png`
+          : `${config.IMAGE_SRV_URL}${this.state.user.avatarImage}`
       userInitials =
         this.state.user.avatarImage === null ? this.state.initials : null;
       nomComplet = this.state.user.artistName
@@ -109,119 +69,106 @@ class MenuProfil extends Component {
         : `${this.state.user.firstName} ${this.state.user.lastName}`;
     }
 
-    let menu = (
-      <Translation>
-        {t => (
-          <span>
-            <Dropdown text="" icon={<ChevronDownSVG />} className="down angle">
-              <Dropdown.Menu style={{right: "0", left: "auto"}}>
-                <Dropdown.Item onClick={() => window.location.href = "/accueil"}>
-                  <React.Fragment>
-                    <div className="custom-initials-holder">
-                      {
-                        this.state.user && avatarImage && (
-                          <img className="ui image rounded" src={avatarImage} alt={`${this.state.user.firstName} ${this.state.user.lastName}`} />
-                        )
-                      }
-                      {
-                        this.state.user && !avatarImage && (
-                          <>
-                            <AvatarInitialsSVG />
-                            <span className="custom-initials">
-                              {this.state.initials}
-                            </span>
-                          </>
-                        )
-                      }
-                    </div>
-                    <span className="text nom">{nomComplet}</span>
-                  </React.Fragment>
-                </Dropdown.Item>
-                {i18n.language && i18n.language.substring(0, 2) === "en" && (
-                  <Dropdown.Item onClick={() => {
-                    i18n.init({ lng: "fr" });
-                  }}>
-                    <React.Fragment>
-                      <div className="custom-initials-holder">
+    let menu = (      
+      <span>
+        <Dropdown text="" icon={<ChevronDownSVG />} className="down angle">
+          <Dropdown.Menu style={{right: "0", left: "auto"}}>
+            <Dropdown.Item onClick={() => window.location.href = "/accueil"}>
+              <React.Fragment>
+                <div className="custom-initials-holder">
+                  {
+                    this.state.user && avatarImage && (
+                      <img className="ui image rounded" src={avatarImage} alt={`${this.state.user.firstName} ${this.state.user.lastName}`} />
+                    )
+                  }
+                  {
+                    this.state.user && !avatarImage && (
+                      <>
+                        <AvatarInitialsSVG />
                         <span className="custom-initials">
-                          <LangueSVG />
+                          {this.state.initials}
                         </span>
-                      </div>
-                      <span className="text">{t("menuprofil.francais")}</span>
-                    </React.Fragment>
-                  </Dropdown.Item>
-                )}
-                {i18n.language && i18n.language.substring(0, 2) === "fr" && (
-                  <Dropdown.Item onClick={() => {
-                    i18n.init({ lng: "en" });
-                  }}>
-                    <React.Fragment>
-                      <div className="custom-initials-holder">
-                        <span className="custom-initials">
-                          <LangueSVG />
-                        </span>
-                      </div>
-                      <span className="text">{t("menuprofil.anglais")}</span>
-                    </React.Fragment>
-                  </Dropdown.Item>
-                )}
-
-                <Dropdown.Divider />
-                
-                <Dropdown.Item
-                  className="parametre"
-                  text={t("menuprofil.parametre")}
-                  image={<SettingsSVG />}
-                  onClick={() => {
-                    window.location.href = "/parametre"; // À faire
-                  }}
-                />
-
-                <Dropdown.Item
-                  className="deconnexion"
-                  text={t("menuprofil.deconnexion")}
-                  image={<LogOutSVG />}
-                  onClick={() => {
-                    this.deconnexion();
-                  }}
-                />
-              </Dropdown.Menu>
-            </Dropdown>
-          </span>
-          
-        )}
-      </Translation>
-    );
-
-    return (
-      <Translation>
-        {t => (
-          <>            
-            {!userInitials && (
-              <div className="custom-initials-holder2">
-                {
-                  this.state.user && avatarImage && (
-                    <img width="30" className="ui image rounded" src={avatarImage} alt={`${this.state.user.firstName} ${this.state.user.lastName}`} />
-                  )
-                }
-                {
-                  this.state.user && !avatarImage && (
-                    <>
-                      <AvatarInitialsSVG />
-                      <span className="custom-initials">
-                        {this.state.initials}
-                      </span>
-                    </>
-                  )
-                }
-              </div>
+                      </>
+                    )
+                  }
+                </div>
+                <span className="text nom">{nomComplet}</span>
+              </React.Fragment>
+            </Dropdown.Item>
+            {i18n.language && i18n.language.substring(0, 2) === "en" && (
+              <Dropdown.Item onClick={() => {
+                i18n.init({ lng: "fr" });
+              }}>
+                <React.Fragment>
+                  <div className="custom-initials-holder">
+                    <span className="custom-initials">
+                      <LangueSVG />
+                    </span>
+                  </div>
+                  <span className="text">{t("menuprofil.francais")}</span>
+                </React.Fragment>
+              </Dropdown.Item>
             )}
-            {menu}
-          </>
+            {i18n.language && i18n.language.substring(0, 2) === "fr" && (
+              <Dropdown.Item onClick={() => {
+                i18n.init({ lng: "en" });
+              }}>
+                <React.Fragment>
+                  <div className="custom-initials-holder">
+                    <span className="custom-initials">
+                      <LangueSVG />
+                    </span>
+                  </div>
+                  <span className="text">{t("menuprofil.anglais")}</span>
+                </React.Fragment>
+              </Dropdown.Item>
+            )}
+            <Dropdown.Divider />          
+            <Dropdown.Item
+              className="parametre"
+              text={t("menuprofil.parametre")}
+              image={<SettingsSVG />}
+              onClick={() => {
+                window.location.href = "/parametre"; // À faire
+              }}
+            />
+            <Dropdown.Item
+              className="deconnexion"
+              text={t("menuprofil.deconnexion")}
+              image={<LogOutSVG />}
+              onClick={() => {
+                this.deconnexion();
+              }}
+            />
+          </Dropdown.Menu>
+        </Dropdown>
+      </span>
+    )
+    return (     
+      <>            
+        {!userInitials && (
+          <div className="custom-initials-holder2">
+            {
+              this.state.user && avatarImage && (
+                <img width="30" className="ui image rounded" src={avatarImage} alt={`${this.state.user.firstName} ${this.state.user.lastName}`} />
+              )
+            }
+            {
+              this.state.user && !avatarImage && (
+                <>
+                  <AvatarInitialsSVG />
+                  <span className="custom-initials">
+                    {this.state.initials}
+                  </span>
+                </>
+              )
+            }
+          </div>
         )}
-      </Translation>
-    );
+        {menu}
+      </>
+    )
   }
 }
 
-export default MenuProfil;
+export default withTranslation()(MenuProfil)

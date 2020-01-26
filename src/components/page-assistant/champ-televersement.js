@@ -6,6 +6,7 @@ import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg"
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg"
 import "../formulaires.css"
 import AudioLecture from '../oeuvre/audio-lecture'
+import { config } from '../../utils/application'
 
 export class ListeFichiers extends Component {
 
@@ -38,7 +39,7 @@ export class ListeFichiers extends Component {
         // Génère la liste en JSX
         let _liste = []
         
-        if(this.state.liste[this.state.type] && this.state.liste[this.state.type].files) {
+        if(this.state.liste && this.state.liste[this.state.type] && this.state.liste[this.state.type].files) {
             _liste = this.state.liste[this.state.type].files.map((elem, idx)=>{
                 // Une ligne de fichier avec bouton supprimer et éditer
                 // Le bouton éditer permet de faire basculer le contrôle d'accès
@@ -69,7 +70,7 @@ export class ListeFichiers extends Component {
                     }                    
                 }                
 
-                let url = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.state.mediaId}/${this.state.type}/${elem.file}`
+                let url = `${config.IMAGE_SRV_ARTISTES_URL}${this.state.mediaId}/${this.state.type}/${elem.file}`
 
                 return (
                     <div key={`ligne--${this.state.type}--${idx}`} className={`ui row medium-500-color ${pochette}`}>

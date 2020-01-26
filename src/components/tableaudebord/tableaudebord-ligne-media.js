@@ -1,17 +1,18 @@
+import { AyantsDroit, utils } from '../../utils/application'
 import React, { Component } from "react"
-import { Translation } from "react-i18next"
+import { withTranslation } from "react-i18next"
 import moment from "moment"
 import axios from "axios"
 import ModalPropositionEnCours from "../modales/modale-proposition-encours"
 import placeholder from '../../assets/images/placeholder.png'
 import "../../assets/scss/tableaudebord/tableaudebord.scss"
 import OptionsMedia from "./options-media"
-import Utilitaires from '../../utils/utilitaires'
 import EtatMedia from './etat-media'
 
-const textToImage = require("text-to-image")
+// eslint-disable-next-line
+const NOM = "LigneMedia"
 
-export default class LigneMedia extends Component {
+class LigneMedia extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,12 +22,7 @@ export default class LigneMedia extends Component {
       rightHolders: props.rightHolders,
       p0: (props.media && props.media.propositions && props.media.propositions.length > 0) ? props.media.propositions[0] : undefined
     }
-    if(this.props.rightHolders && Object.keys(this.props.rightHolders).length > 0) {
-      this.genererAvatars()
-    }
-    // Mise en contexte
     this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
-    this.utils = new Utilitaires(1)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -35,63 +31,15 @@ export default class LigneMedia extends Component {
     }
   }
 
-  componentWillMount() {    
+  componentDidMount() {    
+    if(this.props.rightHolders && Object.keys(this.props.rightHolders).length > 0) {
+      this.genererAvatars()
+    }
   }
 
-  genererAvatars() {
-    // Structure des avatars
-    this.avatars = []
-    let _avatars = {}    
-    if(this.state.media.rightHolders) {
-      let cpt = 0 // Compteur du nombre d'avatar générés
-      this.state.media.rightHolders.forEach(r=>{      
-        if(!this.avatars[r.id]) {        
-          let nom, prenom, nomArtiste, dataUri, uuid
-          if(this.state.rightHolders[r.id]) {        
-            uuid = this.state.rightHolders[r.id].rightHolderId
-            nom = this.state.rightHolders[r.id].lastName
-            prenom = this.state.rightHolders[r.id].firstName
-            nomArtiste = this.state.rightHolders[r.id].artistName
-            // Afficher les initiales si l'avatar est 'image.jpg' ou est inconnu (vide)
-            if(!this.state.rightHolders[r.id].avatarImage || this.state.rightHolders[r.id].avatarImage === "image.jpg") {
-              // Générer les initiales
-              let P = "", N = ""
-                if (this.state.rightHolders[r.id].firstName && this.state.rightHolders[r.id].firstName.length > 0)
-                  P = this.state.rightHolders[r.id].firstName.charAt(0).toUpperCase()
-                if (this.state.rightHolders[r.id].lastName && this.state.rightHolders[r.id].lastName.length > 0)
-                  N = this.state.rightHolders[r.id].lastName.charAt(0).toUpperCase()
-              textToImage.generate(`${P}${N}`).then(dataUri => {
-                _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
-                cpt++
-                if(cpt === this.state.media.rightHolders.length) {
-                  // Tous les avatars sont générés
-                  Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
-                  this.setState({avatars: _avatars})
-                }
-              })
-            } else {
-              dataUri = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.rightHolders[r.id].avatarImage}`
-              _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
-              cpt++
-              if(cpt === this.state.media.rightHolders.length) {
-                // Tous les avatars sont générés
-                Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
-                this.setState({avatars: _avatars})
-              }
-            }
-          } else {
-            dataUri = `https://smartsplit-images.s3.us-east-2.amazonaws.com/image.jpg`
-            _avatars[r.id] = {nom, prenom, nomArtiste, dataUri, uuid}
-            cpt++
-            if(cpt === this.state.media.rightHolders.length) {
-              // Tous les avatars sont générés
-              Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
-              this.setState({avatars: _avatars})
-            }
-          }
-        }
-      })
-    }
+  genererAvatars() {    
+    let avatars = AyantsDroit.genererAvatars(this.state.media.rightHolders)
+    this.setState({ avatars })
   }
 
   modalePropositionEnCours(ouvrir = true) {
@@ -106,7 +54,6 @@ export default class LigneMedia extends Component {
     const maxDisplayedAvatars = 5
     const displayedAvatars = Math.min(maxDisplayedAvatars, this.state.avatars.length)
     const undisplayedAvatars = this.state.avatars.length - displayedAvatars
-    console.log(arrAvatars)
     let _avatars = arrAvatars
       .slice(0, maxDisplayedAvatars)
       .map((avatar, index) => {
@@ -123,7 +70,7 @@ export default class LigneMedia extends Component {
         autres = autres + `${e.prenom} ${e.nom} ${e.nomArtiste ? `(${e.nomArtiste})` : ""}\n`
       })
       _avatars = _avatars.concat([
-        <div key={`more-tag-avatar`} className={"more-tag"}  title={autres} >+{undisplayedAvatars}
+        <div key={`more-tag-avatar`} className={"more-tag"}  title={autres} >{undisplayedAvatars > 0 ? `+${undisplayedAvatars}`: ""}
         </div>
       ])
     }
@@ -151,7 +98,7 @@ export default class LigneMedia extends Component {
           `http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,
           { rightHolderId: this.state.user.username }
         )
-        .then(res => this.utils.naviguerVersNouveauPartage(this.state.media.mediaId))
+        .then(res => utils.naviguerVersNouveauPartage(this.state.media.mediaId))
         .catch(err => console.log(err))
     } else {
       this.modalePropositionEnCours()
@@ -159,6 +106,9 @@ export default class LigneMedia extends Component {
   }
 
   render() {
+
+    const t = this.props.t, i18n = this.props.i18n
+
     let pochette = this.state.pochette ? "pochette" : ""
     let elem = this.state.media
     let _p = this.state.p0
@@ -187,94 +137,92 @@ export default class LigneMedia extends Component {
       avatars = this.renderAvatars()
     }
 
-    return (
-      <Translation>
-        {(t, i18n) => (
-          <div className="_hautColonne">
-            <div className="ui grid">
-              <div className="ui row">
-                <div
-                  className="ui one wide column cliquable"
-                  onClick={() => this.utils.naviguerVersSommaire(elem.mediaId) }
-                >
-                  <img className={ 'song-image' } style={{width: "40px", height: "40PX", right: "0px", position: "absolute"}} src={ imageSrc } alt={ this.props.media.title } />
-                </div>
-                <div
-                  className="ui eight wide column"                  
-                >
-                  <div className="song-name cliquable" onClick={() => this.utils.naviguerVersSommaire(elem.mediaId) }>{`${elem.title}`}</div>
-                  <div className="small-400">
-                    &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
-                  </div>
+    return (      
+      <div className="_hautColonne">
+        <div className="ui grid">
+          <div className="ui row">
+            <div
+              className="ui one wide column cliquable"
+              onClick={() => utils.naviguerVersSommaire(elem.mediaId) }
+            >
+              <img className={ 'song-image' } style={{width: "40px", height: "40PX", right: "0px", position: "absolute"}} src={ imageSrc } alt={ this.props.media.title } />
+            </div>
+            <div
+              className="ui six wide column"
+            >
+              <div className="song-name cliquable" onClick={() => utils.naviguerVersSommaire(elem.mediaId) }>{`${elem.title}`}</div>
+              <div className="small-400">
+                &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
+              </div>
 
+              <div
+                className={`small-500-color ${pochette}`}
+              >{`${elem.artist}`}</div>
+              <br />
+              <div className={`small-400-color`}>
+                {i18n.language &&
+                  moment(new Date(parseInt(elem.creationDate)))
+                    .locale(i18n.language.substring(0, 2))
+                    .fromNow()}{" "}
+                &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
+                <div className={"avatars"} style={{display: "inline", marginLeft: "12px"}}>{avatars}</div>
+              </div>
+            </div>
+            <div className={`ui four wide column etat`} style={{float: "right"}}>
+
+              {!pochette && _p && _p.etat && (
+                <EtatMedia media={this.state.media} pochette={this.state.pochette} proposition={_p} />
+              )}
+              {!pochette && !nouveauDisabled && (
                   <div
-                    className={`small-500-color ${pochette}`}
-                  >{`${elem.artist}`}</div>
-                  <br />
-                  <div className={`small-400-color`}>
-                    {i18n.lng &&
-                      moment(new Date(parseInt(elem.creationDate)))
-                        .locale(i18n.lng.substring(0, 2))
-                        .fromNow()}{" "}
-                    &bull; {t("flot.split.tableaudebord.pieces.partageAvec")}
-                    <div className={"avatars"} style={{display: "inline", marginLeft: "12px"}}>{avatars}</div>
-                  </div>
-                </div>
-                <div className={`ui three wide column etat`} style={{float: "right"}}>
-
-                  {!pochette && _p && _p.etat && (
-                    <EtatMedia media={this.state.media} pochette={this.state.pochette} proposition={_p} />
-                  )}
-                  {!pochette && !nouveauDisabled && (
-                      <div
-                        className={`small-500-color ${pochette} cliquable`}
-                        onClick={() => {
-                          this.surNouveau(this.state.media.mediaId)
-                        }}
-                      >
-                        {t(
-                          "flot.split.documente-ton-oeuvre.proposition.nouvelle"
-                        )}
-                      </div>
-                    )}                  
-                  {this.state.media.initiateurPropositionEnCours && this.state.rightHolders &&
-                    this.state.rightHolders[
-                      this.state.media.initiateurPropositionEnCours
-                    ] && (
-                      <ModalPropositionEnCours
-                        open={this.state.modalePropositionEnCours}
-                        titre={this.state.media.title}
-                        initiateur={
-                          this.state.rightHolders[
-                            this.state.media.initiateurPropositionEnCours
-                          ].name
-                        }
-                        onClose={() => {
-                          this.modalePropositionEnCours(false);
-                        }}
-                      />
-                    )}                  
-                </div>
-                <div className={`ui three wide column`} style={{float: "right"}}>                  
-                  <div className={`small-500-color ${pochette} cliquable`} onClick={()=>this.utils.naviguerVersDocumentation(this.state.media.mediaId)}>
+                    className={`small-500-color ${pochette} cliquable`}
+                    onClick={() => {
+                      this.surNouveau(this.state.media.mediaId)
+                    }}
+                  >
                     {t(
-                      "flot.split.documente-ton-oeuvre.titre"
+                      "flot.split.documente-ton-oeuvre.proposition.nouvelle"
                     )}
                   </div>
-                </div>
-                <div className={`ui one wide column`} style={{float: "right"}}>
-                  <OptionsMedia 
-                    reenvoi={()=>this.utils.naviguerVersEnvoyerAuxCollaborateurs(this.state.media.mediaId)} 
-                    supprimer={this.supprimer} 
-                    user={this.state.user} 
-                    ayantDroit={this.state.user.username} 
-                    media={this.state.media} />
-                </div>
+                )}                  
+              {this.state.media.initiateurPropositionEnCours && this.state.rightHolders &&
+                this.state.rightHolders[
+                  this.state.media.initiateurPropositionEnCours
+                ] && (
+                  <ModalPropositionEnCours
+                    open={this.state.modalePropositionEnCours}
+                    titre={this.state.media.title}
+                    initiateur={
+                      this.state.rightHolders[
+                        this.state.media.initiateurPropositionEnCours
+                      ].name
+                    }
+                    onClose={() => {
+                      this.modalePropositionEnCours(false);
+                    }}
+                  />
+                )}                  
+            </div>
+            <div className={`ui four wide column`} style={{float: "right"}}>                  
+              <div className={`small-500-color ${pochette} cliquable`} onClick={()=>utils.naviguerVersDocumentation(this.state.media.mediaId)}>
+                {t(
+                  "flot.split.documente-ton-oeuvre.titre"
+                )}
               </div>
-            </div>            
+            </div>
+            <div className={`ui one wide column`} style={{float: "right"}}>
+              <OptionsMedia 
+                reenvoi={()=>utils.naviguerVersEnvoyerAuxCollaborateurs(this.state.media.mediaId)} 
+                supprimer={this.supprimer} 
+                user={this.state.user} 
+                ayantDroit={this.state.user.username} 
+                media={this.state.media} />
+            </div>
           </div>
-        )}
-      </Translation>
-    );
+        </div>
+      </div>
+    )
   }
 }
+
+export default withTranslation()(LigneMedia)

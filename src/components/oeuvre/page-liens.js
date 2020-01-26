@@ -10,7 +10,7 @@ import GooglePlayIcon from "../../assets/svg/icons/googleplaymusic.svg";
 import AppleIcon from "../../assets/svg/icons/apple.svg";
 import AmazonMusicIcon from "../../assets/svg/icons/amazonmusic.svg";
 import YoutubeIcon from "../../assets/svg/icons/youtube.svg";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import ChampStreaming from "../page-assistant/champ-streaming";
 import DotIcon from "../../assets/svg/icons/dot.svg";
 import SoundCloudIcon from "../../assets/svg/icons/soundcloud.svg";
@@ -19,9 +19,9 @@ import { Dropdown } from "semantic-ui-react";
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg";
 import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg";
 import "../../assets/scss/page-assistant/champ.scss";
-import { SauvegardeAutomatiqueMedia } from "./SauvegardeAutomatique";
+import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique";
 
-export default class PageLiens extends React.Component {
+class PageLiens extends React.Component {
   defaultStreamingApps = [
     {
       icon: SpotifyIcon,
@@ -166,55 +166,54 @@ export default class PageLiens extends React.Component {
   }
 
   render() {
+    let t = this.props.t
     return (
-      <Translation>
-        {t => (
-          <Page pochette={this.props.pochette}>
-            <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
-            <Colonne>
-              <Entete
-                pochette={this.props.pochette}
-                icon={this.icon()}
-                label={t(
-                  "flot.split.documente-ton-oeuvre.documenter.entete.lien"
-                )}
-                question={t(
-                  "flot.split.documente-ton-oeuvre.documenter.titre7"
-                )}
-                description={t(
-                  "flot.split.documente-ton-oeuvre.documenter.titre7-description"
-                )}
-              />
-              <TitreChamp
-                label={
-                  <>{this.props.values.title}<br />
-                    {t("flot.split.documente-ton-oeuvre.documenter.entete.lien")}</>
-                }
-              />
+      <Page pochette={this.props.pochette}>
+        <SauvegardeAutomatiqueMedia etat={true} values={this.props.values} interval={10000} />
+        <Colonne>
+          <Entete
+            pochette={this.props.pochette}
+            icon={this.icon()}
+            label={t(
+              "flot.split.documente-ton-oeuvre.documenter.entete.lien"
+            )}
+            question={t(
+              "flot.split.documente-ton-oeuvre.documenter.titre7"
+            )}
+            description={t(
+              "flot.split.documente-ton-oeuvre.documenter.titre7-description"
+            )}
+          />
+          <TitreChamp
+            label={
+              <>{this.props.values.title}<br />
+                {t("flot.split.documente-ton-oeuvre.documenter.entete.lien")}</>
+            }
+          />
 
-              {this.renderStreamingFields()}
+          {this.renderStreamingFields()}
 
-              <Dropdown
-                className={"with-trigger-icon"}
-                trigger={this.triggerLabel()}
-                fluid
-                search
-                selection
-                selectOnBlur={false}
-                selectOnNavigation={false}
-                allowAdditions
-                additionLabel={this.plusCircleLabel(
-                  t("flot.split.documente-ton-oeuvre.documenter.entete.lien")
-                )}
-                value={this.state.dropdownValue}
-                options={this.unselectedAppOptions()}
-                onChange={this.handleChange}
-                onSearchChange={this.handleSearchChange}
-              />
-            </Colonne>
-          </Page>
-        )}
-      </Translation>
-    );
+          <Dropdown
+            className={"with-trigger-icon"}
+            trigger={this.triggerLabel()}
+            fluid
+            search
+            selection
+            selectOnBlur={false}
+            selectOnNavigation={false}
+            allowAdditions
+            additionLabel={this.plusCircleLabel(
+              t("flot.split.documente-ton-oeuvre.documenter.entete.lien")
+            )}
+            value={this.state.dropdownValue}
+            options={this.unselectedAppOptions()}
+            onChange={this.handleChange}
+            onSearchChange={this.handleSearchChange}
+          />
+        </Colonne>
+      </Page>
+    )
   }
 }
+
+export default withTranslation()(PageLiens)

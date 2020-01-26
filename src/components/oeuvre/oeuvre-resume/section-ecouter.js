@@ -1,7 +1,7 @@
 import React from "react";
 
 import TitreModifiable from "./titre-modifiable";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import deezerIconOrange from "../../../assets/svg/icons/deezer-orange.svg";
 import appleIconOrange from "../../../assets/svg/icons/apple-orange.svg";
 import youtubeIconOrange from "../../../assets/svg/icons/youtube-orange.svg";
@@ -25,7 +25,7 @@ let deezerIcon,
   soundcloudIcon,
   spotifyIcon;
 
-export default class SectionEcouter extends React.Component {
+class SectionEcouter extends React.Component {
   constructor(props) {
     super(props);
 
@@ -137,27 +137,25 @@ export default class SectionEcouter extends React.Component {
   }
 
   render() {
-    return (
-      <Translation>
-        {(t, i18n) => (
-          <>
-            <TitreModifiable
-              jeton={this.props.jeton}
-              edition={this.props.edition}
-              pageNo={7}
-              mediaId={this.props.media.mediaId}
-            >
-              <h4 className={"corps-title-2"}>
-                {t("sommaire.ecouter.ecouter")}
-              </h4>
-            </TitreModifiable>
+    const t = this.props.t
+    return (      
+      <>
+        <TitreModifiable
+          jeton={this.props.jeton}
+          edition={this.props.edition}
+          pageNo={7}
+          mediaId={this.props.media.mediaId}
+        >
+          <h4 className={"corps-title-2"}>
+            {t("sommaire.ecouter.ecouter")}
+          </h4>
+        </TitreModifiable>
 
-            <div className={"listen-icons"}>
-              {this.state.liens.map(link => this.renderLink(link))}
-            </div>
-          </>
-        )}
-      </Translation>
-    );
+        <div className={"listen-icons"}>
+          {this.state.liens.map(link => this.renderLink(link))}
+        </div>
+      </>        
+    )
   }
 }
+export default withTranslation()(SectionEcouter)

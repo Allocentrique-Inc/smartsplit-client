@@ -1,20 +1,14 @@
-/** 
- * Assistant d'affichage du dashboard
- */
+import {AyantsDroit} from '../../../utils/application'
 import './beignet.css'
 import copyIcon from './copyIcon.png'
 import starIcon from './starIcon.png'
 import prodIcon from './prodIcon.png'
 import React, { Component } from 'react'
+import { withTranslation } from 'react-i18next'
 
-// Traduction
-import { Translation } from 'react-i18next'
-import AideAyantDroit from '../../../utils/ayantdroit'
-
-// D3
 const d3 = require('d3')
 
-export default class Beignet extends Component {
+class Beignet extends Component {
 
     constructor(props) {
         super(props)
@@ -30,7 +24,6 @@ export default class Beignet extends Component {
             type: props.type,
             accomp: false
         }
-
     }
 
     componentDidMount() {
@@ -50,23 +43,17 @@ export default class Beignet extends Component {
         let _c = {}
         let _a = {}
         if (props.data && props.data.length > 0) {
-
-            // construction
             let accomp = false
-
             props.data.forEach(elem => {
                 let nom
                 if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                    nom = AideAyantDroit.affichageDuNom(elem.ayantDroit)                    
+                    nom = AyantsDroit.affichageDuNom(elem.ayantDroit)                    
                     if (elem.principal) _pri[nom] = elem.pourcent
                     else _acc[nom] = elem.pourcent
-                    //_d[nom] = elem.pourcent
                 }
                 _c[nom] = elem.color;
                 _a[nom] = elem.alpha;
             })
-            //_d = _pri
-            //_acc.forEach(elem => {_d[elem.key] = elem.value})
             _d = Object.assign({}, _pri, _acc);            
             if (Object.keys(_pri).length > 0 && Object.keys(_acc).length > 0) accomp = true
             this.setState({ data: _d })
@@ -78,14 +65,12 @@ export default class Beignet extends Component {
     }
 
     genererBeignet() {
-
         // Remettre à zéro le conteneur du beignet
         if (this.state.type === "workCopyrightSplit") this.setState({ icon: copyIcon })
         if (this.state.type === "performanceNeighboringRightSplit") this.setState({ icon: starIcon })
         if (this.state.type === "masterNeighboringRightSplit") this.setState({ icon: prodIcon })
         let chartRotation = 0
         if (this.state.type === "performanceNeighboringRightSplit" && this.state.accomp) chartRotation = 216
-
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
         if (conteneur) {
             let enfants = conteneur.childNodes
@@ -222,16 +207,13 @@ export default class Beignet extends Component {
         }, 0)
 
         return (
-            <Translation>
-                {
-                    (t, i18n) =>
-                        <div style={{ margin: "0 auto" }}>
-                            {this.props.titre && (<h4>{this.props.titre}</h4>)}
-                            <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
-                            </div>
-                        </div>
-                }
-            </Translation>
+            <div style={{ margin: "0 auto" }}>
+                {this.props.titre && (<h4>{this.props.titre}</h4>)}
+                <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
+                </div>
+            </div>           
         )
     }
 }
+
+export default withTranslation()(Beignet)

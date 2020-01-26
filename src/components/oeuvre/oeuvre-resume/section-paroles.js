@@ -39,8 +39,8 @@ export class BaseSectionParoles extends React.Component {
       }
     }
 
-    return (
-      paroles && (
+    if(paroles) {
+      return (      
         <>
           <TitreModifiable
             jeton={this.props.jeton}
@@ -66,6 +66,9 @@ export class BaseSectionParoles extends React.Component {
           </div>
         </>
       )
-    );
+    } else {
+      return (<></>)
+    }
+    
   }
 }

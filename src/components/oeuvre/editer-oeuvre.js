@@ -1,47 +1,37 @@
-/**
- * Assistant de saisie de la description d'une oeuvre
- */
-import React, { Component } from "react";
-import { Wizard } from "semantic-ui-react-formik-iptoki";
-import axios from "axios";
+import {config, Identite, journal} from '../../utils/application'
+import React, { Component } from "react"
+import { Wizard } from "semantic-ui-react-formik-iptoki"
+import axios from "axios"
+import PageCreation from "./page-creation"
+import PageInterpretation from "./page-interpretation"
+import PageInformationsGenerales from "./page-informations-generales"
+import PageParoles from "./page-paroles"
+import PageLiens from "./page-liens"
+import PageEnregistrement from "./page-enregistrement"
+import PageFichiers from "./page-fichiers"
+import { toast } from "react-toastify"
+import { withTranslation } from "react-i18next"
+import Navbar from "../navigation/navbar"
+import ModaleConnexion from "../auth/Connexion"
 
-// Pages de l'assistant
-import PageCreation from "./page-creation";
-import PageInterpretation from "./page-interpretation";
-import PageInformationsGenerales from "./page-informations-generales";
-import PageParoles from "./page-paroles";
-import PageLiens from "./page-liens";
-import PageEnregistrement from "./page-enregistrement";
-import PageFichiers from "./page-fichiers";
-// Alertes
-import { toast } from "react-toastify";
-// Traduction
-import { Translation } from "react-i18next";
-import { Navbar } from "../navigation/navbar";
-
-import { Auth } from "aws-amplify";
-
-import ModaleConnexion from "../auth/Connexion";
-
-// Modèle
+const NOM = "EditerOeuvre"
 
 class EditerOeuvre extends Component {
   constructor(props) {
-    super(props);
-
+    super(props);    
     this.state = {
       rightHolders: [],
       endModalOpen: false,
       modaleConnexion: false,
       mediaId: props.mediaId,
       jeton: props.jeton
-    };
+    }
   }
 
   componentWillMount() {
     if (this.state.jeton) {
       axios
-        .post(`http://dev.api.smartsplit.org:8080/v1/media/decodeMedia`, {
+        .post(`${config.API_URL}media/decodeMedia`, {
           jeton: this.state.jeton
         })
         .then(res => {
@@ -50,20 +40,24 @@ class EditerOeuvre extends Component {
             parseInt(this.state.mediaId) === res.data.mediaId &&
             res.data.acces === 3
           ) {
-            this.chargement(true);
+            this.chargement(true)
           }
         })
-        .catch(err => console.log(err));
+        .catch(err => journal.erreur(NOM,err))
     } else {
-      this.chargement();
+      // Teste si l'usager est le créateur de l'oeuvre (dans le système)
+      axios.get(`${config.API_URL}media/${this.state.mediaId}`)
+      .then((_m)=>{
+        this.chargement(Identite.usager.username === _m.data.Item.creator)        
+      })
     }
   }
 
-  getMedia(admin, response = false) {
+  getMedia(admin, response = false) {  
     if (this.state.mediaId) {
       axios
         .get(
-          `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
+          `${config.API_URL}media/${this.state.mediaId}`
         )
         .then(res => {
           if (res.data.Item) {
@@ -84,18 +78,11 @@ class EditerOeuvre extends Component {
     }
   }
 
-  chargement(admin = false) {
-    if (!admin) {
-      Auth.currentAuthenticatedUser()
-        .then(response => {
-          this.getMedia(admin, response);
-        })
-        .catch(error => {
-          console.log(error);
-          this.setState({ modaleConnexion: true });
-        });
+  chargement(admin = false) {    
+    if(Identite.usager) {
+      this.setState({user: Identite.usager}, ()=>this.getMedia(admin, Identite.usager))
     } else {
-      this.getMedia(admin);
+      this.setState({ modaleConnexion: true })
     }
   }
 
@@ -109,7 +96,7 @@ class EditerOeuvre extends Component {
 
   fetchApiRightHolders() {
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
+      .get(`${config.API_URL}rightHolders`)
       .then(response => {
         // Ordonnancement simple uuid -> nom d'artiste
         let assocUuidArtiste = {};
@@ -268,11 +255,8 @@ class EditerOeuvre extends Component {
       endModalOpen: true
     });
 
-    // Traitement des dates
-
-
     axios
-      .post("http://dev.api.smartsplit.org:8080/v1/media", values)
+      .post(`${config.API_URL}media`, values)
       .then(response => {
         actions.setSubmitting(false);
         if (this.state.jeton) {
@@ -381,43 +365,40 @@ class EditerOeuvre extends Component {
   }
 
   render() {
+    const t = this.props.t, i18n = this.props.i18n
     if ((this.state.user || this.state.jeton) && this.state.media) {
-      return (
-        <Translation>
-          {(t, i18n) => (
+      return (        
+        <>
+          <Navbar
+            songTitle={this.state.title}
+            pochette={this.props.pochette}
+            progressPercentage={this.state.progressPercentage}
+            profil={this.state.user}
+            media={this.state.media}
+          />
+          {this.state.rightHolders && this.props.pageNo && (
             <>
-              <Navbar
-                songTitle={this.state.title}
-                pochette={this.props.pochette}
-                progressPercentage={this.state.progressPercentage}
-                profil={this.state.user}
-                media={this.state.media}
-              />
-              {this.state.rightHolders && this.props.pageNo && (
-                <>
-                  <Wizard
-                    initialValues={this.getInitialValues()}
-                    onPageChanged={this.onPageChanged}
-                    onSubmit={this.onSubmit}
-                    buttonLabels={{
-                      previous: t("navigation.precedent"),
-                      next: t("navigation.suivant"),
-                      submit: t("navigation.envoi")
-                    }}
-                    debug={false}
-                  >
-                    {this.renduPage(i18n)}
-                  </Wizard>
-                </>
-              )}
-              {this.props.pochette &&
-                document.getElementsByClassName("ui right floated button")
-                  .length > 0 &&
-                this.boutonsCouleurPochette()}
+              <Wizard
+                initialValues={this.getInitialValues()}
+                onPageChanged={this.onPageChanged}
+                onSubmit={this.onSubmit}
+                buttonLabels={{
+                  previous: t("navigation.precedent"),
+                  next: t("navigation.suivant"),
+                  submit: t("navigation.envoi")
+                }}
+                debug={false}
+              >
+                {this.renduPage(i18n)}
+              </Wizard>
             </>
           )}
-        </Translation>
-      );
+          {this.props.pochette &&
+            document.getElementsByClassName("ui right floated button")
+              .length > 0 &&
+            this.boutonsCouleurPochette()}
+        </>          
+      )
     } else {
       return (
         <ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />
@@ -426,4 +407,4 @@ class EditerOeuvre extends Component {
   }
 }
 
-export default EditerOeuvre;
+export default withTranslation()(EditerOeuvre)

@@ -445,3 +445,47 @@ export class PlusHorizontalSVG extends SVG {
     );
   }
 }
+
+export class FlecheBasSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="14"
+        height="8"
+        viewBox="0 0 14 8"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1L7 7L13 1"
+          stroke="#8DA0B3"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    );
+  }
+}
+
+export class FlecheHautSVG extends SVG {
+  render() {
+    return (
+      <svg
+        width="14"
+        height="8"
+        viewBox="0 0 14 8"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M13 7L7 1L1 7"
+          stroke="#8DA0B3"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    );
+  }
+}

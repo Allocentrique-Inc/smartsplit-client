@@ -1,30 +1,24 @@
 import React from "react";
 import "../../assets/scss/page-assistant/input-fichier.scss";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
-export default class InputFichier extends React.Component {
+class InputFichier extends React.Component {
   constructor(props) {
     super(props);
-
     this.fileInputRef = React.createRef();
-
     const filename = this.props.value ? this.props.value.name : "";
-
     this.state = {
       filename: filename
-    };
+    }
   }
 
   placeholder() {
-    return (
-      <Translation>
-        {t =>
+    const t = this.props.t
+    return (      
           this.state.filename ||
           this.props.placeholder ||
-          t("flot.split.documente-ton-oeuvre.documenter.glisse")
-        }
-      </Translation>
-    );
+          t("flot.split.documente-ton-oeuvre.documenter.glisse")      
+    )
   }
 
   clickFileInput = event => {
@@ -48,28 +42,23 @@ export default class InputFichier extends React.Component {
   }  
 
   render() {
-
-    return (
-      <Translation>
-        {t => (
-          <div
-            className="file-input-container"            
-          >
-            <div className="ui button" onClick={this.clickFileInput}>
-              {t("flot.split.documente-ton-oeuvre.documenter.choix")}
-            </div>
-
-            <div className="placeholder cliquable">{this.placeholder()}</div>
-
-            <input
-              ref={this.fileInputRef}
-              className="hidden"
-              type="file"
-              onChange={this.handleFileInputChange}
-            />
-          </div>
-        )}
-      </Translation>
-    );
+    const t = this.props.t
+    return (    
+      <div
+        className="file-input-container"            
+      >
+        <div className="ui button" onClick={this.clickFileInput}>
+          {t("flot.split.documente-ton-oeuvre.documenter.choix")}
+        </div>
+        <div className="placeholder cliquable">{this.placeholder()}</div>
+        <input
+          ref={this.fileInputRef}
+          className="hidden"
+          type="file"
+          onChange={this.handleFileInputChange}
+        />
+      </div>
+    )
   }
 }
+export default withTranslation()(InputFichier)

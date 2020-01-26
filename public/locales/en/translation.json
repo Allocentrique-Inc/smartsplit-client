@@ -660,7 +660,7 @@
       "vote": {
         "accept": "Approved",
         "reject": "Rejected",
-        "active": "Waiting",
+        "active": "Waiting for a decision",
         "accepter": "ACCEPT",
         "refuser": "REJECT"
       },
@@ -834,6 +834,9 @@
     "parole": {
       "parole": "Lyrics",
       "voir": "See the lyrics"
+    },
+    "musique": {
+      "musique": "Musique"
     },
     "info": {
       "info": "General Information",

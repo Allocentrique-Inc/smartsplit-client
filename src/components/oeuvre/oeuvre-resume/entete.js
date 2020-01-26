@@ -1,13 +1,13 @@
+import {config} from '../../../utils/application'
 import React from "react";
 import placeholder from "../../../assets/images/placeholder.png";
 import "../../../assets/scss/oeuvre-resume/entete.scss";
-
 import editIcon from "../../../assets/svg/icons/edit.svg";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import moment from "moment";
 import axios from "axios"
 
-export default class Entete extends React.Component {
+class Entete extends React.Component {
   
   constructor(props){
     super(props)
@@ -17,28 +17,28 @@ export default class Entete extends React.Component {
     }
     this.avatars = []
     let _avatars = {}
-    this.state.media.rightHolders.forEach(r=>{
-      
-      if(!this.avatars[r.id]) {        
-        let nom, prenom, nomArtiste, avatar, uuid
-        if(props.rightHolders[r.id]) {        
-          uuid = props.rightHolders[r.id].rightHolderId   
-          nom = props.rightHolders[r.id].lastName
-          prenom = props.rightHolders[r.id].firstName
-          nomArtiste = props.rightHolders[r.id].artistName
-          avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${props.rightHolders[r.id].avatarImage}`
-        } else {
-          uuid = " "
-          nom = " "
-          prenom = " "
-          nomArtiste = " "
-          avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/image.jpg`
-        }
-        _avatars[r.id] = {nom, prenom, nomArtiste, avatar, uuid}
-      }
-     
-    })
 
+    if(this.state.media.rightHolders) {
+      this.state.media.rightHolders.forEach(r=>{      
+        if(!this.avatars[r.id]) {        
+          let nom, prenom, nomArtiste, avatar, uuid
+          if(props.rightHolders[r.id]) {        
+            uuid = props.rightHolders[r.id].rightHolderId   
+            nom = props.rightHolders[r.id].lastName
+            prenom = props.rightHolders[r.id].firstName
+            nomArtiste = props.rightHolders[r.id].artistName
+            avatar = `${config.IMAGE_SRV_URL}${props.rightHolders[r.id].avatarImage}`
+          } else {
+            uuid = " "
+            nom = " "
+            prenom = " "
+            nomArtiste = " "
+            avatar = `${config.IMAGE_SRV_URL}image.jpg`
+          }
+          _avatars[r.id] = {nom, prenom, nomArtiste, avatar, uuid}
+        }
+      })
+    }
     Object.keys(_avatars).forEach(a=>this.avatars.push(_avatars[a]))
     moment.defaultFormat = "DD-MM-YYYY HH:mm"
   }  
@@ -78,7 +78,7 @@ export default class Entete extends React.Component {
   }
 
   getMedia() {
-    axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.media.mediaId}`)
+    axios.get(`${config.API_URL}media/${this.state.media.mediaId}`)
     .then(res => {
         let media = res.data.Item
         this.setState({ media: media })
@@ -87,7 +87,7 @@ export default class Entete extends React.Component {
 
   majTitre() {
     let titre = document.getElementById('titre').value
-    axios.patch(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.media.mediaId}/title`, {
+    axios.patch(`${config.API_URL}media/${this.state.media.mediaId}/title`, {
         mediaId: this.state.media.mediaId,
         title: titre
     })
@@ -102,6 +102,8 @@ export default class Entete extends React.Component {
 
   render() {
 
+    let t = this.props.t, i18n = this.props.i18n
+
     this.ROLE_GRAPHISTE = "45745c60-7b1a-11e8-9c9c-2d42b21b1a43"
     this.graphistes = []
     
@@ -109,18 +111,19 @@ export default class Entete extends React.Component {
 
     if(this.state.media) {      
       let parts  = this.state.media.rightHolders
-      parts.forEach(_ad=>{
-        let rhId = _ad.id
-        _ad.roles.forEach(_r=>{
-          switch(_r) {          
-            case this.ROLE_GRAPHISTE:
-              this.graphistes.push(this.props.rightHolders[rhId])
-              break
-            default:
-          }
+      if(parts){
+        parts.forEach(_ad=>{
+          let rhId = _ad.id
+          _ad.roles.forEach(_r=>{
+            switch(_r) {          
+              case this.ROLE_GRAPHISTE:
+                this.graphistes.push(this.props.rightHolders[rhId])
+                break
+              default:
+            }
+          })
         })
-      })
-
+      }      
       illustrateurs = this.graphistes.map((r, idx)=>{
         if(r && idx < this.graphistes.length - 1) {
             return <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}, </span>
@@ -136,112 +139,110 @@ export default class Entete extends React.Component {
     if(this.state.media.files && this.state.media.files.cover && this.state.media.files.cover.files && this.state.media.files.cover.files.length > 0) {
       this.state.media.files.cover.files.forEach(e=>{
         if(e.access === 'public') {
-          imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.state.media.mediaId}/cover/${e.file}`
+          imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${this.state.media.mediaId}/cover/${e.file}`
         }
       })      
-    }
+    }    
 
     return (
-      <Translation>
-        {(t, i18n) => (
-          <header className="entete">
-            <div className={"ui container flex"}>
-              <div className="other-info">
-                <img
-                  className={"song-image"}
-                  src={imageSrc}
-                  width="144"
-                  heigth="144"
-                  alt={this.state.media.title}
-                />
-                <br/>
-                {
-                  illustrateurs.length > 0 && (
-                    <>{t('oeuvre.par')}{" "}{illustrateurs}</>
-                  )
-                }                
-              </div>              
+      <header className="entete">
+        <div className={"ui container flex"}>
+          <div className="other-info">
+            <img
+              className={"song-image"}
+              src={imageSrc}
+              width="144"
+              heigth="144"
+              alt={this.state.media.title}
+            />
+            <br/>
+            {
+              illustrateurs.length > 0 && (
+                <>{t('oeuvre.par')}{" "}{illustrateurs}</>
+              )
+            }                
+          </div>              
 
-              <div className={"song-info"}>                
+          <div className={"song-info"}>                
 
-                {
-                  this.state.editerTitre &&
-                  (
-                    <div className="ui input">
-                      <input
-                          size="50"
-                          id="titre"
-                          type="text"
-                          placeholder="Saisir un titre"
-                          defaultValue={this.state.media.title}
-                          onKeyPress={(e) => {
-                              if (e.key === "Enter") {
-                                  this.majTitre()
-                                  this.editerTitre(false)
-                              }
-                          }}
-                      ></input>
-                      <i
-                          onClick={() => {
-                              this.majTitre();
+            {
+              this.state.editerTitre &&
+              (
+                <div className="ui input">
+                  <input
+                      size="50"
+                      id="titre"
+                      type="text"
+                      placeholder="Saisir un titre"
+                      defaultValue={this.state.media.title}
+                      onKeyPress={(e) => {
+                          if (e.key === "Enter") {
+                              this.majTitre()
                               this.editerTitre(false)
-                          }}
-                          className="save alternate icon grey big"
-                          style={{
-                              cursor: "pointer",
-                              paddingTop: "5px",
-                              paddingLeft: "5px"
-                          }}>
-                      </i>
-                    </div>
-                  )
-                }
-                {
-                  !this.state.editerTitre &&
-                  (
-                    <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
-                      {
-                       this.props.edition && (
-                        <img
-                          src={editIcon}
-                          alt="Éditer le titre"
-                          onClick={() => {
-                            this.editerTitre(true)
-                          }}
-                          className="pencil alternate icon grey"
-                          style={{ cursor: "pointer" }}>
-                        </img>
-                       ) 
-                      }                      
-                    </h1>
-                  )
-                }
-
-                <div className={"artist-line"}>
-                  <div className={"left"}>
-                    <span className={"tag"}>{t("oeuvre.piece")}</span>
-                    {t("oeuvre.par")} <span>{this.state.media.artist}</span>{" "}
-                  </div>
-
-                  <div className={"right"}>
-                    <div className={"avatars"}>{this.renderAvatars()}</div>
-                  </div>
+                          }
+                      }}
+                  ></input>
+                  <i
+                      onClick={() => {
+                          this.majTitre();
+                          this.editerTitre(false)
+                      }}
+                      className="save alternate icon grey big"
+                      style={{
+                          cursor: "pointer",
+                          paddingTop: "5px",
+                          paddingLeft: "5px"
+                      }}>
+                  </i>
                 </div>
+              )
+            }
+            {
+              !this.state.editerTitre &&
+              (
+                <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
+                  {
+                    this.props.edition && (
+                    <img
+                      src={editIcon}
+                      alt="Éditer le titre"
+                      onClick={() => {
+                        this.editerTitre(true)
+                      }}
+                      className="pencil alternate icon grey"
+                      style={{ cursor: "pointer" }}>
+                    </img>
+                    ) 
+                  }                      
+                </h1>
+              )
+            }
 
-                <div className={"header-divider"}></div>
+            <div className={"artist-line"}>
+              <div className={"left"}>
+                <span className={"tag"}>{t("oeuvre.piece")}</span>
+                {t("oeuvre.par")} <span>{this.state.media.artist}</span>{" "}
+              </div>
 
-                <div className={"other-info"}>
-                  {t("oeuvre.creePar")} <span>{this.props.rightHolders[this.state.media.creator].artistName}</span> &middot; Mis
-                  à jour {i18n.lng &&
-                      moment(new Date(parseInt((this.state.media.modificationDate ? this.state.media.modificationDate : this.state.media.creationDate), moment.defaultFormat)))
-                        .locale(i18n.lng.substring(0, 2))
-                        .fromNow()}
-                </div>
+              <div className={"right"}>
+                <div className={"avatars"}>{this.renderAvatars()}</div>
               </div>
             </div>
-          </header>
-        )}
-      </Translation>
-    );
+
+            <div className={"header-divider"}></div>
+
+            <div className={"other-info"}>
+              {t("oeuvre.creePar")} <span>{this.props.rightHolders[this.state.media.creator].artistName}</span> &middot; Mis
+              à jour {i18n.language &&
+                  moment(new Date(parseInt((this.state.media.modificationDate ? this.state.media.modificationDate : this.state.media.creationDate), moment.defaultFormat)))
+                    .locale(i18n.language.substring(0, 2))
+                    .fromNow()}
+            </div>
+          </div>
+        </div>
+      </header>
+    )
   }
 }
+
+export default withTranslation()(Entete)
