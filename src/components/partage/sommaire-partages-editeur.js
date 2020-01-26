@@ -26,14 +26,14 @@ class SommairePartagesEditeur extends Component {
 
     componentWillMount() {
         if(Identite.usager) {
-            this.setState({ user: Identite.usager })
-            this.initialisation()
+            this.setState({ user: Identite.usager }, ()=>{this.initialisation()})            
         } else {
             this.setState({ modaleConnexion: true })
         }
     }
 
-    initialisation() {      
+    initialisation() {
+        console.log(this.state.user, AyantsDroit.ayantsDroit)
         let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]        
         this.setState({ ayantDroit: _rAd }, async () => {
             try {
@@ -99,12 +99,6 @@ class SommairePartagesEditeur extends Component {
                 nouveauDisabled = true
             }        
             let that = this
-            let message
-            if (this.state.user && _p0 && _p0.etat === "VOTATION" && !this.state.jetonApi) {
-                message = (                    
-                    <h4 className="ui color orange">{t('flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton')}</h4>                    
-                )
-            }
             return (                
                 <>
                     { (this.state.creerNouveauPartage || this.state.propositions.length === 0) &&
@@ -121,48 +115,35 @@ class SommairePartagesEditeur extends Component {
                         </div>
                     }
                     { !this.state.creerNouveauPartage &&
-                        <div className="ui row">
-                            <div className="ui one column" />
-                            <div className="ui twelve wide column">
-                                <div className="ui grid" style={{ padding: "10px" }}>
-                                    <div className="ui row">
-                                        <div className="ui two wide column" />
-                                        <div className="ui eight wide column">
-                                            {message}
-                                        </div>
-                                        <div className="ui four wide column">                                            
-                                            {
-                                                !nouveauDisabled && (
-                                                    <div className={`ui medium button`} onClick={
-                                                        () => {
-                                                            this.creerNouvelle()
-                                                        }
-                                                    }>
-                                                        {t('flot.split.documente-ton-oeuvre.proposition.nouvelle')}
-                                                    </div>
-                                                )
-                                            }                                            
-                                        </div>
-                                    </div>                                        
-                                    <div className="ui row">
-                                        <div className="ui two wide column" />
-                                        <Accordion fluid styled>
-                                            {propositions}
-                                        </Accordion>
-                                        <div className="ui two wide column" />
-                                    </div>                                                                      
-                                    {
-                                        this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
-                                            <script language="javascript">
-                                                setTimeout(()=>{
-                                                    toast.warn(t('flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton'))
-                                                })
-                                            </script>
-                                        )
-                                    }
-                                </div>                                            
-                            </div>
-                        </div>
+                        <div className="ui row">                            
+                            {
+                                !nouveauDisabled && (
+                                    <div className={`ui medium button`} onClick={
+                                        () => {
+                                            this.creerNouvelle()
+                                        }
+                                    }>
+                                        {t('flot.split.documente-ton-oeuvre.proposition.nouvelle')}
+                                    </div>
+                                )
+                            }
+                            <div className="ui row">
+                                <div className="ui two wide column" />
+                                <Accordion fluid styled>
+                                    {propositions}
+                                </Accordion>
+                                <div className="ui two wide column" />
+                            </div>                                                                      
+                            {
+                                this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
+                                    <script language="javascript">
+                                        setTimeout(()=>{
+                                            toast.warn(t('flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton'))
+                                        })
+                                    </script>
+                                )
+                            }
+                        </div>                            
                     }
                     <Modal
                         open={this.state.modaleConnexion}

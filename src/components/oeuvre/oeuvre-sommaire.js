@@ -44,7 +44,7 @@ class SommaireOeuvre extends Component {
     }
 
     getMedia() {
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`)
+        axios.get(`${config.API_URL}media/${this.state.mediaId}`)
             .then(res => {
                 let media = res.data.Item
                 this.setState({ media: media })
@@ -53,7 +53,7 @@ class SommaireOeuvre extends Component {
 
     majTitre() {
         let titre = document.getElementById('titre').value
-        axios.patch(`http://dev.api.smartsplit.org:8080/v1/media/${this.state.media.mediaId}/title`, {
+        axios.patch(`${config.API_URL}media/${this.state.media.mediaId}/title`, {
             mediaId: this.state.media.mediaId,
             title: titre
         })
@@ -80,7 +80,7 @@ class SommaireOeuvre extends Component {
                 if(elem.files && elem.files.cover && elem.files.cover.files && elem.files.cover.files.length > 0) {
                     elem.files.cover.files.forEach(e=>{
                         if(e.access === 'public') {
-                            imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
+                            imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${elem.mediaId}/cover/${e.file}`
                         }
                     })
                 }
@@ -88,7 +88,7 @@ class SommaireOeuvre extends Component {
 
             return (                
                 <>                                                        
-                    <div className="ui grid">                                 
+                    <div className="ui grid">
                         <div className="ui row" style={{ background: "#FAF8F9" }}>
                             <div className="ui one wide column"></div>
                             <div className="ui sixteen wide column">
@@ -229,7 +229,7 @@ class SommaireOeuvre extends Component {
                 <div className={`tdb--cadre ui row ${accueil}`}>
                     <ModaleConnexion fn={()=>{
                         this.getMedia()
-                        axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/media/${this.state.mediaId}`)
+                        axios.get(`${config.API_URL}media/${this.state.mediaId}`)
                         .then(res => {
                             let _p0
                             res.data.forEach(_p => {

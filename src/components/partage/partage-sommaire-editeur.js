@@ -5,7 +5,7 @@ import Beignet from '../visualisation/partage/beignet'
 import { withTranslation } from 'react-i18next'
 import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
-import {Identite, config} from '../../utils/application'
+import {Identite, config, AyantsDroit, utils} from '../../utils/application'
 
 class PartageSommaireEditeur extends Component {
 
@@ -50,71 +50,68 @@ class PartageSommaireEditeur extends Component {
             }
         })
 
-        // Récupère tous les ayant-droits
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
-            .then(res => {
-                let _rHs = {}
-                res.data.forEach(rh => _rHs[rh.rightHolderId] = rh)
-                this.setState({ ayantsDroit: _rHs }, () => {
-                    Object.keys(this.state.ayantsDroit).forEach(adId => {
-                        if (adId === this.state.part.rightHolderId) {
-                            this.setState({ donateur: this.state.ayantsDroit[adId] })
-                        }
-                        if (adId === this.state.part.shareeId) {
-                            this.setState({ beneficiaire: this.state.ayantsDroit[adId] }, () => {
-                                // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
-                                let _rH = {}
-                                let donnees = []
-                                let parts = this.state.proposition.rightsSplits.workCopyrightSplit
-                                // Paroles
-                                parts.lyrics.forEach((elem, idx) => {
-                                    if (!_rH[elem.rightHolder.rightHolderId]) {
-                                        _rH[elem.rightHolder.rightHolderId] = { nom: undefined, pourcent: 0 }
-                                    }
-                                    _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
-                                    _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
-                                    _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
-                                })
+        // Récupère tous les ayant-droits        
+        let _rHs = AyantsDroit.ayantsDroit
 
-                                // Musique
-                                parts.music.forEach((elem, idx) => {
-                                    if (!_rH[elem.rightHolder.rightHolderId]) {
-                                        _rH[elem.rightHolder.rightHolderId] = { nom: undefined, pourcent: 0 }
-                                    }
-                                    _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
-                                    _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
-                                    _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
-                                })
+        this.setState({ ayantsDroit: _rHs }, () => {
+            Object.keys(this.state.ayantsDroit).forEach(adId => {
+                if (adId === this.state.part.rightHolderId) {
+                    this.setState({ donateur: this.state.ayantsDroit[adId] })
+                }
+                if (adId === this.state.part.shareeId) {
+                    this.setState({ beneficiaire: this.state.ayantsDroit[adId] }, () => {
+                        // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
+                        let _rH = {}
+                        let donnees = []
+                        let parts = this.state.proposition.rightsSplits.workCopyrightSplit
+                        // Paroles
+                        parts.lyrics.forEach((elem, idx) => {
+                            if (!_rH[elem.rightHolder.rightHolderId]) {
+                                _rH[elem.rightHolder.rightHolderId] = { nom: undefined, pourcent: 0 }
+                            }
+                            _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
+                            _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
+                            _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
+                        })
 
-                                // Calcul des données pour le beignet par ayant-droit
-                                Object.keys(_rH).forEach((elem) => {
-                                    if (elem === this.state.part.rightHolderId) {
-                                        // c'est l'utlisateur connecté, on lui assigne 100 % du partage avec l'éditeur
-                                        let _aD = {}
-                                        _aD.pourcent = 100
-                                        _aD.color = _rH[elem].color
-                                        _aD.nom = _rH[elem].nom
-                                        this.setState({ ayantDroit: _aD })
-                                        this.setState({ partPrincipale: _rH[elem].pourcent })
-                                        // on pousse l'utilisateur ET l'éditeur
-                                        donnees.push({ ayantDroit: this.state.donateur, color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent * this.state.part.rightHolderPct / 100) })
-                                        donnees.push({
-                                            ayantDroit: this.state.beneficiaire,
-                                            color: "#bacada",
-                                            nom: this.state.beneficiaire.artistName ? this.state.beneficiaire.artistName : `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`,
-                                            pourcent: parseFloat(this.state.part.shareePct * _rH[elem].pourcent / 100)
-                                        })
-                                    } else {
-                                        // on pousse l'ayant-droit
-                                        donnees.push({ ayantDroit: this.state.ayantsDroit[elem], color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent) })
-                                    }
+                        // Musique
+                        parts.music.forEach((elem, idx) => {
+                            if (!_rH[elem.rightHolder.rightHolderId]) {
+                                _rH[elem.rightHolder.rightHolderId] = { nom: undefined, pourcent: 0 }
+                            }
+                            _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
+                            _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
+                            _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
+                        })
+
+                        // Calcul des données pour le beignet par ayant-droit
+                        Object.keys(_rH).forEach((elem) => {
+                            if (elem === this.state.part.rightHolderId) {
+                                // c'est l'utlisateur connecté, on lui assigne 100 % du partage avec l'éditeur
+                                let _aD = {}
+                                _aD.pourcent = 100
+                                _aD.color = _rH[elem].color
+                                _aD.nom = _rH[elem].nom
+                                this.setState({ ayantDroit: _aD })
+                                this.setState({ partPrincipale: _rH[elem].pourcent })
+                                // on pousse l'utilisateur ET l'éditeur
+                                donnees.push({ ayantDroit: this.state.donateur, color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent * this.state.part.rightHolderPct / 100) })
+                                donnees.push({
+                                    ayantDroit: this.state.beneficiaire,
+                                    color: "#bacada",
+                                    nom: this.state.beneficiaire.artistName ? this.state.beneficiaire.artistName : `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`,
+                                    pourcent: parseFloat(this.state.part.shareePct * _rH[elem].pourcent / 100)
                                 })
-                                this.setState({ donnees: donnees })
-                            })
-                        }
+                            } else {
+                                // on pousse l'ayant-droit
+                                donnees.push({ ayantDroit: this.state.ayantsDroit[elem], color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent) })
+                            }
+                        })
+                        this.setState({ donnees: donnees })
                     })
-                })
+                }
             })
+        })
     }
 
     activerBoutonVote() {
@@ -192,9 +189,9 @@ class PartageSommaireEditeur extends Component {
             choix: this.state.choix,
             jeton: this.state.jetonApi
         }
-        axios.post('http://dev.api.smartsplit.org:8080/v1/splitShare/tiers/voter', body)
+        axios.post(`${config.API_URL}splitShare/tiers/voter`, body)
             .then((res) => {
-                window.location.reload()
+                utils.naviguerVersAccueil()
             })
             .catch((err) => {
                 toast.error(err.message)
@@ -205,12 +202,13 @@ class PartageSommaireEditeur extends Component {
         this.setState({ modaleConnexion: ouvrir })
     }
 
-    transmettre(t) {
+    transmettre() {
         if(Identite.usager) {
-            if (Identite.usager.username === this.state.ayantDroit.rightHolderId) {
+            console.log(this.state)
+            if (Identite.usager.username === this.state.beneficiaire.rightHolderId) {
                 this.envoi()
             } else {
-                toast.error(t('flot.split.erreur.volIdentite'))
+                toast.error(this.props.t('flot.split.erreur.volIdentite'))
             }
         } else {
             this.modaleConnexion()
@@ -245,7 +243,7 @@ class PartageSommaireEditeur extends Component {
                                     <div className="ui row">
                                         <div className="ui two wide column">
                                             <div className="holder-name">
-                                                <img alt="" className="ui spaced avatar image" src={`https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.beneficiaire.avatarImage}`} />
+                                                <img alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.beneficiaire.avatarImage}`} />
                                             </div>
                                         </div>
                                         <div className="ui ten wide column">
@@ -314,7 +312,7 @@ class PartageSommaireEditeur extends Component {
                                     <div className="ui row">
                                         <div className="ui two wide column">
                                             <div className="holder-name">
-                                                <img alt="" className="ui spaced avatar image" src={`https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.donateur.avatarImage}`} />
+                                                <img alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.donateur.avatarImage}`} />
                                             </div>
                                         </div>
                                         <div className="ui ten wide column">
@@ -353,7 +351,7 @@ class PartageSommaireEditeur extends Component {
                         this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
                         (
                             <button className="ui medium button" disabled={!this.state.transmission} onClick={() => {
-                                this.transmettre(t)
+                                this.transmettre()
                             }}> {t('flot.split.documente-ton-oeuvre.bouton.voter')}
                             </button>
                         )

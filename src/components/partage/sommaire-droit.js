@@ -3,9 +3,11 @@ import {withTranslation} from 'react-i18next'
 import Beignet from '../visualisation/partage/beignet'
 import Beignet2 from '../visualisation/partage/beignet2'
 import Histogramme from '../visualisation/partage/histogramme'
-import avatar_espece from '../../assets/images/elliot.jpg'
 import {CopyrightSVG, StarSVG, RecordSVG } from '../svg/SVG.js'
-import {Droits} from '../../utils/application'
+// eslint-disable-next-line
+import {Droits, AyantsDroit, journal} from '../../utils/application'
+// eslint-disable-next-line
+const NOM = "SommaireDroit"
 
 class SommaireDroit extends Component {
 
@@ -87,23 +89,15 @@ class SommaireDroit extends Component {
     }
 
     render() {
-
         let t = this.props.t
-
         if (this.state.ayantsDroit) {
-
             let _parts = []
             let _data = []
-
             let beignetDouble = (this.state.type === "workCopyrightSplit")
-
             Object.keys(this.state.donnees).forEach(uuid => {
-
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
-
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
-
                 _parts.push(
                     <>
                         <div key={`part_${uuid}`}>
@@ -111,9 +105,7 @@ class SommaireDroit extends Component {
                                 <div className="ui row">
                                     <div className="ui fourteen wide column">
                                         <div className="holder-name" style={{marginTop: "30px"}}>
-                                            <img alt="" className="ui spaced avatar image" src={
-                                                (this.state.avatars && this.state.avatars[part.rightHolderId] && this.state.avatars[part.rightHolderId].avatar) ?
-                                                    this.state.avatars[part.rightHolderId].avatar : avatar_espece} />
+                                            <img alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
                                             {part.nom}
                                             <div className="vote">
                                                 <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId  ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
@@ -128,7 +120,6 @@ class SommaireDroit extends Component {
                                             <div className="role">                                                
                                                 {
                                                     part.roles.map((_e, idx) => { 
-                                                        console.log(_e)
                                                         return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
                                                     })
                                                 }                                            

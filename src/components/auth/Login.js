@@ -229,7 +229,7 @@ class LogIn extends Component {
                           <div className="control">
                             <div
                               onClick={() => {
-                                this.state.parent.afficher(2);
+                                if(this.state.parent) {this.state.parent.afficher(2)}                                
                               }}
                               className={`motdepasse-oublie ${pochette}`}
                             >

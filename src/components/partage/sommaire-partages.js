@@ -4,7 +4,7 @@ import axios from 'axios'
 import { withTranslation } from 'react-i18next'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import Login from '../auth/Login'
-import { Accordion, Icon, Checkbox } from 'semantic-ui-react'
+import { Accordion } from 'semantic-ui-react'
 import SommairePartage from './partage-sommaire'
 import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
 import { Modal, Button } from 'semantic-ui-react'
@@ -391,35 +391,7 @@ class SommairePartages extends Component {
                                     </>
                                 )
                             }
-                            {
-                                this.state.panneau === PANNEAU_EDITEUR &&
-                                (
-                                    <>
-                                        {
-                                            !this.state.nouvellePropositionEditeur && (
-                                                <div className="ui row">
-                                                    <div className="ui sixteen wide column">
-                                                        <Checkbox 
-                                                            checked={this.state.editeur} 
-                                                            onChange={
-                                                                () => this.setState({ editeur: !this.state.editeur })
-                                                            } 
-                                                            label={{ children: t('flot.split.documente-ton-oeuvre.proposition.jai-un-editeur') }} />
-                                                        <div style={{float: "right"}}>
-                                                            <div onClick={ ()=> {if(this.state.editeur) this.setState({nouvellePropositionEditeur: true})} }className={`ui medium button ${!this.state.editeur ? 'disabled' : ''}`}>{t('flot.split.documente-ton-oeuvre.proposition.partage')}</div>                                                                                                                                
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        }
-                                        {
-                                            this.state.nouvellePropositionEditeur && (
-                                                <SommairePartagesEditeur proposition={_p0} />
-                                            )
-                                        }
-                                    </>                                                
-                                )
-                            }
+                            { this.state.panneau === PANNEAU_EDITEUR && <SommairePartagesEditeur proposition={_p0} /> }
                             {
                                 this.state.proposition && this.state.proposition.etat === "VOTATION" && !this.state.jetonApi && (
                                     <script language="javascript">

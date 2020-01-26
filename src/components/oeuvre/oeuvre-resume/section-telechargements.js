@@ -4,6 +4,7 @@ import downloadCloudIcon from "../../../assets/svg/icons/download-cloud.svg";
 import lockFullIcon from "../../../assets/svg/icons/lock-full.svg";
 import TitreModifiable from "./titre-modifiable";
 import { withTranslation } from "react-i18next";
+import { config } from '../../../utils/application'
 
 class SectionTelechargements extends React.Component {
   renderDownload(download) {
@@ -63,7 +64,7 @@ class SectionTelechargements extends React.Component {
           arr.push({
             icon: this.iconeParAcces(elem.access),
             label: elem.file,
-            urls: `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/${type}/${nomfichierS3}`
+            urls: `${config.IMAGE_SRV_ARTISTES_URL}${this.props.media.mediaId}/${type}/${nomfichierS3}`
           });
         }
       });

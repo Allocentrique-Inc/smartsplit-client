@@ -1,7 +1,7 @@
+import { config } from '../../utils/application'
 import React from "react"
 import { withTranslation } from "react-i18next"
 import Page from "../page-assistant/page"
-
 import FileCircleOrange from "../../assets/svg/icons/file-circle-orange.svg"
 import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg"
 import Colonne from "../page-assistant/colonne"
@@ -11,11 +11,8 @@ import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique"
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit"
 import RightHolderOptions from "../page-assistant/right-holder-options";
 import InfoBulle from "../partage/InfoBulle"
-
 import * as roles from "../../assets/listes/role-uuids.json"
-
 import axios from 'axios'
-
 import {
   addRightHolderIfMissing,
   getRightHolderIdsByRole,
@@ -85,7 +82,7 @@ class PageFichiers extends React.Component {
       fd.append('file', fichier)                    
       let mediaId = this.props.values.mediaId                  
       fd.append('mediaId', mediaId)
-      axios.post(`http://envoi.smartsplit.org:3033/${chemin}`, fd)
+      axios.post(`${config.FICHIERS_SRV_URL}${chemin}`, fd)
       .then(res => {
         
       })

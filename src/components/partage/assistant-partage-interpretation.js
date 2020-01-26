@@ -1,4 +1,4 @@
-import { AyantsDroit } from "../../utils/application"
+import { AyantsDroit, config } from "../../utils/application"
 import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
 import { Checkbox } from 'semantic-ui-react'
@@ -326,11 +326,11 @@ class PageAssistantPartageInterpretation extends Component {
                                                             ]
                                                             let avatar = ''
                                                             let _aD = part.ayantDroit
-                                                            // Y a-t-il un avatar ?
+                                                            
                                                             if (_aD.avatarImage)
-                                                                avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${_aD.avatarImage}`
+                                                                avatar = `${config.IMAGE_SRV_URL}${_aD.avatarImage}`
                                                             else
-                                                                avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+                                                                avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
 
                                                             return (
                                                                 <div key={`part-${index}`}>

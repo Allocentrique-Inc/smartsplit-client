@@ -221,8 +221,19 @@
   background-color: $smartsplit-color-link;
   &.pochette {
     background-color: $pochette-color-link;
+  }  
+}
+
+.ui.medium.button.infobulle {
+  border: 1px solid #dcdfe1;
+  background-color: #FAF8F9;
+  color: $smartsplit-color-link;
+  &:hover {
+    color:  #FAF8F9;    
+    background-color: $smartsplit-color-link;
   }
 }
+
 .medium.button.options {
   background-color: $smartsplit-color-link;
   width: auto;

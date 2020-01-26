@@ -1,4 +1,4 @@
-import {AyantsDroit, Identite, utils, journal} from '../../utils/application'
+import {AyantsDroit, Identite, utils, journal, config} from '../../utils/application'
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
 import { Dropdown } from "semantic-ui-react"
@@ -60,8 +60,8 @@ class MenuProfil extends Component {
           this.state.user.avatarImage === "image.jpg"
           ? !this.props.pochette
             ? ""
-            : "https://images-publiques.s3.amazonaws.com/avatar.png"
-          : `https://smartsplit-images.s3.us-east-2.amazonaws.com/${this.state.user.avatarImage}`;
+            : `${config.IMAGE_SRV_URL}avatar.png`
+          : `${config.IMAGE_SRV_URL}${this.state.user.avatarImage}`
       userInitials =
         this.state.user.avatarImage === null ? this.state.initials : null;
       nomComplet = this.state.user.artistName

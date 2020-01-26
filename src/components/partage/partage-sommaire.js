@@ -6,7 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
 import Declaration from '../auth/Declaration'
-import {Droits, Identite} from '../../utils/application'
+import {Droits, Identite, AyantsDroit, config} from '../../utils/application'
 import SommaireDroit from './sommaire-droit'
 
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
@@ -30,49 +30,7 @@ class SommairePartage extends Component {
 
     componentWillMount() {
 
-        // Récupère tous les ayant-droits
-        axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders`)
-            .then(res => {
-                let _rHs = {}
-                res.data.forEach(rh => _rHs[rh.rightHolderId] = rh)
-                this.setState({ ayantsDroit: _rHs })
-            })
-
-        this.setState({ patience: true }, () => {
-            // Récupérer les avatars de tous les ayants-droits de la proposition et stocker les avatars
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
-                .then(res => {
-                    let proposition = res.data.Item
-                    // Chercher les avatars
-                    let _avatars = {} // Les avatars peuvent être sur plusieurs droits
-                    Object.keys(proposition.rightsSplits).forEach(droit => {
-                        Object.keys(proposition.rightsSplits[droit]).forEach(type => {
-                            proposition.rightsSplits[droit][type].forEach(part => {
-                                let _rH = part.rightHolder
-                                if (!_avatars[_rH.rightHolderId]) {
-                                    _avatars[_rH.rightHolderId] = {}
-                                    // Récupération des avatars et intégration dans les éléments correspondants
-                                    axios.get(`http://dev.api.smartsplit.org:8080/v1/rightholders/${_rH.rightHolderId}`)
-                                        .then(r => {
-                                            let avatar = r.data.Item.avatarImage
-                                            _avatars[_rH.rightHolderId].avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${avatar}`
-                                            this.setState({ avatars: _avatars })
-                                        })
-                                        .catch(err => {
-                                            console.log(err)
-                                            _avatars[_rH.rightHolderId].avatar = err.message
-                                        })
-                                }
-                            })
-                        })
-                    })
-                    this.setState({ patience: false })
-                })
-                .catch(err => {
-                    console.log(err)
-                })
-        })
-
+        this.setState({ ayantsDroit: AyantsDroit.ayantsDroit })
         this.rafraichirDonnees(() => {
             if ((this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichirAuto) {
                 this.setState({ rafraichir: true }, () => {
@@ -216,7 +174,7 @@ class SommairePartage extends Component {
 
     rafraichirDonnees(fn) {
         if (!this.state.proposition || this.state.rafraichir) {
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/proposal/${this.state.uuid}`)
+            axios.get(`${config.API_URL}proposal/${this.state.uuid}`)
                 .then(res => {
                     let proposition = res.data.Item
                     this.calculMesVotes(proposition, fn)
@@ -272,7 +230,6 @@ class SommairePartage extends Component {
                 if (_aDonnees) {
                     droits.push(<SommaireDroit
                         ayantsDroit={this.state.ayantsDroit}
-                        avatars={this.state.avatars}
                         type={type}
                         key={`sommaire_${this.state.uuid}_${type}`}                        
                         parts={this.state.proposition.rightsSplits[type]}

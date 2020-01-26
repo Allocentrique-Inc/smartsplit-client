@@ -3,6 +3,7 @@ import { withTranslation } from 'react-i18next'
 import Beignet from '../visualisation/partage/beignet'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
+import { config } from '../../utils/application'
 
 const arrondir = function(nombre) {
     return Math.round(nombre * 10000) / 10000
@@ -164,15 +165,15 @@ class PageAssistantPartageEditeur extends Component {
         let __aD = this.props.values.ayantDroit
 
         if(editeur && editeur.ayantDroit && editeur.ayantDroit.avatarImage) {            
-            avatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${editeur.ayantDroit.avatarImage}`
+            avatar = `${config.IMAGE_SRV_URL}${editeur.ayantDroit.avatarImage}`
         } else {
-            avatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+            avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
         }
 
         if(__aD && __aD.aD && __aD.aD.avatarImage) {
-            userAvatar = `https://smartsplit-images.s3.us-east-2.amazonaws.com/${__aD.aD.avatarImage}`
+            userAvatar = `${config.IMAGE_SRV_URL}${__aD.aD.avatarImage}`
         } else {
-            userAvatar = 'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg'
+            userAvatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
         }
 
         return (            

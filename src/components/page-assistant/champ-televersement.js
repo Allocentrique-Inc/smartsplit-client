@@ -6,6 +6,7 @@ import DownloadLockIcon from "../../assets/svg/icons/download-lock.svg"
 import LockFullIcon from "../../assets/svg/icons/lock-full.svg"
 import "../formulaires.css"
 import AudioLecture from '../oeuvre/audio-lecture'
+import { config } from '../../utils/application'
 
 export class ListeFichiers extends Component {
 
@@ -69,7 +70,7 @@ export class ListeFichiers extends Component {
                     }                    
                 }                
 
-                let url = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.state.mediaId}/${this.state.type}/${elem.file}`
+                let url = `${config.IMAGE_SRV_ARTISTES_URL}${this.state.mediaId}/${this.state.type}/${elem.file}`
 
                 return (
                     <div key={`ligne--${this.state.type}--${idx}`} className={`ui row medium-500-color ${pochette}`}>

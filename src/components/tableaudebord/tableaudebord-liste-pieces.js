@@ -72,7 +72,7 @@ class ListePieces extends Component {
               this.setState({ creatorMedias: res.data }, ()=>this.setState({ patience: false }))
             })
             .catch(err => journal.error(NOM, err))            
-            axios.get(`${config.API_URL}liste-collaborations/${Identite.usager.username}`)
+            axios.get(`${config.API_URL}media/liste-collaborations/${Identite.usager.username}`)
             .then(res => {
               // Associe la liste des médias créés ou les médias pour lesquels une proposition est créée,
               // dans les deux cas, par l'usager.

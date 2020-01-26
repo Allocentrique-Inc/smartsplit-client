@@ -4,7 +4,7 @@ import starIcon from "./starIcon.png"
 import prodIcon from "./prodIcon.png"
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
-import AideAyantDroit from "../../../utils/ayantdroit"
+import {AyantsDroit} from "../../../utils/application"
 
 const d3 = require("d3")
 
@@ -50,7 +50,7 @@ class Beignet2 extends Component {
       props.data.forEach(elem => {
         let nom;
         if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-          nom = AideAyantDroit.affichageDuNom(elem.ayantDroit);
+          nom = AyantsDroit.affichageDuNom(elem.ayantDroit);
           _d[nom] = elem.pourcent;
         }
         _c[nom] = elem.color;

@@ -6,7 +6,7 @@ import { withTranslation } from "react-i18next";
 import arrowLeftIcon from '../../assets/svg/icons/arrow-left.svg';
 import MenuProfil from './menu-profil';
 import ModalePartage from "../modales/modale-partage";
-import { AyantsDroit, utils } from '../../utils/application';
+import { AyantsDroit, utils, config } from '../../utils/application';
 
 class Navbar extends React.Component {
 
@@ -35,7 +35,7 @@ class Navbar extends React.Component {
         if(this.props.media.files && this.props.media.files.cover && this.props.media.files.cover.files && this.props.media.files.cover.files.length > 0) {
             this.props.media.files.cover.files.forEach(e=>{
                 if(e.access === 'public') {
-                imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${this.props.media.mediaId}/cover/${e.file}`
+                imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${this.props.media.mediaId}/cover/${e.file}`
                 }
             })
         }

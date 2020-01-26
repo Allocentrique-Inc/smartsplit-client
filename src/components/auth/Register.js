@@ -213,7 +213,7 @@ class Register extends Component {
     let res = AyantsDroit.ayantsDroitBrut    
     let groupers = [];
     let groupsUnique = [];
-    res.data.forEach(function (element) {
+    res.forEach(function (element) {
       groupers.push(element.groups);
       // Remove duplicates from multiple right holders and flattens arrays
       let GR = groupers
