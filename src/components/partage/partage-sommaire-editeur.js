@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import Beignet from '../visualisation/partage/beignet'
-import { Translation } from 'react-i18next'
-
-import { Auth } from 'aws-amplify'
-
+import { withTranslation } from 'react-i18next'
 import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
+import {Identite, config} from '../../utils/application'
 
-export default class PartageSommaireEditeur extends Component {
+class PartageSommaireEditeur extends Component {
 
     constructor(props) {
         super(props)
@@ -126,15 +124,11 @@ export default class PartageSommaireEditeur extends Component {
     }
 
     boutonAccepter() {
-        return (
-            <Translation>
-                {
-                    t =>
-                        <div className="ui button medium" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
-                            this.voter(true)
-                        }}>{t('flot.split.vote.accepter')}</div>
-                }
-            </Translation>
+        const t = this.props.t
+        return (            
+            <div className="ui button medium" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
+                this.voter(true)
+            }}>{t('flot.split.vote.accepter')}</div>                
         )
     }
 
@@ -143,16 +137,12 @@ export default class PartageSommaireEditeur extends Component {
     }
 
     boutonRefuser() {
-        return (
-            <Translation>
-                {
-                    t =>
-                        <div className="ui button medium red" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
-                            this.voter(false)
-                            this.justifierRefus()
-                        }}>{t('flot.split.vote.refuser')}</div>
-                }
-            </Translation>
+        const t = this.props.t
+        return (            
+            <div className="ui button medium red" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
+                this.voter(false)
+                this.justifierRefus()
+            }}>{t('flot.split.vote.refuser')}</div>                
         )
     }
 
@@ -216,40 +206,34 @@ export default class PartageSommaireEditeur extends Component {
     }
 
     transmettre(t) {
+        if(Identite.usager) {
+            if (Identite.usager.username === this.state.ayantDroit.rightHolderId) {
+                this.envoi()
+            } else {
+                toast.error(t('flot.split.erreur.volIdentite'))
+            }
+        } else {
+            this.modaleConnexion()
+        }        
+    }
 
-        Auth.currentAuthenticatedUser()
+    rafraichirDonnees() {
+        if (this.state.rafraichir) {
+            axios.get(`${config.API_URL}splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
             .then(res => {
-                if (res.username === this.state.ayantDroit.rightHolderId) {
-                    this.envoi()
-                } else {
-                    toast.error(t('flot.split.erreur.volIdentite'))
-                }
+                this.setState({ part: res.data })
             })
             .catch(err => {
                 toast.error(err.message)
-                this.modaleConnexion()
             })
-
-    }
-
-    rafraichirDonnees(fn) {
-        if (this.state.rafraichir) {
-            axios.get(`http://dev.api.smartsplit.org:8080/v1/splitShare/${this.state.proposition.uuid}/${this.state.user.username}`)
-                .then(res => {
-                    this.setState({ part: res.data })
-                })
-                .catch(err => {
-                    toast.error(err.message)
-                })
         }
     }
 
     render() {
 
+        const t = this.props.t
         if (this.state.beneficiaire && this.state.donateur) {
-
             let visualisation = (<Beignet type="workCopyrightSplit" uuid={`auteur--beignet__${this.state.idx}`} data={this.state.donnees} />)
-
             return (
                 <div className="ui segment">
                     <div className="ui grid">
@@ -272,15 +256,10 @@ export default class PartageSommaireEditeur extends Component {
                                                         this.state.beneficiaire.artistName :
                                                         `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`
                                                 }
-                                            </div>
-                                            <Translation>
-                                                {
-                                                    t =>
-                                                        <div className="small-400-color">
-                                                            {t('flot.split.documente-ton-oeuvre.editeur.editeur')}
-                                                        </div>
-                                                }
-                                            </Translation>
+                                            </div>                                            
+                                            <div className="small-400-color">
+                                                {t('flot.split.documente-ton-oeuvre.editeur.editeur')}
+                                            </div>                                                
                                             <div style={{ position: "relative", marginTop: "5px" }}>
                                                 {
                                                     !this.estVoteFinal() &&
@@ -326,15 +305,10 @@ export default class PartageSommaireEditeur extends Component {
                                         <div className="ui three wide column">
                                             <p className="big">
                                                 {parseFloat(this.state.part.shareePct).toFixed(2)} %
-                                            </p>
-                                            <Translation>
-                                                {
-                                                    t =>
-                                                        <div style={{ color: this.state.choix === 'accept' ? "green" : (this.state.choix === "reject" ? "red" : "grey") }}>
-                                                            <strong>{t(`flot.split.vote.${this.state.choix}`)}</strong>
-                                                        </div>
-                                                }
-                                            </Translation>
+                                            </p>                                            
+                                            <div style={{ color: this.state.choix === 'accept' ? "green" : (this.state.choix === "reject" ? "red" : "grey") }}>
+                                                <strong>{t(`flot.split.vote.${this.state.choix}`)}</strong>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="ui row">
@@ -351,28 +325,18 @@ export default class PartageSommaireEditeur extends Component {
                                                         this.state.donateur.artistName :
                                                         `${this.state.donateur.firstName} ${this.state.donateur.lastName}`
                                                 }
-                                            </div>
-                                            <Translation>
-                                                {
-                                                    t =>
-                                                        <div className="small-400-color">
-                                                            {t('flot.split.documente-ton-oeuvre.editeur.donateur')}
-                                                        </div>
-                                                }
-                                            </Translation>
+                                            </div>                                            
+                                            <div className="small-400-color">
+                                                {t('flot.split.documente-ton-oeuvre.editeur.donateur')}
+                                            </div>                                            
                                         </div>
                                         <div className="ui three wide column">
                                             <p className="big">
                                                 {parseFloat(this.state.part.rightHolderPct).toFixed(2)} %
-                                            </p>
-                                            <Translation>
-                                                {
-                                                    t =>
-                                                        <div style={{ color: "green" }}>
-                                                            <strong>{t(`flot.split.vote.accept`)}</strong>
-                                                        </div>
-                                                }
-                                            </Translation>
+                                            </p>                                            
+                                            <div style={{ color: "green" }}>
+                                                <strong>{t(`flot.split.vote.accept`)}</strong>
+                                            </div>                                                
                                         </div>
                                     </div>
                                 </div>
@@ -384,20 +348,16 @@ export default class PartageSommaireEditeur extends Component {
                             </div>
                         </div>
                     </div>
-                    <Translation>
-                        {
-                            t =>
-                                this.state.part.etat === "VOTATION" &&
-                                this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
-                                (
-                                    <button className="ui medium button" disabled={!this.state.transmission} onClick={() => {
-                                        this.transmettre(t)
-                                    }}> {t('flot.split.documente-ton-oeuvre.bouton.voter')}
-                                    </button>
-                                )
-                        }
-                    </Translation>
-
+                    {
+                        this.state.part.etat === "VOTATION" &&
+                        this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
+                        (
+                            <button className="ui medium button" disabled={!this.state.transmission} onClick={() => {
+                                this.transmettre(t)
+                            }}> {t('flot.split.documente-ton-oeuvre.bouton.voter')}
+                            </button>
+                        )
+                    }
                     <Modal
                         open={this.state.modaleConnexion}
                         closeOnEscape={false}
@@ -407,22 +367,14 @@ export default class PartageSommaireEditeur extends Component {
                         <br /><br /><br />
                         <LogIn
                             vote={true}
-                            fn={() => {
-                                Auth.currentAuthenticatedUser()
-                                    .then(res => {
-                                        this.envoi()
-                                    })
-                                    .catch(err => {
-                                        toast.error(err.message)
-                                    })
-                            }} />
+                            fn={() => { if(Identite.usager) { this.envoi() } }} />
                     </Modal>
                 </div>
             )
         } else {
             return (<div></div>)
         }
-
     }
-
 }
+
+export default withTranslation()(PartageSommaireEditeur)

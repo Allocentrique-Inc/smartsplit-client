@@ -1,14 +1,15 @@
 import React from "react";
 import TableDroite from "./table-droite";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
-export default class TableInformationsGenerales extends React.Component {
+class TableInformationsGenerales extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
 
-  rangees(t, i18n) {
+  rangees() {
+    const t = this.props.t
     let duree = Math.round(this.props.media.msDuration / 1000);
 
     let minutes, secondes;
@@ -52,19 +53,17 @@ export default class TableInformationsGenerales extends React.Component {
   }
 
   render() {
-    return (
-      <Translation>
-        {(t, i18n) => (
-          <TableDroite
-            jeton={this.props.jeton}
-            edition={this.props.edition}
-            pageNo={5}
-            mediaId={this.props.media.mediaId}
-            title={t("sommaire.info.info")}
-            rows={this.rangees(t, i18n)}
-          />
-        )}
-      </Translation>
-    );
+    const t = this.props.t
+    return (      
+      <TableDroite
+        jeton={this.props.jeton}
+        edition={this.props.edition}
+        pageNo={5}
+        mediaId={this.props.media.mediaId}
+        title={t("sommaire.info.info")}
+        rows={this.rangees()}
+      />        
+    )
   }
 }
+export default withTranslation()(TableInformationsGenerales)

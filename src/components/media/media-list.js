@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import JSONPretty from 'react-json-prettify'
+import { withTranslation } from 'react-i18next'
+import {config} from '../../utils/application'
 
-// Traduction
-import { Translation } from 'react-i18next';
-
-export default class MediaList extends Component {
+class MediaList extends Component {
 
     constructor(props) {
         super(props)
@@ -28,7 +27,7 @@ export default class MediaList extends Component {
             }
         }        
 
-        fetch('http://dev.api.smartsplit.org:8080/v1/media', options).then((response) => {
+        fetch(`${config.API_URL}media`, options).then((response) => {
             return response.json()
         })
         .then((jsonObject) => {
@@ -40,18 +39,15 @@ export default class MediaList extends Component {
     }
 
     render() {               
-        return (
-            <Translation>
-                {
-                    (t) =>
-                        <div>
-                            <h1>{t('titre.liste-media')} (GET /media)</h1>
-                            <div style={{textAlign: "left"}}>
-                                <JSONPretty json={this.state.donnees} />
-                            </div>
-                        </div>
-                }                
-            </Translation>
+        const t = this.props.t
+        return (            
+            <div>
+                <h1>{t('titre.liste-media')} (GET /media)</h1>
+                <div style={{textAlign: "left"}}>
+                    <JSONPretty json={this.state.donnees} />
+                </div>
+            </div>
         )
     }
 }
+export default withTranslation()(MediaList)

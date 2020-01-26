@@ -6,13 +6,12 @@ import TitreChamp from "./titre-champ";
 import RightHolderOptions from "./right-holder-options";
 import * as roles from '../../assets/listes/role-uuids.json';
 import { isUnique, updateRightHolders } from "./right-holder-helpers";
-import { Translation } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import ModifyUser from '../auth/ModifyUser';
-
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 
-export class ChampSelectionInterprete extends Component {
+class ChampSelectionInterprete extends Component {
 
     musicianRoles = [
         roles.musician,
@@ -38,23 +37,8 @@ export class ChampSelectionInterprete extends Component {
     }
 
     selectedItems() {
-        //console.log(this.props, this.state)
         return this.rightHolderOptions().filter(this.isSelectedItem)
-
-        // Construire items de sorte que ce soit un tableau contenant uniquement les éléments sélectionnés
-        // (qui ont le rôle d'interprète)
-        
-        /* 
-        let _items = {}
-        let itemsOrdonnes = []    
-        items.forEach(e=>_items[e.value] = e)    
-        this.props.rightHolders.forEach((e,idx)=>{      
-          if(Object.keys(_items).includes(this.state.selectedValues[idx])) {
-            itemsOrdonnes.push(_items[this.state.selectedValues[idx]])
-          }
-        })
-        return itemsOrdonnes.reverse() */
-      }
+    }
 
     isSelectedItem = item => this.props.musicians.map(musician => musician.id).includes(item.value);
 
@@ -175,65 +159,57 @@ export class ChampSelectionInterprete extends Component {
     };
 
     render() {
-        return (
-            <Translation>
+        const i18n = this.props.i18n
+        return (            
+            <label>
                 {
-                    (t, i18n) =>
-                        <label>
+                    i18n &&
+                    <>
+                        <TitreChamp
+                            label={this.props.label}
+                            description={this.props.description}
+                        />                                    
 
-                            {
-                                i18n &&
-                                <>
-                                    <TitreChamp
-                                        label={this.props.label}
-                                        description={this.props.description}
-                                    />                                    
+                        <Dropdown
+                            trigger={this.triggerLabel()}
+                            placeholder={this.props.placeholder}
+                            fluid
+                            search
+                            selection
+                            selectOnBlur={false}
+                            selectOnNavigation={false}
+                            value={this.state.dropdownValue}
+                            options={this.unselectedItems()}
+                            onChange={this.handleChange}
+                            allowAdditions={true}
+                            onAddItem={this.handleAddItem}
+                            onBlur={this.handleBlur}
+                            onSearchChange={this.handleSearchChange}
+                        />
 
-                                    <Dropdown
-                                        trigger={this.triggerLabel()}
-                                        placeholder={this.props.placeholder}
-                                        fluid
-                                        search
-                                        selection
-                                        selectOnBlur={false}
-                                        selectOnNavigation={false}
-                                        value={this.state.dropdownValue}
-                                        options={this.unselectedItems()}
-                                        onChange={this.handleChange}
-                                        allowAdditions={true}
-                                        onAddItem={this.handleAddItem}
-                                        onBlur={this.handleBlur}
-                                        onSearchChange={this.handleSearchChange}
-                                    />
+                        <br />
+                        {this.renderSelectedItems(i18n.language.substring(0, 2))}
 
-                                    <br />
-                                    {this.renderSelectedItems(i18n.lng.substring(0, 2))}
-
-                                    <ModifyUser
-                                        open={this.state.modalOpen}
-                                        pochette={this.props.pochette}
-                                        firstName={this.state.modalFirstName}
-                                        close={() =>
-                                            this.setState({ modalOpen: false, modalFirstName: "" })
-                                        }
-                                        fn={
-                                            (e) => {
-                                                this.selectItem(e)
-                                                /* let values = this.state.selectedValues
-                                                values.push(e)
-                                                this.setState({ selectedValues: values }) */
-                                                if (this.props.fn) {
-                                                    this.props.fn(e)
-                                                }
-                                            }
-                                        }
-                                    />
-                                </>
+                        <ModifyUser
+                            open={this.state.modalOpen}
+                            pochette={this.props.pochette}
+                            firstName={this.state.modalFirstName}
+                            close={() =>
+                                this.setState({ modalOpen: false, modalFirstName: "" })
                             }
-
-                        </label>
+                            fn={
+                                (e) => {
+                                    this.selectItem(e)                                                
+                                    if (this.props.fn) {
+                                        this.props.fn(e)
+                                    }
+                                }
+                            }
+                        />
+                    </>
                 }
-            </Translation>
-        );
+            </label>
+        )
     }
 }
+export default withTranslation()(ChampSelectionInterprete)

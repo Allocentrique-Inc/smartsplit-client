@@ -1,18 +1,12 @@
-/**
- * Assistant d'affichage du dashboard
- */
-import "./beignet.css";
-import copyIcon from "./copyIcon.png";
-import starIcon from "./starIcon.png";
-import prodIcon from "./prodIcon.png";
-import React, { Component } from "react";
+import "./beignet.css"
+import copyIcon from "./copyIcon.png"
+import starIcon from "./starIcon.png"
+import prodIcon from "./prodIcon.png"
+import React, { Component } from "react"
+import { withTranslation } from "react-i18next"
+import AideAyantDroit from "../../../utils/ayantdroit"
 
-// Traduction
-import { withTranslation, Translation } from "react-i18next";
-import AideAyantDroit from "../../../utils/ayantdroit";
-
-// D3
-const d3 = require("d3");
+const d3 = require("d3")
 
 class Beignet2 extends Component {
   constructor(props) {
@@ -271,21 +265,17 @@ class Beignet2 extends Component {
         textTransform: "uppercase"
       };
 
-    return (
-      <Translation>
-        {(t, i18n) => (
-          <div className="ui two wide column">
-            <div style={{ margin: "0 auto" }}>
-              {this.props.titre && <h4 style={flush}>{this.props.titre}</h4>}
-              <div
-                id={`my_dataviz_${this.state.uuid}`}
-                className="beignet"
-              ></div>
-            </div>
-          </div>
-        )}
-      </Translation>
-    );
+    return (      
+      <div className="ui two wide column">
+        <div style={{ margin: "0 auto" }}>
+          {this.props.titre && <h4 style={flush}>{this.props.titre}</h4>}
+          <div
+            id={`my_dataviz_${this.state.uuid}`}
+            className="beignet"
+          ></div>
+        </div>
+      </div>
+    )
   }
 }
 

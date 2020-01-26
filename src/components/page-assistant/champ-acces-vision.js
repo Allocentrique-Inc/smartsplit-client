@@ -5,7 +5,7 @@ import LockFullIcon from "../../assets/svg/icons/lock-full.svg";
 import EyeIcon from "../../assets/svg/icons/eye.svg";
 import TitreChamp from "./titre-champ";
 import { Dropdown } from "semantic-ui-react";
-import { Translation, withTranslation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 
 class ChampAccesVision extends React.Component {  
 
@@ -94,30 +94,26 @@ class ChampAccesVision extends React.Component {
   };
 
   render() {
-    return (
-      <Translation>
-        {
-          t=>
-            <div className="champ">
-              <label>
-                <TitreChamp
-                  label={t(
-                    "flot.split.documente-ton-oeuvre.documenter.acces"
-                  )}
-                />
-      
-                <Dropdown
-                  trigger={this.trigger()}
-                  fluid
-                  selection
-                  options={this.accessOptions}
-                  onChange={(event, { value }) => this.handleChange(value)}
-                />
-              </label>
-            </div>
-        }
-      </Translation>      
-    );
+    const t = this.props.t
+    return (      
+        <div className="champ">
+          <label>
+            <TitreChamp
+              label={t(
+                "flot.split.documente-ton-oeuvre.documenter.acces"
+              )}
+            />
+  
+            <Dropdown
+              trigger={this.trigger()}
+              fluid
+              selection
+              options={this.accessOptions}
+              onChange={(event, { value }) => this.handleChange(value)}
+            />
+          </label>
+        </div>        
+    )
   }
 }
 

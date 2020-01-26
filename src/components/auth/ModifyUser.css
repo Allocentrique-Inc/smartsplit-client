@@ -38,9 +38,7 @@
   width: 250px;
 }
 
-/*IE*/
 :-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
   color: #8da0b3;
 }
 

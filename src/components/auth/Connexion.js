@@ -1,13 +1,12 @@
-import React, { Component } from "react";
-import { Modal } from "semantic-ui-react";
-import { toast } from "react-toastify";
-import { Auth } from "aws-amplify";
-import Login from "../auth/Login";
-import Register from "./Register";
-import ForgotPassword from "./ForgotPassword";
-import ForgotPasswordVerification from "./ForgotPasswordVerification";
-import ChangePasswordVerification from "./ChangePasswordVerification";
+import React, { Component } from "react"
+import { Modal } from "semantic-ui-react"
+import Login from "../auth/Login"
+import Register from "./Register"
+import ForgotPassword from "./ForgotPassword"
+import ForgotPasswordVerification from "./ForgotPasswordVerification"
+import ChangePasswordVerification from "./ChangePasswordVerification"
 import { withTranslation } from 'react-i18next'
+import { Identite } from '../../utils/application'
 
 const TYPE_LOGIN = 0,
   TYPE_REGISTER = 1,
@@ -24,7 +23,6 @@ class ModaleConnexion extends Component {
       opened: TYPE_LOGIN,
       parent: props.parent
     }
-    console.log(props.i18n)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -77,22 +75,11 @@ class ModaleConnexion extends Component {
             pochette={this.state.pochette}
             parent={this}
             fn={() => {
-              Auth.currentAuthenticatedUser()
-                .then(res => {
-                  // Vérifier si le profil est complet, si non,
-                  // Débloque la composante appelante
-                  this.state.parent.setState({ user: res })
-
-                  if (this.props.fn) {
-                    this.props.fn()
-                  }
-
-                  // Fermer la modale
-                  this.setState({ isOpen: false })
-                })
-                .catch(err => {
-                  toast.error(err.message)
-                });
+              this.state.parent.setState({ user: Identite.usager })
+              if (this.props.fn) {
+                this.props.fn()
+              }
+              this.setState({ isOpen: false })
             }}
           />
         )}

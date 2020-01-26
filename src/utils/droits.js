@@ -1,16 +1,27 @@
 import AideRoles from "./roles";
+// eslint-disable-next-line
+import { journal } from '../utils/application'
 
-const PAROLES = "lyrics",
-  MUSIQUE = "music";
+const PAROLES = "lyrics", MUSIQUE = "music";
+// eslint-disable-next-line
+const NOM = "AideDroits"
 
 export default class AideDroits {
-  static nomSousTypeParoles() {
+
+  constructor(){
+    this.PAROLES = PAROLES
+    this.MUSIQUE = MUSIQUE
+  }
+
+  nomSousTypeParoles() {
     return PAROLES;
   }
-  static nomSousTypeMusique() {
+  
+  nomSousTypeMusique() {
     return MUSIQUE;
   }
-  static arborescenceDroits() {
+  
+  arborescenceDroits() {
     return {
       workCopyrightSplit: [
         this.nomSousTypeParoles(),
@@ -20,16 +31,19 @@ export default class AideDroits {
       masterNeighboringRightSplit: ["split"]
     };
   }
-  static listeSousType(droit) {
+  
+  listeSousType(droit) {
     return this.arborescenceDroits()[droit];
   }
-  static listeDroits() {
+  
+  listeDroits() {
     return Object.keys(this.arborescenceDroits());
   }
-  static donneesVisualisation(_p) {
+  
+  donneesVisualisation(_p) {
     // Retourner les données de visualisation, par ayant-droit
-    let _aD = {};
-    let ROLES = AideRoles.listeRoles();
+    let _aD = {}
+    let ROLES = AideRoles.listeRoles()
     Object.keys(_p).forEach(_e => {
       _p[_e].forEach(__e => {
         // Ajoute une structure d'ayant-droit si non existante
@@ -37,29 +51,27 @@ export default class AideDroits {
           _aD[__e.rightHolder.rightHolderId] = { roles: [], sommePct: 0.0 };
         }
 
-        let _donnees = _aD[__e.rightHolder.rightHolderId];
-        _donnees.nom = __e.rightHolder.name;
-        _donnees.vote = __e.voteStatus;
-        _donnees.raison = __e.comment;
-        _donnees.color = __e.rightHolder.color;
-        _donnees.rightHolderId = __e.rightHolder.rightHolderId;
+        let _donnees = _aD[__e.rightHolder.rightHolderId]
+        _donnees.nom = __e.rightHolder.name
+        _donnees.vote = __e.voteStatus
+        _donnees.raison = __e.comment
+        _donnees.color = __e.rightHolder.color
+        _donnees.rightHolderId = __e.rightHolder.rightHolderId
         _donnees.sommePct = (
           parseFloat(_donnees.sommePct) + parseFloat(__e.splitPct)
-        ).toFixed(4);
+        ).toFixed(4)
 
         // Les rôles dépendent du type de droit
-
         function ajouterRolesReconnus(roles) {
           Object.keys(roles).forEach(_roleId => {
             if (
-              ROLES.includes(roles[_roleId]) &&
+              ROLES.includes(_roleId) &&
               !_donnees.roles.includes(roles[_roleId])
             ) {
-              _donnees.roles.push(roles[_roleId]);
+              _donnees.roles.push(roles[_roleId])
             }
-          });
+          })
         }
-
         switch (_e) {
           case "principal":
             _donnees.roles.push("principal");
@@ -80,11 +92,12 @@ export default class AideDroits {
             break;
           default:
         }
-      });
-    });
-    return _aD;
+      })
+    })
+    return _aD
   }
-  static donneesVisualisationParType(_p, type, ayantsDroit) {
+
+  donneesVisualisationParType(_p, type, ayantsDroit) {
     // Structure finale de retour, données par sous-type de droit
     let donnees = {};
     let sousTypes = this.listeSousType(type);
@@ -119,4 +132,5 @@ export default class AideDroits {
     });
     return donnees;
   }
+
 }

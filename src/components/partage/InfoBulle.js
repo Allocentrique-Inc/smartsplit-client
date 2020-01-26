@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { Translation } from 'react-i18next';
 import { Popup } from "semantic-ui-react";
 
 const icone = <i className="ui question circle icon" style={{ color: "#687A8B", fontSize: "10pt" }} />
-// Ou: 
-// declencheur: props.declencheur || <i className="ui question circle icon" style={{ color: "#687A8B", fontSize: "10pt" }} />,
 
 class InfoBulle extends Component {
     constructor(props) {
@@ -55,40 +52,33 @@ class InfoBulle extends Component {
     }
 
     render() {
-        return (
-            <Translation>
-                {
-                    t => (
-                        <>
-                            <div
-                                className="cliquable"
-                                style={{ display: "inline" }}
-                                onMouseOver={e => { this.handleMouseIn(e); this.setXY(e) }}
-                                onMouseOut={this.handleMouseOut.bind(this)}>
-                                <Popup
-                                    style={this.state.style} // Passer style dans InfoBulle
-                                    trigger={this.state.declencheur}
-                                    position={this.state.orientation}
-                                    on={this.state.sur}
-                                    open={this.state.ouvert} // Ouvre popUp automatiquement
-                                >
+        return (            
+            <>
+                <div
+                    className="cliquable"
+                    style={{ display: "inline" }}
+                    onMouseOver={e => { this.handleMouseIn(e); this.setXY(e) }}
+                    onMouseOut={this.handleMouseOut.bind(this)}>
+                    <Popup
+                        style={this.state.style} // Passer style dans InfoBulle
+                        trigger={this.state.declencheur}
+                        position={this.state.orientation}
+                        on={this.state.sur}
+                        open={this.state.ouvert} // Ouvre popUp automatiquement
+                    >
+                        <div>
+                            {this.state.text}
+                            {
+                                this.state.decoration && (
                                     <div>
-                                        {this.state.text}
-                                        {
-                                            this.state.decoration && (
-                                                <div>
-                                                    {this.state.decoration}
-                                                </div>
-                                            )
-                                        }
+                                        {this.state.decoration}
                                     </div>
-                                </Popup>
-
-                            </div>
-                        </>
-                    )
-                }
-            </Translation>
+                                )
+                            }
+                        </div>
+                    </Popup>
+                </div>
+            </>                    
         )
     }
 

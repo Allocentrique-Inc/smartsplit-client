@@ -1,11 +1,7 @@
-/**
- * Assistant de saisie de la description d'une oeuvre
- */
+import {config, AyantsDroit, journal, Identite, utils} from '../../utils/application'
 import React, { Component } from "react";
 import { Wizard } from "semantic-ui-react-formik-iptoki";
 import axios from "axios";
-
-// Pages de l'assistant
 import PageCreation from "./page-creation";
 import PageInterpretation from "./page-interpretation";
 import PageInformationsGenerales from "./page-informations-generales";
@@ -13,20 +9,14 @@ import PageParoles from "./page-paroles";
 import PageLiens from "./page-liens";
 import PageEnregistrement from "./page-enregistrement";
 import PageFichiers from "./page-fichiers";
-// Alertes
-import { toast } from "react-toastify";
-// Traduction
-import { Translation } from "react-i18next";
-import { Navbar } from "../navigation/navbar";
-
-import { Auth } from "aws-amplify";
-
+import { withTranslation } from "react-i18next";
+import Navbar from "../navigation/navbar";
 import ModalFin from "./modal-fin";
 import ModaleConnexion from "../auth/Connexion";
-
 import "../../assets/scss/page-assistant/bouton.scss";
 
-// Modèle
+// eslint-disable-next-line
+const NOM = "AssistantOeuvre"
 
 class AssistantOeuvre extends Component {
   pageProgressPercentages = [10, 20, 30, 40, 50, 70, 80, 100];
@@ -45,35 +35,34 @@ class AssistantOeuvre extends Component {
   }
 
   componentWillMount() {
-    Auth.currentAuthenticatedUser()
-      .then(response => {
+
+    if(Identite.usager) {
+      this.setState({user: Identite.usager}, ()=>{
         if (this.state.mediaId) {
           axios
             .get(
-              `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
+              `${config.API_URL}media/${this.state.mediaId}`
             )
             .then(res => {
               if (res.data.Item) {
-                let media = res.data.Item;
-                if (response.username === media.creator) {
+                let media = res.data.Item
+                if (Identite.usager.username === media.creator) {
                   this.setState({ media: media }, () =>
                     this.fetchApiRightHolders()
-                  );
-                  this.setState({ user: response });
+                  )
                 } else {
-                  window.location.href = `/oeuvre/${media.mediaId}/resume`;
+                  utils.naviguerVersSommaire()                  
                 }
               }
             });
         } else {
-          this.setState({ user: response });
-          this.fetchApiRightHolders();
+          this.fetchApiRightHolders()
         }
       })
-      .catch(error => {
-        console.log(error);
-        this.setState({ modaleConnexion: true });
-      });
+    } else {
+      journal.warn(NOM, "L'accès requiert une session active")
+      this.setState({ modaleConnexion: true });
+    }    
   }
 
   nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
@@ -85,22 +74,14 @@ class AssistantOeuvre extends Component {
   }
 
   fetchApiRightHolders() {
-    axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
-      .then(response => {
-        // Ordonnancement simple uuid -> nom d'artiste
-        let assocUuidArtiste = {};
-        response.data.forEach(e => {
-          assocUuidArtiste[e.rightHolderId] =
-            e.artistName || `${e.firstName} ${e.lastName}`;
-        });
-        this.setState({ assocUuidArtiste: assocUuidArtiste }, () =>
-          this.setState({ rightHolders: response.data })
-        );
-      })
-      .catch(error => {
-        toast.error(error.message);
-      });
+    let response = AyantsDroit.ayantsDroitBrut    
+    let assocUuidArtiste = {}
+    response.forEach(e => {      
+      assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
+    })
+    this.setState({ assocUuidArtiste: assocUuidArtiste }, () =>
+      this.setState({ rightHolders: response })
+    )
   }
 
   componentWillReceiveProps(nextProps) {
@@ -229,7 +210,7 @@ class AssistantOeuvre extends Component {
       endModalOpen: true
     });
     axios
-      .post("http://dev.api.smartsplit.org:8080/v1/media", values)
+      .post(`${config.API_URL}media`, values)
       .then(response => {
         actions.setSubmitting(false);
         this.setState({ endModalOpen: true });
@@ -249,139 +230,130 @@ class AssistantOeuvre extends Component {
   }
 
   render() {
-    if (this.state.user && this.state.media) {        
-      return (
-        <Translation>
-          {(t, i18n) => (
-            <>
-              <Navbar
-                pochette={this.props.pochette}
-                songTitle={this.state.title}
-                progressPercentage={this.state.progressPercentage}
-                profil={this.state.user}
-                media={this.state.media}
-                resume={true}
-                menuProfil={false}
-              />
+    if (this.state.user && this.state.media) {
+      let t = this.props.t
+      return (        
+        <>
+          <Navbar
+            pochette={this.props.pochette}
+            songTitle={this.state.title}
+            progressPercentage={this.state.progressPercentage}
+            profil={this.state.user}
+            media={this.state.media}
+            resume={true}
+            menuProfil={false}
+          />
 
-              {this.state.rightHolders && (
-                <div className="ui grid">
-                  <div className="ui row">
-                    <div className="ui two wide column" />
-                    <div className="ui twelve wide column">
-                      <Wizard
-                        pochette={this.props.pochette}
-                        initialValues={this.getInitialValues()}
-                        onPageChanged={this.onPageChanged}
-                        onSubmit={this.onSubmit}
-                        buttonLabels={{
-                          pochette: this.props.pochette,
-                          previous: t("navigation.precedent"),
-                          next: t("navigation.suivant"),
-                          submit: t("navigation.envoi")
+          {this.state.rightHolders && (
+            <div className="ui grid">
+              <div className="ui row">
+                <div className="ui two wide column" />
+                <div className="ui twelve wide column">
+                  <Wizard
+                    pochette={this.props.pochette}
+                    initialValues={this.getInitialValues()}
+                    onPageChanged={this.onPageChanged}
+                    onSubmit={this.onSubmit}
+                    buttonLabels={{
+                      pochette: this.props.pochette,
+                      previous: t("navigation.precedent"),
+                      next: t("navigation.suivant"),
+                      submit: t("navigation.envoi")
+                    }}
+                    debug={false}
+                    ButtonsWrapper={props => (
+                      <div
+                        style={{
+                          position: "fixed",
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          paddingTop: "15px",
+                          background: "#fff",
+                          boxShadow: "0 0 5px rgba(0,0,0,0.5)",
+                          pochette: this.props.pochette
                         }}
-                        debug={false}
-                        ButtonsWrapper={props => (
-                          <div
-                            style={{
-                              position: "fixed",
-                              bottom: 0,
-                              left: 0,
-                              right: 0,
-                              paddingTop: "15px",
-                              background: "#fff",
-                              boxShadow: "0 0 5px rgba(0,0,0,0.5)",
-                              pochette: this.props.pochette
-                            }}
-                          >
-                            <div className="ui grid">
-                              <div className="ui row">
-                                <div className="ui nine wide column">
-                                  {props.children}
-                                  {this.props.pochette}
-                                </div>
-                              </div>
+                      >
+                        <div className="ui grid">
+                          <div className="ui row">
+                            <div className="ui nine wide column">
+                              {props.children}
+                              {this.props.pochette}
                             </div>
                           </div>
-                        )}
-                      >
-                        <Wizard.Page>
-                          <PageCreation
-                            pochette={this.props.pochette}
-                            i18n={i18n}
-                            rightHolders={this.state.rightHolders}
-                            assocUuidArtiste={this.state.assocUuidArtiste}
-                            parent={this}
-                          />
-                        </Wizard.Page>
-                        <Wizard.Page>
-                          <PageInterpretation
-                            pochette={this.props.pochette}
-                            i18n={i18n}
-                            rightHolders={this.state.rightHolders}
-                            assocUuidArtiste={this.state.assocUuidArtiste}
-                            parent={this}
-                          />
-                        </Wizard.Page>
+                        </div>
+                      </div>
+                    )}
+                  >
+                    <Wizard.Page>
+                      <PageCreation
+                        pochette={this.props.pochette}
+                        rightHolders={this.state.rightHolders}
+                        assocUuidArtiste={this.state.assocUuidArtiste}
+                        parent={this}
+                      />
+                    </Wizard.Page>
+                    <Wizard.Page>
+                      <PageInterpretation
+                        pochette={this.props.pochette}
+                        rightHolders={this.state.rightHolders}
+                        assocUuidArtiste={this.state.assocUuidArtiste}
+                        parent={this}
+                      />
+                    </Wizard.Page>
 
-                        <Wizard.Page>
-                          <PageEnregistrement
-                            pochette={this.props.pochette}
-                            i18n={i18n}
-                            rightHolders={this.state.rightHolders}
-                            assocUuidArtiste={this.state.assocUuidArtiste}
-                            parent={this}
-                          />
-                        </Wizard.Page>
+                    <Wizard.Page>
+                      <PageEnregistrement
+                        pochette={this.props.pochette}
+                        rightHolders={this.state.rightHolders}
+                        assocUuidArtiste={this.state.assocUuidArtiste}
+                        parent={this}
+                      />
+                    </Wizard.Page>
 
-                        <Wizard.Page>
-                          <PageFichiers
-                            pochette={this.props.pochette}
-                            i18n={i18n}
-                            rightHolders={this.state.rightHolders}
-                            assocUuidArtiste={this.state.assocUuidArtiste}
-                            parent={this}
-                          />
-                        </Wizard.Page>
+                    <Wizard.Page>
+                      <PageFichiers
+                        pochette={this.props.pochette}
+                        rightHolders={this.state.rightHolders}
+                        assocUuidArtiste={this.state.assocUuidArtiste}
+                        parent={this}
+                      />
+                    </Wizard.Page>
 
-                        <Wizard.Page>
-                          <PageInformationsGenerales
-                            pochette={this.props.pochette}
-                            i18n={i18n}
-                          />
-                        </Wizard.Page>
-
-                        <Wizard.Page>
-                          <PageParoles
-                            i18n={i18n}
-                            pochette={this.props.pochette}
-                          />
-                        </Wizard.Page>
-
-                        <Wizard.Page>
-                          <PageLiens pochette={this.props.pochette} />
-                        </Wizard.Page>
-                      </Wizard>
-                      {this.props.pochette &&
-                        document.getElementsByClassName(
-                          "ui right floated button pochette"
-                        ).length > 0 &&
-                        this.boutonsCouleurPochette()}
-                      <ModalFin
-                        mediaId={this.state.media.mediaId}
-                        titre={this.state.media.title}
-                        open={this.state.endModalOpen}
-                        onClose={() => this.setState({ endModalOpen: false })}
+                    <Wizard.Page>
+                      <PageInformationsGenerales
                         pochette={this.props.pochette}
                       />
-                    </div>
-                  </div>
+                    </Wizard.Page>
+
+                    <Wizard.Page>
+                      <PageParoles
+                        pochette={this.props.pochette}
+                      />
+                    </Wizard.Page>
+
+                    <Wizard.Page>
+                      <PageLiens pochette={this.props.pochette} />
+                    </Wizard.Page>
+                  </Wizard>
+                  {this.props.pochette &&
+                    document.getElementsByClassName(
+                      "ui right floated button pochette"
+                    ).length > 0 &&
+                    this.boutonsCouleurPochette()}
+                  <ModalFin
+                    mediaId={this.state.media.mediaId}
+                    titre={this.state.media.title}
+                    open={this.state.endModalOpen}
+                    onClose={() => this.setState({ endModalOpen: false })}
+                    pochette={this.props.pochette}
+                  />
                 </div>
-              )}
-            </>
+              </div>
+            </div>
           )}
-        </Translation>
-      );
+        </>
+      )
     } else {
       return (
         <ModaleConnexion
@@ -394,4 +366,4 @@ class AssistantOeuvre extends Component {
   }
 }
 
-export default AssistantOeuvre;
+export default withTranslation()(AssistantOeuvre)

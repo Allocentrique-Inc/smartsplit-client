@@ -1,10 +1,10 @@
 import React from "react";
 import TitreChamp from "./titre-champ";
 import ChampDate from "./champ-date";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import InfoBulle from '../partage/InfoBulle'
 
-export default class FormulaireDateSortie extends React.Component {
+class FormulaireDateSortie extends React.Component {
   constructor(props) {
     super(props);
 
@@ -41,55 +41,53 @@ export default class FormulaireDateSortie extends React.Component {
   }
 
   render() {
-    return (
-      <Translation>
-        {t => (
-          <div className="champ">
-            <TitreChamp
-              label={t("flot.split.documente-ton-oeuvre.documenter.date")}
-              info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.date-description")} />}
+    const t = this.props.t
+    return (      
+      <div className="champ">
+        <TitreChamp
+          label={t("flot.split.documente-ton-oeuvre.documenter.date")}
+          info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.date-description")} />}
+        />
+
+        <div>
+          <div className="ui radio checkbox">
+            <input
+              type="radio"
+              name="type"
+              value="false"
+              checked={!this.state.determined}
+              onChange={this.handleRadioChange}
             />
 
-            <div>
-              <div className="ui radio checkbox">
-                <input
-                  type="radio"
-                  name="type"
-                  value="false"
-                  checked={!this.state.determined}
-                  onChange={this.handleRadioChange}
-                />
-
-                <label>
-                  {t(
-                    "flot.split.documente-ton-oeuvre.documenter.date-choix.avenir"
-                  )}
-                </label>
-              </div>
-            </div>
-
-            <div>
-              <div className="ui radio checkbox date-sortie-determinee">
-                <input
-                  type="radio"
-                  name="type"
-                  value="true"
-                  checked={this.state.determined}
-                  onChange={this.handleRadioChange}
-                />
-
-                <label>
-                  {t(
-                    "flot.split.documente-ton-oeuvre.documenter.date-choix.determine"
-                  )}
-                </label>
-              </div>
-            </div>
-
-            {this.renderChampDate()}
+            <label>
+              {t(
+                "flot.split.documente-ton-oeuvre.documenter.date-choix.avenir"
+              )}
+            </label>
           </div>
-        )}
-      </Translation>
-    );
+        </div>
+
+        <div>
+          <div className="ui radio checkbox date-sortie-determinee">
+            <input
+              type="radio"
+              name="type"
+              value="true"
+              checked={this.state.determined}
+              onChange={this.handleRadioChange}
+            />
+
+            <label>
+              {t(
+                "flot.split.documente-ton-oeuvre.documenter.date-choix.determine"
+              )}
+            </label>
+          </div>
+        </div>
+
+        {this.renderChampDate()}
+      </div>        
+    )
   }
 }
+export default withTranslation()(FormulaireDateSortie)

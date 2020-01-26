@@ -1,4 +1,4 @@
-const CONTEXTE_WEB = 1, CONTEXTE_NATIF = 2
+const CONTEXTE_WEB = "1", CONTEXTE_NATIF = "2"
 
 export default class Utilitaires {    
 
