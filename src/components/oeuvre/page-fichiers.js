@@ -1,4 +1,4 @@
-import { config } from '../../utils/application'
+import { config, journal } from '../../utils/application'
 import React from "react"
 import { withTranslation } from "react-i18next"
 import Page from "../page-assistant/page"
@@ -88,7 +88,7 @@ class PageFichiers extends React.Component {
       })
       .catch(err => {
           if (err) {
-              console.log(err)                                
+              journal.error(err)                                
           }
       })
       .finally(() => {

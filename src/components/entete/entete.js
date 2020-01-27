@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import MenuProfil from '../navigation/menu-profil'
-import { AyantsDroit, utils } from '../../utils/application'
+import { AyantsDroit } from '../../utils/application'
 import arrowLeftIcon from '../../assets/svg/icons/arrow-left.svg'
 
 export default class Entete extends Component {
@@ -20,7 +20,7 @@ export default class Entete extends Component {
 
         let nav = this.props.navigation && (
             <div style={{paddingLeft: "30px", paddingTop: "20px"}} className={ 'back-button-section' }>
-                <div className="ui cliquable" onClick={utils.naviguerVersAccueil()}>
+                <div className="ui cliquable" onClick={ this.props.navigation }>
                     <img src={ arrowLeftIcon } alt={ 'Retour' }/>
                 </div>
             </div>

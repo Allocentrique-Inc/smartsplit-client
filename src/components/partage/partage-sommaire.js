@@ -6,7 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
 import Declaration from '../auth/Declaration'
-import {Droits, Identite, AyantsDroit, config} from '../../utils/application'
+import {Droits, Identite, AyantsDroit, config, journal, utils} from '../../utils/application'
 import SommaireDroit from './sommaire-droit'
 
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
@@ -180,7 +180,7 @@ class SommairePartage extends Component {
                     this.calculMesVotes(proposition, fn)
                 })
                 .catch(err => {
-                    console.log(err)
+                    journal.error(err)
                 })
         } else {
             this.calculMesVotes(this.state.proposition, fn)
@@ -319,13 +319,13 @@ class SommairePartage extends Component {
                                 droits: this.state.mesVotes,
                                 jeton: this.state.jetonApi
                             }
-                            axios.post('http://dev.api.smartsplit.org:8080/v1/proposal/voter', body)
-                                .then((res) => {
-                                    window.location.href = `/partager/${this.state.proposition.mediaId}`
-                                })
-                                .catch((err) => {
-                                    console.log(err)
-                                })
+                            axios.post(`${config.API_URL}proposal/voter`, body)
+                            .then((res) => {
+                                utils.naviguerVersSommairePartage(this.state.proposition.mediaId)
+                            })
+                            .catch((err) => {
+                                journal.error(err)
+                            })
                         }} />
                 }
             </div>

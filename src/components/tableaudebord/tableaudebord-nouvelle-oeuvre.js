@@ -100,7 +100,7 @@ class NouvelleOeuvre extends Component {
                     utils.naviguerVersNouveauPartage(body.mediaId)
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => journal.error(err))
 
     }
 

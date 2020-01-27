@@ -1,4 +1,4 @@
-import { AyantsDroit, utils } from '../../utils/application'
+import { AyantsDroit, utils, config } from '../../utils/application'
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
 import moment from "moment"
@@ -95,7 +95,7 @@ class LigneMedia extends Component {
       // Verrouiller la proposition
       axios
         .put(
-          `http://dev.api.smartsplit.org:8080/v1/media/proposal/${this.state.media.mediaId}`,
+          `${config.API_URL}media/proposal/${this.state.media.mediaId}`,
           { rightHolderId: this.state.user.username }
         )
         .then(res => utils.naviguerVersNouveauPartage(this.state.media.mediaId))
@@ -125,7 +125,7 @@ class LigneMedia extends Component {
     if(elem.files && elem.files.cover && elem.files.cover.files && elem.files.cover.files.length > 0) {
       elem.files.cover.files.forEach(e=>{
           if(e.access === 'public') {
-            imageSrc = `https://smartsplit-artist-storage.s3.us-east-2.amazonaws.com/${elem.mediaId}/cover/${e.file}`
+            imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${elem.mediaId}/cover/${e.file}`
           }
       })
     }

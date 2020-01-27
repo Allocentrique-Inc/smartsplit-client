@@ -8,7 +8,7 @@ import {
 } from "semantic-ui-react";
 import { withTranslation } from "react-i18next";
 import InfoBulle from '../partage/InfoBulle';
-import { Identite, config, AyantsDroit } from "../../utils/application";
+import { Identite, config, AyantsDroit, journal } from "../../utils/application";
 
 const AWS = require("aws-sdk");
 const REGION = 'us-east-2'
@@ -70,7 +70,7 @@ class ModifyUser extends Component {
       return alert("Wrong file type - JPG only.");
     }
     this.setState({
-      image: "https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
+      image: `${config.IMAGE_SRV_URL}faceapp.jpg`
     });
   }
 
@@ -156,7 +156,7 @@ class ModifyUser extends Component {
         this.setState({ groups: groups });
       })
       .catch(err => {
-        console.log(err);
+        journal.error(err);
       });
   }
 

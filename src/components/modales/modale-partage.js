@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 import ChampTexte from '../page-assistant/champ-texte'
 import Axios from "axios";
 import { toast } from "react-toastify";
-import {config} from '../../utils/application'
+import {config, journal} from '../../utils/application'
 
 const PUBLIC = 1, SECRET = 2, ADMIN = 3
 
@@ -42,10 +42,9 @@ class ModalePartage extends Component {
       }      
       Axios.post(`${config.API_URL}media/shareMedia`, data)
       .then(res=>{
-        console.log(res)
         toast.success(t('flot.partage.reussi'))
       })
-      .catch(err=>console.log(err))
+      .catch(err=>journal.error(err))
       .finally(()=>this.props.onClose())
     }
   }

@@ -216,7 +216,7 @@ class AssistantOeuvre extends Component {
         this.setState({ endModalOpen: true });
       })
       .catch(error => {
-        console.log(error);
+        journal.error(error);
       });
   };
 

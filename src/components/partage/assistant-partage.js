@@ -43,6 +43,7 @@ class AssistantPartage extends Component {
         this.enregistrerEtAllerAuSommaire = this.enregistrerEtAllerAuSommaire.bind(this)
         this.soumettre = this.soumettre.bind(this)
         this.modaleFin = this.modaleFin.bind(this)
+        this.validerSommeDroits = this.validerSommeDroits.bind(this)
     }
 
     componentWillMount() {
@@ -96,6 +97,36 @@ class AssistantPartage extends Component {
             .catch((error) => {
                 toast.error(error);
             })
+    }
+
+    validerSommeDroits(values) {
+        const t = this.props.t
+        let valide = true
+        let droitAuteur = 0, droitInterpretation = 0, droitEnregistrement = 0
+        values.droitAuteur.forEach(d=>{
+            droitAuteur = droitAuteur + parseFloat(d.pourcent)
+        })
+        values.droitInterpretation.forEach(d=>{
+            droitInterpretation = droitInterpretation + parseFloat(d.pourcent)
+        })
+        values.droitEnregistrement.forEach(d=>{
+            droitEnregistrement = droitEnregistrement + parseFloat(d.pourcent)
+        })
+        if(parseInt(droitAuteur) > 0 && parseInt(droitAuteur) !== 100) { toast.error(t('validation.partage.droitAuteur', {somme: droitAuteur})); valide = false }
+        if(parseInt(droitInterpretation) > 0 && parseInt(droitInterpretation) !== 100) { toast.error(t('validation.partage.droitInterpretation', {somme: droitInterpretation})); valide = false }
+        if(parseInt(droitEnregistrement) > 0 && parseInt(droitEnregistrement) !== 100) { toast.error(t('validation.partage.droitEnregistrement', {somme: droitEnregistrement})); valide = false }
+        return valide
+    }
+
+    validerDroitsNonNegatifs(parts, type) {
+        let valide = true
+        parts.forEach(p=>{
+            if(parseFloat(p.pourcent) < 0) {
+                valide = false
+            }
+        })
+        if(!valide) {toast.error(this.props.t('validation.partage.droitNegatif', {type: type}))}
+        return valide
     }
 
     soumettre(t, values, etat, cb, sansBlocage) {
@@ -164,7 +195,7 @@ class AssistantPartage extends Component {
                         },
                         "voteStatus": "active",
                         "contributorRole": roles,
-                        "splitPct": `${elem.pourcent}`
+                        "splitPct": `${elem.pourcent}`                        
                     })
                 } else {
                     let roles = { "45745c60-7b1a-11e8-9c9c-2d42b21b1a37": "accompaniment" }
@@ -217,6 +248,7 @@ class AssistantPartage extends Component {
             if (!sansBlocage && values.droitAuteur.length + values.droitInterpretation.length + values.droitEnregistrement.length === 0) {
                 toast.warn(t('info.partage.vide'))
             } else {
+
                 let body = {
                     uuid: "",
                     mediaId: parseInt(`${this.state.mediaId}`),
@@ -245,39 +277,39 @@ class AssistantPartage extends Component {
                     // 3a. Soumettre la nouvelle proposition en PUT
                     body.uuid = values.uuid
                     axios.put(`${config.API_URL}proposal/${body.uuid}`, body)
-                        .then(res => {
-                            // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
-                            if (typeof cb === "function") {
-                                cb()
-                            } else {
-                                this.modaleFin()
-                            }
-                        })
-                        .catch(err => {
-                            journal.error(NOM, err)
-                        })
+                    .then(res => {
+                        // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
+                        if (typeof cb === "function") {
+                            cb()
+                        } else {
+                            this.modaleFin()
+                        }
+                    })
+                    .catch(err => {
+                        journal.error(NOM, err)
+                    })
                 } else {
                     // 3b. Soumettre la nouvelle proposition en POST
                     axios.post(`${config.API_URL}proposal`, body)
-                        .then(res => {
-                            // toast.success(`${res.data}`)
-                            // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
-                            if (typeof cb === "function") {
-                                cb()
-                            } else {
-                                this.modaleFin()
-                            }
-                        })
-                        .catch(err => {
-                            journal.error(NOM, err)
-                        })
+                    .then(res => {
+                        // toast.success(`${res.data}`)
+                        // 4. Exécuter une fonction passée en paramètre ou rediriger vers la page sommaire de la proposition
+                        if (typeof cb === "function") {
+                            cb()
+                        } else {
+                            this.modaleFin()
+                        }
+                    })
+                    .catch(err => {
+                        journal.error(NOM, err)
+                    })
                 }
-            }
-            if (typeof cb === "function") {
-                setTimeout(() => {
-                    cb()
-                }, 1000)
-            }
+                if (typeof cb === "function") {
+                    setTimeout(() => {
+                        cb()
+                    }, 1000)
+                }
+            }            
         }
     }
 
@@ -436,9 +468,16 @@ class AssistantPartage extends Component {
                                         (values, actions) => {
                                             actions.setSubmitting(false)
                                             if (!lectureSeule) {
-                                                this.modaleDeclaration(true, () => {
-                                                    this.soumettre(t, values, "PRET")
-                                                })
+                                                let valide = true
+                                                valide = valide && this.validerDroitsNonNegatifs(values.droitAuteur, t('validation.auteur'))
+                                                valide = valide && this.validerDroitsNonNegatifs(values.droitInterpretation, t('validation.interpretation'))
+                                                valide = valide && this.validerDroitsNonNegatifs(values.droitEnregistrement, t('validation.enregistrement'))
+                                                valide = valide && this.validerSommeDroits(values)
+                                                if(valide) {
+                                                    this.modaleDeclaration(true, () => {
+                                                        this.soumettre(t, values, "PRET")
+                                                    })
+                                                }                                                
                                             }
                                         }
                                     }

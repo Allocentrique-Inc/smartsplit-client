@@ -6,7 +6,8 @@ import { withTranslation } from 'react-i18next'
 import moment from 'moment'
 import ModaleConnexion from '../auth/Connexion'
 import placeholder from '../../assets/images/placeholder.png'
-import {Identite, journal, config} from '../../utils/application'
+import {Identite, journal, config, utils} from '../../utils/application'
+import editIcon from '../../assets/svg/icons/edit.svg'
 
 const NOM = "SommaireOeuvre"
 
@@ -92,7 +93,7 @@ class SommaireOeuvre extends Component {
                         <div className="ui row" style={{ background: "#FAF8F9" }}>
                             <div className="ui one wide column"></div>
                             <div className="ui sixteen wide column">
-                                <Entete contenu={contenu} navigation={'/accueil'} profil={this.state.user} />                               
+                                <Entete contenu={contenu} navigation={()=>utils.naviguerVersAccueil()} profil={this.state.user} />                               
                             </div>
                         </div>
                         <div className="ui row" style={{ background: "#FAF8F9" }}>
@@ -141,13 +142,14 @@ class SommaireOeuvre extends Component {
                                                     !this.state.editerTitre &&
                                                     (
                                                         <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
-                                                            <i
+                                                            <img
+                                                                alt="edition"
                                                                 onClick={() => {
                                                                     this.editerTitre(true)
                                                                 }}
-                                                                className="pencil alternate icon grey"
+                                                                src={editIcon}
                                                                 style={{ cursor: "pointer" }}>
-                                                            </i>
+                                                            </img>
                                                         </h1>
                                                     )
                                                 }
