@@ -45,11 +45,25 @@
   line-height: 32px;
 }
 
+.heading3.carrefour {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8DA0B3;
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 25px;
+}
+
 .heading4 {
   font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 .heading5 {

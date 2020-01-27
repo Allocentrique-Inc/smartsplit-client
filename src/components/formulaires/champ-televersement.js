@@ -15,7 +15,8 @@ export class ChampTeleversement extends Component {
     this.bloquerDebloquer = this.bloquerDebloquer.bind(this);
     this.state = {
       indication: props.indication,
-      bloquer: false
+      bloquer: false,
+      pochette: props.pochette
     }
   }
 

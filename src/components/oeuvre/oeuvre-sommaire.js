@@ -8,6 +8,7 @@ import ModaleConnexion from '../auth/Connexion'
 import placeholder from '../../assets/images/placeholder.png'
 import {Identite, journal, config, utils} from '../../utils/application'
 import editIcon from '../../assets/svg/icons/edit.svg'
+import { Progress } from 'semantic-ui-react'
 
 const NOM = "SommaireOeuvre"
 
@@ -34,7 +35,7 @@ class SommaireOeuvre extends Component {
                         if (_p0._d < _p._d)
                             _p0 = _p
                     })
-                    this.setState({ p0: _p0 })
+                    this.setState({p0: _p0})
                 } catch(err) {
                     journal.error(NOM, err)
                 }
@@ -46,10 +47,10 @@ class SommaireOeuvre extends Component {
 
     getMedia() {
         axios.get(`${config.API_URL}media/${this.state.mediaId}`)
-            .then(res => {
-                let media = res.data.Item
-                this.setState({ media: media })
-            })
+        .then(res => {
+            let media = res.data.Item
+            this.setState({ media: media })
+        })
     }
 
     majTitre() {
@@ -84,6 +85,52 @@ class SommaireOeuvre extends Component {
                             imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${elem.mediaId}/cover/${e.file}`
                         }
                     })
+                }
+            }
+
+            // Proposition la plus récente
+            let p0 = this.state.p0            
+
+            // Progression du partage
+            let pctPartage = 0, pctDocumentation = 50
+
+            // Calcul de la progression du partage
+            if(p0) {
+                /**
+                 *  Partage © (avec données documentées ou bouton «Plus tard» cliqué) =20%
+                    Si l’utilisateur sort immédiatement 
+                    Partage ✪ (avec données documentées) =40%
+                    Partage ℗ (avec données documentées) =60%
+                    Sommaire = 70%
+                    Sommaire envoyé aux invités 80%
+                    Sommaire envoyé aux invités approbation = 20% résiduel divisé par le nombre d’approbation attendues. Si 5 collabos, chaque collabo qui a approuvé vaut 4%.
+                    Approuvé = 100% (bouton «Continuer» devient «Voir le sommaire»)
+                 */
+                if(p0.rightsSplits) {
+                    if(p0.rightsSplits.workCopyrightSplit) {
+                        if(p0.rightsSplits.workCopyrightSplit.lyrics.length > 0 || p0.rightsSplits.workCopyrightSplit.music.length > 0) {
+                            pctPartage += 20
+                        }
+                    }
+                    if(p0.rightsSplits.performanceNeighboringRightSplit) {
+                        if(p0.rightsSplits.performanceNeighboringRightSplit.principal.length > 0 || p0.rightsSplits.performanceNeighboringRightSplit.accompaniment.length > 0) {
+                            pctPartage += 20
+                        }
+                    }
+                    if(p0.rightsSplits.masterNeighboringRightSplit) {
+                        if(p0.rightsSplits.masterNeighboringRightSplit.split.length > 0 || p0.rightsSplits.masterNeighboringRightSplit.split.length > 0) {
+                            pctPartage += 20
+                        }
+                    }
+                    if(p0.etat === "PRET") {
+                        pctPartage += 10
+                    }
+                    if(p0.etat === "VOTATION") {
+                        pctPartage += 20
+                    }
+                    if(p0.etat === "ACCEPTE" || p0.etat === "REFUSE") {
+                        pctPartage += 20
+                    }
                 }
             }
 
@@ -171,37 +218,43 @@ class SommaireOeuvre extends Component {
                             <div className="ui two wide column" />
                             <div className="ui six wide column">
                                 <div className="ui row etape">
-                                    <div className="ui heading3">{t('flot.split.documente-ton-oeuvre.preambules.titre1')}</div>
-                                    <div className="ui heading1">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre1')}</div>
+                                    <div className="ui heading3 carrefour">{t('flot.split.documente-ton-oeuvre.preambules.titre1')}</div>
+                                    <div className="ui heading4">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre1')}</div>
 
-                                    <div className="ui medium-400">
+                                    <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
                                         {t('flot.split.documente-ton-oeuvre.preambules.intro1')}
                                     </div>
 
-                                    <div className="ui medium button"
-                                        style={{ marginTop: "20px", marginLeft: "0px" }} onClick={() => {
+                                    {
+                                        p0 && (
+                                            <Progress success={p0.etat !== "REFUSE"} error={p0.etat === "REFUSE"} percent={pctPartage} />
+                                        )
+                                    }                                    
 
-                                            let p0 = this.state.p0
-
+                                    <div className={`ui medium button ${p0 ? "inverse" : ""}`}
+                                        style={{ marginTop: "20px", marginLeft: "0px", minWidth: "125px" }} 
+                                        onClick={() => {                                            
                                             if (!p0) {
-                                                window.location.href = `/partager/nouveau/${this.state.mediaId}`
+                                                utils.naviguerVersNouveauPartage(this.state.mediaId)                                                
                                             } else {
-                                                window.location.href = `/partager/${this.state.mediaId}`
+                                                utils.naviguerVersSommairePartage(this.state.mediaId)                                                
                                             }
-
                                         }}>
-                                        {t('flot.split.action.commencer')}
+                                        {!p0 && t('flot.split.action.commencer')}
+                                        {p0 && t('flot.split.action.continuer')}
                                     </div>
                                 </div>
                                 <div className="ui row etape">
-                                    <div className="ui heading3">{t('flot.split.documente-ton-oeuvre.preambules.titre2')}</div>
-                                    <div className="ui heading1">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre2')}</div>
-                                    <div className="ui medium-400">
+                                    <div className="ui heading3 carrefour">{t('flot.split.documente-ton-oeuvre.preambules.titre2')}</div>
+                                    <div className="ui heading4">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre2')}</div>
+                                    <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
                                         {t('flot.split.documente-ton-oeuvre.preambules.intro2')}
                                     </div>
+                                    <Progress success percent={pctDocumentation} />                                    
                                     <div className="ui medium button"
-                                        style={{ marginTop: "20px", marginLeft: "0px" }} onClick={() => {
-                                            window.location.href = `/documenter/${this.state.media.mediaId}`
+                                        style={{ marginTop: "20px", marginLeft: "0px", minWidth: "125px" }} 
+                                        onClick={() => {
+                                            utils.naviguerVersDocumentation(this.state.media.mediaId)
                                         }}>
                                         {t('flot.split.action.commencer')}
                                     </div>

@@ -8,7 +8,8 @@ class InputFichier extends React.Component {
     this.fileInputRef = React.createRef();
     const filename = this.props.value ? this.props.value.name : "";
     this.state = {
-      filename: filename
+      filename: filename,
+      pochette: props.pochette
     }
   }
 
@@ -50,7 +51,7 @@ class InputFichier extends React.Component {
         <div className="ui button" onClick={this.clickFileInput}>
           {t("flot.split.documente-ton-oeuvre.documenter.choix")}
         </div>
-        <div className="placeholder cliquable">{this.placeholder()}</div>
+        <div className={`placeholder cliquable`} style={!this.state.filename ? {} : {fontSize: "16px", fontWeight: "700"}}>{this.placeholder()}</div>
         <input
           ref={this.fileInputRef}
           className="hidden"

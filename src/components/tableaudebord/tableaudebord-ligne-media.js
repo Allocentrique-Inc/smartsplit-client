@@ -137,20 +137,27 @@ class LigneMedia extends Component {
       avatars = this.renderAvatars()
     }
 
-    return (      
+    function naviguerVersOeuvre(pochette, mediaId) {
+      if(pochette){utils.naviguerVersSommaire(mediaId)}
+      else { utils.naviguerVersSommaireOeuvre(mediaId) }
+    }
+
+    return (
       <div className="_hautColonne">
         <div className="ui grid">
           <div className="ui row">
             <div
               className="ui one wide column cliquable"
-              onClick={() => utils.naviguerVersSommaire(elem.mediaId) }
+              onClick={() => {
+                naviguerVersOeuvre(this.state.pochette, elem.mediaId)
+              } }
             >
               <img className={ 'song-image' } style={{width: "40px", height: "40PX", right: "0px", position: "absolute"}} src={ imageSrc } alt={ this.props.media.title } />
             </div>
             <div
               className="ui six wide column"
             >
-              <div className="song-name cliquable" onClick={() => utils.naviguerVersSommaire(elem.mediaId) }>{`${elem.title}`}</div>
+              <div className="song-name cliquable" onClick={() => naviguerVersOeuvre(this.state.pochette, elem.mediaId) }>{`${elem.title}`}</div>
               <div className="small-400">
                 &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
               </div>
