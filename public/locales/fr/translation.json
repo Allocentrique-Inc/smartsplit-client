@@ -124,7 +124,16 @@
     "transfertEnCours": "Transfert de données en cours. Merci d'être patient."
   },
   "validation": {
-    "requis": "Requis"
+    "requis": "Requis",
+    "partage": {
+      "droitAuteur": "La somme des parts du droit d'auteur n'est pas 100 % ({{somme}})",
+      "droitInterpretation": "La somme des parts du droit d'interprétation n'est pas 100 % ({{somme}})",
+      "droitEnregistrement": "La somme des parts du droit d'enregistrement n'est pas 100 % ({{somme}})",
+      "droitNegatif": "Une part de droit ne peut avoir un pourcentage négatif ({{type}})"
+    },
+    "auteur": "Auteur",
+    "interpretation": "Interprétation",
+    "enregistrement": "Enregistrement"
   },
   "composant": {
     "televersement": {
@@ -848,5 +857,5 @@
     "ecouter": {
       "ecouter": "Écouter"
     }
-  }
+  }  
 }

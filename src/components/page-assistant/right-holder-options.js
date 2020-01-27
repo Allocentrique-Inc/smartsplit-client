@@ -1,3 +1,5 @@
+import {config} from '../../utils/application'
+
 export default function RightHolderOptions(rightHolders) {
     if (!Array.isArray(rightHolders)) {
         throw new Error('rightHolders param must be an array');
@@ -30,6 +32,6 @@ function makeRightHolderAvatarUrl(rightHolder) {
     const avatarImage = rightHolder.avatarImage;
 
     return avatarImage ?
-        'https://smartsplit-images.s3.us-east-2.amazonaws.com/' + avatarImage :
-        'https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg';
+        `${config.IMAGE_SRV_URL}${avatarImage}` :
+        `${config.IMAGE_SRV_URL}faceapp.jpg`;
 };

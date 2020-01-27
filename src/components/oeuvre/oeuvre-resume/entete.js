@@ -209,7 +209,6 @@ class Entete extends React.Component {
                       onClick={() => {
                         this.editerTitre(true)
                       }}
-                      className="pencil alternate icon grey"
                       style={{ cursor: "pointer" }}>
                     </img>
                     ) 

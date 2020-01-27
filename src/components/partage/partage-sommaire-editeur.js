@@ -5,6 +5,7 @@ import Beignet from '../visualisation/partage/beignet'
 import { withTranslation } from 'react-i18next'
 import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
+import editIcon from '../../assets/svg/icons/edit.svg'
 import {Identite, config, AyantsDroit, utils} from '../../utils/application'
 
 class PartageSommaireEditeur extends Component {
@@ -204,7 +205,6 @@ class PartageSommaireEditeur extends Component {
 
     transmettre() {
         if(Identite.usager) {
-            console.log(this.state)
             if (Identite.usager.username === this.state.beneficiaire.rightHolderId) {
                 this.envoi()
             } else {
@@ -271,10 +271,11 @@ class PartageSommaireEditeur extends Component {
                                                                 this.state.modifierVote &&
                                                                 (
                                                                     <div>
-                                                                        <i
-                                                                            className="pencil alternate icon big blue"
+                                                                        <img
+                                                                            alt="edit"
+                                                                            src={editIcon}
                                                                             style={{ cursor: "pointer" }}
-                                                                            onClick={() => { this.changerVote() }}></i>
+                                                                            onClick={() => { this.changerVote() }} />
                                                                         {
                                                                             this.state.justifierRefus && (
                                                                                 <div>

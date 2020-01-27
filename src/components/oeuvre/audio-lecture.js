@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import BlockUi from "react-block-ui";
 import "react-block-ui/style.css";
 import Axios from 'axios'
+import {journal} from '../../utils/application'
 
 const JOUER = 0
 
@@ -54,7 +55,7 @@ class AudioLecture extends Component {
                 })
             )
         })
-        .catch(err=>{console.log(err)})
+        .catch(err=>{journal.error(err)})
     }
 
     stopEtJouer(fichier) {

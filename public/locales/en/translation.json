@@ -132,7 +132,16 @@
     "transfertEnCours": "Data transfer in progress, please be patient."
   },
   "validation": {
-    "requis": "Required"
+    "requis": "Required",
+    "partage": {
+      "droitAuteur": "The sum of the work copyright split is not 100%  ({{somme}})",
+      "droitInterpretation": "The sum of the performance neighborhing right split is not 100% ({{somme}})",
+      "droitEnregistrement": "The sum of the mastering neighborhing right split is not 100% ({{somme}})",
+      "droitNegatif": "A split share cannot have a negative percentage value ({{type}})"
+    },
+    "auteur": "Copyright",
+    "interpretation": "Performance",
+    "enregistrement": "Mastering"
   },
   "composant": {
     "televersement": {
