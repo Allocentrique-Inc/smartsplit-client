@@ -187,6 +187,12 @@ class SommaireDroit extends Component {
 
           const Icon = Map[this.state.titre]
 
+            if(this.state.donneesParoles) {
+                let d = this.state.donneesParoles
+                let _d = this.state.donneesParoles.reverse()
+                console.log(d, _d)
+            }
+
             return (      
                 <div className="ui segment types">                    
                     {/* Grille d'affichage des droits (à gauche) et à droite, de la visualisation */}
@@ -204,7 +210,7 @@ class SommaireDroit extends Component {
                                 {_parts}
                             </div>
                             <div className="ui eight wide column">                                
-                                {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} />)}
+                                {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles.reverse()} />)}
                                 {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} />)}
                                 {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
                                 {!beignetDouble && _data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}

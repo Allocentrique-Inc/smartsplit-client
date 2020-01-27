@@ -37,8 +37,8 @@ class LogIn extends Component {
 
   handleSubmit = values => {    
     this.setState({ patience: true }, () => {
-      Identite.connexion({utilisateur: values.username, secret: values.password}, ()=>{        
-        if (this.props.fn) {
+      Identite.connexion({utilisateur: values.username, secret: values.password}, (connexion = true)=>{        
+        if (connexion && this.props.fn) {
           this.props.fn()
         }
         this.setState({ patience: false })

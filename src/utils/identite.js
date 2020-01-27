@@ -54,8 +54,8 @@ export default class AideIdentites {
             journal.debug(NOM, params)
             this.bienvenue(fn)
         } catch(err) {
-            journal.error(NOM, err)
-            fn()
+            journal.warn(NOM, err)
+            fn(false)
         }
     }
 
