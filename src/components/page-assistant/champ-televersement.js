@@ -120,7 +120,8 @@ export default class ChampTeleversement extends Component {
             audio: props.audio,
             apres: props.apres,
             extraStyle: props.extraStyle || {},
-            fichiers: props.fichiers
+            fichiers: props.fichiers,
+            pochette: props.pochette
         }
     }
 
@@ -133,6 +134,7 @@ export default class ChampTeleversement extends Component {
                         <div className="ui twelve wide column">
                             <ChampFichier
                                 conserverNomFichier={this.props.conserverNomFichier}
+                                pochette={this.props.pochette}
                                 label={this.props.label}
                                 info={this.props.info}
                                 undertext={this.props.undertext}

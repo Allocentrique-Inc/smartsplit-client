@@ -335,7 +335,7 @@ class PageAssistantPartageAuteur extends Component {
                         <div>
                             {this.state.partsParoles && (
                                 <Beignet2 className="six wide field" titre="Paroles" uuid="auteur--beignet--3"
-                                    data={this.state.partsParoles} type="workCopyrightSplit" side="left" />)}
+                                    data={this.state.partsParoles.reverse()} type="workCopyrightSplit" side="left" />)}
                             {this.state.partsMusique && (
                                 <Beignet2 className="six wide field" titre="Musique" uuid="auteur--beignet--2"
                                     data={this.state.partsMusique} type="workCopyrightSplit" side="right" />)}

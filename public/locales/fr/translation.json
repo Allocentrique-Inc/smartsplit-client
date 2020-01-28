@@ -665,7 +665,8 @@
         }
       },
       "action": {
-        "commencer": "Commencer"
+        "commencer": "Commencer",
+        "continuer": "Continuer"
       },
       "vote": {
         "accept": "Approuvé",

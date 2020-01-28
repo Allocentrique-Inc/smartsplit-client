@@ -289,6 +289,7 @@ class Page2NouvellePiece extends Component {
                                         }                                                        
                                     }                                                    
                                 }
+                                pochette={this.props.pochette}
                                 onFileChange={value => {
                                     if (value) {      
                                         this.setState({ patience: true })

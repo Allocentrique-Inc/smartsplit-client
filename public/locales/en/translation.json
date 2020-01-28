@@ -664,7 +664,8 @@
         }
       },
       "action": {
-        "commencer": "Start"
+        "commencer": "Start",
+        "continuer": "Continue"
       },
       "vote": {
         "accept": "Approved",
