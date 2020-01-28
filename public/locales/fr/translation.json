@@ -857,5 +857,9 @@
     "ecouter": {
       "ecouter": "Écouter"
     }
-  }  
+  },
+  "editeur": {
+    "oui": "Oui",
+    "non": "Non"
+  }
 }

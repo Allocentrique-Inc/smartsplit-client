@@ -856,5 +856,9 @@
     "ecouter": {
       "ecouter": "Listen"
     }
+  },
+  "editeur": {
+    "oui": "Yes",
+    "non": "No"
   }
 }

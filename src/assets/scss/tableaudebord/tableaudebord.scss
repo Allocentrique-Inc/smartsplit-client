@@ -107,18 +107,10 @@
   margin-left: 32px;
 }
 
-.tdb--lien__actif {
+.tdb--lien__actif, .tdb--lien__inactif {
   font-family: IBM Plex Sans;
   font-style: normal;
   font-weight: bold;
-  font-size: 16px;
-  line-height: 24px;
-  color: #ffffff;
-}
-
-.tdb--lien__inactif {
-  font-family: IBM Plex Sans;
-  font-style: normal;
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
@@ -384,13 +376,20 @@
   padding-top: 40px;
 }
 
-.small-400,
+.version {
+  font-weight: 18px;
+}
+
+.small-400.creation,
 .small-500-color {
   display: inline-block;
 }
 
-.small-500.secondaire {
-  color: #687a8b;
+.small-400.creation,
+.small-500.secondaire,
+.date.sommaire {
+color: #687A8B;
+font-size: 12px;
 }
 
 .ui.six.wide.column.etat {
@@ -447,15 +446,39 @@
 .vote {
   display: inline;
   text-align: right;
+  font-weight: bold;
 }
 
 .role,
-.vote {
+.vote,
+.statut {
   font-family: IBM Plex Sans;
 }
 
-.ui.segment.types {
+.statut {
+  display: inline;
+  font-weight: normal;
+}
+
+.statut,
+.role {
+  font-size: 12px;
+}
+
+.statut,
+.role,
+.holder-name {
+  font-weight: normal;
+}
+
+.holder-name,
+.vote {
+  font-size: 16px;
+}
+
+.body {
   min-height: 515px;
+
 }
 
 .division {
@@ -471,7 +494,8 @@
 }
 
 .utilisateurConnecte,
-.utilisateurInvite {
+.utilisateurInvite,
+.statut {
   float: right;
 }
 
@@ -490,10 +514,10 @@
   font-weight: normal;
 }
 
-.border-bottom.devide {
-  border-bottom: 0.5px solid #687a8b;
-}
-
 .fleche {
   float: right;
+}
+
+.ui.dividing.header.sommaire {
+  color: #dcdfe1;
 }

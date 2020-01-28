@@ -4,7 +4,7 @@ import starIcon from "./starIcon.png"
 import prodIcon from "./prodIcon.png"
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
-import {AyantsDroit} from "../../../utils/application"
+import { AyantsDroit } from "../../../utils/application"
 
 const d3 = require("d3")
 
@@ -126,7 +126,7 @@ class Beignet2 extends Component {
     let pie = d3
       .pie()
       .sort(null) // Do not sort group by size
-      .value(function(d) {
+      .value(function (d) {
         return d.value;
       })
       .startAngle(startAngle)
@@ -147,7 +147,7 @@ class Beignet2 extends Component {
       .attr("class", "tooltip")
       .style("opacity", 0);
 
-    svg.selectAll("allSlices").on("activate", function(d) {
+    svg.selectAll("allSlices").on("activate", function (d) {
       myDiv.transition().style("opacity", 0);
     });
 
@@ -158,16 +158,16 @@ class Beignet2 extends Component {
       .enter()
       .append("path")
       .attr("d", arc)
-      .attr("fill", function(d) {
+      .attr("fill", function (d) {
         return color(d.data.key);
       })
       .attr("stroke", "white")
       .attr("transform", "rotate(" + chartRotation + ")")
       .style("stroke-width", "2px")
-      .style("opacity", function(d) {
+      .style("opacity", function (d) {
         return alpha(d.data.key) ? 0.1 : 0.9;
       })
-      .on("mouseover", function(d) {
+      .on("mouseover", function (d) {
         d3.select(this).attr("stroke", "gray");
         myDiv
           .transition()
@@ -181,7 +181,7 @@ class Beignet2 extends Component {
           .style("left", d3.event.pageX + "px")
           .style("top", d3.event.pageY - 28 + "px");
       })
-      .on("mouseout", function(d) {
+      .on("mouseout", function (d) {
         d3.select(this).attr("stroke", "white");
         myDiv
           .transition()
@@ -202,7 +202,7 @@ class Beignet2 extends Component {
   }
 
   wrapping(text, width) {
-    text.each(function() {
+    text.each(function () {
       var text = d3.select(this),
         words = text
           .text()
@@ -254,18 +254,22 @@ class Beignet2 extends Component {
     let flush = {
       position: "absolute",
       top: "470px",
-      left: "240px",
-      textTransform: "uppercase"
+      left: "245px",
+      textTransform: "uppercase",
+      fontSize: "12px",
+      fontWeight: "bold",
     };
     if (this.props.titre === t("sommaire.musique.musique"))
       flush = {
         position: "absolute",
         top: "470px",
-        right: "155px",
-        textTransform: "uppercase"
+        right: "175px",
+        textTransform: "uppercase",
+        fontSize: "12px",
+        fontWeight: "bold",
       };
 
-    return (      
+    return (
       <div className="ui two wide column">
         <div style={{ margin: "0 auto" }}>
           {this.props.titre && <h4 style={flush}>{this.props.titre}</h4>}

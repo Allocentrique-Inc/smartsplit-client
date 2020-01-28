@@ -6,7 +6,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
 import Declaration from '../auth/Declaration'
-import {Droits, Identite, AyantsDroit, config, journal, utils} from '../../utils/application'
+import { Droits, Identite, AyantsDroit, config, journal, utils } from '../../utils/application'
 import SommaireDroit from './sommaire-droit'
 
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
@@ -200,7 +200,7 @@ class SommairePartage extends Component {
     //Identité ayant-droit. L'utilisateur connecté en cours
     transmettre() {
         const t = this.props.t
-        if(Identite.usager) {
+        if (Identite.usager) {
             if (Identite.usager.username === this.state.ayantDroit.rightHolderId) {
                 this.envoi()
             } else {
@@ -208,7 +208,7 @@ class SommairePartage extends Component {
             }
         } else {
             this.modaleConnexion()
-        }        
+        }
     }
 
     modaleConnexion(ouvert = true) {
@@ -231,7 +231,7 @@ class SommairePartage extends Component {
                     droits.push(<SommaireDroit
                         ayantsDroit={this.state.ayantsDroit}
                         type={type}
-                        key={`sommaire_${this.state.uuid}_${type}`}                        
+                        key={`sommaire_${this.state.uuid}_${type}`}
                         parts={this.state.proposition.rightsSplits[type]}
                         titre={type}
                         ayantDroit={this.state.ayantDroit}
@@ -251,8 +251,9 @@ class SommairePartage extends Component {
 
         let t = this.props.t
 
-        return (          
+        return (
             <div>
+                <div className="ui dividing header sommaire" />
                 {
                     !this.state.patience && (
 
@@ -291,12 +292,12 @@ class SommairePartage extends Component {
                     <LogIn
                         vote={true}
                         fn={() => {
-                            if(Identite.usager) {
+                            if (Identite.usager) {
                                 if (Identite.usager.username === this.state.ayantDroit.rightHolderId) {
-                                    this.setState({ user: Identite.usager }, ()=>{
+                                    this.setState({ user: Identite.usager }, () => {
                                         this.envoi()
                                         this.modaleConnexion(false)
-                                    })                                    
+                                    })
                                 } else {
                                     toast.error(t('flot.split.erreur.volIdentite'))
                                 }
@@ -320,12 +321,12 @@ class SommairePartage extends Component {
                                 jeton: this.state.jetonApi
                             }
                             axios.post(`${config.API_URL}proposal/voter`, body)
-                            .then((res) => {
-                                utils.naviguerVersSommairePartage(this.state.proposition.mediaId)
-                            })
-                            .catch((err) => {
-                                journal.error(err)
-                            })
+                                .then((res) => {
+                                    utils.naviguerVersSommairePartage(this.state.proposition.mediaId)
+                                })
+                                .catch((err) => {
+                                    journal.error(err)
+                                })
                         }} />
                 }
             </div>
