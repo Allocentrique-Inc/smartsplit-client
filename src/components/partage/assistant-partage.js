@@ -112,9 +112,9 @@ class AssistantPartage extends Component {
         values.droitEnregistrement.forEach(d=>{
             droitEnregistrement = droitEnregistrement + parseFloat(d.pourcent)
         })
-        if(parseInt(droitAuteur) > 0 && parseInt(droitAuteur) !== 100) { toast.error(t('validation.partage.droitAuteur', {somme: droitAuteur})); valide = false }
-        if(parseInt(droitInterpretation) > 0 && parseInt(droitInterpretation) !== 100) { toast.error(t('validation.partage.droitInterpretation', {somme: droitInterpretation})); valide = false }
-        if(parseInt(droitEnregistrement) > 0 && parseInt(droitEnregistrement) !== 100) { toast.error(t('validation.partage.droitEnregistrement', {somme: droitEnregistrement})); valide = false }
+        if(parseInt(droitAuteur) > 0 && parseInt(Math.round(droitAuteur)) !== 100) { toast.error(t('validation.partage.droitAuteur', {somme: droitAuteur})); valide = false }
+        if(parseInt(droitInterpretation) > 0 && parseInt(Math.round(droitInterpretation)) !== 100) { toast.error(t('validation.partage.droitInterpretation', {somme: droitInterpretation})); valide = false }
+        if(parseInt(droitEnregistrement) > 0 && parseInt(Math.round(droitEnregistrement)) !== 100) { toast.error(t('validation.partage.droitEnregistrement', {somme: droitEnregistrement})); valide = false }
         return valide
     }
 
@@ -248,7 +248,6 @@ class AssistantPartage extends Component {
             if (!sansBlocage && values.droitAuteur.length + values.droitInterpretation.length + values.droitEnregistrement.length === 0) {
                 toast.warn(t('info.partage.vide'))
             } else {
-
                 let body = {
                     uuid: "",
                     mediaId: parseInt(`${this.state.mediaId}`),

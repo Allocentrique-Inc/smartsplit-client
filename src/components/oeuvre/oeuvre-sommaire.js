@@ -227,7 +227,7 @@ class SommaireOeuvre extends Component {
 
                                     {
                                         p0 && (
-                                            <Progress success={p0.etat !== "REFUSE"} error={p0.etat === "REFUSE"} percent={pctPartage} />
+                                            <Progress size="tiny" success={p0.etat !== "REFUSE"} error={p0.etat === "REFUSE"} percent={pctPartage} />
                                         )
                                     }                                    
 
@@ -250,7 +250,7 @@ class SommaireOeuvre extends Component {
                                     <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
                                         {t('flot.split.documente-ton-oeuvre.preambules.intro2')}
                                     </div>
-                                    <Progress success percent={pctDocumentation} />                                    
+                                    <Progress size="tiny" success percent={pctDocumentation} />                                    
                                     <div className="ui medium button"
                                         style={{ marginTop: "20px", marginLeft: "0px", minWidth: "125px" }} 
                                         onClick={() => {
