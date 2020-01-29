@@ -218,16 +218,19 @@ class SommaireOeuvre extends Component {
                             <div className="ui two wide column" />
                             <div className="ui six wide column">
                                 <div className="ui row etape">
-                                    <div className="ui heading3 carrefour">{t('flot.split.documente-ton-oeuvre.preambules.titre1')}</div>
-                                    <div className="ui heading4">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre1')}</div>
-
-                                    <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
-                                        {t('flot.split.documente-ton-oeuvre.preambules.intro1')}
-                                    </div>
+                                    <div className="ui heading3 carrefour">{t('flot.split.documente-ton-oeuvre.preambules.titre1')}</div>                                    
 
                                     {
                                         p0 && (
-                                            <Progress size="tiny" success={p0.etat !== "REFUSE"} error={p0.etat === "REFUSE"} percent={pctPartage} />
+                                            <>
+                                                <div className="ui heading4">
+                                                    {t('flot.split.documente-ton-oeuvre.preambules.sous-titre1')}&nbsp;&nbsp;<span className="tag">{t(`flot.split.etat.${p0.etat}`)}</span>
+                                                </div>
+                                                <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
+                                                    {t('flot.split.documente-ton-oeuvre.preambules.intro1')}                                                    
+                                                </div>
+                                                <Progress size="tiny" success={p0.etat !== "REFUSE"} error={p0.etat === "REFUSE"} percent={pctPartage} />
+                                            </>
                                         )
                                     }                                    
 

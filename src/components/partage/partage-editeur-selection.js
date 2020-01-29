@@ -1,9 +1,10 @@
 import {config} from '../../utils/application'
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
-import ChampListeCollaborateurAssistant from "../formulaires/champ-liste-collaborateur"
+import ChampListeEditeurAssistant from "../formulaires/champ-liste-editeur"
 
 class PageAssistantPartageChoixEditeur extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -112,7 +113,7 @@ class PageAssistantPartageChoixEditeur extends Component {
               {!this.state.editeur && (
                 <div style={{ margin: "0 auto", height: "50px" }}>
                   <div>
-                    <ChampListeCollaborateurAssistant
+                    <ChampListeEditeurAssistant
                         onRef={ayantsDroit=>this.setEditeurs(ayantsDroit)}
                         style={{height: "50px" }}
                         indication={t("flot.split.documente-ton-oeuvre.editeur.ajout")}

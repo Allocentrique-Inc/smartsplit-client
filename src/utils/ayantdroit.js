@@ -58,16 +58,24 @@ export default class AideAyantDroit {
                         }
                     })                    
                 })
+                if(aDs.length === 0) {
+                    res(_aDs)
+                }
             } )
         }
         // Chargement des ayant-droits
         let reponse = await Axios.get( `${config.API_URL}rightholders/`).catch(err=>journal.error(NOM, err))
+        this.editeursBrut = reponse.data.filter(_aD => _aD.editeur && _aD.editeur === true)              
+        this.editeurs = await ordonnerParUuidEtGenererAvatars(this.editeursBrut)
+        if(this.editeursBrut.length > 0) { journal.silly(NOM, `Récupération des éditeurs terminée, nombre = ${Object.keys(this.editeurs).length}`) }
+        else { journal.silly(NOM, "Aucun éditeur") }
         // Sauvegarde des données brutes (utiles par certaines fonctions qui ne
         // trient pas par identifiant unique dans un dictionnaire)
-        this.ayantsDroitBrut = reponse.data
+        this.ayantsDroitBrut = reponse.data.filter(_aD=> !_aD.editeur || _aD.editeur === false)
         // Classer les ayants-droits par identifiant
-        this.ayantsDroit = await ordonnerParUuidEtGenererAvatars(reponse.data)
-        journal.silly(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`)
+        this.ayantsDroit = await ordonnerParUuidEtGenererAvatars(this.ayantsDroitBrut)   
+        if(this.ayantsDroitBrut.length > 0) { journal.silly(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`) }
+        else { journal.silly(NOM, "Aucun ayant-droit") }
     }
 
     static getInstance = () => {
