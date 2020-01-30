@@ -428,7 +428,7 @@ class AssistantPartage extends Component {
                             lectureSeule && (
                                 <script>
                                     setTimeout(()=>{toast.info(t('flot.split.partage.lecture-seule'))})
-                            </script>
+                                </script>
                             )
                         }
                         <div className="ui row">

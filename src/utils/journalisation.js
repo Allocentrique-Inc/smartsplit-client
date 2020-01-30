@@ -57,8 +57,10 @@ export default class Journalisation {
             this.moteur.warn(msg, {label: nom})
         }
     
-        this.error = (nom, msg) => {
+        this.error = (nom, msg) => {            
             this.moteur.error(msg, {label: nom})
+            if(msg.stack)
+                this.moteur.error(msg.stack, {label: `${nom}-trace`})
         }        
 
     }
@@ -74,7 +76,7 @@ export default class Journalisation {
             Journalisation.instance.http(NOM, "🎼")
             Journalisation.instance.info(NOM, "🎼")            
             Journalisation.instance.warn(NOM, "🎼")
-            Journalisation.instance.error(NOM, "🎼")            
+            Journalisation.instance.error(NOM, "🎼")
         }        
         return Journalisation.instance
     }    

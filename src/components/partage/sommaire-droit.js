@@ -189,17 +189,11 @@ class SommaireDroit extends Component {
                 )
             })
 
-            const Map = {
-                "workCopyrightSplit": <CopyrightSVG />,
-                "performanceNeighboringRightSplit": <StarSVG />,
-                "masterNeighboringRightSplit": <RecordSVG />
-            }
             const Icon = Map[this.state.titre]
 
-            if (this.state.donneesParoles) {
-                let d = this.state.donneesParoles
-                let _d = this.state.donneesParoles.reverse()
-                console.log(d, _d)
+            if(this.state.donneesParoles) {
+                //let d = this.state.donneesParoles
+                //let _d = this.state.donneesParoles.reverse()
             }
 
             return (
