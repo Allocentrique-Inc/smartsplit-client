@@ -21,7 +21,7 @@ export default class Journalisation {
                 all:true
             }),
             winston.format.timestamp({
-                format:"DD-MM-YYYY HH:MM:SS"
+                format:"DD-MM-YYYY hh:mm:ss"
             }),
             winston.format.printf(
                 info => `${info.timestamp} [${info.label}] ${info.level} : ${info.message}`

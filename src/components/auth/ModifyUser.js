@@ -165,19 +165,6 @@ class ModifyUser extends Component {
     }
   }
 
-  boutonsCouleurPochette() {
-    let boutons
-    boutons = document.getElementsByClassName("ui positive button")
-    for (var i = 0; i < boutons.length; i++) {
-      boutons[i].style.backgroundColor = "#F2724A"
-      boutons[i].style.color = "white"
-    }
-    boutons = document.getElementsByClassName("ui negative button")
-    for (var j = 0; j < boutons.length; j++) {
-      boutons[j].style.color = "#F2724A"
-    }
-  }
-
   render() {
     const {
       open,
@@ -317,12 +304,7 @@ class ModifyUser extends Component {
             icon="checkmark"
             labelPosition="right"
             content={t("flot.split.collaborateur.attribut.bouton.sauvegarder")}
-          />
-          {
-            this.props.pochette &&
-            (document.getElementsByClassName("ui button").length > 0) &&
-            (this.boutonsCouleurPochette())
-          }
+          />         
         </Modal.Actions>
       </Modal>       
     )

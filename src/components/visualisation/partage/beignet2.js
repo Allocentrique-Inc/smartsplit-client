@@ -23,9 +23,6 @@ class Beignet2 extends Component {
       type: props.type,
       accomp: false,
       side: "left"
-    };
-    if (props.data) {
-      this.rafraichir(props);
     }
   }
 

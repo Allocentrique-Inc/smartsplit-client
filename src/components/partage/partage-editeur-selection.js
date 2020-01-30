@@ -100,6 +100,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                         className="delete icon"
                         onClick={() => {
                           this.props.setFieldValue("editeur", undefined);
+                          this.props.setFieldValue("editeurListe", undefined);
                           this.setState({ editeur: undefined });
                         }}
                       ></i>
@@ -125,6 +126,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                         recherche={true}
                         selection={true}
                         ajout={true}
+                        parent={this}
                         fnSelect={
                           () => {
                               this.ajouterEditeur()
@@ -136,10 +138,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                 </div>
               )}
             </div>
-          </div>
-          <div className="ui seven wide column">
-            <div className="nine fourteen field">&nbsp;</div>
-          </div>
+          </div>          
         </div>
       </div>
     )
