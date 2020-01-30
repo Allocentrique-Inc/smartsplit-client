@@ -1,10 +1,10 @@
 import "./beignet.css"
-import copyIcon from "./copyIcon.png"
-import starIcon from "./starIcon.png"
-import prodIcon from "./prodIcon.png"
+import CopyrightGrey from './CopyrightGrey.png'
+import StarGrey from './RecordGrey.png'
+import RecordGrey from './StarGrey.png'
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
-import { AyantsDroit } from "../../../utils/application"
+import {AyantsDroit} from "../../../utils/application"
 
 const d3 = require("d3")
 
@@ -69,11 +69,11 @@ class Beignet2 extends Component {
   genererBeignet() {
     // Remettre à zéro le conteneur du beignet
     if (this.state.type === "workCopyrightSplit")
-      this.setState({ icon: copyIcon });
+      this.setState({ icon: CopyrightGrey });
     if (this.state.type === "performanceNeighboringRightSplit")
-      this.setState({ icon: starIcon });
+      this.setState({ icon: StarGrey });
     if (this.state.type === "masterNeighboringRightSplit")
-      this.setState({ icon: prodIcon });
+      this.setState({ icon: RecordGrey });
     let chartRotation = 0;
     if (
       this.state.type === "performanceNeighboringRightSplit" &&
@@ -126,7 +126,7 @@ class Beignet2 extends Component {
     let pie = d3
       .pie()
       .sort(null) // Do not sort group by size
-      .value(function (d) {
+      .value(function(d) {
         return d.value;
       })
       .startAngle(startAngle)
@@ -147,7 +147,7 @@ class Beignet2 extends Component {
       .attr("class", "tooltip")
       .style("opacity", 0);
 
-    svg.selectAll("allSlices").on("activate", function (d) {
+    svg.selectAll("allSlices").on("activate", function(d) {
       myDiv.transition().style("opacity", 0);
     });
 
@@ -158,16 +158,16 @@ class Beignet2 extends Component {
       .enter()
       .append("path")
       .attr("d", arc)
-      .attr("fill", function (d) {
+      .attr("fill", function(d) {
         return color(d.data.key);
       })
       .attr("stroke", "white")
       .attr("transform", "rotate(" + chartRotation + ")")
       .style("stroke-width", "2px")
-      .style("opacity", function (d) {
+      .style("opacity", function(d) {
         return alpha(d.data.key) ? 0.1 : 0.9;
       })
-      .on("mouseover", function (d) {
+      .on("mouseover", function(d) {
         d3.select(this).attr("stroke", "gray");
         myDiv
           .transition()
@@ -181,7 +181,7 @@ class Beignet2 extends Component {
           .style("left", d3.event.pageX + "px")
           .style("top", d3.event.pageY - 28 + "px");
       })
-      .on("mouseout", function (d) {
+      .on("mouseout", function(d) {
         d3.select(this).attr("stroke", "white");
         myDiv
           .transition()
@@ -194,15 +194,15 @@ class Beignet2 extends Component {
       svg
         .append("image")
         .attr("xlink:href", this.state.icon)
-        .attr("width", 60)
-        .attr("height", 60)
-        .attr("x", -30)
-        .attr("y", -30);
+        .attr("width", 80)
+        .attr("height", 80)
+        .attr("x", -40)
+        .attr("y", -40);
     }
   }
 
   wrapping(text, width) {
-    text.each(function () {
+    text.each(function() {
       var text = d3.select(this),
         words = text
           .text()
@@ -254,31 +254,34 @@ class Beignet2 extends Component {
     let flush = {
       position: "absolute",
       top: "470px",
-      left: "245px",
+      left: "240px",
       textTransform: "uppercase",
-      fontSize: "12px",
       fontWeight: "bold",
+      fontSize: "12px",
+      color: "#203548",
+      letterSpacing: "1px"
     };
     if (this.props.titre === t("sommaire.musique.musique"))
       flush = {
         position: "absolute",
         top: "470px",
-        right: "175px",
+        right: "80px",
         textTransform: "uppercase",
-        fontSize: "12px",
         fontWeight: "bold",
+        fontSize: "12px",
+        color: "#203548",
+        letterSpacing: "1px"
       };
 
-    return (
+    return (      
       <div className="ui two wide column">
-        <div style={{ margin: "0 auto" }}>
           {this.props.titre && <h4 style={flush}>{this.props.titre}</h4>}
           <div
             id={`my_dataviz_${this.state.uuid}`}
             className="beignet"
           ></div>
         </div>
-      </div>
+     
     )
   }
 }

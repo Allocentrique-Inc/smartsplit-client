@@ -2,6 +2,9 @@
     position: relative;
     width: 100%;
     height: 72px;
+    cursor: pointer;
+    position: absolute;
+    right: 200px;
 }
 
 .entete--partage__media {
@@ -14,4 +17,29 @@
 
 .btnCollaborateur {
     width: 250px;
+}
+
+.ui.row.entete {
+    display: inline-flex;
+    margin-left: 20px; 
+    margin-top: 10px; 
+    margin-bottom: 10px; 
+    background-color: "#fff";
+}
+
+.medium-400.titre {
+    margin-left: 15px; 
+    line-height: 40px;
+}
+
+.heading4.titre {
+    display: inline;
+    margin-left: 50px;
+}
+
+.ui.button.negative.enregistrer {
+    top: 0;
+    position: relative;
+    float: right;
+    margin-right: 20px;
 }

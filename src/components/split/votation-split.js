@@ -55,7 +55,7 @@ class VotationSplit extends Component {
         if (this.state.media) {            
             return (                
                 <div className="ui segment">
-                    <div className="ui grid" style={{ padding: "10px" }}>
+                    <div className="ui grid">
                         <div className="ui row">
                             <div className="ui one wide column" />
                             <div className="ui twelve wide column">
@@ -64,7 +64,7 @@ class VotationSplit extends Component {
                             <div className="ui three wide column"/>
                         </div>
                         <div className="ui row">
-                            <div className="ui one wide column" />
+                           
                             <div className="ui twelve wide column">
                                 {this.state.jeton && (<SommairePartage titre={this.state.media.title} uuid={this.state.proposition.uuid} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi} />)}
                             </div>

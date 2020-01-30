@@ -449,7 +449,7 @@
         },
         "bouton": {
           "ajout": "Ajouter",
-          "voter": "VOTER"
+          "voter": "Envoyer mon vote"
         },
         "tableaudebord": {
           "collabo": "Mes collaborateurs",
@@ -544,7 +544,7 @@
             "ACCEPTE": "Acceptée",
             "REFUSE": "Refusée"
           },
-          "resume": "Résumé du partage",
+          "resume": "Valider le split de {{titre}}",
           "editer": "Éditer",
           "titre": "Envoyer le partage des droits",
           "sous-titre": "Pour finaliser ce partage, tu dois inviter tes collabos à valider le tout. Indique leurs adresses courriels auxquelles envoyer ta proposition de partage.",

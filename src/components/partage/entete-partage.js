@@ -5,6 +5,7 @@ import { Progress } from "semantic-ui-react";
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import placeholder from '../../assets/images/placeholder.png'
+import './entete-partage.css'
 
 const NOM = "EntetePartage"
 
@@ -234,32 +235,25 @@ class EntetePartage extends Component {
           }}
         >
           <div className="ui sixteen column grid">
-            <div className="ui row" style={{ display: "inline-flex", marginLeft: "20px", marginTop: "10px", marginBottom: "10px" }}>
+            <div className="ui row entete">
               <div className="ui one wide column">
                 <img className="cliquable" onClick={()=>this.props.enregistrerEtAllerAuSommaire(t, this.props.values, this.state.media.mediaId)} alt="Vignette" src={imageSrc} style={{width: "40px", height: "40px"}} />
               </div>
               <div className="ui eight wide column">                    
                 {this.state.media && (
                   <span
-                    style={{ marginLeft: "15px", lineHeight: "40px" }}
                     className="medium-400 titre"
                   >
                     {this.state.media.title}
                   </span>
                 )}
-                <div className="heading4" style={{ display: "inline", marginLeft: "50px" }}>
+                <div className="heading4 titre">
                   {t("flot.split.documente-ton-oeuvre.etape.partage-titre")}
                 </div>
               </div>
               <div className="ui seven wide column">
                 <div
-                  className="ui button negative"
-                  style={{
-                    top: 0,
-                    position: "relative",
-                    float: "right",
-                    marginRight: "20px"
-                  }}
+                  className="ui button negative enregistrer"
                   onClick={() => this.props.enregistrerEtAllerAuSommaire(t, this.props.values, this.state.media.mediaId)}
                 >
                   {t(
@@ -283,11 +277,6 @@ class EntetePartage extends Component {
         </div>
         <div className="ui six wide column">
           <span
-            style={{
-              cursor: "pointer",
-              position: "absolute",
-              right: "200px"
-            }}
             className="entete--partage"
           ></span>
         </div>

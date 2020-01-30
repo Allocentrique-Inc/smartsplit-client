@@ -151,12 +151,6 @@ class SommairePartages extends Component {
                                 &nbsp; Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
                             </div>
 
-                            {/*                             <div className="statut2">
-                                <div className={(part.vote === 'accept') ? "approuve2" : (part.vote === 'reject' ? "desaprouve2" : "attente2")}>
-                                    {t(`flot.split.vote.${part.vote}`)}
-                                </div>
-                            </div> */}
-
                             <div>
                                 <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                 <div className="small-500-color">{`${elem.initiatorName}`}</div>
@@ -239,11 +233,7 @@ class SommairePartages extends Component {
                                     {t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}
                                 </span>
                             )}
-                            style={{
-                                background: "#FAF8F9",
-                                border: "1px solid #DCDFE1",
-                                boxShadow: "0px 8px 32px rgba(0, 0, 0, 0.25)"
-                            }}
+                          
                             decoration={
                                 <>
                                     <div className="header" style={
@@ -264,19 +254,16 @@ class SommairePartages extends Component {
                                     >
                                         {t("editeur.oui")}
                                     </div>
-                                    <div className="ui medium button infobulle" style={{ width: "110px", marginLeft: "20px", marginRight: "0px" }} onClick={(e) => {
+                                    <div className="ui medium button infobulle" onClick={(e) => {
                                         this.fermerInfobulleEditeur(ETAT_EDITEUR_OUI)
                                         this.afficherPanneauEditeur()
                                         this.setState({ nouvellePropositionEditeur: true })
                                     }}>{t("editeur.non")}</div>
-                                    <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={() => this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)} style={
-                                        {
-                                            paddingTop: "10px",
-                                            textAlign: "center",
-                                            fontSize: "16px",
-                                            fontFamily: "IBM Plex Sans",
-                                            fontWeight: "700"
-                                        }}>{t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
+
+                                    <div ClassName="panneau">
+                                    <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={() => this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)}>
+                                        {t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
+                                        </div>
                                 </>
                             }
                             orientation="bottom center"
@@ -346,17 +333,23 @@ class SommairePartages extends Component {
                         resume={false}
                         proposition={true}
                         menuProfil={false} />
-                    <div className="ui container" style={{ marginTop: "100px" }}>
+                        <div className="resume">
+                    <div className="ui container">
                         <div className="ui grid sommaire">
                             <div className="ui row">
                                 <div className="ui twelve wide column">
-                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume')}</h1>
+                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume')}{this.state.media.title}</h1>
+                                    <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}</div>
+                                
                                 </div>
                             </div>
+                            <div className="affichage">
                             <div className="ui row">
-                                <div className="ui sixteen wide column" style={{ borderBottom: "0.5px solid lightgrey", paddingBottom: "20px" }}>
+                                <div className="ui sixteen wide column">
                                     {optionsAffichage}
                                 </div>
+                            </div>
+                            </div>
                             </div>
                             {
                                 this.state.panneau === PANNEAU_PROPOSITIONS &&
@@ -364,13 +357,13 @@ class SommairePartages extends Component {
                                     <>
                                         <div className="ui row">
                                             <div className="ui sixteen wide column">
+                                                <div className="boutons sommaire">
                                                 {
                                                     proposition.etat === 'ACCEPTE' && <div
                                                         className="ui medium button inverse"
                                                         style={{ marginLeft: "0px" }}>
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
                                                 }
-                                                <div style={{ float: "right" }}>
                                                     {!nouveauDisabled && (
                                                         <div
                                                             className="ui medium button inverse">
@@ -388,13 +381,12 @@ class SommairePartages extends Component {
                                                     {!envoiDisabled && (
                                                         <div
                                                             onClick={() => this.openModal()}
-                                                            style={{ marginRight: "0px" }}
-                                                            className="ui medium button">
+                                                            className="ui medium button envoyer sommaire">
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
                                                     )}
                                                 </div>
                                             </div>
-                                        </div>
+                                            </div>
                                         <div className="ui row">
                                             <Accordion fluid styled className="ui sixteen wide column">
                                                 {propositions}

@@ -256,17 +256,19 @@ class SommairePartage extends Component {
                 <div className="ui dividing header sommaire" />
                 {
                     !this.state.patience && (
-
+                        
                         <div>
                             {droits}
                             {
                                 !this.estVoteClos() &&
                                 (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
                                 (
-                                    <div className={`ui medium button ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={() => {
+                                    <footer className="footer voter">
+                                    <div className={`ui medium button voter ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={() => {
                                         this.transmettre()
                                     }}>{t('flot.split.documente-ton-oeuvre.bouton.voter')}
                                     </div>
+                                    </footer>
                                 )
                             }
                         </div>
