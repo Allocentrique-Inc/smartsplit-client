@@ -125,7 +125,7 @@ class SommaireDroit extends Component {
                                                         })
                                                     }
                                                 </div>
-                                                <div class="ui section divider">
+                                                <div class="ui section divider sommaire">
                                                 </div>
                                             </div>
                                         </div>
@@ -134,7 +134,7 @@ class SommaireDroit extends Component {
 
                                 </div>
 
-                            </div>
+                            
                         </div>
 
 
@@ -168,6 +168,7 @@ class SommaireDroit extends Component {
                                                     {
                                                         this.state.refuser && (
                                                             <textarea
+                                                                className="raison refus"
                                                                 cols={30}
                                                                 rows={2}
                                                                 placeholder={t("flot.split.valider.pourquoi")}
@@ -184,7 +185,7 @@ class SommaireDroit extends Component {
                                 </>
                             )
                         }
-
+</div>
                     </>
                 )
             })

@@ -538,7 +538,7 @@
             "ACCEPTE": "Accepted",
             "REFUSE": "Rejected"
           },
-          "resume": "Split summary",
+          "resume": "Validate the split of {{titre}}",
           "editer": "Edit",
           "titre": "Send the copyright split",
           "sous-titre": "To finalize this split, you have to invite your collaborators to validate it all. Indicate their email addresses to which you are sending your split proposition.",
@@ -560,7 +560,7 @@
         },
         "bouton": {
           "ajout": "Add",
-          "voter": "VOTE"
+          "voter": "Send my vote"
         },
         "tableaudebord": {
           "collabo": "My Collaborators",
