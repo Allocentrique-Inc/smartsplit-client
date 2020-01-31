@@ -200,9 +200,9 @@
         "afficher": "Proposal Display"
       },
       "etat": {
-        "VOTATION": "Waiting for votes",
+        "VOTATION": "Waiting for decision",
         "REFUSE": "Rejected",
-        "ACCEPTE": "Accepted",
+        "ACCEPTE": "Approved",
         "BROUILLON": "In progress",
         "PRET": "Waiting to be sent",
         "INCONNU": "Unknown",

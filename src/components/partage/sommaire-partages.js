@@ -128,6 +128,7 @@ class SommairePartages extends Component {
             let _p0
 
             // Trouver _p0, la proposition la plus récente
+            // elem fait référence à un élément qu'on assigne
             this.state.propositions.forEach(elem => {
                 if (!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
@@ -148,9 +149,10 @@ class SommairePartages extends Component {
                                 {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
                             </div>
                             <div className="version">
-                                &nbsp; Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}
-                            </div>
-
+                                &nbsp; Version {idx + 1} - &nbsp; <span className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
+                                    {t(`flot.split.etat.${elem.etat}`)}
+                                    </span>           
+                                    </div>
                             <div>
                                 <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                 <div className="small-500-color">{`${elem.initiatorName}`}</div>
@@ -338,9 +340,7 @@ class SommairePartages extends Component {
                         <div className="ui grid sommaire">
                             <div className="ui row">
                                 <div className="ui twelve wide column">
-                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume')}{this.state.media.title}</h1>
-                                    <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}</div>
-                                
+                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume')}{this.state.media.title}</h1>    
                                 </div>
                             </div>
                             <div className="affichage">

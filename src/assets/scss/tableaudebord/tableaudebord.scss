@@ -378,6 +378,7 @@
 
 .version {
   font-weight: 18px;
+  display: flex;
 }
 
 .small-400.creation,
@@ -580,3 +581,41 @@ font-size: 12px;
 .ui.medium.button.voter {
   float:right;
 }
+
+.sommaire-approuve,
+.sommaire-desaprouve,
+.sommaire-attente,
+.sommaire-envoie {
+  font-family: IBM Plex Sans;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 2px;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  padding: 3px 5px 2px 5px;
+  width: auto;
+}
+
+.sommaire-approuve {
+color: #176D25;
+background-color: #DFF8E3;
+}
+
+.sommaire-desaprouve {
+  color: #AC1616;
+  background-color: #FBD4D4;
+}
+
+.sommaire-attente {
+  color: #A55108;
+  background-color: #FFE5A2;
+}
+
+.sommaire-envoie {
+  background-color: #F2EFF0;
+  color: #203548;
+  font-weight: normal;
+}
+

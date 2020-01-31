@@ -211,11 +211,11 @@ class Beignet extends Component {
         }, 0)
 
         return (
-            <div style={{ margin: "0 auto" }}>
+            <>
                 {this.props.titre && (<h4>{this.props.titre}</h4>)}
                 <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
                 </div>
-            </div>           
+                   </>
         )
     }
 }

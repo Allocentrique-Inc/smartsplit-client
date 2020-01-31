@@ -192,7 +192,7 @@
         "afficher": "Afficher le sommaire"
       },
       "etat": {
-        "VOTATION": "En attente de validation",
+        "VOTATION": "En attente de décision",
         "REFUSE": "Refusé",
         "ACCEPTE": "Accepté",
         "BROUILLON": "En rédaction",
@@ -546,7 +546,7 @@
             "BROUILLON": "En rédaction",
             "PRET": "Prêt à soumettre",
             "VOTATION": "En attente de validation",
-            "ACCEPTE": "Acceptée",
+            "ACCEPTE": "Approuvée",
             "REFUSE": "Refusée"
           },
           "resume": "Valider le split de {{titre}}",

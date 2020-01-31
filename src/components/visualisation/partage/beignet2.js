@@ -5,6 +5,7 @@ import RecordGrey from './StarGrey.png'
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
 import {AyantsDroit} from "../../../utils/application"
+import "../../../assets/scss/tableaudebord/tableaudebord.scss";
 
 const d3 = require("d3")
 
@@ -103,7 +104,6 @@ class Beignet2 extends Component {
     let svg = d3
       .select(`#my_dataviz_${this.state.uuid}`)
       .append("svg")
-      .attr("style", "position: absolute; top: 0px")
       .attr("width", this.state.width)
       .attr("height", this.state.height)
       .append("g")
@@ -252,9 +252,6 @@ class Beignet2 extends Component {
     }, 0);
 
     let flush = {
-      position: "absolute",
-      top: "470px",
-      left: "240px",
       textTransform: "uppercase",
       fontWeight: "bold",
       fontSize: "12px",
@@ -263,9 +260,6 @@ class Beignet2 extends Component {
     };
     if (this.props.titre === t("sommaire.musique.musique"))
       flush = {
-        position: "absolute",
-        top: "470px",
-        right: "80px",
         textTransform: "uppercase",
         fontWeight: "bold",
         fontSize: "12px",
@@ -274,13 +268,13 @@ class Beignet2 extends Component {
       };
 
     return (      
-      <div className="ui two wide column">
-          {this.props.titre && <h4 style={flush}>{this.props.titre}</h4>}
+        <>
           <div
             id={`my_dataviz_${this.state.uuid}`}
             className="beignet"
           ></div>
-        </div>
+          {this.props.titre && <h4 style={flush}>{this.props.titre}</h4>}
+        </>
      
     )
   }

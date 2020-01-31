@@ -57,18 +57,14 @@ class VotationSplit extends Component {
                 <div className="ui segment">
                     <div className="ui grid">
                         <div className="ui row">
-                            <div className="ui one wide column" />
                             <div className="ui twelve wide column">
                                 <div className="heading2">{t('flot.split.documente-ton-oeuvre.etape.vote-titre', {oeuvre: this.state.media.title})}</div>
                             </div>
-                            <div className="ui three wide column"/>
                         </div>
                         <div className="ui row">
-                           
-                            <div className="ui twelve wide column">
+                            <div className="ui four wide column">
                                 {this.state.jeton && (<SommairePartage titre={this.state.media.title} uuid={this.state.proposition.uuid} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi} />)}
                             </div>
-                            <div className="ui three wide column"/>
                         </div>
                     </div>
                 </div>                   

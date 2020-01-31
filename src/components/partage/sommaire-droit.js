@@ -190,6 +190,10 @@ class SommaireDroit extends Component {
                 )
             })
 
+            const Map = {"workCopyrightSplit": <CopyrightSVG />, 
+                        "performanceNeighboringRightSplit": <StarSVG />,
+                         "masterNeighboringRightSplit": <RecordSVG /> }
+
             const Icon = Map[this.state.titre]
 
             if(this.state.donneesParoles) {
@@ -205,7 +209,7 @@ class SommaireDroit extends Component {
                             <div className="ui eight wide column">
                                 <div className="wizard-title types row">
                                     <div className="ui column">
-                                        {Icon}
+                                    &nbsp;{Icon}
                                     </div>
                                     <div className="ui column">
                                         {t(`flot.split.droits.titre.${this.state.titre}`)}
@@ -213,15 +217,25 @@ class SommaireDroit extends Component {
                                 </div>
                                 {_parts}
                             </div>
-                            <div className="ui eight wide column">
+                            </div>
+                            </div>
+
+                            <div className="ui four column grid">
+                                <div className="ui row"> 
+                                <div className="ui two wide column">
                                 {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles.reverse()} />)}
+                                </div>
+                                <div className="ui two wide column">
                                 {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} />)}
+                                </div>
                                 {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
                                 {!beignetDouble && _data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+
+                    
+                
             )
 
         } else {
