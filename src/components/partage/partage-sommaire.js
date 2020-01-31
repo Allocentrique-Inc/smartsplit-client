@@ -253,7 +253,6 @@ class SommairePartage extends Component {
 
         return (
             <div>
-                <div className="ui dividing header sommaire" />
                 {
                     !this.state.patience && (
                         

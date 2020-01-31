@@ -193,8 +193,8 @@
       },
       "etat": {
         "VOTATION": "En attente de décision",
-        "REFUSE": "Refusé",
-        "ACCEPTE": "Accepté",
+        "REFUSE": "Refusée",
+        "ACCEPTE": "Approuvée",
         "BROUILLON": "En rédaction",
         "PRET": "En attente d'envoi",
         "INCONNU": "Inconnu",
@@ -549,7 +549,8 @@
             "ACCEPTE": "Approuvée",
             "REFUSE": "Refusée"
           },
-          "resume": "Valider le split de {{titre}}",
+          "valider": "Valider le split de {{titre}}",
+          "resume": "Résumé du partage",
           "editer": "Éditer",
           "titre": "Envoyer le partage des droits",
           "sous-titre": "Pour finaliser ce partage, tu dois inviter tes collabos à valider le tout. Indique leurs adresses courriels auxquelles envoyer ta proposition de partage.",

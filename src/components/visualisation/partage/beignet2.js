@@ -264,13 +264,19 @@ class Beignet2 extends Component {
         letterSpacing: "1px"
       };
 
+    let style = flush
+    if(this.props.style) {
+      style = Object.assign({}, style, this.props.style)
+    }
+
     return (      
         <>
           <div
             id={`my_dataviz_${this.state.uuid}`}
             className="beignet"
+            style={{position: "absolute", top: "0rem"}}
           ></div>
-          {this.props.titre && <h4 style={flush}>{this.props.titre}</h4>}
+          {this.props.titre && <h4 style={style}>{this.props.titre}</h4>}
         </>
      
     )
