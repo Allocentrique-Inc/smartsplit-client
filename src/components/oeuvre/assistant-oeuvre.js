@@ -220,15 +220,6 @@ class AssistantOeuvre extends Component {
       });
   };
 
-  boutonsCouleurPochette() {
-    let boutons = document.getElementsByClassName(
-      "ui right floated button pochette"
-    );
-    for (var i = 0; i < boutons.length; i++) {
-      boutons[i].style.backgroundColor = "#F2724A";
-    }
-  }
-
   render() {
     if (this.state.user && this.state.media) {
       let t = this.props.t
@@ -335,12 +326,7 @@ class AssistantOeuvre extends Component {
                     <Wizard.Page>
                       <PageLiens pochette={this.props.pochette} />
                     </Wizard.Page>
-                  </Wizard>
-                  {this.props.pochette &&
-                    document.getElementsByClassName(
-                      "ui right floated button pochette"
-                    ).length > 0 &&
-                    this.boutonsCouleurPochette()}
+                  </Wizard>               
                   <ModalFin
                     mediaId={this.state.media.mediaId}
                     titre={this.state.media.title}

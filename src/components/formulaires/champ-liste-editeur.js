@@ -1,4 +1,4 @@
-import {AyantsDroit} from '../../utils/application'
+import {AyantsDroit, journal} from '../../utils/application'
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik-iptoki'
 import { Form } from 'semantic-ui-react'
@@ -6,6 +6,8 @@ import ModaleEmbarquementEntreprise from '../modales/modale-embarquement-nouvel-
 import { withTranslation } from 'react-i18next'
 import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg"
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg"
+
+const NOM = "ChampListeEditeurAssistant"
 
 class ChampListeEditeurAssistant extends Component {
 
@@ -97,7 +99,7 @@ class ChampListeEditeurAssistant extends Component {
     handleAddition = (e, { value }) => {
         this.ajoutEnCours = true
         this.setState({ open: true })
-        this.setState({ firstName: value })
+        this.setState({ firstName: value })        
     }
 
     triggerLabel(indication) {
@@ -191,8 +193,12 @@ class ChampListeEditeurAssistant extends Component {
                     }}
                     fn={(uuid) => {
                         this.listeAyantsDroit()
-                        if (this.props.fn) {
-                            this.props.fn(uuid)
+                        journal.debug(NOM, uuid)
+                        if (this.props.parent && this.props.parent.props.setFieldValue) {
+                            this.props.parent.props.setFieldValue('editeurListe', uuid)                            
+                        }
+                        if (this.props.fnSelect) {
+                            this.props.fnSelect()
                         }
                         this.ouvertureListe = false
                     }}

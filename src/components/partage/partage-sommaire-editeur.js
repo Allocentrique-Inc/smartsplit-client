@@ -6,7 +6,11 @@ import { withTranslation } from 'react-i18next'
 import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
 import editIcon from '../../assets/svg/icons/edit.svg'
-import {Identite, config, AyantsDroit, utils} from '../../utils/application'
+// eslint-disable-next-line
+import {Identite, config, AyantsDroit, utils, journal} from '../../utils/application'
+
+// eslint-disable-next-line
+const NOM = "PartageSommaireEditeur"
 
 class PartageSommaireEditeur extends Component {
 
@@ -52,65 +56,59 @@ class PartageSommaireEditeur extends Component {
         })
 
         // Récupère tous les ayant-droits        
-        let _rHs = AyantsDroit.ayantsDroit
+        let _rHs = Object.assign({}, AyantsDroit.ayantsDroit, AyantsDroit.editeurs)
 
         this.setState({ ayantsDroit: _rHs }, () => {
-            Object.keys(this.state.ayantsDroit).forEach(adId => {
-                if (adId === this.state.part.rightHolderId) {
-                    this.setState({ donateur: this.state.ayantsDroit[adId] })
-                }
-                if (adId === this.state.part.shareeId) {
-                    this.setState({ beneficiaire: this.state.ayantsDroit[adId] }, () => {
-                        // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
-                        let _rH = {}
-                        let donnees = []
-                        let parts = this.state.proposition.rightsSplits.workCopyrightSplit
-                        // Paroles
-                        parts.lyrics.forEach((elem, idx) => {
-                            if (!_rH[elem.rightHolder.rightHolderId]) {
-                                _rH[elem.rightHolder.rightHolderId] = { nom: undefined, pourcent: 0 }
-                            }
-                            _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
-                            _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
-                            _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
+            let donateur = _rHs[this.state.part.rightHolderId]
+            let beneficiaire = _rHs[this.state.part.shareeId]
+            this.setState({ donateur: donateur })
+            this.setState({ beneficiaire: beneficiaire }, ()=>{
+                // Créer une structure pour les données du beignet avec tous les collaborateurs du partage
+                let _rH = {}
+                let donnees = []
+                let parts = this.state.proposition.rightsSplits.workCopyrightSplit
+                // Paroles
+                parts.lyrics.forEach((elem, idx) => {
+                    if (!_rH[elem.rightHolder.rightHolderId]) {
+                        _rH[elem.rightHolder.rightHolderId] = { nom: undefined, pourcent: 0 }
+                    }
+                    _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
+                    _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
+                    _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
+                })
+                // Musique
+                parts.music.forEach((elem, idx) => {
+                    if (!_rH[elem.rightHolder.rightHolderId]) {
+                        _rH[elem.rightHolder.rightHolderId] = { nom: undefined, pourcent: 0 }
+                    }
+                    _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
+                    _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
+                    _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
+                })
+                // Calcul des données pour le beignet par ayant-droit
+                Object.keys(_rH).forEach((elem) => {
+                    if (elem === this.state.part.rightHolderId) {
+                        // c'est l'utlisateur connecté, on lui assigne 100 % du partage avec l'éditeur
+                        let _aD = {}
+                        _aD.pourcent = 100
+                        _aD.color = _rH[elem].color
+                        _aD.nom = _rH[elem].nom
+                        this.setState({ ayantDroit: _aD })
+                        this.setState({ partPrincipale: _rH[elem].pourcent })
+                        // on pousse l'utilisateur ET l'éditeur
+                        donnees.push({ ayantDroit: this.state.donateur, color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent * this.state.part.rightHolderPct / 100) })
+                        donnees.push({
+                            ayantDroit: this.state.beneficiaire,
+                            color: "#bacada",
+                            nom: this.state.beneficiaire.artistName ? this.state.beneficiaire.artistName : `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`,
+                            pourcent: parseFloat(this.state.part.shareePct * _rH[elem].pourcent / 100)
                         })
-
-                        // Musique
-                        parts.music.forEach((elem, idx) => {
-                            if (!_rH[elem.rightHolder.rightHolderId]) {
-                                _rH[elem.rightHolder.rightHolderId] = { nom: undefined, pourcent: 0 }
-                            }
-                            _rH[elem.rightHolder.rightHolderId].nom = elem.rightHolder.name
-                            _rH[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
-                            _rH[elem.rightHolder.rightHolderId].pourcent = parseFloat(_rH[elem.rightHolder.rightHolderId].pourcent) + parseFloat(elem.splitPct)
-                        })
-
-                        // Calcul des données pour le beignet par ayant-droit
-                        Object.keys(_rH).forEach((elem) => {
-                            if (elem === this.state.part.rightHolderId) {
-                                // c'est l'utlisateur connecté, on lui assigne 100 % du partage avec l'éditeur
-                                let _aD = {}
-                                _aD.pourcent = 100
-                                _aD.color = _rH[elem].color
-                                _aD.nom = _rH[elem].nom
-                                this.setState({ ayantDroit: _aD })
-                                this.setState({ partPrincipale: _rH[elem].pourcent })
-                                // on pousse l'utilisateur ET l'éditeur
-                                donnees.push({ ayantDroit: this.state.donateur, color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent * this.state.part.rightHolderPct / 100) })
-                                donnees.push({
-                                    ayantDroit: this.state.beneficiaire,
-                                    color: "#bacada",
-                                    nom: this.state.beneficiaire.artistName ? this.state.beneficiaire.artistName : `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`,
-                                    pourcent: parseFloat(this.state.part.shareePct * _rH[elem].pourcent / 100)
-                                })
-                            } else {
-                                // on pousse l'ayant-droit
-                                donnees.push({ ayantDroit: this.state.ayantsDroit[elem], color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent) })
-                            }
-                        })
-                        this.setState({ donnees: donnees })
-                    })
-                }
+                    } else {
+                        // on pousse l'ayant-droit
+                        donnees.push({ ayantDroit: this.state.ayantsDroit[elem], color: _rH[elem].color, nom: _rH[elem].nom, pourcent: parseFloat(_rH[elem].pourcent) })
+                    }
+                })
+                this.setState({ donnees: donnees })
             })
         })
     }
@@ -228,7 +226,6 @@ class PartageSommaireEditeur extends Component {
     }
 
     render() {
-
         const t = this.props.t
         if (this.state.beneficiaire && this.state.donateur) {
             let visualisation = (<Beignet type="workCopyrightSplit" uuid={`auteur--beignet__${this.state.idx}`} data={this.state.donnees} />)

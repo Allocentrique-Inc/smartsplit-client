@@ -221,7 +221,7 @@ class SommairePartage extends Component {
         let TYPE_SPLIT = Droits.listeDroits()
 
         if (this.state.proposition && this.state.ayantsDroit) {
-            TYPE_SPLIT.forEach(type => {
+            TYPE_SPLIT.forEach((type, idx) => {
                 let _aDonnees = false
                 Object.keys(this.state.proposition.rightsSplits[type]).forEach(_cle => {
                     if (this.state.proposition.rightsSplits[type][_cle].length > 0) { _aDonnees = true }
@@ -231,7 +231,7 @@ class SommairePartage extends Component {
                     droits.push(<SommaireDroit
                         ayantsDroit={this.state.ayantsDroit}
                         type={type}
-                        key={`sommaire_${this.state.uuid}_${type}`}
+                        key={`sommaire_${this.state.uuid}_${type}_${idx}`}                        
                         parts={this.state.proposition.rightsSplits[type]}
                         titre={type}
                         ayantDroit={this.state.ayantDroit}

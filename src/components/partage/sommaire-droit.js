@@ -94,13 +94,13 @@ class SommaireDroit extends Component {
             let _parts = []
             let _data = []
             let beignetDouble = (this.state.type === "workCopyrightSplit")
-            Object.keys(this.state.donnees).forEach(uuid => {
+            Object.keys(this.state.donnees).forEach((uuid, idx) => {
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
                 _parts.push(
-                    <>
-                        <div key={`part_${uuid}`}>
+                    <div key={`part--${this.state.type}_${uuid}_${idx}`}>
+                        <div>
                             <div className="ui grid">
                                 <div className="ui row">
                                     <div className="ui twelve wide column">
@@ -185,8 +185,8 @@ class SommaireDroit extends Component {
                                 </>
                             )
                         }
-</div>
-                    </>
+                    </div>
+                </div>
                 )
             })
 

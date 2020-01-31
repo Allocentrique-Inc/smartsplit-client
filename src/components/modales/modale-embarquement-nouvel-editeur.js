@@ -94,16 +94,18 @@ class ModaleEmbarquementEntreprise extends Component {
     let username = this.state.email
     let password = this.randomPassword()
     Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes},
-      async (res) => {
-
-        journal.info(NOM, `VDG - ajuster l'ayant-droit par un appel API pour l'identitifier à un compte éditeur`)
-
-        await AyantsDroit.rafraichirListe( ()=>{
+      res => {        
+        journal.info(NOM, res)
+        axios.patch(`${config.API_URL}rightHolders/${res}/editeur`, {editeur: true})
+        .then(async ret=>{          
+          await AyantsDroit.rafraichirListe( ()=>{
             this.fermerModale()
-          if (this.props.fn) {
-            this.props.fn(res)
-          }
+            if (this.props.fn) {              
+              this.props.fn(res)
+            }
+          })
         })
+        .catch(err=>journal.error(NOM, err))        
       }
     )
   }
@@ -134,20 +136,7 @@ class ModaleEmbarquementEntreprise extends Component {
       this.setState({ open: nextProps.open });
     }
     if (this.props.firstName !== nextProps.firstName) {
-      this.setState({ currentValue: [nextProps.firstName] }, ()=>console.log(this.state.currentValue));
-    }
-  }
-
-  boutonsCouleurPochette() {
-    let boutons
-    boutons = document.getElementsByClassName("ui positive button")
-    for (var i = 0; i < boutons.length; i++) {
-      boutons[i].style.backgroundColor = "#F2724A"
-      boutons[i].style.color = "white"
-    }
-    boutons = document.getElementsByClassName("ui negative button")
-    for (var j = 0; j < boutons.length; j++) {
-      boutons[j].style.color = "#F2724A"
+      this.setState({ currentValue: [nextProps.firstName] })
     }
   }
 
@@ -272,12 +261,7 @@ class ModaleEmbarquementEntreprise extends Component {
             icon="checkmark"
             labelPosition="right"
             content={t("flot.split.collaborateur.attribut.bouton.sauvegarder")}
-          />
-          {
-            this.props.pochette &&
-            (document.getElementsByClassName("ui button").length > 0) &&
-            (this.boutonsCouleurPochette())
-          }
+          />        
         </Modal.Actions>
       </Modal>       
     )

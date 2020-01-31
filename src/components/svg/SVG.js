@@ -459,9 +459,9 @@ export class FlecheBasSVG extends SVG {
         <path
           d="M1 1L7 7L13 1"
           stroke="#8DA0B3"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
@@ -481,9 +481,9 @@ export class FlecheHautSVG extends SVG {
         <path
           d="M13 7L7 1L1 7"
           stroke="#8DA0B3"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
