@@ -142,7 +142,6 @@ class SommairePartages extends Component {
             propositions = this.state.propositions.map((elem, idx) => {
                 const accordionIsOpen = idx === this.state.activeIndex;
                 return (
-
                     <div className="ui row" key={`sommaire_${idx}`}>
                         <Accordion.Title active={accordionIsOpen} index={idx} onClick={this.clic}>
                             <div className="fleche">
@@ -238,18 +237,7 @@ class SommairePartages extends Component {
                           
                             decoration={
                                 <>
-                                    <div className="header" style={
-                                        {
-                                            textAlign: "center",
-                                            fontSize: "16px",
-                                            color: "black",
-                                            margin: "0 auto",
-                                            fontFamily: "IBM Plex Sans",
-                                            fontWeight: "700",
-                                            width: "240px"
-                                        }}>
-                                        {t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")}
-                                    </div>
+                                <div className="editeur">
                                     <br />
                                     <div className="ui medium button inverse infobulle" style={{ width: "110px", marginLeft: "0px", marginRight: "0px" }}
                                         onClick={() => { this.fermerInfobulleEditeur(ETAT_EDITEUR_NON) }}
@@ -261,11 +249,12 @@ class SommairePartages extends Component {
                                         this.afficherPanneauEditeur()
                                         this.setState({ nouvellePropositionEditeur: true })
                                     }}>{t("editeur.non")}</div>
-
-                                    <div ClassName="panneau">
+                                    </div>
+                                    <div className="panneau">
                                     <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={() => this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)}>
                                         {t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
                                         </div>
+                                        
                                 </>
                             }
                             orientation="bottom center"

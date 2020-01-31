@@ -230,21 +230,22 @@ class PartageSommaireEditeur extends Component {
         if (this.state.beneficiaire && this.state.donateur) {
             let visualisation = (<Beignet type="workCopyrightSplit" uuid={`auteur--beignet__${this.state.idx}`} data={this.state.donnees} />)
             return (
+                <>
+                <div className="ui dividing header sommaire" />
                 <div className="ui segment">
                     <div className="ui grid">
                         <div className="ui row">
-                            <div className="ui one wide column">
-                            </div>
-                            <div className="ui six wide column">
-                                <div className="ui grid">
-                                    <div className="ui row">
+                            <div className="ui eight wide column">
+
+
+                                {/* <div className="ui grid">*/}
+                                    <div className="ui row"> 
                                         <div className="ui two wide column">
                                             <div className="holder-name">
                                                 <img alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.beneficiaire.avatarImage}`} />
-                                            </div>
                                         </div>
-                                        <div className="ui ten wide column">
-                                            <div className="holder-name">
+                                        </div>
+                                        <div className="ui six wide column">      
                                                 {
                                                     this.state.beneficiaire &&
                                                         this.state.beneficiaire.artistName ?
@@ -298,7 +299,7 @@ class PartageSommaireEditeur extends Component {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="ui three wide column">
+                                        <div className="ui six wide column">
                                             <p className="big">
                                                 {parseFloat(this.state.part.shareePct).toFixed(2)} %
                                             </p>                                            
@@ -337,13 +338,11 @@ class PartageSommaireEditeur extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ui six wide column">
+                            <div className="ui eight wide column">
                                 {visualisation}
                             </div>
-                            <div className="ui one wide column">
-                            </div>
-                        </div>
-                    </div>
+                   {/*      </div>*/}
+                    
                     {
                         this.state.part.etat === "VOTATION" &&
                         this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
@@ -366,6 +365,7 @@ class PartageSommaireEditeur extends Component {
                             fn={() => { if(Identite.usager) { this.envoi() } }} />
                     </Modal>
                 </div>
+                </>
             )
         } else {
             return (<div></div>)

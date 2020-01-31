@@ -3,12 +3,14 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { withTranslation } from 'react-i18next'
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import Login from '../auth/Login'
-import { Accordion, Icon } from 'semantic-ui-react'
+import { Accordion } from 'semantic-ui-react'
 import AssistantPartageEditeur from './assistant-partage-editeur'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
 import { Modal } from 'semantic-ui-react'
 import {Identite, config, AyantsDroit, journal} from '../../utils/application'
+import { FlecheBasSVG, FlecheHautSVG } from '../svg/SVG.js'
 
 const NOM = "SommairePartagesEditeur"
 
@@ -58,6 +60,7 @@ class SommairePartagesEditeur extends Component {
     }
 
     render() {
+
         const t = this.props.t
         if (this.state.propositions) {
             let propositions = []        
@@ -66,13 +69,20 @@ class SommairePartagesEditeur extends Component {
             this.state.propositions.forEach(elem => {
                 if (!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
-            propositions = this.state.propositions.map((elem, idx) => {                
+            propositions = this.state.propositions.map((elem, idx) => {    
+                const accordionIsOpen = idx === this.state.activeIndex;            
                 return (
                     <div key={`sommaire_${idx}`}>
-                        <div className="ui row" style={{ fontFamily: "IBM Plex Sans" }}>
+                        <div className="ui row">
                             <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
-                                <Icon name='dropdown' />
-                                Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}                                        
+                            <div className="fleche">
+                                {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
+                            </div>
+                            <div className="version">
+                            &nbsp; Version {idx + 1} - <span className={(t(`flot.split.etat.${elem.etat}`) === 'ACCEPTE') ? "sommaire-approuve" : (t(`flot.split.etat.${elem.etat}`) === 'REFUSE') ? "sommaire-desaprouve" : (t(`flot.split.etat.${elem.etat}`) === 'PRET') ? "sommaire-envoie" : (t(`flot.split.etat.${elem.etat}`) === 'BROUILLON') ? "sommaire-attente" : "flot.split.etat.INCONNU"}>
+                            </span>
+                           {/*  {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}       */}                                  
+                                </div>
                             </Accordion.Title>
                             <Accordion.Content active={this.state.activeIndex === idx}>                                    
                                 <div className="ui row">
@@ -92,6 +102,12 @@ class SommairePartagesEditeur extends Component {
                 _p0 = _p
                 if (_p.etat !== 'REFUSE') {
                     nouveauDisabled = true
+                }
+                if (_p.etat === 'BROUILLON' || _p.etat === 'PRET') {
+                    nouveauDisabled = false
+                }
+                if (_p.etat === 'ACCEPTE') {
+                    nouveauDisabled = false
                 }
             }
             if(this.state.propositions.length === 0 || this.state.jetonApi) {
