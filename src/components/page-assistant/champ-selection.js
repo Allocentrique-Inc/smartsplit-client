@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Dropdown } from "semantic-ui-react";
-import { Translation } from "react-i18next"
+import { withTranslation } from "react-i18next"
 import plusCircleGreen from '../../assets/svg/icons/plus-circle-green.svg';
 import plusCircleOrange from '../../assets/svg/icons/plus-circle-orange.svg';
 import TitreChamp from "./titre-champ";
 import '../../assets/scss/page-assistant/champ.scss';
 import '../../assets/scss/page-assistant/champ-selection-multiple.scss';
 
-export default class ChampSelection extends Component {
+class ChampSelection extends Component {
     constructor(props) {
         super(props);
 
@@ -55,15 +55,8 @@ export default class ChampSelection extends Component {
     }
 
     createLabel() {
-        return (
-            <Translation>
-                {
-                    (t) =>
-
-                        this.props.createLabel || t('oeuvre.attribut.etiquette.ajouter-genre')
-                }
-            </Translation>
-        )
+        const t = this.props.t
+        return (this.props.createLabel || t('oeuvre.attribut.etiquette.ajouter-genre'))
     }
 
     render() {
@@ -90,6 +83,7 @@ export default class ChampSelection extends Component {
                     />
                 </label>
             </div>
-        );
+        )
     }
 }
+export default withTranslation()(ChampSelection)

@@ -1,9 +1,5 @@
-/**
- * Saisie du genre de l'oeuvre
- */
-
 import React, {Component} from 'react'
-import { Translation } from "react-i18next"
+import { withTranslation } from "react-i18next"
 import { ChampListeAssistant } from "../formulaires/champ-liste"
 
 // Progression
@@ -13,7 +9,7 @@ class PageAssistantOeuvreGenre extends Component {
 
     constructor(props){
         super(props)
-        const GENRES = require(`../../assets/listes/${this.props.i18n.lng.substring(0,2)}/genres.json`).genres
+        const GENRES = require(`../../assets/listes/${this.props.i18n.language.substring(0,2)}/genres.json`).genres
         this.genreOptions = this.genererGenres(GENRES)
         this.genreSecondaireOptions = this.genererGenres(GENRES, true)
         this.state = {
@@ -40,32 +36,27 @@ class PageAssistantOeuvreGenre extends Component {
     }
     
     render(){
+        const t = this.props.t
+        return (            
+            <React.Fragment>
+                <Progress percent={this.state.pctProgression} indicating></Progress>
+                
+                <h2>{t('flot.genre.titre')}</h2>            
+                <p>{t('flot.genre.preambule')}</p>
+
+                <ChampListeAssistant
+                    etiquette={t('oeuvre.attribut.etiquette.genre')} indication={t('oeuvre.attribut.indication.genre')}
+                    modele="genre" requis={true} fluid={true} multiple={false} recherche={true} selection={true} autoFocus={true}
+                    options={this.genreOptions} />
+
+                <ChampListeAssistant
+                    etiquette={t('oeuvre.attribut.etiquette.genre2')} indication={t('oeuvre.attribut.indication.genre2')}
+                    modele="secondaryGenre" requis={false} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={false} ajout={true}
+                    options={this.genreSecondaireOptions} />                           
         
-        return (
-            <Translation>
-                {
-                    (t) =>
-                        <React.Fragment>
-                            <Progress percent={this.state.pctProgression} indicating></Progress>
-                            
-                            <h2>{t('flot.genre.titre')}</h2>            
-                            <p>{t('flot.genre.preambule')}</p>
-
-                            <ChampListeAssistant
-                                etiquette={t('oeuvre.attribut.etiquette.genre')} indication={t('oeuvre.attribut.indication.genre')}
-                                modele="genre" requis={true} fluid={true} multiple={false} recherche={true} selection={true} autoFocus={true}
-                                options={this.genreOptions} />
-
-                            <ChampListeAssistant
-                                etiquette={t('oeuvre.attribut.etiquette.genre2')} indication={t('oeuvre.attribut.indication.genre2')}
-                                modele="secondaryGenre" requis={false} fluid={true} multiple={true} recherche={true} selection={true} autoFocus={false} ajout={true}
-                                options={this.genreSecondaireOptions} />                           
-                    
-                        </React.Fragment>
-                }
-            </Translation>
+            </React.Fragment>                
         )
     }
 }
 
-export default PageAssistantOeuvreGenre
+export default withTranslation()(PageAssistantOeuvreGenre)

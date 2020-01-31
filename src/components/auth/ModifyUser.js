@@ -6,14 +6,9 @@ import {
   Modal,
   Dropdown
 } from "semantic-ui-react";
-import { Translation } from "react-i18next";
-import { toast } from "react-toastify";
-import { Auth } from "aws-amplify";
+import { withTranslation } from "react-i18next";
 import InfoBulle from '../partage/InfoBulle';
-
-const AWS = require("aws-sdk");
-const REGION = 'us-east-2'
-AWS.config.update({ region: REGION });
+import { Identite, config, AyantsDroit, journal } from "../../utils/application";
 
 const MAX_IMAGE_SIZE = 10000000;
 
@@ -71,7 +66,7 @@ class ModifyUser extends Component {
       return alert("Wrong file type - JPG only.");
     }
     this.setState({
-      image: "https://smartsplit-images.s3.us-east-2.amazonaws.com/faceapp.jpg"
+      image: `${config.IMAGE_SRV_URL}faceapp.jpg`
     });
   }
 
@@ -103,20 +98,15 @@ class ModifyUser extends Component {
   }
 
   handleSubmit = values => {
-
     // S'il n'y a pas de groupe, un en créé un éponyme, si non c'est un anonyme
     let groupes = this.state.currentValue
     if (groupes.length === 0) {
-
       let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
-
       if (nom.trim() === "") {
         nom = "Anonyme"
       }
-
       groupes.push(nom)
     }
-
     let source = window.location.href
     let attributes = {
       email: this.state.email,
@@ -130,33 +120,20 @@ class ModifyUser extends Component {
       "custom:groups": JSON.stringify(groupes),
       "custom:avatarImage": this.state.avatarImage,
       "custom:requestSource": ((source.includes("pochette")) ? "pochette" : "smartsplit")
-    };
-    let username = this.state.email;
-    let password = this.randomPassword();
-
-    try {
-      Auth.signUp({
-        username,
-        password,
-        attributes: attributes
-      })
-        .then((res) => {
-          let userSub = res.userSub
-
-          this.fermerModale()
-
+    }
+    let username = this.state.email
+    let password = this.randomPassword()
+    Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes},
+      async (res) => {
+        await AyantsDroit.rafraichirListe( ()=>{
+            this.fermerModale()
           if (this.props.fn) {
-            this.props.fn(userSub)
+            this.props.fn(res)
           }
         })
-        .catch(err => {
-          toast.error(err.message);
-          console.log(err);
-        });
-    } catch (err) {
-      console.log("try", err);
-    }
-  };
+      }
+    )
+  }
 
   onTodoChange(value) {
     this.setState({
@@ -167,7 +144,7 @@ class ModifyUser extends Component {
   componentDidMount() {
     let groups = [];
     axios
-      .get("http://dev.api.smartsplit.org:8080/v1/entities")
+      .get(`${config.API_URL}entities`)
       .then(res => {
         res.data.forEach(g => {
           groups.push({ key: g.uuid, text: g.name, value: g.name })
@@ -175,7 +152,7 @@ class ModifyUser extends Component {
         this.setState({ groups: groups });
       })
       .catch(err => {
-        console.log(err);
+        journal.error(err);
       });
   }
 
@@ -188,247 +165,149 @@ class ModifyUser extends Component {
     }
   }
 
-  boutonsCouleurPochette() {
-    let boutons
-    boutons = document.getElementsByClassName("ui positive button")
-    for (var i = 0; i < boutons.length; i++) {
-      boutons[i].style.backgroundColor = "#F2724A"
-      boutons[i].style.color = "white"
-    }
-    boutons = document.getElementsByClassName("ui negative button")
-    for (var j = 0; j < boutons.length; j++) {
-      boutons[j].style.color = "#F2724A"
-    }
-  }
-
   render() {
     const {
       open,
-      currentValue,
-      currentRoleValue
+      currentValue
     } = this.state
+    const t = this.props.t
+    return (      
+      <Modal
+        className="modal collabo"
+        open={open}
+        closeOnEscape={true}
+        closeOnDimmerClick={false}
+        onClose={this.props.close}
+        size="small"
+      >
+        <Modal.Header className="Titre">
+          <div className="ui row titre">
+            <strong>{t("collaborateur.titre")}</strong>
+          </div>
+        </Modal.Header>
 
-    return (
-      <Translation>
-        {t => (
-          <Modal
-            className="modal collabo"
-            open={open}
-            closeOnEscape={true}
-            closeOnDimmerClick={false}
-            onClose={this.props.close}
-            size="small"
-          >
-            <Modal.Header className="Titre">
-              <div className="ui row titre">
-                <strong>{t("collaborateur.titre")}</strong>
-              </div>
-            </Modal.Header>
-
-            <div className="ui row container">
-              <div className="input-container">
-                <div className="userContainer">
-                  <span className="etiquettes">
-                    <div className="etiquettePrenom">
-                      <label htmlFor="prenom">
-                        <strong>
-                          {t("flot.split.collaborateur.attribut.etiquette.prenom")}
-                        </strong>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="newFirstName"
-                        placeholder={t(
-                          "flot.split.collaborateur.attribut.etiquette.placeholder.prenom"
-                        )}
-                        value={this.state.firstName}
-                        onChange={e => this.onTodoChange(e.target.value)}
-                      />
-                    </div>
-                    <div className="etiquetteNom">
-                      <label>
-                        <strong>
-                          &nbsp;&nbsp;
-                          {t("flot.split.collaborateur.attribut.etiquette.nom")}
-                        </strong>
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="newLastName"
-                        placeholder={t("flot.split.collaborateur.attribut.etiquette.placeholder.nom")}
-                        value={this.state.lastName}
-                        onChange={e =>
-                          this.setState({ lastName: e.target.value })
-                        }
-                      />
-                    </div>
-                  </span>
-                </div>
-
-                <div className="ui row artiste">
-                  <label>
+        <div className="ui row container">
+          <div className="input-container">
+            <div className="userContainer">
+              <span className="etiquettes">
+                <div className="etiquettePrenom">
+                  <label htmlFor="prenom">
                     <strong>
-                      {t("flot.split.collaborateur.attribut.etiquette.artiste")}
-                    </strong>
-                  </label>
-                  <InfoBulle text={t("flot.split.collaborateur.attribut.etiquette.na")}
-                    pos={{ x: 220, y: 200 }}
-                  />
-                  <label className="option">
-                    {t("flot.split.collaborateur.attribut.etiquette.option")}
-                  </label>
-                  <input
-                    type="text"
-                    className="newArtistName"
-                    placeholder={t("flot.split.collaborateur.attribut.etiquette.placeholder.artiste")}
-                    value={this.state.artistName}
-                    onChange={e =>
-                      this.setState({ artistName: e.target.value })
-                    }
-                  />
-                  {/*<div
-                    className="sous titre">
-                  </div>*/}
-                </div>
-
-                <div className="ui row group">
-                  <label>
-                    <strong>
-                      {t("flot.split.collaborateur.attribut.etiquette.groupe")}
-                    </strong>
-                  </label>
-                  <span>
-                    <Dropdown
-                      icon="search"
-                      id="prompt"
-                      type="text"
-                      options={this.state.groups}
-                      placeholder={t(
-                        "flot.split.collaborateur.attribut.indication.groupe"
-                      )}
-                      search
-                      multiple={true}
-                      selection
-                      fluid
-                      allowAdditions
-                      value={currentValue}
-                      onAddItem={this.handleAddition}
-                      onChange={this.handleChange}
-                    />
-                  </span>
-                </div>
-
-                <div className="ui row courriel">
-                  <label>
-                    <strong>
-                      {t("flot.split.collaborateur.attribut.etiquette.courriel")}
+                      {t("flot.split.collaborateur.attribut.etiquette.prenom")}
                     </strong>
                   </label>
                   <input
                     type="text"
                     required
-                    className="Email"
-                    placeholder={t("flot.split.collaborateur.attribut.etiquette.courriel")}
-                    value={this.state.email}
-                    onChange={e => this.setState({ email: e.target.value })}
+                    className="newFirstName"
+                    placeholder={t(
+                      "flot.split.collaborateur.attribut.etiquette.placeholder.prenom"
+                    )}
+                    value={this.state.firstName}
+                    onChange={e => this.onTodoChange(e.target.value)}
                   />
                 </div>
-
-                <div className="ui row role">
+                <div className="etiquetteNom">
                   <label>
                     <strong>
-                      {t("flot.split.collaborateur.attribut.etiquette.role")}
+                      &nbsp;&nbsp;
+                      {t("flot.split.collaborateur.attribut.etiquette.nom")}
                     </strong>
                   </label>
-                  <InfoBulle text={t("flot.split.collaborateur.attribut.indication.role2")}
-                    pos={{ x: 270, y: 550 }}
-                  />
-                  <Dropdown
-                    id="roles"
+                  <input
                     type="text"
-                    options={[
-                      {
-                        key: t("flot.split.roles.songwriter"),
-                        text: t("flot.split.roles.songwriter"),
-                        value: "Songwriter"
-                      },
-                      {
-                        key: t("flot.split.roles.composer"),
-                        text: t("flot.split.roles.composer"),
-                        value: "Composer"
-                      },
-                      {
-                        key: t("flot.split.roles.remixer"),
-                        text: t("flot.split.roles.remixer"),
-                        value: "Remixer"
-                      },
-                      {
-                        key: t("flot.split.roles.studio"),
-                        text: t("flot.split.roles.studio"),
-                        value: "Studio"
-                      },
-                      {
-                        key: t("flot.split.roles.publisher"),
-                        text: t("flot.split.roles.publisher"),
-                        value: "Publisher"
-                      },
-                      {
-                        key: t("flot.split.roles.graphist"),
-                        text: t("flot.split.roles.graphist"),
-                        value: "Graphist"
-                      },
-                      {
-                        key: t("flot.split.roles.producer"),
-                        text: t("flot.split.roles.producer"),
-                        value: "Producer"
-                      },
-                      {
-                        key: t("flot.split.roles.singer"),
-                        text: t("flot.split.roles.singer"),
-                        value: "Singer"
-                      },
-                      {
-                        key: t("flot.split.roles.musicien"),
-                        text: t("flot.split.roles.musicien"),
-                        value: "Musician"
-                      }
-                    ]}
-                    placeholder={t("flot.split.collaborateur.attribut.indication.role")}
-                    search
-                    multiple={true}
-                    selection
-                    fluid
-                    value={currentRoleValue}
-                    onChange={this.roleChange}
+                    required
+                    className="newLastName"
+                    placeholder={t("flot.split.collaborateur.attribut.etiquette.placeholder.nom")}
+                    value={this.state.lastName}
+                    onChange={e =>
+                      this.setState({ lastName: e.target.value })
+                    }
                   />
                 </div>
-
-                <br></br>
-              </div>
+              </span>
             </div>
-            <Modal.Actions>
-              <Button onClick={this.props.close} negative>
-                {t("flot.split.collaborateur.attribut.bouton.annuler")}
-              </Button>
-              <Button
-                onClick={this.click}
-                positive
-                icon="checkmark"
-                labelPosition="right"
-                content={t("flot.split.collaborateur.attribut.bouton.sauvegarder")}
+
+            <div className="ui row artiste">
+              <label>
+                <strong>
+                  {t("flot.split.collaborateur.attribut.etiquette.artiste")}
+                </strong>
+              </label>
+              <InfoBulle text={t("flot.split.collaborateur.attribut.etiquette.na")}
+                pos={{ x: 220, y: 200 }}
               />
-              {
-                this.props.pochette &&
-                (document.getElementsByClassName("ui button").length > 0) &&
-                (this.boutonsCouleurPochette())
-              }
-            </Modal.Actions>
-          </Modal>
-        )}
-      </Translation>
-    );
+              <label className="option">
+                {t("flot.split.collaborateur.attribut.etiquette.option")}
+              </label>
+              <input
+                type="text"
+                className="newArtistName"
+                placeholder={t("flot.split.collaborateur.attribut.etiquette.placeholder.artiste")}
+                value={this.state.artistName}
+                onChange={e =>
+                  this.setState({ artistName: e.target.value })
+                }
+              />
+            </div>
+
+            <div className="ui row group">
+              <label>
+                <strong>
+                  {t("flot.split.collaborateur.attribut.etiquette.groupe")}
+                </strong>
+              </label>
+              <span>
+                <Dropdown
+                  icon="search"
+                  id="prompt"
+                  type="text"
+                  options={this.state.groups}
+                  placeholder={t(
+                    "flot.split.collaborateur.attribut.indication.groupe"
+                  )}
+                  search
+                  multiple={true}
+                  selection
+                  fluid
+                  allowAdditions
+                  value={currentValue}
+                  onAddItem={this.handleAddition}
+                  onChange={this.handleChange}
+                />
+              </span>
+            </div>
+            <div className="ui row courriel">
+              <label>
+                <strong>
+                  {t("flot.split.collaborateur.attribut.etiquette.courriel")}
+                </strong>
+              </label>
+              <input
+                type="text"
+                required
+                className="Email"
+                placeholder={t("flot.split.collaborateur.attribut.etiquette.courriel")}
+                value={this.state.email}
+                onChange={e => this.setState({ email: e.target.value })}
+              />
+            </div>                
+          </div>
+        </div>
+        <Modal.Actions>
+          <Button onClick={this.props.close} negative>
+            {t("flot.split.collaborateur.attribut.bouton.annuler")}
+          </Button>
+          <Button
+            onClick={this.click}
+            positive
+            icon="checkmark"
+            labelPosition="right"
+            content={t("flot.split.collaborateur.attribut.bouton.sauvegarder")}
+          />         
+        </Modal.Actions>
+      </Modal>       
+    )
   }
 }
-export default ModifyUser
+export default withTranslation()(ModifyUser)

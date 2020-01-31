@@ -15,19 +15,23 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .heading1 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 500;
   font-size: 40px;
   line-height: 48px;
 }
 
 .heading2 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 32px;
   line-height: 40px;
@@ -35,55 +39,101 @@
 }
 
 .heading3 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 24px;
   line-height: 32px;
 }
 
+.heading3.carrefour {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8DA0B3;
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  padding-top: 25px;
+}
+
 .heading4 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 .heading5 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 18px;
   line-height: 24px;
 }
 
 .medium-400 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 400;
   font-size: 16px;
   line-height: 24px;
 }
 
 .medium-500 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
   margin: 0px 0px 0px 40px;
 }
 
+.medium-500 {
+  font-family: "IBM Plex Sans";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px 0px 0px 40px;
+}
+
+.medium-500-tier {
+  font-family: "IBM Plex Sans";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0px 0px 0px 0px;
+}
+
+.medium-500-tier-color {
+  font-family: "IBM Plex Sans";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2da84f;
+}
+
+.medium-500-color {
+  font-family: "IBM Plex Sans";
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: #2da84f;
+}
+
 .medium-500-nomargin {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
 }
 
 .illustration {
-  text-align: 'center';
+  text-align: "center";
   margin-left: 10%;
 }
 
 .medium-500-caps {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
@@ -91,29 +141,29 @@
 }
 
 .small-400 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
 }
 
 .small-500 {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 12px;
   line-height: 16px;
 }
 
 .small-500-color {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 12px;
   line-height: 16px;
-  color:#2DA84F;
+  color: #2da84f;
 }
 
 .small-500-caps {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 12px;
   line-height: 16px;
@@ -125,9 +175,9 @@
 }
 
 .ui.medium.button {
-  background-color:#2DA84F;
-  color:#FFF;
-  font-family: 'IBM Plex Sans';
+  background-color: #2da84f;
+  color: #fff;
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
@@ -137,9 +187,9 @@
 
 .ui.primary.right.floated.button,
 .ui.right.floated.button {
-  background-color:#2DA84F;
-  color:#FFF;
-  font-family: 'IBM Plex Sans';
+  background-color: #2da84f;
+  color: #fff;
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
@@ -148,9 +198,9 @@
 }
 
 .ui.small.button {
-  background-color:#2DA84F;
-  color:#FFF;
-  font-family: 'IBM Plex Sans';
+  background-color: #2da84f;
+  color: #fff;
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 12px;
   line-height: 16px;
@@ -159,9 +209,9 @@
 }
 
 .label {
-  background-color:#FFF;
-  color:#203548;
-  font-family: 'IBM Plex Sans';
+  background-color: #fff;
+  color: #203548;
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
@@ -169,9 +219,9 @@
 }
 
 .field-selector {
-  background-color:#FFF;
-  color:#8DA0B2;
-  font-family: 'IBM Plex Sans';
+  background-color: #fff;
+  color: #8da0b2;
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
@@ -180,9 +230,9 @@
 }
 
 .song-name {
-  background-color:#FFF;
-  color:#203548;
-  font-family: 'IBM Plex Sans';
+  background-color: #fff;
+  color: #203548;
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
@@ -191,8 +241,8 @@
 }
 
 .holder-name {
-  color:#203548;
-  font-family: 'IBM Plex Sans';
+  color: #203548;
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 16px;
   line-height: 24px;
@@ -200,24 +250,24 @@
 }
 
 .small-400-color {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
-  color:#8DA0B2;
+  color: #8da0b2;
 }
 
 .wizard-title {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 12px;
   line-height: 16px;
   text-transform: uppercase;
-  color:rgb(140, 153, 144);
+  color: rgb(140, 153, 144);
 }
 
 .who-invented-title {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 500;
   font-size: 40px;
   line-height: 48px;
@@ -230,26 +280,26 @@
 }
 
 .gray-fields {
-  background-color: #FAF8F9;
+  background-color: #faf8f9;
 }
 
 .cliquable {
-  cursor: pointer
+  cursor: pointer;
 }
 
 .etape {
-  margin-top: 20px
+  margin-top: 20px;
 }
 
-.accueil {  
-  background-image: url('https://images-publiques.s3.amazonaws.com/smartsplit-home.jpg'); 
+.accueil {
+  background-image: url("https://images-publiques.s3.amazonaws.com/smartsplit-home.jpg");
 }
 
 .accueil-pochette {
-  background-image: url('https://images-publiques.s3.amazonaws.com/2ec6dec3-9ff6-408c-a61b-72b1e0c62225.jpeg'); 
+  background-image: url("https://images-publiques.s3.amazonaws.com/2ec6dec3-9ff6-408c-a61b-72b1e0c62225.jpeg");
 }
 
-input[type='radio'] {
+input[type="radio"] {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -258,7 +308,7 @@ input[type='radio'] {
   position: relative;
   background-color: #d1d3d1;
   color: #0000ff;
-  content: '';
+  content: "";
   display: inline-block;
   visibility: visible;
   border: 2px solid white;
@@ -274,16 +324,16 @@ input[type='radio'] {
 
 .blank-text {
   display: block;
-  background-color:#FFF;
-  color:#203548;
-  font-family: 'IBM Plex Sans';
+  background-color: #fff;
+  color: #203548;
+  font-family: "IBM Plex Sans";
   font-weight: 700;
   font-size: 0px;
   line-height: 32px;
 }
 
 .ui.checkbox label {
-  font-family: 'IBM Plex Sans';
+  font-family: "IBM Plex Sans";
   font-weight: 500;
   font-size: 16px;
   line-height: 16px;
@@ -291,12 +341,12 @@ input[type='radio'] {
   margin: 0px 8px 8px 0px;
 }
 
-.ui.checkbox input:checked~label:after {
-  background-color: #2DA84F;
+.ui.checkbox input:checked ~ label:after {
+  background-color: #2da84f;
 }
 
 .ui.checkbox {
-  color:#FFF;
+  color: #fff;
 }
 
 .inline-select {

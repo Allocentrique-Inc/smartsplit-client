@@ -1,10 +1,8 @@
-import React, { Component } from "react";
-// import FormErrors from "../FormErrors";
-// import Validate from "../utility/FormValidation";
-import { Auth } from "aws-amplify";
-import { Translation } from "react-i18next";
-import { Modal } from "semantic-ui-react";
-import ChangePasswordVerification from "./ChangePasswordVerification";
+import React, { Component } from "react"
+import {Identite, utils} from '../../utils/application'
+import { withTranslation } from "react-i18next"
+import { Modal } from "semantic-ui-react"
+import ChangePasswordVerification from "./ChangePasswordVerification"
 
 class ForgotPasswordVerification extends Component {
 
@@ -32,21 +30,10 @@ class ForgotPasswordVerification extends Component {
   };
 
   passwordVerificationHandler = async event => {
-    event.preventDefault();
-
-    // AWS Cognito integration here
-    try {
-      await Auth.forgotPasswordSubmit(
-        this.state.email,
-        this.state.verificationCode,
-        this.state.newpassword
-      );
-
-      this.props.history.push("/accueil");
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    event.preventDefault()
+    Identite.oubliMotDePasse( {courriel: this.state.email, code: this.state.verificationCode, nouveauMdp: this.state.newPassword} )
+    utils.naviguerVerAccueil()
+  }
 
   onInputChange = event => {
     this.setState({
@@ -56,111 +43,108 @@ class ForgotPasswordVerification extends Component {
   };
 
   render() {
-    return (
-      <Translation>
-        {t => (
-          <section className="section auth">
-            <div
-              className="container"
-              style={{
-                width: "464px",
-                fontFamily: "IBM Plex Sans",
-                fontSize: "16px"
-              }}
-            >
-              <h1>&nbsp;&nbsp;{t("flot.split.inscription.choose-password")}</h1>
-              <form onSubmit={this.passwordVerificationHandler}>
-                <div className="field">
-                  <p className="control">
-                    <input
-                      type="text"
-                      className="input"
-                      id="verificationCode"
-                      aria-describedby="verificationCodeHelp"
-                      placeholder={t("flot.split.sommaire.verification")}
-                      value={this.state.verificationCode}
-                      onChange={this.onInputChange}
-                      style={{display: "none"}}
-                    />
-                  </p>
-                </div>
-                <div className="field">
-                  <p className="control has-icons-left">
-                    <input
-                      className="input"
-                      type="email"
-                      id="email"
-                      aria-describedby="emailHelp"
-                      placeholder={t(
-                        "flot.split.auth.oublier.indication.email"
-                      )}
-                      value={this.state.email}
-                      onChange={this.onInputChange}
-                      style={{display: "none"}}
-                    />
-                    <span className="icon is-small is-left">
-                      <i className="fas fa-envelope"></i>
-                    </span>
-                  </p>
-                </div>
-                <div className="field">
-                  <p className="control has-icons-left">
-                    <input
-                      type="password"
-                      className="input"
-                      id="newPassword"
-                      placeholder={t("flot.split.inscription.password")}
-                      value={this.state.newPassword}
-                      onChange={this.onInputChange}
-                    />
-                    <span className="icon is-small is-left">
-                      <i className="fas fa-lock"></i>
-                    </span>
-                  </p>
-                </div>
-                <div className="field">
-                  <p className="control has-icons-left">
-                    <input
-                      type="password"
-                      className="input"
-                      id="confirmNewPassword"
-                      placeholder={t("flot.split.inscription.confirm-password")}
-                      value={this.state.confirmNewPassword}
-                      onChange={this.onInputChange}
-                    />
-                    <span className="icon is-small is-left">
-                      <i className="fas fa-lock"></i>
-                    </span>
-                  </p>
-                </div>
-                <div className="field">
-                  <div className="control">
-                    <Modal
-                      trigger={
-                        <button
-                          className="ui medium button is-success"
-                          style={{ float: "right", margin: "0 0 50px 0" }}
-                          onClick={this.handleOpen}
-                        >
-                          {t("collaborateur.attribut.bouton.soumettre")}
-                        </button>
-                      }
-                      onClose={this.handleClose}
-                      size="small"
-                    >
-                      <Modal.Content>
-                        <ChangePasswordVerification />
-                      </Modal.Content>
-                    </Modal>
-                  </div>
-                </div>
-              </form>
+    const t = this.props.t
+    return (      
+      <section className="section auth">
+        <div
+          className="container"
+          style={{
+            width: "464px",
+            fontFamily: "IBM Plex Sans",
+            fontSize: "16px"
+          }}
+        >
+          <h1>&nbsp;&nbsp;{t("flot.split.inscription.choose-password")}</h1>
+          <form onSubmit={this.passwordVerificationHandler}>
+            <div className="field">
+              <p className="control">
+                <input
+                  type="text"
+                  className="input"
+                  id="verificationCode"
+                  aria-describedby="verificationCodeHelp"
+                  placeholder={t("flot.split.sommaire.verification")}
+                  value={this.state.verificationCode}
+                  onChange={this.onInputChange}
+                  style={{display: "none"}}
+                />
+              </p>
             </div>
-          </section>
-        )}
-      </Translation>
-    );
+            <div className="field">
+              <p className="control has-icons-left">
+                <input
+                  className="input"
+                  type="email"
+                  id="email"
+                  aria-describedby="emailHelp"
+                  placeholder={t(
+                    "flot.split.auth.oublier.indication.email"
+                  )}
+                  value={this.state.email}
+                  onChange={this.onInputChange}
+                  style={{display: "none"}}
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-envelope"></i>
+                </span>
+              </p>
+            </div>
+            <div className="field">
+              <p className="control has-icons-left">
+                <input
+                  type="password"
+                  className="input"
+                  id="newPassword"
+                  placeholder={t("flot.split.inscription.password")}
+                  value={this.state.newPassword}
+                  onChange={this.onInputChange}
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+            <div className="field">
+              <p className="control has-icons-left">
+                <input
+                  type="password"
+                  className="input"
+                  id="confirmNewPassword"
+                  placeholder={t("flot.split.inscription.confirm-password")}
+                  value={this.state.confirmNewPassword}
+                  onChange={this.onInputChange}
+                />
+                <span className="icon is-small is-left">
+                  <i className="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+            <div className="field">
+              <div className="control">
+                <Modal
+                  trigger={
+                    <button
+                      className="ui medium button is-success"
+                      style={{ float: "right", margin: "0 0 50px 0" }}
+                      onClick={this.handleOpen}
+                    >
+                      {t("collaborateur.attribut.bouton.soumettre")}
+                    </button>
+                  }
+                  onClose={this.handleClose}
+                  size="small"
+                >
+                  <Modal.Content>
+                    <ChangePasswordVerification />
+                  </Modal.Content>
+                </Modal>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>       
+    )
   }
 }
 
-export default ForgotPasswordVerification;
+export default withTranslation()(ForgotPasswordVerification)

@@ -8,21 +8,29 @@ import SectionEcouter from "./section-ecouter";
 import SectionTelechargements from "./section-telechargements";
 import SectionParoles from "./section-paroles";
 export default class Corps extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            acces: props.acces
+        }
+    }
+
     render() {
         return (
             <div className={ 'corps ui container' }>
                 <div className={ 'ui grid' }>
                     <div className={ 'ui sixteen wide mobile ten wide tablet ten wide computer column' }>
-                        <TableCreation edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <TableInterpretation edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <TableEnregistrement edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableCreation jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableInterpretation jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableEnregistrement jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
                     </div>
 
                     <div className={ 'ui sixteen wide mobile six wide tablet six wide computer column' }>
-                        <TableInformationsGenerales edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <SectionEcouter edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
-                        <SectionTelechargements pochette={this.props.pochette} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <SectionParoles edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableInformationsGenerales jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <SectionEcouter jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
+                        <SectionTelechargements jeton={this.props.jeton} membreEquipe={this.props.membreEquipe} acces={this.state.acces} pochette={this.props.pochette} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <SectionParoles jeton={this.props.jeton} membreEquipe={this.props.membreEquipe} acces={this.state.acces} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
                     </div>
                 </div>
             </div>

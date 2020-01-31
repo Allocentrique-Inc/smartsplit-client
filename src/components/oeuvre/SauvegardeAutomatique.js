@@ -1,8 +1,12 @@
+// eslint-disable-next-line
 import React, {Component} from 'react'
 import axios from 'axios'
-import { Translation } from 'react-i18next'
+import moment from 'moment'
+import { journal, config } from '../../utils/application'
 
-export class SauvegardeAutomatiqueMedia extends Component {
+const NOM = "SauvegardeAutomatiqueMedia"
+
+class SauvegardeAutomatiqueMedia extends Component {
 
     constructor(props) {
         super(props)
@@ -11,7 +15,6 @@ export class SauvegardeAutomatiqueMedia extends Component {
             interval: props.interval,
             values: props.values
         }
-        this.sauvegardeAuto = this.sauvegardeAuto.bind(this)
     }
 
     componentWillReceiveProps(nextPros) {
@@ -26,23 +29,30 @@ export class SauvegardeAutomatiqueMedia extends Component {
         }
     }
 
-    sauvegardeAuto(t) {
+    componentDidMount() {
+        if (!this.state.autoDemarre) {this.sauvegardeAuto()}
+    }
+
+    sauvegardeAuto() {        
         if(this.state.etat) {
             if(!this.state.autoDemarre) {
                 this.setState({autoDemarre: true},
                     ()=>{                        
-                        setTimeout(()=>{
+                        setTimeout(()=>{                            
                             // Sauvegarde des valeurs dans la base de données
-
                             // Correction de l'attribut cover si ce n'est pas une chaîne de caractères
                             let _vals = this.state.values
-                            _vals.cover = `${this.state.values.cover}`                            
-
-                            axios.post('http://dev.api.smartsplit.org:8080/v1/media', _vals)
+                            _vals.cover = `${this.state.values.cover}`
+                            // Formattage des dates
+                            let dateheure = _vals.creationDate
+                            if(moment(dateheure, "DD-MM-YYYY HH:mm").isValid()) {
+                                _vals.creationDate = moment(dateheure, "DD-MM-YYYY HH:mm").format('x')
+                            }
+                            journal.debug(`${NOM}`, "Sauvegarde automatique")
+                            axios.post(`${config.API_URL}media`, _vals)
                             .then((response) => {
-                                this.setState({autoDemarre: false})
+                                this.setState({autoDemarre: false}, ()=>this.sauvegardeAuto())                                
                             })
-                            
                         }, this.state.interval)
                     }
                 )
@@ -52,17 +62,9 @@ export class SauvegardeAutomatiqueMedia extends Component {
 
     render() {
         return (
-            <Translation>
-                {
-                    t=>
-                        <>
-                            {
-                                !this.state.autoDemarre && this.sauvegardeAuto(t) // Déclenchement initial
-                            }
-                        </>
-                }
-            </Translation>            
+            <div/>
         )
     }
 
 }
+export default SauvegardeAutomatiqueMedia

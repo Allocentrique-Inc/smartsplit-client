@@ -1,4 +1,11 @@
 {
+  "media": {
+    "options": {
+      "reenvoyer": "Réenvoyer la proposition",
+      "sommaire": "Voir le résumé",
+      "supprimer": "Supprimer"
+    }
+  },
   "info": {
     "oeuvre": {
       "creation": "Oeuvre # {{id}} créée. :)"
@@ -12,7 +19,7 @@
       "titre": "Cette oeuvre est ...",
       "originale": "Une création originale",
       "arrangement": "Une adaptation (remix)",
-      "reprise": "Une reprise (cover)"
+      "reprise": "Une interprétation (cover)"
     }
   },
   "titre": {
@@ -25,7 +32,9 @@
   },
   "collaborateur": {
     "titre": "Ajouter un collaborateur",
-    "titre2": "Ajouter comme collaborateur :",
+    "titreEntite": "Ajouter une entité",
+    "titre2": "Ajouter comme collaborateur",
+    "titreEntreprise": "Ajouter comme entreprise",
     "bouton": {
       "annuler": "Annuler",
       "sauvegarder": "Sauvegarder",
@@ -117,7 +126,16 @@
     "transfertEnCours": "Transfert de données en cours. Merci d'être patient."
   },
   "validation": {
-    "requis": "Requis"
+    "requis": "Requis",
+    "partage": {
+      "droitAuteur": "La somme des parts du droit d'auteur n'est pas 100 % ({{somme}})",
+      "droitInterpretation": "La somme des parts du droit d'interprétation n'est pas 100 % ({{somme}})",
+      "droitEnregistrement": "La somme des parts du droit d'enregistrement n'est pas 100 % ({{somme}})",
+      "droitNegatif": "Une part de droit ne peut avoir un pourcentage négatif ({{type}})"
+    },
+    "auteur": "Auteur",
+    "interpretation": "Interprétation",
+    "enregistrement": "Enregistrement"
   },
   "composant": {
     "televersement": {
@@ -174,13 +192,13 @@
         "afficher": "Afficher le sommaire"
       },
       "etat": {
-        "VOTATION": "VOTATION",
-        "REFUSE": "REFUSÉ",
-        "ACCEPTE": "ACCEPTÉ",
-        "BROUILLON": "BROUILLON",
-        "PRET": "PRÊT",
-        "INCONNU": "INCONNU",
-        "ATTENTE": "ATTENTE"
+        "VOTATION": "En attente de décision",
+        "REFUSE": "Refusé",
+        "ACCEPTE": "Accepté",
+        "BROUILLON": "En rédaction",
+        "PRET": "En attente d'envoi",
+        "INCONNU": "Inconnu",
+        "ATTENTE": "En attente"
       },
       "valider": {
         "titre": "Valide ton Split",
@@ -224,16 +242,18 @@
           "etiquette": {
             "nom": "Nom (légal)",
             "prenom": "Prénom (légal)",
+            "responsable": "Personne responsable",
             "artiste": "Nom d'artiste (alias)  ",
             "role": "Rôle dans la pièce musicale  ",
             "option": "Optionnel",
             "na": "Par exemple, Jay-Z est le nom d'artiste de Shawn Corey Carter.",
             "courriel": "Courriel",
-            "groupe": "Ajouter groupes, entités artistiques ou entreprises",
+            "groupe": "Ajouter groupes ou entités artistiques",
+            "entreprise": "Ajouter une entreprise",
             "ajout": "Ajouter un groupe ou un artiste",
             "placeholder": {
-              "nom": "Entre ton nom",
-              "prenom": "Entre ton prénom",
+              "nom": "Entre son nom",
+              "prenom": "Entre son prénom",
               "artiste": "Entre son nom d'artiste (alias)"
             }
           },
@@ -243,7 +263,8 @@
             "artiste": "Pseudonyme d'artiste",
             "role": "Choisis un ou plusieurs rôles",
             "role2": "Ces rôles peuvent être modifiés plus tard.",
-            "groupe": "Rechercher parmi les entités"
+            "groupe": "Rechercher parmi les entités",
+            "entreprise": "Ajouter une entité"
           },
           "bouton": {
             "annuler": "Annuler",
@@ -266,7 +287,7 @@
         "cest-parti": "C'est parti !"
       },
       "documente-ton-oeuvre": {
-        "titre": "Documenter",
+        "titre": "Ajouter des crédits",
         "preambule": "Bonjour ! Nous allons t'aider à documenter ton œuvre.",
         "chanteur": "Ajouter un type de chanteur",
         "instrument": "Ajouter un instrument",
@@ -421,7 +442,7 @@
           "autre-etape4": "Téléverser des fichiers .MID ou .MIDI seulement",
           "acces": "Accès",
           "choix": "Fichier",
-          "glisse": "Ou glisse ton fichier ici",
+          "glisse": "Clique ici pour choisir ton fichier",
           "details": "Dis-nous en plus sur la pièce musicale",
           "duree": "Durée",
           "public": "Public - Rendre l’information visible de tous",
@@ -433,7 +454,7 @@
         },
         "bouton": {
           "ajout": "Ajouter",
-          "voter": "VOTER"
+          "voter": "Envoyer mon vote"
         },
         "tableaudebord": {
           "collabo": "Mes collaborateurs",
@@ -474,8 +495,9 @@
         "etape": {
           "partage-etape": "Étape 2",
           "partage-titre": "Partage des droits",
+          "documentation": "Documentation",
           "enregistrerEtQuitter": "Enregistrer et quitter",
-          "vote-titre": "Valider le partage de droits"
+          "vote-titre": "Valider le split de {{oeuvre}}"
         },
         "partage": {
           "auteur": {
@@ -520,18 +542,32 @@
           "donateur": "Créateur"
         },
         "proposition": {
+          "etat": {
+            "BROUILLON": "En rédaction",
+            "PRET": "Prêt à soumettre",
+            "VOTATION": "En attente de validation",
+            "ACCEPTE": "Approuvée",
+            "REFUSE": "Refusée"
+          },
+          "resume": "Valider le split de {{titre}}",
+          "editer": "Éditer",
           "titre": "Envoyer le partage des droits",
           "sous-titre": "Pour finaliser ce partage, tu dois inviter tes collabos à valider le tout. Indique leurs adresses courriels auxquelles envoyer ta proposition de partage.",
-          "nouvelle": "Créer une nouvelle version",
+          "nouvelle": "Partager les droits",
           "envoyer": "Envoyer aux collaborateurs",
-          "continuer": "Continuer le partage",
+          "continuer": "Modifier le partage",
           "sommaire": "Accéder au sommaire",
           "voter": "Accéder au vote",
+          "change": "Changer vote",
           "voter-avec-jeton": "Vous pouvez voter uniquement avec le lien qui vous a été envoyé lors de la création de la proposition.",
           "pourquoi": "Indiques à tes collaborateurs pourquoi tu n'es pas à l'aise avec ce split.",
           "refuse": "Pourquoi refuses-tu le split (optionel)",
           "refuse2": "Refuser ce partage",
-          "termine": "Le vote est terminé !"
+          "termine": "Le vote est terminé !",
+          "telecharger-contrat": "Télécharger le contrat",
+          "nouvelle-version": "Créer un nouvelle version",
+          "jai-un-editeur": "J'ai un éditeur",
+          "partage": "Proposer un split"
         }
       },
       "traitement": {
@@ -572,18 +608,19 @@
         "bonjour": "Ici le panneau du tableau de bord Smartsplit.",
         "navigation": {
           "0": "Mes pièces musicales",
-          "1": "Mon profil public",
+          "1": "Mon profil",
           "2": "Mes collaborateurs"
         },
         "pieces": {
           "0": "Mes ajouts",
           "1": "Partagées avec moi",
-          "par": "par...",
+          "par": "par",
           "partageAvec": "partagé avec",
           "ajouter": "Ajouter"
         },
         "vide": {
           "preambule": "Tes oeuvres apparaîtront ici.",
+          "preambule-collaborations": "Les œuvres sur lesquelles tu collabores apparaîtront ici.",
           "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton ",
           "indication-lien": "«Ajouter»."
         }
@@ -633,12 +670,13 @@
         }
       },
       "action": {
-        "commencer": "Commencer"
+        "commencer": "Commencer",
+        "continuer": "Continuer"
       },
       "vote": {
         "accept": "Approuvé",
         "reject": "Refusé",
-        "active": "Attente",
+        "active": "En attente de décision",
         "accepter": "ACCEPTER",
         "refuser": "REFUSER"
       },
@@ -686,6 +724,30 @@
       "partage": "Voir le partage",
       "partageCree": "⭐️ Partage créé",
       "recupMotDePasse": "Nouveau mot de passe"
+    },
+    "partage": {
+      "titre": "Partager cette page",
+      "titre1": "Page publique",
+      "titre2": "Page secrète",
+      "titre3": "Page de modification",
+      "sous-titre-1": "De quelle manière veux-tu partager l'accès à cette page ?",
+      "public-t": "Accès public",
+      "public-d": "Accès en lecture, sans modification possible",
+      "secret-t": "Accès secret",
+      "secret-d": "Accès en lecture, avec téléchargement des fichiers autorisés",
+      "admin-t": "Accès administratif",
+      "admin-d": "Accès en écriture, avec modifications possibles",
+      "btn-ok": "Autoriser l'accès",
+      "btn-retour": "Retour",
+      "adresse1": "Lien vers la page publique :",
+      "adresse2": "Lien vers la page réservée à l'équipe et autres professionnels :",
+      "adresse3": "Lien d’accès en écriture :",
+      "envoyer": "Envoyer ce lien par courriel",
+      "nom": "Nom",
+      "prenom": "Prénom",
+      "courriel": "Courriel",
+      "adrCourriel": "Adresse courriel",
+      "reussi": "Partage de l'oeuvre réussi, courriel envoyé."
     }
   },
   "accueil": {
@@ -698,7 +760,9 @@
   "entete": {
     "connexion": "Connexion",
     "inscription": "Inscription",
-    "encours": "Connexion en cours..."
+    "encours": "Connexion en cours...",
+    "sommaire": "Voir le résumé",
+    "partage": "Partager"
   },
   "televersement": {
     "encours": "Merci de patienter pendant l'envoi et l'analyse du fichier"
@@ -775,6 +839,33 @@
       "piste": "Titre de la piste",
       "tech": "Technicien en enregistrement",
       "illustration": "Graphique"
+    },
+    "telechargement": {
+      "telechargement": "Téléchargements",
+      "visuel": "Visuels de l'œuvre",
+      "audio": "Fichiers audio",
+      "midi": "Fichiers MIDI",
+      "partition": "Partitions/Tablatures"
+    },
+    "parole": {
+      "parole": "Paroles",
+      "voir": "Voir les paroles"
+    },
+    "musique": {
+      "musique": "Musique"
+    },
+    "info": {
+      "info": "Informations générales",
+      "inconnue": "Inconnue",
+      "duree": "Durée",
+      "influence": "Influences"
+    },
+    "ecouter": {
+      "ecouter": "Écouter"
     }
+  },
+  "editeur": {
+    "oui": "Oui",
+    "non": "Non"
   }
 }

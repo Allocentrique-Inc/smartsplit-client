@@ -1,59 +1,126 @@
-@import '../colors';
-@import '../layout';
-@import '../typography';
+@import "../colors";
+@import "../layout";
+@import "../typography";
 
 .ui.button,
 .ui.button:focus,
 .ui.button.basic,
 .ui.button.basic:focus {
-    padding: ($margin-step/2) $margin-step;
-    border-radius: 2px;
+  padding: ($margin-step/2) $margin-step;
+  border-radius: 2px;
 
-    @extend .medium-500-style;
+  @extend .medium-500-style;
 }
 
 .ui.button,
 .ui.button:focus {
-    background-color: $smartsplit-color-link;
-    color: white;
+  background-color: $smartsplit-color-link;
+  color: white;
 }
 
 .ui.button.basic,
 .ui.button.basic:focus {
-    color: $smartsplit-color-link !important;
+  color: $smartsplit-color-link !important;
+}
+
+.ui.button.inverse {
+  background-color: white;
+  color: $smartsplit-color-link;
+  border: 1px solid lightgrey;
+  &.infobulle {
+    background-color: #FAF8F9;
+  }
+  &:hover{
+    background-color: $smartsplit-color-link;
+    color: white;
+    &.infobulle {
+      color: #FAF8F9;
+      background-color: $smartsplit-color-link;
+    }
+  }
+}
+
+.ui.button.disabled {
+  background-color: whitesmoke;
+  color: lightgrey;
+}
+
+.ui.button {
+  &:hover {    
+    &.infobulle {
+      background-color: #FAF8F9;
+    }
+  }
 }
 
 .pochette {
-    .ui.primary.right.floated.button,
-    .ui.right.floated.button,
-    .ui.button,
-    .ui.button:focus {
-        &:hover {
-            opacity: 80%;
-            background-color: $pochette-color-link;
-            color: white;
-        }
-        background-color: $pochette-color-link;
+  .ui.button.inverse {
+    background-color: whitesmoke;
+    &.infobulle {
+      background-color: #FAF8F9;
+    }    
+    color: $pochette-color-link;
+    border: 1px solid lightgrey;    
+    &:hover {
+      background-color: $pochette-color-link;
+      color:  white;
+      &.infobulle {
+        color: #FAF8F9;
+      }
     }
+  }
+  .ui.button {
+    &:hover {
+      background-color: $pochette-color-link;
+      color:  white;
+      .infobulle {
+        color: #FAF8F9;
+      }
+    }   
+  }
+}
 
-    .ui.negative {
-        background-color: whitesmoke;
-        color: $pochette-color-link;
-        &:hover {
-            background-color: $pochette-color-link;
-            color: white;
-        }
+.pochette {
+  .ui.primary.right.floated.button,
+  .ui.right.floated.button,
+  .ui.button,
+  .ui.button:focus {
+    &:hover {
+      opacity: 80%;
+      background-color: $pochette-color-link;
+      color: white;
     }
+    background-color: $pochette-color-link;
+  }
 
-    .ui.button.basic,
-    .ui.button.basic:focus {
-        color: $pochette-color-link !important;
+  .ui.negative {
+    background-color: whitesmoke;
+    color: $pochette-color-link;
+    &:hover {
+      background-color: $pochette-color-link;
+      color: white;
     }
+  }
+
+  .ui.button.basic,
+  .ui.button.basic:focus {
+    color: $pochette-color-link !important;
+  }
 }
 
 .button {
-    background-color: $smartsplit-color-link;
-    &.pochette{
-        background-color: $pochette-color-link;
-    }
+  background-color: $smartsplit-color-link;
+  &.pochette {
+    background-color: $pochette-color-link;
+  }
+}
+
+.ui.right.floated.button.pochette,
+.ui.primary.right.floated.button.pochette {
+  background-color: $pochette-color-link;
+  // background-color: "#F2724A";
+  &:focus {
+    background-color: $pochette-color-link;
+    color: white;
+  }
 }

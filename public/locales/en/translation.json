@@ -1,4 +1,11 @@
 {
+  "media": {
+    "options": {
+      "reenvoyer": "Resend to collaborators",
+      "sommaire": "See summary",
+      "supprimer": "Delete"
+    }
+  },
   "info": {
     "oeuvre": {
       "creation": "Work # {{id}} created. :)"
@@ -25,7 +32,9 @@
   },
   "collaborateur": {
     "titre": "Add a collaborator",
+    "titeEntite": "Add an entity",
     "titre2": "Add as a collaborator:",
+    "titreEntreprise": "Add as a enterprise:",
     "attribut": {
       "placeholder": {
         "prenom": "Enter your first name",
@@ -125,7 +134,16 @@
     "transfertEnCours": "Data transfer in progress, please be patient."
   },
   "validation": {
-    "requis": "Required"
+    "requis": "Required",
+    "partage": {
+      "droitAuteur": "The sum of the work copyright split is not 100%  ({{somme}})",
+      "droitInterpretation": "The sum of the performance neighborhing right split is not 100% ({{somme}})",
+      "droitEnregistrement": "The sum of the mastering neighborhing right split is not 100% ({{somme}})",
+      "droitNegatif": "A split share cannot have a negative percentage value ({{type}})"
+    },
+    "auteur": "Copyright",
+    "interpretation": "Performance",
+    "enregistrement": "Mastering"
   },
   "composant": {
     "televersement": {
@@ -182,13 +200,13 @@
         "afficher": "Proposal Display"
       },
       "etat": {
-        "VOTATION": "VOTING",
-        "REFUSE": "DENIED",
-        "ACCEPTE": "ACCEPTED",
-        "BROUILLON": "DRAFT",
-        "PRET": "READY",
-        "INCONNU": "UNDEFINED",
-        "ATTENTE": "WAITING"
+        "VOTATION": "Waiting for decision",
+        "REFUSE": "Rejected",
+        "ACCEPTE": "Approved",
+        "BROUILLON": "In progress",
+        "PRET": "Waiting to be sent",
+        "INCONNU": "Unknown",
+        "ATTENTE": "Waiting"
       },
       "valider": {
         "titre": "Validate Your Split",
@@ -224,11 +242,13 @@
             "nom": "Last Name (legal)",
             "prenom": "First Name (legal)",
             "artiste": "Artist Name (aka)  ",
+            "responsable": "Responsable person",
             "option": " (optional)",
             "na": "If not applicable, the complete name is displayed.",
             "role": "Role in the work",
             "courriel": "Email",
-            "groupe": "Group/Entity",
+            "groupe": "Group / Musical Entity",
+            "entreprise": "Enterprise",
             "ajout": "Add a groupor or an artist",
             "placeholder": {
               "nom": "Entre their first name",
@@ -242,7 +262,8 @@
             "artiste": "Enter your artist name",
             "role": "Choose one or more role",
             "role2": "These roles can be modified later.",
-            "groupe": "Choose a group"
+            "groupe": "Choose a group",
+            "entreprise": "Add an entity"
           },
           "bouton": {
             "annuler": "Cancel",
@@ -419,7 +440,7 @@
           "autre-etape4": "Upload .MID or .MIDI files only.",
           "acces": "Access",
           "choix": "Choose a file",
-          "glisse": "Or drag your file here",
+          "glisse": "Click here to choose your file",
           "details": "Tell us more about the track.",
           "duree": "Length",
           "public": "Public - Make the information visible for all",
@@ -462,6 +483,7 @@
         "etape": {
           "partage-etape": "Step 2",
           "partage-titre": "Copyright Sharing",
+          "documentation": "Documentation",
           "enregistrerEtQuitter": "Save and Quit",
           "vote-titre": "Validate the share proposal"
         },
@@ -509,6 +531,15 @@
           "donateur": "Creator"
         },
         "proposition": {
+          "etat": {
+            "BROUILLON": "Writing in progress",
+            "PRET": "Ready to submit",
+            "VOTATION": "Waiting for validation",
+            "ACCEPTE": "Accepted",
+            "REFUSE": "Rejected"
+          },
+          "resume": "Validate the split of {{titre}}",
+          "editer": "Edit",
           "titre": "Send the copyright split",
           "sous-titre": "To finalize this split, you have to invite your collaborators to validate it all. Indicate their email addresses to which you are sending your split proposition.",
           "nouvelle": "New musical work",
@@ -516,15 +547,20 @@
           "continuer": "Continue to split the rights",
           "sommaire": "Split summary",
           "voter": "Go to vote page",
+          "change": "Change vote",
           "voter-avec-jeton": "You can only vote by clicking on the email that was sent to you when the proposal was created.",
           "pourquoi": "Mention to your contributors why you're not comfortable with this split.",
           "refuse": "Why you decline this split (optional)",
           "refuse2": "Decline this split",
-          "termine": "The voting is done!"
+          "termine": "The voting is done!",
+          "telecharger-contrat": "Download the contract",
+          "nouvelle-version": "Create a new version",
+          "jai-un-editeur": "I have a publisher",
+          "partage": "Propose a split"
         },
         "bouton": {
           "ajout": "Add",
-          "voter": "VOTE"
+          "voter": "Send my vote"
         },
         "tableaudebord": {
           "collabo": "My Collaborators",
@@ -583,6 +619,7 @@
         },
         "vide": {
           "preambule": "Your works will appear here",
+          "preambule-collaborations": "The works you collaborate on will appear here.",
           "indication": "Document and share the rights of your first musical work by clicking on the ",
           "indication-lien": "“Add”."
         }
@@ -632,12 +669,13 @@
         }
       },
       "action": {
-        "commencer": "Start"
+        "commencer": "Start",
+        "continuer": "Continue"
       },
       "vote": {
         "accept": "Approved",
         "reject": "Rejected",
-        "active": "Waiting",
+        "active": "Waiting for a decision",
         "accepter": "ACCEPT",
         "refuser": "REJECT"
       },
@@ -685,6 +723,30 @@
       "partage": "See the proposal",
       "partageCree": "⭐️ Shared proposal created",
       "recupMotDePasse": "Password reset"
+    },
+    "partage": {
+      "titre": "Share this page",
+      "titre1": "Public Page",
+      "titre2": "Secret Page",
+      "titre3": "Modification Page",
+      "sous-titre-1": "What access do you want to grant on this page ?",
+      "public-t": "Public Access",
+      "public-d": "Read-only, cannot modify",
+      "secret-t": "Secret Access",
+      "secret-d": "Read-only, download access to chosen files",
+      "admin-t": "Administrative Access",
+      "admin-d": "Read-write access to everything, can edit",
+      "btn-ok": "Authorize Access",
+      "btn-retour": "Return",
+      "adresse1": "Hyperlink to the public page:",
+      "adresse2": "Hyperlink to team and collaborator page:",
+      "adresse3": "Hyperlink to read-only page:",
+      "envoyer": "Send this link by email",
+      "nom": "Last name",
+      "prenom": "First name",
+      "courriel": "Email",
+      "adrCourriel": "Email adress",
+      "reussi": "Sharing successful, email sent."
     }
   },
   "accueil": {
@@ -698,7 +760,9 @@
     "connexion": "Login",
     "inscription": "Register",
     "bonjour": "Hello",
-    "encours": "Connecting..."
+    "encours": "Connecting...",
+    "sommaire": "See summary",
+    "partage": "Share"
   },
   "televersement": {
     "encours": "Please wait while we store and analyse your file"
@@ -773,7 +837,34 @@
       "info": "Add this information",
       "piste": "Track title",
       "tech": "Recording technician",
-      "illustration": "Illustration",
+      "illustration": "Illustration"
+    },
+    "telechargement": {
+      "telechargement": "Downloads",
+      "visuel": "Work Visual",
+      "audio": "Audio files",
+      "midi": "MIDI files",
+      "partition": "Partition/Tablature"
+    },
+    "parole": {
+      "parole": "Lyrics",
+      "voir": "See the lyrics"
+    },
+    "musique": {
+      "musique": "Musique"
+    },
+    "info": {
+      "info": "General Information",
+      "inconnue": "Unknown",
+      "duree": "Duration",
+      "influence": "Inspirations"
+    },
+    "ecouter": {
+      "ecouter": "Listen"
     }
+  },
+  "editeur": {
+    "oui": "Yes",
+    "non": "No"
   }
 }

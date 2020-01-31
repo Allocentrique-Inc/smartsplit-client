@@ -1,25 +1,21 @@
-/** 
- * Assistant d'affichage du dashboard
- */
+import {AyantsDroit} from '../../../utils/application'
 import './beignet.css'
-import copyIcon from './copyIcon.png'
-import starIcon from './starIcon.png'
-import prodIcon from './prodIcon.png'
+import CopyrightGrey from './CopyrightGrey.png'
+import StarGrey from './RecordGrey.png'
+import RecordGrey from './StarGrey.png'
 import React, { Component } from 'react'
+import { withTranslation } from 'react-i18next'
 
-// Traduction
-import { Translation } from 'react-i18next'
-
-// D3
 const d3 = require('d3')
+// d3 = librairie dont svg est un objet
 
-export default class Beignet extends Component {
+class Beignet extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            width: 400, //550,
-            height: 320, //225,
+            width: 600, //550,
+            height: 480, //225,
             margin: 10, //50,
             icon: "",
             data: {},
@@ -29,7 +25,6 @@ export default class Beignet extends Component {
             type: props.type,
             accomp: false
         }
-
     }
 
     componentDidMount() {
@@ -49,23 +44,17 @@ export default class Beignet extends Component {
         let _c = {}
         let _a = {}
         if (props.data && props.data.length > 0) {
-
-            // construction
             let accomp = false
-
             props.data.forEach(elem => {
                 let nom
                 if (elem && parseFloat(elem.pourcent).toFixed(4) !== "0.0000") {
-                    nom = `${elem.ayantDroit.firstName + " "}${elem.ayantDroit.lastName} ${elem.ayantDroit.artistName ? `(${elem.ayantDroit.artistName}) ` : ""}`
+                    nom = AyantsDroit.affichageDuNom(elem.ayantDroit)                    
                     if (elem.principal) _pri[nom] = elem.pourcent
                     else _acc[nom] = elem.pourcent
-                    //_d[nom] = elem.pourcent
                 }
                 _c[nom] = elem.color;
                 _a[nom] = elem.alpha;
             })
-            //_d = _pri
-            //_acc.forEach(elem => {_d[elem.key] = elem.value})
             _d = Object.assign({}, _pri, _acc);            
             if (Object.keys(_pri).length > 0 && Object.keys(_acc).length > 0) accomp = true
             this.setState({ data: _d })
@@ -77,14 +66,15 @@ export default class Beignet extends Component {
     }
 
     genererBeignet() {
-
         // Remettre à zéro le conteneur du beignet
-        if (this.state.type === "workCopyrightSplit") this.setState({ icon: copyIcon })
-        if (this.state.type === "performanceNeighboringRightSplit") this.setState({ icon: starIcon })
-        if (this.state.type === "masterNeighboringRightSplit") this.setState({ icon: prodIcon })
+      if (this.state.type === "workCopyrightSplit")
+      this.setState({ icon: CopyrightGrey });
+      if (this.state.type === "performanceNeighboringRightSplit")
+      this.setState({ icon: StarGrey });
+      if (this.state.type === "masterNeighboringRightSplit")
+      this.setState({ icon: RecordGrey });
         let chartRotation = 0
         if (this.state.type === "performanceNeighboringRightSplit" && this.state.accomp) chartRotation = 216
-
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
         if (conteneur) {
             let enfants = conteneur.childNodes
@@ -123,11 +113,6 @@ export default class Beignet extends Component {
         let arc = d3.arc()
             .innerRadius(radius * 0.4)         // This is the size of the donut hole
             .outerRadius(radius * 0.95)
-
-        // Another arc that won't be drawn. Just for labels positioning
-        /* let outerArc = d3.arc()
-            .innerRadius(radius * 0.9)
-            .outerRadius(radius * 0.9) */
 
         // Define the div for the tooltip
         let myDiv = d3.select("body").append("div")
@@ -169,53 +154,14 @@ export default class Beignet extends Component {
                     .duration(500)
                     .style("opacity", 0);
             }).call(this.wrapping, 150)
-
-        /*
-        // Add the polylines between chart and labels:
-        svg
-            .selectAll('allPolylines')
-            .data(data_ready)
-            .enter()
-            .append('polyline')
-            .attr("stroke", "black")
-            .style("fill", "none")
-            .attr("stroke-width", 1)
-            .attr('points', function(d) {
-                let posA = arc.centroid(d) // line insertion in the slice
-                let posB = outerArc.centroid(d) // line break: we use the other arc generator that has been built only for that
-                let posC = outerArc.centroid(d); // Label position = almost the same as posB
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2 // we need the angle to see if the X position will be at the extreme right or extreme left
-                posC[0] = radius * 0.95 * (midangle < Math.PI ? 1 : -1); // multiply by 1 or -1 to put it on the right or on the left
-                return [posA, posB, posC]
-            })
-
-        // Add the polylines between chart and labels:
-        svg
-            .selectAll('allLabels')
-            .data(data_ready)
-            .enter()
-            .append('text')
-            .text( function(d) { return d.data.key + " " + parseFloat(d.data.value).toFixed(2) + "%" } )
-            .attr('transform', function(d) {
-                let pos = outerArc.centroid(d);
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-                pos[0] = radius * 0.99 * (midangle < Math.PI ? 1 : -1);
-                return 'translate(' + pos + ')';
-            })
-            .style('text-anchor', function(d) {
-                let midangle = d.startAngle + (d.endAngle - d.startAngle) / 2
-                return (midangle < Math.PI ? 'start' : 'end')
-            })
-            .call(this.wrapping, 150)
-        */
-
+     
         if (Object.keys(this.state.data).length > 0) {
             svg.append('image')
                 .attr('xlink:href', this.state.icon)
-                .attr('width', 60)
-                .attr('height', 60)
-                .attr('x', -30)
-                .attr('y', -30)
+                .attr("width", 80)
+                .attr("height", 80)
+                .attr("x", -40)
+                .attr("y", -40);
         }
 
     }
@@ -265,16 +211,13 @@ export default class Beignet extends Component {
         }, 0)
 
         return (
-            <Translation>
-                {
-                    (t, i18n) =>
-                        <div style={{ margin: "0 auto" }}>
-                            {this.props.titre && (<h4>{this.props.titre}</h4>)}
-                            <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
-                            </div>
-                        </div>
-                }
-            </Translation>
+            <>
+                {this.props.titre && (<h4>{this.props.titre}</h4>)}
+                <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
+                </div>
+                   </>
         )
     }
 }
+
+export default withTranslation()(Beignet)

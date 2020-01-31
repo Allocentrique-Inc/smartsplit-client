@@ -1,74 +1,88 @@
-/**
- * Assistant de saisie de la description d'une oeuvre
- */
-import React, { Component } from "react";
-import { Wizard } from "semantic-ui-react-formik";
-import axios from "axios";
+import {config, Identite, journal, AyantsDroit} from '../../utils/application'
+import React, { Component } from "react"
+import { Wizard } from "semantic-ui-react-formik-iptoki"
+import axios from "axios"
+import PageCreation from "./page-creation"
+import PageInterpretation from "./page-interpretation"
+import PageInformationsGenerales from "./page-informations-generales"
+import PageParoles from "./page-paroles"
+import PageLiens from "./page-liens"
+import PageEnregistrement from "./page-enregistrement"
+import PageFichiers from "./page-fichiers"
+import { withTranslation } from "react-i18next"
+import Navbar from "../navigation/navbar"
+import ModaleConnexion from "../auth/Connexion"
 
-import moment from "moment";
-
-// Pages de l'assistant
-import PageCreation from "./page-creation";
-import PageInterpretation from "./page-interpretation";
-import PageInformationsGenerales from "./page-informations-generales";
-import PageParoles from "./page-paroles";
-import PageLiens from "./page-liens";
-import PageEnregistrement from "./page-enregistrement";
-import PageFichiers from "./page-fichiers";
-// Alertes
-import { toast } from "react-toastify";
-// Traduction
-import { Translation } from "react-i18next";
-import { Navbar } from "../navigation/navbar";
-
-import { Auth } from "aws-amplify";
-
-import ModaleConnexion from "../auth/Connexion";
-
-// Modèle
+const NOM = "EditerOeuvre"
 
 class EditerOeuvre extends Component {
   constructor(props) {
-    super(props);
-
+    super(props)
     this.state = {
       rightHolders: [],
       endModalOpen: false,
       modaleConnexion: false,
-      mediaId: props.mediaId
-    };
+      mediaId: props.mediaId,
+      jeton: props.jeton
+    }
   }
 
   componentWillMount() {
-    Auth.currentAuthenticatedUser()
-      .then(response => {
-        if (this.state.mediaId) {
-          axios
-            .get(
-              `http://dev.api.smartsplit.org:8080/v1/media/${this.state.mediaId}`
-            )
-            .then(res => {
-              if (res.data.Item) {
-                let media = res.data.Item;
-                if (response.username === media.creator) {
-                  this.setState({ media: media }, () =>
-                    this.fetchApiRightHolders()
-                  );
-                  this.setState({ user: response });
-                } else {
-                  window.location.href = `/oeuvre/${media.mediaId}/resume`;
-                }
-              }
-            });
-        } else {
-          this.setState({ user: response });
-          this.fetchApiRightHolders();
+    if (this.state.jeton) {
+      axios
+      .post(`${config.API_URL}media/decodeMedia`, {
+        jeton: this.state.jeton
+      })
+      .then(res => {
+        if (
+          this.state.mediaId &&
+          parseInt(this.state.mediaId) === res.data.mediaId &&
+          res.data.acces === 3
+        ) {
+          this.chargement(true)
         }
       })
-      .catch(error => {
-        console.log(error);
-        this.setState({ modaleConnexion: true });
-      });
+      .catch(err => journal.erreur(NOM,err))
+    } else {
+      // Teste si l'usager est le créateur de l'oeuvre (dans le système)
+      axios.get(`${config.API_URL}media/${this.state.mediaId}`)
+      .then((_m)=>{
+        this.chargement(Identite.usager.username === _m.data.Item.creator)        
+      })
+    }
+  }
+
+  getMedia(admin, response = false) {  
+    if (this.state.mediaId) {
+      axios
+      .get(
+        `${config.API_URL}media/${this.state.mediaId}`
+      )
+      .then(res => {
+        if (res.data.Item) {
+          let media = res.data.Item;
+          if (admin || response.username === media.creator) {
+            this.setState({ media: media }, () =>
+              this.fetchApiRightHolders()
+            );
+            this.setState({ user: response });
+          } else {
+            window.location.href = `/oeuvre/${media.mediaId}/resume`;
+          }
+        }
+      })
+    } else {
+      this.setState({ user: response });
+      this.fetchApiRightHolders();
+    }
+  }
+
+  chargement(admin = false) {    
+    if(Identite.usager) {
+      this.setState({user: Identite.usager}, ()=>this.getMedia(admin, Identite.usager))
+    } else {
+      this.setState({ modaleConnexion: true })
+    }
   }
 
   nouvelAyantDroit(rightHolders, fnSetValues, nouveau, role) {
@@ -80,22 +94,15 @@ class EditerOeuvre extends Component {
   }
 
   fetchApiRightHolders() {
-    axios
-      .get("http://dev.api.smartsplit.org:8080/v1/rightHolders")
-      .then(response => {
-        // Ordonnancement simple uuid -> nom d'artiste
-        let assocUuidArtiste = {};
-        response.data.forEach(e => {
-          assocUuidArtiste[e.rightHolderId] =
-            e.artistName || `${e.firstName} ${e.lastName}`;
-        });
-        this.setState({ assocUuidArtiste: assocUuidArtiste }, () =>
-          this.setState({ rightHolders: response.data })
-        );
-      })
-      .catch(error => {
-        toast.error(error.message);
-      });
+    let response = AyantsDroit.ayantsDroitBrut
+    let assocUuidArtiste = {}    
+    response.forEach(e => {
+      assocUuidArtiste[e.rightHolderId] =
+        e.artistName || `${e.firstName} ${e.lastName}`
+    })
+    this.setState({ assocUuidArtiste: assocUuidArtiste }, () =>
+      this.setState({ rightHolders: response })
+    )    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -136,7 +143,6 @@ class EditerOeuvre extends Component {
         pressArticleLinks: [],
         playlistLinks: [],
         creationDate: "",
-        modificationDate: "",
         publishDate: "",
         publisher: "",
         studio: "",
@@ -170,6 +176,22 @@ class EditerOeuvre extends Component {
 
       if (lyrics && lyrics.text) lyrics.text = lyrics.text.trim();
 
+      if (!_m.files) {
+        _m.files = {};
+      }
+      if (!_m.files.cover || !_m.files.cover.files) {
+        _m.files.cover = { files: [] };
+      }
+      if (!_m.files.midi || !_m.files.midi.files) {
+        _m.files.midi = { files: [] };
+      }
+      if (!_m.files.score || !_m.files.score.files) {
+        _m.files.score = { files: [] };
+      }
+      if (!_m.files.audio || !_m.files.audio.files) {
+        _m.files.audio = { files: [] };
+      }
+
       valeurs = {
         mediaId: this.state.mediaId,
         title: _m.title ? _m.title.trim() : "",
@@ -192,14 +214,9 @@ class EditerOeuvre extends Component {
         pressArticleLinks: _m.pressArticleLinks || [],
         playlistLinks: _m.playlistLinks || [],
         creationDate: _m.creationDate
-          ? moment(_m.creationDate)
-              .locale("en")
-              .format("L")
-          : moment()
-              .locale("en")
-              .format("L"),
-        modificationDate: _m.modificationDate ? _m.modificationDate.trim() : "",
-        publishDate: _m.publishDate ? _m.publishDate.trim() : "",
+          ? new Date(parseInt(_m.creationDate))
+          : new Date(),
+        publishDate: _m.publishDate ? _m.publishDate : "",
         publisher: _m.publisher ? _m.publisher.trim() : "",
         studio: _m.studio ? _m.studio.trim() : "",
         studioAddress: _m.studioAddress ? _m.studioAddress.trim() : "",
@@ -229,25 +246,23 @@ class EditerOeuvre extends Component {
     this.setState({
       endModalOpen: true
     });
+
     axios
-      .post("http://dev.api.smartsplit.org:8080/v1/media", values)
+      .post(`${config.API_URL}media`, values)
       .then(response => {
         actions.setSubmitting(false);
-        window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
+        if (this.state.jeton) {
+          window.location.href = `/oeuvre/resume/${this.state.jeton}`;
+        } else {
+          window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
+        }
       })
       .catch(error => {
-        console.log(error);
+        journal.error(error);
       });
-  };
-
-  boutonsCouleurPochette() {
-    let boutons = document.getElementsByClassName("ui right floated button");
-    for (var i = 0; i < boutons.length; i++) {
-      boutons[i].style.backgroundColor = "#F2724A";
-    }
   }
 
-  renduPage(i18n) {
+  renduPage() {
     let page;
     switch (this.props.pageNo) {
       case "1":
@@ -255,7 +270,6 @@ class EditerOeuvre extends Component {
           <Wizard.Page>
             <PageCreation
               pochette={this.props.pochette}
-              i18n={i18n}
               rightHolders={this.state.rightHolders}
               assocUuidArtiste={this.state.assocUuidArtiste}
               parent={this}
@@ -268,7 +282,6 @@ class EditerOeuvre extends Component {
           <Wizard.Page>
             <PageInterpretation
               pochette={this.props.pochette}
-              i18n={i18n}
               rightHolders={this.state.rightHolders}
               assocUuidArtiste={this.state.assocUuidArtiste}
               parent={this}
@@ -281,7 +294,6 @@ class EditerOeuvre extends Component {
           <Wizard.Page>
             <PageEnregistrement
               pochette={this.props.pochette}
-              i18n={i18n}
               rightHolders={this.state.rightHolders}
               assocUuidArtiste={this.state.assocUuidArtiste}
               parent={this}
@@ -294,7 +306,6 @@ class EditerOeuvre extends Component {
           <Wizard.Page>
             <PageFichiers
               pochette={this.props.pochette}
-              i18n={i18n}
               rightHolders={this.state.rightHolders}
               assocUuidArtiste={this.state.assocUuidArtiste}
               parent={this}
@@ -307,7 +318,6 @@ class EditerOeuvre extends Component {
           <Wizard.Page>
             <PageInformationsGenerales
               pochette={this.props.pochette}
-              i18n={i18n}
             />
           </Wizard.Page>
         );
@@ -315,7 +325,7 @@ class EditerOeuvre extends Component {
       case "6":
         page = (
           <Wizard.Page>
-            <PageParoles i18n={i18n} pochette={this.props.pochette} />
+            <PageParoles pochette={this.props.pochette} />
           </Wizard.Page>
         );
         break;
@@ -333,42 +343,61 @@ class EditerOeuvre extends Component {
   }
 
   render() {
-    if (this.state.user && this.state.media) {
-      return (
-        <Translation>
-          {(t, i18n) => (
+    const t = this.props.t, i18n = this.props.i18n
+    if ((this.state.user || this.state.jeton) && this.state.media) {
+      console.log('pochette', this.props.pochette)
+      return (        
+        <>
+          <Navbar
+            songTitle={this.state.title}
+            pochette={this.props.pochette}
+            progressPercentage={this.state.progressPercentage}
+            profil={this.state.user}
+            media={this.state.media}
+          />
+          {this.state.rightHolders && this.props.pageNo && (
             <>
-              <Navbar
-                songTitle={this.state.title}
+              <Wizard
                 pochette={this.props.pochette}
-                progressPercentage={this.state.progressPercentage}
-                profil={this.state.user}
-              />
-              {this.state.rightHolders && this.props.pageNo && (
-                <>
-                  <Wizard
-                    initialValues={this.getInitialValues()}
-                    onPageChanged={this.onPageChanged}
-                    onSubmit={this.onSubmit}
-                    buttonLabels={{
-                      previous: t("navigation.precedent"),
-                      next: t("navigation.suivant"),
-                      submit: t("navigation.envoi")
+                ButtonsWrapper={props => (
+                  <div
+                    style={{
+                      position: "fixed",
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      paddingTop: "15px",
+                      background: "#fff",
+                      boxShadow: "0 0 5px rgba(0,0,0,0.5)",
+                      pochette: this.props.pochette
                     }}
-                    debug={false}
                   >
-                    {this.renduPage(i18n)}
-                  </Wizard>
-                </>
-              )}
-              {this.props.pochette &&
-                document.getElementsByClassName("ui right floated button")
-                  .length > 0 &&
-                this.boutonsCouleurPochette()}
+                    <div className="ui grid">
+                      <div className="ui row">
+                        <div className="ui nine wide column">
+                          {props.children}
+                          {this.props.pochette}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}                  
+                initialValues={this.getInitialValues()}
+                onPageChanged={this.onPageChanged}
+                onSubmit={this.onSubmit}
+                buttonLabels={{
+                  previous: t("navigation.precedent"),
+                  next: t("navigation.suivant"),
+                  submit: t("navigation.envoi")
+                }}
+                debug={false}
+              >
+                {this.renduPage(i18n)}
+              </Wizard>
             </>
-          )}
-        </Translation>
-      );
+          )}         
+        </>          
+      )
     } else {
       return (
         <ModaleConnexion parent={this} isOpen={this.state.modaleConnexion} />
@@ -377,4 +406,4 @@ class EditerOeuvre extends Component {
   }
 }
 
-export default EditerOeuvre;
+export default withTranslation()(EditerOeuvre)

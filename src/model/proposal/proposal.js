@@ -10,7 +10,8 @@ export default class Proposal {
             .hasNumber('mediaId')
             .hasArray('comments')
             .hasObject('rightsSplits')
-            .hasObject('initiator')
+            .hasString('initiatorUuid')
+            .hasString('initiatorName')
             .assert()
 
         // Construction
@@ -18,7 +19,8 @@ export default class Proposal {
         this.mediaId = proposalDefinition.mediaId
         this.comments = proposalDefinition.comments 
         this.rightsSplits = proposalDefinition.rightsSplits
-        this.initiator = proposalDefinition.initiator
+        this.initiatorUuid = proposalDefinition.initiatorUuid
+        this.initiatorName = proposalDefinition.initiatorName
     }
 
     get = function() {
@@ -27,7 +29,8 @@ export default class Proposal {
             mediaId: this.mediaId,
             comments: this.comments,
             rightsSplits: this.rightsSplits,
-            initiator: this.initiator
+            initiatorUuid: this.initiatorUuid,
+            initiatorName: this.initiatorName
         }]
     }
 

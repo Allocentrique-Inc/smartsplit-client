@@ -7,8 +7,10 @@ import {
   Modal,
   Checkbox
 } from "semantic-ui-react";
-import { Translation } from "react-i18next";
+import { withTranslation } from "react-i18next";
 import { DateInput } from "semantic-ui-calendar-react";
+
+import {config} from '../../utils/application'
 
 const divStyle = {
   padding: "0 0 0 15px"
@@ -86,7 +88,7 @@ class Socan extends Component {
     };
 
     try {
-      axios.post('http://dev.api.smartsplit.org:8080/v1/socan/join', body)
+      axios.post(`${config.API_URL}socan/join`, body)
       .then(
         function (response) {
           console.log("RESPONSE: ", response)
@@ -114,6 +116,9 @@ class Socan extends Component {
   }
 
   render() {
+
+    const t = this.props.t, i18n = this.props.i18n
+
     const {
       open,
       closeOnDimmerClick,
@@ -122,9 +127,7 @@ class Socan extends Component {
 
     let pochette = this.props.pochette ? "pochette" : ""
 
-    return (
-      <Translation>
-        {(t, i18n) => (
+    return (      
           <Modal
             style={{ margin: "0 40px 0 40px" }}
             open={open}
@@ -176,7 +179,7 @@ class Socan extends Component {
                 className="date"
                 name="date"
                 placeholder={t("socan.date")}
-                value={this.state.date}
+                value={`${this.state.date}`}
                 onChange={this.handleChange}
                 icon="calendar outline"
               />
@@ -289,8 +292,8 @@ class Socan extends Component {
                       target="_blank"
                       rel="noopener noreferrer"
                       href={
-                        i18n.lng &&
-                        (i18n.lng.substring(0, 2) === "en"
+                        i18n.language &&
+                        (i18n.language.substring(0, 2) === "en"
                           ? "https://www.socan.com/WriterApplicant/terms-conditions-of-membership/"
                           : "https://www.socan.com/WriterApplicant/fr/conditions-dadhesion/")
                       }
@@ -316,11 +319,9 @@ class Socan extends Component {
                 content={t("socan.joindre")}
               />
             </Modal.Actions>
-          </Modal>
-        )}
-      </Translation>
-    );
+          </Modal>        
+    )
   }
 }
 
-export default Socan;
+export default withTranslation()(Socan)

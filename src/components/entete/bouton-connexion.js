@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import { Translation } from 'react-i18next'
+import { withTranslation } from 'react-i18next'
 
-export default class BoutonConnexion extends Component {    
+class BoutonConnexion extends Component {    
 
     constructor(props) {
       super(props)
@@ -12,15 +12,12 @@ export default class BoutonConnexion extends Component {
     }
 
     render() {
-        return (
-            <Translation>
-                {
-                    t=>
-                        <div className="ui medium button">
-                            {t('entete.connexion')}
-                        </div>
-                }
-            </Translation>
+        const t = this.props.t
+        return (            
+            <div className="ui medium button">
+                {t('entete.connexion')}
+            </div>                
         )
     }
 }
+export default withTranslation()(BoutonConnexion)

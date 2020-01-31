@@ -1,15 +1,7 @@
-/** 
- * Assistant d'affichage du dashboard
- */
 import './histogramme.css'
 import React, { Component } from 'react'
 
-// Traduction
-import { Translation } from 'react-i18next'
-
-// D3
 const d3 = require('d3')
-
 const WIDTH_FUDGE_PCT = 0.5 // Largeur ajustée en pourcentage 
 
 export default class Histogramme extends Component {
@@ -139,25 +131,13 @@ export default class Histogramme extends Component {
     }
 
     render(){        
-
         // Ajoute la génération de beignet comme prochaine exécution de la pile JavaScript
         // alors que l'élément my_dataviz est accessible dans le navigateur du client.
         setTimeout(()=>{
             this.genererHisto()
         }, 0)
-
-        return (    
-            <div>                
-                <Translation>                
-                    {
-                        (t, i18n) =>
-                            <div>
-                                <svg id={`histogramme_${this.state.uuid}`}>
-                                </svg>
-                            </div>
-                    }
-                </Translation>
-            </div>            
+        return (
+            <svg id={`histogramme_${this.state.uuid}`} />
         )
     }
 }

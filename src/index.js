@@ -1,76 +1,54 @@
+import { journal, AyantsDroit } from './utils/application'
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
 import "./assets/scss/_colors.scss"
 import "./assets/scss/_typography.scss"
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import React, { Suspense } from "react"
+import ReactDOM from "react-dom"
+import i18n from "./utils/i18n"
+import { I18nextProvider } from "react-i18next"
+import { Route, Router, Switch } from "react-router"
+import { createBrowserHistory } from "history"
+import { toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+import "./components/app/app.css"
+import AssistantOeuvre from "./components/oeuvre/assistant-oeuvre"
+import ListeOeuvres from "./components/media/media-list"
+import ValiderSplit from "./components/split/assistant-split"
+import VotationSplit from "./components/split/votation-split"
+import VotationPartTiers from "./components/partage/votation-part-tiers"
+import AssistantPartage from "./components/partage/assistant-partage"
+import TableauDeBord from "./components/tableaudebord/tableaudebord"
+import Login from "./components/auth/Login"
+import Register from "./components/auth/Register"
+import ModifyUser from "./components/auth/ModifyUser"
+import Socan from "./components/auth/Socan"
+import Declaration from "./components/auth/Declaration"
+import ForgotPassword from "./components/auth/ForgotPassword"
+import ForgotPasswordVerification from "./components/auth/ForgotPasswordVerification"
+import ChangePasswordVerification from "./components/auth/ChangePasswordVerification"
+import ChoosePasswordVerification from "./components/auth/ChoosePasswordVerification"
+import SignInFacebook from "./components/auth/SignInFacebook"
+import SignInGoogle from "./components/auth/SignInGoogle"
+import SommairePartages from "./components/partage/sommaire-partages"
+import SommairePartage from "./components/partage/partage-sommaire"
+import SommaireOeuvre from "./components/oeuvre/oeuvre-sommaire"
+import AssistantPartageEditeur from "./components/partage/assistant-partage-editeur"
+import OeuvreResume from "./components/oeuvre/oeuvre-resume"
+import "moment/locale/fr"
+import "moment/locale/en-ca"
+import EditerOeuvre from "./components/oeuvre/editer-oeuvre"
 
-import React from "react";
-import ReactDOM from "react-dom";
-// Amplify + Auth
-import Amplify from "aws-amplify";
-// Traduction
-import i18n from "./utils/i18n"; //Module React (dans dossier modules). npm install
-import { I18nextProvider, Translation } from "react-i18next";
-// Routeur applicatif
-import { Route, Router, Switch } from "react-router";
-import { createBrowserHistory } from "history";
-// Alertes utlisateur
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-// Composantes navigables
-import "./components/app/app.css";
-import AssistantOeuvre from "./components/oeuvre/assistant-oeuvre";
-import ListeOeuvres from "./components/media/media-list";
-import ValiderSplit from "./components/split/assistant-split";
-import VotationSplit from "./components/split/votation-split";
-import VotationPartTiers from "./components/partage/votation-part-tiers";
-import AssistantPartage from "./components/partage/assistant-partage";
-// Tableau de bord
-import TableauDeBord from "./components/tableaudebord/tableaudebord";
-import Beignet from "./components/visualisation/partage/beignet";
-import Histogramme from "./components/visualisation/partage/histogramme";
-import Troissplits from "./components/visualisation/partage/troissplits";
-// Composantes auth
-import Password from "./components/auth/Password";
-import Login from "./components/auth/Login";
-import Register from "./components/auth/Register";
-import ModifyUser from "./components/auth/ModifyUser";
-import Socan from "./components/auth/Socan";
-import Declaration from "./components/auth/Declaration";
-import ForgotPassword from "./components/auth/ForgotPassword";
-import ForgotPasswordVerification from "./components/auth/ForgotPasswordVerification";
-import ChangePasswordVerification from "./components/auth/ChangePasswordVerification";
-import ChoosePasswordVerification from "./components/auth/ChoosePasswordVerification";
-import Welcome from "./components/auth/Welcome";
-import SignInFacebook from "./components/auth/SignInFacebook";
-import SignInGoogle from "./components/auth/SignInGoogle";
-// Sommaires
-import SommairePartages from "./components/partage/sommaire-partages"; // Plusieurs partages (liste de un partage)
-import SommairePartage from "./components/partage/partage-sommaire"; // Un partage
-import SommaireOeuvre from "./components/oeuvre/oeuvre-sommaire";
-import AssistantPartageEditeur from "./components/partage/assistant-partage-editeur";
-import OeuvreResume from "./components/oeuvre/oeuvre-resume";
-
-import "moment/locale/fr";
-import "moment/locale/en-ca";
-import EditerOeuvre from "./components/oeuvre/editer-oeuvre";
-
-const REGION = "us-east-2";
-
-Amplify.configure({
-  Auth: {
-    mandatorySignIn: true,
-    region: REGION,
-    userPoolId: "us-east-2_tK9rNdAB1",
-    userPoolWebClientId: "385f0k2qiibs5bq4od9uoeipvi"
-  }
-});
-
+const NOM = "index.js"
 const browserHistory = createBrowserHistory();
 
 const renderRoutes = () => {
+  let routage
   if (window.location.href.includes("pochette.info")) {  
     window.document.title = "Pochette.info"
-    return (
+    routage = (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
@@ -78,23 +56,25 @@ const renderRoutes = () => {
             <Route exact path="/accueil" component={AccueilPochette} />
             <Route exact path="/documenter/:mediaId" component={DocumenterPochette} />
             <Route exact path="/editer/:mediaId/:pageNo" component={EditerPochette} />
+            <Route exact path="/editer/:mediaId/:pageNo/:jeton" component={EditerPochetteAvecJeton} />
             <Route exact path="/oeuvre/:mediaId/resume" component={ResumePochette} />
-            <Route exact path="*" component={AccueilPochette} />
+            <Route exact path="/oeuvre/resume/:jeton" component={ResumePochetteAvecJeton} />
+            <Route exact path="*" component={AccueilPochette} />            
           </Switch>
         </Router>
       </I18nextProvider>
     );
   } else {
     window.document.title = "Smartsplit"
-    return (
+    routage = (
       <I18nextProvider i18n={i18n}>
         <Router history={browserHistory}>
           <Switch>
             <Route exact path="/accueil" component={Accueil} />
             <Route exact path="/" component={Accueil} />
-            <Route exact path="/password" component={Password} />
             <Route exact path="/documenter/:mediaId" component={Documenter} />
             <Route exact path="/editer/:mediaId/:pageNo" component={Editer} />
+            <Route exact path="/editer/:mediaId/:pageNo/:jeton" component={EditerAvecJeton} />
             <Route exact path="/decrire-oeuvre" component={AssistantOeuvre} />
             <Route exact path="/liste-oeuvres" component={ListeOeuvres} />
             <Route exact path="/login" component={renderLogin} />
@@ -106,87 +86,55 @@ const renderRoutes = () => {
             <Route exact path="/sign-in-google" component={SignInGoogle} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/choose-password" component={ChoosePasswordVerification} />
-            <Route
-              exact
-              path="/forgot-password-verification"
-              component={DefinitMotDePasse}
-            />
-            <Route
-              exact
-              path="/change-password-verification"
-              component={ChangePasswordVerification}
-            />
-            <Route exact path="/welcome" component={Welcome} />
-            <Route
-              exact
-              path="/proposition/approuver/:propositionId"
-              component={ApprouverSplit}
-            />
-            <Route
-              exact
-              path="/proposition/vote/:jeton"
-              component={VoterSplit}
-            />
-            <Route
-              exact
-              path="/proposition/confirmer-courriel"
-              component={ConfirmerCourriel}
-            />
-            <Route
-              exact
-              path="/proposition/sommaire/:uuid"
-              component={SommaireProposition}
-            />
-            <Route exact path="/accueil" component={Accueil} />
-            <Route exact path="/visualisation/beignet" component={Beignet} />
-            <Route
-              exact
-              path="/visualisation/histogramme"
-              component={Histogramme}
-            />
-            <Route
-              exact
-              path="/visualisation/troissplits"
-              component={Troissplits}
-            />
-            <Route
-              exact
-              path="/partager/:mediaId"
-              component={PartagesOeuvres}
-            />
-            <Route
-              exact
-              path="/partager/nouveau/:mediaId"
-              component={NouveauPartage}
-            />
-            <Route
-              exact
-              path="/partager/existant/:uuid"
-              component={ContinuerProposition}
-            />
-            <Route
-              exact
-              path="/partage-editeur/:propositionId"
-              component={PartageEditeur}
-            />
-            <Route
-              exact
-              path="/oeuvre/sommaire/:mediaId"
-              component={sommaireOeuvre}
-            />
+            <Route exact path="/forgot-password-verification" component={DefinitMotDePasse} />
+            <Route exact path="/change-password-verification" component={ChangePasswordVerification} />            
+            <Route exact path="/proposition/approuver/:propositionId" component={ApprouverSplit} />
+            <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
+            <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
+            <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
+            <Route exact path="/accueil" component={Accueil} />        
+            <Route exact path="/partager/:mediaId" component={PartagesOeuvres} />
+            <Route exact path="/partager/:mediaId/envoyer" component={PartagesOeuvresEnvoyer} />
+            <Route exact path="/partager/nouveau/:mediaId" component={NouveauPartage} />
+            <Route exact path="/partager/existant/:uuid" component={ContinuerProposition} />
+            <Route exact path="/partage-editeur/:propositionId" component={PartageEditeur} />
+            <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
             <Route exact path="/oeuvre/:mediaId/resume" component={Resume} />
-            <Route
-              exact
-              path="/partage/editeur/vote/:jeton"
-              component={VoterPartTiers}
-            />
-            <Route exact path="*" component={Password} />
+            <Route exact path="/oeuvre/resume/:jeton" component={ResumeAvecJeton} />
+            <Route exact path="/partage/editeur/vote/:jeton" component={VoterPartTiers} />          
           </Switch>
         </Router>
       </I18nextProvider>
-    );
+    )
   }
-};
+
+  return (
+    <Suspense fallback={<Loader
+      type="Circles"
+      color="#00BFFF"
+      width={800}
+      height={800}
+    />}>
+      {routage}
+    </Suspense>
+  )
+}
+
+const ResumeAvecJeton = match => {
+  let jeton = match.match.params.jeton
+  let mediaId = match.match.params.mediaId
+  return (
+    <OeuvreResume jeton={jeton} mediaId={mediaId} />
+  )
+}
+
+const ResumePochetteAvecJeton = match => {
+  let jeton = match.match.params.jeton
+  let mediaId = match.match.params.mediaId
+  return (
+    <OeuvreResume jeton={jeton} mediaId={mediaId} pochette={true} />
+  )
+}
 
 const EditerPochette = (match) => {
   let mediaId = match.match.params.mediaId
@@ -196,11 +144,29 @@ const EditerPochette = (match) => {
   )
 }
 
+const EditerPochetteAvecJeton = (match) => {
+  let mediaId = match.match.params.mediaId
+  let pageNo = match.match.params.pageNo
+  let jeton = match.match.params.jeton
+  return (
+    <EditerOeuvre mediaId={mediaId} pochette={true} pageNo={pageNo} jeton={jeton} />
+  )
+}
+
 const Editer = (match) => {
   let mediaId = match.match.params.mediaId
   let pageNo = match.match.params.pageNo
   return (
     <EditerOeuvre mediaId={mediaId} pochette={false} pageNo={pageNo} />
+  )
+}
+
+const EditerAvecJeton = (match) => {
+  let mediaId = match.match.params.mediaId
+  let pageNo = match.match.params.pageNo
+  let jeton = match.match.params.jeton
+  return (
+    <EditerOeuvre mediaId={mediaId} pochette={false} pageNo={pageNo} jeton={jeton} />
   )
 }
 
@@ -280,10 +246,15 @@ function SommaireProposition(match) {
 function PartagesOeuvres(match) {
   let mediaId = match.match.params.mediaId;
   return (
-    <Translation>
-      {(t, i18n) => <SommairePartages i18n={i18n} mediaId={mediaId} />}
-    </Translation>
-  );
+    <SommairePartages mediaId={mediaId} />
+  )
+}
+
+function PartagesOeuvresEnvoyer(match) {
+  let mediaId = match.match.params.mediaId;
+  return (
+    <SommairePartages mediaId={mediaId} envoyer={true} />
+  )
 }
 
 function Accueil() {
@@ -339,4 +310,15 @@ toast.configure({
   position: toast.POSITION.TOP_CENTER
 });
 
-ReactDOM.render(renderRoutes(), document.getElementById("root"));
+// Affichage quand le chargement est complété
+let cpt = 0
+function renduLorsqueApplicationEstPrete() {  
+  if(AyantsDroit.ayantsDroit) {
+    cpt++
+    journal.silly(NOM, `Application prête en ${cpt / 1000} secondes`)
+    ReactDOM.render(renderRoutes(), document.getElementById("root"))
+  } else {
+    setTimeout( ()=>renduLorsqueApplicationEstPrete(), 1)
+  }
+}
+renduLorsqueApplicationEstPrete()
