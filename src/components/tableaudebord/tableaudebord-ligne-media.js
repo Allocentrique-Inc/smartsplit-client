@@ -158,7 +158,7 @@ class LigneMedia extends Component {
               className="ui six wide column"
             >
               <div className="song-name cliquable" onClick={() => naviguerVersOeuvre(this.state.pochette, elem.mediaId) }>{`${elem.title}`}</div>
-              <div className="small-400">
+              <div className="small-400" style={{display: "inline"}}>
                 &nbsp;&nbsp;{t("flot.split.tableaudebord.pieces.par")}&nbsp;
               </div>
 
