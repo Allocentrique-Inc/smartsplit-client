@@ -75,7 +75,7 @@ class SommaireDroit extends Component {
     organiserDonnees() {
         if (this.state.type === "workCopyrightSplit") {
             let donnees = Droits.donneesVisualisationParType(this.state.parts, this.state.type, this.state.ayantsDroit)
-            let donneesParoles = donnees[Droits.nomSousTypeParoles()]
+            let donneesParoles = donnees[Droits.nomSousTypeParoles()].reverse()
             let donneesMusique = donnees[Droits.nomSousTypeMusique()]
             let donneesCompletes = Droits.donneesVisualisation(this.state.parts)
 
@@ -93,51 +93,51 @@ class SommaireDroit extends Component {
         if (this.state.ayantsDroit) {
             let _parts = []
             let _data = []
-            let beignetDouble = (this.state.type === "workCopyrightSplit")
-            Object.keys(this.state.donnees).forEach((uuid, idx) => {
+            let beignetDouble = (this.state.type === "workCopyrightSplit")            
+            Object.keys(this.state.donnees).forEach((uuid, idx) => {            
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
                 _parts.push(
                     <div key={`part--${this.state.type}_${uuid}_${idx}`}>
-                        <div>
-                            <div className="ui grid">
-                                <div className="ui row">
-                                    <div className="ui twelve wide column">
-                                        <div className="holder-name">
-                                            <img alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
-                                            {part.nom}
-                                            <div className="vote">
-                                                <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
-                                                    {parseFloat(part.sommePct).toFixed(2) + "%"}
-                                                </span>
-                                            </div>
-                                            <div className="ui row">
-                                                <div className="statut">
-                                                    <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}>
-                                                        {t(`flot.split.vote.${part.vote}`)}
-                                                    </div>
-                                                </div>
-                                                <div className="role">
-                                                    {
-                                                        part.roles.map((_e, idx) => {
-                                                            return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
-                                                        })
-                                                    }
-                                                </div>
-                                                <div class="ui section divider sommaire">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
+                        <div className="ui grid">
+                            <div className="ui row">
+                                <div className="ui two wide column" style={{padding: "0 0 0 1rem"}}>
+                                    <img style={{margin: "0.5rem 0 0 1rem"}} alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
                                 </div>
-
-                            
+                                <div className="ui fourteen wide column">
+                                    <div className="ui row">
+                                        <div className="holder-name" style={{display: "inline"}}>
+                                            {part.nom}
+                                        </div>                                                                               
+                                        <div className="vote">
+                                            <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
+                                                {parseFloat(part.sommePct).toFixed(2) + "%"}
+                                            </span>
+                                        </div>
+                                    </div>                                    
+                                    <div className="ui row">
+                                        <div className="role" style={{paddingLeft: "0rem", display: "inline"}}>
+                                            {
+                                                part.roles.map((_e, idx) => {
+                                                    return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
+                                                })
+                                            }
+                                        </div>
+                                        <div className="statut">
+                                            <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}>
+                                                {t(`flot.split.vote.${part.vote}`)}
+                                            </div>
+                                        </div>   
+                                        {
+                                            Object.keys(this.state.donnees).length - 1 !== idx && (
+                                                <div className="ui section divider sommaire" style={{marginTop: "1rem", marginBottom: "1rem"}} />
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-
                         <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />
                         {
                             uuid === this.state.ayantDroit.rightHolderId && (
@@ -186,7 +186,6 @@ class SommaireDroit extends Component {
                             )
                         }
                     </div>
-                </div>
                 )
             })
 
@@ -194,56 +193,42 @@ class SommaireDroit extends Component {
                         "performanceNeighboringRightSplit": <StarSVG />,
                          "masterNeighboringRightSplit": <RecordSVG /> }
 
-            const Icon = Map[this.state.titre]
-
-            if(this.state.donneesParoles) {
-                //let d = this.state.donneesParoles
-                //let _d = this.state.donneesParoles.reverse()
-            }
+            const Icon = Map[this.state.titre]            
 
             return (
-                <div className="body">
-                    {/* Grille d'affichage des droits (à gauche) et à droite, de la visualisation */}
-                    <div className="ui grid">
-                        <div className="ui row">
-                            <div className="ui eight wide column">
-                                <div className="wizard-title types row">
-                                    <div className="ui column">
-                                    &nbsp;{Icon}
-                                    </div>
-                                    <div className="ui column">
-                                        {t(`flot.split.droits.titre.${this.state.titre}`)}
-                                    </div>
+                <div className="ui grid">
+                    <div className="ui row" style={{minHeight: "515px"}}>
+                        <div className="ui eight wide column">
+                            <div className="wizard-title types" style={{padding: "1rem", marginTop: "10px"}}>
+                                <div className="ui column">
+                                    {Icon}
                                 </div>
+                                <div className="ui column" style={{marginLeft: "1rem"}}>
+                                    {t(`flot.split.droits.titre.${this.state.titre}`)}
+                                </div>
+                            </div>
+                            <div style={{padding: "1rem", marginTop: "0px"}}>                            
                                 {_parts}
-                            </div>
-                            </div>
-                            </div>
-
-                            <div className="ui four column grid">
-                                <div className="ui row"> 
-                                <div className="ui two wide column">
-                                {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles.reverse()} />)}
-                                </div>
-                                <div className="ui two wide column">
-                                {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} />)}
-                                </div>
-                                {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
-                                {!beignetDouble && _data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
-                                </div>
-                                </div>
-                            </div>
-
-                    
-                
+                            </div>                            
+                        </div>
+                        <div className="ui eight wide column">
+                            {
+                                beignetDouble && (
+                                    <div>
+                                        {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} style={{position: "absolute", left: "4rem"}} />)}
+                                        {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} style={{right: "2rem", position: "absolute"}} />)}
+                                    </div>
+                                )
+                            }                            
+                            {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                            {!beignetDouble && _data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                        </div>
+                    </div>
+                </div>
             )
-
         } else {
             return (<div></div>)
         }
-
-
     }
-
 }
 export default withTranslation()(SommaireDroit)

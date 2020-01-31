@@ -15,7 +15,7 @@ import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 import InfoBulle from '../partage/InfoBulle';
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import Navbar from '../navigation/navbar'
-import { config, utils, Identite, AyantsDroit } from "../../utils/application"
+import { config, utils, Identite, AyantsDroit, journal } from "../../utils/application"
 import { FlecheBasSVG, FlecheHautSVG } from '../svg/SVG.js'
 // import SommaireDroit from './sommaire-droit.js'
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
@@ -23,6 +23,7 @@ import "../../assets/scss/tableaudebord/tableaudebord.scss";
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 const ETAT_EDITEUR_NON = 1, ETAT_EDITEUR_OUI = 2, ETAT_EDITEUR_PLUSTARD = 3
+const NOM = "SommairePartages"
 
 class SommairePartages extends Component {
 
@@ -101,6 +102,7 @@ class SommairePartages extends Component {
     }
 
     fermerInfobulleEditeur(etat) {
+        journal.debug(NOM, `Fermer infobulle, état est ${etat}`)
         switch (etat) {
             case ETAT_EDITEUR_NON:
                 this.setState({ fermerInfobulleEditeur: true })
@@ -136,19 +138,18 @@ class SommairePartages extends Component {
             let _rafraichir = false
 
             if (_p0 && _p0.etat === 'VOTATION') {
-                _rafraichir = true
+                // _rafraichir = true // Désactivation du rafraîchissment automatique
             }
 
             propositions = this.state.propositions.map((elem, idx) => {
                 const accordionIsOpen = idx === this.state.activeIndex;
                 return (
-
-                    <div className="ui row" key={`sommaire_${idx}`}>
-                        <Accordion.Title active={accordionIsOpen} index={idx} onClick={this.clic}>
-                            <div className="fleche">
+                    <div className="ui row" key={`sommaire_${idx}`} style={{marginBottom: "1rem"}}>
+                        <Accordion.Title active={accordionIsOpen} index={idx} onClick={this.clic} style={{border: "1px solid rgba(34,36,38,.15)", padding: "1rem 1rem 1rem 0.5rem"}}>
+                            <div className="fleche" style={{paddingRight: "0.5rem", paddingTop: "1rem"}}>
                                 {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
                             </div>
-                            <div className="version">
+                            <div className="version">                                
                                 &nbsp; Version {idx + 1} - &nbsp; <span className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
                                     {t(`flot.split.etat.${elem.etat}`)}
                                     </span>           
@@ -160,7 +161,7 @@ class SommairePartages extends Component {
                                 </span>
                             </div>
                         </Accordion.Title>
-                        <Accordion.Content active={accordionIsOpen}>
+                        <Accordion.Content active={accordionIsOpen} style={{padding: "0rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
                             <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                         </Accordion.Content>
                     </div>
@@ -204,7 +205,7 @@ class SommairePartages extends Component {
 
             let optionsAffichage = !this.state.pochette && (
                 <div style={{ display: "inline" }}>
-                    <div style={{ paddingBottom: "20px", display: "inline" }} className={`small-500${
+                    <div style={{ paddingBottom: "14px", display: "inline" }} className={`small-500${
                         souligneInitiateur ? "-color souligne" : " secondaire"
                         } ${souligneInitiateur && this.state.pochette ? "pochette" : ""}`}>
 
@@ -218,11 +219,12 @@ class SommairePartages extends Component {
                             {t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}
                         </span>
                     </div>
-                    <div style={{ paddingBottom: "20px", marginLeft: "40px", display: "inline" }} className={`small-500${
+                    <div style={{ paddingBottom: "14px", marginLeft: "40px", display: "inline" }} className={`small-500${
                         souligneCollaborateur ? "-color souligne" : " secondaire"
                         } ${souligneCollaborateur && this.state.pochette ? "pochette" : ""}`}>
 
                         <InfoBulle
+                            style={{backgroundColor: "#FAF8F9"}}
                             className="proposition"
                             declencheur={(
                                 <span
@@ -254,18 +256,17 @@ class SommairePartages extends Component {
                                     <div className="ui medium button inverse infobulle" style={{ width: "110px", marginLeft: "0px", marginRight: "0px" }}
                                         onClick={() => { this.fermerInfobulleEditeur(ETAT_EDITEUR_NON) }}
                                     >
-                                        {t("editeur.oui")}
+                                        {t("editeur.non")}
                                     </div>
                                     <div className="ui medium button infobulle" onClick={(e) => {
                                         this.fermerInfobulleEditeur(ETAT_EDITEUR_OUI)
                                         this.afficherPanneauEditeur()
                                         this.setState({ nouvellePropositionEditeur: true })
-                                    }}>{t("editeur.non")}</div>
-
-                                    <div ClassName="panneau">
-                                    <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={() => this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)}>
+                                    }}>{t("editeur.oui")}</div>
+                                    <div className="panneau">
+                                        <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={() => this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)}>
                                         {t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
-                                        </div>
+                                    </div>
                                 </>
                             }
                             orientation="bottom center"
@@ -325,6 +326,9 @@ class SommairePartages extends Component {
                 }
             })
 
+            // Désactive le bouton du contrat
+            let contratEnabled = false
+
             return (
                 <div>
                     <Navbar pochette={this.props.pochette}
@@ -339,16 +343,14 @@ class SommairePartages extends Component {
                     <div className="ui container">
                         <div className="ui grid sommaire">
                             <div className="ui row">
-                                <div className="ui twelve wide column">
-                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume')}{this.state.media.title}</h1>    
+                                <div className="ui twelve wide column" style={{marginBottom: "0.5rem"}}>
+                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume', {titre: this.state.media.title})}</h1>    
                                 </div>
                             </div>
-                            <div className="affichage">
-                            <div className="ui row">
-                                <div className="ui sixteen wide column">
+                            <div className="ui row affichage" style={{boxShadow: "inset 0px -1px 0px #DCDFE1", marginLeft: "1rem", marginRight: "1rem"}}>
+                                <div className="ui sixteen wide column" style={{padding: "0rem"}}>
                                     {optionsAffichage}
                                 </div>
-                            </div>
                             </div>
                             </div>
                             {
@@ -359,36 +361,31 @@ class SommairePartages extends Component {
                                             <div className="ui sixteen wide column">
                                                 <div className="boutons sommaire">
                                                 {
-                                                    proposition.etat === 'ACCEPTE' && <div
+                                                    proposition.etat === 'ACCEPTE' && false && <div // Affichage désactivé (fonctionnalité à venir)
                                                         className="ui medium button inverse"
                                                         style={{ marginLeft: "0px" }}>
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
                                                 }
-                                                    {!nouveauDisabled && (
-                                                        <div
-                                                            className="ui medium button inverse">
-                                                            {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
-                                                    )}
-                                                    {!continuerDisabled && (
-                                                        <div className={`ui medium button inverse`} onClick={
-                                                            () => {
-                                                                utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)
-                                                            }
-                                                        }>
-                                                            {t('flot.split.documente-ton-oeuvre.proposition.continuer')}</div>
+                                                {!continuerDisabled && (
+                                                    <div className={`ui medium button inverse`} onClick={
+                                                        () => {
+                                                            utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)
+                                                        }
+                                                    }>
+                                                        {t('flot.split.documente-ton-oeuvre.proposition.continuer')}</div>
                                                     )
-                                                    }
-                                                    {!envoiDisabled && (
-                                                        <div
-                                                            onClick={() => this.openModal()}
-                                                            className="ui medium button envoyer sommaire">
-                                                            {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
-                                                    )}
+                                                }
+                                                {!envoiDisabled && (
+                                                    <div
+                                                        onClick={() => this.openModal()}
+                                                        className="ui medium button envoyer sommaire">
+                                                        {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
+                                                )}
                                                 </div>
                                             </div>
-                                            </div>
+                                        </div>
                                         <div className="ui row">
-                                            <Accordion fluid styled className="ui sixteen wide column">
+                                            <Accordion fluid className="ui sixteen wide column">
                                                 {propositions}
                                             </Accordion>
                                         </div>

@@ -48,7 +48,7 @@ export class BaseSectionParoles extends React.Component {
             pageNo={6}
             mediaId={this.props.media.mediaId}
           >
-            <h4 className={"corps-title-2"}>hello
+            <h4 className={"corps-title-2"}>
               {this.props.t("sommaire.parole.parole")}
             </h4>
           </TitreModifiable>
