@@ -32,7 +32,9 @@
   },
   "collaborateur": {
     "titre": "Add a collaborator",
+    "titeEntite": "Add an entity",
     "titre2": "Add as a collaborator:",
+    "titreEntreprise": "Add as a enterprise:",
     "attribut": {
       "placeholder": {
         "prenom": "Enter your first name",
@@ -198,13 +200,13 @@
         "afficher": "Proposal Display"
       },
       "etat": {
-        "VOTATION": "VOTING",
-        "REFUSE": "DENIED",
-        "ACCEPTE": "ACCEPTED",
-        "BROUILLON": "DRAFT",
-        "PRET": "READY",
-        "INCONNU": "UNDEFINED",
-        "ATTENTE": "WAITING"
+        "VOTATION": "Waiting for decision",
+        "REFUSE": "Rejected",
+        "ACCEPTE": "Approved",
+        "BROUILLON": "In progress",
+        "PRET": "Waiting to be sent",
+        "INCONNU": "Unknown",
+        "ATTENTE": "Waiting"
       },
       "valider": {
         "titre": "Validate Your Split",
@@ -240,11 +242,13 @@
             "nom": "Last Name (legal)",
             "prenom": "First Name (legal)",
             "artiste": "Artist Name (aka)  ",
+            "responsable": "Responsable person",
             "option": " (optional)",
             "na": "If not applicable, the complete name is displayed.",
             "role": "Role in the work",
             "courriel": "Email",
-            "groupe": "Group/Entity",
+            "groupe": "Group / Musical Entity",
+            "entreprise": "Enterprise",
             "ajout": "Add a groupor or an artist",
             "placeholder": {
               "nom": "Entre their first name",
@@ -258,7 +262,8 @@
             "artiste": "Enter your artist name",
             "role": "Choose one or more role",
             "role2": "These roles can be modified later.",
-            "groupe": "Choose a group"
+            "groupe": "Choose a group",
+            "entreprise": "Add an entity"
           },
           "bouton": {
             "annuler": "Cancel",
@@ -533,7 +538,7 @@
             "ACCEPTE": "Accepted",
             "REFUSE": "Rejected"
           },
-          "resume": "Split summary",
+          "resume": "Validate the split of {{titre}}",
           "editer": "Edit",
           "titre": "Send the copyright split",
           "sous-titre": "To finalize this split, you have to invite your collaborators to validate it all. Indicate their email addresses to which you are sending your split proposition.",
@@ -555,7 +560,7 @@
         },
         "bouton": {
           "ajout": "Add",
-          "voter": "VOTE"
+          "voter": "Send my vote"
         },
         "tableaudebord": {
           "collabo": "My Collaborators",
@@ -664,7 +669,8 @@
         }
       },
       "action": {
-        "commencer": "Start"
+        "commencer": "Start",
+        "continuer": "Continue"
       },
       "vote": {
         "accept": "Approved",
@@ -856,5 +862,9 @@
     "ecouter": {
       "ecouter": "Listen"
     }
+  },
+  "editeur": {
+    "oui": "Yes",
+    "non": "No"
   }
 }

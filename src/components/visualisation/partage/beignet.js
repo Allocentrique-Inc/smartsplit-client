@@ -1,12 +1,13 @@
 import {AyantsDroit} from '../../../utils/application'
 import './beignet.css'
-import copyIcon from './copyIcon.png'
-import starIcon from './starIcon.png'
-import prodIcon from './prodIcon.png'
+import CopyrightGrey from './CopyrightGrey.png'
+import StarGrey from './RecordGrey.png'
+import RecordGrey from './StarGrey.png'
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 
 const d3 = require('d3')
+// d3 = librairie dont svg est un objet
 
 class Beignet extends Component {
 
@@ -66,9 +67,12 @@ class Beignet extends Component {
 
     genererBeignet() {
         // Remettre à zéro le conteneur du beignet
-        if (this.state.type === "workCopyrightSplit") this.setState({ icon: copyIcon })
-        if (this.state.type === "performanceNeighboringRightSplit") this.setState({ icon: starIcon })
-        if (this.state.type === "masterNeighboringRightSplit") this.setState({ icon: prodIcon })
+      if (this.state.type === "workCopyrightSplit")
+      this.setState({ icon: CopyrightGrey });
+      if (this.state.type === "performanceNeighboringRightSplit")
+      this.setState({ icon: StarGrey });
+      if (this.state.type === "masterNeighboringRightSplit")
+      this.setState({ icon: RecordGrey });
         let chartRotation = 0
         if (this.state.type === "performanceNeighboringRightSplit" && this.state.accomp) chartRotation = 216
         let conteneur = document.getElementById(`my_dataviz_${this.state.uuid}`)
@@ -154,10 +158,10 @@ class Beignet extends Component {
         if (Object.keys(this.state.data).length > 0) {
             svg.append('image')
                 .attr('xlink:href', this.state.icon)
-                .attr('width', 60)
-                .attr('height', 60)
-                .attr('x', -30)
-                .attr('y', -30)
+                .attr("width", 80)
+                .attr("height", 80)
+                .attr("x", -40)
+                .attr("y", -40);
         }
 
     }
@@ -207,11 +211,11 @@ class Beignet extends Component {
         }, 0)
 
         return (
-            <div style={{ margin: "0 auto" }}>
+            <>
                 {this.props.titre && (<h4>{this.props.titre}</h4>)}
                 <div id={`my_dataviz_${this.state.uuid}`} className="beignet" >
                 </div>
-            </div>           
+                   </>
         )
     }
 }

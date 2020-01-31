@@ -109,8 +109,7 @@ class Declaration extends Component {
             {
               !contientRefus && (
                 <>
-                  <Checkbox
-                    value={this.state.identity}
+                  <Checkbox                    
                     key={"identity"}
                     label=""
                     onChange={this.handleIdentityCheck}
@@ -179,7 +178,6 @@ class Declaration extends Component {
               !contientRefus && (
                 <>
                   <Checkbox
-                    value={this.state.share}
                     key={"share"}
                     label=""
                     onChange={this.handleShareCheck}

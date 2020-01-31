@@ -1,10 +1,11 @@
 import "./beignet.css"
-import copyIcon from "./copyIcon.png"
-import starIcon from "./starIcon.png"
-import prodIcon from "./prodIcon.png"
+import CopyrightGrey from './CopyrightGrey.png'
+import StarGrey from './RecordGrey.png'
+import RecordGrey from './StarGrey.png'
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
 import {AyantsDroit} from "../../../utils/application"
+import "../../../assets/scss/tableaudebord/tableaudebord.scss";
 
 const d3 = require("d3")
 
@@ -23,9 +24,6 @@ class Beignet2 extends Component {
       type: props.type,
       accomp: false,
       side: "left"
-    };
-    if (props.data) {
-      this.rafraichir(props);
     }
   }
 
@@ -69,11 +67,11 @@ class Beignet2 extends Component {
   genererBeignet() {
     // Remettre à zéro le conteneur du beignet
     if (this.state.type === "workCopyrightSplit")
-      this.setState({ icon: copyIcon });
+      this.setState({ icon: CopyrightGrey });
     if (this.state.type === "performanceNeighboringRightSplit")
-      this.setState({ icon: starIcon });
+      this.setState({ icon: StarGrey });
     if (this.state.type === "masterNeighboringRightSplit")
-      this.setState({ icon: prodIcon });
+      this.setState({ icon: RecordGrey });
     let chartRotation = 0;
     if (
       this.state.type === "performanceNeighboringRightSplit" &&
@@ -103,7 +101,6 @@ class Beignet2 extends Component {
     let svg = d3
       .select(`#my_dataviz_${this.state.uuid}`)
       .append("svg")
-      .attr("style", "position: absolute; top: 0px")
       .attr("width", this.state.width)
       .attr("height", this.state.height)
       .append("g")
@@ -194,10 +191,10 @@ class Beignet2 extends Component {
       svg
         .append("image")
         .attr("xlink:href", this.state.icon)
-        .attr("width", 60)
-        .attr("height", 60)
-        .attr("x", -30)
-        .attr("y", -30);
+        .attr("width", 80)
+        .attr("height", 80)
+        .attr("x", -40)
+        .attr("y", -40);
     }
   }
 
@@ -252,29 +249,37 @@ class Beignet2 extends Component {
     }, 0);
 
     let flush = {
-      position: "absolute",
-      top: "470px",
-      left: "240px",
-      textTransform: "uppercase"
+      textTransform: "uppercase",
+      fontWeight: "bold",
+      fontSize: "12px",
+      color: "#203548",
+      letterSpacing: "1px"
     };
     if (this.props.titre === t("sommaire.musique.musique"))
       flush = {
-        position: "absolute",
-        top: "470px",
-        right: "155px",
-        textTransform: "uppercase"
+        textTransform: "uppercase",
+        fontWeight: "bold",
+        fontSize: "12px",
+        color: "#203548",
+        letterSpacing: "1px"
       };
 
+    let style = flush
+    // Ajout le style passé en attribut
+    if(this.props.style) {
+      style = Object.assign({}, style, this.props.style)
+    }
+
     return (      
-      <div className="ui two wide column">
-        <div style={{ margin: "0 auto" }}>
-          {this.props.titre && <h4 style={flush}>{this.props.titre}</h4>}
+        <>
           <div
             id={`my_dataviz_${this.state.uuid}`}
             className="beignet"
+            style={{position: "absolute", top: "0rem"}}
           ></div>
-        </div>
-      </div>
+          {this.props.titre && <h4 style={style}>{this.props.titre}</h4>}
+        </>
+     
     )
   }
 }

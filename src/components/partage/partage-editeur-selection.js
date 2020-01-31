@@ -1,9 +1,10 @@
 import {config} from '../../utils/application'
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
-import ChampListeCollaborateurAssistant from "../formulaires/champ-liste-collaborateur"
+import ChampListeEditeurAssistant from "../formulaires/champ-liste-editeur"
 
 class PageAssistantPartageChoixEditeur extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -99,6 +100,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                         className="delete icon"
                         onClick={() => {
                           this.props.setFieldValue("editeur", undefined);
+                          this.props.setFieldValue("editeurListe", undefined);
                           this.setState({ editeur: undefined });
                         }}
                       ></i>
@@ -112,7 +114,7 @@ class PageAssistantPartageChoixEditeur extends Component {
               {!this.state.editeur && (
                 <div style={{ margin: "0 auto", height: "50px" }}>
                   <div>
-                    <ChampListeCollaborateurAssistant
+                    <ChampListeEditeurAssistant
                         onRef={ayantsDroit=>this.setEditeurs(ayantsDroit)}
                         style={{height: "50px" }}
                         indication={t("flot.split.documente-ton-oeuvre.editeur.ajout")}
@@ -124,6 +126,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                         recherche={true}
                         selection={true}
                         ajout={true}
+                        parent={this}
                         fnSelect={
                           () => {
                               this.ajouterEditeur()
@@ -135,10 +138,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                 </div>
               )}
             </div>
-          </div>
-          <div className="ui seven wide column">
-            <div className="nine fourteen field">&nbsp;</div>
-          </div>
+          </div>          
         </div>
       </div>
     )

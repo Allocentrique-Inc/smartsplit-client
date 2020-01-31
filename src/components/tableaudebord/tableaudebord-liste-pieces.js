@@ -6,7 +6,7 @@ import { Modal } from "semantic-ui-react"
 import NouvelleOeuvre from "./tableaudebord-nouvelle-oeuvre"
 import AudioLecture from "../oeuvre/audio-lecture"
 import Yeux from "../../assets/images/yeux.png"
-import { AyantsDroit, Identite, config, journal } from '../../utils/application'
+import { AyantsDroit, Identite, config, journal } from '../../utils/application'
 
 const PANNEAU_INITIATEUR = 1,
       PANNEAU_COLLABORATEUR = 0;

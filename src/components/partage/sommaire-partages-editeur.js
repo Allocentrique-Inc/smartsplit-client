@@ -33,7 +33,6 @@ class SommairePartagesEditeur extends Component {
     }
 
     initialisation() {
-        console.log(this.state.user, AyantsDroit.ayantsDroit)
         let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]        
         this.setState({ ayantDroit: _rAd }, async () => {
             try {

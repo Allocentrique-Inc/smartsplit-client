@@ -1,13 +1,15 @@
-import {AyantsDroit} from '../../utils/application'
+import {AyantsDroit, journal} from '../../utils/application'
 import React, { Component } from 'react'
 import { Wizard } from 'semantic-ui-react-formik-iptoki'
 import { Form } from 'semantic-ui-react'
-import ModifyUser from '../auth/ModifyUser'
+import ModaleEmbarquementEntreprise from '../modales/modale-embarquement-nouvel-editeur'
 import { withTranslation } from 'react-i18next'
 import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg"
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg"
 
-class ChampListeCollaborateurAssistant extends Component {
+const NOM = "ChampListeEditeurAssistant"
+
+class ChampListeEditeurAssistant extends Component {
 
     constructor(props) {
         super(props)
@@ -55,7 +57,7 @@ class ChampListeCollaborateurAssistant extends Component {
 
     listeAyantsDroit() {
         // Récupérer la liste des ayant-droits 
-        let _adParId = AyantsDroit.ayantsDroit
+        let _adParId = AyantsDroit.editeurs
         let _options = []
         let nomsConnus = []
         Object.keys(_adParId).forEach((id, idx) => {
@@ -97,7 +99,7 @@ class ChampListeCollaborateurAssistant extends Component {
     handleAddition = (e, { value }) => {
         this.ajoutEnCours = true
         this.setState({ open: true })
-        this.setState({ firstName: value })
+        this.setState({ firstName: value })        
     }
 
     triggerLabel(indication) {
@@ -105,12 +107,12 @@ class ChampListeCollaborateurAssistant extends Component {
     }
 
     additionLabelClasses() {
-        const pochetteClass = this.props.pochette ? " pochette" : "";
-        return "addition-label" + pochetteClass;
+        const pochetteClass = this.props.pochette ? " pochette" : ""
+        return "addition-label" + pochetteClass
     }
 
     plusCircle() {
-        return this.props.pochette ? plusCircleOrange : plusCircleGreen;
+        return this.props.pochette ? plusCircleOrange : plusCircleGreen
     }
 
     plusCircleLabel(labelString) {
@@ -121,8 +123,8 @@ class ChampListeCollaborateurAssistant extends Component {
         )
     }
 
-    additionLabel(t) {
-        return this.plusCircleLabel(t("collaborateur.titre2"));
+    additionLabel() {
+        return this.plusCircleLabel(this.props.t("collaborateur.titreEntite"));
     }
 
     render() {
@@ -156,7 +158,7 @@ class ChampListeCollaborateurAssistant extends Component {
                                 onAddItem: this.handleAddition,
                                 allowAdditions: this.state.ajout,
                                 required: this.state.requis,
-                                additionLabel: this.additionLabel(t),
+                                additionLabel: this.additionLabel(),
                                 selectOnBlur: false,
                                 selectOnNavigation: false,
                                 trigger: this.triggerLabel(t("flot.split.documente-ton-oeuvre.bouton.ajout")),                                            
@@ -178,7 +180,7 @@ class ChampListeCollaborateurAssistant extends Component {
                         />
                     )
                 }
-                <ModifyUser
+                <ModaleEmbarquementEntreprise
                     open={this.state.open}
                     firstName={this.state.firstName}
                     close={() => {
@@ -191,8 +193,12 @@ class ChampListeCollaborateurAssistant extends Component {
                     }}
                     fn={(uuid) => {
                         this.listeAyantsDroit()
-                        if (this.props.fn) {
-                            this.props.fn(uuid)
+                        journal.debug(NOM, uuid)
+                        if (this.props.parent && this.props.parent.props.setFieldValue) {
+                            this.props.parent.props.setFieldValue('editeurListe', uuid)                            
+                        }
+                        if (this.props.fnSelect) {
+                            this.props.fnSelect()
                         }
                         this.ouvertureListe = false
                     }}
@@ -202,4 +208,4 @@ class ChampListeCollaborateurAssistant extends Component {
     }
 }
 
-export default withTranslation()(ChampListeCollaborateurAssistant)
+export default withTranslation()(ChampListeEditeurAssistant)

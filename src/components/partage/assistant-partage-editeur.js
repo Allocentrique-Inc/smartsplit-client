@@ -142,9 +142,25 @@ class AssistantPartageEditeur extends Component {
                                     parts: this.state.proposition.rightsSplits.workCopyrightSplit,
                                     ayantDroit: {rightHolderId: this.state.user.username, pourcent: undefined, aD: this.state.uaD}
                                 }}
+                                ButtonsWrapper={(props) => <div style={{
+                                    position: "fixed",
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    paddingTop: "15px",
+                                    background: "#fff",
+                                    boxShadow: "0 0 5px rgba(0,0,0,0.5)",
+                                    pochette: this.state.pochette
+                                }}>
+                                    <div className="ui grid">
+                                        <div className="ui row">
+                                            <div className="ui eight wide column">{props.children}</div>
+                                        </div>
+                                    </div>
+                                </div>}
                                 buttonLabels={{previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('navigation.envoi')}}
                                 debug={false}
-                                onSubmit={this.soumettre.bind(this)}                                            
+                                onSubmit={this.soumettre.bind(this)}
                                 >                                            
 
                                 <Wizard.Page>

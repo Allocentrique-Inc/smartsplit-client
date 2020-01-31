@@ -396,8 +396,8 @@ export class StarSVG extends SVG {
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM12.4443 6.7706C12.3585 6.6044 12.1871 6.5 12 6.5C11.813 6.5 11.6416 6.6044 11.5557 6.7706L9.975 9.8319L6.43083 10.3271C6.2398 10.3538 6.08116 10.488 6.02316 10.6719C5.96516 10.8559 6.01813 11.0568 6.1593 11.1882L8.70972 13.5629L8.10887 16.9117C8.07543 17.0981 8.15016 17.2874 8.30192 17.4007C8.45367 17.514 8.6564 17.5318 8.82559 17.4467L12 15.8509L15.1744 17.4467C15.3436 17.5318 15.5464 17.514 15.6981 17.4007C15.8499 17.2874 15.9246 17.0981 15.8912 16.9117L15.2903 13.5629L17.8407 11.1882C17.9819 11.0568 18.0349 10.8559 17.9769 10.6719C17.9189 10.488 17.7602 10.3538 17.5692 10.3271L14.025 9.8319L12.4443 6.7706Z"
           fill="#2DA84F"
         />
@@ -416,8 +416,8 @@ export class RecordSVG extends SVG {
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM9 6C8.73478 6 8.48043 6.10536 8.29289 6.29289C8.10536 6.48043 8 6.73478 8 7V17C8 17.5523 8.44772 18 9 18C9.55228 18 10 17.5523 10 17V14H13C15.2091 14 17 12.2091 17 10C17 7.79086 15.2091 6 13 6H9ZM13 12H10V8H13C14.1046 8 15 8.89543 15 10C15 11.1046 14.1046 12 13 12Z"
           fill="#2DA84F"
         />
@@ -436,8 +436,8 @@ export class PlusHorizontalSVG extends SVG {
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M8 12C8 13.1046 7.10457 14 6 14C4.89543 14 4 13.1046 4 12C4 10.8954 4.89543 10 6 10C7.10457 10 8 10.8954 8 12ZM14 12C14 13.1046 13.1046 14 12 14C10.8954 14 10 13.1046 10 12C10 10.8954 10.8954 10 12 10C13.1046 10 14 10.8954 14 12ZM18 14C19.1046 14 20 13.1046 20 12C20 10.8954 19.1046 10 18 10C16.8954 10 16 10.8954 16 12C16 13.1046 16.8954 14 18 14Z"
           fill="#8DA0B3"
         />
@@ -459,9 +459,9 @@ export class FlecheBasSVG extends SVG {
         <path
           d="M1 1L7 7L13 1"
           stroke="#8DA0B3"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
@@ -481,9 +481,9 @@ export class FlecheHautSVG extends SVG {
         <path
           d="M13 7L7 1L1 7"
           stroke="#8DA0B3"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );

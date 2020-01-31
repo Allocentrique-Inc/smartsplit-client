@@ -1,74 +1,51 @@
-import React, { Component } from "react";
-import "./ModifyUser.css";
-import axios from "axios";
+import React, { Component } from "react"
+import axios from "axios"
 import {
   Button,
   Modal,
   Dropdown
-} from "semantic-ui-react";
-import { withTranslation } from "react-i18next";
-import InfoBulle from '../partage/InfoBulle';
-import { Identite, config, AyantsDroit, journal } from "../../utils/application";
+} from "semantic-ui-react"
+import { withTranslation } from "react-i18next"
+import { Identite, config, AyantsDroit, journal } from "../../utils/application"
 
-const MAX_IMAGE_SIZE = 10000000;
+// eslint-disable-next-line
+const NOM = "ModaleEmbarquementEntreprise"
 
-class ModifyUser extends Component {
+class ModaleEmbarquementEntreprise extends Component {
+  
   constructor(props) {
-    super(props);
-
+    super(props)
     this.state = {
       groups: [],
       image: "",
       firstName: "",
       lastName: "",
-      artistName: props.firstName,
       email: "",
       avatarImage: "image.jpg",
-      instruments: [],
       open: props.open,
-      defaultRoles: [],
-      currentValue: [],
-      currentRoleValue: [],
+      currentValue: [props.firstName],
       locale: navigator.language || navigator.userLanguage,
       gender: "initiatorCreatedUser"  // Cognito Default Attribute Gender used as flag for user creation
     };
 
-    // BIND TODO
-    this.click = this.click.bind(this);
+    this.click = this.click.bind(this)
   }
 
   closeConfigShow = (closeOnEscape, closeOnDimmerClick) => () => {
-    this.setState({ closeOnEscape, closeOnDimmerClick, open: true });
+    this.setState({ closeOnEscape, closeOnDimmerClick, open: true })
   };
 
-  handleAddition = (e, { value }) => {
+  handleAddition = (e, { value }) => {    
     this.setState(prevState => ({
       groups: [{ text: value, value }, ...prevState.groups]
-    }));
-  };
+    }), ()=>console.log(this.state))
+  }
 
-  handleChange = (e, { value }) => this.setState({ currentValue: value });
+  handleChange = (e, { value }) => this.setState({ currentValue: value })
 
   handleRoleChange = (e, { value }) => this.setState({ defaultRoles: value });
 
   roleChange = (e, { value }) => this.setState({ currentRoleValue: value });
-
-  handleFileDelete(e) {
-    e.target.value = null;
-    this.setState({ image: "" });
-  }
-
-  handleFileUpload(e) {
-    if (e.target.files[0].size > MAX_IMAGE_SIZE) {
-      return alert("Image is loo large - 10Mb maximum");
-    }
-    if (!e.target.files[0].type.includes("image/jpeg")) {
-      return alert("Wrong file type - JPG only.");
-    }
-    this.setState({
-      image: `${config.IMAGE_SRV_URL}faceapp.jpg`
-    });
-  }
 
   click() {
     this.handleSubmit();
@@ -90,10 +67,7 @@ class ModifyUser extends Component {
     this.setState({ firstName: "" })
     this.setState({ lastName: "" })
     this.setState({ email: "" })
-    this.setState({ defaultRoles: [] })
     this.setState({ currentValue: [] })
-    this.setState({ currentRoleValue: [] })
-    this.setState({ instruments: [] })
     this.setState({ open: false })
   }
 
@@ -107,30 +81,31 @@ class ModifyUser extends Component {
       }
       groupes.push(nom)
     }
-    let source = window.location.href
     let attributes = {
       email: this.state.email,
       given_name: this.state.firstName || "Unnamed",
       family_name: this.state.lastName || "Unnamed",
       locale: this.state.locale || "fr",
       gender: this.state.gender,
-      "custom:artistName": this.state.artistName,
-      "custom:defaultRoles": JSON.stringify(this.state.currentRoleValue),
-      "custom:instruments": JSON.stringify(this.state.instruments),
       "custom:groups": JSON.stringify(groupes),
       "custom:avatarImage": this.state.avatarImage,
-      "custom:requestSource": ((source.includes("pochette")) ? "pochette" : "smartsplit")
+      "custom:requestSource": "smartsplit"
     }
     let username = this.state.email
     let password = this.randomPassword()
     Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes},
-      async (res) => {
-        await AyantsDroit.rafraichirListe( ()=>{
+      res => {        
+        journal.info(NOM, res)
+        axios.patch(`${config.API_URL}rightHolders/${res}/editeur`, {editeur: true})
+        .then(async ret=>{          
+          await AyantsDroit.rafraichirListe( ()=>{
             this.fermerModale()
-          if (this.props.fn) {
-            this.props.fn(res)
-          }
+            if (this.props.fn) {              
+              this.props.fn(res)
+            }
+          })
         })
+        .catch(err=>journal.error(NOM, err))        
       }
     )
   }
@@ -161,20 +136,22 @@ class ModifyUser extends Component {
       this.setState({ open: nextProps.open });
     }
     if (this.props.firstName !== nextProps.firstName) {
-      this.setState({ artistName: nextProps.firstName });
+      this.setState({ currentValue: [nextProps.firstName] })
     }
   }
 
-  render() {
-    const {
-      open,
-      currentValue
-    } = this.state
+  render() {    
     const t = this.props.t
+    if(this.state.currentValue && this.state.currentValue.length > 0) {
+      let option = this.state.currentValue[0]
+      if(!this.state.groups.includes(option)) {
+        this.state.groups.push({text: option, value: option})
+      }
+    }
     return (      
       <Modal
         className="modal collabo"
-        open={open}
+        open={this.state.open}
         closeOnEscape={true}
         closeOnDimmerClick={false}
         onClose={this.props.close}
@@ -182,18 +159,48 @@ class ModifyUser extends Component {
       >
         <Modal.Header className="Titre">
           <div className="ui row titre">
-            <strong>{t("collaborateur.titre")}</strong>
+            <strong>{t("collaborateur.titreEntreprise")}</strong>
           </div>
         </Modal.Header>
 
-        <div className="ui row container">
+        <div className="ui container">
           <div className="input-container">
-            <div className="userContainer">
+            <div className="ui row group">
+              <label>
+                <strong>
+                  {t("flot.split.collaborateur.attribut.etiquette.entreprise")}
+                </strong>
+              </label>
+              <span>
+                {
+                  this.state.currentValue && this.state.currentValue.length > 0 && (
+                    <Dropdown
+                      icon="search"
+                      id="prompt"
+                      type="text"
+                      options={this.state.groups}
+                      placeholder={t(
+                        "flot.split.collaborateur.attribut.indication.entreprise"
+                      )}
+                      search
+                      multiple={true}
+                      selection
+                      fluid
+                      allowAdditions
+                      value={this.state.currentValue}
+                      onAddItem={this.handleAddition}
+                      onChange={this.handleChange}
+                    />
+                  )
+                }
+              </span>
+            </div>
+            <div className="ui row courriel">
               <span className="etiquettes">
                 <div className="etiquettePrenom">
                   <label htmlFor="prenom">
                     <strong>
-                      {t("flot.split.collaborateur.attribut.etiquette.prenom")}
+                      {t("flot.split.collaborateur.attribut.etiquette.responsable")}
                     </strong>
                   </label>
                   <input
@@ -227,57 +234,7 @@ class ModifyUser extends Component {
                 </div>
               </span>
             </div>
-
-            <div className="ui row artiste">
-              <label>
-                <strong>
-                  {t("flot.split.collaborateur.attribut.etiquette.artiste")}
-                </strong>
-              </label>
-              <InfoBulle text={t("flot.split.collaborateur.attribut.etiquette.na")}
-                pos={{ x: 220, y: 200 }}
-              />
-              <label className="option">
-                {t("flot.split.collaborateur.attribut.etiquette.option")}
-              </label>
-              <input
-                type="text"
-                className="newArtistName"
-                placeholder={t("flot.split.collaborateur.attribut.etiquette.placeholder.artiste")}
-                value={this.state.artistName}
-                onChange={e =>
-                  this.setState({ artistName: e.target.value })
-                }
-              />
-            </div>
-
-            <div className="ui row group">
-              <label>
-                <strong>
-                  {t("flot.split.collaborateur.attribut.etiquette.groupe")}
-                </strong>
-              </label>
-              <span>
-                <Dropdown
-                  icon="search"
-                  id="prompt"
-                  type="text"
-                  options={this.state.groups}
-                  placeholder={t(
-                    "flot.split.collaborateur.attribut.indication.groupe"
-                  )}
-                  search
-                  multiple={true}
-                  selection
-                  fluid
-                  allowAdditions
-                  value={currentValue}
-                  onAddItem={this.handleAddition}
-                  onChange={this.handleChange}
-                />
-              </span>
-            </div>
-            <div className="ui row courriel">
+            <div className="ui row courriel" style={{paddingBottom: "40px"}}>
               <label>
                 <strong>
                   {t("flot.split.collaborateur.attribut.etiquette.courriel")}
@@ -291,7 +248,7 @@ class ModifyUser extends Component {
                 value={this.state.email}
                 onChange={e => this.setState({ email: e.target.value })}
               />
-            </div>                
+            </div>
           </div>
         </div>
         <Modal.Actions>
@@ -304,10 +261,10 @@ class ModifyUser extends Component {
             icon="checkmark"
             labelPosition="right"
             content={t("flot.split.collaborateur.attribut.bouton.sauvegarder")}
-          />         
+          />        
         </Modal.Actions>
       </Modal>       
     )
   }
 }
-export default withTranslation()(ModifyUser)
+export default withTranslation()(ModaleEmbarquementEntreprise)

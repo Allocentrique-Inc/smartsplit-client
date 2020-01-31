@@ -32,7 +32,9 @@
   },
   "collaborateur": {
     "titre": "Ajouter un collaborateur",
-    "titre2": "Ajouter comme collaborateur :",
+    "titreEntite": "Ajouter une entité",
+    "titre2": "Ajouter comme collaborateur",
+    "titreEntreprise": "Ajouter comme entreprise",
     "bouton": {
       "annuler": "Annuler",
       "sauvegarder": "Sauvegarder",
@@ -190,13 +192,13 @@
         "afficher": "Afficher le sommaire"
       },
       "etat": {
-        "VOTATION": "VOTATION",
-        "REFUSE": "REFUSÉ",
-        "ACCEPTE": "ACCEPTÉ",
-        "BROUILLON": "BROUILLON",
-        "PRET": "PRÊT",
-        "INCONNU": "INCONNU",
-        "ATTENTE": "ATTENTE"
+        "VOTATION": "En attente de décision",
+        "REFUSE": "Refusée",
+        "ACCEPTE": "Approuvée",
+        "BROUILLON": "En rédaction",
+        "PRET": "En attente d'envoi",
+        "INCONNU": "Inconnu",
+        "ATTENTE": "En attente"
       },
       "valider": {
         "titre": "Valide ton Split",
@@ -240,12 +242,14 @@
           "etiquette": {
             "nom": "Nom (légal)",
             "prenom": "Prénom (légal)",
+            "responsable": "Personne responsable",
             "artiste": "Nom d'artiste (alias)  ",
             "role": "Rôle dans la pièce musicale  ",
             "option": "Optionnel",
             "na": "Par exemple, Jay-Z est le nom d'artiste de Shawn Corey Carter.",
             "courriel": "Courriel",
-            "groupe": "Ajouter groupes, entités artistiques ou entreprises",
+            "groupe": "Ajouter groupes ou entités artistiques",
+            "entreprise": "Ajouter une entreprise",
             "ajout": "Ajouter un groupe ou un artiste",
             "placeholder": {
               "nom": "Entre son nom",
@@ -259,7 +263,8 @@
             "artiste": "Pseudonyme d'artiste",
             "role": "Choisis un ou plusieurs rôles",
             "role2": "Ces rôles peuvent être modifiés plus tard.",
-            "groupe": "Rechercher parmi les entités"
+            "groupe": "Rechercher parmi les entités",
+            "entreprise": "Ajouter une entité"
           },
           "bouton": {
             "annuler": "Annuler",
@@ -449,7 +454,7 @@
         },
         "bouton": {
           "ajout": "Ajouter",
-          "voter": "VOTER"
+          "voter": "Envoyer mon vote"
         },
         "tableaudebord": {
           "collabo": "Mes collaborateurs",
@@ -541,9 +546,10 @@
             "BROUILLON": "En rédaction",
             "PRET": "Prêt à soumettre",
             "VOTATION": "En attente de validation",
-            "ACCEPTE": "Acceptée",
+            "ACCEPTE": "Approuvée",
             "REFUSE": "Refusée"
           },
+          "valider": "Valider le split de {{titre}}",
           "resume": "Résumé du partage",
           "editer": "Éditer",
           "titre": "Envoyer le partage des droits",
@@ -665,7 +671,8 @@
         }
       },
       "action": {
-        "commencer": "Commencer"
+        "commencer": "Commencer",
+        "continuer": "Continuer"
       },
       "vote": {
         "accept": "Approuvé",
@@ -857,5 +864,9 @@
     "ecouter": {
       "ecouter": "Écouter"
     }
-  }  
+  },
+  "editeur": {
+    "oui": "Oui",
+    "non": "Non"
+  }
 }

@@ -107,18 +107,10 @@
   margin-left: 32px;
 }
 
-.tdb--lien__actif {
+.tdb--lien__actif, .tdb--lien__inactif {
   font-family: IBM Plex Sans;
   font-style: normal;
   font-weight: bold;
-  font-size: 16px;
-  line-height: 24px;
-  color: #ffffff;
-}
-
-.tdb--lien__inactif {
-  font-family: IBM Plex Sans;
-  font-style: normal;
   font-size: 16px;
   line-height: 24px;
   color: #ffffff;
@@ -384,13 +376,21 @@
   padding-top: 40px;
 }
 
-.small-400,
+.version {
+  font-weight: 18px;
+  display: flex;
+}
+
+.small-400.creation,
 .small-500-color {
   display: inline-block;
 }
 
-.small-500.secondaire {
-  color: #687a8b;
+.small-400.creation,
+.small-500.secondaire,
+.date.sommaire {
+color: #687A8B;
+font-size: 12px;
 }
 
 .ui.six.wide.column.etat {
@@ -447,14 +447,37 @@
 .vote {
   display: inline;
   text-align: right;
+  font-weight: bold;
 }
 
 .role,
-.vote {
+.vote,
+.statut {
   font-family: IBM Plex Sans;
 }
 
-.ui.segment.types {
+.statut {
+  display: inline;
+  font-weight: normal;
+}
+
+.statut,
+.role {
+  font-size: 12px;
+}
+
+.statut,
+.role,
+.holder-name {
+  font-weight: normal;
+}
+
+.holder-name,
+.vote {
+  font-size: 16px;
+}
+
+.body {
   min-height: 515px;
 }
 
@@ -471,7 +494,8 @@
 }
 
 .utilisateurConnecte,
-.utilisateurInvite {
+.utilisateurInvite,
+.statut {
   float: right;
 }
 
@@ -490,10 +514,122 @@
   font-weight: normal;
 }
 
-.border-bottom.devide {
-  border-bottom: 0.5px solid #687a8b;
-}
-
 .fleche {
   float: right;
 }
+
+.ui.dividing.header.sommaire {
+  color: #dcdfe1;
+}
+
+.resume {
+  margin-top: 100px;
+}
+
+.affichage {
+  padding-bottom: 20px;
+  margin-bottom: 50px;
+}
+
+.ui.medium.button.infobulle {
+  width: 110px;
+  margin-left: 20px;
+  margin-right: 0px;
+}
+
+.panneau {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 16px;
+  font-family: "IBM Plex Sans";
+  font-weight: 700;
+}
+
+.proposition {
+  background: #FAF8F9;
+  border: 1px solid #DCDFE1;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.version {
+  font-family: IBM Plex Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 24px;
+  color: #203548;
+}
+
+.ui.dividing.header {
+  border-bottom: 0px solid white;
+}
+
+.boutons.sommaire {
+  /* top: 180px;
+  position: absolute;
+  right: 70px;  */
+  padding-bottom: 20px;
+}
+
+.ui.medium.button.envoyer.sommaire {
+  margin-right: 0px;
+}
+
+.ui.button.medium.vote.refus {
+  margin: 0 0 20px 0;
+}
+
+.raison.refus,
+.ui.section.divider.sommaire {
+  min-width: 374px;
+}
+
+.footer.voter {
+  min-height: 100%;
+  background-color: ffff;
+  position: relative;
+  top: 65px;
+  box-shadow: inset 0px 1px 0px #DCDFE1;
+}
+
+.ui.medium.button.voter {
+  float:right;
+}
+
+.sommaire-approuve,
+.sommaire-desaprouve,
+.sommaire-attente,
+.sommaire-envoie {
+  font-family: IBM Plex Sans;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 16px;
+  border-radius: 2px;
+  align-items: center;
+  text-align: center;
+  align-self: center;
+  padding: 3px 5px 2px 5px;
+  width: auto;
+}
+
+.sommaire-approuve {
+color: #176D25;
+background-color: #DFF8E3;
+}
+
+.sommaire-desaprouve {
+  color: #AC1616;
+  background-color: #FBD4D4;
+}
+
+.sommaire-attente {
+  color: #A55108;
+  background-color: #FFE5A2;
+}
+
+.sommaire-envoie {
+  background-color: #F2EFF0;
+  color: #203548;
+  font-weight: normal;
+}
+
