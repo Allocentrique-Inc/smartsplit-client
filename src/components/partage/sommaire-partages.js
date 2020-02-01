@@ -372,10 +372,10 @@ class SommairePartages extends Component {
                                                     {!continuerDisabled && (
                                                         <div className={`ui medium button inverse`} onClick={
                                                             () => {
-                                                                utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)
+                                                                utils.naviguerVersNouveauPartage(this.state.mediaId)
                                                             }
                                                         }>
-                                                            {t('flot.split.documente-ton-oeuvre.proposition.continuer')}</div>
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.nouvelle-version')}</div>
                                                         )
                                                     }
                                                     {!envoiDisabled && (

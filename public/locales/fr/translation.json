@@ -20,7 +20,9 @@
       "originale": "Une création originale",
       "arrangement": "Une adaptation (remix)",
       "reprise": "Une interprétation (cover)"
-    }
+    },
+    "modifier": "Modifier",
+    "ajouter": "Ajouter"
   },
   "titre": {
     "principal": "Bienvenue sur Smartsplit Beta",

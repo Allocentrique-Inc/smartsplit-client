@@ -214,31 +214,24 @@ class SommairePartage extends Component {
         let TYPE_SPLIT = Droits.listeDroits()
 
         if (this.state.proposition && this.state.ayantsDroit) {
-            TYPE_SPLIT.forEach((type, idx) => {
-                let _aDonnees = false
-                Object.keys(this.state.proposition.rightsSplits[type]).forEach(_cle => {
-                    if (this.state.proposition.rightsSplits[type][_cle].length > 0) { _aDonnees = true }
-                })
-
-                if (_aDonnees) {
-                    droits.push(<SommaireDroit
-                        ayantsDroit={this.state.ayantsDroit}
-                        type={type}
-                        key={`sommaire_${this.state.uuid}_${type}_${idx}`}                        
-                        parts={this.state.proposition.rightsSplits[type]}
-                        titre={type}
-                        ayantDroit={this.state.ayantDroit}
-                        monVote={this.state.mesVotes[type]}
-                        voteTermine={
-                            this.estVoteFinal() ||
-                            this.estVoteClos() ||
-                            this.state.proposition.etat !== "VOTATION" ||
-                            (this.state.proposition.etat === "VOTATION" && !this.state.jetonApi)}
-                        parent={this}
-                        uuid={this.state.proposition.uuid}
-                        t={this.props.t}
-                    />)
-                }
+            TYPE_SPLIT.forEach((type, idx) => {                                
+                droits.push(<SommaireDroit
+                    ayantsDroit={this.state.ayantsDroit}
+                    type={type}
+                    key={`sommaire_${this.state.uuid}_${type}_${idx}`}                        
+                    parts={this.state.proposition.rightsSplits[type]}
+                    titre={type}
+                    ayantDroit={this.state.ayantDroit}
+                    monVote={this.state.mesVotes[type]}
+                    voteTermine={
+                        this.estVoteFinal() ||
+                        this.estVoteClos() ||
+                        this.state.proposition.etat !== "VOTATION" ||
+                        (this.state.proposition.etat === "VOTATION" && !this.state.jetonApi)}
+                    parent={this}
+                    uuid={this.state.proposition.uuid}
+                    t={this.props.t}
+                />)
             })
         }
 
