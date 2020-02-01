@@ -1,6 +1,6 @@
 import { AyantsDroit, config, journal, utils, Identite } from '../../utils/application'
 import React, { Component } from 'react'
-import { Wizard } from "../formulaires/assistant"
+import { Wizard } from "../formulaires/assistant-partage"
 import { withTranslation } from 'react-i18next'
 import PageAssistantPartageDroitAuteur from './assistant-partage-auteur'
 import PageAssistantPartageDroitInterpretation from './assistant-partage-interpretation'
@@ -460,7 +460,7 @@ class AssistantPartage extends Component {
                                             </div>
                                         </div>
                                     </div>}
-                                    buttonLabels={{ previous: t('navigation.retour'), next: t('navigation.suivant'), submit: t('navigation.envoi') }}
+                                    buttonLabels={{ plusTard: t('navigation.plus-tard'), previous: t('navigation.retour'), next: t('navigation.suivant'), submit: t('navigation.envoi') }}
                                     debug={false}
                                     onPageChanged={index => this.setState({ currentWizardPage: index })}
                                     onSubmit={

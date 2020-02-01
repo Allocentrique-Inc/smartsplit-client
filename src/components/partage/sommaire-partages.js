@@ -15,14 +15,15 @@ import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 import InfoBulle from '../partage/InfoBulle';
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import Navbar from '../navigation/navbar'
+// eslint-disable-next-line
 import { config, utils, Identite, AyantsDroit, journal } from "../../utils/application"
 import { FlecheBasSVG, FlecheHautSVG } from '../svg/SVG.js'
-// import SommaireDroit from './sommaire-droit.js'
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 const ETAT_EDITEUR_NON = 1, ETAT_EDITEUR_OUI = 2, ETAT_EDITEUR_PLUSTARD = 3
+// eslint-disable-next-line
 const NOM = "SommairePartages"
 
 class SommairePartages extends Component {
@@ -102,7 +103,6 @@ class SommairePartages extends Component {
     }
 
     fermerInfobulleEditeur(etat) {
-        journal.debug(NOM, `Fermer infobulle, état est ${etat}`)
         switch (etat) {
             case ETAT_EDITEUR_NON:
                 this.setState({ fermerInfobulleEditeur: true })

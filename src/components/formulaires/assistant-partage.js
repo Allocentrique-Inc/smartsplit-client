@@ -1,4 +1,8 @@
 // Source : module semantic-ui-react-formik (retiré, voir npm)
+// 
+// L'assistant des partages comprend une logique où il est possible de soumettre un partage
+// S'il n'y a pas de droit d'interprétation. Le texte du bouton doit changer de
+// "Plus tard" à "Continuer" lorsqu'une méthode est appelée
 Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
@@ -292,8 +296,12 @@ var Wizard = function (_React$Component) {
                 previousLabel = buttonLabels.previous;
             }
 
-            var ButtonsWrapper = this.props.ButtonsWrapper;
+            // Détection de la page du droit d'interprétation
+            if(page === 1 && values.droitInterpretation.length === 0) {                
+                //nextLabel = buttonLabels.plusTard
+            }
 
+            var ButtonsWrapper = this.props.ButtonsWrapper;
 
             return React.createElement(formik.Formik, {
                 initialValues: values,
@@ -307,7 +315,6 @@ var Wizard = function (_React$Component) {
                     var hasErrors = errors.length > 0;
                     var disableNext = hasErrors && disableSubmitOnError;
                     var disableSubmit = disableNext || props.isSubmitting;
-
                     var buttons = function buttons() {
                         return React.createElement(
                             semanticUiReact.Form.Group,
@@ -332,7 +339,7 @@ var Wizard = function (_React$Component) {
                                             { className: _this2.state.pochette ? 'pochette' : '', floated: "right", onClick: function onClick(e) {
                                                     return _this2.next(e, props);
                                                 }, primary: true, disabled: disableNext },
-                                            nextLabel
+                                                (page === 1 && props.values.droitInterpretation.length === 0) ? buttonLabels.plusTard : nextLabel
                                         ),
                                         showPrevious && page > 0 && React.createElement(
                                             semanticUiReact.Button,
@@ -472,27 +479,28 @@ var _initialiseProps = function _initialiseProps() {
             setErrors = formikBag.setErrors,
             setTouched = formikBag.setTouched;
 
-
         validateForm(values).then(function (errors) {
-            var forcedTouched = touchedOrHasErrorState(touched, errors);
-
-            setErrors(errors);
-            setTouched(forcedTouched);
-
-            var isValid = Object.keys(errors).length === 0;
+            var forcedTouched = touchedOrHasErrorState(touched, errors)
+            setErrors(errors)
+            setTouched(forcedTouched)
+            var isValid = Object.keys(errors).length === 0
             if (isValid) {
-                _this3.setState(function (state) {
-                    return {
-                        page: Math.min(state.page + 1, _this3.props.children.length - 1)
-                    };
-                });
+                // Si "Plus tard", soumettre.
+                if(_this3.state.page === 1 && values.droitInterpretation.length === 0) {
+                    _this3.props.onSubmit(values, formikBag)
+                } else {
+                    _this3.setState(function (state) {
+                        return {
+                            page: Math.min(state.page + 1, _this3.props.children.length - 1)
+                        }
+                    })
+                }                
             }
-        });
-    };
+        })
+    }
 
     this.previous = function (e, _ref5) {
         var setErrors = _ref5.setErrors;
-
         e.preventDefault();
         _this3.setState(function (state) {
             return {

@@ -118,6 +118,7 @@
     "par": "par"
   },
   "navigation": {
+    "plus-tard": "Plus tard",
     "suivant": "Suivant",
     "retour": "Retour",
     "envoi": "Soumettre",
@@ -278,7 +279,7 @@
           "accepter": "Accepter"
         }
       },
-      "navigation": {
+      "navigation": {        
         "suivant": "Suivant",
         "envoi": "Soumettre",
         "precedent": "Précédent",

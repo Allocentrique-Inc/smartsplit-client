@@ -226,7 +226,7 @@ class SommaireOeuvre extends Component {
                                                 <div className="ui heading4">
                                                     {t('flot.split.documente-ton-oeuvre.preambules.sous-titre1')}&nbsp;&nbsp;<span className="tag">{t(`flot.split.etat.${p0.etat}`)}</span>
                                                 </div>
-                                                <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
+                                                <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal", marginBottom: "3rem"}}>
                                                     {t('flot.split.documente-ton-oeuvre.preambules.intro1')}                                                    
                                                 </div>
                                                 <Progress size="tiny" success={p0.etat !== "REFUSE"} error={p0.etat === "REFUSE"} percent={pctPartage} />
@@ -250,7 +250,7 @@ class SommaireOeuvre extends Component {
                                 <div className="ui row etape">
                                     <div className="ui heading3 carrefour">{t('flot.split.documente-ton-oeuvre.preambules.titre2')}</div>
                                     <div className="ui heading4">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre2')}</div>
-                                    <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
+                                    <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal", marginBottom: "3rem"}}>
                                         {t('flot.split.documente-ton-oeuvre.preambules.intro2')}
                                     </div>
                                     <Progress size="tiny" success percent={pctDocumentation} />                                    
@@ -263,12 +263,11 @@ class SommaireOeuvre extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ui five wide column" style={{ padding: "50px" }}>
+                            <div className="ui five wide column" style={{marginLeft: "3rem"}}>
                                 <div style={{
-                                    position: "absolute",
-                                    top: "85px",
-                                    left: "135px",
-                                    width: "55%"
+                                    position: "relative",
+                                    top: "5rem",
+                                    left: "7rem"
                                 }}>
                                     {this.state.media.title} {t('oeuvre.par')} {artiste}
                                 </div>

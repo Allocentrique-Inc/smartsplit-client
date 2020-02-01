@@ -28,7 +28,7 @@ class PageAssistantPartageEnregistrement extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            parts: {},
+            parts: [],
             mode: MODES.egal,
             partsInvariables: {},
             song: "",

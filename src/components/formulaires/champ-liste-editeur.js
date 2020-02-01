@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import {AyantsDroit, journal} from '../../utils/application'
 import React, { Component } from 'react'
 import { Wizard } from '../formulaires/assistant'
@@ -6,7 +7,7 @@ import ModaleEmbarquementEntreprise from '../modales/modale-embarquement-nouvel-
 import { withTranslation } from 'react-i18next'
 import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg"
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg"
-
+// eslint-disable-next-line
 const NOM = "ChampListeEditeurAssistant"
 
 class ChampListeEditeurAssistant extends Component {
@@ -193,7 +194,6 @@ class ChampListeEditeurAssistant extends Component {
                     }}
                     fn={(uuid) => {
                         this.listeAyantsDroit()
-                        journal.debug(NOM, uuid)
                         if (this.props.parent && this.props.parent.props.setFieldValue) {
                             this.props.parent.props.setFieldValue('editeurListe', uuid)                            
                         }

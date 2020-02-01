@@ -345,7 +345,6 @@ class EditerOeuvre extends Component {
   render() {
     const t = this.props.t, i18n = this.props.i18n
     if ((this.state.user || this.state.jeton) && this.state.media) {
-      console.log('pochette', this.props.pochette)
       return (        
         <>
           <Navbar

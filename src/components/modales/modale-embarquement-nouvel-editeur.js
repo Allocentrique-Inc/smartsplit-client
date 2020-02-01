@@ -38,7 +38,7 @@ class ModaleEmbarquementEntreprise extends Component {
   handleAddition = (e, { value }) => {    
     this.setState(prevState => ({
       groups: [{ text: value, value }, ...prevState.groups]
-    }), ()=>console.log(this.state))
+    }))
   }
 
   handleChange = (e, { value }) => this.setState({ currentValue: value })
