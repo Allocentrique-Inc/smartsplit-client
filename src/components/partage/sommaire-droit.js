@@ -93,7 +93,7 @@ class SommaireDroit extends Component {
         if (this.state.ayantsDroit) {
             let _parts = []
             let _data = []
-            let beignetDouble = (this.state.type === "workCopyrightSplit")            
+            let beignetDouble = (this.state.type === "workCopyrightSplit")
             Object.keys(this.state.donnees).forEach((uuid, idx) => {            
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
@@ -193,7 +193,7 @@ class SommaireDroit extends Component {
                         "performanceNeighboringRightSplit": <StarSVG />,
                          "masterNeighboringRightSplit": <RecordSVG /> }
 
-            const Icon = Map[this.state.titre]            
+            const Icon = Map[this.state.titre]
 
             return (
                 <div className="ui grid">
@@ -215,8 +215,8 @@ class SommaireDroit extends Component {
                             {
                                 beignetDouble && (
                                     <div>
-                                        {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} style={{position: "absolute", left: "4rem"}} />)}
-                                        {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} style={{right: "2rem", position: "absolute"}} />)}
+                                        {beignetDouble && this.state.donneesParoles && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} styleTexte={{position: "absolute", top: "32rem", left: "18rem"}} />)}
+                                        {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", right: "14rem"}} />)}
                                     </div>
                                 )
                             }                            

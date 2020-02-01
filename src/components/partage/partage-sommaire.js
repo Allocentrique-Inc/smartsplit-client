@@ -29,15 +29,8 @@ class SommairePartage extends Component {
     }
 
     componentWillMount() {
-
-        this.setState({ ayantsDroit: AyantsDroit.ayantsDroit })
-        this.rafraichirDonnees(() => {
-            if ((this.estVoteFinal() && this.estVoteClos()) || this.state.rafraichirAuto) {
-                this.setState({ rafraichir: true }, () => {
-                    this.rafraichissementAutomatique()
-                })
-            }
-        })
+        this.setState({ ayantsDroit: AyantsDroit.ayantsDroit })    
+        this.rafraichirDonnees()
     }
 
     componentWillReceiveProps(nextProps) {

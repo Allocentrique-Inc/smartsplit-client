@@ -110,6 +110,7 @@ class PageAssistantPartageAuteur extends Component {
                         _parts[idx].color = elem.color
                     })
                     this.props.setFieldValue("droitAuteur", _parts)
+                    partsParoles.reverse()
                     this.setState({ parts: _parts })
                     this.setState({ partsMusique: partsMusique })
                     this.setState({ partsParoles: partsParoles })
@@ -335,10 +336,12 @@ class PageAssistantPartageAuteur extends Component {
                         <div>
                             {this.state.partsParoles && (
                                 <Beignet2 className="six wide field" titre="Paroles" uuid="auteur--beignet--3"
-                                    data={this.state.partsParoles.reverse()} type="workCopyrightSplit" side="left" />)}
+                                    data={this.state.partsParoles} type="workCopyrightSplit" side="left"
+                                    styleTexte={{position: "absolute", bottom: "-1rem", left: "16rem"}} />)}
                             {this.state.partsMusique && (
                                 <Beignet2 className="six wide field" titre="Musique" uuid="auteur--beignet--2"
-                                    data={this.state.partsMusique} type="workCopyrightSplit" side="right" />)}
+                                    data={this.state.partsMusique} type="workCopyrightSplit" side="right"
+                                    styleTexte={{position: "absolute", bottom: "0rem", right: "15rem"}} />)}
                         </div>
                     )
                     break;
@@ -671,7 +674,7 @@ class PageAssistantPartageAuteur extends Component {
                             <br />
                             <br />
                             <br />
-                            <div className="conteneur-beignet fourteen wide field">
+                            <div className="conteneur-beignet fourteen wide field" style={{minHeight: "500px"}}>
                                 {visualisation}
                             </div>
                         </div>
