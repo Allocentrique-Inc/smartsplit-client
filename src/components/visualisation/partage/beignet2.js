@@ -266,8 +266,8 @@ class Beignet2 extends Component {
 
     let style = flush
     // Ajout le style passé en attribut
-    if(this.props.style) {
-      style = Object.assign({}, style, this.props.style)
+    if(this.props.styleTexte) {
+      style = Object.assign({}, style, this.props.styleTexte)
     }
 
     return (      

@@ -169,6 +169,7 @@ class SommairePartages extends Component {
             })
             propositions = propositions.reverse()
 
+            // eslint-disable-next-line
             let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
             let partageEditeur = false
 
@@ -327,6 +328,7 @@ class SommairePartages extends Component {
             })
 
             // Désactive le bouton du contrat
+            // eslint-disable-next-line
             let contratEnabled = false
 
             return (
@@ -361,26 +363,28 @@ class SommairePartages extends Component {
                                             <div className="ui sixteen wide column">
                                                 <div className="boutons sommaire">
                                                 {
-                                                    proposition.etat === 'ACCEPTE' && false && <div // Affichage désactivé (fonctionnalité à venir)
+                                                    proposition.etat === 'ACCEPTE' && <div // Affichage désactivé (fonctionnalité à venir)
                                                         className="ui medium button inverse"
                                                         style={{ marginLeft: "0px" }}>
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
                                                 }
-                                                {!continuerDisabled && (
-                                                    <div className={`ui medium button inverse`} onClick={
-                                                        () => {
-                                                            utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)
-                                                        }
-                                                    }>
-                                                        {t('flot.split.documente-ton-oeuvre.proposition.continuer')}</div>
-                                                    )
-                                                }
-                                                {!envoiDisabled && (
-                                                    <div
-                                                        onClick={() => this.openModal()}
-                                                        className="ui medium button envoyer sommaire">
-                                                        {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
-                                                )}
+                                                <div style={{textAlign: "right"}}>
+                                                    {!continuerDisabled && (
+                                                        <div className={`ui medium button inverse`} onClick={
+                                                            () => {
+                                                                utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)
+                                                            }
+                                                        }>
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.continuer')}</div>
+                                                        )
+                                                    }
+                                                    {!envoiDisabled && (
+                                                        <div
+                                                            onClick={() => this.openModal()}
+                                                            className="ui medium button envoyer sommaire">
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
+                                                    )}
+                                                </div>                                                
                                                 </div>
                                             </div>
                                         </div>
