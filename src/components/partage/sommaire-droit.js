@@ -197,9 +197,9 @@ class SommaireDroit extends Component {
 
             return (
                 <div className="ui grid">
-                    <div className="ui row" style={{minHeight: "515px"}}>
+                    <div className="ui row" style={{minHeight: "38rem"}}>
                         <div className="ui eight wide column">
-                            <div className="wizard-title types" style={{padding: "1rem", marginTop: "10px"}}>
+                            <div className="wizard-title types" style={{padding: "1rem", marginTop: "0rem"}}>
                                 <div className="ui column">
                                     {Icon}
                                 </div>

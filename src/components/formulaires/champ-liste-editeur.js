@@ -1,6 +1,6 @@
 import {AyantsDroit, journal} from '../../utils/application'
 import React, { Component } from 'react'
-import { Wizard } from 'semantic-ui-react-formik-iptoki'
+import { Wizard } from '../formulaires/assistant'
 import { Form } from 'semantic-ui-react'
 import ModaleEmbarquementEntreprise from '../modales/modale-embarquement-nouvel-editeur'
 import { withTranslation } from 'react-i18next'

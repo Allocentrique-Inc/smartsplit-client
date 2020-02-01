@@ -1,6 +1,6 @@
 import {config, AyantsDroit, journal, Identite, utils} from '../../utils/application'
 import React, { Component } from "react";
-import { Wizard } from "semantic-ui-react-formik-iptoki";
+import { Wizard } from "../formulaires/assistant";
 import axios from "axios";
 import PageCreation from "./page-creation";
 import PageInterpretation from "./page-interpretation";
