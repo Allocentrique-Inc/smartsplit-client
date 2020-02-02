@@ -335,7 +335,6 @@ class EditerPartage extends Component {
 
     renduPage() {
         let rendu = ""
-        console.log("rendu", this.state.pageNo)
         switch(this.state.pageNo) {
             case "1":
                 rendu = (

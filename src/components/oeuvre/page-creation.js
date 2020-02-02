@@ -124,7 +124,6 @@ class PageCreation extends Component {
   }
 
   render() {
-    console.log(this.props.values.creationDate)
     let t = this.props.t
     return (      
       <Page pochette={this.props.pochette}>

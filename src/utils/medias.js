@@ -11,7 +11,6 @@ const AyantDroit = AideAyantDroit.getInstance()
 const NOM = "AideMedia"
 
 const apresCreation = function(usager) {
-    journal.debug(NOM, 'Création aide Media')
     AideMedia.instance = new AideMedia(usager)
 }
 

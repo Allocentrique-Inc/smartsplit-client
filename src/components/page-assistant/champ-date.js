@@ -7,7 +7,6 @@ import TitreChamp from "./titre-champ"
 class ChampDate extends Component {
   render() {
     const t = this.props.t, i18n = this.props.i18n
-    console.log(this.props.value)
     return (      
       <label className="champ">
         <TitreChamp

@@ -210,8 +210,6 @@ class EntetePartage extends Component {
       Approuvé = 100% (bouton «Continuer» devient «Voir le sommaire») 
     */   
 
-    journal.debug(`${NOM}-progressionPartage`, this.props.values)
-
     let donnees = this.props.values,
         pct = 0
 
