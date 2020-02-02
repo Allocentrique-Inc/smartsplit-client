@@ -13,6 +13,7 @@ import { withTranslation } from "react-i18next";
 import Navbar from "../navigation/navbar";
 import ModalFin from "./modal-fin";
 import ModaleConnexion from "../auth/Connexion";
+import moment from 'moment'
 import "../../assets/scss/page-assistant/bouton.scss";
 
 // eslint-disable-next-line
@@ -177,8 +178,8 @@ class AssistantOeuvre extends Component {
         pressArticleLinks: _m.pressArticleLinks || [],
         playlistLinks: _m.playlistLinks || [],
         creationDate: _m.creationDate
-          ? new Date(parseInt(_m.creationDate))
-          : new Date(),
+          ? moment(new Date(parseInt(_m.creationDate))).format('DD-MM-YYYY')
+          : moment(new Date()).format('DD-MM-YYYY'),
         publishDate: _m.publishDate ? _m.publishDate : "",
         publisher: _m.publisher ? _m.publisher.trim() : "",
         studio: _m.studio ? _m.studio.trim() : "",
@@ -190,8 +191,8 @@ class AssistantOeuvre extends Component {
           ? _m.distributorAddress.trim()
           : "",
         files: _m.files
-      };
-    }
+      };      
+    }    
     return valeurs;
   }
 

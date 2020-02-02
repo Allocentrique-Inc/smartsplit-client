@@ -24,7 +24,7 @@ export default class Utilitaires {
 
     naviguerVersSommaireOeuvre(mediaId, invitationsEnvoyees = false) {
         if(this.contexte === CONTEXTE_WEB) {            
-            window.location.href = `/oeuvre/sommaire/${mediaId}?i=1`;
+            window.location.href = `/oeuvre/sommaire/${mediaId}${ invitationsEnvoyees ? "?i=1" : "" }`;
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }

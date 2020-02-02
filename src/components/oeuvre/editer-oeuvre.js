@@ -12,6 +12,7 @@ import PageFichiers from "./page-fichiers"
 import { withTranslation } from "react-i18next"
 import Navbar from "../navigation/navbar"
 import ModaleConnexion from "../auth/Connexion"
+import moment from 'moment'
 
 const NOM = "EditerOeuvre"
 
@@ -214,8 +215,8 @@ class EditerOeuvre extends Component {
         pressArticleLinks: _m.pressArticleLinks || [],
         playlistLinks: _m.playlistLinks || [],
         creationDate: _m.creationDate
-          ? new Date(parseInt(_m.creationDate))
-          : new Date(),
+          ? moment(new Date(parseInt(_m.creationDate))).format('DD-MM-YYYY')
+          : moment(new Date()).format('DD-MM-YYYY'),
         publishDate: _m.publishDate ? _m.publishDate : "",
         publisher: _m.publisher ? _m.publisher.trim() : "",
         studio: _m.studio ? _m.studio.trim() : "",
@@ -387,7 +388,7 @@ class EditerOeuvre extends Component {
                 buttonLabels={{
                   previous: t("navigation.precedent"),
                   next: t("navigation.suivant"),
-                  submit: t("navigation.envoi")
+                  submit: t("navigation.enregistrer")
                 }}
                 debug={false}
               >

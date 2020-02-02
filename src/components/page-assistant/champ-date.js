@@ -7,6 +7,7 @@ import TitreChamp from "./titre-champ"
 class ChampDate extends Component {
   render() {
     const t = this.props.t, i18n = this.props.i18n
+    console.log(this.props.value)
     return (      
       <label className="champ">
         <TitreChamp
@@ -17,6 +18,7 @@ class ChampDate extends Component {
         {
           i18n && i18n.language && (
             <DateInput
+              localization={i18n.language}
               dateFormat="DD-MM-YYYY"
               placeholder={t(
                 "flot.split.documente-ton-oeuvre.documenter.date-placeholder"
