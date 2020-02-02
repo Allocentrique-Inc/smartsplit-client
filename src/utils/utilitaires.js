@@ -22,9 +22,9 @@ export default class Utilitaires {
         }
     }
 
-    naviguerVersSommaireOeuvre(mediaId) {
-        if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/oeuvre/sommaire/${mediaId}`;
+    naviguerVersSommaireOeuvre(mediaId, invitationsEnvoyees = false) {
+        if(this.contexte === CONTEXTE_WEB) {            
+            window.location.href = `/oeuvre/sommaire/${mediaId}${ invitationsEnvoyees ? "?i=1" : "" }`;
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -49,6 +49,14 @@ export default class Utilitaires {
     naviguerVersEnvoyerAuxCollaborateurs(mediaId) {
         if(this.contexte === CONTEXTE_WEB) {
             window.location.href = `/partager/${mediaId}/envoyer`
+        }
+        if(this.contexte === CONTEXTE_NATIF) {            
+        }
+    }
+
+    naviguerVersEditerProposition(uuid, pageNo) {
+        if(this.contexte === CONTEXTE_WEB) {
+            window.location.href = `/editer-partage/${uuid}/${pageNo}`
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }

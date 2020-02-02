@@ -4,10 +4,13 @@ import Beignet from '../visualisation/partage/beignet'
 import Beignet2 from '../visualisation/partage/beignet2'
 import Histogramme from '../visualisation/partage/histogramme'
 import { CopyrightSVG, StarSVG, RecordSVG } from '../svg/SVG.js'
+import editIcon from '../../assets/svg/icons/edit.svg'
 // eslint-disable-next-line
-import { Droits, AyantsDroit, journal } from '../../utils/application'
+import { Droits, AyantsDroit, journal, utils, Identite } from '../../utils/application'
 // eslint-disable-next-line
 const NOM = "SommaireDroit"
+
+const TYPES = { workCopyrightSplit: 1, performanceNeighboringRightSplit: 2, masterNeighboringRightSplit: 3 }
 
 class SommaireDroit extends Component {
 
@@ -26,7 +29,8 @@ class SommaireDroit extends Component {
             modifierVote: false,
             monVote: props.monVote,
             avatars: props.avatars,
-            uuid: props.uuid
+            uuid: props.uuid,
+            proposition: props.proposition
         }
         this.changerVote = this.changerVote.bind(this)
     }
@@ -145,10 +149,10 @@ class SommaireDroit extends Component {
                                     {
                                         !this.state.voteTermine &&
                                         (
-                                            <>
+                                            <div className="ui grid">
                                                 <div className="ui row">
-                                                    <div className="ui one wide column" />
-                                                    <div className="ui eight wide column">
+                                                    <div className="ui two wide column" />
+                                                    <div className="ui fourteen wide column">
                                                         <i>{part.raison ? part.raison : ""}</i>
                                                         <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
                                                             onClick={() => {
@@ -164,9 +168,7 @@ class SommaireDroit extends Component {
                                                                 this.setState({ refuser: false })
                                                                 this.voter(true)
                                                             }}>{t('flot.split.vote.accepter')}</div>
-                                                    </div>
-                                                    {
-                                                        this.state.refuser && (
+                                                        {this.state.refuser && (
                                                             <textarea
                                                                 className="raison refus"
                                                                 cols={30}
@@ -176,10 +178,10 @@ class SommaireDroit extends Component {
                                                                     this.state.parent.refuser(this.state.type, e.target.value)
                                                                 }}>
                                                             </textarea>
-                                                        )
-                                                    }
+                                                        )}
+                                                    </div>                                                    
                                                 </div>
-                                            </>
+                                            </div>
                                         )
                                     }
                                 </>
@@ -195,33 +197,77 @@ class SommaireDroit extends Component {
 
             const Icon = Map[this.state.titre]
 
+            const peutModifier = !this.props.votation && 
+                                    (this.state.proposition.initiatorUuid === Identite.usager.username) &&
+                                    this.state.proposition.etat !== 'ACCEPTE' &&
+                                    this.state.proposition.etat !== 'REFUSE' &&
+                                    this.state.proposition.etat !== 'VOTATION'
+            
             return (
                 <div className="ui grid">
-                    <div className="ui row" style={{minHeight: "515px"}}>
-                        <div className="ui eight wide column">
-                            <div className="wizard-title types" style={{padding: "1rem", marginTop: "10px"}}>
-                                <div className="ui column">
+                    <div className="ui row" style={ this.state.type === Droits.droitAuteur() ? {minHeight: "38rem"} : {} }>
+                        <div className="ui eight wide column">                            
+                            <div className="wizard-title types" style={{padding: "1rem", marginTop: "0rem"}}>
+                                <div>
                                     {Icon}
                                 </div>
-                                <div className="ui column" style={{marginLeft: "1rem"}}>
+                                <div style={{marginLeft: "1rem"}}>
                                     {t(`flot.split.droits.titre.${this.state.titre}`)}
                                 </div>
+                                {
+                                    _parts.length > 0 && peutModifier && (
+                                        <div 
+                                            className="ui medium button inverse" 
+                                            style={{ right: "0px", position: "absolute", top: "0.25rem", height: "3rem" }}
+                                            onClick={()=>{
+                                                utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
+                                            }}>
+                                            <img src={editIcon} alt={t('options.modifier')} />
+                                            <span style={{position: "relative", top: "-0.375rem", left: "0.375rem"}}>{t('options.modifier')}</span>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    _parts.length === 0 && peutModifier && (
+                                        <div 
+                                            className="ui medium button" 
+                                            style={{ right: "0px", position: "absolute", top: "0.25rem", height: "3rem" }}
+                                            onClick={()=>{
+                                                utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
+                                            }}>
+                                            <span style={{position: "relative"}}>{t('options.ajouter')}</span>
+                                        </div>
+                                    )
+                                }
                             </div>
-                            <div style={{padding: "1rem", marginTop: "0px"}}>                            
-                                {_parts}
-                            </div>                            
-                        </div>
-                        <div className="ui eight wide column">
                             {
-                                beignetDouble && (
-                                    <div>
-                                        {beignetDouble && this.state.donneesParoles && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} styleTexte={{position: "absolute", top: "32rem", left: "18rem"}} />)}
-                                        {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", right: "14rem"}} />)}
+                                _parts && _parts.length > 0 && (
+                                    <div className="ui row">
+                                        <div className="ui eight wide column" style={{padding: "1rem", marginTop: "0px"}}>
+                                        {_parts}
+                                        </div>                            
                                     </div>
                                 )
+                            }
+                        </div>
+                        <div className="ui eight wide column" style={{minHeight: (this.state.type === 1)}}>
+                            {
+                                _parts && _parts.length > 0 && 
+                                (
+                                    <>
+                                        {
+                                            beignetDouble && (
+                                                <div>
+                                                    {beignetDouble && this.state.donneesParoles && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} styleTexte={{position: "absolute", top: "32rem", left: "18rem"}} />)}
+                                                    {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", right: "14rem"}} />)}
+                                                </div>
+                                            )
+                                        }                            
+                                        {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                        {!beignetDouble && _data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                    </>
+                                )
                             }                            
-                            {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
-                            {!beignetDouble && _data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
                         </div>
                     </div>
                 </div>

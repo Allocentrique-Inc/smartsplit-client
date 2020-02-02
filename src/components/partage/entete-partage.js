@@ -199,16 +199,32 @@ class EntetePartage extends Component {
   }
 
   getProgressPercent = () => {
-    switch (this.props.currentPage) {
-      case 0:
-        return 20
-      case 1:
-        return 50
-      case 2:
-        return 85
-      default:
-        return 100
+    /** 
+     * Partage © (avec données documentées ou bouton «Plus tard» cliqué) =20%
+      Si l’utilisateur sort immédiatement 
+      Partage ✪ (avec données documentées) =40%
+      Partage ℗ (avec données documentées) =60%
+      Sommaire = 70%
+      Sommaire envoyé aux invités 80%
+      Sommaire envoyé aux invités approbation = 20% résiduel divisé par le nombre d’approbation attendues. Si 5 collabos, chaque collabo qui a approuvé vaut 4%.
+      Approuvé = 100% (bouton «Continuer» devient «Voir le sommaire») 
+    */   
+
+    let donnees = this.props.values,
+        pct = 0
+
+    if(donnees.droitAuteur.length > 0) {
+      pct += 20
     }
+    if(donnees.droitInterpretation.length > 0) {
+      pct += 20
+    }
+    if(donnees.droitEnregistrement.length > 0) {
+      pct += 20
+    }
+
+    return pct
+
   }
 
   render() {
@@ -273,7 +289,7 @@ class EntetePartage extends Component {
               </span>
             </div>
           </div>              
-          <Progress percent={this.getProgressPercent()} size="tiny" indicating />
+          <Progress percent={this.getProgressPercent()} size="tiny" success />
         </div>
         <div className="ui six wide column">
           <span

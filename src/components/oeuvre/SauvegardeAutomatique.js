@@ -2,8 +2,9 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import moment from 'moment'
+// eslint-disable-next-line
 import { journal, config } from '../../utils/application'
-
+// eslint-disable-next-line
 const NOM = "SauvegardeAutomatiqueMedia"
 
 class SauvegardeAutomatiqueMedia extends Component {
@@ -48,7 +49,6 @@ class SauvegardeAutomatiqueMedia extends Component {
                             if(moment(dateheure, "DD-MM-YYYY HH:mm").isValid()) {
                                 _vals.creationDate = moment(dateheure, "DD-MM-YYYY HH:mm").format('x')
                             }
-                            journal.debug(`${NOM}`, "Sauvegarde automatique")
                             axios.post(`${config.API_URL}media`, _vals)
                             .then((response) => {
                                 this.setState({autoDemarre: false}, ()=>this.sauvegardeAuto())                                

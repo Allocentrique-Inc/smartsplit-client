@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
-import { Wizard } from 'semantic-ui-react-formik-iptoki'
+import { Wizard } from '../formulaires/assistant'
 import { Form } from 'semantic-ui-react'
 import ModifyUser from '../auth/ModifyUser'
 import {Entites} from '../../utils/application'

@@ -51,7 +51,6 @@ export default class AideIdentites {
         try {            
             await Auth.signIn(params.utilisateur, params.secret)
             delete params.secret
-            journal.debug(NOM, params)
             this.bienvenue(fn)
         } catch(err) {
             journal.warn(NOM, err)
@@ -62,7 +61,6 @@ export default class AideIdentites {
     async deconnexion(fn) {
         await Auth.signOut()        
         if(fn){fn()}
-        journal.debug(NOM, "Déconnecté")
     }
 
     async nouveauMotDePasse(params) {
@@ -73,7 +71,6 @@ export default class AideIdentites {
             await Auth.forgotPasswordSubmit(courriel, code, mdp)
             delete params.nouveauMdp
             delete params.code
-            journal.debug(`${NOM}-nouveauMotDePasse`, params)
             this.props.history.push("/accueil")
         } catch (error) {
             journal.error(NOM, error)
@@ -81,7 +78,6 @@ export default class AideIdentites {
     }
 
     async oubliMotDePasse(params) {
-        journal.debug(`${NOM}-oubliMotDePasse`, params)
         let courriel = params.courriel
         axios
         .post(`${config.API_URL}rightHolders/emailToRightHolderId`,{email: courriel})
@@ -104,7 +100,7 @@ export default class AideIdentites {
         try {
             this.bienvenue()
         } catch (err) {
-            journal.debug(NOM, err)
+            journal.warn(NOM, err)
         }
     }
 

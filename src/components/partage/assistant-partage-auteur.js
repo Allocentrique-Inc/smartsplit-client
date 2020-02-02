@@ -341,7 +341,7 @@ class PageAssistantPartageAuteur extends Component {
                             {this.state.partsMusique && (
                                 <Beignet2 className="six wide field" titre="Musique" uuid="auteur--beignet--2"
                                     data={this.state.partsMusique} type="workCopyrightSplit" side="right"
-                                    styleTexte={{position: "absolute", bottom: "0rem", right: "15rem"}} />)}
+                                    styleTexte={{position: "absolute", bottom: "0rem", left: "22.5rem"}} />)}
                         </div>
                     )
                     break;

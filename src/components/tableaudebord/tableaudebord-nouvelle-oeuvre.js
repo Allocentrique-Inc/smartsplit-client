@@ -1,6 +1,6 @@
 import {config, AyantsDroit, journal, utils} from '../../utils/application'
 import React, { Component } from 'react'
-import { Wizard } from 'semantic-ui-react-formik-iptoki'
+import { Wizard } from '../formulaires/assistant'
 import axios from 'axios'
 import { withTranslation } from 'react-i18next'
 import Base from './tableaudebord-nouvelle-oeuvre-base'

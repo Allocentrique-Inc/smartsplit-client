@@ -200,7 +200,13 @@ class Entete extends React.Component {
             {
               !this.state.editerTitre &&
               (
-                <h1>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
+                <div style={{
+                  fontFamily: "IBM Plex Sans",
+                  fontStyle: "normal",
+                  fontWeight: "500",
+                  fontSize: "40px",
+                  lineHeight: "48px",                  
+                  color: "#203548"}}>{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
                   {
                     this.props.edition && (
                     <img
@@ -213,7 +219,7 @@ class Entete extends React.Component {
                     </img>
                     ) 
                   }                      
-                </h1>
+                </div>
               )
             }
 

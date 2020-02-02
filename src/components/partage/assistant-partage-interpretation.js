@@ -24,7 +24,7 @@ class PageAssistantPartageInterpretation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            parts: {},
+            parts: [],
             mode: MODES.role,
             principaux: [],
             accompagnement: [],
@@ -52,11 +52,11 @@ class PageAssistantPartageInterpretation extends Component {
     }
 
     recalculerPartage() {
-        let pourcent = 100.00
+        let pourcent = 100.00, _parts
         switch (this.state.mode) {
             case MODES.egal:
                 // Calcul le pourcentage égal
-                let _parts = this.props.values.droitInterpretation
+                _parts = this.props.values.droitInterpretation
                 pourcent = arrondir(pourcent / (_parts.length))
                 // Applique le pourcentage aux données existantes
                 _parts.forEach((elem, idx) => {
@@ -66,65 +66,56 @@ class PageAssistantPartageInterpretation extends Component {
                 this.props.setFieldValue("droitInterpretation", _parts)
                 break
             case MODES.role:
-                if (this.state.parts.length > 0) {
-                    let principaux = [], accompagnement = []
-                    this.state.parts.forEach(elem => {
-                        if (elem.principal) {
-                            principaux.push(elem.nom)
-                        } else {
-                            accompagnement.push(elem.nom)
-                        }
-                    })
-                    // Calcul des parts principales et d'accompagnement.
-                    // Applique la règle du 80% / 20%, sauf si tous sont principaux ou tous accompagnateurs (ce sera alors 100%)
-                    let pctPrincipaux = 80, pctAccompagnement = 20
-
-                    if (accompagnement.length === 0) {
-                        pctPrincipaux = 100
-                        pctAccompagnement = 0
+                let principaux = [], accompagnement = []
+                this.state.parts.forEach(elem => {
+                    if (elem.principal) {
+                        principaux.push(elem.nom)
+                    } else {
+                        accompagnement.push(elem.nom)
                     }
+                })
+                // Calcul des parts principales et d'accompagnement.
+                // Applique la règle du 80% / 20%, sauf si tous sont principaux ou tous accompagnateurs (ce sera alors 100%)
+                let pctPrincipaux = 80, pctAccompagnement = 20
 
-                    if (principaux.length === 0) {
-                        pctAccompagnement = 100
-                        pctPrincipaux = 0
-                    }
-
-                    let pctPrincipalParCollaborateur = principaux.length > 0 ? pctPrincipaux / principaux.length : 0
-                    let pctAccompagnementParCollaborateur = accompagnement.length > 0 ? pctAccompagnement / accompagnement.length : 0
-                    let _pP = 0, _pA = 0
-                    let _parts = this.state.parts
-                    this.state.parts.forEach((elem, idx) => {
-                        _pP = (principaux.includes(elem.nom) ? pctPrincipalParCollaborateur : 0)
-                        _pA = (accompagnement.includes(elem.nom) ? pctAccompagnementParCollaborateur : 0)
-                        _parts[idx].pourcent = `${arrondir(_pP + _pA)}`
-                    })
-                    this.setState({ parts: _parts })
+                if (accompagnement.length === 0) {
+                    pctPrincipaux = 100
+                    pctAccompagnement = 0
                 }
+
+                if (principaux.length === 0) {
+                    pctAccompagnement = 100
+                    pctPrincipaux = 0
+                }
+
+                let pctPrincipalParCollaborateur = principaux.length > 0 ? pctPrincipaux / principaux.length : 0
+                let pctAccompagnementParCollaborateur = accompagnement.length > 0 ? pctAccompagnement / accompagnement.length : 0
+                let _pP = 0, _pA = 0
+                _parts = this.state.parts
+                this.state.parts.forEach((elem, idx) => {
+                    _pP = (principaux.includes(elem.nom) ? pctPrincipalParCollaborateur : 0)
+                    _pA = (accompagnement.includes(elem.nom) ? pctAccompagnementParCollaborateur : 0)
+                    _parts[idx].pourcent = `${arrondir(_pP + _pA)}`
+                })
+                this.props.setFieldValue("droitInterpretation", _parts)
+                this.setState({ parts: _parts })                
                 break;
             default:
         }
-        this.setState({ ping: true })
     }
 
     ajouterCollaborateur(arrayHelpers) {
-
         let ayants = {}
-
         let _coll = this.props.values.collaborateur
-
         if (_coll) {
             let ayantDroit = this.state.ayantsDroit[_coll], 
                 nom = AyantsDroit.affichageDuNom(ayantDroit)
-
-            //let _index = arrayHelpers.data.length
             let _index = this.props.values.droitAuteur.length +
                 this.props.values.droitInterpretation.length +
                 this.props.values.droitEnregistrement.length
-
             this.props.values.droitAuteur.forEach(droit => {
                 ayants[droit.ayantDroit.rightHolderId] = droit["color"]
             })
-
             if (this.state.mode === MODES.egal) {
                 if (_coll in ayants) {
                     arrayHelpers.insert(0, {
@@ -173,7 +164,6 @@ class PageAssistantPartageInterpretation extends Component {
                     ayants[_coll] = COLORS[_index]
                 }
             }
-
             this.props.setFieldValue('collaborateur', '')
             this.setState({ ping: true }, () => {
                 this.recalculerPartage()
@@ -182,10 +172,8 @@ class PageAssistantPartageInterpretation extends Component {
     }
 
     render() {
-
         let descriptif
         let t = this.props.t, i18n = this.props.i18n
-
         if (i18n.language.substring(0, 2) === 'en') {
             descriptif = (<div className="medium-400">
                 Here we divide the <strong> neighboring right</strong> between the

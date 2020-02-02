@@ -77,7 +77,7 @@ class TableInterpretation extends React.Component {
             });
           }
           rang.label = (
-            <span key={`${rhId}`}>
+            <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit"}`} key={`${rhId}`}>
               {this.props.rightHolders[rhId] &&
                 this.props.rightHolders[rhId].artistName}
             </span>

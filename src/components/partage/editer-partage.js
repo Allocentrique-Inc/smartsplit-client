@@ -15,7 +15,7 @@ import closeIcon from "../../assets/svg/icons/x.svg";
 import "../../assets/scss/page-assistant/modal.scss";
 import positiveImage from "../../assets/images/positive.png";
 
-const NOM = "AssistantPartage"
+const NOM = "EditerPartage"
 
 const ROLES = {
     COMPOSITEUR: "45745c60-7b1a-11e8-9c9c-2d42b21b1a31",
@@ -30,7 +30,7 @@ const ROLES = {
     MUSICIEN: "45745c60-7b1a-11e8-9c9c-2d42b21b1a36"
 }
 
-class AssistantPartage extends Component {
+class EditerPartage extends Component {
 
     constructor(props) {
         super(props);
@@ -38,7 +38,7 @@ class AssistantPartage extends Component {
             mediaId: this.props.mediaId,
             uuid: this.props.uuid,
             user: null,
-            currentWizardPage: 0 //Set
+            pageNo: props.pageNo //Set
         }
         this.enregistrerEtAllerAuSommaire = this.enregistrerEtAllerAuSommaire.bind(this)
         this.soumettre = this.soumettre.bind(this)
@@ -90,13 +90,13 @@ class AssistantPartage extends Component {
     recupererOeuvre() {
         // Récupérer le média
         axios.get(`${config.API_URL}media/${this.state.mediaId}`)
-            .then(res => {
-                let media = res.data.Item;
-                this.setState({ media: media });
-            })
-            .catch((error) => {
-                toast.error(error);
-            })
+        .then(res => {
+            let media = res.data.Item;   
+            this.setState({ media: media });
+        })
+        .catch((error) => {
+            toast.error(error);
+        })
     }
 
     validerSommeDroits(values) {
@@ -129,7 +129,8 @@ class AssistantPartage extends Component {
         return valide
     }
 
-    soumettre(t, values, etat, cb, sansBlocage) {
+    soumettre(values, etat, cb, sansBlocage) {
+        const t = this.props.t
         if (this.state.user) {            
             // 1. Récupérer la liste des ayant-droits
             let _association = AyantsDroit.ayantsDroit
@@ -332,20 +333,56 @@ class AssistantPartage extends Component {
         this.setState({ modaleFin: ouvert })
     }
 
+    renduPage() {
+        let rendu = ""
+        switch(this.state.pageNo) {
+            case "1":
+                rendu = (
+                    <Wizard.Page>
+                        <PageAssistantPartageDroitAuteur 
+                        ayantsDroit={this.state.ayantDroits} 
+                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
+                        user={this.state.user}
+                        media={this.state.media} />
+                    </Wizard.Page>                    
+                )
+                break;
+            case "2":
+                rendu = (
+                    <Wizard.Page>
+                        <PageAssistantPartageDroitInterpretation 
+                        ayantsDroit={this.state.ayantDroits} 
+                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
+                        user={this.state.user}
+                        media={this.state.media} />
+                    </Wizard.Page>                    
+                )
+                break;
+            case "3":
+                rendu = (
+                    <Wizard.Page>
+                        <PageAssistantPartageDroitEnregistrement 
+                        ayantsDroit={this.state.ayantDroits} 
+                        enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
+                        user={this.state.user}
+                        media={this.state.media} />
+                    </Wizard.Page>                    
+                )
+                break;
+            default:                
+        }    
+        return rendu
+    }
+
     render() {
-
         let lectureSeule
-
         let that = this
-
         if (this.state.media && this.state.ayantsDroit) {
             let valeursInitiales = { droitAuteur: [], droitInterpretation: [], droitEnregistrement: [] }
             if (this.state.proposition) {
-
                 if (this.state.proposition.etat !== 'BROUILLON' && this.state.proposition.etat !== 'PRET' && this.state.proposition.etat !== 'REFUSE') {
                     lectureSeule = true
                 }
-
                 // Ordonner les valeurs initiales
                 let _rS = this.state.proposition.rightsSplits
                 let _droit = {
@@ -378,7 +415,6 @@ class AssistantPartage extends Component {
                     _droit.auteur[elem.rightHolder.rightHolderId].auteur = elem.contributorRole[ROLES.AUTEUR] ? true : false
                     _droit.auteur[elem.rightHolder.rightHolderId].color = elem.rightHolder.color
                 })
-
                 // Droit d'interprétation
                 _rS.performanceNeighboringRightSplit.principal.forEach(elem => { // Principal
                     if (!_droit.interpretation[elem.rightHolder.rightHolderId]) {
@@ -418,9 +454,7 @@ class AssistantPartage extends Component {
                 Object.keys(_droit.interpretation).forEach(elem => { valeursInitiales.droitInterpretation.push(_droit.interpretation[elem]) })
                 Object.keys(_droit.enregistrement).forEach(elem => { valeursInitiales.droitEnregistrement.push(_droit.enregistrement[elem]) })
             }
-
             let t = this.props.t
-
             return (                
                 <>
                     <div className="ui grid" style={{ padding: "10px" }}>
@@ -460,9 +494,8 @@ class AssistantPartage extends Component {
                                             </div>
                                         </div>
                                     </div>}
-                                    buttonLabels={{ plusTard: t('navigation.plus-tard'), previous: t('navigation.retour'), next: t('navigation.suivant'), submit: t('navigation.envoi') }}
+                                    buttonLabels={{ plusTard: t('navigation.plus-tard'), previous: t('navigation.retour'), next: t('navigation.suivant'), submit: t('navigation.enregistrer') }}
                                     debug={false}
-                                    onPageChanged={index => this.setState({ currentWizardPage: index })}
                                     onSubmit={
                                         (values, actions) => {
                                             actions.setSubmitting(false)
@@ -473,38 +506,16 @@ class AssistantPartage extends Component {
                                                 valide = valide && this.validerDroitsNonNegatifs(values.droitEnregistrement, t('validation.enregistrement'))
                                                 valide = valide && this.validerSommeDroits(values)
                                                 if(valide) {
-                                                    this.modaleDeclaration(true, () => {
-                                                        this.soumettre(t, values, "PRET")
-                                                    })
+                                                    this.soumettre(values, "PRET", () => {
+                                                        utils.naviguerVersSommairePartage(this.state.media.mediaId)
+                                                    }, true)                                                    
                                                 }                                                
                                             }
                                         }
                                     }
                                 >
 
-                                    <Wizard.Page>
-                                        <PageAssistantPartageDroitAuteur 
-                                            ayantsDroit={this.state.ayantDroits} 
-                                            enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
-                                            user={this.state.user}
-                                            media={this.state.media} />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageAssistantPartageDroitInterpretation 
-                                            ayantsDroit={this.state.ayantDroits} 
-                                            enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
-                                            user={this.state.user}
-                                            media={this.state.media} />
-                                    </Wizard.Page>
-
-                                    <Wizard.Page>
-                                        <PageAssistantPartageDroitEnregistrement 
-                                            ayantsDroit={this.state.ayantDroits} 
-                                            enregistrerEtAllerAuSommaire={this.enregistrerEtAllerAuSommaire}
-                                            user={this.state.user}
-                                            media={this.state.media} />
-                                    </Wizard.Page>
+                                    {this.renduPage()}
 
                                 </Wizard>
                             </div>
@@ -594,4 +605,4 @@ class AssistantPartage extends Component {
     }
 }
 
-export default withTranslation()(AssistantPartage)
+export default withTranslation()(EditerPartage)

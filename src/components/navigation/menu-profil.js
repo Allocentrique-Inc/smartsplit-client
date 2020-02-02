@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import {AyantsDroit, Identite, utils, journal, config} from '../../utils/application'
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
@@ -11,7 +12,7 @@ import {
   ChevronDownSVG,
   LangueSVG
 } from "../svg/SVG"
-
+// eslint-disable-next-line
 const NOM = "MenuProfil"
 
 class MenuProfil extends Component {
@@ -39,7 +40,6 @@ class MenuProfil extends Component {
 
   deconnexion() {
     Identite.deconnexion(()=>{
-      journal.debug(NOM, "retour accueil")
       utils.naviguerVersAccueil()
     })
   }

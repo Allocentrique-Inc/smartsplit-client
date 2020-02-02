@@ -50,7 +50,6 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.87.3",
     "semantic-ui-react-ext": "^1.0.6",
-    "semantic-ui-react-formik-iptoki": "^1.1.0",
     "serialize-javascript": "^2.1.1",
     "text-to-image": "^2.1.1",
     "winston": "^3.2.1",

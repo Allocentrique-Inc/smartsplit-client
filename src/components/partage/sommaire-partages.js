@@ -15,14 +15,15 @@ import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 import InfoBulle from '../partage/InfoBulle';
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import Navbar from '../navigation/navbar'
+// eslint-disable-next-line
 import { config, utils, Identite, AyantsDroit, journal } from "../../utils/application"
 import { FlecheBasSVG, FlecheHautSVG } from '../svg/SVG.js'
-// import SommaireDroit from './sommaire-droit.js'
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 const ETAT_EDITEUR_NON = 1, ETAT_EDITEUR_OUI = 2, ETAT_EDITEUR_PLUSTARD = 3
+// eslint-disable-next-line
 const NOM = "SommairePartages"
 
 class SommairePartages extends Component {
@@ -102,7 +103,6 @@ class SommairePartages extends Component {
     }
 
     fermerInfobulleEditeur(etat) {
-        journal.debug(NOM, `Fermer infobulle, état est ${etat}`)
         switch (etat) {
             case ETAT_EDITEUR_NON:
                 this.setState({ fermerInfobulleEditeur: true })
@@ -152,7 +152,7 @@ class SommairePartages extends Component {
                             <div className="version">                                
                                 &nbsp; Version {idx + 1} <span style={{marginLeft: "1rem"}} className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
                                     {t(`flot.split.etat.${elem.etat}`)}
-                                    </span>           
+                                    </span>
                                     </div>
                             <div>
                                 <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
@@ -161,7 +161,7 @@ class SommairePartages extends Component {
                                 </span>
                             </div>
                         </Accordion.Title>
-                        <Accordion.Content active={accordionIsOpen} style={{padding: "0rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
+                        <Accordion.Content active={accordionIsOpen} style={{padding: "0rem", paddingTop: "1rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
                             <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                         </Accordion.Content>
                     </div>
@@ -372,10 +372,10 @@ class SommairePartages extends Component {
                                                     {!continuerDisabled && (
                                                         <div className={`ui medium button inverse`} onClick={
                                                             () => {
-                                                                utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)
+                                                                utils.naviguerVersNouveauPartage(this.state.mediaId)
                                                             }
                                                         }>
-                                                            {t('flot.split.documente-ton-oeuvre.proposition.continuer')}</div>
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.nouvelle-version')}</div>
                                                         )
                                                     }
                                                     {!envoiDisabled && (

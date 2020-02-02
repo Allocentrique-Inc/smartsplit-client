@@ -1,6 +1,6 @@
 import {AyantsDroit} from '../../utils/application'
 import React, { Component } from 'react'
-import { Wizard } from 'semantic-ui-react-formik-iptoki'
+import { Wizard } from '../formulaires/assistant'
 import { Form } from 'semantic-ui-react'
 import ModifyUser from '../auth/ModifyUser'
 import { withTranslation } from 'react-i18next'
