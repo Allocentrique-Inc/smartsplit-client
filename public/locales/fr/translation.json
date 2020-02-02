@@ -119,7 +119,14 @@
     "artistName": "Nom d'artiste",
     "par": "par"
   },
+  "accordeon": {
+    "version-proposee": "Version proposée"
+  },
   "navigation": {
+    "vote": {
+      "requis": "{{nb}}/{{total}} vote{{nombre}} requis"
+    },
+    "enregistrer": "Enregistrer",
     "plus-tard": "Plus tard",
     "suivant": "Suivant",
     "retour": "Retour",
@@ -154,6 +161,9 @@
     }
   },
   "flot": {
+    "invitations": {
+      "envoyees": "Merci, les invitations ont été envoyées."
+    },
     "acr": {
       "titre": "Ta pièce musicale a été reconnue",
       "oui": "D'accord !",
@@ -200,7 +210,7 @@
         "ACCEPTE": "Approuvée",
         "BROUILLON": "En rédaction",
         "PRET": "En attente d'envoi",
-        "INCONNU": "Inconnu",
+        "NOUVEAU": "Nouveau",
         "ATTENTE": "En attente"
       },
       "valider": {
@@ -675,7 +685,8 @@
       },
       "action": {
         "commencer": "Commencer",
-        "continuer": "Continuer"
+        "continuer": "Continuer",
+        "sommaire": "Sommaire"
       },
       "vote": {
         "accept": "Approuvé",

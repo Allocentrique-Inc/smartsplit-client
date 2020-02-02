@@ -152,7 +152,7 @@ class SommairePartages extends Component {
                             <div className="version">                                
                                 &nbsp; Version {idx + 1} <span style={{marginLeft: "1rem"}} className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
                                     {t(`flot.split.etat.${elem.etat}`)}
-                                    </span>           
+                                    </span>
                                     </div>
                             <div>
                                 <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>

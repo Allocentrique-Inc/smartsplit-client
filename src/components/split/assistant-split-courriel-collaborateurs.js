@@ -74,7 +74,7 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
       .post(`${config.API_URL}proposal/invite`, body)
       .then(resp => {
         this.props.close(() => {
-          utils.naviguerVersSommaireOeuvre(this.props.mediaId)          
+          utils.naviguerVersSommaireOeuvre(this.props.mediaId, true)
         })
       })
       .catch(error => {

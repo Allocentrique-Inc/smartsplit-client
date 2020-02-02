@@ -176,7 +176,6 @@ class LigneMedia extends Component {
               </div>
             </div>
             <div className={`ui four wide column etat`} style={{float: "right"}}>
-
               {!pochette && _p && _p.etat && (
                 <EtatMedia media={this.state.media} pochette={this.state.pochette} proposition={_p} />
               )}

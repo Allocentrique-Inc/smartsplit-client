@@ -40,6 +40,8 @@ import OeuvreResume from "./components/oeuvre/oeuvre-resume"
 import "moment/locale/fr"
 import "moment/locale/en-ca"
 import EditerOeuvre from "./components/oeuvre/editer-oeuvre"
+import EditerPartage from './components/partage/editer-partage'
+import queryString from 'query-string'
 
 const NOM = "index.js"
 const browserHistory = createBrowserHistory();
@@ -73,6 +75,7 @@ const renderRoutes = () => {
             <Route exact path="/accueil" component={Accueil} />
             <Route exact path="/" component={Accueil} />
             <Route exact path="/documenter/:mediaId" component={Documenter} />
+            <Route exact path="/editer-partage/:uuid/:pageNo" component={EditionPartage} />
             <Route exact path="/editer/:mediaId/:pageNo" component={Editer} />
             <Route exact path="/editer/:mediaId/:pageNo/:jeton" component={EditerAvecJeton} />
             <Route exact path="/decrire-oeuvre" component={AssistantOeuvre} />
@@ -150,6 +153,14 @@ const EditerPochetteAvecJeton = (match) => {
   let jeton = match.match.params.jeton
   return (
     <EditerOeuvre mediaId={mediaId} pochette={true} pageNo={pageNo} jeton={jeton} />
+  )
+}
+
+const EditionPartage = (match) => {
+  let uuid = match.match.params.uuid
+  let pageNo = match.match.params.pageNo
+  return (
+    <EditerPartage uuid={uuid} pageNo={pageNo} />
   )
 }
 
@@ -234,8 +245,9 @@ function DocumenterPochette(match) {
 }
 
 function sommaireOeuvre(match) {
-  let mediaId = match.match.params.mediaId;
-  return <SommaireOeuvre mediaId={mediaId} />;
+  let mediaId = match.match.params.mediaId;  
+  let vals = queryString.parse(match.location.search)
+  return <SommaireOeuvre mediaId={mediaId} invitations={vals && vals.i} />;
 }
 
 function SommaireProposition(match) {

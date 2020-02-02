@@ -343,7 +343,7 @@ class EditerOeuvre extends Component {
   }
 
   render() {
-    const t = this.props.t, i18n = this.props.i18n
+    const t = this.props.t
     if ((this.state.user || this.state.jeton) && this.state.media) {
       return (        
         <>
@@ -391,7 +391,7 @@ class EditerOeuvre extends Component {
                 }}
                 debug={false}
               >
-                {this.renduPage(i18n)}
+                {this.renduPage()}
               </Wizard>
             </>
           )}         

@@ -91,12 +91,10 @@ class SommairePartage extends Component {
             _mesVotes[type] = {}
         }
         _mesVotes[type].vote = choix
-
         if (choix === 'accept') {
             // Enlève la raison de refus si acceptation
             delete _mesVotes[type].raison
         }
-
         this.setState({ mesVotes: _mesVotes },
             () => {
                 // Vérifie si tous les votes sont saisis
@@ -216,7 +214,9 @@ class SommairePartage extends Component {
         if (this.state.proposition && this.state.ayantsDroit) {
             TYPE_SPLIT.forEach((type, idx) => {                                
                 droits.push(<SommaireDroit
+                    proposition={this.state.proposition}
                     ayantsDroit={this.state.ayantsDroit}
+                    votation={this.props.votation}
                     type={type}
                     key={`sommaire_${this.state.uuid}_${type}_${idx}`}                        
                     parts={this.state.proposition.rightsSplits[type]}
@@ -236,6 +236,12 @@ class SommairePartage extends Component {
         }
 
         let t = this.props.t
+        let nbVotesCumules = 0, nbVotesTotal = Object.keys(this.state.mesVotes).length
+        Object.keys(this.state.mesVotes).forEach(part=>{
+            if(this.state.mesVotes[part].vote !== 'active') {
+                nbVotesCumules++
+            }
+        })
 
         return (
             <div>
@@ -248,12 +254,32 @@ class SommairePartage extends Component {
                                 !this.estVoteClos() &&
                                 (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
                                 (
-                                    <footer className="footer voter">
-                                    <div className={`ui medium button voter ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={() => {
-                                        this.transmettre()
-                                    }}>{t('flot.split.documente-ton-oeuvre.bouton.voter')}
+                                    <div
+                                        style={{
+                                        position: "fixed",
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                        paddingTop: "15px",
+                                        background: "#fff",
+                                        boxShadow: "0 0 5px rgba(0,0,0,0.5)",
+                                        pochette: this.props.pochette
+                                        }}
+                                    >
+                                        <div className="ui grid">
+                                            <div className="ui row" style={{marginBottom: "1rem"}}>
+                                                <div className="ui four wide column" style={{textAlign: "right", paddingRight: "4.5rem"}}>
+                                                    <span style={{color: "#687A8B", fontFamily: "IBM Plex Sans", fontStyle: "normal", "fontWeight": "normal", fontSize: "16px", lineHeight: "24px"}}>{t('navigation.vote.requis',{nb: nbVotesCumules, total: nbVotesTotal, nombre: nbVotesTotal > 1 ? 's' : ''})}</span>
+                                                </div>
+                                                <div className="ui ten wide column">
+                                                    <div className={`ui medium button voter ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={() => {
+                                                        this.transmettre()
+                                                    }}>{t('flot.split.documente-ton-oeuvre.bouton.voter')}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    </footer>
                                 )
                             }
                         </div>
