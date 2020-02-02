@@ -52,7 +52,7 @@ class AssistantOeuvre extends Component {
                     this.fetchApiRightHolders()
                   )
                 } else {
-                  utils.naviguerVersSommaire()                  
+                  utils.naviguerVersSommaire(this.state.mediaId)
                 }
               }
             });
