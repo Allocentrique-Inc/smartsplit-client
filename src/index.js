@@ -125,17 +125,15 @@ const renderRoutes = () => {
 
 const ResumeAvecJeton = match => {
   let jeton = match.match.params.jeton
-  let mediaId = match.match.params.mediaId
   return (
-    <OeuvreResume jeton={jeton} mediaId={mediaId} />
+    <OeuvreResume jeton={jeton} />
   )
 }
 
 const ResumePochetteAvecJeton = match => {
   let jeton = match.match.params.jeton
-  let mediaId = match.match.params.mediaId
   return (
-    <OeuvreResume jeton={jeton} mediaId={mediaId} pochette={true} />
+    <OeuvreResume jeton={jeton} pochette={true} />
   )
 }
 
