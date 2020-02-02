@@ -6,7 +6,8 @@ import FileCircleOrange from "../../assets/svg/icons/file-circle-orange.svg"
 import FileCircleGreen from "../../assets/svg/icons/file-circle-green.svg"
 import Colonne from "../page-assistant/colonne"
 import Entete from "../page-assistant/entete"
-import ChampTeleversement, { ListeFichiers } from "../page-assistant/champ-televersement"
+import ChampTeleversement from "../page-assistant/champ-televersement"
+import ListeFichiers from "../page-assistant/liste-fichiers"
 import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique"
 import ChampSelectionMultipleAyantDroit from "../page-assistant/champ-selection-multiple-ayant-droit"
 import RightHolderOptions from "../page-assistant/right-holder-options";
@@ -237,7 +238,7 @@ class PageFichiers extends React.Component {
               "flot.split.documente-ton-oeuvre.documenter.titre9-etape1"
             )}
             info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.titre9-etape2")} />}
-            access={(this.props.values.files && this.props.values.files.audio && this.props.values.files.audio.access) || "public"}
+            access={(this.props.values.files && this.props.values.files.audio && this.props.values.files.audio.access) || "private"}
             onFileChange={value => {
               let nom                  
               if(value.name) {
@@ -246,7 +247,7 @@ class PageFichiers extends React.Component {
                 let fichiers = (this.props.values.files.audio && this.props.values.files.audio.files) || []
                 let f = {file: nom}
                 if(!this.state.accesAudio) {
-                  f['access'] = 'public'
+                  f['access'] = 'private'
                 } else {
                   f['access'] = this.state.accesAudio
                 }
@@ -281,14 +282,14 @@ class PageFichiers extends React.Component {
 
           <ChampTeleversement
             info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape2")} />}
-            access={(this.props.values.files && this.props.values.files.score && this.props.values.files.score.access) || "public"}
+            access={(this.props.values.files && this.props.values.files.score && this.props.values.files.score.access) || "private"}
             onFileChange={value => {
               let nom = value.name.replace(/ /g,'_')
               // Récupérer la liste de fichiers existante
               let fichiers = (this.props.values.files.score && this.props.values.files.score.files) || []
               let f = {file: nom}
               if(!this.state.accesScore) {
-                f['access'] = 'public'
+                f['access'] = 'private'
               } else {
                 f['access'] = this.state.accesScore
               }
@@ -318,14 +319,14 @@ class PageFichiers extends React.Component {
               "flot.split.documente-ton-oeuvre.documenter.autre-etape3"
             )}
             info={<InfoBulle text={t("flot.split.documente-ton-oeuvre.documenter.autre-etape4")} />}
-            access={(this.props.values.files && this.props.values.files.midi && this.props.values.files.midi.access) || "public"}
+            access={(this.props.values.files && this.props.values.files.midi && this.props.values.files.midi.access) || "private"}
             onFileChange={value => {
               let nom = value.name.replace(/ /g,'_')
               // Récupérer la liste de fichiers existante
               let fichiers = (this.props.values.files.midi && this.props.values.files.midi.files) || []
               let f = {file: nom}
               if(!this.state.accesMidi) {
-                f['access'] = 'public'
+                f['access'] = 'private'
               } else {
                 f['access'] = this.state.accesMidi
               }

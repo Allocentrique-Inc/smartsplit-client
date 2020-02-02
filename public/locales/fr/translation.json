@@ -22,7 +22,10 @@
       "reprise": "Une interprétation (cover)"
     },
     "modifier": "Modifier",
-    "ajouter": "Ajouter"
+    "ajouter": "Ajouter",
+    "supprimer": {
+      "fichier": "Supprimer ce fichier ?"
+    }
   },
   "titre": {
     "principal": "Bienvenue sur Smartsplit Beta",

@@ -3,6 +3,8 @@ import BlockUi from "react-block-ui";
 import "react-block-ui/style.css";
 import Axios from 'axios'
 import {journal} from '../../utils/application'
+import stop from '../../assets/svg/icons/stop-circle.svg'
+import play from '../../assets/svg/icons/play-circle.svg'
 
 const JOUER = 0
 
@@ -106,9 +108,9 @@ class AudioLecture extends Component {
             <>
             {
                 (this.state.visible || (this.state.context && this.state.fichier)) && (
-                    <BlockUi tag="div" blocking={this.state.patience} className="cliquable" onClick={()=>{ if(this.state.stop) { if(this.state.mode === 0){this.jouer()}else{this.chargerEtJouer()} }else{ if(this.state.pause){this.reprise()}else{this.pause()}}}}>
-                        {(this.state.stop || this.state.pause)&& (<><i className={`play circle outline icon ${this.state.taille} grey cliquable`}></i> {!this.props.sanstexte && (Audio)}</>)}
-                        {!this.state.stop && !this.state.pause && (<><i className={`pause circle outline icon ${this.state.taille} grey cliauqble`}></i> {!this.props.sanstexte && (Audio)}</>)}
+                    <BlockUi tag="div" style={this.props.style} blocking={this.state.patience} className="cliquable" onClick={()=>{ if(this.state.stop) { if(this.state.mode === 0){this.jouer()}else{this.chargerEtJouer()} }else{ if(this.state.pause){this.reprise()}else{this.pause()}}}}>
+                        {(this.state.stop || this.state.pause)&& (<><img src={play} alt="stop" className="cliquable" />{!this.props.sanstexte && (Audio)}</>)}
+                        {!this.state.stop && !this.state.pause && (<><img src={stop} alt="jouer" className={`cliquable`}/>{!this.props.sanstexte && (Audio)}</>)}
                     </BlockUi>
                 )
             }
