@@ -82,13 +82,13 @@ class TableEnregistrement extends React.Component {
         value: this.realisateurs.map((r, idx) => {
           if (r && idx < this.realisateurs.length - 1) {
             return (
-              <span key={`realisateurs_${r.rightHolderId}`}>
-                {r.artistName},{" "}
-              </span>
+              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`realisateurs_${r.rightHolderId}`}>
+                {r.artistName}
+              </span>,{" "}</>
             );
           } else {
             return (
-              <span key={`realisateurs_${r.rightHolderId}`}>
+              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`realisateurs_${r.rightHolderId}`}>
                 {r.artistName}
               </span>
             );
@@ -100,10 +100,11 @@ class TableEnregistrement extends React.Component {
         value: this.tech.map((r, idx) => {
           if (r && idx < this.tech.length - 1) {
             return (
-              <span key={`techs_${r.rightHolderId}`}>{r.artistName}, </span>
+              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`techs_${r.rightHolderId}`}>{r.artistName}</span>,&nbsp;
+              </>
             );
           } else {
-            return <span key={`techs_${r.rightHolderId}`}>{r.artistName}</span>;
+            return <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`techs_${r.rightHolderId}`}>{r.artistName}</span>;
           }
         })
       },
@@ -112,11 +113,11 @@ class TableEnregistrement extends React.Component {
         value: this.mixeur.map((r, idx) => {
           if (r && idx < this.mixeur.length - 1) {
             return (
-              <span key={`mixeurs_${r.rightHolderId}`}>{r.artistName}, </span>
+              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`mixeurs_${r.rightHolderId}`}>{r.artistName}</span>, &nbsp;</>
             );
           } else {
             return (
-              <span key={`mixeurs_${r.rightHolderId}`}>{r.artistName}</span>
+              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`mixeurs_${r.rightHolderId}`}>{r.artistName}</span>
             );
           }
         })
@@ -126,11 +127,11 @@ class TableEnregistrement extends React.Component {
         value: this.master.map((r, idx) => {
           if (r && idx < this.mixeur.length - 1) {
             return (
-              <span key={`masters_${r.rightHolderId}`}>{r.artistName}, </span>
+              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`masters_${r.rightHolderId}`}>{r.artistName}</span>,&nbsp;</>
             );
           } else {
             return (
-              <span key={`masters_${r.rightHolderId}`}>{r.artistName}</span>
+              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`masters_${r.rightHolderId}`}>{r.artistName}</span>
             );
           }
         })
@@ -152,13 +153,13 @@ class TableEnregistrement extends React.Component {
         value: this.producteurs.map((r, idx) => {
           if (r && idx < this.producteurs.length - 1) {
             return (
-              <span key={`producteurs_${r.rightHolderId}`}>
-                {r.artistName},{" "}
-              </span>
+              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`producteurs_${r.rightHolderId}`}>
+                {r.artistName}
+              </span>,{" "}</>
             );
           } else {
             return (
-              <span key={`producteurs_${r.rightHolderId}`}>{r.artistName}</span>
+              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`producteurs_${r.rightHolderId}`}>{r.artistName}</span>
             );
           }
         })
@@ -168,13 +169,13 @@ class TableEnregistrement extends React.Component {
         value: this.graphistes.map((r, idx) => {
           if (r && idx < this.graphistes.length - 1) {
             return (
-              <span key={`graphistes_${r.rightHolderId}`}>
-                {r.artistName},{" "}
-              </span>
+              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`graphistes_${r.rightHolderId}`}>
+                {r.artistName}
+              </span>,{" "}</>
             );
           } else {
             return (
-              <span key={`graphistes_${r.rightHolderId}`}>{r.artistName}</span>
+              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`graphistes_${r.rightHolderId}`}>{r.artistName}</span>
             );
           }
         })

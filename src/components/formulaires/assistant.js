@@ -339,7 +339,8 @@ var Wizard = function (_React$Component) {
                                             { className: "negative " + (_this2.state.pochette ? 'pochette' : ''),
                                                 style: {
                                                     border: "1px solid #DCDFE1",
-                                                    bordeRadius: "3px"
+                                                    bordeRadius: "3px",
+                                                    color: _this2.state.pochette ? "#F2724A" : "#2DA84F"
                                                 },
                                                 floated: "left", onClick: function onClick(e) {
                                                     return _this2.previous(e, props);
