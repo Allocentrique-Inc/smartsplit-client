@@ -1,4 +1,4 @@
-import { AyantsDroit, config } from "../../utils/application"
+import { AyantsDroit, config, journal } from "../../utils/application"
 import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
 import { Checkbox } from 'semantic-ui-react'
@@ -14,6 +14,9 @@ import EntetePartage from "./entete-partage"
 const MODES = { egal: "0", role: "1" }
 const TYPE = { principal: "0", accompagnement: "1" }
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
+
+// es-disable-next-line
+const NOM = "PageAssistantPartageInterpretation"
 
 const arrondir = function (nombre) {
     return Math.round(nombre * 10000) / 10000
@@ -312,13 +315,14 @@ class PageAssistantPartageInterpretation extends Component {
                                                                 { id: "chanteur", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.chanteur') },
                                                                 { id: "musicien", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.musicien') }
                                                             ]
-                                                            let avatar = ''
-                                                            let _aD = part.ayantDroit
                                                             
-                                                            if (_aD.avatarImage)
-                                                                avatar = `${config.IMAGE_SRV_URL}${_aD.avatarImage}`
-                                                            else
-                                                                avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
+                                                            journal.debug(NOM, part)
+
+                                                            let _aD = part.ayantDroit
+                                                            let avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
+                                                            if (_aD.avatar) {
+                                                                avatar = _aD.avatar.dataUri
+                                                            }                                                            
 
                                                             return (
                                                                 <div key={`part-${index}`}>

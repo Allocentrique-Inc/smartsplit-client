@@ -74,7 +74,7 @@ class SommairePartages extends Component {
             let _res = await axios.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)
             let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]
             this.setState({ ayantDroit: _rAd }, () => {
-                this.setState({ propositions: _res.data })
+                this.setState({ propositions: _res.data }, console.log(this.state.propositions))
                 this.setState({ activeIndex: _res.data.length - 1 })
                 let _ps = _res.data
                 _ps.forEach(p => {
@@ -125,21 +125,17 @@ class SommairePartages extends Component {
         let t = this.props.t, i18n = this.props.i18n
 
         if (this.state.propositions && this.state.media) {
-
             let propositions = []
             let _p0
-
             // Trouver _p0, la proposition la plus récente
             // elem fait référence à un élément qu'on assigne
             this.state.propositions.forEach(elem => {
                 if (!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
-
             let _rafraichir = false
-
             if (_p0 && _p0.etat === 'VOTATION') {
                 // _rafraichir = true // Désactivation du rafraîchissment automatique
-            }
+            }            
 
             propositions = this.state.propositions.map((elem, idx) => {
                 const accordionIsOpen = idx === this.state.activeIndex;
@@ -171,9 +167,13 @@ class SommairePartages extends Component {
 
             // eslint-disable-next-line
             let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
-            let partageEditeur = false
+            let partageEditeur = false, fermerInfobulleEditeur = false
 
             if (this.state.propositions.length > 0) {
+
+                // Détecte si un éditeur est assigné
+                console.log('modale éditeur?', _p0)
+
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
                 if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
@@ -197,6 +197,17 @@ class SommairePartages extends Component {
                     }
                     if (estCollaborateur) {
                         partageEditeur = true
+                        // Seulement si une part n'est pas déjà attribuée à un éditeur
+                        let partageEditeurEnCours = false
+                        if(_p.partagesTiers) {                            
+                            _p.partagesTiers.forEach(part=>{
+                                if(part.rightHolderId===Identite.usager.username){
+                                    partageEditeurEnCours = true
+                                    journal.debug(NOM, 'Partage éditeur en cours')
+                                }
+                            })                            
+                        }
+                        fermerInfobulleEditeur = partageEditeurEnCours
                     }
                 }
             }
@@ -237,8 +248,7 @@ class SommairePartages extends Component {
                                 >
                                     {t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}
                                 </span>
-                            )}
-                          
+                            )}                          
                             decoration={
                                 <>
                                     <div className="header" style={
@@ -271,7 +281,7 @@ class SommairePartages extends Component {
                                 </>
                             }
                             orientation="bottom center"
-                            ouvert={partageEditeur && !this.state.fermerInfobulleEditeur}
+                            ouvert={partageEditeur && !fermerInfobulleEditeur}
                         />
 
                     </div>

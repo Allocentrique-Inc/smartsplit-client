@@ -775,7 +775,7 @@
   "entete": {
     "connexion": "Connexion",
     "inscription": "Inscription",
-    "encours": "Connexion en cours...",
+    "encours": "Traitement en cours...",
     "sommaire": "Voir le résumé",
     "partage": "Partager"
   },

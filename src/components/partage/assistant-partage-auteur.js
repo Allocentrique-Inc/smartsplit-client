@@ -1,4 +1,4 @@
-import {AyantsDroit, config} from '../../utils/application'
+import {AyantsDroit, config, journal} from '../../utils/application'
 import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
 import { Checkbox } from 'semantic-ui-react'
@@ -18,6 +18,9 @@ import closeIcon from "../../assets/svg/icons/x.svg"
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
+
+// eslint-disable-next-line
+const NOM = "PageAssistantPartageAuteur"
 
 const arrondir = function (nombre) {
     return Math.round(nombre * 10000) / 10000
@@ -453,58 +456,58 @@ class PageAssistantPartageAuteur extends Component {
                                                                                 this.ajouterCollaborateur(arrayHelpers)
                                                                             }
                                                                         }
-                                                                        fn={(_aD) => {
+                                                                        fn={_aD => {
                                                                             // Fonction de rappel à la modale ModifyUser
                                                                             // Ajoute le nouvel ayantdroit à la liste comme si il était déjà
                                                                             // dans la liste.
                                                                             this.props.setFieldValue('collaborateur', _aD)
-                                                                            let droitsAuteur = this.props.values.droitAuteur
-                                                                            AyantsDroit.rafraichirListe( ()=>{
-                                                                                this.setState({ayantsDroit: AyantsDroit.ayantsDroit}, ()=>{
-                                                                                    let ayantDroit = this.state.ayantsDroit[this.props.values.collaborateur]
-                                                                                    let _index = this.props.values.droitAuteur.length +
-                                                                                        this.props.values.droitInterpretation.length +
-                                                                                        this.props.values.droitEnregistrement.length
-                                                                                    let nom = AyantsDroit.affichageDuNom(ayantDroit)
-                                                                                    if (this.state.mode === MODES.egal) {
-                                                                                        droitsAuteur.push({
-                                                                                            nom: nom,
-                                                                                            ayantDroit: ayantDroit,
-                                                                                            pourcent: `${arrondir(100 / (this.props.values.droitAuteur.length + 1))}`,
-                                                                                            auteur: true,
-                                                                                            compositeur: true,
-                                                                                            arrangeur: false,
-                                                                                            color: COLORS[_index]
-                                                                                        })
-                                                                                    }
-                                                                                    if (this.state.mode === MODES.manuel) {
-                                                                                        let _pourcent = (this.pourcentRestant())
-                                                                                        droitsAuteur.push({
-                                                                                            nom: nom,
-                                                                                            ayantDroit: ayantDroit,
-                                                                                            pourcent: `${_pourcent}`,
-                                                                                            auteur: true,
-                                                                                            compositeur: true,
-                                                                                            arrangeur: false,
-                                                                                            color: COLORS[_index]
-                                                                                        })
-                                                                                    }
-                                                                                    if (this.state.mode === MODES.role) {
-                                                                                        droitsAuteur.push({
-                                                                                            nom: nom,
-                                                                                            ayantDroit: ayantDroit,
-                                                                                            pourcent: "100",
-                                                                                            auteur: true,
-                                                                                            compositeur: true,
-                                                                                            arrangeur: false,
-                                                                                            color: COLORS[_index]
-                                                                                        })
-                                                                                    }
-                                                                                    this.props.setFieldValue('droitAuteur', droitsAuteur)
-                                                                                    this.props.setFieldValue('collaborateur', '')
-                                                                                    this.setState({ ping: true }, () => {
-                                                                                        this.recalculerPartage()
+                                                                            journal.debug(`${NOM}-retour ModifyUser`, _aD)
+                                                                            console.log(AyantsDroit[_aD])
+                                                                            let droitsAuteur = this.props.values.droitAuteur                                                                                                                                                        
+                                                                            this.setState({ayantsDroit: AyantsDroit.ayantsDroit}, ()=>{
+                                                                                let ayantDroit = this.state.ayantsDroit[_aD]
+                                                                                let _index = this.props.values.droitAuteur.length +
+                                                                                    this.props.values.droitInterpretation.length +
+                                                                                    this.props.values.droitEnregistrement.length
+                                                                                let nom = AyantsDroit.affichageDuNom(ayantDroit)
+                                                                                if (this.state.mode === MODES.egal) {
+                                                                                    droitsAuteur.push({
+                                                                                        nom: nom,
+                                                                                        ayantDroit: ayantDroit,
+                                                                                        pourcent: `${arrondir(100 / (this.props.values.droitAuteur.length + 1))}`,
+                                                                                        auteur: true,
+                                                                                        compositeur: true,
+                                                                                        arrangeur: false,
+                                                                                        color: COLORS[_index]
                                                                                     })
+                                                                                }
+                                                                                if (this.state.mode === MODES.manuel) {
+                                                                                    let _pourcent = (this.pourcentRestant())
+                                                                                    droitsAuteur.push({
+                                                                                        nom: nom,
+                                                                                        ayantDroit: ayantDroit,
+                                                                                        pourcent: `${_pourcent}`,
+                                                                                        auteur: true,
+                                                                                        compositeur: true,
+                                                                                        arrangeur: false,
+                                                                                        color: COLORS[_index]
+                                                                                    })
+                                                                                }
+                                                                                if (this.state.mode === MODES.role) {
+                                                                                    droitsAuteur.push({
+                                                                                        nom: nom,
+                                                                                        ayantDroit: ayantDroit,
+                                                                                        pourcent: "100",
+                                                                                        auteur: true,
+                                                                                        compositeur: true,
+                                                                                        arrangeur: false,
+                                                                                        color: COLORS[_index]
+                                                                                    })
+                                                                                }
+                                                                                this.props.setFieldValue('droitAuteur', droitsAuteur)
+                                                                                this.props.setFieldValue('collaborateur', '')
+                                                                                this.setState({ ping: true }, () => {
+                                                                                    this.recalculerPartage()
                                                                                 })
                                                                             })
                                                                         }}
@@ -530,11 +533,10 @@ class PageAssistantPartageAuteur extends Component {
                                                                     nom: t('flot.split.documente-ton-oeuvre.partage.auteur.role.arrangeur')
                                                                 }
                                                             ]
-                                                            let avatar = ''
-                                                            if (_aD.avatarImage)
-                                                                avatar = `${config.IMAGE_SRV_URL}${_aD.avatarImage}`
-                                                            else
-                                                                avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`;
+                                                            let avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
+                                                            if (_aD.avatar) {
+                                                                avatar = _aD.avatar.dataUri
+                                                            }
                                                             return (
                                                                 <div key={`part-${index}`}>
                                                                     <div className="gray-fields">

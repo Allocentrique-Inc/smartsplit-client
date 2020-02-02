@@ -464,13 +464,11 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                 { id: "studio", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.studio') }
                                                             ]
 
-                                                            let avatar = ''
                                                             let _aD = part.ayantDroit
-                                                            // Y a-t-il un avatar ?
-                                                            if (_aD && _aD.avatarImage)
-                                                                avatar = `${config.IMAGE_SRV_URL}${_aD.avatarImage}`
-                                                            else
-                                                                avatar = biquette;
+                                                            let avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
+                                                            if (_aD.avatar) {
+                                                                avatar = _aD.avatar.dataUri
+                                                            }
 
                                                             return (
                                                                 <div key={`part-${index}`}>

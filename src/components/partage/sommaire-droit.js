@@ -205,7 +205,7 @@ class SommaireDroit extends Component {
             
             return (
                 <div className="ui grid">
-                    <div className="ui row" style={ this.state.type === Droits.droitAuteur() ? {minHeight: "38rem"} : {} }>
+                    <div className="ui row" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
                         <div className="ui eight wide column">                            
                             <div className="wizard-title types" style={{padding: "1rem", marginTop: "0rem"}}>
                                 <div>
@@ -258,8 +258,8 @@ class SommaireDroit extends Component {
                                         {
                                             beignetDouble && (
                                                 <div>
-                                                    {beignetDouble && this.state.donneesParoles && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} styleTexte={{position: "absolute", top: "32rem", left: "18rem"}} />)}
-                                                    {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", right: "14rem"}} />)}
+                                                    {beignetDouble && this.state.donneesParoles && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} styleTexte={{position: "absolute", top: "32rem", left: "17.5rem"}} />)}
+                                                    {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", left: "23rem"}} />)}
                                                 </div>
                                             )
                                         }                            

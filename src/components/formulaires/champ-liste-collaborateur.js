@@ -1,4 +1,4 @@
-import {AyantsDroit} from '../../utils/application'
+import {AyantsDroit, journal} from '../../utils/application'
 import React, { Component } from 'react'
 import { Wizard } from '../formulaires/assistant'
 import { Form } from 'semantic-ui-react'
@@ -6,6 +6,8 @@ import ModifyUser from '../auth/ModifyUser'
 import { withTranslation } from 'react-i18next'
 import plusCircleGreen from "../../assets/svg/icons/plus-circle-green.svg"
 import plusCircleOrange from "../../assets/svg/icons/plus-circle-orange.svg"
+
+const NOM = "ChampListeCollaborateurAssistant"
 
 class ChampListeCollaborateurAssistant extends Component {
 
@@ -189,8 +191,8 @@ class ChampListeCollaborateurAssistant extends Component {
                             }
                         })
                     }}
-                    fn={(uuid) => {
-                        this.listeAyantsDroit()
+                    fn={(uuid) => {                
+                        console.log(this.props.fn)
                         if (this.props.fn) {
                             this.props.fn(uuid)
                         }
