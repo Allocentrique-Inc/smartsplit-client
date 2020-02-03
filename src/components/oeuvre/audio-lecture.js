@@ -23,7 +23,8 @@ class AudioLecture extends Component {
             visible: props.visible,
             taille: props.taille || "huge",
             mode: props.mode || JOUER,
-            patience: false
+            patience: false,
+            styleBouton: props.styleBouton
         }
         if(this.props.onRef) {
             this.props.onRef(this)
@@ -109,8 +110,8 @@ class AudioLecture extends Component {
             {
                 (this.state.visible || (this.state.context && this.state.fichier)) && (
                     <BlockUi tag="div" style={this.props.style} blocking={this.state.patience} className="cliquable" onClick={()=>{ if(this.state.stop) { if(this.state.mode === 0){this.jouer()}else{this.chargerEtJouer()} }else{ if(this.state.pause){this.reprise()}else{this.pause()}}}}>
-                        {(this.state.stop || this.state.pause)&& (<><img src={play} alt="stop" className="cliquable" />{!this.props.sanstexte && (Audio)}</>)}
-                        {!this.state.stop && !this.state.pause && (<><img src={stop} alt="jouer" className={`cliquable`}/>{!this.props.sanstexte && (Audio)}</>)}
+                        {(this.state.stop || this.state.pause)&& (<><img style={this.state.styleBouton} src={play} alt="stop" className="cliquable" />{!this.props.sanstexte && (Audio)}</>)}
+                        {!this.state.stop && !this.state.pause && (<><img style={this.state.styleBouton} src={stop} alt="jouer" className={`cliquable`}/>{!this.props.sanstexte && (Audio)}</>)}
                     </BlockUi>
                 )
             }

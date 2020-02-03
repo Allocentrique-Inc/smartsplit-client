@@ -302,6 +302,7 @@ class ListePieces extends Component {
                 <>
                   {this.state.mediaId && (
                     <AudioLecture
+                      styleBouton={{width: "50px"}}
                       onRef={audio => {
                         this.setState({ audio: audio });
                       }}
