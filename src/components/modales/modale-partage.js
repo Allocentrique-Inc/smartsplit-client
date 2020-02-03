@@ -63,7 +63,10 @@ class ModalePartage extends Component {
 
     let genererLigne = (idx, imgSrc, cleTradTitre, cleTradDesc) => {
       return (
-        <div onClick={()=>{this.setState({selection: idx})}} className="ui row cliquable">
+        <div onClick={()=>{this.setState({selection: idx}, async ()=>{
+          let jeton = await Axios.get(`${config.API_URL}media/jetonMedia/${this.state.media.mediaId}/${idx}`)
+          this.setState({jeton: jeton.data})
+        })}} className="ui row cliquable">
           <div className="ui two wide column">
             <img style={{width: "35px"}} src={imgSrc} alt={cleTradTitre} />
           </div>
@@ -98,7 +101,7 @@ class ModalePartage extends Component {
       contexte = "pochette.info"
     }
 
-    url = `${prefixe}oeuvre/${this.state.media.mediaId}/resume`
+    url = `${prefixe}oeuvre/resume`
 
     return (      
       <Modal open={this.props.open} onClose={this.props.onClose}>
@@ -135,7 +138,7 @@ class ModalePartage extends Component {
                     <ChampTexte 
                       label={t(`flot.partage.adresse${this.state.selection}`)}                          
                       disabled={true}
-                      value={url} />
+                      value={`${url}/${this.state.jeton}`} />
                   </div>
                 </div>
                 <div className="ui row">

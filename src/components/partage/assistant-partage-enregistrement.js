@@ -3,14 +3,12 @@ import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
 import { Checkbox } from 'semantic-ui-react'
 import Beignet from '../visualisation/partage/beignet'
-import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 import { FieldArray } from "formik"
 import ChampListeCollaborateurAssistant from "../formulaires/champ-liste-collaborateur"
 import BoutonsRadio from "../formulaires/champ-radio"
 import Lock from "./Lock"
-import biquette from '../../assets/base64/biquette.base64'
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
 import { RecordSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";
@@ -464,13 +462,11 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                 { id: "studio", nom: t('flot.split.documente-ton-oeuvre.partage.enregistrement.role.studio') }
                                                             ]
 
-                                                            let avatar = ''
                                                             let _aD = part.ayantDroit
-                                                            // Y a-t-il un avatar ?
-                                                            if (_aD && _aD.avatarImage)
-                                                                avatar = `${config.IMAGE_SRV_URL}${_aD.avatarImage}`
-                                                            else
-                                                                avatar = biquette;
+                                                            let avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
+                                                            if (_aD.avatar) {
+                                                                avatar = _aD.avatar.dataUri
+                                                            }
 
                                                             return (
                                                                 <div key={`part-${index}`}>
@@ -610,8 +606,7 @@ class PageAssistantPartageEnregistrement extends Component {
                             <br />
                             <br />
                             <div className="conteneur-beignet fourteen wide field">
-                                {Object.keys(this.state.parts).length < 9 && (<Beignet type="masterNeighboringRightSplit" uuid="1" data={this.state.parts} />)}
-                                {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="1" data={this.state.parts} />)}
+                                <Beignet type="masterNeighboringRightSplit" uuid="1" data={this.state.parts} />                                
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import {
   Dropdown
 } from "semantic-ui-react"
 import { withTranslation } from "react-i18next"
+// eslint-disable-next-line
 import { Identite, config, AyantsDroit, journal } from "../../utils/application"
 
 // eslint-disable-next-line
@@ -93,21 +94,7 @@ class ModaleEmbarquementEntreprise extends Component {
     }
     let username = this.state.email
     let password = this.randomPassword()
-    Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes},
-      res => {        
-        journal.info(NOM, res)
-        axios.patch(`${config.API_URL}rightHolders/${res}/editeur`, {editeur: true})
-        .then(async ret=>{          
-          await AyantsDroit.rafraichirListe( ()=>{
-            this.fermerModale()
-            if (this.props.fn) {              
-              this.props.fn(res)
-            }
-          })
-        })
-        .catch(err=>journal.error(NOM, err))        
-      }
-    )
+    Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes}, true)
   }
 
   onTodoChange(value) {

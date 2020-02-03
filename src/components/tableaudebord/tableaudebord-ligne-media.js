@@ -70,7 +70,7 @@ class LigneMedia extends Component {
         autres = autres + `${e.prenom} ${e.nom} ${e.nomArtiste ? `(${e.nomArtiste})` : ""}\n`
       })
       _avatars = _avatars.concat([
-        <div key={`more-tag-avatar`} className={"more-tag"}  title={autres} >{undisplayedAvatars > 0 ? `+${undisplayedAvatars}`: ""}
+        <div style={{display: "inline"}} key={`more-tag-avatar`} className={"more-tag"}  title={autres} >{undisplayedAvatars > 0 ? `+${undisplayedAvatars}`: ""}
         </div>
       ])
     }

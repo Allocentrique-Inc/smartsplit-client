@@ -25,6 +25,9 @@
       "originale": "An original creation",
       "arrangement": "A remix",
       "reprise": "A cover"
+    },
+    "supprimer": {
+      "fichier": "Delete this file?"
     }
   },
   "titre": {

@@ -21,28 +21,25 @@ class OeuvreResume extends React.Component {
         }        
     }
 
-    componentWillMount() {        
-        
+    componentWillMount() {            
         if (Identite.usager) {
             this.setState({user: Identite.usager})
         } 
-
         if(this.props.jeton) {
             axios.post(`${config.API_URL}media/decodeMedia`, {jeton: this.props.jeton})
-            .then(res=>{                    
+            .then(res=>{
                 if(res.data.mediaId && res.data.acces) {
-                    this.setState({acces: res.data.acces}, ()=>{
+                    this.setState({acces: parseInt(res.data.acces)}, ()=>{
                         this.setState({mediaId: res.data.mediaId}, ()=>this.getMedia())
-                    })                        
+                    })
                 }
             })
             .catch(err=>journal.error(NOM, err))
         } else {
             if(this.props.mediaId) {
                 this.getMedia()
-            }                
+            }
         }
-
     }
 
     getMedia() {

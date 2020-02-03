@@ -37,8 +37,8 @@ class EditerOeuvre extends Component {
       .then(res => {
         if (
           this.state.mediaId &&
-          parseInt(this.state.mediaId) === res.data.mediaId &&
-          res.data.acces === 3
+          parseInt(this.state.mediaId) === parseInt(res.data.mediaId) &&
+          parseInt(res.data.acces) === 3
         ) {
           this.chargement(true)
         }
@@ -82,7 +82,11 @@ class EditerOeuvre extends Component {
     if(Identite.usager) {
       this.setState({user: Identite.usager}, ()=>this.getMedia(admin, Identite.usager))
     } else {
-      this.setState({ modaleConnexion: true })
+      if(!admin) {
+        this.setState({ modaleConnexion: true })        
+      } else {
+        this.getMedia(admin)
+      }
     }
   }
 

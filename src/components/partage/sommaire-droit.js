@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import Beignet from '../visualisation/partage/beignet'
 import Beignet2 from '../visualisation/partage/beignet2'
-import Histogramme from '../visualisation/partage/histogramme'
 import { CopyrightSVG, StarSVG, RecordSVG } from '../svg/SVG.js'
 import editIcon from '../../assets/svg/icons/edit.svg'
 // eslint-disable-next-line
@@ -139,6 +138,9 @@ class SommaireDroit extends Component {
                                             )
                                         }
                                     </div>
+                                    <div className="ui row" style={{textAlign: "right"}}>
+                                        <i>{part.raison ? part.raison : ""}</i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -201,11 +203,12 @@ class SommaireDroit extends Component {
                                     (this.state.proposition.initiatorUuid === Identite.usager.username) &&
                                     this.state.proposition.etat !== 'ACCEPTE' &&
                                     this.state.proposition.etat !== 'REFUSE' &&
-                                    this.state.proposition.etat !== 'VOTATION'
+                                    this.state.proposition.etat !== 'VOTATION' &&
+                                    !this.props.lectureSeule
             
             return (
                 <div className="ui grid">
-                    <div className="ui row" style={ this.state.type === Droits.droitAuteur() ? {minHeight: "38rem"} : {} }>
+                    <div className="ui row" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
                         <div className="ui eight wide column">                            
                             <div className="wizard-title types" style={{padding: "1rem", marginTop: "0rem"}}>
                                 <div>
@@ -258,13 +261,12 @@ class SommaireDroit extends Component {
                                         {
                                             beignetDouble && (
                                                 <div>
-                                                    {beignetDouble && this.state.donneesParoles && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} styleTexte={{position: "absolute", top: "32rem", left: "18rem"}} />)}
-                                                    {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", right: "14rem"}} />)}
+                                                    {beignetDouble && this.state.donneesParoles && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} styleTexte={{position: "absolute", top: "32rem", left: "17.5rem"}} />)}
+                                                    {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", left: "23rem"}} />)}
                                                 </div>
                                             )
                                         }                            
-                                        {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
-                                        {!beignetDouble && _data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                        {!beignetDouble && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
                                     </>
                                 )
                             }                            

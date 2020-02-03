@@ -33,7 +33,7 @@ class MenuProfil extends Component {
   }
 
   componentWillMount() {
-    let user = AyantsDroit.ayantsDroit[this.state.auth.username]    
+    let user = AyantsDroit.tous[Identite.usager.username]
     this.setState({ user })
     this.setState({ avatarInitiales: user.avatar.dataUri })              
   }

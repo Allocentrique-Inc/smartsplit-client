@@ -159,7 +159,8 @@ class Register extends Component {
           "custom:avatarImage": avatarImage,
           "custom:requestSource": requestSource
         }
-      }, ()=>{
+      }, false, // n'est pas éditeur, par défaut
+      ()=>{
         toast.success(`${firstName}, compte créé !`)
         utils.naviguerVersAccueil()
         if (this.props.fn) {

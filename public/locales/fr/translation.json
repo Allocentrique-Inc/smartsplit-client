@@ -22,7 +22,10 @@
       "reprise": "Une interprétation (cover)"
     },
     "modifier": "Modifier",
-    "ajouter": "Ajouter"
+    "ajouter": "Ajouter",
+    "supprimer": {
+      "fichier": "Supprimer ce fichier ?"
+    }
   },
   "titre": {
     "principal": "Bienvenue sur Smartsplit Beta",
@@ -405,7 +408,7 @@
           "master-placeholder": "Ajouter un technicien",
           "studio": "Studio d'enregistrement  ",
           "studio-description": "Le lieu où la chanson a été enregistrée.",
-          "studio-placeholder": "Recherche d'un studio d'enregistrement",
+          "studio-placeholder": "Nom du studio d'enregistrement",
           "studio-adresse": "Adresse du studio d'enregistrement",
           "production": "Producteur exécutif  ",
           "production-description": "La personne qui investi temps et argent pour rendre l'enregistrement sonore possible.",
@@ -775,7 +778,7 @@
   "entete": {
     "connexion": "Connexion",
     "inscription": "Inscription",
-    "encours": "Connexion en cours...",
+    "encours": "Traitement en cours...",
     "sommaire": "Voir le résumé",
     "partage": "Partager"
   },

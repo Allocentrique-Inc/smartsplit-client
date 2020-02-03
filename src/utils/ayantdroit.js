@@ -71,9 +71,10 @@ export default class AideAyantDroit {
         else { journal.silly(NOM, "Aucun éditeur") }
         // Sauvegarde des données brutes (utiles par certaines fonctions qui ne
         // trient pas par identifiant unique dans un dictionnaire)
-        this.ayantsDroitBrut = reponse.data.filter(_aD=> !_aD.editeur || _aD.editeur === false)
+        this.ayantsDroitBrut = reponse.data.filter(_aD=>!_aD.editeur || _aD.editeur.length === 0 || _aD.editeur === false)
         // Classer les ayants-droits par identifiant
-        this.ayantsDroit = await ordonnerParUuidEtGenererAvatars(this.ayantsDroitBrut)   
+        this.ayantsDroit = await ordonnerParUuidEtGenererAvatars(this.ayantsDroitBrut)
+        this.tous = Object.assign(this.ayantsDroit, this.editeurs)
         if(this.ayantsDroitBrut.length > 0) { journal.silly(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`) }
         else { journal.silly(NOM, "Aucun ayant-droit") }
     }
@@ -100,6 +101,7 @@ export default class AideAyantDroit {
             return nom
         } else {
             journal.error(NOM, "Ayant-droit invalide")
+            journal.error(NOM, ayantDroit)
         }
     }    
 
