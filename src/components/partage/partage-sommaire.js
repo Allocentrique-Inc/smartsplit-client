@@ -21,7 +21,8 @@ class SommairePartage extends Component {
             jetonApi: props.jetonApi,
             proposition: props.proposition,
             mesVotes: {},
-            rafraichirAuto: props.rafraichirAuto
+            rafraichirAuto: props.rafraichirAuto,
+            lectureSeule: props.lectureSeule
         }
         this.calculMesVotes = this.calculMesVotes.bind(this)
         this.envoi = this.envoi.bind(this)
@@ -214,6 +215,7 @@ class SommairePartage extends Component {
         if (this.state.proposition && this.state.ayantsDroit) {
             TYPE_SPLIT.forEach((type, idx) => {                                
                 droits.push(<SommaireDroit
+                    lectureSeule={this.state.lectureSeule}
                     proposition={this.state.proposition}
                     ayantsDroit={this.state.ayantsDroit}
                     votation={this.props.votation}

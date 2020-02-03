@@ -1,10 +1,10 @@
+// eslint-disable-next-line
 import {AyantsDroit, config, journal} from '../../utils/application'
 import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
 import { Checkbox } from 'semantic-ui-react'
 import Beignet from '../visualisation/partage/beignet'
 import Beignet2 from '../visualisation/partage/beignet2'
-import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 import EntetePartage from "./entete-partage"
@@ -319,19 +319,11 @@ class PageAssistantPartageAuteur extends Component {
             switch (this.state.mode) {
                 case MODES.egal:
                     // 1 beignet ou histogramme dépendant du nombre de collaborateurs
-                    if (Object.keys(this.state.parts).length < 9) {
-                        visualisation = (<Beignet type="workCopyrightSplit" uuid="auteur--beignet" data={this.state.parts} />)
-                    } else {
-                        visualisation = (<Histogramme uuid="auteur--histogramme" data={this.state.parts} />)
-                    }
+                    visualisation = (<Beignet type="workCopyrightSplit" uuid="auteur--beignet" data={this.state.parts} />)                    
                     break;
-                case MODES.manuel:
+                case MODES.manuel:                    
                     // 1 beignet ou histogramme dépendant du nombre de collaborateurs
-                    if (Object.keys(this.state.parts).length < 9) {
-                        visualisation = (<Beignet type="workCopyrightSplit" uuid="auteur--beignet" data={this.state.parts} />)
-                    } else {
-                        visualisation = (<Histogramme uuid="auteur--histogramme" data={this.state.parts} />)
-                    }
+                    visualisation = (<Beignet type="workCopyrightSplit" uuid="auteur--beignet" data={this.state.parts} />)                    
                     break;
                 case MODES.role:
                     // 2 beignets, 1 pour les droits Musique, l'autre pour les droits Paroles   

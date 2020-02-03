@@ -3,7 +3,6 @@ import React, { Component } from "react"
 import { withTranslation } from 'react-i18next'
 import { Checkbox } from 'semantic-ui-react'
 import Beignet from '../visualisation/partage/beignet'
-import Histogramme from '../visualisation/partage/histogramme'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 import { FieldArray } from "formik"
@@ -607,8 +606,7 @@ class PageAssistantPartageEnregistrement extends Component {
                             <br />
                             <br />
                             <div className="conteneur-beignet fourteen wide field">
-                                {Object.keys(this.state.parts).length < 9 && (<Beignet type="masterNeighboringRightSplit" uuid="1" data={this.state.parts} />)}
-                                {Object.keys(this.state.parts).length >= 9 && (<Histogramme uuid="1" data={this.state.parts} />)}
+                                <Beignet type="masterNeighboringRightSplit" uuid="1" data={this.state.parts} />                                
                             </div>
                         </div>
                     </div>

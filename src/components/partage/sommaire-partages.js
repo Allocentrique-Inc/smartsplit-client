@@ -158,7 +158,7 @@ class SommairePartages extends Component {
                             </div>
                         </Accordion.Title>
                         <Accordion.Content active={accordionIsOpen} style={{padding: "0rem", paddingTop: "1rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
-                            <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
+                            <SommairePartage lectureSeule={elem.uuid !== _p0.uuid} ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                         </Accordion.Content>
                     </div>
                 )
@@ -374,7 +374,7 @@ class SommairePartages extends Component {
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
                                                 }
                                                 <div style={{textAlign: "right"}}>
-                                                    {!continuerDisabled && (
+                                                    { (!continuerDisabled || !nouveauDisabled) && (
                                                         <div className={`ui medium button inverse`} onClick={
                                                             () => {
                                                                 utils.naviguerVersNouveauPartage(this.state.mediaId)
