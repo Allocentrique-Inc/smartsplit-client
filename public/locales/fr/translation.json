@@ -189,7 +189,8 @@
         "media": "Partager les droits pour un média :",
         "partage": "Partager les droits",
         "sommaire": "Sommaire d'une proposition :",
-        "afficher": "Afficher le sommaire"
+        "afficher": "Afficher le sommaire",
+        "pourquoi": "Pourquoi refuses-tu le split (optionel) ?"
       },
       "etat": {
         "VOTATION": "En attente de décision",
@@ -550,7 +551,7 @@
             "REFUSE": "Refusée"
           },
           "valider": "Valider le split de {{titre}}",
-          "resume": "Résumé du partage",
+          "resume": "Résumé du partage ",
           "editer": "Éditer",
           "titre": "Envoyer le partage des droits",
           "sous-titre": "Pour finaliser ce partage, tu dois inviter tes collabos à valider le tout. Indique leurs adresses courriels auxquelles envoyer ta proposition de partage.",

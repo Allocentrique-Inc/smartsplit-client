@@ -8,6 +8,7 @@ import { Modal } from 'semantic-ui-react'
 import editIcon from '../../assets/svg/icons/edit.svg'
 // eslint-disable-next-line
 import {Identite, config, AyantsDroit, utils, journal} from '../../utils/application'
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
 // eslint-disable-next-line
 const NOM = "PartageSommaireEditeur"
@@ -231,8 +232,7 @@ class PartageSommaireEditeur extends Component {
             let visualisation = (<Beignet type="workCopyrightSplit" uuid={`auteur--beignet__${this.state.idx}`} data={this.state.donnees} />)
             return (
                 <>
-                <div className="ui dividing header sommaire" />
-                <div className="ui segment">
+                <div className="ui section divider sommaire" />
                     <div className="ui grid">
                         <div className="ui row">
                             <div className="ui eight wide column">
@@ -240,12 +240,10 @@ class PartageSommaireEditeur extends Component {
 
                                 {/* <div className="ui grid">*/}
                                     <div className="ui row"> 
-                                        <div className="ui two wide column">
-                                            <div className="holder-name">
+                                        <div className="ui six wide column">
+                                            <div className="holder-name sommaire">
                                                 <img alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.beneficiaire.avatarImage}`} />
-                                        </div>
-                                        </div>
-                                        <div className="ui six wide column">      
+                                        </div>  
                                                 {
                                                     this.state.beneficiaire &&
                                                         this.state.beneficiaire.artistName ?
@@ -271,8 +269,8 @@ class PartageSommaireEditeur extends Component {
                                                                     <div>
                                                                         <img
                                                                             alt="edit"
+                                                                            className="edit"
                                                                             src={editIcon}
-                                                                            style={{ cursor: "pointer" }}
                                                                             onClick={() => { this.changerVote() }} />
                                                                         {
                                                                             this.state.justifierRefus && (
@@ -280,7 +278,7 @@ class PartageSommaireEditeur extends Component {
                                                                                     <textarea
                                                                                         cols={30}
                                                                                         rows={2}
-                                                                                        placeholder="Pourquoi refuses-tu le split (optionel)"
+                                                                                        placeholder={t("flot.split.sommaire.pourquoi")}
                                                                                         onChange={(e) => {
                                                                                             this.refuser(e.target.value)
                                                                                         }}>
@@ -310,12 +308,12 @@ class PartageSommaireEditeur extends Component {
                                     </div>
                                     <div className="ui row">
                                         <div className="ui two wide column">
-                                            <div className="holder-name">
+                                            <div className="holder-name sommaire">
                                                 <img alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.donateur.avatarImage}`} />
                                             </div>
                                         </div>
                                         <div className="ui ten wide column">
-                                            <div className="holder-name">
+                                            <div className="holder-name sommaire">
                                                 {
                                                     this.state.donateur &&
                                                         this.state.donateur.artistName ?
@@ -364,7 +362,6 @@ class PartageSommaireEditeur extends Component {
                             vote={true}
                             fn={() => { if(Identite.usager) { this.envoi() } }} />
                     </Modal>
-                </div>
                 </>
             )
         } else {

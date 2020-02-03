@@ -153,7 +153,7 @@ class SommairePartages extends Component {
                                     </span>           
                                     </div>
                             <div>
-                                <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
+                            &nbsp; <div className="small-400 creation">{t('oeuvre.creePar')}&nbsp;</div>
                                 <div className="small-500-color">{`${elem.initiatorName}`}</div>
                                 <span className="date sommaire">&nbsp;&nbsp;{i18n.language && elem._d ? moment(new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}
                                 </span>
@@ -349,8 +349,7 @@ class SommairePartages extends Component {
                                                 <div className="boutons sommaire">
                                                 {
                                                     proposition.etat === 'ACCEPTE' && <div
-                                                        className="ui medium button inverse"
-                                                        style={{ marginLeft: "0px" }}>
+                                                        className="ui medium button inverse accepte">
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
                                                 }
                                                     {!nouveauDisabled && (

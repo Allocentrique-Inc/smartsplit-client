@@ -393,6 +393,10 @@ color: #687A8B;
 font-size: 12px;
 }
 
+.small-400.creation {
+  margin-left: 0.3rem;
+}
+
 .ui.six.wide.column.etat {
   display: flex;
 }
@@ -440,8 +444,9 @@ font-size: 12px;
 }
 
 .role {
-  padding-left: 48px;
   color: #687a8b;
+  display: inline;
+  padding-left: 0rem;
 }
 
 .vote {
@@ -468,16 +473,16 @@ font-size: 12px;
 
 .statut,
 .role,
-.holder-name {
+.holder-name.sommaire {
   font-weight: normal;
 }
 
-.holder-name,
+.holder-name.sommaire,
 .vote {
   font-size: 16px;
 }
 
-.body {
+.ui.row.body {
   min-height: 515px;
 }
 
@@ -565,9 +570,6 @@ font-size: 12px;
 }
 
 .boutons.sommaire {
-  /* top: 180px;
-  position: absolute;
-  right: 70px;  */
   padding-bottom: 20px;
 }
 
@@ -651,3 +653,45 @@ background-color: #DFF8E3;
   text-align: center;
 }
 
+.holder-name.sommaire {
+  display: inline;
+}
+
+.ui.spaced.avatar.image.sommaire {
+  margin: 0.5rem 0 0 1rem;
+}
+
+.wizard-title.types {
+  padding: 1rem;
+  margin-top: 10px;
+}
+
+.ui.two.wide.column.avatar {
+padding: 0 0 0 1rem;
+}
+
+.ui.spaced.avatar.image {
+  margin: 0.5rem 0 0 1rem;
+}
+
+.ui.column.titre {
+  margin-left:  2.8rem;
+}
+
+.ui.section.divider.sommaire {
+  margin-top: 1rem; 
+  margin-bottom: 1rem;
+}
+
+.parts {
+  padding: 1rem;
+  margin-top: 0px;
+}
+
+.edit {
+  cursor: pointer;
+}
+
+.ui.medium.button.inverse.accepte {
+  margin-left: 0px;
+}

@@ -197,7 +197,8 @@
         "media": "Split Rights for a Media:",
         "partage": "Split Rights",
         "sommaire": "Proposal Summary :",
-        "afficher": "Proposal Display"
+        "afficher": "Proposal Display",
+        "pourquoi": "Why do you decline the split (optional)?"
       },
       "etat": {
         "VOTATION": "Waiting for decision",
@@ -538,6 +539,7 @@
             "ACCEPTE": "Accepted",
             "REFUSE": "Rejected"
           },
+          "valider": "Validate the split of {{titre}}",
           "resume": "Validate the split of {{titre}}",
           "editer": "Edit",
           "titre": "Send the copyright split",
