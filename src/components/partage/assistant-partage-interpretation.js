@@ -314,16 +314,12 @@ class PageAssistantPartageInterpretation extends Component {
                                                             let roles = [
                                                                 { id: "chanteur", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.chanteur') },
                                                                 { id: "musicien", nom: t('flot.split.documente-ton-oeuvre.partage.interprete.role.musicien') }
-                                                            ]
-                                                            
-                                                            journal.debug(NOM, part)
-
+                                                            ]                                                        
                                                             let _aD = part.ayantDroit
                                                             let avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
                                                             if (_aD.avatar) {
                                                                 avatar = _aD.avatar.dataUri
-                                                            }                                                            
-
+                                                            }
                                                             return (
                                                                 <div key={`part-${index}`}>
                                                                     <div className="gray-fields">

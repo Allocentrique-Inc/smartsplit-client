@@ -35,15 +35,12 @@ export default class AideIdentites {
     }
 
     async enregistrement(params, editeur, fn) {        
-        journal.debug(NOM, params)
         let utilisateur = params.utilisateur,
             secret = params.secret,
             attributs = params.attributs            
         try {
             let _d = {username: utilisateur, password: secret, attributes: attributs}            
-            let usager = await Auth.signUp(_d)
-            journal.debug(NOM, usager.userSub)
-            journal.debug(NOM, attributs.editeur)
+            let usager = await Auth.signUp(_d)            
             // temporaire - écrire si editeur ou non (obligatoire pour filtre AyantsDroit)
             await axios.patch(`${config.API_URL}rightHolders/${usager.userSub}/editeur`, {editeur: editeur})
             if(fn){fn(usager.userSub)}

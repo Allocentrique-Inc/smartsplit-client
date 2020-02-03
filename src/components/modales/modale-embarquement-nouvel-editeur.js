@@ -6,6 +6,7 @@ import {
   Dropdown
 } from "semantic-ui-react"
 import { withTranslation } from "react-i18next"
+// eslint-disable-next-line
 import { Identite, config, AyantsDroit, journal } from "../../utils/application"
 
 // eslint-disable-next-line

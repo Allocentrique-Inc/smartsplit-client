@@ -10,7 +10,6 @@ import { FieldArray } from "formik"
 import ChampListeCollaborateurAssistant from "../formulaires/champ-liste-collaborateur"
 import BoutonsRadio from "../formulaires/champ-radio"
 import Lock from "./Lock"
-import biquette from '../../assets/base64/biquette.base64'
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
 import { RecordSVG } from "../svg/SVG";
 import closeIcon from "../../assets/svg/icons/x.svg";

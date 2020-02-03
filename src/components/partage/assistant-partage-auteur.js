@@ -461,8 +461,6 @@ class PageAssistantPartageAuteur extends Component {
                                                                             // Ajoute le nouvel ayantdroit à la liste comme si il était déjà
                                                                             // dans la liste.
                                                                             this.props.setFieldValue('collaborateur', _aD)
-                                                                            journal.debug(`${NOM}-retour ModifyUser`, _aD)
-                                                                            console.log(AyantsDroit[_aD])
                                                                             let droitsAuteur = this.props.values.droitAuteur                                                                                                                                                        
                                                                             this.setState({ayantsDroit: AyantsDroit.ayantsDroit}, ()=>{
                                                                                 let ayantDroit = this.state.ayantsDroit[_aD]

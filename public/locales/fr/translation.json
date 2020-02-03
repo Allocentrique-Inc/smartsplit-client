@@ -408,7 +408,7 @@
           "master-placeholder": "Ajouter un technicien",
           "studio": "Studio d'enregistrement  ",
           "studio-description": "Le lieu où la chanson a été enregistrée.",
-          "studio-placeholder": "Recherche d'un studio d'enregistrement",
+          "studio-placeholder": "Nom du studio d'enregistrement",
           "studio-adresse": "Adresse du studio d'enregistrement",
           "production": "Producteur exécutif  ",
           "production-description": "La personne qui investi temps et argent pour rendre l'enregistrement sonore possible.",

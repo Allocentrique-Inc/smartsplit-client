@@ -28,7 +28,6 @@ class OeuvreResume extends React.Component {
         if(this.props.jeton) {
             axios.post(`${config.API_URL}media/decodeMedia`, {jeton: this.props.jeton})
             .then(res=>{
-                console.log(res.data)
                 if(res.data.mediaId && res.data.acces) {
                     this.setState({acces: parseInt(res.data.acces)}, ()=>{
                         this.setState({mediaId: res.data.mediaId}, ()=>this.getMedia())

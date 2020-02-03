@@ -74,7 +74,7 @@ class SommairePartages extends Component {
             let _res = await axios.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)
             let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]
             this.setState({ ayantDroit: _rAd }, () => {
-                this.setState({ propositions: _res.data }, console.log(this.state.propositions))
+                this.setState({ propositions: _res.data })
                 this.setState({ activeIndex: _res.data.length - 1 })
                 let _ps = _res.data
                 _ps.forEach(p => {
@@ -170,10 +170,6 @@ class SommairePartages extends Component {
             let partageEditeur = false, fermerInfobulleEditeur = false
 
             if (this.state.propositions.length > 0) {
-
-                // Détecte si un éditeur est assigné
-                console.log('modale éditeur?', _p0)
-
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
                 if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
@@ -203,7 +199,6 @@ class SommairePartages extends Component {
                             _p.partagesTiers.forEach(part=>{
                                 if(part.rightHolderId===Identite.usager.username){
                                     partageEditeurEnCours = true
-                                    journal.debug(NOM, 'Partage éditeur en cours')
                                 }
                             })                            
                         }

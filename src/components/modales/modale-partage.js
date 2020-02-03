@@ -65,7 +65,6 @@ class ModalePartage extends Component {
       return (
         <div onClick={()=>{this.setState({selection: idx}, async ()=>{
           let jeton = await Axios.get(`${config.API_URL}media/jetonMedia/${this.state.media.mediaId}/${idx}`)
-          console.log(jeton)
           this.setState({jeton: jeton.data})
         })}} className="ui row cliquable">
           <div className="ui two wide column">
