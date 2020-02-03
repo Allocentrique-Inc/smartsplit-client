@@ -379,6 +379,7 @@
 .version {
   font-weight: 18px;
   display: flex;
+  margin-left: 1em;
 }
 
 .small-400.creation,
@@ -694,7 +695,7 @@ padding: 0 0 0 1rem;
   margin-bottom: 1rem;
 }
 
-.parts {
+.ui.eight.wide.column.parts {
   padding: 1rem;
   margin-top: 0px;
 }
