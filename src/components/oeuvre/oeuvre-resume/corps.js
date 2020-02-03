@@ -21,12 +21,12 @@ export default class Corps extends React.Component {
             <div className={ 'corps ui container' }>
                 <div className={ 'ui grid' }>
                     <div className={ 'ui sixteen wide mobile ten wide tablet ten wide computer column' }>
-                        <TableCreation jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <TableInterpretation jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
-                        <TableEnregistrement jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
+                        <TableCreation jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
+                        <TableInterpretation jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
+                        <TableEnregistrement jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
                     </div>
 
-                    <div className={ 'ui sixteen wide mobile six wide tablet six wide computer column' }>
+                    <div className={ 'ui sixteen wide mobile six wide tablet six wide computer column' } style={{paddingTop: "4rem"}}>
                         <TableInformationsGenerales jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />
                         <SectionEcouter jeton={this.props.jeton} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} pochette={this.props.pochette} />
                         <SectionTelechargements jeton={this.props.jeton} membreEquipe={this.props.membreEquipe} acces={this.state.acces} pochette={this.props.pochette} edition={this.props.edition} media={this.props.media} rightHolders={this.props.rightHolders} roles={this.props.roles} />

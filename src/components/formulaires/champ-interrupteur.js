@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Wizard } from 'semantic-ui-react-formik-iptoki'
+import { Wizard } from '../formulaires/assistant'
 import { Checkbox } from 'semantic-ui-react'
 
 export class ChampInterrupteurAssistant extends Component {

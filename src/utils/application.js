@@ -14,6 +14,7 @@ import Journalisation from './journalisation'
 import AideEntites from './entites'
 import AideIdentites from './identite'
 import AideDroits from './droits'
+//import AideMedias from './medias'
 import Utilitaires from './utilitaires'
 
 class Application {
@@ -24,6 +25,7 @@ class Application {
         this.aideAyantDroit = AideAyantDroit.getInstance()
         this.aideEntites = AideEntites.getInstance()
         this.aideIdentites = AideIdentites.getInstance()
+        //this.aideMedias = AideMedias.getInstance()
         this.utilitaires = new Utilitaires(this.config.CONTEXTE)
         this.aideDroits = new AideDroits()
     }
@@ -45,5 +47,6 @@ const Entites = i.aideEntites
 const Identite = i.aideIdentites
 const utils = i.utilitaires
 const Droits = i.aideDroits
+//const Media = i.aideMedias
 
 export { config, journal, utils, AyantsDroit, Entites, Identite, Droits }

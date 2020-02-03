@@ -1,7 +1,7 @@
 import {config, AyantsDroit, journal, utils} from '../../utils/application'
 import React, {Component} from 'react'
 import axios from 'axios'
-import { Wizard } from "semantic-ui-react-formik-iptoki"
+import { Wizard } from "../formulaires/assistant"
 import { withTranslation } from 'react-i18next'
 import PageAssistantSplitCourrielsCollaborateurs from './assistant-split-courriel-collaborateurs'
 

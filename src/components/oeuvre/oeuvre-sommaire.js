@@ -9,6 +9,7 @@ import placeholder from '../../assets/images/placeholder.png'
 import {Identite, journal, config, utils} from '../../utils/application'
 import editIcon from '../../assets/svg/icons/edit.svg'
 import { Progress } from 'semantic-ui-react'
+import { toast } from 'react-toastify'
 
 const NOM = "SommaireOeuvre"
 
@@ -23,8 +24,10 @@ class SommaireOeuvre extends Component {
     }
 
     componentWillMount() {
+        const t = this.props.t
         if (Identite.usager) {
             this.setState({ user: Identite.usager}, async ()=>{
+                if(this.props.invitations) {toast.success( t('flot.invitations.envoyees') )}
                 this.getMedia()
                 try {
                     let res = await axios.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)                
@@ -92,7 +95,7 @@ class SommaireOeuvre extends Component {
             let p0 = this.state.p0            
 
             // Progression du partage
-            let pctPartage = 0, pctDocumentation = 50
+            let pctPartage = 0, pctDocumentation = 0
 
             // Calcul de la progression du partage
             if(p0) {
@@ -128,14 +131,19 @@ class SommaireOeuvre extends Component {
                     if(p0.etat === "VOTATION") {
                         pctPartage += 20
                     }
-                    if(p0.etat === "ACCEPTE" || p0.etat === "REFUSE") {
-                        pctPartage += 20
+                    if(p0.etat === "ACCEPTE") {
+                        pctPartage = 100
                     }
                 }
             }
 
+            let classeEtatDerniererProposition = "NOUVEAU"
+            if(p0) {
+                classeEtatDerniererProposition = (p0.etat === 'ACCEPTE') ? "sommaire-approuve" : (p0.etat === 'REFUSE') ? "sommaire-desaprouve" : (p0.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"
+            }
+
             return (                
-                <>                                                        
+                <>
                     <div className="ui grid">
                         <div className="ui row" style={{ background: "#FAF8F9" }}>
                             <div className="ui one wide column"></div>
@@ -221,17 +229,21 @@ class SommaireOeuvre extends Component {
                                     <div className="ui heading3 carrefour">{t('flot.split.documente-ton-oeuvre.preambules.titre1')}</div>                                    
 
                                     {
-                                        p0 && (
-                                            <>
-                                                <div className="ui heading4">
-                                                    {t('flot.split.documente-ton-oeuvre.preambules.sous-titre1')}&nbsp;&nbsp;<span className="tag">{t(`flot.split.etat.${p0.etat}`)}</span>
-                                                </div>
-                                                <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
-                                                    {t('flot.split.documente-ton-oeuvre.preambules.intro1')}                                                    
-                                                </div>
-                                                <Progress size="tiny" success={p0.etat !== "REFUSE"} error={p0.etat === "REFUSE"} percent={pctPartage} />
-                                            </>
-                                        )
+                                        <>
+                                            <div className="ui heading4">
+                                                {t('flot.split.documente-ton-oeuvre.preambules.sous-titre1')}&nbsp;&nbsp;
+                                                
+                                                <span 
+                                                    style={{marginLeft: "1rem"}} 
+                                                    className={classeEtatDerniererProposition}>
+                                                    { p0 ? t(`flot.split.etat.${p0.etat}`) : t(`flot.split.etat.NOUVEAU` )}
+                                                </span>
+                                            </div>
+                                            <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal", marginBottom: "3rem"}}>
+                                                {t('flot.split.documente-ton-oeuvre.preambules.intro1')}                                                    
+                                            </div>
+                                            <Progress size="tiny" success={p0 && p0.etat !== "REFUSE"} warning={!p0} error={p0 && p0.etat === "REFUSE"} percent={pctPartage} />
+                                        </>
                                     }                                    
 
                                     <div className={`ui medium button ${p0 ? "inverse" : ""}`}
@@ -244,13 +256,14 @@ class SommaireOeuvre extends Component {
                                             }
                                         }}>
                                         {!p0 && t('flot.split.action.commencer')}
-                                        {p0 && t('flot.split.action.continuer')}
+                                        {p0 && pctPartage < 100 && t('flot.split.action.continuer')}
+                                        {p0 && pctPartage === 100 && t('flot.split.action.sommaire')}
                                     </div>
                                 </div>
                                 <div className="ui row etape">
                                     <div className="ui heading3 carrefour">{t('flot.split.documente-ton-oeuvre.preambules.titre2')}</div>
                                     <div className="ui heading4">{t('flot.split.documente-ton-oeuvre.preambules.sous-titre2')}</div>
-                                    <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal"}}>
+                                    <div className="ui medium-400" style={{color: "#687A8B", fontStyle: "normal", fontWeight: "normal", marginBottom: "3rem"}}>
                                         {t('flot.split.documente-ton-oeuvre.preambules.intro2')}
                                     </div>
                                     <Progress size="tiny" success percent={pctDocumentation} />                                    
@@ -263,12 +276,11 @@ class SommaireOeuvre extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="ui five wide column" style={{ padding: "50px" }}>
+                            <div className="ui five wide column" style={{marginLeft: "3rem"}}>
                                 <div style={{
-                                    position: "absolute",
-                                    top: "85px",
-                                    left: "135px",
-                                    width: "55%"
+                                    position: "relative",
+                                    top: "5rem",
+                                    left: "7rem"
                                 }}>
                                     {this.state.media.title} {t('oeuvre.par')} {artiste}
                                 </div>

@@ -77,7 +77,7 @@ export default class Journalisation {
     error (nom, msg) {            
         let nomDerive = this.formatLogArguments(arguments)
         this.moteur.error(msg, {label: nomDerive})
-        if(msg.stack)
+        if(msg && msg.stack)
             this.moteur.error(msg.stack, {label: `${nom}-trace`})
     }        
 

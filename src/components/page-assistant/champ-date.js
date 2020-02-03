@@ -17,6 +17,7 @@ class ChampDate extends Component {
         {
           i18n && i18n.language && (
             <DateInput
+              localization={i18n.language}
               dateFormat="DD-MM-YYYY"
               placeholder={t(
                 "flot.split.documente-ton-oeuvre.documenter.date-placeholder"

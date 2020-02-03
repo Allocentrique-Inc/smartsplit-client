@@ -1,6 +1,6 @@
 import {config, Identite, journal, AyantsDroit} from '../../utils/application'
 import React, { Component } from "react"
-import { Wizard } from "semantic-ui-react-formik-iptoki"
+import { Wizard } from "../formulaires/assistant"
 import axios from "axios"
 import PageCreation from "./page-creation"
 import PageInterpretation from "./page-interpretation"
@@ -12,6 +12,7 @@ import PageFichiers from "./page-fichiers"
 import { withTranslation } from "react-i18next"
 import Navbar from "../navigation/navbar"
 import ModaleConnexion from "../auth/Connexion"
+import moment from 'moment'
 
 const NOM = "EditerOeuvre"
 
@@ -36,8 +37,8 @@ class EditerOeuvre extends Component {
       .then(res => {
         if (
           this.state.mediaId &&
-          parseInt(this.state.mediaId) === res.data.mediaId &&
-          res.data.acces === 3
+          parseInt(this.state.mediaId) === parseInt(res.data.mediaId) &&
+          parseInt(res.data.acces) === 3
         ) {
           this.chargement(true)
         }
@@ -81,7 +82,11 @@ class EditerOeuvre extends Component {
     if(Identite.usager) {
       this.setState({user: Identite.usager}, ()=>this.getMedia(admin, Identite.usager))
     } else {
-      this.setState({ modaleConnexion: true })
+      if(!admin) {
+        this.setState({ modaleConnexion: true })        
+      } else {
+        this.getMedia(admin)
+      }
     }
   }
 
@@ -214,8 +219,8 @@ class EditerOeuvre extends Component {
         pressArticleLinks: _m.pressArticleLinks || [],
         playlistLinks: _m.playlistLinks || [],
         creationDate: _m.creationDate
-          ? new Date(parseInt(_m.creationDate))
-          : new Date(),
+          ? moment(new Date(parseInt(_m.creationDate))).format('DD-MM-YYYY')
+          : moment(new Date()).format('DD-MM-YYYY'),
         publishDate: _m.publishDate ? _m.publishDate : "",
         publisher: _m.publisher ? _m.publisher.trim() : "",
         studio: _m.studio ? _m.studio.trim() : "",
@@ -343,9 +348,8 @@ class EditerOeuvre extends Component {
   }
 
   render() {
-    const t = this.props.t, i18n = this.props.i18n
+    const t = this.props.t
     if ((this.state.user || this.state.jeton) && this.state.media) {
-      console.log('pochette', this.props.pochette)
       return (        
         <>
           <Navbar
@@ -388,11 +392,11 @@ class EditerOeuvre extends Component {
                 buttonLabels={{
                   previous: t("navigation.precedent"),
                   next: t("navigation.suivant"),
-                  submit: t("navigation.envoi")
+                  submit: t("navigation.enregistrer")
                 }}
                 debug={false}
               >
-                {this.renduPage(i18n)}
+                {this.renduPage()}
               </Wizard>
             </>
           )}         

@@ -63,9 +63,9 @@ class TableCreation extends React.Component {
         label: t("flot.split.documente-ton-oeuvre.documenter.auteur-parole"),
         value: this.auteurs ? this.auteurs.map((a, idx) => {
           if (a && idx < this.auteurs.length - 1) {
-            return <span key={`auteurs_${a.rightHolderId}`}>{a.artistName}, </span>
+            return <><span className={`${this.props.pochette ? 'pochette' : 'smartsplit'} gras`} key={`auteurs_${a.rightHolderId}`}>{a.artistName}</span>,&nbsp;</>
           } else {
-            return <span key={`auteurs_${a.rightHolderId}`}>{a.artistName}</span>
+            return <span className={`${this.props.pochette ? 'pochette' : 'smartsplit'} gras`} key={`auteurs_${a.rightHolderId}`}>{a.artistName}</span>
           }
         }) : []
       },
@@ -73,9 +73,9 @@ class TableCreation extends React.Component {
         label: t("flot.split.documente-ton-oeuvre.documenter.compositeur-musique"),
         value: this.compositeurs.map((a, idx) => {
           if (a && idx < this.compositeurs.length - 1) {
-            return <span key={`compositeur_${a.rightHolderId}`}>{a.artistName}, </span>
+            return <><span className={`${this.props.pochette ? 'pochette' : 'smartsplit'} gras`} key={`compositeur_${a.rightHolderId}`}>{a.artistName}</span>,&nbsp;</>
           } else {
-            return <span key={`compositeur_${a.rightHolderId}`}>{a.artistName}</span>
+            return <span className={`${this.props.pochette ? 'pochette' : 'smartsplit'} gras`} key={`compositeur_${a.rightHolderId}`}>{a.artistName}</span>
           }
         })
       },
@@ -83,9 +83,9 @@ class TableCreation extends React.Component {
         label: t("flot.split.documente-ton-oeuvre.documenter.arrangeur-musique"),
         value: this.arrangeurs.map((a, idx) => {
           if (a && idx < this.arrangeurs.length - 1) {
-            return <span key={`arrangeurs_${a.rightHolderId}`}>{a.artistName}, </span>
+            return <><span className={`${this.props.pochette ? 'pochette' : 'smartsplit'} gras`} key={`arrangeurs_${a.rightHolderId}`}>{a.artistName}</span>,&nbsp;</>
           } else {
-            return <span key={`arrangeurs_${a.rightHolderId}`}>{a.artistName}</span>
+            return <span className={`${this.props.pochette ? 'pochette' : 'smartsplit'} gras`} key={`arrangeurs_${a.rightHolderId}`}>{a.artistName}</span>
           }
         })
       },
@@ -93,9 +93,9 @@ class TableCreation extends React.Component {
         label: t("flot.split.documente-ton-oeuvre.documenter.editeur"),
         value: this.editeurs.map((a, idx) => {
           if (a && idx < this.editeurs.length - 1) {
-            return <span key={`editeurs_${a.rightHolderId}`}>{a.artistName}, </span>
+            return <><span className={`${this.props.pochette ? 'pochette' : 'smartsplit'} gras`} key={`editeurs_${a.rightHolderId}`}>{a.artistName}</span>,&nbsp;</>
           } else {
-            return <span key={`editeurs_${a.rightHolderId}`}>{a.artistName}</span>
+            return <span className={`${this.props.pochette ? 'pochette' : 'smartsplit'} gras`} key={`editeurs_${a.rightHolderId}`}>{a.artistName}</span>
           }
         })
       }

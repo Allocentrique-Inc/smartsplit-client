@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import Beignet from '../visualisation/partage/beignet'
 import Beignet2 from '../visualisation/partage/beignet2'
-import Histogramme from '../visualisation/partage/histogramme'
 import { CopyrightSVG, StarSVG, RecordSVG } from '../svg/SVG.js'
+import editIcon from '../../assets/svg/icons/edit.svg'
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 // eslint-disable-next-line
-import { Droits, AyantsDroit, journal } from '../../utils/application'
+import { Droits, AyantsDroit, journal, utils, Identite } from '../../utils/application'
 // eslint-disable-next-line
 const NOM = "SommaireDroit"
+
+const TYPES = { workCopyrightSplit: 1, performanceNeighboringRightSplit: 2, masterNeighboringRightSplit: 3 }
 
 class SommaireDroit extends Component {
 
@@ -27,7 +29,8 @@ class SommaireDroit extends Component {
             modifierVote: false,
             monVote: props.monVote,
             avatars: props.avatars,
-            uuid: props.uuid
+            uuid: props.uuid,
+            proposition: props.proposition
         }
         this.changerVote = this.changerVote.bind(this)
     }
@@ -94,7 +97,7 @@ class SommaireDroit extends Component {
         if (this.state.ayantsDroit) {
             let _parts = []
             let _data = []
-            let beignetDouble = (this.state.type === "workCopyrightSplit")            
+            let beignetDouble = (this.state.type === "workCopyrightSplit")
             Object.keys(this.state.donnees).forEach((uuid, idx) => {            
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
@@ -136,6 +139,9 @@ class SommaireDroit extends Component {
                                             )
                                         }
                                     </div>
+                                    <div className="ui row" style={{textAlign: "right"}}>
+                                        <i>{part.raison ? part.raison : ""}</i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -146,10 +152,10 @@ class SommaireDroit extends Component {
                                     {
                                         !this.state.voteTermine &&
                                         (
-                                            <>
+                                            <div className="ui grid">
                                                 <div className="ui row">
-                                                    <div className="ui one wide column" />
-                                                    <div className="ui eight wide column">
+                                                    <div className="ui two wide column" />
+                                                    <div className="ui fourteen wide column">
                                                         <i>{part.raison ? part.raison : ""}</i>
                                                         <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
                                                             onClick={() => {
@@ -165,9 +171,7 @@ class SommaireDroit extends Component {
                                                                 this.setState({ refuser: false })
                                                                 this.voter(true)
                                                             }}>{t('flot.split.vote.accepter')}</div>
-                                                    </div>
-                                                    {
-                                                        this.state.refuser && (
+                                                        {this.state.refuser && (
                                                             <textarea
                                                                 className="raison refus"
                                                                 cols={30}
@@ -177,10 +181,10 @@ class SommaireDroit extends Component {
                                                                     this.state.parent.refuser(this.state.type, e.target.value)
                                                                 }}>
                                                             </textarea>
-                                                        )
-                                                    }
+                                                        )}
+                                                    </div>                                                    
                                                 </div>
-                                            </>
+                                            </div>
                                         )
                                     }
                                 </>
@@ -194,13 +198,20 @@ class SommaireDroit extends Component {
                         "performanceNeighboringRightSplit": <StarSVG />,
                          "masterNeighboringRightSplit": <RecordSVG /> }
 
-            const Icon = Map[this.state.titre]            
+            const Icon = Map[this.state.titre]
 
+            const peutModifier = !this.props.votation && 
+                                    (this.state.proposition.initiatorUuid === Identite.usager.username) &&
+                                    this.state.proposition.etat !== 'ACCEPTE' &&
+                                    this.state.proposition.etat !== 'REFUSE' &&
+                                    this.state.proposition.etat !== 'VOTATION' &&
+                                    !this.props.lectureSeule
+            
             return (
                 <>
                 <div className="ui section divider sommaire" />
                 <div className="ui grid">
-                    <div className="ui row body">
+                    <div className="ui row body" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
                         <div className="ui eight wide column">
                             <div className="wizard-title types">
                                 <div className="ui column">
@@ -209,26 +220,59 @@ class SommaireDroit extends Component {
                                 <div className="ui column titre">
                                     {t(`flot.split.droits.titre.${this.state.titre}`)}
                                 </div>
+                                {
+                                    _parts.length > 0 && peutModifier && (
+                                        <div 
+                                            className="ui medium button inverse" 
+                                            style={{ right: "0px", position: "absolute", top: "0.25rem", height: "3rem" }}
+                                            onClick={()=>{
+                                                utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
+                                            }}>
+                                            <img src={editIcon} alt={t('options.modifier')} />
+                                            <span style={{position: "relative", top: "-0.375rem", left: "0.375rem"}}>{t('options.modifier')}</span>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    _parts.length === 0 && peutModifier && (
+                                        <div 
+                                            className="ui medium button" 
+                                            style={{ right: "0px", position: "absolute", top: "0.25rem", height: "3rem" }}
+                                            onClick={()=>{
+                                                utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
+                                            }}>
+                                            <span style={{position: "relative"}}>{t('options.ajouter')}</span>
+                                        </div>
+                                    )
+                                }
                             </div>
-                            <div className="parts">                            
-                                {_parts}
-                            </div>                            
-                        </div>
-                        <div className="ui eight wide column">
-                            <div className="ui row">                       
-                            {!beignetDouble && _data.length < 9 && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
-                            {!beignetDouble && _data.length >= 9 && (<Histogramme uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
-                            </div>  
-                            <div className="ui row"> 
                             {
-                                beignetDouble && (
-                                    <div>
-                                        {beignetDouble && this.state.donneesParoles && this.state.donneesParoles.length < 9 && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} style={{position: "absolute", left: "4rem"}} />)}
-                                        {beignetDouble && this.state.donneesMusique && this.state.donneesMusique.length < 9 && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} style={{right: "2rem", position: "absolute"}} />)}
+                                _parts && _parts.length > 0 && (
+                                    <div className="ui row">
+                                        <div className="ui eight wide column parts">
+                                        {_parts}
+                                        </div>                            
                                     </div>
                                 )
-                            }  
-                            </div>
+                            }
+                        </div>
+                        <div className="ui eight wide column" style={{minHeight: (this.state.type === 1)}}>
+                            {
+                                _parts && _parts.length > 0 && 
+                                (
+                                    <>
+                                        {!beignetDouble && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                        {
+                                            beignetDouble && (
+                                                <div>
+                                                    {beignetDouble && this.state.donneesParoles && (<Beignet2 type={this.state.type} titre="Paroles" side="left" uuid={`beignet_${this.state.uuid}_${this.state.titre}_paroles`} data={this.state.donneesParoles} styleTexte={{position: "absolute", top: "32rem", left: "17.5rem"}} />)}
+                                                    {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", left: "23rem"}} />)}
+                                                </div>
+                                            )
+                                        }     
+                                    </>
+                                )
+                            }                            
                         </div>
                     </div>
                 </div>

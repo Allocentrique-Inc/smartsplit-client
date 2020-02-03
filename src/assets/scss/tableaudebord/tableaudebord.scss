@@ -429,7 +429,7 @@ font-size: 12px;
     color: $smartsplit-color-link;
   }
   &.refus {
-    color: #ac1616;
+    color: $color-negation;    
   }
   &.actif {
     &.accepte {
@@ -437,7 +437,7 @@ font-size: 12px;
       color: white;
     }
     &.refus {
-      background-color: #ac1616;
+      background-color: $color-negation;
       color: white;
     }
   }
@@ -579,6 +579,17 @@ font-size: 12px;
 
 .ui.button.medium.vote.refus {
   margin: 0 0 20px 0;
+  &:hover {
+    background-color: $color-negation;
+    color:white;
+  }
+}
+
+.ui.button.medium.vote.accepte {  
+  &:hover {
+    background-color: $smartsplit-color-link;
+    color: white;
+  }
 }
 
 .raison.refus,

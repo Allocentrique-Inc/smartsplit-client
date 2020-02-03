@@ -15,14 +15,16 @@ import ModalPropositionEnCours from '../modales/modale-proposition-encours'
 import InfoBulle from '../partage/InfoBulle';
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import Navbar from '../navigation/navbar'
-import { config, utils, Identite, AyantsDroit } from "../../utils/application"
+// eslint-disable-next-line
+import { config, utils, Identite, AyantsDroit, journal } from "../../utils/application"
 import { FlecheBasSVG, FlecheHautSVG } from '../svg/SVG.js'
-// import SommaireDroit from './sommaire-droit.js'
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 
 const PANNEAU_EDITEUR = 1, PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = ['workCopyrightSplit', 'performanceNeighboringRightSplit', 'masterNeighboringRightSplit']
 const ETAT_EDITEUR_NON = 1, ETAT_EDITEUR_OUI = 2, ETAT_EDITEUR_PLUSTARD = 3
+// eslint-disable-next-line
+const NOM = "SommairePartages"
 
 class SommairePartages extends Component {
 
@@ -123,21 +125,17 @@ class SommairePartages extends Component {
         let t = this.props.t, i18n = this.props.i18n
 
         if (this.state.propositions && this.state.media) {
-
             let propositions = []
             let _p0
-
             // Trouver _p0, la proposition la plus récente
             // elem fait référence à un élément qu'on assigne
             this.state.propositions.forEach(elem => {
                 if (!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
-
             let _rafraichir = false
-
             if (_p0 && _p0.etat === 'VOTATION') {
-                _rafraichir = true
-            }
+                // _rafraichir = true // Désactivation du rafraîchissment automatique
+            }            
 
             propositions = this.state.propositions.map((elem, idx) => {
                 const accordionIsOpen = idx === this.state.activeIndex;
@@ -147,10 +145,10 @@ class SommairePartages extends Component {
                             <div className="fleche">
                                 {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
                             </div>
-                            <div className="version">
-                                &nbsp; Version {idx + 1} - &nbsp; <span className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
+                            <div className="version">                                
+                                &nbsp; Version {idx + 1} <span /* style={{marginLeft: "1rem"}}  */className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
                                     {t(`flot.split.etat.${elem.etat}`)}
-                                    </span>           
+                                    </span>
                                     </div>
                             <div>
                             &nbsp; <div className="small-400 creation">{t('oeuvre.creePar')}&nbsp;</div>
@@ -159,16 +157,17 @@ class SommairePartages extends Component {
                                 </span>
                             </div>
                         </Accordion.Title>
-                        <Accordion.Content active={accordionIsOpen}>
-                            <SommairePartage ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
+                        <Accordion.Content active={accordionIsOpen} style={{padding: "0rem", paddingTop: "1rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
+                            <SommairePartage lectureSeule={elem.uuid !== _p0.uuid} ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                         </Accordion.Content>
                     </div>
                 )
             })
             propositions = propositions.reverse()
 
+            // eslint-disable-next-line
             let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
-            let partageEditeur = false
+            let partageEditeur = false, fermerInfobulleEditeur = false
 
             if (this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
@@ -194,6 +193,16 @@ class SommairePartages extends Component {
                     }
                     if (estCollaborateur) {
                         partageEditeur = true
+                        // Seulement si une part n'est pas déjà attribuée à un éditeur
+                        let partageEditeurEnCours = false
+                        if(_p.partagesTiers) {                            
+                            _p.partagesTiers.forEach(part=>{
+                                if(part.rightHolderId===Identite.usager.username){
+                                    partageEditeurEnCours = true
+                                }
+                            })                            
+                        }
+                        fermerInfobulleEditeur = partageEditeurEnCours
                     }
                 }
             }
@@ -233,8 +242,7 @@ class SommairePartages extends Component {
                                 >
                                     {t('flot.split.documente-ton-oeuvre.tableaudebord.edito')}
                                 </span>
-                            )}
-                          
+                            )}                          
                             decoration={
                                 <>
                                 <div className="editeur">
@@ -258,7 +266,7 @@ class SommairePartages extends Component {
                                 </>
                             }
                             orientation="bottom center"
-                            ouvert={partageEditeur && !this.state.fermerInfobulleEditeur}
+                            ouvert={partageEditeur && !fermerInfobulleEditeur}
                         />
 
                     </div>
@@ -314,6 +322,10 @@ class SommairePartages extends Component {
                 }
             })
 
+            // Désactive le bouton du contrat
+            // eslint-disable-next-line
+            let contratEnabled = false
+
             return (
                 <div>
                     <Navbar pochette={this.props.pochette}
@@ -348,23 +360,19 @@ class SommairePartages extends Component {
                                             <div className="ui sixteen wide column">
                                                 <div className="boutons sommaire">
                                                 {
-                                                    proposition.etat === 'ACCEPTE' && <div
-                                                        className="ui medium button inverse accepte">
+                                                    proposition.etat === 'ACCEPTE' && <div // Affichage désactivé (fonctionnalité à venir)
+                                                        className="ui medium button inverse accept">
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
                                                 }
-                                                    {!nouveauDisabled && (
-                                                        <div
-                                                            className="ui medium button inverse">
-                                                            {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
-                                                    )}
-                                                    {!continuerDisabled && (
+                                                <div style={{textAlign: "right"}}>
+                                                    { (!continuerDisabled || !nouveauDisabled) && (
                                                         <div className={`ui medium button inverse`} onClick={
                                                             () => {
-                                                                utils.naviguerVersPoursuivrePartage(this.state.propositions[this.state.propositions.length - 1].uuid)
+                                                                utils.naviguerVersNouveauPartage(this.state.mediaId)
                                                             }
                                                         }>
-                                                            {t('flot.split.documente-ton-oeuvre.proposition.continuer')}</div>
-                                                    )
+                                                            {t('flot.split.documente-ton-oeuvre.proposition.nouvelle-version')}</div>
+                                                        )
                                                     }
                                                     {!envoiDisabled && (
                                                         <div
@@ -372,6 +380,7 @@ class SommairePartages extends Component {
                                                             className="ui medium button envoyer sommaire">
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
                                                     )}
+                                                </div>                                                
                                                 </div>
                                             </div>
                                             </div>

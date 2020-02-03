@@ -15,6 +15,7 @@ class InfoBulle extends Component {
             ouvert: props.ouvert, // attribut état interne, quand appellé étant changé
             orientation: props.orientation || "top center",
             style: props.style || {}
+            
         }
         this.setXY = this.setXY.bind(this)
         this.handleMouseIn = this.handleMouseIn.bind(this) // (): appel de la fonction, (this): fonction

@@ -6,6 +6,9 @@
       "supprimer": "Delete"
     }
   },
+  "accordeon": {
+    "version-proposee": "Version proposée"
+  },
   "info": {
     "oeuvre": {
       "creation": "Work # {{id}} created. :)"
@@ -15,11 +18,16 @@
     }
   },
   "options": {
+    "modifier": "Edit",
+    "ajouter": "Add",
     "piece": {
       "titre": "This work is...",
       "originale": "An original creation",
       "arrangement": "A remix",
       "reprise": "A cover"
+    },
+    "supprimer": {
+      "fichier": "Delete this file?"
     }
   },
   "titre": {
@@ -126,6 +134,11 @@
     "par": "by"
   },
   "navigation": {
+    "vote": {
+      "requis": "{{nb}}/{{total}} vote{{nombre}} required"
+    },
+    "enregistrer": "Save",
+    "plus-tard": "Later",
     "suivant": "Next",
     "retour": "Back",
     "envoi": "Submit",
@@ -159,6 +172,9 @@
     }
   },
   "flot": {
+    "invitations": {
+      "envoyees": "Thanks, your invites are sent."
+    },
     "acr": {
       "titre": "Your musical work is recognized",
       "oui": "Let's do this !",
@@ -206,7 +222,7 @@
         "ACCEPTE": "Approved",
         "BROUILLON": "In progress",
         "PRET": "Waiting to be sent",
-        "INCONNU": "Unknown",
+        "NOUVEAU": "New",
         "ATTENTE": "Waiting"
       },
       "valider": {
@@ -279,6 +295,7 @@
         }
       },
       "navigation": {
+        "plus-tard": "Later",
         "suivant": "Next",
         "envoi": "Submit",
         "precedent": "Previous",
@@ -672,7 +689,8 @@
       },
       "action": {
         "commencer": "Start",
-        "continuer": "Continue"
+        "continuer": "Continue",
+        "sommaire": "Summary"
       },
       "vote": {
         "accept": "Approved",

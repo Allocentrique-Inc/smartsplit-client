@@ -7,6 +7,8 @@ import ModifyUser from "../auth/ModifyUser"
 import "../../assets/scss/page-assistant/champ.scss"
 import TitreChamp from "./titre-champ"
 import { withTranslation } from "react-i18next"
+// eslint-disable-next-line
+import {journal, AyantsDroit} from '../../utils/application'
 
 // eslint-disable-next-line
 const NOM = "ChampSelectionMultipleAyantDroit"
@@ -182,8 +184,8 @@ class ChampSelectionMultipleAyantDroit extends Component {
               this.setState({ modalOpen: false, modalFirstName: "" })
             }
             fn={
-              /** foction de rappel après ajout. */
-              (rightHolderId) => {                
+              /** fonction de rappel après ajout. */
+              (rightHolderId) => {
                 let values = this.state.selectedValues
                 values.push(rightHolderId)
                 this.setState({ selectedValues: values })

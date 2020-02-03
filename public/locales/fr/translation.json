@@ -20,6 +20,11 @@
       "originale": "Une création originale",
       "arrangement": "Une adaptation (remix)",
       "reprise": "Une interprétation (cover)"
+    },
+    "modifier": "Modifier",
+    "ajouter": "Ajouter",
+    "supprimer": {
+      "fichier": "Supprimer ce fichier ?"
     }
   },
   "titre": {
@@ -117,7 +122,15 @@
     "artistName": "Nom d'artiste",
     "par": "par"
   },
+  "accordeon": {
+    "version-proposee": "Version proposée"
+  },
   "navigation": {
+    "vote": {
+      "requis": "{{nb}}/{{total}} vote{{nombre}} requis"
+    },
+    "enregistrer": "Enregistrer",
+    "plus-tard": "Plus tard",
     "suivant": "Suivant",
     "retour": "Retour",
     "envoi": "Soumettre",
@@ -151,6 +164,9 @@
     }
   },
   "flot": {
+    "invitations": {
+      "envoyees": "Merci, les invitations ont été envoyées."
+    },
     "acr": {
       "titre": "Ta pièce musicale a été reconnue",
       "oui": "D'accord !",
@@ -198,7 +214,7 @@
         "ACCEPTE": "Approuvée",
         "BROUILLON": "En rédaction",
         "PRET": "En attente d'envoi",
-        "INCONNU": "Inconnu",
+        "NOUVEAU": "Nouveau",
         "ATTENTE": "En attente"
       },
       "valider": {
@@ -279,7 +295,7 @@
           "accepter": "Accepter"
         }
       },
-      "navigation": {
+      "navigation": {        
         "suivant": "Suivant",
         "envoi": "Soumettre",
         "precedent": "Précédent",
@@ -393,7 +409,7 @@
           "master-placeholder": "Ajouter un technicien",
           "studio": "Studio d'enregistrement  ",
           "studio-description": "Le lieu où la chanson a été enregistrée.",
-          "studio-placeholder": "Recherche d'un studio d'enregistrement",
+          "studio-placeholder": "Nom du studio d'enregistrement",
           "studio-adresse": "Adresse du studio d'enregistrement",
           "production": "Producteur exécutif  ",
           "production-description": "La personne qui investi temps et argent pour rendre l'enregistrement sonore possible.",
@@ -673,7 +689,8 @@
       },
       "action": {
         "commencer": "Commencer",
-        "continuer": "Continuer"
+        "continuer": "Continuer",
+        "sommaire": "Sommaire"
       },
       "vote": {
         "accept": "Approuvé",
@@ -762,7 +779,7 @@
   "entete": {
     "connexion": "Connexion",
     "inscription": "Inscription",
-    "encours": "Connexion en cours...",
+    "encours": "Traitement en cours...",
     "sommaire": "Voir le résumé",
     "partage": "Partager"
   },

@@ -1,6 +1,6 @@
 import {config, AyantsDroit, Identite} from '../../utils/application'
 import React, {Component} from 'react'
-import { Wizard } from "semantic-ui-react-formik-iptoki"
+import { Wizard } from "../formulaires/assistant"
 import { withTranslation } from 'react-i18next'
 import PageAssistantPartageEditeurChoix from './partage-editeur-selection'
 import PageAssistantPartageEditeurPart from './partage-editeur-part'

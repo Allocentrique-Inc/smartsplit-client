@@ -43,7 +43,7 @@ class Beignet extends Component {
         let _d = {}
         let _c = {}
         let _a = {}
-        if (props.data && props.data.length > 0) {
+        if (props.data) {
             let accomp = false
             props.data.forEach(elem => {
                 let nom

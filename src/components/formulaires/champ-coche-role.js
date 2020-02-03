@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Form } from "semantic-ui-react"
-import { Wizard } from 'semantic-ui-react-formik-iptoki'
+import { Wizard } from '../formulaires/assistant'
 
 export default class CochesRolesDroit extends Component {
     

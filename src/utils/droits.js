@@ -2,7 +2,9 @@ import AideRoles from "./roles";
 // eslint-disable-next-line
 import { journal } from '../utils/application'
 
-const PAROLES = "lyrics", MUSIQUE = "music";
+const PAROLES = "lyrics", 
+      MUSIQUE = "music",
+      AUTEUR = "workCopyrightSplit"      
 // eslint-disable-next-line
 const NOM = "AideDroits"
 
@@ -13,12 +15,16 @@ export default class AideDroits {
     this.MUSIQUE = MUSIQUE
   }
 
+  droitAuteur() {
+    return AUTEUR
+  }
+
   nomSousTypeParoles() {
-    return PAROLES;
+    return PAROLES
   }
   
   nomSousTypeMusique() {
-    return MUSIQUE;
+    return MUSIQUE
   }
   
   arborescenceDroits() {

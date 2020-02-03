@@ -124,11 +124,12 @@ class ModifyUser extends Component {
     let username = this.state.email
     let password = this.randomPassword()
     Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes},
-      async (res) => {
+      false,
+      async (rightHolderId) => {        
         await AyantsDroit.rafraichirListe( ()=>{
-            this.fermerModale()
+          this.fermerModale()            
           if (this.props.fn) {
-            this.props.fn(res)
+            this.props.fn(rightHolderId)
           }
         })
       }
