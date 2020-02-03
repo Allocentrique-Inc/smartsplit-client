@@ -36,7 +36,8 @@ class SommairePartages extends Component {
             panneau: PANNEAU_PROPOSITIONS,
             modaleConnexion: false,
             modaleNouvelle: false,
-            modaleCourriels: props.envoyer
+            modaleCourriels: props.envoyer,
+            fermerInfobulleEditeur: false
         }
         this.initialisation = this.initialisation.bind(this)
         this.clic = this.clic.bind(this)
@@ -115,14 +116,13 @@ class SommairePartages extends Component {
             case ETAT_EDITEUR_PLUSTARD:
                 this.setState({ fermerInfobulleEditeur: true })
                 break;
-            default:
-
+            default:                
         }
     }
 
     render() {
 
-        let t = this.props.t, i18n = this.props.i18n
+        let t = this.props.t, i18n = this.props.i18n        
 
         if (this.state.propositions && this.state.media) {
             let propositions = []
@@ -167,7 +167,8 @@ class SommairePartages extends Component {
 
             // eslint-disable-next-line
             let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
-            let partageEditeur = false, fermerInfobulleEditeur = false
+            let partageEditeur = false, fermerInfobulleEditeur = this.state.fermerInfobulleEditeur
+            let partageEditeurEnCours = false
 
             if (this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
@@ -194,15 +195,13 @@ class SommairePartages extends Component {
                     if (estCollaborateur) {
                         partageEditeur = true
                         // Seulement si une part n'est pas déjà attribuée à un éditeur
-                        let partageEditeurEnCours = false
                         if(_p.partagesTiers) {                            
-                            _p.partagesTiers.forEach(part=>{
+                            _p.partagesTiers.forEach(part=>{                        
                                 if(part.rightHolderId===Identite.usager.username){
                                     partageEditeurEnCours = true
                                 }
                             })                            
-                        }
-                        fermerInfobulleEditeur = partageEditeurEnCours
+                        }                        
                     }
                 }
             }
@@ -237,7 +236,7 @@ class SommairePartages extends Component {
                                 <span
                                     className={`cliquable`}
                                     onClick={() => {
-                                        if (partageEditeur) this.afficherPanneauEditeur()
+                                        if (partageEditeur) {this.afficherPanneauEditeur()}                                        
                                     }}
                                     style={{ fontSize: "16px", color: souligneCollaborateur ? "black" : "", cursor: !partageEditeur ? "not-allowed" : "pointer" }}
                                 >
@@ -276,7 +275,7 @@ class SommairePartages extends Component {
                                 </>
                             }
                             orientation="bottom center"
-                            ouvert={partageEditeur && !fermerInfobulleEditeur}
+                            ouvert={partageEditeur && !fermerInfobulleEditeur && !partageEditeurEnCours}
                         />
 
                     </div>
@@ -335,6 +334,8 @@ class SommairePartages extends Component {
             // Désactive le bouton du contrat
             // eslint-disable-next-line
             let contratEnabled = false
+
+            console.log('Modale éditeur ouverte : ', partageEditeur && !fermerInfobulleEditeur)
 
             return (
                 <div>
