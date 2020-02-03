@@ -146,7 +146,7 @@ class SommairePartages extends Component {
                                 {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
                             </div>
                             <div className="version">                                
-                                &nbsp; Version {idx + 1} <span style={{marginLeft: "1rem"}} className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
+                                &nbsp; Version {idx + 1} &nbsp; <span className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
                                     {t(`flot.split.etat.${elem.etat}`)}
                                     </span>
                                     </div>
@@ -157,7 +157,7 @@ class SommairePartages extends Component {
                                 </span>
                             </div>
                         </Accordion.Title>
-                        <Accordion.Content active={accordionIsOpen} style={{padding: "0rem", paddingTop: "1rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
+                        <Accordion.Content active={accordionIsOpen} style={{padding: "1rem 0rem 0rem"}} >
                             <SommairePartage lectureSeule={elem.uuid !== _p0.uuid} ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                         </Accordion.Content>
                     </div>
@@ -342,7 +342,7 @@ class SommairePartages extends Component {
                         <div className="ui grid sommaire">
                             <div className="ui row">
                                 <div className="ui twelve wide column">
-                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume')}{this.state.media.title}</h1>    
+                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.valider')}{this.state.media.title}</h1>    
                                 </div>
                             </div>
                             <div className="affichage">

@@ -503,7 +503,7 @@
           "partage-titre": "Copyright Sharing",
           "documentation": "Documentation",
           "enregistrerEtQuitter": "Save and Quit",
-          "vote-titre": "Validate the share proposal"
+          "vote-titre": "Validate the share proposal of {{oeuvre}}"
         },
         "partage": {
           "auteur": {

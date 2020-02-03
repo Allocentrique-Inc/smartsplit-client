@@ -376,11 +376,6 @@
   padding-top: 40px;
 }
 
-.version {
-  font-weight: 18px;
-  display: flex;
-}
-
 .small-400.creation,
 .small-500-color {
   display: inline-block;
@@ -563,6 +558,7 @@ font-size: 12px;
   font-size: 18px;
   line-height: 24px;
   color: #203548;
+  display: flex;
 }
 
 .ui.dividing.header {
@@ -706,3 +702,8 @@ padding: 0 0 0 1rem;
 .ui.medium.button.inverse.accepte {
   margin-left: 0px;
 }
+
+.ui.row.parts  {
+  text-align: right;
+}
+

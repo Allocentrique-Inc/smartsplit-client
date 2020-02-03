@@ -139,7 +139,7 @@ class SommaireDroit extends Component {
                                             )
                                         }
                                     </div>
-                                    <div className="ui row" style={{textAlign: "right"}}>
+                                    <div className="ui row parts">
                                         <i>{part.raison ? part.raison : ""}</i>
                                     </div>
                                 </div>
