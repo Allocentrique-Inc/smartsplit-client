@@ -73,8 +73,9 @@ class SommairePartagesEditeur extends Component {
                 const accordionIsOpen = idx === this.state.activeIndex;
                 journal.debug(NOM, `État : ${elem.etat}`)
                 return (
-                    <div key={`sommaire_${idx}`}>
+                    <div className="ui grid" key={`sommaire_${idx}`}>
                         <div className="ui row">
+                            <div className="ui sixteen wide column">
                             <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
                             <div className="fleche">
                                 {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
@@ -87,10 +88,10 @@ class SommairePartagesEditeur extends Component {
                             </Accordion.Title>
                             <Accordion.Content active={this.state.activeIndex === idx} style={{padding: "1rem 0rem 0rem"}}>                                    
                                                                           
-                                        <PartageSommaireEditeur idx={idx} ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />
-                                    
-                                                                   
+                                        <PartageSommaireEditeur idx={idx} ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />                    
                             </Accordion.Content>
+                            </div>
+                            
                         </div>
                     </div>
                 )

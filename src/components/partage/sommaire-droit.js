@@ -162,7 +162,7 @@ class SommaireDroit extends Component {
                                         (
                                             <div className="ui grid">
                                                 <div className="ui row">
-                                                    <div className="ui sixteen wide column">
+                                                    <div className="ui fourteen wide column">
                                                         <i>{part.raison ? part.raison : ""}</i>
                                                         <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
                                                             onClick={() => {
@@ -221,7 +221,7 @@ class SommaireDroit extends Component {
                     <div className="ui row" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
                         <div className="ui eight wide column">
                             <div className="wizard-title types" style={{margin: "10px 0 0 1rem"}}>
-                                <div className="ui column icon">
+                                <div className="ui column icon" style={{marginRight:"2rem"}}>
                                 {Icon}
                                 </div>
                                 <div className="ui column titre">

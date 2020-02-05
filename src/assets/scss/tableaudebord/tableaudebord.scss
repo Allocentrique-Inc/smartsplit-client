@@ -429,10 +429,13 @@ font-size: 12px;
 
 .role {
   color: #687a8b;
+  display: inline;
 }
 
 .vote {
   font-weight: bold;
+  display: inline;
+  float: right;
 }
 
 .role,
@@ -450,6 +453,10 @@ font-size: 12px;
 .role,
 .holder-name.sommaire {
   font-weight: normal;
+}
+
+.statut {
+  float: right;
 }
 
 .holder-name.sommaire,
@@ -637,12 +644,9 @@ background-color: #DFF8E3;
 
 .wizard-title.types {
   padding: 1rem;
+  display: flex;
+  position: relative;
 }
-
-.ui.column.icon {
-  margin-right: 1rem;
-}
-
 
 .ui.eight.wide.column.parts {
   padding: 1rem;
