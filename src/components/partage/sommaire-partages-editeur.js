@@ -70,7 +70,8 @@ class SommairePartagesEditeur extends Component {
                 if (!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
             propositions = this.state.propositions.map((elem, idx) => {    
-                const accordionIsOpen = idx === this.state.activeIndex;            
+                const accordionIsOpen = idx === this.state.activeIndex;
+                journal.debug(NOM, `État : ${elem.etat}`)
                 return (
                     <div key={`sommaire_${idx}`}>
                         <div className="ui row">
@@ -79,17 +80,16 @@ class SommairePartagesEditeur extends Component {
                                 {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
                             </div>
                             <div className="version">
-                            &nbsp; Version {idx + 1} - <span className={(t(`flot.split.etat.${elem.etat}`) === 'ACCEPTE') ? "sommaire-approuve" : (t(`flot.split.etat.${elem.etat}`) === 'REFUSE') ? "sommaire-desaprouve" : (t(`flot.split.etat.${elem.etat}`) === 'PRET') ? "sommaire-envoie" : (t(`flot.split.etat.${elem.etat}`) === 'BROUILLON') ? "sommaire-attente" : "flot.split.etat.INCONNU"}>
-                            </span>
-                           {/*  {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}       */}                                  
+                            &nbsp; Version {idx + 1} <span className={( elem.etat  === 'ACCEPTE') ? "sommaire-approuve" : ( elem.etat  === 'REFUSE') ? "sommaire-desaprouve" : ( elem.etat  === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
+                                {t( `flot.split.etat.${elem.etat}`)} 
+                            </span>                               
                                 </div>
                             </Accordion.Title>
-                            <Accordion.Content active={this.state.activeIndex === idx}>                                    
-                                <div className="ui row">
-                                    <div className="ui one wide column" />                                            
+                            <Accordion.Content active={this.state.activeIndex === idx} style={{padding: "1rem 0rem 0rem"}}>                                    
+                                                                          
                                         <PartageSommaireEditeur idx={idx} ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />
-                                    <div className="ui one wide column" />
-                                </div>                                    
+                                    
+                                                                   
                             </Accordion.Content>
                         </div>
                     </div>

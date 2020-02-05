@@ -341,7 +341,7 @@ class SommairePartages extends Component {
                     <div className="ui container">
                         <div className="ui grid sommaire">
                             <div className="ui row">
-                                <div className="ui twelve wide column">
+                                <div className="ui eight wide column">
                                     <h1>{t('flot.split.documente-ton-oeuvre.proposition.valider')}{this.state.media.title}</h1>    
                                 </div>
                             </div>

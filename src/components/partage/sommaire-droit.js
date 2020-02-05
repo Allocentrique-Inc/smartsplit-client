@@ -104,47 +104,55 @@ class SommaireDroit extends Component {
                 _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
                 _parts.push(
                     <div key={`part--${this.state.type}_${uuid}_${idx}`}>
-                        <div className="ui grid">
-                            <div className="ui row">
-                                <div className="ui two wide column avatar">
-                                    <img alt="" className="ui spaced avatar image sommaire" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
-                                </div>
-                                <div className="ui fourteen wide column">
-                                    <div className="ui row">
-                                        <div className="holder-name sommaire">
-                                            {part.nom}
-                                        </div>                                                                               
-                                        <div className="vote">
-                                            <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
-                                                {parseFloat(part.sommePct).toFixed(2) + "%"}
-                                            </span>
-                                        </div>
-                                    </div>                                    
-                                    <div className="ui row">
-                                        <div className="role">
-                                            {
-                                                part.roles.map((_e, idx) => {
-                                                    return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
-                                                })
-                                            }
-                                        </div>
-                                        <div className="statut">
-                                            <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}>
-                                                {t(`flot.split.vote.${part.vote}`)}
-                                            </div>
-                                        </div>   
+
+
+                <div className="ui grid">
+                <div className="ui row">
+
+                <div className="ui two wide column">
+                <img alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
+                </div>
+
+                <div className="ui six wide column">
+                <div className="holder-name sommaire">
+                {part.nom}
+                </div>   
+
+                <div className="role">
+                {
+                part.roles.map((_e, idx) => {
+                return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
+                })
+                }
+                </div>
+
+                </div>
+
+                <div className="ui four wide column">
+                <div className="vote">
+                <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
+                {parseFloat(part.sommePct).toFixed(2) + "%"}
+                </span>
+                </div> 
+
+                <div className="statut">
+                <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}>
+                {t(`flot.split.vote.${part.vote}`)}
+                </div>
+                </div>  
+
+                </div>
+                </div>
+                </div>
                                         {
                                             Object.keys(this.state.donnees).length - 1 !== idx && (
                                                 <div className="ui section divider sommaire" />
                                             )
-                                        }
-                                    </div>
+                                        }      
                                     <div className="ui row parts">
                                         <i>{part.raison ? part.raison : ""}</i>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />
                         {
                             uuid === this.state.ayantDroit.rightHolderId && (
@@ -154,8 +162,7 @@ class SommaireDroit extends Component {
                                         (
                                             <div className="ui grid">
                                                 <div className="ui row">
-                                                    <div className="ui two wide column" />
-                                                    <div className="ui fourteen wide column">
+                                                    <div className="ui sixteen wide column">
                                                         <i>{part.raison ? part.raison : ""}</i>
                                                         <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
                                                             onClick={() => {
@@ -211,28 +218,28 @@ class SommaireDroit extends Component {
                 <>
                 <div className="ui section divider sommaire" />
                 <div className="ui grid">
-                    <div className="ui row body" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
+                    <div className="ui row" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
                         <div className="ui eight wide column">
-                            <div className="wizard-title types">
-                                <div className="ui column">
+                            <div className="wizard-title types" style={{margin: "10px 0 0 1rem"}}>
+                                <div className="ui column icon">
                                 {Icon}
                                 </div>
                                 <div className="ui column titre">
                                     {t(`flot.split.droits.titre.${this.state.titre}`)}
-                                </div>
-                                {
+                                    {
                                     _parts.length > 0 && peutModifier && (
                                         <div 
-                                            className="ui medium button inverse" 
-                                            style={{ right: "0px", position: "absolute", top: "0.25rem", height: "3rem" }}
+                                            className="ui medium button inverse modifier" 
                                             onClick={()=>{
                                                 utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
                                             }}>
                                             <img src={editIcon} alt={t('options.modifier')} />
-                                            <span style={{position: "relative", top: "-0.375rem", left: "0.375rem"}}>{t('options.modifier')}</span>
+                                            <span className="modifier">{t('options.modifier')}</span>
                                         </div>
                                     )
                                 }
+                                </div>
+                                
                                 {
                                     _parts.length === 0 && peutModifier && (
                                         <div 
