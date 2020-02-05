@@ -220,11 +220,11 @@ class SommaireDroit extends Component {
                 <div className="ui grid">
                     <div className="ui row" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
                         <div className="ui eight wide column">
-                            <div className="wizard-title types" style={{margin: "10px 0 0 1rem"}}>
-                                <div className="ui column icon" style={{marginRight:"2rem"}}>
+                            <div className="wizard-title" style={{margin: "10px 0 0 1rem"}}>
+                                <div className="icon" style={{marginRight:"2rem"}}>
                                 {Icon}
                                 </div>
-                                <div className="ui column titre">
+                                <div className="titre">
                                     {t(`flot.split.droits.titre.${this.state.titre}`)}
                                     {
                                     _parts.length > 0 && peutModifier && (
