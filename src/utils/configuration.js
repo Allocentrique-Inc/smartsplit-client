@@ -20,7 +20,7 @@ export default class Configuration {
         this.BASE_POCHETTE = process.env.REACT_APP_BASE_POCHETTE
         journal.silly(NOM, "Construction de la configuration")
         journal.silly(NOM, `URL de l'API : ${this.API_URL}`)
-        journal.silly(NOM, `Moteur d'identités (AWS) : ${this.AWS_REGION}, ${this.AWS_USERPOOLID} : ${this.AWS_USERPOOLWEBID}`)
+        journal.silly(NOM, `Moteur d'identités (Local) : jeton: ${window.localStorage.getItem("jeton-api")}`)
         journal.silly(NOM, `Serveurs d'images (AWS) : ${this.IMAGE_SRV_URL} ${this.IMAGE_SRV_ARTISTES_URL}`)
         journal.silly(NOM, `Serveur de traitement de fichiers : ${this.FICHIERS_SRV_URL}`)
         journal.silly(NOM, `Contexte : ${this.CONTEXTE === "1" ? "Web" : "Natif"}, application : ${this.BASE}, documentation : ${this.BASE_POCHETTE}`)

@@ -1,7 +1,7 @@
 import "./beignet.css"
 import CopyrightGrey from './CopyrightGrey.png'
-import StarGrey from './RecordGrey.png'
-import RecordGrey from './StarGrey.png'
+import StarGrey from './StarGrey.png'
+import RecordGrey from './RecordGrey.png'
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
 import {AyantsDroit} from "../../../utils/application"
