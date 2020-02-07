@@ -104,7 +104,7 @@ class SommaireDroit extends Component {
                 _parts.push(
                     <div key={`part--${this.state.type}_${uuid}_${idx}`}>
                         <div className="ui grid">
-                            <div className="ui row">
+                            <div className="ui row" style={{paddingBottom: "0rem"}}>
                                 <div className="ui two wide column" style={{padding: "0 0 0 1rem"}}>
                                     <img style={{margin: "0.5rem 0 0 1rem"}} alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
                                 </div>
@@ -131,64 +131,57 @@ class SommaireDroit extends Component {
                                             <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}>
                                                 {t(`flot.split.vote.${part.vote}`)}
                                             </div>
-                                        </div>   
-                                        {
-                                            Object.keys(this.state.donnees).length - 1 !== idx && (
-                                                <div className="ui section divider sommaire" style={{marginTop: "1rem", marginBottom: "1rem"}} />
-                                            )
-                                        }
+                                        </div>                                           
                                     </div>
                                     <div className="ui row" style={{textAlign: "right"}}>
                                         <i>{part.raison ? part.raison : ""}</i>
                                     </div>
+                                    { uuid === this.state.ayantDroit.rightHolderId && !this.state.voteTermine && (
+                                        <div className="ui row" style={{paddingTop: "1.5rem"}}>
+                                            <div className="ui two wide column" />
+                                            <div className="ui fourteen wide column">
+                                                <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
+                                                    onClick={() => {
+                                                        this.setState({ accepter: false })
+                                                        this.setState({ refuser: true })
+                                                        this.voter(false)
+                                                    }}>
+                                                    {t('flot.split.vote.refuser')}
+                                                </div>
+                                                <div className={`ui button medium vote accepte ${this.state.accepter ? 'actif' : ''}`}
+                                                    onClick={() => {
+                                                        this.setState({ accepter: true })
+                                                        this.setState({ refuser: false })
+                                                        this.voter(true)
+                                                    }}>{t('flot.split.vote.accepter')}</div>
+                                                {this.state.refuser && (
+                                                    <textarea
+                                                        className="raison refus"
+                                                        cols={30}
+                                                        rows={2}
+                                                        placeholder={t("flot.split.valider.pourquoi")}
+                                                        onChange={(e) => {
+                                                            this.state.parent.refuser(this.state.type, e.target.value)
+                                                        }}>
+                                                    </textarea>
+                                                )}
+                                            </div>                                                    
+                                        </div>
+                                    )}
+                                </div>                                
+                            </div>
+                            <div className="ui row">
+                                <div className="ui two wide column" />
+                                <div className="ui fourteen wide column">
+                                {
+                                    Object.keys(this.state.donnees).length - 1 !== idx && (
+                                        <div className="ui section divider sommaire" style={{marginTop: "0rem", marginBottom: "1rem"}} />
+                                    )
+                                }
                                 </div>
                             </div>
                         </div>
-                        <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />
-                        {
-                            uuid === this.state.ayantDroit.rightHolderId && (
-                                <>
-                                    {
-                                        !this.state.voteTermine &&
-                                        (
-                                            <div className="ui grid">
-                                                <div className="ui row">
-                                                    <div className="ui two wide column" />
-                                                    <div className="ui fourteen wide column">
-                                                        <i>{part.raison ? part.raison : ""}</i>
-                                                        <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
-                                                            onClick={() => {
-                                                                this.setState({ accepter: false })
-                                                                this.setState({ refuser: true })
-                                                                this.voter(false)
-                                                            }}>
-                                                            {t('flot.split.vote.refuser')}
-                                                        </div>
-                                                        <div className={`ui button medium vote accepte ${this.state.accepter ? 'actif' : ''}`}
-                                                            onClick={() => {
-                                                                this.setState({ accepter: true })
-                                                                this.setState({ refuser: false })
-                                                                this.voter(true)
-                                                            }}>{t('flot.split.vote.accepter')}</div>
-                                                        {this.state.refuser && (
-                                                            <textarea
-                                                                className="raison refus"
-                                                                cols={30}
-                                                                rows={2}
-                                                                placeholder={t("flot.split.valider.pourquoi")}
-                                                                onChange={(e) => {
-                                                                    this.state.parent.refuser(this.state.type, e.target.value)
-                                                                }}>
-                                                            </textarea>
-                                                        )}
-                                                    </div>                                                    
-                                                </div>
-                                            </div>
-                                        )
-                                    }
-                                </>
-                            )
-                        }
+                        <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />                        
                     </div>
                 )
             })
@@ -245,10 +238,8 @@ class SommaireDroit extends Component {
                             </div>
                             {
                                 _parts && _parts.length > 0 && (
-                                    <div className="ui row">
-                                        <div className="ui eight wide column" style={{padding: "1rem", marginTop: "0px"}}>
+                                    <div className="ui row" style={{padding: "1rem", marginTop: "0px"}}>                                        
                                         {_parts}
-                                        </div>                            
                                     </div>
                                 )
                             }

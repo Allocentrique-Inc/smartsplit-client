@@ -179,24 +179,26 @@ class PageAssistantPartageEditeur extends Component {
         return (            
             <div className="ui grid">          
                 <div className="ui row">
-                    <div className="ui seven wide column">
+                    <div className="ui eight wide column">
                         <div className="mode--partage__auteur">
                             <div className="who-invented-title">
                                 { t('flot.split.partage.editeur.titre-part') }
                             </div>
-                            <br/>
-                            {descriptif}
-                            <br/>
-
+                            <div>
+                                {descriptif}
+                            </div>
                             <span className="pourcentage-wrapper">
-                                <div className="ui grid">
-                                    <div className="ui row fields gray-fields">
-                                        <div className="holder-name">
-                                            <img alt="avatar" className="ui spaced avatar image" src={userAvatar}/>
-                                            {this.state.ayantDroit.nom}
+                                <div className="ui grid fields gray-fields">
+                                    <div className="ui row">
+                                        <div className="ui sixteen wide column">
+                                            <div className="holder-name">
+                                                <img alt="avatar" className="ui spaced avatar image" src={userAvatar}/>
+                                                {this.state.ayantDroit.nom}
+                                            </div>
                                         </div>
-                                        <br/>
-                                        <div className="ui eleven wide column">
+                                    </div>
+                                    <div className="ui row">
+                                        <div className="ui twelve wide column">
                                             <ChampGradateurAssistant                                                        
                                                 changement={(id, delta)=>{this.changementGradateur(id, delta)}}
                                                 id={`gradateur_ayantDroit`}
@@ -204,7 +206,6 @@ class PageAssistantPartageEditeur extends Component {
                                                 min={50}                                                        
                                             />
                                         </div>
-
                                         <div className="ui four wide column">
                                             <ChampTexteAssistant                                                                                                                            
                                                 id={`texte_ayantdroit`}
@@ -215,7 +216,7 @@ class PageAssistantPartageEditeur extends Component {
                                                 }}
                                                 modele="ayantDroit.pourcent"
                                                 valeur={this.props.values.ayantDroit.pourcent}                                                        
-                                            />                                                                                                                        
+                                            />
                                         </div>
                                         {
                                             document.getElementsByName("ayantDroit.pourcent").forEach((e, idx)=>{                                                                                                                                
@@ -227,12 +228,15 @@ class PageAssistantPartageEditeur extends Component {
                                             })
                                         }
                                     </div>
-                                    <div className="ui row fields gray-fields">
-                                        <div className="holder-name">
-                                            <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
-                                            {this.state.editeur.nom}
+                                    <div className="ui row">
+                                        <div className="ui sixteen wide column">
+                                            <div className="holder-name">
+                                                <img alt="avatar" className="ui spaced avatar image" src={avatar}/>
+                                                {this.state.editeur.nom}
+                                            </div>
                                         </div>
-                                        <br/>
+                                    </div>
+                                    <div className="ui row">
                                         <div className="ui eleven wide column">
                                             <ChampGradateurAssistant
                                                 changement={(id, delta)=>{this.changementGradateur(id, delta)}}
@@ -241,7 +245,6 @@ class PageAssistantPartageEditeur extends Component {
                                                 max={50}                                                        
                                             />
                                         </div>
-
                                         <div className="ui four wide column">
                                             <ChampTexteAssistant                                                                                                                            
                                                 id={`texte_editeur`}

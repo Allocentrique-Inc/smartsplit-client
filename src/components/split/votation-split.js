@@ -72,7 +72,7 @@ class VotationSplit extends Component {
                                 <div className="heading2" style={{margin: "0rem"}}>{t('flot.split.documente-ton-oeuvre.etape.vote-titre', {oeuvre: this.state.media.title})}</div>
                             </div>
                             <div className="ui two wide column" />
-                        </div>                        
+                        </div>
                         <div className="ui row" style={{marginBottom: "3rem"}}>
                             <div className="ui two wide column" />
                             <div className="ui twelve wide column">
