@@ -17,6 +17,7 @@ class ModaleEmbarquementEntreprise extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      fnApres: props.fnApres,      
       groups: [],
       image: "",
       firstName: "",
@@ -94,7 +95,7 @@ class ModaleEmbarquementEntreprise extends Component {
     }
     let username = this.state.email
     let password = this.randomPassword()
-    Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes}, true)
+    Identite.enregistrement({utilisateur: username, secret: password, attributs: attributes}, true, this.props.fnApres)    
   }
 
   onTodoChange(value) {

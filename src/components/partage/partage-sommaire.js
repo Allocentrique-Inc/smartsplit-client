@@ -254,7 +254,7 @@ class SommairePartage extends Component {
                             {droits}
                             {
                                 !this.estVoteClos() &&
-                                (this.state.proposition && this.state.proposition.etat === "VOTATION") &&
+                                (this.state.jetonApi && this.state.proposition && this.state.proposition.etat === "VOTATION") &&
                                 (
                                     <div
                                         style={{

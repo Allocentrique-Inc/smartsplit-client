@@ -127,7 +127,8 @@
   },
   "navigation": {
     "vote": {
-      "requis": "{{nb}}/{{total}} vote{{nombre}} requis"
+      "requis": "{{nb}}/{{total}} vote{{nombre}} requis",
+      "editeur": "Tu dois refuser ou accepter ce partage pour continuer."
     },
     "enregistrer": "Enregistrer",
     "plus-tard": "Plus tard",
@@ -209,8 +210,8 @@
       },
       "etat": {
         "VOTATION": "En attente de décision",
-        "REFUSE": "Refusée",
-        "ACCEPTE": "Approuvée",
+        "REFUSE": "Refusé",
+        "ACCEPTE": "Approuvé",
         "BROUILLON": "En rédaction",
         "PRET": "En attente d'envoi",
         "NOUVEAU": "Nouveau",

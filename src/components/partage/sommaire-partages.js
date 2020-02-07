@@ -148,13 +148,12 @@ class SommairePartages extends Component {
                             <div className="version">                                
                                 &nbsp; Version {idx + 1} <span style={{marginLeft: "1rem"}} className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
                                     {t(`flot.split.etat.${elem.etat}`)}
-                                    </span>
-                                    </div>
+                                </span>
+                                </div>
                             <div>
                                 <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
                                 <div className="small-500-color">{`${elem.initiatorName}`}</div>
-                                <span className="date sommaire">&nbsp;&nbsp;{i18n.language && elem._d ? moment(new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}
-                                </span>
+                                <span className="date sommaire">&nbsp;&nbsp;{i18n.language && elem._d ? moment(new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</span>
                             </div>
                         </Accordion.Title>
                         <Accordion.Content active={accordionIsOpen} style={{padding: "0rem", paddingTop: "1rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
@@ -335,8 +334,6 @@ class SommairePartages extends Component {
             // eslint-disable-next-line
             let contratEnabled = false
 
-            console.log('Modale éditeur ouverte : ', partageEditeur && !fermerInfobulleEditeur)
-
             return (
                 <div>
                     <Navbar pochette={this.props.pochette}
@@ -369,7 +366,7 @@ class SommairePartages extends Component {
                                             <div className="ui sixteen wide column">
                                                 <div className="boutons sommaire">
                                                 {
-                                                    proposition.etat === 'ACCEPTE' && <div // Affichage désactivé (fonctionnalité à venir)
+                                                    proposition.etat === 'ACCEPTE' && contratEnabled && <div // Affichage désactivé (fonctionnalité à venir)
                                                         className="ui medium button inverse"
                                                         style={{ marginLeft: "0px" }}>
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>

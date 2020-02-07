@@ -135,7 +135,8 @@
   },
   "navigation": {
     "vote": {
-      "requis": "{{nb}}/{{total}} vote{{nombre}} required"
+      "requis": "{{nb}}/{{total}} vote{{nombre}} required",
+      "editeur": "You must reject or approve this proposal to continue."
     },
     "enregistrer": "Save",
     "plus-tard": "Later",
