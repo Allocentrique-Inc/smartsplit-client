@@ -37,6 +37,8 @@ async function convertirLocalVersCognito(utilisateur, ayantDroit) {
 }
 
 function convertirCognitoVersLocal(données, éditeur) {
+	const nomComplet = données.attributs.given_name + " " + données.attributs.family_name
+	
     return {
         email: données.utilisateur,
         requestSource: données.attributs["custom:requestSource"],
@@ -51,9 +53,9 @@ function convertirCognitoVersLocal(données, éditeur) {
             email: données.utilisateur,
             requestSource: données.attributs["custom:requestSource"],
             avatarImage: données.attributs["custom:avatarImage"],
-            artistName: données.attributs["custom:artistName"],
-            groups: JSON.parse(données.attributs["custom:groups"]),
-            defaultRoles: JSON.parse(données.attributs["custom:defaultRoles"]),
+            artistName: données.attributs["custom:artistName"] || nomComplet,
+            groups: JSON.parse(données.attributs["custom:groups"] || "[]"),
+            defaultRoles: JSON.parse(données.attributs["custom:defaultRoles"] || "[]"),
             accountCreationType: données.attributs.gender,
             locale: données.attributs.locale,
             editeur: éditeur || false
@@ -96,15 +98,15 @@ export default class AideIdentites {
 
     async enregistrement(params, editeur, fn) {
         try {
-            await axios.post(
+            const utilisateur = await axios.post(
                 `${config.API_URL}user`,
                 convertirCognitoVersLocal(params, editeur)
             )
 
-            await this.connexion(params)
+            // await this.connexion(params)
 
             if(fn)
-                fn(this.usager.username)
+                fn(utilisateur.id)
         } catch(err) {
             journal.error(NOM, err)
         }
