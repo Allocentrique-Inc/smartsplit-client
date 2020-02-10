@@ -15,6 +15,7 @@ import Lock from "./Lock"
 import "../../assets/scss/page-assistant/pages-assistant-partage.scss" //Mettre tout le CSS là
 import { CopyrightSVG } from "../svg/SVG"
 import closeIcon from "../../assets/svg/icons/x.svg"
+import couleurGradateur from "./couleur-gradateur.js"
 
 const MODES = { egal: "0", role: "1", manuel: "2" }
 const COLORS = ["#BCBBF2", "#D9ACF7", "#EBB1DC", "#FFAFA8", "#FCB8C5", "#FAC0AE", "#FFD0A9", "#F8EBA3", "#C6D9AD", "#C6F3B6", "#93E9E4", "#91DDFE", "#A4B7F1"]
@@ -543,9 +544,9 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     </div>
                                                                                 </div>
                                                                                 <div
-                                                                                    className="ui twelve wide column">
+                                                                                    className="ui thirteen wide column">
                                                                                     <div
-                                                                                        className="holder-name">
+                                                                                        className="holder-name auteur">
                                                                                         {part.nom}                                                                                        
                                                                                         <div className="ui one wide column">
                                                                                         <div className="close-icon cliquable" onClick={() => {
@@ -559,7 +560,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                     </div>
                                                                                     </div>
                                                                                     </div>
-                                                                                        <div className="ui divider"></div>
+                                                                                        <div className="ui divider ajout"></div>
                                                                                         <div className="coches--role__droit">
                                                                                             {
                                                                                                 roles.map((elem, idx) => {
@@ -592,11 +593,9 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                             <Lock actif={this.state.partsInvariables[index] || this.props.values.droitAuteur.length === 1} />
                                                                                                         </div>
                                                                                                         <div className="ui ten wide column">
-
                                                                                                             <ChampGradateurAssistant
                                                                                                                 changement={(id, delta) => {
                                                                                                                     // Permet le changment seulement si personne ne sera à zéro
-
 
                                                                                                                     this.changementGradateur(id, delta)
                                                                                                                 }}
@@ -611,6 +610,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                         (this.props.values.droitAuteur.length - Object.keys(this.state.partsInvariables).length)
                                                                                                                     )
                                                                                                                 }
+
                                                                                                             />
 
                                                                                                         </div>

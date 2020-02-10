@@ -128,13 +128,13 @@ class SommaireDroit extends Component {
 
                 </div>
 
-                <div className="ui four wide column">
+                <div className="ui six wide column">
                 <div className="vote">
                 <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
                 {parseFloat(part.sommePct).toFixed(2) + "%"}
                 </span>
                 </div> 
-
+                <br />
                 <div className="statut">
                 <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}>
                 {t(`flot.split.vote.${part.vote}`)}
@@ -221,7 +221,7 @@ class SommaireDroit extends Component {
                     <div className="ui row" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
                         <div className="ui eight wide column">
                             <div className="wizard-title" style={{margin: "10px 0 0 1rem"}}>
-                                <div className="icon" style={{marginRight:"2rem"}}>
+                                <div className="icon" style={{margin: "0 2rem 0 1rem"}}>
                                 {Icon}
                                 </div>
                                 <div className="titre">
