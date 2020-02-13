@@ -137,9 +137,9 @@ class SommaireOeuvre extends Component {
                 }
             }
 
-            let classeEtatDerniererProposition = "NOUVEAU"
+            let classeEtatDerniererProposition = "sommaire-nouveau"
             if(p0) {
-                classeEtatDerniererProposition = (p0.etat === 'ACCEPTE') ? "sommaire-approuve" : (p0.etat === 'REFUSE') ? "sommaire-desaprouve" : (p0.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"
+                classeEtatDerniererProposition = (p0.etat === 'ACCEPTE') ? "sommaire-approuve" : (p0.etat === 'REFUSE' ? "sommaire-desaprouve" : ((p0.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"))
             }
 
             return (                

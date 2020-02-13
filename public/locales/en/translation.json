@@ -7,7 +7,7 @@
     }
   },
   "accordeon": {
-    "version-proposee": "Version proposée"
+    "version-proposee": "Proposed version"
   },
   "info": {
     "oeuvre": {
@@ -135,7 +135,8 @@
   },
   "navigation": {
     "vote": {
-      "requis": "{{nb}}/{{total}} vote{{nombre}} required"
+      "requis": "{{nb}}/{{total}} vote{{nombre}} required",
+      "editeur": "You must reject or approve this proposal to continue."
     },
     "enregistrer": "Save",
     "plus-tard": "Later",
@@ -555,7 +556,8 @@
             "ACCEPTE": "Accepted",
             "REFUSE": "Rejected"
           },
-          "resume": "Validate the split of {{titre}}",
+          "valider": "Validate the split of {{titre}}",
+          "resume": "Split summary ",
           "editer": "Edit",
           "titre": "Send the copyright split",
           "sous-titre": "To finalize this split, you have to invite your collaborators to validate it all. Indicate their email addresses to which you are sending your split proposition.",

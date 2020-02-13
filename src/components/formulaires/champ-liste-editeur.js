@@ -192,15 +192,17 @@ class ChampListeEditeurAssistant extends Component {
                             }
                         })
                     }}
-                    fn={(uuid) => {
-                        this.listeAyantsDroit()
-                        if (this.props.parent && this.props.parent.props.setFieldValue) {
-                            this.props.parent.props.setFieldValue('editeurListe', uuid)                            
-                        }
-                        if (this.props.fnSelect) {
-                            this.props.fnSelect()
-                        }
-                        this.ouvertureListe = false
+                    fnApres={(uuid) => {
+                        AyantsDroit.rafraichirListe(()=>{
+                            this.listeAyantsDroit()
+                            if (this.props.parent && this.props.parent.props.setFieldValue) {
+                                this.props.parent.props.setFieldValue('editeurListe', uuid)                            
+                            }
+                            if (this.props.fnSelect) {
+                                this.props.fnSelect()
+                            }
+                            this.ouvertureListe = false
+                        })                        
                     }}
                 />
             </div>

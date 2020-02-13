@@ -66,7 +66,7 @@ class ChampSelectionMultiple extends Component {
     selectItem(itemValue) {
         const selectedValues = [...this.state.selectedValues];
 
-        if (!selectedValues.includes(itemValue)) {
+        if (itemValue && !selectedValues.includes(itemValue)) {
             selectedValues.push(itemValue);
         }
 
@@ -95,10 +95,14 @@ class ChampSelectionMultiple extends Component {
         return (
             <div className="champ">
                 <label>
-                    <TitreChamp
-                        label={this.props.label}
-                        description={this.props.description}
-                    />
+                    {
+                        this.props.label && (
+                            <TitreChamp
+                                label={this.props.label}
+                                description={this.props.description}
+                            />
+                        )
+                    }                    
                     {this.renderSelectedItems()}
                     <Dropdown
                         placeholder={this.props.placeholder}

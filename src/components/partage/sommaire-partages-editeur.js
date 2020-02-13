@@ -3,12 +3,15 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { withTranslation } from 'react-i18next'
 import 'react-confirm-alert/src/react-confirm-alert.css'
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import Login from '../auth/Login'
-import { Accordion, Icon } from 'semantic-ui-react'
+import { Accordion } from 'semantic-ui-react'
 import AssistantPartageEditeur from './assistant-partage-editeur'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
 import { Modal } from 'semantic-ui-react'
 import {Identite, config, AyantsDroit, journal} from '../../utils/application'
+import { FlecheBasSVG, FlecheHautSVG } from '../svg/SVG.js'
+import moment from 'moment'
 
 const NOM = "SommairePartagesEditeur"
 
@@ -43,7 +46,7 @@ class SommairePartagesEditeur extends Component {
                 journal.error(NOM, err)
             }            
         })
-    }
+    }    
 
     creerNouvelle = (ouvert = true) => {
         this.setState({creerNouveauPartage: ouvert})
@@ -58,7 +61,7 @@ class SommairePartagesEditeur extends Component {
     }
 
     render() {
-        const t = this.props.t
+        const t = this.props.t, i18n = this.props.i18n
         if (this.state.propositions) {
             let propositions = []        
             let _p0
@@ -66,32 +69,51 @@ class SommairePartagesEditeur extends Component {
             this.state.propositions.forEach(elem => {
                 if (!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
-            propositions = this.state.propositions.map((elem, idx) => {                
+            propositions = this.state.propositions.map((elem, idx) => {    
+                const accordionIsOpen = idx === this.state.activeIndex;
+                let ayantDroit = AyantsDroit.ayantsDroit[elem.rightHolderId]
+                let nomInitiateur = AyantsDroit.affichageDuNom(ayantDroit)
                 return (
-                    <div key={`sommaire_${idx}`}>
-                        <div className="ui row" style={{ fontFamily: "IBM Plex Sans" }}>
-                            <Accordion.Title active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
-                                <Icon name='dropdown' />
-                                Version {idx + 1} - {elem.etat ? t(`flot.split.etat.${elem.etat}`) : "flot.split.etat.INCONNU"}                                        
-                            </Accordion.Title>
-                            <Accordion.Content active={this.state.activeIndex === idx}>                                    
-                                <div className="ui row">
-                                    <div className="ui one wide column" />                                            
-                                        <PartageSommaireEditeur idx={idx} ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />
-                                    <div className="ui one wide column" />
-                                </div>                                    
-                            </Accordion.Content>
-                        </div>
+                    <div className="ui row" key={`sommaire_${idx}`}>
+                        <div className="ui sixteen wide column">
+                            <div className="ui row" style={{marginBottom: "1rem"}}>
+                                <Accordion.Title style={{border: "1px solid rgba(34, 36, 38, 0.15)", padding: "1rem 1rem 1rem 0.5rem"}} active={this.state.activeIndex === idx} index={idx} onClick={this.clic}>
+                                    <div className="fleche" style={{paddingRight: "0.5rem", paddingTop: "1rem"}}>
+                                        {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
+                                    </div>
+                                    <div className="version">
+                                    &nbsp; Version {idx + 1} <span style={{marginLeft: "1rem"}} className={( elem.etat  === 'ACCEPTE') ? "sommaire-approuve" : ( elem.etat  === 'REFUSE') ? "sommaire-desaprouve" : ( elem.etat  === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
+                                        {t( `flot.split.etat.${elem.etat}`)}
+                                        </span>                               
+                                    </div>
+                                    <div>
+                                        <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
+                                        <div className="small-500-color">{nomInitiateur}</div>
+                                        <span className="date sommaire">&nbsp;&nbsp;{i18n.language && elem._d ? moment(new Date(parseInt(elem._d)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</span>
+                                    </div>
+                                </Accordion.Title>
+                                <Accordion.Content active={this.state.activeIndex === idx} style={{padding: "0rem", paddingTop: "1rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
+                                    <PartageSommaireEditeur idx={idx} ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />
+                                </Accordion.Content>
+                            </div>                                    
+                        </div>                            
                     </div>
                 )
             })
             propositions = propositions.reverse()
+            // eslint-disable-next-line
             let nouveauDisabled = false
             if (this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
                 if (_p.etat !== 'REFUSE') {
                     nouveauDisabled = true
+                }
+                if (_p.etat === 'BROUILLON' || _p.etat === 'PRET') {
+                    nouveauDisabled = false
+                }
+                if (_p.etat === 'ACCEPTE') {
+                    nouveauDisabled = false
                 }
             }
             if(this.state.propositions.length === 0 || this.state.jetonApi) {
@@ -114,21 +136,10 @@ class SommairePartagesEditeur extends Component {
                         </div>
                     }
                     { !this.state.creerNouveauPartage &&
-                        <div className="ui row">                            
-                            {
-                                !nouveauDisabled && (
-                                    <div className={`ui medium button`} onClick={
-                                        () => {
-                                            this.creerNouvelle()
-                                        }
-                                    }>
-                                        {t('flot.split.documente-ton-oeuvre.proposition.nouvelle')}
-                                    </div>
-                                )
-                            }
+                        <div className="ui row">
                             <div className="ui row">
                                 <div className="ui two wide column" />
-                                <Accordion fluid styled>
+                                <Accordion fluid>
                                     {propositions}
                                 </Accordion>
                                 <div className="ui two wide column" />
@@ -154,7 +165,7 @@ class SommairePartagesEditeur extends Component {
                         <Login fn={() => {
                             if(Identite.usager) {
                                 that.setState({ user: Identite.usager })
-                            }                            
+                            }
                         }} />
                     </Modal>
                 </>                    

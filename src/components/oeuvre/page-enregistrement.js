@@ -299,7 +299,15 @@ class PageEnregistrement extends React.Component {
             )}
             className="search"
             valeurInitiale={this.props.values.studioAddress}
-            auChangement={valeur => this.props.setFieldValue("studioAddress", valeur)}
+            auChangement={(valeur, resultat) => {
+              if(resultat && resultat.title) {
+                // Nom du lieu
+                this.props.setFieldValue("studio", valeur)
+              } else {
+                // Adresse formattée
+                this.props.setFieldValue("studioAddress", valeur)
+              }              
+            }}
           />
           <ChampSelectionMultipleAyantDroit
             pochette={this.props.pochette}
@@ -360,16 +368,22 @@ class PageEnregistrement extends React.Component {
             value={this.props.values.label}
             onChange={value => this.props.setFieldValue("label", value)}
           />
-          <ChampTexte
-            pochette={this.props.pochette}
+          <ChampGooglePlaces
             placeholder={t(
               "flot.split.documente-ton-oeuvre.documenter.etiquette-adresse"
             )}
-            value={this.props.values.labelAddress}
-            onChange={value =>
-              this.props.setFieldValue("labelAddress", value)
-            }
-          />
+            className="search"
+            valeurInitiale={this.props.values.labelAddress}
+            auChangement={(valeur, resultat) => {
+              if(resultat && resultat.title) {
+                // Nom du lieu
+                this.props.setFieldValue("label", valeur)
+              } else {
+                // Adresse formattée
+                this.props.setFieldValue("labelAddress", valeur)
+              }              
+            }}
+          />          
           <ChampTexte
             pochette={this.props.pochette}
             label={t(
@@ -390,16 +404,22 @@ class PageEnregistrement extends React.Component {
               this.props.setFieldValue("distributor", value)
             }
           />
-          <ChampTexte
-            pochette={this.props.pochette}
+          <ChampGooglePlaces
             placeholder={t(
               "flot.split.documente-ton-oeuvre.documenter.distribution-adresse"
             )}
-            value={this.props.values.distributorAddress}
-            onChange={value =>
-              this.props.setFieldValue("distributorAddress", value)
-            }
-          />
+            className="search"
+            valeurInitiale={this.props.values.distributorAddress}
+            auChangement={(valeur, resultat) => {
+              if(resultat && resultat.title) {
+                // Nom du lieu
+                this.props.setFieldValue("distributor", valeur)
+              } else {
+                // Adresse formattée
+                this.props.setFieldValue("distributorAddress", valeur)
+              }              
+            }}
+          />          
           <FormulaireDateSortie
             value={this.props.values.publishDate}
             onChange={value => {

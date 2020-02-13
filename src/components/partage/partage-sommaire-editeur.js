@@ -5,9 +5,10 @@ import Beignet from '../visualisation/partage/beignet'
 import { withTranslation } from 'react-i18next'
 import LogIn from '../auth/Login'
 import { Modal } from 'semantic-ui-react'
-import editIcon from '../../assets/svg/icons/edit.svg'
 // eslint-disable-next-line
 import {Identite, config, AyantsDroit, utils, journal} from '../../utils/application'
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
+import { CopyrightSVG } from '../svg/SVG.js'
 
 // eslint-disable-next-line
 const NOM = "PartageSommaireEditeur"
@@ -17,12 +18,14 @@ class PartageSommaireEditeur extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            parent: props.parent,
             idx: props.idx,
             part: props.part,
             proposition: props.proposition,
             utilisateur: props.ayantDroit,
             jetonApi: props.jetonApi,
             modifierVote: false,
+            titre: props.titre,
             choix: props.part.etat === 'ACCEPTE' ? 'accept' : (props.part.etat === 'REFUSE' ? 'reject' : 'active')
         }
         this.boutonAccepter = this.boutonAccepter.bind(this)
@@ -44,16 +47,12 @@ class PartageSommaireEditeur extends Component {
         if (this.props.ayantDroit !== nextProps.ayantDroit) {
             this.setState({ ayantDroit: nextProps.ayantDroit })
         }
+        if (this.props.parent !== nextProps.parent) {
+            this.setState({ parent: nextProps.parent })
+        }
     }
 
-    componentWillMount() {
-        this.rafraichirDonnees(() => {
-            if (!this.estVoteFinal() && (this.estVoteClos() || this.state.rafraichirAuto)) {
-                this.setState({ rafraichir: true }, () => {
-                    this.rafraichissementAutomatique()
-                })
-            }
-        })
+    componentWillMount() {        
 
         // Récupère tous les ayant-droits        
         let _rHs = Object.assign({}, AyantsDroit.ayantsDroit, AyantsDroit.editeurs)
@@ -122,7 +121,7 @@ class PartageSommaireEditeur extends Component {
     boutonAccepter() {
         const t = this.props.t
         return (            
-            <div className="ui button medium" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
+            <div className={`ui button medium vote accepte ${this.state.choix === 'accept' ? 'actif' : '' }`} onClick={() => {
                 this.voter(true)
             }}>{t('flot.split.vote.accepter')}</div>                
         )
@@ -135,7 +134,7 @@ class PartageSommaireEditeur extends Component {
     boutonRefuser() {
         const t = this.props.t
         return (            
-            <div className="ui button medium red" style={{ cursor: "pointer", display: "inline-block" }} onClick={() => {
+            <div className={`ui button medium vote refus ${this.state.choix === 'reject' ? 'actif' : '' }`} onClick={() => {
                 this.voter(false)
                 this.justifierRefus()
             }}>{t('flot.split.vote.refuser')}</div>                
@@ -227,131 +226,155 @@ class PartageSommaireEditeur extends Component {
 
     render() {
         const t = this.props.t
+        journal.debug(NOM, this.part)
         if (this.state.beneficiaire && this.state.donateur) {
-            let visualisation = (<Beignet type="workCopyrightSplit" uuid={`auteur--beignet__${this.state.idx}`} data={this.state.donnees} />)
+            let visualisation = (<Beignet type="workCopyrightSplit" uuid={`auteur--beignet__${this.state.idx}`} data={this.state.donnees} />)            
             return (
-                <div className="ui segment">
-                    <div className="ui grid">
-                        <div className="ui row">
-                            <div className="ui one wide column">
-                            </div>
-                            <div className="ui six wide column">
-                                <div className="ui grid">
-                                    <div className="ui row">
-                                        <div className="ui two wide column">
-                                            <div className="holder-name">
-                                                <img alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.beneficiaire.avatarImage}`} />
+                <>
+                <div className="ui grid">
+                    <div className="ui row" style={{minHeight: "38rem"}}>
+                        <div className="ui eight wide column">
+                            <div className="ui grid">
+                                <div className="ui row">
+                                    <div className="ui sixteen wide column">
+                                        <div className="wizard-title types" style={{marginTop: "0rem", padding: "1rem"}}>
+                                            <div className="icon">
+                                                <CopyrightSVG />
+                                            </div>
+                                            <div className="titre" style={{marginLeft: "1rem"}}>
+                                                {t(`flot.split.droits.auteur`)}
                                             </div>
                                         </div>
-                                        <div className="ui ten wide column">
-                                            <div className="holder-name">
+                                    </div>
+                                </div>                            
+                                <div className="ui row" style={{padding: "1rem"}}>
+                                    <div className="ui two wide column" style={{padding: "0px 0px 0px 1rem"}}>
+                                        <img style={{margin: "0.5rem 0px 0px 1rem"}} alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.beneficiaire.avatarImage}`} />
+                                    </div>
+                                    <div className="ui fourteen wide column">
+                                        <div className="ui row">
+                                            <div className="holder-name" style={{display: "inline"}}>
                                                 {
-                                                    this.state.beneficiaire &&
-                                                        this.state.beneficiaire.artistName ?
-                                                        this.state.beneficiaire.artistName :
-                                                        `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`
+                                                this.state.beneficiaire &&
+                                                this.state.beneficiaire.artistName ?
+                                                this.state.beneficiaire.artistName :
+                                                `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`
                                                 }
-                                            </div>                                            
-                                            <div className="small-400-color">
+                                            </div>
+                                            <div className="vote" style={{float: "right"}}>
+                                                {parseFloat(this.state.part.shareePct).toFixed(2) + "%"}
+                                            </div>
+                                        </div>
+
+                                        <div className="ui row">
+                                            <div className="role" style={{paddingLeft: "0rem", display: "inline"}}>
                                                 {t('flot.split.documente-ton-oeuvre.editeur.editeur')}
-                                            </div>                                                
-                                            <div style={{ position: "relative", marginTop: "5px" }}>
+                                            </div>
+                                            <div className="statut">
+                                                <div className={this.state.part.etat==="ACCEPTE" ? 'approuve' : (this.state.part.etat==="REFUSE" ? 'refuse' : '' )}>
+                                                    {t(`flot.split.etat.${this.state.part.etat}`)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="ui row" style={{paddingTop: "1.5rem"}}>
+                                            <div className="ui two wide column" />
+                                            <div className="ui fourteen wide column">
                                                 {
                                                     !this.estVoteFinal() &&
                                                     this.state.ayantDroit &&
                                                     this.state.part.shareeId === this.state.utilisateur.rightHolderId &&
                                                     (
-                                                        <div className="ui five wide column">
-                                                            {!this.state.modifierVote && this.boutonRefuser()}
-                                                            {!this.state.modifierVote && this.boutonAccepter()}
-                                                            {
-                                                                this.state.modifierVote &&
-                                                                (
-                                                                    <div>
-                                                                        <img
-                                                                            alt="edit"
-                                                                            src={editIcon}
-                                                                            style={{ cursor: "pointer" }}
-                                                                            onClick={() => { this.changerVote() }} />
-                                                                        {
-                                                                            this.state.justifierRefus && (
-                                                                                <div>
-                                                                                    <textarea
-                                                                                        cols={30}
-                                                                                        rows={2}
-                                                                                        placeholder="Pourquoi refuses-tu le split (optionel)"
-                                                                                        onChange={(e) => {
-                                                                                            this.refuser(e.target.value)
-                                                                                        }}>
-                                                                                    </textarea>
-                                                                                </div>
-                                                                            )
-                                                                        }
-                                                                    </div>
-                                                                )
-                                                            }
-                                                        </div>
-                                                    )}
-                                                {
-                                                    this.state.monVote &&
-                                                    this.state.part.shareeId === this.state.utilisateur.rightHolderId && this.state.monVote.raison
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="ui three wide column">
-                                            <p className="big">
-                                                {parseFloat(this.state.part.shareePct).toFixed(2)} %
-                                            </p>                                            
-                                            <div style={{ color: this.state.choix === 'accept' ? "green" : (this.state.choix === "reject" ? "red" : "grey") }}>
-                                                <strong>{t(`flot.split.vote.${this.state.choix}`)}</strong>
-                                            </div>
-                                        </div>
+                                                        <>
+                                                            {this.boutonRefuser()}
+                                                            {this.boutonAccepter()}
+                                                        </>
+                                                    )
+                                                }                                                
+                                            </div>                                        
+                                        </div>                       
                                     </div>
-                                    <div className="ui row">
-                                        <div className="ui two wide column">
-                                            <div className="holder-name">
-                                                <img alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.donateur.avatarImage}`} />
+                                </div>
+                                <div className="ui row" style={{padding: "1rem"}}>
+                                    <div className="ui two wide column" style={{padding: "0px 0px 0px 1rem"}}>
+                                        <img style={{margin: "0.5rem 0px 0px 1rem"}} alt="" className="ui spaced avatar image" src={`${config.IMAGE_SRV_URL}${this.state.donateur.avatarImage}`} />
+                                    </div>
+                                    <div className="ui fourteen wide column">
+                                        <div className="ui row">
+                                            <div className="holder-name" style={{display: "inline"}}>
+                                                {
+                                                this.state.donateur &&
+                                                this.state.donateur.artistName ?
+                                                this.state.donateur.artistName :
+                                                `${this.state.donateur.firstName} ${this.state.donateur.lastName}`
+                                                }                                            
+                                            </div> 
+                                            <div className="vote" style={{float: "right"}}>
+                                                {parseFloat(this.state.part.rightHolderPct).toFixed(2) + "%"} 
                                             </div>
                                         </div>
-                                        <div className="ui ten wide column">
-                                            <div className="holder-name">
-                                                {
-                                                    this.state.donateur &&
-                                                        this.state.donateur.artistName ?
-                                                        this.state.donateur.artistName :
-                                                        `${this.state.donateur.firstName} ${this.state.donateur.lastName}`
-                                                }
-                                            </div>                                            
-                                            <div className="small-400-color">
+                                        <div className="ui row">
+                                            <div className="role" style={{paddingLeft: "0rem", display: "inline"}}>
                                                 {t('flot.split.documente-ton-oeuvre.editeur.donateur')}
-                                            </div>                                            
-                                        </div>
-                                        <div className="ui three wide column">
-                                            <p className="big">
-                                                {parseFloat(this.state.part.rightHolderPct).toFixed(2)} %
-                                            </p>                                            
-                                            <div style={{ color: "green" }}>
-                                                <strong>{t(`flot.split.vote.accept`)}</strong>
-                                            </div>                                                
-                                        </div>
+                                            </div>  
+                                            <div className= "statut">
+                                                <div className={"approuve"}>
+                                                    {t(`flot.split.vote.accept`)}</div>
+                                                </div>
+                                            </div>
+                                        </div>                        
                                     </div>
                                 </div>
                             </div>
-                            <div className="ui six wide column">
-                                {visualisation}
+                            <div className="ui eight wide column">                    
+                                <div className="ui row">
+                                    <div className="ui sixteen wide column">
+                                        {visualisation}
+                                    </div>
+                                </div>
                             </div>
-                            <div className="ui one wide column">
-                            </div>
-                        </div>
-                    </div>
+                        </div>               
+                    </div>                                  
                     {
-                        this.state.part.etat === "VOTATION" &&
-                        this.state.utilisateur.rightHolderId === this.state.part.shareeId &&
+                        this.state.jetonApi && this.state.part &&
                         (
-                            <button className="ui medium button" disabled={!this.state.transmission} onClick={() => {
-                                this.transmettre()
-                            }}> {t('flot.split.documente-ton-oeuvre.bouton.voter')}
-                            </button>
+                            <div
+                                style={{
+                                position: "fixed",
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                paddingTop: "15px",
+                                background: "#fff",
+                                boxShadow: "0 0 5px rgba(0,0,0,0.5)",
+                                pochette: this.props.pochette
+                                }}
+                            >
+                                <div className="ui grid">
+                                    <div className="ui row" style={{marginBottom: "1rem"}}>
+                                        <div className="ui two wide column" />
+                                        <div className="ui four wide column" style={{textAlign: "right", paddingRight: "4.5rem"}}>
+                                            { !this.estVoteFinal() &&
+                                                <span style={
+                                                    {color: "#687A8B", 
+                                                     fontFamily: "IBM Plex Sans", 
+                                                     fontStyle: "normal", 
+                                                     fontWeight: "normal", 
+                                                     fontSize: "16px", 
+                                                     lineHeight: "24px"}}>
+                                                        {t('navigation.vote.editeur')}
+                                                </span>
+                                            }                                            
+                                        </div>
+                                        <div className="ui seven wide column">
+                                            <div className={`ui medium button voter ${!this.state.transmission ? 'disabled' : ''}`} disabled={!this.state.transmission} onClick={() => {
+                                                this.transmettre()
+                                            }}>{t('flot.split.documente-ton-oeuvre.bouton.voter')}
+                                            </div>
+                                        </div>
+                                        <div className="ui three wide column" />
+                                    </div>
+                                </div>
+                            </div>
                         )
                     }
                     <Modal
@@ -365,7 +388,7 @@ class PartageSommaireEditeur extends Component {
                             vote={true}
                             fn={() => { if(Identite.usager) { this.envoi() } }} />
                     </Modal>
-                </div>
+                </>
             )
         } else {
             return (<div></div>)

@@ -2,7 +2,6 @@ import {Identite, AyantsDroit, config, journal} from '../../utils/application'
 import React, { Component } from 'react'
 import { withTranslation } from 'react-i18next'
 import axios from 'axios'
-import Entete from '../entete/entete'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
 
 const NOM = "VotationParTiers"
@@ -64,30 +63,25 @@ class VotationPartTiers extends Component {
     render() {
         if (this.state.media && this.state.part) {
             let t = this.props.t
-            let contenu = (                
-                <div className="ui six wide column">
-                    <i className="file image outline icon huge grey"></i>
-                    {this.state.media && (<span style={{ marginLeft: "15px" }} className="medium-400">{this.state.media.title}</span>)}
-                    <span className="heading4" style={{ marginLeft: "50px" }}>{t('flot.split.documente-ton-oeuvre.partage.auteur.titre')}</span>
-                </div>                    
-            )
             return (        
-                <div className="ui segment">
-                    <div className="ui grid" style={{ padding: "10px" }}>
-                        <div className="ui row">
-                            <Entete profil={this.state.user} contenu={contenu} />
-                        </div>                                                              
-                        <div className="ui row">
-                            <div className="ui one wide column" />
-                            <div className="ui twelve wide column">
-                                {this.state.jeton && 
-                                (<PartageSommaireEditeur part={this.state.part} proposition={this.state.proposition} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi} />)}
-                            </div>
-                            <div className="ui one wide column">
-                            </div>
+                <div className="ui grid" style={{ padding: "10px" }}>
+                    <div className="ui row">
+                        <div className="ui two wide column" />
+                        <div className="ui twelve wide column">
+                            <div className="heading2" style={{margin: "0rem"}}>{t('flot.split.documente-ton-oeuvre.etape.vote-titre', {oeuvre: this.state.media.title})}</div>
+                        </div>
+                        <div className="ui two wide column" />
+                    </div>
+                    <div className="ui row">
+                        <div className="ui two wide column" />
+                        <div className="ui twelve wide column">
+                            {this.state.jeton && 
+                            (<PartageSommaireEditeur part={this.state.part} proposition={this.state.proposition} ayantDroit={this.state.ayantDroit} jetonApi={this.state.jetonApi} />)}
+                        </div>
+                        <div className="ui two wide column">
                         </div>
                     </div>
-                </div>                
+                </div>          
             )
         } else {
             return (<div></div>)

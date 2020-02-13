@@ -98,38 +98,38 @@ class SectionTelechargements extends React.Component {
           </h4>
         </TitreModifiable>
 
-        <span
+        {cover.length > 0 && <span
           className="corps-table"
           style={{ color: "#687A8B", marginBottom: "5px" }}
         >
           {t("sommaire.telechargement.visuel")}
-        </span>
-        {cover && cover.map(download => this.renderDownload(download))}
-        <p style={{ height: "15px" }} />
-        <span
+          <p style={{ height: "15px" }} />
+        </span>}
+        {cover && cover.map(download => this.renderDownload(download))}        
+        {audio.length > 0 && <span
           className="corps-table"
           style={{ color: "#687A8B", marginBottom: "5px" }}
         >
           {t("sommaire.telechargement.audio")}
-        </span>
-        {audio && audio.map(download => this.renderDownload(download))}
-        <p style={{ height: "15px" }} />
-        <span
+        </span>}
+        {audio && audio.map(download => this.renderDownload(download))}        
+        {midi.length > 0 && <span
           className="corps-table"
           style={{ color: "#687A8B", marginBottom: "5px" }}
         >
           {t("sommaire.telechargement.midi")}
-        </span>
-        {midi && midi.map(download => this.renderDownload(download))}
-        <p style={{ height: "15px" }} />
-        <span
+          <p style={{ height: "15px" }} />
+        </span>}
+        {midi && midi.map(download => this.renderDownload(download))}        
+        {score.length > 0 && <span
           className="corps-table"
           style={{ color: "#687A8B", marginBottom: "5px" }}
         >
           {t("sommaire.telechargement.partition")}
-        </span>
-        <p style={{ height: "15px" }} />
+          <p style={{ height: "15px" }} />
+        </span>}
         {score && score.map(download => this.renderDownload(download))}
+        <p style={{ height: "15px" }} />
       </>        
     )
   }
