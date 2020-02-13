@@ -50,7 +50,7 @@ const RadioButtonGroup = ({
 
   return (
     <div className={classes}>
-      <div className="grouped fields">
+      <div className="grouped fields ui row">
         <legend>{label}</legend>
         {children}
         {touched && error && <div className="ui red">{error}</div>}
@@ -91,9 +91,8 @@ export default class BoutonsRadio extends Component {
   render() {
     let choix = this.state.choix.map((elem, idx) => {
       return (
-        <div key={`radioOption_${this.props.name}_${idx}`}>
-          <div
-            className="ui row"
+        <div className={this.props.className} key={`radioOption_${this.props.name}_${idx}`}>
+          <div            
             style={{
               display: "flex",
               flexDirection: "row",
@@ -120,6 +119,7 @@ export default class BoutonsRadio extends Component {
         id={`radioGroup_${this.state.id}`}
         label={this.state.titre}
         required={this.state.requis}
+        className="ui grid"
       >
         {choix}
       </RadioButtonGroup>

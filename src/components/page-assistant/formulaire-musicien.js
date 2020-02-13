@@ -15,6 +15,10 @@ export default function FormulaireMusicien(props) {
 export class BaseFormulaireMusicien extends Component {
   singerRoleLabels = [
     {
+      key: "choix",
+      text: "Choisir..."
+    },
+    {
       key: "leadVocal",
       text: "Soliste"
     },
@@ -42,7 +46,7 @@ export class BaseFormulaireMusicien extends Component {
 
     // Épuration de la liste des instruments pour éviter les doublons
     let _instruments = {}
-    this.instrumentOptions = []
+    this.instrumentOptions = [ {key: "choix", text: "Choisir..."} ]
 
     instruments.forEach(i => {
       if (!_instruments[i.nom])
@@ -132,22 +136,27 @@ export class BaseFormulaireMusicien extends Component {
   }
 
   onSingerRoleChange = newSingerRoles => {
-    const rightHolderRoles = this.props.rightHolder.roles || [];
-    const newRoles = rightHolderRoles
-      .filter(this.isNotSingerRole)
-      .concat(newSingerRoles);
-
-    this.updateRightHolder({ roles: newRoles });
-  };
+    let rightHolderRoles = this.props.rightHolder.roles || []
+    newSingerRoles.forEach(_r=>{
+      if(_r !== undefined) {
+        rightHolderRoles.push(_r)        
+      }
+    })
+    if(rightHolderRoles.length > 0) {      
+      this.updateRightHolder({ roles: rightHolderRoles })
+    }
+  }
 
   onInstrumentChange = instruments => {
-    const rightHolderInstruments = this.props.rightHolder.instruments || [];
-    const newInstruments = rightHolderInstruments
-      .filter(instrument => instrument === this.singerInstrument)
-      .concat(instruments);
-
-    this.updateRightHolder({ instruments: newInstruments });
-  };
+    let rightHolderInstruments = this.props.rightHolder.instruments || [] 
+    if(instruments) {
+      rightHolderInstruments.push(instruments)    
+      const newInstruments = rightHolderInstruments
+        .filter(instrument => instrument === this.singerInstrument)
+        .concat(instruments)  
+      this.updateRightHolder({ instruments: newInstruments })
+    }
+  }
 
   removeInstruments() {
     const instruments = this.props.rightHolder.instruments || [];

@@ -25,7 +25,7 @@ class ModaleEmbarquementEntreprise extends Component {
       email: "",
       avatarImage: "image.jpg",
       open: props.open,
-      currentValue: [props.firstName],
+      currentValue: props.firstName,
       locale: navigator.language || navigator.userLanguage,
       gender: "initiatorCreatedUser"  // Cognito Default Attribute Gender used as flag for user creation
     };
@@ -69,13 +69,13 @@ class ModaleEmbarquementEntreprise extends Component {
     this.setState({ firstName: "" })
     this.setState({ lastName: "" })
     this.setState({ email: "" })
-    this.setState({ currentValue: [] })
+    this.setState({ currentValue: "" })
     this.setState({ open: false })
   }
 
   handleSubmit = values => {
     // S'il n'y a pas de groupe, un en créé un éponyme, si non c'est un anonyme
-    let groupes = this.state.currentValue
+    let groupes = [this.state.currentValue]
     if (groupes.length === 0) {
       let nom = this.state.artistName ? this.state.artistName : `${this.state.firstName} ${this.state.lastName}`
       if (nom.trim() === "") {
@@ -124,14 +124,14 @@ class ModaleEmbarquementEntreprise extends Component {
       this.setState({ open: nextProps.open });
     }
     if (this.props.firstName !== nextProps.firstName) {
-      this.setState({ currentValue: [nextProps.firstName] })
+      this.setState({ currentValue: nextProps.firstName })
     }
   }
 
   render() {    
     const t = this.props.t
     if(this.state.currentValue && this.state.currentValue.length > 0) {
-      let option = this.state.currentValue[0]
+      let option = this.state.currentValue
       if(!this.state.groups.includes(option)) {
         this.state.groups.push({text: option, value: option})
       }
@@ -161,7 +161,7 @@ class ModaleEmbarquementEntreprise extends Component {
               </label>
               <span>
                 {
-                  this.state.currentValue && this.state.currentValue.length > 0 && (
+                  this.state.currentValue && (
                     <Dropdown
                       icon="search"
                       id="prompt"
@@ -170,8 +170,7 @@ class ModaleEmbarquementEntreprise extends Component {
                       placeholder={t(
                         "flot.split.collaborateur.attribut.indication.entreprise"
                       )}
-                      search
-                      multiple={true}
+                      search                      
                       selection
                       fluid
                       allowAdditions

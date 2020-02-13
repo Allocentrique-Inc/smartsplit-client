@@ -4,6 +4,7 @@ import Beignet from '../visualisation/partage/beignet'
 import ChampGradateurAssistant from '../formulaires/champ-gradateur'
 import { ChampTexteAssistant } from '../formulaires/champ-texte'
 import { config } from '../../utils/application'
+import { CopyrightSVG } from '../svg/SVG';
 
 const arrondir = function(nombre) {
     return Math.round(nombre * 10000) / 10000
@@ -176,8 +177,18 @@ class PageAssistantPartageEditeur extends Component {
             userAvatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
         }
 
+        const Icon = <CopyrightSVG />
+
         return (            
             <div className="ui grid">          
+                <div className="ui row">          
+                    <div className="ui eight wide column wizard-title types">                        
+                        {Icon}                    
+                        <div style={{marginLeft: "1rem", display: "inline", position: "relative", bottom: "0.5rem"}}>
+                            {t(`flot.split.droits.titre.workCopyrightSplit`)}
+                        </div>
+                    </div>          
+                </div>
                 <div className="ui row">
                     <div className="ui eight wide column">
                         <div className="mode--partage__auteur">

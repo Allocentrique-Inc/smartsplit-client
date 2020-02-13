@@ -69,14 +69,17 @@ class ListePieces extends Component {
             .then(res => {
               // Associe la liste des médias créés ou les médias pour lesquels une proposition est créée,
               // dans les deux cas, par l'usager.
-              this.setState({ creatorMedias: res.data }, ()=>this.setState({ patience: false }))
+              let data = res.data
+              data.reverse()
+              this.setState({ creatorMedias: data }, ()=>this.setState({ patience: false }))
             })
             .catch(err => journal.error(NOM, err))            
             axios.get(`${config.API_URL}media/liste-collaborations/${Identite.usager.username}`)
             .then(res => {
               // Associe la liste des médias créés ou les médias pour lesquels une proposition est créée,
               // dans les deux cas, par l'usager.
-              this.setState({ collabMedias: res.data }, ()=>this.setState({ patience: false }))
+              let data = res.data
+              this.setState({ collabMedias: data }, ()=>this.setState({ patience: false }))
             })
             .catch(err => console.log(err))
           })
@@ -227,8 +230,8 @@ class ListePieces extends Component {
             } else {
               return null;
             }
-          })
-        );
+          })          
+        )        
       }
       if (
         this.state.collabMedias.length > 0 &&
@@ -245,8 +248,8 @@ class ListePieces extends Component {
                 rightHolders={this.state.rightHolders}
               />
             )
-          );
-        });
+          )
+        })
       }
       rendu = <div style={{paddingLeft: "40px"}}>{tableauMedias}</div>;
     }

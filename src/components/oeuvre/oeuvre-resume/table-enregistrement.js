@@ -187,11 +187,27 @@ class TableEnregistrement extends React.Component {
       },
       {
         label: t("flot.split.documente-ton-oeuvre.documenter.etiquette"),
-        value: this.props.media.label
+        value: (
+          <>
+            {this.props.media.label}
+            <br />
+            <span className={"color-secondary"}>
+              {this.props.media.labelAddress}
+            </span>
+          </>
+        )
       },
       {
         label: t("flot.split.documente-ton-oeuvre.documenter.distribution"),
-        value: this.props.media.distributor
+        value: (
+          <>
+            {this.props.media.distributor}
+            <br />
+            <span className={"color-secondary"}>
+              {this.props.media.distributorAddress}
+            </span>
+          </>
+        )
       }
     ];
   }
