@@ -106,7 +106,7 @@ export default class AideIdentites {
             // await this.connexion(params)
 
             if(fn)
-                fn(utilisateur.id)
+                fn(utilisateur.data.rightHolders[0])
         } catch(err) {
             journal.error(NOM, err)
         }
