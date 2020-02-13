@@ -320,6 +320,12 @@ class PageAssistantPartageInterpretation extends Component {
                                                             if (_aD.avatar) {
                                                                 avatar = _aD.avatar.dataUri
                                                             }
+
+                                                            let decalage = "0rem"
+                                                            if(!this.state.parts[index].principal) {
+                                                                decalage = "11rem"
+                                                            }
+
                                                             return (
                                                                 <div key={`part-${index}`}>
                                                                     <div className="gray-fields">
@@ -357,7 +363,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                         <div className="ui divider"></div>
                                                                                         <BoutonsRadio
                                                                                             style={{ display: "inline-flex" }}
-                                                                                            className="ten wide column"
+                                                                                            className="ui six wide column"
                                                                                             titre=""
                                                                                             name={`type_interpretation_${index}`}
                                                                                             actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
@@ -389,11 +395,12 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                 }
                                                                                             ]}
                                                                                         />
-                                                                                    <div className="coches--role__droit">
+                                                                                    <div className="coches--role__droit" style={{marginLeft: decalage}}>
                                                                                         {
                                                                                             roles.map((elem, idx) => {
                                                                                                 return (
-                                                                                                    <Checkbox
+                                                                                                    <>
+                                                                                                    <Checkbox                                                                                                        
                                                                                                         key={`coche_role_droit_interpretation_${index}_${idx}`}
                                                                                                         label={elem.nom}
                                                                                                         checked={this.props.values.droitInterpretation[index][elem.id]}
@@ -407,7 +414,8 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                                 this.recalculerPartage()
                                                                                                             }, 0)
                                                                                                         }}
-                                                                                                    />
+                                                                                                    /><br/>
+                                                                                                    </>
                                                                                                 )
                                                                                             })
                                                                                         }

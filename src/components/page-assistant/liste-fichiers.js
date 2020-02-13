@@ -77,8 +77,8 @@ class ListeFichiers extends Component {
                                 )
                             }
                             <span style={{float: "left", paddingLeft: "1rem"}}>
-                                { elem.file.length >= 28 && elem.file.substring(0,28) + "..." }
-                                { elem.file.length < 30 && elem.file }
+                                { elem.file.length >= 23 && elem.file.substring(0,23) + "..." }
+                                { elem.file.length < 26 && elem.file }
                                 <InfoBulle
                                     style={{backgroundColor: "#FAF8F9"}}
                                     className="proposition"                                    
@@ -131,12 +131,12 @@ class ListeFichiers extends Component {
             <div className="ui grid">
                 <div className="ui row">
                     <div className="ui one wide column" />
-                    <div className="ui fifteen wide column">
+                    <div className="ui fourteen wide column" style={{marginLeft: "1rem"}}>
                         <div className="ui grid">
                             {_liste}
                         </div>                        
                     </div>
-                    <div className="ui two wide column" />
+                    <div className="ui three wide column" />
                 </div>                
             </div>
         )

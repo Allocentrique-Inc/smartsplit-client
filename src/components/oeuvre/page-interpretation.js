@@ -21,7 +21,7 @@ class PageInterpretation extends Component {
     super(props)
     this.state = {
       rightHolders: props.rightHolders
-    }    
+    }
   }
 
   musicianRoles = [roles.musician, roles.principal, roles.accompaniment, roles.singer];
@@ -31,6 +31,12 @@ class PageInterpretation extends Component {
       this.musicianRoles,
       this.props.values.rightHolders
     )
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.rightHolders !== nextProps.rightHolders) {
+      this.setState({rightHolders: nextProps.rightHolders})
+    }
   }
 
   handleChange(newRightHolders) {    
