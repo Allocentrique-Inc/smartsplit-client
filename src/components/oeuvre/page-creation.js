@@ -20,10 +20,16 @@ import {
   updateRole
 } from "../page-assistant/right-holder-helpers";
 import SauvegardeAutomatiqueMedia from "./SauvegardeAutomatique"
+// eslint-disable-next-line
+import { AyantsDroit, journal } from "../../utils/application";
+
+// eslint-disable-next-line
+const NOM = "PageCreation"
 
 class PageCreation extends Component {
   constructor(props) {
-    super(props);
+    super(props)
+
     this.state = {
       songwriters: getRightHolderIdsByRole(
         roles.songwriter,
@@ -43,7 +49,7 @@ class PageCreation extends Component {
       ),
       x: 0,
       y: 0
-    };
+    }  
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -100,7 +106,11 @@ class PageCreation extends Component {
   };
 
   rightHolderOptions() {
-    return RightHolderOptions(this.props.rightHolders);
+    return RightHolderOptions(this.props.rightHolders)
+  }
+
+  publisherOptions() {
+    return RightHolderOptions(AyantsDroit.editeursBrut)
   }
 
   icon() {
@@ -259,7 +269,7 @@ class PageCreation extends Component {
           <ChampSelectionMultipleAyantDroit
             label={t("flot.split.documente-ton-oeuvre.documenter.editeur")}
             pochette={this.props.pochette}
-            items={this.rightHolderOptions()}
+            items={this.publisherOptions()}
             info={
               <InfoBulle
                 text={t(

@@ -80,6 +80,7 @@ class PageAssistantPartageEnregistrement extends Component {
     }
 
     changementTexte(index, delta) {
+        index = parseInt(index.replace( 'texte_', '' ))
         // Changement de la zone de texte associée au gradateur
         let invariable = this.state.partsInvariables
         let droits = this.props.values.droitEnregistrement
@@ -100,6 +101,10 @@ class PageAssistantPartageEnregistrement extends Component {
         droits.forEach((elem, idx) => {
             if (!invariable[idx]) { // Ajustement si l'index est variable
                 droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
+                droits[idx].pourcentParoles = `${arrondir(droits[idx].pourcent / 2)}`
+                droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
+            } else {                
+                droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + delta)}`
                 droits[idx].pourcentParoles = `${arrondir(droits[idx].pourcent / 2)}`
                 droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
             }
@@ -347,9 +352,11 @@ class PageAssistantPartageEnregistrement extends Component {
                                                     if (e.target.nodeName === 'INPUT') {
                                                         valeur = e.target.value
                                                     }
-                                                    this.setState({ mode: valeur }, () => {
-                                                        this.recalculerPartage()
-                                                    })
+                                                    if(valeur) {
+                                                        this.setState({ mode: valeur }, () => {
+                                                            this.recalculerPartage()
+                                                        })
+                                                    }                                                    
                                                 }}
                                                 titre=""
                                                 choix={[

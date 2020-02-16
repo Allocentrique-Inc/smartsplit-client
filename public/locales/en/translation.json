@@ -374,7 +374,7 @@
           "arrangeur-musique": "Remixers (music)",
           "arrangeur-description": "Who remixed the music of this piece?",
           "arrangeur-placeholder": "Add a remixer",
-          "editeur": "Editors  ",
+          "editeur": "Publishers  ",
           "editeur-description": "Who represents these authors and/or composers?",
           "editeur-placeholder": "Add an editor",
           "codeiswc": "ISWC Code  ",
@@ -544,8 +544,8 @@
           "intro3": "In the good old days, a cassette was sent by registered mail to prove who did the work and when. Now we rather use a blockchain to create this proof :)"
         },
         "editeur": {
-          "ajout": "Add an editor",
-          "editeur": "Editor",
+          "ajout": "Add a publisher",
+          "editeur": "Publisher",
           "donateur": "Creator"
         },
         "proposition": {
@@ -563,6 +563,7 @@
           "sous-titre": "To finalize this split, you have to invite your collaborators to validate it all. Indicate their email addresses to which you are sending your split proposition.",
           "nouvelle": "New musical work",
           "envoyer": "Send to collaborators",
+          "envoyer-editeur": "Send to publisher",
           "continuer": "Continue to split the rights",
           "sommaire": "Split summary",
           "voter": "Go to vote page",
@@ -583,7 +584,7 @@
         },
         "tableaudebord": {
           "collabo": "My Collaborators",
-          "edito": "My Editor  ",
+          "edito": "My Publisher  ",
           "as-tu": "Do you have an editor?",
           "later": "Later"
         }

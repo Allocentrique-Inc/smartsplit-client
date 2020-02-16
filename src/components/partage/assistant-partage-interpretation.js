@@ -377,10 +377,12 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                     if (e.target.nodeName === 'INPUT') {
                                                                                                         valeur = e.target.value
                                                                                                     }
-                                                                                                    this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
-                                                                                                    this.setState({ ping: true }, () => {
-                                                                                                        this.recalculerPartage()
-                                                                                                    })
+                                                                                                    if(valeur) {
+                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
+                                                                                                        this.setState({ ping: true }, () => {
+                                                                                                            this.recalculerPartage()
+                                                                                                        })
+                                                                                                    }                                                                                                    
                                                                                                 }
                                                                                             }}
                                                                                             disabled={this.state.mode !== MODES.role}

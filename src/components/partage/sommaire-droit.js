@@ -133,9 +133,14 @@ class SommaireDroit extends Component {
                                             </div>
                                         </div>                                           
                                     </div>
-                                    <div className="ui row" style={{textAlign: "right"}}>
-                                        <i>{part.raison ? part.raison : ""}</i>
-                                    </div>
+                                    {
+                                        part.vote==="reject" && 
+                                        <div className="ui row">
+                                            <div className="ui sixteen wide column refuse" style={{textAlign: "right"}}>
+                                                {part.raison}
+                                            </div>
+                                        </div>
+                                    }                                    
                                     { uuid === this.state.ayantDroit.rightHolderId && !this.state.voteTermine && (
                                         <div className="ui row" style={{paddingTop: "1.5rem"}}>
                                             <div className="ui two wide column" />
