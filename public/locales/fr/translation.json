@@ -388,7 +388,7 @@
           "options": {
             "question1": "Quel type d'interprétation ?",
             "question1-choix-a": "Artiste principal",
-            "question1-choix-b": "Artiste accompagnateur",
+            "question1-choix-b": "Accompagnateur",
             "question2": "Quel rôle dans la pièce principale ?",
             "question2-choix-a": "Chanteur",
             "question2-choix-b": "Musicien"
@@ -584,7 +584,7 @@
           "refuse2": "Refuser ce partage",
           "termine": "Le vote est terminé !",
           "telecharger-contrat": "Télécharger le contrat",
-          "nouvelle-version": "Créer un nouvelle version",
+          "nouvelle-version": "Proposer un nouveau partage",
           "jai-un-editeur": "J'ai un éditeur",
           "partage": "Proposer un split"
         }

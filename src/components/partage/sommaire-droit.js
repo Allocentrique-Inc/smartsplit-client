@@ -100,7 +100,20 @@ class SommaireDroit extends Component {
             Object.keys(this.state.donnees).forEach((uuid, idx) => {            
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
-                _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
+                let _donnees = 
+                    { ayantDroit: _aD, nom: part.nom, pourcent: parseInt(part.sommePct), color: part.color, raison: part.raison }
+                if( part.roles.includes('principal') ) {
+                    _donnees.principal = true
+                } else {
+                    _donnees.principal = false
+                }
+                if( part.roles.includes('musician') ) {
+                    _donnees.musicien = true
+                }
+                if( part.roles.includes('singer') ) {
+                    _donnees.chanteur = true
+                }
+                _data.push( _donnees )
                 _parts.push(
                     <div key={`part--${this.state.type}_${uuid}_${idx}`}>
                         <div className="ui grid">
