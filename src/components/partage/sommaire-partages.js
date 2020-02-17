@@ -33,7 +33,7 @@ class SommairePartages extends Component {
         this.state = {
             mediaId: props.mediaId,
             activeIndex: 0,
-            panneau: PANNEAU_PROPOSITIONS,
+            panneau: props.editeur ? PANNEAU_EDITEUR : PANNEAU_PROPOSITIONS,
             modaleConnexion: false,
             modaleNouvelle: false,
             modaleCourriels: props.envoyer,
@@ -47,7 +47,7 @@ class SommairePartages extends Component {
         this.closeModal = this.closeModal.bind(this)
         this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
         this.fermerInfobulleEditeur = this.fermerInfobulleEditeur.bind(this)
-        moment.defaultFormat = "DD-MM-YYYY HH:mm"
+        moment.defaultFormat = "DD-MM-YYYY HH:mm"                
     }
 
     componentWillMount() {
@@ -164,19 +164,17 @@ class SommairePartages extends Component {
             })
             propositions = propositions.reverse()
 
-            // eslint-disable-next-line
-            let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
+            let nouveauDisabled = true, envoiDisabled = true
             let partageEditeur = false, fermerInfobulleEditeur = this.state.fermerInfobulleEditeur
             let partageEditeurEnCours = false
 
             if (this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
-                if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
-                    nouveauDisabled = true
+                if (_p.etat === 'REFUSE') {
+                    nouveauDisabled = false
                 }
                 if ((_p.etat === 'BROUILLON' || _p.etat === 'PRET') && _p.initiatorUuid === this.state.user.username) {
-                    continuerDisabled = false
                     envoiDisabled = false
                 }
                 if (_p.etat === 'ACCEPTE') {
@@ -372,7 +370,7 @@ class SommairePartages extends Component {
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
                                                 }
                                                 <div style={{textAlign: "right"}}>
-                                                    { (!continuerDisabled || !nouveauDisabled) && (
+                                                    { (!nouveauDisabled) && (
                                                         <div className={`ui medium button inverse`} onClick={
                                                             () => {
                                                                 utils.naviguerVersNouveauPartage(this.state.mediaId)
@@ -387,7 +385,7 @@ class SommairePartages extends Component {
                                                             className="ui medium button envoyer sommaire">
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
                                                     )}
-                                                </div>                                                
+                                                </div>
                                                 </div>
                                             </div>
                                         </div>

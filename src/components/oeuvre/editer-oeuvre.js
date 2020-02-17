@@ -99,7 +99,7 @@ class EditerOeuvre extends Component {
   }
 
   fetchApiRightHolders() {
-    let response = AyantsDroit.ayantsDroitBrut
+    let response = AyantsDroit.tousBrut
     let assocUuidArtiste = {}    
     response.forEach(e => {
       assocUuidArtiste[e.rightHolderId] =

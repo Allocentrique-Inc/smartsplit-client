@@ -75,6 +75,7 @@ export default class AideAyantDroit {
         // Classer les ayants-droits par identifiant
         this.ayantsDroit = await ordonnerParUuidEtGenererAvatars(this.ayantsDroitBrut)
         this.tous = Object.assign(this.ayantsDroit, this.editeurs)
+        this.tousBrut = this.ayantsDroitBrut.concat(this.editeursBrut)
         if(this.ayantsDroitBrut.length > 0) { journal.silly(NOM, `Récupération des ayants-droit terminée, nombre = ${Object.keys(this.ayantsDroit).length}`) }
         else { journal.silly(NOM, "Aucun ayant-droit") }
     }

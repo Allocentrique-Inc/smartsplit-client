@@ -90,8 +90,16 @@ export default class BoutonsRadio extends Component {
 
   render() {
     let choix = this.state.choix.map((elem, idx) => {
+      let classes = ""
+      if(this.props.className) {
+        if (idx === 0) {
+          classes = "ui eight wide column"
+        } else {
+          classes = "ui four wide column"
+        }
+      }
       return (
-        <div className={this.props.className} key={`radioOption_${this.props.name}_${idx}`}>
+        <div className={classes} key={`radioOption_${this.props.name}_${idx}`}>
           <div            
             style={{
               display: "flex",

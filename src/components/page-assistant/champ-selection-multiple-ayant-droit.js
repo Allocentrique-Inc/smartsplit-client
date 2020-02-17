@@ -154,6 +154,7 @@ class ChampSelectionMultipleAyantDroit extends Component {
               />
 
               <Dropdown
+                id="collaborateur"
                 trigger={this.triggerLabel()} //Le +
                 fluid
                 search

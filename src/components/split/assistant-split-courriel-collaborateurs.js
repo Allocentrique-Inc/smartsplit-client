@@ -53,33 +53,39 @@ class PageAssistantSplitCourrielsCollaborateurs extends Component {
   }
 
   handleSubmit() {
-    let _aDs = {}
-    Object.keys(this.state.ayantDroits).forEach(elem => {
-      let _aD = this.state.ayantDroits[elem]
-      let __aD = {}
-      if (this._courrielsModifies[elem]) {
-        __aD.email = this._courrielsModifies[elem]
-      } else {
-        __aD.email = _aD.email
+
+    if (!this.props.onSubmit) {
+      let _aDs = {}
+      Object.keys(this.state.ayantDroits).forEach(elem => {
+        let _aD = this.state.ayantDroits[elem]
+        let __aD = {}
+        if (this._courrielsModifies[elem]) {
+          __aD.email = this._courrielsModifies[elem]
+        } else {
+          __aD.email = _aD.email
+        }
+        __aD.name = _aD.name
+        __aD.rightHolderId = _aD.rightHolderId
+        _aDs[_aD.rightHolderId] = __aD
+      })
+      let body = {
+        proposalId: this.state.propositionId,
+        rightHolders: _aDs
       }
-      __aD.name = _aD.name
-      __aD.rightHolderId = _aD.rightHolderId
-      _aDs[_aD.rightHolderId] = __aD
-    })
-    let body = {
-      proposalId: this.state.propositionId,
-      rightHolders: _aDs
-    }
-    axios
-      .post(`${config.API_URL}proposal/invite`, body)
-      .then(resp => {
-        this.props.close(() => {
-          utils.naviguerVersSommaireOeuvre(this.props.mediaId, true)
+      axios
+        .post(`${config.API_URL}proposal/invite`, body)
+        .then(resp => {
+          this.props.close(() => {
+            utils.naviguerVersSommaireOeuvre(this.props.mediaId, true)
+          })
         })
-      })
-      .catch(error => {
-        journal.error(NOM, error);
-      })
+        .catch(error => {
+          journal.error(NOM, error);
+        })
+    } else {
+      this.props.onSubmit()
+    }
+    
   }
 
   onChange(e) {

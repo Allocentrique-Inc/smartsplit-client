@@ -9,6 +9,7 @@ import { Modal } from 'semantic-ui-react'
 import {Identite, config, AyantsDroit, utils, journal} from '../../utils/application'
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import { CopyrightSVG } from '../svg/SVG.js'
+import editIcon from '../../assets/svg/icons/edit.svg'
 
 // eslint-disable-next-line
 const NOM = "PartageSommaireEditeur"
@@ -123,6 +124,7 @@ class PartageSommaireEditeur extends Component {
         return (            
             <div className={`ui button medium vote accepte ${this.state.choix === 'accept' ? 'actif' : '' }`} onClick={() => {
                 this.voter(true)
+                this.setState({refuser: false})
             }}>{t('flot.split.vote.accepter')}</div>                
         )
     }
@@ -142,7 +144,7 @@ class PartageSommaireEditeur extends Component {
     }
 
     justifierRefus() {
-        this.setState({ justifierRefus: true })
+        this.setState({ refuser: true })
         this.setState({ choix: 'reject' })
     }
 
@@ -185,7 +187,8 @@ class PartageSommaireEditeur extends Component {
         let body = {
             userId: `${this.state.utilisateur.rightHolderId}`,
             choix: this.state.choix,
-            jeton: this.state.jetonApi
+            jeton: this.state.jetonApi,
+            raison: this.state.raison
         }
         axios.post(`${config.API_URL}splitShare/tiers/voter`, body)
             .then((res) => {
@@ -226,9 +229,9 @@ class PartageSommaireEditeur extends Component {
 
     render() {
         const t = this.props.t
-        journal.debug(NOM, this.part)
         if (this.state.beneficiaire && this.state.donateur) {
             let visualisation = (<Beignet type="workCopyrightSplit" uuid={`auteur--beignet__${this.state.idx}`} data={this.state.donnees} />)            
+            const peutModifier =    this.state.part.etat === 'ATTENTE'
             return (
                 <>
                 <div className="ui grid">
@@ -244,7 +247,22 @@ class PartageSommaireEditeur extends Component {
                                             <div className="titre" style={{marginLeft: "1rem"}}>
                                                 {t(`flot.split.droits.auteur`)}
                                             </div>
-                                        </div>
+                                            {
+                                                peutModifier && (
+                                                    <div 
+                                                        className="ui medium button inverse" 
+                                                        style={{ right: "0px", position: "absolute", top: "0.25rem", height: "3rem" }}
+                                                        onClick={()=>{
+                                                            toast.info('Non implémenté')
+                                                            // Naviguer vers l'édition du partage avec un tiers
+                                                            // utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
+                                                        }}>
+                                                        <img src={editIcon} alt={t('options.modifier')} />
+                                                        <span style={{position: "relative", top: "-0.375rem", left: "0.375rem"}}>{t('options.modifier')}</span>
+                                                    </div>
+                                                )
+                                            }
+                                        </div>                                        
                                     </div>
                                 </div>                            
                                 <div className="ui row" style={{padding: "1rem"}}>
@@ -276,6 +294,14 @@ class PartageSommaireEditeur extends Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        {
+                                            this.state.part.etat==="REFUSE" && 
+                                            <div className="ui row">
+                                                <div className="ui sixteen wide column refuse" style={{textAlign: "right"}}>
+                                                    {this.state.part.raison}
+                                                </div>
+                                            </div>
+                                        }
                                         <div className="ui row" style={{paddingTop: "1.5rem"}}>
                                             <div className="ui two wide column" />
                                             <div className="ui fourteen wide column">
@@ -288,8 +314,19 @@ class PartageSommaireEditeur extends Component {
                                                             {this.boutonRefuser()}
                                                             {this.boutonAccepter()}
                                                         </>
-                                                    )
-                                                }                                                
+                                                    )                                                    
+                                                }
+                                                {this.state.refuser && (
+                                                    <textarea
+                                                        className="raison refus"
+                                                        cols={30}
+                                                        rows={2}
+                                                        placeholder={t("flot.split.valider.pourquoi")}
+                                                        onChange={(e) => {
+                                                            this.refuser(e.target.value)
+                                                        }}>
+                                                    </textarea>
+                                                )}                                            
                                             </div>                                        
                                         </div>                       
                                     </div>

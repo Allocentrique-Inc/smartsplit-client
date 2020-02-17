@@ -105,6 +105,7 @@ class ChampSelectionMultiple extends Component {
                     }                    
                     {this.renderSelectedItems()}
                     <Dropdown
+                        id="collaborateur"
                         placeholder={this.props.placeholder}
                         fluid
                         search

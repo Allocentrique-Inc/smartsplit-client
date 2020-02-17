@@ -14,12 +14,14 @@ export default class ChampTexte extends React.Component {
         return (
             <div className="champ">
                 <label>
-                    <TitreChamp
-                        label={this.props.label}
-                        description={this.props.description}
-                        info={this.props.info}
-                    />
-
+                    {
+                        !this.props.sansentete &&
+                            <TitreChamp
+                                label={this.props.label}
+                                description={this.props.description}
+                                info={this.props.info}
+                            />
+                    }
                     <Input
                         fluid
                         placeholder={this.props.placeholder}
@@ -27,7 +29,6 @@ export default class ChampTexte extends React.Component {
                         disabled={this.props.disabled}
                         onChange={(event, { value }) => this.props.onChange(value)}
                     />
-
                     {this.undertext()}
                 </label>
             </div>

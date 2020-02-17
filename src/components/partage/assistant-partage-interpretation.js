@@ -323,7 +323,7 @@ class PageAssistantPartageInterpretation extends Component {
 
                                                             let decalage = "0rem"
                                                             if(!this.state.parts[index].principal) {
-                                                                decalage = "11rem"
+                                                                decalage = "12rem"
                                                             }
 
                                                             return (
@@ -377,10 +377,12 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                     if (e.target.nodeName === 'INPUT') {
                                                                                                         valeur = e.target.value
                                                                                                     }
-                                                                                                    this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
-                                                                                                    this.setState({ ping: true }, () => {
-                                                                                                        this.recalculerPartage()
-                                                                                                    })
+                                                                                                    if(valeur) {
+                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
+                                                                                                        this.setState({ ping: true }, () => {
+                                                                                                            this.recalculerPartage()
+                                                                                                        })
+                                                                                                    }                                                                                                    
                                                                                                 }
                                                                                             }}
                                                                                             disabled={this.state.mode !== MODES.role}
@@ -400,7 +402,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                             roles.map((elem, idx) => {
                                                                                                 return (
                                                                                                     <>
-                                                                                                    <Checkbox                                                                                                        
+                                                                                                    <Checkbox
                                                                                                         key={`coche_role_droit_interpretation_${index}_${idx}`}
                                                                                                         label={elem.nom}
                                                                                                         checked={this.props.values.droitInterpretation[index][elem.id]}
@@ -442,7 +444,7 @@ class PageAssistantPartageInterpretation extends Component {
                             <br />
                             <br />
                             <div className="conteneur-beignet fourteen wide field">
-                                <Beignet type="performanceNeighboringRightSplit" uuid="interpretation--beignet" data={this.state.parts} />                                
+                                <Beignet type="performanceNeighboringRightSplit" uuid="interpretation--beignet" data={this.state.parts} />
                             </div>
                         </div>
                     </div>

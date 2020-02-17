@@ -1,4 +1,4 @@
-import {config, AyantsDroit, Identite} from '../../utils/application'
+import {config, AyantsDroit, Identite, utils} from '../../utils/application'
 import React, {Component} from 'react'
 import { Wizard } from "../formulaires/assistant"
 import { withTranslation } from 'react-i18next'
@@ -107,18 +107,8 @@ class AssistantPartageEditeur extends Component {
             }
 
             axios.post(`${config.API_URL}editorsplitshare`, body)
-            .then(res=>{
-                body = {
-                    rightHolder: {nom: values.ayantDroit.nom, uuid: values.ayantDroit.rightHolderId},
-                    shareeId: values.editeur.ayantDroit.rightHolderId,
-                    proposalId: this.state.propositionId,
-                    mediaId: this.state.media.mediaId,
-                    version: this.state.version
-                }
-                axios.post(`${config.API_URL}editorsplitshare/invite`, body)
-                .then(()=>{
-                    this.props.soumettre()
-                })
+            .then(res=>{                
+                utils.naviguerVersPartageEditeur(this.state.proposition.mediaId)                
             })
             .catch(err=>{
                 toast.error(err.message)
