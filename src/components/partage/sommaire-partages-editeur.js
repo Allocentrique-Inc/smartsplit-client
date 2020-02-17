@@ -5,13 +5,14 @@ import { withTranslation } from 'react-i18next'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import "../../assets/scss/tableaudebord/tableaudebord.scss";
 import Login from '../auth/Login'
-import { Accordion } from 'semantic-ui-react'
+import { Accordion, Button } from 'semantic-ui-react'
 import AssistantPartageEditeur from './assistant-partage-editeur'
 import PartageSommaireEditeur from './partage-sommaire-editeur'
 import { Modal } from 'semantic-ui-react'
-import {Identite, config, AyantsDroit, journal} from '../../utils/application'
+import {Identite, config, AyantsDroit, journal, utils} from '../../utils/application'
 import { FlecheBasSVG, FlecheHautSVG } from '../svg/SVG.js'
 import moment from 'moment'
+import PageAssistantSplitCourrielsCollaborateurs from '../split/assistant-split-courriel-collaborateurs'
 
 const NOM = "SommairePartagesEditeur"
 
@@ -25,6 +26,8 @@ class SommairePartagesEditeur extends Component {
         this.initialisation = this.initialisation.bind(this)
         this.clic = this.clic.bind(this)
         this.creerNouvelle = this.creerNouvelle.bind(this)        
+        this.openModal = this.openModal.bind(this)
+        this.closeModal = this.closeModal.bind(this)
     }
 
     componentWillMount() {
@@ -34,6 +37,9 @@ class SommairePartagesEditeur extends Component {
             this.setState({ modaleConnexion: true })
         }
     }
+
+    closeModal = () => this.setState({ modaleCourriels: false })
+    openModal = () => this.setState({ modaleCourriels: true })
 
     initialisation() {
         let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]        
@@ -62,13 +68,24 @@ class SommairePartagesEditeur extends Component {
 
     render() {
         const t = this.props.t, i18n = this.props.i18n
-        if (this.state.propositions) {
-            let propositions = []        
+        if (this.state.propositions) {            
+            let propositions = []
             let _p0
             // Trouver _p0, la proposition la plus récente
             this.state.propositions.forEach(elem => {
                 if (!_p0 || _p0._d < elem._d) { _p0 = elem }
             })
+            let rightHolders = {}
+            if(_p0) {
+                rightHolders[_p0.rightHolderId] = {
+                    rightHolderId: _p0.rightHolderId,
+                    name: AyantsDroit.affichageDuNom(_p0.rightHolderId)
+                }
+                rightHolders[_p0.shareeId] = {
+                    rightHolderId: _p0.shareeId,
+                    name: AyantsDroit.affichageDuNom(_p0.shareeId)
+                }
+            }            
             propositions = this.state.propositions.map((elem, idx) => {    
                 const accordionIsOpen = idx === this.state.activeIndex;
                 let ayantDroit = AyantsDroit.ayantsDroit[elem.rightHolderId]
@@ -93,32 +110,91 @@ class SommairePartagesEditeur extends Component {
                                     </div>
                                 </Accordion.Title>
                                 <Accordion.Content active={this.state.activeIndex === idx} style={{padding: "0rem", paddingTop: "1rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
-                                    <PartageSommaireEditeur idx={idx} ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />
+                                    <PartageSommaireEditeur parent={this} idx={idx} ayantDroit={this.state.ayantDroit} part={elem} proposition={this.state.proposition} />
                                 </Accordion.Content>
                             </div>                                    
-                        </div>                            
+                        </div>
+                        <Modal
+                            open={this.state.modaleCourriels}
+                            onClose={this.closeModal}
+                            size="small"
+                            closeIcon
+                        >
+                            <Modal.Header>
+                                <h2 className="headerFin">{t("flot.split.documente-ton-oeuvre.proposition.titre")}
+                                    <div
+                                        className="close-icon"
+                                        onClick={() => { this.closeModal() }} >
+                                    </div>
+                                </h2>
+                            </Modal.Header>
+                            <Modal.Content className="invitation">
+                                {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
+                                <PageAssistantSplitCourrielsCollaborateurs
+                                    onRef={m => this.setState({ courrielsCollaborateurs: m })}
+                                    ayantDroits={rightHolders}
+                                    propositionId={this.state.propositions[this.state.propositions.length - 1].uuid}
+                                    close={(cb) => { this.closeModal(); if (cb) cb() }}
+                                    mediaId={this.state.mediaId}
+                                    onSubmit={()=>{                                        
+                                        let body = {
+                                            rightHolder: {nom: ayantDroit.nom, uuid: ayantDroit.rightHolderId},
+                                            shareeId: _p0.shareeId,
+                                            proposalId: _p0.proposalId,
+                                            mediaId: this.state.proposition.mediaId,
+                                            version: _p0.version
+                                        }
+                                        // Soumettre l'invitation
+                                        axios.post(`${config.API_URL}editorsplitshare/invite`, body)
+                                        .then(()=>{
+                                            toast.success(t('flot.invitations.envoyees'))
+                                            setTimeout(()=>{utils.naviguerVersPartageEditeur(this.state.proposition.mediaId)}, 3000)
+                                        })
+                                    }}
+                                />
+                            </Modal.Content>
+                            <Modal.Actions>
+                                <div className="finaliser">
+                                    <div
+                                        className="ui negative button"
+                                        onClick={this.closeModal}
+                                    >
+                                        {t("flot.split.collaborateur.attribut.bouton.annuler")}
+                                    </div>
+                                    <Button
+                                        onClick={() => {
+                                            this.state.courrielsCollaborateurs.handleSubmit()
+                                            this.closeModal()
+                                        }}
+                                        className={`ui medium button envoie`}
+                                    >
+                                        {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
+                                    </Button>
+                                </div>
+                            </Modal.Actions>
+                        </Modal>
                     </div>
                 )
             })
             propositions = propositions.reverse()
             // eslint-disable-next-line
-            let nouveauDisabled = false
+            let nouveauDisabled = true, envoiDisabled = true
             if (this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
-                if (_p.etat !== 'REFUSE') {
-                    nouveauDisabled = true
+                if(_p.etat === 'ATTENTE') {
+                    envoiDisabled = false
                 }
-                if (_p.etat === 'BROUILLON' || _p.etat === 'PRET') {
+                if (_p.etat === 'REFUSE') {
                     nouveauDisabled = false
-                }
-                if (_p.etat === 'ACCEPTE') {
-                    nouveauDisabled = false
-                }
+                }                
             }
             if(this.state.propositions.length === 0 || this.state.jetonApi) {
                 nouveauDisabled = true
-            }        
+            }
+
+
+
             let that = this
             return (                
                 <>
@@ -137,6 +213,29 @@ class SommairePartagesEditeur extends Component {
                     }
                     { !this.state.creerNouveauPartage &&
                         <div className="ui row">
+                            <div className="ui row">
+                                <div className="ui sixteen wide column">
+                                    <div className="boutons sommaire">
+                                        <div style={{textAlign: "right"}}>
+                                            { (!nouveauDisabled) && (
+                                                <div className={`ui medium button inverse`} onClick={
+                                                    () => {
+                                                        this.creerNouvelle()
+                                                    }
+                                                }>
+                                                    {t('flot.split.documente-ton-oeuvre.proposition.nouvelle-version')}</div>
+                                                )
+                                            }
+                                            {!envoiDisabled && (
+                                                <div
+                                                    onClick={() => this.openModal()}
+                                                    className="ui medium button envoyer sommaire">
+                                                    {t('flot.split.documente-ton-oeuvre.proposition.envoyer-editeur')}</div>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="ui row">
                                 <div className="ui two wide column" />
                                 <Accordion fluid>

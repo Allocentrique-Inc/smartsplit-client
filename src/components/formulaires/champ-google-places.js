@@ -3,6 +3,7 @@ import React from "react"
 import { Search } from "semantic-ui-react";
 
 import CONFIG from "../../config.json"
+import TitreChamp from "../page-assistant/titre-champ.js";
 const PLACES_URL = "https://maps.googleapis.com/maps/api/js?"
                  + "key=" + CONFIG.google.maps.APIKEY + "&"
                  + "libraries=places"
@@ -16,22 +17,31 @@ class ChampGooglePlaces extends React.Component {
 
     this.state = {
       valeur: props.valeurInitiale,
-      placeSélectionnée: null,
       résultats: null,
       enCharchement: false
     };
   }
 
   render() {
-    return <Search
-      isLoading={this.state.enCharchement}
-      onSearchChange={this.rechercheChangee}
-      onResultSelect={this.resultatSelectionne}
-      onFocus={this.rechercheChangee}
-      results={this.state.résultats}
-      value={this.state.valeur}
-      {...this.props}
-    />
+    return (
+      <div className="champ with-trigger-icon">
+          <TitreChamp
+              label={this.props.label}
+              description={this.props.description}
+              info={this.props.info}
+          />
+          <Search
+            isLoading={this.state.enCharchement}
+            onSearchChange={this.rechercheChangee}
+            onResultSelect={this.resultatSelectionne}
+            onFocus={this.rechercheChangee}
+            results={this.state.résultats}
+            value={this.state.valeur}
+            {...this.props}
+          />
+      </div>
+    )
+        
   }
 
   rechercheChangee = (e, {value}) => {
@@ -75,9 +85,9 @@ class ChampGooglePlaces extends React.Component {
   };
 
   resultatSelectionne = (e, { result }) => {
+    
     this.setState({
-      valeur: result.title,
-      placeSélectionnée: result
+      valeur: result.title
     });
 
     if(this.props.auChangement) {
@@ -96,10 +106,6 @@ class ChampGooglePlaces extends React.Component {
     if(status !== google.maps.places.PlacesServiceStatus.OK) {
       return; // on laisse l'adresse non-formattée
     }
-
-    this.setState({
-      valeur: place.formatted_address
-    });
 
     if(this.props.auChangement) {
       this.props.auChangement(place.formatted_address, place);

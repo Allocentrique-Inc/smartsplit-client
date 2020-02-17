@@ -97,6 +97,7 @@ const renderRoutes = () => {
             <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
             <Route exact path="/accueil" component={Accueil} />        
             <Route exact path="/partager/:mediaId" component={PartagesOeuvres} />
+            <Route exact path="/partager/editeur/:mediaId" component={PartagesOeuvresEditeur} />
             <Route exact path="/partager/:mediaId/envoyer" component={PartagesOeuvresEnvoyer} />
             <Route exact path="/partager/nouveau/:mediaId" component={NouveauPartage} />
             <Route exact path="/partager/existant/:uuid" component={ContinuerProposition} />
@@ -260,6 +261,13 @@ function PartagesOeuvres(match) {
   )
 }
 
+function PartagesOeuvresEditeur(match) {
+  let mediaId = match.match.params.mediaId;
+  return (
+    <SommairePartages mediaId={mediaId} editeur />
+  )
+}
+
 function PartagesOeuvresEnvoyer(match) {
   let mediaId = match.match.params.mediaId;
   return (
@@ -328,7 +336,7 @@ function renduLorsqueApplicationEstPrete() {
     journal.silly(NOM, `Application prête en ${cpt / 1000} secondes`)
     ReactDOM.render(renderRoutes(), document.getElementById("root"))
   } else {
-    setTimeout( ()=>renduLorsqueApplicationEstPrete(), 1)
+    setTimeout( ()=>renduLorsqueApplicationEstPrete(), 10)
   }
 }
 renduLorsqueApplicationEstPrete()

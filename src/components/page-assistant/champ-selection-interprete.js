@@ -171,6 +171,7 @@ class ChampSelectionInterprete extends Component {
                         />                                    
 
                         <Dropdown
+                            id="collaborateur"
                             trigger={this.triggerLabel()}
                             placeholder={this.props.placeholder}
                             fluid

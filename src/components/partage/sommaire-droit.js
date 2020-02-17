@@ -100,7 +100,20 @@ class SommaireDroit extends Component {
             Object.keys(this.state.donnees).forEach((uuid, idx) => {            
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
-                _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
+                let _donnees = 
+                    { ayantDroit: _aD, nom: part.nom, pourcent: parseInt(part.sommePct), color: part.color, raison: part.raison }
+                if( part.roles.includes('principal') ) {
+                    _donnees.principal = true
+                } else {
+                    _donnees.principal = false
+                }
+                if( part.roles.includes('musician') ) {
+                    _donnees.musicien = true
+                }
+                if( part.roles.includes('singer') ) {
+                    _donnees.chanteur = true
+                }
+                _data.push( _donnees )
                 _parts.push(
                     <div key={`part--${this.state.type}_${uuid}_${idx}`}>
                         <div className="ui grid">
@@ -133,9 +146,14 @@ class SommaireDroit extends Component {
                                             </div>
                                         </div>                                           
                                     </div>
-                                    <div className="ui row" style={{textAlign: "right"}}>
-                                        <i>{part.raison ? part.raison : ""}</i>
-                                    </div>
+                                    {
+                                        part.vote==="reject" && 
+                                        <div className="ui row">
+                                            <div className="ui sixteen wide column refuse" style={{textAlign: "right"}}>
+                                                {part.raison}
+                                            </div>
+                                        </div>
+                                    }                                    
                                     { uuid === this.state.ayantDroit.rightHolderId && !this.state.voteTermine && (
                                         <div className="ui row" style={{paddingTop: "1.5rem"}}>
                                             <div className="ui two wide column" />

@@ -76,7 +76,9 @@ class Base extends Component {
                                     if (e.target.nodeName === 'INPUT') {
                                         valeur = e.target.value
                                     }
-                                    this.props.setFieldValue('type', valeur)
+                                    if(valeur) {
+                                        this.props.setFieldValue('type', valeur)
+                                    }                                    
                                 }}
                             />
                         </div>

@@ -172,7 +172,8 @@ class PageAssistantPartageAuteur extends Component {
         return arrondir(_pctDelta < 0 ? 0 : _pctDelta)
     }
 
-    changementTexte(index, delta) {
+    changementTexte(index, delta) {        
+        index = parseInt(index.replace( 'texte_', '' ))
         // Changement de la zone de texte associée au gradateur
         let invariable = this.state.partsInvariables
         let droits = this.props.values.droitAuteur
@@ -195,6 +196,10 @@ class PageAssistantPartageAuteur extends Component {
                 droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + parseFloat(deltaParCollaborateurVariable))}`
                 droits[idx].pourcentParoles = `${arrondir(droits[idx].pourcent / 2)}`
                 droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
+            } else {                
+                droits[idx].pourcent = `${arrondir(parseFloat(elem.pourcent) + delta)}`
+                droits[idx].pourcentParoles = `${arrondir(droits[idx].pourcent / 2)}`
+                droits[idx].pourcentMusique = `${arrondir(droits[idx].pourcent / 2)}`
             }
         })
 
@@ -202,6 +207,8 @@ class PageAssistantPartageAuteur extends Component {
 
         if (aMisInvariable) // Retrait de l'index des invariables
             delete invariable[index]
+
+        journal.info(NOM, droits)
     }
 
     changementGradateur(index, delta) {
@@ -388,7 +395,7 @@ class PageAssistantPartageAuteur extends Component {
                                             <BoutonsRadio
                                                 name="mode_auteur"
                                                 actif={this.state.mode} // Attribut dynamique
-                                                onClick={(e) => {
+                                                onClick={(e) => {                                                    
                                                     let valeur
                                                     // Clic de la puce ou de l'étiquette ?
                                                     if (e.target.nodeName === 'LABEL') {
@@ -397,9 +404,11 @@ class PageAssistantPartageAuteur extends Component {
                                                     if (e.target.nodeName === 'INPUT') {
                                                         valeur = e.target.value
                                                     }
-                                                    this.setState({ mode: valeur }, () => {
-                                                        this.recalculerPartage()
-                                                    })
+                                                    if(valeur) {
+                                                        this.setState({ mode: valeur }, () => {
+                                                            this.recalculerPartage()
+                                                        })
+                                                    }                                                    
                                                 }}
                                                 titre=""
                                                 choix={[
@@ -620,6 +629,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                                                 id={`texte_${index}`}
                                                                                                                 changement={(id, valeur) => {
                                                                                                                     if (!isNaN(parseFloat(valeur))) {
+                                                                                                                        journal.info(NOM, `${id} - ${valeur}`)
                                                                                                                         this.changementTexte(id, valeur)
                                                                                                                     }
                                                                                                                 }}

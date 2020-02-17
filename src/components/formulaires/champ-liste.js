@@ -54,6 +54,7 @@ class ChampListeAssistant extends Component {
                     name={this.state.modele}
                     component={Form.Dropdown}
                     componentProps={{
+                        id: "collaborateur",
                         label: this.state.etiquette,
                         placeholder: t("flot.split.documente-ton-oeuvre.bouton.ajout"),
                         required: this.state.requis,

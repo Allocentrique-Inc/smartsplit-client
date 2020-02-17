@@ -12,3 +12,8 @@ body {
 .right-0 {
   float: right;
 }
+
+/* Le texte des champs de saisi des listes déroulantes collaborateurs et éditeurs sont blanches */
+#collaborateur input {
+  color: white;
+}

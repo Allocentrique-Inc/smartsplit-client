@@ -97,7 +97,7 @@ class PageParoles extends React.Component {
               this.props.values.lyrics && this.props.values.lyrics.languages
             }
             onChange={values =>
-              this.props.setFieldValue("lyrics.langues", values)
+              this.props.setFieldValue("lyrics.languages", values)
             }
           />
 
