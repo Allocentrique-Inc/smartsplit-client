@@ -45,11 +45,12 @@ class OeuvreResume extends React.Component {
     getMedia() {
         axios.get(`${config.API_URL}media/${this.state.mediaId}`)
         .then(res=>{
-            let _m = res.data.Item            
-            this.setState({media: _m},
+            this.setState(
+                {media: res.data},
                 ()=>{
                     this.setState({ rightHolders: AyantsDroit.ayantsDroit })
-                })
+                }
+            )
         })
     }
 

@@ -1,4 +1,4 @@
-import { journal, AyantsDroit } from './utils/application'
+import { journal, AyantsDroit, Identite } from './utils/application'
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
 import "./assets/scss/_colors.scss"
@@ -331,7 +331,7 @@ toast.configure({
 // Affichage quand le chargement est complété
 let cpt = 0
 function renduLorsqueApplicationEstPrete() {  
-  if(AyantsDroit.ayantsDroit) {
+  if(AyantsDroit.ayantsDroit && Identite.pret) {
     cpt++
     journal.silly(NOM, `Application prête en ${cpt / 1000} secondes`)
     ReactDOM.render(renderRoutes(), document.getElementById("root"))

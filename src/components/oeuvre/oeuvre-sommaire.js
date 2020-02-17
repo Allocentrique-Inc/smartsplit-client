@@ -50,10 +50,7 @@ class SommaireOeuvre extends Component {
 
     getMedia() {
         axios.get(`${config.API_URL}media/${this.state.mediaId}`)
-        .then(res => {
-            let media = res.data.Item
-            this.setState({ media: media })
-        })
+        .then(res => this.setState({ media: res.data }))
     }
 
     majTitre() {
@@ -299,7 +296,7 @@ class SommaireOeuvre extends Component {
                 <div className={`tdb--cadre ui row ${accueil}`}>
                     <ModaleConnexion fn={()=>{
                         this.getMedia()
-                        axios.get(`${config.API_URL}media/${this.state.mediaId}`)
+                        axios.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)
                         .then(res => {
                             let _p0
                             res.data.forEach(_p => {

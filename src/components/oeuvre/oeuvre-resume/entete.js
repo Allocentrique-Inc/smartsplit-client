@@ -80,8 +80,7 @@ class Entete extends React.Component {
   getMedia() {
     axios.get(`${config.API_URL}media/${this.state.media.mediaId}`)
     .then(res => {
-        let media = res.data.Item
-        this.setState({ media: media })
+        this.setState({ media: res.data })
     })
   }
 

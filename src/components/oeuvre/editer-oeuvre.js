@@ -48,7 +48,7 @@ class EditerOeuvre extends Component {
       // Teste si l'usager est le créateur de l'oeuvre (dans le système)
       axios.get(`${config.API_URL}media/${this.state.mediaId}`)
       .then((_m)=>{
-        this.chargement(Identite.usager.username === _m.data.Item.creator)        
+        this.chargement(Identite.usager.username === _m.data.creator)
       })
     }
   }
@@ -60,8 +60,8 @@ class EditerOeuvre extends Component {
         `${config.API_URL}media/${this.state.mediaId}`
       )
       .then(res => {
-        if (res.data.Item) {
-          let media = res.data.Item;
+        if (res.data) {
+          let media = res.data;
           if (admin || response.username === media.creator) {
             this.setState({ media: media }, () =>
               this.fetchApiRightHolders()

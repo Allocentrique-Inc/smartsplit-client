@@ -112,7 +112,7 @@ export default class AideAyantDroit {
      */
     genererAvatars(ayantsDroitMedia) {
         let avatars = []
-        if(ayantsDroitMedia) { 
+        if(ayantsDroitMedia) {
             ayantsDroitMedia.forEach(_aDm=>{
                 if(this.ayantsDroit[_aDm.id]) {
                     avatars.push(this.ayantsDroit[_aDm.id].avatar)

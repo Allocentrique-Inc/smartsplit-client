@@ -70,7 +70,7 @@ class EditerPartage extends Component {
                 // Une proposition existante, poursuite de la proposition BROUILLON
                 axios.get(`${config.API_URL}proposal/${this.state.uuid}`)
                 .then(res => {
-                    let proposal = res.data.Item
+                    let proposal = res.data
                     this.setState({ proposition: proposal }, () => {
                         this.setState({ mediaId: proposal.mediaId }, () => {
                             this.recupererOeuvre()
@@ -91,7 +91,7 @@ class EditerPartage extends Component {
         // Récupérer le média
         axios.get(`${config.API_URL}media/${this.state.mediaId}`)
         .then(res => {
-            let media = res.data.Item;   
+            let media = res.data;
             this.setState({ media: media });
         })
         .catch((error) => {
@@ -324,7 +324,7 @@ class EditerPartage extends Component {
     }    
 
     enregistrerEtAllerAuSommaire(t, valeurs, mediaId) {
-        this.soumettre(t, valeurs, "BROUILLON", () => {
+        this.soumettre(valeurs, "BROUILLON", () => {
             utils.naviguerVersSommaireOeuvre(mediaId)
         }, true)
     }
