@@ -237,7 +237,7 @@ class SommaireDroit extends Component {
                                             <span className="modifier">{t('options.modifier')}</span>
                                         </div>
                                     )
-                                }
+                     .s           }
                                 </div>
                                 
                                 {

@@ -115,7 +115,7 @@
     "titre": {
       "vedette": "Avec la participation spéciale de"
     },
-    "creePar": "Créé par",
+    "creePar": "Créée par",
     "piece": "Pièce originale",
     "band": "Groupe ou nom d'artiste",
     "feat": "avec",
@@ -459,7 +459,7 @@
           "autre-etape4": "Téléverser des fichiers .MID ou .MIDI seulement",
           "acces": "Accès",
           "choix": "Fichier",
-          "glisse": "Clique ici pour choisir ton fichier",
+          "glisse": "Clique ici pour choisir ton fichier (MP3 seulement)",
           "details": "Dis-nous en plus sur la pièce musicale",
           "duree": "Durée",
           "public": "Public - Rendre l’information visible de tous",
@@ -639,7 +639,7 @@
         "vide": {
           "preambule": "Tes oeuvres apparaîtront ici.",
           "preambule-collaborations": "Les œuvres sur lesquelles tu collabores apparaîtront ici.",
-          "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton ",
+          "indication": "Les oeuvres sur lesquelles tu collabores apparaîtront ici.",
           "indication-lien": "«Ajouter»."
         }
       },

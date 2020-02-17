@@ -296,7 +296,7 @@ class PageAssistantPartageEnregistrement extends Component {
 
         if (i18n.language.substring(0, 2) === 'en') {
             descriptif = (<div className="medium-400">
-                Here we separate the <strong>neighboring right</strong> of <strong>producers</strong>,
+                Here we separate the <strong>neighbouring right</strong> of <strong>producers</strong>,
                 ie those who have invested their time and / or their money to record and
                 finalize the product in order to be marketed.
                 <br />

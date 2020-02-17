@@ -458,7 +458,7 @@
           "autre-etape4": "Upload .MID or .MIDI files only.",
           "acces": "Access",
           "choix": "Choose a file",
-          "glisse": "Click here to choose your file",
+          "glisse": "Click here to choose your file (MP3 only)",
           "details": "Tell us more about the track.",
           "duree": "Length",
           "public": "Public - Make the information visible for all",
@@ -500,7 +500,7 @@
         },
         "etape": {
           "partage-etape": "Step 2",
-          "partage-titre": "Copyright Sharing",
+          "partage-titre": "Rights Sharing",
           "documentation": "Documentation",
           "enregistrerEtQuitter": "Save and Quit",
           "vote-titre": "Validate the share proposal of {{oeuvre}}"
@@ -639,7 +639,7 @@
         "vide": {
           "preambule": "Your works will appear here",
           "preambule-collaborations": "The works you collaborate on will appear here.",
-          "indication": "Document and share the rights of your first musical work by clicking on the ",
+          "indication": "The works on which you collaborate will appear here.",
           "indication-lien": "“Add”."
         }
       },
@@ -665,7 +665,7 @@
           "guillemet2": "”"
         },
         "auteur": {
-          "titre": "Who invented “{{titre}}”?"
+          "titre": "Who created “{{titre}}”?"
         },
         "interprete": {
           "titre": "Who played on “{{titre}}”?"
@@ -841,8 +841,8 @@
   "champ": "This text field is mandatory",
   "tooltip": {
     "egal": "Divide the copyright by the number of people and assign the role “Author-Composer” by default to all. This way of sharing copyright avoids many disagreements among creators, particularly when the income starts to come in!",
-    "roles": "Divide the copyright into two: 50% goes to those who wrote the lyrics, and 50% to those who composed the music. This last “music” part is in return divided by the number of roles elected and the collaborators get a percentage according to their implication. For example: Alice only composes music, while Bob compose AND arrange music. Therefore, Alice has 1/3 and Bob has 2/3 of the music.",
-    "manuel": "Lets you determine the percentage and the roles for each collaborator. To set a percentage to a collaborator, you can use the lock."
+    "roles": "Divide the copyright into two: 50% goes to those who wrote the lyrics, and 50% to those who composed the music. This last “music” part is in return divided by the number of roles elected and the collaborators get a percentage according to their implication. For example: Alice only composes music, while Bob composes AND arranges music. Therefore, Alice has 1/3 and Bob has 2/3 of the music.",
+    "manuel": "Determines the percentage and the roles for each collaborator. To set a percentage to a collaborator, you can use the lock."
   },
   "options-acces": {
     "public": "Public – Downloadable by everyone.",

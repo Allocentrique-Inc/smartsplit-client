@@ -351,7 +351,7 @@ class PageAssistantPartageAuteur extends Component {
                 Split the copyright between the creators, ie the authors of the
                 <strong> lyrics</strong>, the composers and arrangers of <strong> music</strong>.
                 It is customary to share copyright fairly.
-                But you can do otherwise.
+                But there are other options.
             </div>)
         } else {
             descriptif = (<div className="medium-400">
