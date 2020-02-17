@@ -324,7 +324,7 @@ class EditerPartage extends Component {
     }    
 
     enregistrerEtAllerAuSommaire(t, valeurs, mediaId) {
-        this.soumettre(t, valeurs, "BROUILLON", () => {
+        this.soumettre(valeurs, "BROUILLON", () => {
             utils.naviguerVersSommaireOeuvre(mediaId)
         }, true)
     }
