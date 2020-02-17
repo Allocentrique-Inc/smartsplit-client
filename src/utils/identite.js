@@ -65,13 +65,11 @@ function convertirCognitoVersLocal(données, éditeur) {
 
 export default class AideIdentites {
     constructor() {
+        this.pret = false
+
         const jetonInitial = window.localStorage.getItem("jeton-api")
         if(jetonInitial)
-            axios.defaults.headers.common['Authorization'] = jetonInitial
-
-        const cacheUsagerInitial = window.localStorage.getItem("cache-usager")
-        if(cacheUsagerInitial)
-            this.usager = JSON.parse(cacheUsagerInitial)
+            axios.defaults.headers.common["Authorization"] = "Bearer " + jetonInitial
 
         this.bienvenue = async (fn) => {
             try {
@@ -82,15 +80,17 @@ export default class AideIdentites {
 
                 const jeton = majJeton.data.accessToken
                 window.localStorage.setItem("jeton-api", jeton)
-                axios.defaults.headers.common['Authorization'] = jeton
+                axios.defaults.headers.common['Authorization'] = "Bearer " + jeton
 
                 let usager = await convertirLocalVersCognito(majJeton.data.user)
                 journal.info(NOM, `Bienvenue, ${usager.attributes.given_name} ${usager.attributes.family_name} (${usager.username})`)
                 this.usager = usager
-                window.localStorage.setItem("cache-usager", JSON.stringify(usager))
                 if(fn) {fn()}
             } catch(err) {
+                await this.deconnexion(fn)
                 journal.warn(NOM, err)
+            } finally {
+                this.pret = true
             }
         }
         this.rafraichir()        
@@ -122,7 +122,7 @@ export default class AideIdentites {
             const jeton = connexion.data.accessToken
 
             window.localStorage.setItem("jeton-api", jeton)
-            axios.defaults.headers.common['Authorization'] = jeton
+            axios.defaults.headers.common['Authorization'] = "Bearer " + jeton
             delete params.secret
             await this.bienvenue(fn)
         } catch(err) {
@@ -133,7 +133,8 @@ export default class AideIdentites {
 
     async deconnexion(fn) {
         window.localStorage.removeItem("jeton-api")
-        window.localStorage.removeItem("cache-usager")
+        this.usager = null
+        delete axios.defaults.headers.common["Authorization"]
         if(fn){fn()}
     }
 
