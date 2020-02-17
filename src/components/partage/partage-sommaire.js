@@ -168,7 +168,7 @@ class SommairePartage extends Component {
         if (!this.state.proposition || this.state.rafraichir) {
             axios.get(`${config.API_URL}proposal/${this.state.uuid}`)
                 .then(res => {
-                    let proposition = res.data.Item
+                    let proposition = res.data
                     this.calculMesVotes(proposition, fn)
                 })
                 .catch(err => {

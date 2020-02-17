@@ -29,7 +29,7 @@ class AssistantPartageEditeur extends Component {
         this.setState({uaD: AyantsDroit.ayantsDroit[user.username]})
         axios.get(`${config.API_URL}proposal/${this.state.propositionId}`)
         .then(res=>{
-            let proposition = res.data.Item            
+            let proposition = res.data
             let trouve = false
             proposition.rightsSplits.workCopyrightSplit.lyrics.forEach(elem=>{
                 if(elem.rightHolder.rightHolderId === user.username) {
@@ -85,7 +85,7 @@ class AssistantPartageEditeur extends Component {
         // Récupérer le média
         axios.get(`${config.API_URL}media/${this.state.proposition.mediaId}`)
         .then(res=>{
-            let media = res.data.Item
+            let media = res.data
             this.setState({media: media})
         })
         .catch((error) => {

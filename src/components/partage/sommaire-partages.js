@@ -71,7 +71,7 @@ class SommairePartages extends Component {
 
     async initialisation() {
         let res = await axios.get(`${config.API_URL}media/${this.state.mediaId}`)
-        this.setState({ media: res.data.Item }, async () => {
+        this.setState({ media: res.data }, async () => {
             let _res = await axios.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)
             let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]
             this.setState({ ayantDroit: _rAd }, () => {

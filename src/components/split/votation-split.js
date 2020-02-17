@@ -33,11 +33,11 @@ class VotationSplit extends Component {
             // Récupère la proposition
             axios.get(`${config.API_URL}proposal/${_s.proposalId}`)
                 .then(_r => {
-                    this.setState({ proposition: _r.data.Item })
+                    this.setState({ proposition: _r.data })
                     // Récupère le média
-                    axios.get(`${config.API_URL}media/${_r.data.Item.mediaId}`)
+                    axios.get(`${config.API_URL}media/${_r.data.mediaId}`)
                         .then(_rMedia => {
-                            this.setState({ media: _rMedia.data.Item })
+                            this.setState({ media: _rMedia.data })
                         })
                         .catch((error) => {
                             journal.error(NOM, error.message)

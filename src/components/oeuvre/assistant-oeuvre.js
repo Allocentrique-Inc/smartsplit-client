@@ -45,8 +45,8 @@ class AssistantOeuvre extends Component {
               `${config.API_URL}media/${this.state.mediaId}`
             )
             .then(res => {
-              if (res.data.Item) {
-                let media = res.data.Item
+              if (res.data) {
+                let media = res.data
                 if (Identite.usager.username === media.creator) {
                   this.setState({ media: media }, () =>
                     this.fetchApiRightHolders()

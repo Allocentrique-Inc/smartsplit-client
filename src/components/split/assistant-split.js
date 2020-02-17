@@ -26,7 +26,7 @@ class ValiderSplit extends Component {
         axios.get(`${config.API_URL}proposal/${this.props.proposition}`)
         .then((data)=>{
             // Construction de la structure des données de l'assistant
-            let proposition = data.data.Item
+            let proposition = data.data
             let rightHolders = {}
             let rights = {}
             function traitementDroit(objDroit, type) {
@@ -76,7 +76,7 @@ class ValiderSplit extends Component {
             // Temporaire, devrait déjà être fourni dans le client à ce stade
             axios.get(`${config.API_URL}media/${proposition.mediaId}`)
             .then(res=>{
-                let media = res.data.Item
+                let media = res.data
                 this.setState({mediaTitle: media.title})
                 this.setState({mediaId: media.mediaId})
             })
