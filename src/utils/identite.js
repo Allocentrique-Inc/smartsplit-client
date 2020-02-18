@@ -79,8 +79,7 @@ export default class AideIdentites {
         }
     }
 
-    async oubliMotDePasse(params) {
-        let courriel = params.courriel
+    async oubliMotDePasse(courriel) {
         axios
         .post(`${config.API_URL}rightHolders/emailToRightHolderId`,{email: courriel})
         .then(res => {

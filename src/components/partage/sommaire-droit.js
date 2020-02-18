@@ -101,102 +101,106 @@ class SommaireDroit extends Component {
             Object.keys(this.state.donnees).forEach((uuid, idx) => {            
                 let part = this.state.donnees[uuid]
                 let _aD = this.state.ayantsDroit[uuid]
-                _data.push({ ayantDroit: _aD, nom: part.nom, pourcent: part.sommePct, color: part.color, raison: part.raison })
+                let _donnees = 
+                    { ayantDroit: _aD, nom: part.nom, pourcent: parseInt(part.sommePct), color: part.color, raison: part.raison }
+                if( part.roles.includes('principal') ) {
+                    _donnees.principal = true
+                } else {
+                    _donnees.principal = false
+                }
+                if( part.roles.includes('musician') ) {
+                    _donnees.musicien = true
+                }
+                if( part.roles.includes('singer') ) {
+                    _donnees.chanteur = true
+                }
+                _data.push( _donnees )
                 _parts.push(
                     <div key={`part--${this.state.type}_${uuid}_${idx}`}>
-
-
-                <div className="ui grid">
-                <div className="ui row">
-
-                <div className="ui two wide column">
-                <img alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
-                </div>
-
-                <div className="ui six wide column">
-                <div className="holder-name sommaire">
-                {part.nom}
-                </div>   
-
-                <div className="role">
-                {
-                part.roles.map((_e, idx) => {
-                return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
-                })
-                }
-                </div>
-
-                </div>
-
-                <div className="ui six wide column">
-                <div className="vote">
-                <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
-                {parseFloat(part.sommePct).toFixed(2) + "%"}
-                </span>
-                </div> 
-                <br />
-                <div className="statut">
-                <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}>
-                {t(`flot.split.vote.${part.vote}`)}
-                </div>
-                </div>  
-
-                </div>
-                </div>
-                </div>
-                                        {
-                                            Object.keys(this.state.donnees).length - 1 !== idx && (
-                                                <div className="ui section divider sommaire" />
-                                            )
-                                        }      
-                                    <div className="ui row parts">
-                                        <i>{part.raison ? part.raison : ""}</i>
-                                    </div>
-
-                        <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />
-                        {
-                            uuid === this.state.ayantDroit.rightHolderId && (
-                                <>
-                                    {
-                                        !this.state.voteTermine &&
-                                        (
-                                            <div className="ui grid">
-                                                <div className="ui row">
-                                                    <div className="ui fourteen wide column">
-                                                        <i>{part.raison ? part.raison : ""}</i>
-                                                        <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
-                                                            onClick={() => {
-                                                                this.setState({ accepter: false })
-                                                                this.setState({ refuser: true })
-                                                                this.voter(false)
-                                                            }}>
-                                                            {t('flot.split.vote.refuser')}
-                                                        </div>
-                                                        <div className={`ui button medium vote accepte ${this.state.accepter ? 'actif' : ''}`}
-                                                            onClick={() => {
-                                                                this.setState({ accepter: true })
-                                                                this.setState({ refuser: false })
-                                                                this.voter(true)
-                                                            }}>{t('flot.split.vote.accepter')}</div>
-                                                        {this.state.refuser && (
-                                                            <textarea
-                                                                className="raison refus"
-                                                                cols={30}
-                                                                rows={2}
-                                                                placeholder={t("flot.split.valider.pourquoi")}
-                                                                onChange={(e) => {
-                                                                    this.state.parent.refuser(this.state.type, e.target.value)
-                                                                }}>
-                                                            </textarea>
-                                                        )}
-                                                    </div>                                                    
-                                                </div>
+                        <div className="ui grid">
+                            <div className="ui row" style={{paddingBottom: "0rem"}}>
+                                <div className="ui two wide column" style={{padding: "0 0 0 1rem"}}>
+                                    <img style={{margin: "0.5rem 0 0 1rem"}} alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
+                                </div>
+                                <div className="ui fourteen wide column">
+                                    <div className="ui row">
+                                        <div className="holder-name" style={{display: "inline"}}>
+                                            {part.nom}
+                                        </div>                                                                               
+                                        <div className="vote">
+                                            <span className={`${part.rightHolderId !== this.props.ayantDroit.rightHolderId ? 'utilisateurInvite' : 'utilisateurConnecte'}`}>
+                                                {parseFloat(part.sommePct).toFixed(2) + "%"}
+                                            </span>
+                                        </div>
+                                    </div>                                    
+                                    <div className="ui row">
+                                        <div className="role" style={{paddingLeft: "0rem", display: "inline"}}>
+                                            {
+                                                part.roles.map((_e, idx) => {
+                                                    return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
+                                                })
+                                            }
+                                        </div>
+                                        <div className="statut">
+                                            <div className={(part.vote === 'accept') ? "approuve" : (part.vote === 'reject' ? "desaprouve" : "attente")}>
+                                                {t(`flot.split.vote.${part.vote}`)}
                                             </div>
-                                        )
-                                    }
-                                </>
-                            )
-                        }
+                                        </div>                                           
+                                    </div>
+                                    {
+                                        part.vote==="reject" && 
+                                        <div className="ui row">
+                                            <div className="ui sixteen wide column refuse" style={{textAlign: "right"}}>
+                                                {part.raison}
+                                            </div>
+                                        </div>
+                                    }                                    
+                                    { uuid === this.state.ayantDroit.rightHolderId && !this.state.voteTermine && (
+                                        <div className="ui row" style={{paddingTop: "1.5rem"}}>
+                                            <div className="ui two wide column" />
+                                            <div className="ui fourteen wide column">
+                                                <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
+                                                    onClick={() => {
+                                                        this.setState({ accepter: false })
+                                                        this.setState({ refuser: true })
+                                                        this.voter(false)
+                                                    }}>
+                                                    {t('flot.split.vote.refuser')}
+                                                </div>
+                                                <div className={`ui button medium vote accepte ${this.state.accepter ? 'actif' : ''}`}
+                                                    onClick={() => {
+                                                        this.setState({ accepter: true })
+                                                        this.setState({ refuser: false })
+                                                        this.voter(true)
+                                                    }}>{t('flot.split.vote.accepter')}</div>
+                                                {this.state.refuser && (
+                                                    <textarea
+                                                        className="raison refus"
+                                                        cols={30}
+                                                        rows={2}
+                                                        placeholder={t("flot.split.valider.pourquoi")}
+                                                        onChange={(e) => {
+                                                            this.state.parent.refuser(this.state.type, e.target.value)
+                                                        }}>
+                                                    </textarea>
+                                                )}
+                                            </div>                                                    
+                                        </div>
+                                    )}
+                                </div>                                
+                            </div>
+                            <div className="ui row">
+                                <div className="ui two wide column" />
+                                <div className="ui fourteen wide column">
+                                {
+                                    Object.keys(this.state.donnees).length - 1 !== idx && (
+                                        <div className="ui section divider sommaire" style={{marginTop: "0rem", marginBottom: "1rem"}} />
+                                    )
+                                }
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />                        
                     </div>
                 )
             })
@@ -255,10 +259,8 @@ class SommaireDroit extends Component {
                             </div>
                             {
                                 _parts && _parts.length > 0 && (
-                                    <div className="ui row">
-                                        <div className="ui eight wide column parts">
+                                    <div className="ui row" style={{padding: "1rem", marginTop: "0px"}}>                                        
                                         {_parts}
-                                        </div>                            
                                     </div>
                                 )
                             }

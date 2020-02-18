@@ -85,5 +85,13 @@ export default class Utilitaires {
         if(this.contexte === CONTEXTE_NATIF) {            
         }        
     }
+
+    naviguerVersPartageEditeur(mediaId) {        
+        if(this.contexte === CONTEXTE_WEB) {
+            window.location.href = `/partager/editeur/${mediaId}`
+        }
+        if(this.contexte === CONTEXTE_NATIF) {            
+        }
+    }
     
 }

@@ -2,6 +2,8 @@ import {config} from '../../utils/application'
 import React, { Component } from "react";
 import { withTranslation } from "react-i18next";
 import ChampListeEditeurAssistant from "../formulaires/champ-liste-editeur"
+import { CopyrightSVG } from '../svg/SVG'
+import closeIcon from "../../assets/svg/icons/x.svg"
 
 class PageAssistantPartageChoixEditeur extends Component {
   
@@ -74,8 +76,18 @@ class PageAssistantPartageChoixEditeur extends Component {
         avatar = `${config.IMAGE_SRV_URL}faceapp.jpg`
     }    
 
+    const Icon = <CopyrightSVG />
+
     return (      
       <div className="ui grid">
+        <div className="ui row">          
+          <div className="ui eight wide column wizard-title types">
+            {Icon}
+            <div style={{marginLeft: "1rem", display: "inline", position: "relative", bottom: "0.5rem"}}>
+                {t(`flot.split.droits.titre.workCopyrightSplit`)}
+            </div>
+          </div>          
+        </div>
         <div className="ui row">
           <div className="ui eight wide column">
             <div className="medium-500 mode--partage__auteur">
@@ -89,24 +101,40 @@ class PageAssistantPartageChoixEditeur extends Component {
               <br />
               <div className="fields">
                 {this.state.editeur && (
-                  <div className="twelve wide field gray-fields">
-                    <div className="holder-name">
-                      <img
-                        alt=""
-                        className="ui spaced avatar image"
-                        src={avatar}
-                      />
-                      <i
-                        className="delete icon"
-                        onClick={() => {
-                          this.props.setFieldValue("editeur", undefined);
-                          this.props.setFieldValue("editeurListe", undefined);
-                          this.setState({ editeur: undefined });
-                        }}
-                      ></i>
-                      {this.state.editeur.nom}
+                  <div className="gray-fields" style={{width: "80%", padding: "0.5rem"}}>
+                    <div className="ui grid">
+                        <div className="ui row">
+                            <div
+                                className="ui three wide column">
+                                <div
+                                    className="avatar-image">
+                                    <img
+                                        alt=""
+                                        className="ui spaced avatar image"
+                                        src={avatar} />
+                                </div>
+                            </div>
+                            <div
+                                className="ui twelve wide column">
+                                <div
+                                    className="holder-name">
+                                    {this.state.editeur.nom}
+                                    <div className="ui one wide column">
+                                    <div className="close-icon cliquable" onClick={() => {
+                                            this.props.setFieldValue("editeur", undefined);
+                                            this.props.setFieldValue("editeurListe", undefined);
+                                            this.setState({ editeur: undefined });
+                                        }
+                                        }>
+                                    <img src={closeIcon} alt={"close"} style={{ position: "absolute", top: "0", right: "20px" }} />
+                                </div>
+                                </div>
+                                </div>                                    
+                            </div>
+                        </div>
                     </div>
                   </div>
+                  
                 )}
               </div>
               <br></br>

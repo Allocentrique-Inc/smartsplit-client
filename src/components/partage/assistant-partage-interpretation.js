@@ -320,6 +320,12 @@ class PageAssistantPartageInterpretation extends Component {
                                                             if (_aD.avatar) {
                                                                 avatar = _aD.avatar.dataUri
                                                             }
+
+                                                            let decalage = "0rem"
+                                                            if(!this.state.parts[index].principal) {
+                                                                decalage = "12rem"
+                                                            }
+
                                                             return (
                                                                 <div key={`part-${index}`}>
                                                                     <div className="gray-fields">
@@ -357,7 +363,7 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                         <div className="ui divider"></div>
                                                                                         <BoutonsRadio
                                                                                             style={{ display: "inline-flex" }}
-                                                                                            className="ten wide column"
+                                                                                            className="ui six wide column"
                                                                                             titre=""
                                                                                             name={`type_interpretation_${index}`}
                                                                                             actif={part.principal ? TYPE.principal : TYPE.accompagnement} // Attribut dynamique
@@ -371,10 +377,12 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                     if (e.target.nodeName === 'INPUT') {
                                                                                                         valeur = e.target.value
                                                                                                     }
-                                                                                                    this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
-                                                                                                    this.setState({ ping: true }, () => {
-                                                                                                        this.recalculerPartage()
-                                                                                                    })
+                                                                                                    if(valeur) {
+                                                                                                        this.props.setFieldValue(`droitInterpretation[${index}].principal`, valeur === TYPE.principal)
+                                                                                                        this.setState({ ping: true }, () => {
+                                                                                                            this.recalculerPartage()
+                                                                                                        })
+                                                                                                    }                                                                                                    
                                                                                                 }
                                                                                             }}
                                                                                             disabled={this.state.mode !== MODES.role}
@@ -389,10 +397,11 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                 }
                                                                                             ]}
                                                                                         />
-                                                                                    <div className="coches--role__droit">
+                                                                                    <div className="coches--role__droit" style={{marginLeft: decalage}}>
                                                                                         {
                                                                                             roles.map((elem, idx) => {
                                                                                                 return (
+                                                                                                    <>
                                                                                                     <Checkbox
                                                                                                         key={`coche_role_droit_interpretation_${index}_${idx}`}
                                                                                                         label={elem.nom}
@@ -407,7 +416,8 @@ class PageAssistantPartageInterpretation extends Component {
                                                                                                                 this.recalculerPartage()
                                                                                                             }, 0)
                                                                                                         }}
-                                                                                                    />
+                                                                                                    /><br/>
+                                                                                                    </>
                                                                                                 )
                                                                                             })
                                                                                         }
@@ -434,7 +444,7 @@ class PageAssistantPartageInterpretation extends Component {
                             <br />
                             <br />
                             <div className="conteneur-beignet fourteen wide field">
-                                <Beignet type="performanceNeighboringRightSplit" uuid="interpretation--beignet" data={this.state.parts} />                                
+                                <Beignet type="performanceNeighboringRightSplit" uuid="interpretation--beignet" data={this.state.parts} />
                             </div>
                         </div>
                     </div>

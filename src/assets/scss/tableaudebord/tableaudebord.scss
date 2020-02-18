@@ -486,7 +486,7 @@ font-size: 12px;
   font-weight: bold;
 }
 
-.desaprouve {
+.desaprouve, .refuse {
   color: #ac1616;
   font-weight: bold;
 }
@@ -595,7 +595,8 @@ font-size: 12px;
 .sommaire-approuve,
 .sommaire-desaprouve,
 .sommaire-attente,
-.sommaire-envoie {
+.sommaire-envoie,
+.sommaire-nouveau {
   font-family: IBM Plex Sans;
   font-size: 12px;
   line-height: 16px;
@@ -606,6 +607,11 @@ font-size: 12px;
   padding: 3px 5px 2px 5px;
   width: auto;
   margin-left: 1em;
+}
+
+.sommaire-nouveau {
+  color: #687A8B;
+  background-color: #FAF8F9;
 }
 
 .sommaire-approuve {

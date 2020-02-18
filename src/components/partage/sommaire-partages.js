@@ -33,7 +33,7 @@ class SommairePartages extends Component {
         this.state = {
             mediaId: props.mediaId,
             activeIndex: 0,
-            panneau: PANNEAU_PROPOSITIONS,
+            panneau: props.editeur ? PANNEAU_EDITEUR : PANNEAU_PROPOSITIONS,
             modaleConnexion: false,
             modaleNouvelle: false,
             modaleCourriels: props.envoyer,
@@ -47,7 +47,7 @@ class SommairePartages extends Component {
         this.closeModal = this.closeModal.bind(this)
         this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
         this.fermerInfobulleEditeur = this.fermerInfobulleEditeur.bind(this)
-        moment.defaultFormat = "DD-MM-YYYY HH:mm"
+        moment.defaultFormat = "DD-MM-YYYY HH:mm"                
     }
 
     componentWillMount() {
@@ -148,13 +148,12 @@ class SommairePartages extends Component {
                             <div className="version">                                
                                 &nbsp; Version {idx + 1} &nbsp; <span className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
                                     {t(`flot.split.etat.${elem.etat}`)}
-                                    </span>
-                                    </div>
+                                </span>
+                                </div>
                             <div>
                             &nbsp; <div className="small-400 creation">{t('oeuvre.creePar')}&nbsp;</div>
                                 <div className="small-500-color">{`${elem.initiatorName}`}</div>
-                                <span className="date sommaire">&nbsp;&nbsp;{i18n.language && elem._d ? moment(new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}
-                                </span>
+                                <span className="date sommaire">&nbsp;&nbsp;{i18n.language && elem._d ? moment(new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</span>
                             </div>
                         </Accordion.Title>
                         <Accordion.Content active={accordionIsOpen} style={{padding: "1rem 0rem 0rem"}} >
@@ -165,19 +164,17 @@ class SommairePartages extends Component {
             })
             propositions = propositions.reverse()
 
-            // eslint-disable-next-line
-            let nouveauDisabled = false, envoiDisabled = true, continuerDisabled = true
+            let nouveauDisabled = true, envoiDisabled = true
             let partageEditeur = false, fermerInfobulleEditeur = this.state.fermerInfobulleEditeur
             let partageEditeurEnCours = false
 
             if (this.state.propositions.length > 0) {
                 let _p = this.state.propositions[this.state.propositions.length - 1]
                 _p0 = _p
-                if (_p.etat !== 'REFUSE' || this.state.propositions.length === 0) {
-                    nouveauDisabled = true
+                if (_p.etat === 'REFUSE') {
+                    nouveauDisabled = false
                 }
                 if ((_p.etat === 'BROUILLON' || _p.etat === 'PRET') && _p.initiatorUuid === this.state.user.username) {
-                    continuerDisabled = false
                     envoiDisabled = false
                 }
                 if (_p.etat === 'ACCEPTE') {
@@ -325,8 +322,6 @@ class SommairePartages extends Component {
             // eslint-disable-next-line
             let contratEnabled = false
 
-            console.log('Modale éditeur ouverte : ', partageEditeur && !fermerInfobulleEditeur)
-
             return (
                 <div>
                     <Navbar pochette={this.props.pochette}
@@ -361,12 +356,13 @@ class SommairePartages extends Component {
                                             <div className="ui sixteen wide column">
                                                 <div className="boutons sommaire">
                                                 {
-                                                    proposition.etat === 'ACCEPTE' && <div // Affichage désactivé (fonctionnalité à venir)
-                                                        className="ui medium button inverse accept">
+                                                    proposition.etat === 'ACCEPTE' && contratEnabled && <div // Affichage désactivé (fonctionnalité à venir)
+                                                        className="ui medium button inverse"
+                                                        style={{ marginLeft: "0px" }}>
                                                         {t('flot.split.documente-ton-oeuvre.proposition.telecharger-contrat')}</div>
                                                 }
                                                 <div style={{textAlign: "right"}}>
-                                                    { (!continuerDisabled || !nouveauDisabled) && (
+                                                    { (!nouveauDisabled) && (
                                                         <div className={`ui medium button inverse`} onClick={
                                                             () => {
                                                                 utils.naviguerVersNouveauPartage(this.state.mediaId)
@@ -381,7 +377,7 @@ class SommairePartages extends Component {
                                                             className="ui medium button envoyer sommaire">
                                                             {t('flot.split.documente-ton-oeuvre.proposition.envoyer')}</div>
                                                     )}
-                                                </div>                                                
+                                                </div>
                                                 </div>
                                             </div>
                                             </div>

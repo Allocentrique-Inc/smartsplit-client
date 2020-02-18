@@ -127,7 +127,8 @@
   },
   "navigation": {
     "vote": {
-      "requis": "{{nb}}/{{total}} vote{{nombre}} requis"
+      "requis": "{{nb}}/{{total}} vote{{nombre}} requis",
+      "editeur": "Tu dois refuser ou accepter ce partage pour continuer."
     },
     "enregistrer": "Enregistrer",
     "plus-tard": "Plus tard",
@@ -210,8 +211,8 @@
       },
       "etat": {
         "VOTATION": "En attente de décision",
-        "REFUSE": "Refusée",
-        "ACCEPTE": "Approuvée",
+        "REFUSE": "Refusé",
+        "ACCEPTE": "Approuvé",
         "BROUILLON": "En rédaction",
         "PRET": "En attente d'envoi",
         "NOUVEAU": "Nouveau",
@@ -388,7 +389,7 @@
           "options": {
             "question1": "Quel type d'interprétation ?",
             "question1-choix-a": "Artiste principal",
-            "question1-choix-b": "Artiste accompagnateur",
+            "question1-choix-b": "Accompagnateur",
             "question2": "Quel rôle dans la pièce principale ?",
             "question2-choix-a": "Chanteur",
             "question2-choix-b": "Musicien"
@@ -573,6 +574,7 @@
           "sous-titre": "Pour finaliser ce partage, tu dois inviter tes collabos à valider le tout. Indique leurs adresses courriels auxquelles envoyer ta proposition de partage.",
           "nouvelle": "Partager les droits",
           "envoyer": "Envoyer aux collaborateurs",
+          "envoyer-editeur": "Envoyer à l'éditeur",
           "continuer": "Modifier le partage",
           "sommaire": "Accéder au sommaire",
           "voter": "Accéder au vote",
@@ -583,7 +585,7 @@
           "refuse2": "Refuser ce partage",
           "termine": "Le vote est terminé !",
           "telecharger-contrat": "Télécharger le contrat",
-          "nouvelle-version": "Créer un nouvelle version",
+          "nouvelle-version": "Proposer un nouveau partage",
           "jai-un-editeur": "J'ai un éditeur",
           "partage": "Proposer un split"
         }

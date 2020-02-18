@@ -69,6 +69,7 @@ class ChampSelection extends Component {
                     />
 
                     <Dropdown
+                        id="collaborateur"
                         placeholder={this.props.placeholder}
                         fluid
                         search

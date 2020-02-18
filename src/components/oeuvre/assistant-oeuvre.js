@@ -80,9 +80,10 @@ class AssistantOeuvre extends Component {
     response.forEach(e => {      
       assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
     })
-    this.setState({ assocUuidArtiste: assocUuidArtiste }, () =>
+    this.setState({ assocUuidArtiste: assocUuidArtiste }, () =>{
       this.setState({ rightHolders: response })
-    )
+      this.setState({ editeurs: AyantsDroit.editeursBrut })
+    })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -277,14 +278,15 @@ class AssistantOeuvre extends Component {
                       </div>
                     )}
                   >
-                    <Wizard.Page>
+                    {this.state.rightHolders && this.state.editeurs && <Wizard.Page>
                       <PageCreation
                         pochette={this.props.pochette}
                         rightHolders={this.state.rightHolders}
+                        editeurs={this.state.editeurs}
                         assocUuidArtiste={this.state.assocUuidArtiste}
                         parent={this}
                       />
-                    </Wizard.Page>
+                    </Wizard.Page>}
                     <Wizard.Page>
                       <PageInterpretation
                         pochette={this.props.pochette}

@@ -1,4 +1,5 @@
 export const getRightHolderIdsByRole = (role, rightHolders) => {
+    console.log(role, rightHolders)
     return rightHolders
         .filter(rightHolder => rightHolder.roles.includes(role))
         .map(rightHolder => rightHolder.id);
