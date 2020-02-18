@@ -11,20 +11,21 @@ class ChampAccesVision extends React.Component {
 
   constructor(props) {
     super(props);
+    //OptionAcces = chaque ligne du menu Dropdown
     this.accessOptions = [
       {
-        key: "public",
-        value: "public",
-        text: this.props.t("flot.split.documente-ton-oeuvre.documenter.public"),
-        "icon-image": EyeIcon,
+        key: "private",
+        value: "private",
+        text: this.props.t("flot.split.documente-ton-oeuvre.documenter.prive"),
+        "icon-image": LockFullIcon,
         content: (
           <OptionAcces
-            icon={EyeIcon}
+            icon={LockFullIcon}
             title={this.props.t(
-              "flot.split.documente-ton-oeuvre.documenter.public"
+              "flot.split.documente-ton-oeuvre.documenter.prive"
             )}
             description={this.props.t(
-              "flot.split.documente-ton-oeuvre.documenter.public"
+              "flot.split.documente-ton-oeuvre.documenter.prive-description"
             )}
           />
         )
@@ -47,25 +48,26 @@ class ChampAccesVision extends React.Component {
         )
       },
       {
-        key: "private",
-        value: "private",
-        text: this.props.t("flot.split.documente-ton-oeuvre.documenter.prive"),
-        "icon-image": LockFullIcon,
+        key: "public",
+        value: "public",
+        text: this.props.t("flot.split.documente-ton-oeuvre.documenter.public"),
+        "icon-image": EyeIcon,
         content: (
           <OptionAcces
-            icon={LockFullIcon}
+            icon={EyeIcon}
             title={this.props.t(
-              "flot.split.documente-ton-oeuvre.documenter.prive"
+              "flot.split.documente-ton-oeuvre.documenter.public"
             )}
             description={this.props.t(
-              "flot.split.documente-ton-oeuvre.documenter.prive-description"
+              "flot.split.documente-ton-oeuvre.documenter.public"
             )}
           />
         )
-      }
+      },
     ];
     this.state = {
-      value: this.props.value || this.accessOptions[0].value
+      // changer à [2], OU: value: this.props.value || "private", OU: réordonner
+      value: this.props.value || "this.accessOptions[0].value"
     };
   }
 

@@ -137,7 +137,7 @@ class ChampListeEditeurAssistant extends Component {
                 {
                     this.state.options && (
                         <Wizard.Field
-                            title={"Ajouter"}
+                            title={t("flot.split.documente-ton-oeuvre.bouton.ajout")}
                             name={this.state.modele}
                             component={Form.Dropdown}
                             validate={(val) => {

@@ -301,18 +301,15 @@ class PageAssistantPartageEnregistrement extends Component {
 
         if (i18n.language.substring(0, 2) === 'en') {
             descriptif = (<div className="medium-400">
-                Here we separate the <strong>neighboring right</strong> of <strong>producers</strong>,
+                Here we separate the <strong>neighbouring right</strong> of <strong>producers</strong>,
                 ie those who have invested their time and / or their money to record and
-                finalize the product in order to be marketed.
-                <br />
-                It is customary to share this right equally or pro rata with the investment.
+                finalize the product in order to be marketed. It is customary to share this right equally or pro rata with the investment.
             </div>)
         } else {
             descriptif = (<div className="medium-400">
                 On sépare ici le <strong>droit voisin</strong> des <strong>producteurs</strong>,
                 c’est à dire ceux qui ont investi leur temps et/ou leur argent pour enregistrer et
-                finaliser le produit afin d’être commercialisé. <br />
-                Il est d’usage de partager ce droit en parts égales ou au prorata de l’investissement.
+                finaliser le produit afin d’être commercialisé. Il est d’usage de partager ce droit en parts égales ou au prorata de l’investissement.
             </div>)
         }        
 

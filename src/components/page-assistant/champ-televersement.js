@@ -18,7 +18,7 @@ class ChampTeleversement extends Component {
 
     render() {
         return (
-            <div className="section-televersement" style={{ display: "-webkit-box" }}>
+            <div className="section-televersement">
                 <div className="ui grid" style={Object.assign({ width: "100%", marginBottom: "20px" }, this.state.extraStyle)}>
                     <div className="ui row">
                         <div className="ui column" />
