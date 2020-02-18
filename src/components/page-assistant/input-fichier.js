@@ -51,7 +51,7 @@ class InputFichier extends React.Component {
         <div className="ui button" onClick={this.clickFileInput}>
           {t("flot.split.documente-ton-oeuvre.documenter.choix")}
         </div>
-        <div className={`placeholder cliquable`} style={!this.state.filename ? {} : {fontSize: "16px", fontWeight: "700"}}>{this.placeholder()}</div>
+        <div className={`placeholder cliquable`} style={!this.state.filename ? {} : "nom-fichier"}>{this.placeholder()}</div>
         <input
           ref={this.fileInputRef}
           className="hidden"

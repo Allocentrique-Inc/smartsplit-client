@@ -273,6 +273,7 @@ class Page2NouvellePiece extends Component {
                             <ChampTeleversement
                                 label={t("composant.televersement.titre")}
                                 conserverNomFichier={true}
+                                // Changer txt tooltip ensuite par: fichiers WAV ou MP3 seulement 
                                 info={<InfoBulle pos={{ x: 100, y: 450 }} text={t('composant.televersement.soustitre')} />}
                                 access="private"
                                 onAccessChange={value =>{
@@ -310,7 +311,7 @@ class Page2NouvellePiece extends Component {
                                                 if (f.music.err) {
                                                     switch (f.music.err) {
                                                         case "AUDIO-MAUVAISE-LECTURE":
-                                                            toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
+                                                            toast.warn(t('flot.split.traitement.acr.erreur-mauvaise-lecture'))/*  changer txt ensuite pour: Fichiers WAV ou MP3 seulement */
                                                             journal.warn(NOM, t('flot.split.traitement.acr.erreur-mauvaise-lecture'))
                                                             break;
                                                         case "AUDIO-INCONNU":
