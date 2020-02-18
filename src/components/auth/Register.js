@@ -161,8 +161,8 @@ class Register extends Component {
         }
       }, false, // n'est pas éditeur, par défaut
       ()=>{
-        toast.success(`${firstName}, compte créé !`)
-        utils.naviguerVersAccueil()
+        toast.success(`${firstName}, ${this.props.t('toaster.compte')}!`)
+        // utils.naviguerVersAccueil()
         if (this.props.fn) {
           this.props.fn()
         }

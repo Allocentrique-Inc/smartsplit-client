@@ -181,8 +181,8 @@ class PageAssistantPartageInterpretation extends Component {
             descriptif = (<div className="medium-400">
                 Here we divide the <strong> neighbouring rights</strong> between the
                 <strong> performers</strong>, musicians and singers alike.
-                In the case of a <i> group</i>, all are <i> principal artists</i>
-                and share this right equally. In the case of a <i> featured artist</i>, the artist
+                In the case of a <i> group</i>, all are <i> principal artists</i> and share this right equally. 
+                In the case of a <i> featured artist</i>, the artist
                 retains 80% while the remaining 20% is shared among his companions, if any.
             </div>)
         } else {

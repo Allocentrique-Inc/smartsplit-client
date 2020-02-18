@@ -266,7 +266,7 @@
             "courriel": "Email",
             "groupe": "Group / Musical Entity",
             "entreprise": "Enterprise",
-            "ajout": "Add a groupor or an artist",
+            "ajout": "Add a group or or an artist",
             "placeholder": {
               "nom": "Entre their first name",
               "prenom": "Enter their last name",
@@ -886,5 +886,8 @@
   "editeur": {
     "oui": "Yes",
     "non": "No"
+  },
+  "toaster": {
+    "compte": "Account created!"
   }
 }

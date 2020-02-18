@@ -152,7 +152,7 @@
   },
   "composant": {
     "televersement": {
-      "titre": "Fichier",
+      "titre": "Téléverse ton fichier source",
       "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
       "indication": "Glisse ici le fichier que tu souhaites téléverser, ou click pour choisir le fichier.",
       "preambule": "Ici tu peux téléverser le fichier source. Il sera seulement accessible à ceux qui ont un accès privé. Tu peux ensuite partager ton œuvre avec des stations radio, diffuseurs, etc. Le lien au fichier n'est pas accessible publiquement."
@@ -886,5 +886,8 @@
   "editeur": {
     "oui": "Oui",
     "non": "Non"
+  },
+  "toaster": {
+    "compte": "compte créé !"
   }
 }
