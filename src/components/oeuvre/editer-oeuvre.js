@@ -259,7 +259,7 @@ class EditerOeuvre extends Component {
         if (this.state.jeton) {
           utils.nav(`/oeuvre/resume/${this.state.jeton}`);
         } else {
-          utils.naviguerVersSommaire(`/oeuvre/${this.state.mediaId}/resume`);
+          utils.naviguerVersSommaire(this.state.mediaId);
         }
       })
       .catch(error => {
