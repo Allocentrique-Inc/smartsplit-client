@@ -4,6 +4,7 @@ import Beignet from '../visualisation/partage/beignet'
 import Beignet2 from '../visualisation/partage/beignet2'
 import { CopyrightSVG, StarSVG, RecordSVG } from '../svg/SVG.js'
 import editIcon from '../../assets/svg/icons/edit.svg'
+import "../../assets/scss/tableaudebord/tableaudebord.scss";
 // eslint-disable-next-line
 import { Droits, AyantsDroit, journal, utils, Identite } from '../../utils/application'
 // eslint-disable-next-line
@@ -218,29 +219,31 @@ class SommaireDroit extends Component {
                                     !this.props.lectureSeule
             
             return (
+                <>
+                <div className="ui section divider sommaire" />
                 <div className="ui grid">
                     <div className="ui row" style={ this.state.type === Droits.droitAuteur() && _parts.length > 0 ? {minHeight: "38rem"} : {} }>
-                        <div className="ui eight wide column">                            
-                            <div className="wizard-title types" style={{padding: "1rem", marginTop: "0rem"}}>
-                                <div>
-                                    {Icon}
+                        <div className="ui eight wide column">
+                            <div className="wizard-title" style={{margin: "10px 0 0 1rem"}}>
+                                <div className="icon" style={{margin: "0 2rem 0 1rem"}}>
+                                {Icon}
                                 </div>
-                                <div style={{marginLeft: "1rem"}}>
+                                <div className="titre">
                                     {t(`flot.split.droits.titre.${this.state.titre}`)}
-                                </div>
-                                {
+                                    {
                                     _parts.length > 0 && peutModifier && (
                                         <div 
-                                            className="ui medium button inverse" 
-                                            style={{ right: "0px", position: "absolute", top: "0.25rem", height: "3rem" }}
+                                            className="ui medium button inverse modifier" 
                                             onClick={()=>{
                                                 utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
                                             }}>
                                             <img src={editIcon} alt={t('options.modifier')} />
-                                            <span style={{position: "relative", top: "-0.375rem", left: "0.375rem"}}>{t('options.modifier')}</span>
+                                            <span className="modifier">{t('options.modifier')}</span>
                                         </div>
                                     )
-                                }
+                     .s           }
+                                </div>
+                                
                                 {
                                     _parts.length === 0 && peutModifier && (
                                         <div 
@@ -267,6 +270,7 @@ class SommaireDroit extends Component {
                                 _parts && _parts.length > 0 && 
                                 (
                                     <>
+                                        {!beignetDouble && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
                                         {
                                             beignetDouble && (
                                                 <div>
@@ -274,14 +278,14 @@ class SommaireDroit extends Component {
                                                     {beignetDouble && this.state.donneesMusique && (<Beignet2 type={this.state.type} titre="Musique" side="right" uuid={`beignet_${this.state.uuid}_${this.state.titre}_musique`} data={this.state.donneesMusique} styleTexte={{position: "absolute", top: "32rem", left: "23rem"}} />)}
                                                 </div>
                                             )
-                                        }                            
-                                        {!beignetDouble && (<Beignet type={this.state.type} uuid={`beignet_${this.state.uuid}_${this.state.titre}`} data={_data} />)}
+                                        }     
                                     </>
                                 )
                             }                            
                         </div>
                     </div>
                 </div>
+                </>
             )
         } else {
             return (<div></div>)

@@ -140,23 +140,23 @@ class SommairePartages extends Component {
             propositions = this.state.propositions.map((elem, idx) => {
                 const accordionIsOpen = idx === this.state.activeIndex;
                 return (
-                    <div className="ui row" key={`sommaire_${idx}`} style={{marginBottom: "1rem"}}>
-                        <Accordion.Title active={accordionIsOpen} index={idx} onClick={this.clic} style={{border: "1px solid rgba(34,36,38,.15)", padding: "1rem 1rem 1rem 0.5rem"}}>
-                            <div className="fleche" style={{paddingRight: "0.5rem", paddingTop: "1rem"}}>
+                    <div className="ui row" key={`sommaire_${idx}`}>
+                        <Accordion.Title active={accordionIsOpen} index={idx} onClick={this.clic}>
+                            <div className="fleche">
                                 {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
                             </div>
                             <div className="version">                                
-                                &nbsp; Version {idx + 1} <span style={{marginLeft: "1rem"}} className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
+                                &nbsp; Version {idx + 1} &nbsp; <span className={(elem.etat === 'ACCEPTE') ? "sommaire-approuve" : (elem.etat === 'REFUSE') ? "sommaire-desaprouve" : (elem.etat === 'PRET') ? "sommaire-envoie" : "sommaire-attente"}>
                                     {t(`flot.split.etat.${elem.etat}`)}
                                 </span>
                                 </div>
                             <div>
-                                <div className="small-400 creation">&nbsp;&nbsp;{t('oeuvre.creePar')}&nbsp;</div>
+                            &nbsp; <div className="small-400 creation">{t('oeuvre.creePar')}&nbsp;</div>
                                 <div className="small-500-color">{`${elem.initiatorName}`}</div>
                                 <span className="date sommaire">&nbsp;&nbsp;{i18n.language && elem._d ? moment(new Date(parseInt(elem.creationDate)), moment.defaultFormat).locale(i18n.language.substring(0, 2)).fromNow() : moment(Date.now(), moment.defaultFormat).fromNow()}</span>
                             </div>
                         </Accordion.Title>
-                        <Accordion.Content active={accordionIsOpen} style={{padding: "0rem", paddingTop: "1rem", marginBottom: "1rem", borderLeft: "1px solid rgba(34,36,38,.15)", borderRight: "1px solid rgba(34,36,38,.15)", borderBottom: "1px solid rgba(34,36,38,.15)"}} >
+                        <Accordion.Content active={accordionIsOpen} style={{padding: "1rem 0rem 0rem"}} >
                             <SommairePartage lectureSeule={elem.uuid !== _p0.uuid} ayantDroit={this.state.ayantDroit} uuid={elem.uuid} rafraichirAuto={_rafraichir} />
                         </Accordion.Content>
                     </div>
@@ -208,7 +208,7 @@ class SommairePartages extends Component {
 
             let optionsAffichage = !this.state.pochette && (
                 <div style={{ display: "inline" }}>
-                    <div style={{ paddingBottom: "14px", display: "inline" }} className={`small-500${
+                    <div style={{ paddingBottom: "20px", display: "inline" }} className={`small-500${
                         souligneInitiateur ? "-color souligne" : " secondaire"
                         } ${souligneInitiateur && this.state.pochette ? "pochette" : ""}`}>
 
@@ -222,12 +222,11 @@ class SommairePartages extends Component {
                             {t('flot.split.documente-ton-oeuvre.tableaudebord.collabo')}
                         </span>
                     </div>
-                    <div style={{ paddingBottom: "14px", marginLeft: "40px", display: "inline" }} className={`small-500${
+                    <div style={{ paddingBottom: "20px", marginLeft: "40px", display: "inline" }} className={`small-500${
                         souligneCollaborateur ? "-color souligne" : " secondaire"
                         } ${souligneCollaborateur && this.state.pochette ? "pochette" : ""}`}>
 
                         <InfoBulle
-                            style={{backgroundColor: "#FAF8F9"}}
                             className="proposition"
                             declencheur={(
                                 <span
@@ -242,33 +241,24 @@ class SommairePartages extends Component {
                             )}                          
                             decoration={
                                 <>
-                                    <div className="header" style={
-                                        {
-                                            textAlign: "center",
-                                            fontSize: "16px",
-                                            color: "black",
-                                            margin: "0 auto",
-                                            fontFamily: "IBM Plex Sans",
-                                            fontWeight: "700",
-                                            width: "240px"
-                                        }}>
-                                        {t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")}
-                                    </div>
+                                <div className="editeur">
                                     <br />
                                     <div className="ui medium button inverse infobulle" style={{ width: "110px", marginLeft: "0px", marginRight: "0px" }}
                                         onClick={() => { this.fermerInfobulleEditeur(ETAT_EDITEUR_NON) }}
                                     >
-                                        {t("editeur.non")}
+                                        {t("editeur.oui")}
                                     </div>
                                     <div className="ui medium button infobulle" onClick={(e) => {
                                         this.fermerInfobulleEditeur(ETAT_EDITEUR_OUI)
                                         this.afficherPanneauEditeur()
                                         this.setState({ nouvellePropositionEditeur: true })
-                                    }}>{t("editeur.oui")}</div>
-                                    <div className="panneau">
-                                        <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={() => this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)}>
-                                        {t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
+                                    }}>{t("editeur.non")}</div>
                                     </div>
+                                    <div className="panneau">
+                                    <div className={`${this.state.pochette ? "pochette" : "smartsplit"} cliquable`} onClick={() => this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)}>
+                                        {t("flot.split.documente-ton-oeuvre.tableaudebord.later")}</div>
+                                        </div>
+                                        
                                 </>
                             }
                             orientation="bottom center"
@@ -346,14 +336,16 @@ class SommairePartages extends Component {
                     <div className="ui container">
                         <div className="ui grid sommaire">
                             <div className="ui row">
-                                <div className="ui twelve wide column" style={{marginBottom: "0.5rem"}}>
-                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.resume', {titre: this.state.media.title})}</h1>    
+                                <div className="ui eight wide column">
+                                    <h1>{t('flot.split.documente-ton-oeuvre.proposition.valider')}{this.state.media.title}</h1>    
                                 </div>
                             </div>
-                            <div className="ui row affichage" style={{boxShadow: "inset 0px -1px 0px #DCDFE1", marginLeft: "1rem", marginRight: "1rem"}}>
-                                <div className="ui sixteen wide column" style={{padding: "0rem"}}>
+                            <div className="affichage">
+                            <div className="ui row">
+                                <div className="ui sixteen wide column">
                                     {optionsAffichage}
                                 </div>
+                            </div>
                             </div>
                             </div>
                             {
@@ -388,9 +380,9 @@ class SommairePartages extends Component {
                                                 </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            </div>
                                         <div className="ui row">
-                                            <Accordion fluid className="ui sixteen wide column">
+                                            <Accordion fluid styled className="ui sixteen wide column">
                                                 {propositions}
                                             </Accordion>
                                         </div>

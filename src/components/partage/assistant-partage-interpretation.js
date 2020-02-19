@@ -179,11 +179,11 @@ class PageAssistantPartageInterpretation extends Component {
         let t = this.props.t, i18n = this.props.i18n
         if (i18n.language.substring(0, 2) === 'en') {
             descriptif = (<div className="medium-400">
-                Here we divide the <strong> neighboring right</strong> between the
+                Here we divide the <strong> neighbouring rights</strong> between the
                 <strong> performers</strong>, musicians and singers alike.
-                In the case of a <i> group</i>, all are <i> principal artists</i>
-                and share this right equally. In the case of a <i> featured artist</i>, the artist
-                retains 80% while the remaining 20% ​​is shared among his companions, if any.
+                In the case of a <i> group</i>, all are <i> principal artists</i> and share this right equally. 
+                In the case of a <i> featured artist</i>, the artist
+                retains 80% while the remaining 20% is shared among his companions, if any.
             </div>)
         } else {
             descriptif = (<div className="medium-400">

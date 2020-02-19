@@ -44,3 +44,7 @@ label.nouvelAuteur {
 .ui.search > .results {
     top: 80px;
 }
+
+.section-televersement {
+    display: -webkit-box;
+}

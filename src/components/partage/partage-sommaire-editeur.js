@@ -226,9 +226,11 @@ class PartageSommaireEditeur extends Component {
             })
         }
     }
+    
 
     render() {
         const t = this.props.t
+
         if (this.state.beneficiaire && this.state.donateur) {
             let visualisation = (<Beignet type="workCopyrightSplit" uuid={`auteur--beignet__${this.state.idx}`} data={this.state.donnees} />)            
             const peutModifier =    this.state.part.etat === 'ATTENTE'
@@ -360,6 +362,17 @@ class PartageSommaireEditeur extends Component {
                                             </div>
                                         </div>                        
                                     </div>
+                                    </div> 
+                                </div>
+
+                        <div className="ui row">
+
+                            <div className="role" style={{marginLeft: "-1rem"}}>
+                                {t('flot.split.documente-ton-oeuvre.editeur.donateur')}
+                            </div>  
+                            <div className= "statut">
+                                <div className={(this.state.choix === 'accept') ? "approuve" : (this.state.choix === "reject" ? "desaprouve" : "attente") }>
+                                    {t(`flot.split.vote.${this.state.choix}`)}</div>
                                 </div>
                             </div>
                             <div className="ui eight wide column">                    

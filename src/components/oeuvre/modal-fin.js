@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Modal } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import positiveImage from "../../assets/images/positive.png";
 import closeIcon from "../../assets/svg/icons/x.svg";
 import "../../assets/scss/page-assistant/modal.scss";
@@ -76,7 +77,13 @@ class ModalFin extends Component {
         </div>
 
         <div className={"modal-bottom-bar"}>
-          <Button onClick={() => window.location.href = "/oeuvre/" + this.state.mediaId + "/resume"} style={this.props.pochette ? { backgroundColor: "#F2724A" } : {}}>{t("flot.fin.resume")}</Button>
+          <Button
+            as={Link}
+            to={`/oeuvre/${this.state.mediaId}/resume`}
+            style={this.props.pochette ? { backgroundColor: "#F2724A" } : {}}
+          >
+            {t("flot.fin.resume")}
+          </Button>
         </div>
 
       </Modal>

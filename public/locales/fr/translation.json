@@ -115,7 +115,7 @@
     "titre": {
       "vedette": "Avec la participation spéciale de"
     },
-    "creePar": "Créé par",
+    "creePar": "Créée par",
     "piece": "Pièce originale",
     "band": "Groupe ou nom d'artiste",
     "feat": "avec",
@@ -153,8 +153,8 @@
   },
   "composant": {
     "televersement": {
-      "titre": "Fichier",
-      "soustitre": "Format WAV ou MP3 seulement, 100 Mo maximum.",
+      "titre": "Téléverse ton fichier source ",
+      "soustitre": "Format MP3 seulement, 100 Mo maximum.",
       "indication": "Glisse ici le fichier que tu souhaites téléverser, ou click pour choisir le fichier.",
       "preambule": "Ici tu peux téléverser le fichier source. Il sera seulement accessible à ceux qui ont un accès privé. Tu peux ensuite partager ton œuvre avec des stations radio, diffuseurs, etc. Le lien au fichier n'est pas accessible publiquement."
     }
@@ -206,7 +206,8 @@
         "media": "Partager les droits pour un média :",
         "partage": "Partager les droits",
         "sommaire": "Sommaire d'une proposition :",
-        "afficher": "Afficher le sommaire"
+        "afficher": "Afficher le sommaire",
+        "pourquoi": "Pourquoi refuses-tu le split (optionel) ?"
       },
       "etat": {
         "VOTATION": "En attente de décision",
@@ -459,7 +460,7 @@
           "autre-etape4": "Téléverser des fichiers .MID ou .MIDI seulement",
           "acces": "Accès",
           "choix": "Fichier",
-          "glisse": "Clique ici pour choisir ton fichier",
+          "glisse": "Clique ici pour choisir ton fichier (MP3 seulement)",
           "details": "Dis-nous en plus sur la pièce musicale",
           "duree": "Durée",
           "public": "Public - Rendre l’information visible de tous",
@@ -567,7 +568,7 @@
             "REFUSE": "Refusée"
           },
           "valider": "Valider le split de {{titre}}",
-          "resume": "Résumé du partage",
+          "resume": "Résumé du partage ",
           "editer": "Éditer",
           "titre": "Envoyer le partage des droits",
           "sous-titre": "Pour finaliser ce partage, tu dois inviter tes collabos à valider le tout. Indique leurs adresses courriels auxquelles envoyer ta proposition de partage.",
@@ -591,7 +592,7 @@
       },
       "traitement": {
         "acr": {
-          "erreur-mauvaise-lecture": "Mauvaise lecture du média. Essayez un nouvel échantillon.",
+          "erreur-mauvaise-lecture": "Fichiers MP3 seulement.",
           "erreur-inconnu": "Aucune correspondance pour le média soumis."
         }
       },
@@ -640,7 +641,7 @@
         "vide": {
           "preambule": "Tes oeuvres apparaîtront ici.",
           "preambule-collaborations": "Les œuvres sur lesquelles tu collabores apparaîtront ici.",
-          "indication": "Documente et partage les droits sur ta première oeuvre musicale en utilisant le bouton ",
+          "indication": "Les oeuvres sur lesquelles tu collabores apparaîtront ici.",
           "indication-lien": "«Ajouter»."
         }
       },
@@ -887,5 +888,8 @@
   "editeur": {
     "oui": "Oui",
     "non": "Non"
+  },
+  "toaster": {
+    "compte": "compte créé !"
   }
 }
