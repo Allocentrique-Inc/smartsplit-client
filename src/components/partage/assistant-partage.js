@@ -1,5 +1,6 @@
 import { AyantsDroit, config, journal, utils, Identite } from '../../utils/application'
 import React, { Component } from 'react'
+import { Link } from "react-router-dom"
 import { Wizard } from "../formulaires/assistant-partage"
 import { withTranslation } from 'react-i18next'
 import PageAssistantPartageDroitAuteur from './assistant-partage-auteur'
@@ -562,9 +563,9 @@ class AssistantPartage extends Component {
                             )}
                         </div>
                         <div className={"modal-bottom-bar"}>
-                            <a href={`/partager/${this.state.mediaId}`}>
-                                <Button>{t("flot.fin.partage")}</Button>
-                            </a>
+                            <Button as={Link} to={`/partager/${this.state.mediaId}`}>
+                                {t("flot.fin.partage")}
+                            </Button>
                         </div>
                     </Modal>
                 </>                   
