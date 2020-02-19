@@ -1,4 +1,4 @@
-import {config, Identite, journal, AyantsDroit} from '../../utils/application'
+import {config, Identite, journal, AyantsDroit, utils} from '../../utils/application'
 import React, { Component } from "react"
 import { Wizard } from "../formulaires/assistant"
 import axios from "axios"
@@ -68,7 +68,7 @@ class EditerOeuvre extends Component {
             );
             this.setState({ user: response });
           } else {
-            window.location.href = `/oeuvre/${media.mediaId}/resume`;
+            utils.naviguerVersSommaire(media.mediaId)
           }
         }
       })
@@ -257,9 +257,9 @@ class EditerOeuvre extends Component {
       .then(response => {
         actions.setSubmitting(false);
         if (this.state.jeton) {
-          window.location.href = `/oeuvre/resume/${this.state.jeton}`;
+          utils.nav(`/oeuvre/resume/${this.state.jeton}`);
         } else {
-          window.location.href = `/oeuvre/${this.state.mediaId}/resume`;
+          utils.naviguerVersSommaire(`/oeuvre/${this.state.mediaId}/resume`);
         }
       })
       .catch(error => {

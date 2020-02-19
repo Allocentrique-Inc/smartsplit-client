@@ -1,14 +1,17 @@
 const CONTEXTE_WEB = "1", CONTEXTE_NATIF = "2"
 
-export default class Utilitaires {    
-
+export default class Utilitaires {
     constructor(contexte) {
         this.contexte = contexte
     }
 
+    nav(url) {
+        this.history.push(url)
+    }
+
     naviguerVersAccueil() {
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/accueil`
+            this.nav(`/accueil`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -16,7 +19,7 @@ export default class Utilitaires {
 
     naviguerVersSommaire(mediaId) {
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/oeuvre/${mediaId}/resume`
+            this.nav(`/oeuvre/${mediaId}/resume`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -24,7 +27,7 @@ export default class Utilitaires {
 
     naviguerVersSommaireOeuvre(mediaId, invitationsEnvoyees = false) {
         if(this.contexte === CONTEXTE_WEB) {            
-            window.location.href = `/oeuvre/sommaire/${mediaId}${ invitationsEnvoyees ? "?i=1" : "" }`;
+            this.nav(`/oeuvre/sommaire/${mediaId}${ invitationsEnvoyees ? "?i=1" : "" }`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -32,7 +35,7 @@ export default class Utilitaires {
 
     naviguerVersDocumentation(mediaId) {
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/documenter/${mediaId}`
+            this.nav(`/documenter/${mediaId}`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -40,7 +43,7 @@ export default class Utilitaires {
 
     naviguerVersPoursuivreDocumentation(uuid) {
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/partager/existant/${uuid}`
+            this.nav(`/partager/existant/${uuid}`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -48,7 +51,7 @@ export default class Utilitaires {
 
     naviguerVersEnvoyerAuxCollaborateurs(mediaId) {
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/partager/${mediaId}/envoyer`
+            this.nav(`/partager/${mediaId}/envoyer`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -56,7 +59,7 @@ export default class Utilitaires {
 
     naviguerVersEditerProposition(uuid, pageNo) {
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/editer-partage/${uuid}/${pageNo}`
+            this.nav(`/editer-partage/${uuid}/${pageNo}`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -64,7 +67,7 @@ export default class Utilitaires {
 
     naviguerVersSommairePartage(mediaId) {
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/partager/${mediaId}`
+            this.nav(`/partager/${mediaId}`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -72,7 +75,7 @@ export default class Utilitaires {
 
     naviguerVersNouveauPartage(mediaId) {        
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/partager/nouveau/${mediaId}`
+            this.nav(`/partager/nouveau/${mediaId}`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }
@@ -80,7 +83,7 @@ export default class Utilitaires {
 
     naviguerVersPoursuivrePartage(uuid) {
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/partager/existant/${uuid}`
+            this.nav(`/partager/existant/${uuid}`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }        
@@ -88,7 +91,7 @@ export default class Utilitaires {
 
     naviguerVersPartageEditeur(mediaId) {        
         if(this.contexte === CONTEXTE_WEB) {
-            window.location.href = `/partager/editeur/${mediaId}`
+            this.nav(`/partager/editeur/${mediaId}`)
         }
         if(this.contexte === CONTEXTE_NATIF) {            
         }

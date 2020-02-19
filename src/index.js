@@ -1,4 +1,4 @@
-import { journal, AyantsDroit, Identite } from './utils/application'
+import { journal, AyantsDroit, Identite, utils } from './utils/application'
 import "semantic-ui-css/semantic.min.css";
 import "./index.css";
 import "./assets/scss/_colors.scss"
@@ -44,7 +44,7 @@ import EditerPartage from './components/partage/editer-partage'
 import queryString from 'query-string'
 
 const NOM = "index.js"
-const browserHistory = createBrowserHistory();
+const browserHistory = utils.history = createBrowserHistory();
 
 const renderRoutes = () => {
   let routage
