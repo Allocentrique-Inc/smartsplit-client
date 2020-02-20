@@ -91,6 +91,7 @@
       "indication": {
         "titre": "Titre de la pièce musicale",
         "titre-soustexte": "Ne pas inclure de mentions (avec, arrangement par, etc.) dans le titre.",
+        "titre-duplication": "Inscrire le nouveau titre ici",
         "album": "Album sur lequel figure la pièce musicale",
         "arrangeur": "Artiste ou groupe",
         "reprise": "",
