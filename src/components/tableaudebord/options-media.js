@@ -2,7 +2,9 @@ import React, {Component} from 'react'
 import moreVertical from '../../assets/svg/icons/more-vertical.svg'
 import { withTranslation } from 'react-i18next'
 import { Dropdown } from 'semantic-ui-react'
-import {utils} from '../../utils/application'
+import {config, utils} from '../../utils/application'
+import { toast } from 'react-toastify'
+import axios from "axios"
 
 class OptionsMedia extends Component {
 
@@ -13,6 +15,21 @@ class OptionsMedia extends Component {
             media: props.media,
             user: props.user,
             etat: props.etat
+        }
+    }
+
+    // TODO: Déplacer à un endroit qui fait du sense, faut vraiment arrêter de tout mettre dans les composantes...
+    dupliquerMedia = async () => {
+        try {
+            const newMedia = await axios.post(
+                `${config.API_URL}media/${this.state.media.mediaId}/duplicate`,
+                {proposals: true}
+            )
+
+            this.props.modaleDupliquerOeuvre(newMedia.data, true)
+        } catch(e) {
+            console.error("Erreur lors de la duplication de l'oeuvre", e)
+            toast.error(this.props.t("media.erreurs.duplication"))
         }
     }
 
@@ -37,6 +54,10 @@ class OptionsMedia extends Component {
                                 />
                             )
                         }
+                        <Dropdown.Item
+                            text={t("media.options.dupliquer")}
+                            onClick={this.dupliquerMedia}
+                        />
                     </Dropdown.Menu>
                 </Dropdown>
             </div>

@@ -222,7 +222,9 @@ class LigneMedia extends Component {
                 supprimer={this.supprimer} 
                 user={this.state.user} 
                 ayantDroit={this.state.user.username} 
-                media={this.state.media} />
+                media={this.state.media}
+                modaleDupliquerOeuvre={this.props.modaleDupliquerOeuvre}
+                 />
             </div>
           </div>
         </div>

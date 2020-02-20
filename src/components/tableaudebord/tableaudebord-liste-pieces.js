@@ -28,6 +28,7 @@ class ListePieces extends Component {
       user: props.user
     };
     this.modaleNouvelleOeuvre = this.modaleNouvelleOeuvre.bind(this);
+    this.modaleDupliquerOeuvre = this.modaleDupliquerOeuvre.bind(this);
   }
 
   afficherPanneauInitiateur() {
@@ -91,7 +92,17 @@ class ListePieces extends Component {
   }
 
   modaleNouvelleOeuvre(ouvert = true) {
-    this.setState({ modaleOeuvre: ouvert })
+    this.setState({
+      modaleOeuvre: ouvert,
+      duplicateMedia: null
+    })
+  }
+
+  modaleDupliquerOeuvre(media, ouvert = true) {
+    this.setState({
+      modaleOeuvre: ouvert,
+      duplicateMedia: media
+    })
   }
 
   render() {
@@ -212,6 +223,7 @@ class ListePieces extends Component {
               media={elem}
               user={this.state.user}
               rightHolders={this.state.rightHolders}
+              modaleDupliquerOeuvre={this.modaleDupliquerOeuvre}
             />
           );
         });
@@ -225,6 +237,7 @@ class ListePieces extends Component {
                   media={elem}
                   user={this.state.user}
                   rightHolders={this.state.rightHolders}
+                  modaleDupliquerOeuvre={this.modaleDupliquerOeuvre}
                 />
               );
             } else {
@@ -299,6 +312,7 @@ class ListePieces extends Component {
                   audio={this.state.audio}
                   parent={this}
                   user={this.state.user}
+                  duplicateMedia={this.state.duplicateMedia}
                 />
               </Modal.Content>
               <Modal.Actions>
