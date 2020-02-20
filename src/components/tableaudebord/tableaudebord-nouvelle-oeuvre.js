@@ -20,6 +20,18 @@ class NouvelleOeuvre extends Component {
         this.soumettre = this.soumettre.bind(this)
         this.changementPage = this.changementPage.bind(this)
         this.changement = this.changement.bind(this)
+
+        if(props.duplicateMedia) {
+            this.state.media = {...props.duplicateMedia}
+            this.state.mediaId = props.duplicateMedia.mediaId
+
+            // Le reste de l'interface s'attends à un array de IDs, qui est ensuite reconvertis en array d'objets à l'envoi. Il y a perte d'information ici, mais tout est à refaire anyway.
+            if(this.state.media.rightHolders) {
+                this.state.media.rightHolders
+                    = this.state.media.vedettes
+                    = this.state.media.rightHolders.map(rh => rh.id)
+            }
+        }
     }
 
     componentWillMount() {
@@ -90,12 +102,16 @@ class NouvelleOeuvre extends Component {
             files: values.files,
             remixer: values.arrangeur
         }
-        this.props.parent.state.audio.stop()
+
+        if(this.props.parent.state.audio)
+            this.props.parent.state.audio.stop()
 
         axios.post(`${config.API_URL}media`, body)
             .then(res => {
                 if (this.state.pochette) {
                     utils.naviguerVersDocumentation(body.mediaId)                    
+                } else if(this.state.media && this.state.mediaId) { // Duplication
+                    utils.naviguerVersSommaireOeuvre(this.state.mediaId)
                 } else {
                     utils.naviguerVersNouveauPartage(body.mediaId)
                 }
@@ -123,7 +139,8 @@ class NouvelleOeuvre extends Component {
                         initialValues={{
                             title: undefined,
                             type: undefined,
-                            vedettes: []
+                            vedettes: [],
+                            ...this.state.media
                         }}
                         buttonLabels={{ previous: t('navigation.precedent'), next: t('navigation.suivant'), submit: t('flot.split.navigation.cest-parti') }}
                         debug={false}

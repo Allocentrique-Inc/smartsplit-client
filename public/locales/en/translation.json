@@ -3,7 +3,11 @@
     "options": {
       "reenvoyer": "Resend to collaborators",
       "sommaire": "See summary",
-      "supprimer": "Delete"
+      "supprimer": "Delete",
+      "dupliquer": "Duplicate"
+    },
+    "erreurs": {
+      "duplication": "An error occured while duplicating this work"
     }
   },
   "accordeon": {
