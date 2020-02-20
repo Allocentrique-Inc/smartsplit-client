@@ -22,7 +22,7 @@ class NouvelleOeuvre extends Component {
         this.changement = this.changement.bind(this)
 
         if(props.duplicateMedia) {
-            this.state.media = {...props.duplicateMedia}
+            this.state.media = {...props.duplicateMedia, title: ""}
             this.state.mediaId = props.duplicateMedia.mediaId
 
             // Le reste de l'interface s'attends à un array de IDs, qui est ensuite reconvertis en array d'objets à l'envoi. Il y a perte d'information ici, mais tout est à refaire anyway.
@@ -157,7 +157,7 @@ class NouvelleOeuvre extends Component {
                                 }
                                 return errors
                             }}>
-                            <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} />
+                            <PageNouvellePiece parent={this} rightHolders={this.state.rightHolders} duplication={this.props.duplicateMedia} />
                         </Wizard.Page>
                         <Wizard.Page>
                             <Page2NouvellePiece pochette={this.props.pochette} parent={this} rightHolders={this.state.rightHolders} assocUuidArtiste={this.state.assocUuidArtiste} />
@@ -175,7 +175,7 @@ class PageNouvellePiece extends Component {
     render() {
         return (
             <React.Fragment>
-                <Base values={this.props.values} setFieldValue={this.props.setFieldValue} />
+                <Base values={this.props.values} setFieldValue={this.props.setFieldValue} duplication={this.props.duplication} />
             </React.Fragment>
         )
     }

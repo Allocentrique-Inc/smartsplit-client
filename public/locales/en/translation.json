@@ -102,6 +102,7 @@
       "indication": {
         "titre": "Work title",
         "titre-soustexte": "Do not include guests (featuring, remixed by, etc.) in the title.",
+        "titre-duplication": "Type the new work title here",
         "arrangeur": "Artist or group...",
         "album": "Work album",
         "reprise": "",

@@ -42,6 +42,7 @@ class Base extends Component {
                                 modele="title"
                                 requis={true}
                                 autoFocus={true}
+                                indication={this.props.duplication ? t("oeuvre.attribut.indication.titre-duplication") : ""}
                             />
                         </div>
                     </div>
