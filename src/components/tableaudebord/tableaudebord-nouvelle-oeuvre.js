@@ -110,8 +110,6 @@ class NouvelleOeuvre extends Component {
             .then(res => {
                 if (this.state.pochette) {
                     utils.naviguerVersDocumentation(body.mediaId)                    
-                } else if(this.state.media && this.state.mediaId) { // Duplication
-                    utils.naviguerVersSommaireOeuvre(this.state.mediaId)
                 } else {
                     utils.naviguerVersNouveauPartage(body.mediaId)
                 }
