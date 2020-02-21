@@ -33,8 +33,27 @@ class OptionsMedia extends Component {
         }
     }
 
+    supprimer() {
+        this.props.supprimer(this.state.media).catch(e => {
+            toast.error(this.props.t("media.erreurs.suppression"))
+        })
+    }
+
     render() {
         const t = this.props.t
+
+        let peutRéenvoyer = false
+        let peutSupprimer = false
+
+        if(this.state.media.propositions.length > 0) {
+            const proposition = this.state.media.propositions[0]
+
+            if(proposition.initiatorUuid === this.state.user.username) {
+                peutRéenvoyer = proposition.etat === "VOTATION"
+                peutSupprimer = ["BROUILLON", "PRET", "REFUSE"].includes(proposition.etat)
+            }
+        }
+
         return (            
             <div>
                 <Dropdown text="" icon={<img alt="options" src={moreVertical}/>} className="pointing top right">
@@ -43,21 +62,22 @@ class OptionsMedia extends Component {
                             text={t("media.options.sommaire")}
                             onClick={()=>utils.naviguerVersSommaire(this.state.media.mediaId)}
                         />
-                        {
-                            this.state.media.propositions.length > 0 && 
-                            this.state.media.propositions[0].initiatorUuid === this.state.user.username &&
-                            this.state.media.propositions[0].etat === "VOTATION" &&
-                            (
-                                <Dropdown.Item
-                                    text={t("media.options.reenvoyer")}
-                                    onClick={()=>this.props.reenvoi(this.state.media)}
-                                />
-                            )
-                        }
+                        {peutRéenvoyer && (
+                            <Dropdown.Item
+                                text={t("media.options.reenvoyer")}
+                                onClick={()=>this.props.reenvoi(this.state.media)}
+                            />
+                        )}
                         <Dropdown.Item
                             text={t("media.options.dupliquer")}
                             onClick={this.dupliquerMedia}
                         />
+                        {peutSupprimer && (
+                            <Dropdown.Item
+                                text={t("media.options.supprimer")}
+                                onClick={this.supprimer.bind(this)}
+                            />
+                        )}
                     </Dropdown.Menu>
                 </Dropdown>
             </div>

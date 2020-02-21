@@ -4,10 +4,12 @@
       "reenvoyer": "Réenvoyer la proposition",
       "sommaire": "Voir le résumé",
       "supprimer": "Supprimer",
-      "dupliquer": "Dupliquer"
+      "dupliquer": "Dupliquer",
+      "supprimer": "Supprimer"
     },
     "erreurs": {
-      "duplication": "Une erreur est survenue lors de la duplication de cette oeuvre"
+      "duplication": "Une erreur est survenue lors de la duplication de cette oeuvre",
+      "suppression": "Une erreur est survenue lors de la suppression de cette oeuvre"
     }
   },
   "info": {
