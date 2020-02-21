@@ -4,10 +4,12 @@
       "reenvoyer": "Resend to collaborators",
       "sommaire": "See summary",
       "supprimer": "Delete",
-      "dupliquer": "Duplicate"
+      "dupliquer": "Duplicate",
+      "supprimer": "Delete"
     },
     "erreurs": {
-      "duplication": "An error occured while duplicating this work"
+      "duplication": "An error occured while duplicating this work",
+      "suppression": "An error occured while deleting this work"
     }
   },
   "accordeon": {

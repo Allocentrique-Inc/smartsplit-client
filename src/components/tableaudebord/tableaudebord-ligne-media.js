@@ -77,10 +77,6 @@ class LigneMedia extends Component {
     return _avatars
   }
 
-  supprimer(mediaId) {
-    this.setState({mediaASupprimer: mediaId}, ()=>this.setState({supprimer: true}))
-  }
-
   surNouveau() {
     // Détecter si la proposition est verrouillée
     if (
@@ -219,7 +215,7 @@ class LigneMedia extends Component {
             <div className={`ui one wide column`} style={{float: "right"}}>
               <OptionsMedia 
                 reenvoi={()=>utils.naviguerVersEnvoyerAuxCollaborateurs(this.state.media.mediaId)} 
-                supprimer={this.supprimer} 
+                supprimer={this.props.supprimer} 
                 user={this.state.user} 
                 ayantDroit={this.state.user.username} 
                 media={this.state.media}

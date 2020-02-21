@@ -29,6 +29,7 @@ class ListePieces extends Component {
     };
     this.modaleNouvelleOeuvre = this.modaleNouvelleOeuvre.bind(this);
     this.modaleDupliquerOeuvre = this.modaleDupliquerOeuvre.bind(this);
+    this.supprimer = this.supprimer.bind(this)
   }
 
   afficherPanneauInitiateur() {
@@ -89,6 +90,27 @@ class ListePieces extends Component {
     } catch (err) {
       console.log(err)
     }
+  }
+
+  async supprimer(media) {
+    const newState = {}
+
+    await axios.delete(`${config.API_URL}media/${media.mediaId}`)
+
+    const supprimerDansState = (state) => {
+      const array = this.state[state]
+      const index = array.indexOf(media)
+
+      if(index >= 0) {
+        array.splice(index, 1)
+        newState[state] = array
+      }
+    }
+
+    supprimerDansState("creatorMedias")
+    supprimerDansState("collabMedias")
+
+    this.setState(newState)
   }
 
   modaleNouvelleOeuvre(ouvert = true) {
@@ -224,6 +246,7 @@ class ListePieces extends Component {
               user={this.state.user}
               rightHolders={this.state.rightHolders}
               modaleDupliquerOeuvre={this.modaleDupliquerOeuvre}
+              supprimer={this.supprimer}
             />
           );
         });
@@ -238,6 +261,7 @@ class ListePieces extends Component {
                   user={this.state.user}
                   rightHolders={this.state.rightHolders}
                   modaleDupliquerOeuvre={this.modaleDupliquerOeuvre}
+                  supprimer={this.supprimer}
                 />
               );
             } else {
@@ -259,6 +283,7 @@ class ListePieces extends Component {
                 media={elem}
                 user={this.state.user}
                 rightHolders={this.state.rightHolders}
+                supprimer={this.supprimer}
               />
             )
           )
