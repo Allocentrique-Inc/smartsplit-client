@@ -28,7 +28,7 @@ export function ItemSelectionne(props) {
                 </div>
             </div>
 
-            <div className="right cliquable">
+            <div className="right click">
                 <img className="x-icon" onClick={ (event) => props.onClick(event) }
                      src={ xIcon }
                      alt={ 'Enlever ' + props.nom }

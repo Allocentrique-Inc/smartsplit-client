@@ -646,9 +646,9 @@
           "ajouter": "Add"
         },
         "vide": {
-          "preambule": "Your works will appear here",
-          "preambule-collaborations": "The works you collaborate on will appear here.",
-          "indication": "The works on which you collaborate will appear here.",
+          "preambule": "Your works will appear here.",
+          "preambule-collaborations": "The works on which you collaborate will appear here.",
+          "indication": "Document and share the rights of your first musical work by clicking on ",
           "indication-lien": "“Add”."
         }
       },
@@ -714,6 +714,7 @@
         "manual": "Split manually"
       },
       "droits": {
+        "navbar": "Enter a title",
         "auteur": "Copyright",
         "titre": {
           "workCopyrightSplit": "Copyright",

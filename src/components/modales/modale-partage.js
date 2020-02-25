@@ -30,7 +30,7 @@ class ModalePartage extends Component {
     }
   }
 
-  autoriserAccess(t, contexte) {
+  autoriserAccess(t, CONTEXT) {
     if(this.state.prenom && this.state.nom && this.state.courriel) {      
       let data = {
         mediaId: this.state.media.mediaId,
@@ -38,7 +38,7 @@ class ModalePartage extends Component {
         nom: this.state.nom,
         prenom: this.state.prenom,
         courriel: this.state.courriel,
-        contexte: contexte
+        CONTEXT: CONTEXT
       }      
       Axios.post(`${config.API_URL}media/shareMedia`, data)
       .then(res=>{
@@ -66,7 +66,7 @@ class ModalePartage extends Component {
         <div onClick={()=>{this.setState({selection: idx}, async ()=>{
           let jeton = await Axios.get(`${config.API_URL}media/jetonMedia/${this.state.media.mediaId}/${idx}`)
           this.setState({jeton: jeton.data})
-        })}} className="ui row cliquable">
+        })}} className="ui row click">
           <div className="ui two wide column">
             <img style={{width: "35px"}} src={imgSrc} alt={cleTradTitre} />
           </div>
@@ -94,11 +94,11 @@ class ModalePartage extends Component {
       }
     }
 
-    let url, contexte = "smartsplit.org"
+    let url, CONTEXT = "smartsplit.org"
     let prefixe = config.BASE
     if(this.props.pochette) {
       prefixe = config.BASE_POCHETTE
-      contexte = "pochette.info"
+      CONTEXT = "pochette.info"
     }
 
     url = `${prefixe}oeuvre/resume`
@@ -112,7 +112,7 @@ class ModalePartage extends Component {
             </div>
           </div>
           <div className="right-0">
-            <span className="close-icon cliquable" onClick={this.props.onClose}>
+            <span className="close-icon click" onClick={this.props.onClose}>
               <img src={closeIcon} alt={"close"} />
             </span>
           </div>
@@ -175,7 +175,7 @@ class ModalePartage extends Component {
               <Button className={`negative ${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.setState({selection: 0})}}>
                 {t('flot.partage.btn-retour')}
               </Button>
-              <Button className={`${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.autoriserAccess(t, contexte)}}>
+              <Button className={`${this.props.pochette ? 'pochette' : ''}`} onClick={()=>{this.autoriserAccess(t, CONTEXT)}}>
                 {t('flot.partage.btn-ok')}
               </Button>
             </div>

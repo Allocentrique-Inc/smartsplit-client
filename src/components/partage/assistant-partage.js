@@ -532,7 +532,7 @@ class AssistantPartage extends Component {
                             </div>
 
                             <div className="rightModal" style={{ paddingRight: "10px" }}>
-                                <div className="close-icon cliquable" onClick={this.props.onClose}>
+                                <div className="close-icon click" onClick={this.props.onClose}>
                                     <img src={closeIcon} alt={"close"} style={{ float: "right" }} />
                                 </div>
                             </div>

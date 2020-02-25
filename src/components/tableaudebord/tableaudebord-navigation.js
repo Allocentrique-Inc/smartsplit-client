@@ -60,7 +60,7 @@ class Navigation extends Component {
     }
     return (
       <div
-        className="cliquable menu"
+        className="click menu"
         onClick={() => {
           this.naviguer(choix)
         }}

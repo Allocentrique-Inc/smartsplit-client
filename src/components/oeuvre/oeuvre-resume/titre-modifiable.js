@@ -15,7 +15,7 @@ export default function TitreModifiable(props) {
             { props.children }
             {
                 props.edition && (
-                    <div className={ 'edit-link cliquable' } onClick={naviguer}>
+                    <div className={ 'edit-link click' } onClick={naviguer}>
                         <img className={ 'edit-icon' } src={ editIcon } alt={ 'Édition' }/>
                     </div>
                 )

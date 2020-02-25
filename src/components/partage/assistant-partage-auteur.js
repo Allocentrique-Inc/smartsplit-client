@@ -557,7 +557,7 @@ class PageAssistantPartageAuteur extends Component {
                                                                                         className="holder-name auteur">
                                                                                         {part.nom}                                                                                        
                                                                                         <div className="ui one wide column">
-                                                                                        <div className="close-icon cliquable" onClick={() => {
+                                                                                        <div className="close-icon click" onClick={() => {
                                                                                                 arrayHelpers.remove(index)
                                                                                                 this.setState({ ping: true }, () => {
                                                                                                     this.recalculerPartage()

@@ -116,7 +116,7 @@ class ListeFichiers extends Component {
                                 />
                             </span>
                             <div style={{textAlign: "right"}} className="ui three wide column">
-                                <img className="cliquable" src={xIcon} alt="" onClick={()=>this.supprimer(idx)} />
+                                <img className="click" src={xIcon} alt="" onClick={()=>this.supprimer(idx)} />
                             </div>
                         </div>                                                
                         <div className="ui three wide column">

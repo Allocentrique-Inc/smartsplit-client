@@ -44,7 +44,7 @@ class ModalFin extends Component {
           </div>
 
           <div className="right-0">
-            <span className="close-icon cliquable" onClick={this.props.onClose}>
+            <span className="close-icon click" onClick={this.props.onClose}>
               <img src={closeIcon} alt={"close"} />
             </span>
           </div>

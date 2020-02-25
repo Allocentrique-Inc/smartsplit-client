@@ -54,3 +54,9 @@
     border-right-color: transparent;
     border-style: solid;
   }
+
+  i.ui.question.circle.icon.smart-split {
+    color: #687A8B;
+    font-size: 10pt;
+  }
+  

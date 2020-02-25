@@ -13,7 +13,7 @@ class SectionTelechargements extends React.Component {
     return (
       <div
         key={`download-${download.label}`}
-        className={`download-section cliquable`}
+        className={`download-section click`}
       >
         <img
           className={"download-icon"}
