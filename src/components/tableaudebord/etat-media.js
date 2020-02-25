@@ -64,7 +64,7 @@ class EtatMedia extends Component {
                     <div className="small-400-color">
                         {t(`flot.split.documente-ton-oeuvre.proposition.etat.${this.state.proposition.etat}`)}
                     </div>
-                    <div onClick={fn} className={`cliquable small-500-color ${this.state.pochette ? 'pochette' : 'smartsplit' }`}>
+                    <div onClick={fn} className={`click small-500-color ${this.state.pochette ? 'pochette' : 'smartsplit' }`}>
                         {this.state.proposition.etat === "BROUILLON" && t('flot.split.documente-ton-oeuvre.proposition.editer')}
                         {this.state.proposition.etat === "PRET" && t('flot.split.documente-ton-oeuvre.proposition.envoyer')}
                         {this.state.proposition.etat === "VOTATION" && t('flot.split.documente-ton-oeuvre.proposition.sommaire')}

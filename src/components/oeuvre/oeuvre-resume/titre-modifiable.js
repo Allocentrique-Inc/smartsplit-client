@@ -8,7 +8,7 @@ export default function TitreModifiable(props) {
             { props.children }
             {
                 props.edition && (
-                    <div className={ 'edit-link cliquable' } onClick={()=>{ 
+                    <div className={ 'edit-link click' } onClick={()=>{ 
                         // Rediriger vers ls modification de l'oeuvre à la page souhaitée
                         window.location.href=`/editer/${props.mediaId}/${props.pageNo}/${props.jeton || ""}`
                     }}>

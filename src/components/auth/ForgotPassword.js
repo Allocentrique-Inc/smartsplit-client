@@ -182,7 +182,7 @@ class ForgotPassword extends Component {
                         {t("flot.fin.recupMotDePasse")}
                       </div>
                       <div
-                        className="close-icon cliquable"
+                        className="close-icon click"
                         onClick={() => {
                           this.handleClose();
                         }}

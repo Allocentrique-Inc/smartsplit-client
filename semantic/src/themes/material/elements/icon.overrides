@@ -897,7 +897,7 @@ i.icon.view.module:before { content: '\e8f0'}
 i.icon.view.quilt:before { content: '\e8f1'}
 i.icon.view.stream:before { content: '\e8f2'}
 i.icon.view.week:before { content: '\e8f3'}
-i.icon.vignette:before { content: '\e435'}
+i.icon.label:before { content: '\e435'}
 i.icon.visibility:before { content: '\e8f4'}
 i.icon.visibility.off:before { content: '\e8f5'}
 i.icon.voice.chat:before { content: '\e62e'}

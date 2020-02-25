@@ -296,7 +296,7 @@
           "accepter": "Accepter"
         }
       },
-      "navigation": {        
+      "navigation": {
         "suivant": "Suivant",
         "envoi": "Soumettre",
         "precedent": "Précédent",
@@ -312,7 +312,7 @@
         "composant": {
           "televersement": {
             "titre": "Fichier",
-            "soustitre": "WAV ou MP3 seulement, 100 MB maximum.",
+            "soustitre": "MP3 seulement, 100 MB maximum.",
             "indication": "ou déposer le fichier ici"
           }
         },
@@ -641,7 +641,7 @@
         "vide": {
           "preambule": "Tes oeuvres apparaîtront ici.",
           "preambule-collaborations": "Les œuvres sur lesquelles tu collabores apparaîtront ici.",
-          "indication": "Les oeuvres sur lesquelles tu collabores apparaîtront ici.",
+          "indication": "Documente et partage les droits de ta première œuvre musicale en cliquant sur ",
           "indication-lien": "«Ajouter»."
         }
       },
@@ -707,6 +707,7 @@
         "manual": "Partager manuellement"
       },
       "droits": {
+        "navbar": "Saisir un titre",
         "auteur": "  Droits d'auteur",
         "titre": {
           "workCopyrightSplit": "Droits d'auteur",

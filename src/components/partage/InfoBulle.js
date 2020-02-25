@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Popup } from "semantic-ui-react";
+import "./InfoBulle.css"
 
-const icone = <i className="ui question circle icon" style={{ color: "#687A8B", fontSize: "10pt" }} />
+const icon = <i className="ui question circle icon smart-split" />
 
 class InfoBulle extends Component {
     constructor(props) {
@@ -9,7 +10,7 @@ class InfoBulle extends Component {
         this.state = {
             hover: false,
             text: props.text,
-            declencheur: props.declencheur || icone, // propriété de l'InfoBulle
+            declencheur: props.declencheur || icon, // propriété de l'InfoBulle
             decoration: props.decoration, // propriété de PopUp
             sur: props.sur || "hover",
             ouvert: props.ouvert, // attribut état interne, quand appellé étant changé
@@ -56,7 +57,7 @@ class InfoBulle extends Component {
         return (            
             <>
                 <div
-                    className="cliquable"
+                    className="click"
                     style={{ display: "inline" }}
                     onMouseOver={e => { this.handleMouseIn(e); this.setXY(e) }}
                     onMouseOut={this.handleMouseOut.bind(this)}>

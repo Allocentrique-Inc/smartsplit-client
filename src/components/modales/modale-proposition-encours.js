@@ -42,7 +42,7 @@ class ModalPropositionEnCours extends Component {
           </div>
 
           <div className="right-0">
-            <span className="close-icon cliquable" onClick={this.onClose}>
+            <span className="close-icon click" onClick={this.onClose}>
               <img src={closeIcon} alt={"close"} />
             </span>
           </div>

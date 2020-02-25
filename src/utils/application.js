@@ -1,6 +1,10 @@
 /**
  * Démarrage applicatif
  * 
+   
+/**
+ * Démarrage applicatif
+ * 
  * - Création de la configuration
  * - Création des objets d'aide-métier
  *  o Chargement des ayants-droit

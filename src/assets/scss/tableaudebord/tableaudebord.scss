@@ -107,7 +107,8 @@
   margin-left: 32px;
 }
 
-.tdb--lien__actif, .tdb--lien__inactif {
+.tdb--lien__actif,
+.tdb--lien__inactif {
   font-family: IBM Plex Sans;
   font-style: normal;
   font-weight: bold;
@@ -202,15 +203,15 @@
   background-color: $smartsplit-color-link;
   &.pochette {
     background-color: $pochette-color-link;
-  }  
+  }
 }
 
 .ui.medium.button.infobulle {
   border: 1px solid #dcdfe1;
-  background-color: #FAF8F9;
+  background-color: #faf8f9;
   color: $smartsplit-color-link;
   &:hover {
-    color:  #FAF8F9;    
+    color: #faf8f9;
     background-color: $smartsplit-color-link;
   }
 }
@@ -357,7 +358,7 @@
 .icon--img {
   margin: 15px;
 }
-.cliquable.menu {
+.click.menu {
   display: flex;
 }
 
@@ -373,8 +374,8 @@
 .small-400.creation,
 .small-500.secondaire,
 .date.sommaire {
-color: #687A8B;
-font-size: 12px;
+  color: #687a8b;
+  font-size: 12px;
 }
 
 .small-400.creation {
@@ -395,10 +396,12 @@ font-size: 12px;
   display: inline;
 }
 
-.song-image {
+.song-image-dashboard {
   img {
     width: 40px;
     height: 40px;
+    right: 0px;
+    position: absolute;
   }
 }
 
@@ -413,7 +416,7 @@ font-size: 12px;
     color: $smartsplit-color-link;
   }
   &.refus {
-    color: $color-negation;    
+    color: $color-negation;
   }
   &.actif {
     &.accepte {
@@ -486,7 +489,8 @@ font-size: 12px;
   font-weight: bold;
 }
 
-.desaprouve, .refuse {
+.desaprouve,
+.refuse {
   color: #ac1616;
   font-weight: bold;
 }
@@ -503,7 +507,7 @@ font-size: 12px;
 .ui.section.divider.sommaire {
   color: #dcdfe1;
   border-bottom: 0px solid white;
-  margin-top: 1rem; 
+  margin-top: 1rem;
   margin-bottom: 1rem;
 }
 
@@ -522,17 +526,9 @@ font-size: 12px;
   margin-right: 0px;
 }
 
-.panneau {
-  padding-top: 10px;
-  text-align: center;
-  font-size: 16px;
-  font-family: "IBM Plex Sans";
-  font-weight: 700;
-}
-
 .proposition {
-  background: #FAF8F9;
-  border: 1px solid #DCDFE1;
+  background: #faf8f9;
+  border: 1px solid #dcdfe1;
   box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.25);
 }
 
@@ -559,11 +555,11 @@ font-size: 12px;
   margin: 0 0 20px 0;
   &:hover {
     background-color: $color-negation;
-    color:white;
+    color: white;
   }
 }
 
-.ui.button.medium.vote.accepte {  
+.ui.button.medium.vote.accepte {
   &:hover {
     background-color: $smartsplit-color-link;
     color: white;
@@ -585,11 +581,11 @@ font-size: 12px;
   background-color: ffff;
   position: relative;
   top: 65px;
-  box-shadow: inset 0px 1px 0px #DCDFE1;
+  box-shadow: inset 0px 1px 0px #dcdfe1;
 }
 
 .ui.medium.button.voter {
-  float:right;
+  float: right;
 }
 
 .sommaire-approuve,
@@ -610,27 +606,27 @@ font-size: 12px;
 }
 
 .sommaire-nouveau {
-  color: #687A8B;
-  background-color: #FAF8F9;
+  color: #687a8b;
+  background-color: #faf8f9;
 }
 
 .sommaire-approuve {
-color: #176D25;
-background-color: #DFF8E3;
+  color: #176d25;
+  background-color: #dff8e3;
 }
 
 .sommaire-desaprouve {
-  color: #AC1616;
-  background-color: #FBD4D4;
+  color: #ac1616;
+  background-color: #fbd4d4;
 }
 
 .sommaire-attente {
-  color: #A55108;
-  background-color: #FFE5A2;
+  color: #a55108;
+  background-color: #ffe5a2;
 }
 
 .sommaire-envoie {
-  background-color: #F2EFF0;
+  background-color: #f2eff0;
   color: #203548;
   font-weight: normal;
 }
@@ -645,12 +641,22 @@ background-color: #DFF8E3;
   width: 240px;
 }
 
-.editeur {
+.editor {
+  text-align: center;
+  padding: 10px;
+  font-size: 16px;
+  font-family: "IBM Plex Sans";
+  font-weight: 700;
+  color: #2da84f;
+}
+
+.buttons.editor {
   display: flex;
 }
 
-.panneau {
-  text-align: center;
+.ui.medium.button.inverse.infobulle {
+  width: 110px;
+  margin: 0px;
 }
 
 .wizard-title.types {
@@ -675,7 +681,7 @@ background-color: #DFF8E3;
 .ui.medium.button.inverse.modifier {
   position: absolute;
   left: 25rem;
-  top: 1rem; 
+  top: 1rem;
   height: 3rem;
   width: 130px;
   display: flex;
@@ -683,14 +689,50 @@ background-color: #DFF8E3;
 
 .modifier {
   position: "relative";
-   top: -0.375rem; 
-   left: 0.375rem;
+  top: -0.375rem;
+  left: 0.375rem;
 }
 
-.ui.row.parts  {
+.ui.row.parts {
   text-align: right;
 }
 
 .ui.spaced.avatar.image {
   margin: 0.5rem 0 0 1rem;
+}
+
+.song-name.click {
+  text-overflow: ellipsis;
+  width: auto;
+  max-width: 20em;
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: bold;
+}
+
+.small-400.par {
+  display: inline;
+}
+
+.avatars {
+  display: inline;
+  margin-left: 12px;
+}
+
+.ui.four.wide.column.etat,
+.ui.one.wide.column.media,
+.ui.four.wide.column.media {
+  float: right;
+}
+
+.avatar.index {
+  display: inline;
+}
+
+.avatar.user {
+  height: 12px;
+}
+
+.more-tag {
+  display: inline;
 }

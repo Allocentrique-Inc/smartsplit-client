@@ -1,148 +1,183 @@
-@import '../colors';
-@import '../layout';
-@import '../typography';
+@import "../colors";
+@import "../layout";
+@import "../typography";
 
 $avatar-width: 24px;
 
 .entete {
-    margin-top: $navbar-height;
-    padding: ($margin-step * 4) $margin-step;
+	margin-top: $navbar-height;
+	padding: ($margin-step * 4) $margin-step;
 
-    background-color: $color-underground;
+	background-color: $color-underground;
 
-    .flex {
-        display: flex;
-    }
+	.flex {
+		display: flex;
+	}
 
-    .song-image {
-        width: 144px;
-        height: 144px;
-        flex: 0 0 144px;
-    }
+	.song-image {
+		width: 64px;
+		height: 64px;
+		flex: 0 0 144px;
+	}
 
-    .song-info {
-        flex: 1 0 auto;
-        margin-left: 32px;
-        @extend .medium-400-style;
-        color: $color-secondary;
+	.song-info {
+		flex: 1 0 auto;
+		margin-left: 32px;
+		@extend .medium-400-style;
+		color: $color-secondary;
 
-        h1 {
-            color: $color-primary;
+		h1 {
+			color: $color-primary;
 
-            .edit-link {
-                margin-left: $margin-step;
-                cursor: pointer;
-            }
+			.edit-link {
+				margin-left: $margin-step;
+				cursor: pointer;
+			}
 
-            .edit-icon {
-                width: 24px;
-                height: 24px;
-            }
-        }
+			.edit-icon {
+				width: 24px;
+				height: 24px;
+			}
+		}
 
-        .artist-line {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+		.artist-line {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
 
-        .avatars {
-            display: flex;
-            align-items: center;
+		.avatars {
+			display: flex;
+			align-items: center;
 
-            a {
-                .plus-button {
-                    margin-left: $margin-step / 2;
-                    height: $avatar-width;
-                    width: $avatar-width;
-                    background-color: $smartsplit-color-link;
-                    border-radius: $border-radius;
-                    transition: 0.2s background-color;
+			a {
+				.plus-button {
+					margin-left: $margin-step / 2;
+					height: $avatar-width;
+					width: $avatar-width;
+					background-color: $smartsplit-color-link;
+					border-radius: $border-radius;
+					transition: 0.2s background-color;
 
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+					display: flex;
+					justify-content: center;
+					align-items: center;
 
-                    img {
-                        height: $avatar-width / 2;
-                        width: $avatar-width / 2;
-                    }
-                }
+					img {
+						height: $avatar-width / 2;
+						width: $avatar-width / 2;
+					}
+				}
 
-                &:hover {
-                    .plus-button {
-                        background-color: $smartsplit-color-link-hover;
-                    }
-                }
-            }
-        }
+				&:hover {
+					.plus-button {
+						background-color: $smartsplit-color-link-hover;
+					}
+				}
+			}
+		}
 
-        .avatar {
-            margin-left: -$avatar-width / 4;
-            width: $avatar-width;
-            height: $avatar-width;
-            border: 1px solid $color-underground;
-            border-radius: $avatar-width / 2;
-            overflow: hidden;
+		.avatar {
+			margin-left: -$avatar-width / 4;
+			width: $avatar-width;
+			height: $avatar-width;
+			border: 1px solid $color-underground;
+			border-radius: $avatar-width / 2;
+			overflow: hidden;
 
-            img {
-                width: $avatar-width;
-                height: $avatar-width;
-            }
-        }
+			img {
+				width: $avatar-width;
+				height: $avatar-width;
+			}
+		}
 
-        .more-tag {
-            margin-left: -$avatar-width / 4;
-            padding: ($margin-step / 4) ($margin-step / 4) ($margin-step / 4) ($margin-step / 2);
+		.more-tag {
+			margin-left: -$avatar-width / 4;
+			padding: ($margin-step / 4) ($margin-step / 4) ($margin-step / 4)
+				($margin-step / 2);
 
-            height: $avatar-width;
-            border-radius: $border-radius;
+			height: $avatar-width;
+			border-radius: $border-radius;
 
-            @extend .small-400-style;
-            background-color: $color-hell;
-            color: $color-primary;
-        }
-    }
+			@extend .small-400-style;
+			background-color: $color-hell;
+			color: $color-primary;
+		}
+	}
 
-    .other-info {
-        @extend .small-400-style;
-        color: $color-secondary;
+	.other-info {
+		@extend .small-400-style;
+		color: $color-secondary;
+		line-height: 4em;
 
-        a {
-            @extend .small-500-style;
-            color: $smartsplit-color-link;
-        }
-    }
+		a {
+			@extend .small-500-style;
+			color: $smartsplit-color-link;
+		}
+	}
 
-    a {
-        @extend .medium-500-style;
-        color: $smartsplit-color-link;
-    }
+	a {
+		@extend .medium-500-style;
+		color: $smartsplit-color-link;
+	}
 }
 
 .tag {
-    @include tag-shape;
-    @extend .small-400-style;
+	@include tag-shape;
+	@extend .small-400-style;
 
-    background-color: $color-hell;
-    margin-right: $margin-step;
+	background-color: $color-hell;
+	margin-right: $margin-step;
 }
 
 .header-divider {
-    margin: $margin-step 0;
-
-    width: 100%;
-    height: 1px;
-    background-color: $color-stroke;
+	width: 100%;
+	height: 1px;
+	background-color: $color-stroke;
 }
 
 .pochette .entete {
-    a,
-    .other-info a {
-        color: $pochette-color-link;
-    }
+	a,
+	.other-info a {
+		color: $pochette-color-link;
+	}
 
-    .avatars .plus-button {
-        background-color: $pochette-color-link;
-    }
+	.avatars .plus-button {
+		background-color: $pochette-color-link;
+	}
+}
+
+.back-button-section {
+	padding-left: 30px;
+	padding-top: 20px;
+}
+
+.ui.seven.wide.column.profile {
+	text-align: right;
+	margin-top: 10px;
+}
+
+.save.alternate.icon.grey.big.edit.title {
+	cursor: pointer;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+.edit.title {
+	cursor: pointer;
+	font-family: IBM Plex Sans;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 40px;
+	line-height: 48px;
+	color: #203548;
+}
+
+.artist-line {
+	line-height: 4em;
+}
+
+.song-image-info {
+	width: 144px;
+	height: 144px;
 }

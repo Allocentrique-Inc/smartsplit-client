@@ -120,7 +120,7 @@ class PageAssistantPartageChoixEditeur extends Component {
                                     className="holder-name">
                                     {this.state.editeur.nom}
                                     <div className="ui one wide column">
-                                    <div className="close-icon cliquable" onClick={() => {
+                                    <div className="close-icon click" onClick={() => {
                                             this.props.setFieldValue("editeur", undefined);
                                             this.props.setFieldValue("editeurListe", undefined);
                                             this.setState({ editeur: undefined });

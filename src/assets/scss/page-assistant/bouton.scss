@@ -28,13 +28,13 @@
   color: $smartsplit-color-link;
   border: 1px solid lightgrey;
   &.infobulle {
-    background-color: #FAF8F9;
+    background-color: #faf8f9;
   }
-  &:hover{
+  &:hover {
     background-color: $smartsplit-color-link;
     color: white;
     &.infobulle {
-      color: #FAF8F9;
+      color: #faf8f9;
       background-color: $smartsplit-color-link;
     }
   }
@@ -46,9 +46,9 @@
 }
 
 .ui.button {
-  &:hover {    
+  &:hover {
     &.infobulle {
-      background-color: #FAF8F9;
+      background-color: #faf8f9;
     }
   }
 }
@@ -57,26 +57,26 @@
   .ui.button.inverse {
     background-color: whitesmoke;
     &.infobulle {
-      background-color: #FAF8F9;
-    }    
+      background-color: #faf8f9;
+    }
     color: $pochette-color-link;
-    border: 1px solid lightgrey;    
+    border: 1px solid lightgrey;
     &:hover {
       background-color: $pochette-color-link;
-      color:  white;
+      color: white;
       &.infobulle {
-        color: #FAF8F9;
+        color: #faf8f9;
       }
     }
   }
   .ui.button {
     &:hover {
       background-color: $pochette-color-link;
-      color:  white;
+      color: white;
       .infobulle {
-        color: #FAF8F9;
+        color: #faf8f9;
       }
-    }   
+    }
   }
 }
 
@@ -123,4 +123,8 @@
     background-color: $pochette-color-link;
     color: white;
   }
+}
+
+.btnCollaborateur {
+  width: 250px;
 }
