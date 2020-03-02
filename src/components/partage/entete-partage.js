@@ -141,7 +141,7 @@ class EntetePartage extends Component {
 			} else {
 				let body = {
 					uuid: "",
-					mediaId: parseInt(`${this.state.mediaId}`),
+					mediaId: parseInt(`${this.props.mediaId}`),
 					initiatorUuid: this.props.user.username,
 					initiatorName: `${this.props.user.attributes.given_name} ${this.props.user.attributes.family_name}`,
 					rightsSplits: {
@@ -214,7 +214,7 @@ class EntetePartage extends Component {
       Partage ℗ (avec données documentées) =60%
       Sommaire = 70%
       Sommaire envoyé aux invités 80%
-      Sommaire envoyé aux invités approbation = 20% résiduel divisé par le nombre d’approbation attendues. Si 5 collabos, chaque collabo qui a approuvé vaut 4%.
+      Sommaire envoyé aux invités approbation = 20% résiduel divisé par le nombre d’approbation attendues. Si 5 collaborateurs, chaque collabo qui a approuvé vaut 4%.
       Approuvé = 100% (bouton «Continuer» devient «Voir le sommaire») 
     */
 

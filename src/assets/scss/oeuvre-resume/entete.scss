@@ -14,10 +14,11 @@ $avatar-width: 24px;
 		display: flex;
 	}
 
-	.song-image {
-		width: 64px;
-		height: 64px;
+	.song-image-summary {
+		width: 128px;
+		height: 128px;
 		flex: 0 0 144px;
+		border-radius: 2px;
 	}
 
 	.song-info {

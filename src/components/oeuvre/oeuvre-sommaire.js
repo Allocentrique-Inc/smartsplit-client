@@ -5,7 +5,7 @@ import cassette from "../../assets/images/compact-cassette.svg"
 import editIcon from "../../assets/svg/icons/edit.svg"
 import { withTranslation } from "react-i18next"
 import moment from "moment"
-import ModaleConnexion from "../auth/Connexion"
+import Connexion from "../auth/Connexion"
 import placeholder from "../../assets/images/placeholder.png"
 import { Identite, journal, config, utils } from "../../utils/application"
 import { Progress } from "semantic-ui-react"
@@ -15,71 +15,72 @@ import "../../assets/scss/navbar.scss"
 const NOM = "SommaireOeuvre"
 
 class SommaireOeuvre extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            mediaId: props.mediaId
-        }
-        moment.defaultFormat = "DD-MM-YYYY HH:mm"
-    }
+	constructor(props) {
+		super(props)
+		this.state = {
+			mediaId: props.mediaId
+		}
+		moment.defaultFormat = "DD-MM-YYYY HH:mm"
+	}
 
-    componentWillMount() {
-        const t = this.props.t
-        if (Identite.usager) {
+	componentWillMount() {
+		const t = this.props.t
+		if (Identite.usager) {
 			this.setState({ user: Identite.usager }, async () => {
 				if (this.props.invitations) {
 					toast.success(t("flot.invitations.envoyees"))
 				}
-                this.getMedia()
-                try {
+				this.getMedia()
+				try {
 					let res = await axios.get(
 						`${config.API_URL}proposal/media/${this.state.mediaId}`
 					)
-                    let _p0
-                    res.data.forEach(_p => {
+					let _p0
+					res.data.forEach(_p => {
 						if (!_p0) _p0 = _p
 						if (_p0._d < _p._d) _p0 = _p
-                    })
+					})
 					this.setState({ p0: _p0 })
 				} catch (err) {
-                    journal.error(NOM, err)
-                }
-            })
-        } else {
-			this.setState({ modaleConnexion: true })
-        }
-    }
+					journal.error(NOM, err)
+				}
+			})
+		} else {
+			this.setState({ Connexion: true })
+		}
+	}
 
-    getMedia() {
-        axios.get(`${config.API_URL}media/${this.state.mediaId}`)
-        .then(res => this.setState({ media: res.data }))
-    }
+	getMedia() {
+		axios
+			.get(`${config.API_URL}media/${this.state.mediaId}`)
+			.then(res => this.setState({ media: res.data }))
+	}
 
-    majTitre() {
+	majTitre() {
 		axios
 			.patch(`${config.API_URL}media/${this.state.media.mediaId}/title`, {
-            mediaId: this.state.media.mediaId,
+				mediaId: this.state.media.mediaId,
 				title: this.nouveauTitre
-        })
-            .then(() => {
-                this.getMedia()
-            })
-    }
+			})
+			.then(() => {
+				this.getMedia()
+			})
+	}
 
-    editerTitre(edition) {
-        this.setState({ editerTitre: edition })
-    }
+	editerTitre(edition) {
+		this.setState({ editerTitre: edition })
+	}
 
-    render() {
+	render() {
 		const t = this.props.t,
 			i18n = this.props.i18n
-        if (this.state.media) {
-            let artiste = this.state.media.artist
+		if (this.state.media) {
+			let artiste = this.state.media.artist
 			let contenu = <div className="ui seven wide column"></div>
 
-            let imageSrc = placeholder
+			let imageSrc = placeholder
 			if (this.state.media) {
-                let elem = this.state.media
+				let elem = this.state.media
 				if (
 					elem.files &&
 					elem.files.cover &&
@@ -88,29 +89,29 @@ class SommaireOeuvre extends Component {
 				) {
 					elem.files.cover.files.forEach(e => {
 						if (e.access === "public") {
-                            imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${elem.mediaId}/cover/${e.file}`
-                        }
-                    })
-                }
-            }
+							imageSrc = `${config.IMAGE_SRV_ARTISTES_URL}${elem.mediaId}/cover/${e.file}`
+						}
+					})
+				}
+			}
 
-            // Proposition la plus récente
-            let p0 = this.state.p0            
+			// Proposition la plus récente
+			let p0 = this.state.p0
 
-            // Progression du partage
+			// Progression du partage
 			let pctPartage = 0,
 				pctDocumentation = 0
 
-            // Calcul de la progression du partage
+			// Calcul de la progression du partage
 			if (p0) {
-                /**
+				/**
                  *  Partage © (avec données documentées ou bouton «Plus tard» cliqué) =20%
                     Si l’utilisateur sort immédiatement 
                     Partage ✪ (avec données documentées) =40%
                     Partage ℗ (avec données documentées) =60%
                     Sommaire = 70%
                     Sommaire envoyé aux invités 80%
-                    Sommaire envoyé aux invités approbation = 20% résiduel divisé par le nombre d’approbation attendues. Si 5 collabos, chaque collabo qui a approuvé vaut 4%.
+                    Sommaire envoyé aux invités approbation = 20% résiduel divisé par le nombre d’approbation attendues. Si 5 collaborateurs, chaque collabo qui a approuvé vaut 4%.
                     Approuvé = 100% (bouton «Continuer» devient «Voir le sommaire»)
                  */
 				if (p0.rightsSplits) {
@@ -119,9 +120,9 @@ class SommaireOeuvre extends Component {
 							p0.rightsSplits.workCopyrightSplit.lyrics.length > 0 ||
 							p0.rightsSplits.workCopyrightSplit.music.length > 0
 						) {
-                            pctPartage += 20
-                        }
-                    }
+							pctPartage += 20
+						}
+					}
 					if (p0.rightsSplits.performanceNeighboringRightSplit) {
 						if (
 							p0.rightsSplits.performanceNeighboringRightSplit.principal
@@ -129,30 +130,30 @@ class SommaireOeuvre extends Component {
 							p0.rightsSplits.performanceNeighboringRightSplit.accompaniment
 								.length > 0
 						) {
-                            pctPartage += 20
-                        }
-                    }
+							pctPartage += 20
+						}
+					}
 					if (p0.rightsSplits.masterNeighboringRightSplit) {
 						if (
 							p0.rightsSplits.masterNeighboringRightSplit.split.length > 0 ||
 							p0.rightsSplits.masterNeighboringRightSplit.split.length > 0
 						) {
-                            pctPartage += 20
-                        }
-                    }
+							pctPartage += 20
+						}
+					}
 					if (p0.etat === "PRET") {
-                        pctPartage += 10
-                    }
+						pctPartage += 10
+					}
 					if (p0.etat === "VOTATION") {
-                        pctPartage += 20
-                    }
+						pctPartage += 20
+					}
 					if (p0.etat === "ACCEPTE") {
-                        pctPartage = 100
-                    }
-                }
-            }
+						pctPartage = 100
+					}
+				}
+			}
 
-            let classeEtatDerniererProposition = "sommaire-nouveau"
+			let classeEtatDerniererProposition = "sommaire-nouveau"
 			if (p0) {
 				classeEtatDerniererProposition =
 					p0.etat === "ACCEPTE"
@@ -162,77 +163,77 @@ class SommaireOeuvre extends Component {
 						: p0.etat === "PRET"
 						? "sommaire-envoie"
 						: "sommaire-attente"
-            }
+			}
 
-            return (                
-                <>
-                    <div className="ui grid">
-                        <div className="ui row" style={{ background: "#FAF8F9" }}>
-                            <div className="ui one wide column"></div>
-                            <div className="ui sixteen wide column">
+			return (
+				<>
+					<div className="ui grid">
+						<div className="ui row" style={{ background: "#FAF8F9" }}>
+							<div className="ui one wide column"></div>
+							<div className="ui sixteen wide column">
 								<Entete
 									contenu={contenu}
 									navigation={() => utils.naviguerVersAccueil()}
 									profil={this.state.user}
 								/>
-                            </div>
-                        </div>
+							</div>
+						</div>
 						<div className={"header-divider"} />
-                        <div className="ui row" style={{ background: "#FAF8F9" }}>
-                            <div className="ui two wide column" />
-                            <div className="ui eleven wide column">
-                                <div className="ui row">
-                                    <div className="ui twelve wide column grid">
-                                        <div className="ui two wide column">
+						<div className="ui row" style={{ background: "#FAF8F9" }}>
+							<div className="ui two wide column" />
+							<div className="ui eleven wide column">
+								<div className="ui row">
+									<div className="ui twelve wide column grid">
+										<div className="ui two wide column">
 											<img alt="label" className="song-image" src={imageSrc} />
-                                        </div>
-                                        <div className="ui fourteen wide column">
-                                            <div className="ui row">
+										</div>
+										<div className="ui fourteen wide column">
+											<div className="ui row">
 												{this.state.editerTitre && (
 													<div
 														className="ui input"
 														title={this.state.media.title}
 													>
-                                                            <input
-                                                                size="50"
+														<input
+															size="50"
 															id="title"
-                                                                type="text"
+															type="text"
 															placeholder={t("flot.split.droits.navbar")}
-                                                                defaultValue={this.state.media.title}
+															defaultValue={this.state.media.title}
 															onInput={e => {
 																this.nouveauTitre = e.target.value
 															}}
 															onKeyPress={e => {
-                                                                    if (e.key === "Enter") {
-                                                                        this.majTitre()
-                                                                        this.editerTitre(false)
-                                                                    }
-                                                                }}
-                                                            ></input>
-                                                            <i
-                                                                onClick={() => {
+																if (e.key === "Enter") {
+																	this.majTitre()
+																	this.editerTitre(false)
+																}
+															}}
+														></input>
+														<i
+															onClick={() => {
 																this.majTitre()
-                                                                    this.editerTitre(false)
-                                                                }}
-                                                                className="save alternate icon grey big"
+																this.editerTitre(false)
+															}}
+															className="save alternate icon grey big"
 														></i>
-                                                        </div>
+													</div>
 												)}
 												{!this.state.editerTitre && (
 													<h1 title={this.state.media.title}>
 														{`${this.state.media.title}`}&nbsp;&nbsp;&nbsp;
-                                                            <img
-                                                                alt="edition"
-                                                                onClick={() => {
-                                                                    this.editerTitre(true)
-                                                                }}
-                                                                src={editIcon}
+														<img
+															alt="edition"
+															onClick={() => {
+																this.editerTitre(true)
+															}}
+															src={editIcon}
 															className="edit icon"
 														></img>
-                                                        </h1>
+													</h1>
 												)}
-                                            </div>
-                                            <div className="ui row">
+											</div>
+											<div className="ui row">
 												<div
 													className="small-400"
 													style={{ display: "inline-block" }}
@@ -258,36 +259,36 @@ class SommaireOeuvre extends Component {
 															.locale(i18n.language.substring(0, 2))
 															.fromNow()}
 												</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="ui row">
-                            <div className="ui two wide column" />
-                            <div className="ui six wide column">
-                                <div className="ui row etape">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div className="ui row">
+							<div className="ui two wide column" />
+							<div className="ui six wide column">
+								<div className="ui row etape">
 									<div className="ui heading3 carrefour">
 										{t("flot.split.documente-ton-oeuvre.preambules.titre1")}
 									</div>
 
-                                    {
-                                        <>
-                                            <div className="ui heading4">
+									{
+										<>
+											<div className="ui heading4">
 												{t(
 													"flot.split.documente-ton-oeuvre.preambules.sous-titre1"
 												)}
 												&nbsp;&nbsp;
-                                                <span 
+												<span
 													style={{ marginLeft: "1rem" }}
 													className={classeEtatDerniererProposition}
 												>
 													{p0
 														? t(`flot.split.etat.${p0.etat}`)
 														: t(`flot.split.etat.NOUVEAU`)}
-                                                </span>
-                                            </div>
+												</span>
+											</div>
 											<div
 												className="ui medium-400"
 												style={{
@@ -298,7 +299,7 @@ class SommaireOeuvre extends Component {
 												}}
 											>
 												{t("flot.split.documente-ton-oeuvre.preambules.intro1")}
-                                            </div>
+											</div>
 											<Progress
 												size="tiny"
 												success={p0 && p0.etat !== "REFUSE"}
@@ -306,8 +307,8 @@ class SommaireOeuvre extends Component {
 												error={p0 && p0.etat === "REFUSE"}
 												percent={pctPartage}
 											/>
-                                        </>
-                                    }                                    
+										</>
+									}
 
 									<div
 										className={`ui medium button ${p0 ? "inverse" : ""}`}
@@ -316,12 +317,12 @@ class SommaireOeuvre extends Component {
 											marginLeft: "0px",
 											minWidth: "125px"
 										}}
-                                        onClick={() => {                                            
-                                            if (!p0) {
-                                                utils.naviguerVersNouveauPartage(this.state.mediaId)                                                
-                                            } else {
-                                                utils.naviguerVersSommairePartage(this.state.mediaId)                                                
-                                            }
+										onClick={() => {
+											if (!p0) {
+												utils.naviguerVersNouveauPartage(this.state.mediaId)
+											} else {
+												utils.naviguerVersSommairePartage(this.state.mediaId)
+											}
 										}}
 									>
 										{!p0 && t("flot.split.action.commencer")}
@@ -329,9 +330,9 @@ class SommaireOeuvre extends Component {
 										{p0 &&
 											pctPartage === 100 &&
 											t("flot.split.action.sommaire")}
-                                    </div>
-                                </div>
-                                <div className="ui row etape">
+									</div>
+								</div>
+								<div className="ui row etape">
 									<div className="ui heading3 carrefour">
 										{t("flot.split.documente-ton-oeuvre.preambules.titre2")}
 									</div>
@@ -350,8 +351,8 @@ class SommaireOeuvre extends Component {
 										}}
 									>
 										{t("flot.split.documente-ton-oeuvre.preambules.intro2")}
-                                    </div>
-                                    <Progress size="tiny" success percent={pctDocumentation} />                                    
+									</div>
+									<Progress size="tiny" success percent={pctDocumentation} />
 									<div
 										className="ui medium button"
 										style={{
@@ -359,59 +360,61 @@ class SommaireOeuvre extends Component {
 											marginLeft: "0px",
 											minWidth: "125px"
 										}}
-                                        onClick={() => {
-                                            utils.naviguerVersDocumentation(this.state.media.mediaId)
+										onClick={() => {
+											utils.naviguerVersDocumentation(this.state.media.mediaId)
 										}}
 									>
 										{t("flot.split.action.commencer")}
-                                    </div>
-                                </div>
-                            </div>
+									</div>
+								</div>
+							</div>
 							<div
 								className="ui five wide column"
 								style={{ marginLeft: "3rem" }}
 							>
 								<div
 									style={{
-                                    position: "relative",
-                                    top: "5rem",
-                                    left: "7rem"
+										position: "relative",
+										top: "5rem",
+										left: "7rem"
 									}}
 								>
 									{this.state.media.title} {t("oeuvre.par")} {artiste}
-                                </div>
+								</div>
 								<img alt="medium" src={cassette} />
-                            </div>
-                        </div>
-                    </div>
-                </>                   
-            )
-        } else {
-            let accueil = "accueil"
+							</div>
+						</div>
+					</div>
+				</>
+			)
+		} else {
+			let accueil = "accueil"
 			if (this.props.pochette) {
-                accueil = "accueil-pochette"
-            }
-            return (
-                <div className={`tdb--cadre ui row ${accueil}`}>
-					<ModaleConnexion
+				accueil = "accueil-pochette"
+			}
+			return (
+				// <div className={`tdb--cadre ui row ${accueil}`}>
+				<div className={`ui row ${accueil}`}>
+					<Connexion
 						fn={() => {
-	                        this.getMedia()
-	                        axios.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)
-	                        .then(res => {
-	                            let _p0
-	                            res.data.forEach(_p => {
-											if (!_p0) _p0 = _p
-											if (_p0._d < _p._d) _p0 = _p
-	                            })
-	                            this.setState({ p0: _p0 })
-	                        })
+							this.getMedia()
+							axios
+								.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)
+								.then(res => {
+									let _p0
+									res.data.forEach(_p => {
+										if (!_p0) _p0 = _p
+										if (_p0._d < _p._d) _p0 = _p
+									})
+									this.setState({ p0: _p0 })
+								})
 						}}
 						parent={this}
-						isOpen={this.state.modaleConnexion}
+						isOpen={this.state.Connexion}
 					/>
-                </div>
-            )
-        }
-    }
+				</div>
+			)
+		}
+	}
 }
 export default withTranslation()(SommaireOeuvre)

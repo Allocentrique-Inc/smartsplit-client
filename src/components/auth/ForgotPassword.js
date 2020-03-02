@@ -6,7 +6,7 @@ import "../../assets/scss/page-assistant/modal.scss";
 import "../../assets/scss/connexion/connexion.scss";
 import positiveImage from "../../assets/images/positive.png";
 import { Formik, Field } from "formik";
-import "./Register.css";
+import "./Register.scss";
 import { Identite } from "../../utils/application";
 
 const emailStyle = {
@@ -105,7 +105,7 @@ class ForgotPassword extends Component {
             setSubmitting(false);
           });
         }}
-        render={props => (          
+        render={props => (
           <div className="section auth">
             {!this.state.patience && (
               <span className="top-login">
@@ -230,7 +230,7 @@ class ForgotPassword extends Component {
               {/* </div>
               </form> */}
             </div>
-          </div>           
+          </div>
         )}
       ></Formik>
     );

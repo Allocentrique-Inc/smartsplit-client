@@ -10,158 +10,158 @@ import PageAssistantSplitCourrielsCollaborateurs from "../split/assistant-split-
 import { Modal, Button } from "semantic-ui-react"
 import moment from "moment"
 import SommairePartagesEditeur from "./sommaire-partages-editeur"
-import ModaleConnexion from "../auth/Connexion"
+import Connexion from "../auth/Connexion"
 import ModalPropositionEnCours from "../modales/modale-proposition-encours"
 import InfoBulle from "../partage/InfoBulle"
 import Navbar from "../navigation/navbar"
-import {
-	config,
-	utils,
-	Identite,
-	AyantsDroit
-} from "../../utils/application"
+import { config, utils, Identite, AyantsDroit } from "../../utils/application"
 import { FlecheBasSVG, FlecheHautSVG } from "../svg/SVG.js"
 import "../../assets/scss/tableaudebord/tableaudebord.scss"
 import "../../assets/scss/navbar.scss"
 
-const PANNEAU_EDITEUR      = 1,
-      PANNEAU_PROPOSITIONS = 0
+const PANNEAU_EDITEUR = 1,
+	PANNEAU_PROPOSITIONS = 0
 const TYPE_SPLIT = [
 	"workCopyrightSplit",
 	"performanceNeighboringRightSplit",
 	"masterNeighboringRightSplit"
 ]
-const ETAT_EDITEUR_NON      = 1,
-      ETAT_EDITEUR_OUI      = 2,
-      ETAT_EDITEUR_PLUSTARD = 3
+const ETAT_EDITEUR_NON = 1,
+	ETAT_EDITEUR_OUI = 2,
+	ETAT_EDITEUR_PLUSTARD = 3
 
 class SommairePartages extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            mediaId: props.mediaId,
-            activeIndex: 0,
-            panneau: props.editeur ? PANNEAU_EDITEUR : PANNEAU_PROPOSITIONS,
-            modaleConnexion: false,
-            modaleNouvelle: false,
-            modaleCourriels: props.envoyer,
-            fermerInfobulleEditeur: false
-        }
-        this.initialisation = this.initialisation.bind(this)
-        this.clic = this.clic.bind(this)
-        this.afficherPanneauEditeur = this.afficherPanneauEditeur.bind(this)
+	constructor(props) {
+		super(props)
+		this.state = {
+			mediaId: props.mediaId,
+			activeIndex: 0,
+			panneau: props.editeur ? PANNEAU_EDITEUR : PANNEAU_PROPOSITIONS,
+			Connexion: false,
+			modaleNouvelle: false,
+			modaleCourriels: props.envoyer,
+			fermerInfobulleEditeur: false
+		}
+		this.initialisation = this.initialisation.bind(this)
+		this.clic = this.clic.bind(this)
+		this.afficherPanneauEditeur = this.afficherPanneauEditeur.bind(this)
 		this.afficherPanneauPropositions = this.afficherPanneauPropositions.bind(
 			this
 		)
-        this.openModal = this.openModal.bind(this)
-        this.closeModal = this.closeModal.bind(this)
-        this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
-        this.fermerInfobulleEditeur = this.fermerInfobulleEditeur.bind(this)
-        moment.defaultFormat = "DD-MM-YYYY HH:mm"                
-    }
+		this.openModal = this.openModal.bind(this)
+		this.closeModal = this.closeModal.bind(this)
+		this.modalePropositionEnCours = this.modalePropositionEnCours.bind(this)
+		this.fermerInfobulleEditeur = this.fermerInfobulleEditeur.bind(this)
+		moment.defaultFormat = "DD-MM-YYYY HH:mm"
+	}
 
-    componentWillMount() {
-        if (Identite.usager) {
-            this.setState({ user: Identite.usager }, () => this.initialisation())
-        } else {
-            this.setState({ modaleConnexion: true })
-        }
-    }
+	componentWillMount() {
+		if (Identite.usager) {
+			this.setState({ user: Identite.usager }, () => this.initialisation())
+		} else {
+			this.setState({ Connexion: true })
+		}
+	}
 
-    afficherPanneauEditeur() {
-        this.setState({ panneau: PANNEAU_EDITEUR })
-    }
+	afficherPanneauEditeur() {
+		this.setState({ panneau: PANNEAU_EDITEUR })
+	}
 
-    afficherPanneauPropositions() {
-        this.setState({ panneau: PANNEAU_PROPOSITIONS })
-    }
+	afficherPanneauPropositions() {
+		this.setState({ panneau: PANNEAU_PROPOSITIONS })
+	}
 
-    closeModal = () => this.setState({ modaleCourriels: false })
-    openModal = () => this.setState({ modaleCourriels: true })
+	closeModal = () => this.setState({ modaleCourriels: false })
+	openModal = () => this.setState({ modaleCourriels: true })
 
-    async initialisation() {
-        let res = await axios.get(`${config.API_URL}media/${this.state.mediaId}`)
-        this.setState({ media: res.data }, async () => {
-            let _res = await axios.get(`${config.API_URL}proposal/media/${this.state.mediaId}`)
-            let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]
-            this.setState({ ayantDroit: _rAd }, () => {
-                this.setState({ propositions: _res.data })
-                this.setState({ activeIndex: _res.data.length - 1 })
-                let _ps = _res.data
-                _ps.forEach(p => {
+	async initialisation() {
+		let res = await axios.get(`${config.API_URL}media/${this.state.mediaId}`)
+		this.setState({ media: res.data }, async () => {
+			let _res = await axios.get(
+				`${config.API_URL}proposal/media/${this.state.mediaId}`
+			)
+			let _rAd = AyantsDroit.ayantsDroit[this.state.user.username]
+			this.setState({ ayantDroit: _rAd }, () => {
+				this.setState({ propositions: _res.data })
+				this.setState({ activeIndex: _res.data.length - 1 })
+				let _ps = _res.data
+				_ps.forEach(p => {
 					if (p.etat === "ACCEPTE") {
-						axios.get(`${config.API_URL}splitShare/${p.uuid}/${this.state.user.username}`)
-                        .then(res => this.setState({ partEditeur: res.data }))
-                    }
-                })
-            })
-        })
-    }
+						axios
+							.get(
+								`${config.API_URL}splitShare/${p.uuid}/${this.state.user.username}`
+							)
+							.then(res => this.setState({ partEditeur: res.data }))
+					}
+				})
+			})
+		})
+	}
 
-    clic = (e, titleProps) => {
-        const { index } = titleProps
-        const { activeIndex } = this.state
-        const newIndex = activeIndex === index ? -1 : index
-        this.setState({ activeIndex: newIndex })
-    }
+	clic = (e, titleProps) => {
+		const { index } = titleProps
+		const { activeIndex } = this.state
+		const newIndex = activeIndex === index ? -1 : index
+		this.setState({ activeIndex: newIndex })
+	}
 
-    ajouterNouvelleOeuvre() {
-        this.setState({ modaleNouvelle: true })
-    }
+	ajouterNouvelleOeuvre() {
+		this.setState({ modaleNouvelle: true })
+	}
 
-    modalePropositionEnCours(ouvrir = true) {
-        this.setState({ modalePropositionEnCours: ouvrir })
-    }
+	modalePropositionEnCours(ouvrir = true) {
+		this.setState({ modalePropositionEnCours: ouvrir })
+	}
 
-    fermerInfobulleEditeur(etat) {
-        switch (etat) {
-            case ETAT_EDITEUR_NON:
-                this.setState({ fermerInfobulleEditeur: true })
-                this.setState({ editeur: false })
+	fermerInfobulleEditeur(etat) {
+		switch (etat) {
+			case ETAT_EDITEUR_NON:
+				this.setState({ fermerInfobulleEditeur: true })
+				this.setState({ editeur: false })
 				break
-            case ETAT_EDITEUR_OUI:
-                this.setState({ fermerInfobulleEditeur: true })
-                this.setState({ editeur: true })
+			case ETAT_EDITEUR_OUI:
+				this.setState({ fermerInfobulleEditeur: true })
+				this.setState({ editeur: true })
 				break
-            case ETAT_EDITEUR_PLUSTARD:
-                this.setState({ fermerInfobulleEditeur: true })
+			case ETAT_EDITEUR_PLUSTARD:
+				this.setState({ fermerInfobulleEditeur: true })
 				break
-            default:                
-        }
-    }
+			default:
+		}
+	}
 
-    render() {
+	render() {
 		let t = this.props.t,
 			i18n = this.props.i18n
 
-        if (this.state.propositions && this.state.media) {
-            let propositions = []
-            let _p0
-            // Trouver _p0, la proposition la plus récente
-            // elem fait référence à un élément qu'on assigne
-            this.state.propositions.forEach(elem => {
+		if (this.state.propositions && this.state.media) {
+			let propositions = []
+			let _p0
+			// Trouver _p0, la proposition la plus récente
+			// elem fait référence à un élément qu'on assigne
+			this.state.propositions.forEach(elem => {
 				if (!_p0 || _p0._d < elem._d) {
 					_p0 = elem
 				}
-            })
-            let _rafraichir = false
+			})
+			let _rafraichir = false
 			if (_p0 && _p0.etat === "VOTATION") {
-                // _rafraichir = true // Désactivation du rafraîchissment automatique
-            }            
+				// _rafraichir = true // Désactivation du rafraîchissment automatique
+			}
 
-            propositions = this.state.propositions.map((elem, idx) => {
+			propositions = this.state.propositions.map((elem, idx) => {
 				const accordionIsOpen = idx === this.state.activeIndex
-                return (
-                    <div className="ui row" key={`sommaire_${idx}`}>
+				return (
+					<div className="ui row" key={`sommaire_${idx}`}>
 						<Accordion.Title
 							active={accordionIsOpen}
 							index={idx}
 							onClick={this.clic}
 						>
-                            <div className="fleche">
-                                {accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
-                            </div>
-                            <div className="version">                                
+							<div className="fleche">
+								{accordionIsOpen ? <FlecheHautSVG /> : <FlecheBasSVG />}
+							</div>
+							<div className="version">
 								&nbsp; Version {idx + 1} &nbsp;{" "}
 								<span
 									className={
@@ -174,15 +174,15 @@ class SommairePartages extends Component {
 											: "sommaire-attente"
 									}
 								>
-                                    {t(`flot.split.etat.${elem.etat}`)}
-                                </span>
-                                </div>
-                            <div>
+									{t(`flot.split.etat.${elem.etat}`)}
+								</span>
+							</div>
+							<div>
 								&nbsp;{" "}
 								<div className="small-400 creation">
 									{t("oeuvre.creePar")}&nbsp;
 								</div>
-                                <div className="small-500-color">{`${elem.initiatorName}`}</div>
+								<div className="small-500-color">{`${elem.initiatorName}`}</div>
 								<span className="date sommaire">
 									&nbsp;&nbsp;
 									{i18n.language && elem._d
@@ -194,8 +194,8 @@ class SommairePartages extends Component {
 												.fromNow()
 										: moment(Date.now(), moment.defaultFormat).fromNow()}
 								</span>
-                            </div>
-                        </Accordion.Title>
+							</div>
+						</Accordion.Title>
 						<Accordion.Content
 							active={accordionIsOpen}
 							style={{ padding: "1rem 0rem 0rem" }}
@@ -206,82 +206,82 @@ class SommairePartages extends Component {
 								uuid={elem.uuid}
 								rafraichirAuto={_rafraichir}
 							/>
-                        </Accordion.Content>
-                    </div>
-                )
-            })
-            propositions = propositions.reverse()
+						</Accordion.Content>
+					</div>
+				)
+			})
+			propositions = propositions.reverse()
 
 			let nouveauDisabled = true,
 				envoiDisabled = true
 			let partageEditeur = false,
 				fermerInfobulleEditeur = this.state.fermerInfobulleEditeur
-            let partageEditeurEnCours = false
+			let partageEditeurEnCours = false
 
-            if (this.state.propositions.length > 0) {
-                let _p = this.state.propositions[this.state.propositions.length - 1]
-                _p0 = _p
+			if (this.state.propositions.length > 0) {
+				let _p = this.state.propositions[this.state.propositions.length - 1]
+				_p0 = _p
 				if (_p.etat === "REFUSE") {
-                    nouveauDisabled = false
-                }
+					nouveauDisabled = false
+				}
 				if (
 					(_p.etat === "BROUILLON" || _p.etat === "PRET") &&
 					_p.initiatorUuid === this.state.user.username
 				) {
-                    envoiDisabled = false
-                }
+					envoiDisabled = false
+				}
 				if (_p.etat === "ACCEPTE") {
-                    // Est-ce que l'utilisateur est dans les ayant-droits ?
-                    let estCollaborateur = false
-                    if (_p.rightsSplits.workCopyrightSplit) {
-                        Object.keys(_p.rightsSplits.workCopyrightSplit).forEach(type => {
-                            _p.rightsSplits.workCopyrightSplit[type].forEach(part => {
+					// Est-ce que l'utilisateur est dans les ayant-droits ?
+					let estCollaborateur = false
+					if (_p.rightsSplits.workCopyrightSplit) {
+						Object.keys(_p.rightsSplits.workCopyrightSplit).forEach(type => {
+							_p.rightsSplits.workCopyrightSplit[type].forEach(part => {
 								if (
 									part.rightHolder.rightHolderId === this.state.user.username
 								) {
-                                    estCollaborateur = true
-                                }
-                            })
-                        })
-                    }
-                    if (estCollaborateur) {
-                        partageEditeur = true
-                        // Seulement si une part n'est pas déjà attribuée à un éditeur
+									estCollaborateur = true
+								}
+							})
+						})
+					}
+					if (estCollaborateur) {
+						partageEditeur = true
+						// Seulement si une part n'est pas déjà attribuée à un éditeur
 						if (_p.partagesTiers) {
 							_p.partagesTiers.forEach(part => {
 								if (part.rightHolderId === Identite.usager.username) {
-                                    partageEditeurEnCours = true
-                                }
-                            })                            
-                        }                        
-                    }
-                }
-            }
+									partageEditeurEnCours = true
+								}
+							})
+						}
+					}
+				}
+			}
 
-            let souligneInitiateur = this.state.panneau === PANNEAU_PROPOSITIONS
-            let souligneCollaborateur = this.state.panneau === PANNEAU_EDITEUR
+			let souligneInitiateur = this.state.panneau === PANNEAU_PROPOSITIONS
+			let souligneCollaborateur = this.state.panneau === PANNEAU_EDITEUR
 
-            let optionsAffichage = !this.state.pochette && (
-                <div style={{ display: "inline" }}>
+			let optionsAffichage = !this.state.pochette && (
+				<div style={{ display: "inline" }}>
 					<div
 						style={{ paddingBottom: "20px", display: "inline" }}
 						className={`small-500${
-                        souligneInitiateur ? "-color souligne" : " secondaire"
+							souligneInitiateur ? "-color souligne" : " secondaire"
 						} ${souligneInitiateur && this.state.pochette ? "pochette" : ""}`}
 					>
-                        <span
+						<span
 							className={`click`}
-                            onClick={() => {
-                                this.afficherPanneauPropositions()
-                            }}
+							onClick={() => {
+								this.afficherPanneauPropositions()
+							}}
 							style={{
 								fontSize: "16px",
 								color: souligneInitiateur ? "black" : ""
 							}}
-                        >
+						>
 							{t("flot.split.documente-ton-oeuvre.tableaudebord.collabo")}
-                        </span>
-                    </div>
+						</span>
+					</div>
 					<div
 						style={{
 							paddingBottom: "20px",
@@ -289,17 +289,17 @@ class SommairePartages extends Component {
 							display: "inline"
 						}}
 						className={`small-500${
-                        souligneCollaborateur ? "-color souligne" : " secondaire"
+							souligneCollaborateur ? "-color souligne" : " secondaire"
 						} ${
 							souligneCollaborateur && this.state.pochette ? "pochette" : ""
 						}`}
 					>
-                        <InfoBulle
-                            className="proposition"
+						<InfoBulle
+							className="proposition"
 							declencheur={
-                                <span
+								<span
 									className={`click`}
-                                    onClick={() => {
+									onClick={() => {
 										if (partageEditeur) {
 											this.afficherPanneauEditeur()
 										}
@@ -308,31 +308,31 @@ class SommairePartages extends Component {
 										fontSize: "16px",
 										color: souligneCollaborateur ? "black" : "",
 										cursor: !partageEditeur ? "not-allowed" : "pointer"
-                                    }}
-                                >
+									}}
+								>
 									{t("flot.split.documente-ton-oeuvre.tableaudebord.edito")}
-                                </span>
+								</span>
 							}
-                            decoration={
-                                <>
+							decoration={
+								<>
 									<div className="editor">
 										{t("flot.split.documente-ton-oeuvre.tableaudebord.as-tu")}
-                                    <br />
+										<br />
 										<div className="buttons editor">
 											<div
 												className="ui medium button inverse infobulle"
 												onClick={() => {
 													this.fermerInfobulleEditeur(ETAT_EDITEUR_NON)
 												}}
-                                    >
-                                        {t("editeur.oui")}
-                                    </div>
+											>
+												{t("editeur.oui")}
+											</div>
 											<div
 												className="ui medium button infobulle"
 												onClick={e => {
-                                        this.fermerInfobulleEditeur(ETAT_EDITEUR_OUI)
-                                        this.afficherPanneauEditeur()
-                                        this.setState({ nouvellePropositionEditeur: true })
+													this.fermerInfobulleEditeur(ETAT_EDITEUR_OUI)
+													this.afficherPanneauEditeur()
+													this.setState({ nouvellePropositionEditeur: true })
 												}}
 											>
 												{t("editeur.non")}
@@ -347,112 +347,112 @@ class SommairePartages extends Component {
 											}
 										>
 											{t("flot.split.documente-ton-oeuvre.tableaudebord.later")}
-                                    </div>
-                                        </div>
-                                </>
-                            }
-                            orientation="bottom center"
+										</div>
+									</div>
+								</>
+							}
+							orientation="bottom center"
 							ouvert={
 								partageEditeur &&
 								!fermerInfobulleEditeur &&
 								!partageEditeurEnCours
 							}
-                        />
-                    </div>
-                </div>
-            )
+						/>
+					</div>
+				</div>
+			)
 
-            // Extraction de la liste des ayants droit de la proposition la plus récente
-            // Construction de la structure des données de l'assistant
-            let proposition = _p0
+			// Extraction de la liste des ayants droit de la proposition la plus récente
+			// Construction de la structure des données de l'assistant
+			let proposition = _p0
 
-            let rightHolders = {}
-            let rights = {}
+			let rightHolders = {}
+			let rights = {}
 
-            function traitementDroit(objDroit, type) {
-                if (objDroit) {
-                    objDroit.forEach(droit => {
-                        if (!rightHolders[droit.rightHolder.rightHolderId]) {
-                            // Ajout du titulaire dans la table des ayant droits
-                            rightHolders[droit.rightHolder.rightHolderId] = droit.rightHolder
-                        }
-                        // Ajout du droit à l'ayant droit
-                        rights[type][droit.rightHolder.rightHolderId] = droit
-                    })
-                }
-            }
+			function traitementDroit(objDroit, type) {
+				if (objDroit) {
+					objDroit.forEach(droit => {
+						if (!rightHolders[droit.rightHolder.rightHolderId]) {
+							// Ajout du titulaire dans la table des ayant droits
+							rightHolders[droit.rightHolder.rightHolderId] = droit.rightHolder
+						}
+						// Ajout du droit à l'ayant droit
+						rights[type][droit.rightHolder.rightHolderId] = droit
+					})
+				}
+			}
 
-            // Extraire les différents ayant-droits et ordonnancement dans un tableau
-            TYPE_SPLIT.forEach(type => {
-                if (!rights[type]) {
-                    rights[type] = {}
-                }
-                if (proposition && proposition.rightsSplits[type]) {
-                    let rightsSplit = proposition.rightsSplits[type]
-                    // Séparation de la structure des droits
-                    switch (type) {
+			// Extraire les différents ayant-droits et ordonnancement dans un tableau
+			TYPE_SPLIT.forEach(type => {
+				if (!rights[type]) {
+					rights[type] = {}
+				}
+				if (proposition && proposition.rightsSplits[type]) {
+					let rightsSplit = proposition.rightsSplits[type]
+					// Séparation de la structure des droits
+					switch (type) {
 						case "workCopyrightSplit":
-                            // lyrics
-                            traitementDroit(rightsSplit.lyrics, type)
-                            // music
-                            traitementDroit(rightsSplit.music, type)
-                            break
+							// lyrics
+							traitementDroit(rightsSplit.lyrics, type)
+							// music
+							traitementDroit(rightsSplit.music, type)
+							break
 						case "performanceNeighboringRightSplit":
-                            //principal
-                            traitementDroit(rightsSplit.principal, type)
-                            //accompaniment
-                            traitementDroit(rightsSplit.accompaniment, type)
-                            break
+							//principal
+							traitementDroit(rightsSplit.principal, type)
+							//accompaniment
+							traitementDroit(rightsSplit.accompaniment, type)
+							break
 						case "masterNeighboringRightSplit":
-                            traitementDroit(rightsSplit.split, type)
-                            break
-                        default:
-                    }
-                }
-            })
+							traitementDroit(rightsSplit.split, type)
+							break
+						default:
+					}
+				}
+			})
 
-            // Désactive le bouton du contrat
-            // eslint-disable-next-line
-            let contratEnabled = false
+			// Désactive le bouton du contrat
+			// eslint-disable-next-line
+			let contratEnabled = false
 
-            return (
-                <div>
+			return (
+				<div>
 					<Navbar
 						pochette={this.props.pochette}
-                        songTitle={this.state.title}
-                        progressPercentage={this.state.progressPercentage}
-                        profil={this.state.user}
-                        media={this.state.media}
-                        resume={false}
-                        proposition={true}
+						songTitle={this.state.title}
+						progressPercentage={this.state.progressPercentage}
+						profil={this.state.user}
+						media={this.state.media}
+						resume={false}
+						proposition={true}
 						menuProfil={false}
 					/>
-                        <div className="resume">
-                    <div className="ui container">
-                        <div className="ui grid sommaire">
-                            <div className="ui row">
+					<div className="resume">
+						<div className="ui container">
+							<div className="ui grid sommaire">
+								<div className="ui row">
 									<h1 className="title-navbar">
 										{t("flot.split.documente-ton-oeuvre.proposition.valider")}
 										{this.state.media.title}
 									</h1>
 									<div className="ui eight wide column"></div>
-                            </div>
-                            <div className="affichage">
-                            <div className="ui row">
-                                <div className="ui sixteen wide column">
-                                    {optionsAffichage}
-                                </div>
-                            </div>
-                            </div>
-                            </div>
+								</div>
+								<div className="affichage">
+									<div className="ui row">
+										<div className="ui sixteen wide column">
+											{optionsAffichage}
+										</div>
+									</div>
+								</div>
+							</div>
 							{this.state.panneau === PANNEAU_PROPOSITIONS && (
-                                    <>
-                                        <div className="ui row">
-                                            <div className="ui sixteen wide column">
-                                                <div className="boutons sommaire">
+								<>
+									<div className="ui row">
+										<div className="ui sixteen wide column">
+											<div className="boutons sommaire">
 												{proposition.etat === "ACCEPTE" && contratEnabled && (
 													<div // Affichage désactivé (fonctionnalité à venir)
-                                                        className="ui medium button inverse"
+														className="ui medium button inverse"
 														style={{ marginLeft: "0px" }}
 													>
 														{t(
@@ -467,7 +467,7 @@ class SommairePartages extends Component {
 															onClick={() => {
 																utils.naviguerVersNouveauPartage(
 																	this.state.mediaId
-                                                        )
+																)
 															}}
 														>
 															{t(
@@ -475,26 +475,26 @@ class SommairePartages extends Component {
 															)}
 														</div>
 													)}
-                                                    {!envoiDisabled && (
-                                                        <div
-                                                            onClick={() => this.openModal()}
+													{!envoiDisabled && (
+														<div
+															onClick={() => this.openModal()}
 															className="ui medium button envoyer sommaire"
 														>
 															{t(
 																"flot.split.documente-ton-oeuvre.proposition.envoyer"
 															)}
 														</div>
-                                                    )}
-                                                </div>
-                                                </div>
-                                            </div>
-                                            </div>
-                                        <div className="ui row">
-                                            <Accordion fluid styled className="ui sixteen wide column">
-                                                {propositions}
-                                            </Accordion>
-                                        </div>
-                                    </>
+													)}
+												</div>
+											</div>
+										</div>
+									</div>
+									<div className="ui row">
+										<Accordion fluid styled className="ui sixteen wide column">
+											{propositions}
+										</Accordion>
+									</div>
+								</>
 							)}
 							{this.state.panneau === PANNEAU_EDITEUR && (
 								<SommairePartagesEditeur proposition={_p0} />
@@ -502,37 +502,37 @@ class SommairePartages extends Component {
 							{this.state.proposition &&
 								this.state.proposition.etat === "VOTATION" &&
 								!this.state.jetonApi && (
-                                    <script language="javascript">
+									<script language="javascript">
 										setTimeout(()=>
 										{toast.warn(
 											t(
 												"flot.split.documente-ton-oeuvre.proposition.voter-avec-jeton"
-                                )
+											)
 										)}
 										)
 									</script>
 								)}
-                        </div>
-                    </div>
+						</div>
+					</div>
 					{this.state.media.initiateurPropositionEnCours &&
 						rightHolders[this.state.media.initiateurPropositionEnCours] && (
-                        <ModalPropositionEnCours
-                            open={this.state.modalePropositionEnCours}
-                            titre={this.state.media.title}
+							<ModalPropositionEnCours
+								open={this.state.modalePropositionEnCours}
+								titre={this.state.media.title}
 								initiateur={
 									rightHolders[this.state.media.initiateurPropositionEnCours]
 										.name
-                    }
+								}
 								onClose={() => {
 									this.modalePropositionEnCours(false)
 								}}
 							/>
 						)}
-                    <Modal
-                        open={this.state.modaleConnexion}
-                        closeOnEscape={false}
-                        closeOnDimmerClick={false}
-                        onClose={this.props.close}
+					<Modal
+						open={this.state.Connexion}
+						closeOnEscape={false}
+						closeOnDimmerClick={false}
+						onClose={this.props.close}
 						size="small"
 					>
 						<br />
@@ -540,35 +540,35 @@ class SommairePartages extends Component {
 						<br />
 						<Login
 							fn={() => {
-                            if (Identite.usager) {
-                                this.setState({ user: Identite.usager })
-                                this.setState({ modaleConnexion: false })
-                            }
+								if (Identite.usager) {
+									this.setState({ user: Identite.usager })
+									this.setState({ Connexion: false })
+								}
 							}}
 						/>
-                    </Modal>
-                    <Modal
-                        open={this.state.modaleCourriels}
-                        onClose={this.closeModal}
-                        size="small"
-                        closeIcon
-                    >
-                        <Modal.Header>
+					</Modal>
+					<Modal
+						open={this.state.modaleCourriels}
+						onClose={this.closeModal}
+						size="small"
+						closeIcon
+					>
+						<Modal.Header>
 							<h2 className="headerFin">
 								{t("flot.split.documente-ton-oeuvre.proposition.titre")}
-                                <div
-                                    className="close-icon"
+								<div
+									className="close-icon"
 									onClick={() => {
 										this.closeModal()
 									}}
 								></div>
-                            </h2>
-                        </Modal.Header>
-                        <Modal.Content className="invitation">
-                            {t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
-                            <PageAssistantSplitCourrielsCollaborateurs
-                                onRef={m => this.setState({ courrielsCollaborateurs: m })}
-                                ayantDroits={rightHolders}
+							</h2>
+						</Modal.Header>
+						<Modal.Content className="invitation">
+							{t("flot.split.documente-ton-oeuvre.proposition.sous-titre")}
+							<PageAssistantSplitCourrielsCollaborateurs
+								onRef={m => this.setState({ courrielsCollaborateurs: m })}
+								ayantDroits={rightHolders}
 								propositionId={
 									this.state.propositions[this.state.propositions.length - 1]
 										.uuid
@@ -577,43 +577,41 @@ class SommairePartages extends Component {
 									this.closeModal()
 									if (cb) cb()
 								}}
-                                mediaId={this.state.mediaId}
-                            />
-                        </Modal.Content>
-                        <Modal.Actions>
-                            <div className="finaliser">
+								mediaId={this.state.mediaId}
+							/>
+						</Modal.Content>
+						<Modal.Actions>
+							<div className="finaliser">
 								<div className="ui negative button" onClick={this.closeModal}>
-                                    {t("flot.split.collaborateur.attribut.bouton.annuler")}
-                                </div>
-                                <Button
-                                    onClick={() => {
-                                        this.state.courrielsCollaborateurs.handleSubmit()
-                                        this.closeModal()
-                                    }}
-                                    className={`ui medium button envoie`}
-                                >
-                                    {t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
-                                </Button>
-                            </div>
-                        </Modal.Actions>
-                    </Modal>
-                </div>
-            )
-        } else {
-            return (
-                <div className="tdb--cadre ui row accueil">
-					<ModaleConnexion
-						fn={() => {
-                        this.setState({ modaleConnexion: false })
-                        this.initialisation()
-						}}
-						parent={this}
-						isOpen={this.state.modaleConnexion}
-					/>
-                </div>
-            )
-        }
-    }
+									{t("flot.split.collaborateur.attribut.bouton.annuler")}
+								</div>
+								<Button
+									onClick={() => {
+										this.state.courrielsCollaborateurs.handleSubmit()
+										this.closeModal()
+									}}
+									className={`ui medium button envoie`}
+								>
+									{t("flot.split.documente-ton-oeuvre.proposition.envoyer")}
+								</Button>
+							</div>
+						</Modal.Actions>
+					</Modal>
+				</div>
+			)
+		} else {
+			return (
+				<Connexion
+					fn={() => {
+						this.setState({ Connexion: false })
+						this.initialisation()
+					}}
+					parent={this}
+					isOpen={this.state.Connexion}
+				/>
+			)
+		}
+	}
 }
 
 export default withTranslation()(SommairePartages)

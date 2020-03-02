@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
+@import "../../assets/scss/colors";
+@import "../../assets/scss/layout";
+
+.fixed-top.welcome {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 50;
+}
+
+.ui.container.welcome {
+	height: 100%;
+	display: flex;
+	background-color: white;
+}
+
+.right {
+	justify-content: flex-end;
+}
+
+.left,
+.right {
+	display: flex;
+	align-items: center;
+	flex: 1 2;
+}
+
+#loginHeader {
+	display: block;
+	margin: 0 auto;
+	width: 464px;
+	font-family: "IBM Plex Sans";
+}
+
+header#loginHeader h1 {
+	margin-top: 100px;
+	white-space: pre;
+	font-style: bold;
+	font-weight: 500;
+	font-size: 40px;
+	line-height: 48px;
+	color: #333333;
+	height: 96px;
+}
+
+header#loginHeader h3 {
+	white-space: pre;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 18px;
+	color: #687a8b;
+	font-size: 16px;
+	line-height: 24px;
+	height: 24px;
+	margin-bottom: 50px;
+}
+
+/*button[id="facebook"] {
+  width: 464px;
+  margin: 4px;
+  max-width: 500px;
+  border-radius: 2px;
+  background-color: #3C5A99;
+  padding-right: 137px;
+}
+
+.facebook {
+  padding-right: 135px;
+}
+
+button[id="google"] {
+  margin: 4px;
+  width: 464px;
+  max-width: 500px;
+  border-radius: 2px;
+  background-color: #4285F4;
+  padding-right: 150px;
+}
+
+.google {
+  padding-right: 143px;
+}*/
+
+label[for="username"],
+label[for="password"],
+label[for="confirmpassword"] {
+	font-family: "IBM Plex Sans";
+	height: 24px;
+	font-style: normal;
+	font-size: 16px;
+	font-weight: bold;
+	line-height: 24px;
+	margin-bottom: 10px;
+}
+
+/* label[for="username"] {
+	margin: 0 0 25;
+}
+
+label[for="password"] {
+	margin: 0 0 25;
+} */
+
+.input-wrapper {
+	position: relative;
+	width: 464px;
+}
+
+input {
+	/* styles génériques */
+	font-family: "IBM Plex Sans";
+	height: 40px;
+	color: #8da0b3;
+	border: 1px solid #dcdfe1;
+	border-radius: 2px;
+	display: inline;
+	// margin: 5px 0 5px 0;
+	padding: 0 0 0 10px;
+	width: 100%;
+	margin: 10px 0 20px 0;
+}
+
+input[id="username"],
+input[id="password"] {
+	color: #8da0b3;
+	border: 1px solid #dcdfe1;
+	box-sizing: border-box;
+	border-radius: 2px;
+	padding-right: 0;
+}
+
+/* input[id="username"] {
+	margin-bottom: 30px;
+} */
+
+/* input[id="password"] {
+	margin-bottom: 15px;
+} */
+
+a[href="/forgot-password"] {
+	font-family: "IBM Plex Sans";
+	font-style: normal;
+	font-weight: bold;
+	font-size: 12px;
+	height: 16px;
+}
+
+button[id="hide"] {
+	position: absolute;
+	padding: 0;
+	color: white;
+	background-color: Transparent;
+	border: 0;
+	-webkit-appearance: none;
+	right: 10px;
+	top: 18px;
+	// margin: 13px 15px 0 0;
+	cursor: pointer;
+	z-index: 20;
+}
+
+/* 
+button[id="hide"] {
+	padding: 0;
+	color: white;
+	background-color: Transparent;
+	border: 0;
+	-webkit-appearance: none;
+	position: absolute;
+	right: 10px;
+	top: 18px;
+	// margin: 10px 10px 0 0;
+} */
+
+.ui.negative.button.language {
+	font-family: "IBM Plex Sans";
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 24px;
+	text-align: center;
+	border: 1px solid #DCDFE1;
+	border-radius: 2px;
+	margin-left: 40px;
+}
+
+.ui.medium.button.login {
+	float: right;
+	margin: 0 auto;
+	// margin-bottom: 20px;
+}
