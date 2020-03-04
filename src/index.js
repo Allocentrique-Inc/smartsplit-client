@@ -1,14 +1,12 @@
 import React from "react"
-import ReactDOM from "react-dom"
 import { ScrollView } from "react-native"
 import { Route, Redirect, Switch } from "react-router"
-import { BrowserRouter } from "react-router-dom"
 
 import DashboardPage from "./pages/dashboard"
 import FormsTest from "./pages/test/forms"
 
-const App = <BrowserRouter>
-	<Switch>
+export default function Main(props) {
+	return <Switch>
 		<Route path="/" exact>
 			<Redirect to="/dashboard/" />
 		</Route>
@@ -23,6 +21,4 @@ const App = <BrowserRouter>
 			</ScrollView>
 		</Route>
 	</Switch>
-</BrowserRouter>
-
-ReactDOM.render(App, document.getElementById('root'))
+}

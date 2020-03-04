@@ -1,16 +1,29 @@
 import { StyleSheet } from "react-native"
 import { Typography, Colors } from "../theme"
 
+function fontWithWeight(font, weight) {
+	return font + "-" + {
+		400: "Light",
+		500: "Regular",
+		700: "Bold",
+	}[weight]
+}
+
 const TypographyStyles = {
 	text: {
 		base: {
-			fontFamily: Typography.font,
-			fontWeight: Typography.Weight.normal,
+			fontFamily: fontWithWeight(
+				Typography.font,
+				Typography.Weight.normal
+			),
 			color: Colors.primary,
 		},
 		
 		bold: {
-			fontWeight: Typography.Weight.bold,
+			fontFamily: fontWithWeight(
+				Typography.font,
+				Typography.Weight.bold
+			),
 		},
 		reversed: {
 			color: Colors.primary_reversed,
@@ -31,7 +44,7 @@ for(let [key, value] of Object.entries(Typography.titles)) {
 	TypographyStyles.headings[key] = {
 		fontSize:   value.size,
 		lineHeight: value.height,
-		fontWeight: value.weight,
+		fontFamily: fontWithWeight(Typography.font, value.weight)
 	}
 }
 

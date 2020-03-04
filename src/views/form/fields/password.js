@@ -28,6 +28,8 @@ function FramedPasswordField(props) {
 			blocked={reveal}
 			style={StyleSheet.flatten(FormStyles.input_password_reveal)}
 			onClick={toggleRevealPassword}
+			onPress={toggleRevealPassword}
+			accessibilityRole="button"
 		/>
 	</Framed>
 }

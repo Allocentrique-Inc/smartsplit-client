@@ -86,7 +86,8 @@ export const Typography = {
 		bold:   "700",
 	},
 
-	font: "IBM Plex Sans",
+	// font: "Roboto",
+	font: "IBMPlexSans",
 
 	titles: {
 		1: {

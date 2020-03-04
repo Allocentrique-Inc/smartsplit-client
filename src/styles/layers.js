@@ -8,17 +8,17 @@ export default StyleSheet.create({
 	
 	overground_strong: {
 		backgroundColor: Colors.background.ground,
-		boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.25)",
+		//boxShadow: "0px 8px 32px 0px rgba(0, 0, 0, 0.25)",
 	},
 	
 	overground_moderate: {
 		backgroundColor: Colors.background.ground,
-		boxShadow: "0px 1px 8px 0px rgba(0, 0, 0, 0.1)",
+		//boxShadow: "0px 1px 8px 0px rgba(0, 0, 0, 0.1)",
 	},
 	
 	overground_light: {
 		backgroundColor: Colors.background.ground,
-		boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.05)",
+		//boxShadow: "0px 1px 4px 0px rgba(0, 0, 0, 0.05)",
 	},
 	
 	underground: {

@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native"
+import { Platform, StyleSheet } from "react-native"
 import { Metrics, Colors } from "../theme"
 
 const FormStyles = StyleSheet.create({
@@ -26,8 +26,13 @@ const FormStyles = StyleSheet.create({
 	input_text: {
 		padding: Metrics.spacing.components.inside,
 		flex: 1,
-		//outlineWidth: 0,
-		height: Metrics.size.medium
+		height: Metrics.size.medium,
+		...Platform.select({
+			web: {
+				outlineWidth: 0,
+				minWidth: 0,
+			}
+		})
 	},
 
 	input_password_reveal: {

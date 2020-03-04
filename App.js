@@ -1,11 +1,11 @@
-import React from "react"
-import { Platform, ScrollView } from "react-native"
-import { Route, Redirect, Switch } from "react-router"
+import React, { useState } from "react"
+import { Platform, View, Text, ScrollView } from "react-native"
+import KeyboardSpacer from "react-native-keyboard-spacer"
 import { MemoryRouter } from "react-router"
 import { BrowserRouter } from "react-router-dom"
+import * as Font from "expo-font"
 
-import DashboardPage from "./src/pages/dashboard"
-import FormsTest from "./src/pages/test/forms"
+import Main from "./src"
 
 const RouterImpl = Platform.select({
 	android: MemoryRouter,
@@ -13,22 +13,29 @@ const RouterImpl = Platform.select({
 	web: BrowserRouter
 })
 
+const fontMap = {
+	"IBMPlexSans-Light": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Light.ttf"),
+	"IBMPlexSans-Regular": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Regular.ttf"),
+	"IBMPlexSans-Bold": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Bold.ttf"),
+}
+
 export default function App(props) {
-	return <RouterImpl>
-		<Switch>
-			<Route path="/" exact>
-				<Redirect to="/dashboard/" />
-			</Route>
+	const [appReady, setAppReady] = useState(Platform.OS === "web")
 
-			<Route path="/dashboard/">
-				<DashboardPage />
-			</Route>
+	Font.loadAsync(fontMap)
+		.then(o => setAppReady(true))
+		.catch(e => console.error(e))
 
-			<Route path="/test/forms" exact>
-				<ScrollView>
-					<FormsTest />
-				</ScrollView>
-			</Route>
-		</Switch>
-	</RouterImpl>
+	if(!appReady)
+		return <View style={{flex: 1}}>
+			<Text> Loading fonts... </Text>
+		</View>
+
+	return <View style={{flex: 1}}>
+		{appReady && (
+			<RouterImpl>
+				<Main />
+			</RouterImpl>
+		)}
+	</View>
 }

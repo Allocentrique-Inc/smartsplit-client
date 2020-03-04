@@ -8,7 +8,7 @@ function composeView(props, ...stylesheets) {
 	
 	if(props.style) {
 		if(typeof props.style === "object")
-			styles.push(...props.style)
+			styles.push(props.style)
 		else
 			styles.push(props.style)
 	}

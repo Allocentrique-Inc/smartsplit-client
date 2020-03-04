@@ -8,19 +8,19 @@ import MetricsStyles from "../styles/metrics"
 // espaces supplémentaires à l'affichage.
 
 export function Text(props) {
-	const { style, ...nextProps } = props
+	const { style, bold, small, inside, reversed, ...nextProps } = props
 	
 	const styles = [
 		TypographyStyles.text.base,
-		TypographyStyles.text[props.small ? "small" : "medium"],
-		MetricsStyles.components[props.inside ? "tiny" : "inside"],
+		TypographyStyles.text[small ? "small" : "medium"],
+		MetricsStyles.components[inside ? "tiny" : "inside"],
 		style
 	]
 	
-	if(props.bold)
+	if(bold)
 		styles.push(TypographyStyles.text.bold)
 	
-	if(props.reversed)
+	if(reversed)
 		styles.push(TypographyStyles.text.reversed)
 	
 	return <TextView style={styles} {...nextProps}>{props.children}</TextView>
