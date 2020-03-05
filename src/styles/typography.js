@@ -3,8 +3,8 @@ import { Typography, Colors } from "../theme"
 
 function fontWithWeight(font, weight) {
 	return font + "-" + {
-		400: "Light",
-		500: "Regular",
+		400: "Regular",
+		500: "Medium",
 		700: "Bold",
 	}[weight]
 }

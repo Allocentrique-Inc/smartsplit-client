@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Platform, View, Text, ScrollView } from "react-native"
-import KeyboardSpacer from "react-native-keyboard-spacer"
 import { MemoryRouter } from "react-router"
 import { BrowserRouter } from "react-router-dom"
 import * as Font from "expo-font"
@@ -14,8 +13,8 @@ const RouterImpl = Platform.select({
 })
 
 const fontMap = {
-	"IBMPlexSans-Light": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Light.ttf"),
 	"IBMPlexSans-Regular": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Regular.ttf"),
+	"IBMPlexSans-Medium": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Medium.ttf"),
 	"IBMPlexSans-Bold": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Bold.ttf"),
 }
 
