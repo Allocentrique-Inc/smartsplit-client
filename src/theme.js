@@ -6,27 +6,25 @@ export const Metrics = {
 	 * Espacement entre composantes, incluant toutes marges de composantes intérieures
 	 */
 	spacing: {
-		components: {
-			// Espacement total entre deux sections
-			xlarge:  64,
-			section: 64,
+		// Espacement total entre deux sections
+		xlarge:  64,
+		section: 64,
 
-			// Espacement total entre deux groupes
-			large: 32,
-			group: 32,
+		// Espacement total entre deux groupes
+		large: 32,
+		group: 32,
 
-			// Espacement total entre deux composantes
-			medium:    16,
-			component: 16,
+		// Espacement total entre deux composantes
+		medium:    16,
+		component: 16,
 
-			// Espacement total entre deux sous-composantes 
-			small:  8,
-			inside: 8,
+		// Espacement total entre deux sous-composantes 
+		small:  8,
+		inside: 8,
 
-			// Marge standard entre les petits éléments visuels
-			xsmall: 4,
-			tiny:   4,
-		},
+		// Marge standard entre les petits éléments visuels
+		xsmall: 4,
+		tiny:   4,
 	},
 
 	// Taille des widgets: boutons, images, etc.

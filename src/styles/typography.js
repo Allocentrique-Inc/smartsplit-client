@@ -19,6 +19,13 @@ const TypographyStyles = {
 			color: Colors.primary,
 		},
 		
+		heavy: {
+			fontFamily: fontWithWeight(
+				Typography.font,
+				Typography.Weight.heavy
+			),
+		},
+		
 		bold: {
 			fontFamily: fontWithWeight(
 				Typography.font,
@@ -27,6 +34,10 @@ const TypographyStyles = {
 		},
 		reversed: {
 			color: Colors.primary_reversed,
+		},
+		
+		secondary: {
+			color: Colors.secondary,
 		},
 	},
 	

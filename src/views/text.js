@@ -8,20 +8,33 @@ import MetricsStyles from "../styles/metrics"
 // espaces supplémentaires à l'affichage.
 
 export function Text(props) {
-	const { style, bold, small, inside, reversed, ...nextProps } = props
+	const {
+		style,
+		heavy,
+		bold,
+		small,
+		reversed,
+		secondary,
+		...nextProps
+	} = props
 	
 	const styles = [
 		TypographyStyles.text.base,
 		TypographyStyles.text[small ? "small" : "medium"],
-		MetricsStyles.components[inside ? "tiny" : "inside"],
 		style
 	]
+	
+	if(heavy)
+		styles.push(TypographyStyles.text.heavy)
 	
 	if(bold)
 		styles.push(TypographyStyles.text.bold)
 	
 	if(reversed)
 		styles.push(TypographyStyles.text.reversed)
+	
+	if(secondary)
+		styles.push(TypographyStyles.text.secondary)
 	
 	return <TextView style={styles} {...nextProps}>{props.children}</TextView>
 }
@@ -31,14 +44,12 @@ export function Heading(props) {
 	
 	return <TextView style={[
 		TypographyStyles.text.base,
-		MetricsStyles.components.small,
 		TypographyStyles.headings[level]
 	]}>{props.children}</TextView>
 }
 
 export function Paragraph(props) {
 	return <TextView style={[
-		MetricsStyles.components.small,
 		TypographyStyles.text.base
 	]}>{props.children}</TextView>
 }

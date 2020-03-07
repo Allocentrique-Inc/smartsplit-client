@@ -6,10 +6,6 @@ import MetricsStyles from "../styles/metrics"
 import TypographyStyles from "../styles/typography"
 
 export const TabStyles = StyleSheet.create({
-	tabBar: {
-		marginBottom: Metrics.spacing.group
-	},
-	
 	tab: {
 		height: Metrics.size.large,
 		alignItems: "center",
@@ -35,7 +31,7 @@ export const TabStyles = StyleSheet.create({
 	},
 	
 	spacer: {
-		width: Metrics.spacing.components.group,
+		width: Metrics.spacing.group,
 	},
 	
 	spacer_fill: {
@@ -89,7 +85,7 @@ export function TabBar(props) {
 	})
 		
 	return <Column>
-		<Row style={[MetricsStyles.components.inside, TabStyles.tabBar]}>
+		<Row>
 			{children}
 			<View style={[TabStyles.tab, TabStyles.spacer, TabStyles.spacer_fill]} />
 		</Row>

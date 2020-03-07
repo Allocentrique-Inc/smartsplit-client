@@ -4,15 +4,13 @@ import FormStyles from "../../../styles/forms"
 import MetricsStyles from "../../../styles/metrics"
 
 export default function Framed(props) {
-	const combinedStyles = StyleSheet.compose([
-		MetricsStyles.components.tiny,
+	const combinedStyles = [
 		FormStyles.frame,
-		props.style
-	])
+		props.focused ? FormStyles.frame_focused : null,
+		props.style,
+	]
 
-	const focusStyles = props.focused ? FormStyles.frame_focused : null
-
-	return <View style={[combinedStyles, focusStyles]}>{props.children}</View>
+	return <View style={combinedStyles}>{props.children}</View>
 }
 
 export function useFrameFocus(initialFocus = false) {

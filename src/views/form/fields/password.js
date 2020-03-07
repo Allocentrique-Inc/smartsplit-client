@@ -27,7 +27,6 @@ function FramedPasswordField(props) {
 		<TouchableWithoutFeedback onPress={toggleRevealPassword}>
 			<EyeIcon
 				blocked={reveal}
-				style={StyleSheet.flatten(FormStyles.input_password_reveal)}
 				onClick={toggleRevealPassword}
 				accessibilityRole="button"
 			/>

@@ -3,7 +3,6 @@ import { Metrics, Colors } from "../theme"
 
 const FormStyles = StyleSheet.create({
 	label_wrap: {
-		margin: Metrics.spacing.components.tiny,
 		flex: 1,
 	},
 
@@ -12,6 +11,8 @@ const FormStyles = StyleSheet.create({
 	},
 
 	frame: {
+		padding: Metrics.spacing.inside,
+		height: Metrics.size.medium,
 		borderColor: Colors.stroke,
 		borderRadius: Metrics.borderRadius.forms,
 		borderWidth: 1,
@@ -24,19 +25,13 @@ const FormStyles = StyleSheet.create({
 	},
 
 	input_text: {
-		padding: Metrics.spacing.components.inside,
 		flex: 1,
-		height: Metrics.size.medium,
 		...Platform.select({
 			web: {
 				outlineWidth: 0,
 				minWidth: 0,
 			}
 		})
-	},
-
-	input_password_reveal: {
-		margin: Metrics.spacing.components.inside,
 	},
 	
 	undertext: {

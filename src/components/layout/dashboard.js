@@ -40,7 +40,7 @@ export const DashboardStyles = StyleSheet.create({
 	logo: {
 		flexDirection: "row",
 		alignItems: "center",
-		paddingLeft: Metrics.spacing.components.group,
+		paddingLeft: Metrics.spacing.group,
 		height: Metrics.size.xlarge,
 	},
 	profileBar: {
@@ -82,7 +82,7 @@ export function SidebarItem(props) {
 			<View style={MetricsStyles.components.component}>
 				<Icon color={active ? Colors.action : Colors.inactive} />
 			</View>
-			<Text inside reversed bold={active}>{props.text}</Text>
+			<Text reversed bold={active}>{props.text}</Text>
 		</Row>
 	</TouchableNativeFeedback>
 }

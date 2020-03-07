@@ -4,21 +4,30 @@ import MetricsStyles from "../styles/metrics"
 import LayoutStyles from "../styles/layout"
 
 function composeView(props, ...stylesheets) {
-	const styles = stylesheets
-	
-	if(props.style) {
-		if(typeof props.style === "object")
-			styles.push(props.style)
-		else
-			styles.push(props.style)
+	const { style, children, of, spacer, ...nextProps } = {
+		...props,
+		spacer: Spacer
 	}
-		
-	return <View
-		{...props}
-		style={StyleSheet.compose(styles)}
-	>{props.children}</View>
-}
 	
+	const SpacerImpl = spacer
+	let newChildren = children
+	
+	if(of) {
+		newChildren = []
+		
+		React.Children.forEach(children, (child, index) => {
+			newChildren.push(child)
+			newChildren.push(<SpacerImpl key={"spacer-" + index} of={of} />)
+		})
+		
+		newChildren.pop()
+	}
+	
+	return <View
+		{...nextProps}
+		style={[...stylesheets, style]}
+	>{newChildren}</View>
+}
 
 export function Group(props) {
 	return composeView(props, MetricsStyles.components.component)
@@ -34,4 +43,8 @@ export function Column(props) {
 
 export function Row(props) {
 	return composeView(props, LayoutStyles.row)
+}
+
+export function Spacer(props) {
+	return <View style={MetricsStyles.spacing[props.of]} />
 }
