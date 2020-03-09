@@ -1,7 +1,7 @@
 import React from "react"
 import { Text as TextView } from "react-native"
-import TypographyStyles from "../styles/typography"
-import MetricsStyles from "../styles/metrics"
+import TypographyStyles     from "./styles/typography"
+import MetricsStyles        from "./styles/metrics"
 
 // Note: Il est important qu'il n'y ait pas d'espacement entre les tags, tel que
 // <TextView>{props.children}</TextView>. Sinon l'espace est rendu, et il y a des

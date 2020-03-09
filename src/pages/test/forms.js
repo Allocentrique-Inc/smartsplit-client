@@ -1,7 +1,7 @@
 import React from "react"
-import { TextField, PasswordField } from "../../views/form"
-import { Section, Group, Column, Row } from "../../views/layout"
-import { Heading, Paragraph } from "../../views/text"
+import { TextField, PasswordField }    from "../../forms"
+import { Section, Group, Column, Row } from "../../layout"
+import { Heading, Paragraph }          from "../../text"
 
 export default function FormsTest() {
 	return <Section of="group">

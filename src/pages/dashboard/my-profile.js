@@ -1,6 +1,6 @@
 import React from "react"
-import { Group } from "../../views/layout"
-import { Heading } from "../../views/text"
+import { Group } from "../../layout"
+import { Heading } from "../../text"
 
 export default function MyProfilePage() {
 	return <Group>

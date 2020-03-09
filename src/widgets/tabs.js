@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { View, StyleSheet, Text, TouchableWithoutFeedback } from "react-native"
-import { Row, Column } from "../views/layout"
+import { Row, Column } from "../layout"
 import { Metrics, Colors } from "../theme"
 import MetricsStyles from "../styles/metrics"
 import TypographyStyles from "../styles/typography"

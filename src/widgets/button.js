@@ -1,6 +1,6 @@
 import React from "react"
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
-import { Text } from "../views/text"
+import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
 
 export const Styles = StyleSheet.create({

@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { View, StyleSheet } from "react-native"
-import FormStyles from "../../../styles/forms"
-import MetricsStyles from "../../../styles/metrics"
+import FormStyles from "../styles/forms"
+import MetricsStyles from "../styles/metrics"
 
-export default function Framed(props) {
+export default function Frame(props) {
 	const combinedStyles = [
 		FormStyles.frame,
 		props.focused ? FormStyles.frame_focused : null,

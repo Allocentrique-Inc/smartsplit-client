@@ -1,10 +1,10 @@
 import React, { useState } from "react"
 import { TextInput, StyleSheet, TouchableWithoutFeedback } from "react-native"
 
-import FormStyles from "../../../styles/forms"
-import Labeled from "./labeled"
-import Framed, { useFrameFocus } from "./framed"
-import EyeIcon from "../../../components/svg/eye"
+import FormStyles from "../styles/forms"
+import Label from "./label"
+import Frame, { useFrameFocus } from "./frame"
+import EyeIcon from "../svg/eye"
 
 function FramedPasswordField(props) {
 	const focused = useFrameFocus()
@@ -16,7 +16,7 @@ function FramedPasswordField(props) {
 		setReveal(!reveal)
 	}
 
-	return <Framed focused={focused.value}>
+	return <Frame focused={focused.value}>
 		<TextInput
 			{...props}
 			style={FormStyles.input_text}
@@ -31,9 +31,9 @@ function FramedPasswordField(props) {
 				accessibilityRole="button"
 			/>
 		</TouchableWithoutFeedback>
-	</Framed>
+	</Frame>
 }
 
 export default function PasswordField(props) {
-	return <Labeled {...props} component={FramedPasswordField} />
+	return <Label {...props} component={FramedPasswordField} />
 }

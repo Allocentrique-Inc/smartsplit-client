@@ -1,11 +1,11 @@
 import React from "react"
 import { Switch, Route, Redirect } from "react-router"
 import { ScrollView } from "react-native"
-import DashboardLayout from "../../components/layout/dashboard"
+import DashboardLayout from "../../layout/dashboard"
 
-import MusicNoteIcon from "../../components/svg/music-note"
-import UserCardIcon  from "../../components/svg/user-card"
-import UsersIcon     from "../../components/svg/users"
+import MusicNoteIcon from "../../svg/music-note"
+import UserCardIcon  from "../../svg/user-card"
+import UsersIcon     from "../../svg/users"
 
 import MyWorksPage         from "./my-works"
 import MyProfilePage       from "./my-profile"

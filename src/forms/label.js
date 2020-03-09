@@ -1,11 +1,11 @@
 import React from "react"
-import FormStyles from "../../../styles/forms"
-import { Column, Row } from "../../layout"
-import { Text } from "../../text"
+import FormStyles from "../styles/forms"
+import { Column, Row } from "../layout"
+import { Text } from "../text"
 
 const UNDERTEXT_DEFAULT_LINES = 4
 
-export default function Labeled(props) {
+export default function Label(props) {
 	const {
 		style,
 		of,

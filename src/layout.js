@@ -1,7 +1,7 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
-import MetricsStyles from "../styles/metrics"
-import LayoutStyles from "../styles/layout"
+import MetricsStyles from "./styles/metrics"
+import LayoutStyles from "./styles/layout"
 
 function composeView(props, ...stylesheets) {
 	const { style, children, of, spacer, ...nextProps } = {

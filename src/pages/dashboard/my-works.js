@@ -1,15 +1,16 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
-import { Row, Column, Section, Hairline }   from "../../views/layout"
-import { Heading, Text } from "../../views/text"
-import { TabBar, Tab }   from "../../components/tabs"
-import Button            from "../../components/button"
-import ProgressBar       from "../../components/progress-bar"
 import moment from "moment"
 
+import { Row, Column, Section, Hairline }   from "../../layout"
+import { Heading, Text }   from "../../text"
+import { TabBar, Tab }     from "../../widgets/tabs"
+import Button              from "../../widgets/button"
+import ProgressBar         from "../../widgets/progress-bar"
+
 import { Colors, Metrics } from "../../theme"
-import ImageIcon from "../../components/svg/image"
-import OverflowMenuIcon from "../../components/svg/overflow-menu"
+import ImageIcon           from "../../svg/image"
+import OverflowMenuIcon    from "../../svg/overflow-menu"
 
 
 const Styles = StyleSheet.create({

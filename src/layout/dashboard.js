@@ -6,15 +6,15 @@ import {
 	TouchableNativeFeedback
 } from "react-native"
 import { useRouteMatch, useHistory } from "react-router"
-import { Row, Column } from "../../views/layout"
-import { Text }                from "../../views/text"
+import { Row, Column } from "../layout"
+import { Text }        from "../text"
 
-import LayerStyles          from "../../styles/layers"
-import MetricsStyles        from "../../styles/metrics"
-import { Colors, Metrics }  from "../../theme"
+import LayerStyles         from "../styles/layers"
+import MetricsStyles       from "../styles/metrics"
+import { Colors, Metrics } from "../theme"
 
-import LogoSmartSplit from "../../components/svg/logo-smartsplit"
-import LinkIcon from "../../components/svg/link"
+import LogoSmartSplit from "../svg/logo-smartsplit"
+import LinkIcon from "../svg/link"
 
 export const DashboardStyles = StyleSheet.create({
 	main: {
