@@ -5,8 +5,8 @@ import LayoutStyles from "../styles/layout"
 
 function composeView(props, ...stylesheets) {
 	const { style, children, of, spacer, ...nextProps } = {
-		...props,
-		spacer: Spacer
+		spacer: Spacer,
+		...props
 	}
 	
 	const SpacerImpl = spacer
@@ -47,4 +47,10 @@ export function Row(props) {
 
 export function Spacer(props) {
 	return <View style={MetricsStyles.spacing[props.of]} />
+}
+
+export function Hairline(props) {
+	const style = {}
+
+	return <View style={LayoutStyles.hairline} />
 }
