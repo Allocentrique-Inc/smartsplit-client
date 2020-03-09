@@ -5,6 +5,8 @@ import "./Login.scss"
 import "../../assets/scss/connexion/connexion.scss"
 import { withTranslation } from "react-i18next"
 import { Formik, Form, Field } from "formik"
+import { Modal } from "semantic-ui-react";
+import ForgotPassword from "./ForgotPassword"
 import Eye from "./Eye"
 import { SmartSplitLogo } from "../svg/SVG.js"
 
@@ -17,6 +19,7 @@ class LogIn extends Component {
 
 		this.state = {
 			pochette: props.pochette,
+			showModal: false,
 			hidden: true,
 			username: "",
 			password: this.props.password,
@@ -35,6 +38,12 @@ class LogIn extends Component {
 			}
 		})
 	}
+
+	openModal = () => {
+		this.setState({ showModal: true })
+	};
+
+	closeModal = () => this.setState({ showModal: false });
 
 	handleSubmit = values => {
 		this.setState({ patience: true }, () => {
@@ -75,6 +84,7 @@ class LogIn extends Component {
 		const t = this.props.t,
 			i18n = this.props.i18n
 		let pochette = this.state.pochette ? "pochette" : ""
+
 		return (
 			<>
 				<div className="fixed-top welcome">
@@ -249,22 +259,23 @@ class LogIn extends Component {
 														</div>
 													</div>
 												</div>
-												{!this.state.patience && (
-													<div className="field">
-														<div className="control">
-															<div
-																onClick={() => {
-																	if (this.state.parent) {
-																		this.state.parent.afficher(2)
-																	}
-																}}
-																className={`motdepasse-oublie ${pochette}`}
-															>
-																{t("accueil.oublie")}
-															</div>
-														</div>
+
+												<div className="field">
+													<div className="control">
+														<Modal
+															open={this.state.showModal}
+															onClose={this.closeModal}
+															size="small"
+														>
+															<ForgotPassword closeModalInLogin={this.closeModal} />
+														</Modal>
+														<div
+															onClick={this.openModal}
+															className={`motdepasse-oublie ${pochette}`}
+														>
+															{t("accueil.oublie")}</div>
 													</div>
-												)}
+												</div>
 
 												<div className="field">
 													<p className="control">

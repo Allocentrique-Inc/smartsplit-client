@@ -7,9 +7,9 @@
 	}
 
 	&.relatif {
-		position: relative;
+		// position: relative;
 		float: right;
-		margin: 0px 123px 10px 0px;
+		margin: 0px 10px 10px 0px;
 	}
 }
 
@@ -39,7 +39,6 @@
 .connexion {
 	color: $smartsplit-color-link;
 	cursor: pointer;
-	position: relative;
 	bottom: 30px;
 	&.pochette {
 		color: $pochette-color-link;
@@ -52,4 +51,15 @@
 	&.pochette {
 		color: $pochette-color-link;
 	}
+}
+
+.connexion > img {
+	position: absolute;
+    left: 510px;
+}
+
+.error {
+	color: red;
+    position: absolute;
+    font-size: 14px;
 }

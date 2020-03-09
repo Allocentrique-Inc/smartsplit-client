@@ -4,8 +4,7 @@
 			"reenvoyer": "Réenvoyer la proposition",
 			"sommaire": "Voir le résumé",
 			"supprimer": "Supprimer",
-			"dupliquer": "Dupliquer",
-			"supprimer": "Supprimer"
+			"dupliquer": "Dupliquer"
 		},
 		"erreurs": {
 			"duplication": "Une erreur est survenue lors de la duplication de cette oeuvre",
@@ -261,13 +260,14 @@
 				"titre": "Ajouter un artiste collaborateur",
 				"attribut": {
 					"placeholder": {
-						"prenom": "Prénom.s",
+						"prenom": "Prénom",
 						"nom": "Nom",
 						"middle": "Second prénom"
 					},
 					"etiquette": {
 						"nom": "Nom (légal)",
 						"prenom": "Prénom (légal)",
+						"do-you-middle-name": "Avez-vous un second prénom ?",
 						"middle": "Second prénom (légal)",
 						"responsable": "Personne responsable",
 						"artiste": "Nom d'artiste (alias)  ",
@@ -297,7 +297,8 @@
 						"annuler": "Annuler",
 						"sauvegarder": "Sauvegarder",
 						"soumettre": "Soumette",
-						"parti": "C'est parti !"
+						"parti": "C'est parti !",
+						"compris": "J'ai compris"
 					}
 				},
 				"declaration": {
@@ -523,7 +524,7 @@
 					"partage-etape": "Étape 2",
 					"partage-titre": "Partage des droits",
 					"documentation": "Documentation",
-					"enregistrerEtQuitter": "Enregistrer et quitter",
+					"enregistrerEtQuitter": "Sauvegarder et fermer",
 					"vote-titre": "Valider le split de {{oeuvre}}"
 				},
 				"partage": {
@@ -618,7 +619,9 @@
 				"titre": "Connexion à Smartsplit",
 				"err": {
 					"username": "Le nom d'utilisateur est un courriel invalide",
-					"mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
+					"mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial",
+					"409": "Ce courriel est déjà utilisé. As-tu oublié ton mot de passe ?",
+					"errors": "Votre requête n'a pu être traitée. Veuillez reéssayer plus tard."
 				},
 				"oublier": {
 					"titre": "Mot de passe oublié ?",

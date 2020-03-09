@@ -1,6 +1,7 @@
 @import "../typography";
 @import "../navbar";
 @import "../bottom-bar";
+@import "../layout";
 
 .ui.modal {
   border-radius: 2px;
@@ -20,6 +21,11 @@
   .close-icon {
     margin-right: 6px;
   }
+}
+
+h1 .title {
+  margin-left: 74px;
+  @extend .h4-style;
 }
 
 .modal-bottom-bar {
@@ -79,4 +85,39 @@
       color: white;
     }
   }
+}
+
+.connexion,
+.connexion-inscription {
+	color: $smartsplit-color-link;
+	cursor: pointer;
+}
+
+.connexion {
+	position: relative;
+	bottom: 30px;
+	&.pochette {
+		color: $pochette-color-link;
+	}
+}
+
+.connexion-inscription {
+	&.pochette {
+		color: $pochette-color-link;
+	}
+}
+
+.containerPassword {
+  width: 464px;
+  display: block;
+  margin: auto;
+  font-family: IBM Plex Sans;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.ui.medium.button.compris {
+  float: right;
+  margin-bottom: 10px;
 }

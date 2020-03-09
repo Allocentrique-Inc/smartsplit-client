@@ -35,8 +35,8 @@ class Application {
     }
 
     static getInstance() { // Prévient la modification
-        if(!Application.instance) {
-            Application.instance = new Application()            
+        if (!Application.instance) {
+            Application.instance = new Application()
         }
         return Application.instance
     }

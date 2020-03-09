@@ -9,7 +9,7 @@ const config = Configuration.getInstance()
 const NOM = "AideIdentitesLocal"
 
 async function convertirLocalVersCognito(utilisateur, ayantDroit) {
-    if(!ayantDroit) {
+    if (!ayantDroit) {
         const idAyantDroit = utilisateur.rightHolders[0]
         ayantDroit = await axios.get(`${config.API_URL}rightHolders/${idAyantDroit}`)
         ayantDroit = ayantDroit.data
@@ -37,8 +37,8 @@ async function convertirLocalVersCognito(utilisateur, ayantDroit) {
 }
 
 function convertirCognitoVersLocal(données, éditeur) {
-	const nomComplet = données.attributs.given_name + " " + données.attributs.family_name
-	
+    const nomComplet = données.attributs.given_name + " " + données.attributs.family_name
+
     return {
         email: données.utilisateur,
         requestSource: données.attributs["custom:requestSource"],
@@ -68,12 +68,12 @@ export default class AideIdentites {
         this.pret = false
 
         const jetonInitial = window.localStorage.getItem("jeton-api")
-        if(jetonInitial)
+        if (jetonInitial)
             axios.defaults.headers.common["Authorization"] = "Bearer " + jetonInitial
 
         this.bienvenue = async (fn) => {
             try {
-                if(!window.localStorage.getItem("jeton-api"))
+                if (!window.localStorage.getItem("jeton-api"))
                     throw new Error("Utilisateur non connecté")
 
                 const majJeton = await axios.get(`${config.API_URL}refreshToken`)
@@ -85,18 +85,18 @@ export default class AideIdentites {
                 let usager = await convertirLocalVersCognito(majJeton.data.user)
                 journal.info(NOM, `Bienvenue, ${usager.attributes.given_name} ${usager.attributes.family_name} (${usager.username})`)
                 this.usager = usager
-                if(fn) {fn()}
-            } catch(err) {
+                if (fn) { fn() }
+            } catch (err) {
                 await this.deconnexion(fn)
                 journal.warn(NOM, err)
             } finally {
                 this.pret = true
             }
         }
-        this.rafraichir()        
+        this.rafraichir()
     }
 
-    async enregistrement(params, editeur, fn) {
+    async enregistrement(params, editeur, fn, errfn) {
         try {
             const utilisateur = await axios.post(
                 `${config.API_URL}user`,
@@ -105,18 +105,20 @@ export default class AideIdentites {
 
             // await this.connexion(params)
 
-            if(fn)
+            if (fn)
                 fn(utilisateur.data.rightHolders[0])
-        } catch(err) {
+        } catch (err) {
             journal.error(NOM, err)
+            if (errfn)
+                errfn(err)
         }
     }
 
     async connexion(params, fn) {
-        try {            
+        try {
             const connexion = await axios.post(
                 `${config.API_URL}auth`,
-                {username: params.utilisateur, password: params.secret}
+                { username: params.utilisateur, password: params.secret }
             )
 
             const jeton = connexion.data.accessToken
@@ -125,7 +127,7 @@ export default class AideIdentites {
             axios.defaults.headers.common['Authorization'] = "Bearer " + jeton
             delete params.secret
             await this.bienvenue(fn)
-        } catch(err) {
+        } catch (err) {
             journal.warn(NOM, err)
             fn(false)
         }
@@ -135,7 +137,7 @@ export default class AideIdentites {
         window.localStorage.removeItem("jeton-api")
         this.usager = null
         delete axios.defaults.headers.common["Authorization"]
-        if(fn){fn()}
+        if (fn) { fn() }
     }
 
     async nouveauMotDePasse(params) {
@@ -159,7 +161,7 @@ export default class AideIdentites {
                 email: courriel,
                 requestSource: window.location.href.includes("pochette") ? "pochette" : "smartsplit"
             })
-        } catch(err) {
+        } catch (err) {
             journal.error(NOM, err)
         }
     }
@@ -173,9 +175,9 @@ export default class AideIdentites {
     }
 
     static getInstance = () => {
-        if(!AideIdentites.instance) {
+        if (!AideIdentites.instance) {
             AideIdentites.instance = new AideIdentites()
-            Object.freeze(AideIdentites)            
+            Object.freeze(AideIdentites)
         }
         return AideIdentites.instance
     }
@@ -185,7 +187,7 @@ export default class AideIdentites {
      */
     async rafraichir(fn) {
         await this.chargement()
-        if(fn) { fn() }
+        if (fn) { fn() }
     }
 
 }

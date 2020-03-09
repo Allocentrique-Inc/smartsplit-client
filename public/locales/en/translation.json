@@ -4,8 +4,7 @@
 			"reenvoyer": "Resend to collaborators",
 			"sommaire": "See summary",
 			"supprimer": "Delete",
-			"dupliquer": "Duplicate",
-			"supprimer": "Delete"
+			"dupliquer": "Duplicate"
 		},
 		"erreurs": {
 			"duplication": "An error occured while duplicating this work",
@@ -265,13 +264,14 @@
 				"titre": "Add a collaborating artist",
 				"attribut": {
 					"placeholder": {
-						"prenom": "First Name.s",
+						"prenom": "First Name",
 						"nom": "Name",
 						"middle": "Middle Name"
 					},
 					"etiquette": {
 						"nom": "Last Name (legal)",
-						"prenom": "First Name.s (legal)",
+						"prenom": "First Name (legal)",
+						"do-you-middle-name": "Do you have a middle name?",
 						"middle": "Middle Name (legal)",
 						"artiste": "Artist Name (aka)  ",
 						"responsable": "Responsable person",
@@ -301,7 +301,8 @@
 						"annuler": "Cancel",
 						"sauvegarder": "Save",
 						"soumettre": "Submit",
-						"parti": "Let's go!"
+						"parti": "Let's go!",
+						"compris": "I understood"
 					}
 				},
 				"declaration": {
@@ -520,7 +521,7 @@
 					"partage-etape": "Step 2",
 					"partage-titre": "Rights Sharing",
 					"documentation": "Documentation",
-					"enregistrerEtQuitter": "Save and Quit",
+					"enregistrerEtQuitter": "Save and Close",
 					"vote-titre": "Validate the share proposal of {{oeuvre}}"
 				},
 				"partage": {
@@ -626,7 +627,9 @@
 				"titre": "Connexion à Smartsplit",
 				"err": {
 					"username": "Le nom d'utilisateur est un courriel invalide",
-					"mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial"
+					"mdp": "Le mot de passe doit contenir 8 caractères comprenant lettre, chiffre et caractère spécial",
+					"409": "This email is already used. Did you forget your password?",
+					"errors": "Your request did not process. Please try again later."
 				},
 				"oublier": {
 					"titre": "Forgot your password?",

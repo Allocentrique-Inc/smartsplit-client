@@ -4,21 +4,11 @@ import { Modal } from "semantic-ui-react";
 import closeIcon from "../../assets/svg/icons/x.svg";
 import "../../assets/scss/page-assistant/modal.scss";
 import "../../assets/scss/connexion/connexion.scss";
+import "./Register.scss";
+import Login from "./Login"
 import positiveImage from "../../assets/images/positive.png";
 import { Formik, Field } from "formik";
-import "./Register.scss";
 import { Identite } from "../../utils/application";
-
-const emailStyle = {
-  display: "block",
-  width: "464px",
-  fontFamily: "IBM Plex Sans",
-  fontWeight: "normal",
-  fontSize: "16px",
-  lineHeight: "24px",
-  position: "isAbsolute",
-  margin: "20px 0px 40px 40px"
-};
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -26,7 +16,7 @@ class ForgotPassword extends Component {
 
     this.state = {
       pochette: props.pochette,
-      modalOpen: false,
+      showModal: false,
       email: "",
       errors: {
         cognito: null,
@@ -34,6 +24,7 @@ class ForgotPassword extends Component {
       }
     };
     this.validateEmail = this.validateEmail.bind(this);
+
   }
 
   validateEmail(value) {
@@ -48,14 +39,10 @@ class ForgotPassword extends Component {
     return error;
   }
 
-  handleOpen = () => {
-    this.setState({ modalOpen: true });
-  };
-  handleClose = () => this.setState({ modalOpen: false });
-
   openModal = () => {
     this.setState({ showModal: true });
   };
+  closeModal = () => this.setState({ showModal: false });
 
   clearErrorState = () => {
     this.setState({
@@ -100,38 +87,23 @@ class ForgotPassword extends Component {
           email: ""
         }}
         onSubmit={(values, { setSubmitting }) => {
-          this.handleOpen();
+          this.openModal();
           this.handleSubmit(values, () => {
             setSubmitting(false);
           });
         }}
         render={props => (
-          <div className="section auth">
-            {!this.state.patience && (
-              <span className="top-login">
-                <div
-                  onClick={() => {
-                    // Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
-                    this.props.parent.afficher(0);
-                  }}
-                  className={`connexion ${pochette}`}
-                >
-                  {t("entete.connexion")}
-                </div>
-              </span>
-            )}
-            <div className="containerPassword" style={emailStyle}>
-              <h1
-                style={{
-                  emailStyle,
-                  fontWeight: "normal"
-                }}
-              >
+          <>
+            <div className="containerPassword">
+              <h1 className="title">
                 {t("flot.split.auth.oublier.titre")}
+                <div className={`connexion ${pochette}`}
+                  onClick={this.props.closeModalInLogin}
+                >
+                  <img src={closeIcon} alt={"close"} />
+                </div>
               </h1>
-              <p style={{ marginLeft: "0px" }}>
-                {t("flot.split.auth.oublier.preambule")}
-              </p>
+              {t("flot.split.auth.oublier.preambule")}
               <div className="control has-icons-left has-icons-right">
                 <Field
                   validate={this.validateEmail}
@@ -143,17 +115,12 @@ class ForgotPassword extends Component {
                   required={true}
                 />
                 {props.errors.email && props.touched.email && (
-                  <div
-                    style={{
-                      color: "red",
-                      position: "absolute",
-                      fontSize: "14px"
-                    }}
-                  >
+                  <div className="error">
                     {props.errors.email}
                     {/*{t("flot.split.inscription.email-invalide")}{" "}*/}
                   </div>
                 )}
+
                 <span className="icon is-small is-left">
                   <i className="fas fa-envelope"></i>
                 </span>
@@ -172,30 +139,10 @@ class ForgotPassword extends Component {
               </button>
               <p className="control">
                 <Modal
-                  open={this.state.modalOpen}
-                  onClose={this.handleClose}
+                  open={this.state.showModal}
+                  onClose={this.closeModal}
                   size="small"
                 >
-                  <Modal.Header>
-                    <span style={{ display: "flex" }}>
-                      <div className="title">
-                        {t("flot.fin.recupMotDePasse")}
-                      </div>
-                      <div
-                        className="close-icon click"
-                        onClick={() => {
-                          this.handleClose();
-                        }}
-                        style={{
-                          right: "40px",
-                          position: "absolute"
-                        }}
-                      >
-                        <img src={closeIcon} alt={"close"} />
-                      </div>
-                    </span>
-                  </Modal.Header>
-
                   <Modal.Content>
                     <div className="left">
                       <div className="right"></div>
@@ -222,15 +169,21 @@ class ForgotPassword extends Component {
                         </p>
                       )}
                     </div>
+                    <button
+                      className={`ui medium button compris`}
+                      onClick={() => { window.location.href = "/accueil" }}
+                    >
+                      {t("flot.split.collaborateur.attribut.bouton.compris")}
+                    </button>
 
-                    <div className={"modal-bottom-bar"}></div>
                   </Modal.Content>
                 </Modal>
               </p>
+
               {/* </div>
               </form> */}
             </div>
-          </div>
+          </>
         )}
       ></Formik>
     );

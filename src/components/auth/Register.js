@@ -5,7 +5,7 @@ import { SmartSplitLogo } from "../svg/SVG.js"
 import { Field, Form, Formik } from "formik"
 import zxcvbn from "zxcvbn"
 import { toast } from "react-toastify"
-import { Dropdown } from "semantic-ui-react"
+import { Dropdown, Checkbox } from "semantic-ui-react"
 import { withTranslation } from "react-i18next"
 import Eye from "./Eye"
 import InfoBulle from "../partage/InfoBulle"
@@ -31,6 +31,7 @@ class Register extends Component {
 
 		this.state = {
 			pochette: props.pochette,
+			checked: false,
 			hidden: true,
 			confirmhidden: true,
 			password: "",
@@ -52,7 +53,6 @@ class Register extends Component {
 			locale: navigator.language || navigator.userLanguage,
 			gender: "registeredUser" // Cognito Default Attribute Gender used as flag for user creation
 		}
-
 		this.handlePasswordChange = this.handlePasswordChange.bind(this)
 		this.validatePasswordStrong = this.validatePasswordStrong.bind(this)
 		this.toggleShow = this.toggleShow.bind(this)
@@ -63,6 +63,10 @@ class Register extends Component {
 		this.validateUsername = this.validateUsername.bind(this)
 		this.validatePassword = this.validatePassword.bind(this)
 		this.validateConfirmPassword = this.validateConfirmPassword.bind(this)
+	}
+
+	handleCheckboxChange = (event, data) => {
+		this.setState({ checked: data.checked })
 	}
 
 	validateUsername(value) {
@@ -129,51 +133,55 @@ class Register extends Component {
 			? "pochette"
 			: "smartsplit"
 
-		try {
-			// S'il n'y a pas de groupe, un en créé un éponyme
-			let groupes = groups
-			if (groupes.length === 0) {
-				let nom = this.state.artistName
-					? this.state.artistName
-					: `${this.state.firstName} ${this.state.lastName}`
+		// S'il n'y a pas de groupe, un en créé un éponyme
+		let groupes = groups
+		if (groupes.length === 0) {
+			let nom = this.state.artistName
+				? this.state.artistName
+				: `${this.state.firstName} ${this.state.lastName}`
 
-				if (nom.trim() === "") {
-					nom = "Anonyme"
-				}
-
-				groupes.push(nom)
+			if (nom.trim() === "") {
+				nom = "Anonyme"
 			}
 
-			Identite.enregistrement(
-				{
-					utilisateur: username,
-					secret: password,
-					attributs: {
-						email: email,
-						given_name: firstName,
-						family_name: lastName,
-						locale: locale,
-						gender: gender,
-						"custom:artistName": artistName,
-						"custom:instruments": JSON.stringify(instruments),
-						"custom:defaultRoles": JSON.stringify(defaultRoles),
-						"custom:groups": JSON.stringify(groupes),
-						"custom:avatarImage": avatarImage,
-						"custom:requestSource": requestSource
-					}
-				},
-				false, // n'est pas éditeur, par défaut
-				() => {
-					toast.success(`${firstName}, ${this.props.t("toaster.compte")}!`)
-					utils.naviguerVersAccueil()
-					if (this.props.fn) {
-						this.props.fn()
-					}
-				}
-			)
-		} catch (err) {
-			journal.error(NOM, err)
+			groupes.push(nom)
 		}
+
+		Identite.enregistrement(
+			{
+				utilisateur: username,
+				secret: password,
+				attributs: {
+					email: email,
+					given_name: firstName,
+					family_name: lastName,
+					locale: locale,
+					gender: gender,
+					"custom:artistName": artistName,
+					"custom:instruments": JSON.stringify(instruments),
+					"custom:defaultRoles": JSON.stringify(defaultRoles),
+					"custom:groups": JSON.stringify(groupes),
+					"custom:avatarImage": avatarImage,
+					"custom:requestSource": requestSource
+				}
+			},
+			false, // n'est pas éditeur, par défaut
+			() => {
+				toast.success(`${firstName}, ${this.props.t("toaster.compte")}!`)
+				utils.naviguerVersAccueil()
+				if (this.props.fn) {
+					this.props.fn()
+				}
+			},
+			(error) => {
+				debugger
+				if (error.response && error.response.status === 409) {
+					toast.warn(this.props.t("flot.split.auth.err.409"))
+				} else {
+					toast.error(this.props.t("flot.split.auth.err.errors"))
+				}
+			}
+		)
 	}
 
 	handlePasswordChange(e) {
@@ -262,6 +270,37 @@ class Register extends Component {
 		]
 			.join(" ")
 			.trim()
+
+		let middleName = null;
+
+		if (this.state.checked)
+			middleName = <div className="middle-name">
+				<label className="middle-name">
+					{t(
+						"flot.split.collaborateur.attribut.etiquette.middle"
+					)}
+				</label>
+				<label className="optional"
+				>
+					{t(
+						"flot.split.collaborateur.attribut.etiquette.option"
+					)}
+				</label>
+				<input
+					type="text"
+					className="middleName register field"
+					placeholder={t(
+						"flot.split.collaborateur.attribut.placeholder.middle"
+					)}
+					value={this.state.firstName}
+					onChange={e =>
+						this.setState({ firstName: e.target.value })
+					}
+				/>
+			</div>
+
+		/* ça marche aussi: let middleName = this.state.checked && "..."}
+		let middleName = this.state.checked ? "COCHÉ" : "PAS COCHÉ" */
 
 		return (
 			<Formik
@@ -388,32 +427,12 @@ class Register extends Component {
 											}
 										/>
 									</div>
-
-									{/* <div className="middle-name">
-											<label className="middle-name">
-												{t(
-													"flot.split.collaborateur.attribut.etiquette.middle"
-												)}
-											</label>
-											<label className="optional"
-											>
-												{t(
-													"flot.split.collaborateur.attribut.etiquette.option"
-												)}
-											</label>
-											<input
-												type="text"
-												className="middleName register field"
-												placeholder={t(
-													"flot.split.collaborateur.attribut.placeholder.middle"
-												)}
-												value={this.state.firstName}
-												onChange={e =>
-													this.setState({ firstName: e.target.value })
-												}
-											/>
-										</div>
-									</span> */}
+									<Checkbox
+										label={t("flot.split.collaborateur.attribut.etiquette.do-you-middle-name")}
+										checked={this.state.checked}
+										onChange={this.handleCheckboxChange}
+									/>
+									{middleName}
 									<div className="last-name">
 										<label className="last-name">
 											{t(
@@ -721,7 +740,8 @@ class Register extends Component {
 							</section>
 						</div>
 					</Form>
-				)}
+				)
+				}
 			</Formik>
 		)
 	}

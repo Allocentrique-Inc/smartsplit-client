@@ -8,7 +8,7 @@ class ChoosePasswordVerification extends Component {
     let t = this.props.t
 
     return (
-      <React.Fragment>        
+      <React.Fragment>
         <section className="section auth">
           <div className="container">
             <div
