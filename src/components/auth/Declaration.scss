@@ -6,10 +6,14 @@
   font-size: 16px;
   display: inline-flex;
   margin: 20px 20px 10px 20px;
-}
-p {
-  margin-left: 10px;
+  text-align: center;
 }
 
-.ui .row {
+.ui.large.modal > .header.declaration  {
+  font-family: "IBM Plex Sans";
 }
+
+.ui.icon.positive.right.labeled.button.understood {
+  margin-bottom: 10px;
+}
+

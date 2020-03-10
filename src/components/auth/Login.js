@@ -8,7 +8,7 @@ import { Formik, Form, Field } from "formik"
 import { Modal } from "semantic-ui-react";
 import ForgotPassword from "./ForgotPassword"
 import Eye from "./Eye"
-import { SmartSplitLogo } from "../svg/SVG.js"
+import { SmartSplitLogo, PochetteLogo } from "../svg/SVG.js"
 
 // eslint-disable-next-line
 const NOM = "LogIn"
@@ -94,14 +94,14 @@ class LogIn extends Component {
 						}
 					>
 						<div className="left">
-							<SmartSplitLogo />
+							{this.state.pochette ? <PochetteLogo /> : <SmartSplitLogo />}
 						</div>
 						<div className={`right ${pochette}`}>
 							<div className="medium-400 not-yet">
 								{t("flot.split.inscription.pasencore")}
 							</div>
 							<div
-								className="medium-500 register"
+								className={`medium-500 register ${pochette}`}
 								onClick={() => {
 									// Le paramètre de la fonction afficher est le TYPE_ dans le fichier Connexion.js
 									this.props.parent.afficher(1)

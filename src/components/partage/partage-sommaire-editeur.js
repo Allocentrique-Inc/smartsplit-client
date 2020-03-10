@@ -36,8 +36,8 @@ class PartageSommaireEditeur extends Component {
 				props.part.etat === "ACCEPTE"
 					? "accept"
 					: props.part.etat === "REFUSE"
-					? "reject"
-					: "active"
+						? "reject"
+						: "active"
 		}
 		this.boutonAccepter = this.boutonAccepter.bind(this)
 		this.boutonRefuser = this.boutonRefuser.bind(this)
@@ -160,7 +160,7 @@ class PartageSommaireEditeur extends Component {
 			<div
 				className={`ui button medium vote accepte ${
 					this.state.choix === "accept" ? "actif" : ""
-				}`}
+					}`}
 				onClick={() => {
 					this.voter(true)
 					this.setState({ refuser: false })
@@ -181,7 +181,7 @@ class PartageSommaireEditeur extends Component {
 			<div
 				className={`ui button medium vote refus ${
 					this.state.choix === "reject" ? "actif" : ""
-				}`}
+					}`}
 				onClick={() => {
 					this.voter(false)
 					this.justifierRefus()
@@ -297,15 +297,12 @@ class PartageSommaireEditeur extends Component {
 			return (
 				<>
 					<div className="ui grid">
-						<div className="ui row" style={{ minHeight: "38rem" }}>
+						<div className="ui row" /* style={{ minHeight: "38rem" }} */>
 							<div className="ui eight wide column">
 								<div className="ui grid">
 									<div className="ui row">
 										<div className="ui sixteen wide column">
-											<div
-												className="wizard-title types"
-												style={{ marginTop: "0rem", padding: "1rem" }}
-											>
+											<div className="wizard-title types">
 												<div className="icon">
 													<CopyrightSVG />
 												</div>
@@ -361,7 +358,7 @@ class PartageSommaireEditeur extends Component {
 													style={{ display: "inline" }}
 												>
 													{this.state.beneficiaire &&
-													this.state.beneficiaire.artistName
+														this.state.beneficiaire.artistName
 														? this.state.beneficiaire.artistName
 														: `${this.state.beneficiaire.firstName} ${this.state.beneficiaire.lastName}`}
 												</div>
@@ -384,8 +381,8 @@ class PartageSommaireEditeur extends Component {
 															this.state.part.etat === "ACCEPTE"
 																? "approuve"
 																: this.state.part.etat === "REFUSE"
-																? "refuse"
-																: ""
+																	? "refuse"
+																	: ""
 														}
 													>
 														{t(`flot.split.etat.${this.state.part.etat}`)}
@@ -408,7 +405,7 @@ class PartageSommaireEditeur extends Component {
 													{!this.estVoteFinal() &&
 														this.state.ayantDroit &&
 														this.state.part.shareeId ===
-															this.state.utilisateur.rightHolderId && (
+														this.state.utilisateur.rightHolderId && (
 															<>
 																{this.boutonRefuser()}
 																{this.boutonAccepter()}
@@ -487,8 +484,8 @@ class PartageSommaireEditeur extends Component {
 											this.state.choix === "accept"
 												? "approuve"
 												: this.state.choix === "reject"
-												? "desaprouve"
-												: "attente"
+													? "desaprouve"
+													: "attente"
 										}
 									>
 										{t(`flot.split.vote.${this.state.choix}`)}
@@ -541,7 +538,7 @@ class PartageSommaireEditeur extends Component {
 										<div
 											className={`ui medium button voter ${
 												!this.state.transmission ? "disabled" : ""
-											}`}
+												}`}
 											disabled={!this.state.transmission}
 											onClick={() => {
 												this.transmettre()

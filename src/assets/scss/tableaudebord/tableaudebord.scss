@@ -405,7 +405,13 @@
 	border-radius: 2px;
 }
 
+.ui.fourteen.wide.column.boutons.vote {
+	float: left;
+	margin-top: 1.5rem;
+  }
+
 .ui.button.medium.vote {
+	margin-left: 0px !important;
 	cursor: pointer;
 	display: inline-block;
 	width: 179px;
@@ -433,6 +439,7 @@
 .role {
 	color: #687a8b;
 	display: inline;
+	padding-left: 0rem;
 }
 
 .vote {
@@ -468,7 +475,7 @@
 	font-size: 16px;
 }
 
-.holder-name.somaire {
+.holder-name {
 	display: inline;
 }
 
@@ -507,7 +514,7 @@
 .ui.section.divider.sommaire {
 	color: #dcdfe1;
 	border-bottom: 0px solid white;
-	margin-top: 1rem;
+	margin-top: 0rem;
 	margin-bottom: 1rem;
 }
 
@@ -551,6 +558,7 @@
 }
 
 .ui.button.medium.vote.refus {
+	margin-left: 30px !important;
 	display: inline-block;
 	margin: 0 0 20px 0;
 	&:hover {
@@ -566,10 +574,9 @@
 	}
 }
 
-.raison.refus,
 .ui.section.divider.sommaire {
 	min-width: 374px;
-}
+} 
 
 /* .raison.refus {
   min-width: 
@@ -679,25 +686,30 @@
 }
 
 .ui.medium.button.inverse.modifier {
-    left: 25rem;
-    top: 1rem;
-    height: 3rem;
-    width: 130px;
-    display: inline-flex;
-    float: right;
+	/* position: absolute;
+	left: 27rem; */
+	top: 1rem;
+	height: 3rem;
+	width: 130px;
+	display: flex;
+	float: right;
 }
 
-.ui.medium.button.ajouter {
+.ui.medium.button.add {
 	right: 0px; 
-	position: absolute; 
+	position: absolute;
 	top: 0.25rem; 
 	height: 3rem;
+	text-align: center
 }
 
 .modifier {
-	position: "relative";
-	top: -0.375rem;
-	left: 0.375rem;
+display:flex;
+margin: auto;
+}
+
+.modifier > img {
+	width: 30%;
 }
 
 .wizard-title.summary {
@@ -708,8 +720,8 @@
 	margin: 0 2rem 0 1rem;
 }
 
-.titre.section {
-	width: 100%;
+.modifier > img {
+	width: 30%;
 }
 
 .ui.row.parts {
@@ -769,4 +781,27 @@
 	font-size: 3rem;
 	width: 100%;
 	text-align: center;
+}
+
+.wizard-title.types {
+	margin: 0 2rem 0 1rem;
+	padding: 1rem;
+	width: 100%;
+}
+
+.icon--title {
+	margin: 0 2rem 0 0;
+}
+
+.titre.sommaire {
+	width: 100%;
+}
+
+.ui.row.users {
+	padding: 1rem; 
+	margin-top: 0px;
+}
+
+.ui.sixteen.wide.column.refuse {
+	text-align: right;
 }

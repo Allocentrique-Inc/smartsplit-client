@@ -118,13 +118,13 @@ class SommaireDroit extends Component {
                 _parts.push(
                     <div key={`part--${this.state.type}_${uuid}_${idx}`}>
                         <div className="ui grid">
-                            <div className="ui row" style={{ paddingBottom: "0rem" }}>
-                                <div className="ui two wide column" style={{ padding: "0 0 0 1rem" }}>
-                                    <img style={{ margin: "0.5rem 0 0 1rem" }} alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
+                            <div className="ui row">
+                                <div className="ui two wide column">
+                                    <img alt="" className="ui spaced avatar image" src={AyantsDroit.ayantsDroit[part.rightHolderId].avatar.dataUri} />
                                 </div>
                                 <div className="ui fourteen wide column">
                                     <div className="ui row">
-                                        <div className="holder-name" style={{ display: "inline" }}>
+                                        <div className="holder-name">
                                             {part.nom}
                                         </div>
                                         <div className="vote">
@@ -134,7 +134,7 @@ class SommaireDroit extends Component {
                                         </div>
                                     </div>
                                     <div className="ui row">
-                                        <div className="role" style={{ paddingLeft: "0rem", display: "inline" }}>
+                                        <div className="role">
                                             {
                                                 part.roles.map((_e, idx) => {
                                                     return t('flot.split.roles.' + _e) + (idx === part.roles.length - 1 ? '' : ', ')
@@ -150,15 +150,15 @@ class SommaireDroit extends Component {
                                     {
                                         part.vote === "reject" &&
                                         <div className="ui row">
-                                            <div className="ui sixteen wide column refuse" style={{ textAlign: "right" }}>
+                                            <div className="ui sixteen wide column refuse">
                                                 {part.raison}
                                             </div>
                                         </div>
                                     }
                                     {uuid === this.state.ayantDroit.rightHolderId && !this.state.voteTermine && (
-                                        <div className="ui row" style={{ paddingTop: "1.5rem" }}>
-                                            <div className="ui two wide column" />
-                                            <div className="ui fourteen wide column">
+                                        <div className="ui row">
+                                            {/* <div className="ui two wide column" /> */}
+                                            <div className="ui fourteen wide column boutons vote">
                                                 <div className={`ui button medium vote refus ${this.state.refuser ? 'actif' : ''}`}
                                                     onClick={() => {
                                                         this.setState({ accepter: false })
@@ -172,20 +172,22 @@ class SommaireDroit extends Component {
                                                         this.setState({ accepter: true })
                                                         this.setState({ refuser: false })
                                                         this.voter(true)
-                                                    }}>{t('flot.split.vote.accepter')}</div>
-                                                {this.state.refuser && (
-                                                    <textarea
-                                                        className="raison refus"
-                                                        cols={30}
-                                                        rows={2}
-                                                        placeholder={t("flot.split.valider.pourquoi")}
-                                                        onChange={(e) => {
-                                                            this.state.parent.refuser(this.state.type, e.target.value)
-                                                        }}>
-                                                    </textarea>
-                                                )}
+                                                    }}>{t('flot.split.vote.accepter')}
+                                                </div>
                                             </div>
+                                            {this.state.refuser && (
+                                                <textarea
+                                                    className="raison refus"
+                                                    cols={55}
+                                                    rows={2}
+                                                    placeholder={t("flot.split.valider.pourquoi")}
+                                                    onChange={(e) => {
+                                                        this.state.parent.refuser(this.state.type, e.target.value)
+                                                    }}>
+                                                </textarea>
+                                            )}
                                         </div>
+
                                     )}
                                 </div>
                             </div>
@@ -194,14 +196,14 @@ class SommaireDroit extends Component {
                                 <div className="ui fourteen wide column">
                                     {
                                         Object.keys(this.state.donnees).length - 1 !== idx && (
-                                            <div className="ui section divider sommaire" style={{ marginTop: "0rem", marginBottom: "1rem" }} />
+                                            <div className="ui section divider sommaire" />
                                         )
                                     }
                                 </div>
                             </div>
                         </div>
                         <div className={`${part.rightHolderId && this.props.ayantDroit.rightHolderId > 1 ? 'border-bottom devide' : ''}`} />
-                    </div>
+                    </div >
                 )
             })
 
@@ -226,11 +228,11 @@ class SommaireDroit extends Component {
                     <div className="ui grid">
                         <div className="ui row" style={this.state.type === Droits.droitAuteur() && _parts.length > 0 ? { minHeight: "38rem" } : {}}>
                             <div className="ui eight wide column">
-                                <div className="wizard-title summary">
-                                    <div className="icon-title summary">
+                                <div className="wizard-title types">
+                                    <div className="icon--title">
                                         {Icon}
                                     </div>
-                                    <div className="titre section">
+                                    <div className="titre sommaire">
                                         {t(`flot.split.droits.titre.${this.state.titre}`)}
                                         {
                                             _parts.length > 0 && peutModifier && (
@@ -239,28 +241,28 @@ class SommaireDroit extends Component {
                                                     onClick={() => {
                                                         utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
                                                     }}>
-                                                    <img src={editIcon} alt={t('options.modifier')} />
-                                                    <span className="modifier">{t('options.modifier')}</span>
+                                                    <span className="modifier"><img src={editIcon} alt={t('options.modifier')} />
+                                                        {t('options.modifier')}</span>
+                                                </div>
+                                            )
+                                        }
+
+                                        {
+                                            _parts.length === 0 && peutModifier && (
+                                                <div
+                                                    className="ui medium button add"
+                                                    onClick={() => {
+                                                        utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
+                                                    }}>
+                                                    <span className="edit">{t('options.ajouter')}</span>
                                                 </div>
                                             )
                                         }
                                     </div>
-
-                                    {
-                                        _parts.length === 0 && peutModifier && (
-                                            <div
-                                                className="ui medium button ajouter"
-                                                onClick={() => {
-                                                    utils.naviguerVersEditerProposition(this.state.uuid, TYPES[this.state.type])
-                                                }}>
-                                                <span style={{ position: "relative" }}>{t('options.ajouter')}</span>
-                                            </div>
-                                        )
-                                    }
                                 </div>
                                 {
                                     _parts && _parts.length > 0 && (
-                                        <div className="ui row" style={{ padding: "1rem", marginTop: "0px" }}>
+                                        <div className="ui row users">
                                             {_parts}
                                         </div>
                                     )
