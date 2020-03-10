@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
+
+.declare,
+.accept {
+  font-family: "IBM Plex Sans";
+  font-size: 16px;
+  display: inline-flex;
+  margin: 20px 20px 10px 20px;
+  text-align: center;
+}
+
+.ui.large.modal > .header.declaration  {
+  font-family: "IBM Plex Sans";
+}
+
+.ui.icon.positive.right.labeled.button.understood {
+  margin-bottom: 10px;
+}
+
