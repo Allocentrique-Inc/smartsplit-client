@@ -52,6 +52,8 @@ class OptionsMedia extends Component {
                 peutRéenvoyer = proposition.etat === "VOTATION"
                 peutSupprimer = ["BROUILLON", "PRET", "REFUSE"].includes(proposition.etat)
             }
+        } else {
+            peutSupprimer = true
         }
 
         return (            

@@ -67,7 +67,7 @@ class ChampAccesVision extends React.Component {
     ];
     this.state = {
       // changer à [2], OU: value: this.props.value || "private", OU: réordonner
-      value: this.props.value || "this.accessOptions[0].value"
+      value: this.props.value || this.accessOptions[0].value
     };
   }
 

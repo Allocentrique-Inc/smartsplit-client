@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Declaration.css";
+import "./Declaration.scss";
 import {
   Button,
   Modal,
@@ -9,7 +9,7 @@ import { withTranslation } from "react-i18next";
 
 class Declaration extends Component {
   constructor(props) {
-    super(props);   
+    super(props);
 
     this.state = {
       firstName: props.firstName,
@@ -73,8 +73,8 @@ class Declaration extends Component {
     if (this.props.songTitle !== nextProps.songTitle) {
       this.setState({ songTitle: nextProps.songTitle });
     }
-    if(this.props.votes !== nextProps.votes) {
-      this.setState({votes: nextProps.votes})
+    if (this.props.votes !== nextProps.votes) {
+      this.setState({ votes: nextProps.votes })
     }
   }
 
@@ -82,9 +82,9 @@ class Declaration extends Component {
     const { open, closeOnDimmerClick } = this.state;
 
     let contientRefus = false
-    if(this.state.votes) {
-      Object.keys(this.state.votes).forEach(tv=>{
-        if(this.state.votes[tv].vote === 'reject') {
+    if (this.state.votes) {
+      Object.keys(this.state.votes).forEach(tv => {
+        if (this.state.votes[tv].vote === 'reject') {
           contientRefus = true
         }
       })
@@ -92,7 +92,7 @@ class Declaration extends Component {
 
     let t = this.props.t, i18n = this.props.i18n
 
-    return (      
+    return (
       <Modal
         open={open}
         closeOnDimmerClick={closeOnDimmerClick}
@@ -100,7 +100,8 @@ class Declaration extends Component {
         size="large"
         closeIcon
       >
-        <Modal.Header>
+        <Modal.Header
+          className="declaration">
           {t("collaborateur.declaration.identite")}{" "}
         </Modal.Header>
 
@@ -109,7 +110,7 @@ class Declaration extends Component {
             {
               !contientRefus && (
                 <>
-                  <Checkbox                    
+                  <Checkbox
                     key={"identity"}
                     label=""
                     onChange={this.handleIdentityCheck}
@@ -151,8 +152,8 @@ class Declaration extends Component {
                       <p>
                         <strong>
                           Thanks for making a decision.
-                          You will receive another email inviting you to see the results. You'll be able to create a new split proposal from there.
-                        </strong>
+                          </strong><br /><br />
+                        You will receive another email inviting you to see the results. You'll be able to create a new split proposal from there.
                       </p>
                     </div>
                   )}
@@ -160,9 +161,8 @@ class Declaration extends Component {
                     <div className="accepte">
                       <p>
                         <strong>
-                          Merci d'avoir rendu ta décision. 
-                          Lorsque tout le monde se sera exprimé, tu recevras par courriel une invitation à voir le résumé et à soumettre un nouveau split.
-                        </strong>
+                          Merci d'avoir rendu ta décision. </strong><br />
+                        Lorsque tout le monde se sera exprimé, tu recevras par courriel une invitation à voir le résumé et à soumettre un nouveau split.
                       </p>
                     </div>
                   )}
@@ -207,7 +207,7 @@ class Declaration extends Component {
                   )}
                 </>
               )
-            }                
+            }
           </div>
         </div>
 
@@ -230,22 +230,23 @@ class Declaration extends Component {
                   labelPosition="right"
                   content={t("collaborateur.declaration.accepter")}
                 />
-              </>                  
+              </>
             )
           }
           {
             contientRefus && (
               <Button
-                onClick={this.click}                    
+                className="understood"
+                onClick={this.click}
                 positive
                 icon="checkmark"
                 labelPosition="right"
                 content={t("collaborateur.declaration.compris")}
               />
             )
-          }              
+          }
         </Modal.Actions>
-      </Modal>      
+      </Modal>
     );
   }
 }

@@ -491,7 +491,7 @@ class PageAssistantPartageEnregistrement extends Component {
                                                                                         {part.nom}
                                                                                         <div className="ui one wide column">
                                                                                         {/* À remplacer éventuellement par l'icône PlusHorizontalSVG */}
-                                                                                        <div className="close-icon cliquable" onClick={() => {
+                                                                                        <div className="close-icon click" onClick={() => {
                                                                                                 arrayHelpers.remove(index)
                                                                                                 this.setState({ ping: true }, () => {
                                                                                                     this.recalculerPartage()

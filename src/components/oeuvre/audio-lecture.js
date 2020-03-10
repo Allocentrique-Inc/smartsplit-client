@@ -85,18 +85,18 @@ class AudioLecture extends Component {
     jouer() {
         let reader = new FileReader()
         let that = this
-        let demarrerLecture = function(contexte, buffer) {
-            var source = contexte.createBufferSource()
+        let demarrerLecture = function(CONTEXT, buffer) {
+            var source = CONTEXT.createBufferSource()
             source.buffer = buffer
-            source.connect(contexte.destination)
+            source.connect(CONTEXT.destination)
             source.start(0)
         }
         reader.addEventListener('load', function(e) {
             let data = e.target.result
-            let contexte = that.state.context
-            if(contexte) {
-                contexte.decodeAudioData(data, function(buffer) {                    
-                    demarrerLecture(contexte, buffer)
+            let CONTEXT = that.state.context
+            if(CONTEXT) {
+                CONTEXT.decodeAudioData(data, function(buffer) {                    
+                    demarrerLecture(CONTEXT, buffer)
                 })
             }                
         })
@@ -109,9 +109,9 @@ class AudioLecture extends Component {
             <>
             {
                 (this.state.visible || (this.state.context && this.state.fichier)) && (
-                    <BlockUi tag="div" style={this.props.style} blocking={this.state.patience} className="cliquable" onClick={()=>{ if(this.state.stop) { if(this.state.mode === 0){this.jouer()}else{this.chargerEtJouer()} }else{ if(this.state.pause){this.reprise()}else{this.pause()}}}}>
-                        {(this.state.stop || this.state.pause)&& (<><img style={this.state.styleBouton} src={play} alt="stop" className="cliquable" />{!this.props.sanstexte && (Audio)}</>)}
-                        {!this.state.stop && !this.state.pause && (<><img style={this.state.styleBouton} src={stop} alt="jouer" className={`cliquable`}/>{!this.props.sanstexte && (Audio)}</>)}
+                    <BlockUi tag="div" style={this.props.style} blocking={this.state.patience} className="click" onClick={()=>{ if(this.state.stop) { if(this.state.mode === 0){this.jouer()}else{this.chargerEtJouer()} }else{ if(this.state.pause){this.reprise()}else{this.pause()}}}}>
+                        {(this.state.stop || this.state.pause)&& (<><img style={this.state.styleBouton} src={play} alt="stop" className="click" />{!this.props.sanstexte && (Audio)}</>)}
+                        {!this.state.stop && !this.state.pause && (<><img style={this.state.styleBouton} src={stop} alt="jouer" className={`click`}/>{!this.props.sanstexte && (Audio)}</>)}
                     </BlockUi>
                 )
             }

@@ -1,4 +1,4 @@
-import {Identite} from '../../utils/application'
+import { Identite } from '../../utils/application'
 import React, { Component } from "react"
 import { withTranslation } from "react-i18next"
 import { Modal } from "semantic-ui-react"
@@ -7,7 +7,7 @@ import Eye from "./Eye"
 import { Field, Formik } from "formik"
 import zxcvbn from "zxcvbn"
 
-import "./Register.css"
+import "./Register.scss"
 import * as Yup from "yup"
 
 class ForgotPasswordVerification extends Component {
@@ -78,8 +78,8 @@ class ForgotPasswordVerification extends Component {
 
   passwordVerificationHandler = async event => {
     event.preventDefault();
-    Identite.oubliMotDePasse( {courriel: this.state.email, code: this.state.verificationCode, nouveauMdp: this.state.newPassword} )
-    
+    Identite.oubliMotDePasse({ courriel: this.state.email, code: this.state.verificationCode, nouveauMdp: this.state.newPassword })
+
   }
 
   onInputChange = event => {
@@ -98,7 +98,7 @@ class ForgotPasswordVerification extends Component {
     this.setState({ confirmhidden: !this.state.confirmhidden });
   }
 
-  componentDidMount() {    
+  componentDidMount() {
     if (this.props.newPassword) {
       this.setState({ password: this.props.newPassword });
     }
@@ -110,11 +110,11 @@ class ForgotPasswordVerification extends Component {
   render() {
 
     const t = this.props.t
-    
+
     const { newPassword, strength } = this.state;
 
     const passwordLength = newPassword.length;
-   
+
     const strengthClass = [
       "strength-meter mt-2",
       passwordLength > 0 ? "visible" : "invisible"
@@ -152,7 +152,7 @@ class ForgotPasswordVerification extends Component {
         })}
       >
 
-        {({ errors, touched, isValidating }) => (          
+        {({ errors, touched, isValidating }) => (
           <section className="section auth">
             <div
               className="container"
@@ -319,7 +319,7 @@ class ForgotPasswordVerification extends Component {
                 </div>
               </form>
             </div>
-          </section>            
+          </section>
         )}
       </Formik >
     )

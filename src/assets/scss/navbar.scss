@@ -1,73 +1,160 @@
 @import "colors";
 @import "layout";
+@import "./typography";
 
-.fixed-top {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 50;
+.fixed-top.navbar {
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 50;
 }
 
 .smartsplit-navbar {
-    height: $navbar-height;
-    width: 100%;
-    padding: 5px 16px;
+	height: $navbar-height;
+	width: 100%;
+	padding: 5px 16px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 
-    background-color: white;
-    color: $color-primary;
+	background-color: white;
+	color: $color-primary;
 
-    font-size: 16px;
+	font-size: 16px;
 
-    .left,
-    .right {
-        flex: 1 2;
-        display: flex;
-        align-items: center;
-    }
-
-    .right {
-        justify-content: flex-end;
-        padding-right: 200px;
-    }
+	.right {
+		justify-content: flex-end;
+		padding-right: 200px;
+	}
 }
 
 .song-image {
-    margin: 0 $margin-step 0 0;
-
-    img {
-        width: 40px;
-        height: 40px;
-    }
+	margin: 0 $margin-step 0 0;
+	width: 64px;
+	height: 64px;
+	border-radius: 2px;
 }
 
 .documentation-label {
-    margin: 0 0 0 $margin-step * 2;
-    font-weight: bold;
+	margin: 0 0 0 $margin-step * 2;
+	font-weight: bold;
 }
 
 .save-and-quit-label a {
-    padding-left: 50px;
-    font-weight: bold;
-    color: $smartsplit-color-link;
-    transition: color 0.2s ease;
-    will-change: color;
+	padding-left: 50px;
+	font-weight: bold;
+	color: $smartsplit-color-link;
+	transition: color 0.2s ease;
+	will-change: color;
 
-    &:hover {
-        color: $smartsplit-color-link-hover;
-    }
+	&:hover {
+		color: $smartsplit-color-link-hover;
+	}
 }
 
 .smartsplit-navbar.pochette {
-    .save-and-quit-label a {
-        color: $pochette-color-link;
+	.save-and-quit-label a {
+		color: $pochette-color-link;
 
-        &:hover {
-            color: $pochette-color-link-hover;
-        }
-    }
+		&:hover {
+			color: $pochette-color-link-hover;
+		}
+	}
 }
 
+.medium-500.title-navbar {
+	display: inline-block;
+	text-overflow: ellipsis;
+	width: auto;
+	white-space: nowrap;
+	overflow: hidden;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+.medium-400.title-navbar,
+.medium-500.title-navbar {
+	max-width: 20em;
+}
+
+.ui.input {
+	max-width: 40em;
+}
+
+.heading4.title {
+	font-weight: normal;
+}
+
+.oeuvre-resume-navbar {
+	height: $navbar-height;
+	width: 100%;
+	padding: 5px 16px;
+
+	background-color: $color-underground;
+	border-bottom: 1px solid $color-stroke;
+
+	.back-button-section {
+		position: absolute;
+		top: 0;
+		left: $margin-step;
+		height: 72px;
+		line-height: 3;
+		display: flex;
+		align-items: center;
+
+		a,
+		a img {
+			height: 24px;
+		}
+	}
+}
+
+.save.alternate.icon.grey.big {
+	cursor: pointer;
+	padding-top: 5px;
+	padding-left: 5px;
+}
+
+.editIcon {
+	cursor: pointer;
+}
+
+.fixed-top.navbar {
+	background: #ffff;
+	height: 4.4em;
+	left: 0px;
+}
+
+.ui.button.negative.enregistrer {
+	top: 0;
+	position: relative;
+	float: right;
+	margin-right: 20px;
+}
+
+.ui.container.nav {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	.left,
+	.right {
+		display: flex;
+		align-items: center;
+		flex: 1 2;
+	}
+
+	.right {
+		.ui.button + .ui.button {
+			margin-left: $margin-step;
+		}
+	}
+}
+
+.header-divider {
+	width: 100%;
+	height: 1px;
+	background-color: $color-stroke;
+}

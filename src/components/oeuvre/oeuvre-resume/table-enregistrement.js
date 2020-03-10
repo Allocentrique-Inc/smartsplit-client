@@ -2,6 +2,7 @@ import React from "react";
 import TableGauche from "./table-gauche";
 import { withTranslation } from "react-i18next";
 import moment from "moment";
+import "../../../assets/scss/tableaudebord/tableaudebord.scss";
 
 class TableEnregistrement extends React.Component {
   constructor(props) {
@@ -24,9 +25,9 @@ class TableEnregistrement extends React.Component {
     this.master = [];
     this.graphistes = [];
 
-    let parts = props.media.rightHolders
+    let parts = props.media.rightHolders;
 
-    if(parts) {
+    if (parts) {
       parts.forEach(_ad => {
         let rhId = _ad.id;
         _ad.roles.forEach(_r => {
@@ -54,13 +55,14 @@ class TableEnregistrement extends React.Component {
               break;
             default:
           }
-        })
-      })
-    }    
+        });
+      });
+    }
   }
 
   rangees() {
-    const t = this.props.t, i18n = this.props.i18n
+    const t = this.props.t,
+      i18n = this.props.i18n;
     return [
       {
         label: t("flot.split.documente-ton-oeuvre.documenter.date-sortie"),
@@ -72,7 +74,6 @@ class TableEnregistrement extends React.Component {
                 .format("LL")
             : t("flot.split.documente-ton-oeuvre.documenter.date-choix.avenir")
       },
-
       {
         label: t("sommaire.autres.piste"),
         value: this.props.media.title
@@ -82,13 +83,26 @@ class TableEnregistrement extends React.Component {
         value: this.realisateurs.map((r, idx) => {
           if (r && idx < this.realisateurs.length - 1) {
             return (
-              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`realisateurs_${r.rightHolderId}`}>
-                {r.artistName}
-              </span>,{" "}</>
+              <>
+                <span
+                  className={`gras ${
+                    this.props.pochette ? "pochette" : "smartsplit"
+                  }`}
+                  key={`realisateurs_${r.rightHolderId}`}
+                >
+                  {r.artistName}
+                </span>
+                ,{" "}
+              </>
             );
           } else {
             return (
-              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`realisateurs_${r.rightHolderId}`}>
+              <span
+                className={`gras ${
+                  this.props.pochette ? "pochette" : "smartsplit"
+                }`}
+                key={`realisateurs_${r.rightHolderId}`}
+              >
                 {r.artistName}
               </span>
             );
@@ -100,11 +114,29 @@ class TableEnregistrement extends React.Component {
         value: this.tech.map((r, idx) => {
           if (r && idx < this.tech.length - 1) {
             return (
-              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`techs_${r.rightHolderId}`}>{r.artistName}</span>,&nbsp;
+              <>
+                <span
+                  className={`gras ${
+                    this.props.pochette ? "pochette" : "smartsplit"
+                  }`}
+                  key={`techs_${r.rightHolderId}`}
+                >
+                  {r.artistName}
+                </span>
+                ,&nbsp;
               </>
             );
           } else {
-            return <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`techs_${r.rightHolderId}`}>{r.artistName}</span>;
+            return (
+              <span
+                className={`gras ${
+                  this.props.pochette ? "pochette" : "smartsplit"
+                }`}
+                key={`techs_${r.rightHolderId}`}
+              >
+                {r.artistName}
+              </span>
+            );
           }
         })
       },
@@ -113,11 +145,28 @@ class TableEnregistrement extends React.Component {
         value: this.mixeur.map((r, idx) => {
           if (r && idx < this.mixeur.length - 1) {
             return (
-              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`mixeurs_${r.rightHolderId}`}>{r.artistName}</span>, &nbsp;</>
+              <>
+                <span
+                  className={`gras ${
+                    this.props.pochette ? "pochette" : "smartsplit"
+                  }`}
+                  key={`mixeurs_${r.rightHolderId}`}
+                >
+                  {r.artistName}
+                </span>
+                , &nbsp;
+              </>
             );
           } else {
             return (
-              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`mixeurs_${r.rightHolderId}`}>{r.artistName}</span>
+              <span
+                className={`gras ${
+                  this.props.pochette ? "pochette" : "smartsplit"
+                }`}
+                key={`mixeurs_${r.rightHolderId}`}
+              >
+                {r.artistName}
+              </span>
             );
           }
         })
@@ -127,11 +176,28 @@ class TableEnregistrement extends React.Component {
         value: this.master.map((r, idx) => {
           if (r && idx < this.mixeur.length - 1) {
             return (
-              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`masters_${r.rightHolderId}`}>{r.artistName}</span>,&nbsp;</>
+              <>
+                <span
+                  className={`gras ${
+                    this.props.pochette ? "pochette" : "smartsplit"
+                  }`}
+                  key={`masters_${r.rightHolderId}`}
+                >
+                  {r.artistName}
+                </span>
+                ,&nbsp;
+              </>
             );
           } else {
             return (
-              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`masters_${r.rightHolderId}`}>{r.artistName}</span>
+              <span
+                className={`gras ${
+                  this.props.pochette ? "pochette" : "smartsplit"
+                }`}
+                key={`masters_${r.rightHolderId}`}
+              >
+                {r.artistName}
+              </span>
             );
           }
         })
@@ -153,13 +219,28 @@ class TableEnregistrement extends React.Component {
         value: this.producteurs.map((r, idx) => {
           if (r && idx < this.producteurs.length - 1) {
             return (
-              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`producteurs_${r.rightHolderId}`}>
-                {r.artistName}
-              </span>,{" "}</>
+              <>
+                <span
+                  className={`gras ${
+                    this.props.pochette ? "pochette" : "smartsplit"
+                  }`}
+                  key={`producteurs_${r.rightHolderId}`}
+                >
+                  {r.artistName}
+                </span>
+                ,{" "}
+              </>
             );
           } else {
             return (
-              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`producteurs_${r.rightHolderId}`}>{r.artistName}</span>
+              <span
+                className={`gras ${
+                  this.props.pochette ? "pochette" : "smartsplit"
+                }`}
+                key={`producteurs_${r.rightHolderId}`}
+              >
+                {r.artistName}
+              </span>
             );
           }
         })
@@ -169,13 +250,28 @@ class TableEnregistrement extends React.Component {
         value: this.graphistes.map((r, idx) => {
           if (r && idx < this.graphistes.length - 1) {
             return (
-              <><span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`graphistes_${r.rightHolderId}`}>
-                {r.artistName}
-              </span>,{" "}</>
+              <>
+                <span
+                  className={`gras ${
+                    this.props.pochette ? "pochette" : "smartsplit"
+                  }`}
+                  key={`graphistes_${r.rightHolderId}`}
+                >
+                  {r.artistName}
+                </span>
+                ,{" "}
+              </>
             );
           } else {
             return (
-              <span className={`gras ${this.props.pochette ? "pochette" : "smartsplit" }`} key={`graphistes_${r.rightHolderId}`}>{r.artistName}</span>
+              <span
+                className={`gras ${
+                  this.props.pochette ? "pochette" : "smartsplit"
+                }`}
+                key={`graphistes_${r.rightHolderId}`}
+              >
+                {r.artistName}
+              </span>
             );
           }
         })
@@ -213,21 +309,21 @@ class TableEnregistrement extends React.Component {
   }
 
   render() {
-    const t = this.props.t
-    return (      
-          <div className="table">
-            <TableGauche
-              jeton={this.props.jeton}
-              edition={this.props.edition}
-              title={t(
-                "flot.split.documente-ton-oeuvre.partage.enregistrement.titre"
-              )}
-              rows={this.rangees()}
-              pageNo={3}
-              mediaId={this.props.media.mediaId}
-            />
-          </div>        
-    )
+    const t = this.props.t;
+    return (
+      <div className="table">
+        <TableGauche
+          jeton={this.props.jeton}
+          edition={this.props.edition}
+          title={t(
+            "flot.split.documente-ton-oeuvre.partage.enregistrement.titre"
+          )}
+          rows={this.rangees()}
+          pageNo={3}
+          mediaId={this.props.media.mediaId}
+        />
+      </div>
+    );
   }
 }
-export default withTranslation()(TableEnregistrement)
+export default withTranslation()(TableEnregistrement);
