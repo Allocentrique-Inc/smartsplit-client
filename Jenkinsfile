@@ -11,12 +11,7 @@ node {
 
 	stage("Publication de l'image Docker") {
 		docker.withRegistry("https://docker-registry.smartsplit.org", "SmartSplit Docker") {
-			image.push("${env.BUILD_ID}")
 			image.push("preproduction")
 		}
-	}
-
-	stage("Déploiement de la nouvelle image") {
-		build job: "SmartSplit DEV Déploiement"
 	}
 }
