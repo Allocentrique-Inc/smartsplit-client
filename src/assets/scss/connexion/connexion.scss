@@ -30,6 +30,7 @@
 
 .motdepasse-oublie {
 	cursor: pointer;
+	font-weight: bold;
 	color: $smartsplit-color-link;
 	&.pochette {
 		color: $pochette-color-link;

@@ -48,7 +48,7 @@ const browserHistory = utils.history = createBrowserHistory();
 
 const renderRoutes = () => {
   let routage
-  if (window.location.href.includes("pochette.info")) {  
+  if (window.location.href.includes("pochette.info")) {
     window.document.title = "Pochette.info"
     routage = (
       <I18nextProvider i18n={i18n}>
@@ -61,7 +61,7 @@ const renderRoutes = () => {
             <Route exact path="/editer/:mediaId/:pageNo/:jeton" component={EditerPochetteAvecJeton} />
             <Route exact path="/oeuvre/:mediaId/resume" component={ResumePochette} />
             <Route exact path="/oeuvre/resume/:jeton" component={ResumePochetteAvecJeton} />
-            <Route exact path="*" component={AccueilPochette} />            
+            <Route exact path="*" component={AccueilPochette} />
           </Switch>
         </Router>
       </I18nextProvider>
@@ -90,12 +90,12 @@ const renderRoutes = () => {
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/choose-password" component={ChoosePasswordVerification} />
             <Route exact path="/forgot-password-verification" component={DefinitMotDePasse} />
-            <Route exact path="/change-password-verification" component={ChangePasswordVerification} />            
+            <Route exact path="/change-password-verification" component={ChangePasswordVerification} />
             <Route exact path="/proposition/approuver/:propositionId" component={ApprouverSplit} />
             <Route exact path="/proposition/vote/:jeton" component={VoterSplit} />
             <Route exact path="/proposition/confirmer-courriel" component={ConfirmerCourriel} />
             <Route exact path="/proposition/sommaire/:uuid" component={SommaireProposition} />
-            <Route exact path="/accueil" component={Accueil} />        
+            <Route exact path="/accueil" component={Accueil} />
             <Route exact path="/partager/:mediaId" component={PartagesOeuvres} />
             <Route exact path="/partager/editeur/:mediaId" component={PartagesOeuvresEditeur} />
             <Route exact path="/partager/:mediaId/envoyer" component={PartagesOeuvresEnvoyer} />
@@ -105,7 +105,7 @@ const renderRoutes = () => {
             <Route exact path="/oeuvre/sommaire/:mediaId" component={sommaireOeuvre} />
             <Route exact path="/oeuvre/:mediaId/resume" component={Resume} />
             <Route exact path="/oeuvre/resume/:jeton" component={ResumeAvecJeton} />
-            <Route exact path="/partage/editeur/vote/:jeton" component={VoterPartTiers} />          
+            <Route exact path="/partage/editeur/vote/:jeton" component={VoterPartTiers} />
           </Switch>
         </Router>
       </I18nextProvider>
@@ -194,8 +194,8 @@ const ResumePochette = (match) => {
   )
 }
 
-const DefinitMotDePasse = ({match, location}) => {
-  
+const DefinitMotDePasse = ({ match, location }) => {
+
   let search = location.search
 
   let params = search.substring(1, search.length)
@@ -203,7 +203,7 @@ const DefinitMotDePasse = ({match, location}) => {
 
   let _params = {}
 
-  _p.forEach(__p=>{
+  _p.forEach(__p => {
     let ___p = __p.split("=")
     _params[___p[0]] = ___p[1]
   })
@@ -244,7 +244,7 @@ function DocumenterPochette(match) {
 }
 
 function sommaireOeuvre(match) {
-  let mediaId = match.match.params.mediaId;  
+  let mediaId = match.match.params.mediaId;
   let vals = queryString.parse(match.location.search)
   return <SommaireOeuvre mediaId={mediaId} invitations={vals && vals.i} />;
 }
@@ -330,13 +330,13 @@ toast.configure({
 
 // Affichage quand le chargement est complété
 let cpt = 0
-function renduLorsqueApplicationEstPrete() {  
-  if(AyantsDroit.ayantsDroit && Identite.pret) {
+function renduLorsqueApplicationEstPrete() {
+  if (AyantsDroit.ayantsDroit && Identite.pret) {
     cpt++
     journal.silly(NOM, `Application prête en ${cpt / 1000} secondes`)
     ReactDOM.render(renderRoutes(), document.getElementById("root"))
   } else {
-    setTimeout( ()=>renduLorsqueApplicationEstPrete(), 10)
+    setTimeout(() => renduLorsqueApplicationEstPrete(), 10)
   }
 }
 renduLorsqueApplicationEstPrete()

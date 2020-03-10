@@ -1,4 +1,4 @@
-import {config, journal, AyantsDroit, Identite} from '../../utils/application'
+import { config, journal, AyantsDroit, Identite } from '../../utils/application'
 import React, { Component } from 'react'
 import RightHolderOptions from '../page-assistant/right-holder-options'
 import ChampSelectionMultipleAyantDroit from '../page-assistant/champ-selection-multiple-ayant-droit'
@@ -60,41 +60,41 @@ class Page2NouvellePiece extends Component {
         this.props.setFieldValue('publishDate', analyse.release_date, false)
         // Si l'oeuvrePar n'existe pas déjà, créer l'entité t.q. oeuvrePar => entite(oeuvrePar)
         let entites = this.state.entites
-        let entiteExiste = false        
-        entites.OPTIONS.forEach(e=>{            
-            if(e.text === oeuvrePar) {
+        let entiteExiste = false
+        entites.OPTIONS.forEach(e => {
+            if (e.text === oeuvrePar) {
                 entiteExiste = true
             }
         })
-        if(!entiteExiste) {
+        if (!entiteExiste) {
             this.ajouterEntiteArtistique(oeuvrePar)
         }
         // Liens commerciaux
         let liensCommerciaux = []
         if (analyse.external_metadata.deezer) {
             let _url = `https://www.deezer.com/${i18n.language.substring(0, 2)}/album/${analyse.external_metadata.deezer.album.id}`
-            liensCommerciaux.push({lien: _url, type: "deezer"})
+            liensCommerciaux.push({ lien: _url, type: "deezer" })
         }
         if (analyse.external_metadata.spotify) {
             let _url = `https://open.spotify.com/track/${analyse.external_metadata.spotify.track.id}`
-            liensCommerciaux.push({lien: _url,type: "spotify"})
+            liensCommerciaux.push({ lien: _url, type: "spotify" })
         }
         if (analyse.external_metadata.youtube) {
             let _url = `https://www.youtube.com/watch?v=${analyse.external_metadata.youtube.vid}`
-            liensCommerciaux.push({lien: _url,type: "youtube"})
+            liensCommerciaux.push({ lien: _url, type: "youtube" })
         }
         this.props.setFieldValue('streamingServiceLinks', liensCommerciaux)
     }
 
-    ajouterEntiteArtistique(e, cb) {        
+    ajouterEntiteArtistique(e, cb) {
         this.props.setFieldValue('artist', e)
-        if(Identite.usager) {
+        if (Identite.usager) {
             let username = Identite.usager.username
             let body = { username: username, entite: e }
             axios.post(`${config.API_URL}entities/`, body)
-            .then(res => { if (cb) { cb() } })
-            .catch(err => journal.error(NOM, err))
-        }        
+                .then(res => { if (cb) { cb() } })
+                .catch(err => journal.error(NOM, err))
+        }
     }
 
     render() {
@@ -251,19 +251,19 @@ class Page2NouvellePiece extends Component {
                                 fn={(nouveau) => {
                                     let _rHs = this.props.values.rightHolders
                                     // Ajoute le nouveau s'il ne fait pas déjà partie de la liste
-                                    if (!_rHs.includes(nouveau)) {_rHs.push(nouveau)}
+                                    if (!_rHs.includes(nouveau)) { _rHs.push(nouveau) }
                                     this.props.setFieldValue('rightHolders', _rHs)
                                     // recharger les ayant-droits
-                                    AyantsDroit.rafraichirListe( ()=>{
+                                    AyantsDroit.rafraichirListe(() => {
                                         // Ordonnancement simple uuid -> nom d'artiste
                                         let assocUuidArtiste = this.state.assocUuidArtiste
                                         AyantsDroit.ayantsDroitBrut.forEach(e => {
                                             assocUuidArtiste[e.rightHolderId] = e.artistName || `${e.firstName} ${e.lastName}`
-                                        })                                        
-                                        this.setState({ rightHolders: AyantsDroit.ayantsDroitBrut }, 
+                                        })
+                                        this.setState({ rightHolders: AyantsDroit.ayantsDroitBrut },
                                             () => this.setState({ assocUuidArtiste: assocUuidArtiste })
                                         )
-                                    })                                   
+                                    })
                                 }}
                             />
                         </div>
@@ -276,23 +276,23 @@ class Page2NouvellePiece extends Component {
                                 // Changer txt tooltip ensuite par: fichiers WAV ou MP3 seulement 
                                 info={<InfoBulle pos={{ x: 100, y: 450 }} text={t('composant.televersement.soustitre')} />}
                                 access="private"
-                                onAccessChange={value =>{
-                                        this.setState({accesAudio: value})                                                        
-                                        let fichier, files = this.props.values.files
-                                        if(files.audio) {
-                                            fichier = files.audio.files[0] // Seul le premier est considéré
-                                            if (fichier) {
-                                                // Remplace l'accès du fichier existant
-                                                fichier.access = value
-                                                files.audio.files[0] = fichier
-                                                this.props.setFieldValue('files', files)
-                                            }                                                            
-                                        }                                                        
-                                    }                                                    
+                                onAccessChange={value => {
+                                    this.setState({ accesAudio: value })
+                                    let fichier, files = this.props.values.files
+                                    if (files.audio) {
+                                        fichier = files.audio.files[0] // Seul le premier est considéré
+                                        if (fichier) {
+                                            // Remplace l'accès du fichier existant
+                                            fichier.access = value
+                                            files.audio.files[0] = fichier
+                                            this.props.setFieldValue('files', files)
+                                        }
+                                    }
+                                }
                                 }
                                 pochette={this.props.pochette}
                                 onFileChange={value => {
-                                    if (value) {      
+                                    if (value) {
                                         this.setState({ patience: true })
                                         let fichier = value
                                         // Réinitialise le lecteur audio, qui est contenu dans la liste des médias
@@ -300,7 +300,7 @@ class Page2NouvellePiece extends Component {
                                         let fd = new FormData()
                                         fd.append('file', fichier)
                                         let mediaId
-                                        if(this.props.parent) {
+                                        if (this.props.parent) {
                                             mediaId = this.props.parent.state.mediaId
                                         }
                                         fd.append('mediaId', mediaId)
@@ -327,21 +327,21 @@ class Page2NouvellePiece extends Component {
                                                     let analyse = f.music[0] // NB. Il peut y avoir plus d'un résultat
                                                     this.setState({ analyse: analyse }, () => this.modaleReconnaissance())
                                                     this.props.setFieldValue('fichier', f.empreinte)
-                                                    let fichiers = []                                                
+                                                    let fichiers = []
                                                     let access = this.state.accesAudio ? this.state.accesAudio : "private"
-                                                    fichiers.push({file: f.nom, md5: f.empreinte, access: access})
+                                                    fichiers.push({ file: f.nom, md5: f.empreinte, access: access })
                                                     this.props.setFieldValue('files.audio.files', fichiers)
                                                 } else {
-                                                    let fichiers = []                                                                    
+                                                    let fichiers = []
                                                     let access = this.state.accesAudio ? this.state.accesAudio : "private"
-                                                    fichiers.push({file: fichier.name, access: access})
+                                                    fichiers.push({ file: fichier.name, access: access })
                                                     this.props.setFieldValue('files.audio.files', fichiers)
                                                 }
                                             })
                                             .catch(err => {
                                                 if (err) {
                                                     journal.error(NOM, err)
-                                                    if (fichier) 
+                                                    if (fichier)
                                                         toast.error(t('flot.split.documente-ton-oeuvre.envoifichier.echec') + ` ${fichier.name}`)
                                                 }
                                             })
@@ -353,13 +353,13 @@ class Page2NouvellePiece extends Component {
                                 }}
                             />
                         </div>
-                    </div>                    
+                    </div>
                 </div>
                 {
                     this.state.modaleReconnaissance && (
                         <ModaleAnalyseAudio
                             open={this.state.modaleReconnaissance} analyse={this.state.analyse}
-                            onClose={()=>this.modaleReconnaissance(false)} action={()=>{this.remplirChampsAnalyse()}} />                        
+                            onClose={() => this.modaleReconnaissance(false)} action={() => { this.remplirChampsAnalyse() }} />
                     )
                 }
             </React.Fragment>

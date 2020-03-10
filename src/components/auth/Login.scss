@@ -2,16 +2,25 @@
 @import "../../assets/scss/colors";
 @import "../../assets/scss/layout";
 
+.ui.container.welcomepochette,
 .fixed-top.welcome {
 	position: fixed;
 	top: 0;
 	width: 100%;
 	z-index: 50;
+	display: flex;
+}
+
+.ui.container.welcomepochette {
+	padding: 0 275px 0 270px;
+	width: 100%;
+    background-color: white;
+    height: 40px;
 }
 
 .ui.container.welcome {
 	height: 100%;
-	display: flex;
+	display: inline-flex;
 	background-color: white;
 }
 
