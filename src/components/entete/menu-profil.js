@@ -10,8 +10,7 @@ import { Dropdown } from "semantic-ui-react"
 
 import i18n from "i18next"
 
-// Authentification avec AWS
-import { Auth } from "aws-amplify"
+import { Identite } from "../../utils/application"
 //import Socan from "../auth/Socan"
 
 import {
@@ -74,7 +73,7 @@ class MenuProfil extends Component {
 	}
 
 	deconnexion() {
-		Auth.signOut()
+		Identite.deconnexion()
 			.then(data => {
 				setTimeout(() => {
 					window.location.href = "/accueil"
