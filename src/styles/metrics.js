@@ -8,6 +8,13 @@ for(let [key, value] of Object.entries(Metrics.spacing)) {
 	}
 }
 
+const Padding = {}
+for(let [key, value] of Object.entries(Metrics.spacing)) {
+	Padding[key] = {
+		padding: value
+	}
+}
+
 const Spacings = {}
 for(let [key, value] of Object.entries(Metrics.spacing)) {
 	Spacings[key] = {
@@ -22,18 +29,12 @@ for(let [key, value] of Object.entries(Metrics.size)) {
 	}
 }
 
-const Padding = {}
-for(let [key, value] of Object.entries(Metrics.size)) {
-	Padding[key] = {
-		padding: value
-	}
-}
 
 const MetricsStyles = {
 	components: StyleSheet.create(Components),
+	padding: StyleSheet.create(Padding),
 	spacing: StyleSheet.create(Spacings),
 	sizes: StyleSheet.create(Sizes),
-	padding: StyleSheet.create(Padding),
 }
 
 export default MetricsStyles

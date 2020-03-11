@@ -2,9 +2,10 @@ import React from "react"
 import { View, StyleSheet } from "react-native"
 import MetricsStyles from "./styles/metrics"
 import LayoutStyles from "./styles/layout"
+import LayerStyles from "./styles/layers"
 
 function composeView(props, ...stylesheets) {
-	const { style, children, of, spacer, ...nextProps } = {
+	const { style, children, of, spacer, layer, padding, ...nextProps } = {
 		spacer: Spacer,
 		...props
 	}
@@ -25,8 +26,17 @@ function composeView(props, ...stylesheets) {
 	
 	return <View
 		{...nextProps}
-		style={[...stylesheets, style]}
+		style={[
+			...stylesheets,
+			style,
+			LayerStyles[layer || ""],
+			MetricsStyles.padding[padding || ""],
+		]}
 	>{newChildren}</View>
+}
+
+export function Layer(props) {
+	return composeView(props)
 }
 
 export function Group(props) {
@@ -42,7 +52,12 @@ export function Column(props) {
 }
 
 export function Row(props) {
-	return composeView(props, LayoutStyles.row)
+	const { align, ...nextProps } = props
+	return composeView(
+		nextProps,
+		LayoutStyles.row,
+		LayoutStyles.align[align]
+	)
 }
 
 export function Spacer(props) {

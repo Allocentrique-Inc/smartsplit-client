@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native"
 import { Colors } from "../theme"
 
-export default StyleSheet.create({
+const LayoutStyles = StyleSheet.create({
 	column: {
 		flexDirection: "column",
 	},
@@ -29,3 +29,19 @@ export default StyleSheet.create({
 		justifyContent: "center",
 	},
 })
+
+LayoutStyles.align = StyleSheet.create({
+	left: {
+		justifyContent: "flex-start",
+	},
+
+	center: {
+		justifyContent: "center",
+	},
+
+	right: {
+		justifyContent: "flex-end",
+	},
+})
+
+export default LayoutStyles

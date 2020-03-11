@@ -2,12 +2,12 @@ import React, {useState} from "react"
 import { View, StyleSheet } from "react-native"
 import moment from "moment"
 
-import { Row, Column, Section, Flex, Hairline }   from "../../layout"
-import { Heading, Text }   from "../../text"
+import { Row, Column, Section, Group, Flex, Hairline }   from "../../layout"
+import { Heading, Paragraph, Text }   from "../../text"
 import { TabBar, Tab }     from "../../widgets/tabs"
 import Button              from "../../widgets/button"
 import ProgressBar         from "../../widgets/progress-bar"
-import Modal               from "../../widgets/modal"
+import { DialogModal }     from "../../widgets/modal"
 
 import { Colors, Metrics } from "../../theme"
 import ImageIcon           from "../../svg/image"
@@ -66,8 +66,24 @@ function MediaWorkRow(props) {
 		</Column>
 
 		<Button secondary text="Continuer" onClick={() => Alert.alert("Test!")} />
-		<Button tertiary icon={<OverflowMenuIcon />} />
+		<Button icon={<OverflowMenuIcon />} />
 	</View>
+}
+
+export function CreateWorkModal(props) {
+	return <DialogModal
+		visible={props.visible}
+		onRequestClose={props.onRequestClose}
+		title="Créer une pièce musicale"
+		buttons={<>
+			<Button tertiary text="Annuler" />
+			<Button text="C'est parti!" />
+		</>}
+	>
+		<Group of="component">
+			<Paragraph>Ceci est un example de boîte de dialogue (modale) pour permettre l'ajout d'une oeuvre au système. Je manque déjà d'inspiration pour ce texte inutile mais je dois continuer car je veux au moins quelques lignes pour que ma modale air l'air de quelque chose.</Paragraph>
+		</Group>
+	</DialogModal>
 }
 
 export default function MyWorksPage() {
@@ -106,41 +122,39 @@ export default function MyWorksPage() {
 			progress="0"
 		/>
 
-	return <Section of="group">
-		<Row of="component">
-			<Flex>
-				<Heading level="2">Mes pièces musicales</Heading>
-			</Flex>
-			<Button primary text="Ajouter" onClick={() => setModal(true)} />
-		</Row>
+	return <>
+		<CreateWorkModal
+			visible={modalOpen}
+			onRequestClose={() => setModal(false)}
+		/>
 
-		<TabBar>
-			<Tab key="tab1" title="Mes ajouts" default>
-				<Modal
-						visible={modalOpen}
-						onRequestClose={() => setModal(false)}
-					>
-					<Section of="component">
-						<Heading level="2">Test Modale</Heading>
-					</Section>
-				</Modal>
+		<Section of="group">
+			<Row of="component">
+				<Flex>
+					<Heading level="2">Mes pièces musicales</Heading>
+				</Flex>
+				<Button primary text="Ajouter" onClick={() => setModal(true)} />
+			</Row>
 
-				<Column of="none" spacer={Hairline}>
-					{demo1}
-					{demo2}
-					{demo3}
-					{demo1}
-					{demo2}
-					{demo3}
-				</Column>
-			</Tab>
-			<Tab key="tab2" title="Partagées avec moi">
-				<Column of="none" spacer={Hairline}>
-					{demo1}
-					{demo2}
-					{demo3}
-				</Column>
-			</Tab>
-		</TabBar>
-	</Section>
+			<TabBar>
+				<Tab key="tab1" title="Mes ajouts" default>
+					<Column of="none" spacer={Hairline}>
+						{demo1}
+						{demo2}
+						{demo3}
+						{demo1}
+						{demo2}
+						{demo3}
+					</Column>
+				</Tab>
+				<Tab key="tab2" title="Partagées avec moi">
+					<Column of="none" spacer={Hairline}>
+						{demo1}
+						{demo2}
+						{demo3}
+					</Column>
+				</Tab>
+			</TabBar>
+		</Section>
+	</>
 }

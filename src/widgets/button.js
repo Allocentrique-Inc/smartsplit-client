@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
 import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
 
-export const Styles = StyleSheet.create({
+export const ButtonStyles = StyleSheet.create({
 	frame: {
 		borderRadius: Metrics.borderRadius.forms,
 		height: Metrics.size.medium,
@@ -12,6 +12,7 @@ export const Styles = StyleSheet.create({
 		paddingLeft: Metrics.spacing.medium,
 		paddingRight: Metrics.spacing.medium,
 		alignItems: "center",
+		justifyContent: "center",
 		flexDirection: "row",
 	},
 
@@ -23,6 +24,7 @@ export const Styles = StyleSheet.create({
 		paddingLeft: Metrics.spacing.small,
 		paddingRight: Metrics.spacing.small,
 		alignItems: "center",
+		justifyContent: "center",
 		flexDirection: "row",
 	},
 
@@ -54,28 +56,31 @@ export const Styles = StyleSheet.create({
 })
 
 export default function Button(props) {
-	let frameStyle = [props.small ? Styles.frame_small : Styles.frame]
+	let frameStyle = [ButtonStyles[props.small ? "frame_small" : "frame"]]
 	let textStyle  = []
 	let content    = props.children
 
-	if(props.disabled) {
-		frameStyle.push(Styles.frame_disabled)
-		textStyle.push(Styles.text_disabled)
+	if(props.icon && !props.text && !content) {
+		// Bouton icone seulement
+	}
+	else if(props.disabled) {
+		frameStyle.push(ButtonStyles.frame_disabled)
+		textStyle.push(ButtonStyles.text_disabled)
 	}
 	else if(props.primary) {
-		frameStyle.push(Styles.frame_primary)
-		textStyle.push(Styles.text_primary)
+		frameStyle.push(ButtonStyles.frame_primary)
+		textStyle.push(ButtonStyles.text_primary)
 	}
 	else if(props.secondary) {
-		frameStyle.push(Styles.frame_secondary)
-		textStyle.push(Styles.text_secondary)
+		frameStyle.push(ButtonStyles.frame_secondary)
+		textStyle.push(ButtonStyles.text_secondary)
 	}
 	else if(props.tertiary) {
-		textStyle.push(Styles.text_secondary)
+		textStyle.push(ButtonStyles.text_secondary)
 	}
 	else {
-		frameStyle.push(Styles.frame_primary)
-		textStyle.push(Styles.text_primary)
+		frameStyle.push(ButtonStyles.frame_primary)
+		textStyle.push(ButtonStyles.text_primary)
 	}
 
 	if(!content) {
