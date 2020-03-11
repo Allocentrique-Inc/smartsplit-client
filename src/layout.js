@@ -40,11 +40,11 @@ export function Layer(props) {
 }
 
 export function Group(props) {
-	return composeView(props, MetricsStyles.components.component)
+	return composeView(props, MetricsStyles.components.group)
 }
 
 export function Section(props) {
-	return composeView(props, MetricsStyles.components.group)
+	return composeView(props, MetricsStyles.components.section)
 }
 
 export function Column(props) {

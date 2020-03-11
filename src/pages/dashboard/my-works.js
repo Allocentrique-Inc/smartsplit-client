@@ -8,6 +8,7 @@ import { TabBar, Tab }     from "../../widgets/tabs"
 import Button              from "../../widgets/button"
 import ProgressBar         from "../../widgets/progress-bar"
 import { DialogModal }     from "../../widgets/modal"
+import { TextField }       from "../../forms"
 
 import { Colors, Metrics } from "../../theme"
 import ImageIcon           from "../../svg/image"
@@ -76,12 +77,16 @@ export function CreateWorkModal(props) {
 		onRequestClose={props.onRequestClose}
 		title="Créer une pièce musicale"
 		buttons={<>
-			<Button tertiary text="Annuler" />
+			<Button tertiary text="Annuler" onClick={props.onRequestClose} />
 			<Button text="C'est parti!" />
 		</>}
 	>
 		<Group of="component">
 			<Paragraph>Ceci est un example de boîte de dialogue (modale) pour permettre l'ajout d'une oeuvre au système. Je manque déjà d'inspiration pour ce texte inutile mais je dois continuer car je veux au moins quelques lignes pour que ma modale air l'air de quelque chose.</Paragraph>
+			<TextField
+				label="Titre de la pièce musicale"
+				undertext="Ne pas include de « featuring » dans le titre"
+			/>
 		</Group>
 	</DialogModal>
 }
@@ -128,7 +133,7 @@ export default function MyWorksPage() {
 			onRequestClose={() => setModal(false)}
 		/>
 
-		<Section of="group">
+		<Group of="group">
 			<Row of="component">
 				<Flex>
 					<Heading level="2">Mes pièces musicales</Heading>
@@ -155,6 +160,6 @@ export default function MyWorksPage() {
 					</Column>
 				</Tab>
 			</TabBar>
-		</Section>
+		</Group>
 	</>
 }

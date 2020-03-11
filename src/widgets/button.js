@@ -28,6 +28,11 @@ export const ButtonStyles = StyleSheet.create({
 		flexDirection: "row",
 	},
 
+	frame_icon: {
+		paddingLeft: Metrics.spacing.small,
+		paddingRight: Metrics.spacing.small,
+	},
+
 	frame_primary: {
 		backgroundColor: Colors.action,
 	},
@@ -61,7 +66,7 @@ export default function Button(props) {
 	let content    = props.children
 
 	if(props.icon && !props.text && !content) {
-		// Bouton icone seulement
+		frameStyle.push(ButtonStyles.frame_icon)
 	}
 	else if(props.disabled) {
 		frameStyle.push(ButtonStyles.frame_disabled)
