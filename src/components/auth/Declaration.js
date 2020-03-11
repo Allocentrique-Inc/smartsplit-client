@@ -106,7 +106,7 @@ class Declaration extends Component {
         </Modal.Header>
 
         <div className="ui row">
-          <div className="declare">
+          <div className="declaration">
             {
               !contientRefus && (
                 <>
@@ -114,10 +114,10 @@ class Declaration extends Component {
                     key={"identity"}
                     label=""
                     onChange={this.handleIdentityCheck}
-                    className="checkbox"
+                    className="checkbox declaration"
                   />
                   {i18n.language && i18n.language.substring(0, 2) === "en" && (
-                    <div className="accepte">
+                    <div className="acceptation">
                       <p>
                         <strong>
                           I declare to really be {this.state.firstName}{" "}
@@ -129,7 +129,7 @@ class Declaration extends Component {
                     </div>
                   )}
                   {i18n.language && i18n.language.substring(0, 2) !== "en" && (
-                    <div className="accepte">
+                    <div className="acceptation">
                       <p>
                         <strong>
                           Je déclare être réellement {this.state.firstName}{" "}
@@ -148,7 +148,7 @@ class Declaration extends Component {
               contientRefus && (
                 <>
                   {i18n.language && i18n.language.substring(0, 2) === "en" && (
-                    <div className="accepte">
+                    <div className="acceptation">
                       <p>
                         <strong>
                           Thanks for making a decision.
@@ -158,7 +158,7 @@ class Declaration extends Component {
                     </div>
                   )}
                   {i18n.language && i18n.language.substring(0, 2) !== "en" && (
-                    <div className="accepte">
+                    <div className="acceptation">
                       <p>
                         <strong>
                           Merci d'avoir rendu ta décision. </strong><br />
@@ -173,7 +173,7 @@ class Declaration extends Component {
         </div>
 
         <div className="ui row">
-          <div className="declare">
+          <div className="declaration">
             {
               !contientRefus && (
                 <>
@@ -181,10 +181,10 @@ class Declaration extends Component {
                     key={"share"}
                     label=""
                     onChange={this.handleShareCheck}
-                    className="checkbox"
+                    className="checkbox declaration"
                   />
                   {i18n.language && i18n.language.substring(0, 2) === "en" && (
-                    <div className="accepte">
+                    <div className="acceptation">
                       <p>
                         <strong>I accept these rights splits</strong> between
                         myself and any collaborator. This represents the desired
@@ -195,7 +195,7 @@ class Declaration extends Component {
                     </div>
                   )}
                   {i18n.language && i18n.language.substring(0, 2) !== "en" && (
-                    <div className="accepte">
+                    <div className="acceptation">
                       <p>
                         <strong>J'accepte ces partages de droits</strong>{" "}
                         intervenus entre moi-même et tout collaborateur. Cela

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap");
 
-.declare,
+/* .declare,
 .accept {
   font-family: "IBM Plex Sans";
   font-size: 16px;
@@ -8,9 +8,22 @@
   margin: 20px 20px 10px 20px;
   text-align: center;
 }
-
-.ui.large.modal > .header.declaration  {
+ */
+.ui.large.modal > .header.declaration,
+.checkbox.acceptation p,
+.declaration {
   font-family: "IBM Plex Sans";
+}
+
+.checkbox.acceptation p,
+.declaration {
+  font-size: 16px;
+  display: inline-flex;
+  margin: 20px 20px 10px 20px;
+}
+
+.checkbox.declaration {
+  margin: 3px 10px 8px 0px;
 }
 
 .ui.icon.positive.right.labeled.button.understood {
