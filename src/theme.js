@@ -42,6 +42,14 @@ export const Metrics = {
 		forms:  2,
 		modals: 4,
 	},
+
+	// Marge tappable/clickable autour des composantes
+	hitSlop: {
+		top: 16,
+		right: 16,
+		bottom: 16,
+		left: 16,
+	},
 }
 
 export const Colors = {

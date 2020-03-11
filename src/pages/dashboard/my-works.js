@@ -1,12 +1,13 @@
-import React from "react"
+import React, {useState} from "react"
 import { View, StyleSheet } from "react-native"
 import moment from "moment"
 
-import { Row, Column, Section, Hairline }   from "../../layout"
+import { Row, Column, Section, Flex, Hairline }   from "../../layout"
 import { Heading, Text }   from "../../text"
 import { TabBar, Tab }     from "../../widgets/tabs"
 import Button              from "../../widgets/button"
 import ProgressBar         from "../../widgets/progress-bar"
+import Modal               from "../../widgets/modal"
 
 import { Colors, Metrics } from "../../theme"
 import ImageIcon           from "../../svg/image"
@@ -64,12 +65,14 @@ function MediaWorkRow(props) {
 			<ProgressBar size="tiny" progress={props.progress} />
 		</Column>
 
-		<Button secondary text="Continuer" />
+		<Button secondary text="Continuer" onClick={() => Alert.alert("Test!")} />
 		<Button tertiary icon={<OverflowMenuIcon />} />
 	</View>
 }
 
 export default function MyWorksPage() {
+	const [modalOpen, setModal] = useState(false)
+
 	const demo1 =
 		<MediaWorkRow
 			title="Fantôme"
@@ -104,9 +107,24 @@ export default function MyWorksPage() {
 		/>
 
 	return <Section of="group">
-		<Heading level="2">Mes pièces musicales </Heading>
+		<Row of="component">
+			<Flex>
+				<Heading level="2">Mes pièces musicales</Heading>
+			</Flex>
+			<Button primary text="Ajouter" onClick={() => setModal(true)} />
+		</Row>
+
 		<TabBar>
 			<Tab key="tab1" title="Mes ajouts" default>
+				<Modal
+						visible={modalOpen}
+						onRequestClose={() => setModal(false)}
+					>
+					<Section of="component">
+						<Heading level="2">Test Modale</Heading>
+					</Section>
+				</Modal>
+
 				<Column of="none" spacer={Hairline}>
 					{demo1}
 					{demo2}

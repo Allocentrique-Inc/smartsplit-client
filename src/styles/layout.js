@@ -17,5 +17,15 @@ export default StyleSheet.create({
 		backgroundColor: Colors.stroke,
 		minWidth: 1,
 		minHeight: 1,
-	}
+	},
+
+	flex: {
+		flex: 1,
+	},
+
+	centerContent: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+	},
 })

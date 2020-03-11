@@ -5,6 +5,7 @@ import FormStyles from "../styles/forms"
 import Label from "./label"
 import Frame, { useFrameFocus } from "./frame"
 import EyeIcon from "../svg/eye"
+import { Metrics } from "../theme"
 
 function FramedPasswordField(props) {
 	const focused = useFrameFocus()
@@ -24,7 +25,10 @@ function FramedPasswordField(props) {
 			{...focused.props}
 		/>
 		
-		<TouchableWithoutFeedback onPress={toggleRevealPassword}>
+		<TouchableWithoutFeedback
+			onPress={toggleRevealPassword}
+			hitSlop={Metrics.hitSlop}
+		>
 			<EyeIcon
 				blocked={reveal}
 				onClick={toggleRevealPassword}

@@ -49,6 +49,10 @@ export function Spacer(props) {
 	return <View style={MetricsStyles.spacing[props.of]} />
 }
 
+export function Flex(props) {
+	return <View style={LayoutStyles.flex}>{props.children}</View>
+}
+
 export function Hairline(props) {
 	const style = {}
 

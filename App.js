@@ -3,6 +3,7 @@ import { Platform, View, Text, ScrollView } from "react-native"
 import { MemoryRouter } from "react-router"
 import { BrowserRouter } from "react-router-dom"
 import * as Font from "expo-font"
+import Modal from "modal-react-native-web"
 
 import Main from "./src"
 
@@ -26,9 +27,9 @@ export default function App(props) {
 		.catch(e => console.error(e))
 
 	if(!appReady)
-		return <View style={{flex: 1}}>
-			<Text> Loading fonts... </Text>
-		</View>
+		return null
+
+	Modal.setAppElement("#root")
 
 	return <View style={{flex: 1}}>
 		{appReady && (
