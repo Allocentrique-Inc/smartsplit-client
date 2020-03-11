@@ -293,9 +293,9 @@ class AssistantPartage extends Component {
 			if (
 				!sansBlocage &&
 				values.droitAuteur.length +
-					values.droitInterpretation.length +
-					values.droitEnregistrement.length ===
-					0
+				values.droitInterpretation.length +
+				values.droitEnregistrement.length ===
+				0
 			) {
 				toast.warn(t("info.partage.vide"))
 			} else {
@@ -367,13 +367,13 @@ class AssistantPartage extends Component {
 		}
 	}
 
-	Connexion(ouvert = true) {
-		this.setState({ Connexion: ouvert })
+	Connexion(open = true) {
+		this.setState({ Connexion: open })
 	}
 
-	modaleDeclaration(ouvert = true, fn) {
+	modaleDeclaration(open = true, fn) {
 		this.setState({ fnSoumettre: fn }, () => {
-			this.setState({ modaleDeclaration: ouvert })
+			this.setState({ modaleDeclaration: open })
 		})
 	}
 
@@ -389,8 +389,8 @@ class AssistantPartage extends Component {
 		)
 	}
 
-	modaleFin(ouvert = true) {
-		this.setState({ modaleFin: ouvert })
+	modaleFin(open = true) {
+		this.setState({ modaleFin: open })
 	}
 
 	render() {
@@ -701,13 +701,13 @@ class AssistantPartage extends Component {
 					>
 						<div className="modal-navbar">
 							<div className="leftModal">
-								<div className="title" style={{ width: "464px" }}>
+								<div className="title creation">
 									{t("flot.fin.partageCree")}
 								</div>
 							</div>
 
 							<div className="rightModal" style={{ paddingRight: "10px" }}>
-								<div className="close-icon click" onClick={this.props.onClose}>
+								<div className="close-icon click" onClick={() => this.modaleFin(false)}>
 									<img
 										src={closeIcon}
 										alt={"close"}

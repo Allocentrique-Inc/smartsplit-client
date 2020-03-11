@@ -168,10 +168,10 @@ class SommairePartages extends Component {
 										elem.etat === "ACCEPTE"
 											? "sommaire-approuve"
 											: elem.etat === "REFUSE"
-											? "sommaire-desaprouve"
-											: elem.etat === "PRET"
-											? "sommaire-envoie"
-											: "sommaire-attente"
+												? "sommaire-desaprouve"
+												: elem.etat === "PRET"
+													? "sommaire-envoie"
+													: "sommaire-attente"
 									}
 								>
 									{t(`flot.split.etat.${elem.etat}`)}
@@ -187,11 +187,11 @@ class SommairePartages extends Component {
 									&nbsp;&nbsp;
 									{i18n.language && elem._d
 										? moment(
-												new Date(parseInt(elem.creationDate)),
-												moment.defaultFormat
-										  )
-												.locale(i18n.language.substring(0, 2))
-												.fromNow()
+											new Date(parseInt(elem.creationDate)),
+											moment.defaultFormat
+										)
+											.locale(i18n.language.substring(0, 2))
+											.fromNow()
 										: moment(Date.now(), moment.defaultFormat).fromNow()}
 								</span>
 							</div>
@@ -267,7 +267,7 @@ class SommairePartages extends Component {
 						style={{ paddingBottom: "20px", display: "inline" }}
 						className={`small-500${
 							souligneInitiateur ? "-color souligne" : " secondaire"
-						} ${souligneInitiateur && this.state.pochette ? "pochette" : ""}`}
+							} ${souligneInitiateur && this.state.pochette ? "pochette" : ""}`}
 					>
 						<span
 							className={`click`}
@@ -290,9 +290,9 @@ class SommairePartages extends Component {
 						}}
 						className={`small-500${
 							souligneCollaborateur ? "-color souligne" : " secondaire"
-						} ${
+							} ${
 							souligneCollaborateur && this.state.pochette ? "pochette" : ""
-						}`}
+							}`}
 					>
 						<InfoBulle
 							className="proposition"
@@ -341,7 +341,7 @@ class SommairePartages extends Component {
 										<div
 											className={`${
 												this.state.pochette ? "pochette" : "smartsplit"
-											} click`}
+												} click`}
 											onClick={() =>
 												this.fermerInfobulleEditeur(ETAT_EDITEUR_PLUSTARD)
 											}
