@@ -8,7 +8,7 @@ import { TabBar, Tab }     from "../../widgets/tabs"
 import Button              from "../../widgets/button"
 import ProgressBar         from "../../widgets/progress-bar"
 import { DialogModal }     from "../../widgets/modal"
-import { TextField }       from "../../forms"
+import { TextField, RadioGroup, RadioGroupButton } from "../../forms"
 
 import { Colors, Metrics } from "../../theme"
 import ImageIcon           from "../../svg/image"
@@ -81,12 +81,17 @@ export function CreateWorkModal(props) {
 			<Button text="C'est parti!" />
 		</>}
 	>
-		<Group of="component">
-			<Paragraph>Ceci est un example de boîte de dialogue (modale) pour permettre l'ajout d'une oeuvre au système. Je manque déjà d'inspiration pour ce texte inutile mais je dois continuer car je veux au moins quelques lignes pour que ma modale air l'air de quelque chose.</Paragraph>
+		<Group of="group" style={{width: 560}}>
 			<TextField
 				label="Titre de la pièce musicale"
 				undertext="Ne pas include de « featuring » dans le titre"
 			/>
+			
+			<RadioGroup label="Cette oeuvre est...">
+				<RadioGroupButton value="original" label="une création originale" />
+				<RadioGroupButton value="remix"    label="un remix" />
+				<RadioGroupButton value="cover"    label="une reprise (cover)" />
+			</RadioGroup>
 		</Group>
 	</DialogModal>
 }

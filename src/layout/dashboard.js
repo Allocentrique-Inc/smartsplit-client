@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
 	Platform,
 	View,
@@ -12,6 +12,7 @@ import { Text }        from "../text"
 import LayerStyles         from "../styles/layers"
 import MetricsStyles       from "../styles/metrics"
 import { Colors, Metrics } from "../theme"
+import { CheckBox }        from "../forms"
 
 import LogoSmartSplit from "../svg/logo-smartsplit"
 import LinkIcon from "../svg/link"
@@ -90,16 +91,22 @@ export function ProfileBar(props) {
 }
 
 export function Dashboard(props) {
+	const [showSidebar, setSidebar] = useState(true)
+	
 	return <Row style={DashboardStyles.main}>
-		<Sidebar>
+		{showSidebar && <Sidebar>
 			{props.menuItems.map(item => 
 				<SidebarItem {...item} key={item.to} />
 			)}
-		</Sidebar>
+		</Sidebar>}
 		
 		<Column style={DashboardStyles.main}>
 			<ProfileBar>
-				<Text>Profile bar</Text>
+				<CheckBox
+					label="Menu"
+					checked={showSidebar}
+					onChange={setSidebar}
+				/>
 			</ProfileBar>
 			{props.children}
 		</Column>

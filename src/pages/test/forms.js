@@ -1,5 +1,12 @@
 import React, { useState } from "react"
-import { TextField, PasswordField, CheckBox }    from "../../forms"
+import {
+	TextField,
+	PasswordField,
+	CheckBox,
+	RadioButton,
+	RadioGroup,
+	RadioGroupButton,
+} from "../../forms"
 import { Section, Group, Column, Row } from "../../layout"
 import { Heading, Paragraph }          from "../../text"
 
@@ -53,10 +60,25 @@ export default function FormsTest() {
 				checked={testCheckBox1}
 			/>
 			 
-			 <CheckBox
+			<CheckBox
 				label="Cochez moi aussi!"
 				disabled={!testCheckBox1}
 			/>
+			
+			<RadioButton
+				label="Sélectionnez moi!"
+			/>
+			
+			<RadioButton
+				label="Sélectionnez moi à la place!"
+				disabled={!testCheckBox1}
+			/>
+			
+			<RadioGroup label="Choisis une des options suivantes:">
+				<RadioGroupButton value="A" label="Option A" />
+				<RadioGroupButton value="B" label="Option B" onChange={(c, v) => console.log("RADIOBTN", c, v)} />
+				<RadioGroupButton value="C" label="Option C" />
+			</RadioGroup>
 		</Column>
 
 		<Row of="component">

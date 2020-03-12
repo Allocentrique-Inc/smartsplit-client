@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { TouchableWithoutFeedback } from "react-native"
-import { Svg, Rect } from "react-native-svg"
+import { Svg, Rect, Path } from "react-native-svg"
 
 import { Row } from "../layout"
 import { Text } from "../text"
@@ -10,15 +10,15 @@ export default function CheckBox(props) {
 	const { children, label, checked, disabled, onChange } = props
 	const [ checkedState, setCheckedState ] = useState(checked)
 	const actualState = onChange ? checked : checkedState
-	
+
 	function toggle() {
 		if(!disabled)
 			(onChange || setCheckedState)(!actualState)
 	}
-	
+
 	const Check = actualState ? CheckBoxChecked : CheckBoxUnchecked
 	const inside = children || <Text>{label}</Text>
-	
+
 	return <TouchableWithoutFeedback
 		onPress={toggle}
 		hitSlop={Metrics.hitSlop}
@@ -54,7 +54,7 @@ export function CheckBoxUnchecked(props) {
 
 export function CheckBoxChecked(props) {
 	const { disabled, ...nextProps } = props
-	
+
 	return <Svg
 		width="24" height="24"
 		viewBox="0 0 24 24"
@@ -69,7 +69,7 @@ export function CheckBoxChecked(props) {
 			fill={disabled ? Colors.inactive : Colors.action}
 		/>
 
-		<path
+		<Path
 			d="M8 12.75L10.4 15L16 9"
 			stroke={Colors.primary_reversed}
 			strokeWidth="2"

@@ -45,10 +45,10 @@ export const Metrics = {
 
 	// Marge tappable/clickable autour des composantes
 	hitSlop: {
-		top: 16,
-		right: 16,
-		bottom: 16,
-		left: 16,
+		top: 8,
+		right: 8,
+		bottom: 8,
+		left: 8,
 	},
 }
 
