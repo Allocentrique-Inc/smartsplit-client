@@ -27,6 +27,7 @@ export const ModalStyles = StyleSheet.create({
 	medium: {
 		maxWidth: 624,
 		minWidth: 280,
+		borderRadius: Metrics.borderRadius.modals,
 	},
 
 	header: {
@@ -34,10 +35,17 @@ export const ModalStyles = StyleSheet.create({
 		paddingLeft: Metrics.spacing.group,
 		paddingRight: Metrics.spacing.group,
 		alignItems: "center",
+		borderTopLeftRadius: Metrics.borderRadius.modals,
+		borderTopRightRadius: Metrics.borderRadius.modals,
 	},
 
 	header_button: {
 		marginRight: -Metrics.spacing.medium,
+	},
+	
+	buttonBar: {
+		borderBottomLeftRadius: Metrics.borderRadius.modals,
+		borderBottomRightRadius: Metrics.borderRadius.modals,
 	},
 })
 
@@ -95,6 +103,7 @@ export function DialogModal(props) {
 				of="component"
 				layer="overground_moderate"
 				padding="component"
+				style={ModalStyles.buttonBar}
 			>
 				{buttons}
 			</Row>
