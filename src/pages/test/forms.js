@@ -1,9 +1,11 @@
-import React from "react"
-import { TextField, PasswordField }    from "../../forms"
+import React, { useState } from "react"
+import { TextField, PasswordField, CheckBox }    from "../../forms"
 import { Section, Group, Column, Row } from "../../layout"
 import { Heading, Paragraph }          from "../../text"
 
 export default function FormsTest() {
+	const [ testCheckBox1, setTestCheckBox1 ] = useState(false)
+	
 	return <Section of="group">
 		<Column of="component">
 			<Heading level="1">Test des formulaires</Heading>
@@ -42,6 +44,19 @@ export default function FormsTest() {
 				defaultValue="test@smartsplit.org"
 				placeholder="courriel"
 			/>
+		</Column>
+		
+		<Column of="component">
+			<CheckBox
+				label="Cochez moi, cochez moi!"
+				onChange={setTestCheckBox1}
+				checked={testCheckBox1}
+			 />
+			 
+			 <CheckBox
+			 	label="Cochez moi aussi!"
+			 	disabled={!testCheckBox1}
+			 />
 		</Column>
 		
 		<Row of="component">

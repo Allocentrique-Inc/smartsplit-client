@@ -94,39 +94,6 @@ export function CreateWorkModal(props) {
 export default function MyWorksPage() {
 	const [modalOpen, setModal] = useState(false)
 
-	const demo1 =
-		<MediaWorkRow
-			title="Fantôme"
-			artist="Debbie Tebbs"
-			creationDate="2019-11-04"
-			step="2"
-			steps="5"
-			stepName="Partage des droits"
-			progress="35"
-		 />
-
-	const demo2 =
-		<MediaWorkRow
-			title="Sandbox Memories"
-			artist="Inscience, Ghostnaut"
-			creationDate="2018-05-18"
-			step="4"
-			steps="5"
-			stepName="Protège ton oeuvre"
-			progress="85"
-		/>
-
-	const demo3 =
-		<MediaWorkRow
-			title="Votre première chanson"
-			artist="Inscience, Ghostnaut"
-			creationDate="2020-03-01"
-			step="1"
-			steps="5"
-			stepName="Documente ton oeuvre"
-			progress="0"
-		/>
-
 	return <>
 		<CreateWorkModal
 			visible={modalOpen}
@@ -163,3 +130,37 @@ export default function MyWorksPage() {
 		</Group>
 	</>
 }
+
+
+const demo1 =
+	<MediaWorkRow
+		title="Fantôme"
+		artist="Debbie Tebbs"
+		creationDate="2019-11-04"
+		step="2"
+		steps="5"
+		stepName="Partage des droits"
+		progress="35"
+	 />
+
+const demo2 =
+	<MediaWorkRow
+		title="Sandbox Memories"
+		artist="Inscience, Ghostnaut"
+		creationDate="2018-05-18"
+		step="4"
+		steps="5"
+		stepName="Protège ton oeuvre"
+		progress="85"
+	/>
+
+const demo3 =
+	<MediaWorkRow
+		title="Votre première chanson"
+		artist="Inscience, Ghostnaut"
+		creationDate="2020-03-01"
+		step="1"
+		steps="5"
+		stepName="Documente ton oeuvre"
+		progress="0"
+	/>
