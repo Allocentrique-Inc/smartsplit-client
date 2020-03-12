@@ -22,14 +22,10 @@ export default function CheckBox(props) {
 	return <TouchableWithoutFeedback
 		onPress={toggle}
 		hitSlop={Metrics.hitSlop}
+		accessibilityRole="checkbox"
 	>
 		<Row of="inside">
-			<Check
-				onClick={toggle}
-				disabled={disabled}
-				accessibilityRole="checkbox"
-			/>
-			
+			<Check disabled={disabled} />
 			{inside}
 		</Row>
 	</TouchableWithoutFeedback>

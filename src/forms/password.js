@@ -1,5 +1,10 @@
 import React, { useState } from "react"
-import { TextInput, StyleSheet, TouchableWithoutFeedback } from "react-native"
+import {
+	View,
+	TextInput,
+	StyleSheet,
+	TouchableWithoutFeedback
+} from "react-native"
 
 import FormStyles from "../styles/forms"
 import Label from "./label"
@@ -24,16 +29,13 @@ function FramedPasswordField(props) {
 			secureTextEntry={!reveal}
 			{...focused.props}
 		/>
-		
+
 		<TouchableWithoutFeedback
-			onPress={toggleRevealPassword}
 			hitSlop={Metrics.hitSlop}
+			onPress={toggleRevealPassword}
+			accessibilityRole="button"
 		>
-			<EyeIcon
-				blocked={reveal}
-				onClick={toggleRevealPassword}
-				accessibilityRole="button"
-			/>
+			<View><EyeIcon blocked={reveal} /></View>
 		</TouchableWithoutFeedback>
 	</Frame>
 }

@@ -3,7 +3,7 @@ import {
 	Platform,
 	View,
 	StyleSheet,
-	TouchableNativeFeedback
+	TouchableWithoutFeedback
 } from "react-native"
 import { useRouteMatch, useHistory } from "react-router"
 import { Row, Column } from "../layout"
@@ -62,7 +62,6 @@ export function Sidebar(props) {
 
 export function SidebarItem(props) {
 	const Icon = props.icon || LinkIcon
-	const MenuRow = Platform.OS === "web" ? Row : TouchableNativeFeedback
 	const active = useRouteMatch(props.to)
 	const history = useHistory()
 	
@@ -70,21 +69,18 @@ export function SidebarItem(props) {
 		history.push(props.to)
 	}
 
-	return <TouchableNativeFeedback
+	return <TouchableWithoutFeedback
 		style={DashboardStyles.menu_touchable}
 		onPress={activate}
+		accessibilityRole="button"
 	>
-		<Row
-			style={DashboardStyles.menu_item}
-			accessibilityRole="button"
-			onClick={activate}
-		>
+		<Row style={DashboardStyles.menu_item}>
 			<View style={MetricsStyles.components.component}>
 				<Icon color={active ? Colors.action : Colors.inactive} />
 			</View>
 			<Text reversed bold={active}>{props.text}</Text>
 		</Row>
-	</TouchableNativeFeedback>
+	</TouchableWithoutFeedback>
 }
 
 export function ProfileBar(props) {

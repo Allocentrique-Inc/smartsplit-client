@@ -5,16 +5,16 @@ import { Heading, Paragraph }          from "../../text"
 
 export default function FormsTest() {
 	const [ testCheckBox1, setTestCheckBox1 ] = useState(false)
-	
+
 	return <Section of="group">
 		<Column of="component">
 			<Heading level="1">Test des formulaires</Heading>
-			
+
 			<Paragraph>Cette page a pour but de démontrer les différentes composantes de formulaire et mise en page utilisées dans les formulaires à travers le site</Paragraph>
-			
+
 			<Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper elit et tortor consequat dignissim vehicula id tortor. Praesent tincidunt elementum tellus, quis tristique felis mollis at. Vestibulum pellentesque laoreet lectus, quis ultrices eros vehicula non. Mauris convallis ultricies placerat.</Paragraph>
 		</Column>
-		
+
 		<Column of="component">
 			<Row of="component">
 				<TextField
@@ -23,7 +23,7 @@ export default function FormsTest() {
 					defaultValue="Testing"
 					placeholder="prénom"
 				/>
-				
+
 				<TextField
 					label="Nom"
 					defaultValue="Test"
@@ -36,7 +36,7 @@ export default function FormsTest() {
 				undertext="Lettres et caractères spéciaux"
 				placeholder="correct horse battery staple"
 			/>
-	
+
 			<TextField
 				label="Adresse courriel"
 				label_hint="Requis"
@@ -45,20 +45,20 @@ export default function FormsTest() {
 				placeholder="courriel"
 			/>
 		</Column>
-		
+
 		<Column of="component">
 			<CheckBox
 				label="Cochez moi, cochez moi!"
 				onChange={setTestCheckBox1}
 				checked={testCheckBox1}
-			 />
+			/>
 			 
 			 <CheckBox
-			 	label="Cochez moi aussi!"
-			 	disabled={!testCheckBox1}
-			 />
+				label="Cochez moi aussi!"
+				disabled={!testCheckBox1}
+			/>
 		</Column>
-		
+
 		<Row of="component">
 			<TextField
 				label="Test avec un très long titre qui clairement n'entre pas"
@@ -74,7 +74,7 @@ export default function FormsTest() {
 				defaultValue="Test"
 				placeholder="nom"
 			/>
-			
+
 			<TextField
 				label="Test avec un très long titre"
 				undertext="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper elit et tortor consequat dignissim vehicula id tortor. Praesent tincidunt elementum tellus, quis tristique felis mollis at. Vestibulum pellentesque laoreet lectus, quis ultrices eros vehicula non. Mauris convallis ultricies placerat."
