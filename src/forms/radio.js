@@ -20,7 +20,6 @@ export function RadioGroup(props) {
 		value: actualValue,
 		disabled,
 		onChange: function(value) {
-			console.log("RADIO", value)
 			if(!disabled)
 				(onChange || setValueState)(value)
 		}
