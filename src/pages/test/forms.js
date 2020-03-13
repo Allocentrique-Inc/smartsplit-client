@@ -1,14 +1,18 @@
 import React, { useState } from "react"
+import { View } from "react-native"
 import {
+	LabelText,
 	TextField,
 	PasswordField,
 	CheckBox,
 	RadioButton,
 	RadioGroup,
 	RadioGroupButton,
+	Select,
 } from "../../forms"
-import { Section, Group, Column, Row } from "../../layout"
-import { Heading, Paragraph }          from "../../text"
+import { Section, Group, Column, Row, Hairline } from "../../layout"
+import { Heading, Paragraph }                    from "../../text"
+import { Dropdown }                              from "../../widgets/dropdown"
 
 export default function FormsTest() {
 	const [ testCheckBox1, setTestCheckBox1 ] = useState(false)
@@ -52,34 +56,55 @@ export default function FormsTest() {
 				placeholder="courriel"
 			/>
 		</Column>
+		
+		<Row of="component">
+			<Dropdown
+				placeholder="Sélectionnez..."
+				style={{flex: 1}}
+			>
+				<Column of="component" layer="overground_moderate" spacer={Hairline} padding="group">
+					<Heading level="4">Un dropdown simple</Heading>
+					<Paragraph>Ce dropdown ne gère aucun état ou sélection: on est libre d'y mettre ce qu'on veut à l'intérieur. Pour un dropdown de sélection, ou autocomplete, voir: Select, AutocompleteField.</Paragraph>
+				</Column>
+			</Dropdown>
+			<View style={{flex: 1}} />
+		</Row>
 
-		<Column of="component">
-			<CheckBox
-				label="Cochez moi, cochez moi!"
-				onChange={setTestCheckBox1}
-				checked={testCheckBox1}
-			/>
-			 
-			<CheckBox
-				label="Cochez moi aussi!"
-				disabled={!testCheckBox1}
-			/>
+		<Row of="component">
+			<Column of="component" style={{flex: 1}}>
+				<RadioGroup label="Choisis une des options suivantes:">
+					<RadioGroupButton value="A" label="Option A" />
+					<RadioGroupButton value="B" label="Option B" />
+					<RadioGroupButton value="C" label="Option C" />
+				</RadioGroup>
+			</Column>
 			
-			<RadioButton
-				label="Sélectionnez moi!"
-			/>
+			<Column of="component" style={{flex: 1}}>
+				<LabelText>Cases à cocher seules </LabelText>
+				<CheckBox
+					label="Cochez moi, cochez moi!"
+					onChange={setTestCheckBox1}
+					checked={testCheckBox1}
+				/>
+				 
+				<CheckBox
+					label="Cochez moi aussi!"
+					disabled={!testCheckBox1}
+				/>
+			</Column>
 			
-			<RadioButton
-				label="Sélectionnez moi à la place!"
-				disabled={!testCheckBox1}
-			/>
-			
-			<RadioGroup label="Choisis une des options suivantes:">
-				<RadioGroupButton value="A" label="Option A" />
-				<RadioGroupButton value="B" label="Option B" onChange={(c, v) => console.log("RADIOBTN", c, v)} />
-				<RadioGroupButton value="C" label="Option C" />
-			</RadioGroup>
-		</Column>
+			<Column of="component" style={{flex: 1}}>
+				<LabelText>Boutons radios seuls</LabelText>
+				<RadioButton
+					label="Sélectionnez moi!"
+				/>
+				
+				<RadioButton
+					label="Sélectionnez moi à la place!"
+					disabled={!testCheckBox1}
+				/>
+			</Column>
+		</Row>
 
 		<Row of="component">
 			<TextField

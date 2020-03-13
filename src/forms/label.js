@@ -5,10 +5,21 @@ import { Text } from "../text"
 
 const UNDERTEXT_DEFAULT_LINES = 4
 
+export function labelProps(props) {
+	const {
+		label,
+		label_hint,
+		undertext,
+		undertext_lines,
+		...nextProps
+	} = props
+	
+	return nextProps
+}
+
 export default function Label(props) {
 	const {
 		style,
-		of,
 		childStyle,
 		label,
 		label_hint,
@@ -24,7 +35,7 @@ export default function Label(props) {
 		? <ChildComponent {...childProps} style={childStyle} />
 		: children
 	
-	return <Column of={of || "inside"} style={[FormStyles.label_wrap, style]}>
+	return <Column of="inside" style={[FormStyles.label_wrap, style]}>
 		{(label || label_hint) && (
 			<Row of="component">
 				<Text bold style={FormStyles.label} numberOfLines={1}>{label}</Text>
@@ -42,4 +53,12 @@ export default function Label(props) {
 			>{undertext}</Text>
 		)}
 	</Column>
+}
+
+export function LabelText(props) {
+	return <Text
+		bold
+		style={FormStyles.label}
+		numberOfLines={1}
+	>{props.children}</Text>
 }

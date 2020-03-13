@@ -21,7 +21,6 @@ export function Text(props) {
 	const styles = [
 		TypographyStyles.text.base,
 		TypographyStyles.text[small ? "small" : "medium"],
-		style
 	]
 	
 	if(heavy)
@@ -35,6 +34,9 @@ export function Text(props) {
 	
 	if(secondary)
 		styles.push(TypographyStyles.text.secondary)
+	
+	if(style)
+		styles.push(style)
 	
 	return <TextView style={styles} {...nextProps}>{props.children}</TextView>
 }
