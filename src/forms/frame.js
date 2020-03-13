@@ -4,13 +4,21 @@ import FormStyles from "../styles/forms"
 import MetricsStyles from "../styles/metrics"
 
 export default function Frame(props) {
+	const { focused, style, children, viewRef, ...nextProps } = props
+	
 	const combinedStyles = [
 		FormStyles.frame,
-		props.focused ? FormStyles.frame_focused : null,
-		props.style,
+		focused ? FormStyles.frame_focused : null,
+		style,
 	]
-
-	return <View style={combinedStyles}>{props.children}</View>
+	
+	if(viewRef)
+		nextProps.ref = viewRef
+		
+	return <View
+		style={combinedStyles}
+		{...nextProps}
+	>{children}</View>
 }
 
 export function useFrameFocus(initialFocus = false) {

@@ -23,21 +23,49 @@ import ArrowUp   from "../svg/arrow-up"
  * Ce dropdown ne fait *pas* de sélection: voir `../forms/select` pour ça.
  */
 export function Dropdown(props) {
-	const { placeholder, children, ...nextProps } = props
-	const [ dropdownOpen, setDropdownOpen ] = useState(false)
-	const [ menuPosition, setMenuPosition ] = useState({})
+	const {
+		placeholder,
+		children,
+		onOpenClose,
+		positionAdjust,
+		dropdownControl,
+		...nextProps
+	} = {
+		...props,
+		positionAdjust: {
+			x: 0, y: 0,
+			width: 0, height: 0,
+			...props.positionAdjust
+		},
+		placeholder: typeof props.placeholder === "string"
+			? <Text secondary style={{flex: 1}}>{props.placeholder}</Text>
+			: props.placeholder
+		,
+	}
+	
+	const [ dropdownOpen,   setDropdownOpen ]   = useState(false)
+	const [ menuPosition,   setMenuPosition ]   = useState({})
 	const [ dropdownHeight, setDropdownHeight ] = useState(0)
+	
 	const Arrow = dropdownOpen ? ArrowUp : ArrowDown
 	const frame = React.createRef()
+	
+	if(dropdownControl)
+		dropdownControl(setDropdownOpen)
 	
 	function toggleMenu() {
 		if(!dropdownOpen)
 			getAbsolutePosition(frame.current, function(pos) {
-				pos.y += dropdownHeight - 1
-				setMenuPosition(pos)
+				setMenuPosition({
+					x:      pos.x      + positionAdjust.x,
+					y:      pos.y      + positionAdjust.y + dropdownHeight - 1,
+					width:  pos.width  + positionAdjust.width,
+					height: pos.height + positionAdjust.height,
+				})
 			})
 		
 		setDropdownOpen(!dropdownOpen)
+		onOpenClose && onOpenClose(!dropdownOpen)
 	}
 	
 	function onLayout(event) {
@@ -47,7 +75,7 @@ export function Dropdown(props) {
 	return <TouchableWithoutFeedback onPress={toggleMenu}>
 		<View ref={frame} onLayout={onLayout} style={{flex: 1}}>
 			<Row of="inside">
-				<Text secondary style={{flex: 1}}>{placeholder}</Text>
+				{placeholder}
 				<Arrow />
 			</Row>
 			
@@ -101,3 +129,5 @@ const getAbsolutePosition = Platform.select({
 	android: getAbsolutePositionNative,
 	ios: getAbsolutePositionNative
 })
+
+export default Dropdown

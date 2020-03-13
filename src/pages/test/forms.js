@@ -8,11 +8,11 @@ import {
 	RadioButton,
 	RadioGroup,
 	RadioGroupButton,
+	Dropdown,
 	Select,
 } from "../../forms"
 import { Section, Group, Column, Row, Hairline } from "../../layout"
 import { Heading, Paragraph }                    from "../../text"
-import { Dropdown }                              from "../../widgets/dropdown"
 
 export default function FormsTest() {
 	const [ testCheckBox1, setTestCheckBox1 ] = useState(false)
@@ -59,15 +59,26 @@ export default function FormsTest() {
 		
 		<Row of="component">
 			<Dropdown
+				label="Dropdown simple"
 				placeholder="Sélectionnez..."
 				style={{flex: 1}}
 			>
-				<Column of="component" layer="overground_moderate" spacer={Hairline} padding="group">
+				<Column of="component" layer="overground_moderate" padding="component">
 					<Heading level="4">Un dropdown simple</Heading>
 					<Paragraph>Ce dropdown ne gère aucun état ou sélection: on est libre d'y mettre ce qu'on veut à l'intérieur. Pour un dropdown de sélection, ou autocomplete, voir: Select, AutocompleteField.</Paragraph>
 				</Column>
 			</Dropdown>
-			<View style={{flex: 1}} />
+			
+			<Select
+				label="Champ de sélection"
+				placeholder="Sélectionnez..."
+				style={{flex: 1}}
+				options={[
+					{ key: "A", value: "Option A" },
+					{ key: "B", value: "Option B" },
+					{ key: "C", value: "Option C" },
+				]}
+			/>
 		</Row>
 
 		<Row of="component">

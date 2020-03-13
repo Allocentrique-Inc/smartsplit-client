@@ -37,6 +37,26 @@ const FormStyles = StyleSheet.create({
 	undertext: {
 
 	},
+	
+	select_menu: {
+		borderBottomLeftRadius: Metrics.borderRadius.forms,
+		borderBottomRightRadius: Metrics.borderRadius.forms,
+		borderLeftWidth: 1,
+		borderRightWidth: 1,
+		borderBottomWidth: 1,
+		borderColor: Colors.action,
+		backgroundColor: Colors.background.ground,
+	},
+	
+	select_item: {
+		padding: Metrics.spacing.inside,
+		borderColor: Colors.stroke,
+		borderTopWidth: 1,
+	},
+	
+	select_item_selected: {
+		backgroundColor: Colors.background.underground,
+	},
 })
 
 export default FormStyles

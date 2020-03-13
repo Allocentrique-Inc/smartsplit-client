@@ -38,7 +38,7 @@ export default function Label(props) {
 	return <Column of="inside" style={[FormStyles.label_wrap, style]}>
 		{(label || label_hint) && (
 			<Row of="component">
-				<Text bold style={FormStyles.label} numberOfLines={1}>{label}</Text>
+				<LabelText>{label}</LabelText>
 				<Text style={FormStyles.label_hint}>{label_hint}</Text>
 			</Row>
 		)}

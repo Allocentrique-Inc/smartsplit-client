@@ -3,6 +3,8 @@ import TextField     from "./text"
 import PasswordField from "./password"
 import CheckBox      from "./checkbox"
 import { RadioButton, RadioGroup, RadioGroupButton } from "./radio"
+import Dropdown      from "./dropdown"
+import Select        from "./select"
 
 export {
 	LabelText,
@@ -12,4 +14,6 @@ export {
 	RadioButton,
 	RadioGroup,
 	RadioGroupButton,
+	Dropdown,
+	Select,
 }
