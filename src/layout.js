@@ -17,6 +17,9 @@ function composeView(props, ...stylesheets) {
 		newChildren = []
 		
 		React.Children.forEach(children, (child, index) => {
+			if(!child)
+				return // ne pas générer d'espacement entre du vide!
+			
 			newChildren.push(child)
 			newChildren.push(<SpacerImpl key={"spacer-" + index} of={of} />)
 		})
