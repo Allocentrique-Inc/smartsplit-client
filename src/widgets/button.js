@@ -1,6 +1,7 @@
 import React from "react"
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
 import { Text } from "../text"
+import { Row } from "../layout"
 import { Colors, Metrics } from "../theme"
 
 export const ButtonStyles = StyleSheet.create({
@@ -40,6 +41,12 @@ export const ButtonStyles = StyleSheet.create({
 	frame_secondary: {
 		borderColor: Colors.action,
 		borderWidth: 1
+	},
+	
+	text_container: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
 	},
 
 	text_primary: {
@@ -91,17 +98,19 @@ export default function Button(props) {
 	if(!content) {
 		content = <>
 			{props.icon}
-			{props.text && <Text
-				heavy
-				small={props.small}
-				style={textStyle}
-			>{props.text}</Text>}
+			{props.text && <View style={ButtonStyles.text_container}>
+				<Text
+					heavy
+					small={props.small}
+					style={textStyle}
+				>{props.text}</Text>
+			</View>}
 		</>
 	}
 
 	return <TouchableWithoutFeedback onPress={props.onClick}>
-		<View style={[frameStyle, props.style]} onClick={props.onClick}>
+		<Row of="component" style={[frameStyle, props.style]} onClick={props.onClick}>
 			{content}
-		</View>
+		</Row>
 	</TouchableWithoutFeedback>
 }

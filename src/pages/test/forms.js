@@ -13,6 +13,8 @@ import {
 } from "../../forms"
 import { Section, Group, Column, Row, Hairline } from "../../layout"
 import { Heading, Paragraph }                    from "../../text"
+import Button from "../../widgets/button"
+import FacebookIcon from "../../svg/facebook"
 
 export default function FormsTest() {
 	const [ testCheckBox1, setTestCheckBox1 ] = useState(false)
@@ -54,6 +56,12 @@ export default function FormsTest() {
 				undertext="Entrez votre adresse courriel ici."
 				defaultValue="test@smartsplit.org"
 				placeholder="courriel"
+			/>
+			
+			<Button
+				style={{backgroundColor: "#4267B2"}}
+				icon={<FacebookIcon />}
+				text="Connexion avec Facebook"
 			/>
 		</Column>
 		
