@@ -10,6 +10,7 @@ import {
 	RadioGroupButton,
 	Dropdown,
 	Select,
+	AutoCompleteField,
 } from "../../forms"
 import { Section, Group, Column, Row, Hairline } from "../../layout"
 import { Heading, Paragraph }                    from "../../text"
@@ -58,18 +59,6 @@ export default function FormsTest() {
 				defaultValue="test@smartsplit.org"
 				placeholder="courriel"
 			/>
-			
-			<Button
-				style={{backgroundColor: "#4267B2"}}
-				icon={<FacebookIcon />}
-				text="Connexion avec Facebook"
-			/>
-			
-			<Button
-				style={{backgroundColor: "#4285F4"}}
-				icon={<GoogleIcon />}
-				text="Continuer avec Google"
-			/>
 		</Column>
 		
 		<Row of="component">
@@ -93,6 +82,14 @@ export default function FormsTest() {
 					{ key: "B", value: "Option B" },
 					{ key: "C", value: "Option C" },
 				]}
+			/>
+		</Row>
+		
+		<Row of="component">
+			<AutoCompleteField
+				label="Auto-complétion (sélection unique)"
+				undertext="Permet de chercher et autocompléter un champ"
+				placeholder="Artiste ou groupe"
 			/>
 		</Row>
 
@@ -130,6 +127,20 @@ export default function FormsTest() {
 					disabled={!testCheckBox1}
 				/>
 			</Column>
+		</Row>
+		
+		<Row of="component">
+			<Button
+				style={{backgroundColor: "#4267B2"}}
+				icon={<FacebookIcon />}
+				text="Connexion avec Facebook"
+			/>
+			
+			<Button
+				style={{backgroundColor: "#4285F4"}}
+				icon={<GoogleIcon />}
+				text="Continuer avec Google"
+			/>
 		</Row>
 
 		<Row of="component">

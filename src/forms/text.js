@@ -8,12 +8,18 @@ function TextFieldRender(props) {
 	const focused = useFrameFocus()
 
 	return <Frame focused={focused.value}>
-		<TextInput
-			{...props}
-			style={FormStyles.input_text}
-			{...focused.props}
-		/>
+		<BasicTextField {...props} {...focused.props} />
 	</Frame>
+}
+
+export function BasicTextField(props) {
+	const { viewRef, ...nextProps } = props
+	
+	return <TextInput
+		{...nextProps}
+		style={[FormStyles.input_text, props.style]}
+		ref={viewRef}
+	/>
 }
 
 export default function TextField(props) {

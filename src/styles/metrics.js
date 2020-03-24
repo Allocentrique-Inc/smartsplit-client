@@ -18,7 +18,8 @@ for(let [key, value] of Object.entries(Metrics.spacing)) {
 const Spacings = {}
 for(let [key, value] of Object.entries(Metrics.spacing)) {
 	Spacings[key] = {
-		flexBasis: value
+		width:  value,
+		height: value,
 	}
 }
 

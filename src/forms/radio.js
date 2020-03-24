@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { TouchableWithoutFeedback } from "react-native"
+import { View, TouchableWithoutFeedback } from "react-native"
 import { Svg, Rect } from "react-native-svg"
 
 import { Column, Row } from "../layout"
@@ -91,6 +91,7 @@ export function RadioButtonSvg(props) {
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
+		style={FormStyles.checkbox_svg}
 	>
 		<Rect
 			x="3.5" y="3.5"

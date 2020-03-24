@@ -5,7 +5,16 @@ import LayoutStyles from "./styles/layout"
 import LayerStyles from "./styles/layers"
 
 function composeView(props, ...stylesheets) {
-	const { style, children, of, spacer, layer, padding, ...nextProps } = {
+	const {
+		style,
+		flex,
+		children,
+		of,
+		spacer,
+		layer,
+		padding,
+		...nextProps
+	} = {
 		spacer: Spacer,
 		...props
 	}
@@ -34,6 +43,7 @@ function composeView(props, ...stylesheets) {
 			style,
 			LayerStyles[layer || ""],
 			MetricsStyles.padding[padding || ""],
+			typeof flex === "number" ? {flex} : null
 		]}
 	>{newChildren}</View>
 }

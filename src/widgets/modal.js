@@ -3,11 +3,10 @@ import {
 	Platform,
 	View,
 	ScrollView,
-	Modal as NativeModal,
 	StyleSheet
 } from "react-native"
-import WebModal from "modal-react-native-web"
 
+import { Overlay }           from "../portals"
 import { Row, Column, Flex } from "../layout"
 import { Heading }           from "../text"
 import Button                from "./button"
@@ -17,13 +16,15 @@ import MetricsStyles         from "../styles/metrics"
 import { Metrics }           from "../theme"
 import XIcon                 from "../svg/x"
 
-export const ModalImpl = Platform.select({
-	web: WebModal,
-	ios: NativeModal,
-	android: NativeModal
-})
-
 export const ModalStyles = StyleSheet.create({
+	background: {
+		position: "absolute",
+		left: 0,
+		top: 0,
+		right: 0,
+		bottom: 0,
+	},
+	
 	medium: {
 		maxWidth: 624,
 		minWidth: 280,
@@ -49,31 +50,25 @@ export const ModalStyles = StyleSheet.create({
 	},
 })
 
-export function Modal(props) {
-	const { layer, visible, ...nextProps } = props
-
-	if(!visible)
-		return null
-
-	return <ModalImpl
-		isVisible={visible}
-		visible={visible}
-		animationType="fade"
-		transparent
-		{...nextProps}
-	>
-		<View style={[
-			LayoutStyles.centerContent,
-			LayerStyles.modal_background
-		]}>
+export class Modal extends React.PureComponent {
+	render() {
+		const { layer, children, ...nextProps } = this.props
+		
+		return <Overlay {...nextProps}>
 			<View style={[
-				LayerStyles[layer || "modal"],
-				MetricsStyles.components.group,
+				LayoutStyles.centerContent,
+				LayerStyles.modal_background,
+				ModalStyles.background,
 			]}>
-				{props.children}
+				<View style={[
+					LayerStyles[layer || "modal"],
+					MetricsStyles.components.group,
+				]}>
+					{children}
+				</View>
 			</View>
-		</View>
-	</ModalImpl>
+		</Overlay>
+	}
 }
 
 export function DialogModal(props) {

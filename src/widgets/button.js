@@ -6,15 +6,18 @@ import { Colors, Metrics } from "../theme"
 
 export const ButtonStyles = StyleSheet.create({
 	frame: {
+		alignItems: "center",
+		justifyContent: "center",
+		flexDirection: "row",
+	},
+	
+	frame_medium: {
 		borderRadius: Metrics.borderRadius.forms,
 		height: Metrics.size.medium,
 		paddingTop: Metrics.spacing.small,
 		paddingBottom: Metrics.spacing.small,
 		paddingLeft: Metrics.spacing.medium,
 		paddingRight: Metrics.spacing.medium,
-		alignItems: "center",
-		justifyContent: "center",
-		flexDirection: "row",
 	},
 
 	frame_small: {
@@ -24,9 +27,6 @@ export const ButtonStyles = StyleSheet.create({
 		paddingBottom: Metrics.spacing.tiny,
 		paddingLeft: Metrics.spacing.small,
 		paddingRight: Metrics.spacing.small,
-		alignItems: "center",
-		justifyContent: "center",
-		flexDirection: "row",
 	},
 
 	frame_icon: {
@@ -67,8 +67,24 @@ export const ButtonStyles = StyleSheet.create({
 	},
 })
 
-export default function Button(props) {
-	let frameStyle = [ButtonStyles[props.small ? "frame_small" : "frame"]]
+ButtonStyles.frame_round = {}
+
+for(let size in Metrics.size) {
+	ButtonStyles.frame_round[size] = {
+		width:  Metrics.size[size],
+		height: Metrics.size[size],
+		borderRadius: Metrics.size[size] / 2,
+	}
+}
+		
+ButtonStyles.frame_round = StyleSheet.create(ButtonStyles.frame_round)
+
+
+export function Button(props) {
+	let frameStyle = [
+		ButtonStyles.frame,
+		ButtonStyles[props.small ? "frame_small" : "frame_medium"]
+	]
 	let textStyle  = []
 	let content    = props.children
 
@@ -109,8 +125,22 @@ export default function Button(props) {
 	}
 
 	return <TouchableWithoutFeedback onPress={props.onClick}>
-		<Row of="component" style={[frameStyle, props.style]} onClick={props.onClick}>
+		<Row of="component" style={[frameStyle, props.style]}>
 			{content}
 		</Row>
 	</TouchableWithoutFeedback>
 }
+
+export function RoundButton(props) {
+	const buttonStyles = [
+		ButtonStyles.frame,
+		ButtonStyles.frame_primary,
+		ButtonStyles.frame_round[props.size] || ButtonStyles.frame_round.medium
+	]
+	
+	return <TouchableWithoutFeedback onPress={props.onClick}>
+		<View style={buttonStyles}>{props.children}</View>
+	</TouchableWithoutFeedback>
+}
+
+export default Button

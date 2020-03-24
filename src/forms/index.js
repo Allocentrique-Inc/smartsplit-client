@@ -5,6 +5,7 @@ import CheckBox      from "./checkbox"
 import { RadioButton, RadioGroup, RadioGroupButton } from "./radio"
 import Dropdown      from "./dropdown"
 import Select        from "./select"
+import AutoCompleteField from "./autocomplete"
 
 export {
 	LabelText,
@@ -16,4 +17,5 @@ export {
 	RadioGroupButton,
 	Dropdown,
 	Select,
+	AutoCompleteField,
 }

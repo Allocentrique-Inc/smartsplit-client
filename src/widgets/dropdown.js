@@ -10,7 +10,7 @@ import {
 
 import { Row }  from "../layout"
 import { Text } from "../text"
-import { ModalImpl as Modal } from "./modal"
+import { Overlay } from "../portals"
 import { Colors, Metrics } from "../theme"
 
 import ArrowDown from "../svg/arrow-down"
@@ -25,8 +25,11 @@ import ArrowUp   from "../svg/arrow-up"
 export function Dropdown(props) {
 	const {
 		placeholder,
+		noPlaceholderPress,
 		children,
-		onOpenClose,
+		open,
+		onFocus,
+		onBlur,
 		positionAdjust,
 		dropdownControl,
 		...nextProps
@@ -46,15 +49,12 @@ export function Dropdown(props) {
 	const [ dropdownOpen,   setDropdownOpen ]   = useState(false)
 	const [ menuPosition,   setMenuPosition ]   = useState({})
 	const [ dropdownHeight, setDropdownHeight ] = useState(0)
+	const actualDropdownOpen = open !== undefined ? open : dropdownOpen
 	
-	const Arrow = dropdownOpen ? ArrowUp : ArrowDown
 	const frame = React.createRef()
 	
-	if(dropdownControl)
-		dropdownControl(setDropdownOpen)
-	
 	function toggleMenu() {
-		if(!dropdownOpen)
+		if(!actualDropdownOpen)
 			getAbsolutePosition(frame.current, function(pos) {
 				setMenuPosition({
 					x:      pos.x      + positionAdjust.x,
@@ -64,28 +64,62 @@ export function Dropdown(props) {
 				})
 			})
 		
-		setDropdownOpen(!dropdownOpen)
-		onOpenClose && onOpenClose(!dropdownOpen)
+		setDropdownOpen(!actualDropdownOpen)
+		
+		if(actualDropdownOpen && onBlur)
+			onBlur()
+		else if(onFocus)
+			onFocus()
+	}
+	
+	function onClose() {
+		setDropdownOpen(false)
+		
+		if(onBlur)
+			onBlur()
 	}
 	
 	function onLayout(event) {
 		setDropdownHeight(event.nativeEvent.layout.height)
 	}
 	
-	return <TouchableWithoutFeedback onPress={toggleMenu}>
-		<View ref={frame} onLayout={onLayout} style={{flex: 1}}>
+	return <View ref={frame} onLayout={onLayout} style={{flex: 1}}>
+		<DropdownRow
+			noPlaceholderPress={noPlaceholderPress}
+			onPress={toggleMenu}
+			placeholder={placeholder}
+			arrow={actualDropdownOpen ? ArrowUp : ArrowDown}
+		/>
+		
+		<DropdownModal
+			visible={actualDropdownOpen}
+			onClose={onClose}
+			position={menuPosition}
+		>{children}</DropdownModal>
+	</View>
+}
+
+function DropdownRow(props) {
+	const Arrow = props.arrow
+	
+	if(props.noPlaceholderPress)
+		return <Row of="inside">
+			{props.placeholder}
+			
+			<TouchableWithoutFeedback
+				onPress={props.onPress}
+				hitSlop={Metrics.hitSlop}
+			>
+				<View><Arrow /></View>
+			</TouchableWithoutFeedback>
+		</Row>
+	else
+		return <TouchableWithoutFeedback onPress={props.onPress}>
 			<Row of="inside">
-				{placeholder}
+				{props.placeholder}
 				<Arrow />
 			</Row>
-			
-			<DropdownModal
-				visible={dropdownOpen}
-				onClose={toggleMenu}
-				position={menuPosition}
-			>{children}</DropdownModal>
-		</View>
-	</TouchableWithoutFeedback>
+		</TouchableWithoutFeedback>
 }
 
 function DropdownModal(props) {
@@ -96,15 +130,11 @@ function DropdownModal(props) {
 		width: props.position.width,
 	}
 		
-	return <Modal
-		visible={props.visible}
-		onRequestClose={props.onClose}
-		transparent
-	>
+	return <Overlay visible={props.visible}>
 		<View style={positionStyle}>
 			{props.children}
 		</View>
-	</Modal>
+	</Overlay>
 }
 
 function getAbsolutePositionWeb(ref, cb) {

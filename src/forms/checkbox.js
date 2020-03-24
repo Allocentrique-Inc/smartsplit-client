@@ -5,6 +5,7 @@ import { Svg, Rect, Path } from "react-native-svg"
 import { Row } from "../layout"
 import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
+import FormStyles from "../styles/forms"
 
 export default function CheckBox(props) {
 	const { children, label, checked, disabled, onChange } = props
@@ -25,7 +26,7 @@ export default function CheckBox(props) {
 		accessibilityRole="checkbox"
 	>
 		<Row of="inside">
-			<Check disabled={disabled} />
+			<Check disabled={disabled} style={FormStyles.checkbox_svg} />
 			{inside}
 		</Row>
 	</TouchableWithoutFeedback>

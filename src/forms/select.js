@@ -12,15 +12,18 @@ export default function Select(props) {
 		initialValue,
 		options,
 		onChange,
+		onFocus,
+		onBlur,
+		open,
 		children,
 		...nextProps
 	} = props
 	
-	const [ valueState, setValueState ] = useState(initialValue)
-	const dropdownRef = React.createRef()
-	const actualValue = value || valueState
-	let setDropdownOpen
+	const [ dropdownOpen, setDropdownOpen ] = useState(false)
+	const actualOpen = open !== undefined ? open : dropdownOpen
 	
+	const [ valueState, setValueState ] = useState(initialValue)
+	const actualValue = value || valueState	
 	
 	let placeholderElement = options && options.find(o => o.key === actualValue)
 	
@@ -43,11 +46,12 @@ export default function Select(props) {
 		setDropdownOpen(false)
 	}
 	
-	
 	return <Dropdown
 		{...nextProps}
-		dropdownControl={control => setDropdownOpen = control}
 		placeholder={placeholderElement}
+		open={actualOpen}
+		onFocus={() => setDropdownOpen(true)}
+		onBlur={() => setDropdownOpen(false)}
 	>
 		<SelectMenu
 			options={options}

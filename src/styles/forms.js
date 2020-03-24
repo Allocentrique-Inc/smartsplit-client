@@ -38,6 +38,12 @@ const FormStyles = StyleSheet.create({
 
 	},
 	
+	checkbox_svg: {
+		minWidth: 24,
+		minHeight: 24,
+		flexBasis: 24,
+	},
+	
 	select_menu: {
 		borderBottomLeftRadius: Metrics.borderRadius.forms,
 		borderBottomRightRadius: Metrics.borderRadius.forms,
