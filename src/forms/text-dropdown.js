@@ -1,63 +1,63 @@
-import React, { useState } from "react"
+import React from "react"
 import Dropdown from "./dropdown"
 import { BasicTextField } from "./text"
 
-export default function TextDropdown(props) {
-	const {
-		placeholder,
-		currentItem,
-		children,
-		inputProps,
-		onFocus,
-		onBlur,
-		onChangeText,
-		onKeyPress,
-		...nextProps
-	} = props
-	
-	const [focused, setFocused] = useState(false)
-	const inputRef = React.createRef()
-	
-	function handleOnFocus(event) {
-		console.log("FOCUS", event)
+export default class TextDropdown extends React.PureComponent {
+	constructor(props) {
+		super(props)
+		this.state = {
+			focused: props.focused
+		}
 		
-		inputRef.current.focus()
-		
-		if(onFocus)
-			onFocus()
-		
-		setFocused(true)
+		this.input = React.createRef()
 	}
 	
-	function handleOnBlur(event) {
-		console.log("BLUR", event)
+	handleOnBlur = () => {
+		this.input.current.blur()
+		this.setState({focused: false})
 		
-		inputRef.current.blur()
-		
-		if(onBlur)
-			onBlur()
-		
-		setFocused(false)
+		if(this.props.onBlur)
+			this.props.onBlur()
 	}
 	
-	const searchInput = <BasicTextField
-		placeholder={placeholder}
-		onChangeText={onChangeText}
-		onKeyPress={onKeyPress}
-		onBlur={handleOnBlur}
-		onFocus={handleOnFocus}
-		viewRef={inputRef}
-		{...inputProps}
-	/>
+	handleOnFocus = () => {
+		this.input.current.focus()
+		this.setState({focused: true})
+		
+		if(this.props.onFocus)
+			this.props.onFocus()
+	}
 	
-	return <Dropdown
-		{...nextProps}
-		placeholder={searchInput}
-		onOpenClose={setFocused}
-		open={focused}
-		onBlur={handleOnBlur}
-		onFocus={handleOnFocus}
-	>
-		{children}
-	</Dropdown>
+	render() {
+		const {
+			placeholder,
+			children,
+			inputProps,
+			onFocus,
+			onBlur,
+			onChangeText,
+			onKeyPress,
+			...nextProps
+		} = this.props
+		
+		const searchInput = <BasicTextField
+			placeholder={placeholder}
+			onChangeText={onChangeText}
+			onKeyPress={onKeyPress}
+			onBlur={this.handleOnBlur}
+			onFocus={this.handleOnFocus}
+			viewRef={this.input}
+			{...inputProps}
+		/>
+		
+		return <Dropdown
+			{...nextProps}
+			placeholder={searchInput}
+			open={this.state.focused}
+			onBlur={this.handleOnBlur}
+			onFocus={this.handleOnFocus}
+		>
+			{children}
+		</Dropdown>
+	}
 }

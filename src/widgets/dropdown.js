@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import {
 	Platform,
 	findNodeHandle,
@@ -10,7 +10,7 @@ import {
 
 import { Row }  from "../layout"
 import { Text } from "../text"
-import { Overlay } from "../portals"
+import { Overlay } from "./scrollable"
 import { Colors, Metrics } from "../theme"
 
 import ArrowDown from "../svg/arrow-down"
@@ -22,104 +22,162 @@ import ArrowUp   from "../svg/arrow-up"
  * 
  * Ce dropdown ne fait *pas* de sélection: voir `../forms/select` pour ça.
  */
-export function Dropdown(props) {
-	const {
-		placeholder,
-		noPlaceholderPress,
-		children,
-		open,
-		onFocus,
-		onBlur,
-		positionAdjust,
-		dropdownControl,
-		...nextProps
-	} = {
-		...props,
-		positionAdjust: {
-			x: 0, y: 0,
-			width: 0, height: 0,
-			...props.positionAdjust
-		},
-		placeholder: typeof props.placeholder === "string"
-			? <Text secondary style={{flex: 1}}>{props.placeholder}</Text>
-			: props.placeholder
-		,
+export class Dropdown extends React.PureComponent {
+	static contextType = Overlay.Context
+	
+	constructor(props) {
+		super(props)
+		this.state = {
+			managed: typeof props.open !== "undefined",
+			open: props.open || false,
+			menuPosition: {},
+		}
+		
+		this.frame = React.createRef()
+		this.frameHeight = 0
 	}
 	
-	const [ dropdownOpen,   setDropdownOpen ]   = useState(false)
-	const [ menuPosition,   setMenuPosition ]   = useState({})
-	const [ dropdownHeight, setDropdownHeight ] = useState(0)
-	const actualDropdownOpen = open !== undefined ? open : dropdownOpen
-	
-	const frame = React.createRef()
-	
-	function toggleMenu() {
-		if(!actualDropdownOpen)
-			getAbsolutePosition(frame.current, function(pos) {
-				setMenuPosition({
-					x:      pos.x      + positionAdjust.x,
-					y:      pos.y      + positionAdjust.y + dropdownHeight - 1,
-					width:  pos.width  + positionAdjust.width,
-					height: pos.height + positionAdjust.height,
-				})
-			})
+	static getDerivedStateFromProps(props, state) {
+		if(typeof props.open !== "undefined" && props.open !== state.open)
+			return {open: props.open}
 		
-		setDropdownOpen(!actualDropdownOpen)
-		
-		if(actualDropdownOpen && onBlur)
-			onBlur()
-		else if(onFocus)
-			onFocus()
+		return null
 	}
 	
-	function onClose() {
-		setDropdownOpen(false)
-		
-		if(onBlur)
-			onBlur()
+	componentDidMount() {
+		this.updateMenuPosition()
 	}
 	
-	function onLayout(event) {
-		setDropdownHeight(event.nativeEvent.layout.height)
+	componentDidUpdate() {
+		this.updateMenuPosition()
 	}
 	
-	return <View ref={frame} onLayout={onLayout} style={{flex: 1}}>
-		<DropdownRow
-			noPlaceholderPress={noPlaceholderPress}
-			onPress={toggleMenu}
-			placeholder={placeholder}
-			arrow={actualDropdownOpen ? ArrowUp : ArrowDown}
-		/>
+	handleOnFocus = () => {
+		if(this.props.onFocus)
+			this.props.onFocus()
 		
-		<DropdownModal
-			visible={actualDropdownOpen}
-			onClose={onClose}
-			position={menuPosition}
-		>{children}</DropdownModal>
-	</View>
+		if(!this.state.managed)
+			this.setState({open: true})
+	}
+	
+	handleOnBlur = () => {
+		if(this.props.onBlur)
+			this.props.onBlur()
+		
+		if(!this.state.managed)
+			this.setState({open: false})
+	} 
+	
+	onLayout = (event) => {
+		this.frameHeight = event.nativeEvent.layout.height
+		this.updateMenuPosition()
+	}
+	
+	updateMenuPosition() {
+		getAbsolutePosition(this.frame, this.context.containerRef, pos => {
+			const positionAdjust = {
+				...ZeroPosition,
+				...this.props.positionAdjust
+			}
+			
+			const newPosition = {
+				x:      pos.x      + positionAdjust.x,
+				y:      pos.y      + positionAdjust.y + this.frameHeight - 1,
+				width:  pos.width  + positionAdjust.width,
+				height: pos.height + positionAdjust.height,
+			}
+			
+			for(let key in newPosition) {
+				if(newPosition[key] !== this.state.menuPosition[key]) {
+					this.setState({menuPosition: newPosition})
+					break
+				}
+			}
+		})
+	}
+	
+	render() {
+		const {
+			placeholder,
+			children,
+			onFocus,
+			onBlur,
+			...nextProps
+		} = {
+			...this.props,
+			placeholder: typeof this.props.placeholder === "string"
+				? <Text secondary style={{flex: 1}}>{this.props.placeholder}</Text>
+				: this.props.placeholder
+			,
+		}
+		
+		return <View ref={this.frame} onLayout={this.onLayout} style={{flex: 1}}>
+			<DropdownRow
+				noFocusToggle={this.props.noFocusToggle}
+				onFocus={this.handleOnFocus}
+				onBlur={this.handleOnBlur}
+				focused={this.state.open}
+				placeholder={placeholder}
+				arrow={this.state.open ? ArrowUp : ArrowDown}
+			/>
+			
+			<DropdownModal
+				visible={this.state.open}
+				position={this.state.menuPosition}
+			>{children}</DropdownModal>
+		</View>
+	}
 }
 
-function DropdownRow(props) {
-	const Arrow = props.arrow
+class DropdownRow extends React.PureComponent {
+	constructor(props) {
+		super(props)
+		this.pressInFocus = null
+		this.pressOutFocus = null
+	}
 	
-	if(props.noPlaceholderPress)
-		return <Row of="inside">
-			{props.placeholder}
-			
-			<TouchableWithoutFeedback
-				onPress={props.onPress}
-				hitSlop={Metrics.hitSlop}
-			>
-				<View><Arrow /></View>
-			</TouchableWithoutFeedback>
-		</Row>
-	else
-		return <TouchableWithoutFeedback onPress={props.onPress}>
+	handleOnPressIn = () => {
+		this.pressInFocus = this.props.focused
+	}
+	
+	handleOnPressOut = () => {
+		this.pressOutFocus = this.props.focused
+	}
+	
+	handleOnPress =  () => {
+		// si le focus a changé pendant le "press", alors autre chose a géré le focus pour nous et on ne toggle pas
+		if(this.pressOutFocus !== this.pressInFocus)
+			return
+		
+		if(this.props.focused) {
+			if(this.props.onBlur)
+				this.props.onBlur()
+		} else {
+			if(this.props.onFocus)
+				this.props.onFocus()
+		}
+	}
+	
+	render() {
+		const Arrow = this.props.arrow
+		
+		const focusToggle = this.props.noFocusToggle ? {} : {
+			onFocus: this.props.onFocus,
+			onBlur:  this.props.onBlur,
+		}
+		
+		return <TouchableWithoutFeedback
+			onPressIn={this.handleOnPressIn}
+			onPressOut={this.handleOnPressOut}
+			onPress={this.handleOnPress}
+			{...focusToggle}
+		>
 			<Row of="inside">
-				{props.placeholder}
+				{this.props.placeholder}
 				<Arrow />
 			</Row>
 		</TouchableWithoutFeedback>
+	}
 }
 
 function DropdownModal(props) {
@@ -137,15 +195,25 @@ function DropdownModal(props) {
 	</Overlay>
 }
 
-function getAbsolutePositionWeb(ref, cb) {
-	const webPosition = findNodeHandle(ref).getBoundingClientRect()
+function getAbsolutePositionWeb(frameRef, containerRef, cb) {
+	const frame = findNodeHandle(frameRef.current)
+	const container = findNodeHandle(containerRef.current)
 	
-	cb({
-		x: webPosition.left,
-		y: webPosition.top,
-		width: webPosition.right - webPosition.left,
-		height: webPosition.bottom - webPosition.top
-	})
+	const position = {
+		x: 0, y: 0,
+		width: frame.offsetWidth,
+		height: frame.offsetHeight
+	}
+	
+	let node = frame
+	
+	while(node && node !== container) {
+		position.x += node.offsetLeft
+		position.y += node.offsetTop
+		node = node.offsetParent
+	}
+	
+	cb(position)
 }
 
 function getAbsolutePositionNative(ref, cb) {
@@ -159,5 +227,10 @@ const getAbsolutePosition = Platform.select({
 	android: getAbsolutePositionNative,
 	ios: getAbsolutePositionNative
 })
+
+const ZeroPosition = {
+	x: 0, y: 0,
+	width: 0, height: 0,
+}
 
 export default Dropdown

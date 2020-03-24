@@ -24,7 +24,7 @@ export function createPortal(name) {
 	}
 	ExitProvider.displayName = name + ".ExitProvider"
 	
-	return { Provider, Entrance, Exit, ExitProvider }
+	return { Context, Provider, Entrance, Exit, ExitProvider }
 }
 
 export class PortalManager {
@@ -72,6 +72,7 @@ class PortalProvider extends React.PureComponent {
 	constructor(props) {
 		super(props)
 		this.manager = new PortalManager()
+		this.manager.containerRef = props.containerRef
 	}
 	
 	render() {
@@ -119,6 +120,7 @@ class PortalExit extends React.PureComponent {
 
 const OverlayPortal = createPortal("Overlay")
 export class Overlay extends React.PureComponent {
+	static Context   = OverlayPortal.Context
 	static Portal    = OverlayPortal.Entrance
 	static Container = OverlayPortal.Exit
 	static Provider  = OverlayPortal.Provider

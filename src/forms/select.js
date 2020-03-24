@@ -1,64 +1,72 @@
-import React, { useState } from "react"
+import React from "react"
 import { View, TouchableWithoutFeedback } from "react-native"
 import Dropdown from "./dropdown"
 import { Column, Hairline } from "../layout"
 import { Text } from "../text"
 import FormStyles from "../styles/forms"
 
-export default function Select(props) {
-	const {
-		placeholder,
-		value,
-		initialValue,
-		options,
-		onChange,
-		onFocus,
-		onBlur,
-		open,
-		children,
-		...nextProps
-	} = props
-	
-	const [ dropdownOpen, setDropdownOpen ] = useState(false)
-	const actualOpen = open !== undefined ? open : dropdownOpen
-	
-	const [ valueState, setValueState ] = useState(initialValue)
-	const actualValue = value || valueState	
-	
-	let placeholderElement = options && options.find(o => o.key === actualValue)
-	
-	if(placeholderElement && placeholderElement.value)
-		placeholderElement = placeholderElement.value
-	
-	if(typeof placeholderElement === "string")
-		placeholderElement = <Text style={{flex: 1}}>{placeholderElement}</Text>
-	
-	if(!placeholderElement)
-		placeholderElement = placeholder
-	
-	
-	function handleChange(value) {
-		if(onChange)
-			onChange(value)
-		else
-			setValueState(value)
-		
-		setDropdownOpen(false)
+export default class Select extends React.PureComponent {
+	static defaultProps = {
+		options: []
 	}
 	
-	return <Dropdown
-		{...nextProps}
-		placeholder={placeholderElement}
-		open={actualOpen}
-		onFocus={() => setDropdownOpen(true)}
-		onBlur={() => setDropdownOpen(false)}
-	>
-		<SelectMenu
-			options={options}
-			onChange={handleChange}
-			value={actualValue}
-		/>
-	</Dropdown>
+	constructor(props) {
+		super(props)
+		this.state = {
+			value: props.value || props.initialValue,
+			placeholder: this.computePlaceholder(props.value || props.initialValue)
+		}
+	}
+	
+	static getDerivedStateFromProps(props, state) {
+		if(props.value !== state.value)
+			return { value: props.value }
+		
+		return null
+	}
+	
+	computePlaceholder(selectedValue) {
+		const selectedOption = this.props.options.find(o => o.key === selectedValue)
+		
+		const value = selectedOption
+		            ? selectedOption.value
+		            : this.props.placeholder
+		
+		if(typeof value === "string")
+			return <Text style={{flex: 1}}>{value}</Text>
+		else
+			return value
+	}
+	
+	handleChange = (value) => {
+		if(this.props.onChange)
+			this.props.onChange(value)
+		
+		this.setState({
+			value,
+			placeholder: this.computePlaceholder(value)
+		})
+	}
+	
+	render() {
+		const {
+			placeholder,
+			value,
+			initialValue,
+			options,
+			onChange,
+			children,
+			...nextProps
+		} = this.props
+		
+		return <Dropdown {...nextProps} placeholder={this.state.placeholder}>
+			<SelectMenu
+				options={options}
+				onChange={this.handleChange}
+				value={this.state.value}
+			/>
+		</Dropdown>
+	}
 }
 
 export function SelectMenu(props) {

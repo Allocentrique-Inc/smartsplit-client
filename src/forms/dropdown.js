@@ -1,52 +1,69 @@
-import React, { useState } from "react"
+import React from "react"
 import Dropdown from "../widgets/dropdown"
 import Label from "./label"
 import Frame from "./frame"
 import { Metrics } from "../theme"
 
-export default function DropdownField(props) {
-	const {
-		label,
-		label_hint,
-		undertext,
-		children,
-		onFocus,
-		onBlur,
-		...nextProps
-	} = props
-	const [ focused, setFocused ] = useState(false)
-	const actualFocused = props.open !== undefined ? props.open : focused
-	
-	function handleOnFocus() {
-		if(onFocus)
-			onFocus()
-		
-		if(props.open === undefined)
-			setFocused(true)
+export default class DropdownField extends React.PureComponent {
+	constructor(props) {
+		super(props)
+		this.state = {
+			managed: typeof props.open !== "undefined",
+			open: !!props.open,
+		}
 	}
 	
-	function handleOnBlur() {
-		if(onBlur)
-			onBlur()
+	static getDerivedStateFromProps(props, state) {
+		if(typeof props.open !== "undefined" && props.open !== state.open)
+			return {open: props.open}
 		
-		if(props.open === undefined)
-			setFocused(false)
+		return null
 	}
 	
-	return <Label {...props}>
-		<Frame focused={actualFocused}> 
-			<Dropdown
-				{...nextProps}
-				onFocus={handleOnFocus}
-				onBlur={handleOnBlur}
-				positionAdjust={{
-					x: -Metrics.spacing.inside - 1,
-					y: Metrics.spacing.inside - Metrics.borderRadius.forms,
-					width: 2* Metrics.spacing.inside + 2
-				}}
-			>
-				{children}
-			</Dropdown>
-		</Frame>
-	</Label>
+	handleOnFocus = () => {
+		if(this.props.onFocus)
+			this.props.onFocus()
+		
+		if(!this.state.managed)
+			this.setState({open: true})
+	}
+	
+	handleOnBlur = () => {
+		if(this.props.onBlur)
+			this.props.onBlur()
+		
+		if(!this.state.managed)
+			this.setState({open: false})
+	} 
+	
+	render() {
+		const {
+			label,
+			label_hint,
+			undertext,
+			children,
+			open,
+			onFocus,
+			onBlur,
+			...nextProps
+		} = this.props
+		
+		return <Label {...this.props}>
+			<Frame focused={this.state.open}> 
+				<Dropdown
+					{...nextProps}
+					open={this.state.open}
+					onFocus={this.handleOnFocus}
+					onBlur={this.handleOnBlur}
+					positionAdjust={{
+						x: -Metrics.spacing.inside,
+						y: Metrics.spacing.inside - Metrics.borderRadius.forms,
+						width: 2* Metrics.spacing.inside + 1
+					}}
+				>
+					{children}
+				</Dropdown>
+			</Frame>
+		</Label>
+	}
 }
