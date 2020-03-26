@@ -19,14 +19,23 @@ export class Overlay extends React.PureComponent {
 		</OverlayPortal.Entrance>
 	}
 }
-	
+
 
 export function Scrollable(props) {
-	const { children, ...nextProps } = props
+	const { children, style, ...nextProps } = props
 	const containerRef = React.createRef()
 	
+	function onRef(ref) {
+		if(ref) // parfois la ref est null pour aucune raison, et ça cause des
+			containerRef.current = ref // problèmes bizarred et subtils.
+	}
+	
 	return <OverlayPortal.Provider containerRef={containerRef}>
-		<ScrollView {...nextProps} ref={containerRef}>
+		<ScrollView
+			{...nextProps}
+			ref={ref => onRef(ref)}
+			style={[{flex: 1}, style]}
+		>
 			{children}
 			<OverlayPortal.Exit />
 		</ScrollView>

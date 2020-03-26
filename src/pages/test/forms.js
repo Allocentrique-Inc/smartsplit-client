@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { View } from "react-native"
+import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import {
 	LabelText,
 	TextField,
@@ -9,14 +9,16 @@ import {
 	RadioGroup,
 	RadioGroupButton,
 	Dropdown,
+	TextDropdown,
 	Select,
-	AutoCompleteField,
 } from "../../forms"
-import { Section, Group, Column, Row, Hairline } from "../../layout"
-import { Heading, Paragraph }                    from "../../text"
+import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
+import { Heading, Paragraph, Text }                    from "../../text"
 import Button from "../../widgets/button"
 import FacebookIcon from "../../svg/facebook"
 import GoogleIcon from "../../svg/google"
+
+import ArtistSelectDropdown from "../../smartsplit/artist/select"
 
 export default function FormsTest() {
 	return <Section of="group">
@@ -25,10 +27,19 @@ export default function FormsTest() {
 		<TestBasicDropdowns />
 		
 		<Row of="component">
-			<AutoCompleteField
-				label="Auto-complétion (sélection unique)"
-				undertext="Permet de chercher et autocompléter un champ"
+			<ArtistSelectDropdown
+				label="Sélectionne ton groupe"
 				placeholder="Artiste ou groupe"
+				artists={{
+					1: "Céline Dion",
+					2: "Katy Perry",
+					3: "David Guetta",
+					4: "M4SONIC",
+					5: "Eminem",
+					6: "Scandroid",
+					7: "DJ Test",
+					8: "Mister Valaire",
+				}}
 			/>
 		</Row>
 

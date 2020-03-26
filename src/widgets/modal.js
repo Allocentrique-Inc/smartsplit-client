@@ -2,7 +2,6 @@ import React from "react"
 import {
 	Platform,
 	View,
-	ScrollView,
 	StyleSheet
 } from "react-native"
 
@@ -10,6 +9,7 @@ import { Overlay }           from "../portals"
 import { Row, Column, Flex } from "../layout"
 import { Heading }           from "../text"
 import Button                from "./button"
+import Scrollable            from "./scrollable"
 import LayoutStyles          from "../styles/layout"
 import LayerStyles           from "../styles/layers"
 import MetricsStyles         from "../styles/metrics"
@@ -25,10 +25,21 @@ export const ModalStyles = StyleSheet.create({
 		bottom: 0,
 	},
 	
+	container: {
+		maxWidth: "90%",
+		maxHeight: "90%",
+	},
+	
+	forceScroll: {
+		maxHeight: "100%",
+		maxWidth: "100%",
+	},
+	
 	medium: {
 		maxWidth: 624,
 		minWidth: 280,
 		borderRadius: Metrics.borderRadius.modals,
+		maxHeight: "100%",
 	},
 
 	header: {
@@ -63,6 +74,7 @@ export class Modal extends React.PureComponent {
 				<View style={[
 					LayerStyles[layer || "modal"],
 					MetricsStyles.components.group,
+					ModalStyles.container,
 				]}>
 					{children}
 				</View>
@@ -75,7 +87,10 @@ export function DialogModal(props) {
 	const { title, buttons, size, children, ...nextProps } = props
 
 	return <Modal {...nextProps}>
-		<Column style={ModalStyles[size || "medium"]}>
+		<Column style={[
+			ModalStyles[size || "medium"],
+			ModalStyles.sizeLimits
+		]}>
 			<Row
 				of="component"
 				layer="overground_moderate"
@@ -91,7 +106,7 @@ export function DialogModal(props) {
 				/>
 			</Row>
 
-			<ScrollView>{children}</ScrollView>
+			<Scrollable>{children}</Scrollable>
 
 			<Row
 				align="right"

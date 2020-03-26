@@ -126,6 +126,10 @@ export class Overlay extends React.PureComponent {
 	static Provider  = OverlayPortal.Provider
 	static ProviderContainer = OverlayPortal.ExitProvider
 	
+	constructor(props) {
+		super(props)
+	}
+	
 	render() {
 		if(this.props.render === false)
 			return null

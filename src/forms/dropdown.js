@@ -58,7 +58,7 @@ export default class DropdownField extends React.PureComponent {
 					positionAdjust={{
 						x: -Metrics.spacing.inside,
 						y: Metrics.spacing.inside - Metrics.borderRadius.forms,
-						width: 2* Metrics.spacing.inside + 1
+						width: 2* Metrics.spacing.inside + 2
 					}}
 				>
 					{children}

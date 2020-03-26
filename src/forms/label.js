@@ -6,15 +6,12 @@ import { Text } from "../text"
 const UNDERTEXT_DEFAULT_LINES = 4
 
 export function labelProps(props) {
-	const {
-		label,
-		label_hint,
-		undertext,
-		undertext_lines,
-		...nextProps
-	} = props
-	
-	return nextProps
+	return {
+		label:           props.label,
+		label_hint:      props.label_hint,
+		undertext:       props.undertext,
+		undertext_lines: props.undertext_lines,
+	}
 }
 
 export default function Label(props) {

@@ -37,6 +37,8 @@ export default class TextDropdown extends React.PureComponent {
 			onBlur,
 			onChangeText,
 			onKeyPress,
+			defaultValue,
+			value,
 			...nextProps
 		} = this.props
 		
@@ -47,6 +49,8 @@ export default class TextDropdown extends React.PureComponent {
 			onBlur={this.handleOnBlur}
 			onFocus={this.handleOnFocus}
 			viewRef={this.input}
+			defaultValue={defaultValue}
+			value={value}
 			{...inputProps}
 		/>
 		
@@ -56,6 +60,7 @@ export default class TextDropdown extends React.PureComponent {
 			open={this.state.focused}
 			onBlur={this.handleOnBlur}
 			onFocus={this.handleOnFocus}
+			noPressToggle
 		>
 			{children}
 		</Dropdown>

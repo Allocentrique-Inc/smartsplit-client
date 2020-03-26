@@ -7,11 +7,11 @@ import DashboardPage from "./pages/dashboard"
 import FormsTest from "./pages/test/forms"
 
 export default function Main(props) {
-	return <GlobalOverlay.ProviderContainer>
-		<ScrollOverlay.ProviderContainer>
+	return <ScrollOverlay.ProviderContainer>
+		<GlobalOverlay.ProviderContainer>
 			<MainRouter {...props} />
-		</ScrollOverlay.ProviderContainer>
-	</GlobalOverlay.ProviderContainer>
+		</GlobalOverlay.ProviderContainer>
+	</ScrollOverlay.ProviderContainer>
 }
 
 export function MainRouter(props) {

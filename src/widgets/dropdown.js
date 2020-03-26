@@ -22,7 +22,7 @@ import ArrowUp   from "../svg/arrow-up"
  * 
  * Ce dropdown ne fait *pas* de sélection: voir `../forms/select` pour ça.
  */
-export class Dropdown extends React.PureComponent {
+export class Dropdown extends React.Component {
 	static contextType = Overlay.Context
 	
 	constructor(props) {
@@ -34,7 +34,9 @@ export class Dropdown extends React.PureComponent {
 		}
 		
 		this.frame = React.createRef()
-		this.frameHeight = 0
+		this.layout = {}
+		
+		setInterval(5000, () => this.updateMenuPosition())
 	}
 	
 	static getDerivedStateFromProps(props, state) {
@@ -44,11 +46,7 @@ export class Dropdown extends React.PureComponent {
 		return null
 	}
 	
-	componentDidMount() {
-		this.updateMenuPosition()
-	}
-	
-	componentDidUpdate() {
+	componentDidUpdate(nextProps, nextState) {
 		this.updateMenuPosition()
 	}
 	
@@ -69,11 +67,21 @@ export class Dropdown extends React.PureComponent {
 	} 
 	
 	onLayout = (event) => {
-		this.frameHeight = event.nativeEvent.layout.height
-		this.updateMenuPosition()
+		const newLayout = event.nativeEvent.layout
+		
+		for(let key in newLayout) {
+			if(newLayout[key] !== this.layout[key]) {
+				this.layout = newLayout
+				this.updateMenuPosition()
+				break
+			}
+		}
 	}
 	
 	updateMenuPosition() {
+		if(!this.state.open)
+			return
+		
 		getAbsolutePosition(this.frame, this.context.containerRef, pos => {
 			const positionAdjust = {
 				...ZeroPosition,
@@ -82,7 +90,7 @@ export class Dropdown extends React.PureComponent {
 			
 			const newPosition = {
 				x:      pos.x      + positionAdjust.x,
-				y:      pos.y      + positionAdjust.y + this.frameHeight - 1,
+				y:      pos.y      + positionAdjust.y + this.layout.height - 1,
 				width:  pos.width  + positionAdjust.width,
 				height: pos.height + positionAdjust.height,
 			}
@@ -102,7 +110,6 @@ export class Dropdown extends React.PureComponent {
 			children,
 			onFocus,
 			onBlur,
-			...nextProps
 		} = {
 			...this.props,
 			placeholder: typeof this.props.placeholder === "string"
@@ -114,6 +121,7 @@ export class Dropdown extends React.PureComponent {
 		return <View ref={this.frame} onLayout={this.onLayout} style={{flex: 1}}>
 			<DropdownRow
 				noFocusToggle={this.props.noFocusToggle}
+				noPressToggle={this.props.noPressToggle}
 				onFocus={this.handleOnFocus}
 				onBlur={this.handleOnBlur}
 				focused={this.state.open}
@@ -166,10 +174,12 @@ class DropdownRow extends React.PureComponent {
 			onBlur:  this.props.onBlur,
 		}
 		
+		const pressToggle = this.props.noPressToggle ? undefined : this.handleOnPress
+		
 		return <TouchableWithoutFeedback
 			onPressIn={this.handleOnPressIn}
 			onPressOut={this.handleOnPressOut}
-			onPress={this.handleOnPress}
+			onPress={pressToggle}
 			{...focusToggle}
 		>
 			<Row of="inside">

@@ -1,5 +1,5 @@
 import React from "react"
-import { View, TouchableWithoutFeedback } from "react-native"
+import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import Dropdown from "./dropdown"
 import { Column, Hairline } from "../layout"
 import { Text } from "../text"
@@ -60,11 +60,13 @@ export default class Select extends React.PureComponent {
 		} = this.props
 		
 		return <Dropdown {...nextProps} placeholder={this.state.placeholder}>
-			<SelectMenu
-				options={options}
-				onChange={this.handleChange}
-				value={this.state.value}
-			/>
+			<ScrollView style={FormStyles.select_scroll}>
+				<SelectMenu
+					options={options}
+					onChange={this.handleChange}
+					value={this.state.value}
+				/>
+			</ScrollView>
 		</Dropdown>
 	}
 }

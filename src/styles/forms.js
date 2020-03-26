@@ -63,6 +63,10 @@ const FormStyles = StyleSheet.create({
 	select_item_selected: {
 		backgroundColor: Colors.background.underground,
 	},
+	
+	select_scroll: {
+		maxHeight: 200,
+	},
 })
 
 export default FormStyles

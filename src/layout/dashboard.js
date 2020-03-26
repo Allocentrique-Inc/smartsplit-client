@@ -21,6 +21,11 @@ export const DashboardStyles = StyleSheet.create({
 	main: {
 		flex: 1,
 	},
+	
+	main_column: {
+		flex: 1,
+	},
+	
 	sidebar: {
 		width: 288,
 	},
@@ -100,7 +105,7 @@ export function Dashboard(props) {
 			)}
 		</Sidebar>}
 		
-		<Column style={DashboardStyles.main}>
+		<Column style={DashboardStyles.main_column}>
 			<ProfileBar>
 				<CheckBox
 					label="Menu"

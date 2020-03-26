@@ -8,14 +8,14 @@ import Main from "./src"
 
 const RouterImpl = Platform.select({
 	android: MemoryRouter,
-	ios: MemoryRouter,
-	web: BrowserRouter
+	ios:     MemoryRouter,
+	web:     BrowserRouter
 })
 
 const fontMap = {
 	"IBMPlexSans-Regular": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Regular.ttf"),
-	"IBMPlexSans-Medium": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Medium.ttf"),
-	"IBMPlexSans-Bold": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Bold.ttf"),
+	"IBMPlexSans-Medium":  require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Medium.ttf"),
+	"IBMPlexSans-Bold":    require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Bold.ttf"),
 }
 
 export default function App(props) {
@@ -28,11 +28,16 @@ export default function App(props) {
 	if(!appReady)
 		return null
 
-	return <View style={{flex: 1}}>
-		{appReady && (
-			<RouterImpl>
-				<Main />
-			</RouterImpl>
-		)}
+	return <View style={{
+		position: "absolute", // absolute nécessaire pour forcer la taille
+		top: 0,               // maximale, sinon les ScrollView ne fonctionnent pas
+		left: 0,
+		right: 0,
+		bottom: 0,
+		overflow: "hidden"
+	}}>
+		<RouterImpl>
+			<Main />
+		</RouterImpl>
 	</View>
 }
