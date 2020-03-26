@@ -15,8 +15,6 @@ import {
 import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
 import { Heading, Paragraph, Text }                    from "../../text"
 import Button from "../../widgets/button"
-import FacebookIcon from "../../svg/facebook"
-import GoogleIcon from "../../svg/google"
 
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
 

@@ -25,8 +25,14 @@ function roundProgress(progress) {
 export default function ProgressBar(props) {
 	const progressPercent = roundProgress(props.progress) + "%"
 	const height = Metrics.size[props.size || "medium"] / 2
+	const color = props.color || Colors.action
+	
+	const barStyles = {
+		width: progressPercent,
+		backgroundColor: color,
+	}
 
 	return <View style={[Styles.bar, {height}]}>
-		<View style={[Styles.progress, {width: progressPercent}]} />
+		<View style={[Styles.progress, barStyles]} />
 	</View>
 }

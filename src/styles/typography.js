@@ -32,6 +32,11 @@ const TypographyStyles = {
 				Typography.Weight.bold
 			),
 		},
+		
+		italic: {
+			fontStyle: "italic",
+		},
+		
 		reversed: {
 			color: Colors.primary_reversed,
 		},

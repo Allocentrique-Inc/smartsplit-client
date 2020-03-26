@@ -84,6 +84,14 @@ export const Colors = {
 		underground_reversed:  "#322129",
 		underground_reversed2: "#3F2933",
 	},
+	
+	progressBar: {
+		darkred:     "#8B0000",
+		orangered:   "#FF4500",
+		orange:      "#ffa500",
+		yellowgreen: "#9acd32",
+		green:       "#008000",
+	},
 }
 
 export const Typography = {

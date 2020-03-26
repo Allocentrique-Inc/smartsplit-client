@@ -18,6 +18,12 @@ const LayoutStyles = StyleSheet.create({
 		minWidth: 1,
 		minHeight: 1,
 	},
+	
+	divider: {
+		alignSelf: "center",
+		backgroundColor: Colors.stroke,
+		height: 2,
+	},
 
 	flex: {
 		flex: 1,

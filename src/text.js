@@ -12,6 +12,7 @@ export function Text(props) {
 		style,
 		heavy,
 		bold,
+		italic,
 		small,
 		reversed,
 		secondary,
@@ -28,6 +29,9 @@ export function Text(props) {
 	
 	if(bold)
 		styles.push(TypographyStyles.text.bold)
+	
+	if(italic)
+		styles.push(TypographyStyles.text.italic)
 	
 	if(reversed)
 		styles.push(TypographyStyles.text.reversed)

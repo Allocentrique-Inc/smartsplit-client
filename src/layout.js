@@ -4,6 +4,9 @@ import MetricsStyles from "./styles/metrics"
 import LayoutStyles from "./styles/layout"
 import LayerStyles from "./styles/layers"
 
+import { Text } from "./text"
+import { Colors } from "./theme"
+
 function composeView(props, ...stylesheets) {
 	const {
 		style,
@@ -82,7 +85,19 @@ export function Flex(props) {
 }
 
 export function Hairline(props) {
-	const style = {}
-
 	return <View style={LayoutStyles.hairline} />
+}
+
+export function Divider(props) {
+	const flexStyle = props.flex && {flex: 1}
+	
+	return <View style={[LayoutStyles.divider, flexStyle, props.style]} />
+}
+
+export function TextDivider(props) {
+	return <Row of="component" style={{alignSelf: "stretch"}}>
+		<Divider flex />
+		<Text bold>{props.text}</Text>
+		<Divider flex />
+	</Row>
 }

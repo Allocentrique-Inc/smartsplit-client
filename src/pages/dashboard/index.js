@@ -10,6 +10,7 @@ import UsersIcon     from "../../svg/users"
 import MyWorksPage         from "./my-works"
 import MyProfilePage       from "./my-profile"
 import MyCollaboratorsPage from "./my-collaborators"
+import MyAccountPage       from "./my-account"
 import FormsTest           from "../test/forms"
 
 const MENU = [
@@ -22,6 +23,10 @@ const MENU = [
 		text: "Mon profil",
 		to: "/dashboard/my-profile",
 		icon: UserCardIcon
+	},
+	{
+		text: "Mon compte",
+		to: "/dashboard/my-account",
 	},
 	{
 		text: "Mes collaborateurs",
@@ -58,6 +63,10 @@ export function DashboardRoutes(props) {
 		
 		<Route path="/dashboard/my-profile" exact>
 			<MyProfilePage />
+		</Route>
+		
+		<Route path="/dashboard/my-account" exact>
+			<MyAccountPage />
 		</Route>
 		
 		<Route path="/dashboard/my-collaborators" exact>

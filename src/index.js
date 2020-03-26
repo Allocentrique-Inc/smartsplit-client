@@ -3,8 +3,12 @@ import { Route, Redirect, Switch } from "react-router"
 
 import { Overlay as GlobalOverlay } from "./portals"
 import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
+
+import Register      from "./pages/auth/register"
+import Login         from "./pages/auth/login"
+import Welcome       from "./pages/auth/welcome"
 import DashboardPage from "./pages/dashboard"
-import FormsTest from "./pages/test/forms"
+import FormsTest     from "./pages/test/forms"
 
 export default function Main(props) {
 	return <ScrollOverlay.ProviderContainer>
@@ -18,6 +22,18 @@ export function MainRouter(props) {
 	return <Switch>
 		<Route path="/" exact>
 			<Redirect to="/dashboard/" />
+		</Route>
+		
+		<Route path="/auth/welcome" exact>
+			<Welcome />
+		</Route>
+		
+		<Route path="/auth/register" exact>
+			<Register />
+		</Route>
+
+		<Route path="/auth/login" exact>
+			<Login />
 		</Route>
 
 		<Route path="/dashboard/">

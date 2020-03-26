@@ -1,0 +1,1394 @@
+Seulement dans src-lila: components
+Seulement dans src-lila: .DS_Store
+diff -ura src/index.js src-lila/index.js
+--- src/index.js	2020-03-25 23:39:50.096805780 -0400
++++ src-lila/index.js	2020-03-26 10:31:47.000000000 -0400
+@@ -1,10 +1,19 @@
+ import React from "react"
+ import { Route, Redirect, Switch } from "react-router"
++import { ScrollView } from "react-native"
+ 
+ import { Overlay as GlobalOverlay } from "./portals"
+ import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
+ import DashboardPage from "./pages/dashboard"
+ import FormsTest from "./pages/test/forms"
++import Register from "./pages/auth/register"
++import Login from "./pages/auth/login"
++import Welcome from "./pages/auth/welcome"
++import MyProfilePage from "./pages/dashboard/my-profile"
++import MyAccountPage from "./pages/dashboard/my-account"
++import MyCollaboratorsPage from "./pages/dashboard/my-collaborators"
++import MyWorksPage from "./pages/dashboard/my-works"
++
+ 
+ export default function Main(props) {
+ 	return <ScrollOverlay.ProviderContainer>
+@@ -24,10 +33,44 @@
+ 			<DashboardPage />
+ 		</Route>
+ 
++		<Route path="/auth/register" exact>
++			<Register />
++		</Route>
++
++		<Route path="/auth/login" exact>
++			<Login />
++		</Route>
++
++		<Route path="/auth/welcome" exact>
++			<Welcome />
++		</Route>
++
++		<Route path="/dashboard/my-profile" exact>
++			<MyProfilePage />
++		</Route>
++
++		<Route path="/dashboard/my-account" exact>
++			<MyAccountPage />
++		</Route>
++
++		<Route path="/dashboard/my-collaborators" exact>
++			<MyCollaboratorsPage />
++		</Route>
++
++		<Route path="/dashboard/my-works" exact>
++			<MyWorksPage />
++		</Route>
++
++		<Route path="/test/forms" exact>
++			<ScrollView>
++				<FormsTest />
++			</ScrollView>
++		</Route>
++
+ 		<Route path="/test/forms" exact>
+-			<Scrollable>
++			<ScrollView>
+ 				<FormsTest />
+-			</Scrollable>
++			</ScrollView>
+ 		</Route>
+ 	</Switch>
+ }
+diff -ura src/layout/dashboard.js src-lila/layout/dashboard.js
+--- src/layout/dashboard.js	2020-03-25 20:04:16.659205228 -0400
++++ src-lila/layout/dashboard.js	2020-03-26 10:27:14.000000000 -0400
+@@ -6,26 +6,30 @@
+ 	TouchableWithoutFeedback
+ } from "react-native"
+ import { useRouteMatch, useHistory } from "react-router"
+-import { Row, Column } from "../layout"
+-import { Text }        from "../text"
++import { Row, Column, Flex } from "../layout"
++import { Text } from "../text"
+ 
+-import LayerStyles         from "../styles/layers"
+-import MetricsStyles       from "../styles/metrics"
++import LayerStyles from "../styles/layers"
++import MetricsStyles from "../styles/metrics"
+ import { Colors, Metrics } from "../theme"
+-import { CheckBox }        from "../forms"
++import { CheckBox } from "../forms"
+ 
+ import LogoSmartSplit from "../svg/logo-smartsplit"
+ import LinkIcon from "../svg/link"
++import LogoArrowLeft from "../svg/arrow-left"
++import LogoAddSquare from "../svg/add-square"
++
++import MenuLayout from "./menu"
+ 
+ export const DashboardStyles = StyleSheet.create({
+ 	main: {
+ 		flex: 1,
+ 	},
+-	
++
+ 	main_column: {
+ 		flex: 1,
+ 	},
+-	
++
+ 	sidebar: {
+ 		width: 288,
+ 	},
+@@ -51,10 +55,10 @@
+ 	},
+ 	profileBar: {
+ 		height: Metrics.size.xlarge,
+-	},
++		alignItems: "center",
++	}
+ })
+ 
+-
+ export function Sidebar(props) {
+ 	return <Column style={[LayerStyles.underground_reversed, DashboardStyles.sidebar]}>
+ 		<View style={[LayerStyles.underground_reversed2, DashboardStyles.logo]}>
+@@ -70,7 +74,7 @@
+ 	const Icon = props.icon || LinkIcon
+ 	const active = useRouteMatch(props.to)
+ 	const history = useHistory()
+-	
++
+ 	function activate() {
+ 		history.push(props.to)
+ 	}
+@@ -90,32 +94,45 @@
+ }
+ 
+ export function ProfileBar(props) {
+-	return <Row style={[LayerStyles.underground, DashboardStyles.profileBar]}>
++	return <Row padding="component"
++		style={[LayerStyles.underground, DashboardStyles.profileBar]}>
+ 		{props.children}
+ 	</Row>
+ }
+ 
+ export function Dashboard(props) {
+ 	const [showSidebar, setSidebar] = useState(true)
+-	
+-	return <Row style={DashboardStyles.main}>
+-		{showSidebar && <Sidebar>
+-			{props.menuItems.map(item => 
+-				<SidebarItem {...item} key={item.to} />
+-			)}
+-		</Sidebar>}
+-		
+-		<Column style={DashboardStyles.main_column}>
+-			<ProfileBar>
+-				<CheckBox
+-					label="Menu"
+-					checked={showSidebar}
+-					onChange={setSidebar}
+-				/>
+-			</ProfileBar>
+-			{props.children}
+-		</Column>
+-	</Row>
++
++	return <>
++		<Row style={DashboardStyles.main}>
++			{showSidebar && <Sidebar>
++				{props.menuItems.map(item =>
++					<SidebarItem {...item} key={item.to} />
++				)}
++			</Sidebar>}
++
++			<Column style={DashboardStyles.main}>
++				<ProfileBar>
++					{<LogoArrowLeft />}
++					<CheckBox
++						label="Menu"
++						checked={showSidebar}
++						onChange={setSidebar}
++					/>
++					<Flex />
++					{<LogoAddSquare
++						style={Metrics.size.small} />}
++
++				</ProfileBar>
++				{props.children}
++			</Column>
++		</Row>
++
++		<Row>
++			<MenuLayout />
++		</Row>
++	</>
++
+ }
+ 
+ export default Dashboard
+Seulement dans src-lila/layout: menu.js
+diff -ura src/layout.js src-lila/layout.js
+--- src/layout.js	2020-03-18 17:35:52.353224308 -0400
++++ src-lila/layout.js	2020-03-24 09:51:41.000000000 -0400
+@@ -1,8 +1,10 @@
+ import React from "react"
+ import { View, StyleSheet } from "react-native"
++import { Colors } from "./theme"
+ import MetricsStyles from "./styles/metrics"
+ import LayoutStyles from "./styles/layout"
+ import LayerStyles from "./styles/layers"
++import { Text } from "./text"
+ 
+ function composeView(props, ...stylesheets) {
+ 	const {
+@@ -18,24 +20,24 @@
+ 		spacer: Spacer,
+ 		...props
+ 	}
+-	
++
+ 	const SpacerImpl = spacer
+ 	let newChildren = children
+-	
+-	if(of) {
++
++	if (of) {
+ 		newChildren = []
+-		
++
+ 		React.Children.forEach(children, (child, index) => {
+-			if(!child)
++			if (!child)
+ 				return // ne pas générer d'espacement entre du vide!
+-			
++
+ 			newChildren.push(child)
+ 			newChildren.push(<SpacerImpl key={"spacer-" + index} of={of} />)
+ 		})
+-		
++
+ 		newChildren.pop()
+ 	}
+-	
++
+ 	return <View
+ 		{...nextProps}
+ 		style={[
+@@ -86,3 +88,15 @@
+ 
+ 	return <View style={LayoutStyles.hairline} />
+ }
++
++export function Divider(props) {
++	return <Row of="component">
++		<View style={{ height: StyleSheet.hairline, backgroundColor: Colors.stroke, flex: 1, height: 2, alignSelf: 'center' }} />
++		<Text style={{ fontSize: 16 }}>{props.children}</Text>
++		<View style={{ height: StyleSheet.hairline, backgroundColor: Colors.stroke, flex: 1, height: 2, alignSelf: 'center' }} />
++	</Row>
++}
++
++export function TextDivider(props) {
++	return <Divider><Text bold style={{ margin: 20 }}>{props.text}</Text></Divider>
++}
+Seulement dans src-lila/pages: auth
+diff -ura src/pages/dashboard/index.js src-lila/pages/dashboard/index.js
+--- src/pages/dashboard/index.js	2020-03-24 17:23:50.011632127 -0400
++++ src-lila/pages/dashboard/index.js	2020-03-26 10:34:48.000000000 -0400
+@@ -1,16 +1,24 @@
+ import React from "react"
+ import { Switch, Route, Redirect } from "react-router"
++import { ScrollView } from "react-native"
++
+ import DashboardLayout from "../../layout/dashboard"
+-import Scrollable      from "../../widgets/scrollable"
++import Scrollable from "../../widgets/scrollable"
+ 
+ import MusicNoteIcon from "../../svg/music-note"
+-import UserCardIcon  from "../../svg/user-card"
+-import UsersIcon     from "../../svg/users"
+-
+-import MyWorksPage         from "./my-works"
+-import MyProfilePage       from "./my-profile"
++import LogoNotification from "../../svg/user-card"
++import UsersIcon from "../../svg/users"
++import LogoAvatar from "../../svg/avatar"
++
++import MyWorksPage from "./my-works"
++import MyProfilePage from "./my-profile"
++import MyAccountPage from "./my-account"
+ import MyCollaboratorsPage from "./my-collaborators"
+-import FormsTest           from "../test/forms"
++import Register from "../auth/register"
++import Login from "../auth/login"
++import Welcome from "../auth/welcome"
++
++import FormsTest from "../test/forms"
+ 
+ const MENU = [
+ 	{
+@@ -21,7 +29,7 @@
+ 	{
+ 		text: "Mon profil",
+ 		to: "/dashboard/my-profile",
+-		icon: UserCardIcon
++		icon: LogoNotification
+ 	},
+ 	{
+ 		text: "Mes collaborateurs",
+@@ -40,6 +48,41 @@
+ 
+ export default function DashboardPage(props) {
+ 	return <DashboardLayout menuItems={MENU}>
++		<ScrollView>
++			<Switch>
++				<Route path="/dashboard" exact>
++					<Redirect to="/dashboard/my-works" />
++				</Route>
++
++				<Route path="/dashboard/my-works" exact>
++					<MyWorksPage />
++				</Route>
++
++				<Route path="/auth/register" exact>
++					<Register />
++				</Route>
++
++				<Route path="/auth/login" exact>
++					<Login />
++				</Route>
++
++				<Route path="/auth/welcome" exact>
++					<Welcome />
++				</Route>
++
++				<Route path="/dashboard/my-profile" exact>
++					<MyProfilePage />
++				</Route>
++
++				<Route path="/dashboard/my-account" exact>
++					<MyAccountPage />
++				</Route>
++
++				<Route path="/dashboard/my-collaborators" exact>
++					<MyCollaboratorsPage />
++				</Route>
++			</Switch>
++		</ScrollView>
+ 		<Scrollable>
+ 			<DashboardRoutes />
+ 		</Scrollable>
+@@ -55,11 +98,11 @@
+ 		<Route path="/dashboard/my-works" exact>
+ 			<MyWorksPage />
+ 		</Route>
+-		
++
+ 		<Route path="/dashboard/my-profile" exact>
+ 			<MyProfilePage />
+ 		</Route>
+-		
++
+ 		<Route path="/dashboard/my-collaborators" exact>
+ 			<MyCollaboratorsPage />
+ 		</Route>
+@@ -69,3 +112,4 @@
+ 		</Route>
+ 	</Switch>
+ }
++
+Seulement dans src-lila/pages/dashboard: my-account.js
+diff -ura src/pages/dashboard/my-collaborators.js src-lila/pages/dashboard/my-collaborators.js
+--- src/pages/dashboard/my-collaborators.js	2020-03-09 16:23:31.130657185 -0400
++++ src-lila/pages/dashboard/my-collaborators.js	2020-03-24 10:24:31.000000000 -0400
+@@ -1,9 +1,76 @@
+-import React from "react"
+-import { Group } from "../../layout"
+-import { Heading } from "../../text"
++
++import React, { useState } from "react"
++import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
++import moment from "moment"
++import { Row, Column, Section, Group, Flex, Hairline } from "../../layout"
++import { Heading, Paragraph, Text } from "../../text"
++import { TabBar, Tab } from "../../widgets/tabs"
++import Button from "../../widgets/button"
++import { DialogModal } from "../../widgets/modal"
++import { TextField, RadioGroup, RadioGroupButton } from "../../forms"
++
++import { Colors, Metrics } from "../../theme"
++import LogoAddRound from "../../svg/add-round"
++
++
++export function AddCollaboratorModal(props) {
++	return <DialogModal
++		visible={props.visible}
++		onRequestClose={props.onRequestClose}
++		title="Ajouter un collaborateur"
++		buttons={<>
++			<Button tertiary text="Annuler" onClick={props.onRequestClose} />
++			<Button text="C'est parti!" />
++		</>}
++	>
++		<Group of="group" style={{ width: 560 }}>
++		</Group>
++	</DialogModal>
++}
+ 
+ export default function MyCollaboratorsPage() {
+-	return <Group>
+-		<Heading level="2"> Mes collaborateurs </Heading>
+-	</Group>
++	const [modalOpen, setModal] = useState(false)
++
++	return <>
++		<AddCollaboratorModal
++			visible={modalOpen}
++			onRequestClose={() => setModal(false)}
++		/>
++		<Group of="group">
++			<Row of="component">
++				<Heading level="2">Mes collaborateurs</Heading>
++				<Flex />
++				<TouchableWithoutFeedback
++					onPress={() => setModal(true)}
++					accessibilityRole="button"
++				>
++					<View><LogoAddRound /></View>
++				</TouchableWithoutFeedback>
++			</Row>
++
++			<TabBar>
++				<Tab key="tab1" title="Atistes" default>
++					<Column of="none" spacer={Hairline}>
++					</Column>
++				</Tab>
++				<Tab key="tab2" title="Groupes de musique">
++					<Column of="none" spacer={Hairline}>
++					</Column>
++				</Tab>
++				<Tab key="tab3" title="Éditeurs">
++					<Column of="none" spacer={Hairline}>
++					</Column>
++				</Tab>
++			</TabBar>
++			<Row>
++				<Flex />
++				<TouchableWithoutFeedback
++					onPress={() => setModal(true)}
++					accessibilityRole="button"
++				>
++					<View><LogoAddRound /></View>
++				</TouchableWithoutFeedback>
++			</Row>
++		</Group>
++	</>
+ }
+diff -ura src/pages/dashboard/my-profile.js src-lila/pages/dashboard/my-profile.js
+--- src/pages/dashboard/my-profile.js	2020-03-09 16:23:25.460626602 -0400
++++ src-lila/pages/dashboard/my-profile.js	2020-03-25 14:25:30.000000000 -0400
+@@ -1,9 +1,48 @@
+ import React from "react"
+-import { Group } from "../../layout"
++
+ import { Heading } from "../../text"
++import { Section, Hairline, Flex, Row } from "../../layout"
++import TypographyStyles from "../../styles/typography"
++import { Colors } from "../../theme"
++import { Text } from "../../text"
++import { TextField } from "../../forms"
++import Button from "../../widgets/button"
+ 
+ export default function MyProfilePage() {
+-	return <Group>
+-		<Heading level="2"> Mon profil publique </Heading>
+-	</Group>
++	return <Section of="group">
++		<Row of="component">
++			<Flex>
++				<Heading level="2">Mon profil</Heading>
++			</Flex>
++			<Button secondary
++				style={{ border: "transparent" }}
++				text="Sauvegarder"
++			/>
++		</Row>
++		<Hairline />
++		<TextField
++			label="Prénom légal"
++			placeholder="Prénom"
++		/>
++		<TextField
++			label="Second prénom légal"
++			label_hint={<Text secondary>Optionnel</Text>}
++			placeholder="Second prénom"
++		/>
++		<TextField
++			label="Nom légal"
++			placeholder="Nom"
++		/>
++		<TextField
++			label="Nom d'artiste"
++			label_hint={<Text secondary>Optionnel</Text>}
++			placeholder="Nom d'artiste"
++			undertext={<>
++				<Text undertext small>Par exemple,</Text>
++				<Text undertext italic small> Jay-Z</Text>
++				<Text undertext small> est le nom d’artiste de</Text>
++				<Text undertext italic small> Shawn Corey Carter</Text>.
++				</>}
++		/>
++	</Section>
+ }
+diff -ura src/pages/dashboard/my-works.js src-lila/pages/dashboard/my-works.js
+--- src/pages/dashboard/my-works.js	2020-03-25 18:58:54.308936967 -0400
++++ src-lila/pages/dashboard/my-works.js	2020-03-26 11:16:31.000000000 -0400
+@@ -1,14 +1,14 @@
+-import React, {useState}    from "react"
+-import { useHistory }       from "react-router"
++import React, { useState } from "react"
++import { useHistory } from "react-router"
+ import { View, StyleSheet } from "react-native"
+ 
+ import { Row, Column, Group, Flex, Hairline } from "../../layout"
+-import { Heading  } from "../../text"
+-import { TabBar, Tab }         from "../../widgets/tabs"
++import { Heading } from "../../text"
++import { TabBar, Tab } from "../../widgets/tabs"
+ import { Button } from "../../widgets/button"
+ 
+-import MediaWorkRow    from "../../smartsplit/works/dashboard-row"
+-import CreateWorkModal         from "../../smartsplit/works/create-work-modal"
++import MediaWorkRow from "../../smartsplit/works/dashboard-row"
++import CreateWorkModal from "../../smartsplit/works/create-work-modal"
+ 
+ 
+ export default function MyWorksPage() {
+@@ -19,7 +19,7 @@
+ 			visible={modalOpen}
+ 			onRequestClose={() => setModal(false)}
+ 		/>
+-		
++
+ 		<Group of="group">
+ 			<Row of="component">
+ 				<Flex>
+@@ -32,7 +32,7 @@
+ 				<Tab key="my-works" title="Mes ajouts" default>
+ 					<MyWorksTab />
+ 				</Tab>
+-				
++
+ 				<Tab key="shared-with-me" title="Partagées avec moi">
+ 					<SharedWithMeTab />
+ 				</Tab>
+@@ -70,7 +70,7 @@
+ 		steps="5"
+ 		stepName="Partage des droits"
+ 		progress="35"
+-	 />
++	/>
+ 
+ const demo2 =
+ 	<MediaWorkRow
+@@ -92,4 +92,4 @@
+ 		steps="5"
+ 		stepName="Documente ton oeuvre"
+ 		progress="0"
+-	/>
++	/>
+\ Pas de fin de ligne à la fin du fichier
+Seulement dans src-lila/pages/dashboard: notifications.js
+Seulement dans src-lila/pages/dashboard: settings.js
+diff -ura src/pages/test/forms.js src-lila/pages/test/forms.js
+--- src/pages/test/forms.js	2020-03-26 00:06:58.641692571 -0400
++++ src-lila/pages/test/forms.js	2020-03-26 10:27:14.000000000 -0400
+@@ -13,7 +13,7 @@
+ 	Select,
+ } from "../../forms"
+ import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
+-import { Heading, Paragraph, Text }                    from "../../text"
++import { Heading, Paragraph, Text } from "../../text"
+ import Button from "../../widgets/button"
+ import FacebookIcon from "../../svg/facebook"
+ import GoogleIcon from "../../svg/google"
+@@ -22,10 +22,85 @@
+ 
+ export default function FormsTest() {
+ 	return <Section of="group">
++		<Column of="component">
++			<Heading level="1">Test des formulaires</Heading>
++
++			<Paragraph>Cette page a pour but de démontrer les différentes composantes de formulaire et mise en page utilisées dans les formulaires à travers le site</Paragraph>
++
++			<Paragraph>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper elit et tortor consequat dignissim vehicula id tortor. Praesent tincidunt elementum tellus, quis tristique felis mollis at. Vestibulum pellentesque laoreet lectus, quis ultrices eros vehicula non. Mauris convallis ultricies placerat.</Paragraph>
++		</Column>
++
++		<Column of="component">
++			<Row of="component">
++				<TextField
++					label="Prénom"
++					label_hint="Optionnel"
++					defaultValue="Testing"
++					placeholder="prénom"
++				/>
++
++				<TextField
++					label="Nom"
++					defaultValue="Test"
++					placeholder="nom"
++				/>
++			</Row>
++
++			<PasswordField
++				label="Mot de passe"
++				undertext="Lettres et caractères spéciaux"
++				placeholder="correct horse battery staple"
++			/>
++
++			<TextField
++				label="Adresse courriel"
++				label_hint="Requis"
++				undertext="Entrez votre adresse courriel ici."
++				defaultValue="test@smartsplit.org"
++				placeholder="courriel"
++			/>
++
++			<Button
++				style={{ backgroundColor: "#4267B2" }}
++				icon={<FacebookIcon />}
++				text="Connexion avec Facebook"
++			/>
++
++			<Button
++				style={{ backgroundColor: "#4285F4" }}
++				icon={<GoogleIcon />}
++				text="Connexion avec Google"
++			/>
++		</Column>
++
++		<Row of="component">
++			<Dropdown
++				label="Dropdown simple"
++				placeholder="Sélectionnez..."
++				style={{ flex: 1 }}
++			>
++				<Column of="component" layer="overground_moderate" padding="component">
++					<Heading level="4">Un dropdown simple</Heading>
++					<Paragraph>Ce dropdown ne gère aucun état ou sélection: on est libre d'y mettre ce qu'on veut à l'intérieur. Pour un dropdown de sélection, ou autocomplete, voir: Select, AutocompleteField.</Paragraph>
++				</Column>
++			</Dropdown>
++
++			<Select
++				label="Champ de sélection"
++				placeholder="Sélectionnez..."
++				style={{ flex: 1 }}
++				options={[
++					{ key: "A", value: "Option A" },
++					{ key: "B", value: "Option B" },
++					{ key: "C", value: "Option C" },
++				]}
++			/>
++		</Row>
++
+ 		<TestText />
+ 		<TestBasicFields />
+ 		<TestBasicDropdowns />
+-		
++
+ 		<Row of="component">
+ 			<ArtistSelectDropdown
+ 				label="Sélectionne ton groupe"
+@@ -43,6 +118,55 @@
+ 			/>
+ 		</Row>
+ 
++		<Row of="component">
++			<Column of="component" style={{ flex: 1 }}>
++				<RadioGroup label="Choisis une des options suivantes:">
++					<RadioGroupButton value="A" label="Option A" />
++					<RadioGroupButton value="B" label="Option B" />
++					<RadioGroupButton value="C" label="Option C" />
++				</RadioGroup>
++			</Column>
++
++			<Column of="component" style={{ flex: 1 }}>
++				<LabelText>Cases à cocher seules </LabelText>
++				<CheckBox
++					label="Cochez moi, cochez moi!"
++					onChange={setTestCheckBox1}
++					checked={testCheckBox1}
++				/>
++
++				<CheckBox
++					label="Cochez moi aussi!"
++					disabled={!testCheckBox1}
++				/>
++			</Column>
++
++			<Column of="component" style={{ flex: 1 }}>
++				<LabelText>Boutons radios seuls</LabelText>
++				<RadioButton
++					label="Sélectionnez moi!"
++				/>
++
++				<RadioButton
++					label="Sélectionnez moi à la place!"
++					disabled={!testCheckBox1}
++				/>
++			</Column>
++		</Row>
++
++		<Row of="component">
++			<Button
++				style={{ backgroundColor: "#4267B2" }}
++				icon={<FacebookIcon />}
++				text="Connexion avec Facebook"
++			/>
++
++			<Button
++				style={{ backgroundColor: "#4285F4" }}
++				icon={<GoogleIcon />}
++				text="Continuer avec Google"
++			/>
++		</Row>
+ 		<TestCheckboxes />
+ 	</Section>
+ }
+@@ -68,6 +192,13 @@
+ 			/>
+ 
+ 			<TextField
++				label="Test avec un très long titre"
++				undertext="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ullamcorper elit et tortor consequat dignissim vehicula id tortor. Praesent tincidunt elementum tellus, quis tristique felis mollis at. Vestibulum pellentesque laoreet lectus, quis ultrices eros vehicula non. Mauris convallis ultricies placerat."
++				defaultValue="Test"
++				placeholder="nom"
++			/>
++
++			<TextField
+ 				label="Nom"
+ 				defaultValue="Test"
+ 				placeholder="nom"
+@@ -95,7 +226,7 @@
+ 		<Dropdown
+ 			label="Dropdown simple"
+ 			placeholder="Sélectionnez..."
+-			style={{flex: 1}}
++			style={{ flex: 1 }}
+ 			noFocusToggle
+ 		>
+ 			<Column of="component" layer="overground_moderate" padding="component">
+@@ -103,11 +234,11 @@
+ 				<Paragraph>Ce dropdown ne gère aucun état ou sélection: on est libre d'y mettre ce qu'on veut à l'intérieur. Pour un dropdown de sélection, ou autocomplete, voir: Select, AutocompleteField.</Paragraph>
+ 			</Column>
+ 		</Dropdown>
+-		
++
+ 		<Select
+ 			label="Champ de sélection"
+ 			placeholder="Sélectionnez..."
+-			style={{flex: 1}}
++			style={{ flex: 1 }}
+ 			options={[
+ 				{ key: "A", value: "Option A" },
+ 				{ key: "B", value: "Option B" },
+@@ -118,37 +249,37 @@
+ }
+ 
+ function TestCheckboxes() {
+-	const [ testCheckBox1, setTestCheckBox1 ] = useState(false)
+-	
++	const [testCheckBox1, setTestCheckBox1] = useState(false)
++
+ 	return <Row of="component">
+-		<Column of="component" style={{flex: 1}}>
++		<Column of="component" style={{ flex: 1 }}>
+ 			<RadioGroup label="Choisis une des options suivantes:">
+ 				<RadioGroupButton value="A" label="Option A" />
+ 				<RadioGroupButton value="B" label="Option B" />
+ 				<RadioGroupButton value="C" label="Option C" />
+ 			</RadioGroup>
+ 		</Column>
+-		
+-		<Column of="component" style={{flex: 1}}>
++
++		<Column of="component" style={{ flex: 1 }}>
+ 			<LabelText>Cases à cocher seules </LabelText>
+ 			<CheckBox
+ 				label="Cochez moi, cochez moi!"
+ 				onChange={setTestCheckBox1}
+ 				checked={testCheckBox1}
+ 			/>
+-			 
++
+ 			<CheckBox
+ 				label="Cochez moi aussi!"
+ 				disabled={!testCheckBox1}
+ 			/>
+ 		</Column>
+-		
+-		<Column of="component" style={{flex: 1}}>
++
++		<Column of="component" style={{ flex: 1 }}>
+ 			<LabelText>Boutons radios seuls</LabelText>
+ 			<RadioButton
+ 				label="Sélectionnez moi!"
+ 			/>
+-			
++
+ 			<RadioButton
+ 				label="Sélectionnez moi à la place!"
+ 				disabled={!testCheckBox1}
+Seulement dans src/styles: colors.js
+diff -ura src/styles/forms.js src-lila/styles/forms.js
+--- src/styles/forms.js	2020-03-25 15:08:31.211051330 -0400
++++ src-lila/styles/forms.js	2020-03-26 09:46:22.000000000 -0400
+@@ -1,5 +1,5 @@
+ import { Platform, StyleSheet } from "react-native"
+-import { Metrics, Colors } from "../theme"
++import { Metrics, Colors } from "../theme"
+ 
+ const FormStyles = StyleSheet.create({
+ 	label_wrap: {
+@@ -33,7 +33,7 @@
+ 			}
+ 		})
+ 	},
+-	
++
+ 	undertext: {
+ 
+ 	},
+diff -ura src/styles/typography.js src-lila/styles/typography.js
+--- src/styles/typography.js	2020-03-23 12:44:36.775473961 -0400
++++ src-lila/styles/typography.js	2020-03-23 13:11:55.000000000 -0400
+@@ -18,48 +18,63 @@
+ 			),
+ 			color: Colors.primary,
+ 		},
+-		
++
+ 		heavy: {
+ 			fontFamily: fontWithWeight(
+ 				Typography.font,
+ 				Typography.Weight.heavy
+ 			),
+ 		},
+-		
++
+ 		bold: {
+ 			fontFamily: fontWithWeight(
+ 				Typography.font,
+ 				Typography.Weight.bold
+ 			),
+ 		},
++
++		undertext: {
++			base: {
++				fontFamily: fontWithWeight(
++					Typography.font,
++					Typography.Weight.small
++				),
++				color: Colors.secondary,
++			}
++		},
++
++		italic: {
++			fontStyle: "italic"
++		},
++
+ 		reversed: {
+ 			color: Colors.primary_reversed,
+ 		},
+-		
++
+ 		secondary: {
+ 			color: Colors.secondary,
+ 		},
+ 	},
+-	
++
+ 	headings: {}
+ }
+ 
+-for(let [key, value] of Object.entries(Typography.text)) {
++for (let [key, value] of Object.entries(Typography.text)) {
+ 	TypographyStyles.text[key] = {
+ 		fontSize: value.size,
+ 		lineHeight: value.height,
+ 	}
+ }
+ 
+-for(let [key, value] of Object.entries(Typography.titles)) {
++for (let [key, value] of Object.entries(Typography.titles)) {
+ 	TypographyStyles.headings[key] = {
+-		fontSize:   value.size,
++		fontSize: value.size,
+ 		lineHeight: value.height,
+ 		fontFamily: fontWithWeight(Typography.font, value.weight)
+ 	}
+ }
+ 
+-TypographyStyles.text     = StyleSheet.create(TypographyStyles.text)
++TypographyStyles.text = StyleSheet.create(TypographyStyles.text)
+ TypographyStyles.headings = StyleSheet.create(TypographyStyles.headings)
+ 
+ export default TypographyStyles
+Seulement dans src-lila/svg: add-round.js
+Seulement dans src-lila/svg: add-square.js
+diff -ura src/svg/arrow-left.js src-lila/svg/arrow-left.js
+--- src/svg/arrow-left.js	2020-03-18 16:28:15.807034427 -0400
++++ src-lila/svg/arrow-left.js	2020-03-19 13:39:17.000000000 -0400
+@@ -2,21 +2,11 @@
+ import { Svg, Path } from "react-native-svg"
+ import { Colors } from "../theme"
+ 
+-export default function(props) {
++export default function LogoArrowLeft(props) {
+ 	const color = props.color || Colors.tertiary
+-	
+-	return <Svg
+-		width="24" height="24"
+-		viewBox="0 0 24 24"
+-		fill="none"
+-		xmlns="http://www.w3.org/2000/svg"
+-	>
+-		<Path
+-			d="M15 18L9 12L15 6"
+-			stroke={color}
+-			strokeWidth="2"
+-			strokeLinecap="round"
+-			strokeLinejoin="round"
+-		/>
++
++	return <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
++		<Path d="M20 12H4" stroke="#8DA0B3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
++		<Path d="M10 18L4 12L10 6" stroke="#8DA0B3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+ 	</Svg>
+ }
+Seulement dans src-lila/svg: avatar.js
+Seulement dans src-lila/svg: dashboard-eyes.js
+diff -ura src/svg/eye.js src-lila/svg/eye.js
+--- src/svg/eye.js	2020-03-12 00:29:41.682553411 -0400
++++ src-lila/svg/eye.js	2020-03-23 21:11:10.000000000 -0400
+@@ -1,10 +1,10 @@
+ import React from "react"
+-import {Svg, Path} from "react-native-svg"
++import { Svg, Path } from "react-native-svg"
+ 
+ export default function EyeIcon(props) {
+ 	const { blocked, ...nextProps } = props
+ 
+-	if(blocked)	return <Svg
++	if (blocked) return <Svg
+ 		width="24" height="24"
+ 		viewBox="0 0 24 24"
+ 		fill="none"
+Seulement dans src-lila/svg: logout.js
+diff -ura src/svg/music-note.js src-lila/svg/music-note.js
+--- src/svg/music-note.js	2020-03-18 16:28:15.807034427 -0400
++++ src-lila/svg/music-note.js	2020-03-20 14:53:57.000000000 -0400
+@@ -4,26 +4,8 @@
+ export default function MusicNoteIcon(props) {
+ 	const color = props.color || "#8DA0B3"
+ 
+-	return <Svg
+-		width="24"
+-		height="24"
+-		viewBox="0 0 24 24"
+-		fill="none"
+-		xmlns="http://www.w3.org/2000/svg"
+-	>
+-		<Path
+-			d="M9 17H5C4.46957 17 3.96086 17.2107 3.58579 17.5858C3.21071 17.9609 3 18.4696 3 19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H7C7.53043 21 8.03914 20.7893 8.41421 20.4142C8.78929 20.0391 9 19.5304 9 19V17ZM21 15H17C16.4696 15 15.9609 15.2107 15.5858 15.5858C15.2107 15.9609 15 16.4696 15 17C15 17.5304 15.2107 18.0391 15.5858 18.4142C15.9609 18.7893 16.4696 19 17 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V15Z"
+-			stroke={color}
+-			strokeWidth="2"
+-			strokeLinecap="round"
+-			strokeLinejoin="round"
+-		/>
+-		<Path
+-			d="M9 17V5L21 3V15"
+-			stroke={color}
+-			strokeWidth="2"
+-			strokeLinecap="round"
+-			strokeLinejoin="round"
+-		/>
++	return <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
++		<Path d="M9 17H5C4.46957 17 3.96086 17.2107 3.58579 17.5858C3.21071 17.9609 3 18.4696 3 19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H7C7.53043 21 8.03914 20.7893 8.41421 20.4142C8.78929 20.0391 9 19.5304 9 19V17ZM21 15H17C16.4696 15 15.9609 15.2107 15.5858 15.5858C15.2107 15.9609 15 16.4696 15 17C15 17.5304 15.2107 18.0391 15.5858 18.4142C15.9609 18.7893 16.4696 19 17 19H19C19.5304 19 20.0391 18.7893 20.4142 18.4142C20.7893 18.0391 21 17.5304 21 17V15Z" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
++		<Path d="M9 17V5L21 3V15" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+ 	</Svg>
+ }
+Seulement dans src-lila/svg: notifications.js
+Seulement dans src-lila/svg: pen.js
+Seulement dans src-lila/svg: settings.js
+diff -ura src/text.js src-lila/text.js
+--- src/text.js	2020-03-18 16:28:15.810367762 -0400
++++ src-lila/text.js	2020-03-25 23:27:39.000000000 -0400
+@@ -1,7 +1,7 @@
+ import React from "react"
+ import { Text as TextView } from "react-native"
+-import TypographyStyles     from "./styles/typography"
+-import MetricsStyles        from "./styles/metrics"
++import TypographyStyles from "./styles/typography"
++import MetricsStyles from "./styles/metrics"
+ 
+ // Note: Il est important qu'il n'y ait pas d'espacement entre les tags, tel que
+ // <TextView>{props.children}</TextView>. Sinon l'espace est rendu, et il y a des
+@@ -12,38 +12,46 @@
+ 		style,
+ 		heavy,
+ 		bold,
++		italic,
++		undertext,
+ 		small,
+ 		reversed,
+ 		secondary,
+ 		...nextProps
+ 	} = props
+-	
++
+ 	const styles = [
+ 		TypographyStyles.text.base,
+ 		TypographyStyles.text[small ? "small" : "medium"],
+ 	]
+-	
+-	if(heavy)
++
++	if (heavy)
+ 		styles.push(TypographyStyles.text.heavy)
+-	
+-	if(bold)
++
++	if (bold)
+ 		styles.push(TypographyStyles.text.bold)
+-	
+-	if(reversed)
++
++	if (italic)
++		styles.push(TypographyStyles.text.italic)
++
++	if (undertext)
++		styles.push(TypographyStyles.text.undertext)
++
++	if (reversed)
+ 		styles.push(TypographyStyles.text.reversed)
+-	
+-	if(secondary)
++
++	if (secondary)
+ 		styles.push(TypographyStyles.text.secondary)
+-	
+-	if(style)
++
++	if (style)
+ 		styles.push(style)
+-	
++
+ 	return <TextView style={styles} {...nextProps}>{props.children}</TextView>
+ }
+ 
+ export function Heading(props) {
+ 	const level = props.level || 1
+-	
++
+ 	return <TextView style={[
+ 		TypographyStyles.text.base,
+ 		TypographyStyles.headings[level]
+@@ -55,3 +63,14 @@
+ 		TypographyStyles.text.base
+ 	]}>{props.children}</TextView>
+ }
++
++export function UnderText(props) {
++	return <TextView style={[
++		TypographyStyles.text.undertext
++	]}>{props.children}</TextView>
++}
++export function ItalicUnderText(props) {
++	return <TextView style={[
++		TypographyStyles.text.undertext_italic
++	]}>{props.children}</TextView>
++}
+diff -ura src/theme.js src-lila/theme.js
+--- src/theme.js	2020-03-18 16:28:15.810367762 -0400
++++ src-lila/theme.js	2020-03-17 12:01:14.000000000 -0400
+@@ -7,7 +7,7 @@
+ 	 */
+ 	spacing: {
+ 		// Espacement total entre deux sections
+-		xlarge:  64,
++		xlarge: 64,
+ 		section: 64,
+ 
+ 		// Espacement total entre deux groupes
+@@ -15,31 +15,31 @@
+ 		group: 32,
+ 
+ 		// Espacement total entre deux composantes
+-		medium:    16,
++		medium: 16,
+ 		component: 16,
+ 
+ 		// Espacement total entre deux sous-composantes 
+-		small:  8,
++		small: 8,
+ 		inside: 8,
+ 
+ 		// Marge standard entre les petits éléments visuels
+ 		xsmall: 4,
+-		tiny:   4,
++		tiny: 4,
+ 	},
+ 
+ 	// Taille des widgets: boutons, images, etc.
+ 	size: {
+ 		xlarge: 72,
+-		large:  56,
++		large: 56,
+ 		medium: 40,
+-		small:  24,
++		small: 24,
+ 		xsmall: 16,
+-		tiny:    8,
++		tiny: 8,
+ 	},
+ 
+ 	// Courbature des bordures */
+ 	borderRadius: {
+-		forms:  2,
++		forms: 2,
+ 		modals: 4,
+ 	},
+ 
+@@ -53,44 +53,52 @@
+ }
+ 
+ export const Colors = {
+-	action:           "#2DA84F",
+-	primary:          "#203548",
++	action: "#2DA84F",
++	primary: "#203548",
+ 	primary_reversed: "#FFFFFF",
+-	secondary:        "#687A8B",
+-	tertiary:         "#8DA0B2",
+-	stroke:           "#DCDFE1",
+-	inactive:         "#8DA0B3",
++	secondary: "#687A8B",
++	tertiary: "#8DA0B2",
++	stroke: "#DCDFE1",
++	inactive: "#8DA0B3",
+ 
+ 	secondaries: {
+-		purple:   "#BCBBF2",
++		purple: "#BCBBF2",
+ 		scarlett: "#D9ACF7",
+-		pink:     "#EBB1DC",
+-		salmon:   "#FFAFA8",
+-		coral:    "#FCB8C5",
+-		peach:    "#FAC0AE",
+-		orange:   "#FFD0A9",
+-		yellow:   "#F8EBA3",
+-		olive:    "#C6D9AD",
+-		green:    "#C6F3B6",
+-		teal:     "#93E9E4",
+-		skyblue:  "#91DDFE",
+-		indigo:   "#A4B7F1",
++		pink: "#EBB1DC",
++		salmon: "#FFAFA8",
++		coral: "#FCB8C5",
++		peach: "#FAC0AE",
++		orange: "#FFD0A9",
++		yellow: "#F8EBA3",
++		olive: "#C6D9AD",
++		green: "#C6F3B6",
++		teal: "#93E9E4",
++		skyblue: "#91DDFE",
++		indigo: "#A4B7F1",
+ 	},
+ 
+ 	background: {
+-		ground:                "#FFFFFF",
+-		underground:           "#FAF8F9",
+-		hell:                  "#F2EFF0",
+-		underground_reversed:  "#322129",
++		ground: "#FFFFFF",
++		underground: "#FAF8F9",
++		hell: "#F2EFF0",
++		underground_reversed: "#322129",
+ 		underground_reversed2: "#3F2933",
+ 	},
++
++	progressBar: {
++		darkred: "#8b0000",
++		orangered: "#ff4500",
++		orange: "#ffa500",
++		yellowgreen: "#9acd32",
++		green: "#008000",
++	},
+ }
+ 
+ export const Typography = {
+ 	Weight: {
+ 		normal: "400",
+-		heavy:  "500",
+-		bold:   "700",
++		heavy: "500",
++		bold: "700",
+ 	},
+ 
+ 	// font: "Roboto",
+@@ -98,31 +106,31 @@
+ 
+ 	titles: {
+ 		1: {
+-			size:   40,
++			size: 40,
+ 			height: 48,
+ 			weight: "500",
+ 		},
+ 
+ 		2: {
+-			size:   32,
++			size: 32,
+ 			height: 40,
+ 			weight: "700",
+ 		},
+ 
+ 		3: {
+-			size:   24,
++			size: 24,
+ 			height: 32,
+ 			weight: "700",
+ 		},
+ 
+ 		4: {
+-			size:   18,
++			size: 18,
+ 			height: 24,
+ 			weight: "700",
+ 		},
+ 
+ 		5: {
+-			size:   16,
++			size: 16,
+ 			height: 24,
+ 			weight: "700",
+ 		},
+@@ -130,11 +138,11 @@
+ 
+ 	text: {
+ 		small: {
+-			size:   12,
++			size: 12,
+ 			height: 16,
+ 		},
+ 		medium: {
+-			size:   16,
++			size: 16,
+ 			height: 24,
+ 		},
+ 	},
+Seulement dans src-lila: translations
+diff -ura src/widgets/button.js src-lila/widgets/button.js
+--- src/widgets/button.js	2020-03-18 18:00:58.072514780 -0400
++++ src-lila/widgets/button.js	2020-03-24 09:56:31.000000000 -0400
+@@ -3,6 +3,7 @@
+ import { Text } from "../text"
+ import { Row } from "../layout"
+ import { Colors, Metrics } from "../theme"
++import { AuthSession } from "expo"
+ 
+ export const ButtonStyles = StyleSheet.create({
+ 	frame: {
+@@ -10,7 +11,7 @@
+ 		justifyContent: "center",
+ 		flexDirection: "row",
+ 	},
+-	
++
+ 	frame_medium: {
+ 		borderRadius: Metrics.borderRadius.forms,
+ 		height: Metrics.size.medium,
+@@ -42,7 +43,7 @@
+ 		borderColor: Colors.action,
+ 		borderWidth: 1
+ 	},
+-	
++
+ 	text_container: {
+ 		flex: 1,
+ 		alignItems: "center",
+@@ -69,14 +70,14 @@
+ 
+ ButtonStyles.frame_round = {}
+ 
+-for(let size in Metrics.size) {
++for (let size in Metrics.size) {
+ 	ButtonStyles.frame_round[size] = {
+-		width:  Metrics.size[size],
++		width: Metrics.size[size],
+ 		height: Metrics.size[size],
+ 		borderRadius: Metrics.size[size] / 2,
+ 	}
+ }
+-		
++
+ ButtonStyles.frame_round = StyleSheet.create(ButtonStyles.frame_round)
+ 
+ 
+@@ -85,25 +86,25 @@
+ 		ButtonStyles.frame,
+ 		ButtonStyles[props.small ? "frame_small" : "frame_medium"]
+ 	]
+-	let textStyle  = []
+-	let content    = props.children
++	let textStyle = []
++	let content = props.children
+ 
+-	if(props.icon && !props.text && !content) {
++	if (props.icon && !props.text && !content) {
+ 		frameStyle.push(ButtonStyles.frame_icon)
+ 	}
+-	else if(props.disabled) {
++	else if (props.disabled) {
+ 		frameStyle.push(ButtonStyles.frame_disabled)
+ 		textStyle.push(ButtonStyles.text_disabled)
+ 	}
+-	else if(props.primary) {
++	else if (props.primary) {
+ 		frameStyle.push(ButtonStyles.frame_primary)
+ 		textStyle.push(ButtonStyles.text_primary)
+ 	}
+-	else if(props.secondary) {
++	else if (props.secondary) {
+ 		frameStyle.push(ButtonStyles.frame_secondary)
+ 		textStyle.push(ButtonStyles.text_secondary)
+ 	}
+-	else if(props.tertiary) {
++	else if (props.tertiary) {
+ 		textStyle.push(ButtonStyles.text_secondary)
+ 	}
+ 	else {
+@@ -111,7 +112,7 @@
+ 		textStyle.push(ButtonStyles.text_primary)
+ 	}
+ 
+-	if(!content) {
++	if (!content) {
+ 		content = <>
+ 			{props.icon}
+ 			{props.text && <View style={ButtonStyles.text_container}>
+@@ -131,13 +132,18 @@
+ 	</TouchableWithoutFeedback>
+ }
+ 
++export const SocialButton = {
++	style: {
++		height: 40,
++	},
++}
+ export function RoundButton(props) {
+ 	const buttonStyles = [
+ 		ButtonStyles.frame,
+ 		ButtonStyles.frame_primary,
+ 		ButtonStyles.frame_round[props.size] || ButtonStyles.frame_round.medium
+ 	]
+-	
++
+ 	return <TouchableWithoutFeedback onPress={props.onClick}>
+ 		<View style={buttonStyles}>{props.children}</View>
+ 	</TouchableWithoutFeedback>
+diff -ura src/widgets/progress-bar.js src-lila/widgets/progress-bar.js
+--- src/widgets/progress-bar.js	2020-03-18 16:28:15.810367762 -0400
++++ src-lila/widgets/progress-bar.js	2020-03-17 16:30:07.000000000 -0400
+@@ -1,3 +1,4 @@
++
+ import React from "react"
+ import { View, StyleSheet } from "react-native"
+ import { Metrics, Colors } from "../theme"
+@@ -25,8 +26,9 @@
+ export default function ProgressBar(props) {
+ 	const progressPercent = roundProgress(props.progress) + "%"
+ 	const height = Metrics.size[props.size || "medium"] / 2
++	const color = props.color || Colors.action
++	return <View style={[Styles.bar, { height }]}>
++		<View style={[Styles.progress, { width: progressPercent, backgroundColor: color }]} />
+ 
+-	return <View style={[Styles.bar, {height}]}>
+-		<View style={[Styles.progress, {width: progressPercent}]} />
+ 	</View>
+-}
++}
+\ Pas de fin de ligne à la fin du fichier

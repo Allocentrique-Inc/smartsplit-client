@@ -1,18 +1,24 @@
 import React, {useState}    from "react"
 import { useHistory }       from "react-router"
-import { View, StyleSheet } from "react-native"
+import { Platform, View, StyleSheet } from "react-native"
 
 import { Row, Column, Group, Flex, Hairline } from "../../layout"
-import { Heading  } from "../../text"
+import { Heading  }            from "../../text"
 import { TabBar, Tab }         from "../../widgets/tabs"
-import { Button } from "../../widgets/button"
+import { Button, RoundButton } from "../../widgets/button"
 
-import MediaWorkRow    from "../../smartsplit/works/dashboard-row"
+import MediaWorkRow            from "../../smartsplit/works/dashboard-row"
 import CreateWorkModal         from "../../smartsplit/works/create-work-modal"
 
 
 export default function MyWorksPage() {
 	const [modalOpen, setModal] = useState(false)
+	
+	const addNewWorkButton = Platform.select({
+		web: <Button primary text="Ajouter" onClick={() => setModal(true)} />,
+		ios: <RoundButton small text="+" />,
+		android: <RoundButton small text="+" />,
+	})
 
 	return <>
 		<CreateWorkModal
@@ -25,7 +31,7 @@ export default function MyWorksPage() {
 				<Flex>
 					<Heading level="2">Mes pièces musicales</Heading>
 				</Flex>
-				<Button primary text="Ajouter" onClick={() => setModal(true)} />
+				{addNewWorkButton}
 			</Row>
 
 			<TabBar>
