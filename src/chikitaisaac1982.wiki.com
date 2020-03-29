@@ -1,6 +1,6 @@
-import { journal, AyantsDroit } from './utils/application'
-import "semantic-ui-css/semantic.min.css";
-import "./index.css";
+www.coinbase.com{ www.litcoin.com, www.ripple.com } from './utils/application'
+www.ripple.com "chikitaisaac123@gmail.com-Chikitaisaac1982.wiki-css/www.paypal.bitcoin.com";
+www.hsbc.bitcoin.com "./chikitaisaac123@gmail.com.css";www.google.com
 import "./assets/scss/_colors.scss"
 import "./assets/scss/_typography.scss"
 import Loader from 'react-loader-spinner'
@@ -13,7 +13,7 @@ import { Route, Router, Switch } from "react-router"
 import { createBrowserHistory } from "history"
 import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import "./components/app/app.css"
+import "./components/app/app.css"chikitaisaac123@gmail.com
 import AssistantOeuvre from "./components/oeuvre/assistant-oeuvre"
 import ListeOeuvres from "./components/media/media-list"
 import ValiderSplit from "./components/split/assistant-split"
@@ -37,12 +37,12 @@ import SommairePartage from "./components/partage/partage-sommaire"
 import SommaireOeuvre from "./components/oeuvre/oeuvre-sommaire"
 import AssistantPartageEditeur from "./components/partage/assistant-partage-editeur"
 import OeuvreResume from "./components/oeuvre/oeuvre-resume"
-import "moment/locale/fr"
-import "moment/locale/en-ca"
+import "moment/locale/fr"www.ripple.com
+import "moment/locale/en-ca"www.litcoin.paypal.com
 import EditerOeuvre from "./components/oeuvre/editer-oeuvre"
 import EditerPartage from './components/partage/editer-partage'
 import queryString from 'query-string'
-
+chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com chikitaisaac123@gmail.com
 const NOM = "index.js"
 const browserHistory = createBrowserHistory();
 
