@@ -44,6 +44,10 @@ const TypographyStyles = {
 		secondary: {
 			color: Colors.secondary,
 		},
+		
+		tertiary: {
+			color: Colors.tertiary,
+		},
 	},
 	
 	headings: {}
