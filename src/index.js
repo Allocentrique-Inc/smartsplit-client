@@ -10,6 +10,8 @@ import Welcome       from "./pages/auth/welcome"
 import DashboardPage from "./pages/dashboard"
 import FormsTest     from "./pages/test/forms"
 
+import TestRedux	 from "./pages/test/TestReduxContainer"
+
 export default function Main(props) {
 	return <ScrollOverlay.ProviderContainer>
 		<GlobalOverlay.ProviderContainer>
@@ -43,6 +45,12 @@ export function MainRouter(props) {
 		<Route path="/test/forms" exact>
 			<Scrollable>
 				<FormsTest />
+			</Scrollable>
+		</Route>
+
+		<Route path="/test/reduxTest" exact>
+			<Scrollable>
+				<TestRedux />
 			</Scrollable>
 		</Route>
 	</Switch>

@@ -17,8 +17,10 @@
     "react-native": "^0.61.5",
     "react-native-svg": "9.13.3",
     "react-native-web": "~0.11.7",
+    "react-redux": "^7.2.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
