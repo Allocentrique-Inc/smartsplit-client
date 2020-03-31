@@ -48,10 +48,10 @@ const TypographyStyles = {
 		tertiary: {
 			color: Colors.tertiary,
 		},
-
+		
 		action: {
 			color: Colors.action,
-		}
+		},
 	},
 	
 	headings: {}
