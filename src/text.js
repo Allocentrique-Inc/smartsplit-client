@@ -14,6 +14,7 @@ export function Text(props) {
 		bold,
 		italic,
 		small,
+		regular,
 		reversed,
 		secondary,
 		tertiary,
@@ -50,6 +51,9 @@ export function Text(props) {
 
 	if(action)
 		styles.push(TypographyStyles.text.primary)
+	
+	if(action)
+		styles.push(TypographyStyles.text.regular)
 	
 	if(style)
 		styles.push(style)

@@ -14,7 +14,7 @@ import MetricsStyles from "../styles/metrics"
 import { Colors, Metrics } from "../theme"
 import { CheckBox } from "../forms"
 
-import LogoSmartSplit from "../svg/logo-smartsplit"
+import LogoSmartSplitMenu from "../svg/logo-smart-split-menu"
 import LinkIcon from "../svg/link"
 import LogoArrowLeft from "../svg/arrow-left"
 import LogoAddSquare from "../svg/add-square"
@@ -85,7 +85,7 @@ export const DashboardStyles = StyleSheet.create({
 export function Sidebar(props) {
 	return <Column style={[LayerStyles.underground_reversed, DashboardStyles.sidebar]}>
 		<View style={[LayerStyles.underground_reversed2, DashboardStyles.logo]}>
-			{<LogoSmartSplit />}
+			{<LogoSmartSplitMenu />}
 		</View>
 		<Column style={DashboardStyles.sidebar_menu}>
 			{props.children}

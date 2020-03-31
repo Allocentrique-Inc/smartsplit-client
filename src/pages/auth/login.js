@@ -1,12 +1,13 @@
-import React from "react"
-import Button from "../../widgets/button"
-import { Divider, TextDivider, Section, Column, Row } from "../../layout"
+import React                        from "react"
+import Button                       from "../../widgets/button"
+import { Section }                  from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { TextField, PasswordField } from "../../forms"
-import { Colors } from "../../theme"
-import PublicNavBar from '../../smartsplit/public/navbar'
+import PublicNavBar                 from '../../smartsplit/public/navbar'
+import { CheckBox }                 from "../../forms"
 
 export default function Login() {
+
     return <>
             <PublicNavBar>
                 <Text secondary> Pas de compte ?</Text>
@@ -27,10 +28,15 @@ export default function Login() {
                 placeholder=""
             />
             
-            <Text bold style={{ color: Colors.action }}>Mot de passe oublié ?</Text>
+            <Text bold small action>Mot de passe oublié ?</Text>
+
+			<CheckBox>
+                <Text primary regular>Rester connecté</Text>
+            </CheckBox>
             
             <Button text="Me connecter" />
             <Button secondary text="Créer mon compte" />
         </Section>
     </>
 }
+
