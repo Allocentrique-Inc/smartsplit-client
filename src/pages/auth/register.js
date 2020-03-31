@@ -2,7 +2,8 @@ import React, { useState } from "react"
 import Button from "../../widgets/button"
 import { Divider, TextDivider, Section, Column } from "../../layout"
 import { TextField, PasswordField } from "../../forms"
-import { Heading } from "../../text"
+import { Heading, Text } from "../../text"
+import PublicNavBar from '../../smartsplit/public/navbar'
 import { SocialButton } from "../../widgets/button"
 import ProgressBar from "../../widgets/progress-bar"
 import FacebookIcon from "../../svg/facebook"
@@ -36,49 +37,57 @@ export default function Register(props) {
 	const [password, setPassword] = useState("")
 	const score = zxcvbn(password).score /* passer le mot de passe dans zxcvbn, valeur */
 	
-	return <Section of="group">
-		<Column of="component" style={{maxWidth: 464, alignSelf: "center"}}>
-			<Heading level="1">En route vers la professionnalisation</Heading>
+	return <>
+			<PublicNavBar>
+				<Text secondary> Déjà Membre ?</Text>
+				<Button tertiary text="Ouvrir une session" />
+				<Button secondary text="English" />
+			</PublicNavBar>
 
-			<Button
-				style={{ backgroundColor: "#4267B2" }}
-				icon={<FacebookIcon />}
-				text="Connexion avec Facebook"
-			/>
+			<Section of="group">
+			<Column of="component" style={{maxWidth: 464, alignSelf: "center"}}>
+				<Heading level="1">En route vers la professionnalisation</Heading>
 
-			<Button
-				style={{ backgroundColor: "#4285F4" }}
-				icon={<GoogleIcon />}
-				text="Connnexion avec Google"
-			/>
-			
-			<TextDivider text="ou" />
-			
-			<TextField
-				label="Entre ton courriel"
-				placeholder="nom@example.com"
-			/>
-			
-			<PasswordField
-				value={password} //pour avoir toujours valeur mot de passe, reçoit valeur password
-				onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
-				label="Choisis ton mot de passe"
-				placeholder=""
-			/>
-			
-			<ProgressBar
-				size="tiny"
-				color={passwordBarColor(score)}
-				progress={passwordProgress(score)}
-			/>
+				<Button
+					style={{ backgroundColor: "#4267B2" }}
+					icon={<FacebookIcon />}
+					text="Connexion avec Facebook"
+				/>
 
-			<PasswordField
-				label="Répète ton mot de passe"
-				placeholder=""
-			/>
-			
-			<Button text="Créer mon compte" />
-			<Button secondary text="J'ai déjà un compte" />
-		</Column>
-	</Section>
+				<Button
+					style={{ backgroundColor: "#4285F4" }}
+					icon={<GoogleIcon />}
+					text="Connnexion avec Google"
+				/>
+				
+				<TextDivider text="ou" />
+				
+				<TextField
+					label="Entre ton courriel"
+					placeholder="nom@example.com"
+				/>
+				
+				<PasswordField
+					value={password} //pour avoir toujours valeur mot de passe, reçoit valeur password
+					onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
+					label="Choisis ton mot de passe"
+					placeholder=""
+				/>
+				
+				<ProgressBar
+					size="tiny"
+					color={passwordBarColor(score)}
+					progress={passwordProgress(score)}
+				/>
+
+				<PasswordField
+					label="Répète ton mot de passe"
+					placeholder=""
+				/>
+				
+				<Button text="Créer mon compte" />
+				<Button secondary text="J'ai déjà un compte" />
+			</Column>
+		</Section>
+		</>
 }

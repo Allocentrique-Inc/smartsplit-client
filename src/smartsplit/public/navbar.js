@@ -4,7 +4,7 @@ import { Flex, Row } from "../../layout"
 
 export default function PublicNavBar(props) {
 
-    return <Row of="group" padding="group">
+    return <Row of="group" padding="group" style={{alignItems: "center"}}>
                 <LogoSmartSplit />
                 <Flex />
                 {props.children}

@@ -1,20 +1,25 @@
 import React, { useState } from "react"
 
 import { Heading, UnderText, ItalicUnderText } from "../../text"
-import { Group, Hairline, Row } from "../../layout"
+import { Group, Row } from "../../layout"
 import { Text } from "../../text"
 import { TextField } from "../../forms"
 import Button from "../../widgets/button"
+import PublicNavBar from '../../smartsplit/public/navbar'
 
 export default function Welcome(props) {
 	const [firstName, setFirstName] = useState("")
 	const [lastName, setLastName] = useState("")
 	const initials = (firstName[0] || "") + (lastName[0] || "")
 
-	return <Group of="group">
+	return <>
+	<PublicNavBar>
+        <Button tertiary text="Passer cette étape" />
+        <Button secondary text="English" />
+    </PublicNavBar>
+
+	<Group of="group" style={{maxWidth: 465, alignSelf: "center"}}>
 		<Heading level="2">Bienvenue ! Parle-nous un peu de toi.</Heading>
-		
-		<Hairline />
 		
 		<TextField
 			label="Mon prénom légal"
@@ -45,4 +50,5 @@ export default function Welcome(props) {
 		<Button	text="C'est parti !" />
 		<Button tertiary text="Passer cette étape" />
 	</Group>
+	</>
 }
