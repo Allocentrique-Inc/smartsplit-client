@@ -34,7 +34,7 @@ export const Metrics = {
 		medium: 40,
 		small:  24,
 		xsmall: 16,
-		tiny:    8,
+		tiny:   8,
 	},
 
 	// Courbature des bordures */
@@ -45,15 +45,16 @@ export const Metrics = {
 
 	// Marge tappable/clickable autour des composantes
 	hitSlop: {
-		top: 8,
-		right: 8,
+		top:    8,
+		right:  8,
 		bottom: 8,
-		left: 8,
+		left:   8,
 	},
 }
 
 export const Colors = {
 	action:           "#2DA84F",
+	pochette:         "#F5752C",
 	primary:          "#203548",
 	primary_reversed: "#FFFFFF",
 	secondary:        "#687A8B",
@@ -62,19 +63,19 @@ export const Colors = {
 	inactive:         "#8DA0B3",
 
 	secondaries: {
-		purple:   "#BCBBF2",
-		scarlett: "#D9ACF7",
-		pink:     "#EBB1DC",
-		salmon:   "#FFAFA8",
-		coral:    "#FCB8C5",
-		peach:    "#FAC0AE",
-		orange:   "#FFD0A9",
-		yellow:   "#F8EBA3",
-		olive:    "#C6D9AD",
-		green:    "#C6F3B6",
-		teal:     "#93E9E4",
-		skyblue:  "#91DDFE",
-		indigo:   "#A4B7F1",
+		purple:    "#BCBBF2",
+		scarlett:  "#D9ACF7",
+		pink:      "#EBB1DC",
+		salmon:    "#FFAFA8",
+		coral:     "#FCB8C5",
+		peach:     "#FAC0AE",
+		orange:    "#FFD0A9",
+		yellow:    "#F8EBA3",
+		olive:     "#C6D9AD",
+		green:     "#C6F3B6",
+		teal:      "#93E9E4",
+		skyblue:   "#91DDFE",
+		indigo:    "#A4B7F1",
 	},
 
 	background: {
@@ -84,13 +85,13 @@ export const Colors = {
 		underground_reversed:  "#322129",
 		underground_reversed2: "#3F2933",
 	},
-	
+
 	progressBar: {
-		darkred:     "#8B0000",
-		orangered:   "#FF4500",
-		orange:      "#ffa500",
-		yellowgreen: "#9acd32",
-		green:       "#008000",
+		darkred:      "#8B0000",
+		orangered:    "#FF4500",
+		orange:       "#ffa500",
+		yellowgreen:  "#9acd32",
+		green:        "#008000",
 	},
 }
 

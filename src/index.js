@@ -4,11 +4,12 @@ import { Route, Redirect, Switch } from "react-router"
 import { Overlay as GlobalOverlay } from "./portals"
 import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
 
-import Register      from "./pages/auth/register"
-import Login         from "./pages/auth/login"
-import Welcome       from "./pages/auth/welcome"
-import DashboardPage from "./pages/dashboard"
-import FormsTest     from "./pages/test/forms"
+import Register       from "./pages/auth/register"
+import Login          from "./pages/auth/login"
+import Welcome        from "./pages/auth/welcome"
+import DashboardPage  from "./pages/dashboard"
+import FormsTest      from "./pages/test/forms"
+import CopyrightShare from "./pages/document/copyright"
 
 export default function Main(props) {
 	return <ScrollOverlay.ProviderContainer>
@@ -34,6 +35,10 @@ export function MainRouter(props) {
 
 		<Route path="/auth/login" exact>
 			<Login />
+		</Route>
+
+		<Route path="/document/copyright" exact>
+			<CopyrightShare />
 		</Route>
 
 		<Route path="/dashboard/">

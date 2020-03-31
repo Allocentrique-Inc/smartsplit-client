@@ -5,12 +5,12 @@ import moment from "moment"
 import { Row, Column, Section, Group, Flex, Hairline } from "../../layout"
 import { TextField, RadioGroup, RadioGroupButton } from "../../forms"
 import { Heading, Paragraph, Text } from "../../text"
-import { DialogModal }              from "../../widgets/modal"
-import { TabBar, Tab }              from "../../widgets/tabs"
-import Button                       from "../../widgets/button"
+import { DialogModal } from "../../widgets/modal"
+import { TabBar, Tab } from "../../widgets/tabs"
+import { Button, RoundButton } from "../../widgets/button"
 
 import { Colors, Metrics } from "../../theme"
-import LogoAddRound        from "../../svg/add-round"
+import LogoAddRound from "../../svg/add-round"
 
 
 export default function MyCollaboratorsPage() {
@@ -21,7 +21,7 @@ export default function MyCollaboratorsPage() {
 			visible={modalOpen}
 			onRequestClose={() => setModal(false)}
 		/>
-		
+
 		<Group of="group">
 			<Row of="component">
 				<Heading level="2">Mes collaborateurs</Heading>
@@ -30,7 +30,7 @@ export default function MyCollaboratorsPage() {
 					onPress={() => setModal(true)}
 					accessibilityRole="button"
 				>
-					<View><LogoAddRound /></View>
+					<View><LogoAddRound size="large"/></View> 
 				</TouchableWithoutFeedback>
 			</Row>
 
@@ -54,8 +54,9 @@ export default function MyCollaboratorsPage() {
 					onPress={() => setModal(true)}
 					accessibilityRole="button"
 				>
-					<View><LogoAddRound /></View>
+					<View><LogoAddRound size="xlarge"/></View> 
 				</TouchableWithoutFeedback>
+				{/* Aucune différence entre large et xlarge ? */}
 			</Row>
 		</Group>
 	</>

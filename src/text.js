@@ -17,6 +17,8 @@ export function Text(props) {
 		reversed,
 		secondary,
 		tertiary,
+		action,
+		primary,
 		...nextProps
 	} = props
 	
@@ -42,6 +44,12 @@ export function Text(props) {
 	
 	if(tertiary)
 		styles.push(TypographyStyles.text.tertiary)
+
+	if(action)
+		styles.push(TypographyStyles.text.action)
+
+	if(action)
+		styles.push(TypographyStyles.text.primary)
 	
 	if(style)
 		styles.push(style)
