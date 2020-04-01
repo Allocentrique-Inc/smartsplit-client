@@ -18,6 +18,12 @@ Pour lancer le projet, il suffit d'installer les dépendances et d'exécuter le 
 ~$ yarn start
 ```
 
+## Fusionner les branches
+```
+# git fetch
+# git merge origin/rewrite-expo
+```
+
 ## Style de code
 
 En ce moment, le style de code à suivre n'est pas très défini. En général, la règle est simple: on veut que ça soit facile à lire, facile à comprendre, et facile à maintenir.
