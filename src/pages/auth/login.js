@@ -1,20 +1,49 @@
 import React                        from "react"
+import { Platform, StyleSheet }     from 'react-native';
 import Button                       from "../../widgets/button"
-import { Section }                  from "../../layout"
+import Scrollable                   from "../../widgets/scrollable"
+import { Section, Row, Column, Flex }       from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { TextField, PasswordField } from "../../forms"
 import PublicNavBar                 from '../../smartsplit/public/navbar'
 import { CheckBox }                 from "../../forms"
+import { Metrics }                  from "../../theme"
+
+export const WebComponentNavbar = () => (
+    <PublicNavBar>
+        <Text secondary> Pas de compte ?</Text>
+        <Button tertiary text="Crée un compte" />
+        <Button secondary text="English" />
+    </PublicNavBar>    
+);
+
+export const WebComponentButtons = () => (
+    <Row>
+        <CheckBox>
+            <Text primary regular>Rester connecté</Text>
+        </CheckBox>
+        <Flex />
+            <Button text="Me connecter" />
+    </Row>
+  );
+
+  export const NativeComponent = () => (
+    <Column>
+    <Button 
+        style={{marginBottom: Metrics.spacing.component}} 
+        text="Me connecter" 
+        />
+    <Button secondary text="Créer mon compte" />
+    </Column>
+  );
 
 export default function Login() {
-
+      
     return <>
-            <PublicNavBar>
-                <Text secondary> Pas de compte ?</Text>
-                <Button tertiary text="Crée un compte" />
-                <Button secondary text="English" />
-            </PublicNavBar>
-    
+        {Platform.select({
+            web: <WebComponentNavbar />
+        })}
+    <Scrollable>
         <Section of="group" style={{maxWidth: 465, alignSelf: "center"}}>
             <Heading level="1">Connecte-toi à ton compte SmartSplit</Heading>
             <Paragraph>Entre tes informations ci-dessous.</Paragraph>
@@ -29,14 +58,14 @@ export default function Login() {
             />
             
             <Text bold small action>Mot de passe oublié ?</Text>
-
-			<CheckBox>
-                <Text primary regular>Rester connecté</Text>
-            </CheckBox>
-            
-            <Button text="Me connecter" />
-            <Button secondary text="Créer mon compte" />
+         
+        {Platform.select({
+            web: <WebComponentButtons />,
+            android: <NativeComponent />,
+            ios: <NativeComponent />,
+        })}
         </Section>
-    </>
+    </Scrollable>
+            </>
 }
 
