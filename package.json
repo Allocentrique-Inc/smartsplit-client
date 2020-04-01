@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "expo": "~36.0.0",
     "expo-cli": "^3.13.1",
     "metro-config": "^0.58.0",
@@ -21,6 +22,7 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {

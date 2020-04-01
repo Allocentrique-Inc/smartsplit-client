@@ -1,14 +1,24 @@
 import React from "react"
 import {View, Text, Button, StyleSheet} from "react-native"
 
-const TestRedux = ({cars, addCar})=>{
+const TestRedux = ({rightHolders, getRightHolders})=>{
 
 	return <View>
-		<Button title="Add car" onPress={ ()=>{addCar('Lambo123')} }></Button>
-		<Text>{JSON.stringify(cars)}</Text>
-		{cars && cars.myCollection && cars.myCollection.map((car,index)=>{
-			return <Text key={car}>{car}</Text>
-		})}
+		<Button title="Get rightholders" onPress={ ()=>{getRightHolders()} }></Button>
+		{rightHolders && rightHolders.isLoading && (
+			<Text>ITS LOADING</Text>
+		)}
+		{rightHolders && rightHolders.items.length <=0 && (
+			<Text>Its empty</Text>
+		)}
+		{rightHolders && !rightHolders.isLoading && rightHolders.items.length > 0 && (
+			<>
+			<Text>{JSON.stringify(rightHolders.items)}</Text>
+			{rightHolders.items && rightHolders.items.map((item,index)=>{
+				return <Text key={item.email}>{item.email}</Text>
+			})}
+			</>
+		)}
 	</View>
 }
 

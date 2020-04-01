@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import { Platform, View, Text, ScrollView } from "react-native"
 import { Provider } from "react-redux"
-import { createStore } from "redux"
+import { createStore, applyMiddleware  } from "redux"
+import thunk from 'redux-thunk'
 import rootReducer from "./redux/rootReducer"
 import { MemoryRouter } from "react-router"
 import { BrowserRouter } from "react-router-dom"
@@ -9,7 +10,7 @@ import * as Font from "expo-font"
 
 import Main from "./src"
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer,applyMiddleware(thunk));
 
 const RouterImpl = Platform.select({
 	android: MemoryRouter,

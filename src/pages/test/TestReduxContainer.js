@@ -2,20 +2,19 @@ import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
 import TestRedux from "./TestRedux"
 import { connect } from 'react-redux'
-import * as CarActions from "./CarActions"
+import * as RightHoldersActions from "../../../redux/RightHolders/Actions"
 
-const mapStateToProps = ({cars}) => {
+const mapStateToProps = ({rightHolders}) => {
   return {
-    cars
+    rightHolders: rightHolders
   }
 }
 
 const mapDispatchToProps = dispatch => {
 
   return {
-
-    addCar: (car)=>{
-      dispatch(CarActions.addCar(car))
+    getRightHolders: ()=>{
+      dispatch( RightHoldersActions.getRightHolders() );
     }
   }
 }
