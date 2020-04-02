@@ -12,6 +12,7 @@ import MyProfilePage       from "./my-profile"
 import MyCollaboratorsPage from "./my-collaborators"
 import MyAccountPage       from "./my-account"
 import FormsTest           from "../test/forms"
+import TestRedux		   from "../test/TestRedux"
 
 const MENU = [
 	{
@@ -40,6 +41,10 @@ const MENU = [
 	{
 		text: "Formulaires pleine page",
 		to: "/test/forms"
+	},
+	{
+		text: "Redux test",
+		to: "/test/reduxTest"
 	}
 ]
 
@@ -76,5 +81,7 @@ export function DashboardRoutes(props) {
 		<Route path="/dashboard/test/forms" exact>
 			<FormsTest />
 		</Route>
+
+		
 	</Switch>
 }
