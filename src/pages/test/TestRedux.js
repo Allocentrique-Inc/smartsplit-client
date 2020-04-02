@@ -61,12 +61,12 @@ const TestUsers = ({users, registerUser})=>{
 
 const TestForgotPassword = ({users, forgotPassword})=>{
 	return <View>
-		<Button title="Forgot password" onPress={ ()=>{ forgotPassword(testUser) } }  />
+		<Button title="Forgot password" onPress={ ()=>{ forgotPassword(testForgotPasswordDetails) } }  />
 		{users && users.forgotPassword.isLoading && (
 			<Text>Forgot password loading</Text>
 		)}
 		{users && !users.forgotPassword.isLoading && users.forgotPassword.data && (
-			<Text>Forgot password successful</Text>
+			<Text>Forgot password successful - {JSON.stringify(users.forgotPassword.data)}</Text>
 		)}
 		{users && !users.forgotPassword.isLoading && users.forgotPassword.error && (
 			<Text>Forgot password failed - {JSON.stringify(users.error.response.data.error)} </Text>
@@ -94,7 +94,7 @@ const TestRightHolders = ({rightHolders, getRightHolders})=>{
 	</View>
 }
 
-const TestRedux = ({rightHolders, getRightHolders, users, registerUser })=>{
+const TestRedux = ({rightHolders, getRightHolders, users, registerUser, forgotPassword })=>{
 
 	const [selectedTab, setSelectedTab] = useState('users');
 

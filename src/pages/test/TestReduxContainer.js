@@ -20,6 +20,9 @@ const mapDispatchToProps = dispatch => {
     },
     registerUser: (user)=>{
       dispatch( UsersActions.registerUser(user) );
+    },
+    forgotPassword: (details)=>{
+      dispatch( UsersActions.forgotPassword(details) );
     }
   }
 }
