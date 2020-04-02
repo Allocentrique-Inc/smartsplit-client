@@ -7,6 +7,7 @@ import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
 import Register       from "./pages/auth/register"
 import Login          from "./pages/auth/login"
 import Welcome        from "./pages/auth/welcome"
+import PasswordSent	  from "./pages/auth/password-forgot-sent"
 import DashboardPage  from "./pages/dashboard"
 import FormsTest      from "./pages/test/forms"
 import CopyrightShare from "./pages/document/copyright"
@@ -36,6 +37,10 @@ export function MainRouter(props) {
 
 		<Route path="/auth/login" exact>
 			<Login />
+		</Route>
+
+		<Route path="/auth/password-forgot-sent" exact>
+			<PasswordSent />
 		</Route>
 
 		<Route path="/document/copyright" exact>

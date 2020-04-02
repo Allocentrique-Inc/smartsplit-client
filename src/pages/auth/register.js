@@ -22,7 +22,15 @@ import GoogleIcon 			from "../../svg/google"
 import { Metrics, Colors } 	from "../../theme"
 import zxcvbn 				from "zxcvbn"
 
-export const WebComponentNavbarRegister = () => (
+export const WebComponentRegisterTitle = () => (
+	<Heading level="1">En route vers la professionnalisation</Heading>
+)
+
+export const NativeComponentRegisterTitle = () => (
+	<Heading level="3">En route vers la professionnalisation</Heading>
+)
+
+export const WebComponentNavbarRegister = (props) => (
     <PublicNavBar>
 		<Text secondary> Déjà Membre ?</Text>
 		<Button tertiary text="Ouvrir une session" />
@@ -59,9 +67,10 @@ export function WebComponentButtonsRegister(props) {
 		<CheckBox>
 			<Text primary regular>Rester connecté</Text>
 			{/* <Tooltip 
-			popover={<Text>On a besoin d'installer des cookies 
-			spécifiques dans ton navigateur afin de te permettre 
-			de revenir avec cet appareil, sans avoir à te connecter.
+			popover={<Text>
+				Ceci installe un cookie spécifique dans ton 
+				navigateur afin de te permettre de revenir 
+				avec cet appareil sans avoir à te reconnecter.
 			</Text>} 
 			icon={<TooltipIcon />}
 			/> */}
@@ -150,8 +159,11 @@ export default function Register(props) {
 		<Scrollable>
 			<Section of="group">
 			<Column of="component" style={{maxWidth: 464, alignSelf: "center"}}>
-				<Heading level="1">En route vers la professionnalisation</Heading>
-
+			{Platform.select({
+				web: <WebComponentRegisterTitle />,
+				android: <NativeComponentRegisterTitle />,
+				ios: <NativeComponentRegisterTitle />,
+        	})} 
 				<Button
 					style={{ backgroundColor: "#4267B2" }}
 					icon={<FacebookIcon />}
