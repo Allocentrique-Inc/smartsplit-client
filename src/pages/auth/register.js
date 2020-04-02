@@ -15,8 +15,8 @@ import { TextField,
 import { Heading, Text } 	from "../../text"
 import PublicNavBar 		from '../../smartsplit/public/navbar'
 import ProgressBar 			from "../../widgets/progress-bar"
+import CheckEmailModal 		from './check-email'
 //import { Tooltip } 			from 'react-native-elements'
-import TooltipIcon 			from '../../svg/tooltip'
 import FacebookIcon 		from "../../svg/facebook"
 import GoogleIcon 			from "../../svg/google"
 import { Metrics, Colors } 	from "../../theme"
@@ -30,8 +30,9 @@ export const WebComponentNavbarRegister = () => (
 	</PublicNavBar>   
 );
 
-export function WebComponentButtonsRegister() {
+export function WebComponentButtonsRegister(props) {
 	const [modalOpen, setModal] = useState(false)
+	const [modalOpenEmail, setModalEmail] = useState(false)
 	
 	return <>
 	<TermsConditionsModal
@@ -66,7 +67,13 @@ export function WebComponentButtonsRegister() {
 			/> */}
 		</CheckBox>
 		<Flex />
-			<Button text="Créer mon compte" />
+		<Button 
+			text="Créer mon compte"
+			onClick={() => setModalEmail(true)} />
+		<CheckEmailModal
+			visible={modalOpenEmail}
+			onRequestClose={() => setModalEmail(false)}
+			/>
 	</Row>
 </>
 }
@@ -94,7 +101,19 @@ export const NativeComponentButtonsRegister = () => (
 		<Button tertiary text="J'ai déjà un compte" />
 	</>
 );
-  
+
+export function WebComponentVerifyEmail(props) {
+	const [modalOpen, setModal] = useState(false)
+	return <CheckEmailModal
+	visible={modalOpen}
+	onRequestClose={() => setModal(false)}
+	buttons={<>
+		<Button 
+		text="Créer mon compte"
+		onClick={() => setModal(true)} />
+		</>
+		}/>
+}
 
 function passwordBarColor(score) {
 	switch(score) {
@@ -175,7 +194,6 @@ export default function Register(props) {
 				android: <NativeComponentButtonsRegister />,
 				ios: <NativeComponentButtonsRegister />,
         	})} 
-				
 			</Column>
 			</Section>
 		</Scrollable>
