@@ -23,7 +23,7 @@ export function MainRouter(props) {
 	return <Switch>
 		<Route path="/" exact>
 			{/* <Redirect to="/dashboard/" /> */}
-			<Redirect to="/auth/login" />
+			<Redirect to="/auth/register" />
 		</Route>
 		
 		<Route path="/auth/welcome" exact>

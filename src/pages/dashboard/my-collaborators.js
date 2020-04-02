@@ -70,7 +70,7 @@ export function AddCollaboratorModal(props) {
 		title="Ajouter un collaborateur"
 		buttons={<>
 			<Button tertiary text="Annuler" onClick={props.onRequestClose} />
-			<Button text="C'est parti!" />
+			<Button text="C'est parti !" />
 		</>}
 	>
 		<Group of="group" style={{ width: 560 }}>

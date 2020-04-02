@@ -1,15 +1,100 @@
-import React, { useState } from "react"
-import Button from "../../widgets/button"
-import { Divider, TextDivider, Section, Column } from "../../layout"
-import { TextField, PasswordField } from "../../forms"
-import { Heading, Text } from "../../text"
-import PublicNavBar from '../../smartsplit/public/navbar'
-import { SocialButton } from "../../widgets/button"
-import ProgressBar from "../../widgets/progress-bar"
-import FacebookIcon from "../../svg/facebook"
-import GoogleIcon from "../../svg/google"
-import { Metrics, Colors } from "../../theme"
-import zxcvbn from "zxcvbn"
+import React, { useState }	from "react"
+import { View, Platform }	from 'react-native'
+import Button				from "../../widgets/button"
+import Scrollable           from "../../widgets/scrollable"
+import { DialogModal } 		from "../../widgets/modal"
+import { TextDivider, 
+		Section, 
+		Column,
+		Row, 
+		Group,
+		Flex } 				from "../../layout"
+import { TextField, 
+		PasswordField,
+		CheckBox } 			from "../../forms"
+import { Heading, Text } 	from "../../text"
+import PublicNavBar 		from '../../smartsplit/public/navbar'
+import ProgressBar 			from "../../widgets/progress-bar"
+//import { Tooltip } 			from 'react-native-elements'
+import TooltipIcon 			from '../../svg/tooltip'
+import FacebookIcon 		from "../../svg/facebook"
+import GoogleIcon 			from "../../svg/google"
+import { Metrics, Colors } 	from "../../theme"
+import zxcvbn 				from "zxcvbn"
+
+export const WebComponentNavbarRegister = () => (
+    <PublicNavBar>
+		<Text secondary> Déjà Membre ?</Text>
+		<Button tertiary text="Ouvrir une session" />
+		<Button secondary text="English" />
+	</PublicNavBar>   
+);
+
+export function WebComponentButtonsRegister() {
+	const [modalOpen, setModal] = useState(false)
+	
+	return <>
+	<TermsConditionsModal
+		visible={modalOpen}
+		onRequestClose={() => setModal(false)}
+	/>
+	
+	<CheckBox>
+	<Text>J'ai lu et j'accepte les 
+		<Text 
+			link 
+			onClick={() => setModal(true)}
+		> Termes et conditions d'utilisation </Text>
+		et la
+		<Text 
+			link 
+			onClick={() => setModal(true)}
+		> Politique sur la vie privée </Text>
+		de Smartsplit.
+	</Text>
+	</CheckBox>
+
+	<Row style={{marginTop: Metrics.spacing.component}}>
+		<CheckBox>
+			<Text primary regular>Rester connecté</Text>
+			{/* <Tooltip 
+			popover={<Text>On a besoin d'installer des cookies 
+			spécifiques dans ton navigateur afin de te permettre 
+			de revenir avec cet appareil, sans avoir à te connecter.
+			</Text>} 
+			icon={<TooltipIcon />}
+			/> */}
+		</CheckBox>
+		<Flex />
+			<Button text="Créer mon compte" />
+	</Row>
+</>
+}
+
+export function TermsConditionsModal(props) {
+	return <DialogModal
+		visible={props.visible}
+		onRequestClose={props.onRequestClose}
+		title="Termes et conditions"
+		buttons={<>
+			<Button tertiary text="Annuler" onClick={props.onRequestClose} />
+			<Button text="J'accepte !" />
+		</>}
+	>
+		<Group of="group" style={{ width: 560 }}>
+		</Group>
+	</DialogModal>
+}
+
+export const NativeComponentButtonsRegister = () => (
+	<>
+		<Button text="Créer mon compte"
+		style={{marginBottom: Metrics.spacing.component}}  
+		/>
+		<Button tertiary text="J'ai déjà un compte" />
+	</>
+);
+  
 
 function passwordBarColor(score) {
 	switch(score) {
@@ -38,12 +123,12 @@ export default function Register(props) {
 	const score = zxcvbn(password).score /* passer le mot de passe dans zxcvbn, valeur */
 	
 	return <>
-			<PublicNavBar>
-				<Text secondary> Déjà Membre ?</Text>
-				<Button tertiary text="Ouvrir une session" />
-				<Button secondary text="English" />
-			</PublicNavBar>
 
+			{Platform.select({
+            	web: <WebComponentNavbarRegister />
+        	})}
+
+		<Scrollable>
 			<Section of="group">
 			<Column of="component" style={{maxWidth: 464, alignSelf: "center"}}>
 				<Heading level="1">En route vers la professionnalisation</Heading>
@@ -84,10 +169,15 @@ export default function Register(props) {
 					label="Répète ton mot de passe"
 					placeholder=""
 				/>
+
+			{Platform.select({
+				web: <WebComponentButtonsRegister />,
+				android: <NativeComponentButtonsRegister />,
+				ios: <NativeComponentButtonsRegister />,
+        	})} 
 				
-				<Button text="Créer mon compte" />
-				<Button secondary text="J'ai déjà un compte" />
 			</Column>
-		</Section>
+			</Section>
+		</Scrollable>
 		</>
 }

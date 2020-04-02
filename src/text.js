@@ -20,6 +20,7 @@ export function Text(props) {
 		tertiary,
 		action,
 		primary,
+		link,
 		...nextProps
 	} = props
 	
@@ -49,12 +50,15 @@ export function Text(props) {
 	if(action)
 		styles.push(TypographyStyles.text.action)
 
-	if(action)
+	if(primary)
 		styles.push(TypographyStyles.text.primary)
 	
-	if(action)
+	if(regular)
 		styles.push(TypographyStyles.text.regular)
 	
+	if(link)
+		styles.push(TypographyStyles.text.link)
+
 	if(style)
 		styles.push(style)
 	

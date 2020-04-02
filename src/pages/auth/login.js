@@ -1,5 +1,5 @@
 import React                        from "react"
-import { Platform, StyleSheet }     from 'react-native';
+import { Platform}                  from 'react-native';
 import Button                       from "../../widgets/button"
 import Scrollable                   from "../../widgets/scrollable"
 import { Section, Row, Column, Flex }       from "../../layout"
@@ -9,7 +9,7 @@ import PublicNavBar                 from '../../smartsplit/public/navbar'
 import { CheckBox }                 from "../../forms"
 import { Metrics }                  from "../../theme"
 
-export const WebComponentNavbar = () => (
+export const WebComponentNavbarLogin = () => (
     <PublicNavBar>
         <Text secondary> Pas de compte ?</Text>
         <Button tertiary text="Crée un compte" />
@@ -17,7 +17,7 @@ export const WebComponentNavbar = () => (
     </PublicNavBar>    
 );
 
-export const WebComponentButtons = () => (
+export const WebComponentButtonsLogin = () => (
     <Row>
         <CheckBox>
             <Text primary regular>Rester connecté</Text>
@@ -27,13 +27,13 @@ export const WebComponentButtons = () => (
     </Row>
   );
 
-  export const NativeComponent = () => (
+  export const NativeComponentButtonsLogin = () => (
     <Column>
     <Button 
         style={{marginBottom: Metrics.spacing.component}} 
         text="Me connecter" 
         />
-    <Button secondary text="Créer mon compte" />
+    <Button tertiary text="Créer mon compte" />
     </Column>
   );
 
@@ -41,7 +41,7 @@ export default function Login() {
       
     return <>
         {Platform.select({
-            web: <WebComponentNavbar />
+            web: <WebComponentNavbarLogin />
         })}
     <Scrollable>
         <Section of="group" style={{maxWidth: 465, alignSelf: "center"}}>
@@ -60,9 +60,9 @@ export default function Login() {
             <Text bold small action>Mot de passe oublié ?</Text>
          
         {Platform.select({
-            web: <WebComponentButtons />,
-            android: <NativeComponent />,
-            ios: <NativeComponent />,
+            web: <WebComponentButtonsLogin />,
+            android: <NativeComponentButtonsLogin />,
+            ios: <NativeComponentButtonsLogin />,
         })}
         </Section>
     </Scrollable>
