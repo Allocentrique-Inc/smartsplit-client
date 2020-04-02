@@ -39,17 +39,37 @@ const testUser = {
 	}
 };
 
+const testForgotPasswordDetails = {
+	"email": "autpmzzh@sharklasers.com",
+	"requestSource": "smartsplit"
+}
+
 const TestUsers = ({users, registerUser})=>{
 	return <View>
 		<Button title="Register user" onPress={ ()=>{ registerUser(testUser) } }  />
-		{users && users.isLoading && (
+		{users && users.registerUser.isLoading && (
 			<Text>Register loading</Text>
 		)}
-		{users && !users.isLoading && users.data && (
-			<Text>User registered - {users.data.firstName} {users.data.lastName}</Text>
+		{users && !users.registerUser.isLoading && users.registerUser.data && (
+			<Text>User registered - {users.registerUser.data.firstName} {users.registerUser.data.lastName}</Text>
 		)}
-		{users && !users.isLoading && users.error && (
-			<Text>User registration failed - {JSON.stringify(users.error.response.data.error)} </Text>
+		{users && !users.registerUser.isLoading && users.registerUser.error && (
+			<Text>User registration failed - {JSON.stringify(users.registerUser.error.response.data.error)} </Text>
+		)}
+	</View>
+};
+
+const TestForgotPassword = ({users, forgotPassword})=>{
+	return <View>
+		<Button title="Forgot password" onPress={ ()=>{ forgotPassword(testUser) } }  />
+		{users && users.forgotPassword.isLoading && (
+			<Text>Forgot password loading</Text>
+		)}
+		{users && !users.forgotPassword.isLoading && users.forgotPassword.data && (
+			<Text>Forgot password successful</Text>
+		)}
+		{users && !users.forgotPassword.isLoading && users.forgotPassword.error && (
+			<Text>Forgot password failed - {JSON.stringify(users.error.response.data.error)} </Text>
 		)}
 	</View>
 };
@@ -81,6 +101,7 @@ const TestRedux = ({rightHolders, getRightHolders, users, registerUser })=>{
 	return <View>
 		<Button title="Test Rightholders" onPress={ ()=>{ setSelectedTab('rightholders') } } />
 		<Button title="Test Users" onPress={ ()=>{ setSelectedTab('users') } } />
+		<Button title="Test Forgot password" onPress={ ()=>{ setSelectedTab('forgotPassword') } } />
 		<Text></Text>
 		{selectedTab === 'users' && (
 			<TestUsers users={users} registerUser={registerUser} />
@@ -88,6 +109,9 @@ const TestRedux = ({rightHolders, getRightHolders, users, registerUser })=>{
 		{selectedTab === 'rightholders' && (
 			<TestRightHolders rightHolders={rightHolders} getRightHolders={getRightHolders}  />
 		)}
+		{selectedTab === 'forgotPassword' && (
+			<TestForgotPassword users={users} forgotPassword={forgotPassword} />
+		) }
 	</View>
 }
 
