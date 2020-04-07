@@ -72,3 +72,41 @@ export const forgotPassword = (user)=>{
 	}
 }
 //#endregion
+
+
+//#region Reset password
+export const resetPassword_request = ()=>{
+	return {
+		type: "RESET_PASSWORD_REQUEST",
+	}
+}
+
+export const resetPassword_success = (data)=>{
+	return {
+		type: "RESET_PASSWORD_SUCCESS",
+		payload: data
+	}
+}
+
+export const resetPassword_error = (err)=>{
+	return {
+		type: "RESET_PASSWORD_ERROR",
+		payload: err
+	}
+}
+
+export const resetPassword = (passwordDetails)=>{
+	return (dispatch)=>{
+		dispatch(resetPassword_request());
+
+		const request = UsersAPI.passwordReset(passwordDetails);
+		return request.then((response)=>{
+			dispatch( resetPassword_success(response.data) );
+		})
+		.catch((error)=>{
+			console.log("Error resetting password", error);
+			dispatch( resetPassword_error(error) );
+		});
+	}
+}
+//#endregion

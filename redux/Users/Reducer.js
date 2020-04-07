@@ -8,6 +8,11 @@ const INITIAL_STATE = {
 		data: null,
 		error: null,
 		isLoading: false
+	},
+	passwordReset:{
+		data: null,
+		error: null,
+		isLoading: false
 	}
 	
 };
@@ -87,6 +92,46 @@ export default UsersReducer = (state = INITIAL_STATE, action) => {
 			newState.forgotPassword.error = action.payload;    
 			}
 			newState.forgotPassword.isLoading = false;
+			return {
+				...state,
+				...newState
+			}
+		//#endregion
+
+		//#region Reset Password
+		case "RESET_PASSWORD_REQUEST":
+			newState.passwordReset = {};
+
+			newState.passwordReset.data = null;
+			newState.passwordReset.isLoading = true;
+			newState.passwordReset.error = null;
+
+			return {
+			...state,
+			...newState
+			}
+
+		case "RESET_PASSWORD_SUCCESS":
+			newState.passwordReset = {};
+			if (action.payload) {
+				newState.passwordReset.data = action.payload;
+			}
+
+			newState.passwordReset.error = null;
+			newState.passwordReset.isLoading = false;
+	
+			return {
+			...state,
+			...newState
+			};
+
+		case "RESET_PASSWORD_ERROR":
+			newState.passwordReset = {};
+
+			if (action.payload) {
+				newState.passwordReset.error = action.payload;    
+			}
+			newState.passwordReset.isLoading = false;
 			return {
 				...state,
 				...newState

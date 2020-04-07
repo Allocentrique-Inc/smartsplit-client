@@ -23,4 +23,22 @@ const forgotPassword = (data, axiosConfig = {})=>{
 	return axios.request(config)
 }
 
-export {registerUser, forgotPassword}
+const passwordReset = (data, axiosConfig = {})=>{
+	/*
+	Data attendu = {
+		token: string,
+		password: string
+	}
+	*/
+
+	const defConfig = {
+		url: `${API_BASE_URL}user/reset-password`,
+		method: 'post',
+		data
+	}
+	const config = {...defConfig, ...axiosConfig}
+
+	return axios.request(config)
+}
+
+export {registerUser, forgotPassword, passwordReset}

@@ -23,6 +23,9 @@ const mapDispatchToProps = dispatch => {
     },
     forgotPassword: (details)=>{
       dispatch( UsersActions.forgotPassword(details) );
+    },
+    resetPassword: (passwordDetails)=>{
+      dispatch( UsersActions.resetPassword(passwordDetails) );
     }
   }
 }
