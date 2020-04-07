@@ -13,13 +13,15 @@ const INITIAL_STATE = {
 };
 
 export default UsersReducer = (state = INITIAL_STATE, action) => {
-	let newState = {};
+	let newState = {
+		registerUser: {},
+		forgotPassword: {}
+	};
 	
 	switch (action.type) {
 		
 		//#region Register user
 		case "REGISTER_USER_REQUEST":
-			newState.registerUser = {};
 
 			newState.registerUser.data = null;
 			newState.registerUser.isLoading = true;

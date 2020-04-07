@@ -14,7 +14,7 @@ const registerUser = (data, axiosConfig = {})=>{
 
 const forgotPassword = (data, axiosConfig = {})=>{
 	const defConfig = {
-		url: `${API_BASE_URL}user/password-reset`,
+		url: `${API_BASE_URL}user/request-password-reset`,
 		method: 'post',
 		data
 	}

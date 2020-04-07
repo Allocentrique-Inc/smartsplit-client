@@ -41,7 +41,7 @@ const testUser = {
 
 const testForgotPasswordDetails = {
 	"email": "autpmzzh@sharklasers.com",
-	"requestSource": "smartsplit"
+	// "requestSource": "smartsplit"
 }
 
 const TestUsers = ({users, registerUser})=>{
@@ -69,7 +69,7 @@ const TestForgotPassword = ({users, forgotPassword})=>{
 			<Text>Forgot password successful - {JSON.stringify(users.forgotPassword.data)}</Text>
 		)}
 		{users && !users.forgotPassword.isLoading && users.forgotPassword.error && (
-			<Text>Forgot password failed - {JSON.stringify(users.error.response.data.error)} </Text>
+			<Text>Forgot password failed - {JSON.stringify(users.forgotPassword.error)} </Text>
 		)}
 	</View>
 };
