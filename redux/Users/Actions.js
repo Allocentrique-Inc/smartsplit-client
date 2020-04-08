@@ -101,6 +101,9 @@ export const resetPassword = (passwordDetails)=>{
 
 		const request = UsersAPI.passwordReset(passwordDetails);
 		return request.then((response)=>{
+			// if (response.data && response.data.accessToken) {
+			// 	saveAuth(response.data);
+			// }
 			dispatch( resetPassword_success(response.data) );
 		})
 		.catch((error)=>{

@@ -32,7 +32,7 @@ const passwordReset = (data, axiosConfig = {})=>{
 	*/
 
 	const defConfig = {
-		url: `${API_BASE_URL}user/reset-password`,
+		url: `${API_BASE_URL}users/change-password`,
 		method: 'post',
 		data
 	}
