@@ -5,6 +5,7 @@ import AccessControl from "../../../widgets/AccessControl"
 export default function Logout() {
 	return <View>
 		<AccessControl redirectToLogin>
+			<></>
 		</AccessControl>
 	</View>
 }

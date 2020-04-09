@@ -8,7 +8,7 @@ function AccessControl({ isAuthenticated, children, redirectToLogin }) {
     if (isAuthenticated)
         return children
     if (redirectToLogin)
-        return <Redirect to="/" push={true} />
+        return <Redirect to="/auth/register" push={true} />
     else
     	return <Text>Not authorized</Text>
 }

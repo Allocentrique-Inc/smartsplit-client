@@ -10,6 +10,8 @@ import GoogleIcon from "../../svg/google"
 import { Metrics, Colors } from "../../theme"
 import zxcvbn from "zxcvbn"
 
+import { useHistory } from "react-router"
+
 function passwordBarColor(score) {
 	switch(score) {
 		case 0:  return Colors.progressBar.darkred
@@ -35,6 +37,7 @@ function passwordProgress(score) {
 export default function Register(props) {
 	const [password, setPassword] = useState("")
 	const score = zxcvbn(password).score /* passer le mot de passe dans zxcvbn, valeur */
+	const history = useHistory()
 	
 	return <Section of="group">
 		<Column of="component" style={{maxWidth: 464, alignSelf: "center"}}>
@@ -78,7 +81,7 @@ export default function Register(props) {
 			/>
 			
 			<Button text="Créer mon compte" />
-			<Button secondary text="J'ai déjà un compte" />
+			<Button secondary text="J'ai déjà un compte" onClick={ ()=>{history.push('/auth/login')} } />
 		</Column>
 	</Section>
 }
