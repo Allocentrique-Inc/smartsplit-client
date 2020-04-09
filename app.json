@@ -36,6 +36,22 @@
 		"androidStatusBar": {
 			"barStyle": "light-content",
 			"backgroundColor": "#3F2933"
+		},
+		"packagerOpts": {
+			"config": "metro.config.js",
+			"sourceExts": [
+				"expo.ts",
+				"expo.tsx",
+				"expo.js",
+				"expo.jsx",
+				"ts",
+				"tsx",
+				"js",
+				"jsx",
+				"json",
+				"wasm",
+				"svg"
+			]
 		}
 	}
 }

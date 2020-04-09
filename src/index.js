@@ -17,6 +17,8 @@ import CopyrightShare     	from "./pages/document/copyright"
 
 import ChangePasswordModal from "./pages/dashboard/change-password"
 
+import TestRedux	 from "./pages/test/TestReduxContainer"
+
 export default function Main(props) {
 	return <ScrollOverlay.ProviderContainer>
 		<GlobalOverlay.ProviderContainer>
@@ -71,6 +73,12 @@ export function MainRouter(props) {
 		<Route path="/test/forms" exact>
 			<Scrollable>
 				<FormsTest />
+			</Scrollable>
+		</Route>
+
+		<Route path="/test/reduxTest" exact>
+			<Scrollable>
+				<TestRedux />
 			</Scrollable>
 		</Route>
 	</Switch>
