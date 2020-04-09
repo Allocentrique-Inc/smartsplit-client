@@ -1,47 +1,89 @@
 const INITIAL_STATE = {
-	data: null,
-	error: null,
-	isLoading: false
+	registerUser:{
+		data: null,
+		error: null,
+		isLoading: false
+	},
+	forgotPassword:{
+		data: null,
+		error: null,
+		isLoading: false
+	}
 }
 
 export default function(state = INITIAL_STATE, action) {
-	const newState = {}
+	let newState = {}
 	
 	switch (action.type) {
 		case "REGISTER_USER_REQUEST":
-			newState.data = null;
-			newState.isLoading = true;
-			newState.error = null;
-
-			return {
-				...state,
+			newState.registerUser = {
+				...state.registerUser,
 				data: null,
 				isLoading: true,
 				error: null
 			}
+			
+			break
 		
 		case "REGISTER_USER_SUCCESS":
-			if(action.payload)
-				newState.data = action.payload
-
-			return {
-				...state,
+			newState.registerUser = {
+				...state.registerUser,
 				error: null,
-				isLoading: false,
-				...newState
+				isLoading: false
 			}
+			
+			if(action.payload)
+				newState.registerUser.data = action.payload
+
+			break
 		
 		case "REGISTER_USER_ERROR":
-			if(action.payload)
-				newState.error = action.payload
-			
-			return {
-				...state,
-				isLoading: false,
-				...newState
+			newState.registerUser = {
+				...state.registerUser,
+				isLoading: false
 			}
+			
+			if(action.payload)
+				newState.registerUser.error = action.payload
+			
+			break
 		
-		default:
-			return state
+		
+		case "FORGOT_PASSWORD_REQUEST":
+			newState.forgotPassword = {
+				...state.forgotPassword,
+				data: null,
+				isLoading: true,
+				error: null
+			}
+			
+			break
+
+		case "FORGOT_PASSWORD_SUCCESS":
+			newState.forgotPassword = {
+				...state.forgotPassword,
+				error: null,
+				isLoading: false
+			}
+			
+			if(action.payload)
+				newState.forgotPassword.data = action.payload
+			
+			break
+
+		case "FORGOT_PASSWORD_ERROR":
+			newState.forgotPassword = {
+				...state.forgotPassword,
+				isLoading: false
+			}
+			
+			if(action.payload)
+				newState.forgotPassword.error = action.payload
+			
+			break
+		
+		default: break
 	}
+	
+	return {...state, ...newState}
 }

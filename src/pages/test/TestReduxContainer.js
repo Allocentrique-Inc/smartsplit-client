@@ -22,6 +22,9 @@ function mapDispatchToProps(dispatch) {
 		registerUser: function(user) {
 			dispatch(UsersActions.registerUser(user))
 		},
+		forgotPassword: function(details) {
+			dispatch(UsersActions.forgotPassword(details))
+		},
 		login: function(details) {
 			dispatch(AuthActions.loginUser(details))
 		},

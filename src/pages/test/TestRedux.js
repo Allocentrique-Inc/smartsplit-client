@@ -13,6 +13,10 @@ const testLoginDetails = {
 	"password": "correct horse battery staple"
 }
 
+const testForgotPasswordDetails = {
+	"email": "autpmzzh@sharklasers.com"
+}
+
 function TestLogin({auth, login, logout}) {
 	return <View>
 		<Button title="Login" onPress={ ()=>{ login(testLoginDetails) } }  />
@@ -30,7 +34,7 @@ function TestLogin({auth, login, logout}) {
 		{auth && !auth.isLoading && auth.error && (
 			<Text>Login failed - {JSON.stringify(auth.error.message)} </Text>
 		)}
-		<AccessControl redirectToLogin>
+		<AccessControl>
 			<Text>Secret code only for logged in user!</Text>
 		</AccessControl>
 	</View>
@@ -39,14 +43,29 @@ function TestLogin({auth, login, logout}) {
 function TestUsers({users, registerUser}) {
 	return <View>
 		<Button title="Register user" onPress={() => registerUser(testUserBaseProfile)}  />
-		{users && users.isLoading && (
+		{users && users.registerUser.isLoading && (
 			<Text>Register loading</Text>
 		)}
-		{users && !users.isLoading && users.data && (
-			<Text>User registered - {users.data.firstName} {users.data.lastName}</Text>
+		{users && !users.registerUser.isLoading && users.registerUser.data && (
+			<Text>User registered - {users.registerUser.data.firstName} {users.registerUser.data.lastName}</Text>
 		)}
-		{users && !users.isLoading && users.error && (
-			<Text>User registration failed - {JSON.stringify(users.error.message)} </Text>
+		{users && !users.registerUser.isLoading && users.registerUser.error && (
+			<Text>User registration failed - {JSON.stringify(users.registerUser.error)} </Text>
+		)}
+	</View>
+};
+
+function TestForgotPassword({users, forgotPassword}) {
+	return <View>
+		<Button title="Forgot password" onPress={ ()=>{ forgotPassword(testForgotPasswordDetails) } }  />
+		{users && users.forgotPassword.isLoading && (
+			<Text>Forgot password loading</Text>
+		)}
+		{users && !users.forgotPassword.isLoading && users.forgotPassword.data && (
+			<Text>Forgot password successful - {JSON.stringify(users.forgotPassword.data)}</Text>
+		)}
+		{users && !users.forgotPassword.isLoading && users.forgotPassword.error && (
+			<Text>Forgot password failed - {JSON.stringify(users.forgotPassword.error)} </Text>
 		)}
 	</View>
 }
@@ -74,6 +93,7 @@ export default function TestRedux({
 	getRightHolders,
 	users,
 	registerUser,
+	forgotPassword,
 	auth,
 	login,
 	logout
@@ -83,6 +103,7 @@ export default function TestRedux({
 	return <View>
 		<Button title="Test Rightholders" onPress={() => setSelectedTab('rightholders')} />
 		<Button title="Test Users"        onPress={() => setSelectedTab('users')} />
+		<Button title="Test Forgot password" onPress={()=> setSelectedTab('forgotPassword')} />
 		<Button title="Test Auth"         onPress={() => setSelectedTab('auth')} />
 		<Text></Text>
 		{selectedTab === 'users' && (
@@ -94,5 +115,8 @@ export default function TestRedux({
 		{selectedTab === 'auth' && (
 			<TestLogin auth={auth} login={login} logout={logout} />
 		)}
+		{selectedTab === 'forgotPassword' && (
+			<TestForgotPassword users={users} forgotPassword={forgotPassword} />
+		) }
 	</View>
 }
