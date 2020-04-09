@@ -5,7 +5,7 @@ import { Overlay as GlobalOverlay } from "./portals"
 import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
 
 import Register      from "./pages/auth/register"
-import Login         from "./pages/auth/login"
+import Login         from "./pages/auth/LoginContainer"
 import Logout        from "./pages/auth/Logout"
 import Welcome       from "./pages/auth/welcome"
 import DashboardPage from "./pages/dashboard"
