@@ -7,10 +7,12 @@ import rootReducer from "./redux/rootReducer"
 import { MemoryRouter } from "react-router"
 import { BrowserRouter } from "react-router-dom"
 import * as Font from "expo-font"
+import { loadAuthFromStorage } from "./helpers/storageAuth"
 
 import Main from "./src"
 
-const store = createStore(rootReducer,applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk))
+loadAuthFromStorage(store).catch(e => console.error(e))
 
 const RouterImpl = Platform.select({
 	android: MemoryRouter,

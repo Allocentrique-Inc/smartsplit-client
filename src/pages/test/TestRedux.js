@@ -1,47 +1,44 @@
 import React, {useState} from "react"
 import {View, Text, Button, StyleSheet} from "react-native"
+import AccessControl from "../../widgets/AccessControl"
 
-const testUser = {
+const testUserBaseProfile = {
+	email: "autpmzzh@sharklasers.com",
+	password: "correct horse battery staple",
+	locale: "fr"
+}
+
+const testLoginDetails = {
 	"email": "autpmzzh@sharklasers.com",
-	"requestSource": "pochette",
-	"firstName": "Johns",
-	"lastName": "Smither",
-	"accountCreationType": "initiatorCreatedUser",
-	"locale": "fr",
-	"password": "correct horse battery staple",
-	"rightHolder": {
-	  "rightHolderId": "12345c60-7b1a-11e8-9c9c-2d42b21b1a4g",
-	  "firstName": "John",
-	  "lastName": "Smith",
-	  "email": "john.smith@example.com",
-	  "requestSource": "pochette",
-	  "jurisdiction": "Canada",
-	  "ipi": "00004576",
-	  "wallet": "0xdd87ae15f4be97e2739c9069ddef674f907d27a8",
-	  "avatarImage": "image.jpg",
-	  "artistName": "Questlove",
-	  "groups": [
-		"Group 1",
-		"Group 2"
-	  ],
-	  "defaultRoles": [
-		"Songwriter",
-		"Producer"
-	  ],
-	  "accountCreationType": "initiatorCreatedUser",
-	  "locale": "en",
-	  "editeur": true,
-	  "socialMediaLinks": {
-		"facebook": "https://facebook.com/ex",
-		"twitter": "https://twitter.com/ex",
-		"youtube": "https://youtube.com/ex"
-	  }
-	}
-};
+	"password": "correct horse battery staple"
+}
 
-const TestUsers = ({users, registerUser})=>{
+function TestLogin({auth, login, logout}) {
 	return <View>
-		<Button title="Register user" onPress={ ()=>{ registerUser(testUser) } }  />
+		<Button title="Login" onPress={ ()=>{ login(testLoginDetails) } }  />
+		<Button title="Logout" onPress={ ()=>{ logout() } }  />
+		
+		{auth && !auth.isLoggedIn && (
+			<Text>NOT LOGGED IN</Text>
+		)}
+		{auth && auth.isLoading && (
+			<Text>Login loading</Text>
+		)}
+		{auth && !auth.isLoading && auth.data && (
+			<Text>Logged in - Token received { JSON.stringify(auth.data) }</Text>
+		)}
+		{auth && !auth.isLoading && auth.error && (
+			<Text>Login failed - {JSON.stringify(auth.error.message)} </Text>
+		)}
+		<AccessControl redirectToLogin>
+			<Text>Secret code only for logged in user!</Text>
+		</AccessControl>
+	</View>
+}
+
+function TestUsers({users, registerUser}) {
+	return <View>
+		<Button title="Register user" onPress={() => registerUser(testUserBaseProfile)}  />
 		{users && users.isLoading && (
 			<Text>Register loading</Text>
 		)}
@@ -49,38 +46,44 @@ const TestUsers = ({users, registerUser})=>{
 			<Text>User registered - {users.data.firstName} {users.data.lastName}</Text>
 		)}
 		{users && !users.isLoading && users.error && (
-			<Text>User registration failed - {JSON.stringify(users.error.response.data.error)} </Text>
+			<Text>User registration failed - {JSON.stringify(users.error.message)} </Text>
 		)}
 	</View>
-};
+}
 
-const TestRightHolders = ({rightHolders, getRightHolders})=>{
+function TestRightHolders({rightHolders, getRightHolders}) {
 	return <View>
-		<Button title="Get rightholders" onPress={ ()=>{getRightHolders()} }></Button>
+		<Button title="Get rightholders" onPress={() => getRightHolders()}></Button>
 		{rightHolders && rightHolders.isLoading && (
 			<Text>ITS LOADING</Text>
 		)}
 		{rightHolders && rightHolders.items.length <=0 && (
 			<Text>Its empty</Text>
 		)}
-		{rightHolders && !rightHolders.isLoading && rightHolders.items.length > 0 && (
-			<>
+		{rightHolders && !rightHolders.isLoading && rightHolders.items.length > 0 && <>
 			<Text>{JSON.stringify(rightHolders.items)}</Text>
 			{rightHolders.items && rightHolders.items.map((item,index)=>{
 				return <Text key={item.email}>{item.email}</Text>
 			})}
-			</>
-		)}
+		</>}
 	</View>
 }
 
-const TestRedux = ({rightHolders, getRightHolders, users, registerUser })=>{
-
-	const [selectedTab, setSelectedTab] = useState('users');
+export default function TestRedux({
+	rightHolders,
+	getRightHolders,
+	users,
+	registerUser,
+	auth,
+	login,
+	logout
+}) {
+	const [selectedTab, setSelectedTab] = useState('users')
 
 	return <View>
-		<Button title="Test Rightholders" onPress={ ()=>{ setSelectedTab('rightholders') } } />
-		<Button title="Test Users" onPress={ ()=>{ setSelectedTab('users') } } />
+		<Button title="Test Rightholders" onPress={() => setSelectedTab('rightholders')} />
+		<Button title="Test Users"        onPress={() => setSelectedTab('users')} />
+		<Button title="Test Auth"         onPress={() => setSelectedTab('auth')} />
 		<Text></Text>
 		{selectedTab === 'users' && (
 			<TestUsers users={users} registerUser={registerUser} />
@@ -88,9 +91,8 @@ const TestRedux = ({rightHolders, getRightHolders, users, registerUser })=>{
 		{selectedTab === 'rightholders' && (
 			<TestRightHolders rightHolders={rightHolders} getRightHolders={getRightHolders}  />
 		)}
+		{selectedTab === 'auth' && (
+			<TestLogin auth={auth} login={login} logout={logout} />
+		)}
 	</View>
 }
-
-const styles = StyleSheet.create({});
-
-export default TestRedux;

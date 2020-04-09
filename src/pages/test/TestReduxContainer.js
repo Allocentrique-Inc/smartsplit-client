@@ -4,24 +4,31 @@ import TestRedux from "./TestRedux"
 import { connect } from 'react-redux'
 import * as RightHoldersActions from "../../../redux/RightHolders/Actions"
 import * as UsersActions from "../../../redux/Users/Actions"
+import * as AuthActions from "../../../redux/Auth/Actions"
 
-const mapStateToProps = ({rightHolders, users}) => {
-  return {
-    rightHolders,
-    users
-  }
+function mapStateToProps({rightHolders, users, auth}) {
+	return {
+		rightHolders,
+		users,
+		auth
+	}
 }
 
-const mapDispatchToProps = dispatch => {
-
-  return {
-    getRightHolders: ()=>{
-      dispatch( RightHoldersActions.getRightHolders() );
-    },
-    registerUser: (user)=>{
-      dispatch( UsersActions.registerUser(user) );
-    }
-  }
+function mapDispatchToProps(dispatch) {
+	return {
+		getRightHolders: function() {
+			dispatch(RightHoldersActions.getRightHolders())
+		},
+		registerUser: function(user) {
+			dispatch(UsersActions.registerUser(user))
+		},
+		login: function(details) {
+			dispatch(AuthActions.loginUser(details))
+		},
+		logout: function() {
+			dispatch(AuthActions.logoutUser())
+		}
+	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TestRedux);
+export default connect(mapStateToProps, mapDispatchToProps)(TestRedux)

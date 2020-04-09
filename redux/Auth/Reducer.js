@@ -1,18 +1,15 @@
 const INITIAL_STATE = {
 	data: null,
 	error: null,
-	isLoading: false
+	isLoading: false,
+	isLoggedIn: false
 }
 
 export default function(state = INITIAL_STATE, action) {
 	const newState = {}
 	
 	switch (action.type) {
-		case "REGISTER_USER_REQUEST":
-			newState.data = null;
-			newState.isLoading = true;
-			newState.error = null;
-
+		case "LOGIN_USER_REQUEST":
 			return {
 				...state,
 				data: null,
@@ -20,9 +17,11 @@ export default function(state = INITIAL_STATE, action) {
 				error: null
 			}
 		
-		case "REGISTER_USER_SUCCESS":
-			if(action.payload)
+		case "LOGIN_USER_SUCCESS":
+			if (action.payload) {
 				newState.data = action.payload
+				newState.isLoggedIn = true
+			}
 
 			return {
 				...state,
@@ -31,15 +30,18 @@ export default function(state = INITIAL_STATE, action) {
 				...newState
 			}
 		
-		case "REGISTER_USER_ERROR":
+		case "LOGIN_USER_ERROR":
 			if(action.payload)
 				newState.error = action.payload
-			
+			    
 			return {
 				...state,
 				isLoading: false,
 				...newState
 			}
+		
+		case "LOGOUT_USER":
+			return {...state, ...INITIAL_STATE }
 		
 		default:
 			return state
