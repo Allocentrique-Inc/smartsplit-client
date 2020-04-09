@@ -6,6 +6,7 @@ import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
 
 import Register      from "./pages/auth/register"
 import Login         from "./pages/auth/login"
+import Logout        from "./pages/auth/Logout"
 import Welcome       from "./pages/auth/welcome"
 import DashboardPage from "./pages/dashboard"
 import FormsTest     from "./pages/test/forms"
@@ -36,6 +37,10 @@ export function MainRouter(props) {
 
 		<Route path="/auth/login" exact>
 			<Login />
+		</Route>
+
+		<Route path="/auth/logout" exact>
+			<Logout />
 		</Route>
 
 		<Route path="/dashboard/">
