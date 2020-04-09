@@ -30,6 +30,9 @@ function mapDispatchToProps(dispatch) {
 		},
 		logout: function() {
 			dispatch(AuthActions.logoutUser())
+		},
+		resetPassword: function(passwordDetails) {
+			dispatch(UsersActions.resetPassword(passwordDetails))
 		}
 	}
 }

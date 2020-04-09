@@ -71,3 +71,39 @@ export function forgotPassword(user) {
 		}
 	}
 }
+
+export function resetPassword_request() {
+	return {
+		type: "RESET_PASSWORD_REQUEST",
+	}
+}
+
+export function resetPassword_success(data) {
+	return {
+		type: "RESET_PASSWORD_SUCCESS",
+		payload: data
+	}
+}
+
+export function resetPassword_error(err) {
+	return {
+		type: "RESET_PASSWORD_ERROR",
+		payload: err
+	}
+}
+
+export function resetPassword(passwordDetails) {
+	return async function(dispatch) {
+		dispatch(resetPassword_request())
+		
+		try {
+			const response = await UsersAPI.passwordReset(passwordDetails)
+			dispatch(resetPassword_success(response.data))
+		} catch(error) {
+			if(error.response)
+				dispatch(resetPassword_error(error.response.data))
+			else
+				dispatch(resetPassword_error(error))
+		}
+	}
+}
