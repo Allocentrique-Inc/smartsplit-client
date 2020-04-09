@@ -11,6 +11,7 @@ import MyWorksPage         from "./my-works"
 import MyProfilePage       from "./my-profile"
 import MyCollaboratorsPage from "./my-collaborators"
 import MyAccountPage       from "./my-account"
+import ChangePasswordModal from "./change-password"
 import FormsTest           from "../test/forms"
 
 const MENU = [
@@ -71,6 +72,10 @@ export function DashboardRoutes(props) {
 		
 		<Route path="/dashboard/my-collaborators" exact>
 			<MyCollaboratorsPage />
+		</Route>
+
+		<Route path="/dashboard/change-password" exact>
+			<ChangePasswordModal />
 		</Route>
 
 		<Route path="/dashboard/test/forms" exact>

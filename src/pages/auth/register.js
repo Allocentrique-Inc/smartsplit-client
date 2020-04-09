@@ -1,5 +1,6 @@
 import React, { useState }	from "react"
 import { View, Platform }	from 'react-native'
+import { useHistory }       from 'react-router-dom';
 import Button				from "../../widgets/button"
 import Scrollable           from "../../widgets/scrollable"
 import { DialogModal } 		from "../../widgets/modal"
@@ -30,13 +31,19 @@ export const NativeComponentRegisterTitle = () => (
 	<Heading level="3">En route vers la professionnalisation</Heading>
 )
 
-export const WebComponentNavbarRegister = (props) => (
-    <PublicNavBar>
-		<Text secondary> Déjà Membre ?</Text>
-		<Button tertiary text="Ouvrir une session" />
-		<Button secondary text="English" />
-	</PublicNavBar>   
-);
+export function WebComponentNavbarRegister() {
+	let history = useHistory();
+    const handleClick = () => (history.push('/auth/login'))
+
+	return <PublicNavBar>
+			<Text secondary>Déjà Membre ?</Text>
+			<Button tertiary 
+			text="Ouvrir une session" 
+			onClick={handleClick}
+			/>
+			<Button secondary text="English" />
+		</PublicNavBar> 
+}
 
 export function WebComponentButtonsRegister(props) {
 	const [modalOpen, setModal] = useState(false)
@@ -93,40 +100,46 @@ export function TermsConditionsModal(props) {
 		onRequestClose={props.onRequestClose}
 		title="Termes et conditions"
 		buttons={<>
-			<Button tertiary text="Annuler" onClick={props.onRequestClose} />
+			<Button tertiary text="Annuler" 
+					onClick={props.onRequestClose} />
 			<Button text="J'accepte !" />
 		</>}
 	>
-		<Group of="group" style={{ width: 560 }}>
+		<Group of="group" style={{width: 375, maxWidth: 560, alignSelf: "center"}}>
 		</Group>
 	</DialogModal>
 }
-
-export const NativeComponentButtonsRegister = () => (
-	<>
-		<Button text="Créer mon compte"
-		style={{marginBottom: Metrics.spacing.component}}  
-		/>
-		<Button tertiary text="J'ai déjà un compte" />
-	</>
-);
+ export function NativeComponentButtonsRegister() {
+    let history = useHistory();
+    const handleClick = () => (history.push('/auth/login'))
+	 return <>
+			<Button text="Créer mon compte"
+				style={{marginBottom: Metrics.spacing.component}}  
+			/>
+			<Button 
+				tertiary 
+				text="J'ai déjà un compte" 
+				onClick={() => handleClick()}
+			/>
+	 		</>
+ }
 
 export function WebComponentVerifyEmail(props) {
 	const [modalOpen, setModal] = useState(false)
 	return <CheckEmailModal
-	visible={modalOpen}
-	onRequestClose={() => setModal(false)}
-	buttons={<>
-		<Button 
-		text="Créer mon compte"
-		onClick={() => setModal(true)} />
-		</>
-		}/>
+			visible={modalOpen}
+			onRequestClose={() => setModal(false)}
+			buttons={<>
+				<Button 
+				text="Créer mon compte"
+				onClick={() => setModal(true)} />
+				</>
+				}/>
 }
 
-function passwordBarColor(score) {
+export function passwordBarColor(score) {
 	switch(score) {
-		case 0:  return Colors.progressBar.darkred
+		case 0:  return Colors.progressBar.darkred 
 		case 1:  return Colors.progressBar.orangered
 		case 2:  return Colors.progressBar.orange
 		case 3:  return Colors.progressBar.yellowgreen
@@ -135,7 +148,18 @@ function passwordBarColor(score) {
 	}
 }
 
-function passwordProgress(score) {
+export function passwordStrengthIndicator(score) {
+	switch(score) {
+		case 0: return <Text secondary>Mot de passe faible</Text>
+		case 1: return <Text secondary>Mot de passe faible</Text>
+		case 2: return <Text secondary>Mot de passe moyen</Text>
+		case 3: return <Text secondary>Mot de passe moyen</Text>
+		case 4: return <Text secondary>Mot de passe acceptable</Text>
+		default: return <Text secondary>Mot de passe acceptable</Text>
+	}
+}
+
+export function passwordProgress(score) {
 	switch(score) {
 		case 4:  return 100
 		case 3:  return 80
@@ -157,8 +181,10 @@ export default function Register(props) {
         	})}
 
 		<Scrollable>
-			<Section of="group">
-			<Column of="component" style={{maxWidth: 464, alignSelf: "center"}}>
+
+		<Section of="group" style={{width: 375, maxWidth: 560, alignSelf: "center"}}>
+			<Column of="group">
+			
 			{Platform.select({
 				web: <WebComponentRegisterTitle />,
 				android: <NativeComponentRegisterTitle />,
@@ -189,12 +215,17 @@ export default function Register(props) {
 					label="Choisis ton mot de passe"
 					placeholder=""
 				/>
-				
-				<ProgressBar
-					size="tiny"
-					color={passwordBarColor(score)}
-					progress={passwordProgress(score)}
-				/>
+
+				<Row>
+					<Text secondary small
+						style={{flex: 3}}>{passwordStrengthIndicator(score)}</Text>
+					<Flex />
+					<ProgressBar 	
+						size="tiny" 
+						style={{flex: 1}} 
+						color={passwordBarColor(score)} 
+						progress={passwordProgress(score)} />
+				</Row>
 
 				<PasswordField
 					label="Répète ton mot de passe"
@@ -206,6 +237,7 @@ export default function Register(props) {
 				android: <NativeComponentButtonsRegister />,
 				ios: <NativeComponentButtonsRegister />,
         	})} 
+
 			</Column>
 			</Section>
 		</Scrollable>

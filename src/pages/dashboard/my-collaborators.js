@@ -1,16 +1,18 @@
-import React, { useState } from "react"
-import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
-import moment from "moment"
-
-import { Row, Column, Section, Group, Flex, Hairline } from "../../layout"
-import { TextField, RadioGroup, RadioGroupButton } from "../../forms"
+import React, { useState } 		    from "react"
+import { View, 
+		TouchableWithoutFeedback }  from "react-native"
+import moment 					    from "moment"
+import { Row, 
+		Column, 
+		Section, 
+		Group, 
+		Flex, 
+		Hairline } 				    from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
-import { DialogModal } from "../../widgets/modal"
-import { TabBar, Tab } from "../../widgets/tabs"
-import { Button, RoundButton } from "../../widgets/button"
-
-import { Colors, Metrics } from "../../theme"
-import LogoAddRound from "../../svg/add-round"
+import { DialogModal } 				from "../../widgets/modal"
+import { TabBar, Tab } 				from "../../widgets/tabs"
+import { Button, RoundButton } 		from "../../widgets/button"
+import LogoAddRound 				from "../../svg/add-round"
 
 
 export default function MyCollaboratorsPage() {
@@ -62,7 +64,6 @@ export default function MyCollaboratorsPage() {
 	</>
 }
 
-
 export function AddCollaboratorModal(props) {
 	return <DialogModal
 		visible={props.visible}
@@ -73,7 +74,7 @@ export function AddCollaboratorModal(props) {
 			<Button text="C'est parti !" />
 		</>}
 	>
-		<Group of="group" style={{ width: 560 }}>
+		<Group of="group" style={{width: 375, maxWidth: 560, alignSelf: "center"}}>
 		</Group>
 	</DialogModal>
 }

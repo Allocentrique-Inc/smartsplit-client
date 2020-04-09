@@ -39,7 +39,7 @@ export default function CreateWorkModal(props) {
 			<Button text="C'est parti!" onClick={next} />
 		</>}
 	>
-		<Group of="group" style={{width: 560}}>
+		<Group of="group" style={{width: 375, maxWidth: 560, alignSelf: "center"}}>
 			<TextField
 				value={workName} onChangeText={setWorkName}
 				label="Titre de la pièce musicale"

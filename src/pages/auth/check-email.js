@@ -12,10 +12,12 @@ export default function CheckEmailModal(props) {
     visible={props.visible}
     onRequestClose={props.onRequestClose}
     title="Vérifie tes courriels"
-    buttons={<Button text="J'ai compris" 
+    buttons={<Button 
+            style={{width: 130}}
+            text="J'ai compris" 
             onClick={props.onRequestClose} />}
             >
-    <Group of="group" style={{ width: 560 }}>
+    <Group of="group" style={{width: 375, maxWidth: 560, alignSelf: "center"}}>
         <View style={{alignItems: "center"}}>
             <HighFive />
         </View>

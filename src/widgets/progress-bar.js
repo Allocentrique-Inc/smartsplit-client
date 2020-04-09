@@ -9,7 +9,8 @@ export const Styles = StyleSheet.create({
 		height: Metrics.spacing.small,
 		flexDirection: "row",
 		alignItems: "stretch",
-		height: Metrics.size.medium / 4
+		height: Metrics.size.medium / 4,
+		width: 128
 	},
 
 	progress: {
