@@ -1,5 +1,4 @@
 import { AsyncStorage } from "react-native"
-import { loginUser_success } from "../redux/Auth/Actions"
 import axios from "axios"
 
 export async function loadAuthFromStorage(store) {
@@ -8,7 +7,10 @@ export async function loadAuthFromStorage(store) {
 	if (!credentials) return
 
 	const parsedCreds = JSON.parse(credentials)
-	store.dispatch(loginUser_success(parsedCreds))
+	store.dispatch({
+		type: "LOGIN_USER_SUCCESS",
+		payload: parsedCreds,
+	})
 
 	if (parsedCreds.accessToken) {
 		axios.defaults.headers.common[

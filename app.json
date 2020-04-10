@@ -29,7 +29,8 @@
 		},
 		"androidStatusBar": {
 			"barStyle": "light-content",
-			"backgroundColor": "#3F2933"
+			"backgroundColor": "#3F2933",
+			"translucent": false
 		},
 		"packagerOpts": {
 			"config": "metro.config.js",

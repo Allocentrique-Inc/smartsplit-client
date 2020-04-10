@@ -26,31 +26,41 @@ const fontMap = {
 	"IBMPlexSans-Bold": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Bold.ttf"),
 }
 
-export default function App(props) {
-	const [appReady, setAppReady] = useState(Platform.OS === "web")
+export default class App extends React.PureComponent {
+	constructor(props) {
+		super(props)
+		this.state = { ready: false }
 
-	Font.loadAsync(fontMap)
-		.then((o) => setAppReady(true))
-		.catch((e) => console.error(e))
+		Font.loadAsync(fontMap)
+			.then((o) => this.setState({ ready: true }))
+			.catch((e) => console.error(e))
+	}
 
-	if (!appReady) return null
+	static getDerivedStateFromError(error) {
+		console.error(error)
+		return { ready: true }
+	}
 
-	return (
-		<Provider store={store}>
-			<View
-				style={{
-					position: "absolute", // absolute nécessaire pour forcer la taille
-					top: 0, // maximale, sinon les ScrollView ne fonctionnent pas
-					left: 0,
-					right: 0,
-					bottom: 0,
-					overflow: "hidden",
-				}}
-			>
-				<RouterImpl>
-					<Main />
-				</RouterImpl>
-			</View>
-		</Provider>
-	)
+	render() {
+		if (!this.state.ready) return null
+
+		return (
+			<Provider store={store}>
+				<View
+					style={{
+						position: "absolute", // absolute nécessaire pour forcer la taille
+						top: 0, // maximale, sinon les ScrollView ne fonctionnent pas
+						left: 0,
+						right: 0,
+						bottom: 0,
+						overflow: "hidden",
+					}}
+				>
+					<RouterImpl>
+						<Main />
+					</RouterImpl>
+				</View>
+			</Provider>
+		)
+	}
 }
