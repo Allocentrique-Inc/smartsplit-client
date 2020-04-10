@@ -2,34 +2,33 @@ import { StyleSheet } from "react-native"
 import { Metrics } from "../theme"
 
 const Components = {}
-for(let [key, value] of Object.entries(Metrics.spacing)) {
+for (let [key, value] of Object.entries(Metrics.spacing)) {
 	Components[key] = {
-		margin: value
+		margin: value,
 	}
 }
 
 const Padding = {}
-for(let [key, value] of Object.entries(Metrics.spacing)) {
+for (let [key, value] of Object.entries(Metrics.spacing)) {
 	Padding[key] = {
-		padding: value
+		padding: value,
 	}
 }
 
 const Spacings = {}
-for(let [key, value] of Object.entries(Metrics.spacing)) {
+for (let [key, value] of Object.entries(Metrics.spacing)) {
 	Spacings[key] = {
-		width:  value,
+		width: value,
 		height: value,
 	}
 }
 
 const Sizes = {}
-for(let [key, value] of Object.entries(Metrics.size)) {
+for (let [key, value] of Object.entries(Metrics.size)) {
 	Sizes[key] = {
-		height: value
+		height: value,
 	}
 }
-
 
 const MetricsStyles = {
 	components: StyleSheet.create(Components),

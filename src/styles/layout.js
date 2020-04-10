@@ -5,7 +5,7 @@ const LayoutStyles = StyleSheet.create({
 	column: {
 		flexDirection: "column",
 	},
-	
+
 	row: {
 		flexDirection: "row",
 	},
@@ -18,7 +18,7 @@ const LayoutStyles = StyleSheet.create({
 		minWidth: 1,
 		minHeight: 1,
 	},
-	
+
 	divider: {
 		alignSelf: "center",
 		backgroundColor: Colors.stroke,

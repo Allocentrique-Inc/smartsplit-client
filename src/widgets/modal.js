@@ -1,20 +1,16 @@
 import React from "react"
-import {
-	Platform,
-	View,
-	StyleSheet
-} from "react-native"
+import { Platform, View, StyleSheet } from "react-native"
 
-import { Overlay }           from "../portals"
+import { Overlay } from "../portals"
 import { Row, Column, Flex } from "../layout"
-import { Heading }           from "../text"
-import Button                from "./button"
-import Scrollable            from "./scrollable"
-import LayoutStyles          from "../styles/layout"
-import LayerStyles           from "../styles/layers"
-import MetricsStyles         from "../styles/metrics"
-import { Metrics }           from "../theme"
-import XIcon                 from "../svg/x"
+import { Heading } from "../text"
+import Button from "./button"
+import Scrollable from "./scrollable"
+import LayoutStyles from "../styles/layout"
+import LayerStyles from "../styles/layers"
+import MetricsStyles from "../styles/metrics"
+import { Metrics } from "../theme"
+import XIcon from "../svg/x"
 
 export const ModalStyles = StyleSheet.create({
 	background: {
@@ -24,17 +20,17 @@ export const ModalStyles = StyleSheet.create({
 		right: 0,
 		bottom: 0,
 	},
-	
+
 	container: {
 		maxWidth: "90%",
 		maxHeight: "90%",
 	},
-	
+
 	forceScroll: {
 		maxHeight: "100%",
 		maxWidth: "100%",
 	},
-	
+
 	medium: {
 		maxWidth: 624,
 		minWidth: 280,
@@ -54,7 +50,7 @@ export const ModalStyles = StyleSheet.create({
 	header_button: {
 		marginRight: -Metrics.spacing.medium,
 	},
-	
+
 	buttonBar: {
 		borderBottomLeftRadius: Metrics.borderRadius.modals,
 		borderBottomRightRadius: Metrics.borderRadius.modals,
@@ -64,61 +60,67 @@ export const ModalStyles = StyleSheet.create({
 export class Modal extends React.PureComponent {
 	render() {
 		const { layer, children, ...nextProps } = this.props
-		
-		return <Overlay {...nextProps}>
-			<View style={[
-				LayoutStyles.centerContent,
-				LayerStyles.modal_background,
-				ModalStyles.background,
-			]}>
-				<View style={[
-					LayerStyles[layer || "modal"],
-					MetricsStyles.components.group,
-					ModalStyles.container,
-				]}>
-					{children}
+
+		return (
+			<Overlay {...nextProps}>
+				<View
+					style={[
+						LayoutStyles.centerContent,
+						LayerStyles.modal_background,
+						ModalStyles.background,
+					]}
+				>
+					<View
+						style={[
+							LayerStyles[layer || "modal"],
+							MetricsStyles.components.group,
+							ModalStyles.container,
+						]}
+					>
+						{children}
+					</View>
 				</View>
-			</View>
-		</Overlay>
+			</Overlay>
+		)
 	}
 }
 
 export function DialogModal(props) {
 	const { title, buttons, size, children, ...nextProps } = props
 
-	return <Modal {...nextProps}>
-		<Column style={[
-			ModalStyles[size || "medium"],
-			ModalStyles.sizeLimits
-		]}>
-			<Row
-				of="component"
-				layer="overground_moderate"
-				style={ModalStyles.header}
-			>
-				<Flex>
-					<Heading level="4">{title}</Heading>
-				</Flex>
-				<Button
-					small icon={<XIcon />}
-					onClick={props.onRequestClose}
-					style={ModalStyles.header_button}
-				/>
-			</Row>
+	return (
+		<Modal {...nextProps}>
+			<Column style={[ModalStyles[size || "medium"], ModalStyles.sizeLimits]}>
+				<Row
+					of="component"
+					layer="overground_moderate"
+					style={ModalStyles.header}
+				>
+					<Flex>
+						<Heading level="4">{title}</Heading>
+					</Flex>
+					<Button
+						small
+						icon={<XIcon />}
+						onClick={props.onRequestClose}
+						style={ModalStyles.header_button}
+					/>
+				</Row>
 
-			<Scrollable>{children}</Scrollable>
+				<Scrollable>{children}</Scrollable>
 
-			<Row
-				align="right"
-				of="component"
-				layer="overground_moderate"
-				padding="component"
-				style={ModalStyles.buttonBar}
-			>
-				{buttons}
-			</Row>
-		</Column>
-	</Modal>
+				<Row
+					align="right"
+					of="component"
+					layer="overground_moderate"
+					padding="component"
+					style={ModalStyles.buttonBar}
+				>
+					{buttons}
+				</Row>
+			</Column>
+		</Modal>
+	)
 }
 
 export default Modal

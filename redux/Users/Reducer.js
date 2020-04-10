@@ -1,128 +1,121 @@
 const INITIAL_STATE = {
-	registerUser:{
+	registerUser: {
 		data: null,
 		error: null,
-		isLoading: false
+		isLoading: false,
 	},
-	forgotPassword:{
+	forgotPassword: {
 		data: null,
 		error: null,
-		isLoading: false
+		isLoading: false,
 	},
-	passwordReset:{
+	passwordReset: {
 		data: null,
 		error: null,
-		isLoading: false
-	}
+		isLoading: false,
+	},
 }
 
-export default function(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
 	let newState = {}
-	
+
 	switch (action.type) {
 		case "REGISTER_USER_REQUEST":
 			newState.registerUser = {
 				...state.registerUser,
 				data: null,
 				isLoading: true,
-				error: null
+				error: null,
 			}
-			
+
 			break
-		
+
 		case "REGISTER_USER_SUCCESS":
 			newState.registerUser = {
 				...state.registerUser,
 				error: null,
-				isLoading: false
+				isLoading: false,
 			}
-			
-			if(action.payload)
-				newState.registerUser.data = action.payload
+
+			if (action.payload) newState.registerUser.data = action.payload
 
 			break
-		
+
 		case "REGISTER_USER_ERROR":
 			newState.registerUser = {
 				...state.registerUser,
-				isLoading: false
+				isLoading: false,
 			}
-			
-			if(action.payload)
-				newState.registerUser.error = action.payload
-			
+
+			if (action.payload) newState.registerUser.error = action.payload
+
 			break
-		
-		
+
 		case "FORGOT_PASSWORD_REQUEST":
 			newState.forgotPassword = {
 				...state.forgotPassword,
 				data: null,
 				isLoading: true,
-				error: null
+				error: null,
 			}
-			
+
 			break
 
 		case "FORGOT_PASSWORD_SUCCESS":
 			newState.forgotPassword = {
 				...state.forgotPassword,
 				error: null,
-				isLoading: false
+				isLoading: false,
 			}
-			
-			if(action.payload)
-				newState.forgotPassword.data = action.payload
-			
+
+			if (action.payload) newState.forgotPassword.data = action.payload
+
 			break
 
 		case "FORGOT_PASSWORD_ERROR":
 			newState.forgotPassword = {
 				...state.forgotPassword,
-				isLoading: false
+				isLoading: false,
 			}
-			
-			if(action.payload)
-				newState.forgotPassword.error = action.payload
-			
+
+			if (action.payload) newState.forgotPassword.error = action.payload
+
 			break
-		
-		
+
 		case "RESET_PASSWORD_REQUEST":
 			newState.passwordReset = {
 				...state.passwordReset,
 				data: null,
 				isLoading: true,
-				error: null
+				error: null,
 			}
-			
+
 			break
 
 		case "RESET_PASSWORD_SUCCESS":
 			newState.passwordReset = {
 				...state.passwordReset,
 				error: null,
-				isLoading: false
+				isLoading: false,
 			}
-			
-			if(action.payload)
-				newState.passwordReset.data = action.payload
-			
+
+			if (action.payload) newState.passwordReset.data = action.payload
+
 			break
 
 		case "RESET_PASSWORD_ERROR":
 			newState.passwordReset = {
 				...state.passwordReset,
-				isLoading: false
+				isLoading: false,
 			}
 
-			if(action.payload)
-				newState.passwordReset.error = action.payload;
-			
+			if (action.payload) newState.passwordReset.error = action.payload
+
 			break
-		
-		default: break
+
+		default:
+			break
 	}
-	
-	return {...state, ...newState}
+
+	return { ...state, ...newState }
 }

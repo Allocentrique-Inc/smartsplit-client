@@ -10,64 +10,68 @@ import { Button, RoundButton } from "../../widgets/button"
 import MediaWorkRow from "../../smartsplit/works/dashboard-row"
 import CreateWorkModal from "../../smartsplit/works/create-work-modal"
 
-
 export default function MyWorksPage() {
 	const [modalOpen, setModal] = useState(false)
 
 	const addNewWorkButton = Platform.select({
 		web: <Button primary text="Ajouter" onClick={() => setModal(true)} />,
 		ios: <RoundButton small text="+" />,
-		android: <RoundButton small text="+" />
+		android: <RoundButton small text="+" />,
 	})
 
-	return <>
-		<CreateWorkModal
-			visible={modalOpen}
-			onRequestClose={() => setModal(false)}
-		/>
+	return (
+		<>
+			<CreateWorkModal
+				visible={modalOpen}
+				onRequestClose={() => setModal(false)}
+			/>
 
-		<Group of="group">
-			<Row of="component">
-				<Flex>
-					<Heading level="2">Mes pièces musicales</Heading>
-				</Flex>
-				{addNewWorkButton}
-			</Row>
+			<Group of="group">
+				<Row of="component">
+					<Flex>
+						<Heading level="2">Mes pièces musicales</Heading>
+					</Flex>
+					{addNewWorkButton}
+				</Row>
 
-			<TabBar>
-				<Tab key="my-works" title="Mes ajouts" default>
-					<MyWorksTab />
-				</Tab>
+				<TabBar>
+					<Tab key="my-works" title="Mes ajouts" default>
+						<MyWorksTab />
+					</Tab>
 
-				<Tab key="shared-with-me" title="Partagées avec moi">
-					<SharedWithMeTab />
-				</Tab>
-			</TabBar>
-		</Group>
-	</>
+					<Tab key="shared-with-me" title="Partagées avec moi">
+						<SharedWithMeTab />
+					</Tab>
+				</TabBar>
+			</Group>
+		</>
+	)
 }
 
 export function MyWorksTab(props) {
-	return <Column of="none" spacer={Hairline}>
-		{demo1}
-		{demo2}
-		{demo3}
-		{demo1}
-		{demo2}
-		{demo3}
-	</Column>
+	return (
+		<Column of="none" spacer={Hairline}>
+			{demo1}
+			{demo2}
+			{demo3}
+			{demo1}
+			{demo2}
+			{demo3}
+		</Column>
+	)
 }
 
 export function SharedWithMeTab(props) {
-	return <Column of="none" spacer={Hairline}>
-		{demo1}
-		{demo2}
-		{demo3}
-	</Column>
+	return (
+		<Column of="none" spacer={Hairline}>
+			{demo1}
+			{demo2}
+			{demo3}
+		</Column>
+	)
 }
 
-
-const demo1 =
+const demo1 = (
 	<MediaWorkRow
 		title="Fantôme"
 		artist="Debbie Tebbs"
@@ -77,8 +81,9 @@ const demo1 =
 		stepName="Partage des droits"
 		progress="35"
 	/>
+)
 
-const demo2 =
+const demo2 = (
 	<MediaWorkRow
 		title="Sandbox Memories"
 		artist="Inscience, Ghostnaut"
@@ -88,8 +93,9 @@ const demo2 =
 		stepName="Protège ton oeuvre"
 		progress="85"
 	/>
+)
 
-const demo3 =
+const demo3 = (
 	<MediaWorkRow
 		title="Votre première chanson"
 		artist="Inscience, Ghostnaut"
@@ -99,3 +105,4 @@ const demo3 =
 		stepName="Documente ton oeuvre"
 		progress="0"
 	/>
+)

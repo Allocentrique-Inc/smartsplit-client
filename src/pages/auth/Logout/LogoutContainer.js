@@ -1,16 +1,16 @@
-import React from 'react'
-import { connect } from 'react-redux'
+import React from "react"
+import { connect } from "react-redux"
 import * as AuthActions from "../../../../redux/Auth/Actions"
 import Logout from "./Logout"
 
-function mapStateToProps({auth}) {
+function mapStateToProps({ auth }) {
 	return {
-		auth
+		auth,
 	}
 }
 
 function mapDispatchToProps(dispatch) {
-    dispatch(AuthActions.logoutUser())
+	dispatch(AuthActions.logoutUser())
 	return {}
 }
 

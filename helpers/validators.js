@@ -1,5 +1,5 @@
 export function notEmptyValidator(str) {
-	return str.trim() != ''
+	return str.trim() != ""
 }
 
 export function sameValidator(str1, str2) {

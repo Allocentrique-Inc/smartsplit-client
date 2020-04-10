@@ -10,44 +10,44 @@ export function loginUser_request() {
 export function loginUser_success(data) {
 	return {
 		type: "LOGIN_USER_SUCCESS",
-		payload: data
+		payload: data,
 	}
 }
 
 export function loginUser_error(err) {
 	return {
 		type: "LOGIN_USER_ERROR",
-		payload: err
+		payload: err,
 	}
 }
 
 export function loginUser(details) {
-	return async function(dispatch) {
+	return async function (dispatch) {
 		dispatch(loginUser_request())
-		
+
 		try {
-			const response = await AuthAPI.loginUser(details);
-			
-			if(response.data && response.data.accessToken) {
+			const response = await AuthAPI.loginUser(details)
+
+			if (response.data && response.data.accessToken) {
 				saveAuth(response.data)
 				dispatch(loginUser_success(response.data))
 			} else {
 				dispatch(loginUser_error(response.data))
 			}
-		} catch(error) {
-			dispatch(loginUser_error(error));
+		} catch (error) {
+			dispatch(loginUser_error(error))
 		}
 	}
 }
 
 export function logoutUser_request() {
 	return {
-		type: "LOGOUT_USER"
+		type: "LOGOUT_USER",
 	}
 }
 
 export function logoutUser() {
-	return function(dispatch) {
+	return function (dispatch) {
 		clearAuth().then(() => dispatch(logoutUser_request()))
 	}
 }

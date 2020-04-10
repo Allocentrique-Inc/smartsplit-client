@@ -5,20 +5,20 @@ import MetricsStyles from "../styles/metrics"
 
 export default function Frame(props) {
 	const { focused, style, children, viewRef, ...nextProps } = props
-	
+
 	const combinedStyles = [
 		FormStyles.frame,
 		focused ? FormStyles.frame_focused : null,
 		style,
 	]
-	
-	if(viewRef)
-		nextProps.ref = viewRef
-		
-	return <View
-		style={combinedStyles}
-		{...nextProps}
-	>{children}</View>
+
+	if (viewRef) nextProps.ref = viewRef
+
+	return (
+		<View style={combinedStyles} {...nextProps}>
+			{children}
+		</View>
+	)
 }
 
 export function useFrameFocus(initialFocus = false) {
@@ -27,12 +27,12 @@ export function useFrameFocus(initialFocus = false) {
 	return {
 		value: focused,
 		props: {
-			onFocus: function() {
+			onFocus: function () {
 				setFocus(true)
 			},
-			onBlur: function() {
+			onBlur: function () {
 				setFocus(false)
-			}
-		}
+			},
+		},
 	}
 }

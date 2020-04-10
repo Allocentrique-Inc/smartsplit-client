@@ -6,28 +6,26 @@ export default class TextDropdown extends React.PureComponent {
 	constructor(props) {
 		super(props)
 		this.state = {
-			focused: props.focused
+			focused: props.focused,
 		}
-		
+
 		this.input = React.createRef()
 	}
-	
+
 	handleOnBlur = () => {
 		this.input.current.blur()
-		this.setState({focused: false})
-		
-		if(this.props.onBlur)
-			this.props.onBlur()
+		this.setState({ focused: false })
+
+		if (this.props.onBlur) this.props.onBlur()
 	}
-	
+
 	handleOnFocus = () => {
 		this.input.current.focus()
-		this.setState({focused: true})
-		
-		if(this.props.onFocus)
-			this.props.onFocus()
+		this.setState({ focused: true })
+
+		if (this.props.onFocus) this.props.onFocus()
 	}
-	
+
 	render() {
 		const {
 			placeholder,
@@ -41,28 +39,32 @@ export default class TextDropdown extends React.PureComponent {
 			value,
 			...nextProps
 		} = this.props
-		
-		const searchInput = <BasicTextField
-			placeholder={placeholder}
-			onChangeText={onChangeText}
-			onKeyPress={onKeyPress}
-			onBlur={this.handleOnBlur}
-			onFocus={this.handleOnFocus}
-			viewRef={this.input}
-			defaultValue={defaultValue}
-			value={value}
-			{...inputProps}
-		/>
-		
-		return <Dropdown
-			{...nextProps}
-			placeholder={searchInput}
-			open={this.state.focused}
-			onBlur={this.handleOnBlur}
-			onFocus={this.handleOnFocus}
-			noPressToggle
-		>
-			{children}
-		</Dropdown>
+
+		const searchInput = (
+			<BasicTextField
+				placeholder={placeholder}
+				onChangeText={onChangeText}
+				onKeyPress={onKeyPress}
+				onBlur={this.handleOnBlur}
+				onFocus={this.handleOnFocus}
+				viewRef={this.input}
+				defaultValue={defaultValue}
+				value={value}
+				{...inputProps}
+			/>
+		)
+
+		return (
+			<Dropdown
+				{...nextProps}
+				placeholder={searchInput}
+				open={this.state.focused}
+				onBlur={this.handleOnBlur}
+				onFocus={this.handleOnFocus}
+				noPressToggle
+			>
+				{children}
+			</Dropdown>
+		)
 	}
 }

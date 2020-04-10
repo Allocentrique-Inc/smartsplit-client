@@ -5,7 +5,7 @@ const UserStyles = StyleSheet.create({
 	avatar_container: {
 		backgroundColor: Colors.stroke,
 		alignItems: "center",
-		justifyContent: "center"
+		justifyContent: "center",
 	},
 })
 
