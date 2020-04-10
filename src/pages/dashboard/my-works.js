@@ -1,23 +1,23 @@
-import React, {useState}    from "react"
-import { useHistory }       from "react-router"
+import React, { useState } from "react"
+import { useHistory } from "react-router"
 import { Platform, View, StyleSheet } from "react-native"
 
 import { Row, Column, Group, Flex, Hairline } from "../../layout"
-import { Heading  }            from "../../text"
-import { TabBar, Tab }         from "../../widgets/tabs"
+import { Heading } from "../../text"
+import { TabBar, Tab } from "../../widgets/tabs"
 import { Button, RoundButton } from "../../widgets/button"
 
-import MediaWorkRow            from "../../smartsplit/works/dashboard-row"
-import CreateWorkModal         from "../../smartsplit/works/create-work-modal"
+import MediaWorkRow from "../../smartsplit/works/dashboard-row"
+import CreateWorkModal from "../../smartsplit/works/create-work-modal"
 
 
 export default function MyWorksPage() {
 	const [modalOpen, setModal] = useState(false)
-	
+
 	const addNewWorkButton = Platform.select({
 		web: <Button primary text="Ajouter" onClick={() => setModal(true)} />,
 		ios: <RoundButton small text="+" />,
-		android: <RoundButton small text="+" />,
+		android: <RoundButton small text="+" />
 	})
 
 	return <>
@@ -25,7 +25,7 @@ export default function MyWorksPage() {
 			visible={modalOpen}
 			onRequestClose={() => setModal(false)}
 		/>
-		
+
 		<Group of="group">
 			<Row of="component">
 				<Flex>
@@ -38,7 +38,7 @@ export default function MyWorksPage() {
 				<Tab key="my-works" title="Mes ajouts" default>
 					<MyWorksTab />
 				</Tab>
-				
+
 				<Tab key="shared-with-me" title="Partagées avec moi">
 					<SharedWithMeTab />
 				</Tab>
@@ -76,7 +76,7 @@ const demo1 =
 		steps="5"
 		stepName="Partage des droits"
 		progress="35"
-	 />
+	/>
 
 const demo2 =
 	<MediaWorkRow

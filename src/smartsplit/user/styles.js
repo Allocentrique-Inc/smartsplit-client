@@ -11,11 +11,11 @@ const UserStyles = StyleSheet.create({
 
 UserStyles.avatar_size = {}
 
-for(let size in Metrics.size) {
+for (let size in Metrics.size) {
 	UserStyles.avatar_size[size] = {
-		width:  Metrics.size[size],
+		width: Metrics.size[size],
 		height: Metrics.size[size],
-		borderRadius: Metrics.size[size] /2,
+		borderRadius: Metrics.size[size] / 2,
 	}
 }
 

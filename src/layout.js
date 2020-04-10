@@ -5,7 +5,6 @@ import LayoutStyles from "./styles/layout"
 import LayerStyles from "./styles/layers"
 
 import { Text } from "./text"
-import { Colors } from "./theme"
 
 function composeView(props, ...stylesheets) {
 	const {

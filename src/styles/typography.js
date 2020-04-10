@@ -52,6 +52,10 @@ const TypographyStyles = {
 		action: {
 			color: Colors.action,
 		},
+		link: {
+			color: Colors.action,
+			fontWeight: Typography.Weight.bold,
+		},
 	},
 	
 	headings: {}

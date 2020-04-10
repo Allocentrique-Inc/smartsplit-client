@@ -1,5 +1,5 @@
 import { Platform, StyleSheet } from "react-native"
-import { Metrics, Colors } from "../theme"
+import { Metrics, Colors } from "../theme"
 
 const FormStyles = StyleSheet.create({
 	label_wrap: {
