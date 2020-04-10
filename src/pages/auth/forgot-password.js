@@ -1,4 +1,4 @@
-import React, {useState}                from "react"
+import React, {useState, useEffect}     from "react"
 import { Platform, 
         TouchableWithoutFeedback }      from 'react-native'
 import { Link, useHistory }             from "react-router-dom";
@@ -6,9 +6,10 @@ import { Section, Column, Row, Flex } 	from "../../layout"
 import { Heading, Text } 	            from "../../text"
 import TextField                        from '../../forms/text'
 import Button                           from "../../widgets/button"
-import { Metrics, Links }               from "../../theme"
+import { Metrics, Links, Colors }       from "../../theme"
 import PublicNavBar 		            from '../../smartsplit/public/navbar'
 import Scrollable                       from "../../widgets/scrollable"
+import {notEmptyValidator}              from "../../../helpers/validators"
 
 
 export function WebComponentNavbar() {
@@ -76,12 +77,33 @@ export function NativeComponentGetPasswordButtons({onClick, disabled}) {
 
 export default function GetPassword({users, forgotPassword}) {
 	const [email, setEmail] = useState("")
+    const [canSubmit, setCanSubmit] = useState(false);
+    const [hasSubmitted, setHasSubmitted] = useState(false);
 	const history = useHistory()
 	
 	const handleRequestPassword = () => {
-		forgotPassword({email})
-		history.push("/auth/forgot-password-sent")
-	}
+        if (canSubmit) {
+            forgotPassword({email})
+            setHasSubmitted(true);
+        }
+    }
+    
+    useEffect(()=>{
+        let emailValid = notEmptyValidator(email)
+
+        if (emailValid  && !users.forgotPassword.isLoading) {
+            setCanSubmit(true);
+        } else {
+            setCanSubmit(false);
+        }
+    }, [email, users.forgotPassword.isLoading])
+
+    useEffect(()=>{
+        if (!users.forgotPassword.isLoading && users.forgotPassword.data) {
+            history.push("/auth/forgot-password-sent")
+        }
+    }, [users.forgotPassword.data, users.forgotPassword.isLoading])
+
 
     return <> 
 
@@ -106,6 +128,10 @@ export default function GetPassword({users, forgotPassword}) {
                 le lien de réinitialisation.
             </Text>
 
+            {!users.forgotPassword.isLoading && hasSubmitted && users.forgotPassword.error && (
+                <Text style={{color: Colors.progressBar.orangered}}>{users.forgotPassword.error.error}</Text>
+            )}
+
             <TextField
                 label="Courriel"
                 label_hint=""
@@ -113,12 +139,12 @@ export default function GetPassword({users, forgotPassword}) {
                 onChangeText={setEmail}
                 value={email}
                 placeholder=""
-		    /> 
+		    />
 
             {Platform.select({
-            	web: <WebComponentGetPasswordButtons onClick={handleRequestPassword} disabled={users.forgotPassword.isLoading} />,
-                ios: <NativeComponentGetPasswordButtons onClick={handleRequestPassword} disabled={users.forgotPassword.isLoading} />,
-                android: <NativeComponentGetPasswordButtons onClick={handleRequestPassword} disabled={users.forgotPassword.isLoading} />
+            	web: <WebComponentGetPasswordButtons onClick={handleRequestPassword} disabled={!canSubmit} />,
+                ios: <NativeComponentGetPasswordButtons onClick={handleRequestPassword} disabled={!canSubmit} />,
+                android: <NativeComponentGetPasswordButtons onClick={handleRequestPassword} disabled={!canSubmit} />
         	})}
 
             </Section>

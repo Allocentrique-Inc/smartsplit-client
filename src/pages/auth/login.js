@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect }       from "react"
 import { Platform, 
         View,
-        TouchableWithoutFeedback  }     from 'react-native';
+        TouchableWithoutFeedback  }         from 'react-native';
 import {Redirect, useHistory}               from "react-router"
-import Button                           from "../../widgets/button"
-import Scrollable                       from "../../widgets/scrollable"
-import { Section, Row, Column, Flex }   from "../../layout"
-import { Heading, Paragraph, Text }     from "../../text"
-import { TextField, PasswordField }     from "../../forms"
-import PublicNavBar                     from '../../smartsplit/public/navbar'
-import { CheckBox }                     from "../../forms"
-import { Metrics, Links, Colors }               from "../../theme"
+import Button                               from "../../widgets/button"
+import Scrollable                           from "../../widgets/scrollable"
+import { Section, Row, Column, Flex }       from "../../layout"
+import { Heading, Paragraph, Text }         from "../../text"
+import { TextField, PasswordField }         from "../../forms"
+import PublicNavBar                         from '../../smartsplit/public/navbar'
+import { CheckBox }                         from "../../forms"
+import { Metrics, Links, Colors }           from "../../theme"
+
+import {notEmptyValidator}	from "../../../helpers/validators"
 
 export function WebComponentNavbarLogin() {
     let history = useHistory();
@@ -67,6 +69,8 @@ export default function Login({auth, login}) {
 	const [email, setEmail] = useState('')
     const [password, setPassword] = useState('');
     const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [canSubmit, setCanSubmit] = useState(false);
+
     const history = useHistory()
     
     useEffect(() => {
@@ -76,12 +80,25 @@ export default function Login({auth, login}) {
             setHasSubmitted(false);
         }
     }, [auth.isLoggedIn]);
+
+    useEffect(()=>{
+        let emailValid = notEmptyValidator(email);
+        let passwordValid = notEmptyValidator(password);
+
+        if (emailValid && passwordValid && !auth.isLoading) {
+            setCanSubmit(true);
+        } else {
+            setCanSubmit(false);
+        }
+    }, [email,password,auth.isLoading])
     
     const handleForgotPassword = () => (history.push('/auth/forgot-password'))
     const handleSignUp = () => history.push("/auth/register")
     const handleLogin = () => {
-        login({email, password})
-        setHasSubmitted(true)
+        if (canSubmit) {
+            login({email, password})
+            setHasSubmitted(true)
+        }
     }
     
     return <>
@@ -128,7 +145,7 @@ export default function Login({auth, login}) {
         {Platform.OS === "web" && <Flex />}
             <Button text="Me connecter"
             onClick={handleLogin}
-            disabled={auth.isLoading} />
+            disabled={!canSubmit} />
          </Row>
         
             {Platform.OS !== "web" && <Button tertiary 

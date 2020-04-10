@@ -1,27 +1,28 @@
-import React, { useState }	from "react"
-import { View, Platform }	from 'react-native'
-import { useHistory }       from 'react-router-dom';
-import Button				from "../../widgets/button"
-import Scrollable           from "../../widgets/scrollable"
-import { DialogModal } 		from "../../widgets/modal"
+import React, { useState, useEffect }		from "react"
+import { View, Platform }					from 'react-native'
+import { useHistory }       				from 'react-router-dom';
+import Button								from "../../widgets/button"
+import Scrollable           				from "../../widgets/scrollable"
+import { DialogModal } 						from "../../widgets/modal"
 import { TextDivider, 
 		Section, 
 		Column,
 		Row, 
 		Group,
-		Flex } 				from "../../layout"
+	Flex } 									from "../../layout"
 import { TextField, 
 		PasswordField,
-		CheckBox } 			from "../../forms"
-import { Heading, Text } 	from "../../text"
-import PublicNavBar 		from '../../smartsplit/public/navbar'
-import ProgressBar 			from "../../widgets/progress-bar"
-import CheckEmailModal 		from './check-email'
-//import { Tooltip } 			from 'react-native-elements'
-import FacebookIcon 		from "../../svg/facebook"
-import GoogleIcon 			from "../../svg/google"
-import { Metrics, Colors } 	from "../../theme"
-import zxcvbn 				from "zxcvbn"
+		CheckBox } 							from "../../forms"
+import { Heading, Text } 					from "../../text"
+import PublicNavBar 						from '../../smartsplit/public/navbar'
+import ProgressBar 							from "../../widgets/progress-bar"
+import CheckEmailModal 						from './check-email'
+//import { Tooltip } 						from 'react-native-elements'
+import FacebookIcon 						from "../../svg/facebook"
+import GoogleIcon 							from "../../svg/google"
+import { Metrics, Colors } 					from "../../theme"
+import zxcvbn 								from "zxcvbn"
+import {notEmptyValidator, sameValidator}	from "../../../helpers/validators"
 
 export const WebComponentRegisterTitle = () => (
 	<Heading level="1">En route vers la professionnalisation</Heading>
@@ -48,6 +49,12 @@ export function WebComponentNavbarRegister() {
 export function WebComponentButtonsRegister(props) {
 	const [modalOpen, setModal] = useState(false)
 	const [modalOpenEmail, setModalEmail] = useState(false)
+
+	useEffect(() => {
+		if (!props.registerUser.isLoading && props.registerUser.data) {
+			setModalEmail(true)
+		}
+	}, [props.registerUser.isLoading]);
 	
 	return <>
 	<TermsConditionsModal
@@ -56,18 +63,18 @@ export function WebComponentButtonsRegister(props) {
 	/>
 	
 	<CheckBox>
-	<Text>J'ai lu et j'accepte les 
-		<Text 
-			link 
-			onClick={() => setModal(true)}
-		> Termes et conditions d'utilisation </Text>
-		et la
-		<Text 
-			link 
-			onClick={() => setModal(true)}
-		> Politique sur la vie privée </Text>
-		de Smartsplit.
-	</Text>
+		<Text>J'ai lu et j'accepte les 
+			<Text 
+				link 
+				onClick={() => setModal(true)}
+			> Termes et conditions d'utilisation </Text>
+			et la
+			<Text 
+				link 
+				onClick={() => setModal(true)}
+			> Politique sur la vie privée </Text>
+			de Smartsplit.
+		</Text>
 	</CheckBox>
 
 	<Row style={{marginTop: Metrics.spacing.component}}>
@@ -85,7 +92,11 @@ export function WebComponentButtonsRegister(props) {
 		<Flex />
 		<Button 
 			text="Créer mon compte"
-			onClick={() => { setModalEmail(true); props.onClick()}}
+			onClick={() => { 
+				if (!props.disabled) {
+					props.onClick()
+				}
+			}}
 				disabled={props.disabled} />
 		<CheckEmailModal
 			visible={modalOpenEmail}
@@ -173,14 +184,33 @@ export function passwordProgress(score) {
 	}
 }
 
+
 export default function Register({ users, registerUser }) {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [passwordRepeat, setPasswordRepeat] = useState("")
 	const [agreeTerms, setAgreeTerms] = useState(true) // demo temp
 	const score = zxcvbn(password).score /* passer le mot de passe dans zxcvbn, valeur */
+	const [canSubmit, setCanSubmit] = useState(false)
+	const [hasSubmitted, setHasSubmitted] = useState(false)
 	
-	const handleRegister = () => registerUser({email, password, locale: "fr"})
+	const handleRegister = () => {
+		if (canSubmit) {
+			registerUser({email, password, locale: "fr"})
+			setHasSubmitted(true);
+		}
+	}
+
+	useEffect(()=>{
+        let emailValid = notEmptyValidator(email)
+        let passwordsValid = notEmptyValidator(password) && notEmptyValidator(passwordRepeat) && sameValidator(password, passwordRepeat)
+
+        if (emailValid && passwordsValid && !users.registerUser.isLoading) {
+            setCanSubmit(true)
+        } else {
+            setCanSubmit(false)
+        }
+    }, [email,password,passwordRepeat,users.registerUser.isLoading])
 	
 	return <>
 
@@ -211,6 +241,10 @@ export default function Register({ users, registerUser }) {
 				/>
 				
 				<TextDivider text="ou" />
+
+				{!users.registerUser.isLoading && hasSubmitted && users.registerUser.error && (
+					<Text style={{color: Colors.progressBar.orangered}}>{users.registerUser.error.message}</Text>
+				)}
 				
 				<TextField
 					label="Entre ton courriel"
@@ -243,9 +277,9 @@ export default function Register({ users, registerUser }) {
 				/>
 
 			{Platform.select({
-				web: <WebComponentButtonsRegister onClick={handleRegister} disabled={users.registerUser.isLoading || password !== passwordRepeat || !agreeTerms} />,
-				android: <NativeComponentButtonsRegister onClick={handleRegister} disabled={users.registerUser.isLoading || password !== passwordRepeat || !agreeTerms} />,
-				ios: <NativeComponentButtonsRegister onClick={handleRegister} disabled={users.registerUser.isLoading || password !== passwordRepeat || !agreeTerms} />,
+				web: <WebComponentButtonsRegister onClick={handleRegister} disabled={!canSubmit} registerUser={users.registerUser} />,
+				android: <NativeComponentButtonsRegister onClick={handleRegister} disabled={!canSubmit} registerUser={users.registerUser} />,
+				ios: <NativeComponentButtonsRegister onClick={handleRegister} disabled={!canSubmit} registerUser={users.registerUser} />,
         	})} 
 
 			</Column>
