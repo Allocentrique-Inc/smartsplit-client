@@ -11,6 +11,15 @@ export const ButtonStyles = StyleSheet.create({
 		flexDirection: "row",
 	},
 
+	frame_large: {
+		borderRadius: Metrics.borderRadius.forms,
+		height: Metrics.size.large,
+		paddingTop: Metrics.spacing.medium,
+		paddingBottom: Metrics.spacing.medium,
+		paddingLeft: Metrics.spacing.large,
+		paddingRight: Metrics.spacing.large,
+	},
+
 	frame_medium: {
 		borderRadius: Metrics.borderRadius.forms,
 		height: Metrics.size.medium,
@@ -80,12 +89,15 @@ for (let size in Metrics.size) {
 ButtonStyles.frame_round = StyleSheet.create(ButtonStyles.frame_round)
 
 export function Button(props) {
-	let frameStyle = [
-		ButtonStyles.frame,
-		ButtonStyles[props.small ? "frame_small" : "frame_medium"],
-	]
+	let frameStyle = [ButtonStyles.frame]
 	let textStyle = []
 	let content = props.children
+
+	if (props.large || props.size === "large")
+		frameStyle.push(ButtonStyles["frame_large"])
+	else if (props.small || props.size === "small")
+		frameStyle.push(ButtonStyles["frame_small"])
+	else frameStyle.push(ButtonStyles["frame_medium"])
 
 	if (props.icon && !props.text && !content) {
 		frameStyle.push(ButtonStyles.frame_icon)
@@ -107,7 +119,7 @@ export function Button(props) {
 
 	if (!content) {
 		content = (
-			<>
+			<Row of="component" style={[frameStyle, props.style]}>
 				{props.icon}
 				{props.text && (
 					<View style={ButtonStyles.text_container}>
@@ -116,15 +128,13 @@ export function Button(props) {
 						</Text>
 					</View>
 				)}
-			</>
+			</Row>
 		)
 	}
 
 	return (
 		<TouchableWithoutFeedback onPress={props.onClick}>
-			<Row of="component" style={[frameStyle, props.style]}>
-				{content}
-			</Row>
+			{content}
 		</TouchableWithoutFeedback>
 	)
 }

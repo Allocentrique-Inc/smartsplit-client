@@ -3,7 +3,7 @@ import { Platform, View, TouchableWithoutFeedback } from "react-native"
 import { Redirect, useHistory } from "react-router"
 import Button from "../../widgets/button"
 import Scrollable from "../../widgets/scrollable"
-import { Section, Row, Column, Flex } from "../../layout"
+import { Group, Row, Column, Flex } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { TextField, PasswordField } from "../../forms"
 import PublicNavBar from "../../smartsplit/public/navbar"
@@ -12,53 +12,6 @@ import { Metrics, Links, Colors } from "../../theme"
 
 import { notEmptyValidator } from "../../../helpers/validators"
 
-export function WebComponentNavbarLogin() {
-	let history = useHistory()
-	const handleClick = () => history.push("/auth/register")
-
-	return (
-		<PublicNavBar>
-			<Text secondary> Pas de compte ?</Text>
-			<View>
-				<Button tertiary text="Crée un compte" onClick={handleClick} />
-			</View>
-			<Button secondary text="English" />
-		</PublicNavBar>
-	)
-}
-
-export const WebComponentButtonsLogin = () => (
-	<>
-		<Row>
-			<Flex />
-			<Button text="Me connecter" />
-		</Row>
-	</>
-)
-
-export const WebComponentHeading = () => (
-	<Heading level="1">Connecte-toi à ton compte SmartSplit</Heading>
-)
-
-export const NativeComponentHeading = () => (
-	<Heading level="3">Connecte-toi à ton compte SmartSplit</Heading>
-)
-
-export function NativeComponentButtonsLogin() {
-	let history = useHistory()
-	const handleClick = () => history.push("/auth/register")
-
-	return (
-		<Column>
-			<Button
-				style={{ marginBottom: Metrics.spacing.component }}
-				text="Me connecter"
-			/>
-			<Button tertiary text="Créer mon compte" onClick={handleClick} />
-		</Column>
-	)
-}
-
 export default function Login({ auth, login }) {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
@@ -66,6 +19,8 @@ export default function Login({ auth, login }) {
 	const [canSubmit, setCanSubmit] = useState(false)
 
 	const history = useHistory()
+
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	useEffect(() => {
 		if (auth.isLoggedIn) {
@@ -97,60 +52,82 @@ export default function Login({ auth, login }) {
 
 	return (
 		<>
-			{Platform.select({
-				web: <WebComponentNavbarLogin />,
-			})}
+			{Platform.OS === "web" && (
+				<PublicNavBar>
+					<Text secondary>Pas de compte ?</Text>
+					<View>
+						<Button tertiary text="Crée un compte" onClick={handleSignUp} />
+					</View>
+					<Button secondary text="English" />
+				</PublicNavBar>
+			)}
+
 			<Scrollable>
-				<Section of="group" style={{ maxWidth: 464, alignSelf: "center" }}>
-					{Platform.select({
-						web: <WebComponentHeading />,
-						android: <NativeComponentHeading />,
-						ios: <NativeComponentHeading />,
-					})}
+				<Column
+					style={
+						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
+					}
+				>
+					<Group of="component">
+						<Heading level="1">
+							Connecte-toi à ton compte Smartsplit
+						</Heading>
 
-					<Paragraph>Entre tes informations ci-dessous.</Paragraph>
+						<Paragraph>Entre tes informations ci-dessous</Paragraph>
+					</Group>
 
-					{!auth.isLoading && hasSubmitted && auth.error && (
-						<Text style={{ color: Colors.progressBar.orangered }}>
-							{auth.error.response.data.message}
-						</Text>
-					)}
+					<Group of="group">
+						{!auth.isLoading && hasSubmitted && auth.error && (
+							<Text style={{ color: Colors.progressBar.orangered }}>
+								{auth.error.response.data.message}
+							</Text>
+						)}
 
-					{!auth.isLoading && auth.data && auth.data.accessToken && (
-						<Redirect to="/dashboard/" />
-					)}
+						{!auth.isLoading && auth.data && auth.data.accessToken && (
+							<Redirect to="/dashboard/" />
+						)}
 
-					<TextField
-						label="Mon courriel"
-						placeholder="nom@example.com"
-						onChangeText={setEmail}
-						value={email}
-					/>
-					<PasswordField
-						label="Mot de passe"
-						onChangeText={setPassword}
-						value={password}
-					/>
-
-					<TouchableWithoutFeedback onPress={handleForgotPassword}>
-						<Text link small>
-							Mot de passe oublié ?
-						</Text>
-					</TouchableWithoutFeedback>
-
-					<Row>
-						{Platform.OS === "web" && <Flex />}
-						<Button
-							text="Me connecter"
-							onClick={handleLogin}
-							disabled={!canSubmit}
+						<TextField
+							label="Mon courriel"
+							placeholder="nom@example.com"
+							onChangeText={setEmail}
+							value={email}
 						/>
-					</Row>
 
-					{Platform.OS !== "web" && (
-						<Button tertiary text="Créer mon compte" onClick={handleSignUp} />
-					)}
-				</Section>
+						<Column of="inside">
+							<PasswordField
+								label="Mot de passe"
+								onChangeText={setPassword}
+								value={password}
+							/>
+
+							<TouchableWithoutFeedback onPress={handleForgotPassword}>
+								<Text link small>
+									Mot de passe oublié ?
+								</Text>
+							</TouchableWithoutFeedback>
+						</Column>
+
+						<Row align="right">
+							<Button
+								text="Me connecter"
+								onClick={handleLogin}
+								disabled={!canSubmit}
+								style={Platform.OS !== "web" && { flex: 1 }}
+								size={buttonSize}
+							/>
+						</Row>
+
+						{Platform.OS !== "web" && (
+							<Button
+								tertiary
+								text="Créer mon compte"
+								onClick={handleSignUp}
+								size={buttonSize}
+							/>
+						)}
+					</Group>
+				</Column>
 			</Scrollable>
 		</>
 	)

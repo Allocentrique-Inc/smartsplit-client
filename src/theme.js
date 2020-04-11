@@ -1,3 +1,5 @@
+import { Platform } from "react-native"
+
 /**
  * Tailles et dimmensions
  */
@@ -148,4 +150,10 @@ export const Typography = {
 			height: 24,
 		},
 	},
+}
+
+if (Platform.OS !== "web") {
+	Typography.titles[1] = Typography.titles[3]
+	Typography.titles[2] = Typography.titles[4]
+	Typography.titles[3] = Typography.titles[5]
 }
