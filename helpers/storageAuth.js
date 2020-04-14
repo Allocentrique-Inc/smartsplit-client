@@ -1,5 +1,5 @@
 import { AsyncStorage } from "react-native"
-import axios from "axios"
+import {axiosClient} from "../api/ApiClient"
 
 export async function loadAuthFromStorage(store) {
 	const credentials = await AsyncStorage.getItem("user")
@@ -13,7 +13,7 @@ export async function loadAuthFromStorage(store) {
 	})
 
 	if (parsedCreds.accessToken) {
-		axios.defaults.headers.common[
+		axiosClient.defaults.headers.common[
 			"Authorization"
 		] = `Bearer ${parsedCreds.accessToken}`
 	}
@@ -21,7 +21,7 @@ export async function loadAuthFromStorage(store) {
 
 export async function saveAuth(data) {
 	if (data.accessToken) {
-		axios.defaults.headers.common[
+		axiosClient.defaults.headers.common[
 			"Authorization"
 		] = `Bearer ${data.accessToken}`
 	}
@@ -31,5 +31,5 @@ export async function saveAuth(data) {
 
 export async function clearAuth() {
 	await AsyncStorage.removeItem("user")
-	delete axios.defaults.headers.common["Authorization"]
+	delete axiosClient.defaults.headers.common["Authorization"]
 }

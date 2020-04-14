@@ -1,9 +1,8 @@
-import axios from "axios"
-import { API_BASE_URL } from "../config"
+import {axiosClient} from "./ApiClient"
 
 export function registerUser(data, axiosConfig = {}) {
-	return axios.request({
-		url: `${API_BASE_URL}/users`,
+	return axiosClient.request({
+		url: '/users',
 		method: "post",
 		data,
 		...axiosConfig,
@@ -11,8 +10,8 @@ export function registerUser(data, axiosConfig = {}) {
 }
 
 export function forgotPassword(data, axiosConfig = {}) {
-	return axios.request({
-		url: `${API_BASE_URL}/users/request-password-reset`,
+	return axiosClient.request({
+		url: '/users/request-password-reset',
 		method: "post",
 		data,
 		...axiosConfig,
@@ -20,8 +19,8 @@ export function forgotPassword(data, axiosConfig = {}) {
 }
 
 export function passwordReset(data, axiosConfig = {}) {
-	return axios.request({
-		url: `${API_BASE_URL}/users/change-password`,
+	return axiosClient.request({
+		url: '/users/change-password',
 		method: "post",
 		data,
 		...axiosConfig,

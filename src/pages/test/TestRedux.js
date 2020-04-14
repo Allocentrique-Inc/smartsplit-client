@@ -9,8 +9,8 @@ const testUserBaseProfile = {
 }
 
 const testLoginDetails = {
-	email: "autpmzzh@sharklasers.com",
-	password: "correct horse battery staple",
+	email: "example@smartsplit.org",
+	password: "Biquette#1!",
 }
 
 const testForgotPasswordDetails = {

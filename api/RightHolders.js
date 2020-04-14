@@ -1,9 +1,8 @@
-import axios from "axios"
-import { API_BASE_URL } from "../config"
+import {axiosClient} from "./ApiClient"
 
 export function getRightHolders(axiosConfig = {}) {
-	return axios.request({
-		url: API_BASE_URL + "/rightHolders",
+	return axiosClient.request({
+		url: "/rightHolders",
 		method: "get",
 		...axiosConfig,
 	})
