@@ -64,7 +64,7 @@ export function LoginForm({ auth, login }) {
 			<Group of="group">
 				{!auth.isLoading && hasSubmitted && auth.error && (
 					<Text style={{ color: Colors.progressBar.orangered }}>
-						{auth.error.response.data.message}
+						{auth.error.message}
 					</Text>
 				)}
 

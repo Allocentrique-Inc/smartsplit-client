@@ -35,7 +35,8 @@ export function loginUser(details) {
 				dispatch(loginUser_error(response.data))
 			}
 		} catch (error) {
-			dispatch(loginUser_error(error))
+			if (error.data) dispatch(loginUser_error(error.data))
+			else dispatch(loginUser_error(error))
 		}
 	}
 }

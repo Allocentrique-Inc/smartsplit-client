@@ -28,7 +28,7 @@ export function registerUser(user) {
 			const response = await UsersAPI.registerUser(user)
 			dispatch(registerUser_success(response.data))
 		} catch (error) {
-			if (error.response) dispatch(registerUser_error(error.response.data))
+			if (error.data) dispatch(registerUser_error(error.data))
 			else dispatch(registerUser_error(error))
 		}
 	}
@@ -62,7 +62,7 @@ export function forgotPassword(user) {
 			const response = await UsersAPI.forgotPassword(user)
 			dispatch(forgotPassword_success(response.data))
 		} catch (error) {
-			if (error.response) dispatch(forgotPassword_error(error.response.data))
+			if (error.data) dispatch(forgotPassword_error(error.data))
 			else dispatch(forgotPassword_error(error))
 		}
 	}
@@ -96,7 +96,7 @@ export function resetPassword(passwordDetails) {
 			const response = await UsersAPI.passwordReset(passwordDetails)
 			dispatch(resetPassword_success(response.data))
 		} catch (error) {
-			if (error.response) dispatch(resetPassword_error(error.response.data))
+			if (error.data) dispatch(resetPassword_error(error.data))
 			else dispatch(resetPassword_error(error))
 		}
 	}
