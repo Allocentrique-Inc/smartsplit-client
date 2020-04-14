@@ -18,10 +18,12 @@ export function LoginForm({ auth, login }) {
 	const [password, setPassword] = useState("")
 	const [hasSubmitted, setHasSubmitted] = useState(false)
 	const [canSubmit, setCanSubmit] = useState(false)
+	const [stayConnected, setStayConnected] = useState(false)
 
 	const history = useHistory()
 
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+	const LoginButtonContainer = Platform.OS === "web" ? Row : Column
 
 	useEffect(() => {
 		if (auth.isLoggedIn) {
@@ -46,7 +48,7 @@ export function LoginForm({ auth, login }) {
 	const handleSignUp = () => history.push("/auth/register")
 	const handleLogin = () => {
 		if (canSubmit) {
-			login({ email, password })
+			login({ email, password }, stayConnected)
 			setHasSubmitted(true)
 		}
 	}
@@ -93,7 +95,15 @@ export function LoginForm({ auth, login }) {
 					</TouchableWithoutFeedback>
 				</Column>
 
-				<Row align="right">
+				<LoginButtonContainer of="group">
+
+					<CheckBox onChange={setStayConnected} checked={stayConnected}>
+						<Text primary regular>
+							Rester connecté
+						</Text>
+					</CheckBox>
+					< Flex />
+
 					<Button
 						text="Me connecter"
 						onClick={handleLogin}
@@ -101,7 +111,7 @@ export function LoginForm({ auth, login }) {
 						style={Platform.OS !== "web" && { flex: 1 }}
 						size={buttonSize}
 					/>
-				</Row>
+				</LoginButtonContainer>
 
 				{Platform.OS !== "web" && (
 					<Button

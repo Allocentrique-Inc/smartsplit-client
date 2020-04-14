@@ -11,8 +11,8 @@ function mapStateToProps({ auth }) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		login: function (details) {
-			dispatch(AuthActions.loginUser(details))
+		login: function (details, rememberMe) {
+			dispatch(AuthActions.loginUser(details, rememberMe))
 		},
 	}
 }

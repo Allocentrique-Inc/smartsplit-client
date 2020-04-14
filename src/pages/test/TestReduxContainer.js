@@ -26,7 +26,7 @@ function mapDispatchToProps(dispatch) {
 			dispatch(UsersActions.forgotPassword(details))
 		},
 		login: function (details) {
-			dispatch(AuthActions.loginUser(details))
+			dispatch(AuthActions.loginUser(details, true))
 		},
 		logout: function () {
 			dispatch(AuthActions.logoutUser())

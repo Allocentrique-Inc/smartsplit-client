@@ -19,14 +19,16 @@ export async function loadAuthFromStorage(store) {
 	}
 }
 
-export async function saveAuth(data) {
+export async function saveAuth(data, rememberMe) {
 	if (data.accessToken) {
 		axiosClient.defaults.headers.common[
 			"Authorization"
 		] = `Bearer ${data.accessToken}`
 	}
 
-	await AsyncStorage.setItem("user", JSON.stringify(data))
+	if (rememberMe) {
+		await AsyncStorage.setItem("user", JSON.stringify(data))
+	}
 }
 
 export async function clearAuth() {

@@ -21,7 +21,7 @@ export function loginUser_error(err) {
 	}
 }
 
-export function loginUser(details) {
+export function loginUser(details, rememberMe) {
 	return async function (dispatch) {
 		dispatch(loginUser_request())
 
@@ -29,7 +29,7 @@ export function loginUser(details) {
 			const response = await AuthAPI.loginUser(details)
 
 			if (response.data && response.data.accessToken) {
-				saveAuth(response.data)
+				saveAuth(response.data, rememberMe)
 				dispatch(loginUser_success(response.data))
 			} else {
 				dispatch(loginUser_error(response.data))
