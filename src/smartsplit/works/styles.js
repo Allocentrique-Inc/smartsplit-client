@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native"
-import { Colors, Metrics }     from "../../theme"
+import { Colors, Metrics } from "../../theme"
 
 export default StyleSheet.create({
 	dashboard_row: {
@@ -7,7 +7,7 @@ export default StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 	},
-	
+
 	dashboard_row_cover: {
 		margin: Metrics.spacing.component,
 	},
@@ -20,10 +20,10 @@ export default StyleSheet.create({
 		width: 300,
 		marginRight: Metrics.spacing.group,
 	},
-	
+
 	acrcloud_modal_checkboxes: {
 		borderColor: Colors.background.underground,
 		borderLeftWidth: 4,
-		paddingLeft: 8
+		paddingLeft: 8,
 	},
 })

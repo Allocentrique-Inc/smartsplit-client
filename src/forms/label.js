@@ -7,9 +7,9 @@ const UNDERTEXT_DEFAULT_LINES = 4
 
 export function labelProps(props) {
 	return {
-		label:           props.label,
-		label_hint:      props.label_hint,
-		undertext:       props.undertext,
+		label: props.label,
+		label_hint: props.label_hint,
+		undertext: props.undertext,
 		undertext_lines: props.undertext_lines,
 	}
 }
@@ -26,36 +26,42 @@ export default function Label(props) {
 		undertext_lines,
 		...childProps
 	} = props
-	
+
 	const ChildComponent = component
-	const inputComponent = ChildComponent
-		? <ChildComponent {...childProps} style={childStyle} />
-		: children
-	
-	return <Column of="inside" style={[FormStyles.label_wrap, style]}>
-		{(label || label_hint) && (
-			<Row of="component">
-				<LabelText>{label}</LabelText>
-				<Text style={FormStyles.label_hint}>{label_hint}</Text>
-			</Row>
-		)}
-		
-		{inputComponent}
-		
-		{undertext && (
-			<Text
-				small
-				style={FormStyles.undertext}
-				numberOfLines={undertext_lines || UNDERTEXT_DEFAULT_LINES}
-			>{undertext}</Text>
-		)}
-	</Column>
+	const inputComponent = ChildComponent ? (
+		<ChildComponent {...childProps} style={childStyle} />
+	) : (
+		children
+	)
+
+	return (
+		<Column of="inside" style={[FormStyles.label_wrap, style]}>
+			{(label || label_hint) && (
+				<Row of="component">
+					<LabelText>{label}</LabelText>
+					<Text style={FormStyles.label_hint}>{label_hint}</Text>
+				</Row>
+			)}
+
+			{inputComponent}
+
+			{undertext && (
+				<Text
+					small
+					style={FormStyles.undertext}
+					numberOfLines={undertext_lines || UNDERTEXT_DEFAULT_LINES}
+				>
+					{undertext}
+				</Text>
+			)}
+		</Column>
+	)
 }
 
 export function LabelText(props) {
-	return <Text
-		bold
-		style={FormStyles.label}
-		numberOfLines={1}
-	>{props.children}</Text>
+	return (
+		<Text bold style={FormStyles.label} numberOfLines={1}>
+			{props.children}
+		</Text>
+	)
 }

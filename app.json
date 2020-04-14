@@ -4,11 +4,7 @@
 		"slug": "SmartSplit",
 		"privacy": "unlisted",
 		"sdkVersion": "36.0.0",
-		"platforms": [
-			"ios",
-			"android",
-			"web"
-		],
+		"platforms": ["ios", "android", "web"],
 		"version": "0.1.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
@@ -21,9 +17,7 @@
 		"updates": {
 			"fallbackToCacheTimeout": 0
 		},
-		"assetBundlePatterns": [
-			"**/*"
-		],
+		"assetBundlePatterns": ["**/*"],
 		"ios": {
 			"supportsTablet": true
 		},
@@ -35,7 +29,8 @@
 		},
 		"androidStatusBar": {
 			"barStyle": "light-content",
-			"backgroundColor": "#3F2933"
+			"backgroundColor": "#3F2933",
+			"translucent": false
 		},
 		"packagerOpts": {
 			"config": "metro.config.js",

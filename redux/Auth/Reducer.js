@@ -2,21 +2,21 @@ const INITIAL_STATE = {
 	data: null,
 	error: null,
 	isLoading: false,
-	isLoggedIn: false
+	isLoggedIn: false,
 }
 
-export default function(state = INITIAL_STATE, action) {
+export default function (state = INITIAL_STATE, action) {
 	const newState = {}
-	
+
 	switch (action.type) {
 		case "LOGIN_USER_REQUEST":
 			return {
 				...state,
 				data: null,
 				isLoading: true,
-				error: null
+				error: null,
 			}
-		
+
 		case "LOGIN_USER_SUCCESS":
 			if (action.payload) {
 				newState.data = action.payload
@@ -27,22 +27,21 @@ export default function(state = INITIAL_STATE, action) {
 				...state,
 				error: null,
 				isLoading: false,
-				...newState
+				...newState,
 			}
-		
+
 		case "LOGIN_USER_ERROR":
-			if(action.payload)
-				newState.error = action.payload
-			    
+			if (action.payload) newState.error = action.payload
+
 			return {
 				...state,
 				isLoading: false,
-				...newState
+				...newState,
 			}
-		
+
 		case "LOGOUT_USER":
-			return {...state, ...INITIAL_STATE }
-		
+			return { ...state, ...INITIAL_STATE }
+
 		default:
 			return state
 	}

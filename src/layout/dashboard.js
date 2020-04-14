@@ -3,7 +3,7 @@ import {
 	Platform,
 	View,
 	StyleSheet,
-	TouchableWithoutFeedback
+	TouchableWithoutFeedback,
 } from "react-native"
 import { useRouteMatch, useHistory } from "react-router"
 import { Row, Column, Flex } from "../layout"
@@ -75,22 +75,21 @@ export const DashboardStyles = StyleSheet.create({
 		height: Metrics.size.large,
 		...Platform.select({
 			web: {
-				boxShadow: '0px 10px 10px 10px #888888',
-			}
-		})
+				boxShadow: "0px 10px 10px 10px #888888",
+			},
+		}),
 	},
 })
 
-
 export function Sidebar(props) {
-	return <Column style={[LayerStyles.underground_reversed, DashboardStyles.sidebar]}>
-		<View style={[LayerStyles.underground_reversed2, DashboardStyles.logo]}>
-			{<LogoSmartSplitMenu />}
-		</View>
-		<Column style={DashboardStyles.sidebar_menu}>
-			{props.children}
+	return (
+		<Column style={[LayerStyles.underground_reversed, DashboardStyles.sidebar]}>
+			<View style={[LayerStyles.underground_reversed2, DashboardStyles.logo]}>
+				{<LogoSmartSplitMenu />}
+			</View>
+			<Column style={DashboardStyles.sidebar_menu}>{props.children}</Column>
 		</Column>
-	</Column>
+	)
 }
 
 export function SidebarItem(props) {
@@ -102,88 +101,100 @@ export function SidebarItem(props) {
 		history.push(props.to)
 	}
 
-	return <TouchableWithoutFeedback
-		style={DashboardStyles.menu_touchable}
-		onPress={activate}
-		accessibilityRole="button"
-	>
-		<Row style={DashboardStyles.menu_item}>
-			<View style={MetricsStyles.components.component}>
-				<Icon color={active ? Colors.action : Colors.inactive} />
-			</View>
-			<Text reversed bold={active}>{props.text}</Text>
-		</Row>
-	</TouchableWithoutFeedback>
+	return (
+		<TouchableWithoutFeedback
+			style={DashboardStyles.menu_touchable}
+			onPress={activate}
+			accessibilityRole="button"
+		>
+			<Row style={DashboardStyles.menu_item}>
+				<View style={MetricsStyles.components.component}>
+					<Icon color={active ? Colors.action : Colors.inactive} />
+				</View>
+				<Text reversed bold={active}>
+					{props.text}
+				</Text>
+			</Row>
+		</TouchableWithoutFeedback>
+	)
 }
 
 export function ProfileBar(props) {
-	return <Row
-		padding="component"
-		style={[LayerStyles.underground, DashboardStyles.profileBar]}
-	>
-		{props.children}
-	</Row>
+	return (
+		<Row
+			padding="component"
+			style={[LayerStyles.underground, DashboardStyles.profileBar]}
+		>
+			{props.children}
+		</Row>
+	)
 }
 
 export function Dashboard(props) {
 	const [showSidebar, setSidebar] = useState(true)
 
-	return <Column style={DashboardStyles.main}>
-		<Row style={DashboardStyles.main}>
-			{showSidebar && <Sidebar>
-				{props.menuItems.map(item =>
-					<SidebarItem {...item} key={item.to} />
+	return (
+		<Column style={DashboardStyles.main}>
+			<Row style={DashboardStyles.main}>
+				{showSidebar && (
+					<Sidebar>
+						{props.menuItems.map((item) => (
+							<SidebarItem {...item} key={item.to} />
+						))}
+					</Sidebar>
 				)}
-			</Sidebar>}
 
-			<Column style={DashboardStyles.main_column}>
-				<ProfileBar>
-					<LogoArrowLeft />
-					<CheckBox
-						label="Menu"
-						checked={showSidebar}
-						onChange={setSidebar}
-					/>
-					<Flex />
-					<LogoAddSquare style={Metrics.size.small} />
-				</ProfileBar>
+				<Column style={DashboardStyles.main_column}>
+					<ProfileBar>
+						<LogoArrowLeft />
+						<CheckBox
+							label="Menu"
+							checked={showSidebar}
+							onChange={setSidebar}
+						/>
+						<Flex />
+						<LogoAddSquare style={Metrics.size.small} />
+					</ProfileBar>
 
-				{props.children}
-			</Column>
-		</Row>
+					{props.children}
+				</Column>
+			</Row>
 
-		<MenuBar />
-	</Column>
+			<MenuBar />
+		</Column>
+	)
 }
 
-// Flex: toujours dans colonne (en vertical) 
+// Flex: toujours dans colonne (en vertical)
 
 export function MenuBar(props) {
-	return <Row style={DashboardStyles.menubar}>
-		<MenuBarItem
-			to="/dashboard/my-works"
-			icon={MusicNoteIcon}
-			key="/dashboard/my-works"
-		/>
+	return (
+		<Row style={DashboardStyles.menubar}>
+			<MenuBarItem
+				to="/dashboard/my-works"
+				icon={MusicNoteIcon}
+				key="/dashboard/my-works"
+			/>
 
-		<MenuBarItem
-			to="/dashboard/notifications"
-			icon={LogoNotification}
-			key="/dashboard/notifications"
-		/>
+			<MenuBarItem
+				to="/dashboard/notifications"
+				icon={LogoNotification}
+				key="/dashboard/notifications"
+			/>
 
-		<MenuBarItem
-			to="/dashboard/my-collaborators"
-			icon={UsersIcon}
-			key="/dashboard/my-collaborators"
-		/>
+			<MenuBarItem
+				to="/dashboard/my-collaborators"
+				icon={UsersIcon}
+				key="/dashboard/my-collaborators"
+			/>
 
-		<MenuBarItem
-			to="/dashboard/my-profile"
-			icon={AvatarIcon}
-			key="/dashboard/my-profile"
-		/>
-	</Row>
+			<MenuBarItem
+				to="/dashboard/my-profile"
+				icon={AvatarIcon}
+				key="/dashboard/my-profile"
+			/>
+		</Row>
+	)
 }
 
 export function MenuBarItem(props) {
@@ -195,14 +206,13 @@ export function MenuBarItem(props) {
 		history.push(props.to)
 	}
 
-	return <TouchableWithoutFeedback
-		onPress={activate}
-		accessibilityRole="button"
-	>
-		<View>
-			<Icon color={active ? Colors.action : Colors.inactive} />
-		</View>
-	</TouchableWithoutFeedback>
+	return (
+		<TouchableWithoutFeedback onPress={activate} accessibilityRole="button">
+			<View>
+				<Icon color={active ? Colors.action : Colors.inactive} />
+			</View>
+		</TouchableWithoutFeedback>
+	)
 }
 
 export function AvatarIcon(props) {

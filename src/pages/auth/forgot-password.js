@@ -1,119 +1,138 @@
-import React                            from "react"
-import { Platform, 
-        TouchableWithoutFeedback }      from 'react-native'
-import { Link, useHistory }             from "react-router-dom";
-import { Section, Column, Row, Flex } 	from "../../layout"
-import { Heading, Text } 	            from "../../text"
-import TextField                        from '../../forms/text'
-import Button                           from "../../widgets/button"
-import { Metrics, Links }               from "../../theme"
-import PublicNavBar 		            from '../../smartsplit/public/navbar'
-import Scrollable                       from "../../widgets/scrollable"
+import React, { useState, useEffect } from "react"
+import { Platform, TouchableWithoutFeedback } from "react-native"
+import { Link, useHistory } from "react-router-dom"
+import { Group, Column, Row, Flex } from "../../layout"
+import { Heading, Text } from "../../text"
+import TextField from "../../forms/text"
+import Button from "../../widgets/button"
+import { Metrics, Links, Colors } from "../../theme"
+import PublicNavBar from "../../smartsplit/public/navbar"
+import Scrollable from "../../widgets/scrollable"
+import { notEmptyValidator } from "../../../helpers/validators"
 
+export default function GetPassword({ users, forgotPassword }) {
+	const history = useHistory()
+	const [email, setEmail] = useState("")
+	const [canSubmit, setCanSubmit] = useState(false)
+	const [hasSubmitted, setHasSubmitted] = useState(false)
 
-export function WebComponentNavbar() {
-    let history = useHistory();
-    const handleClick = () => (history.push('/auth/login'))
+	const handleRequestPassword = () => {
+		if (canSubmit) {
+			forgotPassword({ email })
+			setHasSubmitted(true)
+		}
+	}
 
-    return <>
-        <PublicNavBar>
-            <Text secondary>Déjà Membre ?</Text>
-            <Button tertiary 
-            text="Ouvrir une session" 
-            onClick={handleClick}
-            />
-        </PublicNavBar>
-            </> 
-}
+	function navitateToRegister() {
+		history.push("/auth/register")
+	}
 
-export function NativeComponentNavbar() {
-    let history = useHistory();
-    const handleClick = () => (history.push('/auth/login'))
+	useEffect(() => {
+		let emailValid = notEmptyValidator(email)
 
-    return <Row>
-           <Flex /><Flex />
-           <Button tertiary
-                style={{flex: 1.5}}
-                onClick={() => handleClick()}
-                text="Ouvrir une session" />
-            </Row>
-}
+		if (emailValid && !users.forgotPassword.isLoading) {
+			setCanSubmit(true)
+		} else {
+			setCanSubmit(false)
+		}
+	}, [email, users.forgotPassword.isLoading])
 
-export const WebComponentGetPassword = () => (
-    <>
-    <Heading level="1">Réinitialise ton mot de passe.</Heading>
-    </>
-)
+	useEffect(() => {
+		if (!users.forgotPassword.isLoading && users.forgotPassword.data) {
+			history.push("/auth/forgot-password-sent")
+		}
+	}, [users.forgotPassword.data, users.forgotPassword.isLoading])
 
-export const NativeComponentGetPassword = () => (
-    <Heading level="3">Réinitialise ton mot de passe</Heading>
-)
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
-export function WebComponentGetPasswordButtons() {
-    return <Row>
-                <Link style={{textDecoration: "none"}} to="./register">
-                <Text link small>Je n'ai pas de compte</Text>
-                </Link> 
-                <Flex />
-                <Button text="Envoyer"/>
-            </Row>
-}
+	const submitButton = (
+		<Button
+			text="Envoyer"
+			onClick={handleRequestPassword}
+			disabled={!canSubmit}
+			size={buttonSize}
+		/>
+	)
 
-export function NativeComponentGetPasswordButtons() {
-    let history = useHistory();
-    const handleClick = () => (history.push('/auth/register'))
+	const noAccountLink = (
+		<TouchableWithoutFeedback onPress={navitateToRegister}>
+			<Text link style={{ flex: 1 }}>
+				Je n'ai pas de compte
+			</Text>
+		</TouchableWithoutFeedback>
+	)
 
-     return <>
-            <TouchableWithoutFeedback onPress={handleClick}>
-                <Text link small
-                      style={{marginBottom: Metrics.spacing.component}} >
-                      Je n'ai pas de compte</Text>
-            </TouchableWithoutFeedback>
-        
-            <Button text="Envoyer"/>
-            </>
- }
+	const noAccountButton = (
+		<Button
+			tertiary
+			text="Je n'ai pas de compte"
+			onClick={navitateToRegister}
+			size={buttonSize}
+		/>
+	)
 
-export default function GetPassword() {
+	const openSessionButton = (
+		<Button
+			tertiary
+			text="Ouvrir une session"
+			onClick={() => history.push("/auth/login")}
+			size={buttonSize}
+		/>
+	)
 
-    return <> 
+	const forgotPasswordAndSubmitButton =
+		Platform.OS === "web" ? (
+			<Row style={{ alignItems: "center" }}>
+				{noAccountLink}
+				{submitButton}
+			</Row>
+		) : (
+			<Column of="group">
+				{submitButton}
+				{noAccountButton}
+				{openSessionButton}
+			</Column>
+		)
 
-        <Scrollable>
-        {Platform.select({
-            web: <WebComponentNavbar />,
-        })}
-        <Section of="group" style={{width: 375, maxWidth: 560, alignSelf: "center"}}>
+	return (
+		<>
+			<Scrollable>
+				{Platform.OS === "web" && (
+					<PublicNavBar>
+						<Text secondary>Déjà Membre ?</Text>
+						{openSessionButton}
+					</PublicNavBar>
+				)}
 
-        {Platform.select({
-            android: <NativeComponentNavbar />,
-            ios: <NativeComponentNavbar />,
-        })}
+				<Group of="group" style={{ maxWidth: 464, alignSelf: "center" }}>
+					<Column of="component">
+						<Heading level="1">Réinitialise ton mot de passe.</Heading>
+						<Text>
+							Saisis l'adresse courriel lié à ton compte pour obtenir le
+							lien de réinitialisation.
+						</Text>
+					</Column>
 
-        {Platform.select({
-            web: < NativeComponentGetPassword/>,
-            android: <NativeComponentGetPassword />,
-            ios: <NativeComponentGetPassword />,
-        })}
+					{!users.forgotPassword.isLoading &&
+						hasSubmitted &&
+						users.forgotPassword.error && (
+							<Text style={{ color: Colors.progressBar.orangered }}>
+								{users.forgotPassword.error.error}
+							</Text>
+						)}
 
-            <Text>Saisis l'adresse courriel lié à ton compte pour obtenir
-                le lien de réinitialisation.
-            </Text>
+					<TextField
+						label="Courriel"
+						label_hint=""
+						undertext=""
+						onChangeText={setEmail}
+						value={email}
+						placeholder=""
+					/>
 
-            <TextField
-                label="Courriel"
-                label_hint=""
-                undertext=""
-                defaultValue=""
-                placeholder=""
-		    /> 
-
-            {Platform.select({
-            	web: <WebComponentGetPasswordButtons />,
-                ios: <NativeComponentGetPasswordButtons />,
-                android: <NativeComponentGetPasswordButtons />
-        	})}
-
-            </Section>
-            </Scrollable>
-            </>
+					{forgotPasswordAndSubmitButton}
+				</Group>
+			</Scrollable>
+		</>
+	)
 }

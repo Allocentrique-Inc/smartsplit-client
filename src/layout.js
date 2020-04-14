@@ -7,47 +7,41 @@ import LayerStyles from "./styles/layers"
 import { Text } from "./text"
 
 function composeView(props, ...stylesheets) {
-	const {
-		style,
-		flex,
-		children,
-		of,
-		spacer,
-		layer,
-		padding,
-		...nextProps
-	} = {
+	const { style, flex, children, of, spacer, layer, padding, ...nextProps } = {
 		spacer: Spacer,
-		...props
+		...props,
 	}
-	
+
 	const SpacerImpl = spacer
 	let newChildren = children
-	
-	if(of) {
+
+	if (of) {
 		newChildren = []
-		
+
 		React.Children.forEach(children, (child, index) => {
-			if(!child)
-				return // ne pas générer d'espacement entre du vide!
-			
+			if (!child) return // ne pas générer d'espacement entre du vide!
+
 			newChildren.push(child)
 			newChildren.push(<SpacerImpl key={"spacer-" + index} of={of} />)
 		})
-		
+
 		newChildren.pop()
 	}
-	
-	return <View
-		{...nextProps}
-		style={[
-			...stylesheets,
-			style,
-			LayerStyles[layer || ""],
-			MetricsStyles.padding[padding || ""],
-			typeof flex === "number" ? {flex} : null
-		]}
-	>{newChildren}</View>
+
+	return (
+		<View
+			{...nextProps}
+			style={[
+				...stylesheets,
+				style,
+				LayerStyles[layer || ""],
+				MetricsStyles.padding[padding || ""],
+				typeof flex === "number" ? { flex } : null,
+			]}
+		>
+			{newChildren}
+		</View>
+	)
 }
 
 export function Layer(props) {
@@ -68,11 +62,7 @@ export function Column(props) {
 
 export function Row(props) {
 	const { align, ...nextProps } = props
-	return composeView(
-		nextProps,
-		LayoutStyles.row,
-		LayoutStyles.align[align]
-	)
+	return composeView(nextProps, LayoutStyles.row, LayoutStyles.align[align])
 }
 
 export function Spacer(props) {
@@ -88,15 +78,17 @@ export function Hairline(props) {
 }
 
 export function Divider(props) {
-	const flexStyle = props.flex && {flex: 1}
-	
+	const flexStyle = props.flex && { flex: 1 }
+
 	return <View style={[LayoutStyles.divider, flexStyle, props.style]} />
 }
 
 export function TextDivider(props) {
-	return <Row of="component" style={{alignSelf: "stretch"}}>
-		<Divider flex />
-		<Text bold>{props.text}</Text>
-		<Divider flex />
-	</Row>
+	return (
+		<Row of="component" style={{ alignSelf: "stretch" }}>
+			<Divider flex />
+			<Text bold>{props.text}</Text>
+			<Divider flex />
+		</Row>
+	)
 }

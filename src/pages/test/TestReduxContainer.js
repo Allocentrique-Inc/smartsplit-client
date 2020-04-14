@@ -1,33 +1,39 @@
-import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import React from "react"
+import { StyleSheet, Text, View, Button } from "react-native"
 import TestRedux from "./TestRedux"
-import { connect } from 'react-redux'
+import { connect } from "react-redux"
 import * as RightHoldersActions from "../../../redux/RightHolders/Actions"
 import * as UsersActions from "../../../redux/Users/Actions"
 import * as AuthActions from "../../../redux/Auth/Actions"
 
-function mapStateToProps({rightHolders, users, auth}) {
+function mapStateToProps({ rightHolders, users, auth }) {
 	return {
 		rightHolders,
 		users,
-		auth
+		auth,
 	}
 }
 
 function mapDispatchToProps(dispatch) {
 	return {
-		getRightHolders: function() {
+		getRightHolders: function () {
 			dispatch(RightHoldersActions.getRightHolders())
 		},
-		registerUser: function(user) {
+		registerUser: function (user) {
 			dispatch(UsersActions.registerUser(user))
 		},
-		login: function(details) {
+		forgotPassword: function (details) {
+			dispatch(UsersActions.forgotPassword(details))
+		},
+		login: function (details) {
 			dispatch(AuthActions.loginUser(details))
 		},
-		logout: function() {
+		logout: function () {
 			dispatch(AuthActions.logoutUser())
-		}
+		},
+		resetPassword: function (passwordDetails) {
+			dispatch(UsersActions.resetPassword(passwordDetails))
+		},
 	}
 }
 

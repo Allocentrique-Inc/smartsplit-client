@@ -10,7 +10,16 @@ export const ButtonStyles = StyleSheet.create({
 		justifyContent: "center",
 		flexDirection: "row",
 	},
-	
+
+	frame_large: {
+		borderRadius: Metrics.borderRadius.forms,
+		height: Metrics.size.large,
+		paddingTop: Metrics.spacing.medium,
+		paddingBottom: Metrics.spacing.medium,
+		paddingLeft: Metrics.spacing.large,
+		paddingRight: Metrics.spacing.large,
+	},
+
 	frame_medium: {
 		borderRadius: Metrics.borderRadius.forms,
 		height: Metrics.size.medium,
@@ -40,9 +49,9 @@ export const ButtonStyles = StyleSheet.create({
 
 	frame_secondary: {
 		borderColor: Colors.action,
-		borderWidth: 1
+		borderWidth: 1,
 	},
-	
+
 	text_container: {
 		flex: 1,
 		alignItems: "center",
@@ -50,7 +59,7 @@ export const ButtonStyles = StyleSheet.create({
 	},
 
 	text_primary: {
-		color: Colors.primary_reversed
+		color: Colors.primary_reversed,
 	},
 
 	text_secondary: {
@@ -69,78 +78,79 @@ export const ButtonStyles = StyleSheet.create({
 
 ButtonStyles.frame_round = {}
 
-for(let size in Metrics.size) {
+for (let size in Metrics.size) {
 	ButtonStyles.frame_round[size] = {
-		width:  Metrics.size[size],
+		width: Metrics.size[size],
 		height: Metrics.size[size],
 		borderRadius: Metrics.size[size] / 2,
 	}
 }
-		
+
 ButtonStyles.frame_round = StyleSheet.create(ButtonStyles.frame_round)
 
-
 export function Button(props) {
-	let frameStyle = [
-		ButtonStyles.frame,
-		ButtonStyles[props.small ? "frame_small" : "frame_medium"]
-	]
-	let textStyle  = []
-	let content    = props.children
+	let frameStyle = [ButtonStyles.frame]
+	let textStyle = []
+	let content = props.children
 
-	if(props.icon && !props.text && !content) {
+	if (props.large || props.size === "large")
+		frameStyle.push(ButtonStyles["frame_large"])
+	else if (props.small || props.size === "small")
+		frameStyle.push(ButtonStyles["frame_small"])
+	else frameStyle.push(ButtonStyles["frame_medium"])
+
+	if (props.icon && !props.text && !content) {
 		frameStyle.push(ButtonStyles.frame_icon)
-	}
-	else if(props.disabled) {
+	} else if (props.disabled) {
 		frameStyle.push(ButtonStyles.frame_disabled)
 		textStyle.push(ButtonStyles.text_disabled)
-	}
-	else if(props.primary) {
+	} else if (props.primary) {
 		frameStyle.push(ButtonStyles.frame_primary)
 		textStyle.push(ButtonStyles.text_primary)
-	}
-	else if(props.secondary) {
+	} else if (props.secondary) {
 		frameStyle.push(ButtonStyles.frame_secondary)
 		textStyle.push(ButtonStyles.text_secondary)
-	}
-	else if(props.tertiary) {
+	} else if (props.tertiary) {
 		textStyle.push(ButtonStyles.text_secondary)
-	}
-	else {
+	} else {
 		frameStyle.push(ButtonStyles.frame_primary)
 		textStyle.push(ButtonStyles.text_primary)
 	}
 
-	if(!content) {
-		content = <>
-			{props.icon}
-			{props.text && <View style={ButtonStyles.text_container}>
-				<Text
-					heavy
-					small={props.small}
-					style={textStyle}
-				>{props.text}</Text>
-			</View>}
-		</>
+	if (!content) {
+		content = (
+			<Row of="component" style={[frameStyle, props.style]}>
+				{props.icon}
+				{props.text && (
+					<View style={ButtonStyles.text_container}>
+						<Text heavy small={props.small} style={textStyle}>
+							{props.text}
+						</Text>
+					</View>
+				)}
+			</Row>
+		)
 	}
 
-	return <TouchableWithoutFeedback onPress={props.onClick}>
-		<Row of="component" style={[frameStyle, props.style]}>
+	return (
+		<TouchableWithoutFeedback onPress={props.onClick}>
 			{content}
-		</Row>
-	</TouchableWithoutFeedback>
+		</TouchableWithoutFeedback>
+	)
 }
 
 export function RoundButton(props) {
 	const buttonStyles = [
 		ButtonStyles.frame,
 		ButtonStyles.frame_primary,
-		ButtonStyles.frame_round[props.size] || ButtonStyles.frame_round.medium
+		ButtonStyles.frame_round[props.size] || ButtonStyles.frame_round.medium,
 	]
-	
-	return <TouchableWithoutFeedback onPress={props.onClick}>
-		<View style={buttonStyles}>{props.children}</View>
-	</TouchableWithoutFeedback>
+
+	return (
+		<TouchableWithoutFeedback onPress={props.onClick}>
+			<View style={buttonStyles}>{props.children}</View>
+		</TouchableWithoutFeedback>
+	)
 }
 
 export default Button

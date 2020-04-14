@@ -30,20 +30,18 @@ const FormStyles = StyleSheet.create({
 			web: {
 				outlineWidth: 0,
 				minWidth: 0,
-			}
-		})
+			},
+		}),
 	},
-	
-	undertext: {
 
-	},
-	
+	undertext: {},
+
 	checkbox_svg: {
 		minWidth: 24,
 		minHeight: 24,
 		flexBasis: 24,
 	},
-	
+
 	select_menu: {
 		borderBottomLeftRadius: Metrics.borderRadius.forms,
 		borderBottomRightRadius: Metrics.borderRadius.forms,
@@ -53,17 +51,17 @@ const FormStyles = StyleSheet.create({
 		borderColor: Colors.action,
 		backgroundColor: Colors.background.ground,
 	},
-	
+
 	select_item: {
 		padding: Metrics.spacing.inside,
 		borderColor: Colors.stroke,
 		borderTopWidth: 1,
 	},
-	
+
 	select_item_selected: {
 		backgroundColor: Colors.background.underground,
 	},
-	
+
 	select_scroll: {
 		maxHeight: 200,
 	},
