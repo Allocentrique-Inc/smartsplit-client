@@ -9,10 +9,11 @@ import { TextField, PasswordField } from "../../forms"
 import PublicNavBar from "../../smartsplit/public/navbar"
 import { CheckBox } from "../../forms"
 import { Metrics, Links, Colors } from "../../theme"
+import { Modal } from "../../widgets/modal"
 
 import { notEmptyValidator } from "../../../helpers/validators"
 
-export default function Login({ auth, login }) {
+export function LoginForm({ auth, login }) {
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [hasSubmitted, setHasSubmitted] = useState(false)
@@ -51,7 +52,87 @@ export default function Login({ auth, login }) {
 	}
 
 	return (
+		<Column
+			style={Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }}
+		>
+			<Group of="component">
+				<Heading level="1">Connecte-toi à ton compte Smartsplit</Heading>
+
+				<Paragraph>Entre tes informations ci-dessous</Paragraph>
+			</Group>
+
+			<Group of="group">
+				{!auth.isLoading && hasSubmitted && auth.error && (
+					<Text style={{ color: Colors.progressBar.orangered }}>
+						{auth.error.response.data.message}
+					</Text>
+				)}
+
+				{!auth.isLoading && auth.data && auth.data.accessToken && (
+					<Redirect to="/dashboard/" />
+				)}
+
+				<TextField
+					label="Mon courriel"
+					placeholder="nom@example.com"
+					onChangeText={setEmail}
+					value={email}
+				/>
+
+				<Column of="inside">
+					<PasswordField
+						label="Mot de passe"
+						onChangeText={setPassword}
+						value={password}
+					/>
+
+					<TouchableWithoutFeedback onPress={handleForgotPassword}>
+						<Text link small>
+							Mot de passe oublié ?
+						</Text>
+					</TouchableWithoutFeedback>
+				</Column>
+
+				<Row align="right">
+					<Button
+						text="Me connecter"
+						onClick={handleLogin}
+						disabled={!canSubmit}
+						style={Platform.OS !== "web" && { flex: 1 }}
+						size={buttonSize}
+					/>
+				</Row>
+
+				{Platform.OS !== "web" && (
+					<Button
+						tertiary
+						text="Créer mon compte"
+						onClick={handleSignUp}
+						size={buttonSize}
+					/>
+				)}
+			</Group>
+		</Column>
+	)
+}
+
+export function LoginModal(props) {
+	return (
+		<Modal visible={props.showModal}>
+			<LoginForm {...props} />
+		</Modal>
+	)
+}
+
+export default function LoginPage(props) {
+	const history = useHistory()
+	const handleSignUp = () => history.push("/auth/register")
+	const [showModal, setModal] = useState(false)
+
+	return (
 		<>
+			<LoginModal visible={showModal} {...props} />
+
 			{Platform.OS === "web" && (
 				<PublicNavBar>
 					<Text secondary>Pas de compte ?</Text>
@@ -63,71 +144,8 @@ export default function Login({ auth, login }) {
 			)}
 
 			<Scrollable>
-				<Column
-					style={
-						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
-					}
-				>
-					<Group of="component">
-						<Heading level="1">
-							Connecte-toi à ton compte Smartsplit
-						</Heading>
-
-						<Paragraph>Entre tes informations ci-dessous</Paragraph>
-					</Group>
-
-					<Group of="group">
-						{!auth.isLoading && hasSubmitted && auth.error && (
-							<Text style={{ color: Colors.progressBar.orangered }}>
-								{auth.error.response.data.message}
-							</Text>
-						)}
-
-						{!auth.isLoading && auth.data && auth.data.accessToken && (
-							<Redirect to="/dashboard/" />
-						)}
-
-						<TextField
-							label="Mon courriel"
-							placeholder="nom@example.com"
-							onChangeText={setEmail}
-							value={email}
-						/>
-
-						<Column of="inside">
-							<PasswordField
-								label="Mot de passe"
-								onChangeText={setPassword}
-								value={password}
-							/>
-
-							<TouchableWithoutFeedback onPress={handleForgotPassword}>
-								<Text link small>
-									Mot de passe oublié ?
-								</Text>
-							</TouchableWithoutFeedback>
-						</Column>
-
-						<Row align="right">
-							<Button
-								text="Me connecter"
-								onClick={handleLogin}
-								disabled={!canSubmit}
-								style={Platform.OS !== "web" && { flex: 1 }}
-								size={buttonSize}
-							/>
-						</Row>
-
-						{Platform.OS !== "web" && (
-							<Button
-								tertiary
-								text="Créer mon compte"
-								onClick={handleSignUp}
-								size={buttonSize}
-							/>
-						)}
-					</Group>
-				</Column>
+				<Button text="Test" onClick={() => setModal(true)} />
+				<LoginForm {...props} />
 			</Scrollable>
 		</>
 	)
