@@ -132,7 +132,7 @@ export default function Register({ users, registerUser }) {
 		} else {
 			setCanSubmit(false)
 		}
-	}, [email, password, passwordRepeat, users.registerUser.isLoading])
+	}, [email, password, passwordRepeat, users.registerUser.isLoading, agreeTerms])
 
 	const RegisterButtonContainer = Platform.OS === "web" ? Row : Column
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
