@@ -41,7 +41,7 @@ export default class App extends React.PureComponent {
 
 		i18n
 			.then((o) => this.setState({ translationsReady: true }))
-			.then((e) => console.error(e))
+			.catch((e) => console.error(e))
 	}
 
 	static getDerivedStateFromError(error) {

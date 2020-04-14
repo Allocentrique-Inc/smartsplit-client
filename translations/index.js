@@ -4,8 +4,8 @@ import { initReactI18next } from "react-i18next"
 import BrowserLanguageDetector from "i18next-browser-languagedetector"
 import NativeLanguageDetector from "i18next-react-native-language-detector"
 
-import english from "./en"
-import french from "./fr"
+import * as english from "./en"
+import * as french from "./fr"
 
 const translations = i18n
 	.use(
