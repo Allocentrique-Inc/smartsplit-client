@@ -5,7 +5,6 @@ import {
 	TouchableOpacity,
 	TouchableWithoutFeedback,
 } from "react-native"
-import { WebComponentLinkPassword, NativeComponentLinkPassword } from "./login"
 import Button from "../../widgets/button"
 import ProgressBar from "../../widgets/progress-bar"
 import { passwordBarColor, passwordProgress } from "./register"
