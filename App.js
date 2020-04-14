@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom"
 import * as Font from "expo-font"
 import { loadAuthFromStorage } from "./helpers/storageAuth"
 
+import i18n from "./translations"
 import Main from "./src"
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
@@ -29,11 +30,18 @@ const fontMap = {
 export default class App extends React.PureComponent {
 	constructor(props) {
 		super(props)
-		this.state = { ready: false }
+		this.state = {
+			fontsReady: false,
+			translationsReady: false,
+		}
 
 		Font.loadAsync(fontMap)
-			.then((o) => this.setState({ ready: true }))
+			.then((o) => this.setState({ fontsReady: true }))
 			.catch((e) => console.error(e))
+
+		i18n
+			.then((o) => this.setState({ translationsReady: true }))
+			.then((e) => console.error(e))
 	}
 
 	static getDerivedStateFromError(error) {
@@ -42,7 +50,7 @@ export default class App extends React.PureComponent {
 	}
 
 	render() {
-		if (!this.state.ready) return null
+		if (!this.state.fontsReady || !this.state.translationsReady) return null
 
 		return (
 			<Provider store={store}>

@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import {
 	LabelText,
@@ -48,9 +49,26 @@ export default function FormsTest() {
 }
 
 function TestText() {
+	const [t, i18n] = useTranslation()
+
 	return (
 		<Column of="component">
-			<Heading level="1">Test des formulaires</Heading>
+			<Heading level="1">{t("test:title")}</Heading>
+
+			<Row of="component">
+				<Button
+					text="Français"
+					primary={i18n.language === "fr"}
+					disabled={i18n.language === "fr"}
+					onClick={() => i18n.changeLanguage("fr")}
+				/>
+				<Button
+					text="English"
+					primary={i18n.language === "en"}
+					disabled={i18n.language === "en"}
+					onClick={() => i18n.changeLanguage("en")}
+				/>
+			</Row>
 
 			<Paragraph>
 				Cette page a pour but de démontrer les différentes composantes de
