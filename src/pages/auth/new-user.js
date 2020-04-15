@@ -1,40 +1,60 @@
 import React, { useState } from "react"
 import { Platform, View, ScrollView } from "react-native"
-import { Heading, Paragraph } from "../../text"
+import { Text, Heading, Paragraph } from "../../text"
 import { Group, Row, Column, Flex, Section } from "../../layout"
-import { Text } from "../../text"
 import { TextField } from "../../forms"
 import Button from "../../widgets/button"
-import PublicNavBar from "../../smartsplit/public/navbar"
+import Scrollable from "../../widgets/scrollable"
+import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import { Metrics, Colors } from "../../theme"
 import UserAvatar from "../../smartsplit/user/avatar"
 import PenIcon from "../../svg/pen"
 
-export const WebComponentNewUserNavbar = () => (
-	<PublicNavBar>
-		<Button tertiary text="Passer cette étape" />
-		<Button secondary text="English" />
-	</PublicNavBar>
-)
-
-export function WebComponentNewUser() {
+export default function NewUser(props) {
 	const [firstName, setFirstName] = useState("")
 	const [lastName, setLastName] = useState("")
 	const initials = (firstName[0] || "") + (lastName[0] || "")
+
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+
+	const NameFields = Platform.OS === "web" ? Row : Column
+
 	return (
 		<>
-			<Section of="group" style={{ width: 560, alignSelf: "center" }}>
-				<Heading level="1">Bienvenue ! Parle-nous un peu de toi.</Heading>
-				<Paragraph>Commence à créer ton profil.</Paragraph>
-				<Row>
-					<UserAvatar size="huge" />
-					<View style={{ margin: 50 }}>
-						<PenIcon />
-					</View>
-				</Row>
+			<ScrollView>
+				{Platform.OS === "web" && (
+					<PublicNavBarWeb>
+						{Platform.OS === "web" && (
+							<>
+								<Button tertiary text="Passer cette étape" />
+								<Button secondary text="English" />
+							</>
+						)}
+					</PublicNavBarWeb>
+				)}
 
-				<Column of="component">
-					<Row of="component">
+				<Group
+					of={Platform.OS === "web" ? "group" : "component"}
+					style={
+						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
+					}
+				>
+					<Heading level="1">
+						Bienvenue ! {"\n"}
+						Parle-nous un peu de toi.
+					</Heading>
+					<Column of="section">
+						<Paragraph>Commence à créer ton profil.</Paragraph>
+
+						<Row>
+							<UserAvatar size="huge" />
+							<View style={{ margin: 50 }}>
+								<PenIcon />
+							</View>
+						</Row>
+					</Column>
+
+					<NameFields of="group">
 						<TextField
 							label="Mon prénom légal"
 							placeholder="Prénom(s) usuel(s)"
@@ -58,65 +78,7 @@ export function WebComponentNewUser() {
 							value={lastName}
 							onChangeText={setLastName}
 						/>
-					</Row>
-				</Column>
-
-				<TextField
-					label="Mon nom d'artiste"
-					placeholder=""
-					undertext={
-						<>
-							<Text small>Par exemple,</Text>
-							<Text italic small>
-								{" "}
-								Madonna
-							</Text>
-							<Text small> est le nom d’artiste de</Text>
-							<Text italic small>
-								{" "}
-								Madonna Louise Ciccone
-							</Text>
-							.
-						</>
-					}
-				/>
-			</Section>
-		</>
-	)
-}
-
-export function NativeComponentNewUser() {
-	const [firstName, setFirstName] = useState("")
-	const [lastName, setLastName] = useState("")
-	const initials = (firstName[0] || "") + (lastName[0] || "")
-
-	return (
-		<>
-			<Section of="group" style={{ width: 375, alignSelf: "center" }}>
-				<Column of="group">
-					<Heading level="3">Bienvenue ! Parle-nous un peu de toi.</Heading>
-					<Paragraph>Commence à créer ton profil d'artiste.</Paragraph>
-
-					<Row>
-						<UserAvatar size="huge" />
-						<View style={{ margin: 50 }}>
-							<PenIcon />
-						</View>
-					</Row>
-
-					<TextField
-						label="Mon prénom légal"
-						placeholder="Prénom"
-						value={firstName}
-						onChangeText={setFirstName}
-					/>
-
-					<TextField
-						label="Mon nom légal"
-						placeholder="Nom"
-						value={lastName}
-						onChangeText={setLastName}
-					/>
+					</NameFields>
 
 					<TextField
 						label="Nom d'artiste"
@@ -139,29 +101,19 @@ export function NativeComponentNewUser() {
 						}
 					/>
 
-					<Button text="C'est parti !" />
-					<Button tertiary text="Passer cette étape" />
-				</Column>
-			</Section>
-		</>
-	)
-}
-
-export default function NewUser(props) {
-	return (
-		<>
-			<ScrollView>
-				{Platform.select({
-					web: <WebComponentNewUserNavbar />,
-				})}
-
-				<Column>
-					{Platform.select({
-						web: <WebComponentNewUser />,
-						android: <NativeComponentNewUser />,
-						ios: <NativeComponentNewUser />,
-					})}
-				</Column>
+					<Row align="right">
+						<Button
+							text="C'est parti !"
+							style={Platform.OS !== "web" && { flex: 1 }}
+							size={buttonSize}
+						/>
+					</Row>
+					{Platform.OS !== "web" && (
+						<Row>
+							<Button tertiary text="Passer cette étape" />
+						</Row>
+					)}
+				</Group>
 			</ScrollView>
 		</>
 	)

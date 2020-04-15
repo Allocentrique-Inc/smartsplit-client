@@ -4,27 +4,16 @@ import { useHistory } from "react-router-dom"
 import Button from "../../widgets/button"
 import Scrollable from "../../widgets/scrollable"
 import { DialogModal } from "../../widgets/modal"
-import {
-	TextDivider,
-	Section,
-	Column,
-	Row,
-	Group,
-	Flex,
-} from "../../layout"
+import { TextDivider, Section, Column, Row, Group, Flex } from "../../layout"
 import { TextField, PasswordField, CheckBox } from "../../forms"
 import { Heading, Paragraph, Text } from "../../text"
-import PublicNavBar from "../../smartsplit/public/navbar"
+import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import ProgressBar from "../../widgets/progress-bar"
-import CheckEmailModal from "./check-email"
 import FacebookIcon from "../../svg/facebook"
 import GoogleIcon from "../../svg/google"
 import { Metrics, Colors } from "../../theme"
 import zxcvbn from "zxcvbn"
-import {
-	notEmptyValidator,
-	sameValidator,
-} from "../../../helpers/validators"
+import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 
 export function passwordBarColor(score) {
 	switch (score) {
@@ -88,10 +77,7 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 				</>
 			}
 		>
-			<Group
-				of="group"
-				style={{ maxWidth: 560, alignSelf: "center" }}
-			></Group>
+			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}></Group>
 		</DialogModal>
 	)
 }
@@ -152,13 +138,8 @@ export default function Register({ users, registerUser }) {
 				}}
 			/>
 
-			<CheckEmailModal
-				visible={showCheckEmail}
-				onRequestClose={() => setShowCheckEmail(false)}
-			/>
-
 			{Platform.OS === "web" && (
-				<PublicNavBar>
+				<PublicNavBarWeb>
 					<Text secondary>Déjà Membre ?</Text>
 					<Button
 						tertiary
@@ -166,7 +147,7 @@ export default function Register({ users, registerUser }) {
 						onClick={() => history.push("/auth/login")}
 					/>
 					<Button secondary text="English" />
-				</PublicNavBar>
+				</PublicNavBarWeb>
 			)}
 
 			<Scrollable>
@@ -177,12 +158,10 @@ export default function Register({ users, registerUser }) {
 					}
 				>
 					<Column of="component">
-						<Heading level="1">
-							En route vers la professionnalisation
-						</Heading>
+						<Heading level="1">En route vers la professionnalisation</Heading>
 						<Paragraph>
-							Tu es à un clic de pouvoir documenter ta musique et de
-							partager tes droits avec tes contributeurs.
+							Tu es à un clic de pouvoir documenter ta musique et de partager
+							tes droits avec tes contributeurs.
 						</Paragraph>
 						<View />
 					</Column>

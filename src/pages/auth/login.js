@@ -6,7 +6,7 @@ import Scrollable from "../../widgets/scrollable"
 import { Group, Row, Column, Flex } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { TextField, PasswordField } from "../../forms"
-import PublicNavBar from "../../smartsplit/public/navbar"
+import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import { CheckBox } from "../../forms"
 import { Metrics, Links, Colors } from "../../theme"
 import { Modal } from "../../widgets/modal"
@@ -144,13 +144,13 @@ export default function LoginPage(props) {
 			<LoginModal visible={showModal} {...props} />
 
 			{Platform.OS === "web" && (
-				<PublicNavBar>
+				<PublicNavBarWeb>
 					<Text secondary>Pas de compte ?</Text>
 					<View>
 						<Button tertiary text="Crée un compte" onClick={handleSignUp} />
 					</View>
 					<Button secondary text="English" />
-				</PublicNavBar>
+				</PublicNavBarWeb>
 			)}
 
 			<Scrollable>

@@ -2,7 +2,7 @@ import React from "react"
 import { Svg, Path } from "react-native-svg"
 import { Colors } from "../theme"
 
-export default function (props) {
+export default function ArrowLeft(props) {
 	const color = props.color || Colors.tertiary
 
 	return (

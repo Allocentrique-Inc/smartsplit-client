@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react"
 import { Platform, TouchableWithoutFeedback } from "react-native"
 import { Link, useHistory } from "react-router-dom"
 import { Group, Column, Row, Flex } from "../../layout"
-import { Heading, Text } from "../../text"
+import { Heading, Text, Paragraph } from "../../text"
 import TextField from "../../forms/text"
 import Button from "../../widgets/button"
 import { Metrics, Links, Colors } from "../../theme"
-import PublicNavBar from "../../smartsplit/public/navbar"
+import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import Scrollable from "../../widgets/scrollable"
 import { notEmptyValidator } from "../../../helpers/validators"
 
@@ -96,41 +96,47 @@ export default function GetPassword({ users, forgotPassword }) {
 
 	return (
 		<>
+			{Platform.OS === "web" && (
+				<PublicNavBarWeb>
+					<Text secondary>Déjà Membre ?</Text>
+					{openSessionButton}
+					<Button secondary text="English" />
+				</PublicNavBarWeb>
+			)}
+
 			<Scrollable>
-				{Platform.OS === "web" && (
-					<PublicNavBar>
-						<Text secondary>Déjà Membre ?</Text>
-						{openSessionButton}
-					</PublicNavBar>
-				)}
-
-				<Group of="group" style={{ maxWidth: 464, alignSelf: "center" }}>
-					<Column of="component">
+				<Group
+					of="group"
+					style={
+						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
+					}
+				>
+					<Column of="group">
 						<Heading level="1">Réinitialise ton mot de passe.</Heading>
-						<Text>
-							Saisis l'adresse courriel lié à ton compte pour obtenir le
-							lien de réinitialisation.
-						</Text>
+						<Paragraph>
+							Saisis l'adresse courriel lié à ton compte pour obtenir le lien de
+							réinitialisation.
+						</Paragraph>
+
+						{!users.forgotPassword.isLoading &&
+							hasSubmitted &&
+							users.forgotPassword.error && (
+								<Text style={{ color: Colors.progressBar.orangered }}>
+									{users.forgotPassword.error.error}
+								</Text>
+							)}
+
+						<TextField
+							label="Courriel"
+							label_hint=""
+							undertext=""
+							onChangeText={setEmail}
+							value={email}
+							placeholder=""
+						/>
+
+						{forgotPasswordAndSubmitButton}
 					</Column>
-
-					{!users.forgotPassword.isLoading &&
-						hasSubmitted &&
-						users.forgotPassword.error && (
-							<Text style={{ color: Colors.progressBar.orangered }}>
-								{users.forgotPassword.error.error}
-							</Text>
-						)}
-
-					<TextField
-						label="Courriel"
-						label_hint=""
-						undertext=""
-						onChangeText={setEmail}
-						value={email}
-						placeholder=""
-					/>
-
-					{forgotPasswordAndSubmitButton}
 				</Group>
 			</Scrollable>
 		</>
