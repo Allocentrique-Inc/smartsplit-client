@@ -1,4 +1,5 @@
 import * as UsersAPI from "../../api/Users"
+import { saveAuth } from "../../helpers/storageAuth"
 
 export function registerUser_request() {
 	return {
@@ -98,6 +99,34 @@ export function resetPassword(passwordDetails) {
 		} catch (error) {
 			if (error.data) dispatch(resetPassword_error(error.data))
 			else dispatch(resetPassword_error(error))
+		}
+	}
+}
+
+export function activateAccount(token) {
+	return async function (dispatch) {
+		dispatch({ type: "ACTIVATE_REQUEST" })
+
+		try {
+			const response = await UsersAPI.activateAccount(token)
+
+			if (response.data && response.data.accessToken) {
+				saveAuth(response.data.accessToken)
+				dispatch({
+					type: "LOGIN_USER_SUCCESS",
+					payload: response.data,
+				})
+			}
+
+			dispatch({
+				type: "ACTIVATE_SUCCESS",
+				payload: response.data,
+			})
+		} catch (error) {
+			dispatch({
+				type: "ACTIVATE_ERROR",
+				payload: error.data || error,
+			})
 		}
 	}
 }

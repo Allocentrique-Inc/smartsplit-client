@@ -16,6 +16,7 @@ import PasswordReset from "./pages/auth/password-reset"
 import CheckEmailPage from "./pages/auth/check-email"
 import FormsTest from "./pages/test/forms"
 import CopyrightShare from "./pages/document/copyright"
+import UserActivateAccount from "./pages/user/activate"
 
 import ChangePasswordModal from "./pages/dashboard/change-password"
 
@@ -69,6 +70,12 @@ export function MainRouter(props) {
 			<Route path="/auth/new-user" exact>
 				<NewUser />
 			</Route>
+
+			<Route
+				path="/user/activate/:token"
+				exact
+				component={UserActivateAccount}
+			/>
 
 			<Route path="/document/copyright" exact>
 				<CopyrightShare />
