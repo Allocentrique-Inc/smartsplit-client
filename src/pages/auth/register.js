@@ -14,9 +14,8 @@ import {
 } from "../../layout"
 import { TextField, PasswordField, CheckBox } from "../../forms"
 import { Heading, Paragraph, Text } from "../../text"
-import PublicNavBar from "../../smartsplit/public/navbar"
+import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import ProgressBar from "../../widgets/progress-bar"
-import CheckEmailModal from "./check-email"
 import FacebookIcon from "../../svg/facebook"
 import GoogleIcon from "../../svg/google"
 import { Metrics, Colors } from "../../theme"
@@ -152,13 +151,8 @@ export default function Register({ users, registerUser }) {
 				}}
 			/>
 
-			<CheckEmailModal
-				visible={showCheckEmail}
-				onRequestClose={() => setShowCheckEmail(false)}
-			/>
-
 			{Platform.OS === "web" && (
-				<PublicNavBar>
+				<PublicNavBarWeb>
 					<Text secondary>Déjà Membre ?</Text>
 					<Button
 						tertiary
@@ -166,7 +160,7 @@ export default function Register({ users, registerUser }) {
 						onClick={() => history.push("/auth/login")}
 					/>
 					<Button secondary text="English" />
-				</PublicNavBar>
+				</PublicNavBarWeb>
 			)}
 
 			<Scrollable>

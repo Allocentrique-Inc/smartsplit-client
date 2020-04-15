@@ -13,7 +13,7 @@ import NewUser from "./pages/auth/new-user"
 import PasswordSent from "./pages/auth/forgot-password-sent"
 import GetPasswordContainer from "./pages/auth/ForgotPasswordContainer"
 import PasswordReset from "./pages/auth/password-reset"
-import CheckEmailModal from "./pages/auth/check-email"
+import CheckEmailPage from "./pages/auth/check-email"
 import FormsTest from "./pages/test/forms"
 import CopyrightShare from "./pages/document/copyright"
 
@@ -35,8 +35,7 @@ export function MainRouter(props) {
 	return (
 		<Switch>
 			<Route path="/" exact>
-				{/* <Redirect to="/dashboard/" /> */}
-				<Redirect to="/auth/register" />
+				<Redirect to="/dashboard/" /> 
 			</Route>
 
 			<Route path="/auth/register" exact>
@@ -64,7 +63,7 @@ export function MainRouter(props) {
 			</Route>
 
 			<Route path="/auth/check-email" exact>
-				<CheckEmailModal />
+				<CheckEmailPage />
 			</Route>
 
 			<Route path="/auth/new-user" exact>

@@ -11,7 +11,7 @@ import MyWorksPage from "./my-works"
 import MyProfilePage from "./my-profile"
 import MyCollaboratorsPage from "./my-collaborators"
 import MyAccountPage from "./my-account"
-import ChangePasswordModal from "./change-password"
+import ChangePasswordPage from "./change-password"
 import FormsTest from "../test/forms"
 import TestRedux from "../test/TestRedux"
 
@@ -83,7 +83,7 @@ export function DashboardRoutes(props) {
 			</Route>
 
 			<Route path="/dashboard/change-password" exact>
-				<ChangePasswordModal />
+				<ChangePasswordPage />
 			</Route>
 
 			<Route path="/dashboard/test/forms" exact>

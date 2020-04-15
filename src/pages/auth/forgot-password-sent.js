@@ -1,54 +1,58 @@
 import React, { useState } from "react"
 import { Platform } from "react-native"
 import { useHistory } from "react-router-dom"
-import { Route, Redirect, Router } from "react-router"
-import { WebComponentNavbarRegister } from "./register"
-import { Heading, Text } from "../../text"
+import { Heading, Paragraph, Text } from "../../text"
+import {Colors} from "../../theme"
 import Button from "../../widgets/button"
-import { Section, Column, Row } from "../../layout"
-
-export const WebComponentHeading = () => (
-	<>
-		<Heading level="1">Courriel envoyé.</Heading>
-	</>
-)
-
-export const NativeComponentHeading = () => (
-	<Heading level="3">Courriel envoyé.</Heading>
-)
+import Scrollable from "../../widgets/scrollable"
+import { Section, Column, Row, Group } from "../../layout"
+import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 
 export default function PasswordSent(props) {
 	let history = useHistory()
-	const handleClick = () => history.push("/auth/login")
+
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	return (
 		<>
-			{Platform.select({
-				web: <WebComponentNavbarRegister />,
-			})}
+		{Platform.OS === "web" && (
+			<PublicNavBarWeb>
+				<Text secondary>Déjà Membre ?</Text>
+				<Button
+					tertiary
+					text="Ouvrir une session"
+					onClick={() => history.push("/auth/login")}
+				/>
+				<Button secondary text="English" />
+			</PublicNavBarWeb>
+		)}
 
-			<Section
-				of="group"
-				style={{ width: 375, maxWidth: 560, alignSelf: "center" }}
-			>
-				<Column of="section">
-					{Platform.select({
-						web: <WebComponentHeading />,
-						android: <NativeComponentHeading />,
-						ios: <NativeComponentHeading />,
-					})}
-					<Text>
+		<Scrollable>
+			<Group of="section"
+				style={
+					Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
+				}
+				>
+				<Column of="group">
+					<Heading level="1">
+						Courriel envoyé.
+					</Heading>
+					<Paragraph>
 						Un courriel a été envoyé ou sera envoyé sous peu. Il contient un
 						lien de réinitialisation de ton mot de passe.
-					</Text>
+					</Paragraph>
+				</Column>
 
 					<Button
 						secondary
-						text="Retourner à la page d'accueil"
-						onClick={handleClick}
+						style={{borderColor: Colors.secondary}}
+						text={<Text link heavy>Retourner à la page d'accueil</Text>}
+						onClick={() => history.push("/auth/login")}
+						size={buttonSize}
 					/>
-				</Column>
-			</Section>
+					
+			</Group>
+		</Scrollable>
 		</>
 	)
 }
