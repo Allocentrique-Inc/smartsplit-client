@@ -13,35 +13,49 @@ function composeView(props, ...stylesheets) {
 	}
 
 	const SpacerImpl = spacer
-	let newChildren = children
+	let newChildren = [children]
 
 	if (of) {
 		newChildren = []
 
-		React.Children.forEach(children, (child, index) => {
+		forEachChildren(children, (child) => {
 			if (!child) return // ne pas générer d'espacement entre du vide!
 
 			newChildren.push(child)
-			newChildren.push(<SpacerImpl key={"spacer-" + index} of={of} />)
+			newChildren.push(<SpacerImpl of={of} />)
 		})
 
 		newChildren.pop()
 	}
 
-	return (
-		<View
-			{...nextProps}
-			style={[
+	return React.createElement(
+		View,
+		{
+			...nextProps,
+			style: [
 				...stylesheets,
 				style,
 				LayerStyles[layer || ""],
 				MetricsStyles.padding[padding || ""],
 				typeof flex === "number" ? { flex } : null,
-			]}
-		>
-			{newChildren}
-		</View>
+			],
+		},
+		...newChildren
 	)
+}
+
+export function forEachChildren(children, cb) {
+	let index = 0
+
+	function processChildren(children) {
+		React.Children.forEach(children, (child) => {
+			if (!child) return
+			if (child.type === React.Fragment) processChildren(child.props.children)
+			else cb(child, index++)
+		})
+	}
+
+	processChildren(children)
 }
 
 export function Layer(props) {
