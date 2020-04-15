@@ -74,6 +74,7 @@ export default function (state = INITIAL_STATE, action) {
 			}
 
 			if (action.payload) newState.forgotPassword.data = action.payload
+			else newState.forgotPassword.data = { message: "Success" }
 
 			break
 

@@ -118,7 +118,13 @@ export default function Register({ users, registerUser }) {
 		} else {
 			setCanSubmit(false)
 		}
-	}, [email, password, passwordRepeat, users.registerUser.isLoading, agreeTerms])
+	}, [
+		email,
+		password,
+		passwordRepeat,
+		users.registerUser.isLoading,
+		agreeTerms,
+	])
 
 	const RegisterButtonContainer = Platform.OS === "web" ? Row : Column
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
@@ -199,6 +205,7 @@ export default function Register({ users, registerUser }) {
 							label="Entre ton courriel"
 							placeholder="nom@example.com"
 							onChangeText={setEmail}
+							value={email}
 						/>
 
 						<Column of="inside">
@@ -227,6 +234,7 @@ export default function Register({ users, registerUser }) {
 							label="Répète ton mot de passe"
 							placeholder=""
 							onChangeText={setPasswordRepeat}
+							value={passwordRepeat}
 						/>
 
 						<CheckBox onChange={setAgreeTerms} checked={agreeTerms}>

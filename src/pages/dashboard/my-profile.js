@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Group, Hairline, Flex, Row } from "../../layout"
 import { Heading } from "../../text"
 import TypographyStyles from "../../styles/typography"
@@ -6,8 +6,13 @@ import { Colors } from "../../theme"
 import { Text } from "../../text"
 import { TextField } from "../../forms"
 import Button from "../../widgets/button"
+import ChangePasswordModal from "./change-password"
 
 export default function MyProfilePage() {
+	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
+		false
+	)
+
 	return (
 		<Group of="component">
 			<Row of="component">
@@ -49,6 +54,31 @@ export default function MyProfilePage() {
 					</>
 				}
 			/>
+
+			<Row of="component">
+				<Flex>
+					<Heading level="2">Sécurité</Heading>
+				</Flex>
+			</Row>
+
+			<Hairline />
+			<Heading level="4">Mot de passe</Heading>
+			<Row of="component">
+				<Button
+					secondary
+					text="Changer le mot de passe"
+					onClick={() => {
+						setChangePasswordModalOpened(true)
+					}}
+				/>
+				<Flex />
+			</Row>
+
+			{changePasswordModalOpened && (
+				<ChangePasswordModal
+					onCloseAction={() => setChangePasswordModalOpened(false)}
+				/>
+			)}
 		</Group>
 	)
 }

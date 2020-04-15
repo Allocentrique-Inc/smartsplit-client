@@ -24,13 +24,13 @@ export default function MyAccountPage(props) {
 
 			<AccountItem
 				icon={UserCardIcon}
-				to="/dashboard/public-profile"
+				to="/dashboard/my-profile"
 				text="Profil public"
 			/>
 
 			<AccountItem
 				icon={SettingsIcon}
-				to="/dashboard/settings"
+				// to="/dashboard/settings"
 				text="Préférences"
 			/>
 

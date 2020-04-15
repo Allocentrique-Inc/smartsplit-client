@@ -96,13 +96,12 @@ export function LoginForm({ auth, login }) {
 				</Column>
 
 				<LoginButtonContainer of="group">
-
 					<CheckBox onChange={setStayConnected} checked={stayConnected}>
 						<Text primary regular>
 							Rester connecté
 						</Text>
 					</CheckBox>
-					< Flex />
+					<Flex />
 
 					<Button
 						text="Me connecter"
