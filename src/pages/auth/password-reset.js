@@ -39,75 +39,73 @@ export default function PasswordReset() {
 
 	return (
 		<>
-		<Scrollable>
-			{Platform.OS === "web" && (
-				<PublicNavBarWeb>
-					<Text secondary>Déjà Membre ?</Text>
-					{openSessionButton}
-					<Button secondary text="English" />
-				</PublicNavBarWeb>
-					)}
-		
-		<Group
-			of={Platform.OS === "web" ? "group" : "component"}
-			style={
-				Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
-				}
-			>
-			<Column of="section">
-					<Heading level="1">Réinitialise ton mot de passe.</Heading>
-			
+			<Scrollable>
+				{Platform.OS === "web" && (
+					<PublicNavBarWeb>
+						<Text secondary>Déjà Membre ?</Text>
+						{openSessionButton}
+						<Button secondary text="English" />
+					</PublicNavBarWeb>
+				)}
 
-					<Column of="inside">
-						<PasswordField
-							value={Password} //pour avoir toujours valeur mot de passe, reçoit valeur password
-							onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
-							label="Choisis ton nouveau mot de passe"
-							placeholder=""
-						/>
+				<Group
+					of={Platform.OS === "web" ? "group" : "component"}
+					style={
+						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
+					}
+				>
+					<Column of="section">
+						<Heading level="1">Réinitialise ton mot de passe.</Heading>
 
-					<Row>
-						<Text secondary small style={{ flex: 3 }}>
-							{passwordStrengthIndicator(score)}
-						</Text>
-						<Flex />
-						<ProgressBar
-							size="tiny"
-							style={{ flex: 1 }}
-							color={passwordBarColor(score)}
-							progress={passwordProgress(score)}
-						/>
-					</Row>
+						<Column of="inside">
+							<PasswordField
+								value={Password} //pour avoir toujours valeur mot de passe, reçoit valeur password
+								onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
+								label="Choisis ton nouveau mot de passe"
+								placeholder=""
+							/>
+
+							<Row>
+								<Text secondary small style={{ flex: 3 }}>
+									{passwordStrengthIndicator(score)}
+								</Text>
+								<Flex />
+								<ProgressBar
+									size="tiny"
+									style={{ flex: 1 }}
+									color={passwordBarColor(score)}
+									progress={passwordProgress(score)}
+								/>
+							</Row>
+						</Column>
 					</Column>
-					</Column>	
-						<PasswordField
-							value={ConfirmNewPassword}
-							onChangeText={setConfirmNewPassword}
-							label="Confirme ton nouveau  ton mot de passe"
-							placeholder=""
-						/>
-	
+					<PasswordField
+						value={ConfirmNewPassword}
+						onChangeText={setConfirmNewPassword}
+						label="Confirme ton nouveau  ton mot de passe"
+						placeholder=""
+					/>
+
 					<Row align="right">
 						{NewPassword !== ConfirmNewPassword ||
 						NewPassword.length === 0 ||
 						ConfirmNewPassword.length === 0 ? (
-							<Button 
-								text="Réinitialiser" 
-								disabled={true} 
+							<Button
+								text="Réinitialiser"
+								disabled={true}
 								size={buttonSize}
 								style={Platform.OS !== "web" && { flex: 1 }}
 							/>
-							) : (
-							<Button 
-								text="Réinitialiser" 
+						) : (
+							<Button
+								text="Réinitialiser"
 								size={buttonSize}
 								style={Platform.OS !== "web" && { flex: 1 }}
-						/>
-							)}		
+							/>
+						)}
 					</Row>
-			
-		</Group>
-		</Scrollable>
+				</Group>
+			</Scrollable>
 		</>
 	)
 }

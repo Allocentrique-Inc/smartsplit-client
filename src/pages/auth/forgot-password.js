@@ -96,43 +96,46 @@ export default function GetPassword({ users, forgotPassword }) {
 
 	return (
 		<>
-				{Platform.OS === "web" && (
-					<PublicNavBarWeb>
-						<Text secondary>Déjà Membre ?</Text>
-						{openSessionButton}
-						<Button secondary text="English" />
-					</PublicNavBarWeb>
-				)}
+			{Platform.OS === "web" && (
+				<PublicNavBarWeb>
+					<Text secondary>Déjà Membre ?</Text>
+					{openSessionButton}
+					<Button secondary text="English" />
+				</PublicNavBarWeb>
+			)}
 
 			<Scrollable>
-				<Group of="group" style={
+				<Group
+					of="group"
+					style={
 						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
-					}>
+					}
+				>
 					<Column of="group">
 						<Heading level="1">Réinitialise ton mot de passe.</Heading>
 						<Paragraph>
-							Saisis l'adresse courriel lié à ton compte pour obtenir le
-							lien de réinitialisation.
+							Saisis l'adresse courriel lié à ton compte pour obtenir le lien de
+							réinitialisation.
 						</Paragraph>
 
-					{!users.forgotPassword.isLoading &&
-						hasSubmitted &&
-						users.forgotPassword.error && (
-							<Text style={{ color: Colors.progressBar.orangered }}>
-								{users.forgotPassword.error.error}
-							</Text>
-						)}
+						{!users.forgotPassword.isLoading &&
+							hasSubmitted &&
+							users.forgotPassword.error && (
+								<Text style={{ color: Colors.progressBar.orangered }}>
+									{users.forgotPassword.error.error}
+								</Text>
+							)}
 
-					<TextField
-						label="Courriel"
-						label_hint=""
-						undertext=""
-						onChangeText={setEmail}
-						value={email}
-						placeholder=""
-					/>
+						<TextField
+							label="Courriel"
+							label_hint=""
+							undertext=""
+							onChangeText={setEmail}
+							value={email}
+							placeholder=""
+						/>
 
-					{forgotPasswordAndSubmitButton}
+						{forgotPasswordAndSubmitButton}
 					</Column>
 				</Group>
 			</Scrollable>

@@ -43,10 +43,7 @@ export default function CreateWorkModal(props) {
 				</>
 			}
 		>
-			<Group
-				of="group"
-				style={{ maxWidth: 560, alignSelf: "center" }}
-			>
+			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}>
 				<TextField
 					value={workName}
 					onChangeText={setWorkName}

@@ -21,99 +21,97 @@ export default function NewUser(props) {
 
 	return (
 		<>
-		<ScrollView>
-			{Platform.OS === "web" && (
-				<PublicNavBarWeb>
-					{Platform.OS === "web" && (
-						<>
-						<Button tertiary text="Passer cette étape" />
-						<Button secondary text="English" />
-						</>
-					)}
-				</PublicNavBarWeb> 
+			<ScrollView>
+				{Platform.OS === "web" && (
+					<PublicNavBarWeb>
+						{Platform.OS === "web" && (
+							<>
+								<Button tertiary text="Passer cette étape" />
+								<Button secondary text="English" />
+							</>
+						)}
+					</PublicNavBarWeb>
 				)}
 
-			<Group
+				<Group
 					of={Platform.OS === "web" ? "group" : "component"}
 					style={
 						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
 					}
 				>
-				<Heading level="1">Bienvenue ! {"\n"}
-					Parle-nous un peu de toi.</Heading>
-			<Column of="section">
-				<Paragraph>
-					Commence à créer ton profil.
-				</Paragraph>
-						
-			<Row>
-				<UserAvatar size="huge" />
-				<View style={{ margin: 50 }}>
-					<PenIcon />
-				</View>
-			</Row>
-			</Column>
+					<Heading level="1">
+						Bienvenue ! {"\n"}
+						Parle-nous un peu de toi.
+					</Heading>
+					<Column of="section">
+						<Paragraph>Commence à créer ton profil.</Paragraph>
 
-				<NameFields of="group">
-					<TextField
-						label="Mon prénom légal"
-						placeholder="Prénom(s) usuel(s)"
-						undertext={
-						<Text italic small>
-							Madonna Louise
-						</Text>
-						}
+						<Row>
+							<UserAvatar size="huge" />
+							<View style={{ margin: 50 }}>
+								<PenIcon />
+							</View>
+						</Row>
+					</Column>
+
+					<NameFields of="group">
+						<TextField
+							label="Mon prénom légal"
+							placeholder="Prénom(s) usuel(s)"
+							undertext={
+								<Text italic small>
+									Madonna Louise
+								</Text>
+							}
 							value={firstName}
 							onChangeText={setFirstName}
-					/>
-		
-					<TextField
-						label="Mon nom légal"
-						placeholder="Nom de famille usuel"
-						undertext={
-						<Text italic small>
-							Ciccone
-						</Text>
-						}
-						value={lastName}
-						onChangeText={setLastName}
+						/>
+
+						<TextField
+							label="Mon nom légal"
+							placeholder="Nom de famille usuel"
+							undertext={
+								<Text italic small>
+									Ciccone
+								</Text>
+							}
+							value={lastName}
+							onChangeText={setLastName}
 						/>
 					</NameFields>
-						
+
 					<TextField
 						label="Nom d'artiste"
 						label_hint={<Text secondary>Optionnel</Text>}
 						placeholder="Nom d'artiste"
 						undertext={
 							<>
-							<Text small>Par exemple,</Text>
-							<Text italic small>
-								{" "}
-								Jay-Z
-							</Text>
-							<Text small> est le nom d’artiste de</Text>
-							<Text italic small>
-								{" "}
-								Shawn Corey Carter
-							</Text>
+								<Text small>Par exemple,</Text>
+								<Text italic small>
+									{" "}
+									Jay-Z
+								</Text>
+								<Text small> est le nom d’artiste de</Text>
+								<Text italic small>
+									{" "}
+									Shawn Corey Carter
+								</Text>
 								.
 							</>
 						}
 					/>
 
 					<Row align="right">
-						<Button text="C'est parti !"
+						<Button
+							text="C'est parti !"
 							style={Platform.OS !== "web" && { flex: 1 }}
 							size={buttonSize}
-						 />
-					
-					</Row>
-					{Platform.OS !== "web" && (
-					<Row>
-						<Button tertiary 
-								text="Passer cette étape" 
 						/>
 					</Row>
+					{Platform.OS !== "web" && (
+						<Row>
+							<Button tertiary text="Passer cette étape" />
+						</Row>
 					)}
 				</Group>
 			</ScrollView>

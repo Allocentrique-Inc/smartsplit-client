@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import { View, Platform } from "react-native"
 import { Text } from "../../text"
 import { DialogModal } from "../../widgets/modal"
@@ -24,10 +24,7 @@ export function CheckEmailModal(props) {
 				/>
 			}
 		>
-			<Group
-				of="group"
-				style={{ maxWidth: 560, alignSelf: "center" }}
-			>
+			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}>
 				<View style={{ alignItems: "center" }}>
 					<HighFive />
 				</View>
@@ -43,24 +40,18 @@ export function CheckEmailModal(props) {
 
 export default function CheckEmailPage(props) {
 	const [modalOpen, setModal] = useState(false)
-	
+
 	return (
 		<>
+			<Scrollable>
+				<Button text="Test" onClick={() => setModal(true)} />
 
-		<Scrollable>
-		
-			<Button 
-			text="Test" 
-			onClick={() => setModal(true)}
-		/>
-	
-			<CheckEmailModal 
-				visible={modalOpen}
-				onRequestClose={() => setModal(false)}
-				{...props}
-			/>
-		</Scrollable>
+				<CheckEmailModal
+					visible={modalOpen}
+					onRequestClose={() => setModal(false)}
+					{...props}
+				/>
+			</Scrollable>
 		</>
 	)
-
 }

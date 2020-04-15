@@ -21,7 +21,7 @@ export function ChangePasswordModal(props) {
 	const [ConfirmNewPassword, setConfirmNewPassword] = useState("")
 	const score = zxcvbn(Password)
 		.score /* passer le mot de passe dans zxcvbn, valeur */
-	
+
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	return (
@@ -31,37 +31,36 @@ export function ChangePasswordModal(props) {
 			title="Changer le mot de passe"
 			buttons={
 				<>
-						{NewPassword !== ConfirmNewPassword ||
-						NewPassword.length === 0 ||
-						ConfirmNewPassword.length === 0 ? (
-							<Button
-								text="Enregister"
-								disabled={true}
-								size={buttonSize}
-								style={Platform.OS !== "web" && { flex: 1 }}
-							/>
-						) : (
-							<Button text="Enregistrer"
-									onClick={props.onRequestClose}
-									size={buttonSize} 
-									style={Platform.OS !== "web" && { flex: 1 }}
-							/>
-						)}
+					{NewPassword !== ConfirmNewPassword ||
+					NewPassword.length === 0 ||
+					ConfirmNewPassword.length === 0 ? (
+						<Button
+							text="Enregister"
+							disabled={true}
+							size={buttonSize}
+							style={Platform.OS !== "web" && { flex: 1 }}
+						/>
+					) : (
+						<Button
+							text="Enregistrer"
+							onClick={props.onRequestClose}
+							size={buttonSize}
+							style={Platform.OS !== "web" && { flex: 1 }}
+						/>
+					)}
 				</>
 			}
 		>
 			<Group
 				of="group"
-				style={
-					Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }
-				}
+				style={Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }}
 			>
-					<PasswordField
-						value={Password} //pour avoir toujours valeur mot de passe, reçoit valeur password
-						onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
-						label="Mot de passe actuel"
-						placeholder=""
-					/>
+				<PasswordField
+					value={Password} //pour avoir toujours valeur mot de passe, reçoit valeur password
+					onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
+					label="Mot de passe actuel"
+					placeholder=""
+				/>
 
 				<Column of="inside">
 					<PasswordField
@@ -82,35 +81,31 @@ export function ChangePasswordModal(props) {
 							progress={passwordProgress(score)}
 						/>
 					</Row>
-			</Column>
+				</Column>
 
-					<PasswordField
-						value={ConfirmNewPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
-						onChangeText={setConfirmNewPassword} // quand changement mot de passe modifie valeur mise à jour
-						label="Répète ton nouveau mot de passe"
-						placeholder=""
-					/>
+				<PasswordField
+					value={ConfirmNewPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
+					onChangeText={setConfirmNewPassword} // quand changement mot de passe modifie valeur mise à jour
+					label="Répète ton nouveau mot de passe"
+					placeholder=""
+				/>
 			</Group>
 		</DialogModal>
-		
 	)
 }
 
 export default function ChangePasswordPage(props) {
 	const [showModal, setModal] = useState(false)
-return (
-	<>
-
-	<Scrollable>
-		
-		<Button text="Test" onClick={() => setModal(true)} />
-		<ChangePasswordModal 
-			visible={showModal}
-			onRequestClose={() => setModal(false)}
-			{...props} 
-		/>
-	</Scrollable>
-	</>
-)
-
+	return (
+		<>
+			<Scrollable>
+				<Button text="Test" onClick={() => setModal(true)} />
+				<ChangePasswordModal
+					visible={showModal}
+					onRequestClose={() => setModal(false)}
+					{...props}
+				/>
+			</Scrollable>
+		</>
+	)
 }
