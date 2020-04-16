@@ -1,79 +1,74 @@
 import React, { useState, useEffect } from "react"
-import { Platform, View, TouchableWithoutFeedback } from "react-native"
 import { Redirect, useHistory } from "react-router"
 import Button from "../../widgets/button"
 import Scrollable from "../../widgets/scrollable"
 import { Group, Row, Column, Flex } from "../../layout"
-import { Heading, Paragraph, Text } from "../../text"
+import { Heading, Paragraph, Text, Link } from "../../text"
 import { TextField, PasswordField } from "../../forms"
-import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
+import PublicPageLayout from "../../layout/public-page"
 import { CheckBox } from "../../forms"
 import { Metrics, Links, Colors } from "../../theme"
 import { Modal } from "../../widgets/modal"
+import { Platform } from "../../platform"
 
 import { notEmptyValidator } from "../../../helpers/validators"
 
-export function LoginForm({ auth, login }) {
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
-	const [hasSubmitted, setHasSubmitted] = useState(false)
-	const [canSubmit, setCanSubmit] = useState(false)
-	const [stayConnected, setStayConnected] = useState(false)
+export const LoginErrorCodes = {
+	auth_invalid_credentials:
+		"Adresse courriel ou mot de passe invalide. Veuillez réessayer.",
+	auth_account_inactive:
+		"Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau!",
+}
 
+export function LoginForm({ auth, login }) {
 	const history = useHistory()
 
+	if (!auth.isLoading && auth.data && auth.data.accessToken) {
+		history.push("/")
+		return null
+	}
+
+	const [email, setEmail] = useState("")
+	const [password, setPassword] = useState("")
+	const [stayLoggedIn, setStayLoggedIn] = useState(false)
+
+	const validEmail = notEmptyValidator(email)
+	const validPassword = notEmptyValidator(password)
+
+	const canSubmit = !auth.isLoading && validEmail && validPassword
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-	const LoginButtonContainer = Platform.OS === "web" ? Row : Column
+
+	const error = !auth.isLoading && auth.error
+	const errorCode = error && error.code
+	const errorMessage =
+		(errorCode && LoginErrorCodes[errorCode]) || (error && error.message)
 
 	useEffect(() => {
-		if (auth.isLoggedIn) {
-			setEmail("")
-			setPassword("")
-			setHasSubmitted(false)
-		}
+		setEmail("")
+		setPassword("")
 	}, [auth.isLoggedIn])
-
-	useEffect(() => {
-		let emailValid = notEmptyValidator(email)
-		let passwordValid = notEmptyValidator(password)
-
-		if (emailValid && passwordValid && !auth.isLoading) {
-			setCanSubmit(true)
-		} else {
-			setCanSubmit(false)
-		}
-	}, [email, password, auth.isLoading])
 
 	const handleForgotPassword = () => history.push("/auth/forgot-password")
 	const handleSignUp = () => history.push("/auth/register")
-	const handleLogin = () => {
-		if (canSubmit) {
-			login({ email, password }, stayConnected)
-			setHasSubmitted(true)
-		}
-	}
+	const handleLogin = () => login({ email, password }, stayLoggedIn)
+
+	const stayLoggedInCheckbox = (
+		<CheckBox
+			onChange={setStayLoggedIn}
+			checked={stayLoggedIn}
+			label="Rester connecté"
+		/>
+	)
 
 	return (
-		<Column
-			style={Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }}
-		>
-			<Group of="component">
+		<Column of="group">
+			<Column of="component">
 				<Heading level="1">Connecte-toi à ton compte Smartsplit</Heading>
 
 				<Paragraph>Entre tes informations ci-dessous</Paragraph>
-			</Group>
+			</Column>
 
-			<Group of="group">
-				{!auth.isLoading && hasSubmitted && auth.error && (
-					<Text style={{ color: Colors.progressBar.orangered }}>
-						{auth.error.message}
-					</Text>
-				)}
-
-				{!auth.isLoading && auth.data && auth.data.accessToken && (
-					<Redirect to="/dashboard/" />
-				)}
-
+			<Column of="group">
 				<TextField
 					label="Mon courriel"
 					placeholder="nom@example.com"
@@ -88,20 +83,17 @@ export function LoginForm({ auth, login }) {
 						value={password}
 					/>
 
-					<TouchableWithoutFeedback onPress={handleForgotPassword}>
-						<Text link small>
-							Mot de passe oublié ?
-						</Text>
-					</TouchableWithoutFeedback>
+					<Link link small onClick={handleForgotPassword}>
+						Mot de passe oublié ?
+					</Link>
 				</Column>
 
-				<LoginButtonContainer of="group">
-					<CheckBox onChange={setStayConnected} checked={stayConnected}>
-						<Text primary regular>
-							Rester connecté
-						</Text>
-					</CheckBox>
-					<Flex />
+				{errorMessage && <Text error>{errorMessage}</Text>}
+
+				<Platform web={Row} native={Column} of="group">
+					{Platform.web && stayLoggedInCheckbox}
+
+					{Platform.web && <Flex />}
 
 					<Button
 						text="Me connecter"
@@ -110,17 +102,17 @@ export function LoginForm({ auth, login }) {
 						style={Platform.OS !== "web" && { flex: 1 }}
 						size={buttonSize}
 					/>
-				</LoginButtonContainer>
 
-				{Platform.OS !== "web" && (
-					<Button
-						tertiary
-						text="Créer mon compte"
-						onClick={handleSignUp}
-						size={buttonSize}
-					/>
-				)}
-			</Group>
+					{Platform.native && (
+						<Button
+							tertiary
+							text="Créer mon compte"
+							onClick={handleSignUp}
+							size={buttonSize}
+						/>
+					)}
+				</Platform>
+			</Column>
 		</Column>
 	)
 }
@@ -139,23 +131,18 @@ export default function LoginPage(props) {
 	const [showModal, setModal] = useState(false)
 
 	return (
-		<>
-			<LoginModal visible={showModal} {...props} />
-
-			{Platform.OS === "web" && (
-				<PublicNavBarWeb>
+		<PublicPageLayout
+			navigation={
+				<>
+					<Button text="Test" onClick={() => setModal(true)} />
 					<Text secondary>Pas de compte ?</Text>
-					<View>
-						<Button tertiary text="Crée un compte" onClick={handleSignUp} />
-					</View>
+					<Button tertiary text="Crée un compte" onClick={handleSignUp} />
 					<Button secondary text="English" />
-				</PublicNavBarWeb>
-			)}
-
-			<Scrollable>
-				<Button text="Test" onClick={() => setModal(true)} />
-				<LoginForm {...props} />
-			</Scrollable>
-		</>
+				</>
+			}
+		>
+			<LoginModal visible={showModal} {...props} />
+			<LoginForm {...props} />
+		</PublicPageLayout>
 	)
 }
