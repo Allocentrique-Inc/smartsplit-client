@@ -23,7 +23,10 @@ const RouterImpl = Platform.select({
 
 const fontMap = {
 	"IBMPlexSans-Regular": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Regular.ttf"),
+	"IBMPlexSans-RegularItalic": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Italic.ttf"),
 	"IBMPlexSans-Medium": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Medium.ttf"),
+	"IBMPlexSans-MediumItalic": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-MediumItalic.ttf"),
+	"IBMPlexSans-BoldItalic": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-BoldItalic.ttf"),
 	"IBMPlexSans-Bold": require("./assets/fonts/IBM-Plex-Sans/IBMPlexSans-Bold.ttf"),
 }
 

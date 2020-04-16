@@ -30,27 +30,21 @@ export function Text(props) {
 		TypographyStyles.text[small ? "small" : "medium"],
 	]
 
-	if (regular) styles.push(TypographyStyles.text.regular)
+	function add(key) {
+		styles.push(TypographyStyles.text[key])
+	}
 
-	if (heavy) styles.push(TypographyStyles.text.heavy)
+	if (bold) add(italic ? "bold_italic" : "bold")
+	else if (heavy) add(italic ? "heavy_italic" : "heavy")
+	else add(italic ? "regular_italic" : "regular")
 
-	if (bold) styles.push(TypographyStyles.text.bold)
-
-	if (italic) styles.push(TypographyStyles.text.italic)
-
-	if (reversed) styles.push(TypographyStyles.text.reversed)
-
-	if (secondary) styles.push(TypographyStyles.text.secondary)
-
-	if (tertiary) styles.push(TypographyStyles.text.tertiary)
-
-	if (primary) styles.push(TypographyStyles.text.primary)
-
-	if (link) styles.push(TypographyStyles.text.link)
-
-	if (action) styles.push(TypographyStyles.text.action)
-
-	if (error) styles.push(TypographyStyles.text.error)
+	if (reversed) add("reversed")
+	if (secondary) add("secondary")
+	if (tertiary) add("tertiary")
+	if (primary) add("primary")
+	if (link) add("link")
+	if (action) add("action")
+	if (error) add("error")
 
 	if (style) styles.push(style)
 

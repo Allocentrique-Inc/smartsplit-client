@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native"
 import { Typography, Colors } from "../theme"
 
-function fontWithWeight(font, weight) {
+function getFont(font, weight, italic = false) {
 	return (
 		font +
 		"-" +
@@ -9,27 +9,36 @@ function fontWithWeight(font, weight) {
 			400: "Regular",
 			500: "Medium",
 			700: "Bold",
-		}[weight]
+		}[weight] +
+		(italic ? "Italic" : "")
 	)
 }
 
 const TypographyStyles = {
 	text: {
 		base: {
-			fontFamily: fontWithWeight(Typography.font, Typography.Weight.normal),
+			fontFamily: getFont(Typography.font, Typography.Weight.normal, false),
 			color: Colors.primary,
 		},
 
+		regular_italic: {
+			fontFamily: getFont(Typography.font, Typography.Weight.normal, true),
+		},
+
 		heavy: {
-			fontFamily: fontWithWeight(Typography.font, Typography.Weight.heavy),
+			fontFamily: getFont(Typography.font, Typography.Weight.heavy, false),
+		},
+
+		heavy_italic: {
+			fontFamily: getFont(Typography.font, Typography.Weight.heavy, true),
 		},
 
 		bold: {
-			fontFamily: fontWithWeight(Typography.font, Typography.Weight.bold),
+			fontFamily: getFont(Typography.font, Typography.Weight.bold, false),
 		},
 
-		italic: {
-			fontStyle: "italic",
+		bold_italic: {
+			fontFamily: getFont(Typography.font, Typography.Weight.bold, true),
 		},
 
 		reversed: {
@@ -72,7 +81,7 @@ for (let [key, value] of Object.entries(Typography.titles)) {
 	TypographyStyles.headings[key] = {
 		fontSize: value.size,
 		lineHeight: value.height,
-		fontFamily: fontWithWeight(Typography.font, value.weight),
+		fontFamily: getFont(Typography.font, value.weight, false),
 	}
 }
 

@@ -126,20 +126,19 @@ export function ChangePasswordForm({ state, resetPassword, match }) {
 }
 
 export function ChangePasswordPage(props) {
-	const openSessionButton = (
-		<Button
-			tertiary
-			text="Ouvrir une session"
-			onClick={() => history.push("/auth/login")}
-		/>
-	)
+	const history = useHistory()
+	const navigateToLogin = () => history.push("/auth/login")
 
 	return (
 		<PublicPageLayout
 			navigation={
 				<>
 					<Text secondary>Déjà Membre ?</Text>
-					{openSessionButton}
+					<Button
+						tertiary
+						text="Ouvrir une session"
+						onClick={navigateToLogin}
+					/>
 					<Button secondary text="English" />
 				</>
 			}
