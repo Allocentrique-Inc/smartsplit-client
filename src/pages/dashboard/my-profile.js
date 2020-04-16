@@ -6,7 +6,7 @@ import { Colors } from "../../theme"
 import { Text } from "../../text"
 import { TextField } from "../../forms"
 import Button from "../../widgets/button"
-import ChangePasswordModal from "./change-password"
+import ChangePasswordModal from "./ChangePasswordContainer"
 
 export default function MyProfilePage() {
 	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
@@ -76,7 +76,7 @@ export default function MyProfilePage() {
 
 			{changePasswordModalOpened && (
 				<ChangePasswordModal
-					onCloseAction={() => setChangePasswordModalOpened(false)}
+					onRequestClose={() => setChangePasswordModalOpened(false)}
 				/>
 			)}
 		</Group>

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { TouchableOpacity, Platform } from "react-native"
 import { DialogModal } from "../../widgets/modal"
 import { Modal } from "../../widgets/modal"
@@ -14,15 +14,42 @@ import {
 	passwordStrengthIndicator,
 } from "../auth/register"
 import zxcvbn from "zxcvbn"
+import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 
-export function ChangePasswordModal(props) {
+export function ChangePasswordModal({ state, changePassword, ...props }) {
 	const [Password, setPassword] = useState("")
 	const [NewPassword, setNewPassword] = useState("")
 	const [ConfirmNewPassword, setConfirmNewPassword] = useState("")
+	const [canSubmit, setCanSubmit] = useState(false)
 	const score = zxcvbn(Password)
 		.score /* passer le mot de passe dans zxcvbn, valeur */
 
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+
+	const handleSubmit = () => {
+		if (!canSubmit) return false
+		changePassword({ password: NewPassword })
+	}
+
+	useEffect(() => {
+		let currentPasswordValid = notEmptyValidator(Password)
+		let newPasswordsValid =
+			notEmptyValidator(NewPassword) &&
+			notEmptyValidator(ConfirmNewPassword) &&
+			sameValidator(NewPassword, ConfirmNewPassword)
+
+		if (currentPasswordValid && newPasswordsValid && !state.isLoading) {
+			setCanSubmit(true)
+		} else {
+			setCanSubmit(false)
+		}
+	}, [Password, NewPassword, ConfirmNewPassword, state.isLoading])
+
+	useEffect(() => {
+		if (state.data && !state.isLoading) {
+			props.onRequestClose()
+		}
+	}, [state.data])
 
 	return (
 		<DialogModal
@@ -31,23 +58,20 @@ export function ChangePasswordModal(props) {
 			title="Changer le mot de passe"
 			buttons={
 				<>
-					{NewPassword !== ConfirmNewPassword ||
-					NewPassword.length === 0 ||
-					ConfirmNewPassword.length === 0 ? (
-						<Button
-							text="Enregister"
-							disabled={true}
-							size={buttonSize}
-							style={Platform.OS !== "web" && { flex: 1 }}
-						/>
-					) : (
-						<Button
-							text="Enregistrer"
-							onClick={props.onRequestClose}
-							size={buttonSize}
-							style={Platform.OS !== "web" && { flex: 1 }}
-						/>
-					)}
+					<Button
+						text="Annuler"
+						tertiary
+						onClick={props.onRequestClose}
+						size={buttonSize}
+						style={Platform.OS !== "web" && { flex: 1 }}
+					/>
+					<Button
+						text="Sauvegarder"
+						disabled={!canSubmit}
+						onClick={handleSubmit}
+						size={buttonSize}
+						style={Platform.OS !== "web" && { flex: 1 }}
+					/>
 				</>
 			}
 		>
@@ -94,7 +118,7 @@ export function ChangePasswordModal(props) {
 	)
 }
 
-export default function ChangePasswordPage(props) {
+export function ChangePasswordPage(props) {
 	const [showModal, setModal] = useState(false)
 	return (
 		<>
