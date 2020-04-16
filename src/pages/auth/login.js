@@ -99,7 +99,7 @@ export function LoginForm({ auth, login }) {
 						text="Me connecter"
 						onClick={handleLogin}
 						disabled={!canSubmit}
-						style={Platform.OS !== "web" && { flex: 1 }}
+						style={Platform.native && { flex: 1 }}
 						size={buttonSize}
 					/>
 
