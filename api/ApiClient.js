@@ -5,21 +5,19 @@ export const axiosClient = axios.create({
 	baseURL: API_BASE_URL,
 })
 axiosClient.interceptors.response.use(
-	(response) => {
+	function (response) {
 		return response
 	},
 	function (error) {
-		// https://github.com/axios/axios#handling-errors
-		// error.response = requete envoyé, reçu une réponse autre que 200.
-		// cas le plus commun
-		if (error.response) {
-			return Promise.reject(error.response)
-			// error.request = requete envoyé, pas reçu de réponse (offline?)
-		} else if (error.request) {
-			return Promise.reject(error.request)
-			// error.message = requete jamais même envoyé
-		} else {
-			return Promise.reject(error.message)
+		// Si on a un response, et qu'elle contient du data, alors on utilise le data comme erreur
+		if (error.response && error.response.data) {
+			// L'API retourne un {code, message}
+			return Promise.reject(error.response.data)
+		}
+
+		// Sinon on renvoie l'erreur originale
+		else {
+			return Promise.reject(error)
 		}
 	}
 )

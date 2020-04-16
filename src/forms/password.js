@@ -13,6 +13,7 @@ import EyeIcon from "../svg/eye"
 import { Metrics } from "../theme"
 
 function FramedPasswordField(props) {
+	const { error, ...inputProps } = props
 	const focused = useFrameFocus()
 	const [reveal, setReveal] = useState(false)
 
@@ -23,9 +24,9 @@ function FramedPasswordField(props) {
 	}
 
 	return (
-		<Frame focused={focused.value}>
+		<Frame focused={focused.value} error={error}>
 			<TextInput
-				{...props}
+				{...inputProps}
 				style={FormStyles.input_text}
 				secureTextEntry={!reveal}
 				{...focused.props}

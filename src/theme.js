@@ -57,6 +57,7 @@ export const Metrics = {
 
 export const Colors = {
 	action: "#2DA84F",
+	error: "#AC1616",
 	pochette: "#F5752C",
 	primary: "#203548",
 	primary_reversed: "#FFFFFF",

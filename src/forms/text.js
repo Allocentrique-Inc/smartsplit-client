@@ -4,12 +4,13 @@ import Label from "./label"
 import Frame, { useFrameFocus } from "./frame"
 import FormStyles from "../styles/forms"
 
-function TextFieldRender(props) {
+function FramedTextField(props) {
+	const { error, ...inputProps } = props
 	const focused = useFrameFocus()
 
 	return (
-		<Frame focused={focused.value}>
-			<BasicTextField {...props} {...focused.props} />
+		<Frame focused={focused.value} error={error}>
+			<BasicTextField {...inputProps} {...focused.props} />
 		</Frame>
 	)
 }
@@ -27,5 +28,5 @@ export function BasicTextField(props) {
 }
 
 export default function TextField(props) {
-	return <Label {...props} component={TextFieldRender} />
+	return <Label {...props} component={FramedTextField} />
 }

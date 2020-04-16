@@ -4,7 +4,7 @@ import { Text } from "../../text"
 import { DialogModal } from "../../widgets/modal"
 import { Modal } from "../../widgets/modal"
 import Button from "../../widgets/button"
-import HighFive from "../../svg/high-five"
+import HighFive from "../../svg/high-five.svg"
 import { Group } from "../../layout"
 import Scrollable from "../../widgets/scrollable"
 

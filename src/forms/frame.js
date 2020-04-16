@@ -4,11 +4,12 @@ import FormStyles from "../styles/forms"
 import MetricsStyles from "../styles/metrics"
 
 export default function Frame(props) {
-	const { focused, style, children, viewRef, ...nextProps } = props
+	const { focused, error, style, children, viewRef, ...nextProps } = props
 
 	const combinedStyles = [
 		FormStyles.frame,
 		focused ? FormStyles.frame_focused : null,
+		error ? FormStyles.frame_error : null,
 		style,
 	]
 

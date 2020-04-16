@@ -88,43 +88,61 @@ for (let size in Metrics.size) {
 
 ButtonStyles.frame_round = StyleSheet.create(ButtonStyles.frame_round)
 
-export function Button(props) {
-	let frameStyle = [ButtonStyles.frame]
-	let textStyle = []
-	let content = props.children
+export function Button({
+	size,
+	large,
+	small,
+	icon,
+	text,
+	primary,
+	secondary,
+	tertiary,
+	disabled,
+	onClick,
+	style,
+	children,
+}) {
+	const frameStyle = [ButtonStyles.frame]
+	const textStyle = []
+	let content = children
 
-	if (props.large || props.size === "large")
-		frameStyle.push(ButtonStyles["frame_large"])
-	else if (props.small || props.size === "small")
-		frameStyle.push(ButtonStyles["frame_small"])
-	else frameStyle.push(ButtonStyles["frame_medium"])
+	const addFrame = (key) => frameStyle.push(ButtonStyles[key])
+	const addText = (key) => textStyle.push(ButtonStyles[key])
 
-	if (props.icon && !props.text && !content) {
-		frameStyle.push(ButtonStyles.frame_icon)
-	} else if (props.disabled) {
-		frameStyle.push(ButtonStyles.frame_disabled)
-		textStyle.push(ButtonStyles.text_disabled)
-	} else if (props.primary) {
-		frameStyle.push(ButtonStyles.frame_primary)
-		textStyle.push(ButtonStyles.text_primary)
-	} else if (props.secondary) {
-		frameStyle.push(ButtonStyles.frame_secondary)
-		textStyle.push(ButtonStyles.text_secondary)
-	} else if (props.tertiary) {
-		textStyle.push(ButtonStyles.text_secondary)
+	if (large || size === "large") {
+		addFrame("frame_large")
+	} else if (small || size === "small") {
+		addFrame("frame_small")
 	} else {
-		frameStyle.push(ButtonStyles.frame_primary)
-		textStyle.push(ButtonStyles.text_primary)
+		addFrame("frame_medium")
+	}
+
+	if (icon && !text && !content) {
+		addFrame("frame_icon")
+	} else if (disabled) {
+		addFrame("frame_disabled")
+		addText("text_disabled")
+	} else if (primary) {
+		addFrame("frame_primary")
+		addText("text_primary")
+	} else if (secondary) {
+		addFrame("frame_secondary")
+		addText("text_secondary")
+	} else if (tertiary) {
+		addText("text_secondary")
+	} else {
+		addFrame("frame_primary")
+		addText("text_primary")
 	}
 
 	if (!content) {
 		content = (
-			<Row of="component" style={[frameStyle, props.style]}>
-				{props.icon}
-				{props.text && (
+			<Row of="component" style={[frameStyle, style]}>
+				{icon}
+				{text && (
 					<View style={ButtonStyles.text_container}>
-						<Text heavy small={props.small} style={textStyle}>
-							{props.text}
+						<Text heavy small={small} style={textStyle}>
+							{text}
 						</Text>
 					</View>
 				)}
@@ -132,8 +150,12 @@ export function Button(props) {
 		)
 	}
 
+	const handleClick = () => {
+		!disabled && onClick && onClick()
+	}
+
 	return (
-		<TouchableWithoutFeedback onPress={props.onClick}>
+		<TouchableWithoutFeedback onPress={handleClick}>
 			{content}
 		</TouchableWithoutFeedback>
 	)

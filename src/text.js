@@ -1,5 +1,5 @@
 import React from "react"
-import { Text as TextView } from "react-native"
+import { Text as TextView, TouchableWithoutFeedback } from "react-native"
 import TypographyStyles from "./styles/typography"
 import MetricsStyles from "./styles/metrics"
 
@@ -19,6 +19,7 @@ export function Text(props) {
 		secondary,
 		tertiary,
 		action,
+		error,
 		primary,
 		link,
 		...nextProps
@@ -28,6 +29,8 @@ export function Text(props) {
 		TypographyStyles.text.base,
 		TypographyStyles.text[small ? "small" : "medium"],
 	]
+
+	if (regular) styles.push(TypographyStyles.text.regular)
 
 	if (heavy) styles.push(TypographyStyles.text.heavy)
 
@@ -41,13 +44,13 @@ export function Text(props) {
 
 	if (tertiary) styles.push(TypographyStyles.text.tertiary)
 
-	if (action) styles.push(TypographyStyles.text.action)
-
 	if (primary) styles.push(TypographyStyles.text.primary)
 
-	if (regular) styles.push(TypographyStyles.text.regular)
-
 	if (link) styles.push(TypographyStyles.text.link)
+
+	if (action) styles.push(TypographyStyles.text.action)
+
+	if (error) styles.push(TypographyStyles.text.error)
 
 	if (style) styles.push(style)
 
@@ -55,6 +58,16 @@ export function Text(props) {
 		<TextView style={styles} {...nextProps}>
 			{props.children}
 		</TextView>
+	)
+}
+
+export function Link(props) {
+	const { onClick, children, ...nextProps } = props
+
+	return (
+		<TouchableWithoutFeedback link onPress={props.onClick}>
+			<Text {...nextProps}>{children}</Text>
+		</TouchableWithoutFeedback>
 	)
 }
 

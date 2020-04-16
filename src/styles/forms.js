@@ -24,6 +24,10 @@ const FormStyles = StyleSheet.create({
 		borderColor: Colors.action,
 	},
 
+	frame_error: {
+		borderColor: Colors.error,
+	},
+
 	input_text: {
 		flex: 1,
 		...Platform.select({

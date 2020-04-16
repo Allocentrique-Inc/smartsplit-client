@@ -47,9 +47,14 @@ const TypographyStyles = {
 		action: {
 			color: Colors.action,
 		},
+
 		link: {
 			color: Colors.action,
 			fontWeight: Typography.Weight.bold,
+		},
+
+		error: {
+			color: Colors.error,
 		},
 	},
 

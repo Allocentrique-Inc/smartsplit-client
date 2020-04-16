@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { View, Platform } from "react-native"
+import { View } from "react-native"
 import { useHistory } from "react-router-dom"
 import Button from "../../widgets/button"
 import Scrollable from "../../widgets/scrollable"
+import { Platform, Web, Native } from "../../platform"
 import { DialogModal } from "../../widgets/modal"
 import { TextDivider, Section, Column, Row, Group, Flex } from "../../layout"
 import { TextField, PasswordField, CheckBox } from "../../forms"
-import { Heading, Paragraph, Text } from "../../text"
+import { Heading, Paragraph, Text, Link } from "../../text"
+import PublicPageLayout from "../../layout/public-page"
 import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import ProgressBar from "../../widgets/progress-bar"
 import FacebookIcon from "../../svg/facebook"
@@ -14,6 +16,7 @@ import GoogleIcon from "../../svg/google"
 import { Metrics, Colors } from "../../theme"
 import zxcvbn from "zxcvbn"
 import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
+import { CheckEmailModal } from "./check-email"
 
 export function passwordBarColor(score) {
 	switch (score) {
@@ -82,55 +85,80 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 	)
 }
 
-export default function Register({ users, registerUser }) {
+export function RegisterForm({ users, registerUser }) {
 	const history = useHistory()
+	const registration = users.registerUser
+
+	const [showTerms, setShowTerms] = useState(false)
+
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
 	const [passwordRepeat, setPasswordRepeat] = useState("")
-	const [showTerms, setShowTerms] = useState(false)
-	const [showCheckEmail, setShowCheckEmail] = useState(false)
 	const [agreeTerms, setAgreeTerms] = useState(false)
+
+	const [errorEmail, setErrorEmail] = useState(null)
+	const [errorPassword, setErrorPassword] = useState(null)
+	const [errorPasswordRepeat, setErrorPasswordRepeat] = useState(null)
+
 	const score = zxcvbn(password).score
-	const [canSubmit, setCanSubmit] = useState(false)
-	const [hasSubmitted, setHasSubmitted] = useState(false)
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+
+	const handleFinished = () => history.push("/auth/login")
+	const handleForgotPassword = () => history.push("/auth/forgot-password")
+
+	const validEmail = notEmptyValidator(email)
+	const validPassword = notEmptyValidator(password) && score > 1
+	const validPasswordRepeat = sameValidator(password, passwordRepeat)
+
+	const canSubmit =
+		!registration.isLoading &&
+		notEmptyValidator(email) &&
+		notEmptyValidator(password) &&
+		notEmptyValidator(passwordRepeat) &&
+		agreeTerms
+
+	const error = !registration.isLoading && registration.error
+	const errorCode = error && error.code
+
+	const errorEmailUsed = errorCode === "user_conflict" && (
+		<Text small error>
+			Ce courriel est déjà utilisé.{" "}
+			<Link small error bold onClick={handleForgotPassword}>
+				As-tu oublié ton mot de passe
+			</Link>
+			?
+		</Text>
+	)
+
+	const errorMessage = !errorEmailUsed && error && error.message
 
 	const handleRegister = () => {
-		if (canSubmit) {
+		setErrorEmail(
+			validEmail ? null : "Vous devez entrer votre adresse courriel"
+		)
+		setErrorPassword(
+			validPassword
+				? null
+				: "Le mot de passe doit comporter au moins 8 caractères"
+		)
+		setErrorPasswordRepeat(
+			validPasswordRepeat
+				? null
+				: "Les deux mots de passe doivent être identiques"
+		)
+
+		if (canSubmit && validEmail && validPassword && validPasswordRepeat) {
 			registerUser({ email, password, locale: "fr" })
-			setHasSubmitted(true)
 		}
 	}
 
-	useEffect(() => {
-		let emailValid = notEmptyValidator(email)
-		let passwordsValid =
-			notEmptyValidator(password) &&
-			notEmptyValidator(passwordRepeat) &&
-			sameValidator(password, passwordRepeat)
-
-		if (
-			emailValid &&
-			passwordsValid &&
-			!users.registerUser.isLoading &&
-			agreeTerms
-		) {
-			setCanSubmit(true)
-		} else {
-			setCanSubmit(false)
-		}
-	}, [
-		email,
-		password,
-		passwordRepeat,
-		users.registerUser.isLoading,
-		agreeTerms,
-	])
-
-	const RegisterButtonContainer = Platform.OS === "web" ? Row : Column
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-
 	return (
 		<>
+			<CheckEmailModal
+				visible={!!registration.data}
+				onRequestClose={handleFinished}
+			/>
+
 			<TermsConditionsModal
 				visible={showTerms}
 				onRequestClose={() => setShowTerms(false)}
@@ -144,8 +172,121 @@ export default function Register({ users, registerUser }) {
 				}}
 			/>
 
-			{Platform.OS === "web" && (
-				<PublicNavBarWeb>
+			<Column as={Group} of={Platform.OS === "web" ? "group" : "component"}>
+				<Column of="component">
+					<Heading level="1">En route vers la professionnalisation</Heading>
+					<Paragraph>
+						Tu es à un clic de pouvoir documenter ta musique et de partager tes
+						droits avec tes contributeurs.
+					</Paragraph>
+					<View />
+				</Column>
+
+				<Column of="inside">
+					<Button
+						style={{ backgroundColor: "#4267B2" }}
+						icon={<FacebookIcon />}
+						text="Connexion avec Facebook"
+					/>
+
+					<Button
+						style={{ backgroundColor: "#4285F4" }}
+						icon={<GoogleIcon />}
+						text="Connnexion avec Google"
+					/>
+				</Column>
+
+				<TextDivider text="ou" />
+
+				<Column of="group">
+					<TextField
+						label="Entre ton courriel"
+						placeholder="nom@example.com"
+						onChangeText={setEmail}
+						error={errorEmailUsed}
+					/>
+
+					<Column of="inside">
+						<PasswordField
+							value={password}
+							onChangeText={setPassword}
+							label="Choisis ton mot de passe"
+							placeholder="8 caractères minimum"
+							error={errorPassword}
+						/>
+
+						<Row style={{ alignItems: "center" }}>
+							<Text secondary small style={{ flex: 3 }}>
+								{passwordStrengthIndicator(score)}
+							</Text>
+							<Flex />
+							<ProgressBar
+								size="tiny"
+								style={{ flex: 1 }}
+								color={passwordBarColor(score)}
+								progress={passwordProgress(score)}
+							/>
+						</Row>
+					</Column>
+
+					<PasswordField
+						placeholder="Confirme ton mot de passe"
+						onChangeText={setPasswordRepeat}
+						error={errorPasswordRepeat}
+					/>
+
+					<CheckBox onChange={setAgreeTerms} checked={agreeTerms}>
+						<Text>
+							J'ai lu et j'accepte les
+							<Link link onClick={() => setShowTerms(true)}>
+								{" "}
+								Termes et conditions d'utilisation{" "}
+							</Link>
+							et la
+							<Link link onClick={() => setShowTerms(true)}>
+								{" "}
+								Politique sur la vie privée{" "}
+							</Link>
+							de Smartsplit.
+						</Text>
+					</CheckBox>
+
+					<CheckBox>
+						<Text primary regular>
+							Rester connecté
+						</Text>
+					</CheckBox>
+
+					{errorMessage && <Text error>{errorMessage}</Text>}
+
+					<Platform web={Row} native={Column} of="group">
+						<Flex />
+						<Button
+							text="Créer mon compte"
+							onClick={handleRegister}
+							disabled={!agreeTerms || !canSubmit}
+							size={buttonSize}
+						/>
+
+						<Native
+							component={Button}
+							tertiary
+							text="J'ai déjà un compte"
+							onClick={() => history.push("/auth/login")}
+							size={buttonSize}
+						/>
+					</Platform>
+				</Column>
+			</Column>
+		</>
+	)
+}
+
+export default function RegisterPage(props) {
+	return (
+		<PublicPageLayout
+			navigation={
+				<>
 					<Text secondary>Déjà Membre ?</Text>
 					<Button
 						tertiary
@@ -153,131 +294,10 @@ export default function Register({ users, registerUser }) {
 						onClick={() => history.push("/auth/login")}
 					/>
 					<Button secondary text="English" />
-				</PublicNavBarWeb>
-			)}
-
-			<Scrollable>
-				<Group
-					of={Platform.OS === "web" ? "group" : "component"}
-					style={
-						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
-					}
-				>
-					<Column of="component">
-						<Heading level="1">En route vers la professionnalisation</Heading>
-						<Paragraph>
-							Tu es à un clic de pouvoir documenter ta musique et de partager
-							tes droits avec tes contributeurs.
-						</Paragraph>
-						<View />
-					</Column>
-
-					<Column of="inside">
-						<Button
-							style={{ backgroundColor: "#4267B2" }}
-							icon={<FacebookIcon />}
-							text="Connexion avec Facebook"
-						/>
-
-						<Button
-							style={{ backgroundColor: "#4285F4" }}
-							icon={<GoogleIcon />}
-							text="Connnexion avec Google"
-						/>
-					</Column>
-
-					<TextDivider text="ou" />
-
-					{!users.registerUser.isLoading &&
-						hasSubmitted &&
-						users.registerUser.error && (
-							<Text
-								style={{
-									color: Colors.progressBar.orangered,
-								}}
-							>
-								{users.registerUser.error.message}
-							</Text>
-						)}
-
-					<Column of="group">
-						<TextField
-							label="Entre ton courriel"
-							placeholder="nom@example.com"
-							onChangeText={setEmail}
-							value={email}
-						/>
-
-						<Column of="inside">
-							<PasswordField
-								value={password} //pour avoir toujours valeur mot de passe, reçoit valeur password
-								onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
-								label="Choisis ton mot de passe"
-								placeholder=""
-							/>
-
-							<Row style={{ alignItems: "center" }}>
-								<Text secondary small style={{ flex: 3 }}>
-									{passwordStrengthIndicator(score)}
-								</Text>
-								<Flex />
-								<ProgressBar
-									size="tiny"
-									style={{ flex: 1 }}
-									color={passwordBarColor(score)}
-									progress={passwordProgress(score)}
-								/>
-							</Row>
-						</Column>
-
-						<PasswordField
-							label="Répète ton mot de passe"
-							placeholder=""
-							onChangeText={setPasswordRepeat}
-							value={passwordRepeat}
-						/>
-
-						<CheckBox onChange={setAgreeTerms} checked={agreeTerms}>
-							<Text>
-								J'ai lu et j'accepte les
-								<Text link onClick={() => setShowTerms(true)}>
-									{" "}
-									Termes et conditions d'utilisation{" "}
-								</Text>
-								et la
-								<Text link onClick={() => setShowTerms(true)}>
-									{" "}
-									Politique sur la vie privée{" "}
-								</Text>
-								de Smartsplit.
-							</Text>
-						</CheckBox>
-
-						<RegisterButtonContainer of="group">
-							<CheckBox>
-								<Text primary regular>
-									Rester connecté
-								</Text>
-							</CheckBox>
-							<Flex />
-							<Button
-								text="Créer mon compte"
-								onClick={handleRegister}
-								disabled={!canSubmit}
-								size={buttonSize}
-							/>
-							{Platform.OS !== "web" && (
-								<Button
-									tertiary
-									text="J'ai déjà un compte"
-									onClick={() => history.push("/auth/login")}
-									size={buttonSize}
-								/>
-							)}
-						</RegisterButtonContainer>
-					</Column>
-				</Group>
-			</Scrollable>
-		</>
+				</>
+			}
+		>
+			<RegisterForm {...props} />
+		</PublicPageLayout>
 	)
 }

@@ -18,6 +18,7 @@ export default function Label(props) {
 	const {
 		style,
 		childStyle,
+		error,
 		label,
 		label_hint,
 		children,
@@ -29,7 +30,7 @@ export default function Label(props) {
 
 	const ChildComponent = component
 	const inputComponent = ChildComponent ? (
-		<ChildComponent {...childProps} style={childStyle} />
+		<ChildComponent {...childProps} style={childStyle} error={error} />
 	) : (
 		children
 	)
@@ -44,6 +45,14 @@ export default function Label(props) {
 			)}
 
 			{inputComponent}
+
+			{typeof error === "string" ? (
+				<Text error small>
+					{error}
+				</Text>
+			) : (
+				error
+			)}
 
 			{undertext && (
 				<Text
