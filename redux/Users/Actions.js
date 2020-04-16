@@ -95,6 +95,13 @@ export function resetPassword(passwordDetails) {
 
 		try {
 			const response = await UsersAPI.passwordReset(passwordDetails)
+			if (response.data && response.data.accessToken) {
+				saveAuth(response.data)
+				dispatch({
+					type: "LOGIN_USER_SUCCESS",
+					payload: response.data,
+				})
+			}
 			dispatch(resetPassword_success(response.data))
 		} catch (error) {
 			if (error.data) dispatch(resetPassword_error(error.data))
@@ -111,7 +118,7 @@ export function activateAccount(token) {
 			const response = await UsersAPI.activateAccount(token)
 
 			if (response.data && response.data.accessToken) {
-				saveAuth(response.data.accessToken)
+				saveAuth(response.data)
 				dispatch({
 					type: "LOGIN_USER_SUCCESS",
 					payload: response.data,
