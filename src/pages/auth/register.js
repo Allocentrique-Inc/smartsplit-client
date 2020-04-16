@@ -46,7 +46,6 @@ export function passwordStrengthIndicator(score) {
 		case 4:
 		default:
 			return "Mot de passe acceptable"
-			return "Mot de passe acceptable"
 	}
 }
 
