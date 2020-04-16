@@ -19,6 +19,11 @@ const INITIAL_STATE = {
 		error: null,
 		isLoading: false,
 	},
+	updateUser: {
+		data: null,
+		error: null,
+		isLoading: false,
+	},
 }
 
 export default function (state = INITIAL_STATE, action) {
@@ -143,6 +148,37 @@ export default function (state = INITIAL_STATE, action) {
 				isLoading: false,
 				error: false,
 			}
+
+			break
+
+		case "UPDATE_USER_REQUEST":
+			newState.updateUser = {
+				...state.updateUser,
+				data: null,
+				isLoading: true,
+				error: null,
+			}
+
+			break
+
+		case "UPDATE_USER_SUCCESS":
+			newState.updateUser = {
+				...state.updateUser,
+				error: null,
+				isLoading: false,
+			}
+
+			if (action.payload) newState.updateUser.data = action.payload
+
+			break
+
+		case "UPDATE_USER_ERROR":
+			newState.updateUser = {
+				...state.updateUser,
+				isLoading: false,
+			}
+
+			if (action.payload) newState.updateUser.error = action.payload
 
 			break
 

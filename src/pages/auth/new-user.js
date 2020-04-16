@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Platform, View, ScrollView } from "react-native"
 import { Text, Heading, Paragraph } from "../../text"
+import { useHistory } from "react-router-dom"
 import { Group, Row, Column, Flex, Section } from "../../layout"
 import { TextField } from "../../forms"
 import Button from "../../widgets/button"
@@ -9,8 +10,13 @@ import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import { Metrics, Colors } from "../../theme"
 import UserAvatar from "../../smartsplit/user/avatar"
 import PenIcon from "../../svg/pen"
+import { Redirect } from "react-router"
 
-export default function NewUser(props) {
+import { notEmptyValidator } from "../../../helpers/validators"
+
+export default function NewUser({ state, updateUser, user, ...props }) {
+	let history = useHistory()
+
 	const [firstName, setFirstName] = useState("")
 	const [lastName, setLastName] = useState("")
 	const initials = (firstName[0] || "") + (lastName[0] || "")
@@ -19,6 +25,25 @@ export default function NewUser(props) {
 
 	const NameFields = Platform.OS === "web" ? Row : Column
 
+	const [hasSubmitted, setHasSubmitted] = useState(false)
+	const submitSuccess = !state.isLoading && !state.error && state.data
+	const canSubmit =
+		notEmptyValidator(firstName) &&
+		notEmptyValidator(lastName) &&
+		!state.isLoading
+
+	const handleSubmit = () => {
+		if (!canSubmit) return false
+		updateUser({
+			user_id: user.user_id,
+			firstName,
+			lastName,
+			locale: user.locale,
+		})
+	}
+
+	if (submitSuccess) return <Redirect to="/" />
+
 	return (
 		<>
 			<ScrollView>
@@ -26,7 +51,11 @@ export default function NewUser(props) {
 					<PublicNavBarWeb>
 						{Platform.OS === "web" && (
 							<>
-								<Button tertiary text="Passer cette étape" />
+								<Button
+									tertiary
+									text="Passer cette étape"
+									onClick={() => history.push("/")}
+								/>
 								<Button secondary text="English" />
 							</>
 						)}
@@ -106,6 +135,8 @@ export default function NewUser(props) {
 							text="C'est parti !"
 							style={Platform.OS !== "web" && { flex: 1 }}
 							size={buttonSize}
+							disabled={!canSubmit}
+							onClick={handleSubmit}
 						/>
 					</Row>
 					{Platform.OS !== "web" && (

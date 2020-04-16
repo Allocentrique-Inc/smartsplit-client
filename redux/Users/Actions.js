@@ -137,3 +137,37 @@ export function activateAccount(token) {
 		}
 	}
 }
+
+export function updateUser_request() {
+	return {
+		type: "UPDATE_USER_REQUEST",
+	}
+}
+
+export function updateUser_success(data) {
+	return {
+		type: "UPDATE_USER_SUCCESS",
+		payload: data,
+	}
+}
+
+export function updateUser_error(err) {
+	return {
+		type: "UPDATE_USER_ERROR",
+		payload: err,
+	}
+}
+
+export function updateUser(details) {
+	return async function (dispatch) {
+		dispatch(updateUser_request())
+
+		try {
+			const response = await UsersAPI.updateUser(details)
+			dispatch(updateUser_success(response.data))
+		} catch (error) {
+			if (error.data) dispatch(updateUser_error(error.data))
+			else dispatch(updateUser_error(error))
+		}
+	}
+}

@@ -34,3 +34,13 @@ export function activateAccount(token) {
 		data: { token },
 	})
 }
+
+export function updateUser(details, axiosConfig = {}) {
+	if (!details.user_id) return Promise.reject("Aucun id fournis")
+	return axiosClient.request({
+		url: `/users/${details.user_id}`,
+		method: "patch",
+		data: details,
+		...axiosConfig,
+	})
+}

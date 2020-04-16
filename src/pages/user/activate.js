@@ -18,7 +18,7 @@ export function ActivateAccount({ users, match, activateAccount }) {
 	)
 		activateAccount(token)
 
-	if (users.activation.error === false) return <Redirect to="/" />
+	if (users.activation.error === false) return <Redirect to="/auth/new-user" />
 
 	return (
 		<PublicPageLayout>
