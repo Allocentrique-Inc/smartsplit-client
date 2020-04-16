@@ -4,7 +4,7 @@ import { Platform as RNPlatform } from "react-native"
 export { RNPlatform }
 
 export function Platform(props) {
-	const { all, web, native, android, ios, children, nextProps } = props
+	const { all, web, native, android, ios, children, ...nextProps } = props
 
 	const component = {
 		web: web || all,
@@ -39,3 +39,7 @@ export function IOS({ component, ...props }) {
 
 Platform.OS = RNPlatform.OS
 Platform.select = RNPlatform.select
+Platform.web = RNPlatform.OS === "web"
+Platform.native = RNPlatform.OS !== "web"
+Platform.android = RNPlatform.OS === "android"
+Platform.ios = RNPlatform.OS === "ios"

@@ -260,7 +260,8 @@ export function RegisterForm({ users, registerUser }) {
 					{errorMessage && <Text error>{errorMessage}</Text>}
 
 					<Platform web={Row} native={Column} of="group">
-						<Flex />
+						{Platform.web && <Flex />}
+
 						<Button
 							text="Créer mon compte"
 							onClick={handleRegister}
@@ -268,13 +269,14 @@ export function RegisterForm({ users, registerUser }) {
 							size={buttonSize}
 						/>
 
-						<Native
-							component={Button}
-							tertiary
-							text="J'ai déjà un compte"
-							onClick={() => history.push("/auth/login")}
-							size={buttonSize}
-						/>
+						{Platform.native && (
+							<Button
+								tertiary
+								text="J'ai déjà un compte"
+								onClick={() => history.push("/auth/login")}
+								size={buttonSize}
+							/>
+						)}
 					</Platform>
 				</Column>
 			</Column>
