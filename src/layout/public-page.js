@@ -21,7 +21,7 @@ export default function PublicPageLayout({
 		<>
 			<Web component={Navbar}>{navigation}</Web>
 			<Scrollable>
-				<Component style={nextStyle} margin="group" {...props}>
+				<Component style={nextStyle} padding="group" {...props}>
 					{children}
 				</Component>
 			</Scrollable>
