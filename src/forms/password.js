@@ -1,21 +1,20 @@
 import React, { useState } from "react"
-import {
-	View,
-	TextInput,
-	StyleSheet,
-	TouchableWithoutFeedback,
-} from "react-native"
+import { View, TextInput, TouchableWithoutFeedback } from "react-native"
 
+import { Row } from "../layout"
 import FormStyles from "../styles/forms"
 import Label from "./label"
 import Frame, { useFrameFocus } from "./frame"
 import EyeIcon from "../svg/eye"
+import CapsLockIcon from "../svg/caps-lock"
 import { Metrics } from "../theme"
+import { Platform } from "../platform"
 
 function FramedPasswordField(props) {
 	const { error, ...inputProps } = props
 	const focused = useFrameFocus()
 	const [reveal, setReveal] = useState(false)
+	const [capsLockEnabled, setCapsLockEnabled] = useState(false)
 
 	function toggleRevealPassword(e) {
 		e.preventDefault()
@@ -23,14 +22,21 @@ function FramedPasswordField(props) {
 		setReveal(!reveal)
 	}
 
+	const keyUpHandler = (event) => {
+		setCapsLockEnabled(event.getModifierState("CapsLock"))
+	}
+
 	return (
-		<Frame focused={focused.value} error={error}>
+		<Frame as={Row} of="inside" focused={focused.value} error={error}>
 			<TextInput
 				{...inputProps}
 				style={FormStyles.input_text}
 				secureTextEntry={!reveal}
 				{...focused.props}
+				onKeyUp={Platform.web ? keyUpHandler : null}
 			/>
+
+			<View>{capsLockEnabled && <CapsLockIcon />}</View>
 
 			<TouchableWithoutFeedback
 				hitSlop={Metrics.hitSlop}

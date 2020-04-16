@@ -4,7 +4,8 @@ import FormStyles from "../styles/forms"
 import MetricsStyles from "../styles/metrics"
 
 export default function Frame(props) {
-	const { focused, error, style, children, viewRef, ...nextProps } = props
+	const { as, focused, error, style, children, viewRef, ...nextProps } = props
+	const Container = as || View
 
 	const combinedStyles = [
 		FormStyles.frame,
@@ -16,9 +17,9 @@ export default function Frame(props) {
 	if (viewRef) nextProps.ref = viewRef
 
 	return (
-		<View style={combinedStyles} {...nextProps}>
+		<Container style={combinedStyles} {...nextProps}>
 			{children}
-		</View>
+		</Container>
 	)
 }
 
