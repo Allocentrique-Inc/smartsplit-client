@@ -118,7 +118,7 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 	)
 }
 
-export function ChangePasswordPage(props) {
+export default function ChangePasswordPage(props) {
 	const [showModal, setModal] = useState(false)
 	return (
 		<>

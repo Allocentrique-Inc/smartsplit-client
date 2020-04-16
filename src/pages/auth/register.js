@@ -283,6 +283,8 @@ export function RegisterForm({ users, registerUser }) {
 }
 
 export default function RegisterPage(props) {
+	const history = useHistory()
+
 	return (
 		<PublicPageLayout
 			navigation={

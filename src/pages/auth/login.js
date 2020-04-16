@@ -127,7 +127,7 @@ export function LoginForm({ auth, login }) {
 
 export function LoginModal(props) {
 	return (
-		<Modal visible={props.showModal}>
+		<Modal visible={props.visible}>
 			<LoginForm {...props} />
 		</Modal>
 	)
