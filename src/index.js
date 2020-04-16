@@ -59,10 +59,6 @@ export function MainRouter(props) {
 				<GetPasswordContainer />
 			</Route>
 
-			<Route path="/auth/password-reset" exact>
-				<PasswordReset />
-			</Route>
-
 			<Route path="/auth/check-email" exact>
 				<CheckEmailPage />
 			</Route>
@@ -75,6 +71,12 @@ export function MainRouter(props) {
 				path="/user/activate/:token"
 				exact
 				component={UserActivateAccount}
+			/>
+
+			<Route
+				path="/user/change-password/:token"
+				exact
+				component={PasswordReset}
 			/>
 
 			<Route path="/document/copyright" exact>

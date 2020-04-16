@@ -1,65 +1,65 @@
 import React, { useState, useEffect } from "react"
-import { Platform, TouchableWithoutFeedback } from "react-native"
-import { Link, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { Group, Column, Row, Flex } from "../../layout"
-import { Heading, Text, Paragraph } from "../../text"
+import { Heading, Text, Paragraph, Link } from "../../text"
 import TextField from "../../forms/text"
 import Button from "../../widgets/button"
 import { Metrics, Links, Colors } from "../../theme"
-import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
-import Scrollable from "../../widgets/scrollable"
+import PublicPageLayout from "../../layout/public-page"
 import { notEmptyValidator } from "../../../helpers/validators"
+import { Platform } from "../../platform"
 
 export default function GetPassword({ users, forgotPassword }) {
 	const history = useHistory()
+	const state = users.forgotPassword
+
 	const [email, setEmail] = useState("")
-	const [canSubmit, setCanSubmit] = useState(false)
 	const [hasSubmitted, setHasSubmitted] = useState(false)
 
-	const handleRequestPassword = () => {
-		if (canSubmit) {
-			forgotPassword({ email })
-			setHasSubmitted(true)
-		}
+	const validEmail = notEmptyValidator(email)
+	const canSubmit = !hasSubmitted && !state.isLoading && validEmail
+
+	const errorMessage =
+		state.error &&
+		(state.error.code === "user_not_found"
+			? "Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse?"
+			: state.error.message)
+
+	const handleSubmit = () => {
+		setHasSubmitted(true)
+		forgotPassword({ email })
 	}
 
-	function navitateToRegister() {
-		history.push("/auth/register")
-	}
+	const navitateToRegister = () => history.push("/auth/register")
 
+	// Réinitialiser le formulaire après envoi, et rediriger l'utilisateur
 	useEffect(() => {
-		let emailValid = notEmptyValidator(email)
-
-		if (emailValid && !users.forgotPassword.isLoading) {
-			setCanSubmit(true)
-		} else {
-			setCanSubmit(false)
-		}
-	}, [email, users.forgotPassword.isLoading])
-
-	useEffect(() => {
-		if (!users.forgotPassword.isLoading && users.forgotPassword.data) {
+		if (!state.isLoading && state.data && hasSubmitted) {
 			history.push("/auth/forgot-password-sent")
+			setEmail("")
 		}
-	}, [users.forgotPassword.data, users.forgotPassword.isLoading])
+	}, [state.isLoading, state.data, hasSubmitted])
 
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+	// Reset le `hasSubmitted` lorsque le chargement se termine
+	useEffect(() => {
+		if (!state.isLoading) setHasSubmitted(false)
+	}, [state.isLoading])
+
+	const buttonSize = Platform.web ? "medium" : "large"
 
 	const submitButton = (
 		<Button
 			text="Envoyer"
-			onClick={handleRequestPassword}
+			onClick={handleSubmit}
 			disabled={!canSubmit}
 			size={buttonSize}
 		/>
 	)
 
 	const noAccountLink = (
-		<TouchableWithoutFeedback onPress={navitateToRegister}>
-			<Text link style={{ flex: 1 }}>
-				Je n'ai pas de compte
-			</Text>
-		</TouchableWithoutFeedback>
+		<Link action onClick={navitateToRegister}>
+			Je n'ai pas de compte
+		</Link>
 	)
 
 	const noAccountButton = (
@@ -80,65 +80,50 @@ export default function GetPassword({ users, forgotPassword }) {
 		/>
 	)
 
-	const forgotPasswordAndSubmitButton =
-		Platform.OS === "web" ? (
-			<Row style={{ alignItems: "center" }}>
-				{noAccountLink}
-				{submitButton}
-			</Row>
-		) : (
-			<Column of="group">
-				{submitButton}
-				{noAccountButton}
-				{openSessionButton}
-			</Column>
-		)
+	const forgotPasswordAndSubmitButton = Platform.web ? (
+		<Row style={{ alignItems: "center" }}>
+			{noAccountLink}
+			<Flex />
+			{submitButton}
+		</Row>
+	) : (
+		<Column of="group">
+			{submitButton}
+			{noAccountButton}
+			{openSessionButton}
+		</Column>
+	)
 
 	return (
-		<>
-			{Platform.OS === "web" && (
-				<PublicNavBarWeb>
+		<PublicPageLayout
+			navigation={
+				<>
 					<Text secondary>Déjà Membre ?</Text>
 					{openSessionButton}
 					<Button secondary text="English" />
-				</PublicNavBarWeb>
-			)}
+				</>
+			}
+		>
+			<Column of="group">
+				<Heading level="1">Réinitialise ton mot de passe.</Heading>
+				<Paragraph>
+					Saisis l'adresse courriel lié à ton compte pour obtenir le lien de
+					réinitialisation.
+				</Paragraph>
 
-			<Scrollable>
-				<Group
-					of="group"
-					style={
-						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
-					}
-				>
-					<Column of="group">
-						<Heading level="1">Réinitialise ton mot de passe.</Heading>
-						<Paragraph>
-							Saisis l'adresse courriel lié à ton compte pour obtenir le lien de
-							réinitialisation.
-						</Paragraph>
+				<TextField
+					label="Courriel"
+					label_hint=""
+					undertext=""
+					onChangeText={setEmail}
+					value={email}
+					placeholder=""
+				/>
 
-						{!users.forgotPassword.isLoading &&
-							hasSubmitted &&
-							users.forgotPassword.error && (
-								<Text style={{ color: Colors.progressBar.orangered }}>
-									{users.forgotPassword.error.error}
-								</Text>
-							)}
+				{errorMessage && <Text error>{errorMessage}</Text>}
 
-						<TextField
-							label="Courriel"
-							label_hint=""
-							undertext=""
-							onChangeText={setEmail}
-							value={email}
-							placeholder=""
-						/>
-
-						{forgotPasswordAndSubmitButton}
-					</Column>
-				</Group>
-			</Scrollable>
-		</>
+				{forgotPasswordAndSubmitButton}
+			</Column>
+		</PublicPageLayout>
 	)
 }
