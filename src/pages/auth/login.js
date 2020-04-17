@@ -42,7 +42,7 @@ export const LoginForm = connect(
 		onSuccess,
 	} = props
 
-	const t = useTranslation()
+	const [t] = useTranslation()
 
 	if (!auth.isLoading && auth.data && auth.data.accessToken) {
 		onSuccess && onSuccess(auth.data.user)
@@ -105,7 +105,7 @@ export const LoginForm = connect(
 })
 
 export default function LoginPage({ showRegister }) {
-	const t = useTranslation()
+	const [t] = useTranslation()
 	const history = useHistory()
 
 	const [stayLoggedIn, setStayLoggedIn] = useState(false)

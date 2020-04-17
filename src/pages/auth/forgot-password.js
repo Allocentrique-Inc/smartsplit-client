@@ -11,7 +11,7 @@ import { notEmptyValidator } from "../../../helpers/validators"
 import { Platform } from "../../platform"
 
 export default function GetPassword({ users, forgotPassword }) {
-	const t = useTranslation()
+	const [t] = useTranslation()
 	const history = useHistory()
 	const state = users.forgotPassword
 

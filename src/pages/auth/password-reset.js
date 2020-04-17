@@ -31,7 +31,7 @@ export const ChangePasswordForm = connect(
 		},
 	})
 )(function ({ state, resetPassword, match }) {
-	const t = useTranslation()
+	const [t] = useTranslation()
 
 	const history = useHistory()
 	const token = match.params.token

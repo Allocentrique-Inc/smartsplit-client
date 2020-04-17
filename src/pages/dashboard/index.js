@@ -60,7 +60,6 @@ export default function DashboardPage(props) {
 }
 
 export function DashboardRoutes(props) {
-	const [t, i18n] = useTranslation()
 	return (
 		<Switch>
 			<Route path="/dashboard/" exact>

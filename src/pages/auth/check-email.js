@@ -9,7 +9,7 @@ import HighFive from "../../svg/high-five.svg"
 import { Group } from "../../layout"
 
 export function CheckEmailModal(props) {
-	const t = useTranslation()
+	const [t] = useTranslation()
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	return (

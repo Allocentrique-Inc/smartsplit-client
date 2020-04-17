@@ -69,7 +69,7 @@ export function passwordProgress(score) {
 }
 
 export function TermsConditionsModal({ visible, onAgree, onCancel }) {
-	const t = useTranslation()
+	const [t] = useTranslation()
 
 	return (
 		<DialogModal
@@ -115,7 +115,7 @@ export const RegisterForm = connect(
 		setFormState,
 	} = props
 
-	const t = useTranslation()
+	const [t] = useTranslation()
 	const registration = users.registerUser
 
 	const [showTerms, setShowTerms] = useState(false)
@@ -158,9 +158,9 @@ export const RegisterForm = connect(
 	const errorMessage = !errorEmailUsed && error && error.message
 
 	function handleRegister() {
-		setErrorEmail(validEmail ? null : t("errors.enterEmail"))
-		setErrorPassword(validPassword ? null : t("errors.strengthEmail"))
-		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors.sameEmails"))
+		setErrorEmail(validEmail ? null : t("errors:enterEmail"))
+		setErrorPassword(validPassword ? null : t("errors:strengthEmail"))
+		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors:sameEmails"))
 
 		if (canSubmit && validEmail && validPassword && validPasswordRepeat) {
 			registerUser({ email, password, locale: "fr" })
@@ -273,7 +273,7 @@ export const RegisterForm = connect(
 })
 
 export default function RegisterPage(props) {
-	const t = useTranslation()
+	const [t] = useTranslation()
 	const history = useHistory()
 	const [formState, setFormState] = useState({})
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
