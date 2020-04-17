@@ -34,8 +34,6 @@ export class Dropdown extends React.Component {
 
 		this.frame = React.createRef()
 		this.layout = {}
-
-		setInterval(5000, () => this.updateMenuPosition())
 	}
 
 	static getDerivedStateFromProps(props, state) {
