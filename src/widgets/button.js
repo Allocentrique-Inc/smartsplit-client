@@ -53,7 +53,8 @@ export const ButtonStyles = StyleSheet.create({
 	},
 
 	text_container: {
-		flex: 1,
+		flexGrow: 1,
+		flexShrink: 0,
 		alignItems: "center",
 		justifyContent: "center",
 	},
