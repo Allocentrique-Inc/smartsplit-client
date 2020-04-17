@@ -1,5 +1,5 @@
 import { AsyncStorage } from "react-native"
-import {axiosClient} from "../api/ApiClient"
+import { axiosClient } from "../api/ApiClient"
 
 export async function loadAuthFromStorage(store) {
 	const credentials = await AsyncStorage.getItem("user")
@@ -26,8 +26,8 @@ export async function saveAuth(data, rememberMe) {
 		] = `Bearer ${data.accessToken}`
 	}
 
+	await AsyncStorage.setItem("user", JSON.stringify(data))
 	if (rememberMe) {
-		await AsyncStorage.setItem("user", JSON.stringify(data))
 	}
 }
 
