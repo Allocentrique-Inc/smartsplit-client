@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Platform } from "react-native"
 import { Group, Hairline, Flex, Row } from "../../layout"
 import { Heading } from "../../text"
 import TypographyStyles from "../../styles/typography"
@@ -12,6 +13,7 @@ export default function MyProfilePage() {
 	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
 		false
 	)
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	return (
 		<Group of="component">
@@ -70,8 +72,10 @@ export default function MyProfilePage() {
 					onClick={() => {
 						setChangePasswordModalOpened(true)
 					}}
+					size={buttonSize}
+					style={Platform.OS !== "web" && { flex: 1 }}
 				/>
-				<Flex />
+				{Platform.OS === "web" && <Flex />}
 			</Row>
 
 			{changePasswordModalOpened && (
