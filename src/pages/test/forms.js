@@ -18,6 +18,7 @@ import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
 
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
+import AuthModal from "../auth/modal"
 
 export default function FormsTest() {
 	return (
@@ -50,9 +51,16 @@ export default function FormsTest() {
 
 function TestText() {
 	const [t, i18n] = useTranslation()
+	const [showAuthModal, setShowAuthModal] = useState(false)
 
 	return (
 		<Column of="component">
+			<AuthModal
+				visible={showAuthModal}
+				onCancel={() => setShowAuthModal(false)}
+				onSuccess={() => setShowAuthModal(false)}
+			/>
+
 			<Heading level="1">{t("test:title")}</Heading>
 
 			<Row of="component">
@@ -68,6 +76,8 @@ function TestText() {
 					disabled={i18n.language === "en"}
 					onClick={() => i18n.changeLanguage("en")}
 				/>
+
+				<Button text="Auth Dialog" onClick={() => setShowAuthModal(true)} />
 			</Row>
 
 			<Paragraph>

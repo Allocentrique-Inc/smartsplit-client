@@ -3,6 +3,7 @@ import { Column, Row, Group, Flex, Hairline } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
 import Modal from "../../widgets/modal"
+import Scrollable from "../../widgets/scrollable"
 import Pager from "../../widgets/pager"
 
 import SmartsplitLogo from "../../svg/logo-smartsplit"
@@ -63,7 +64,7 @@ export default function AuthModal(props) {
 
 	return (
 		<Modal visible={visible}>
-			<Column style={{ maxWidth: MODAL_WIDTH }}>
+			<Column style={{ maxWidth: MODAL_WIDTH, flex: 1 }}>
 				<Row of="component" padding="component" valign="center" size="xlarge">
 					<SmartsplitLogo />
 					<Flex />
@@ -97,20 +98,22 @@ export function LoginModal(props) {
 
 	return (
 		<>
-			<Column of="group" padding="group">
-				<Column of="component">
-					<Heading level={2}>
-						{artistName || "[artistName]"}, connecte-toi pour confirmer ta
-						décision.
-					</Heading>
-					<Paragraph>
-						Tu es sur le point de signer un cotnrat important avec tes
-						collaborateurs, nous avons donc besoin de confirmer ton identité.
-					</Paragraph>
-				</Column>
+			<Scrollable>
+				<Column of="group" padding="group">
+					<Column of="component">
+						<Heading level={2}>
+							{artistName || "[artistName]"}, connecte-toi pour confirmer ta
+							décision.
+						</Heading>
+						<Paragraph>
+							Tu es sur le point de signer un cotnrat important avec tes
+							collaborateurs, nous avons donc besoin de confirmer ton identité.
+						</Paragraph>
+					</Column>
 
-				<LoginForm setFormState={setFormState} {...props} />
-			</Column>
+					<LoginForm setFormState={setFormState} {...props} />
+				</Column>
+			</Scrollable>
 
 			<Hairline />
 
@@ -133,20 +136,22 @@ export function RegisterModal(props) {
 
 	return (
 		<>
-			<Column of="group" padding="group">
-				<Column of="component">
-					<Heading level={2}>
-						{artistName || "[artistName]"}, crée un compte pour confirmer ta
-						décision.
-					</Heading>
-					<Paragraph>
-						Tu es sur le point de signer un cotnrat important avec tes
-						collaborateurs, nous avons donc besoin de confirmer ton identité.
-					</Paragraph>
-				</Column>
+			<Scrollable>
+				<Column of="group" padding="group">
+					<Column of="component">
+						<Heading level={2}>
+							{artistName || "[artistName]"}, crée un compte pour confirmer ta
+							décision.
+						</Heading>
+						<Paragraph>
+							Tu es sur le point de signer un cotnrat important avec tes
+							collaborateurs, nous avons donc besoin de confirmer ton identité.
+						</Paragraph>
+					</Column>
 
-				<RegisterForm setFormState={setFormState} {...props} />
-			</Column>
+					<RegisterForm setFormState={setFormState} {...props} />
+				</Column>
+			</Scrollable>
 
 			<Hairline />
 
