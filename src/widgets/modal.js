@@ -97,7 +97,11 @@ export function DialogModal(props) {
 					style={ModalStyles.header}
 				>
 					<Flex>
-						<Heading level="4">{title}</Heading>
+						{typeof title === "string" ? (
+							<Heading level="4">{title}</Heading>
+						) : (
+							title
+						)}
 					</Flex>
 					<Button
 						small

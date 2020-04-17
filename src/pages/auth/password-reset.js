@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { connect } from "react-redux"
 import { resetPassword } from "../../../redux/Users/Actions"
 import { useHistory } from "react-router"
-import PublicPageLayout from "../../layout/public-page"
+import AuthLayout from "./layout"
 import Button from "../../widgets/button"
 import ProgressBar from "../../widgets/progress-bar"
 import {
@@ -22,7 +22,14 @@ export const PasswordResetErrors = {
 		"Le jeton de réinitialisation n'est plus valide, ou a expiré. Veuillez effectuer une nouvelle demande de réinitialisation de mot de passe.",
 }
 
-export function ChangePasswordForm({ state, resetPassword, match }) {
+export const ChangePasswordForm = connect(
+	({ users }) => ({ state: users.passwordReset }),
+	(dispatch) => ({
+		resetPassword: function (token) {
+			dispatch(resetPassword(token))
+		},
+	})
+)(function ({ state, resetPassword, match }) {
 	const history = useHistory()
 	const token = match.params.token
 
@@ -123,36 +130,15 @@ export function ChangePasswordForm({ state, resetPassword, match }) {
 			</Platform>
 		</Column>
 	)
-}
+})
 
-export function ChangePasswordPage(props) {
+export default function ChangePasswordPage(props) {
 	const history = useHistory()
 	const navigateToLogin = () => history.push("/auth/login")
 
 	return (
-		<PublicPageLayout
-			navigation={
-				<>
-					<Text secondary>Déjà Membre ?</Text>
-					<Button
-						tertiary
-						text="Ouvrir une session"
-						onClick={navigateToLogin}
-					/>
-					<Button secondary text="English" />
-				</>
-			}
-		>
+		<AuthLayout>
 			<ChangePasswordForm {...props} />
-		</PublicPageLayout>
+		</AuthLayout>
 	)
 }
-
-export default connect(
-	({ users }) => ({ state: users.passwordReset }),
-	(dispatch) => ({
-		resetPassword: function (token) {
-			dispatch(resetPassword(token))
-		},
-	})
-)(ChangePasswordPage)

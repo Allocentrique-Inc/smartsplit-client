@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { connect } from "react-redux"
+import * as UserActions from "../../../redux/Users/Actions"
 import { View } from "react-native"
 import { useHistory } from "react-router-dom"
 import Button from "../../widgets/button"
@@ -8,7 +10,7 @@ import { DialogModal } from "../../widgets/modal"
 import { TextDivider, Section, Column, Row, Group, Flex } from "../../layout"
 import { TextField, PasswordField, CheckBox } from "../../forms"
 import { Heading, Paragraph, Text, Link } from "../../text"
-import PublicPageLayout from "../../layout/public-page"
+import AuthLayout from "./layout"
 import ProgressBar from "../../widgets/progress-bar"
 import FacebookIcon from "../../svg/facebook"
 import GoogleIcon from "../../svg/google"
@@ -83,8 +85,29 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 	)
 }
 
-export function RegisterForm({ users, registerUser }) {
-	const history = useHistory()
+export const RegisterForm = connect(
+	function mapStateToProps({ users }) {
+		return {
+			users,
+		}
+	},
+	function mapDispatchToProps(dispatch) {
+		return {
+			registerUser: function (details) {
+				dispatch(UserActions.registerUser(details))
+			},
+		}
+	}
+)(function (props) {
+	const {
+		users,
+		registerUser,
+		showForgotPassword,
+		showLogin,
+		onSuccess,
+		setFormState,
+	} = props
+
 	const registration = users.registerUser
 
 	const [showTerms, setShowTerms] = useState(false)
@@ -99,10 +122,6 @@ export function RegisterForm({ users, registerUser }) {
 	const [errorPasswordRepeat, setErrorPasswordRepeat] = useState(null)
 
 	const score = zxcvbn(password).score
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-
-	const handleFinished = () => history.push("/auth/login")
-	const handleForgotPassword = () => history.push("/auth/forgot-password")
 
 	const validEmail = notEmptyValidator(email)
 	const validPassword = notEmptyValidator(password) && score > 1
@@ -121,7 +140,7 @@ export function RegisterForm({ users, registerUser }) {
 	const errorEmailUsed = errorCode === "user_conflict" && (
 		<Text small error>
 			Ce courriel est déjà utilisé.{" "}
-			<Link small error bold onClick={handleForgotPassword}>
+			<Link small error bold onClick={showForgotPassword}>
 				As-tu oublié ton mot de passe
 			</Link>
 			?
@@ -130,7 +149,7 @@ export function RegisterForm({ users, registerUser }) {
 
 	const errorMessage = !errorEmailUsed && error && error.message
 
-	const handleRegister = () => {
+	function handleRegister() {
 		setErrorEmail(
 			validEmail ? null : "Vous devez entrer votre adresse courriel"
 		)
@@ -150,11 +169,19 @@ export function RegisterForm({ users, registerUser }) {
 		}
 	}
 
+	setFormState &&
+		useEffect(() => {
+			setFormState({
+				canSubmit,
+				submit: handleRegister,
+			})
+		}, [setFormState, canSubmit, email, password, passwordRepeat])
+
 	return (
 		<>
 			<CheckEmailModal
 				visible={!!registration.data}
-				onRequestClose={handleFinished}
+				onRequestClose={onSuccess}
 			/>
 
 			<TermsConditionsModal
@@ -171,15 +198,6 @@ export function RegisterForm({ users, registerUser }) {
 			/>
 
 			<Column as={Group} of={Platform.OS === "web" ? "group" : "component"}>
-				<Column of="component">
-					<Heading level="1">En route vers la professionnalisation</Heading>
-					<Paragraph>
-						Tu es à un clic de pouvoir documenter ta musique et de partager tes
-						droits avec tes contributeurs.
-					</Paragraph>
-					<View />
-				</Column>
-
 				<Column of="inside">
 					<Button
 						style={{ backgroundColor: "#4267B2" }}
@@ -249,21 +267,53 @@ export function RegisterForm({ users, registerUser }) {
 						</Text>
 					</CheckBox>
 
-					<CheckBox>
-						<Text primary regular>
-							Rester connecté
-						</Text>
-					</CheckBox>
-
 					{errorMessage && <Text error>{errorMessage}</Text>}
+				</Column>
+			</Column>
+		</>
+	)
+})
+
+export default function RegisterPage(props) {
+	const history = useHistory()
+	const [formState, setFormState] = useState({})
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+
+	return (
+		<AuthLayout>
+			{(layoutProps) => (
+				<Column of="group">
+					<Column of="component">
+						<Heading level="1">En route vers la professionnalisation</Heading>
+						<Paragraph>
+							Tu es à un clic de pouvoir documenter ta musique et de partager
+							tes droits avec tes contributeurs.
+						</Paragraph>
+						<View />
+					</Column>
+
+					<RegisterForm
+						{...layoutProps}
+						setFormState={setFormState}
+						onSuccess={props.showLogin}
+					/>
 
 					<Platform web={Row} native={Column} of="group">
-						{Platform.web && <Flex />}
+						{Platform.web && (
+							<>
+								<CheckBox>
+									<Text primary regular>
+										Rester connecté
+									</Text>
+								</CheckBox>
+								<Flex />
+							</>
+						)}
 
 						<Button
 							text="Créer mon compte"
-							onClick={handleRegister}
-							disabled={!agreeTerms || !canSubmit}
+							onClick={formState.submit}
+							disabled={!formState.canSubmit}
 							size={buttonSize}
 						/>
 
@@ -271,35 +321,13 @@ export function RegisterForm({ users, registerUser }) {
 							<Button
 								tertiary
 								text="J'ai déjà un compte"
-								onClick={() => history.push("/auth/login")}
+								onClick={layoutProps.showLogin}
 								size={buttonSize}
 							/>
 						)}
 					</Platform>
 				</Column>
-			</Column>
-		</>
-	)
-}
-
-export default function RegisterPage(props) {
-	const history = useHistory()
-
-	return (
-		<PublicPageLayout
-			navigation={
-				<>
-					<Text secondary>Déjà Membre ?</Text>
-					<Button
-						tertiary
-						text="Ouvrir une session"
-						onClick={() => history.push("/auth/login")}
-					/>
-					<Button secondary text="English" />
-				</>
-			}
-		>
-			<RegisterForm {...props} />
-		</PublicPageLayout>
+			)}
+		</AuthLayout>
 	)
 }

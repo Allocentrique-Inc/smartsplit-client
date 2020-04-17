@@ -7,7 +7,17 @@ import LayerStyles from "./styles/layers"
 import { Text } from "./text"
 
 function composeView(props, ...stylesheets) {
-	const { style, flex, children, of, spacer, layer, padding, ...nextProps } = {
+	const {
+		style,
+		flex,
+		children,
+		of,
+		spacer,
+		layer,
+		padding,
+		size,
+		...nextProps
+	} = {
 		spacer: Spacer,
 		...props,
 	}
@@ -36,6 +46,7 @@ function composeView(props, ...stylesheets) {
 				LayerStyles[layer || ""],
 				MetricsStyles.padding[padding || ""],
 				typeof flex === "number" ? { flex } : null,
+				MetricsStyles.sizes[size || ""],
 			],
 		},
 		...newChildren
@@ -73,8 +84,13 @@ export function Column(props) {
 }
 
 export function Row(props) {
-	const { align, ...nextProps } = props
-	return composeView(nextProps, LayoutStyles.row, LayoutStyles.align[align])
+	const { align, valign, ...nextProps } = props
+	return composeView(
+		nextProps,
+		LayoutStyles.row,
+		LayoutStyles.justify[align],
+		LayoutStyles.align[valign]
+	)
 }
 
 export function Spacer(props) {
@@ -97,9 +113,9 @@ export function Divider(props) {
 
 export function TextDivider(props) {
 	return (
-		<Row of="component" style={{ alignSelf: "stretch" }}>
+		<Row of="component" style={{ alignSelf: "stretch", alignItems: "center" }}>
 			<Divider flex />
-			<Text bold>{props.text}</Text>
+			{props.children || <Text bold>{props.text}</Text>}
 			<Divider flex />
 		</Row>
 	)

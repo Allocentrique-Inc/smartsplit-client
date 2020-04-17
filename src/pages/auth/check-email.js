@@ -6,10 +6,10 @@ import { Modal } from "../../widgets/modal"
 import Button from "../../widgets/button"
 import HighFive from "../../svg/high-five.svg"
 import { Group } from "../../layout"
-import Scrollable from "../../widgets/scrollable"
 
 export function CheckEmailModal(props) {
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+
 	return (
 		<DialogModal
 			visible={props.visible}
@@ -43,15 +43,13 @@ export default function CheckEmailPage(props) {
 
 	return (
 		<>
-			<Scrollable>
-				<Button text="Test" onClick={() => setModal(true)} />
+			<Button text="Test" onClick={() => setModal(true)} />
 
-				<CheckEmailModal
-					visible={modalOpen}
-					onRequestClose={() => setModal(false)}
-					{...props}
-				/>
-			</Scrollable>
+			<CheckEmailModal
+				visible={modalOpen}
+				onRequestClose={() => setModal(false)}
+				{...props}
+			/>
 		</>
 	)
 }

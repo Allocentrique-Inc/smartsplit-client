@@ -5,7 +5,7 @@ import { Heading, Text, Paragraph, Link } from "../../text"
 import TextField from "../../forms/text"
 import Button from "../../widgets/button"
 import { Metrics, Links, Colors } from "../../theme"
-import PublicPageLayout from "../../layout/public-page"
+import AuthLayout from "./layout"
 import { notEmptyValidator } from "../../../helpers/validators"
 import { Platform } from "../../platform"
 
@@ -95,15 +95,7 @@ export default function GetPassword({ users, forgotPassword }) {
 	)
 
 	return (
-		<PublicPageLayout
-			navigation={
-				<>
-					<Text secondary>Déjà Membre ?</Text>
-					{openSessionButton}
-					<Button secondary text="English" />
-				</>
-			}
-		>
+		<AuthLayout>
 			<Column of="group">
 				<Heading level="1">Réinitialise ton mot de passe.</Heading>
 				<Paragraph>
@@ -124,6 +116,6 @@ export default function GetPassword({ users, forgotPassword }) {
 
 				{forgotPasswordAndSubmitButton}
 			</Column>
-		</PublicPageLayout>
+		</AuthLayout>
 	)
 }

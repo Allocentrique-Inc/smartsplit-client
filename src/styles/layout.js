@@ -20,7 +20,6 @@ const LayoutStyles = StyleSheet.create({
 	},
 
 	divider: {
-		alignSelf: "center",
 		backgroundColor: Colors.stroke,
 		height: 2,
 	},
@@ -36,7 +35,7 @@ const LayoutStyles = StyleSheet.create({
 	},
 })
 
-LayoutStyles.align = StyleSheet.create({
+LayoutStyles.justify = StyleSheet.create({
 	left: {
 		justifyContent: "flex-start",
 	},
@@ -47,6 +46,24 @@ LayoutStyles.align = StyleSheet.create({
 
 	right: {
 		justifyContent: "flex-end",
+	},
+})
+
+LayoutStyles.align = StyleSheet.create({
+	left: {
+		alignItems: "flex-start",
+	},
+
+	center: {
+		alignItems: "center",
+	},
+
+	stretch: {
+		alignItems: "stretch",
+	},
+
+	right: {
+		alignItems: "flex-end",
 	},
 })
 
