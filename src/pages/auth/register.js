@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { connect } from "react-redux"
 import * as UserActions from "../../../redux/Users/Actions"
 import { View } from "react-native"
@@ -40,13 +41,13 @@ export function passwordStrengthIndicator(score) {
 	switch (score) {
 		case 0:
 		case 1:
-			return "Mot de passe faible"
+			return "errors:email.weak"
 		case 2:
 		case 3:
-			return "Mot de passe moyen"
+			return "errors:email.average"
 		case 4:
 		default:
-			return "Mot de passe acceptable"
+			return "errors:email.acceptable"
 	}
 }
 
@@ -68,15 +69,21 @@ export function passwordProgress(score) {
 }
 
 export function TermsConditionsModal({ visible, onAgree, onCancel }) {
+	const t = useTranslation()
+
 	return (
 		<DialogModal
 			visible={visible}
 			onRequestClose={onCancel}
-			title="Termes et conditions"
+			title={t("register:conditions.title")}
 			buttons={
 				<>
-					<Button tertiary text="Annuler" onClick={onCancel} />
-					<Button text="J'accepte !" onClick={onAgree} />
+					<Button
+						tertiary
+						text={t("general:buttons.cancel")}
+						onClick={onCancel}
+					/>
+					<Button text={t("general:buttons.accept")} onClick={onAgree} />
 				</>
 			}
 		>
@@ -108,6 +115,7 @@ export const RegisterForm = connect(
 		setFormState,
 	} = props
 
+	const t = useTranslation()
 	const registration = users.registerUser
 
 	const [showTerms, setShowTerms] = useState(false)
@@ -150,19 +158,9 @@ export const RegisterForm = connect(
 	const errorMessage = !errorEmailUsed && error && error.message
 
 	function handleRegister() {
-		setErrorEmail(
-			validEmail ? null : "Vous devez entrer votre adresse courriel"
-		)
-		setErrorPassword(
-			validPassword
-				? null
-				: "Le mot de passe doit comporter au moins 8 caractères"
-		)
-		setErrorPasswordRepeat(
-			validPasswordRepeat
-				? null
-				: "Les deux mots de passe doivent être identiques"
-		)
+		setErrorEmail(validEmail ? null : t("errors.enterEmail"))
+		setErrorPassword(validPassword ? null : t("errors.strengthEmail"))
+		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors.sameEmails"))
 
 		if (canSubmit && validEmail && validPassword && validPasswordRepeat) {
 			registerUser({ email, password, locale: "fr" })
@@ -202,13 +200,13 @@ export const RegisterForm = connect(
 					<Button
 						style={{ backgroundColor: "#4267B2" }}
 						icon={<FacebookIcon />}
-						text="Connexion avec Facebook"
+						text={t("general:buttons.facebook")}
 					/>
 
 					<Button
 						style={{ backgroundColor: "#4285F4" }}
 						icon={<GoogleIcon />}
-						text="Connnexion avec Google"
+						text={t("general:buttons.google")}
 					/>
 				</Column>
 
@@ -216,8 +214,8 @@ export const RegisterForm = connect(
 
 				<Column of="group">
 					<TextField
-						label="Entre ton courriel"
-						placeholder="nom@example.com"
+						label={t("forms:labels.enterEmail")}
+						placeholder={t("forms:placeholders.emailExample")}
 						onChangeText={setEmail}
 						error={errorEmailUsed}
 					/>
@@ -226,14 +224,14 @@ export const RegisterForm = connect(
 						<PasswordField
 							value={password}
 							onChangeText={setPassword}
-							label="Choisis ton mot de passe"
-							placeholder="8 caractères minimum"
+							label={t("forms:labels.choosePassword")}
+							placeholder={t("forms:placeholders.noCharacters")}
 							error={errorPassword}
 						/>
 
 						<Row style={{ alignItems: "center" }}>
 							<Text secondary small style={{ flex: 3 }}>
-								{passwordStrengthIndicator(score)}
+								{t(passwordStrengthIndicator(score))}
 							</Text>
 							<Flex />
 							<ProgressBar
@@ -246,24 +244,24 @@ export const RegisterForm = connect(
 					</Column>
 
 					<PasswordField
-						placeholder="Confirme ton mot de passe"
+						placeholder={t("forms:labels.repeatPassword")}
 						onChangeText={setPasswordRepeat}
 						error={errorPasswordRepeat}
 					/>
 
 					<CheckBox onChange={setAgreeTerms} checked={agreeTerms}>
 						<Text>
-							J'ai lu et j'accepte les
+							{t("register:conditions.paragraph")}
 							<Link link onClick={() => setShowTerms(true)}>
 								{" "}
-								Termes et conditions d'utilisation{" "}
+								{t("register:conditions.paragraph2")}{" "}
 							</Link>
-							et la
+							{t("register:conditions.paragraph3")}
 							<Link link onClick={() => setShowTerms(true)}>
 								{" "}
-								Politique sur la vie privée{" "}
+								{t("register:conditions.paragraph4")}{" "}
 							</Link>
-							de Smartsplit.
+							{t("register:conditions.paragraph5")}
 						</Text>
 					</CheckBox>
 
@@ -275,6 +273,7 @@ export const RegisterForm = connect(
 })
 
 export default function RegisterPage(props) {
+	const t = useTranslation()
 	const history = useHistory()
 	const [formState, setFormState] = useState({})
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
@@ -303,7 +302,7 @@ export default function RegisterPage(props) {
 							<>
 								<CheckBox>
 									<Text primary regular>
-										Rester connecté
+										{t("general:checkbox")}
 									</Text>
 								</CheckBox>
 								<Flex />
@@ -311,7 +310,7 @@ export default function RegisterPage(props) {
 						)}
 
 						<Button
-							text="Créer mon compte"
+							text={t("general:buttons.createAccount")}
 							onClick={formState.submit}
 							disabled={!formState.canSubmit}
 							size={buttonSize}
@@ -320,7 +319,7 @@ export default function RegisterPage(props) {
 						{Platform.native && (
 							<Button
 								tertiary
-								text="J'ai déjà un compte"
+								text={t("general:buttons.haveAccount")}
 								onClick={layoutProps.showLogin}
 								size={buttonSize}
 							/>

@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { View, Platform } from "react-native"
 import { Text } from "../../text"
 import { DialogModal } from "../../widgets/modal"
@@ -8,16 +9,17 @@ import HighFive from "../../svg/high-five.svg"
 import { Group } from "../../layout"
 
 export function CheckEmailModal(props) {
+	const t = useTranslation()
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	return (
 		<DialogModal
 			visible={props.visible}
 			onRequestClose={props.onRequestClose}
-			title="Vérifie tes courriels"
+			title={t("passwordIssues:checkEmail")}
 			buttons={
 				<Button
-					text="J'ai compris"
+					text={t("general:buttons.comprendo")}
 					onClick={props.onRequestClose}
 					style={Platform.OS !== "web" && { flex: 1 }}
 					size={buttonSize}
@@ -28,11 +30,7 @@ export function CheckEmailModal(props) {
 				<View style={{ alignItems: "center" }}>
 					<HighFive />
 				</View>
-				<Text>
-					Un message incluant un lien de validation de ton compte t'a été envoyé
-					par courriel.{"\n"}
-					Vérifie tes spams. On ne sait jamais !
-				</Text>
+				<Text>{t("passwordIssues:validate")}</Text>
 			</Group>
 		</DialogModal>
 	)

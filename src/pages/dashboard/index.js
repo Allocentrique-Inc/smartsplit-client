@@ -17,34 +17,34 @@ import TestRedux from "../test/TestRedux"
 
 const MENU = [
 	{
-		text: "Mes pièces musicales",
+		text: "menu:works",
 		to: "/dashboard/my-works",
 		icon: MusicNoteIcon,
 	},
 	{
-		text: "Mon profil",
+		text: "menu:profile",
 		to: "/dashboard/my-profile",
 		icon: UserCardIcon,
 	},
 	{
-		text: "Mon compte",
+		text: "menu:account",
 		to: "/dashboard/my-account",
 	},
 	{
-		text: "Mes collaborateurs",
+		text: "menu:collaborators",
 		to: "/dashboard/my-collaborators",
 		icon: UsersIcon,
 	},
 	{
-		text: "Tests Formulaires",
+		text: "menu:testsForms",
 		to: "/dashboard/test/forms",
 	},
 	{
-		text: "Formulaires pleine page",
+		text: "menu:testsFormsPage",
 		to: "/test/forms",
 	},
 	{
-		text: "Redux test",
+		text: "menu:reduxTests",
 		to: "/test/reduxTest",
 	},
 ]
@@ -60,6 +60,7 @@ export default function DashboardPage(props) {
 }
 
 export function DashboardRoutes(props) {
+	const [t, i18n] = useTranslation()
 	return (
 		<Switch>
 			<Route path="/dashboard/" exact>

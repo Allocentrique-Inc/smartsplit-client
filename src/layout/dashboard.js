@@ -5,6 +5,7 @@ import {
 	StyleSheet,
 	TouchableWithoutFeedback,
 } from "react-native"
+import { useTranslation } from "react-i18next"
 import { useRouteMatch, useHistory } from "react-router"
 import { Row, Column, Flex } from "../layout"
 import { Text } from "../text"
@@ -93,6 +94,7 @@ export function Sidebar(props) {
 }
 
 export function SidebarItem(props) {
+	const [t] = useTranslation()
 	const Icon = props.icon || LinkIcon
 	const active = useRouteMatch(props.to)
 	const history = useHistory()
@@ -112,7 +114,7 @@ export function SidebarItem(props) {
 					<Icon color={active ? Colors.action : Colors.inactive} />
 				</View>
 				<Text reversed bold={active}>
-					{props.text}
+					{t(props.text)}
 				</Text>
 			</Row>
 		</TouchableWithoutFeedback>

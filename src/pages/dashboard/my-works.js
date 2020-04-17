@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router"
 import { Platform, View, StyleSheet } from "react-native"
 
@@ -11,10 +12,12 @@ import MediaWorkRow from "../../smartsplit/works/dashboard-row"
 import CreateWorkModal from "../../smartsplit/works/create-work-modal"
 
 export default function MyWorksPage() {
+	const [t, i18n] = useTranslation()
+	
 	const [modalOpen, setModal] = useState(false)
 
 	const addNewWorkButton = Platform.select({
-		web: <Button primary text="Ajouter" onClick={() => setModal(true)} />,
+		web: <Button primary text={t("general:buttons.add")} onClick={() => setModal(true)} />,
 		ios: <RoundButton small text="+" />,
 		android: <RoundButton small text="+" />,
 	})
@@ -29,17 +32,17 @@ export default function MyWorksPage() {
 			<Group of="group">
 				<Row of="component">
 					<Flex>
-						<Heading level="2">Mes pièces musicales</Heading>
+						<Heading level="2">{t("dashboard:title")}</Heading>
 					</Flex>
 					{addNewWorkButton}
 				</Row>
 
 				<TabBar>
-					<Tab key="my-works" title="Mes ajouts" default>
+					<Tab key="my-works" title={t("dashboard:added")} default>
 						<MyWorksTab />
 					</Tab>
 
-					<Tab key="shared-with-me" title="Partagées avec moi">
+					<Tab key="shared-with-me" title={t("dashboard:shared")}>
 						<SharedWithMeTab />
 					</Tab>
 				</TabBar>

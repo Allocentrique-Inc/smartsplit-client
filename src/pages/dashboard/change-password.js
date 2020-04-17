@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { TouchableOpacity, Platform } from "react-native"
 import { DialogModal } from "../../widgets/modal"
 import { Modal } from "../../widgets/modal"
@@ -17,6 +18,9 @@ import zxcvbn from "zxcvbn"
 import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 
 export function ChangePasswordModal({ state, changePassword, ...props }) {
+
+	const [t, i18n] = useTranslation()
+
 	const [Password, setPassword] = useState("")
 	const [NewPassword, setNewPassword] = useState("")
 	const [ConfirmNewPassword, setConfirmNewPassword] = useState("")
@@ -49,24 +53,24 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 		if (state.data && !state.isLoading) {
 			props.onRequestClose()
 		}
-	}, [state.data])
+	}, [state.data]) 
 
 	return (
 		<DialogModal
 			visible={props.visible}
 			onRequestClose={props.onRequestClose}
-			title="Changer le mot de passe"
+			title={t('passwordIssues:changePassword')}
 			buttons={
 				<>
 					<Button
-						text="Annuler"
+						text={t('general:buttons.cancel')}
 						tertiary
 						onClick={props.onRequestClose}
 						size={buttonSize}
 						style={Platform.OS !== "web" && { flex: 1 }}
 					/>
 					<Button
-						text="Sauvegarder"
+						text={t('general:buttons.save')}
 						disabled={!canSubmit}
 						onClick={handleSubmit}
 						size={buttonSize}
@@ -82,7 +86,7 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 				<PasswordField
 					value={Password} //pour avoir toujours valeur mot de passe, reçoit valeur password
 					onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
-					label="Mot de passe actuel"
+					label={t('forms:labels.currentPassword')}
 					placeholder=""
 				/>
 
@@ -90,7 +94,7 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 					<PasswordField
 						value={NewPassword}
 						onChangeText={setNewPassword}
-						label="Nouveau mot de passe"
+						label={t('forms:labels.newPassword')}
 						placeholder=""
 					/>
 
@@ -110,7 +114,7 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 				<PasswordField
 					value={ConfirmNewPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
 					onChangeText={setConfirmNewPassword} // quand changement mot de passe modifie valeur mise à jour
-					label="Répète ton nouveau mot de passe"
+					label={t('forms:labels.repeatPassword')}
 					placeholder=""
 				/>
 			</Group>
@@ -118,16 +122,19 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 	)
 }
 
-export default function ChangePasswordPage(props) {
+export default function ChangePasswordPage() {
 	const [showModal, setModal] = useState(false)
+
 	return (
 		<>
 			<Scrollable>
-				<Button text="Test" onClick={() => setModal(true)} />
+				<Button text="Test" 
+						onClick={() => setModal(true)} 
+					/>
 				<ChangePasswordModal
 					visible={showModal}
 					onRequestClose={() => setModal(false)}
-					{...props}
+					// {...props}
 				/>
 			</Scrollable>
 		</>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { connect } from "react-redux"
 import { resetPassword } from "../../../redux/Users/Actions"
 import { useHistory } from "react-router"
@@ -30,6 +31,8 @@ export const ChangePasswordForm = connect(
 		},
 	})
 )(function ({ state, resetPassword, match }) {
+	const t = useTranslation()
+
 	const history = useHistory()
 	const token = match.params.token
 
@@ -56,16 +59,8 @@ export const ChangePasswordForm = connect(
 		const validPassword = score > 1
 		const validPasswordRepeat = sameValidator(password, passwordRepeat)
 
-		setErrorPassword(
-			validPassword
-				? null
-				: "Votre mot de passe doit contenir au moins 8 caractères"
-		)
-		setErrorPasswordRepeat(
-			validPasswordRepeat
-				? null
-				: "Vous devez entrer le même mot de passe dans les deux champs"
-		)
+		setErrorPassword(validPassword ? null : t("errors:strengthEmail"))
+		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors:sameEmails"))
 
 		if (validPassword && validPasswordRepeat) {
 			resetPassword({ token, password })
@@ -90,8 +85,8 @@ export const ChangePasswordForm = connect(
 				<PasswordField
 					value={password}
 					onChangeText={setPassword}
-					label="Choisis ton nouveau mot de passe"
-					placeholder="8 caractères minimum"
+					label={t("passwordIssues:reset")}
+					placeholder={t("forms:placeholders.noChars")}
 					error={errorPassword}
 				/>
 
@@ -112,7 +107,7 @@ export const ChangePasswordForm = connect(
 			<PasswordField
 				value={passwordRepeat}
 				onChangeText={setPasswordRepeat}
-				label="Confirme ton nouveau ton mot de passe"
+				label={t("forms:labels.confirmNewPassword")}
 				error={errorPasswordRepeat}
 			/>
 
@@ -121,7 +116,7 @@ export const ChangePasswordForm = connect(
 			<Platform web={Row} native={Column}>
 				{Platform.web && <Flex />}
 				<Button
-					text="Réinitialiser"
+					text={t("general:buttons.reset")}
 					disabled={!canSubmit}
 					size={buttonSize}
 					onClick={handleSubmit}

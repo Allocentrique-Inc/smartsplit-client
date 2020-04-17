@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router-dom"
 import { Group, Column, Row, Flex } from "../../layout"
 import { Heading, Text, Paragraph, Link } from "../../text"
@@ -10,6 +11,7 @@ import { notEmptyValidator } from "../../../helpers/validators"
 import { Platform } from "../../platform"
 
 export default function GetPassword({ users, forgotPassword }) {
+	const t = useTranslation()
 	const history = useHistory()
 	const state = users.forgotPassword
 
@@ -49,7 +51,7 @@ export default function GetPassword({ users, forgotPassword }) {
 
 	const submitButton = (
 		<Button
-			text="Envoyer"
+			text={t("general:buttons.send")}
 			onClick={handleSubmit}
 			disabled={!canSubmit}
 			size={buttonSize}
@@ -58,14 +60,14 @@ export default function GetPassword({ users, forgotPassword }) {
 
 	const noAccountLink = (
 		<Link action onClick={navitateToRegister}>
-			Je n'ai pas de compte
+			{t("general:noAccount")}
 		</Link>
 	)
 
 	const noAccountButton = (
 		<Button
 			tertiary
-			text="Je n'ai pas de compte"
+			text={t("general:noAccount")}
 			onClick={navitateToRegister}
 			size={buttonSize}
 		/>
@@ -74,7 +76,7 @@ export default function GetPassword({ users, forgotPassword }) {
 	const openSessionButton = (
 		<Button
 			tertiary
-			text="Ouvrir une session"
+			text={t("publicNavbarWeb:openAccount")}
 			onClick={() => history.push("/auth/login")}
 			size={buttonSize}
 		/>
@@ -97,19 +99,15 @@ export default function GetPassword({ users, forgotPassword }) {
 	return (
 		<AuthLayout>
 			<Column of="group">
-				<Heading level="1">Réinitialise ton mot de passe.</Heading>
-				<Paragraph>
-					Saisis l'adresse courriel lié à ton compte pour obtenir le lien de
-					réinitialisation.
-				</Paragraph>
+				<Heading level="1">{t("passwordIssues:reset")}</Heading>
+				<Paragraph>{t("passwordIssues:enterEmail")}</Paragraph>
 
 				<TextField
-					label="Courriel"
+					label={t("forms:labels.email")}
 					label_hint=""
 					undertext=""
 					onChangeText={setEmail}
 					value={email}
-					placeholder=""
 				/>
 
 				{errorMessage && <Text error>{errorMessage}</Text>}

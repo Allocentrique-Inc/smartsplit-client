@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { connect } from "react-redux"
 import * as AuthActions from "../../../redux/Auth/Actions"
 import { Redirect, useHistory } from "react-router"
@@ -41,6 +42,8 @@ export const LoginForm = connect(
 		onSuccess,
 	} = props
 
+	const t = useTranslation()
+
 	if (!auth.isLoading && auth.data && auth.data.accessToken) {
 		onSuccess && onSuccess(auth.data.user)
 	}
@@ -56,7 +59,10 @@ export const LoginForm = connect(
 	const error = !auth.isLoading && auth.error
 	const errorCode = error && error.code
 	const errorMessage =
-		(errorCode && LoginErrorCodes[errorCode]) || (error && error.message)
+		(errorCode &&
+			LoginErrorCodes[errorCode] &&
+			t(LoginErrorCodes[errorCode])) ||
+		(error && error.message)
 
 	useEffect(() => {
 		setEmail("")
@@ -73,21 +79,21 @@ export const LoginForm = connect(
 	return (
 		<Column of="group">
 			<TextField
-				label="Mon courriel"
-				placeholder="nom@example.com"
+				label={t("forms:labels.myEmail")}
+				placeholder={t("forms:placeholders.emailExample")}
 				onChangeText={setEmail}
 				value={email}
 			/>
 
 			<Column of="inside">
 				<PasswordField
-					label="Mot de passe"
+					label={t("forms:labels.password")}
 					onChangeText={setPassword}
 					value={password}
 				/>
 
 				<Link link small onClick={showForgotPassword}>
-					Mot de passe oublié ?
+					{t("general:forgotPassword")}
 				</Link>
 			</Column>
 
@@ -99,6 +105,7 @@ export const LoginForm = connect(
 })
 
 export default function LoginPage({ showRegister }) {
+	const t = useTranslation()
 	const history = useHistory()
 
 	const [stayLoggedIn, setStayLoggedIn] = useState(false)
@@ -112,7 +119,7 @@ export default function LoginPage({ showRegister }) {
 		<CheckBox
 			onChange={setStayLoggedIn}
 			checked={stayLoggedIn}
-			label="Rester connecté"
+			label={t("general:checkbox")}
 		/>
 	)
 
@@ -121,9 +128,8 @@ export default function LoginPage({ showRegister }) {
 			{(layoutProps) => (
 				<Column of="group">
 					<Column of="component">
-						<Heading level="1">Connecte-toi à ton compte Smartsplit</Heading>
-
-						<Paragraph>Entre tes informations ci-dessous</Paragraph>
+						<Heading level="1">{t("login:title")}</Heading>
+						<Paragraph>{t("login:subTitle")}</Paragraph>
 					</Column>
 
 					<LoginForm
@@ -139,7 +145,7 @@ export default function LoginPage({ showRegister }) {
 						{Platform.web && <Flex />}
 
 						<Button
-							text="Me connecter"
+							text={t("general:buttons.connect")}
 							onClick={formState.submit}
 							disabled={!formState.canSubmit}
 							style={Platform.native && { flex: 1 }}
@@ -149,7 +155,7 @@ export default function LoginPage({ showRegister }) {
 						{Platform.native && (
 							<Button
 								tertiary
-								text="Créer mon compte"
+								text={t("general:buttons.createAccount")}
 								onClick={showRegister}
 								size={buttonSize}
 							/>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 import { Platform, View, ScrollView } from "react-native"
 import { Text, Heading, Paragraph } from "../../text"
 import { useHistory } from "react-router-dom"
@@ -16,6 +17,8 @@ import { notEmptyValidator } from "../../../helpers/validators"
 
 export default function NewUser({ state, updateUser, user, ...props }) {
 	let history = useHistory()
+
+	const [t, i18n] = useTranslation()
 
 	const [firstName, setFirstName] = useState("")
 	const [lastName, setLastName] = useState("")
@@ -53,10 +56,10 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 							<>
 								<Button
 									tertiary
-									text="Passer cette étape"
+									text={t("general:buttons.nextStep")}
 									onClick={() => history.push("/")}
 								/>
-								<Button secondary text="English" />
+								<Button secondary text={t("publicNavbarWeb:language")} />
 							</>
 						)}
 					</PublicNavBarWeb>
@@ -68,12 +71,9 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
 					}
 				>
-					<Heading level="1">
-						Bienvenue ! {"\n"}
-						Parle-nous un peu de toi.
-					</Heading>
+					<Heading level="1">{t("newUser:title")}</Heading>
 					<Column of="section">
-						<Paragraph>Commence à créer ton profil.</Paragraph>
+						<Paragraph>{t("newUser:subTitle")}</Paragraph>
 
 						<Row>
 							<UserAvatar size="huge" />
@@ -85,8 +85,8 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 
 					<NameFields of="group">
 						<TextField
-							label="Mon prénom légal"
-							placeholder="Prénom(s) usuel(s)"
+							label={t("forms:labels.legalFirstName")}
+							placeholder={t("forms:placeholders.usualFirstName")}
 							undertext={
 								<Text italic small>
 									Madonna Louise
@@ -97,8 +97,8 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 						/>
 
 						<TextField
-							label="Mon nom légal"
-							placeholder="Nom de famille usuel"
+							label={t("forms:labels.legalLastName")}
+							placeholder={t("forms:placeholders.usualLastName")}
 							undertext={
 								<Text italic small>
 									Ciccone
@@ -110,17 +110,17 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 					</NameFields>
 
 					<TextField
-						label="Nom d'artiste"
-						label_hint={<Text secondary>Optionnel</Text>}
-						placeholder="Nom d'artiste"
+						label={t("forms:labels.artistName")}
+						label_hint={<Text secondary>{t("forms:labels.optional")}</Text>}
+						placeholder=""
 						undertext={
 							<>
-								<Text small>Par exemple,</Text>
+								<Text small>{t("forms:undertexts.artistNameExample")}</Text>
 								<Text italic small>
 									{" "}
 									Jay-Z
 								</Text>
-								<Text small> est le nom d’artiste de</Text>
+								<Text small> {t("forms:undertexts.artistNameExample3")}</Text>
 								<Text italic small>
 									{" "}
 									Shawn Corey Carter
@@ -132,7 +132,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 
 					<Row align="right">
 						<Button
-							text="C'est parti !"
+							text={t("general:buttons.go")}
 							style={Platform.OS !== "web" && { flex: 1 }}
 							size={buttonSize}
 							disabled={!canSubmit}
@@ -141,7 +141,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 					</Row>
 					{Platform.OS !== "web" && (
 						<Row>
-							<Button tertiary text="Passer cette étape" />
+							<Button tertiary text={t("general:buttons.nextStep")} />
 						</Row>
 					)}
 				</Group>
