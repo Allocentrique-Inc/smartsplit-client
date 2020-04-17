@@ -12,6 +12,7 @@ import UserActivateAccount from "./pages/user/activate"
 import ChangePasswordModal from "./pages/dashboard/change-password"
 
 import TestRedux from "./pages/test/TestReduxContainer"
+import AccessControl from "./widgets/AccessControl"
 
 export default function Main(props) {
 	return (
@@ -43,17 +44,23 @@ export function MainRouter(props) {
 			<Route path="/user/change-password/:token" exact component={AuthPages} />
 
 			<Route path="/document/copyright" exact>
-				<CopyrightShare />
+				<AccessControl redirectToLogin>
+					<CopyrightShare />
+				</AccessControl>
 			</Route>
 
 			<Route path="/dashboard/">
-				<DashboardPage />
+				<AccessControl redirectToLogin>
+					<DashboardPage />
+				</AccessControl>
 			</Route>
 
 			<Route path="/test/forms" exact>
-				<Scrollable>
-					<FormsTest />
-				</Scrollable>
+				<AccessControl redirectToLogin>
+					<Scrollable>
+						<FormsTest />
+					</Scrollable>
+				</AccessControl>
 			</Route>
 
 			<Route path="/test/reduxTest" exact>

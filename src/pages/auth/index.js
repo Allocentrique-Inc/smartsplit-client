@@ -9,6 +9,7 @@ import PasswordSent from "./forgot-password-sent"
 import GetPasswordContainer from "./ForgotPasswordContainer"
 import PasswordReset from "./password-reset"
 import CheckEmailPage from "./check-email"
+import AccessControl from "../../widgets/AccessControl"
 
 export default function AuthPages() {
 	return (
@@ -38,7 +39,9 @@ export default function AuthPages() {
 			</Route>
 
 			<Route path="/auth/new-user" exact>
-				<NewUser />
+				<AccessControl redirectToLogin>
+					<NewUser />
+				</AccessControl>
 			</Route>
 
 			<Route
