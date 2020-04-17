@@ -1,5 +1,5 @@
 import * as AuthAPI from "../../api/Auth"
-import { saveAuth, clearAuth } from "../../helpers/storageAuth"
+import { saveAuth, clearAuth, saveIsReturning } from "../../helpers/storageAuth"
 
 export function loginUser_request() {
 	return {
@@ -29,6 +29,7 @@ export function loginUser(details, rememberMe) {
 			const response = await AuthAPI.loginUser(details)
 
 			if (response.data && response.data.accessToken) {
+				saveIsReturning()
 				saveAuth(response.data, rememberMe)
 				dispatch(loginUser_success(response.data))
 			} else {

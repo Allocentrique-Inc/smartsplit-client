@@ -35,3 +35,17 @@ export async function clearAuth() {
 	await AsyncStorage.removeItem("user")
 	delete axiosClient.defaults.headers.common["Authorization"]
 }
+
+export async function loadIsReturningFromStorage(store) {
+	const isReturning = await AsyncStorage.getItem("isReturning")
+
+	if (isReturning) {
+		store.dispatch({
+			type: "USER_RETURNING",
+		})
+	}
+}
+
+export async function saveIsReturning() {
+	await AsyncStorage.setItem("isReturning", "1")
+}

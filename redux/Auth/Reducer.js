@@ -3,6 +3,7 @@ const INITIAL_STATE = {
 	error: null,
 	isLoading: false,
 	isLoggedIn: false,
+	isReturning: false,
 }
 
 export default function (state = INITIAL_STATE, action) {
@@ -40,7 +41,11 @@ export default function (state = INITIAL_STATE, action) {
 			}
 
 		case "LOGOUT_USER":
-			return { ...state, ...INITIAL_STATE }
+			newState.isReturning = true
+			return { ...state, ...INITIAL_STATE, ...newState }
+
+		case "USER_RETURNING":
+			return { ...state, isReturning: true }
 
 		default:
 			return state

@@ -4,15 +4,26 @@ import { Text } from "../text"
 import { connect } from "react-redux"
 import { Redirect } from "react-router"
 
-function AccessControl({ isAuthenticated, children, redirectToLogin }) {
+function AccessControl({
+	isAuthenticated,
+	isReturning,
+	children,
+	redirectToLogin,
+}) {
 	if (isAuthenticated) return children
-	if (redirectToLogin) return <Redirect to="/auth/register" push={true} />
-	else return <Text>Not authorized</Text>
+	if (redirectToLogin) {
+		if (isReturning) {
+			return <Redirect to="/auth/login" push={true} />
+		} else {
+			return <Redirect to="/auth/register" push={true} />
+		}
+	} else return <Text>Not authorized</Text>
 }
 
 export default connect(function (state) {
 	return {
 		isAuthenticated:
 			state.auth.isLoggedIn && state.auth.data && state.auth.data.accessToken,
+		isReturning: state.auth && state.auth.isReturning,
 	}
 })(AccessControl)
