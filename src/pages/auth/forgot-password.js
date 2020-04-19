@@ -24,7 +24,7 @@ export default function GetPassword({ users, forgotPassword }) {
 	const errorMessage =
 		state.error &&
 		(state.error.code === "user_not_found"
-			? "Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse?"
+			? "errors:noUser"
 			: state.error.message)
 
 	const handleSubmit = () => {

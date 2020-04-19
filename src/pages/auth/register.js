@@ -38,16 +38,18 @@ export function passwordBarColor(score) {
 }
 
 export function passwordStrengthIndicator(score) {
+	const [t] = useTranslation()
+
 	switch (score) {
 		case 0:
 		case 1:
-			return "errors:email.weak"
+			return t("errors:password.weak")
 		case 2:
 		case 3:
-			return "errors:email.average"
+			return "errors:password.average"
 		case 4:
 		default:
-			return "errors:email.acceptable"
+			return "errors:password.acceptable"
 	}
 }
 
@@ -147,9 +149,9 @@ export const RegisterForm = connect(
 
 	const errorEmailUsed = errorCode === "user_conflict" && (
 		<Text small error>
-			Ce courriel est déjà utilisé.{" "}
+			{t("errors:email.emailTaken")}
 			<Link small error bold onClick={showForgotPassword}>
-				As-tu oublié ton mot de passe
+			{t("errors:email.forgotEmail")}
 			</Link>
 			?
 		</Text>
@@ -159,8 +161,8 @@ export const RegisterForm = connect(
 
 	function handleRegister() {
 		setErrorEmail(validEmail ? null : t("errors:enterEmail"))
-		setErrorPassword(validPassword ? null : t("errors:strengthEmail"))
-		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors:sameEmails"))
+		setErrorPassword(validPassword ? null : t("errors:strengthPassword"))
+		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors:samePasswords"))
 
 		if (canSubmit && validEmail && validPassword && validPasswordRepeat) {
 			registerUser({ email, password, locale: "fr" })
@@ -210,7 +212,7 @@ export const RegisterForm = connect(
 					/>
 				</Column>
 
-				<TextDivider text="ou" />
+				<TextDivider text={t("general:or")} />
 
 				<Column of="group">
 					<TextField
@@ -283,11 +285,8 @@ export default function RegisterPage(props) {
 			{(layoutProps) => (
 				<Column of="group">
 					<Column of="component">
-						<Heading level="1">En route vers la professionnalisation</Heading>
-						<Paragraph>
-							Tu es à un clic de pouvoir documenter ta musique et de partager
-							tes droits avec tes contributeurs.
-						</Paragraph>
+						<Heading level="1">{t("register:title")}</Heading>
+						<Paragraph>{t("register:subTitle")}</Paragraph>
 						<View />
 					</Column>
 

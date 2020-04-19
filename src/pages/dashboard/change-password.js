@@ -34,7 +34,7 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 		if (!canSubmit) return false
 		changePassword({ password: NewPassword })
 	}
-
+/* 
 	useEffect(() => {
 		let currentPasswordValid = notEmptyValidator(Password)
 		let newPasswordsValid =
@@ -53,7 +53,7 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 		if (state.data && !state.isLoading) {
 			props.onRequestClose()
 		}
-	}, [state.data]) 
+	}, [state.data])  */
 
 	return (
 		<DialogModal

@@ -37,7 +37,7 @@ export default function AuthPages() {
 			<Route path="/auth/check-email" exact>
 				<CheckEmailPage />
 			</Route>
-
+			
 			<Route path="/auth/new-user" exact>
 				<AccessControl redirectToLogin>
 					<NewUser />

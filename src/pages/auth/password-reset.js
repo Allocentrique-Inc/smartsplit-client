@@ -59,7 +59,7 @@ export const ChangePasswordForm = connect(
 		const validPassword = score > 1
 		const validPasswordRepeat = sameValidator(password, passwordRepeat)
 
-		setErrorPassword(validPassword ? null : t("errors:strengthEmail"))
+		setErrorPassword(validPassword ? null : t("errors:strengthPassword"))
 		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors:sameEmails"))
 
 		if (validPassword && validPasswordRepeat) {
@@ -79,7 +79,7 @@ export const ChangePasswordForm = connect(
 
 	return (
 		<Column of="group">
-			<Heading level="1">Réinitialise ton mot de passe.</Heading>
+			<Heading level="1">{t("passwordIssues:reset")}</Heading>
 
 			<Column of="inside">
 				<PasswordField

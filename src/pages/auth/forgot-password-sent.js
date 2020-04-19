@@ -19,7 +19,7 @@ export default function PasswordSent(props) {
 		<AuthLayout>
 			<Column of="group">
 				<Column of="component">
-					<Heading level="1">Courriel envoyé.</Heading>
+					<Heading level="1">{t("passwordIssues:emailSent")}</Heading>
 					<Paragraph>{t("passwordIssues:resetParagraph")}</Paragraph>
 				</Column>
 

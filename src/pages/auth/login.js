@@ -15,9 +15,9 @@ import { notEmptyValidator } from "../../../helpers/validators"
 
 export const LoginErrorCodes = {
 	auth_invalid_credentials:
-		"Adresse courriel ou mot de passe invalide. Veuillez réessayer.",
+		"erros:invalidLogin",
 	auth_account_inactive:
-		"Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau!",
+		"errors:inactiveAccount",
 }
 
 export const LoginForm = connect(

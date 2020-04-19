@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { Column, Row, Group, Flex, Hairline } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
@@ -15,6 +16,8 @@ import { RegisterForm } from "../auth/register"
 export const MODAL_WIDTH = 624
 
 export default function AuthModal(props) {
+	const [t] = useTranslation()
+	
 	const { visible, onCancel, onSuccess, onRequestClose } = props
 	const [tab, setTab] = useState("register")
 
@@ -26,12 +29,12 @@ export default function AuthModal(props) {
 
 	const buttonsRegisterPage = (
 		<>
-			<Text small>Déjà membre?</Text>
+			<Text small>{t("publicNavbarWeb:yesAccount")}</Text>
 			<Button
 				secondary
 				small
 				bold
-				text="Ouvrir une session"
+				text={t("publicNavbarWeb:openAccount")}
 				onClick={commonProps.showLogin}
 			/>
 			<Button
@@ -45,12 +48,12 @@ export default function AuthModal(props) {
 
 	const buttonsLoginPage = (
 		<>
-			<Text small>Pas encore membre?</Text>
+			<Text small>{t("publicNavbarWeb:noMember")}</Text>
 			<Button
 				secondary
 				small
 				bold
-				text="Créer mon compte"
+				text={t("publicNavbarWeb:createMyAccount")}
 				onClick={commonProps.showRegister}
 			/>
 			<Button
@@ -78,13 +81,13 @@ export default function AuthModal(props) {
 						key="login"
 						{...props}
 						{...commonProps}
-						onSuccess={() => alert("Connecté!")}
+						onSuccess={() => alert(t("general:alerts.connected"))}
 					/>
 					<RegisterModal
 						key="register"
 						{...props}
 						{...commonProps}
-						onSuccess={() => alert("Inscrit!")}
+						onSuccess={() => alert(t("general:alerts.subscribed"))}
 					/>
 				</Pager>
 			</Column>
@@ -96,19 +99,17 @@ export function LoginModal(props) {
 	const { artistName, onRequestClose, onCancel, onSuccess } = props
 	const [formState, setFormState] = useState({})
 
+	const [t] = useTranslation()
+
 	return (
 		<>
 			<Scrollable>
 				<Column of="group" padding="group">
 					<Column of="component">
 						<Heading level={2}>
-							{artistName || "[artistName]"}, connecte-toi pour confirmer ta
-							décision.
+							{artistName || "[artistName]"}, {t("login:toVote.title")}
 						</Heading>
-						<Paragraph>
-							Tu es sur le point de signer un cotnrat important avec tes
-							collaborateurs, nous avons donc besoin de confirmer ton identité.
-						</Paragraph>
+						<Paragraph>{t("login:toVote.subTitle")}</Paragraph>
 					</Column>
 
 					<LoginForm setFormState={setFormState} {...props} />
@@ -118,10 +119,10 @@ export function LoginModal(props) {
 			<Hairline />
 
 			<Row of="component" padding="component" align="right">
-				<Button tertiary text="Annuler" onClick={onCancel || onRequestClose} />
+				<Button tertiary text={t("general:buttons.cancel")} onClick={onCancel || onRequestClose} />
 				<Button
 					primary
-					text="Me connecter et voter"
+					text={t("general:buttons.connectVote")}
 					disabled={!formState.canSubmit}
 					onClick={formState.submit}
 				/>
@@ -134,19 +135,17 @@ export function RegisterModal(props) {
 	const { artistName, onRequestClose, onCancel, onSuccess } = props
 	const [formState, setFormState] = useState({})
 
+	const [t] = useTranslation()
+
 	return (
 		<>
 			<Scrollable>
 				<Column of="group" padding="group">
 					<Column of="component">
 						<Heading level={2}>
-							{artistName || "[artistName]"}, crée un compte pour confirmer ta
-							décision.
+							{artistName || "[artistName]"}, {t("register:toVote.title")}
 						</Heading>
-						<Paragraph>
-							Tu es sur le point de signer un cotnrat important avec tes
-							collaborateurs, nous avons donc besoin de confirmer ton identité.
-						</Paragraph>
+							<Paragraph>{t("register:toVote.subTitle")}</Paragraph>
 					</Column>
 
 					<RegisterForm setFormState={setFormState} {...props} />
@@ -156,10 +155,10 @@ export function RegisterModal(props) {
 			<Hairline />
 
 			<Row of="component" padding="component" align="right">
-				<Button tertiary text="Annuler" onClick={onCancel || onRequestClose} />
+				<Button tertiary text={t("general:buttons.cancel")} onClick={onCancel || onRequestClose} />
 				<Button
 					primary
-					text="Créer mon compte et voter"
+					text={t("general:buttons.registerVote")}
 					disabled={!formState.canSubmit}
 					onClick={formState.submit}
 				/>

@@ -4,10 +4,16 @@ export const general = {
 	or: "ou",
 	checkbox: "Rester connecté",
 
+	alerts: {
+		connected: "Connecté !",
+		subscribed: "Inscrit !"
+	},
+
 	buttons: {
 		connect: "Me connecter",
 		cancel: "Annuler",
 		connectVote: "Me connecter et voter",
+		registerVote: "Créer mon compte et voter",
 		facebook: "Connexion avec Facebook",
 		google: "Connexion avec Google",
 		accept: "J'accepte",
@@ -41,13 +47,19 @@ export const test = {
 
 export const errors = {
 	enterEmail: "Vous devez entrer votre adresse courriel",
-	strengthEmail: "Le mot de passe doit comporter au moins 8 caractères",
-	sameEmails: "Les deux mots de passe doivent être identiques",
+	strengthPassword: "Le mot de passe doit comporter au moins 8 caractères",
+	samePasswords: "Les deux mots de passe doivent être identiques",
+	invalidToken: "Le jeton de réinitialisation n'est plus valide, ou a expiré. Veuillez effectuer une nouvelle demande de réinitialisation de mot de passe.",
+	invalidLogin: "Adresse courriel ou mot de passe invalide. Veuillez réessayer.",
+	inactiveAccount: "Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau !",
+	noUser: "Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
 
-	email: {
+	password: {
 		weak: "Mot de passe faible",
 		average: "Mot de passe moyen",
 		acceptable: "Mot de passe acceptable",
+		emailTaken: "Ce courriel est déjà utilisé. ",
+		forgotEmail: "As-tu oublié ton mot de passe ?",
 	}
 }
 
@@ -57,6 +69,8 @@ export const publicNavbarWeb = {
 	yesAccount: "Déjà membre ?",
 	openAccount: "Ouvrir une session",
 	language: "English",
+	noMember: "Pas encore membre ?",
+	createMyAccount: "Créer mon compte",
 }
 
 export const forms = {
@@ -100,14 +114,19 @@ export const login = {
 	subTitle: "Entre tes informations ci-dessous.",
 
 	toVote: {
-		title: "[artistName], connecte-toi pour confirmer ta décision.",
+		title: "connecte-toi pour confirmer ta décision.",
 		subTitle: "Tu es sur le point de signer un contrat important avec tes collaborateurs, nous avons donc besoin de confirmer ton identité."
 	}
 }
 
 export const register = {
-	title: "On the way to professionalization",
-	subTitle: "You  are one click away from documenting your music and share your rights with your contributors.",
+	title: "En route vers la professionnalisation",
+	subTitle: "Tu es à un clic de pouvoir documenter ta musique et de partager tes droits avec tes contributeurs.",
+
+	toVote: {
+		title: "créer un compte pour confirmer ta décision.",
+		subTitle: "Tu es sur le point de signer un contrat important avec tes collaborateurs, nous avons donc besoin de confirmer ton identité."
+	},
 
 	conditions: {
 		title: "Termes et conditions",

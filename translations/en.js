@@ -4,10 +4,16 @@ export const general = {
 	or: "or",
 	checkbox: "Stay connected",
 
+	alerts: {
+		connected: "Connected!",
+		subscribed: "Subscribed!"
+	},
+
 	buttons: {
 		connect: "Connect",
 		cancel: "Cancel",
 		connectVote: "Connect and vote",
+		registerVote: "Create my account an vote",
 		facebook: "Connect with Facebook",
 		google: "Connect with Google",
 		accept: "I accept",
@@ -41,13 +47,19 @@ export const test = {
 
 export const errors = {
 	enterEmail: "Please enter your email address",
-	strengthEmail: "The password must incluse at least 8 characters",
-	sameEmails: "Both passwords must be identical",
+	strengthPassword: "The password must incluse at least 8 characters",
+	samePasswords: "Both passwords must be identical",
+	invalidToken: "The reset token is no longer valid or has expired. Please make a new password request.",
+	invalidInfo: "Invalid email or password. Please try again.",
+	inactiveAccount: "This account has yet not being activated. Please check your emails, or try to subscribe again!",
+	noUser: "No user was found with this email address. You might have used another address ?",
 
 	email: {
 		weak: "Weak password",
 		average: "Average password",
 		acceptable: "Acceptable password",
+		emailTaken: "This email is already used. ",
+		forgotEmail: "Did you forget your password?",
 	}
 }
 
@@ -57,6 +69,8 @@ export const publicNavbarWeb = {
 	yesAccount: "Already a member?",
 	openAccount: "Open a session",
 	language: "Français",
+	noMember: "Not yet a member?",
+	createMyAccount: "Create my account",
 }
 
 export const forms = {
@@ -109,6 +123,11 @@ export const register = {
 	title: "On the way to professionalization",
 	subTitle: "You  are one click away from documenting your music and share your rights with your contributors.",
 
+	toVote: {
+		title: "create an account to confirm your decision.",
+		subTitle: "You are about to sign an important contract with your collaborators, so we need you to confirm your indentity."
+	},
+	
 	conditions: {
 		title: "Terms and conditions",
 		paragraph: "I have read and accept the ",

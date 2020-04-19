@@ -9,7 +9,6 @@ import DashboardPage from "./pages/dashboard"
 import FormsTest from "./pages/test/forms"
 import CopyrightShare from "./pages/document/copyright"
 import UserActivateAccount from "./pages/user/activate"
-import ChangePasswordModal from "./pages/dashboard/change-password"
 
 import TestRedux from "./pages/test/TestReduxContainer"
 import AccessControl from "./widgets/AccessControl"
