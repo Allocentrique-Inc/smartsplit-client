@@ -10,14 +10,13 @@ import { TextField, PasswordField } from "../../forms"
 import AuthLayout from "./layout"
 import { CheckBox } from "../../forms"
 import { Platform } from "../../platform"
+import useDebounce from "../../../helpers/useDebounce"
 
-import { notEmptyValidator } from "../../../helpers/validators"
+import { notEmptyValidator, emailValidator } from "../../../helpers/validators"
 
 export const LoginErrorCodes = {
-	auth_invalid_credentials:
-		"erros:invalidLogin",
-	auth_account_inactive:
-		"errors:inactiveAccount",
+	auth_invalid_credentials: "erros:invalidLogin",
+	auth_account_inactive: "errors:inactiveAccount",
 }
 
 export const LoginForm = connect(
@@ -50,11 +49,12 @@ export const LoginForm = connect(
 
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
+	const [emailValid, setEmailValid] = useState(false)
 
-	const validEmail = notEmptyValidator(email)
+	// const validEmail = notEmptyValidator(email)
 	const validPassword = notEmptyValidator(password)
 
-	const canSubmit = !auth.isLoading && validEmail && validPassword
+	const canSubmit = !auth.isLoading && validPassword && emailValid
 
 	const error = !auth.isLoading && auth.error
 	const errorCode = error && error.code
@@ -63,6 +63,9 @@ export const LoginForm = connect(
 			LoginErrorCodes[errorCode] &&
 			t(LoginErrorCodes[errorCode])) ||
 		(error && error.message)
+
+	const [errorEmailType, setErrorEmailType] = useState(null)
+	const debouncedEmail = useDebounce(email, 400)
 
 	useEffect(() => {
 		setEmail("")
@@ -76,6 +79,22 @@ export const LoginForm = connect(
 			setFormState({ canSubmit, submit: handleLogin })
 		}, [setFormState, canSubmit, email, password])
 
+	useEffect(() => {
+		if (debouncedEmail) {
+			let emailValid = notEmptyValidator(email) && emailValidator(email)
+			setEmailValid(emailValid)
+			setErrorEmailType(
+				emailValid ? null : (
+					<Text small error>
+						{t("errors:enterEmail")}
+					</Text>
+				)
+			)
+		} else {
+			setErrorEmailType(null)
+		}
+	}, [debouncedEmail])
+
 	return (
 		<Column of="group">
 			<TextField
@@ -83,6 +102,7 @@ export const LoginForm = connect(
 				placeholder={t("forms:placeholders.emailExample")}
 				onChangeText={setEmail}
 				value={email}
+				error={errorEmailType}
 			/>
 
 			<Column of="inside">
