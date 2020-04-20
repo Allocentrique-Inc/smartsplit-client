@@ -129,6 +129,9 @@ export const LoginForm = connect(
 export default function LoginPage({ showRegister }) {
 	const [t] = useTranslation()
 	const history = useHistory()
+	const nativeRegisterLink = showRegister
+		? showRegister
+		: () => history.push("/auth/register")
 
 	const [stayLoggedIn, setStayLoggedIn] = useState(false)
 	const [formState, setFormState] = useState({})
@@ -178,7 +181,7 @@ export default function LoginPage({ showRegister }) {
 							<Button
 								tertiary
 								text={t("general:buttons.createAccount")}
-								onClick={showRegister}
+								onClick={nativeRegisterLink}
 								size={buttonSize}
 							/>
 						)}
