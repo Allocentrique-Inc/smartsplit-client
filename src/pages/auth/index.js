@@ -6,7 +6,7 @@ import RegisterPage from "./register"
 import Logout from "./Logout"
 import NewUser from "./NewUserContainer"
 import PasswordSent from "./forgot-password-sent"
-import GetPasswordContainer from "./ForgotPasswordContainer"
+import ForgotPassword from "./forgot-password"
 import PasswordReset from "./password-reset"
 import CheckEmailPage from "./check-email"
 import AccessControl from "../../widgets/AccessControl"
@@ -31,13 +31,13 @@ export default function AuthPages() {
 			</Route>
 
 			<Route path="/auth/forgot-password" exact>
-				<GetPasswordContainer />
+				<ForgotPassword />
 			</Route>
 
 			<Route path="/auth/check-email" exact>
 				<CheckEmailPage />
 			</Route>
-			
+
 			<Route path="/auth/new-user" exact>
 				<AccessControl redirectToLogin>
 					<NewUser />

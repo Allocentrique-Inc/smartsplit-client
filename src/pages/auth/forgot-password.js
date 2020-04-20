@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { connect } from "react-redux"
+import * as UserActions from "../../../redux/Users/Actions"
 import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router-dom"
 import { Group, Column, Row, Flex } from "../../layout"
@@ -10,7 +12,12 @@ import AuthLayout from "./layout"
 import { notEmptyValidator } from "../../../helpers/validators"
 import { Platform } from "../../platform"
 
-export default function GetPassword({ users, forgotPassword }) {
+export const ForgotPasswordForm = connect(
+	({ users }) => ({ users }),
+	(dispatch) => ({
+		forgotPassword: (details) => dispatch(UserActions.forgotPassword(details)),
+	})
+)(function ({ users, forgotPassword, setFormState, onSuccess }) {
 	const [t] = useTranslation()
 	const history = useHistory()
 	const state = users.forgotPassword
@@ -32,13 +39,11 @@ export default function GetPassword({ users, forgotPassword }) {
 		forgotPassword({ email })
 	}
 
-	const navitateToRegister = () => history.push("/auth/register")
-
 	// Réinitialiser le formulaire après envoi, et rediriger l'utilisateur
 	useEffect(() => {
 		if (!state.isLoading && state.data && hasSubmitted) {
-			history.push("/auth/forgot-password-sent")
 			setEmail("")
+			onSuccess && onSuccess(state.data)
 		}
 	}, [state.isLoading, state.data, hasSubmitted])
 
@@ -47,19 +52,35 @@ export default function GetPassword({ users, forgotPassword }) {
 		if (!state.isLoading) setHasSubmitted(false)
 	}, [state.isLoading])
 
-	const buttonSize = Platform.web ? "medium" : "large"
+	useEffect(() => {
+		setFormState({ canSubmit, submit: handleSubmit })
+	}, [canSubmit])
 
-	const submitButton = (
-		<Button
-			text={t("general:buttons.send")}
-			onClick={handleSubmit}
-			disabled={!canSubmit}
-			size={buttonSize}
-		/>
+	return (
+		<Column of="group">
+			<TextField
+				label={t("forms:labels.email")}
+				label_hint=""
+				undertext=""
+				onChangeText={setEmail}
+				value={email}
+			/>
+
+			{errorMessage && <Text error>{errorMessage}</Text>}
+		</Column>
 	)
+})
+
+export function ForgotPasswordPageContents(props) {
+	const { showRegister } = props
+
+	const [t] = useTranslation()
+	const [formState, setFormState] = useState({})
+
+	const buttonSize = Platform.native ? "large" : "medium"
 
 	const noAccountLink = (
-		<Link action onClick={navitateToRegister}>
+		<Link action onClick={showRegister}>
 			{t("general:noAccount")}
 		</Link>
 	)
@@ -68,7 +89,16 @@ export default function GetPassword({ users, forgotPassword }) {
 		<Button
 			tertiary
 			text={t("general:noAccount")}
-			onClick={navitateToRegister}
+			onClick={showRegister}
+			size={buttonSize}
+		/>
+	)
+
+	const submitButton = (
+		<Button
+			text={t("general:buttons.send")}
+			onClick={formState.submit}
+			disabled={!formState.canSubmit}
 			size={buttonSize}
 		/>
 	)
@@ -97,23 +127,27 @@ export default function GetPassword({ users, forgotPassword }) {
 	)
 
 	return (
+		<Column of="group">
+			<Heading level="1">{t("passwordIssues:reset")}</Heading>
+			<Paragraph>{t("passwordIssues:enterEmail")}</Paragraph>
+
+			<ForgotPasswordForm {...props} setFormState={setFormState} />
+			{forgotPasswordAndSubmitButton}
+		</Column>
+	)
+}
+
+export default function ForgotPasswordPage() {
+	const history = useHistory()
+
+	return (
 		<AuthLayout>
-			<Column of="group">
-				<Heading level="1">{t("passwordIssues:reset")}</Heading>
-				<Paragraph>{t("passwordIssues:enterEmail")}</Paragraph>
-
-				<TextField
-					label={t("forms:labels.email")}
-					label_hint=""
-					undertext=""
-					onChangeText={setEmail}
-					value={email}
+			{(layoutProps) => (
+				<ForgotPasswordPageContents
+					{...layoutProps}
+					onSuccess={() => history.push("/auth/forgot-password-sent")}
 				/>
-
-				{errorMessage && <Text error>{errorMessage}</Text>}
-
-				{forgotPasswordAndSubmitButton}
-			</Column>
+			)}
 		</AuthLayout>
 	)
 }

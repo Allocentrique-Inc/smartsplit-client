@@ -10,14 +10,15 @@ import Pager from "../../widgets/pager"
 import SmartsplitLogo from "../../svg/logo-smartsplit"
 import XIcon from "../../svg/x"
 
-import { LoginForm } from "../auth/login"
-import { RegisterForm } from "../auth/register"
+import { LoginForm } from "./login"
+import { RegisterForm } from "./register"
+import { ForgotPasswordForm } from "./forgot-password"
 
 export const MODAL_WIDTH = 624
 
 export default function AuthModal(props) {
 	const [t] = useTranslation()
-	
+
 	const { visible, onCancel, onSuccess, onRequestClose } = props
 	const [tab, setTab] = useState("register")
 
@@ -25,6 +26,7 @@ export default function AuthModal(props) {
 		showForgotPassword: () => setTab("forgot-password"),
 		showLogin: () => setTab("login"),
 		showRegister: () => setTab("register"),
+		showForgotPasswordSent: () => setTab("forgot-password-sent"),
 	}
 
 	const buttonsRegisterPage = (
@@ -89,6 +91,18 @@ export default function AuthModal(props) {
 						{...commonProps}
 						onSuccess={() => alert(t("general:alerts.subscribed"))}
 					/>
+					<ForgotPasswordModal
+						key="forgot-password"
+						{...props}
+						{...commonProps}
+						onSuccess={() => commonProps.showForgotPasswordSent()}
+					/>
+					<ForgotPasswordSentModal
+						key="forgot-password-sent"
+						{...props}
+						{...commonProps}
+						onSuccess={() => commonProps.showLogin()}
+					/>
 				</Pager>
 			</Column>
 		</Modal>
@@ -119,7 +133,11 @@ export function LoginModal(props) {
 			<Hairline />
 
 			<Row of="component" padding="component" align="right">
-				<Button tertiary text={t("general:buttons.cancel")} onClick={onCancel || onRequestClose} />
+				<Button
+					tertiary
+					text={t("general:buttons.cancel")}
+					onClick={onCancel || onRequestClose}
+				/>
 				<Button
 					primary
 					text={t("general:buttons.connectVote")}
@@ -145,7 +163,7 @@ export function RegisterModal(props) {
 						<Heading level={2}>
 							{artistName || "[artistName]"}, {t("register:toVote.title")}
 						</Heading>
-							<Paragraph>{t("register:toVote.subTitle")}</Paragraph>
+						<Paragraph>{t("register:toVote.subTitle")}</Paragraph>
 					</Column>
 
 					<RegisterForm setFormState={setFormState} {...props} />
@@ -155,12 +173,82 @@ export function RegisterModal(props) {
 			<Hairline />
 
 			<Row of="component" padding="component" align="right">
-				<Button tertiary text={t("general:buttons.cancel")} onClick={onCancel || onRequestClose} />
+				<Button
+					tertiary
+					text={t("general:buttons.cancel")}
+					onClick={onCancel || onRequestClose}
+				/>
 				<Button
 					primary
 					text={t("general:buttons.registerVote")}
 					disabled={!formState.canSubmit}
 					onClick={formState.submit}
+				/>
+			</Row>
+		</>
+	)
+}
+
+export function ForgotPasswordModal(props) {
+	const [t] = useTranslation()
+	const [formState, setFormState] = useState({})
+
+	return (
+		<>
+			<Scrollable>
+				<Column of="group" padding="group">
+					<Column of="component">
+						<Heading level="3">{t("passwordIssues:reset")}</Heading>
+						<Paragraph>{t("passwordIssues:enterEmail")}</Paragraph>
+					</Column>
+
+					<ForgotPasswordForm setFormState={setFormState} {...props} />
+				</Column>
+			</Scrollable>
+
+			<Hairline />
+
+			<Row of="component" padding="component" align="right">
+				<Button
+					tertiary
+					text={t("general:buttons.cancel")}
+					onClick={props.onCancel || props.onRequestClose}
+				/>
+				<Button
+					primary
+					text={t("general:buttons.send")}
+					disabled={!formState.canSubmit}
+					onClick={formState.submit}
+				/>
+			</Row>
+		</>
+	)
+}
+
+export function ForgotPasswordSentModal(props) {
+	const [t] = useTranslation()
+
+	return (
+		<>
+			<Scrollable>
+				<Column of="component" padding="group">
+					<Heading level="3">{t("passwordIssues:emailSent")}</Heading>
+					<Paragraph>{t("passwordIssues:resetParagraph")}</Paragraph>
+				</Column>
+			</Scrollable>
+
+			<Hairline />
+
+			<Row of="component" padding="component" align="right">
+				<Button
+					tertiary
+					text={t("general:buttons.cancel")}
+					onClick={props.onCancel || props.onRequestClose}
+				/>
+				<Button
+					primary
+					text={t("general:buttons.comprendo")}
+					onClick={props.showLogin}
 				/>
 			</Row>
 		</>

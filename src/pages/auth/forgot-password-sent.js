@@ -8,7 +8,16 @@ import { Colors } from "../../theme"
 import AuthLayout from "./layout"
 import { Platform } from "../../platform"
 
-export default function PasswordSent(props) {
+export function ForgotPasswordSentContents(props) {
+	return (
+		<Column of="component">
+			<Heading level="1">{t("passwordIssues:emailSent")}</Heading>
+			<Paragraph>{t("passwordIssues:resetParagraph")}</Paragraph>
+		</Column>
+	)
+}
+
+export default function ForgotPasswordSent(props) {
 	const [t] = useTranslation()
 	let history = useHistory()
 
@@ -17,24 +26,22 @@ export default function PasswordSent(props) {
 
 	return (
 		<AuthLayout>
-			<Column of="group">
-				<Column of="component">
-					<Heading level="1">{t("passwordIssues:emailSent")}</Heading>
-					<Paragraph>{t("passwordIssues:resetParagraph")}</Paragraph>
+			{(layoutProps) => (
+				<Column of="group">
+					<ForgotPasswordSentContents />
+					<Button
+						secondary
+						style={{ borderColor: Colors.stroke }}
+						text={
+							<Text link heavy>
+								{t("general:buttons.backHome")}
+							</Text>
+						}
+						onClick={layoutProps.showLogin}
+						size={buttonSize}
+					/>
 				</Column>
-
-				<Button
-					secondary
-					style={{ borderColor: Colors.stroke }}
-					text={
-						<Text link heavy>
-							{t("general:buttons.backHome")}
-						</Text>
-					}
-					onClick={navigateToLogin}
-					size={buttonSize}
-				/>
-			</Column>
+			)}
 		</AuthLayout>
 	)
 }
