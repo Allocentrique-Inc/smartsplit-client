@@ -1,1 +1,1 @@
-export const API_BASE_URL = "https://api-dev.smartsplit.org/v1"
+export const API_BASE_URL = "https://apiv2-dev.smartsplit.org/v1"
