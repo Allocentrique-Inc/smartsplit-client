@@ -6,7 +6,7 @@ export const general = {
 
 	alerts: {
 		connected: "Connected!",
-		subscribed: "Subscribed!"
+		subscribed: "Subscribed!",
 	},
 
 	buttons: {
@@ -49,18 +49,21 @@ export const errors = {
 	enterEmail: "Please enter your email address",
 	strengthPassword: "The password must incluse at least 8 characters",
 	samePasswords: "Both passwords must be identical",
-	invalidToken: "The reset token is no longer valid or has expired. Please make a new password request.",
+	invalidToken:
+		"The reset token is no longer valid or has expired. Please make a new password request.",
 	invalidInfo: "Invalid email or password. Please try again.",
-	inactiveAccount: "This account has yet not being activated. Please check your emails, or try to subscribe again!",
-	noUser: "No user was found with this email address. You might have used another address ?",
+	inactiveAccount:
+		"This account has yet not being activated. Please check your emails, or try to subscribe again!",
+	noUser:
+		"No user was found with this email address. You might have used another address ?",
 
-	email: {
+	password: {
 		weak: "Weak password",
 		average: "Average password",
 		acceptable: "Acceptable password",
 		emailTaken: "This email is already used. ",
 		forgotEmail: "Did you forget your password?",
-	}
+	},
 }
 
 export const publicNavbarWeb = {
@@ -115,43 +118,49 @@ export const login = {
 
 	toVote: {
 		title: "[artistName], connect to confirm your decision.",
-		subTitle: "You are about to sign an important contract with your collaborators, so we need you to confirm your indentity."
-	}
+		subTitle:
+			"You are about to sign an important contract with your collaborators, so we need you to confirm your indentity.",
+	},
 }
 
 export const register = {
 	title: "On the way to professionalization",
-	subTitle: "You  are one click away from documenting your music and share your rights with your contributors.",
+	subTitle:
+		"You  are one click away from documenting your music and share your rights with your contributors.",
 
 	toVote: {
 		title: "create an account to confirm your decision.",
-		subTitle: "You are about to sign an important contract with your collaborators, so we need you to confirm your indentity."
+		subTitle:
+			"You are about to sign an important contract with your collaborators, so we need you to confirm your indentity.",
 	},
-	
+
 	conditions: {
 		title: "Terms and conditions",
 		paragraph: "I have read and accept the ",
 		paragraph2: "Terms and Conditions of use ",
 		paragraph3: "as well as Smartsplit's ",
 		paragraph4: "Private Life Policy",
-		paragraph5: ""
-	}
+		paragraph5: "",
+	},
 }
 
 export const passwordIssues = {
 	checkEmail: "Check your emails",
-	validate: "A message including an account validation link was emailed to you.\nDoucle check your spam. We never know!",
+	validate:
+		"A message including an account validation link was emailed to you.\nDoucle check your spam. We never know!",
 	reset: "Reset your password.",
 	emailSent: "Email sent.",
-	resetParagraph: "An email was sent or will be sent shortly. It includes a link to reset your password.",
+	resetParagraph:
+		"An email was sent or will be sent shortly. It includes a link to reset your password.",
 	change: "Change the password",
-	enterEmail: "Enter the email address associated to your account to get the reset link.",
+	enterEmail:
+		"Enter the email address associated to your account to get the reset link.",
 	changePassword: "Change the password",
 }
 
 export const newUser = {
 	title: "Welcome!\nTell us a bit about you.",
-	subTitle: "Start by creating your profile."
+	subTitle: "Start by creating your profile.",
 }
 
 export const dashboard = {

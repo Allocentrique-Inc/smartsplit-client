@@ -10,7 +10,6 @@ import { Group } from "../../layout"
 
 export function CheckEmailModal(props) {
 	const [t] = useTranslation()
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	return (
 		<DialogModal
@@ -21,8 +20,6 @@ export function CheckEmailModal(props) {
 				<Button
 					text={t("general:buttons.comprendo")}
 					onClick={props.onRequestClose}
-					style={Platform.OS !== "web" && { flex: 1 }}
-					size={buttonSize}
 				/>
 			}
 		>

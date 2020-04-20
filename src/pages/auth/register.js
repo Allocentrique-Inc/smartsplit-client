@@ -38,12 +38,10 @@ export function passwordBarColor(score) {
 }
 
 export function passwordStrengthIndicator(score) {
-	const [t] = useTranslation()
-
 	switch (score) {
 		case 0:
 		case 1:
-			return t("errors:password.weak")
+			return "errors:password.weak"
 		case 2:
 		case 3:
 			return "errors:password.average"
@@ -151,7 +149,7 @@ export const RegisterForm = connect(
 		<Text small error>
 			{t("errors:email.emailTaken")}
 			<Link small error bold onClick={showForgotPassword}>
-			{t("errors:email.forgotEmail")}
+				{t("errors:email.forgotEmail")}
 			</Link>
 			?
 		</Text>
@@ -162,7 +160,9 @@ export const RegisterForm = connect(
 	function handleRegister() {
 		setErrorEmail(validEmail ? null : t("errors:enterEmail"))
 		setErrorPassword(validPassword ? null : t("errors:strengthPassword"))
-		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors:samePasswords"))
+		setErrorPasswordRepeat(
+			validPasswordRepeat ? null : t("errors:samePasswords")
+		)
 
 		if (canSubmit && validEmail && validPassword && validPasswordRepeat) {
 			registerUser({ email, password, locale: "fr" })
@@ -293,7 +293,7 @@ export default function RegisterPage(props) {
 					<RegisterForm
 						{...layoutProps}
 						setFormState={setFormState}
-						onSuccess={props.showLogin}
+						onSuccess={layoutProps.showLogin}
 					/>
 
 					<Platform web={Row} native={Column} of="group">
