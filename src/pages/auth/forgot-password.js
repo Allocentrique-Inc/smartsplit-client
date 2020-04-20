@@ -31,7 +31,7 @@ export const ForgotPasswordForm = connect(
 	const errorMessage =
 		state.error &&
 		(state.error.code === "user_not_found"
-			? "errors:noUser"
+			? t("errors:noUser")
 			: state.error.message)
 
 	const handleSubmit = () => {

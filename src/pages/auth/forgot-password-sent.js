@@ -9,6 +9,8 @@ import AuthLayout from "./layout"
 import { Platform } from "../../platform"
 
 export function ForgotPasswordSentContents(props) {
+	const [t] = useTranslation()
+
 	return (
 		<Column of="component">
 			<Heading level="1">{t("passwordIssues:emailSent")}</Heading>

@@ -86,13 +86,13 @@ export const ChangePasswordForm = connect(
 					value={password}
 					onChangeText={setPassword}
 					label={t("passwordIssues:reset")}
-					placeholder={t("forms:placeholders.noChars")}
+					placeholder={t("forms:placeholders.noCharacters")}
 					error={errorPassword}
 				/>
 
 				<Row>
 					<Text secondary small style={{ flex: 3 }}>
-						{passwordStrengthIndicator(score)}
+						{t(passwordStrengthIndicator(score))}
 					</Text>
 					<Flex />
 					<ProgressBar

@@ -6,7 +6,7 @@ export const general = {
 
 	alerts: {
 		connected: "Connecté !",
-		subscribed: "Inscrit !"
+		subscribed: "Inscrit !",
 	},
 
 	buttons: {
@@ -49,10 +49,14 @@ export const errors = {
 	enterEmail: "Vous devez entrer votre adresse courriel",
 	strengthPassword: "Le mot de passe doit comporter au moins 8 caractères",
 	samePasswords: "Les deux mots de passe doivent être identiques",
-	invalidToken: "Le jeton de réinitialisation n'est plus valide, ou a expiré. Veuillez effectuer une nouvelle demande de réinitialisation de mot de passe.",
-	invalidLogin: "Adresse courriel ou mot de passe invalide. Veuillez réessayer.",
-	inactiveAccount: "Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau !",
-	noUser: "Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
+	invalidToken:
+		"Le jeton de réinitialisation n'est plus valide, ou a expiré. Veuillez effectuer une nouvelle demande de réinitialisation de mot de passe.",
+	invalidLogin:
+		"Adresse courriel ou mot de passe invalide. Veuillez réessayer.",
+	inactiveAccount:
+		"Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau !",
+	noUser:
+		"Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
 
 	password: {
 		weak: "Mot de passe faible",
@@ -60,7 +64,7 @@ export const errors = {
 		acceptable: "Mot de passe acceptable",
 		emailTaken: "Ce courriel est déjà utilisé. ",
 		forgotEmail: "As-tu oublié ton mot de passe ?",
-	}
+	},
 }
 
 export const publicNavbarWeb = {
@@ -95,7 +99,7 @@ export const forms = {
 		emailExample: "nom@example.com",
 		noCharacters: "8 caractères minimum",
 		confirmPassword: "Confirm your password",
-		usuaFirstName: "Prénom(s) usuel(s)",
+		usualFirstName: "Prénom(s) usuel(s)",
 		usualLastName: "Nom de famille usuel",
 	},
 
@@ -115,17 +119,20 @@ export const login = {
 
 	toVote: {
 		title: "connecte-toi pour confirmer ta décision.",
-		subTitle: "Tu es sur le point de signer un contrat important avec tes collaborateurs, nous avons donc besoin de confirmer ton identité."
-	}
+		subTitle:
+			"Tu es sur le point de signer un contrat important avec tes collaborateurs, nous avons donc besoin de confirmer ton identité.",
+	},
 }
 
 export const register = {
 	title: "En route vers la professionnalisation",
-	subTitle: "Tu es à un clic de pouvoir documenter ta musique et de partager tes droits avec tes contributeurs.",
+	subTitle:
+		"Tu es à un clic de pouvoir documenter ta musique et de partager tes droits avec tes contributeurs.",
 
 	toVote: {
 		title: "créer un compte pour confirmer ta décision.",
-		subTitle: "Tu es sur le point de signer un contrat important avec tes collaborateurs, nous avons donc besoin de confirmer ton identité."
+		subTitle:
+			"Tu es sur le point de signer un contrat important avec tes collaborateurs, nous avons donc besoin de confirmer ton identité.",
 	},
 
 	conditions: {
@@ -134,25 +141,27 @@ export const register = {
 		paragraph2: "Termes et conditions d'utilisation ",
 		paragraph3: "et la ",
 		paragraph4: "Politique sur la vie privée ",
-		paragraph5: "de Smartsplit"
-	}
+		paragraph5: "de Smartsplit",
+	},
 }
 
 export const passwordIssues = {
 	checkEmail: "Check your emails",
-	validate: "Un message incluant un lien de validation de ton compte t'a été envoyé par courriel.\nVérifie tes spams. On ne sait jamais !",
+	validate:
+		"Un message incluant un lien de validation de ton compte t'a été envoyé par courriel.\nVérifie tes spams. On ne sait jamais !",
 	reset: "Réinitialise ton mot de passe.",
 	emailSent: "Courriel envoyé.",
-	resetParagraph: "Un courriel a été envoyé ou sera envoyé sous peu. Il contient un lien de réinitialisation de ton mot de passe.",
+	resetParagraph:
+		"Un courriel a été envoyé ou sera envoyé sous peu. Il contient un lien de réinitialisation de ton mot de passe.",
 	change: "Changer le mot de passe",
-	enterEmail: "Saisis l'adresse courriel lié à ton compte pour obtenir le lien de réinitialisation.",
+	enterEmail:
+		"Saisis l'adresse courriel lié à ton compte pour obtenir le lien de réinitialisation.",
 	changePassword: "Changer le mot de passe",
 }
 
-
 export const newUser = {
 	title: "Bienvenue !\nParle-nous un peu de toi.",
-	subTitle: "Commence à créer ton profil."
+	subTitle: "Commence à créer ton profil.",
 }
 
 export const dashboard = {
