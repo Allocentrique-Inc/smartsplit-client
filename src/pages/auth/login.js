@@ -81,7 +81,8 @@ export const LoginForm = connect(
 
 	useEffect(() => {
 		if (debouncedEmail) {
-			let emailValid = notEmptyValidator(email) && emailValidator(email)
+			let emailValid =
+				notEmptyValidator(debouncedEmail) && emailValidator(debouncedEmail)
 			setEmailValid(emailValid)
 			setErrorEmailType(
 				emailValid ? null : (
@@ -91,6 +92,7 @@ export const LoginForm = connect(
 				)
 			)
 		} else {
+			setEmailValid(false)
 			setErrorEmailType(null)
 		}
 	}, [debouncedEmail])
