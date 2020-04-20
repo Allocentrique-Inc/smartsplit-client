@@ -15,7 +15,7 @@ import useDebounce from "../../../helpers/useDebounce"
 import { notEmptyValidator, emailValidator } from "../../../helpers/validators"
 
 export const LoginErrorCodes = {
-	auth_invalid_credentials: "erros:invalidLogin",
+	auth_invalid_credentials: "errors:invalidLogin",
 	auth_account_inactive: "errors:inactiveAccount",
 }
 
