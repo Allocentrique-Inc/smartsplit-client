@@ -17,13 +17,8 @@ import FacebookIcon from "../../svg/facebook"
 import GoogleIcon from "../../svg/google"
 import { Metrics, Colors } from "../../theme"
 import zxcvbn from "zxcvbn"
-import {
-	notEmptyValidator,
-	sameValidator,
-	emailValidator,
-} from "../../../helpers/validators"
+import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 import { CheckEmailModal } from "./check-email"
-import useDebounce from "../../../helpers/useDebounce"
 
 export function passwordBarColor(score) {
 	switch (score) {
@@ -132,16 +127,12 @@ export const RegisterForm = connect(
 	const [agreeTerms, setAgreeTerms] = useState(false)
 
 	const [errorEmail, setErrorEmail] = useState(null)
-	const [errorEmailType, setErrorEmailType] = useState(null)
 	const [errorPassword, setErrorPassword] = useState(null)
 	const [errorPasswordRepeat, setErrorPasswordRepeat] = useState(null)
 
-	const debouncedEmail = useDebounce(email, 400)
-
 	const score = zxcvbn(password).score
 
-	// const validEmail = notEmptyValidator(email)
-	const [validEmail, setValidEmail] = useState(false)
+	const validEmail = notEmptyValidator(email)
 	const validPassword = notEmptyValidator(password) && score > 1
 	const validPasswordRepeat = sameValidator(password, passwordRepeat)
 
@@ -163,28 +154,6 @@ export const RegisterForm = connect(
 			</Link>
 		</Text>
 	)
-
-	useEffect(() => {
-		if (debouncedEmail) {
-			let emailValid =
-				notEmptyValidator(debouncedEmail) && emailValidator(debouncedEmail)
-			setValidEmail(emailValid)
-			setErrorEmailType(
-				emailValid ? null : (
-					<Text small error>
-						{t("errors:enterEmail")}
-					</Text>
-				)
-			)
-		} else {
-			setValidEmail(false)
-			setErrorEmailType(null)
-		}
-		return () => {
-			setValidEmail(false)
-			setErrorEmailType(null)
-		}
-	}, [debouncedEmail])
 
 	const errorMessage = !errorEmailUsed && error && error.message
 
@@ -262,7 +231,7 @@ export const RegisterForm = connect(
 						label={t("forms:labels.enterEmail")}
 						placeholder={t("forms:placeholders.emailExample")}
 						onChangeText={setEmail}
-						error={errorEmailUsed ? errorEmailUsed : errorEmailType}
+						error={errorEmailUsed}
 					/>
 
 					<Column of="inside">
