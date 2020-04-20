@@ -59,7 +59,8 @@ export const ChangePasswordModal = connect(
 		setCanSubmit(!passwordReset.isLoading &&
 			notEmptyValidator(currentPassword) &&
 			notEmptyValidator(newPassword) &&
-			notEmptyValidator(newPasswordRepeat))
+			sameValidator(newPassword, newPasswordRepeat)
+		)
 	}, [currentPassword, newPassword, newPasswordRepeat])
 
 	const handleSubmit = () => {
