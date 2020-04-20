@@ -14,6 +14,12 @@ export function registerUser_success(data) {
 	}
 }
 
+export function registerUser_reset() {
+	return {
+		type: "REGISTER_USER_RESET"
+	}
+}
+
 export function registerUser_error(err) {
 	return {
 		type: "REGISTER_USER_ERROR",
@@ -28,6 +34,7 @@ export function registerUser(user) {
 		try {
 			const response = await UsersAPI.registerUser(user)
 			dispatch(registerUser_success(response.data))
+			dispatch(registerUser_reset())
 		} catch (error) {
 			if (error.data) dispatch(registerUser_error(error.data))
 			else dispatch(registerUser_error(error))

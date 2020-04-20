@@ -119,6 +119,7 @@ export const RegisterForm = connect(
 	const registration = users.registerUser
 
 	const [showTerms, setShowTerms] = useState(false)
+	const [showCheckMails, setShowCheckMails] = useState(false)
 
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
@@ -157,6 +158,13 @@ export const RegisterForm = connect(
 
 	const errorMessage = !errorEmailUsed && error && error.message
 
+	function resetForm() {
+		setEmail("")
+		setPassword("")
+		setPasswordRepeat("")
+		setAgreeTerms(false)
+	}
+
 	function handleRegister() {
 		setErrorEmail(validEmail ? null : t("errors:enterEmail"))
 		setErrorPassword(validPassword ? null : t("errors:strengthPassword"))
@@ -177,11 +185,15 @@ export const RegisterForm = connect(
 			})
 		}, [setFormState, canSubmit, email, password, passwordRepeat])
 
+	useEffect(() => {
+			setShowCheckMails(!!registration.data && canSubmit)
+	}, [canSubmit, email, password, passwordRepeat])
+
 	return (
 		<>
 			<CheckEmailModal
-				visible={!!registration.data}
-				onRequestClose={onSuccess}
+				visible={showCheckMails}
+				onRequestClose={() => resetForm()}
 			/>
 
 			<TermsConditionsModal
@@ -216,6 +228,7 @@ export const RegisterForm = connect(
 
 				<Column of="group">
 					<TextField
+						value={email}
 						label={t("forms:labels.enterEmail")}
 						placeholder={t("forms:placeholders.emailExample")}
 						onChangeText={setEmail}
@@ -246,6 +259,7 @@ export const RegisterForm = connect(
 					</Column>
 
 					<PasswordField
+						value={passwordRepeat}
 						placeholder={t("forms:labels.repeatPassword")}
 						onChangeText={setPasswordRepeat}
 						error={errorPasswordRepeat}

@@ -30,6 +30,12 @@ export default function (state = INITIAL_STATE, action) {
 	let newState = {}
 
 	switch (action.type) {
+
+		case "REGISTER_USER_RESET":
+			newState.registerUser = INITIAL_STATE.registerUser
+
+			break
+
 		case "REGISTER_USER_REQUEST":
 			newState.registerUser = {
 				...state.registerUser,
