@@ -16,23 +16,55 @@ import {
 } from "../auth/register"
 import zxcvbn from "zxcvbn"
 import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
+import { connect } from "react-redux"
+import * as UserActions from "../../../redux/Users/Actions"
 
-export function ChangePasswordModal({ state, changePassword, ...props }) {
+export const ChangePasswordModal = connect(
+	function mapStateToProps({ users }) {
+		return {
+			users,
+		}
+	},
+	function mapDispatchToProps(dispatch) {
+		return {
+			passwordReset: function (details) {
+				dispatch(UserActions.resetPassword(details))
+			},
+		}
+	}
+)
+( props => {
+	const {
+		passwordReset
+	} = props
+	const [t] = useTranslation()
 
-	const [t, i18n] = useTranslation()
+	const [currentPassword, setCurrentPassword] = useState("")
+	const [errorCurrentPassword, setErrorCurrentPassword] = useState(null)
 
-	const [Password, setPassword] = useState("")
-	const [NewPassword, setNewPassword] = useState("")
-	const [ConfirmNewPassword, setConfirmNewPassword] = useState("")
-	const [canSubmit, setCanSubmit] = useState(false)
-	const score = zxcvbn(Password)
+	const [newPassword, setNewPassword] = useState("")
+	const [errorNewPassword, setErrorNewPassword] = useState(null)
+
+	const [newPasswordRepeat, setNewPasswordRepeat] = useState("")
+	const [errorNewPasswordRepeat, setErrorNewPasswordRepeat] = useState(null)
+
+	const score = zxcvbn(newPassword)
 		.score /* passer le mot de passe dans zxcvbn, valeur */
 
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
+	const [canSubmit, setCanSubmit] = useState(false)
+
+	useEffect(() => {
+		setCanSubmit(!passwordReset.isLoading &&
+			notEmptyValidator(currentPassword) &&
+			notEmptyValidator(newPassword) &&
+			notEmptyValidator(newPasswordRepeat))
+	}, [currentPassword, newPassword, newPasswordRepeat])
+
 	const handleSubmit = () => {
 		if (!canSubmit) return false
-		changePassword({ password: NewPassword })
+		passwordReset({ password: newPassword })
 	}
 /* 
 	useEffect(() => {
@@ -84,15 +116,15 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 				style={Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }}
 			>
 				<PasswordField
-					value={Password} //pour avoir toujours valeur mot de passe, reçoit valeur password
-					onChangeText={setPassword} // quand changement mot de passe modifie valeur mise à jour
+					value={currentPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
+					onChangeText={setCurrentPassword} // quand changement mot de passe modifie valeur mise à jour
 					label={t('forms:labels.currentPassword')}
 					placeholder=""
 				/>
 
 				<Column of="inside">
 					<PasswordField
-						value={NewPassword}
+						value={newPassword}
 						onChangeText={setNewPassword}
 						label={t('forms:labels.newPassword')}
 						placeholder=""
@@ -100,7 +132,7 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 
 					<Row>
 						<Text secondary small>
-							{passwordStrengthIndicator(score)}
+							{t(passwordStrengthIndicator(score))}
 						</Text>
 						<Flex />
 						<ProgressBar
@@ -112,15 +144,15 @@ export function ChangePasswordModal({ state, changePassword, ...props }) {
 				</Column>
 
 				<PasswordField
-					value={ConfirmNewPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
-					onChangeText={setConfirmNewPassword} // quand changement mot de passe modifie valeur mise à jour
+					value={newPasswordRepeat} //pour avoir toujours valeur mot de passe, reçoit valeur password
+					onChangeText={setNewPasswordRepeat} // quand changement mot de passe modifie valeur mise à jour
 					label={t('forms:labels.repeatPassword')}
 					placeholder=""
 				/>
 			</Group>
 		</DialogModal>
 	)
-}
+})
 
 export default function ChangePasswordPage() {
 	const [showModal, setModal] = useState(false)
