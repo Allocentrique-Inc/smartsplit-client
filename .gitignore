@@ -15,3 +15,6 @@ web-report/
 
 # WebStorm
 .idea
+
+# Config
+/config.js
