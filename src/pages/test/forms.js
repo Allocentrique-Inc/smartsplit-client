@@ -21,6 +21,7 @@ import ArtistSelectDropdown from "../../smartsplit/artist/select"
 import AuthModal from "../auth/modal"
 import { SearchAndTag } from "../../forms/search-and-tag"
 import { Tag } from "../../widgets/tag"
+import { getPhoneNumber, PhoneNumberField } from "../../forms/phone-number"
 
 export default function FormsTest() {
 	return (
@@ -137,6 +138,7 @@ function TestText() {
 }
 
 function TestBasicFields() {
+	const [phoneNumber, setPhoneNumber] = useState("")
 	return (
 		<Column of="component">
 			<Row of="component">
@@ -163,6 +165,15 @@ function TestBasicFields() {
 				defaultValue="test@smartsplit.org"
 				placeholder="courriel"
 			/>
+			<Row of="component">
+				<PhoneNumberField
+					value={phoneNumber}
+					onChangeText={setPhoneNumber}
+					label="Numéro de téléphone"
+					label_hint="Optionnel"
+					placeholder="Numero de tel"
+				/>
+			</Row>
 		</Column>
 	)
 }

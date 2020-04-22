@@ -6,7 +6,7 @@ import FormStyles from "../styles/forms"
 
 function FramedTextField(props) {
 	const { error, ...inputProps } = props
-	const focused = useFrameFocus()
+	const focused = useFrameFocus(false, inputProps)
 
 	return (
 		<Frame focused={focused.value} error={error}>
