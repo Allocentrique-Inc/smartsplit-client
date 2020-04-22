@@ -13,11 +13,17 @@ import CreateWorkModal from "../../smartsplit/works/create-work-modal"
 
 export default function MyWorksPage() {
 	const [t, i18n] = useTranslation()
-	
+
 	const [modalOpen, setModal] = useState(false)
 
 	const addNewWorkButton = Platform.select({
-		web: <Button primary text={t("general:buttons.add")} onClick={() => setModal(true)} />,
+		web: (
+			<Button
+				primary
+				text={t("general:buttons.add")}
+				onClick={() => setModal(true)}
+			/>
+		),
 		ios: <RoundButton small text="+" />,
 		android: <RoundButton small text="+" />,
 	})

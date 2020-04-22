@@ -1,4 +1,4 @@
-import {axiosClient} from "./ApiClient"
+import { axiosClient } from "./ApiClient"
 
 export function getRightHolders(axiosConfig = {}) {
 	return axiosClient.request({

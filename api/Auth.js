@@ -1,8 +1,8 @@
-import {axiosClient} from "./ApiClient"
+import { axiosClient } from "./ApiClient"
 
 export function loginUser(data, axiosConfig = {}) {
 	return axiosClient.request({
-		url: '/auth/login',
+		url: "/auth/login",
 		method: "post",
 		data,
 		...axiosConfig,

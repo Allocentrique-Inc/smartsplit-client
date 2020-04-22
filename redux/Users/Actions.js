@@ -16,7 +16,7 @@ export function registerUser_success(data) {
 
 export function registerUser_reset() {
 	return {
-		type: "REGISTER_USER_RESET"
+		type: "REGISTER_USER_RESET",
 	}
 }
 

@@ -32,11 +32,8 @@ export const ChangePasswordModal = connect(
 			},
 		}
 	}
-)
-( props => {
-	const {
-		passwordReset
-	} = props
+)((props) => {
+	const { passwordReset } = props
 	const [t] = useTranslation()
 
 	const [currentPassword, setCurrentPassword] = useState("")
@@ -56,10 +53,11 @@ export const ChangePasswordModal = connect(
 	const [canSubmit, setCanSubmit] = useState(false)
 
 	useEffect(() => {
-		setCanSubmit(!passwordReset.isLoading &&
-			notEmptyValidator(currentPassword) &&
-			notEmptyValidator(newPassword) &&
-			sameValidator(newPassword, newPasswordRepeat)
+		setCanSubmit(
+			!passwordReset.isLoading &&
+				notEmptyValidator(currentPassword) &&
+				notEmptyValidator(newPassword) &&
+				sameValidator(newPassword, newPasswordRepeat)
 		)
 	}, [currentPassword, newPassword, newPasswordRepeat])
 
@@ -67,7 +65,7 @@ export const ChangePasswordModal = connect(
 		if (!canSubmit) return false
 		passwordReset({ password: newPassword })
 	}
-/* 
+	/* 
 	useEffect(() => {
 		let currentPasswordValid = notEmptyValidator(Password)
 		let newPasswordsValid =
@@ -92,18 +90,18 @@ export const ChangePasswordModal = connect(
 		<DialogModal
 			visible={props.visible}
 			onRequestClose={props.onRequestClose}
-			title={t('passwordIssues:changePassword')}
+			title={t("passwordIssues:changePassword")}
 			buttons={
 				<>
 					<Button
-						text={t('general:buttons.cancel')}
+						text={t("general:buttons.cancel")}
 						tertiary
 						onClick={props.onRequestClose}
 						size={buttonSize}
 						style={Platform.OS !== "web" && { flex: 1 }}
 					/>
 					<Button
-						text={t('general:buttons.save')}
+						text={t("general:buttons.save")}
 						disabled={!canSubmit}
 						onClick={handleSubmit}
 						size={buttonSize}
@@ -119,7 +117,7 @@ export const ChangePasswordModal = connect(
 				<PasswordField
 					value={currentPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
 					onChangeText={setCurrentPassword} // quand changement mot de passe modifie valeur mise à jour
-					label={t('forms:labels.currentPassword')}
+					label={t("forms:labels.currentPassword")}
 					placeholder=""
 				/>
 
@@ -127,7 +125,7 @@ export const ChangePasswordModal = connect(
 					<PasswordField
 						value={newPassword}
 						onChangeText={setNewPassword}
-						label={t('forms:labels.newPassword')}
+						label={t("forms:labels.newPassword")}
 						placeholder=""
 					/>
 
@@ -147,7 +145,7 @@ export const ChangePasswordModal = connect(
 				<PasswordField
 					value={newPasswordRepeat} //pour avoir toujours valeur mot de passe, reçoit valeur password
 					onChangeText={setNewPasswordRepeat} // quand changement mot de passe modifie valeur mise à jour
-					label={t('forms:labels.repeatPassword')}
+					label={t("forms:labels.repeatPassword")}
 					placeholder=""
 				/>
 			</Group>
@@ -161,9 +159,7 @@ export default function ChangePasswordPage() {
 	return (
 		<>
 			<Scrollable>
-				<Button text="Test" 
-						onClick={() => setModal(true)} 
-					/>
+				<Button text="Test" onClick={() => setModal(true)} />
 				<ChangePasswordModal
 					visible={showModal}
 					onRequestClose={() => setModal(false)}
