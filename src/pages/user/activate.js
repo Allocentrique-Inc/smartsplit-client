@@ -1,4 +1,5 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import { AsyncStorage } from "react-native"
 import { connect } from "react-redux"
 import { activateAccount } from "../../../redux/Users/Actions"
 import { Redirect } from "react-router"
@@ -8,15 +9,28 @@ import { Heading, Paragraph } from "../../text"
 
 export function ActivateAccount({ users, match, activateAccount }) {
 	const token = match.params.token
+	const [stayLoggedIn, setStayLoggedIn] = useState(null)
 
-	console.log(users.activation)
+	useEffect(function () {
+		AsyncStorage.getItem("register:stayLoggedInNext")
+			.then((flag) => setStayLoggedIn(!!flag))
+			.catch((e) =>
+				console.error(
+					"Failed getting stay logged in status after activation",
+					e
+				)
+			)
+	}, [])
 
 	if (
+		stayLoggedIn !== null &&
 		!users.activation.isLoading &&
 		!users.activation.data &&
 		users.activation.error === null
-	)
+	) {
 		activateAccount(token)
+		AsyncStorage.removeItem("register:stayLoggedInNext")
+	}
 
 	if (users.activation.error === false) return <Redirect to="/auth/new-user" />
 

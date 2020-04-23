@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { AsyncStorage } from "react-native"
 import { useTranslation } from "react-i18next"
 import { connect } from "react-redux"
 import * as UserActions from "../../../redux/Users/Actions"
@@ -113,6 +114,7 @@ export const RegisterForm = connect(
 		showLogin,
 		onSuccess,
 		setFormState,
+		stayLoggedIn,
 	} = props
 
 	const [t] = useTranslation()
@@ -173,6 +175,11 @@ export const RegisterForm = connect(
 
 		if (canSubmit && validEmail && validPassword && validPasswordRepeat) {
 			registerUser({ email, password, locale: "fr" })
+
+			if (stayLoggedIn)
+				AsyncStorage.setItem("register:stayLoggedInNext", true).catch((e) =>
+					console.error("Failed to store stayLoggedInNext", e)
+				)
 		}
 	}
 
@@ -182,7 +189,7 @@ export const RegisterForm = connect(
 				canSubmit,
 				submit: handleRegister,
 			})
-		}, [setFormState, canSubmit, email, password, passwordRepeat])
+		}, [setFormState, canSubmit, email, password, passwordRepeat, stayLoggedIn])
 
 	useEffect(() => {
 		setShowCheckMails(!!registration.data && canSubmit)
@@ -291,6 +298,7 @@ export default function RegisterPage(props) {
 	const [t] = useTranslation()
 	const history = useHistory()
 	const [formState, setFormState] = useState({})
+	const [stayLoggedIn, setStayLoggedIn] = useState(false)
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	return (
@@ -307,16 +315,17 @@ export default function RegisterPage(props) {
 						{...layoutProps}
 						setFormState={setFormState}
 						onSuccess={layoutProps.showLogin}
+						stayLoggedIn={stayLoggedIn}
 					/>
 
 					<Platform web={Row} native={Column} of="group">
 						{Platform.web && (
 							<>
-								<CheckBox>
-									<Text primary regular>
-										{t("general:checkbox")}
-									</Text>
-								</CheckBox>
+								<CheckBox
+									checked={stayLoggedIn}
+									onChange={setStayLoggedIn}
+									label={t("general:checkbox")}
+								/>
 								<Flex />
 							</>
 						)}

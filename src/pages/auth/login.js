@@ -73,7 +73,7 @@ export const LoginForm = connect(
 	setFormState &&
 		useEffect(() => {
 			setFormState({ canSubmit, submit: handleLogin })
-		}, [setFormState, canSubmit, email, password])
+		}, [setFormState, canSubmit, email, password, stayLoggedIn])
 
 	return (
 		<Column of="group">
