@@ -72,7 +72,7 @@ export const ForgotPasswordForm = connect(
 })
 
 export function ForgotPasswordPageContents(props) {
-	const { showRegister } = props
+	const { showRegister, showLogin } = props
 
 	const [t] = useTranslation()
 	const [formState, setFormState] = useState({})
@@ -107,7 +107,7 @@ export function ForgotPasswordPageContents(props) {
 		<Button
 			tertiary
 			text={t("publicNavbarWeb:openAccount")}
-			onClick={() => history.push("/auth/login")}
+			onClick={showLogin}
 			size={buttonSize}
 		/>
 	)

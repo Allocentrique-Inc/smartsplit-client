@@ -110,7 +110,7 @@ export default function LoginPage({ showRegister }) {
 		? showRegister
 		: () => history.push("/auth/register")
 
-	const [stayLoggedIn, setStayLoggedIn] = useState(false)
+	const [stayLoggedIn, setStayLoggedIn] = useState(Platform.native)
 	const [formState, setFormState] = useState({})
 
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
