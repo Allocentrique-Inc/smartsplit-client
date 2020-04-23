@@ -84,12 +84,13 @@ export function Column(props) {
 }
 
 export function Row(props) {
-	const { align, valign, ...nextProps } = props
+	const { align, valign, wrap, ...nextProps } = props
 	return composeView(
 		nextProps,
 		LayoutStyles.row,
 		LayoutStyles.justify[align],
-		LayoutStyles.align[valign]
+		LayoutStyles.align[valign],
+		wrap ? LayoutStyles.wrap : null
 	)
 }
 

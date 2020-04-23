@@ -19,6 +19,8 @@ import Button from "../../widgets/button"
 
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
 import AuthModal from "../auth/modal"
+import { SearchAndTag } from "../../forms/search-and-tag"
+import { Tag } from "../../widgets/tag"
 
 export default function FormsTest() {
 	return (
@@ -45,7 +47,44 @@ export default function FormsTest() {
 			</Row>
 
 			<TestCheckboxes />
+			<TestSearchAndTag />
 		</Section>
+	)
+}
+
+function TestSearchAndTag() {
+	const searchResults = [
+		"Lorem",
+		"Ipsum",
+		"Dolor",
+		"Rammstein",
+		"Blutengel",
+		"Machinae Supremacy",
+	]
+
+	const [search, setSearch] = useState("")
+	const [selected, setSelected] = useState([
+		"Lorem",
+		"Ipsum",
+		"Dolor",
+		"Rammstein",
+		"Blutengel",
+		"Machinae Supremacy",
+	])
+
+	return (
+		<SearchAndTag
+			label="Search and tag"
+			searchResults={searchResults}
+			searchInput={search}
+			onSearchChange={setSearch}
+			selectedItems={selected}
+			onSelect={(selection) => setSelected([...selected, selection])}
+			onUnselect={(selection) =>
+				setSelected(selected.filter((i) => i !== selection))
+			}
+			placeholder="Cherche pour tag"
+		/>
 	)
 }
 
