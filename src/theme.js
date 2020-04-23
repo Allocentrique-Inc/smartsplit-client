@@ -1,7 +1,7 @@
 import { Platform } from "react-native"
 
 /**
- * Tailles et dimmensions
+ * Tailles et dimensions
  */
 export const Metrics = {
 	/**

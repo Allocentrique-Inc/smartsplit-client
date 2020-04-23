@@ -10,6 +10,10 @@ const LayoutStyles = StyleSheet.create({
 		flexDirection: "row",
 	},
 
+	wrap: {
+		flexWrap: "wrap",
+	},
+
 	hairline: {
 		alignSelf: "stretch",
 		flex: 0,

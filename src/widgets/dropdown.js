@@ -15,6 +15,7 @@ import { Colors, Metrics } from "../theme"
 
 import ArrowDown from "../svg/arrow-down"
 import ArrowUp from "../svg/arrow-up"
+import Search from "../svg/search.svg"
 
 /**
  * Un menu dropdown simple: un placeholder, une flèche. Lorsqu'on clique dessus, son contenu (children) est alors affiché dans un dropdown en dessous de l'élément.
@@ -71,6 +72,12 @@ export class Dropdown extends React.Component {
 		}
 	}
 
+	getIcon = () => {
+		if (this.props.search) {
+			return Search
+		} else return this.state.open ? ArrowUp : ArrowDown
+	}
+
 	updateMenuPosition() {
 		if (!this.state.open) return
 
@@ -118,7 +125,7 @@ export class Dropdown extends React.Component {
 					onBlur={this.handleOnBlur}
 					focused={this.state.open}
 					placeholder={placeholder}
-					arrow={this.state.open ? ArrowUp : ArrowDown}
+					icon={this.getIcon()}
 				/>
 
 				<DropdownModal
@@ -159,7 +166,7 @@ class DropdownRow extends React.PureComponent {
 	}
 
 	render() {
-		const Arrow = this.props.arrow
+		const Icon = this.props.icon
 
 		const focusToggle = this.props.noFocusToggle
 			? {}
@@ -181,7 +188,7 @@ class DropdownRow extends React.PureComponent {
 			>
 				<Row of="inside">
 					{this.props.placeholder}
-					<Arrow />
+					<Icon />
 				</Row>
 			</TouchableWithoutFeedback>
 		)
