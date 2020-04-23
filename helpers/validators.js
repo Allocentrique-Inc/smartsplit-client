@@ -15,3 +15,7 @@ export function emailValidator(str) {
 		str
 	)
 }
+
+export function acceptablePasswordValidator(str) {
+	return str.trim().length >= 8
+}

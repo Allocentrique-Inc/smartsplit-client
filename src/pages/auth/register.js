@@ -18,7 +18,11 @@ import FacebookIcon from "../../svg/facebook"
 import GoogleIcon from "../../svg/google"
 import { Metrics, Colors } from "../../theme"
 import zxcvbn from "zxcvbn"
-import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
+import {
+	notEmptyValidator,
+	sameValidator,
+	acceptablePasswordValidator,
+} from "../../../helpers/validators"
 import { CheckEmailModal } from "./check-email"
 
 export function passwordBarColor(score) {
@@ -135,14 +139,14 @@ export const RegisterForm = connect(
 	const score = zxcvbn(password).score
 
 	const validEmail = notEmptyValidator(email)
-	const validPassword = notEmptyValidator(password) && score > 1
+	const validPassword = acceptablePasswordValidator(password)
 	const validPasswordRepeat = sameValidator(password, passwordRepeat)
 
 	const canSubmit =
 		!registration.isLoading &&
-		validEmail &&
-		validPassword &&
-		validPasswordRepeat &&
+		notEmptyValidator(email) &&
+		notEmptyValidator(password) &&
+		notEmptyValidator(passwordRepeat) &&
 		agreeTerms
 
 	const error = !registration.isLoading && registration.error
