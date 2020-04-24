@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
+import { View, Image, ScrollView, TouchableWithoutFeedback } from "react-native"
 import {
 	LabelText,
 	TextField,
@@ -12,6 +12,7 @@ import {
 	Dropdown,
 	TextDropdown,
 	Select,
+	useImagePicker,
 } from "../../forms"
 import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
@@ -23,11 +24,14 @@ import { SearchAndTag } from "../../forms/search-and-tag"
 import { Tag } from "../../widgets/tag"
 import { getPhoneNumber, PhoneNumberField } from "../../forms/phone-number"
 
+import { PictureCropModal } from "../../widgets/picture-crop"
+
 export default function FormsTest() {
 	return (
 		<Section of="group">
 			<TestText />
 			<TestBasicFields />
+			<TestFilesAndImages />
 			<TestBasicDropdowns />
 
 			<Row of="component">
@@ -245,5 +249,53 @@ function TestCheckboxes() {
 				/>
 			</Column>
 		</Row>
+	)
+}
+
+function TestFilesAndImages(props) {
+	const [image, selectImage] = useImagePicker()
+	const [showCrop, setShowCrop] = useState(false)
+	const [croppedImage, setCroppedImage] = useState(null)
+
+	return (
+		<Column of="component">
+			<PictureCropModal
+				visible={showCrop}
+				image={image}
+				onRequestClose={() => setShowCrop(false)}
+				onSaveImage={(image) => {
+					setShowCrop(false)
+					setCroppedImage(image)
+				}}
+			/>
+
+			<Row of="component">
+				<Button text="Sélectionner image" onClick={selectImage} />
+				<Button
+					text="Recadrer"
+					disabled={!image}
+					onClick={() => setShowCrop(true)}
+				/>
+			</Row>
+			<Row of="component">
+				{image && (
+					<Image
+						source={{ uri: image.uri }}
+						style={{
+							width: 256,
+							height: 256,
+						}}
+						resizeMode="contain"
+					/>
+				)}
+
+				{croppedImage && (
+					<Image
+						source={{ uri: croppedImage }}
+						style={{ width: 256, height: 256 }}
+					/>
+				)}
+			</Row>
+		</Column>
 	)
 }

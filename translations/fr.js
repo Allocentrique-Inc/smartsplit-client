@@ -169,3 +169,9 @@ export const dashboard = {
 	shared: "Mes ajouts",
 	added: "Partagées avec moi",
 }
+
+export const widgets = {
+	pictureCrop: {
+		title: "Recadre ta photo",
+	},
+}
