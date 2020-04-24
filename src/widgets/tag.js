@@ -1,10 +1,9 @@
 import React from "react"
-import { StyleSheet, TouchableWithoutFeedback } from "react-native"
+import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
 import { Colors, Metrics } from "../theme"
 import { ButtonStyles } from "./button"
 import XIcon from "../svg/x"
 import { Row } from "../layout"
-import View from "react-native-web/dist/exports/View"
 
 const TagStyle = StyleSheet.create({
 	frame: {
