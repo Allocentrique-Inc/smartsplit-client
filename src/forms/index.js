@@ -6,6 +6,7 @@ import { RadioButton, RadioGroup, RadioGroupButton } from "./radio"
 import Dropdown from "./dropdown"
 import TextDropdown from "./text-dropdown"
 import Select from "./select"
+import useImagePicker from "./image-picker"
 
 export {
 	LabelText,
@@ -18,4 +19,5 @@ export {
 	Dropdown,
 	TextDropdown,
 	Select,
+	useImagePicker,
 }
