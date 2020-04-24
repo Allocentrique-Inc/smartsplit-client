@@ -13,7 +13,7 @@
 		"axios": "^0.19.2",
 		"expo": "~36.0.0",
 		"expo-cli": "^3.13.1",
-		"expo-font": "^8.1.1",
+		"expo-font": "~8.0.0",
 		"i18next": "^19.4.1",
 		"i18next-browser-languagedetector": "^4.0.2",
 		"i18next-react-native-language-detector": "^1.0.2",
