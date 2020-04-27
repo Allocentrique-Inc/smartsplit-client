@@ -60,6 +60,7 @@ export default function SettingsPage() {
 					}
 				>
 					<MyProfile />
+					<AccountInfo />
 
 					{Platform.OS === "web" && (
 						<>

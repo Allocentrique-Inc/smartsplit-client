@@ -23,7 +23,7 @@ export default function AccountInfo() {
 
 	return (
 		<>
-			{Platform.web && (
+			{Platform.OS === "web" && (
 				<>
 					<Row of="component">
 						<Flex>
@@ -88,10 +88,14 @@ export default function AccountInfo() {
 				</>
 			)}
 
-			{Platform.native && (
+			{Platform.OS !== "web" && (
 				<>
 					<TextField label={t("forms:labels.civicAddress")} placeholder="" />
-					<TextField label={t("forms:labels.forms.phone")} placeholder="" />
+					<TextField
+						label={t("forms:labels.phone")}
+						placeholder=""
+						icon={CheckMark}
+					/>
 				</>
 			)}
 		</>
