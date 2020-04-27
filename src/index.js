@@ -13,6 +13,8 @@ import UserActivateAccount from "./pages/user/activate"
 import TestRedux from "./pages/test/TestReduxContainer"
 import AccessControl from "./widgets/AccessControl"
 
+import SettingsPage from "./pages/dashboard/account/settings" //Test
+
 export default function Main(props) {
 	return (
 		<ScrollOverlay.ProviderContainer>
@@ -27,7 +29,8 @@ export function MainRouter(props) {
 	return (
 		<Switch>
 			<Route path="/" exact>
-				<Redirect to="/dashboard/" />
+				<Redirect to="/dashboard/account/settings" />
+				<SettingsPage />
 			</Route>
 
 			<Route path="/auth/">

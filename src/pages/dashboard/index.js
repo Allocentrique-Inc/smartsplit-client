@@ -8,10 +8,11 @@ import UserCardIcon from "../../svg/user-card"
 import UsersIcon from "../../svg/users"
 
 import MyWorksPage from "./my-works"
-import MyProfilePage from "./my-profile"
+import SettingsPage from "./account/settings"
 import MyCollaboratorsPage from "./my-collaborators"
-import MyAccountPage from "./my-account"
+import MyAccountPage from "./account/my-account"
 import ChangePasswordPage from "./change-password"
+import NewEmailModal from "./new-email"
 import FormsTest from "../test/forms"
 import TestRedux from "../test/TestRedux"
 
@@ -23,7 +24,7 @@ const MENU = [
 	},
 	{
 		text: "menu:profile",
-		to: "/dashboard/my-profile",
+		to: "/dashboard/account/settings",
 		icon: UserCardIcon,
 	},
 	{
@@ -70,8 +71,8 @@ export function DashboardRoutes(props) {
 				<MyWorksPage />
 			</Route>
 
-			<Route path="/dashboard/my-profile" exact>
-				<MyProfilePage />
+			<Route path="/dashboard/account/settings" exact>
+				<SettingsPage />
 			</Route>
 
 			<Route path="/dashboard/my-account" exact>
@@ -84,6 +85,10 @@ export function DashboardRoutes(props) {
 
 			<Route path="/dashboard/change-password" exact>
 				<ChangePasswordPage />
+			</Route>
+
+			<Route path="/dashboard/new-email" exact>
+				<NewEmailModal />
 			</Route>
 
 			<Route path="/dashboard/test/forms" exact>

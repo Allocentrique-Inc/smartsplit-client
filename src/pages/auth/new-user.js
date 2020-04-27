@@ -85,7 +85,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 
 					<NameFields of="group">
 						<TextField
-							label={t("forms:labels.legalFirstName")}
+							label={t("forms:labels.myLegalFirstName")}
 							placeholder={t("forms:placeholders.usualFirstName")}
 							undertext={
 								<Text italic small>
@@ -97,7 +97,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 						/>
 
 						<TextField
-							label={t("forms:labels.legalLastName")}
+							label={t("forms:labels.myLegalLastName")}
 							placeholder={t("forms:placeholders.usualLastName")}
 							undertext={
 								<Text italic small>

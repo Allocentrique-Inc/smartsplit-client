@@ -121,7 +121,7 @@ export default function LoginPage({ showRegister }) {
 		<CheckBox
 			onChange={setStayLoggedIn}
 			checked={stayLoggedIn}
-			label={t("general:checkbox")}
+			label={t("general:checkbox.stayConnected")}
 		/>
 	)
 
