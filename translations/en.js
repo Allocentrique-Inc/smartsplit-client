@@ -2,11 +2,17 @@ export const general = {
 	forgotPassword: "Forgot password?",
 	noAccount: "I don't have an account",
 	or: "or",
-	checkbox: "Stay connected",
+	sendEmailConfirm: "Renvoyer le courriel de validation",
+	auth: "Authentification à deux facteurs",
 
 	alerts: {
 		connected: "Connected!",
 		subscribed: "Subscribed!",
+	},
+
+	checkbox: {
+		stayConnected: "Rester connecté",
+		makePublic: "Make these professional identity numbers public",
 	},
 
 	buttons: {
@@ -27,6 +33,10 @@ export const general = {
 		nextStep: "Skip this step",
 		go: "Let's go!",
 		add: "Add",
+		passwordChange: "Change the password",
+		validNo: "Validate this number",
+		addEmail: "Add an Email",
+		deleteAccount: "Cancel this account",
 	},
 }
 
@@ -39,6 +49,21 @@ export const menu = {
 	testsForms: "Tests Forms",
 	testsFormsPage: "Full Page Forms",
 	reduxTests: "Redux Tests",
+}
+
+export const titles = {
+	profile: "Profile",
+	security: "Security",
+	password: "Password",
+	account: "Account",
+	associateEmails: "Emails associated to this account",
+	identity: "Personal Identity",
+	notification: "Notifications",
+
+	subTitles: {
+		documentEmails:
+			"Document here different emails with which your collaborators would be susceptible to invite you.",
+	},
 }
 
 export const test = {
@@ -88,10 +113,34 @@ export const forms = {
 		newPassword: "New password",
 		repeatPassword: "Repeat your password",
 		email: "Email",
-		legalFirstName: "My Legal First Name",
-		legalLastName: "My Legal Last Name",
+		myLegalFirstName: "My Legal First Name",
+		myLegalLastName: "My Legal Last Name",
 		artistName: "Artist Name",
 		optional: "Optional",
+		legalFirstName: "Legal First Name",
+		legalMiddleName: "Legal Middle Name",
+		legalLastName: "Legal Last Name",
+		usualFirstName: "Usual First Name",
+		usualLastName: "Usual Last Name",
+		civicAddress: "Civic Address",
+		socanNO: "SOCAN Member #",
+		ipiNO: "IPI #",
+		artistiNO: "ARTISTI #",
+		ipnNO: "IPN #",
+		udaNO: "UDA Member #",
+		gmmqNO: "GMMQ Member #",
+		soproqNO: "SOPROQ Member #",
+		isniNO: "ISNI #",
+		birthday: "Date de naissance",
+		uri: "URI",
+		participation: "My participation to entities",
+		phone: "Téléphone mobile",
+
+		dropdowns: {
+			language: "Langue",
+			phone: "Téléphone mobile",
+			juridiction: "Juridiction",
+		},
 	},
 
 	placeholders: {
@@ -100,6 +149,10 @@ export const forms = {
 		confirmPassword: "Confirm your password",
 		usualFirstName: "Usual First Name(s)",
 		usualLastName: "Usual Last Name",
+		firstName: "First Name",
+		middleName: "Middle Name",
+		lastName: "Name",
+		artistName: "Artist Name",
 	},
 
 	undertexts: {
@@ -167,4 +220,65 @@ export const dashboard = {
 	title: "My musical works",
 	shared: "Shared with me",
 	added: "My Additions",
+}
+
+export const dashboardHeader = {
+	settings: "Settings",
+	account: "My Account",
+	preferences: "Preferences",
+	web: {
+		profile: "Profile",
+	},
+
+	native: {
+		profile: "Public Profile",
+	},
+}
+
+export const profile = {
+	type: "Type",
+	email: "Email",
+	mobile: "Mobile",
+	sms: "Text",
+
+	tab: {
+		interactions: {
+			title: "Interactions générales",
+			subTitle: "Propositions et suivis d'avants droit",
+			confirmNO: "Confirm the number",
+		},
+
+		administration: {
+			title: "Messages administratifs",
+			subTitle: "Mises à jour, reçus, paiements",
+		},
+
+		connexion: {
+			title: "Connexion au compte",
+			subTitle: "Alerte envoyée à chaque connexion",
+		},
+
+		blog: {
+			title: "Blog de Smartsplit",
+			subTitle: "Articles informatifs et éducatifs",
+		},
+
+		promotions: {
+			title: "Promotions Smartsplit",
+			subTitle: "Recevoir nos offres spéciales",
+		},
+
+		promoPartner: {
+			title: "Promotions partenaires",
+			subTitle: "Recevoir les offres de nos partenaires",
+		},
+	},
+
+	menu: {
+		profile: "Profile",
+		account: "Account",
+		identity: "Professional Identity",
+		notification: "Notifications",
+		security: "Security",
+	},
 }

@@ -2,11 +2,17 @@ export const general = {
 	forgotPassword: "Mot de passe oublié ?",
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
-	checkbox: "Rester connecté",
+	sendEmailConfirm: "Renvoyer le courriel de validation",
+	auth: "Two factor authentification",
 
 	alerts: {
 		connected: "Connecté !",
 		subscribed: "Inscrit !",
+	},
+
+	checkbox: {
+		stayConnected: "Rester connecté",
+		makePublic: "Rendre public ces numéros d'identité professionelle",
 	},
 
 	buttons: {
@@ -27,6 +33,10 @@ export const general = {
 		nextStep: "Passer cette étape",
 		go: "C'est parti !",
 		add: "Ajouter",
+		passwordChange: "Changer le mot de passe",
+		validNo: "Valider ce numéro",
+		addEmail: "Ajouter un courriel",
+		deleteAccount: "Détruire ce compte",
 	},
 }
 
@@ -39,6 +49,21 @@ export const menu = {
 	testsForms: "Tests Formulaires",
 	testsFormsPage: "Formulaires pleine page",
 	reduxTests: "Redux Test",
+}
+
+export const titles = {
+	profile: "Profil",
+	security: "Sécurité",
+	password: "Mot de passe",
+	account: "Compte",
+	associateEmails: "Courriels liés à ce compte",
+	identity: "Identité personelle",
+	notification: "Notifications",
+
+	subTitles: {
+		documentEmails:
+			"Documente ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t'inviter.",
+	},
 }
 
 export const test = {
@@ -77,6 +102,10 @@ export const publicNavbarWeb = {
 	createMyAccount: "Créer mon compte",
 }
 
+export const publicNavBarMobile = {
+	profile: "Profil publique",
+}
+
 export const forms = {
 	labels: {
 		myEmail: "Mon courriel",
@@ -89,10 +118,34 @@ export const forms = {
 		newPassword: "Nouveau mot de passe",
 		repeatPassword: "Répète ton mot de passe",
 		email: "Email",
-		legalFirstName: "Mon prénom légal",
-		legalLastName: "Mon nom légal",
+		myLegalFirstName: "Mon prénom légal",
+		myLegalLastName: "Mon nom légal",
 		artistName: "Nom d'artiste",
 		optional: "Optionnel",
+		legalFirstName: "Prénom légal",
+		legalMiddleName: "Second prénom légal",
+		legalLastName: "Nom légal",
+		usualFirstName: "Prénom usuel",
+		usualLastName: "Nom usuel",
+		civicAddress: "Adresse civique",
+		socanNO: "# Membre SOCAN",
+		ipiNO: "# IPI",
+		artistiNO: "# ARTISTI",
+		ipnNO: "# IPN",
+		udaNO: "# Membre UDA",
+		gmmqNO: "# Membre GMMQ",
+		soproqNO: "# Membre SOPROQ",
+		isniNO: "# ISNI",
+		birthday: "Birthday",
+		uri: "URI",
+		participation: "Mes participations à des entités",
+		phone: "Téléphone mobile",
+
+		dropdowns: {
+			language: "Langue",
+			phone: "Téléphone mobile",
+			juridiction: "Juridiction",
+		},
 	},
 
 	placeholders: {
@@ -101,6 +154,10 @@ export const forms = {
 		confirmPassword: "Confirm your password",
 		usualFirstName: "Prénom(s) usuel(s)",
 		usualLastName: "Nom de famille usuel",
+		firstName: "Prénom",
+		middleName: "Second prénom",
+		lastName: "Nom",
+		artistName: "Nom d'artiste",
 	},
 
 	undertexts: {
@@ -168,4 +225,65 @@ export const dashboard = {
 	title: "Mes pièces musicales",
 	shared: "Mes ajouts",
 	added: "Partagées avec moi",
+}
+
+export const dashboardHeader = {
+	web: {
+		profile: "Profil",
+		settings: "Paramètres",
+	},
+
+	native: {
+		profile: "Profil public",
+		account: "Mon compte",
+		preferences: "Préférences",
+	},
+}
+
+export const profile = {
+	type: "Type",
+	email: "Courriel",
+	mobile: "Mobile",
+	sms: "Texto",
+
+	tab: {
+		interactions: {
+			title: "General Interactions",
+			subTitle: "Proposals and follow-ups",
+			confirmNO: "Valider le numéro",
+		},
+
+		administration: {
+			title: "Administrative Messages",
+			subTitle: "Updates, receipts, payments",
+		},
+
+		connexion: {
+			title: "Account Login",
+			subTitle: "Slerts sent at each login",
+		},
+
+		blog: {
+			title: "Smartsplit Blog",
+			subTitle: "Informative and educative articles",
+		},
+
+		promotions: {
+			title: "Smartsplit Promotions",
+			subTitle: "Get our special offers",
+		},
+
+		promoPartner: {
+			title: "Partners Promotions",
+			subTitle: "Get our partners' promotions",
+		},
+	},
+
+	menu: {
+		profile: "Profil",
+		account: "Compte",
+		identity: "Identité professionnelle",
+		notification: "Notifications",
+		security: "Sécurité",
+	},
 }

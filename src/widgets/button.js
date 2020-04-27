@@ -52,6 +52,11 @@ export const ButtonStyles = StyleSheet.create({
 		borderWidth: 1,
 	},
 
+	frame_error: {
+		borderColor: Colors.error,
+		borderWidth: 1,
+	},
+
 	text_container: {
 		flexGrow: 1,
 		flexShrink: 0,
@@ -75,6 +80,10 @@ export const ButtonStyles = StyleSheet.create({
 	text_disabled: {
 		color: Colors.inactive,
 	},
+
+	text_error: {
+		color: Colors.error,
+	}
 })
 
 ButtonStyles.frame_round = {}
@@ -99,6 +108,7 @@ export function Button({
 	secondary,
 	tertiary,
 	disabled,
+	error,
 	onClick,
 	style,
 	children,
@@ -131,10 +141,14 @@ export function Button({
 		addText("text_secondary")
 	} else if (tertiary) {
 		addText("text_secondary")
+	} else if (error) {
+		addFrame("frame_error")
+		addText("text_error")
 	} else {
 		addFrame("frame_primary")
 		addText("text_primary")
-	}
+	} 
+
 
 	if (!content) {
 		content = (
