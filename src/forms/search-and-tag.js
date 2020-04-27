@@ -73,10 +73,12 @@ export function SearchAndTag(props) {
 					onChangeText={(text) => onSearchChange(text)}
 					{...nextProps}
 				>
-					<Layer layer="overground_moderate">{renderSearchResults()}</Layer>
+					{searchResults && (
+						<Layer layer="overground_moderate">{renderSearchResults()}</Layer>
+					)}
 				</TextDropdown>
 			</Row>
-			{selectedItems.length > 0 && renderSelectedItems()}
+			{selectedItems && selectedItems.length > 0 && renderSelectedItems()}
 		</Column>
 	)
 }

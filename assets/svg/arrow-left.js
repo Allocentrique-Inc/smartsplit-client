@@ -1,10 +1,7 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
-import { Colors } from "../theme"
 
 export default function ArrowLeft(props) {
-	const color = props.color || Colors.tertiary
-
 	return (
 		<Svg
 			width="24"
@@ -14,11 +11,18 @@ export default function ArrowLeft(props) {
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			<Path
-				d="M15 18L9 12L15 6"
-				stroke={color}
-				strokeWidth="2"
-				strokeLinecap="round"
-				strokeLinejoin="round"
+				d="M20 12H4"
+				stroke="#8DA0B3"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+			<Path
+				d="M10 18L4 12L10 6"
+				stroke="#8DA0B3"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
 			/>
 		</Svg>
 	)

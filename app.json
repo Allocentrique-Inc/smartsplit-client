@@ -3,7 +3,6 @@
 		"name": "SmartSplit",
 		"slug": "SmartSplit",
 		"privacy": "unlisted",
-		"sdkVersion": "36.0.0",
 		"platforms": ["ios", "android", "web"],
 		"version": "0.1.0",
 		"orientation": "portrait",

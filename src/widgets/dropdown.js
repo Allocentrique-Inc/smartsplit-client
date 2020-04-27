@@ -13,9 +13,9 @@ import { Text } from "../text"
 import { Overlay } from "./scrollable"
 import { Colors, Metrics } from "../theme"
 
-import ArrowDown from "../svg/arrow-down"
-import ArrowUp from "../svg/arrow-up"
-import Search from "../svg/search.svg"
+import ArrowDown from "../../assets/svg/arrow-down"
+import ArrowUp from "../../assets/svg/arrow-up"
+import Search from "../../assets/svg/search.svg"
 
 /**
  * Un menu dropdown simple: un placeholder, une flèche. Lorsqu'on clique dessus, son contenu (children) est alors affiché dans un dropdown en dessous de l'élément.

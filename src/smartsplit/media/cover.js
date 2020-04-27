@@ -1,6 +1,6 @@
 import React from "react"
 import { View } from "react-native"
-import ImageIcon from "../../svg/image"
+import ImageIcon from "../../../assets/svg/image"
 import MediaStyles from "./styles"
 import { Colors } from "../../theme"
 

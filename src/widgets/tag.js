@@ -2,7 +2,7 @@ import React from "react"
 import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
 import { Colors, Metrics } from "../theme"
 import { ButtonStyles } from "./button"
-import XIcon from "../svg/x"
+import XIcon from "../../assets/svg/x"
 import { Row } from "../layout"
 
 const TagStyle = StyleSheet.create({

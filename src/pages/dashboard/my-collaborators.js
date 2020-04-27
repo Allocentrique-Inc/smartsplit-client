@@ -6,7 +6,7 @@ import { Heading, Paragraph, Text } from "../../text"
 import { DialogModal } from "../../widgets/modal"
 import { TabBar, Tab } from "../../widgets/tabs"
 import { Button, RoundButton } from "../../widgets/button"
-import LogoAddRound from "../../svg/add-round"
+import LogoAddRound from "../../../assets/svg/add-round"
 
 export default function MyCollaboratorsPage() {
 	const [modalOpen, setModal] = useState(false)

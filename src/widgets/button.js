@@ -52,6 +52,11 @@ export const ButtonStyles = StyleSheet.create({
 		borderWidth: 1,
 	},
 
+	frame_error: {
+		borderColor: Colors.error,
+		borderWidth: 1,
+	},
+
 	text_container: {
 		flexGrow: 1,
 		flexShrink: 0,
@@ -74,6 +79,14 @@ export const ButtonStyles = StyleSheet.create({
 
 	text_disabled: {
 		color: Colors.inactive,
+	},
+
+	text_error: {
+		color: Colors.error,
+	},
+
+	frame_mega_error: {
+		backgroundColor: Colors.error,
 	},
 })
 
@@ -99,9 +112,12 @@ export function Button({
 	secondary,
 	tertiary,
 	disabled,
+	error,
+	megaError,
 	onClick,
 	style,
 	children,
+	viewRef,
 }) {
 	const frameStyle = [ButtonStyles.frame]
 	const textStyle = []
@@ -131,6 +147,12 @@ export function Button({
 		addText("text_secondary")
 	} else if (tertiary) {
 		addText("text_secondary")
+	} else if (error) {
+		addFrame("frame_error")
+		addText("text_error")
+	} else if (megaError) {
+		addFrame("frame_mega_error")
+		addText("text_primary")
 	} else {
 		addFrame("frame_primary")
 		addText("text_primary")
@@ -138,7 +160,7 @@ export function Button({
 
 	if (!content) {
 		content = (
-			<Row of="component" style={[frameStyle, style]}>
+			<Row of="component" style={[frameStyle, style]} viewRef={viewRef}>
 				{icon}
 				{text && (
 					<View style={ButtonStyles.text_container}>

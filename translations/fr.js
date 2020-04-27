@@ -2,11 +2,17 @@ export const general = {
 	forgotPassword: "Mot de passe oublié ?",
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
-	checkbox: "Rester connecté",
+	sendEmailConfirm: "Renvoyer le courriel de validation",
+	auth: "Authentification à deux facteurs",
 
 	alerts: {
 		connected: "Connecté !",
 		subscribed: "Inscrit !",
+	},
+
+	checkbox: {
+		stayConnected: "Rester connecté",
+		makePublic: "Rendre public ces numéros d'identité professionelle",
 	},
 
 	buttons: {
@@ -27,6 +33,13 @@ export const general = {
 		nextStep: "Passer cette étape",
 		go: "C'est parti !",
 		add: "Ajouter",
+		passwordChange: "Changer le mot de passe",
+		validNo: "Valider ce numéro",
+		confirmNO: "Valider",
+		addEmail: "Ajouter un courriel",
+		deleteAccount: "Détruire ce compte",
+		addUsername: "Ajouter un identifiant",
+		delete: "Détruire ce compte",
 	},
 }
 
@@ -57,9 +70,7 @@ export const errors = {
 		"Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau !",
 	noUser:
 		"Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
-	invalidDate:
-		"Date invalide",
-	invalidPhoneNumber: "Numéro de téléphone invalide",
+
 	password: {
 		weak: "Mot de passe faible",
 		average: "Mot de passe moyen",
@@ -91,10 +102,35 @@ export const forms = {
 		newPassword: "Nouveau mot de passe",
 		repeatPassword: "Répète ton mot de passe",
 		email: "Email",
-		legalFirstName: "Mon prénom légal",
-		legalLastName: "Mon nom légal",
+		myLegalFirstName: "Mon prénom légal",
+		myLegalLastName: "Mon nom légal",
 		artistName: "Nom d'artiste",
 		optional: "Optionnel",
+		legalFirstName: "Prénom légal",
+		legalMiddleName: "Second prénom légal",
+		legalLastName: "Nom légal",
+		usualFirstName: "Prénom usuel",
+		usualLastName: "Nom usuel",
+		civicAddress: "Adresse civique",
+		socanNO: "# Membre SOCAN",
+		ipiNO: "# IPI",
+		artistiNO: "# ARTISTI",
+		ipnNO: "# IPN",
+		udaNO: "# Membre UDA",
+		gmmqNO: "# Membre GMMQ",
+		soproqNO: "# Membre SOPROQ",
+		isniNO: "# ISNI",
+		birthday: "Birthday",
+		uri: "URI",
+		participation: "Mes participations à des entités",
+		phone: "Téléphone mobile",
+		organisations: "Mes sociétés",
+
+		dropdowns: {
+			language: "Langue",
+			phone: "Téléphone mobile",
+			juridiction: "Juridiction",
+		},
 	},
 
 	placeholders: {
@@ -103,15 +139,20 @@ export const forms = {
 		confirmPassword: "Confirm your password",
 		usualFirstName: "Prénom(s) usuel(s)",
 		usualLastName: "Nom de famille usuel",
+		firstName: "Prénom",
+		middleName: "Second prénom",
+		lastName: "Nom",
+		artistName: "Nom d'artiste",
+		search: "Recherche parmi les groupes, artistes ou sociétés...",
+		organisations:
+			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
+		delete: "détruire, Détruire ou detruire",
 	},
 
 	undertexts: {
-		madonna: "Madonna Louise",
-		madonna2: "Ciccone",
-		artistNameExample: "Par example, ",
-		artistNameExample2: "Jay-Z ",
-		artistNameExample3: "est le nom d'artiste de ",
-		artistNameExample4: "Shawn Corey Carter.",
+		firstName: "Exemple: <i>Madonna Louise</i>",
+		lastName: "Exemple: <i>Ciccone</i>",
+		artistName: "Par exemple, <i>Madonna</i> est le nom d'artiste de <i>Madonna Louise Ciccone</i>.",
 	},
 }
 
@@ -172,8 +213,80 @@ export const dashboard = {
 	added: "Partagées avec moi",
 }
 
-export const widgets = {
-	pictureCrop: {
-		title: "Recadre ta photo",
+export const settings = {
+	settings: "Paramètres",
+	account: "Compte",
+	preferences: "Préférences",
+	profile: "Profil",
+	identity: "Identité professionnelle",
+	accountInfo: "Informations du compte",
+	proIdentity: "Professionnal identity",
+	notifications: "Notifications",
+	security: "Securité",
+	deconnect: "Déconnecté",
+	password: "Mot de passe",
+	account: "Compte",
+	associateEmails: "Courriels associés à ce compte",
+	delete: "Résiliation",
+
+	subTitles: {
+		documentEmails:
+			"Documente ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t'inviter.",
 	},
+
+	tab: {
+		type: "Type",
+		email: "Courriel",
+		mobile: "Mobile",
+		sms: "Texto",
+
+		interactions: {
+			title: "Interactions générales",
+			subTitle: "Propositions et suivis d'avants droit",
+			confirmNO: "Confirmer le numéro",
+		},
+
+		administration: {
+			title: "Messages administratifs",
+			subTitle: "Mises à jour, reçus, paiements",
+		},
+
+		connexion: {
+			title: "Connexion au compte",
+			subTitle: "Alerte envoyée à chaque connexion",
+		},
+
+		blog: {
+			title: "Blog de Smartsplit",
+			subTitle: "Articles informatifs et éducatifs",
+		},
+
+		promos: {
+			title: "Promotions Smartsplit",
+			subTitle: "Recevoir nos offres spéciales",
+		},
+
+		promoPartner: {
+			title: "Promotions partenaires",
+			subTitle: "Recevoir les offres de nos partenaires",
+		},
+	},
+}
+
+export const deletion = {
+	destroy: "Détruire le compte",
+	warningTitle: "Attention, cette opération est irréversible.",
+	warningSubTitle:
+		"Afin de détruire ce compte, tu dois confirmer ton intention.",
+	writeDelete:
+		"Écris le mot « détruire » ci-dessous, afin de confirmer ton intention :",
+	confirm:
+		"En cliquant sur « confirmer » plus bas, ton compte sera supprimé et tu seras éjecté du système.",
+	deleteWord: "detruire",
+}
+
+export const confirmNO = {
+	title: "Valider ton numéro de téléphone",
+	codeSent: "Un code t'a été envoyé par message texte.",
+	enterNO: "Entre le code de vérification",
 }

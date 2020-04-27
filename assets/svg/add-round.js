@@ -1,7 +1,7 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
 import { Svg, Path, Rect } from "react-native-svg"
-import { Colors, Metrics } from "../theme"
+import { Colors, Metrics } from "../../src/theme"
 
 const AddButtonStyles = StyleSheet.create({
 	button_container: {

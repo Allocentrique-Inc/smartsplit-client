@@ -3,15 +3,15 @@ import { Switch, Route, Redirect } from "react-router"
 import DashboardLayout from "../../layout/dashboard"
 import Scrollable from "../../widgets/scrollable"
 
-import MusicNoteIcon from "../../svg/music-note"
-import UserCardIcon from "../../svg/user-card"
-import UsersIcon from "../../svg/users"
+import MusicNoteIcon from "../../../assets/svg/music-note"
+import UserCardIcon from "../../../assets/svg/user-card"
+import UsersIcon from "../../../assets/svg/users"
 
 import MyWorksPage from "./my-works"
-import MyProfilePage from "./my-profile"
+import SettingsPage from "./account/settings"
 import MyCollaboratorsPage from "./my-collaborators"
-import MyAccountPage from "./my-account"
 import ChangePasswordPage from "./change-password"
+import NewEmailModal from "./new-email"
 import FormsTest from "../test/forms"
 import TestRedux from "../test/TestRedux"
 
@@ -23,12 +23,8 @@ const MENU = [
 	},
 	{
 		text: "menu:profile",
-		to: "/dashboard/my-profile",
+		to: "/dashboard/account/settings",
 		icon: UserCardIcon,
-	},
-	{
-		text: "menu:account",
-		to: "/dashboard/my-account",
 	},
 	{
 		text: "menu:collaborators",
@@ -70,12 +66,8 @@ export function DashboardRoutes(props) {
 				<MyWorksPage />
 			</Route>
 
-			<Route path="/dashboard/my-profile" exact>
-				<MyProfilePage />
-			</Route>
-
-			<Route path="/dashboard/my-account" exact>
-				<MyAccountPage />
+			<Route path="/dashboard/account/settings" exact>
+				<SettingsPage />
 			</Route>
 
 			<Route path="/dashboard/my-collaborators" exact>
@@ -84,6 +76,10 @@ export function DashboardRoutes(props) {
 
 			<Route path="/dashboard/change-password" exact>
 				<ChangePasswordPage />
+			</Route>
+
+			<Route path="/dashboard/new-email" exact>
+				<NewEmailModal />
 			</Route>
 
 			<Route path="/dashboard/test/forms" exact>

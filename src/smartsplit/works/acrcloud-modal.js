@@ -4,7 +4,7 @@ import { Group, Hairline, Column, Row } from "../../layout"
 import { Button, RoundButton } from "../../widgets/button"
 import { RadioButton, CheckBox } from "../../forms"
 import { Text } from "../../text"
-import PlayIcon from "../../svg/play"
+import PlayIcon from "../../../assets/svg/play"
 import WorkStyles from "./styles"
 
 import Cover from "../media/cover"
