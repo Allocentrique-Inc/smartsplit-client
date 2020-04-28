@@ -56,7 +56,9 @@ export const errors = {
 		"This account has yet not being activated. Please check your emails, or try to subscribe again!",
 	noUser:
 		"No user was found with this email address. You might have used another address ?",
-
+	invalidDate:
+		"Date is invalid",
+	invalidPhoneNumber: "Phone number is invalid",
 	password: {
 		weak: "Weak password",
 		average: "Average password",
