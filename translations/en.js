@@ -3,7 +3,7 @@ export const general = {
 	noAccount: "I don't have an account",
 	or: "or",
 	sendEmailConfirm: "Renvoyer le courriel de validation",
-	auth: "Authentification à deux facteurs",
+	auth: "Two factor authentification",
 
 	alerts: {
 		connected: "Connected!",
@@ -212,7 +212,7 @@ export const dashboard = {
 	added: "My Additions",
 }
 
-export const dashboardTitles = {
+export const settings = {
 	settings: "Settings",
 	account: "Account",
 	preferences: "Preferences",
@@ -226,49 +226,48 @@ export const dashboardTitles = {
 	password: "Password",
 	account: "Account",
 	associateEmails: "Emails associated to this account",
+	delete: "Cancellation",
 
 	subTitles: {
 		documentEmails:
 			"Document here different emails with which your collaborators would be susceptible to invite you.",
 	},
 
-	profile: {
+	tab: {
 		type: "Type",
 		email: "Email",
 		mobile: "Mobile",
 		sms: "Text",
 
-		tab: {
-			interactions: {
-				title: "General interactions",
-				subTitle: "Proposals and follow-ups",
-				confirmNO: "Confirm the number",
-			},
+		interactions: {
+			title: "General interactions",
+			subTitle: "Proposals and follow-ups",
+			confirmNO: "Confirm the number",
+		},
 
-			administration: {
-				title: "Administrative messages",
-				subTitle: "Updates, receipts, payments",
-			},
+		administration: {
+			title: "Administrative messages",
+			subTitle: "Updates, receipts, payments",
+		},
 
-			connexion: {
-				title: "Account Connexion",
-				subTitle: "Alerts sent at each connexion",
-			},
+		connexion: {
+			title: "Account Connexion",
+			subTitle: "Alerts sent at each connexion",
+		},
 
-			blog: {
-				title: "Smartsplit's Blog",
-				subTitle: "Educational and Informative Articles",
-			},
+		blog: {
+			title: "Smartsplit's Blog",
+			subTitle: "Educational and Informative Articles",
+		},
 
-			promotions: {
-				title: "Smartsplit Promotions",
-				subTitle: "Get our special offers",
-			},
+		promotions: {
+			title: "Smartsplit Promotions",
+			subTitle: "Get our special offers",
+		},
 
-			promoPartner: {
-				title: "Partners' promotions",
-				subTitle: "Get our partners' offers",
-			},
+		promoPartner: {
+			title: "Partners' promotions",
+			subTitle: "Get our partners' offers",
 		},
 	},
 }

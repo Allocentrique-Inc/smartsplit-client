@@ -22,18 +22,13 @@ export default function MySecurity() {
 	const [checkBox, setCheckBox] = useState(false)
 
 	return (
-		<>
-			{Platform.OS === "web" && (
-				<>
-					<Row of="component">
-						<Flex>
-							<Heading level="2">{t("dashboardTitles:security")}</Heading>
-						</Flex>
-					</Row>
-				</>
+		<Platform web={Group} of="group" native={Column} of="component">
+			{Platform.web && <Heading level="2">{t("settings:security")}</Heading>}
+			{Platform.native && (
+				<DashboardNavbarNative header={t("settings:account")} />
 			)}
 
-			<Heading level="4">{t("dashboardTitles:password")}</Heading>
+			<Heading level="4">{t("settings:password")}</Heading>
 
 			<Row of="component">
 				<Button
@@ -57,7 +52,7 @@ export default function MySecurity() {
 				/>
 			)}
 
-			<Heading level="4">{t("dashboardTitles:password")}</Heading>
+			<Heading level="4">{t("settings:delete")}</Heading>
 			<Row of="component">
 				<Button
 					error
@@ -72,6 +67,6 @@ export default function MySecurity() {
 			</Row>
 
 			<Heading level="4">{t("general:auth")}</Heading>
-		</>
+		</Platform>
 	)
 }

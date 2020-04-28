@@ -27,7 +27,7 @@ export function NotificationsRow(props) {
 			<View style={{ width: 117 }}>
 				{sms === "validate" ? (
 					<Link link small>
-						{t("dashboardTitles:profile.tab.interactions.confirmNO")}
+						{t("settings:tab.interactions.confirmNO")}
 					</Link>
 				) : (
 					sms !== null && <CheckBox checked={sms} />
@@ -40,79 +40,79 @@ export function NotificationsRow(props) {
 export default function MyNotifications() {
 	const [t] = useTranslation()
 	return (
-		<>
-			<Row of="component">
-				<Flex>
-					<Heading level="2">Notifications</Heading>
-				</Flex>
-			</Row>
+		<Platform web={Group} of="group" native={Column} of="component">
+			{Platform.web && <Heading level="2">Notifications</Heading>}
+			{Platform.native && (
+				<DashboardNavbarNative header={t("settings:preferences")} />
+			)}
 
 			<Column of="inside" spacer={Hairline} flex>
 				<Row>
 					<View style={{ flex: 1 }}>
-						<Heading level="5">{t("dashboardTitles:profile.type")}</Heading>
+						<Heading level="5">{t("settings:tab.type")}</Heading>
 					</View>
 
 					<View style={{ width: 117 }}>
-						<Heading level="5">{t("dashboardTitles:profile.email")}</Heading>
+						<Heading level="5">{t("settings:tab.email")}</Heading>
 					</View>
 
 					<View style={{ width: 117 }}>
-						<Heading level="5">{t("dashboardTitles:profile.mobile")}</Heading>
+						<Heading level="5">{t("settings:tab.mobile")}</Heading>
 					</View>
 
 					<View style={{ width: 117 }}>
-						<Heading level="5">{t("dashboardTitles:profile.sms")}</Heading>
+						<Heading level="5">{t("settings:tab.sms")}</Heading>
 					</View>
 				</Row>
 
 				<NotificationsRow
-					title={t("dashboardTitles:profile.tab.interactions.title")}
-					subTitle={t("dashboardTitles:profile.tab.interactions.subTitle")}
+					title={t("settings:tab.interactions.title")}
+					subTitle={t("settings:tab.interactions.subTitle")}
 					email={"required"}
 					mobile={true}
 					sms={"validate"}
 				/>
 				<NotificationsRow
-					title={t("dashboardTitles:profile.tab.administration.title")}
-					subTitle={t("dashboardTitles:profile.tab.administration.subTitle")}
+					title={t("settings:tab.administration.title")}
+					subTitle={t("settings:tab.administration.subTitle")}
 					email={"required"}
 					mobile={true}
 					sms={false}
 				/>
 				<NotificationsRow
-					title={t("dashboardTitles:profile.tab.connexion.title")}
-					subTitle={t("dashboardTitles:profile.tab.connexion.subTitle")}
-					subHeading={t("profile:mobile")}
+					title={t("settings:tab.connexion.title")}
+					subTitle={t("settings:tab.connexion.subTitle")}
+					subHeading={t("settings:tab.mobile")}
 					email={false}
 					mobile={false}
 					sms={null}
 				/>
 				<NotificationsRow
-					title={t("dashboardTitles:profile.tab.blog.title")}
-					subTitle={t("dashboardTitles:profile.tab.blog.subTitle")}
-					subHeading={t("profile:text")}
+					title={t("settings:tab.blog.title")}
+					subTitle={t("settings:tab.blog.subTitle")}
+					subHeading={t("settings:tab.text")}
 					email={true}
 					mobile={true}
 					sms={null}
 				/>
 				<NotificationsRow
-					title={t("dashboardTitles:profile.tab.promotions.title")}
-					subTitle={t("dashboardTitles:profile.tab.promotions.subTitle")}
+					title={t("settings:tab.promotions.title")}
+					subTitle={t("settings:tab.promotions.subTitle")}
 					email={true}
 					mobile={true}
 					sms={null}
 				/>
 				<NotificationsRow
-					title={t("dashboardTitles:profile.tab.promoPartner.title")}
-					subTitle={t("dashboardTitles:profile.tab.promoPartner.subTitle")}
+					title={t("settings:tab.promoPartner.title")}
+					subTitle={t("settings:tab.promoPartner.subTitle")}
 					email={false}
 					mobile={false}
 					sms={null}
 					padding="tiny"
 				/>
 			</Column>
-			<Hairline />
-		</>
+
+			<Column of="section">{Platform.OS === "web" && <Hairline />}</Column>
+		</Platform>
 	)
 }

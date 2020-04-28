@@ -27,7 +27,7 @@ export default function MyIdentity() {
 				<>
 					<Row of="component">
 						<Flex>
-							<Heading level="2">{t("dashboardTitles:identity")}</Heading>
+							<Heading level="2">{t("settings:identity")}</Heading>
 						</Flex>
 					</Row>
 				</>
