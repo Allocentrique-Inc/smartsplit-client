@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Platform, View } from "react-native"
+import { View } from "react-native"
+import { Platform } from "../../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
 import { Colors } from "../../../theme"
 import { TextField, Dropdown, CheckBox } from "../../../forms"
 import Button from "../../../widgets/button"
 import ChangePasswordModal from "../ChangePasswordContainer"
+import { SearchAndTag } from "../../../forms/search-and-tag"
 import DashboardNavbarWeb from "../../../layout/dashboard-navbar-web"
 import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
 import UserAvatar from "../../../smartsplit/user/avatar"
@@ -27,13 +29,13 @@ export default function MyProfile() {
 			{Platform.OS === "web" && (
 				<Row of="component">
 					<Flex>
-						<Heading level="2">{t("titles:profile")}</Heading>
+						<Heading level="2">{t("dashboardTitles:profile")}</Heading>
 					</Flex>
 				</Row>
 			)}
 
 			{Platform.OS !== "web" && (
-				<DashboardNavbarNative header={t("dashboardHeader:native.profile")} />
+				<DashboardNavbarNative header={t("dashboardTitles:profile")} />
 			)}
 
 			<Column of="section">
@@ -68,11 +70,15 @@ export default function MyProfile() {
 							Shawn Corey Carter
 						</Text>
 						.
+						{/* <SearchAndTag
+							label={t("forms:labels.participation")}
+							placeholder={t("forms:placeholders.search")}
+						/> */}
 					</>
 				}
 			/>
 
-			<Hairline />
+			{Platform.OS === "web" && <Hairline />}
 		</>
 	)
 }

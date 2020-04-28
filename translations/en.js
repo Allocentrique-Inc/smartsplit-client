@@ -2,11 +2,17 @@ export const general = {
 	forgotPassword: "Forgot password?",
 	noAccount: "I don't have an account",
 	or: "or",
-	checkbox: "Stay connected",
+	sendEmailConfirm: "Renvoyer le courriel de validation",
+	auth: "Authentification à deux facteurs",
 
 	alerts: {
 		connected: "Connected!",
 		subscribed: "Subscribed!",
+	},
+
+	checkbox: {
+		stayConnected: "Rester connecté",
+		makePublic: "Make these professional identity numbers public",
 	},
 
 	buttons: {
@@ -27,6 +33,11 @@ export const general = {
 		nextStep: "Skip this step",
 		go: "Let's go!",
 		add: "Add",
+		passwordChange: "Change the password",
+		validNo: "Validate this number",
+		addEmail: "Add an Email",
+		deleteAccount: "Cancel this account",
+		addUsername: "Add a username",
 	},
 }
 
@@ -56,9 +67,7 @@ export const errors = {
 		"This account has yet not being activated. Please check your emails, or try to subscribe again!",
 	noUser:
 		"No user was found with this email address. You might have used another address ?",
-	invalidDate:
-		"Date is invalid",
-	invalidPhoneNumber: "Phone number is invalid",
+
 	password: {
 		weak: "Weak password",
 		average: "Average password",
@@ -90,10 +99,35 @@ export const forms = {
 		newPassword: "New password",
 		repeatPassword: "Repeat your password",
 		email: "Email",
-		legalFirstName: "My Legal First Name",
-		legalLastName: "My Legal Last Name",
+		myLegalFirstName: "My Legal First Name",
+		myLegalLastName: "My Legal Last Name",
 		artistName: "Artist Name",
 		optional: "Optional",
+		legalFirstName: "Legal First Name",
+		legalMiddleName: "Legal Middle Name",
+		legalLastName: "Legal Last Name",
+		usualFirstName: "Usual First Name",
+		usualLastName: "Usual Last Name",
+		civicAddress: "Civic Address",
+		socanNO: "SOCAN Member #",
+		ipiNO: "IPI #",
+		artistiNO: "ARTISTI #",
+		ipnNO: "IPN #",
+		udaNO: "UDA Member #",
+		gmmqNO: "GMMQ Member #",
+		soproqNO: "SOPROQ Member #",
+		isniNO: "ISNI #",
+		birthday: "Date de naissance",
+		uri: "URI",
+		participation: "My participation to entities",
+		phone: "Téléphone mobile",
+		organisations: "Mes sociétés",
+
+		dropdowns: {
+			language: "Langue",
+			phone: "Téléphone mobile",
+			juridiction: "Juridiction",
+		},
 	},
 
 	placeholders: {
@@ -102,6 +136,13 @@ export const forms = {
 		confirmPassword: "Confirm your password",
 		usualFirstName: "Usual First Name(s)",
 		usualLastName: "Usual Last Name",
+		firstName: "First Name",
+		middleName: "Middle Name",
+		lastName: "Name",
+		artistName: "Artist Name",
+		search: "Search among groups, artists or organisations...",
+		organisations:
+			"Search among the corporate entities, compagnies, societies...",
 	},
 
 	undertexts: {
@@ -171,8 +212,63 @@ export const dashboard = {
 	added: "My Additions",
 }
 
-export const widgets = {
-	pictureCrop: {
-		title: "Recadre ta photo",
+export const dashboardTitles = {
+	settings: "Settings",
+	account: "Account",
+	preferences: "Preferences",
+	profile: "Public Profile",
+	identity: "Identité professionnelle",
+	accountInfo: "Account Information",
+	proIdentity: "Professionnal identity",
+	notifications: "Notifications",
+	security: "Security",
+	deconnect: "Disconnect",
+	password: "Password",
+	account: "Account",
+	associateEmails: "Emails associated to this account",
+
+	subTitles: {
+		documentEmails:
+			"Document here different emails with which your collaborators would be susceptible to invite you.",
+	},
+
+	profile: {
+		type: "Type",
+		email: "Email",
+		mobile: "Mobile",
+		sms: "Text",
+
+		tab: {
+			interactions: {
+				title: "General interactions",
+				subTitle: "Proposals and follow-ups",
+				confirmNO: "Confirm the number",
+			},
+
+			administration: {
+				title: "Administrative messages",
+				subTitle: "Updates, receipts, payments",
+			},
+
+			connexion: {
+				title: "Account Connexion",
+				subTitle: "Alerts sent at each connexion",
+			},
+
+			blog: {
+				title: "Smartsplit's Blog",
+				subTitle: "Educational and Informative Articles",
+			},
+
+			promotions: {
+				title: "Smartsplit Promotions",
+				subTitle: "Get our special offers",
+			},
+
+			promoPartner: {
+				title: "Partners' promotions",
+				subTitle: "Get our partners' offers",
+			},
+		},
 	},
 }

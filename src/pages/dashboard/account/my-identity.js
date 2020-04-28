@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Platform, View } from "react-native"
+import { Platform } from "../../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
 import { Colors } from "../../../theme"
 import { TextField, Dropdown, CheckBox } from "../../../forms"
+import { SearchAndTag } from "../../../forms/search-and-tag"
 import Button from "../../../widgets/button"
 import ChangePasswordModal from "../ChangePasswordContainer"
 import DashboardNavBarWeb from "../../../layout/dashboard-navbar-web"
@@ -22,11 +23,15 @@ export default function MyIdentity() {
 
 	return (
 		<>
-			<Row of="component">
-				<Flex>
-					<Heading level="2">{t("titles:identity")}</Heading>
-				</Flex>
-			</Row>
+			{Platform.OS === "web" && (
+				<>
+					<Row of="component">
+						<Flex>
+							<Heading level="2">{t("dashboardTitles:identity")}</Heading>
+						</Flex>
+					</Row>
+				</>
+			)}
 
 			<Dropdown
 				label={t("forms:labels.dropdowns.juridiction")}
@@ -34,25 +39,25 @@ export default function MyIdentity() {
 				noFocusToggle
 			/>
 
-			<Row of="component">
+			<Platform web={Row} of="component" native={{ flex: 1 }}>
 				<TextField label={t("forms:labels.socanNO")} placeholder="" />
 				<TextField label={t("forms:labels.ipiNO")} placeholder="" />
-			</Row>
+			</Platform>
 
-			<Row of="component">
+			<Platform web={Row} of="component" native={{ flex: 1 }}>
 				<TextField label={t("forms:labels.artistiNO")} placeholder="" />
 				<TextField label={t("forms:labels.ipnNO")} placeholder="" />
-			</Row>
+			</Platform>
 
-			<Row of="component">
+			<Platform web={Row} of="component" native={{ flex: 1 }}>
 				<TextField label={t("forms:labels.udaNO")} placeholder="" />
 				<TextField label={t("forms:labels.gmmqNO")} placeholder="" />
-			</Row>
+			</Platform>
 
-			<Row of="component">
+			<Platform web={Row} of="component" native={{ flex: 1 }}>
 				<TextField label={t("forms:labels.soproqNO")} placeholder="" />
 				<TextField label={t("forms:labels.isniNO")} placeholder="" />
-			</Row>
+			</Platform>
 
 			<CheckBox
 				label={t("general:checkbox.makePublic")}
@@ -60,19 +65,36 @@ export default function MyIdentity() {
 				checked={checkBox}
 			/>
 
-			<Row of="component">
-				<TextField label="URI" placeholder="" />
-			</Row>
+			<Button
+				secondary
+				text={
+					<Text link bold>
+						{t("general:buttons.addUsername")}
+					</Text>
+				}
+				size={buttonSize}
+				style={({ borderColor: Colors.stroke }, Platform.web && { flex: 1 })}
+			/>
+			{Platform.web && <Flex />}
 
 			<Row of="component">
 				<TextField
 					label={t("forms:labels.birthday")}
 					placeholder=""
-					style={{ flex: 0.5 }}
+					style={Platform.web && { flex: 0.5 }}
 				/>
 			</Row>
 
-			<Hairline />
+			{/* <SearchAndTag
+					label={t("forms:labels.organisations")}
+					placeholder={t("forms:placeholders.organisations")}
+			/> */}
+
+			<Row of="component">
+				<TextField label="URI" placeholder="" />
+			</Row>
+
+			{Platform.OS === "web" && <Hairline />}
 		</>
 	)
 }
