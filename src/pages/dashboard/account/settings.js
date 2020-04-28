@@ -11,7 +11,7 @@ import ChangePasswordModal from "../ChangePasswordContainer"
 import DashboardNavbarWeb from "../../../layout/dashboard-navbar-web"
 import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
 import MyProfile from "./my-profile"
-import AccountInfo from "./account-info"
+import AccountInfoWeb from "./account-info-web"
 import MyIdentity from "./my-identity"
 import MyNotifications from "./my-notifications"
 import SecurityPage from "./my-security"
@@ -51,46 +51,19 @@ export default function SettingsPage() {
 
 	return (
 		<>
-			{Platform.web && (
-				<DashboardNavbarWeb header={t("dashboardTitles:settings")} />
-			)}
+			{Platform.web && <DashboardNavbarWeb header={t("settings:settings")} />}
 
 			<ScrollView>
 				<Group
-					of={Platform.OS === "web" ? "group" : "component"}
 					style={
-						Platform.OS === "web" && { maxWidth: "944dp", alignSelf: "center" }
+						Platform.OS === "web" && { maxWidth: 624, alignSelf: "center" }
 					}
 				>
 					<MyProfile />
 
-					{Platform.native && (
-						<>
-							<DashboardNavbarNative header={t("dashboardTitles:account")} />
-							<TouchableWithoutFeedback>
-								<TabBar>
-									<Tab
-										key="account-info"
-										title={t("dashboardTitles:accountInfo")}
-										default
-									>
-										<AccountInfo />
-									</Tab>
-
-									<Tab
-										key="pro-identity"
-										title={t("dashboardTitles:proIdentity")}
-									>
-										<MyIdentity />
-									</Tab>
-								</TabBar>
-							</TouchableWithoutFeedback>
-						</>
-					)}
-
 					{Platform.web && (
 						<>
-							<AccountInfo />
+							<AccountInfoWeb />
 
 							<MyIdentity />
 

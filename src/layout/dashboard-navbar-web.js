@@ -14,7 +14,11 @@ export default function DashboardNavbarWeb(props) {
 				of="component"
 				padding="component"
 				size="xlarge"
-				style={{ alignItems: "stretch", maxWidth: "944dp" }}
+				style={{
+					alignItems: "stretch",
+					maxWidth: "944dp",
+					alignSelf: "left",
+				}}
 			>
 				<View style={{ width: 223 }}>
 					<ArrowLeft />

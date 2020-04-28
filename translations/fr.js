@@ -3,7 +3,7 @@ export const general = {
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
 	sendEmailConfirm: "Renvoyer le courriel de validation",
-	auth: "Two factor authentification",
+	auth: "Authentification à deux facteurs",
 
 	alerts: {
 		connected: "Connecté !",
@@ -213,7 +213,7 @@ export const dashboard = {
 	added: "Partagées avec moi",
 }
 
-export const dashboardTitles = {
+export const settings = {
 	settings: "Paramètres",
 	account: "Compte",
 	preferences: "Préférences",
@@ -227,49 +227,48 @@ export const dashboardTitles = {
 	password: "Mot de passe",
 	account: "Compte",
 	associateEmails: "Courriels associés à ce compte",
+	delete: "Résiliation",
 
 	subTitles: {
 		documentEmails:
 			"Documente ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t'inviter.",
 	},
 
-	profile: {
+	tab: {
 		type: "Type",
 		email: "Courriel",
 		mobile: "Mobile",
 		sms: "Texto",
 
-		tab: {
-			interactions: {
-				title: "Interactions générales",
-				subTitle: "Propositions et suivis d'avants droit",
-				confirmNO: "Confirmer le numéro",
-			},
+		interactions: {
+			title: "Interactions générales",
+			subTitle: "Propositions et suivis d'avants droit",
+			confirmNO: "Confirmer le numéro",
+		},
 
-			administration: {
-				title: "Messages administratifs",
-				subTitle: "Mises à jour, reçus, paiements",
-			},
+		administration: {
+			title: "Messages administratifs",
+			subTitle: "Mises à jour, reçus, paiements",
+		},
 
-			connexion: {
-				title: "Connexion au compte",
-				subTitle: "Alerte envoyée à chaque connexion",
-			},
+		connexion: {
+			title: "Connexion au compte",
+			subTitle: "Alerte envoyée à chaque connexion",
+		},
 
-			blog: {
-				title: "Blog de Smartsplit",
-				subTitle: "Articles informatifs et éducatifs",
-			},
+		blog: {
+			title: "Blog de Smartsplit",
+			subTitle: "Articles informatifs et éducatifs",
+		},
 
-			promotions: {
-				title: "Promotions Smartsplit",
-				subTitle: "Recevoir nos offres spéciales",
-			},
+		promotions: {
+			title: "Promotions Smartsplit",
+			subTitle: "Recevoir nos offres spéciales",
+		},
 
-			promoPartner: {
-				title: "Promotions partenaires",
-				subTitle: "Recevoir les offres de nos partenaires",
-			},
+		promoPartner: {
+			title: "Promotions partenaires",
+			subTitle: "Recevoir les offres de nos partenaires",
 		},
 	},
 }

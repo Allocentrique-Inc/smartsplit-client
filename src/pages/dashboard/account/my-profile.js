@@ -25,19 +25,11 @@ export default function MyProfile() {
 	const [checkBox, setCheckBox] = useState(false)
 
 	return (
-		<>
-			{Platform.OS === "web" && (
-				<Row of="component">
-					<Flex>
-						<Heading level="2">{t("dashboardTitles:profile")}</Heading>
-					</Flex>
-				</Row>
+		<Platform web={Group} of="group" native={Column} of="component">
+			{Platform.web && <Heading level="2">{t("settings:profile")}</Heading>}
+			{Platform.native && (
+				<DashboardNavbarNative header={t("settings:profile")} />
 			)}
-
-			{Platform.OS !== "web" && (
-				<DashboardNavbarNative header={t("dashboardTitles:profile")} />
-			)}
-
 			<Column of="section">
 				<Row>
 					<UserAvatar size="huge" />
@@ -45,13 +37,12 @@ export default function MyProfile() {
 						<PenIcon />
 					</View>
 				</Row>
+
+				<Row of="component">
+					<TextField label={t("forms:labels.usualFirstName")} placeholder="" />
+					<TextField label={t("forms:labels.usualLastName")} placeholder="" />
+				</Row>
 			</Column>
-
-			<Row of="component">
-				<TextField label={t("forms:labels.usualFirstName")} placeholder="" />
-				<TextField label={t("forms:labels.usualLastName")} placeholder="" />
-			</Row>
-
 			<TextField
 				//label={t("forms:labels.artistName") + t("forms:labels.optional")}
 				label={t("forms:labels.artistName")}
@@ -70,15 +61,16 @@ export default function MyProfile() {
 							Shawn Corey Carter
 						</Text>
 						.
-						{/* <SearchAndTag
-							label={t("forms:labels.participation")}
-							placeholder={t("forms:placeholders.search")}
-						/> */}
 					</>
 				}
 			/>
-
-			{Platform.OS === "web" && <Hairline />}
-		</>
+			<Column of="section">
+				{/* 	<SearchAndTag
+				label={t("forms:labels.participation")}
+				placeholder={t("forms:placeholders.search")}
+			/> */}
+				{Platform.OS === "web" && <Hairline />}
+			</Column>
+		</Platform>
 	)
 }
