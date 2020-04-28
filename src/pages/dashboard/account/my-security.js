@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Platform, View } from "react-native"
+import { View } from "react-native"
+import { Platform } from "../../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
 import { Colors } from "../../../theme"
@@ -22,15 +23,17 @@ export default function MySecurity() {
 
 	return (
 		<>
-			<Row of="component">
-				<Flex>
-					<Heading level="2">{t("titles:security")}</Heading>
-				</Flex>
-			</Row>
+			{Platform.OS === "web" && (
+				<>
+					<Row of="component">
+						<Flex>
+							<Heading level="2">{t("dashboardTitles:security")}</Heading>
+						</Flex>
+					</Row>
+				</>
+			)}
 
-			<Hairline />
-
-			<Heading level="4">{t("titles:password")}</Heading>
+			<Heading level="4">{t("dashboardTitles:password")}</Heading>
 
 			<Row of="component">
 				<Button
@@ -54,7 +57,7 @@ export default function MySecurity() {
 				/>
 			)}
 
-			<Heading level="4">{t("titles:password")}</Heading>
+			<Heading level="4">{t("dashboardTitles:password")}</Heading>
 			<Row of="component">
 				<Button
 					error

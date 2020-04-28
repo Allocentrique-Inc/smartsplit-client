@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Platform, ScrollView, View } from "react-native"
+import { ScrollView, View } from "react-native"
+import { Platform } from "../../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
 import { Colors } from "../../../theme"
@@ -27,77 +28,67 @@ export default function AccountInfo() {
 				<>
 					<Row of="component">
 						<Flex>
-							<Heading level="2">{t("titles:account")}</Heading>
+							<Heading level="2">{t("dashboardTitles:account")}</Heading>
 						</Flex>
 					</Row>
-
-					<TextField label={t("forms:labels.civicAddress")} placeholder="" />
-
-					<Row of="component">
-						<Dropdown
-							label={t("forms:labels.dropdowns.language")}
-							placeholder=""
-							noFocusToggle
-						/>
-						<Flex />
-					</Row>
-
-					<Heading level="5">{t("forms:labels.dropdowns.phone")}</Heading>
-
-					<Row of="component">
-						<Dropdown placeholder="" noFocusToggle style={{ flex: 2.5 }} />
-
-						<Button
-							secondary
-							text={
-								<Text link bold>
-									{t("general:buttons.validNo")}
-								</Text>
-							}
-							size={buttonSize}
-							style={
-								({ borderColor: Colors.stroke },
-								Platform.OS !== "web" && { flex: 0.5 })
-							}
-						/>
-
-						{Platform.OS === "web" && <Flex />}
-					</Row>
-
-					<Heading level="5">{t("titles:associateEmails")}</Heading>
-					<Paragraph>{t("titles:subTitles.documentEmails")}</Paragraph>
-
-					<Row of="component">
-						<Button
-							secondary
-							text={
-								<Text link bold>
-									{t("general:buttons.addEmail")}
-								</Text>
-							}
-							size={buttonSize}
-							style={
-								({ borderColor: Colors.stroke },
-								Platform.OS === "web" ? { flex: 0.5 } : { flex: 1 })
-							}
-						/>
-						{Platform.OS === "web" && <Flex />}
-					</Row>
-
-					<Hairline />
 				</>
 			)}
 
-			{Platform.OS !== "web" && (
-				<>
-					<TextField label={t("forms:labels.civicAddress")} placeholder="" />
-					<TextField
-						label={t("forms:labels.phone")}
-						placeholder=""
-						icon={CheckMark}
-					/>
-				</>
-			)}
+			<TextField label={t("forms:labels.civicAddress")} placeholder="" />
+
+			<Row of="component">
+				<Dropdown
+					label={t("forms:labels.dropdowns.language")}
+					placeholder=""
+					noFocusToggle
+				/>
+				{Platform.web && <Flex />}
+			</Row>
+
+			<Heading level="5">{t("forms:labels.dropdowns.phone")}</Heading>
+
+			<Platform web={Row} native={Column} of="component">
+				<Dropdown
+					placeholder=""
+					noFocusToggle
+					style={Platform.web ? { flex: 2.5 } : { flex: 1 }}
+				/>
+
+				<Button
+					secondary
+					text={
+						<Text link bold>
+							{t("general:buttons.validNo")}
+						</Text>
+					}
+					size={buttonSize}
+					style={({ borderColor: Colors.stroke }, Platform.web && { flex: 1 })}
+				/>
+
+				{Platform.web && <Flex />}
+			</Platform>
+
+			<Heading level="5">{t("dashboardTitles:associateEmails")}</Heading>
+			<Paragraph>{t("dashboardTitles:subTitles.documentEmails")}</Paragraph>
+
+			<Row of="component">
+				<Button
+					secondary
+					text={
+						<Text link bold>
+							{t("general:buttons.addEmail")}
+						</Text>
+					}
+					size={buttonSize}
+					style={
+						({ borderColor: Colors.stroke },
+						Platform.OS === "web" ? { flex: 0.5 } : { flex: 1 })
+					}
+				/>
+				{Platform.OS === "web" && <Flex />}
+			</Row>
+
+			{Platform.OS === "web" && <Hairline />}
 		</>
 	)
 }

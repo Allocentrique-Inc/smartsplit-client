@@ -37,6 +37,7 @@ export const general = {
 		validNo: "Validate this number",
 		addEmail: "Add an Email",
 		deleteAccount: "Cancel this account",
+		addUsername: "Add a username",
 	},
 }
 
@@ -49,21 +50,6 @@ export const menu = {
 	testsForms: "Tests Forms",
 	testsFormsPage: "Full Page Forms",
 	reduxTests: "Redux Tests",
-}
-
-export const titles = {
-	profile: "Profile",
-	security: "Security",
-	password: "Password",
-	account: "Account",
-	associateEmails: "Emails associated to this account",
-	identity: "Personal Identity",
-	notification: "Notifications",
-
-	subTitles: {
-		documentEmails:
-			"Document here different emails with which your collaborators would be susceptible to invite you.",
-	},
 }
 
 export const test = {
@@ -135,6 +121,7 @@ export const forms = {
 		uri: "URI",
 		participation: "My participation to entities",
 		phone: "Téléphone mobile",
+		organisations: "Mes sociétés",
 
 		dropdowns: {
 			language: "Langue",
@@ -153,6 +140,9 @@ export const forms = {
 		middleName: "Middle Name",
 		lastName: "Name",
 		artistName: "Artist Name",
+		search: "Search among groups, artists or organisations...",
+		organisations:
+			"Search among the corporate entities, compagnies, societies...",
 	},
 
 	undertexts: {
@@ -222,63 +212,63 @@ export const dashboard = {
 	added: "My Additions",
 }
 
-export const dashboardHeader = {
+export const dashboardTitles = {
 	settings: "Settings",
-	account: "My Account",
+	account: "Account",
 	preferences: "Preferences",
-	web: {
-		profile: "Profile",
+	profile: "Public Profile",
+	identity: "Identité professionnelle",
+	accountInfo: "Account Information",
+	proIdentity: "Professionnal identity",
+	notifications: "Notifications",
+	security: "Security",
+	deconnect: "Disconnect",
+	password: "Password",
+	account: "Account",
+	associateEmails: "Emails associated to this account",
+
+	subTitles: {
+		documentEmails:
+			"Document here different emails with which your collaborators would be susceptible to invite you.",
 	},
 
-	native: {
-		profile: "Public Profile",
-	},
-}
+	profile: {
+		type: "Type",
+		email: "Email",
+		mobile: "Mobile",
+		sms: "Text",
 
-export const profile = {
-	type: "Type",
-	email: "Email",
-	mobile: "Mobile",
-	sms: "Text",
+		tab: {
+			interactions: {
+				title: "General interactions",
+				subTitle: "Proposals and follow-ups",
+				confirmNO: "Confirm the number",
+			},
 
-	tab: {
-		interactions: {
-			title: "Interactions générales",
-			subTitle: "Propositions et suivis d'avants droit",
-			confirmNO: "Confirm the number",
+			administration: {
+				title: "Administrative messages",
+				subTitle: "Updates, receipts, payments",
+			},
+
+			connexion: {
+				title: "Account Connexion",
+				subTitle: "Alerts sent at each connexion",
+			},
+
+			blog: {
+				title: "Smartsplit's Blog",
+				subTitle: "Educational and Informative Articles",
+			},
+
+			promotions: {
+				title: "Smartsplit Promotions",
+				subTitle: "Get our special offers",
+			},
+
+			promoPartner: {
+				title: "Partners' promotions",
+				subTitle: "Get our partners' offers",
+			},
 		},
-
-		administration: {
-			title: "Messages administratifs",
-			subTitle: "Mises à jour, reçus, paiements",
-		},
-
-		connexion: {
-			title: "Connexion au compte",
-			subTitle: "Alerte envoyée à chaque connexion",
-		},
-
-		blog: {
-			title: "Blog de Smartsplit",
-			subTitle: "Articles informatifs et éducatifs",
-		},
-
-		promotions: {
-			title: "Promotions Smartsplit",
-			subTitle: "Recevoir nos offres spéciales",
-		},
-
-		promoPartner: {
-			title: "Promotions partenaires",
-			subTitle: "Recevoir les offres de nos partenaires",
-		},
-	},
-
-	menu: {
-		profile: "Profile",
-		account: "Account",
-		identity: "Professional Identity",
-		notification: "Notifications",
-		security: "Security",
 	},
 }

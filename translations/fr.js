@@ -37,6 +37,7 @@ export const general = {
 		validNo: "Valider ce numéro",
 		addEmail: "Ajouter un courriel",
 		deleteAccount: "Détruire ce compte",
+		addUsername: "Ajouter un identifiant",
 	},
 }
 
@@ -49,21 +50,6 @@ export const menu = {
 	testsForms: "Tests Formulaires",
 	testsFormsPage: "Formulaires pleine page",
 	reduxTests: "Redux Test",
-}
-
-export const titles = {
-	profile: "Profil",
-	security: "Sécurité",
-	password: "Mot de passe",
-	account: "Compte",
-	associateEmails: "Courriels liés à ce compte",
-	identity: "Identité personelle",
-	notification: "Notifications",
-
-	subTitles: {
-		documentEmails:
-			"Documente ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t'inviter.",
-	},
 }
 
 export const test = {
@@ -102,10 +88,6 @@ export const publicNavbarWeb = {
 	createMyAccount: "Créer mon compte",
 }
 
-export const publicNavBarMobile = {
-	profile: "Profil publique",
-}
-
 export const forms = {
 	labels: {
 		myEmail: "Mon courriel",
@@ -140,6 +122,7 @@ export const forms = {
 		uri: "URI",
 		participation: "Mes participations à des entités",
 		phone: "Téléphone mobile",
+		organisations: "Mes sociétés",
 
 		dropdowns: {
 			language: "Langue",
@@ -158,6 +141,9 @@ export const forms = {
 		middleName: "Second prénom",
 		lastName: "Nom",
 		artistName: "Nom d'artiste",
+		search: "Recherche parmi les groupes, artistes ou sociétés...",
+		organisations:
+			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
 	},
 
 	undertexts: {
@@ -227,63 +213,63 @@ export const dashboard = {
 	added: "Partagées avec moi",
 }
 
-export const dashboardHeader = {
-	web: {
-		profile: "Profil",
-		settings: "Paramètres",
+export const dashboardTitles = {
+	settings: "Paramètres",
+	account: "Compte",
+	preferences: "Préférences",
+	profile: "Profile publique",
+	identity: "Identité professionnelle",
+	accountInfo: "Informations du compte",
+	proIdentity: "Professionnal identity",
+	notifications: "Notifications",
+	security: "Securité",
+	deconnect: "Déconnecté",
+	password: "Mot de passe",
+	account: "Compte",
+	associateEmails: "Courriels associés à ce compte",
+
+	subTitles: {
+		documentEmails:
+			"Documente ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t'inviter.",
 	},
 
-	native: {
-		profile: "Profil public",
-		account: "Mon compte",
-		preferences: "Préférences",
-	},
-}
+	profile: {
+		type: "Type",
+		email: "Courriel",
+		mobile: "Mobile",
+		sms: "Texto",
 
-export const profile = {
-	type: "Type",
-	email: "Courriel",
-	mobile: "Mobile",
-	sms: "Texto",
+		tab: {
+			interactions: {
+				title: "Interactions générales",
+				subTitle: "Propositions et suivis d'avants droit",
+				confirmNO: "Confirmer le numéro",
+			},
 
-	tab: {
-		interactions: {
-			title: "General Interactions",
-			subTitle: "Proposals and follow-ups",
-			confirmNO: "Valider le numéro",
+			administration: {
+				title: "Messages administratifs",
+				subTitle: "Mises à jour, reçus, paiements",
+			},
+
+			connexion: {
+				title: "Connexion au compte",
+				subTitle: "Alerte envoyée à chaque connexion",
+			},
+
+			blog: {
+				title: "Blog de Smartsplit",
+				subTitle: "Articles informatifs et éducatifs",
+			},
+
+			promotions: {
+				title: "Promotions Smartsplit",
+				subTitle: "Recevoir nos offres spéciales",
+			},
+
+			promoPartner: {
+				title: "Promotions partenaires",
+				subTitle: "Recevoir les offres de nos partenaires",
+			},
 		},
-
-		administration: {
-			title: "Administrative Messages",
-			subTitle: "Updates, receipts, payments",
-		},
-
-		connexion: {
-			title: "Account Login",
-			subTitle: "Slerts sent at each login",
-		},
-
-		blog: {
-			title: "Smartsplit Blog",
-			subTitle: "Informative and educative articles",
-		},
-
-		promotions: {
-			title: "Smartsplit Promotions",
-			subTitle: "Get our special offers",
-		},
-
-		promoPartner: {
-			title: "Partners Promotions",
-			subTitle: "Get our partners' promotions",
-		},
-	},
-
-	menu: {
-		profile: "Profil",
-		account: "Compte",
-		identity: "Identité professionnelle",
-		notification: "Notifications",
-		security: "Sécurité",
 	},
 }

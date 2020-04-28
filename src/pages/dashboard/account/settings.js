@@ -1,34 +1,36 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Platform, ScrollView, View } from "react-native"
+import { ScrollView, View, TouchableWithoutFeedback } from "react-native"
+import { Platform } from "../../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
 import { Colors } from "../../../theme"
 import { TextField, Dropdown, CheckBox } from "../../../forms"
+import { TabBar, Tab } from "../../../widgets/tabs"
 import ChangePasswordModal from "../ChangePasswordContainer"
 import DashboardNavbarWeb from "../../../layout/dashboard-navbar-web"
 import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
 import MyProfile from "./my-profile"
 import AccountInfo from "./account-info"
-import ProIdentity from "./my-identity"
+import MyIdentity from "./my-identity"
 import MyNotifications from "./my-notifications"
 import SecurityPage from "./my-security"
 
 const ProfileMenu = [
 	{
-		text: "profile:menu.profile",
+		text: "dashboardHeader:profile",
 		to: "/dashboard/my-profile",
 	},
 	{
-		text: "profile:menu.account",
+		text: "dashboardHeader:account",
 		to: "/dashboard/my-account",
 	},
 	{
-		text: "profile:menu.identity",
+		text: "dashboardHeader:identity",
 		to: "/dashboard/my-identity",
 	},
 	{
-		text: "profile:menu.notifications",
+		text: "dashboardHeader:notifications",
 		to: "/dashboard/my-notifications",
 	},
 	{
@@ -49,9 +51,10 @@ export default function SettingsPage() {
 
 	return (
 		<>
-			{Platform.OS === "web" && (
-				<DashboardNavbarWeb header={t("dashboardHeader:web.settings")} />
+			{Platform.web && (
+				<DashboardNavbarWeb header={t("dashboardTitles:settings")} />
 			)}
+
 			<ScrollView>
 				<Group
 					of={Platform.OS === "web" ? "group" : "component"}
@@ -60,13 +63,36 @@ export default function SettingsPage() {
 					}
 				>
 					<MyProfile />
-					<AccountInfo />
 
-					{Platform.OS === "web" && (
+					{Platform.native && (
+						<>
+							<DashboardNavbarNative header={t("dashboardTitles:account")} />
+							<TouchableWithoutFeedback>
+								<TabBar>
+									<Tab
+										key="account-info"
+										title={t("dashboardTitles:accountInfo")}
+										default
+									>
+										<AccountInfo />
+									</Tab>
+
+									<Tab
+										key="pro-identity"
+										title={t("dashboardTitles:proIdentity")}
+									>
+										<MyIdentity />
+									</Tab>
+								</TabBar>
+							</TouchableWithoutFeedback>
+						</>
+					)}
+
+					{Platform.web && (
 						<>
 							<AccountInfo />
 
-							<ProIdentity />
+							<MyIdentity />
 
 							<MyNotifications />
 
