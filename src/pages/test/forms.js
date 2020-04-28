@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { View, Image, ScrollView, TouchableWithoutFeedback } from "react-native"
+import { Image } from "react-native"
 import {
 	LabelText,
 	TextField,
@@ -10,7 +10,6 @@ import {
 	RadioGroup,
 	RadioGroupButton,
 	Dropdown,
-	TextDropdown,
 	Select,
 	useImagePicker,
 } from "../../forms"
@@ -21,8 +20,8 @@ import Button from "../../widgets/button"
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
 import AuthModal from "../auth/modal"
 import { SearchAndTag } from "../../forms/search-and-tag"
-import { Tag } from "../../widgets/tag"
-import { getPhoneNumber, PhoneNumberField } from "../../forms/phone-number"
+import { PhoneNumberField } from "../../forms/phone-number"
+import { DateField } from "../../forms/date"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
 
@@ -143,6 +142,7 @@ function TestText() {
 
 function TestBasicFields() {
 	const [phoneNumber, setPhoneNumber] = useState("")
+	const [date, setDate] = useState("")
 	return (
 		<Column of="component">
 			<Row of="component">
@@ -176,6 +176,13 @@ function TestBasicFields() {
 					label="Numéro de téléphone"
 					label_hint="Optionnel"
 					placeholder="Numero de tel"
+				/>
+			</Row>
+			<Row of="component">
+				<DateField
+					value={date}
+					onChangeText={setDate}
+					label="Date de naissance"
 				/>
 			</Row>
 		</Column>
