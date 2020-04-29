@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Platform, View, ScrollView } from "react-native"
+import { View, ScrollView } from "react-native"
+import { Platform } from "../../platform"
 import { Text, Heading, Paragraph } from "../../text"
 import { useHistory } from "react-router-dom"
 import { Group, Row, Column, Flex, Section } from "../../layout"

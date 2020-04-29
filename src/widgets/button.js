@@ -83,7 +83,11 @@ export const ButtonStyles = StyleSheet.create({
 
 	text_error: {
 		color: Colors.error,
-	}
+	},
+
+	frame_mega_error: {
+		backgroundColor: Colors.error,
+	},
 })
 
 ButtonStyles.frame_round = {}
@@ -109,6 +113,7 @@ export function Button({
 	tertiary,
 	disabled,
 	error,
+	megaError,
 	onClick,
 	style,
 	children,
@@ -144,11 +149,13 @@ export function Button({
 	} else if (error) {
 		addFrame("frame_error")
 		addText("text_error")
+	} else if (megaError) {
+		addFrame("frame_mega_error")
+		addText("text_primary")
 	} else {
 		addFrame("frame_primary")
 		addText("text_primary")
-	} 
-
+	}
 
 	if (!content) {
 		content = (
