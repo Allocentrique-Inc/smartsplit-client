@@ -35,6 +35,7 @@ export const general = {
 		add: "Ajouter",
 		passwordChange: "Changer le mot de passe",
 		validNo: "Valider ce numéro",
+		confirmNO: "Valider",
 		addEmail: "Ajouter un courriel",
 		deleteAccount: "Détruire ce compte",
 		addUsername: "Ajouter un identifiant",
@@ -285,4 +286,10 @@ export const deletion = {
 	confirm:
 		"En cliquant sur « confirmer » plus bas, ton compte sera supprimé et tu seras éjecté du système.",
 	deleteWord: "detruire",
+}
+
+export const confirmNO = {
+	title: "Valider ton numéro de téléphone",
+	codeSent: "Un code t'a été envoyé par message texte.",
+	enterNO: "Entre le code de vérification",
 }

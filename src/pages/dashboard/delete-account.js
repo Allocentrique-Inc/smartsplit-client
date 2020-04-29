@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { TouchableOpacity } from "react-native"
 import { Platform } from "../../platform"
 import { DialogModal } from "../../widgets/modal"
 import { Modal } from "../../widgets/modal"
 import Button from "../../widgets/button"
 import { Section, Column, Row, Group, Flex } from "../../layout"
-import { TextField, PasswordField, CheckBox } from "../../forms"
+import { TextField } from "../../forms"
 import { Text, Heading, Paragraph } from "../../text"
 import { Colors } from "../../theme"
-import TypographyStyles from "../../styles/typography"
-import ProgressBar from "../../widgets/progress-bar"
 import Scrollable from "../../widgets/scrollable"
-import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 
 export default function DeleteAccountModal(props) {
 	const [t] = useTranslation()

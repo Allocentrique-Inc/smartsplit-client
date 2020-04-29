@@ -5,10 +5,9 @@ import { Platform } from "../../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
 import { Colors } from "../../../theme"
-import { TextField, Dropdown, CheckBox } from "../../../forms"
+import { TextField, Dropdown } from "../../../forms"
 import { TabBar, Tab } from "../../../widgets/tabs"
 import Button from "../../../widgets/button"
-import ChangePasswordModal from "../ChangePasswordContainer"
 import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
 import MyIdentity from "./my-identity"
 import AccountInfoWeb from "./account-info-web"
@@ -17,12 +16,7 @@ import CheckMark from "../../../svg/check-mark"
 export default function AccountInfoNative() {
 	const [t] = useTranslation()
 
-	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
-		false
-	)
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-
-	const [checkBox, setCheckBox] = useState(false)
 
 	return (
 		<Column of="component">

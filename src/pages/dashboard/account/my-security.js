@@ -25,8 +25,6 @@ export default function MySecurity() {
 
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
-	const [checkBox, setCheckBox] = useState(false)
-
 	return (
 		<Platform web={Group} of="group" native={Column} of="component">
 			{Platform.web && <Heading level="2">{t("settings:security")}</Heading>}

@@ -35,6 +35,7 @@ export const general = {
 		add: "Add",
 		passwordChange: "Change the password",
 		validNo: "Validate this number",
+		confirmNO: "Confirm",
 		addEmail: "Add an Email",
 		deleteAccount: "Cancel this account",
 		addUsername: "Add a username",
@@ -284,4 +285,10 @@ export const deletion = {
 	confirm:
 		'By clicking on "confirm" below, your account will be deleted and you will be ejected from the system.',
 	deleteWord: "delete",
+}
+
+export const confirmNO = {
+	title: "Confirm your phone number",
+	codeSent: "A code was sent to you my text message.",
+	enterNO: "Enter the verification code",
 }
