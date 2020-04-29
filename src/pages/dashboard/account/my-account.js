@@ -12,6 +12,7 @@ import SettingsIcon from "../../../svg/settings"
 import LogoutIcon from "../../../svg/logout"
 
 export default function MyAccountPage(props) {
+	const [t] = useTranslation()
 	return (
 		<Group of="group">
 			<Row of="component">
