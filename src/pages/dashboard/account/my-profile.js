@@ -25,52 +25,57 @@ export default function MyProfile() {
 	const [checkBox, setCheckBox] = useState(false)
 
 	return (
-		<Platform web={Group} of="group" native={Column} of="component">
+		<>
 			{Platform.web && <Heading level="2">{t("settings:profile")}</Heading>}
 			{Platform.native && (
 				<DashboardNavbarNative header={t("settings:profile")} />
 			)}
-			<Column of="section">
-				<Row>
-					<UserAvatar size="huge" />
-					<View style={{ margin: 50 }}>
-						<PenIcon />
-					</View>
-				</Row>
+			<Platform web={Group} of="group" native={Column} of="component">
+				<Column of="section">
+					<Row>
+						<UserAvatar size="huge" />
+						<View style={{ margin: 50 }}>
+							<PenIcon />
+						</View>
+					</Row>
 
-				<Row of="component">
-					<TextField label={t("forms:labels.usualFirstName")} placeholder="" />
-					<TextField label={t("forms:labels.usualLastName")} placeholder="" />
-				</Row>
-			</Column>
-			<TextField
-				//label={t("forms:labels.artistName") + t("forms:labels.optional")}
-				label={t("forms:labels.artistName")}
-				label_hint={<Text secondary>{t("forms:labels.optional")}</Text>}
-				placeholder=""
-				undertext={
-					<>
-						<Text small>{t("forms:undertexts.artistNameExample")}</Text>
-						<Text italic small>
-							{" "}
-							Jay-Z
-						</Text>
-						<Text small> {t("forms:undertexts.artistNameExample3")}</Text>
-						<Text italic small>
-							{" "}
-							Shawn Corey Carter
-						</Text>
-						.
-					</>
-				}
-			/>
-			<Column of="section">
-				{/* 	<SearchAndTag
+					<Row of="component">
+						<TextField
+							label={t("forms:labels.usualFirstName")}
+							placeholder=""
+						/>
+						<TextField label={t("forms:labels.usualLastName")} placeholder="" />
+					</Row>
+				</Column>
+				<TextField
+					//label={t("forms:labels.artistName") + t("forms:labels.optional")}
+					label={t("forms:labels.artistName")}
+					label_hint={<Text secondary>{t("forms:labels.optional")}</Text>}
+					placeholder=""
+					undertext={
+						<>
+							<Text small>{t("forms:undertexts.artistNameExample")}</Text>
+							<Text italic small>
+								{" "}
+								Jay-Z
+							</Text>
+							<Text small> {t("forms:undertexts.artistNameExample3")}</Text>
+							<Text italic small>
+								{" "}
+								Shawn Corey Carter
+							</Text>
+							.
+						</>
+					}
+				/>
+				<Column of="section">
+					{/* 	<SearchAndTag
 				label={t("forms:labels.participation")}
 				placeholder={t("forms:placeholders.search")}
 			/> */}
-				{Platform.OS === "web" && <Hairline />}
-			</Column>
-		</Platform>
+					{Platform.OS === "web" && <Hairline />}
+				</Column>
+			</Platform>
+		</>
 	)
 }

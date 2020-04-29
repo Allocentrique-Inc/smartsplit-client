@@ -15,7 +15,7 @@ export default function DashboardNavbarWeb(props) {
 				padding="component"
 				size="xlarge"
 				style={{
-					alignItems: "stretch",
+					alignItems: "center",
 					maxWidth: "944dp",
 					alignSelf: "left",
 				}}

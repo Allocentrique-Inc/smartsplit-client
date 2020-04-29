@@ -261,7 +261,7 @@ export const settings = {
 			subTitle: "Articles informatifs et éducatifs",
 		},
 
-		promotions: {
+		promos: {
 			title: "Promotions Smartsplit",
 			subTitle: "Recevoir nos offres spéciales",
 		},

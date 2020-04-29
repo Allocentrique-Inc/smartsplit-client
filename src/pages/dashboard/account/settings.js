@@ -60,6 +60,7 @@ export default function SettingsPage() {
 					}
 				>
 					<MyProfile />
+					<MyNotifications />
 
 					{Platform.web && (
 						<>
