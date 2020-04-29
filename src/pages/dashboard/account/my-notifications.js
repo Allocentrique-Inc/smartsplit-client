@@ -243,8 +243,8 @@ export default function MyNotifications(props) {
 							sms={null}
 						/>
 						<NotificationsRow
-							title={t("settings:tab.promotions.title")}
-							subTitle={t("settings:tab.promotions.subTitle")}
+							title={t("settings:tab.promos.title")}
+							subTitle={t("settings:tab.promos.subTitle")}
 							email={true}
 							mobile={true}
 							sms={null}

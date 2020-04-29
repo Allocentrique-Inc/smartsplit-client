@@ -38,6 +38,7 @@ export const general = {
 		addEmail: "Ajouter un courriel",
 		deleteAccount: "Détruire ce compte",
 		addUsername: "Ajouter un identifiant",
+		delete: "Détruire ce compte",
 	},
 }
 
@@ -144,6 +145,7 @@ export const forms = {
 		search: "Recherche parmi les groupes, artistes ou sociétés...",
 		organisations:
 			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
+		delete: "détruire, Détruire ou detruire",
 	},
 
 	undertexts: {
@@ -271,4 +273,16 @@ export const settings = {
 			subTitle: "Recevoir les offres de nos partenaires",
 		},
 	},
+}
+
+export const deletion = {
+	destroy: "Détruire le compte",
+	warningTitle: "Attention, cette opération est irréversible.",
+	warningSubTitle:
+		"Afin de détruire ce compte, tu dois confirmer ton intention.",
+	writeDelete:
+		"Écris le mot « détruire » ci-dessous, afin de confirmer ton intention :",
+	confirm:
+		"En cliquant sur « confirmer » plus bas, ton compte sera supprimé et tu seras éjecté du système.",
+	deleteWord: "detruire",
 }

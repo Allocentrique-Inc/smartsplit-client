@@ -38,6 +38,7 @@ export const general = {
 		addEmail: "Add an Email",
 		deleteAccount: "Cancel this account",
 		addUsername: "Add a username",
+		delete: "Delete this account",
 	},
 }
 
@@ -143,6 +144,7 @@ export const forms = {
 		search: "Search among groups, artists or organisations...",
 		organisations:
 			"Search among the corporate entities, compagnies, societies...",
+		delete: "delete or Delete",
 	},
 
 	undertexts: {
@@ -270,4 +272,16 @@ export const settings = {
 			subTitle: "Get our partners' offers",
 		},
 	},
+}
+
+export const deletion = {
+	destroy: "Delete the account",
+	warningTitle: "Please note, this operation is irreversible.",
+	warningSubTitle:
+		"In order to delete this account, you need to confirm your intention.",
+	writeDelete:
+		'Write the word "delete" below, in order to confirm your intention:',
+	confirm:
+		'By clicking on "confirm" below, your account will be deleted and you will be ejected from the system.',
+	deleteWord: "delete",
 }
