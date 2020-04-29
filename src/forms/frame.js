@@ -23,16 +23,22 @@ export default function Frame(props) {
 	)
 }
 
-export function useFrameFocus(initialFocus = false) {
+export function useFrameFocus(initialFocus = false, inputProps = {}) {
 	const [focused, setFocus] = useState(initialFocus)
 
 	return {
 		value: focused,
 		props: {
 			onFocus: function () {
+				if (typeof inputProps.onFocus === "function") {
+					inputProps.onFocus()
+				}
 				setFocus(true)
 			},
 			onBlur: function () {
+				if (typeof inputProps.onBlur === "function") {
+					inputProps.onBlur()
+				}
 				setFocus(false)
 			},
 		},
