@@ -46,7 +46,6 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
-
 	},
 }
 
@@ -65,7 +64,7 @@ export const adminMenu = {
 	listManagement: "Gestion des listes",
 	businessSettings: "Paramètres d'affaires",
 	adminManagement: "Gestion des administrateurs",
-	myIncomes: "Mes revenus"
+	myIncomes: "Mes revenus",
 }
 
 export const test = {
@@ -339,4 +338,12 @@ export const widgets = {
 	pictureCrop: {
 		title: "Recadre ta photo",
 	},
+}
+
+export const addEmail = {
+	title: "Associe un nouveau courriel à ton compte",
+	paragraph: "Une demande de validation afin d'associer ton adresse",
+	paragraph2: "à ton compte",
+	paragraph3: "t'a été envoyé par courriel.",
+	checkEmail: "Vérifie tes spams. On ne sait jamais !",
 }

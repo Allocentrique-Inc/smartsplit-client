@@ -63,7 +63,7 @@ export const adminMenu = {
 	listManagement: "List management",
 	businessSettings: "Business settings",
 	adminManagement: "Administrator management",
-	myIncomes: "My incomes"
+	myIncomes: "My incomes",
 }
 
 export const test = {
@@ -336,4 +336,12 @@ export const widgets = {
 	pictureCrop: {
 		title: "Crop Picture",
 	},
+}
+
+export const addEmail = {
+	title: "Link a new email to your account",
+	paragraph: "A validation request to link your address",
+	paragraph2: "to your account",
+	paragraph3: "was sent by email.",
+	checkEmail: "Check your spams. You never know!",
 }
