@@ -293,3 +293,11 @@ export const confirmNO = {
 	codeSent: "Un code t'a été envoyé par message texte.",
 	enterNO: "Entre le code de vérification",
 }
+
+export const addEmail = {
+	title: "Associe un nouveau courriel à ton compte",
+	paragraph: "Une demande de validation afin d'associer ton adresse",
+	paragraph2: "à ton compte",
+	paragraph3: "t'a été envoyé par courriel.",
+	checkEmail: "Vérifie tes spams. On ne sait jamais !",
+}
