@@ -8,6 +8,7 @@ import { Colors } from "../../../theme"
 import { TextField, Dropdown, CheckBox } from "../../../forms"
 import Button from "../../../widgets/button"
 import ConfirmPhoneModal from "./confirm-phone"
+import ConfirmEmailModal from "./confirm-new-email"
 import DashboardNavBarWeb from "../../../layout/dashboard-navbar-web"
 import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
 import CheckMark from "../../../svg/check-mark"
@@ -16,6 +17,7 @@ export default function AccountInfoWeb() {
 	const [t] = useTranslation()
 
 	const [confirmPhoneModalOpen, setConfirmPhoneModalOpen] = useState(false)
+	const [confirmEmailModalOpen, setConfirmEmailModalOpen] = useState(false)
 
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
@@ -91,7 +93,17 @@ export default function AccountInfoWeb() {
 								({ borderColor: Colors.stroke },
 								Platform.OS === "web" ? { flex: 0.5 } : { flex: 1 })
 							}
+							onClick={() => {
+								setConfirmEmailModalOpen(true)
+							}}
 						/>
+						{confirmEmailModalOpen && (
+							<ConfirmEmailModal
+								visible={confirmEmailModalOpen}
+								onRequestClose={() => setConfirmEmailModalOpen(false)}
+							/>
+						)}
+
 						{Platform.OS === "web" && <Flex />}
 					</Row>
 
