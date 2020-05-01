@@ -12,16 +12,19 @@ import {
 	Dropdown,
 	TextDropdown,
 	Select,
-} from "../../forms"
+} from "../../components/forms/form-controls"
 import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
-import Button from "../../widgets/button"
+import Button from "../../components/button"
 
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
 import AuthModal from "../auth/modal"
-import { SearchAndTag } from "../../forms/search-and-tag"
-import { Tag } from "../../widgets/tag"
-import { getPhoneNumber, PhoneNumberField } from "../../forms/phone-number"
+import { SearchAndTag } from "../../components/forms/form-controls/search-and-tag"
+import { Tag } from "../../components/tag"
+import {
+	getPhoneNumber,
+	PhoneNumberField,
+} from "../../components/forms/form-controls/phone-number"
 
 export default function FormsTest() {
 	return (

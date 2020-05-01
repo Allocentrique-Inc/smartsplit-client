@@ -2,7 +2,7 @@ import React from "react"
 import { TextInput } from "react-native"
 import Wrapper from "./wrapper"
 import Frame, { useFrameFocus } from "./frame"
-import FormStyles from "../styles/forms"
+import FormStyles from "../../../styles/forms"
 
 function FramedTextField(props) {
 	const { error, ...inputProps } = props

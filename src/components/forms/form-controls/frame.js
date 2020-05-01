@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { View, StyleSheet } from "react-native"
-import FormStyles from "../styles/forms"
-import MetricsStyles from "../styles/metrics"
+import FormStyles from "../../../styles/forms"
+import MetricsStyles from "../../../styles/metrics"
 
 export default function Frame(props) {
 	const { as, focused, error, style, children, viewRef, ...nextProps } = props

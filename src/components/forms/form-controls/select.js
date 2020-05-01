@@ -1,9 +1,9 @@
 import React from "react"
 import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import Dropdown from "./dropdown"
-import { Column, Hairline } from "../layout"
-import { Text } from "../text"
-import FormStyles from "../styles/forms"
+import { Column, Hairline } from "../../../layout"
+import { Text } from "../../../text"
+import FormStyles from "../../../styles/forms"
 
 export default class Select extends React.PureComponent {
 	static defaultProps = {

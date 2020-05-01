@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { AsyncStorage } from "react-native"
 import { connect } from "react-redux"
-import { activateAccount } from "../../../redux/Users/Actions"
+import { activateAccount } from "../../redux/Users/Actions"
 import { Redirect } from "react-router"
 import PublicPageLayout from "../../layouts/public-page"
 import { Group } from "../../layout"

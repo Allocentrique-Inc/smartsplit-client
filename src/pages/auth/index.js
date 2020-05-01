@@ -9,7 +9,7 @@ import PasswordSent from "./forgot-password-sent"
 import ForgotPassword from "./forgot-password"
 import PasswordReset from "./password-reset"
 import CheckEmailPage from "./check-email"
-import AccessControl from "../../widgets/AccessControl"
+import AccessControl from "../../components/AccessControl"
 
 export default function AuthPages() {
 	return (

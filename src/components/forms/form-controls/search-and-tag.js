@@ -1,16 +1,16 @@
 import React from "react"
 import TextDropdown from "./text-dropdown"
-import { Column, Layer, Row } from "../layout"
+import { Column, Layer, Row } from "../../../layout"
 import {
 	View,
 	ScrollView,
 	StyleSheet,
 	TouchableWithoutFeedback,
 } from "react-native"
-import FormStyles from "../styles/forms"
-import { Text } from "../text"
-import { Metrics } from "../theme"
-import { Tag } from "../widgets/tag"
+import FormStyles from "../../../styles/forms"
+import { Text } from "../../../text"
+import { Metrics } from "../../../theme"
+import { Tag } from "../../tag"
 
 const SearchAndTagStyle = StyleSheet.create({
 	tag_container: {

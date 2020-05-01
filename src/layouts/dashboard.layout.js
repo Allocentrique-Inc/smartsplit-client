@@ -13,7 +13,7 @@ import { Text } from "../text"
 import LayerStyles from "../styles/layers"
 import MetricsStyles from "../styles/metrics"
 import { Colors, Metrics } from "../theme"
-import { CheckBox } from "../forms"
+import { CheckBox } from "../components/forms/form-controls"
 
 import LogoSmartSplitMenu from "../svg/logo-smart-split-menu"
 import LinkIcon from "../svg/link"
@@ -132,7 +132,7 @@ export function ProfileBar(props) {
 	)
 }
 
-export function Dashboard(props) {
+export function DashboardLayout(props) {
 	const [showSidebar, setSidebar] = useState(true)
 
 	return (
@@ -221,4 +221,4 @@ export function AvatarIcon(props) {
 	return <UserAvatar initials="XX" size="small" />
 }
 
-export default Dashboard
+export default DashboardLayout

@@ -5,8 +5,12 @@ import { Platform } from "../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
-import { TextField, Dropdown, CheckBox } from "../../forms"
-import Button from "../../widgets/button"
+import {
+	TextField,
+	Dropdown,
+	CheckBox,
+} from "../../components/forms/form-controls"
+import Button from "../../components/button"
 import ConfirmPhoneModal from "../dashboard/account/confirm-phone"
 import DashboardNavBarWeb from "../../layouts/dashboard-navbar-web"
 import DashboardNavbarNative from "../../layouts/dashboard-navbar-native"

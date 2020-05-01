@@ -1,6 +1,6 @@
 import React from "react"
 import { View } from "react-native"
-import AccessControl from "../../../widgets/AccessControl"
+import AccessControl from "../../../components/AccessControl"
 
 export default function Logout() {
 	return (

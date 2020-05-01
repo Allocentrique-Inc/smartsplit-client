@@ -1,14 +1,14 @@
 import React, { useState } from "react"
 import { View, TextInput, TouchableWithoutFeedback } from "react-native"
 
-import { Row } from "../layout"
-import FormStyles from "../styles/forms"
+import { Row } from "../../../layout"
+import FormStyles from "../../../styles/forms"
 import Wrapper from "./wrapper"
 import Frame, { useFrameFocus } from "./frame"
-import EyeIcon from "../svg/eye"
-import CapsLockIcon from "../svg/caps-lock"
-import { Metrics } from "../theme"
-import { Platform } from "../platform"
+import EyeIcon from "../../../svg/eye"
+import CapsLockIcon from "../../../svg/caps-lock"
+import { Metrics } from "../../../theme"
+import { Platform } from "../../../platform"
 
 function FramedPasswordField(props) {
 	const { error, ...inputProps } = props

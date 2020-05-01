@@ -5,8 +5,8 @@ import { Platform, View, StyleSheet } from "react-native"
 
 import { Row, Column, Group, Flex, Hairline } from "../../layout"
 import { Heading } from "../../text"
-import { TabBar, Tab } from "../../widgets/tabs"
-import { Button, RoundButton } from "../../widgets/button"
+import { TabBar, Tab } from "../../components/tabs"
+import { Button, RoundButton } from "../../components/button"
 
 import MediaWorkRow from "../../smartsplit/works/dashboard-row"
 import CreateWorkModal from "../../smartsplit/works/create-work-modal"

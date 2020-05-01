@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { TouchableOpacity, Platform } from "react-native"
-import { DialogModal } from "../../widgets/modal"
-import { Modal } from "../../widgets/modal"
-import Button from "../../widgets/button"
+import { DialogModal } from "../../components/modal"
+import { Modal } from "../../components/modal"
+import Button from "../../components/button"
 import { Section, Column, Row, Group, Flex } from "../../layout"
-import { TextField, PasswordField, CheckBox } from "../../forms"
+import {
+	TextField,
+	PasswordField,
+	CheckBox,
+} from "../../components/forms/form-controls"
 import { Text } from "../../text"
-import ProgressBar from "../../widgets/progress-bar"
-import Scrollable from "../../widgets/scrollable"
+import ProgressBar from "../../components/progress-bar"
+import Scrollable from "../../components/scrollable"
 import {
 	passwordBarColor,
 	passwordProgress,
 	passwordStrengthIndicator,
 } from "../auth/register"
 import zxcvbn from "zxcvbn"
-import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
+import { notEmptyValidator, sameValidator } from "../../helpers/validators"
 import { connect } from "react-redux"
-import * as UserActions from "../../../redux/Users/Actions"
+import * as UserActions from "../../redux/Users/Actions"
 
 export const ChangePasswordModal = connect(
 	function mapStateToProps({ users }) {

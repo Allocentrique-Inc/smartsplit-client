@@ -5,10 +5,10 @@ import { Platform } from "../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
-import { TextField, Dropdown, CheckBox } from "../../forms"
-import Button from "../../widgets/button"
-import ChangePasswordModal from "../dashboard/ChangePasswordContainer"
-import { SearchAndTag } from "../../forms/search-and-tag"
+import { TextField, Dropdown, CheckBox } from "./form-controls"
+import Button from "../button"
+import ChangePasswordModal from "../../pages/dashboard/ChangePasswordContainer"
+import { SearchAndTag } from "./form-controls/search-and-tag"
 import DashboardNavbarWeb from "../../layouts/dashboard-navbar-web"
 import DashboardNavbarNative from "../../layouts/dashboard-navbar-native"
 import UserAvatar from "../../smartsplit/user/avatar"
@@ -30,7 +30,7 @@ export default function MyProfile() {
 			{Platform.native && (
 				<DashboardNavbarNative header={t("settings:profile")} />
 			)}
-			<Platform web={Group} of="group" native={Column} of="component">
+			<Platform web={Group} native={Column} of="component">
 				<Column of="section">
 					<Row>
 						<UserAvatar size="huge" />

@@ -3,14 +3,14 @@ import { Platform, View, Text, ScrollView } from "react-native"
 import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
 import thunk from "redux-thunk"
-import rootReducer from "./redux/rootReducer"
+import rootReducer from "./src/redux/rootReducer"
 import { MemoryRouter } from "react-router"
 import { BrowserRouter } from "react-router-dom"
 import * as Font from "expo-font"
 import {
 	loadAuthFromStorage,
 	loadIsReturningFromStorage,
-} from "./helpers/storageAuth"
+} from "./src/helpers/storageAuth"
 
 import i18n from "./translations"
 import Main from "./src"

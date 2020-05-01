@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import { useHistory, useRouteMatch } from "react-router"
 import PublicPageLayout from "../../layouts/public-page"
 import { Text } from "../../text"
-import Button from "../../widgets/button"
+import Button from "../../components/button"
 
 export default function PublicAuthLayout({ children }) {
 	const [t, i18n] = useTranslation()

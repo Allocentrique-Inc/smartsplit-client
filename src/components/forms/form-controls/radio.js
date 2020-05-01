@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import { View, TouchableWithoutFeedback } from "react-native"
 import { Svg, Rect } from "react-native-svg"
 
-import { Column, Row } from "../layout"
-import { Text } from "../text"
-import { Colors, Metrics } from "../theme"
-import FormStyles from "../styles/forms"
+import { Column, Row } from "../../../layout"
+import { Text } from "../../../text"
+import { Colors, Metrics } from "../../../theme"
+import FormStyles from "../../../styles/forms"
 
 const RadioContext = React.createContext({})
 RadioContext.displayName = "RadioGroupContext"

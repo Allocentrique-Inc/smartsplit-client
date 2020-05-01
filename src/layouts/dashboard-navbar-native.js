@@ -3,17 +3,13 @@ import { useTranslation } from "react-i18next"
 import ArrowLeft from "../svg/arrow-left"
 import { Flex, Row, Column, Hairline } from "../layout"
 import { Heading, Text } from "../text"
-import Button from "../widgets/button"
+import Button from "../components/button"
 
 export default function DashboardNavbarNative(props) {
 	const [t] = useTranslation()
 	return (
 		<>
-			<Row
-				of="component"
-				padding="group"
-				style={{ alignItems: "center" }}
-			>
+			<Row of="component" padding="group" style={{ alignItems: "center" }}>
 				<ArrowLeft />
 				<Heading level="4">{props.header}</Heading>
 				<Flex />

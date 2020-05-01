@@ -43,7 +43,7 @@ En ce moment, le style de code à suivre n'est pas très défini. En général, 
 - `/`: Contiens les fichiers de premier niveau. Fichiers de configurations divers, point d'entrée principal. En général, éviter de mettre les choses ici lorsque possible.
   - `/assets`: les resources externes au code source. En ce moment, splash screen, polices.
   - `/src`: tout ce qui est code source dans le monde React/Native/JavaScript
-  - `App.js`: point d'entrée système de l'application. Charger les trucs essentiels de base et lancer l'application dans `/src/index.js`.
+  - `App.js`: point d'entrée système de l'application. Charger les trucs essentiels de base et lancer l'application dans `/src/settings.js`.
 
 ### Organisation des composantes et fichiers source
 
@@ -77,7 +77,7 @@ Actuellement, ça ressemble donc à ça:
 - `/text.js`: Affichage du texte avec les styles globaux pour l'application
 - `/portals.js`: Téléporter des éléments React, pour faire des overlay.
 - `/theme.js`: Toutes les valeurs et constantes du thème global: Couleurs, Métriques, Polices, Espacements.
-- `/index.js`: Point d'entrée dans le monde applicatif de SmartSplit.
+- `/settings.js`: Point d'entrée dans le monde applicatif de SmartSplit.
 
 ## Système de layout
 

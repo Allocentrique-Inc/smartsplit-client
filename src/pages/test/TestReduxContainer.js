@@ -2,9 +2,9 @@ import React from "react"
 import { StyleSheet, Text, View, Button } from "react-native"
 import TestRedux from "./TestRedux"
 import { connect } from "react-redux"
-import * as RightHoldersActions from "../../../redux/RightHolders/Actions"
-import * as UsersActions from "../../../redux/Users/Actions"
-import * as AuthActions from "../../../redux/Auth/Actions"
+import * as RightHoldersActions from "../../redux/RightHolders/Actions"
+import * as UsersActions from "../../redux/Users/Actions"
+import * as AuthActions from "../../redux/Auth/Actions"
 
 function mapStateToProps({ rightHolders, users, auth }) {
 	return {

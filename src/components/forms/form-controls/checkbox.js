@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { Svg, Rect, Path } from "react-native-svg"
 
-import { Row } from "../layout"
-import { Text } from "../text"
-import { Colors, Metrics } from "../theme"
-import FormStyles from "../styles/forms"
+import { Row } from "../../../layout"
+import { Text } from "../../../text"
+import { Colors, Metrics } from "../../../theme"
+import FormStyles from "../../../styles/forms"
 
 export default function CheckBox(props) {
 	const { children, label, checked, disabled, onChange } = props

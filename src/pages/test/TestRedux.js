@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { View, Text, Button, StyleSheet } from "react-native"
-import AccessControl from "../../widgets/AccessControl"
+import AccessControl from "../../components/AccessControl"
 
 const testUserBaseProfile = {
 	email: "autpmzzh@sharklasers.com",

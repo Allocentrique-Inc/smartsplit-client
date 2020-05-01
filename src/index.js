@@ -2,7 +2,7 @@ import React from "react"
 import { Route, Redirect, Switch } from "react-router"
 
 import { Overlay as GlobalOverlay } from "./portals"
-import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
+import { Overlay as ScrollOverlay, Scrollable } from "./components/scrollable"
 
 import AuthPages from "./pages/auth"
 import DashboardPage from "./pages/dashboard"
@@ -11,15 +11,16 @@ import CopyrightShare from "./pages/document/copyright"
 import UserActivateAccount from "./pages/user/activate"
 
 import TestRedux from "./pages/test/TestReduxContainer"
-import AccessControl from "./widgets/AccessControl"
+import AccessControl from "./components/AccessControl"
 
-import SettingsPage from "./pages/settings" //Test
+import SettingsPage from "./pages/web/settings"
+import Routes from "./routes" //Test
 
 export default function Main(props) {
 	return (
 		<ScrollOverlay.ProviderContainer>
 			<GlobalOverlay.ProviderContainer>
-				<MainRouter {...props} />
+				<Routes/>
 			</GlobalOverlay.ProviderContainer>
 		</ScrollOverlay.ProviderContainer>
 	)

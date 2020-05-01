@@ -1,8 +1,8 @@
 import React from "react"
-import Dropdown from "../widgets/dropdown"
+import Dropdown from "../../dropdown"
 import Wrapper from "./wrapper"
 import Frame from "./frame"
-import { Metrics } from "../theme"
+import { Metrics } from "../../../theme"
 
 export default class DropdownField extends React.PureComponent {
 	constructor(props) {

@@ -1,6 +1,6 @@
 import React from "react"
 import { connect } from "react-redux"
-import * as UserActions from "../../../redux/Users/Actions"
+import * as UserActions from "../../redux/Users/Actions"
 import { ChangePasswordModal } from "./change-password"
 
 function mapStateToProps({ users }) {

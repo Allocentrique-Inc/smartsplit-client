@@ -1,15 +1,15 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router"
 import ACRCloudModal from "./acrcloud-modal"
-import { DialogModal } from "../../widgets/modal"
-import { Button } from "../../widgets/button"
+import { DialogModal } from "../../components/modal"
+import { Button } from "../../components/button"
 import { Group, Column, Row } from "../../layout"
 import {
 	TextField,
 	RadioButton,
 	RadioGroup,
 	RadioGroupButton,
-} from "../../forms"
+} from "../../components/forms/form-controls"
 
 import ArtistSelectDropdown from "../artist/select"
 import RightHolderTag from "../rightholders/tag"

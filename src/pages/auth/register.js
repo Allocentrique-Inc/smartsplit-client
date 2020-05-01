@@ -2,18 +2,22 @@ import React, { useState, useEffect } from "react"
 import { AsyncStorage } from "react-native"
 import { useTranslation } from "react-i18next"
 import { connect } from "react-redux"
-import * as UserActions from "../../../redux/Users/Actions"
+import * as UserActions from "../../redux/Users/Actions"
 import { View } from "react-native"
 import { useHistory } from "react-router-dom"
-import Button from "../../widgets/button"
-import Scrollable from "../../widgets/scrollable"
+import Button from "../../components/button"
+import Scrollable from "../../components/scrollable"
 import { Platform, Web, Native } from "../../platform"
-import { DialogModal } from "../../widgets/modal"
+import { DialogModal } from "../../components/modal"
 import { TextDivider, Section, Column, Row, Group, Flex } from "../../layout"
-import { TextField, PasswordField, CheckBox } from "../../forms"
+import {
+	TextField,
+	PasswordField,
+	CheckBox,
+} from "../../components/forms/form-controls"
 import { Heading, Paragraph, Text, Link } from "../../text"
 import AuthLayout from "./layout"
-import ProgressBar from "../../widgets/progress-bar"
+import ProgressBar from "../../components/progress-bar"
 import FacebookIcon from "../../svg/facebook"
 import GoogleIcon from "../../svg/google"
 import { Metrics, Colors } from "../../theme"
@@ -22,7 +26,7 @@ import {
 	notEmptyValidator,
 	sameValidator,
 	acceptablePasswordValidator,
-} from "../../../helpers/validators"
+} from "../../helpers/validators"
 import { CheckEmailModal } from "./check-email"
 
 export function passwordBarColor(score) {

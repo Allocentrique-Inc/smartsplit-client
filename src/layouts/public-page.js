@@ -1,7 +1,7 @@
 import React from "react"
 import { Platform, Web } from "../platform"
 import { Column } from "../layout"
-import { Scrollable } from "../widgets/scrollable"
+import { Scrollable } from "../components/scrollable"
 import Navbar from "../smartsplit/public/navbar-web"
 
 export default function PublicPageLayout({

@@ -5,16 +5,16 @@ import { Platform } from "../../platform"
 import { Text, Heading, Paragraph } from "../../text"
 import { useHistory } from "react-router-dom"
 import { Group, Row, Column, Flex, Section } from "../../layout"
-import { TextField } from "../../forms"
-import Button from "../../widgets/button"
-import Scrollable from "../../widgets/scrollable"
+import { TextField } from "../../components/forms/form-controls"
+import Button from "../../components/button"
+import Scrollable from "../../components/scrollable"
 import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import { Metrics, Colors } from "../../theme"
 import UserAvatar from "../../smartsplit/user/avatar"
 import PenIcon from "../../svg/pen"
 import { Redirect } from "react-router"
 
-import { notEmptyValidator } from "../../../helpers/validators"
+import { notEmptyValidator } from "../../helpers/validators"
 
 export default function NewUser({ state, updateUser, user, ...props }) {
 	let history = useHistory()

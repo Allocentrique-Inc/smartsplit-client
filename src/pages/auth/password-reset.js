@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { connect } from "react-redux"
-import { resetPassword } from "../../../redux/Users/Actions"
+import { resetPassword } from "../../redux/Users/Actions"
 import { useHistory } from "react-router"
 import AuthLayout from "./layout"
-import Button from "../../widgets/button"
-import ProgressBar from "../../widgets/progress-bar"
+import Button from "../../components/button"
+import ProgressBar from "../../components/progress-bar"
 import {
 	passwordBarColor,
 	passwordProgress,
@@ -13,9 +13,9 @@ import {
 } from "../auth/register"
 import { Column, Row, Flex } from "../../layout"
 import { Heading, Text } from "../../text"
-import { PasswordField } from "../../forms"
+import { PasswordField } from "../../components/forms/form-controls"
 import { Platform } from "../../platform"
-import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
+import { notEmptyValidator, sameValidator } from "../../helpers/validators"
 import zxcvbn from "zxcvbn"
 
 export const PasswordResetErrors = {

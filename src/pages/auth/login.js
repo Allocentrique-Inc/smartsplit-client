@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { connect } from "react-redux"
-import * as AuthActions from "../../../redux/Auth/Actions"
+import * as AuthActions from "../../redux/Auth/Actions"
 import { Redirect, useHistory } from "react-router"
-import Button from "../../widgets/button"
+import Button from "../../components/button"
 import { Group, Row, Column, Flex } from "../../layout"
 import { Heading, Paragraph, Text, Link } from "../../text"
-import { TextField, PasswordField } from "../../forms"
+import { TextField, PasswordField } from "../../components/forms/form-controls"
 import AuthLayout from "./layout"
-import { CheckBox } from "../../forms"
+import { CheckBox } from "../../components/forms/form-controls"
 import { Platform } from "../../platform"
-import useDebounce from "../../../helpers/useDebounce"
+import useDebounce from "../../helpers/useDebounce"
 
-import { notEmptyValidator, emailValidator } from "../../../helpers/validators"
+import { notEmptyValidator, emailValidator } from "../../helpers/validators"
 
 export const LoginErrorCodes = {
 	auth_invalid_credentials: "errors:invalidLogin",

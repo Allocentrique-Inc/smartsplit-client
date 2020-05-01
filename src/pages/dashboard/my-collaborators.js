@@ -3,9 +3,9 @@ import { View, TouchableWithoutFeedback } from "react-native"
 import moment from "moment"
 import { Row, Column, Section, Group, Flex, Hairline } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
-import { DialogModal } from "../../widgets/modal"
-import { TabBar, Tab } from "../../widgets/tabs"
-import { Button, RoundButton } from "../../widgets/button"
+import { DialogModal } from "../../components/modal"
+import { TabBar, Tab } from "../../components/tabs"
+import { Button, RoundButton } from "../../components/button"
 import LogoAddRound from "../../svg/add-round"
 
 export default function MyCollaboratorsPage() {
