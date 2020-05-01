@@ -12,7 +12,7 @@ export default function DashboardNavbarNative(props) {
 			<Row
 				of="component"
 				padding="group"
-				style={{ alignItems: "center", alignSelf: "left" }}
+				style={{ alignItems: "center" }}
 			>
 				<ArrowLeft />
 				<Heading level="4">{props.header}</Heading>
