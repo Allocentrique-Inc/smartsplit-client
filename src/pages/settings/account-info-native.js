@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { ScrollView, View, TouchableWithoutFeedback } from "react-native"
-import { Platform } from "../../../platform"
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
-import { Heading, Paragraph, Text } from "../../../text"
-import { Colors } from "../../../theme"
-import { TextField, Dropdown } from "../../../forms"
-import { TabBar, Tab } from "../../../widgets/tabs"
-import Button from "../../../widgets/button"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
+import { Platform } from "../../platform"
+import { Group, Hairline, Flex, Row, Column } from "../../layout"
+import { Heading, Paragraph, Text } from "../../text"
+import { Colors } from "../../theme"
+import { TextField, Dropdown } from "../../forms"
+import { TabBar, Tab } from "../../widgets/tabs"
+import Button from "../../widgets/button"
+import DashboardNavbarNative from "../../layouts/dashboard-navbar-native"
 import MyIdentity from "./my-identity"
 import AccountInfoWeb from "./account-info-web"
-import CheckMark from "../../../svg/check-mark"
+import CheckMark from "../../svg/check-mark"
 
 export default function AccountInfoNative() {
 	const [t] = useTranslation()
@@ -30,7 +30,7 @@ export default function AccountInfoNative() {
 							</Tab>
 
 							<Tab key="pro-identity" title={t("settings:proIdentity")}>
-								<MyIdentity />
+								{/*<MyIdentity />*/}
 							</Tab>
 						</TabBar>
 					</TouchableWithoutFeedback>

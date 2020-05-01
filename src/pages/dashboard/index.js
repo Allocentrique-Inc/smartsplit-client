@@ -1,6 +1,6 @@
 import React from "react"
 import { Switch, Route, Redirect } from "react-router"
-import DashboardLayout from "../../layout/dashboard"
+import DashboardLayout from "../../layouts/dashboard"
 import Scrollable from "../../widgets/scrollable"
 
 import MusicNoteIcon from "../../svg/music-note"
@@ -8,7 +8,7 @@ import UserCardIcon from "../../svg/user-card"
 import UsersIcon from "../../svg/users"
 
 import MyWorksPage from "./my-works"
-import SettingsPage from "./account/settings"
+import SettingsPage from "../settings"
 import MyCollaboratorsPage from "./my-collaborators"
 import MyAccountPage from "./account/my-account"
 import ChangePasswordPage from "./change-password"

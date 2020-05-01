@@ -3,7 +3,7 @@ import { AsyncStorage } from "react-native"
 import { connect } from "react-redux"
 import { activateAccount } from "../../../redux/Users/Actions"
 import { Redirect } from "react-router"
-import PublicPageLayout from "../../layout/public-page"
+import PublicPageLayout from "../../layouts/public-page"
 import { Group } from "../../layout"
 import { Heading, Paragraph } from "../../text"
 
