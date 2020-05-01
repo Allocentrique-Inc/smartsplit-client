@@ -2,16 +2,17 @@ import React, { useState } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { useHistory, useRouteMatch } from "react-router"
 
-import { Group, Hairline, Flex, Row, Column } from "../../layout"
-import { Heading, Text } from "../../text"
-import { Metrics, Colors } from "../../theme"
+import { Group, Hairline, Flex, Row, Column } from "../../../layout"
+import { Heading, Text } from "../../../text"
+import { Metrics, Colors } from "../../../theme"
 
-import PenIcon from "../../svg/pen"
-import UserCardIcon from "../../svg/user-card"
-import SettingsIcon from "../../svg/settings"
-import LogoutIcon from "../../svg/logout"
+import PenIcon from "../../../svg/pen"
+import UserCardIcon from "../../../svg/user-card"
+import SettingsIcon from "../../../svg/settings"
+import LogoutIcon from "../../../svg/logout"
 
 export default function MyAccountPage(props) {
+	const [t] = useTranslation()
 	return (
 		<Group of="group">
 			<Row of="component">

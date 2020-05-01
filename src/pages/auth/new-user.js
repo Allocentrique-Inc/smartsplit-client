@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Platform, View, ScrollView } from "react-native"
+import { View, ScrollView } from "react-native"
+import { Platform } from "../../platform"
 import { Text, Heading, Paragraph } from "../../text"
 import { useHistory } from "react-router-dom"
 import { Group, Row, Column, Flex, Section } from "../../layout"
@@ -85,7 +86,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 
 					<NameFields of="group">
 						<TextField
-							label={t("forms:labels.legalFirstName")}
+							label={t("forms:labels.myLegalFirstName")}
 							placeholder={t("forms:placeholders.usualFirstName")}
 							undertext={
 								<Text italic small>
@@ -97,7 +98,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 						/>
 
 						<TextField
-							label={t("forms:labels.legalLastName")}
+							label={t("forms:labels.myLegalLastName")}
 							placeholder={t("forms:placeholders.usualLastName")}
 							undertext={
 								<Text italic small>

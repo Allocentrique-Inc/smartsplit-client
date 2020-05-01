@@ -70,7 +70,11 @@ export function Heading(props) {
 
 	return (
 		<TextView
-			style={[TypographyStyles.text.base, TypographyStyles.headings[level]]}
+			style={[
+				TypographyStyles.text.base,
+				TypographyStyles.headings[level],
+				props.style,
+			]}
 		>
 			{props.children}
 		</TextView>
