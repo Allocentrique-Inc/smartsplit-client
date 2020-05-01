@@ -233,7 +233,14 @@ function getAbsolutePositionWeb(frameRef, containerRef, cb) {
 }
 
 function getAbsolutePositionNative(frameRef, containerRef, cb) {
-	// TODO
+	const frame = findNodeHandle(frameRef.current)
+	const container = findNodeHandle(containerRef.current)
+
+	if (!frame || !container) return
+
+	frameRef.current.measureLayout(container, (x, y, width, height) => {
+		cb({ x, y, width, height })
+	})
 }
 
 const getAbsolutePosition = Platform.select({
