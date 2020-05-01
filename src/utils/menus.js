@@ -56,4 +56,5 @@ export const ProfileMenu = [
 	{
 		text: "profile:menu.security",
 		to: "/dashboard/my-security",
-	}]
+	},
+]

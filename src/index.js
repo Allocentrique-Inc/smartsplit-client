@@ -20,7 +20,7 @@ export default function Main(props) {
 	return (
 		<ScrollOverlay.ProviderContainer>
 			<GlobalOverlay.ProviderContainer>
-				<Routes/>
+				<Routes />
 			</GlobalOverlay.ProviderContainer>
 		</ScrollOverlay.ProviderContainer>
 	)

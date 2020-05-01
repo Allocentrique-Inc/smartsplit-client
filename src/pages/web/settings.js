@@ -22,7 +22,7 @@ export default function SettingsPage() {
 	const [t] = useTranslation()
 
 	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
-		false,
+		false
 	)
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
@@ -31,15 +31,15 @@ export default function SettingsPage() {
 	return (
 		<DashboardLayout menuItems={MainMenu}>
 			<Scrollable>
-				<DashboardNavbarWeb header={t("settings:settings")}/>
+				<DashboardNavbarWeb header={t("settings:settings")} />
 				<ScrollView>
 					<Group
 						style={
 							Platform.OS === "web" && { maxWidth: 624, alignSelf: "center" }
 						}
 					>
-						<MyProfile/>
-						<AccountInfoWeb/>
+						<MyProfile />
+						<AccountInfoWeb />
 					</Group>
 				</ScrollView>
 			</Scrollable>

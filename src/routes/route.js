@@ -11,9 +11,7 @@ export default function RouteWrapper(props) {
 		return (
 			<Route
 				{...rest}
-				render={(pageProps) => (
-						<ChildComponent {...pageProps} />
-				)}
+				render={(pageProps) => <ChildComponent {...pageProps} />}
 			/>
 		)
 	}
