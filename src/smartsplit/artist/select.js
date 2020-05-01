@@ -1,7 +1,7 @@
 import React from "react"
 import { ScrollView, TouchableWithoutFeedback } from "react-native"
 import { Label, TextDropdown } from "../../forms"
-import { labelProps } from "../../forms/label"
+import { labelProps } from "../../forms/wrapper"
 import { Layer, Column } from "../../layout"
 import { Text } from "../../text"
 import FormStyles from "../../styles/forms"

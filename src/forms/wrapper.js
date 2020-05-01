@@ -14,7 +14,7 @@ export function labelProps(props) {
 	}
 }
 
-export default function Label(props) {
+export default function Wrapper(props) {
 	const {
 		style,
 		childStyle,

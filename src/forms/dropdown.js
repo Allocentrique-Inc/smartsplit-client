@@ -1,6 +1,6 @@
 import React from "react"
 import Dropdown from "../widgets/dropdown"
-import Label from "./label"
+import Wrapper from "./wrapper"
 import Frame from "./frame"
 import { Metrics } from "../theme"
 
@@ -45,7 +45,7 @@ export default class DropdownField extends React.PureComponent {
 		} = this.props
 
 		return (
-			<Label {...this.props}>
+			<Wrapper {...this.props}>
 				<Frame focused={this.state.open}>
 					<Dropdown
 						{...nextProps}
@@ -61,7 +61,7 @@ export default class DropdownField extends React.PureComponent {
 						{children}
 					</Dropdown>
 				</Frame>
-			</Label>
+			</Wrapper>
 		)
 	}
 }

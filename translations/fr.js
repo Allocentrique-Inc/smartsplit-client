@@ -228,7 +228,6 @@ export const settings = {
 	security: "Securité",
 	deconnect: "Déconnecté",
 	password: "Mot de passe",
-	account: "Compte",
 	associateEmails: "Courriels associés à ce compte",
 	delete: "Résiliation",
 

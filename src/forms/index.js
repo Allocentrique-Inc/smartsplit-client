@@ -1,4 +1,4 @@
-import { LabelText } from "./label"
+import { LabelText } from "./wrapper"
 import TextField from "./text"
 import PasswordField from "./password"
 import CheckBox from "./checkbox"

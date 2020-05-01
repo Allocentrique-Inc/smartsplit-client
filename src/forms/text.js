@@ -1,6 +1,6 @@
 import React from "react"
 import { TextInput } from "react-native"
-import Label from "./label"
+import Wrapper from "./wrapper"
 import Frame, { useFrameFocus } from "./frame"
 import FormStyles from "../styles/forms"
 
@@ -28,5 +28,5 @@ export function BasicTextField(props) {
 }
 
 export default function TextField(props) {
-	return <Label {...props} component={FramedTextField} />
+	return <Wrapper {...props} component={FramedTextField} />
 }

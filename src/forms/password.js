@@ -3,7 +3,7 @@ import { View, TextInput, TouchableWithoutFeedback } from "react-native"
 
 import { Row } from "../layout"
 import FormStyles from "../styles/forms"
-import Label from "./label"
+import Wrapper from "./wrapper"
 import Frame, { useFrameFocus } from "./frame"
 import EyeIcon from "../svg/eye"
 import CapsLockIcon from "../svg/caps-lock"
@@ -52,5 +52,5 @@ function FramedPasswordField(props) {
 }
 
 export default function PasswordField(props) {
-	return <Label {...props} component={FramedPasswordField} />
+	return <Wrapper {...props} component={FramedPasswordField} />
 }
