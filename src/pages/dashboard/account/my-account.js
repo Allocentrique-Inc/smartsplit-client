@@ -1,42 +1,54 @@
 import React, { useState } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { useHistory, useRouteMatch } from "react-router"
-
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
+import { useTranslation } from "react-i18next"
+import { Group, Hairline, Flex, Row, Column, Section } from "../../../layout"
 import { Heading, Text } from "../../../text"
 import { Metrics, Colors } from "../../../theme"
+import { Platform } from "../../../platform"
 
 import PenIcon from "../../../svg/pen"
+import UserIcon from "../../../svg/user"
 import UserCardIcon from "../../../svg/user-card"
 import SettingsIcon from "../../../svg/settings"
 import LogoutIcon from "../../../svg/logout"
 
 export default function MyAccountPage(props) {
 	const [t] = useTranslation()
+	const ArtistName = null
 	return (
-		<Group of="group">
+		<Platform web={Group} of="group" native={Column} of="component">
 			<Row of="component">
 				<Flex>
-					<Heading level="2">ArtistName</Heading>
+					<Heading level="2">{ArtistName}</Heading>
 				</Flex>
 				<PenIcon />
 			</Row>
 			<Hairline />
 
 			<AccountItem
+				icon={UserIcon}
+				to="/dashboard/account/my-profile"
+				text={t("menu:profile")}
+			/>
+			<AccountItem
 				icon={UserCardIcon}
-				to="/dashboard/my-profile"
-				text="Profil public"
+				to="/dashboard/account/account-info-native"
+				text={t("menu:account")}
 			/>
 
 			<AccountItem
 				icon={SettingsIcon}
-				// to="/dashboard/settings"
-				text="Préférences"
+				to="/dashboard/account/settings"
+				text={t("menu:settings")}
 			/>
 
-			<AccountItem icon={LogoutIcon} to="/auth/logout" text="Se déconnecter" />
-		</Group>
+			<AccountItem
+				icon={LogoutIcon}
+				to="/auth/logout"
+				text={t("menu:logout")}
+			/>
+		</Platform>
 	)
 }
 

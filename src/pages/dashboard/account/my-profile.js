@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { View } from "react-native"
+import { View, ScrollView } from "react-native"
 import { Platform } from "../../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
@@ -17,20 +17,15 @@ import PenIcon from "../../../svg/pen"
 export default function MyProfile() {
 	const [t] = useTranslation()
 
-	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
-		false
-	)
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
-	const [checkBox, setCheckBox] = useState(false)
-
 	return (
-		<>
-			{Platform.web && <Heading level="2">{t("settings:profile")}</Heading>}
+		<ScrollView>
 			{Platform.native && (
 				<DashboardNavbarNative header={t("settings:profile")} />
 			)}
 			<Platform web={Group} of="group" native={Column} of="component">
+				{Platform.web && <Heading level="2">{t("settings:profile")}</Heading>}
 				<Column of="section">
 					<Row>
 						<UserAvatar size="huge" />
@@ -76,6 +71,6 @@ export default function MyProfile() {
 					{Platform.OS === "web" && <Hairline />}
 				</Column>
 			</Platform>
-		</>
+		</ScrollView>
 	)
 }

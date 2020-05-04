@@ -35,8 +35,8 @@ export default function AccountInfoWeb() {
 						label={t("forms:labels.dropdowns.language")}
 						placeholder=""
 						noFocusToggle
+						style={{ flex: 1 }}
 					/>
-					{Platform.web && <Flex />}
 				</Row>
 
 				<Column of="small">
@@ -46,7 +46,7 @@ export default function AccountInfoWeb() {
 						<Dropdown
 							placeholder=""
 							noFocusToggle
-							style={Platform.web ? { flex: 2.5 } : { flex: 1 }}
+							style={Platform.web && { flex: 1.3 }}
 						/>
 
 						<Button
@@ -57,9 +57,10 @@ export default function AccountInfoWeb() {
 								</Text>
 							}
 							size={buttonSize}
-							style={
+							/* 	style={
 								({ borderColor: Colors.stroke }, Platform.web && { flex: 2 })
-							}
+							} */
+							style={{ borderColor: Colors.stroke, flex: 1 }}
 							onClick={() => {
 								setConfirmPhoneModalOpen(true)
 							}}
@@ -89,10 +90,7 @@ export default function AccountInfoWeb() {
 								</Text>
 							}
 							size={buttonSize}
-							style={
-								({ borderColor: Colors.stroke },
-								Platform.OS === "web" ? { flex: 0.5 } : { flex: 1 })
-							}
+							style={{ borderColor: Colors.stroke, flex: 1 }}
 							onClick={() => {
 								setConfirmEmailModalOpen(true)
 							}}

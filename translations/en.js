@@ -45,13 +45,15 @@ export const general = {
 
 export const menu = {
 	menu: "Menu",
-	works: "My Musical Works",
-	profile: "My Profile",
-	account: "My Account",
-	collaborators: "My Collaborators",
+	works: "Musical Works",
+	profile: "Public Profile",
+	account: "Account",
+	settings: "Settings",
+	collaborators: "Collaborators",
 	testsForms: "Tests Forms",
 	testsFormsPage: "Full Page Forms",
 	reduxTests: "Redux Tests",
+	logout: "Logout",
 }
 
 export const test = {
@@ -119,7 +121,7 @@ export const forms = {
 		gmmqNO: "GMMQ Member #",
 		soproqNO: "SOPROQ Member #",
 		isniNO: "ISNI #",
-		birthday: "Date de naissance",
+		birthday: "Birthday",
 		uri: "URI",
 		participation: "My participation to entities",
 		phone: "Téléphone mobile",
@@ -129,6 +131,7 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			nationality: "Nationality",
 		},
 	},
 
@@ -220,7 +223,7 @@ export const settings = {
 	account: "Account",
 	preferences: "Preferences",
 	profile: "Public Profile",
-	identity: "Identité professionnelle",
+	identity: "Professional Identity",
 	accountInfo: "Account Information",
 	proIdentity: "Professionnal identity",
 	notifications: "Notifications",

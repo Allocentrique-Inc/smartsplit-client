@@ -45,13 +45,15 @@ export const general = {
 
 export const menu = {
 	menu: "Menu",
-	works: "Mes pièces musicales",
-	profile: "Mon profil",
-	account: "Mon compte",
-	collaborators: "Mes collaborateurs",
+	works: "Pièces musicales",
+	profile: "Profil publique",
+	account: "Compte",
+	settings: "Préférences",
+	collaborators: "Collaborateurs",
 	testsForms: "Tests Formulaires",
 	testsFormsPage: "Formulaires pleine page",
 	reduxTests: "Redux Test",
+	logout: "Se déconnecter",
 }
 
 export const test = {
@@ -130,6 +132,7 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			nationality: "Citoyenneté",
 		},
 	},
 

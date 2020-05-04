@@ -1,11 +1,12 @@
-import React from "react"
-import { View } from "react-native"
+import React, { useState } from "react"
+import { View, TouchableWithoutFeedback } from "react-native"
 import { useTranslation } from "react-i18next"
 import { Platform } from "../../../platform"
 import { Row, Column, Group, Flex, Hairline } from "../../../layout"
 import { CheckBox } from "../../../forms"
 import { Text, Link, Heading } from "../../../text"
 import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
+import ConfirmPhoneModal from "./confirm-phone"
 
 export function NotificationColumn(props) {
 	const { header, checkbox } = props
@@ -30,36 +31,46 @@ export function NotificationColumn(props) {
 export function NotificationsRow(props) {
 	const { title, subTitle, email, mobile, sms } = props
 	const [t] = useTranslation()
+	const [confirmPhoneModalOpen, setConfirmPhoneModalOpen] = useState(false)
 
 	return (
-		<Platform
-			web={Row}
-			of="inside"
-			style={{ alignItems: "center" }}
-			native={Column}
-		>
-			<View style={{ flex: 1 }}>
-				<Text heavy>{title}</Text>
-				<Text secondary small>
-					{subTitle}
-				</Text>
-			</View>
-			<View style={{ width: 117 }}>
-				<CheckBox checked={email} disabled={email === "required"} />
-			</View>
-			<View style={{ width: 117 }}>
-				<CheckBox checked={mobile} />
-			</View>
-			<View style={{ width: 117 }}>
-				{sms === "validate" ? (
-					<Link link small>
-						{t("settings:tab.interactions.confirmNO")}
-					</Link>
-				) : (
-					sms !== null && <CheckBox checked={sms} />
-				)}
-			</View>
-		</Platform>
+		<>
+			<ConfirmPhoneModal
+				visible={confirmPhoneModalOpen}
+				onRequestClose={() => setConfirmPhoneModalOpen(false)}
+			/>
+
+			<Platform
+				web={Row}
+				of="inside"
+				style={{ alignItems: "center" }}
+				native={Column}
+			>
+				<View style={{ flex: 1 }}>
+					<Text heavy>{title}</Text>
+					<Text secondary small>
+						{subTitle}
+					</Text>
+				</View>
+				<View style={{ width: 117 }}>
+					<CheckBox checked={email} disabled={email === "required"} />
+				</View>
+				<View style={{ width: 117 }}>
+					<CheckBox checked={mobile} />
+				</View>
+				<TouchableWithoutFeedback>
+					<View style={{ width: 117 }}>
+						{sms === "validate" ? (
+							<Link link small onClick={() => setConfirmPhoneModalOpen(true)}>
+								{t("settings:tab.interactions.confirmNO")}
+							</Link>
+						) : (
+							sms !== null && <CheckBox checked={sms} />
+						)}
+					</View>
+				</TouchableWithoutFeedback>
+			</Platform>
+		</>
 	)
 }
 
