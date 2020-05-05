@@ -9,11 +9,7 @@ export default function DashboardNavbarNative(props) {
 	const [t] = useTranslation()
 	return (
 		<>
-			<Row
-				of="component"
-				padding="group"
-				style={{ alignItems: "center" }}
-			>
+			<Row of="component" padding="group" style={{ alignItems: "center" }}>
 				<ArrowLeft />
 				<Heading level="4">{props.header}</Heading>
 				<Flex />

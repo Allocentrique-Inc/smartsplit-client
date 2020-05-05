@@ -64,7 +64,8 @@ export const errors = {
 	samePasswords: "Both passwords must be identical",
 	invalidToken:
 		"The reset token is no longer valid or has expired. Please make a new password request.",
-	invalidInfo: "Invalid email or password. Please try again.",
+	invalidLogin:
+		"Invalid email or password. Please try again.",
 	inactiveAccount:
 		"This account has yet not being activated. Please check your emails, or try to subscribe again!",
 	noUser:
@@ -227,7 +228,6 @@ export const settings = {
 	security: "Security",
 	deconnect: "Disconnect",
 	password: "Password",
-	account: "Account",
 	associateEmails: "Emails associated to this account",
 	delete: "Cancellation",
 
