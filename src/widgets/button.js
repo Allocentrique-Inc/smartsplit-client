@@ -102,6 +102,7 @@ export function Button({
 	onClick,
 	style,
 	children,
+	viewRef,
 }) {
 	const frameStyle = [ButtonStyles.frame]
 	const textStyle = []
@@ -138,7 +139,7 @@ export function Button({
 
 	if (!content) {
 		content = (
-			<Row of="component" style={[frameStyle, style]}>
+			<Row of="component" style={[frameStyle, style]} viewRef={viewRef}>
 				{icon}
 				{text && (
 					<View style={ButtonStyles.text_container}>

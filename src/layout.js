@@ -16,6 +16,7 @@ function composeView(props, ...stylesheets) {
 		layer,
 		padding,
 		size,
+		viewRef,
 		...nextProps
 	} = {
 		spacer: Spacer,
@@ -35,6 +36,8 @@ function composeView(props, ...stylesheets) {
 
 		newChildren.pop()
 	}
+
+	if (viewRef) nextProps.ref = viewRef
 
 	return React.createElement(
 		View,
