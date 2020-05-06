@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { ScrollView, View, TouchableWithoutFeedback } from "react-native"
 import { Platform } from "../../../platform"
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
+import { Group, Hairline, Flex, Row, Column, Spacer } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
 import { Colors } from "../../../theme"
 import { TextField, Dropdown, CheckBox } from "../../../forms"
 import { TabBar, Tab } from "../../../widgets/tabs"
 import ChangePasswordModal from "../ChangePasswordContainer"
-import DashboardNavbarWeb from "../../../layout/dashboard-navbar-web"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
-import MyProfile from "./my-profile"
-import AccountInfoWeb from "./account-info-web"
+import DashboardNavbar from "../../../layout/dashboard-navbar"
+import MyProfile from "../../auth/my-profile"
+import MyAccount from "./my-account"
 import MyIdentity from "./my-identity"
 import MyNotifications from "./my-notifications"
 import SecurityPage from "./my-security"
@@ -51,29 +50,44 @@ export default function SettingsPage() {
 
 	return (
 		<>
-			{Platform.web && <DashboardNavbarWeb header={t("settings:settings")} />}
-
-			<ScrollView>
-				<Group
-					style={
-						Platform.OS === "web" && { maxWidth: 624, alignSelf: "center" }
-					}
-				>
+			{Platform.web && <DashboardNavbar header={t("settings:settings")} />}
+			<Platform
+				web={Column}
+				of="section"
+				native={Column}
+				of="group"
+				style={
+					Platform.web
+						? { maxWidth: 624, alignSelf: "center" }
+						: { maxWidth: 375, alignSelf: "center" }
+				}
+			>
+				<ScrollView>
 					<MyProfile />
+					<Spacer of="section" />
+					<Hairline />
 
 					{Platform.web && (
 						<>
-							<AccountInfoWeb />
+							<MyAccount />
+							<Spacer of="section" />
+							<Hairline />
 
 							<MyIdentity />
+							<Spacer of="section" />
+							<Hairline />
 
 							<MyNotifications />
+							<Spacer of="section" />
+							<Hairline />
 
+							<Hairline />
 							<SecurityPage />
+							<Spacer of="section" />
 						</>
 					)}
-				</Group>
-			</ScrollView>
+				</ScrollView>
+			</Platform>
 		</>
 	)
 }

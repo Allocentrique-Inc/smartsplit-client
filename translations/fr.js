@@ -46,7 +46,7 @@ export const general = {
 export const menu = {
 	menu: "Menu",
 	works: "Pièces musicales",
-	profile: "Profil publique",
+	profile: "Profil",
 	account: "Compte",
 	settings: "Préférences",
 	collaborators: "Collaborateurs",
@@ -95,24 +95,25 @@ export const publicNavbarWeb = {
 export const forms = {
 	labels: {
 		myEmail: "Mon courriel",
-		password: "Mot de passe",
+		myPassword: "Mon mot de passe",
 		enterEmail: "Entre ton courriel",
 		choosePassword: "Choisis ton mot de passe",
 		chooseNewPassword: "Choisis ton nouveau mot de pasee",
 		confirmNewPassword: "Confirme ton nouveau ton mot de passe",
 		currentPassword: "Mot de passe actuel",
 		newPassword: "Nouveau mot de passe",
-		repeatPassword: "Répète ton mot de passe",
-		email: "Email",
-		myLegalFirstName: "Mon prénom légal",
-		myLegalLastName: "Mon nom légal",
-		artistName: "Nom d'artiste",
+		confirmPassword: "Confirme ton mot de passe",
+		repeatNewPassword: "Répète ton nouveau mot de passe",
+		email: "Courriel",
+		myFirstName: "Mon prénom",
+		myLastName: "Mon nom",
+		myArtistName: "Mon nom d'artiste",
+		myLegalMiddleName: "Mon second prénom",
 		optional: "Optionnel",
-		legalFirstName: "Prénom légal",
-		legalMiddleName: "Second prénom légal",
-		legalLastName: "Nom légal",
-		usualFirstName: "Prénom usuel",
-		usualLastName: "Nom usuel",
+		legalFirstName: "Mon prénom légal",
+		legalLastName: "Mon nom légal",
+		usualFirstName: "Prénom(s) usuel(s)",
+		usualLastName: "Nom de famille usuel",
 		civicAddress: "Adresse civique",
 		socanNO: "# Membre SOCAN",
 		ipiNO: "# IPI",
@@ -127,17 +128,19 @@ export const forms = {
 		participation: "Mes participations à des entités",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
+		managingCie: "Sociétés de gestion",
 
 		dropdowns: {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
 			nationality: "Citoyenneté",
+			organisations: "Sélectionner parmi les sociétés",
 		},
 	},
 
 	placeholders: {
-		emailExample: "nom@example.com",
+		emailExample: "tonnom@exemple.com",
 		noCharacters: "8 caractères minimum",
 		confirmPassword: "Confirm your password",
 		usualFirstName: "Prénom(s) usuel(s)",
@@ -153,12 +156,13 @@ export const forms = {
 	},
 
 	undertexts: {
+		example: "Exemple : ",
 		madonna: "Madonna Louise",
 		madonna2: "Ciccone",
-		artistNameExample: "Par example, ",
-		artistNameExample2: "Jay-Z ",
+		artistNameExample: "Par exemple, ",
+		artistNameExample2: "Madonne ",
 		artistNameExample3: "est le nom d'artiste de ",
-		artistNameExample4: "Shawn Corey Carter.",
+		artistNameExample4: "Madonna Louise Ciccone.",
 	},
 }
 
@@ -195,9 +199,9 @@ export const register = {
 }
 
 export const passwordIssues = {
-	checkEmail: "Check your emails",
+	checkEmail: "Vérifie tes courriels",
 	validate:
-		"Un message incluant un lien de validation de ton compte t'a été envoyé par courriel.\nVérifie tes spams. On ne sait jamais !",
+		"Un message incluant un lien de validation de ton compte t'a été envoyé par courriel.\n\nVérifie tes spams. On ne sait jamais !",
 	reset: "Réinitialise ton mot de passe.",
 	emailSent: "Courriel envoyé.",
 	resetParagraph:
@@ -223,7 +227,7 @@ export const settings = {
 	settings: "Paramètres",
 	account: "Compte",
 	preferences: "Préférences",
-	profile: "Profile publique",
+	profile: "Profil",
 	identity: "Identité professionnelle",
 	accountInfo: "Informations du compte",
 	proIdentity: "Professionnal identity",
@@ -303,4 +307,9 @@ export const addEmail = {
 	paragraph2: "à ton compte",
 	paragraph3: "t'a été envoyé par courriel.",
 	checkEmail: "Vérifie tes spams. On ne sait jamais !",
+}
+
+export const newUsername = {
+	title: "Ajouter un numéro d'identifiant",
+	subTitle: "Description à rédiger.",
 }

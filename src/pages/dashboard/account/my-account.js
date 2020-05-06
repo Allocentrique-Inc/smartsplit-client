@@ -1,72 +1,112 @@
-import React, { useState } from "react"
-import { TouchableWithoutFeedback } from "react-native"
-import { useHistory, useRouteMatch } from "react-router"
+import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Group, Hairline, Flex, Row, Column, Section } from "../../../layout"
-import { Heading, Text } from "../../../text"
-import { Metrics, Colors } from "../../../theme"
+import { ScrollView } from "react-native"
 import { Platform } from "../../../platform"
+import { Group, Hairline, Flex, Row, Column, Spacer } from "../../../layout"
+import { Heading, Paragraph, Text } from "../../../text"
+import { Colors } from "../../../theme"
+import { TextField, Dropdown, CheckBox } from "../../../forms"
+import Button from "../../../widgets/button"
+import ConfirmPhoneModal from "./confirm-phone"
+import ConfirmEmailModal from "./confirm-new-email"
 
-import PenIcon from "../../../svg/pen"
-import UserIcon from "../../../svg/user"
-import UserCardIcon from "../../../svg/user-card"
-import SettingsIcon from "../../../svg/settings"
-import LogoutIcon from "../../../svg/logout"
+import DashboardNavbar from "../../../layout/dashboard-navbar"
+import CheckMark from "../../../svg/check-mark"
 
-export default function MyAccountPage(props) {
+export default function MyAccount() {
 	const [t] = useTranslation()
-	const ArtistName = null
-	return (
-		<Platform web={Group} of="group" native={Column} of="component">
-			<Row of="component">
-				<Flex>
-					<Heading level="2">{ArtistName}</Heading>
-				</Flex>
-				<PenIcon />
-			</Row>
-			<Hairline />
 
-			<AccountItem
-				icon={UserIcon}
-				to="/dashboard/account/my-profile"
-				text={t("menu:profile")}
-			/>
-			<AccountItem
-				icon={UserCardIcon}
-				to="/dashboard/account/account-info-native"
-				text={t("menu:account")}
-			/>
+	const [confirmPhoneModalOpen, setConfirmPhoneModalOpen] = useState(false)
+	const [confirmEmailModalOpen, setConfirmEmailModalOpen] = useState(false)
 
-			<AccountItem
-				icon={SettingsIcon}
-				to="/dashboard/account/settings"
-				text={t("menu:settings")}
-			/>
-
-			<AccountItem
-				icon={LogoutIcon}
-				to="/auth/logout"
-				text={t("menu:logout")}
-			/>
-		</Platform>
-	)
-}
-
-export function AccountItem(props) {
-	//pour éviter répétition
-	const Icon = props.icon
-	const history = useHistory()
-
-	function activate() {
-		history.push(props.to)
-	}
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	return (
-		<TouchableWithoutFeedback onPress={activate} accessibilityRole="button">
-			<Row of="component">
-				<Icon />
-				<Text>{props.text}</Text>
-			</Row>
-		</TouchableWithoutFeedback>
+		<ScrollView>
+			<Spacer of="section" />
+			<Column of="group">
+				{Platform.OS === "web" && (
+					<Heading level="2">{t("settings:account")}</Heading>
+				)}
+
+				<TextField label={t("forms:labels.civicAddress")} placeholder="" />
+
+				<Row of="component">
+					<Dropdown
+						label={t("forms:labels.dropdowns.language")}
+						placeholder=""
+						noFocusToggle
+						style={{ flex: 1 }}
+					/>
+				</Row>
+
+				<Column of="small">
+					<Heading level="5">{t("forms:labels.dropdowns.phone")}</Heading>
+
+					<>
+						<Platform web={Row} of="component" native={{ flex: 1 }}>
+							<Dropdown
+								placeholder=""
+								noFocusToggle
+								style={Platform.web && { flex: 1.3 }}
+							/>
+
+							<Button
+								secondary
+								text={
+									<Text link bold>
+										{t("general:buttons.validNo")}
+									</Text>
+								}
+								size={buttonSize}
+								style={Platform.web && { flex: 2 }}
+								style={{ borderColor: Colors.stroke, flex: 1 }}
+								onClick={() => {
+									setConfirmPhoneModalOpen(true)
+								}}
+							/>
+
+							{confirmPhoneModalOpen && (
+								<ConfirmPhoneModal
+									visible={confirmPhoneModalOpen}
+									onRequestClose={() => setConfirmPhoneModalOpen(false)}
+								/>
+							)}
+						</Platform>
+					</>
+				</Column>
+
+				<Column of="small">
+					<Heading level="5">{t("settings:associateEmails")}</Heading>
+					<Paragraph>{t("settings:subTitles.documentEmails")}</Paragraph>
+				</Column>
+
+				<Column of="section">
+					<Row of="component">
+						<Button
+							secondary
+							text={
+								<Text link bold>
+									{t("general:buttons.addEmail")}
+								</Text>
+							}
+							size={buttonSize}
+							style={{ borderColor: Colors.stroke, flex: 1 }}
+							onClick={() => {
+								setConfirmEmailModalOpen(true)
+							}}
+						/>
+						{confirmEmailModalOpen && (
+							<ConfirmEmailModal
+								visible={confirmEmailModalOpen}
+								onRequestClose={() => setConfirmEmailModalOpen(false)}
+							/>
+						)}
+
+						{Platform.OS === "web" && <Flex />}
+					</Row>
+				</Column>
+			</Column>
+		</ScrollView>
 	)
 }

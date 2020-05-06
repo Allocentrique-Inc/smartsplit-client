@@ -8,7 +8,7 @@ import { Group, Row, Column, Flex, Section } from "../../layout"
 import { TextField } from "../../forms"
 import Button from "../../widgets/button"
 import Scrollable from "../../widgets/scrollable"
-import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
+import PublicNavBar from "../../smartsplit/public/navbar-web"
 import { Metrics, Colors } from "../../theme"
 import UserAvatar from "../../smartsplit/user/avatar"
 import PenIcon from "../../svg/pen"
@@ -52,7 +52,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 		<>
 			<ScrollView>
 				{Platform.OS === "web" && (
-					<PublicNavBarWeb>
+					<PublicNavBar>
 						{Platform.OS === "web" && (
 							<>
 								<Button
@@ -63,7 +63,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 								<Button secondary text={t("publicNavbarWeb:language")} />
 							</>
 						)}
-					</PublicNavBarWeb>
+					</PublicNavBar>
 				)}
 
 				<Group
@@ -86,24 +86,30 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 
 					<NameFields of="group">
 						<TextField
-							label={t("forms:labels.myLegalFirstName")}
+							label={t("forms:labels.myFirstName")}
 							placeholder={t("forms:placeholders.usualFirstName")}
 							undertext={
-								<Text italic small>
-									Madonna Louise
-								</Text>
+								<>
+									<Text small>{t("forms:undertexts.example")}</Text>
+									<Text italic small>
+										Madonna Louise
+									</Text>
+								</>
 							}
 							value={firstName}
 							onChangeText={setFirstName}
 						/>
 
 						<TextField
-							label={t("forms:labels.myLegalLastName")}
+							label={t("forms:labels.myLastName")}
 							placeholder={t("forms:placeholders.usualLastName")}
 							undertext={
-								<Text italic small>
-									Ciccone
-								</Text>
+								<>
+									<Text small>{t("forms:undertexts.example")}</Text>
+									<Text italic small>
+										Ciccone
+									</Text>
+								</>
 							}
 							value={lastName}
 							onChangeText={setLastName}
@@ -111,7 +117,7 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 					</NameFields>
 
 					<TextField
-						label={t("forms:labels.artistName")}
+						label={t("forms:labels.myArtistName")}
 						label_hint={<Text secondary>{t("forms:labels.optional")}</Text>}
 						placeholder=""
 						undertext={
@@ -119,12 +125,12 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 								<Text small>{t("forms:undertexts.artistNameExample")}</Text>
 								<Text italic small>
 									{" "}
-									Jay-Z
+									Madonna
 								</Text>
 								<Text small> {t("forms:undertexts.artistNameExample3")}</Text>
 								<Text italic small>
 									{" "}
-									Shawn Corey Carter
+									Madonna Louise Ciccone
 								</Text>
 								.
 							</>

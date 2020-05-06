@@ -86,7 +86,7 @@ export const LoginForm = connect(
 
 			<Column of="inside">
 				<PasswordField
-					label={t("forms:labels.password")}
+					label={t("forms:labels.myPassword")}
 					onChangeText={setPassword}
 					value={password}
 				/>

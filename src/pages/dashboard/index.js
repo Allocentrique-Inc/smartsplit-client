@@ -10,9 +10,9 @@ import UsersIcon from "../../svg/users"
 import MyWorksPage from "./my-works"
 import SettingsPage from "./account/settings"
 import MyCollaboratorsPage from "./my-collaborators"
-import MyAccountPage from "./account/my-account"
+import MyAccountPage from "../auth/my-account"
 import ChangePasswordPage from "./change-password"
-import NewEmailModal from "./new-email"
+import ConfirmEmailModal from "./account/confirm-new-email"
 import FormsTest from "../test/forms"
 import TestRedux from "../test/TestRedux"
 
@@ -87,8 +87,8 @@ export function DashboardRoutes(props) {
 				<ChangePasswordPage />
 			</Route>
 
-			<Route path="/dashboard/new-email" exact>
-				<NewEmailModal />
+			<Route path="/dashboard/confirm-new-email" exact>
+				<ConfirmEmailModal />
 			</Route>
 
 			<Route path="/dashboard/test/forms" exact>

@@ -46,7 +46,7 @@ export const general = {
 export const menu = {
 	menu: "Menu",
 	works: "Musical Works",
-	profile: "Public Profile",
+	profile: "Profile",
 	account: "Account",
 	settings: "Settings",
 	collaborators: "Collaborators",
@@ -94,23 +94,24 @@ export const publicNavbarWeb = {
 export const forms = {
 	labels: {
 		myEmail: "My email",
-		password: "Password",
+		myPassword: "My Password",
 		enterEmail: "Enter your email",
 		choosePassword: "Choose your password",
 		chooseNewPassword: "Choose your new password",
 		confirmNewPassword: "Confirm your new password",
 		currentPassword: "Current password",
-		newPassword: "New password",
-		repeatPassword: "Repeat your password",
+		newPassword: "New Password",
+		confirmPassword: "Confirm your password",
+		repeatNewPassword: "Repeat your new password",
 		email: "Email",
-		myLegalFirstName: "My Legal First Name",
-		myLegalLastName: "My Legal Last Name",
-		artistName: "Artist Name",
+		myFirstName: "My First Name",
+		myLastName: "My Last Name",
+		myArtistName: "My Artist Name",
 		optional: "Optional",
 		legalFirstName: "Legal First Name",
 		legalMiddleName: "Legal Middle Name",
 		legalLastName: "Legal Last Name",
-		usualFirstName: "Usual First Name",
+		usualFirstName: "Usual First Name(s)",
 		usualLastName: "Usual Last Name",
 		civicAddress: "Civic Address",
 		socanNO: "SOCAN Member #",
@@ -126,17 +127,19 @@ export const forms = {
 		participation: "My participation to entities",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
+		managingCie: "Managing compagnies",
 
 		dropdowns: {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
 			nationality: "Nationality",
+			organisations: "Select among organisations",
 		},
 	},
 
 	placeholders: {
-		emailExample: "name@example.com",
+		emailExample: "yourname@example.com",
 		noCharacters: "8 characters minimum",
 		confirmPassword: "Confirm your password",
 		usualFirstName: "Usual First Name(s)",
@@ -152,6 +155,7 @@ export const forms = {
 	},
 
 	undertexts: {
+		example: "Example: ",
 		madonna: "Madonna Louise",
 		madonna2: "Ciccone",
 		artistNameExample: "For example, ",
@@ -222,7 +226,7 @@ export const settings = {
 	settings: "Settings",
 	account: "Account",
 	preferences: "Preferences",
-	profile: "Public Profile",
+	profile: "Profile",
 	identity: "Professional Identity",
 	accountInfo: "Account Information",
 	proIdentity: "Professionnal identity",
@@ -302,4 +306,9 @@ export const addEmail = {
 	paragraph2: "to your account",
 	paragraph3: "was sent by email.",
 	checkEmail: "Check your spams. You never know!",
+}
+
+export const newUsername = {
+	title: "Add a username number",
+	subTitle: "Write description.",
 }

@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { View, ScrollView } from "react-native"
 import { Platform } from "../../../platform"
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
+import { Group, Hairline, Flex, Row, Column, Spacer } from "../../../layout"
 import { Heading, Paragraph, Text } from "../../../text"
 import { Colors } from "../../../theme"
 import { TextField, Dropdown, CheckBox } from "../../../forms"
 import { SearchAndTag } from "../../../forms/search-and-tag"
 import Button from "../../../widgets/button"
 import ChangePasswordModal from "../ChangePasswordContainer"
-import DashboardNavBarWeb from "../../../layout/dashboard-navbar-web"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
+import NewUsernameModal from "./new-username"
+import DashboardNavbar from "../../../layout/dashboard-navbar"
 
 export default function MyIdentity() {
 	const [t] = useTranslation()
@@ -19,12 +19,16 @@ export default function MyIdentity() {
 
 	const [checkBox, setCheckBox] = useState(false)
 
+	const [showNewUsernameModalOpen, setShowNewUsernameModalOpen] = useState(
+		false
+	)
+
 	return (
 		<ScrollView>
-			{Platform.native && (
-				<DashboardNavbarNative header={t("settings:profile")} />
-			)}
-			<Platform web={Group} of="group" native={Column} of="component">
+			{Platform.native && <DashboardNavbar header={t("settings:profile")} />}
+
+			<Spacer of="section" />
+			<Column of="group">
 				{Platform.web && <Heading level="2">{t("settings:identity")}</Heading>}
 
 				{/* <Dropdown
@@ -74,27 +78,34 @@ export default function MyIdentity() {
 						}
 						size={buttonSize}
 						style={{ borderColor: Colors.stroke, flex: 1 }}
+						onClick={() => {
+							setShowNewUsernameModalOpen(true)
+						}}
 					/>
 					{Platform.web && <Flex />}
 				</Row>
-				<Column of="section">
-					<Row of="component">
-						<TextField
-							label={t("forms:labels.birthday")}
-							placeholder=""
-							style={{ flex: 1 }}
-						/>
-						{Platform.web && <Flex />}
-					</Row>
 
-					{/* <SearchAndTag
+				{showNewUsernameModalOpen && (
+					<NewUsernameModal
+						visible={showNewUsernameModalOpen}
+						onRequestClose={() => setShowNewUsernameModalOpen(false)}
+					/>
+				)}
+
+				<Row of="component">
+					<TextField
+						label={t("forms:labels.birthday")}
+						placeholder=""
+						style={{ flex: 1 }}
+					/>
+					{Platform.web && <Flex />}
+				</Row>
+
+				{/* <SearchAndTag
 					label={t("forms:labels.organisations")}
 					placeholder={t("forms:placeholders.organisations")}
 			/> */}
-
-					{Platform.OS === "web" && <Hairline />}
-				</Column>
-			</Platform>
+			</Column>
 		</ScrollView>
 	)
 }

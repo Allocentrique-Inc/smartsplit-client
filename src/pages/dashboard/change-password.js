@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { TouchableOpacity, Platform } from "react-native"
+import { useHistory } from "react-router"
 import { DialogModal } from "../../widgets/modal"
 import { Modal } from "../../widgets/modal"
 import Button from "../../widgets/button"
 import { Section, Column, Row, Group, Flex } from "../../layout"
 import { TextField, PasswordField, CheckBox } from "../../forms"
-import { Text } from "../../text"
+import { Text, Link } from "../../text"
 import ProgressBar from "../../widgets/progress-bar"
 import Scrollable from "../../widgets/scrollable"
 import {
@@ -65,6 +66,8 @@ export const ChangePasswordModal = connect(
 		if (!canSubmit) return false
 		passwordReset({ password: newPassword })
 	}
+	const history = useHistory()
+	const showForgotPassword = () => history.push("/auth/forgot-password")
 	/* 
 	useEffect(() => {
 		let currentPasswordValid = notEmptyValidator(Password)
@@ -114,12 +117,17 @@ export const ChangePasswordModal = connect(
 				of="group"
 				style={Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }}
 			>
-				<PasswordField
-					value={currentPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
-					onChangeText={setCurrentPassword} // quand changement mot de passe modifie valeur mise à jour
-					label={t("forms:labels.currentPassword")}
-					placeholder=""
-				/>
+				<Column of="inside">
+					<PasswordField
+						value={currentPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
+						onChangeText={setCurrentPassword} // quand changement mot de passe modifie valeur mise à jour
+						label={t("forms:labels.currentPassword")}
+						placeholder=""
+					/>
+					<Link link small onClick={showForgotPassword}>
+						{t("general:forgotPassword")}
+					</Link>
+				</Column>
 
 				<Column of="inside">
 					<PasswordField
@@ -145,7 +153,7 @@ export const ChangePasswordModal = connect(
 				<PasswordField
 					value={newPasswordRepeat} //pour avoir toujours valeur mot de passe, reçoit valeur password
 					onChangeText={setNewPasswordRepeat} // quand changement mot de passe modifie valeur mise à jour
-					label={t("forms:labels.repeatPassword")}
+					label={t("forms:labels.repeatNewPassword")}
 					placeholder=""
 				/>
 			</Group>

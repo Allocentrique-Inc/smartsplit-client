@@ -2,10 +2,10 @@ import React, { useState } from "react"
 import { View, TouchableWithoutFeedback } from "react-native"
 import { useTranslation } from "react-i18next"
 import { Platform } from "../../../platform"
-import { Row, Column, Group, Flex, Hairline } from "../../../layout"
+import { Row, Column, Group, Flex, Hairline, Spacer } from "../../../layout"
 import { CheckBox } from "../../../forms"
 import { Text, Link, Heading } from "../../../text"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
+import DashboardNavbar from "../../../layout/dashboard-navbar"
 import ConfirmPhoneModal from "./confirm-phone"
 
 export function NotificationColumn(props) {
@@ -13,7 +13,7 @@ export function NotificationColumn(props) {
 	const [t] = useTranslation()
 
 	return (
-		<Column>
+		<>
 			<Column of="component">
 				<Heading level="5">{header}</Heading>
 				<Row>
@@ -24,7 +24,7 @@ export function NotificationColumn(props) {
 			<Text secondary small>
 				{props.subTitle}
 			</Text>
-		</Column>
+		</>
 	)
 }
 
@@ -79,13 +79,14 @@ export default function MyNotifications(props) {
 	const { interations, admin, connexion, blog, promo, promoPartner } = props
 
 	return (
-		<Platform web={Group} of="group" native={Column} of="component">
+		<>
 			{Platform.native && (
-				<DashboardNavbarNative header={t("settings:preferences")} />
+				<DashboardNavbar header={t("settings:preferences")} />
 			)}
+			<Spacer of="section" />
 
 			<Heading level="2">Notifications</Heading>
-
+			<Spacer of="group" />
 			{Platform.native && (
 				<>
 					<Column of="tiny">
@@ -202,6 +203,7 @@ export default function MyNotifications(props) {
 					</Column>
 				</>
 			)}
+
 			{Platform.web && (
 				<>
 					<Column of="inside" spacer={Hairline} flex>
@@ -269,9 +271,8 @@ export default function MyNotifications(props) {
 							padding="tiny"
 						/>
 					</Column>
-					<Hairline />
 				</>
 			)}
-		</Platform>
+		</>
 	)
 }

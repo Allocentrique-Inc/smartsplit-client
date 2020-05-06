@@ -270,7 +270,7 @@ export const RegisterForm = connect(
 
 					<PasswordField
 						value={passwordRepeat}
-						placeholder={t("forms:labels.repeatPassword")}
+						placeholder={t("forms:labels.confirmPassword")}
 						onChangeText={setPasswordRepeat}
 						error={errorPasswordRepeat}
 					/>
@@ -328,7 +328,7 @@ export default function RegisterPage(props) {
 								<CheckBox
 									checked={stayLoggedIn}
 									onChange={setStayLoggedIn}
-									label={t("general:checkbox")}
+									label={t("general:checkbox.stayConnected")}
 								/>
 								<Flex />
 							</>
