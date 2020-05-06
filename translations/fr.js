@@ -327,4 +327,17 @@ export const identifiers = {
 		"[Empty State] Ici, tu peux ajouter tes identifiants professionels en lien avec les Sociétés de gestion collectives, les Syndicats et les Associations sectorielles pour lesquelles tu es membre.",
 }
 
-export const tooltips = {}
+export const tooltips = {
+	stayConnected:
+		"Ceci installe un cookie spécifique dans ton navigateur afin de te permettre de revenir avec cet appareil sans acoir à te reconnecter.",
+	socan: "Society of Composers, Authors and Music Publishers of Canada",
+	ipi: "Intersted Parties Information Code",
+	artisti: "Société de gestion collective de l'Union des artistes",
+	ipn: "International Performer Number",
+	uda: "Union des artistes",
+	gmmq: "Guilde des musiciens et des musiciennes du Québec",
+	soproq:
+		"société de gestion collective des droits des producteurs d'enregistrements sonores et de vidéoclips",
+	isni: "International Standard Name Identifier",
+	uri: "Uniform Resource Identifier",
+}

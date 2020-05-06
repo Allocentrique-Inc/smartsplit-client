@@ -326,4 +326,17 @@ export const identifiers = {
 		"[Empty State] Here you  can   add your professional identifiers related to the Collective Management Organisations, the Unions, the Sectoral Foundations for which you are a member.",
 }
 
-export const tooltips = {}
+export const tooltips = {
+	stayConnected:
+		"This installs s specific cookie in your browser to allow you coming back with this device without having to reconnect.",
+	socan: "Society of Composers, Authors and Music Publishers of Canada",
+	ipi: "Intersted Parties Information Code",
+	artisti: "Société de gestion collective de l'Union des artistes",
+	ipn: "International Performer Number",
+	uda: "Union des artistes",
+	gmmq: "Guilde des musiciens et des musiciennes du Québec",
+	soproq:
+		"société de gestion collective des droits des producteurs d'enregistrements sonores et de vidéoclips",
+	isni: "International Standard Name Identifier",
+	uri: "Uniform Resource Identifier",
+}
