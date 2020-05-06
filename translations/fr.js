@@ -72,7 +72,8 @@ export const errors = {
 		"Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau !",
 	noUser:
 		"Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
-
+	invalidDate: "Date invalide",
+	invalidPhoneNumber: "Numéro de téléphone invalide",
 	password: {
 		weak: "Mot de passe faible",
 		average: "Mot de passe moyen",
@@ -340,4 +341,10 @@ export const tooltips = {
 		"société de gestion collective des droits des producteurs d'enregistrements sonores et de vidéoclips",
 	isni: "International Standard Name Identifier",
 	uri: "Uniform Resource Identifier",
+}
+
+export const widgets = {
+	pictureCrop: {
+		title: "Recadre ta photo",
+	},
 }

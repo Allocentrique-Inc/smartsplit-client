@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
+import { Image } from "react-native"
 import {
 	LabelText,
 	TextField,
@@ -10,8 +10,8 @@ import {
 	RadioGroup,
 	RadioGroupButton,
 	Dropdown,
-	TextDropdown,
 	Select,
+	useImagePicker,
 } from "../../forms"
 import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
@@ -20,14 +20,19 @@ import Button from "../../widgets/button"
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
 import AuthModal from "../auth/modal"
 import { SearchAndTag } from "../../forms/search-and-tag"
-import { Tag } from "../../widgets/tag"
-import { getPhoneNumber, PhoneNumberField } from "../../forms/phone-number"
+import { PhoneNumberField } from "../../forms/phone-number"
+import { DateField } from "../../forms/date"
+
+import { PictureCropModal } from "../../widgets/picture-crop"
+import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 
 export default function FormsTest() {
 	return (
 		<Section of="group">
 			<TestText />
 			<TestBasicFields />
+			<TestFilesAndImages />
+			<TestTooltips />
 			<TestBasicDropdowns />
 
 			<Row of="component">
@@ -124,6 +129,10 @@ function TestText() {
 				Cette page a pour but de démontrer les différentes composantes de
 				formulaire et mise en page utilisées dans les formulaires à travers le
 				site
+				<TooltipIcon
+					text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+				ullamcorper elit et tortor consequat dignissim vehicula id tortor."
+				/>
 			</Paragraph>
 
 			<Paragraph>
@@ -139,6 +148,7 @@ function TestText() {
 
 function TestBasicFields() {
 	const [phoneNumber, setPhoneNumber] = useState("")
+	const [date, setDate] = useState("")
 	return (
 		<Column of="component">
 			<Row of="component">
@@ -149,7 +159,12 @@ function TestBasicFields() {
 					placeholder="prénom"
 				/>
 
-				<TextField label="Nom" defaultValue="Test" placeholder="nom" />
+				<TextField
+					label="Nom"
+					defaultValue="Test"
+					placeholder="nom"
+					tooltip="Cet nom sera utilisé pour la production des documents légaux, et doit donc correspondre à votre vrai nom."
+				/>
 			</Row>
 
 			<PasswordField
@@ -172,6 +187,13 @@ function TestBasicFields() {
 					label="Numéro de téléphone"
 					label_hint="Optionnel"
 					placeholder="Numero de tel"
+				/>
+			</Row>
+			<Row of="component">
+				<DateField
+					value={date}
+					onChangeText={setDate}
+					label="Date de naissance"
 				/>
 			</Row>
 		</Column>
@@ -244,6 +266,102 @@ function TestCheckboxes() {
 					disabled={!testCheckBox1}
 				/>
 			</Column>
+		</Row>
+	)
+}
+
+function TestFilesAndImages(props) {
+	const [image, selectImage] = useImagePicker()
+	const [showCrop, setShowCrop] = useState(false)
+	const [croppedImage, setCroppedImage] = useState(null)
+
+	return (
+		<Column of="component">
+			<PictureCropModal
+				visible={showCrop}
+				image={image}
+				onRequestClose={() => setShowCrop(false)}
+				onSaveImage={(image) => {
+					setShowCrop(false)
+					setCroppedImage(image)
+				}}
+			/>
+
+			<Row of="component">
+				<Button text="Sélectionner image" onClick={selectImage} />
+				<Button
+					text="Recadrer"
+					disabled={!image}
+					onClick={() => setShowCrop(true)}
+				/>
+			</Row>
+			<Row of="component">
+				{image && (
+					<Image
+						source={{ uri: image.uri }}
+						style={{
+							width: 256,
+							height: 256,
+						}}
+						resizeMode="contain"
+					/>
+				)}
+
+				{croppedImage && (
+					<Image
+						source={{ uri: croppedImage }}
+						style={{ width: 256, height: 256 }}
+					/>
+				)}
+			</Row>
+		</Column>
+	)
+}
+
+function TestTooltips() {
+	const [showTooltip, setShowTooltip] = useState(false)
+	const tooltipAnchorRef = React.createRef()
+	const [arrowMode, setArrowMode] = useState(0)
+
+	const MODES = [
+		"bottom-center",
+		"bottom-left",
+		"left-bottom",
+		"left-center",
+		"left-top",
+		"top-left",
+		"top-center",
+		"top-right",
+		"right-top",
+		"right-center",
+		"right-bottom",
+		"bottom-right",
+	]
+
+	useEffect(() => {
+		if (!showTooltip) return
+		const timer = setTimeout(() => setArrowMode(arrowMode + 1), 1000)
+		return () => clearTimeout(timer)
+	}, [showTooltip, arrowMode])
+
+	return (
+		<Row of="component">
+			<Button
+				text="Tooltip"
+				onClick={() => setShowTooltip(!showTooltip)}
+				viewRef={tooltipAnchorRef}
+			/>
+
+			<Tooltip
+				arrow={MODES[arrowMode % MODES.length]}
+				width={300}
+				relativeTo={tooltipAnchorRef}
+				visible={showTooltip}
+				onDismiss={setShowTooltip}
+				text="Cette page a pour but de démontrer les différentes composantes de
+				formulaire et mise en page utilisées dans les formulaires à travers le
+				site"
+			/>
 		</Row>
 	)
 }

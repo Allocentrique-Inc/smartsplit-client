@@ -71,7 +71,8 @@ export const errors = {
 		"This account has yet not being activated. Please check your emails, or try to subscribe again!",
 	noUser:
 		"No user was found with this email address. You might have used another address ?",
-
+	invalidDate: "Date is invalid",
+	invalidPhoneNumber: "Phone number is invalid",
 	password: {
 		weak: "Weak password",
 		average: "Average password",
@@ -339,4 +340,10 @@ export const tooltips = {
 		"société de gestion collective des droits des producteurs d'enregistrements sonores et de vidéoclips",
 	isni: "International Standard Name Identifier",
 	uri: "Uniform Resource Identifier",
+}
+
+export const widgets = {
+	pictureCrop: {
+		title: "Recadre ta photo",
+	},
 }

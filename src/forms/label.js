@@ -1,7 +1,8 @@
 import React from "react"
 import FormStyles from "../styles/forms"
-import { Column, Row } from "../layout"
+import { Column, Row, Flex } from "../layout"
 import { Text } from "../text"
+import { TooltipIcon } from "../widgets/tooltip"
 
 const UNDERTEXT_DEFAULT_LINES = 4
 
@@ -11,6 +12,7 @@ export function labelProps(props) {
 		label_hint: props.label_hint,
 		undertext: props.undertext,
 		undertext_lines: props.undertext_lines,
+		tooltip: props.tooltip,
 	}
 }
 
@@ -25,6 +27,7 @@ export default function Label(props) {
 		component,
 		undertext,
 		undertext_lines,
+		tooltip,
 		...childProps
 	} = props
 
@@ -38,8 +41,10 @@ export default function Label(props) {
 	return (
 		<Column of="inside" style={[FormStyles.label_wrap, style]}>
 			{(label || label_hint) && (
-				<Row of="component">
+				<Row of="inside" valign="center">
 					<LabelText>{label}</LabelText>
+					{tooltip && <TooltipIcon text={tooltip} />}
+					<Flex />
 					<Text style={FormStyles.label_hint}>{label_hint}</Text>
 				</Row>
 			)}
