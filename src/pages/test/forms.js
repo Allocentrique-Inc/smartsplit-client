@@ -24,7 +24,7 @@ import { PhoneNumberField } from "../../forms/phone-number"
 import { DateField } from "../../forms/date"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
-import Tooltip from "../../widgets/tooltip"
+import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 
 export default function FormsTest() {
 	return (
@@ -129,6 +129,10 @@ function TestText() {
 				Cette page a pour but de démontrer les différentes composantes de
 				formulaire et mise en page utilisées dans les formulaires à travers le
 				site
+				<TooltipIcon
+					text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+				ullamcorper elit et tortor consequat dignissim vehicula id tortor."
+				/>
 			</Paragraph>
 
 			<Paragraph>
@@ -155,7 +159,12 @@ function TestBasicFields() {
 					placeholder="prénom"
 				/>
 
-				<TextField label="Nom" defaultValue="Test" placeholder="nom" />
+				<TextField
+					label="Nom"
+					defaultValue="Test"
+					placeholder="nom"
+					tooltip="Cet nom sera utilisé pour la production des documents légaux, et doit donc correspondre à votre vrai nom."
+				/>
 			</Row>
 
 			<PasswordField

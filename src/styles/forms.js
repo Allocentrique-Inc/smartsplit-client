@@ -6,10 +6,6 @@ const FormStyles = StyleSheet.create({
 		flex: 1,
 	},
 
-	label: {
-		flex: 1,
-	},
-
 	frame: {
 		padding: Metrics.spacing.inside,
 		height: Metrics.size.medium,

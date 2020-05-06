@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react"
-import { useStates } from "../utils/react"
-import { View } from "react-native"
+import React, { useState, useEffect, useMemo, useRef } from "react"
+import { View, TouchableWithoutFeedback } from "react-native"
 import { Svg, Path } from "react-native-svg"
 import { Layer } from "../layout"
 import { Overlay } from "../portals"
 import { Text } from "../text"
 import { Colors } from "../theme"
+import HelpCircleFull from "../svg/help-circle-full"
 
 const ARROW_SIZE = 10
 
@@ -51,10 +51,10 @@ export function PopoverTooltip({
 	...nextProps
 }) {
 	const [side, align] = (arrow || "").split("-")
-	const [layout, setLayout] = useState({ width: 0, height: 0 })
+	const [layout, setLayout] = useState({ width: 0, height: 0, init: false })
 
 	function handleLayout(event) {
-		setLayout(event.nativeEvent.layout)
+		setLayout({ ...event.nativeEvent.layout, init: true })
 
 		if (viewProps.onLayout) {
 			viewProps.onLayout(event)
@@ -88,6 +88,7 @@ export function PopoverTooltip({
 		top: y,
 		width: width,
 		height: height,
+		opacity: layout.init ? 1 : 0,
 	}
 
 	return (
@@ -115,10 +116,10 @@ export function Tooltip({
 	children,
 	viewProps = {},
 }) {
-	const [layout, setLayout] = useState({ width: 20, height: 20 })
+	const [layout, setLayout] = useState({ width: 20, height: 20, init: false })
 
 	function handleLayout(event) {
-		setLayout(event.nativeEvent.layout)
+		setLayout({ ...event.nativeEvent.layout, init: true })
 
 		if (viewProps.onLayout) {
 			viewProps.onLayout(event)
@@ -199,7 +200,7 @@ export function Tooltip({
 	return (
 		<View
 			{...viewProps}
-			style={[viewProps.style, { padding: size }]}
+			style={[viewProps.style, { padding: size, opacity: layout.init ? 1 : 0 }]}
 			onLayout={handleLayout}
 		>
 			<Svg
@@ -227,5 +228,35 @@ export function Tooltip({
 				)}
 			</View>
 		</View>
+	)
+}
+
+export function TooltipIcon({
+	text,
+	children,
+	icon,
+	width = 300,
+	...nextProps
+}) {
+	const [tooltipVisible, setTooltipVisible] = useState(false)
+	const iconRef = useRef(null)
+
+	return (
+		<>
+			<RelativeTooltip
+				visible={tooltipVisible}
+				relativeTo={iconRef}
+				arrow="bottom-center"
+				text={text}
+				width={width}
+				{...nextProps}
+			/>
+			<TouchableWithoutFeedback
+				onFocus={() => setTooltipVisible(true)}
+				onBlur={() => setTooltipVisible(false)}
+			>
+				<View ref={iconRef}>{icon || <HelpCircleFull size="xsmall" />}</View>
+			</TouchableWithoutFeedback>
+		</>
 	)
 }
