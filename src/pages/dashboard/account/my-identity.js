@@ -7,9 +7,7 @@ import { Colors } from "../../../theme"
 import { TextField, Dropdown, CheckBox } from "../../../forms"
 import { SearchAndTag } from "../../../forms/search-and-tag"
 import Button from "../../../widgets/button"
-import ChangePasswordModal from "../ChangePasswordContainer"
-import DashboardNavBarWeb from "../../../layout/dashboard-navbar-web"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
+
 
 export default function MyIdentity() {
 	const [t] = useTranslation()

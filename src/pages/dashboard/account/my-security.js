@@ -9,8 +9,7 @@ import { TextField, Dropdown } from "../../../forms"
 import Button from "../../../widgets/button"
 import ChangePasswordModal from "../ChangePasswordContainer"
 import DeleteAccountModal from "../delete-account"
-import DashboardNavBarWeb from "../../../layout/dashboard-navbar-web"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
+import DashboardNavbarNative from "../../../layout/subscreen"
 
 export default function MySecurity() {
 	const [t] = useTranslation()

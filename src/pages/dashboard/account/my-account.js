@@ -6,10 +6,11 @@ import { Group, Hairline, Flex, Row, Column } from "../../../layout"
 import { Heading, Text } from "../../../text"
 import { Metrics, Colors } from "../../../theme"
 
-import PenIcon from "../../../svg/pen"
-import UserCardIcon from "../../../svg/user-card"
-import SettingsIcon from "../../../svg/settings"
-import LogoutIcon from "../../../svg/logout"
+import PenIcon from "../../../../assets/svg/pen"
+import UserCardIcon from "../../../../assets/svg/user-card"
+import SettingsIcon from "../../../../assets/svg/settings"
+import LogoutIcon from "../../../../assets/svg/logout"
+import { useTranslation } from "react-i18next"
 
 export default function MyAccountPage(props) {
 	const [t] = useTranslation()

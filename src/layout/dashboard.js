@@ -24,6 +24,7 @@ import UserAvatar from "../smartsplit/user/avatar"
 import LogoNotification from "../../assets/svg/notifications"
 import MusicNoteIcon from "../../assets/svg/music-note"
 import UsersIcon from "../../assets/svg/users"
+import SubScreenLayout from "./subscreen"
 
 export const DashboardStyles = StyleSheet.create({
 	main: {
@@ -157,7 +158,6 @@ export function Dashboard(props) {
 						<Flex />
 						<LogoAddSquare style={Metrics.size.small} />
 					</ProfileBar>
-
 					{props.children}
 				</Column>
 			</Row>

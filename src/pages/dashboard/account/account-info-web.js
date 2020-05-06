@@ -8,9 +8,6 @@ import { Colors } from "../../../theme"
 import { TextField, Dropdown, CheckBox } from "../../../forms"
 import Button from "../../../widgets/button"
 import ConfirmPhoneModal from "./confirm-phone"
-import DashboardNavBarWeb from "../../../layout/dashboard-navbar-web"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
-import CheckMark from "../../../svg/check-mark"
 
 export default function AccountInfoWeb() {
 	const [t] = useTranslation()

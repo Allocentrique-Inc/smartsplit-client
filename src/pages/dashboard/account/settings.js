@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
-import { useTranslation } from "react-i18next"
-import { ScrollView, View, TouchableWithoutFeedback } from "react-native"
-import { Platform } from "../../../platform"
-import { Group } from "../../../layout"
-import DashboardNavbarWeb from "../../../layout/dashboard-navbar-web"
+import React from "react"
+import { Column, Divider, Hairline, Spacer } from "../../../layout"
 import MyProfile from "./my-profile"
+import MyNotifications from "./my-notifications"
+import MyAccountPage from "./my-account"
+import MyIdentity from "./my-identity"
+import MySecurity from "./my-security"
 
 const ProfileMenu = [
 	{
@@ -30,21 +30,15 @@ const ProfileMenu = [
 ]
 
 export default function SettingsPage() {
-	const [t] = useTranslation()
-
 	return (
-		<>
-			{Platform.web && <DashboardNavbarWeb header={t("settings:settings")} />}
-
-			<ScrollView>
-				<Group
-					style={
-						Platform.OS === "web" && { maxWidth: 624, alignSelf: "center" }
-					}
-				>
-					<MyProfile />
-				</Group>
-			</ScrollView>
-		</>
+		<Column of="section">
+			<MyProfile/>
+			<Hairline/>
+			<MyIdentity/>
+			<Hairline/>
+			<MyNotifications/>
+			<Hairline/>
+			<MySecurity/>
+		</Column>
 	)
 }

@@ -14,6 +14,9 @@ import ChangePasswordPage from "./change-password"
 import NewEmailModal from "./new-email"
 import FormsTest from "../test/forms"
 import TestRedux from "../test/TestRedux"
+import SubScreenLayout from "../../layout/subscreen"
+import UserAvatar from "../../smartsplit/user/avatar"
+import { Text } from "../../text"
 
 const MENU = [
 	{
@@ -48,9 +51,7 @@ const MENU = [
 export default function DashboardPage(props) {
 	return (
 		<DashboardLayout menuItems={MENU}>
-			<Scrollable>
-				<DashboardRoutes />
-			</Scrollable>
+			<DashboardRoutes/>
 		</DashboardLayout>
 	)
 }
@@ -59,36 +60,45 @@ export function DashboardRoutes(props) {
 	return (
 		<Switch>
 			<Route path="/dashboard/" exact>
-				<Redirect to="/dashboard/my-works" />
+				<Redirect to="/dashboard/my-works"/>
 			</Route>
 
 			<Route path="/dashboard/my-works" exact>
-				<MyWorksPage />
+				<MyWorksPage/>
 			</Route>
 
 			<Route path="/dashboard/account/settings" exact>
-				<SettingsPage />
+				<SubScreenLayout
+					title={<>
+						<UserAvatar/>
+						<Text bold>Paramètres</Text>
+					</>}
+					onBack={() => {
+					}}
+				>
+					<SettingsPage/>
+				</SubScreenLayout>
 			</Route>
 
 
 			<Route path="/dashboard/account/settings" exact>
-				<SettingsPage />
+				<SettingsPage/>
 			</Route>
 
 			<Route path="/dashboard/my-collaborators" exact>
-				<MyCollaboratorsPage />
+				<MyCollaboratorsPage/>
 			</Route>
 
 			<Route path="/dashboard/change-password" exact>
-				<ChangePasswordPage />
+				<ChangePasswordPage/>
 			</Route>
 
 			<Route path="/dashboard/new-email" exact>
-				<NewEmailModal />
+				<NewEmailModal/>
 			</Route>
 
 			<Route path="/dashboard/test/forms" exact>
-				<FormsTest />
+				<FormsTest/>
 			</Route>
 		</Switch>
 	)
