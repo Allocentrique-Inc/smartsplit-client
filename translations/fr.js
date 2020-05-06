@@ -115,16 +115,16 @@ export const forms = {
 		usualFirstName: "Prénom(s) usuel(s)",
 		usualLastName: "Nom de famille usuel",
 		civicAddress: "Adresse civique",
-		socanNO: "# Membre SOCAN",
-		ipiNO: "# IPI",
-		artistiNO: "# ARTISTI",
-		ipnNO: "# IPN",
-		udaNO: "# Membre UDA",
-		gmmqNO: "# Membre GMMQ",
-		soproqNO: "# Membre SOPROQ",
-		isniNO: "# ISNI",
-		birthday: "Birthday",
-		uri: "URI",
+		socanNO: "Membre SOCAN",
+		ipiNO: "Mon IPI",
+		artistiNO: "Membre ARTISTI",
+		ipnNO: "Mon IPN",
+		udaNO: "Membre UDA",
+		gmmqNO: "Membre GMMQ",
+		soproqNO: "Membre SOPROQ",
+		isniNO: "Mon ISNI",
+		birthday: "Ma date de naissance",
+		uri: "Mon URI",
 		participation: "Mes participations à des entités",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
@@ -153,6 +153,13 @@ export const forms = {
 		organisations:
 			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
 		delete: "détruire, Détruire ou detruire",
+
+		member: "Entre ton numéro de membre",
+		ipi: "Entre ton IPI",
+		ipn: "Entre ton IPN",
+		isni: "Entre ton ISNI",
+		uri: "Entre ton URI",
+		birthday: "JJ-MM-AAAA",
 	},
 
 	undertexts: {
@@ -313,3 +320,11 @@ export const newUsername = {
 	title: "Ajouter un numéro d'identifiant",
 	subTitle: "Description à rédiger.",
 }
+
+export const identifiers = {
+	title: "Mes identifiants professionnels",
+	subTitle:
+		"[Empty State] Ici, tu peux ajouter tes identifiants professionels en lien avec les Sociétés de gestion collectives, les Syndicats et les Associations sectorielles pour lesquelles tu es membre.",
+}
+
+export const tooltips = {}

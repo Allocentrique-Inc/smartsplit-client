@@ -114,16 +114,16 @@ export const forms = {
 		usualFirstName: "Usual First Name(s)",
 		usualLastName: "Usual Last Name",
 		civicAddress: "Civic Address",
-		socanNO: "SOCAN Member #",
-		ipiNO: "IPI #",
-		artistiNO: "ARTISTI #",
-		ipnNO: "IPN #",
-		udaNO: "UDA Member #",
-		gmmqNO: "GMMQ Member #",
-		soproqNO: "SOPROQ Member #",
-		isniNO: "ISNI #",
-		birthday: "Birthday",
-		uri: "URI",
+		socanNO: "SOCAN Member",
+		ipiNO: "My IPI",
+		artistiNO: "ARTISTI Member",
+		ipnNO: "My IPN",
+		udaNO: "UDA Member",
+		gmmqNO: "GMMQ Member",
+		soproqNO: "SOPROQ Member",
+		isniNO: "My ISNI",
+		birthday: "My birthday",
+		uri: "My URI",
 		participation: "My participation to entities",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
@@ -152,6 +152,13 @@ export const forms = {
 		organisations:
 			"Search among the corporate entities, compagnies, societies...",
 		delete: "delete or Delete",
+		member: "Enter your member number",
+		ipi: "Enter your IPI",
+		ipi: "Enter your IPN",
+		ipn: "Enter your IPN",
+		isni: "Enter your ISNI",
+		uri: "Enter your URI",
+		birthday: "DD-MM-YYYY",
 	},
 
 	undertexts: {
@@ -312,3 +319,11 @@ export const newUsername = {
 	title: "Add a username number",
 	subTitle: "Write description.",
 }
+
+export const identifiers = {
+	title: "My professional Identifiers",
+	subTitle:
+		"[Empty State] Here you  can   add your professional identifiers related to the Collective Management Organisations, the Unions, the Sectoral Foundations for which you are a member.",
+}
+
+export const tooltips = {}

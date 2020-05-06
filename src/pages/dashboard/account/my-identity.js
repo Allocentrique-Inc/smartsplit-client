@@ -36,31 +36,63 @@ export default function MyIdentity() {
 				placeholder=""
 				noFocusToggle
 			/> */}
-				<TextField label="URI" placeholder="" />
-				<Dropdown
+
+				{/* 	<Dropdown
 					label={t("forms:labels.dropdowns.nationality")}
 					placeholder=""
 					noFocusToggle
-				/>
+				/> */}
+
+				{/* <SearchAndTag
+					label={t("forms:labels.organisations")}
+					placeholder={t("forms:placeholders.organisations")}
+				/> */}
+
+				<Heading level="5">{t("identifiers:title")}</Heading>
+				<Paragraph>{t("identifiers:subTitle")}</Paragraph>
 
 				<Platform web={Row} of="component" native={{ flex: 1 }}>
-					<TextField label={t("forms:labels.socanNO")} placeholder="" />
-					<TextField label={t("forms:labels.ipiNO")} placeholder="" />
+					<TextField
+						label={t("forms:labels.socanNO")}
+						placeholder={t("forms:placeholders.member")}
+					/>
+					<TextField
+						label={t("forms:labels.ipiNO")}
+						placeholder={t("forms:placeholders.ipi")}
+					/>
 				</Platform>
 
 				<Platform web={Row} of="component" native={{ flex: 1 }}>
-					<TextField label={t("forms:labels.artistiNO")} placeholder="" />
-					<TextField label={t("forms:labels.ipnNO")} placeholder="" />
+					<TextField
+						label={t("forms:labels.artistiNO")}
+						placeholder={t("forms:placeholders.member")}
+					/>
+					<TextField
+						label={t("forms:labels.ipnNO")}
+						placeholder={t("forms:placeholders.ipn")}
+					/>
 				</Platform>
 
 				<Platform web={Row} of="component" native={{ flex: 1 }}>
-					<TextField label={t("forms:labels.udaNO")} placeholder="" />
-					<TextField label={t("forms:labels.gmmqNO")} placeholder="" />
+					<TextField
+						label={t("forms:labels.udaNO")}
+						placeholder={t("forms:placeholders.member")}
+					/>
+					<TextField
+						label={t("forms:labels.gmmqNO")}
+						placeholder={t("forms:placeholders.member")}
+					/>
 				</Platform>
 
 				<Platform web={Row} of="component" native={{ flex: 1 }}>
-					<TextField label={t("forms:labels.soproqNO")} placeholder="" />
-					<TextField label={t("forms:labels.isniNO")} placeholder="" />
+					<TextField
+						label={t("forms:labels.soproqNO")}
+						placeholder={t("forms:placeholders.member")}
+					/>
+					<TextField
+						label={t("forms:labels.isniNO")}
+						placeholder={t("forms:placeholders.isni")}
+					/>
 				</Platform>
 
 				<CheckBox
@@ -95,16 +127,16 @@ export default function MyIdentity() {
 				<Row of="component">
 					<TextField
 						label={t("forms:labels.birthday")}
-						placeholder=""
+						placeholder={t("forms:placeholders.birthday")}
 						style={{ flex: 1 }}
 					/>
 					{Platform.web && <Flex />}
 				</Row>
 
-				{/* <SearchAndTag
-					label={t("forms:labels.organisations")}
-					placeholder={t("forms:placeholders.organisations")}
-			/> */}
+				<TextField
+					label={t("forms:labels.uri")}
+					placeholder={t("forms:placeholders.uri")}
+				/>
 			</Column>
 		</ScrollView>
 	)
