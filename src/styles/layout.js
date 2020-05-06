@@ -51,6 +51,10 @@ LayoutStyles.justify = StyleSheet.create({
 	right: {
 		justifyContent: "flex-end",
 	},
+
+	spread: {
+		justifyContent: "space-between"
+	}
 })
 
 LayoutStyles.align = StyleSheet.create({
