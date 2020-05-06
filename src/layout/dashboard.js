@@ -15,15 +15,15 @@ import MetricsStyles from "../styles/metrics"
 import { Colors, Metrics } from "../theme"
 import { CheckBox } from "../forms"
 
-import LogoSmartSplitMenu from "../svg/logo-smart-split-menu"
-import LinkIcon from "../svg/link"
-import LogoArrowLeft from "../svg/arrow-left"
-import LogoAddSquare from "../svg/add-square"
+import LogoSmartSplitMenu from "../../assets/svg/logo-smart-split-menu"
+import LinkIcon from "../../assets/svg/link"
+import LogoArrowLeft from "../../assets/svg/arrow-left"
+import LogoAddSquare from "../../assets/svg/add-square"
 
 import UserAvatar from "../smartsplit/user/avatar"
-import LogoNotification from "../svg/notifications"
-import MusicNoteIcon from "../svg/music-note"
-import UsersIcon from "../svg/users"
+import LogoNotification from "../../assets/svg/notifications"
+import MusicNoteIcon from "../../assets/svg/music-note"
+import UsersIcon from "../../assets/svg/users"
 
 export const DashboardStyles = StyleSheet.create({
 	main: {

@@ -7,8 +7,8 @@ import Modal from "../../widgets/modal"
 import Scrollable from "../../widgets/scrollable"
 import Pager from "../../widgets/pager"
 
-import SmartsplitLogo from "../../svg/logo-smartsplit"
-import XIcon from "../../svg/x"
+import SmartsplitLogo from "../../../assets/svg/logo-smartsplit"
+import XIcon from "../../../assets/svg/x"
 
 import { LoginForm } from "./login"
 import { RegisterForm } from "./register"

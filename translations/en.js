@@ -70,7 +70,9 @@ export const errors = {
 		"This account has yet not being activated. Please check your emails, or try to subscribe again!",
 	noUser:
 		"No user was found with this email address. You might have used another address ?",
-
+	invalidDate:
+		"Date is invalid",
+	invalidPhoneNumber: "Phone number is invalid",
 	password: {
 		weak: "Weak password",
 		average: "Average password",
@@ -150,12 +152,9 @@ export const forms = {
 	},
 
 	undertexts: {
-		madonna: "Madonna Louise",
-		madonna2: "Ciccone",
-		artistNameExample: "For example, ",
-		artistNameExample2: "Jay-Z ",
-		artistNameExample3: "is the artist name of ",
-		artistNameExample4: "Shawn Corey Carter.",
+		firstName: "Example: <i>Madonna Louise</i>",
+		lastName: "Example: <i>Ciccone</i>",
+		artistName: "For example, <i>Madonna</i> is the artist name of <i>Madonna Louise Ciccone</i>.",
 	},
 }
 

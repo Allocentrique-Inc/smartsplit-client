@@ -2,7 +2,7 @@ import React from "react"
 import UserAvatar from "../user/avatar"
 import { Text } from "../../text"
 import { Row } from "../../layout"
-import XIcon from "../../svg/x"
+import XIcon from "../../../assets/svg/x"
 
 export default function RightHolderTag(props) {
 	const { name, initials, style, ...nextProps } = props

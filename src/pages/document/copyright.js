@@ -9,9 +9,9 @@ import LayerStyles from "../../styles/layers"
 import MediaStyles from "../../smartsplit/media/styles"
 import { Dropdown } from "../../widgets/dropdown"
 import { TabStyles } from "../../widgets/tabs"
-import CopyrightIcon from "../../svg/copyright"
-import ImageIcon from "../../svg/image"
-import LogoutIcon from "../../svg/logout"
+import CopyrightIcon from "../../../assets/svg/copyright"
+import ImageIcon from "../../../assets/svg/image"
+import LogoutIcon from "../../../assets/svg/logout"
 
 /* export const ButtonStyles = StyleSheet.create({
 

@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import { View } from "react-native"
 import { Flex, Row, Hairline } from "../layout"
 import { Heading } from "../text"
-import ArrowLeft from "../svg/arrow-left"
+import ArrowLeft from "../../assets/svg/arrow-left"
 import UserAvatar from "../smartsplit/user/avatar"
 
 export default function DashboardNavbarWeb(props) {

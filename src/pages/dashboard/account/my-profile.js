@@ -1,81 +1,47 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { useTranslation } from "react-i18next"
 import { View } from "react-native"
 import { Platform } from "../../../platform"
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
-import { Heading, Paragraph, Text } from "../../../text"
-import { Colors } from "../../../theme"
-import { TextField, Dropdown, CheckBox } from "../../../forms"
-import Button from "../../../widgets/button"
-import ChangePasswordModal from "../ChangePasswordContainer"
+import { Row, Column } from "../../../layout"
+import { Heading, Text } from "../../../text"
+import { TextField } from "../../../forms"
 import { SearchAndTag } from "../../../forms/search-and-tag"
-import DashboardNavbarWeb from "../../../layout/dashboard-navbar-web"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
 import UserAvatar from "../../../smartsplit/user/avatar"
-import PenIcon from "../../../svg/pen"
+import PenIcon from "../../../../assets/svg/pen"
 
 export default function MyProfile() {
-	const [t] = useTranslation()
-
-	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
-		false
-	)
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-
-	const [checkBox, setCheckBox] = useState(false)
+	const { t } = useTranslation()
 
 	return (
-		<>
+		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:profile")}</Heading>}
-			{Platform.native && (
-				<DashboardNavbarNative header={t("settings:profile")} />
-			)}
-			<Platform web={Group} of="group" native={Column} of="component">
-				<Column of="section">
-					<Row>
-						<UserAvatar size="huge" />
-						<View style={{ margin: 50 }}>
-							<PenIcon />
-						</View>
-					</Row>
-
-					<Row of="component">
-						<TextField
-							label={t("forms:labels.usualFirstName")}
-							placeholder=""
-						/>
-						<TextField label={t("forms:labels.usualLastName")} placeholder="" />
-					</Row>
-				</Column>
+			<Row align="left">
+				<UserAvatar size="huge" />
+				<View style={{ alignSelf: "center", marginLeft: 19 }}>
+					<PenIcon />
+				</View>
+			</Row>
+			<Row of="component">
 				<TextField
-					//label={t("forms:labels.artistName") + t("forms:labels.optional")}
-					label={t("forms:labels.artistName")}
-					label_hint={<Text secondary>{t("forms:labels.optional")}</Text>}
-					placeholder=""
-					undertext={
-						<>
-							<Text small>{t("forms:undertexts.artistNameExample")}</Text>
-							<Text italic small>
-								{" "}
-								Jay-Z
-							</Text>
-							<Text small> {t("forms:undertexts.artistNameExample3")}</Text>
-							<Text italic small>
-								{" "}
-								Shawn Corey Carter
-							</Text>
-							.
-						</>
-					}
+					label={t("forms:labels.usualFirstName")}
+					undertext={t("forms:undertexts.firstName")}
 				/>
-				<Column of="section">
-					{/* 	<SearchAndTag
+				<TextField
+					label={t("forms:labels.usualLastName")}
+					undertext={t("forms:undertexts.lastName")}
+				/>
+			</Row>
+			<TextField
+				label={t("forms:labels.artistName")}
+				label_hint={t("forms:labels.optional")}
+				placeholder=""
+				undertext={t("forms:undertexts.artistName")}
+			/>
+			<SearchAndTag
 				label={t("forms:labels.participation")}
 				placeholder={t("forms:placeholders.search")}
-			/> */}
-					{Platform.OS === "web" && <Hairline />}
-				</Column>
-			</Platform>
-		</>
+				onSearchChange={() => {}}
+			/>
+		</Column>
 	)
 }

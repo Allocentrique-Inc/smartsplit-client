@@ -24,7 +24,6 @@ import { PhoneNumberField } from "../../forms/phone-number"
 import { DateField } from "../../forms/date"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
-import Tooltip from "../../widgets/tooltip"
 
 export default function FormsTest() {
 	return (
@@ -32,7 +31,6 @@ export default function FormsTest() {
 			<TestText />
 			<TestBasicFields />
 			<TestFilesAndImages />
-			<TestTooltips />
 			<TestBasicDropdowns />
 
 			<Row of="component">
@@ -309,50 +307,3 @@ function TestFilesAndImages(props) {
 	)
 }
 
-function TestTooltips() {
-	const [showTooltip, setShowTooltip] = useState(false)
-	const tooltipAnchorRef = React.createRef()
-	const [arrowMode, setArrowMode] = useState(0)
-
-	const MODES = [
-		"bottom-center",
-		"bottom-left",
-		"left-bottom",
-		"left-center",
-		"left-top",
-		"top-left",
-		"top-center",
-		"top-right",
-		"right-top",
-		"right-center",
-		"right-bottom",
-		"bottom-right",
-	]
-
-	useEffect(() => {
-		if (!showTooltip) return
-		const timer = setTimeout(() => setArrowMode(arrowMode + 1), 1000)
-		return () => clearTimeout(timer)
-	}, [showTooltip, arrowMode])
-
-	return (
-		<Row of="component">
-			<Button
-				text="Tooltip"
-				onClick={() => setShowTooltip(!showTooltip)}
-				viewRef={tooltipAnchorRef}
-			/>
-
-			<Tooltip
-				arrow={MODES[arrowMode % MODES.length]}
-				width={300}
-				relativeTo={tooltipAnchorRef}
-				visible={showTooltip}
-				onDismiss={setShowTooltip}
-				text="Cette page a pour but de démontrer les différentes composantes de
-				formulaire et mise en page utilisées dans les formulaires à travers le
-				site"
-			/>
-		</Row>
-	)
-}

@@ -1,5 +1,5 @@
 import React from "react"
-import LogoSmartSplit from "../../svg/logo-smartsplit"
+import LogoSmartSplit from "../../../assets/svg/logo-smartsplit"
 import { Flex, Row } from "../../layout"
 import { useTranslation } from "react-i18next"
 

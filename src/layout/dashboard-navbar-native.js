@@ -1,6 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import ArrowLeft from "../svg/arrow-left"
+import ArrowLeft from "../../assets/svg/arrow-left"
 import { Flex, Row, Column, Hairline } from "../layout"
 import { Heading, Text } from "../text"
 import Button from "../widgets/button"

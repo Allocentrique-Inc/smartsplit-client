@@ -10,7 +10,7 @@ import LayoutStyles from "../styles/layout"
 import LayerStyles from "../styles/layers"
 import MetricsStyles from "../styles/metrics"
 import { Metrics } from "../theme"
-import XIcon from "../svg/x"
+import XIcon from "../../assets/svg/x"
 
 export const ModalStyles = StyleSheet.create({
 	background: {

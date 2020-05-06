@@ -70,7 +70,9 @@ export const errors = {
 		"Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau !",
 	noUser:
 		"Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
-
+	invalidDate:
+		"Date invalide",
+	invalidPhoneNumber: "Numéro de téléphone invalide",
 	password: {
 		weak: "Mot de passe faible",
 		average: "Mot de passe moyen",
@@ -150,12 +152,9 @@ export const forms = {
 	},
 
 	undertexts: {
-		madonna: "Madonna Louise",
-		madonna2: "Ciccone",
-		artistNameExample: "Par example, ",
-		artistNameExample2: "Jay-Z ",
-		artistNameExample3: "est le nom d'artiste de ",
-		artistNameExample4: "Shawn Corey Carter.",
+		firstName: "Exemple: <i>Madonna Louise</i>",
+		lastName: "Exemple: <i>Ciccone</i>",
+		artistName: "Par exemple, <i>Madonna</i> est le nom d'artiste de <i>Madonna Louise Ciccone</i>.",
 	},
 }
 
@@ -220,7 +219,7 @@ export const settings = {
 	settings: "Paramètres",
 	account: "Compte",
 	preferences: "Préférences",
-	profile: "Profile publique",
+	profile: "Profil",
 	identity: "Identité professionnelle",
 	accountInfo: "Informations du compte",
 	proIdentity: "Professionnal identity",

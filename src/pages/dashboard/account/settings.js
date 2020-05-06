@@ -2,19 +2,9 @@ import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { ScrollView, View, TouchableWithoutFeedback } from "react-native"
 import { Platform } from "../../../platform"
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
-import { Heading, Paragraph, Text } from "../../../text"
-import { Colors } from "../../../theme"
-import { TextField, Dropdown, CheckBox } from "../../../forms"
-import { TabBar, Tab } from "../../../widgets/tabs"
-import ChangePasswordModal from "../ChangePasswordContainer"
+import { Group } from "../../../layout"
 import DashboardNavbarWeb from "../../../layout/dashboard-navbar-web"
-import DashboardNavbarNative from "../../../layout/dashboard-navbar-native"
 import MyProfile from "./my-profile"
-import AccountInfoWeb from "./account-info-web"
-import MyIdentity from "./my-identity"
-import MyNotifications from "./my-notifications"
-import SecurityPage from "./my-security"
 
 const ProfileMenu = [
 	{
@@ -42,13 +32,6 @@ const ProfileMenu = [
 export default function SettingsPage() {
 	const [t] = useTranslation()
 
-	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
-		false
-	)
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-
-	const [checkBox, setCheckBox] = useState(false)
-
 	return (
 		<>
 			{Platform.web && <DashboardNavbarWeb header={t("settings:settings")} />}
@@ -60,19 +43,6 @@ export default function SettingsPage() {
 					}
 				>
 					<MyProfile />
-					<MyNotifications />
-
-					{Platform.web && (
-						<>
-							<AccountInfoWeb />
-
-							<MyIdentity />
-
-							<MyNotifications />
-
-							<SecurityPage />
-						</>
-					)}
 				</Group>
 			</ScrollView>
 		</>

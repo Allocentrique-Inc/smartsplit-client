@@ -8,7 +8,7 @@ import ProgressBar from "../../widgets/progress-bar"
 import Cover from "../media/cover"
 import WorkStyles from "./styles"
 
-import OverflowMenuIcon from "../../svg/overflow-menu"
+import OverflowMenuIcon from "../../../assets/svg/overflow-menu"
 
 export default function MediaWorkRow(props) {
 	const dateRel = moment(props.creationDate).fromNow()
