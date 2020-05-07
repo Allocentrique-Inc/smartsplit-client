@@ -28,29 +28,31 @@ export function MailList(props) {
 						<Text>{email.email}</Text>
 
 						{email.status === Status.active &&
-							<Link small action onClick={() => {}}>
-								{t("forms:undertexts.setAsMain")}
-							</Link>}
+						<Link small action onClick={() => {
+						}}>
+							{t("forms:undertexts.setAsMain")}
+						</Link>}
 
 						{email.status === Status.pending &&
-						<Link small action onClick={() => {}}>
+						<Link small action onClick={() => {
+						}}>
 							{t("forms:undertexts.resendConfirmEmail")}
 						</Link>}
 
 						{email.status === Status.main &&
-							<Text small>{t("forms:undertexts.mainEmail")}</Text>
+						<Text small>{t("forms:undertexts.mainEmail")}</Text>
 						}
-							</Column>
-							</Row>
-							)}
-							</Column>
-							}
+					</Column>
+				</Row>,
+			)}
+		</Column>
+	}
 
-							return (
+	return (
 		<Label {...props}>
-							{description && <Paragraph>{description}</Paragraph>}
-				{renderList()}
-				<Button secondary bold text={t("general:buttons.addEmail")}/>
-							</Label>
-							)
+			{description && <Paragraph>{description}</Paragraph>}
+			{renderList()}
+			<Button secondary bold text={t("general:buttons.addEmail")}/>
+		</Label>
+	)
 }

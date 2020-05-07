@@ -13,16 +13,16 @@ export default function ArrowLeft(props) {
 			<Path
 				d="M20 12H4"
 				stroke="#8DA0B3"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 			<Path
 				d="M10 18L4 12L10 6"
 				stroke="#8DA0B3"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
+				strokeWidth="2"
+				strokeLinecap="round"
+				strokeLinejoin="round"
 			/>
 		</Svg>
 	)

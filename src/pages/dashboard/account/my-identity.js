@@ -37,10 +37,10 @@ export default function MyIdentity() {
 				noFocusToggle
 			/>
 
-			<Platform web={Row} of="component" native={{ flex: 1 }}>
+			<Row of="component" wrap>
 				<TextField label={t("forms:labels.socanNO")} placeholder="" />
 				<TextField label={t("forms:labels.ipiNO")} placeholder="" />
-			</Platform>
+			</Row>
 
 			<Platform web={Row} of="component" native={{ flex: 1 }}>
 				<TextField label={t("forms:labels.artistiNO")} placeholder="" />

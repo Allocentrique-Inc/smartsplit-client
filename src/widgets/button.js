@@ -116,6 +116,7 @@ export function Button({
 	disabled,
 	error,
 	megaError,
+	danger,
 	onClick,
 	style,
 	children,
@@ -155,6 +156,10 @@ export function Button({
 	} else if (megaError) {
 		addFrame("frame_mega_error")
 		addText("text_primary")
+	} else if(danger) {
+		addFrame("frame_secondary")
+		addText("text_error")
+		textStyle.push(TypographyStyles.text["bold"])
 	} else {
 		addFrame("frame_primary")
 		addText("text_primary")

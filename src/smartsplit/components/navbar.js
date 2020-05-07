@@ -26,7 +26,6 @@ export function Navbar(props) {
 		actions,
 	} = props
 	function handleOnLayout(e) {
-		console.log("RESIZE")
 		const layout = e.nativeEvent.layout
 		if(layout.width === 944) {
 			setStyle(getCenteredStyle(layout.width))

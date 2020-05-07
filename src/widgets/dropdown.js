@@ -126,6 +126,7 @@ export class Dropdown extends React.Component {
 					focused={this.state.open}
 					placeholder={placeholder}
 					icon={this.getIcon()}
+					leftIcon={this.props.leftIcon}
 				/>
 
 				<DropdownModal
@@ -187,8 +188,9 @@ class DropdownRow extends React.PureComponent {
 				{...focusToggle}
 			>
 				<Row of="inside">
+					{this.props.leftIcon && <Icon/> }
 					{this.props.placeholder}
-					<Icon />
+					{!this.props.leftIcon && <Icon/>}
 				</Row>
 			</TouchableWithoutFeedback>
 		)

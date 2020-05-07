@@ -65,9 +65,10 @@ export function SearchAndTag(props) {
 
 	return (
 		<Column of="component">
-			<Row of="component">
+			<Row of="none">
 				<TextDropdown
 					search
+					leftIcon
 					onBlur={() => onSearchChange("")}
 					value={searchInput}
 					onChangeText={(text) => onSearchChange(text)}
