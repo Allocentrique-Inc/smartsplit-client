@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { View } from "react-native"
 import { Platform } from "../../../platform"
@@ -22,8 +22,6 @@ export default function MySecurity() {
 		false
 	)
 
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-
 	return (
 		<Platform web={Group} of="group" native={Column} of="component">
 			{Platform.web && <Heading level="2">{t("settings:security")}</Heading>}
@@ -37,7 +35,6 @@ export default function MySecurity() {
 				<Button
 					secondary
 					text={t("general:buttons.passwordChange")}
-					size={buttonSize}
 					style={
 						({ borderColor: Colors.stroke },
 						Platform.OS === "web" ? { flex: 0.5 } : { flex: 1 })
@@ -62,7 +59,6 @@ export default function MySecurity() {
 				<Button
 					error
 					text={t("general:buttons.deleteAccount")}
-					size={buttonSize}
 					style={
 						({ borderColor: Colors.stroke },
 						Platform.OS === "web" ? { flex: 0.5 } : { flex: 1 })

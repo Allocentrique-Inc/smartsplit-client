@@ -8,7 +8,7 @@ import { Heading } from "../text"
 import Button from "../widgets/button"
 import ArrowLeft from "../../assets/svg/arrow-left"
 import Scrollable from "../widgets/scrollable"
-import { Navbar } from "../widgets/navbar"
+import { Navbar } from "../smartsplit/components/navbar"
 import { AvatarIcon } from "./dashboard"
 
 export default function SubScreenLayout(props) {

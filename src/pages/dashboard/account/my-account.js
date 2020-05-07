@@ -9,7 +9,7 @@ import { TextField, Dropdown, CheckBox } from "../../../forms"
 import Button from "../../../widgets/button"
 import ConfirmPhoneModal from "./confirm-phone"
 import { PhoneNumberField } from "../../../forms/phone-number"
-import { MailList } from "../../../forms/mail-list"
+import { MailList } from "../../../smartsplit/components/mail-list"
 import { Status } from "../../../utils/enums"
 
 export default function MyAccount() {

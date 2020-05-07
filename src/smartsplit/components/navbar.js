@@ -1,8 +1,8 @@
 import React, {useState} from "react"
-import { Column, Row } from "../layout"
-import ArrowLeft from "../../assets/svg/arrow-left"
+import { Column, Row } from "../../layout"
+import ArrowLeft from "../../../assets/svg/arrow-left"
 import { View } from "react-native"
-import Button from "./button"
+import Button from "../../widgets/button"
 import { Text } from "react-native-web"
 
 const defaultStyle = {

@@ -25,7 +25,7 @@ import { DateField } from "../../forms/date"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
 import { Status } from "../../utils/enums"
-import { MailList } from "../../forms/mail-list"
+import { MailList } from "../../smartsplit/components/mail-list"
 
 export default function FormsTest() {
 	return (
