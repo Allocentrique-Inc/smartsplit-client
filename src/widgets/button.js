@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
 import { Text } from "../text"
 import { Row } from "../layout"
 import { Colors, Metrics } from "../theme"
+import TypographyStyles from "../styles/typography"
 
 export const ButtonStyles = StyleSheet.create({
 	frame: {
@@ -48,7 +49,7 @@ export const ButtonStyles = StyleSheet.create({
 	},
 
 	frame_secondary: {
-		borderColor: Colors.action,
+		borderColor: Colors.stroke,
 		borderWidth: 1,
 	},
 
@@ -111,6 +112,7 @@ export function Button({
 	primary,
 	secondary,
 	tertiary,
+	bold,
 	disabled,
 	error,
 	megaError,
@@ -156,6 +158,10 @@ export function Button({
 	} else {
 		addFrame("frame_primary")
 		addText("text_primary")
+	}
+
+	if (bold) {
+		textStyle.push(TypographyStyles.text["bold"])
 	}
 
 	if (!content) {

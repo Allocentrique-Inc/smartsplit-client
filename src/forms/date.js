@@ -9,7 +9,7 @@ const defaultPlaceholder = "DDMMYYYY"
 const formats = [
 	displayFormat,
 	ISOFormat,
-	"DDMMYYYY",
+	defaultPlaceholder,
 	"DD/MM/YYYY",
 	"DD MM YYYY",
 ]

@@ -98,7 +98,16 @@ export function DashboardRoutes(props) {
 			</Route>
 
 			<Route path="/dashboard/test/forms" exact>
-				<FormsTest/>
+				<SubScreenLayout
+					title={<>
+						<UserAvatar/>
+						<Text bold>Test des formulaires</Text>
+					</>}
+					onBack={() => {
+					}}
+				>
+					<FormsTest/>
+				</SubScreenLayout>
 			</Route>
 		</Switch>
 	)

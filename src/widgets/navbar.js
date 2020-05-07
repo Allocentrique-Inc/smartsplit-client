@@ -28,7 +28,7 @@ export function Navbar(props) {
 	function handleOnLayout(e) {
 		console.log("RESIZE")
 		const layout = e.nativeEvent.layout
-		if(layout.width >= 944) {
+		if(layout.width === 944) {
 			setStyle(getCenteredStyle(layout.width))
 		} else {
 			setStyle(defaultStyle)
@@ -43,6 +43,7 @@ export function Navbar(props) {
 			<Row of="component"
 			     valign="center"
 			     onLayout={handleOnLayout}
+			     onMeasure={() => console.log("ONMEASURE")}
 			     style={style}
 			>{title}</Row>
 			<Button tertiary text="Sauvegarder" style={{ marginLeft: "auto" }}/>

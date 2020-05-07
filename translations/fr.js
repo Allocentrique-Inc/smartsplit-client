@@ -2,7 +2,6 @@ export const general = {
 	forgotPassword: "Mot de passe oublié ?",
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
-	sendEmailConfirm: "Renvoyer le courriel de validation",
 	auth: "Authentification à deux facteurs",
 
 	alerts: {
@@ -155,6 +154,9 @@ export const forms = {
 		firstName: "Exemple: <i>Madonna Louise</i>",
 		lastName: "Exemple: <i>Ciccone</i>",
 		artistName: "Par exemple, <i>Madonna</i> est le nom d'artiste de <i>Madonna Louise Ciccone</i>.",
+		mainEmail: "Courriel principal",
+		setAsMain: "Définir comme principal",
+		resendConfirmEmail: "Renvoyer le courriel de confirmation"
 	},
 }
 

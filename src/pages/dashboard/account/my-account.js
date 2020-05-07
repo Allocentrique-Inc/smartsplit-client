@@ -1,61 +1,114 @@
-import React, { useState } from "react"
-import { TouchableWithoutFeedback } from "react-native"
-import { useHistory, useRouteMatch } from "react-router"
-
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
-import { Heading, Text } from "../../../text"
-import { Metrics, Colors } from "../../../theme"
-
-import PenIcon from "../../../../assets/svg/pen"
-import UserCardIcon from "../../../../assets/svg/user-card"
-import SettingsIcon from "../../../../assets/svg/settings"
-import LogoutIcon from "../../../../assets/svg/logout"
+import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import { ScrollView } from "react-native"
+import { Platform } from "../../../platform"
+import { Group, Hairline, Flex, Row, Column } from "../../../layout"
+import { Heading, Paragraph, Text } from "../../../text"
+import { Colors } from "../../../theme"
+import { TextField, Dropdown, CheckBox } from "../../../forms"
+import Button from "../../../widgets/button"
+import ConfirmPhoneModal from "./confirm-phone"
+import { PhoneNumberField } from "../../../forms/phone-number"
 
-export default function MyAccountPage(props) {
-	const [t] = useTranslation()
-	return (
-		<Group of="group">
-			<Row of="component">
-				<Flex>
-					<Heading level="2">ArtistName</Heading>
-				</Flex>
-				<PenIcon />
-			</Row>
-			<Hairline />
+export default function MyAccount() {
+	const {t} = useTranslation()
 
-			<AccountItem
-				icon={UserCardIcon}
-				to="/dashboard/my-profile"
-				text="Profil public"
-			/>
+	const [confirmPhoneModalOpen, setConfirmPhoneModalOpen] = useState(false)
 
-			<AccountItem
-				icon={SettingsIcon}
-				// to="/dashboard/settings"
-				text="Préférences"
-			/>
-
-			<AccountItem icon={LogoutIcon} to="/auth/logout" text="Se déconnecter" />
-		</Group>
-	)
-}
-
-export function AccountItem(props) {
-	//pour éviter répétition
-	const Icon = props.icon
-	const history = useHistory()
-
-	function activate() {
-		history.push(props.to)
-	}
 
 	return (
-		<TouchableWithoutFeedback onPress={activate} accessibilityRole="button">
-			<Row of="component">
-				<Icon />
-				<Text>{props.text}</Text>
+		<Column of="group">
+			{Platform.web && <Heading level="2">{t("settings:account")}</Heading>}
+			<TextField label={t("forms:labels.civicAddress")} placeholder="" />
+			<Dropdown
+				label={t("forms:labels.dropdowns.language")}
+				placeholder=""
+				noFocusToggle
+			/>
+			{Platform.web &&
+			<Row of="component" valign="bottom">
+				<PhoneNumberField label={t("forms:labels.phone")}/>
+				<Button secondary bold text={t("general:buttons.validNo")}/>
 			</Row>
-		</TouchableWithoutFeedback>
+			}
+			{Platform.native &&
+			 <PhoneNumberField label={t("forms:labels.phone")}/>
+			}
+		</Column>
+		// <ScrollView>
+		// 	<Platform web={Group} of="group" native={Column} of="component">
+		// 		{Platform.OS === "web" && (
+		// 			<Heading level="2">{t("settings:account")}</Heading>
+		// 		)}
+		//
+		// 		<TextField label={t("forms:labels.civicAddress")} placeholder="" />
+		//
+		// 		<Row of="component">
+
+		// 			{Platform.web && <Flex />}
+		// 		</Row>
+		//
+		// 		<Column of="small">
+		// 			<Heading level="5">{t("forms:labels.dropdowns.phone")}</Heading>
+		//
+		// 			<Platform web={Row} native={Column} of="component">
+		// 				<Dropdown
+		// 					placeholder=""
+		// 					noFocusToggle
+		// 					style={Platform.web ? { flex: 2.5 } : { flex: 1 }}
+		// 				/>
+		//
+		// 				<Button
+		// 					secondary
+		// 					text={
+		// 						<Text link bold>
+		// 							{t("general:buttons.validNo")}
+		// 						</Text>
+		// 					}
+		// 					size={buttonSize}
+		// 					style={
+		// 						({ borderColor: Colors.stroke }, Platform.web && { flex: 2 })
+		// 					}
+		// 					onClick={() => {
+		// 						setConfirmPhoneModalOpen(true)
+		// 					}}
+		// 				/>
+		//
+		// 				{confirmPhoneModalOpen && (
+		// 					<ConfirmPhoneModal
+		// 						visible={confirmPhoneModalOpen}
+		// 						onRequestClose={() => setConfirmPhoneModalOpen(false)}
+		// 					/>
+		// 				)}
+		// 			</Platform>
+		// 		</Column>
+		//
+		// 		<Column of="small">
+		// 			<Heading level="5">{t("settings:associateEmails")}</Heading>
+		// 			<Paragraph>{t("settings:subTitles.documentEmails")}</Paragraph>
+		// 		</Column>
+		//
+		// 		<Column of="section">
+		// 			<Row of="component">
+		// 				<Button
+		// 					secondary
+		// 					text={
+		// 						<Text link bold>
+		// 							{t("general:buttons.addEmail")}
+		// 						</Text>
+		// 					}
+		// 					size={buttonSize}
+		// 					style={
+		// 						({ borderColor: Colors.stroke },
+		// 						Platform.OS === "web" ? { flex: 0.5 } : { flex: 1 })
+		// 					}
+		// 				/>
+		// 				{Platform.OS === "web" && <Flex />}
+		// 			</Row>
+		//
+		// 			{Platform.OS === "web" && <Hairline />}
+		// 		</Column>
+		// 	</Platform>
+		// </ScrollView>
 	)
 }

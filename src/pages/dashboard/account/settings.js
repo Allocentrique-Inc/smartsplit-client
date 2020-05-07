@@ -2,9 +2,10 @@ import React from "react"
 import { Column, Divider, Hairline, Spacer } from "../../../layout"
 import MyProfile from "./my-profile"
 import MyNotifications from "./my-notifications"
-import MyAccountPage from "./my-account"
+import MyAccountNative from "./my-account-native"
 import MyIdentity from "./my-identity"
 import MySecurity from "./my-security"
+import MyAccount from "./my-account"
 
 const ProfileMenu = [
 	{
@@ -33,6 +34,8 @@ export default function SettingsPage() {
 	return (
 		<Column of="section">
 			<MyProfile/>
+			<Hairline/>
+			<MyAccount/>
 			<Hairline/>
 			<MyIdentity/>
 			<Hairline/>

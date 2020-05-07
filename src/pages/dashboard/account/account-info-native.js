@@ -10,7 +10,7 @@ import { TabBar, Tab } from "../../../widgets/tabs"
 import Button from "../../../widgets/button"
 import DashboardNavbarNative from "../../../layout/subscreen"
 import MyIdentity from "./my-identity"
-import AccountInfoWeb from "./account-info-web"
+import MyAccount from "./my-account"
 import CheckMark from "../../../svg/check-mark"
 
 export default function AccountInfoNative() {
@@ -26,7 +26,7 @@ export default function AccountInfoNative() {
 					<TouchableWithoutFeedback>
 						<TabBar>
 							<Tab key="account-info" title={t("settings:accountInfo")} default>
-								<AccountInfoWeb />
+								<MyAccount />
 							</Tab>
 
 							<Tab key="pro-identity" title={t("settings:proIdentity")}>
