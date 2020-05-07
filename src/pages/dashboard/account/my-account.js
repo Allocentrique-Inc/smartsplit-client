@@ -9,12 +9,27 @@ import { TextField, Dropdown, CheckBox } from "../../../forms"
 import Button from "../../../widgets/button"
 import ConfirmPhoneModal from "./confirm-phone"
 import { PhoneNumberField } from "../../../forms/phone-number"
+import { MailList } from "../../../forms/mail-list"
+import { Status } from "../../../utils/enums"
 
 export default function MyAccount() {
 	const {t} = useTranslation()
 
 	const [confirmPhoneModalOpen, setConfirmPhoneModalOpen] = useState(false)
-
+	const emails = [
+		{
+			email: "main@iptoki.com",
+			status: Status.main,
+		},
+		{
+			email: "active@iptoki.com",
+			status: Status.active,
+		},
+		{
+			email: "pending@iptoki.com",
+			status: Status.pending,
+		},
+	]
 
 	return (
 		<Column of="group">
@@ -34,6 +49,11 @@ export default function MyAccount() {
 			{Platform.native &&
 			 <PhoneNumberField label={t("forms:labels.phone")}/>
 			}
+			<MailList
+				label={t("forms:labels.myEmails")}
+				emails={emails}
+				description={t("forms:descriptions.myEmails")}
+			/>
 		</Column>
 		// <ScrollView>
 		// 	<Platform web={Group} of="group" native={Column} of="component">

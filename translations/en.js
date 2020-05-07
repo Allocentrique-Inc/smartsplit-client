@@ -94,6 +94,7 @@ export const publicNavbarWeb = {
 export const forms = {
 	labels: {
 		myEmail: "My email",
+		myEmails: "My emails linked to this account",
 		password: "Password",
 		enterEmail: "Enter your email",
 		choosePassword: "Choose your password",
@@ -132,6 +133,10 @@ export const forms = {
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
 		},
+	},
+
+	descriptions: {
+		myEmails: "Gather here your mail addresses with which your collaborators might invite you.."
 	},
 
 	placeholders: {
