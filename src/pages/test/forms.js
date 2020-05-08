@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Image } from "react-native"
 import {
+	Form,
+	FormSubmit,
+	useForm,
 	LabelText,
 	TextField,
 	PasswordField,
@@ -11,6 +14,8 @@ import {
 	RadioGroupButton,
 	Dropdown,
 	Select,
+	PhoneNumberField,
+	DateField,
 	useImagePicker,
 } from "../../forms"
 import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
@@ -20,8 +25,6 @@ import Button from "../../widgets/button"
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
 import AuthModal from "../auth/modal"
 import { SearchAndTag } from "../../forms/search-and-tag"
-import { PhoneNumberField } from "../../forms/phone-number"
-import { DateField } from "../../forms/date"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
 import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
@@ -147,56 +150,64 @@ function TestText() {
 }
 
 function TestBasicFields() {
-	const [phoneNumber, setPhoneNumber] = useState("")
-	const [date, setDate] = useState("")
 	return (
-		<Column of="component">
-			<Row of="component">
-				<TextField
-					label="Prénom"
-					label_hint="Optionnel"
-					defaultValue="Testing"
-					placeholder="prénom"
+		<Form
+			values={{ firstName: "John", lastName: "Doe" }}
+			onSubmit={(values) => alert("Submit " + JSON.stringify(values, null, 4))}
+		>
+			<Column of="component">
+				<Row of="component">
+					<TextField
+						name="firstName"
+						label="Prénom"
+						label_hint="Optionnel"
+						placeholder="prénom"
+					/>
+
+					<TextField
+						name="lastName"
+						label="Nom"
+						placeholder="nom"
+						tooltip="Cet nom sera utilisé pour la production des documents légaux, et doit donc correspondre à votre vrai nom."
+					/>
+				</Row>
+
+				<PasswordField
+					name="password"
+					label="Mot de passe"
+					undertext="Lettres et caractères spéciaux"
+					placeholder="correct horse battery staple"
 				/>
 
 				<TextField
-					label="Nom"
-					defaultValue="Test"
-					placeholder="nom"
-					tooltip="Cet nom sera utilisé pour la production des documents légaux, et doit donc correspondre à votre vrai nom."
+					name="email"
+					label="Adresse courriel"
+					label_hint="Requis"
+					undertext="Entrez votre adresse courriel ici."
+					defaultValue="test@smartsplit.org"
+					placeholder="courriel"
 				/>
-			</Row>
 
-			<PasswordField
-				label="Mot de passe"
-				undertext="Lettres et caractères spéciaux"
-				placeholder="correct horse battery staple"
-			/>
+				<Row of="component">
+					<PhoneNumberField
+						name="phoneNumber"
+						label="Numéro de téléphone"
+						label_hint="Optionnel"
+						placeholder="Numero de tel"
+					/>
+				</Row>
 
-			<TextField
-				label="Adresse courriel"
-				label_hint="Requis"
-				undertext="Entrez votre adresse courriel ici."
-				defaultValue="test@smartsplit.org"
-				placeholder="courriel"
-			/>
-			<Row of="component">
-				<PhoneNumberField
-					value={phoneNumber}
-					onChangeText={setPhoneNumber}
-					label="Numéro de téléphone"
-					label_hint="Optionnel"
-					placeholder="Numero de tel"
-				/>
-			</Row>
-			<Row of="component">
-				<DateField
-					value={date}
-					onChangeText={setDate}
-					label="Date de naissance"
-				/>
-			</Row>
-		</Column>
+				<Row of="component">
+					<DateField name="birthday" label="Date de naissance" />
+				</Row>
+
+				<Row align="right">
+					<FormSubmit>
+						{(submit) => <Button text="Soumettre" onClick={submit} />}
+					</FormSubmit>
+				</Row>
+			</Column>
+		</Form>
 	)
 }
 
