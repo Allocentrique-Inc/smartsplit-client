@@ -8,7 +8,7 @@ import {
 	TouchableWithoutFeedback,
 } from "react-native"
 
-import { Row } from "../layout"
+import { Flex, Row } from "../layout"
 import { Text } from "../text"
 import { Overlay } from "./scrollable"
 import { Colors, Metrics } from "../theme"
@@ -78,6 +78,18 @@ export class Dropdown extends React.Component {
 		} else return this.state.open ? ArrowUp : ArrowDown
 	}
 
+	getPlaceholder = () => {
+		switch (typeof this.props.placeholder) {
+			case "string":
+				return <Text secondary style={{ flex: 1 }}>
+					{this.props.placeholder}
+				</Text>
+			case "undefined":
+				return <Flex/>
+			default:
+				return this.props.placeholder
+		}
+	}
 	updateMenuPosition() {
 		if (!this.state.open) return
 
@@ -106,15 +118,10 @@ export class Dropdown extends React.Component {
 	render() {
 		const { placeholder, children, onFocus, onBlur } = {
 			...this.props,
-			placeholder:
-				typeof this.props.placeholder === "string" ? (
-					<Text secondary style={{ flex: 1 }}>
-						{this.props.placeholder}
-					</Text>
-				) : (
-					this.props.placeholder
-				),
+			placeholder: this.getPlaceholder()
 		}
+
+		console.log(placeholder)
 
 		return (
 			<View ref={this.frame} onLayout={this.onLayout} style={{ flex: 1 }}>

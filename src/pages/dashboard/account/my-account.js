@@ -32,11 +32,11 @@ export default function MyAccount() {
 	return (
 		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:account")}</Heading>}
-			<TextField label={t("forms:labels.civicAddress")} placeholder="" />
+			<TextField label={t("forms:labels.civicAddress")} />
 			<Dropdown
 				label={t("forms:labels.dropdowns.language")}
-				placeholder=""
 				noFocusToggle
+				style={{width: "50%"}}
 			/>
 			{Platform.web &&
 			<Row of="component" valign="bottom">

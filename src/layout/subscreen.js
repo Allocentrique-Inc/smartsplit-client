@@ -29,7 +29,7 @@ export default function SubScreenLayout(props) {
 					        paddingRight: Metrics.spacing.medium,
 					        paddingLeft: Metrics.spacing.medium,
 				        }}>
-					<Column of="none" style={{ maxWidth: 944, flex: 1 }}>
+					<Column of="none" style={{ maxWidth: Metrics.maxContentWidth, width: "100%", flex: 1 }}>
 						{children}
 					</Column>
 					<Spacer of="component"/>
