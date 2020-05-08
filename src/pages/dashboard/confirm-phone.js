@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Platform } from "../../../platform"
-import { DialogModal } from "../../../widgets/modal"
-import Button from "../../../widgets/button"
-import { Section, Column, Row, Group, Flex } from "../../../layout"
-import { TextField } from "../../../forms"
-import { Text, Paragraph } from "../../../text"
+import { Platform } from "../../platform"
+import { DialogModal } from "../../widgets/modal"
+import Button from "../../widgets/button"
+import { Section, Column, Row, Group, Flex } from "../../layout"
+import { TextField } from "../../forms"
+import { Text, Paragraph } from "../../text"
 
 export default function ConfirmPhoneModal(props) {
 	const [t] = useTranslation()

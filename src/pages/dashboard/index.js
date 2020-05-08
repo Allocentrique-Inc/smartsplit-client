@@ -8,7 +8,7 @@ import UserCardIcon from "../../../assets/svg/user-card"
 import UsersIcon from "../../../assets/svg/users"
 
 import MyWorksPage from "./my-works"
-import SettingsPage from "./account/settings"
+import SettingsPage from "./settings"
 import MyCollaboratorsPage from "./my-collaborators"
 import ChangePasswordPage from "./change-password"
 import NewEmailModal from "./new-email"
@@ -26,7 +26,7 @@ const MENU = [
 	},
 	{
 		text: "menu:profile",
-		to: "/dashboard/account/settings",
+		to: "/dashboard/settings/settings",
 		icon: UserCardIcon,
 	},
 	{
@@ -51,7 +51,7 @@ const MENU = [
 export default function DashboardPage(props) {
 	return (
 		<DashboardLayout menuItems={MENU}>
-			<DashboardRoutes/>
+			<DashboardRoutes />
 		</DashboardLayout>
 	)
 }
@@ -60,53 +60,50 @@ export function DashboardRoutes(props) {
 	return (
 		<Switch>
 			<Route path="/dashboard/" exact>
-				<Redirect to="/dashboard/my-works"/>
+				<Redirect to="/dashboard/my-works" />
 			</Route>
 
 			<Route path="/dashboard/my-works" exact>
-				<MyWorksPage/>
+				<MyWorksPage />
 			</Route>
 
 			<Route path="/dashboard/account/settings" exact>
 				<SubScreenLayout
-					title={<>
-						<UserAvatar/>
-						<Text bold>Paramètres</Text>
-					</>}
-					onBack={() => {
-					}}
+					title={
+						<>
+							<UserAvatar />
+							<Text bold>Paramètres</Text>
+						</>
+					}
+					onBack={() => {}}
 				>
-					<SettingsPage/>
+					<SettingsPage />
 				</SubScreenLayout>
 			</Route>
 
-
-			<Route path="/dashboard/account/settings" exact>
-				<SettingsPage/>
-			</Route>
-
 			<Route path="/dashboard/my-collaborators" exact>
-				<MyCollaboratorsPage/>
+				<MyCollaboratorsPage />
 			</Route>
 
 			<Route path="/dashboard/change-password" exact>
-				<ChangePasswordPage/>
+				<ChangePasswordPage />
 			</Route>
 
 			<Route path="/dashboard/new-email" exact>
-				<NewEmailModal/>
+				<NewEmailModal />
 			</Route>
 
 			<Route path="/dashboard/test/forms" exact>
 				<SubScreenLayout
-					title={<>
-						<UserAvatar/>
-						<Text bold>Test des formulaires</Text>
-					</>}
-					onBack={() => {
-					}}
+					title={
+						<>
+							<UserAvatar />
+							<Text bold>Test des formulaires</Text>
+						</>
+					}
+					onBack={() => {}}
 				>
-					<FormsTest/>
+					<FormsTest />
 				</SubScreenLayout>
 			</Route>
 		</Switch>

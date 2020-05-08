@@ -33,6 +33,10 @@ export default StyleSheet.create({
 		}),
 	},
 
+	left_overground: {
+		boxShadow: `inset 2px 0px 0px ${Colors.stroke}`,
+	},
+
 	underground: {
 		backgroundColor: Colors.background.underground,
 	},

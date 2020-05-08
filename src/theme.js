@@ -54,7 +54,7 @@ export const Metrics = {
 		left: 8,
 	},
 
-	maxContentWidth: 944
+	maxContentWidth: 944,
 }
 
 export const Colors = {

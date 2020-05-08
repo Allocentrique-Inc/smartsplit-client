@@ -5,7 +5,6 @@ import CheckMark from "../../../assets/svg/green-check-mark.svg"
 import MoreHorizontal from "../../../assets/svg/more-horizontal.svg"
 import { Status } from "../../utils/enums"
 import { Link, Paragraph, Text } from "../../text"
-import { TouchableWithoutFeedback } from "react-native-web"
 import Label from "../../forms/label"
 import Button from "../../widgets/button"
 import { useTranslation } from "react-i18next"
@@ -19,33 +18,35 @@ export function MailList(props) {
 	}
 
 	function renderList() {
-		return <Column of="none">
-			{emails.map((email, index) =>
-				<Row padding="small" of="component" valign="center" key={index}>
-					{isMailChecked(email) && <CheckMark/>}
-					{email.status === Status.pending && <MoreHorizontal/>}
-					<Column of="none">
-						<Text>{email.email}</Text>
+		return (
+			<Column of="none">
+				{emails.map((email, index) => (
+					<Row padding="small" of="component" valign="center" key={index}>
+						{isMailChecked(email) && <CheckMark />}
+						{email.status === Status.pending && <MoreHorizontal />}
+						<Column of="none">
+							<Text>{email.email}</Text>
 
-						{email.status === Status.active &&
-						<Link small action onClick={() => {
-						}}>
-							{t("forms:undertexts.setAsMain")}
-						</Link>}
+							{email.status === Status.active && (
+								<Link small action onClick={() => {}}>
+									{t("forms:undertexts.setAsMain")}
+								</Link>
+							)}
 
-						{email.status === Status.pending &&
-						<Link small action onClick={() => {
-						}}>
-							{t("forms:undertexts.resendConfirmEmail")}
-						</Link>}
+							{email.status === Status.pending && (
+								<Link small action onClick={() => {}}>
+									{t("forms:undertexts.resendConfirmEmail")}
+								</Link>
+							)}
 
-						{email.status === Status.main &&
-						<Text small>{t("forms:undertexts.mainEmail")}</Text>
-						}
-					</Column>
-				</Row>,
-			)}
-		</Column>
+							{email.status === Status.main && (
+								<Text small>{t("forms:undertexts.mainEmail")}</Text>
+							)}
+						</Column>
+					</Row>
+				))}
+			</Column>
+		)
 	}
 
 	return (
@@ -53,7 +54,7 @@ export function MailList(props) {
 			{description && <Paragraph>{description}</Paragraph>}
 			{renderList()}
 			<Row>
-				<Button secondary bold text={t("general:buttons.addEmail")}/>
+				<Button secondary bold text={t("general:buttons.addEmail")} />
 			</Row>
 		</Label>
 	)

@@ -83,7 +83,7 @@ export function Section(props) {
 }
 
 export function Column(props) {
-	const { align, valign, ...nextProps} = props
+	const { align, valign, ...nextProps } = props
 	return composeView(
 		nextProps,
 		LayoutStyles.column,

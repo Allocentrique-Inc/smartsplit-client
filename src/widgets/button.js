@@ -53,6 +53,15 @@ export const ButtonStyles = StyleSheet.create({
 		borderWidth: 1,
 	},
 
+	frame_secondary_with_icon: {
+		borderColor: Colors.stroke,
+		borderWidth: 1,
+		paddingTop: Metrics.spacing.small,
+		paddingBottom: Metrics.spacing.small,
+		paddingLeft: Metrics.spacing.small,
+		paddingRight: Metrics.spacing.medium,
+	},
+
 	frame_error: {
 		borderColor: Colors.error,
 		borderWidth: 1,
@@ -111,6 +120,7 @@ export function Button({
 	text,
 	primary,
 	secondary,
+	secondaryWithIcon,
 	tertiary,
 	bold,
 	disabled,
@@ -148,6 +158,9 @@ export function Button({
 	} else if (secondary) {
 		addFrame("frame_secondary")
 		addText("text_secondary")
+	} else if (secondaryWithIcon) {
+		addFrame("frame_secondary_with_icon")
+		addText("text_secondary")
 	} else if (tertiary) {
 		addText("text_secondary")
 	} else if (error) {
@@ -156,7 +169,7 @@ export function Button({
 	} else if (megaError) {
 		addFrame("frame_mega_error")
 		addText("text_primary")
-	} else if(danger) {
+	} else if (danger) {
 		addFrame("frame_secondary")
 		addText("text_error")
 		textStyle.push(TypographyStyles.text["bold"])
@@ -171,7 +184,7 @@ export function Button({
 
 	if (!content) {
 		content = (
-			<Row of="component" style={[frameStyle, style]} viewRef={viewRef}>
+			<Row of="inside" style={[frameStyle, style]} viewRef={viewRef}>
 				{icon}
 				{text && (
 					<View style={ButtonStyles.text_container}>

@@ -1,13 +1,13 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { View } from "react-native"
-import { Platform } from "../../../platform"
-import { Row, Column } from "../../../layout"
-import { Heading, Text } from "../../../text"
-import { TextField } from "../../../forms"
-import { SearchAndTag } from "../../../forms/search-and-tag"
-import UserAvatar from "../../../smartsplit/user/avatar"
-import PenIcon from "../../../../assets/svg/pen"
+import { Platform } from "../../platform"
+import { Row, Column } from "../../layout"
+import { Heading, Text } from "../../text"
+import { TextField } from "../../forms"
+import { SearchAndTag } from "../../forms/search-and-tag"
+import UserAvatar from "../user/avatar"
+import PenIcon from "../../../assets/svg/pen"
 
 export default function MyProfile() {
 	const { t } = useTranslation()

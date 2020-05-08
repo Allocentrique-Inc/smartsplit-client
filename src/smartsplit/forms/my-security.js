@@ -1,16 +1,16 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { View } from "react-native"
-import { Platform } from "../../../platform"
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
-import { Heading, Paragraph, Text } from "../../../text"
-import { Colors } from "../../../theme"
-import { TextField, Dropdown } from "../../../forms"
-import Button from "../../../widgets/button"
-import ChangePasswordModal from "../ChangePasswordContainer"
-import DeleteAccountModal from "../delete-account"
-import DashboardNavbarNative from "../../../layout/subscreen"
-import Label from "../../../forms/label"
+import { Platform } from "../../platform"
+import { Group, Hairline, Flex, Row, Column } from "../../layout"
+import { Heading, Paragraph, Text } from "../../text"
+import { Colors } from "../../theme"
+import { TextField, Dropdown } from "../../forms"
+import Button from "../../widgets/button"
+import ChangePasswordModal from "../../pages/dashboard/ChangePasswordContainer"
+import DeleteAccountModal from "../../pages/dashboard/delete-account"
+import DashboardNavbarNative from "../../layout/subscreen"
+import Label from "../../forms/label"
 
 export default function MySecurity() {
 	const [t] = useTranslation()
@@ -27,16 +27,19 @@ export default function MySecurity() {
 		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:security")}</Heading>}
 			<Label label={t("settings:password")}>
-				<Button secondary bold text={t("general:buttons.passwordChange")}/>
+				<Row>
+					<Button secondary bold text={t("general:buttons.passwordChange")} />
+				</Row>
 			</Label>
 			<Label label={t("settings:delete")}>
-				<Button danger text={t("general:buttons.deleteAccount")}/>
+				<Row>
+					<Button danger text={t("general:buttons.deleteAccount")} />
+				</Row>
 			</Label>
-
 		</Column>
 		// <Platform web={Group} of="group" native={Column} of="component">
 		// 	{Platform.native && (
-		// 		<DashboardNavbarNative header={t("settings:account")} />
+		// 		<DashboardNavbarNative header={t("settings:settings")} />
 		// 	)}
 		//
 		// 	<Heading level="4">{t("settings:password")}</Heading>

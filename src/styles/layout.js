@@ -57,12 +57,12 @@ LayoutStyles.justify = StyleSheet.create({
 	},
 
 	bottom: {
-		justifyContent: "flex-end"
+		justifyContent: "flex-end",
 	},
 
 	spread: {
-		justifyContent: "space-between"
-	}
+		justifyContent: "space-between",
+	},
 })
 
 LayoutStyles.align = StyleSheet.create({
@@ -87,8 +87,8 @@ LayoutStyles.align = StyleSheet.create({
 	},
 
 	bottom: {
-		alignItems: "flex-end"
-	}
+		alignItems: "flex-end",
+	},
 })
 
 export default LayoutStyles

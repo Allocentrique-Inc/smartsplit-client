@@ -36,6 +36,7 @@ export const general = {
 		validNo: "Valider ce numéro",
 		confirmNO: "Valider",
 		addEmail: "Ajouter un courriel",
+		addProId: "Ajouter un identifiant",
 		deleteAccount: "Détruire ce compte",
 		addUsername: "Ajouter un identifiant",
 		delete: "Détruire ce compte",
@@ -114,17 +115,18 @@ export const forms = {
 		usualFirstName: "Prénom usuel",
 		usualLastName: "Nom usuel",
 		civicAddress: "Adresse civique",
-		socanNO: "# Membre SOCAN",
-		ipiNO: "# IPI",
-		artistiNO: "# ARTISTI",
-		ipnNO: "# IPN",
-		udaNO: "# Membre UDA",
-		gmmqNO: "# Membre GMMQ",
-		soproqNO: "# Membre SOPROQ",
-		isniNO: "# ISNI",
+		socanNO: "Membre SOCAN",
+		ipiNO: "Mon IPI",
+		artistiNO: "Membre ARTISTI",
+		ipnNO: "Mon IPN",
+		udaNO: "Membre UDA",
+		gmmqNO: "Membre GMMQ",
+		soproqNO: "Membre SOPROQ",
+		isniNO: "Mon ISNI",
 		birthday: "Birthday",
 		uri: "URI",
 		participation: "Mes participations à des entités",
+		myProIds: "Mes identifiants professionels",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
 
@@ -136,7 +138,8 @@ export const forms = {
 	},
 
 	descriptions: {
-		myEmails: "Centralise ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t’inviter."
+		myEmails: "Centralise ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t’inviter.",
+		myProIds: "Ici, tu peux ajouter tes identifiants professionnels en lien avec les Sociétés de gestion collectives, les Syndicats et les Associations sectorielles pour lesquelles tu es membre."
 	},
 
 	placeholders: {
@@ -231,7 +234,7 @@ export const settings = {
 	accountInfo: "Informations du compte",
 	proIdentity: "Professionnal identity",
 	notifications: "Notifications",
-	security: "Securité",
+	security: "Sécurité",
 	deconnect: "Déconnecté",
 	password: "Mot de passe",
 	associateEmails: "Courriels associés à ce compte",

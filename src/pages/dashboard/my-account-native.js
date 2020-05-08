@@ -2,14 +2,14 @@ import React, { useState } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { useHistory, useRouteMatch } from "react-router"
 
-import { Group, Hairline, Flex, Row, Column } from "../../../layout"
-import { Heading, Text } from "../../../text"
-import { Metrics, Colors } from "../../../theme"
+import { Group, Hairline, Flex, Row, Column } from "../../layout"
+import { Heading, Text } from "../../text"
+import { Metrics, Colors } from "../../theme"
 
-import PenIcon from "../../../../assets/svg/pen"
-import UserCardIcon from "../../../../assets/svg/user-card"
-import SettingsIcon from "../../../../assets/svg/settings"
-import LogoutIcon from "../../../../assets/svg/logout"
+import PenIcon from "../../../assets/svg/pen"
+import UserCardIcon from "../../../assets/svg/user-card"
+import SettingsIcon from "../../../assets/svg/settings"
+import LogoutIcon from "../../../assets/svg/logout"
 import { useTranslation } from "react-i18next"
 
 export default function MyAccountNative(props) {

@@ -13,26 +13,30 @@ import { AvatarIcon } from "./dashboard"
 import { Metrics } from "../theme"
 
 export default function SubScreenLayout(props) {
-	const {
-		title,
-		onBack,
-		actions,
-		children,
-	} = props
+	const { title, onBack, actions, children } = props
 
 	return (
 		<>
-			<Navbar title={title}/>
+			<Navbar title={title} />
 			<Scrollable>
-				<Column align="center"
-				        style={{
-					        paddingRight: Metrics.spacing.medium,
-					        paddingLeft: Metrics.spacing.medium,
-				        }}>
-					<Column of="none" style={{ maxWidth: Metrics.maxContentWidth, width: "100%", flex: 1 }}>
+				<Column
+					align="center"
+					style={{
+						paddingRight: Metrics.spacing.medium,
+						paddingLeft: Metrics.spacing.medium,
+					}}
+				>
+					<Column
+						of="none"
+						style={{
+							maxWidth: Metrics.maxContentWidth,
+							width: "100%",
+							flex: 1,
+						}}
+					>
 						{children}
 					</Column>
-					<Spacer of="component"/>
+					<Spacer of="component" />
 				</Column>
 			</Scrollable>
 		</>

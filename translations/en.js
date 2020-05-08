@@ -1,6 +1,6 @@
 export const general = {
 	forgotPassword: "Forgot password?",
-	noAccount: "I don't have an account",
+	noAccount: "I don't have an settings",
 	or: "or",
 	auth: "Two factor authentification",
 
@@ -18,13 +18,13 @@ export const general = {
 		connect: "Connect",
 		cancel: "Cancel",
 		connectVote: "Connect and vote",
-		registerVote: "Create my account an vote",
+		registerVote: "Create my settings an vote",
 		facebook: "Connect with Facebook",
 		google: "Connect with Google",
 		accept: "I accept",
 		comprendo: "Understood",
-		createAccount: "Create my account",
-		haveAccount: "I already have an account",
+		createAccount: "Create my settings",
+		haveAccount: "I already have an settings",
 		reset: "Reset",
 		backHome: "Go back to the homepage",
 		save: "Save",
@@ -36,9 +36,10 @@ export const general = {
 		validNo: "Validate this number",
 		confirmNO: "Confirm",
 		addEmail: "Add an Email",
-		deleteAccount: "Cancel this account",
+		addProId: "Add a professional identifier",
+		deleteAccount: "Cancel this settings",
 		addUsername: "Add a username",
-		delete: "Delete this account",
+		delete: "Delete this settings",
 	},
 }
 
@@ -66,7 +67,7 @@ export const errors = {
 	invalidLogin:
 		"Invalid email or password. Please try again.",
 	inactiveAccount:
-		"This account has yet not being activated. Please check your emails, or try to subscribe again!",
+		"This settings has yet not being activated. Please check your emails, or try to subscribe again!",
 	noUser:
 		"No user was found with this email address. You might have used another address ?",
 	invalidDate:
@@ -82,19 +83,19 @@ export const errors = {
 }
 
 export const publicNavbarWeb = {
-	noAccount: "No account?",
-	createAccount: "Create an account",
+	noAccount: "No settings?",
+	createAccount: "Create an settings",
 	yesAccount: "Already a member?",
 	openAccount: "Open a session",
 	language: "Français",
 	noMember: "Not yet a member?",
-	createMyAccount: "Create my account",
+	createMyAccount: "Create my settings",
 }
 
 export const forms = {
 	labels: {
 		myEmail: "My email",
-		myEmails: "My emails linked to this account",
+		myEmails: "My emails linked to this settings",
 		password: "Password",
 		enterEmail: "Enter your email",
 		choosePassword: "Choose your password",
@@ -125,6 +126,7 @@ export const forms = {
 		birthday: "Date de naissance",
 		uri: "URI",
 		participation: "My participation to entities",
+		myProIds: "My professional identifiers",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
 
@@ -136,7 +138,8 @@ export const forms = {
 	},
 
 	descriptions: {
-		myEmails: "Gather here your mail addresses with which your collaborators might invite you.."
+		myEmails: "Gather here your mail addresses with which your collaborators might invite you..",
+		myProIds: "Here, you can add your professional identifiers in connection with the collective management companies, the Unions and the sectoral Associations for which you are a member."
 	},
 
 	placeholders: {
@@ -166,7 +169,7 @@ export const forms = {
 }
 
 export const login = {
-	title: "Login to your Smartsplit account.",
+	title: "Login to your Smartsplit settings.",
 	subTitle: "Enter your information below.",
 
 	toVote: {
@@ -182,7 +185,7 @@ export const register = {
 		"You  are one click away from documenting your music and share your rights with your contributors.",
 
 	toVote: {
-		title: "create an account to confirm your decision.",
+		title: "create an settings to confirm your decision.",
 		subTitle:
 			"You are about to sign an important contract with your collaborators, so we need you to confirm your indentity.",
 	},
@@ -200,14 +203,14 @@ export const register = {
 export const passwordIssues = {
 	checkEmail: "Check your emails",
 	validate:
-		"A message including an account validation link was emailed to you.\nDoucle check your spam. We never know!",
+		"A message including an settings validation link was emailed to you.\nDoucle check your spam. We never know!",
 	reset: "Reset your password.",
 	emailSent: "Email sent.",
 	resetParagraph:
 		"An email was sent or will be sent shortly. It includes a link to reset your password.",
 	change: "Change the password",
 	enterEmail:
-		"Enter the email address associated to your account to get the reset link.",
+		"Enter the email address associated to your settings to get the reset link.",
 	changePassword: "Change the password",
 }
 
@@ -234,7 +237,7 @@ export const settings = {
 	security: "Security",
 	deconnect: "Disconnect",
 	password: "Password",
-	associateEmails: "Emails associated to this account",
+	associateEmails: "Emails associated to this settings",
 	delete: "Cancellation",
 
 	subTitles: {
@@ -282,14 +285,14 @@ export const settings = {
 }
 
 export const deletion = {
-	destroy: "Delete the account",
+	destroy: "Delete the settings",
 	warningTitle: "Please note, this operation is irreversible.",
 	warningSubTitle:
-		"In order to delete this account, you need to confirm your intention.",
+		"In order to delete this settings, you need to confirm your intention.",
 	writeDelete:
 		'Write the word "delete" below, in order to confirm your intention:',
 	confirm:
-		'By clicking on "confirm" below, your account will be deleted and you will be ejected from the system.',
+		'By clicking on "confirm" below, your settings will be deleted and you will be ejected from the system.',
 	deleteWord: "delete",
 }
 

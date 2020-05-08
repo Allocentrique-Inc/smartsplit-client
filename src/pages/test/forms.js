@@ -26,14 +26,15 @@ import { DateField } from "../../forms/date"
 import { PictureCropModal } from "../../widgets/picture-crop"
 import { Status } from "../../utils/enums"
 import { MailList } from "../../smartsplit/components/mail-list"
+import { ProIdList } from "../../smartsplit/components/pro-id-list"
 
 export default function FormsTest() {
 	return (
 		<Section of="group">
-			<TestText/>
-			<TestBasicFields/>
-			<TestFilesAndImages/>
-			<TestBasicDropdowns/>
+			<TestText />
+			<TestBasicFields />
+			<TestFilesAndImages />
+			<TestBasicDropdowns />
 
 			<Row of="component">
 				<ArtistSelectDropdown
@@ -52,8 +53,8 @@ export default function FormsTest() {
 				/>
 			</Row>
 
-			<TestCheckboxes/>
-			<TestSearchAndTag/>
+			<TestCheckboxes />
+			<TestSearchAndTag />
 		</Section>
 	)
 }
@@ -122,7 +123,7 @@ function TestText() {
 					onClick={() => i18n.changeLanguage("en")}
 				/>
 
-				<Button text="Auth Dialog" onClick={() => setShowAuthModal(true)}/>
+				<Button text="Auth Dialog" onClick={() => setShowAuthModal(true)} />
 			</Row>
 
 			<Paragraph>
@@ -170,7 +171,7 @@ function TestBasicFields() {
 					placeholder="prénom"
 				/>
 
-				<TextField label="Nom" defaultValue="Test" placeholder="nom"/>
+				<TextField label="Nom" defaultValue="Test" placeholder="nom" />
 			</Row>
 
 			<PasswordField
@@ -201,6 +202,10 @@ function TestBasicFields() {
 			<MailList
 				label="Courriels"
 				emails={emails}
+				description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+			/>
+			<ProIdList
+				label="Identifiants pro"
 				description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 			/>
 		</Column>
@@ -247,9 +252,9 @@ function TestCheckboxes() {
 		<Row of="component">
 			<Column of="component" style={{ flex: 1 }}>
 				<RadioGroup label="Choisis une des options suivantes:">
-					<RadioGroupButton value="A" label="Option A"/>
-					<RadioGroupButton value="B" label="Option B"/>
-					<RadioGroupButton value="C" label="Option C"/>
+					<RadioGroupButton value="A" label="Option A" />
+					<RadioGroupButton value="B" label="Option B" />
+					<RadioGroupButton value="C" label="Option C" />
 				</RadioGroup>
 			</Column>
 
@@ -261,12 +266,12 @@ function TestCheckboxes() {
 					checked={testCheckBox1}
 				/>
 
-				<CheckBox label="Cochez moi aussi!" disabled={!testCheckBox1}/>
+				<CheckBox label="Cochez moi aussi!" disabled={!testCheckBox1} />
 			</Column>
 
 			<Column of="component" style={{ flex: 1 }}>
 				<LabelText>Boutons radios seuls</LabelText>
-				<RadioButton label="Sélectionnez moi!"/>
+				<RadioButton label="Sélectionnez moi!" />
 
 				<RadioButton
 					label="Sélectionnez moi à la place!"
@@ -295,7 +300,7 @@ function TestFilesAndImages(props) {
 			/>
 
 			<Row of="component">
-				<Button text="Sélectionner image" onClick={selectImage}/>
+				<Button text="Sélectionner image" onClick={selectImage} />
 				<Button
 					text="Recadrer"
 					disabled={!image}
@@ -324,4 +329,3 @@ function TestFilesAndImages(props) {
 		</Column>
 	)
 }
-

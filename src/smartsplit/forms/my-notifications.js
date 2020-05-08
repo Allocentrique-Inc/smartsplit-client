@@ -1,11 +1,11 @@
 import React from "react"
 import { View } from "react-native"
 import { useTranslation } from "react-i18next"
-import { Platform } from "../../../platform"
-import { Row, Column, Group, Flex, Hairline } from "../../../layout"
-import { CheckBox } from "../../../forms"
-import { Text, Link, Heading } from "../../../text"
-import DashboardNavbarNative from "../../../layout/subscreen"
+import { Platform } from "../../platform"
+import { Row, Column, Group, Flex, Hairline } from "../../layout"
+import { CheckBox } from "../../forms"
+import { Text, Link, Heading } from "../../text"
+import DashboardNavbarNative from "../../layout/subscreen"
 
 export function NotificationColumn(props) {
 	const { header, checkbox } = props

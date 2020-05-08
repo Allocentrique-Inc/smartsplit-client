@@ -81,11 +81,13 @@ export class Dropdown extends React.Component {
 	getPlaceholder = () => {
 		switch (typeof this.props.placeholder) {
 			case "string":
-				return <Text secondary style={{ flex: 1 }}>
-					{this.props.placeholder}
-				</Text>
+				return (
+					<Text secondary style={{ flex: 1 }}>
+						{this.props.placeholder}
+					</Text>
+				)
 			case "undefined":
-				return <Flex/>
+				return <Flex />
 			default:
 				return this.props.placeholder
 		}
@@ -118,10 +120,8 @@ export class Dropdown extends React.Component {
 	render() {
 		const { placeholder, children, onFocus, onBlur } = {
 			...this.props,
-			placeholder: this.getPlaceholder()
+			placeholder: this.getPlaceholder(),
 		}
-
-		console.log(placeholder)
 
 		return (
 			<View ref={this.frame} onLayout={this.onLayout} style={{ flex: 1 }}>
@@ -195,9 +195,9 @@ class DropdownRow extends React.PureComponent {
 				{...focusToggle}
 			>
 				<Row of="inside">
-					{this.props.leftIcon && <Icon/> }
+					{this.props.leftIcon && <Icon />}
 					{this.props.placeholder}
-					{!this.props.leftIcon && <Icon/>}
+					{!this.props.leftIcon && <Icon />}
 				</Row>
 			</TouchableWithoutFeedback>
 		)
