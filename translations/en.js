@@ -40,6 +40,7 @@ export const general = {
 		deleteAccount: "Cancel this account",
 		addUsername: "Add a username",
 		delete: "Delete this account",
+		confirmNO: "VConfirm my number",
 	},
 }
 
@@ -136,6 +137,19 @@ export const forms = {
 			juridiction: "Juridiction",
 			nationality: "Nationality",
 			organisations: "Select among organisations",
+
+			identity: {
+				socanTitle: "SOCAN - Broadcast of musical works",
+				socanSubTitle: "SOCAN DR - Reproduction of musical works",
+				soproqTitle: "SOPROQ - Neighboring rights of producers",
+				soproqSubTitle:
+					"Société de gestion collective des droits des producteurs de phonogrammes et vidéogrammes du Québec",
+				soundTitle: "RE:SOUND - Performers' Neighbouring Rights",
+				soundSubtitle:
+					"Music Licensing Compagny (formerly known as Neighbouring Right Collective of Canada",
+				artistiTitle: "Neighboring rights of performers",
+				artistiSubtitle: "Copyright - Public delivery",
+			},
 		},
 	},
 
@@ -287,6 +301,11 @@ export const settings = {
 			title: "Partners' promotions",
 			subTitle: "Get our partners' offers",
 		},
+
+		popup: {
+			title: "Confirm your number first!",
+			later: "Later",
+		},
 	},
 }
 
@@ -328,6 +347,8 @@ export const identifiers = {
 }
 
 export const tooltips = {
+	name:
+		"This name will be used for the production of legal documents and has to match your real name.",
 	stayConnected:
 		"This installs s specific cookie in your browser to allow you coming back with this device without having to reconnect.",
 	socan: "Society of Composers, Authors and Music Publishers of Canada",
@@ -337,13 +358,14 @@ export const tooltips = {
 	uda: "Union des artistes",
 	gmmq: "Guilde des musiciens et des musiciennes du Québec",
 	soproq:
-		"société de gestion collective des droits des producteurs d'enregistrements sonores et de vidéoclips",
+		"Société de gestion collective des droits des producteurs de phonogrammes et vidéogrammes du Québec",
 	isni: "International Standard Name Identifier",
 	uri: "Uniform Resource Identifier",
+	onGoing: "Waiting for  a confirmation",
 }
 
 export const widgets = {
 	pictureCrop: {
-		title: "Recadre ta photo",
+		title: "Crop your photo",
 	},
 }

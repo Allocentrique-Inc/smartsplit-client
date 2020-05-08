@@ -11,6 +11,7 @@ import Button from "../../../widgets/button"
 import ChangePasswordModal from "../ChangePasswordContainer"
 import NewUsernameModal from "./new-username"
 import DashboardNavbar from "../../../layout/dashboard-navbar"
+import Tooltip, { TooltipIcon } from "../../../widgets/tooltip"
 
 export default function MyIdentity() {
 	const [t] = useTranslation()
@@ -54,11 +55,13 @@ export default function MyIdentity() {
 				<Platform web={Row} of="component" native={{ flex: 1 }}>
 					<TextField
 						label={t("forms:labels.socanNO")}
+						tooltip={t("tooltips:socan")}
 						placeholder={t("forms:placeholders.member")}
 					/>
 					<TextField
 						label={t("forms:labels.ipiNO")}
 						placeholder={t("forms:placeholders.ipi")}
+						tooltip={t("tooltips:ipi")}
 					/>
 				</Platform>
 
@@ -66,10 +69,12 @@ export default function MyIdentity() {
 					<TextField
 						label={t("forms:labels.artistiNO")}
 						placeholder={t("forms:placeholders.member")}
+						tooltip={t("tooltips:artisti")}
 					/>
 					<TextField
 						label={t("forms:labels.ipnNO")}
 						placeholder={t("forms:placeholders.ipn")}
+						tooltip={t("tooltips:ipn")}
 					/>
 				</Platform>
 
@@ -77,10 +82,12 @@ export default function MyIdentity() {
 					<TextField
 						label={t("forms:labels.udaNO")}
 						placeholder={t("forms:placeholders.member")}
+						tooltip={t("tooltips:uda")}
 					/>
 					<TextField
 						label={t("forms:labels.gmmqNO")}
 						placeholder={t("forms:placeholders.member")}
+						tooltip={t("tooltips:gmmq")}
 					/>
 				</Platform>
 
@@ -88,10 +95,12 @@ export default function MyIdentity() {
 					<TextField
 						label={t("forms:labels.soproqNO")}
 						placeholder={t("forms:placeholders.member")}
+						tooltip={t("tooltips:soproq")}
 					/>
 					<TextField
 						label={t("forms:labels.isniNO")}
 						placeholder={t("forms:placeholders.isni")}
+						tooltip={t("tooltips:isni")}
 					/>
 				</Platform>
 
@@ -136,6 +145,7 @@ export default function MyIdentity() {
 				<TextField
 					label={t("forms:labels.uri")}
 					placeholder={t("forms:placeholders.uri")}
+					tooltip={t("tooltips:uri")}
 				/>
 			</Column>
 		</ScrollView>

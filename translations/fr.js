@@ -40,6 +40,7 @@ export const general = {
 		deleteAccount: "Détruire ce compte",
 		addUsername: "Ajouter un identifiant",
 		delete: "Détruire ce compte",
+		confirmNO: "Valider mon numéro",
 	},
 }
 
@@ -137,6 +138,19 @@ export const forms = {
 			juridiction: "Juridiction",
 			nationality: "Citoyenneté",
 			organisations: "Sélectionner parmi les sociétés",
+
+			identity: {
+				socanTitle: "SOCAN - Diffusion des œuvres musicales",
+				socanSubTitle: "SOCAN DR - Reproduction des œuvres musicales",
+				soproqTitle: "SOPROQ - Droit voisin des producteurs",
+				soproqSubTitle:
+					"Société de gestion collective des droits des producteurs de phonogrammes et vidéogrammes du Québec",
+				soundTitle: "RE:SOUND - Performers' Neighbouring Rights",
+				soundSubtitle:
+					"Music Licensing Compagny (anciennement connu sous le nom de Neighbouring Right Collective of Canada)",
+				artistiTitle: "Droit voisin des interprètes",
+				artistiSubtitle: "Droit d'auteur - Éxécution publique",
+			},
 		},
 	},
 
@@ -288,6 +302,11 @@ export const settings = {
 			title: "Promotions partenaires",
 			subTitle: "Recevoir les offres de nos partenaires",
 		},
+
+		popup: {
+			title: "Valide ton numéro avant !",
+			later: "Plus tard",
+		},
 	},
 }
 
@@ -329,6 +348,8 @@ export const identifiers = {
 }
 
 export const tooltips = {
+	name:
+		"Ce nom sera utilisé pour la production de documents légaux et  doit donc correspondre à votre vrai nom.",
 	stayConnected:
 		"Ceci installe un cookie spécifique dans ton navigateur afin de te permettre de revenir avec cet appareil sans acoir à te reconnecter.",
 	socan: "Society of Composers, Authors and Music Publishers of Canada",
@@ -338,9 +359,10 @@ export const tooltips = {
 	uda: "Union des artistes",
 	gmmq: "Guilde des musiciens et des musiciennes du Québec",
 	soproq:
-		"société de gestion collective des droits des producteurs d'enregistrements sonores et de vidéoclips",
+		"Société de gestion collective des droits des producteurs de phonogrammes et vidéogrammes du Québec",
 	isni: "International Standard Name Identifier",
 	uri: "Uniform Resource Identifier",
+	onGoing: "En attente de validation",
 }
 
 export const widgets = {

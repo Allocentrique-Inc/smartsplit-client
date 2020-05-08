@@ -47,6 +47,7 @@ export default function MyProfile() {
 					<TextField
 						label={t("forms:labels.myLastName")}
 						placeholder={t("forms:placeholders.usualLastName")}
+						tooltip={t("tooltips:name")}
 						undertext={
 							<>
 								<Text small>{t("forms:undertexts.example")}</Text>

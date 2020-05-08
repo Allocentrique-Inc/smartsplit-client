@@ -1,4 +1,4 @@
-# SmartSplit MVP
+# Smartsplit MVP
 
 ## Lancer le projet
 
@@ -51,7 +51,7 @@ Les fichiers sont généralement organisés des plus génériques/souvent utilis
 
 Par exemple: `text.js` et `layout.js` sont des composantes si fondamentales qu'il est très rare qu'on ne veuille pas les utiliser. Ils sont donc directement dans `/src`.
 
-Pareillement, un sélecteur d'ayant droit est spécifique à un système en particulier dans SmartSplit. Il est donc dans `/src/smartsplit/rightholders/select`.
+Pareillement, un sélecteur d'ayant droit est spécifique à un système en particulier dans Smartsplit. Il est donc dans `/src/smartsplit/rightholders/select`.
 
 Les choses reliées entre-elles sont généralement groupées dans le même dossier. Par exemple, une icone SVG très spécifique à une section du site fait plus de sens à côté du fichier qui l'utiliser que de faire l'allé retour vers la racine puis un dossier spécifique dans les assets.
 
@@ -64,7 +64,7 @@ Actuellement, ça ressemble donc à ça:
 - `/pages`: Le point d'entrée de toutes les pages. Généralement une relation 1:1 avec les routes.
   - `/dashboard`: Les pages du tableau de board (attention: pas les pages qui utilisent le layout dashboard)
   - `/tests`: Pages utilisées pour tester les composantes. Showcase d'un groupe de composantes, comme tous les champ formulaires.
-- `/smartsplit`: toutes les sous-composantes qui sont spécifiques aux fonctionnalités et systèmes de SmartSplit: artistes, média, ayant droits, oeuvres.
+- `/smartsplit`: toutes les sous-composantes qui sont spécifiques aux fonctionnalités et systèmes de Smartsplit: artistes, média, ayant droits, oeuvres.
   - `/artist`
   - `/media`
   - `/rightholders`
@@ -77,7 +77,7 @@ Actuellement, ça ressemble donc à ça:
 - `/text.js`: Affichage du texte avec les styles globaux pour l'application
 - `/portals.js`: Téléporter des éléments React, pour faire des overlay.
 - `/theme.js`: Toutes les valeurs et constantes du thème global: Couleurs, Métriques, Polices, Espacements.
-- `/index.js`: Point d'entrée dans le monde applicatif de SmartSplit.
+- `/index.js`: Point d'entrée dans le monde applicatif de Smartsplit.
 
 ## Système de layout
 
@@ -85,7 +85,7 @@ Afin de bien respecter la charte du design sur [ZeroHeight](http://design.smarts
 
 ### Layer
 
-À la base de toutes les autres composantes de layout, un `<Layer>` est simplement une `<View>` qui accepte les divers raccourcis de formattage de SmartSplit:
+À la base de toutes les autres composantes de layout, un `<Layer>` est simplement une `<View>` qui accepte les divers raccourcis de formattage de Smartsplit:
 
 | Prop      | Type      | Description                                                                                                                                                                                                                                         |
 | --------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

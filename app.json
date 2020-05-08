@@ -1,7 +1,7 @@
 {
 	"expo": {
-		"name": "SmartSplit",
-		"slug": "SmartSplit",
+		"name": "Smartsplit",
+		"slug": "Smartsplit",
 		"privacy": "unlisted",
 		"platforms": ["ios", "android", "web"],
 		"version": "0.1.0",

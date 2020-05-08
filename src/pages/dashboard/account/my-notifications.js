@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { View, TouchableWithoutFeedback } from "react-native"
 import { useTranslation } from "react-i18next"
 import { Platform } from "../../../platform"
@@ -7,6 +7,9 @@ import { CheckBox } from "../../../forms"
 import { Text, Link, Heading } from "../../../text"
 import DashboardNavbar from "../../../layout/dashboard-navbar"
 import ConfirmPhoneModal from "./confirm-phone"
+import { DialogModal } from "../../../widgets/modal"
+import Button from "../../../widgets/button"
+import Tooltip from "../../../widgets/tooltip"
 
 export function NotificationColumn(props) {
 	const { header, checkbox } = props
@@ -33,6 +36,12 @@ export function NotificationsRow(props) {
 	const [t] = useTranslation()
 	const [confirmPhoneModalOpen, setConfirmPhoneModalOpen] = useState(false)
 
+	const [openConfirmNOTooltip, setOpenConfirmNOTooltip] = useState(false)
+
+	const [openToolTip, setOpenToolTip] = useState(false)
+
+	const tooltipAnchorRef = useRef()
+
 	return (
 		<>
 			<ConfirmPhoneModal
@@ -52,23 +61,35 @@ export function NotificationsRow(props) {
 						{subTitle}
 					</Text>
 				</View>
-				<View style={{ width: 117 }}>
-					<CheckBox checked={email} disabled={email === "required"} />
-				</View>
+				<TouchableWithoutFeedback
+					onPress={() => openToolTip(true)}
+					onRequestClose={() => setOpenToolTip(false)}
+				>
+					<View style={{ width: 117 }} ref={tooltipAnchorRef}>
+						<CheckBox checked={email} disabled={email === "required"} />
+						<Tooltip relativeTo={tooltipAnchorRef} visible={openToolTip} />
+					</View>
+				</TouchableWithoutFeedback>
 				<View style={{ width: 117 }}>
 					<CheckBox checked={mobile} />
 				</View>
-				<TouchableWithoutFeedback>
-					<View style={{ width: 117 }}>
-						{sms === "validate" ? (
-							<Link link small onClick={() => setConfirmPhoneModalOpen(true)}>
-								{t("settings:tab.interactions.confirmNO")}
-							</Link>
-						) : (
-							sms !== null && <CheckBox checked={sms} />
-						)}
-					</View>
-				</TouchableWithoutFeedback>
+
+				<View style={{ width: 117 }}>
+					{sms === "validate" ? (
+						<Link link small onClick={() => setConfirmPhoneModalOpen(true)}>
+							{t("settings:tab.interactions.confirmNO")}
+						</Link>
+					) : (
+						sms !== null && (
+							<CheckBox checked={sms} onChange={() => setOpenToolTip(true)} />
+						)
+					)}
+				</View>
+
+				<ConfirmTooltip
+					visible={openConfirmNOTooltip}
+					onRequestClose={() => setOpenConfirmNOTooltip(false)}
+				/>
 			</Platform>
 		</>
 	)
@@ -77,6 +98,8 @@ export function NotificationsRow(props) {
 export default function MyNotifications(props) {
 	const [t] = useTranslation()
 	const { interations, admin, connexion, blog, promo, promoPartner } = props
+
+	const [openConfirmNOModal, setOpenConfirmNOModal] = useState(false)
 
 	return (
 		<>
@@ -239,6 +262,7 @@ export default function MyNotifications(props) {
 							mobile={true}
 							sms={false}
 						/>
+
 						<NotificationsRow
 							title={t("settings:tab.connexion.title")}
 							subTitle={t("settings:tab.connexion.subTitle")}
@@ -274,5 +298,28 @@ export default function MyNotifications(props) {
 				</>
 			)}
 		</>
+	)
+}
+
+export function ConfirmTooltip(props) {
+	const [t] = useTranslation()
+	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+	const tooltipAnchorRef = useRef()
+	debugger
+
+	return (
+		<View ref={tooltipAnchorRef} align="center">
+			<Tooltip
+				relativeTo={tooltipAnchorRef}
+				visible={props.visible}
+				width={200}
+			>
+				<Text bold>{t("settings:tab.popup.title")}</Text>
+				<Button text={t("general:buttons.confirmNO")} size={buttonSize} />
+				<Link link onClick={props.onRequestClose}>
+					{t("settings:tab.popup.later")}
+				</Link>
+			</Tooltip>
+		</View>
 	)
 }
