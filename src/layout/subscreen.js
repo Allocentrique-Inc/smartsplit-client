@@ -24,9 +24,13 @@ export default function SubScreenLayout(props) {
 		<>
 			<Navbar title={title}/>
 			<Scrollable>
-				<Column style={{maxWidth: 944, width: "100%", marginRight: "auto", marginLeft: "auto"}}>
-					{children}
-				</Column>
+				<Row of="none" align="center">
+					<Spacer of="component"/>
+					<Column of="none" style={{maxWidth: 944, flex: 1}}>
+						{children}
+					</Column>
+					<Spacer of="component"/>
+				</Row>
 			</Scrollable>
 		</>
 	)

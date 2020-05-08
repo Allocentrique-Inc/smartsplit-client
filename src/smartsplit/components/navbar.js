@@ -42,7 +42,6 @@ export function Navbar(props) {
 			<Row of="component"
 			     valign="center"
 			     onLayout={handleOnLayout}
-			     onMeasure={() => console.log("ONMEASURE")}
 			     style={style}
 			>{title}</Row>
 			<Button tertiary text="Sauvegarder" style={{ marginLeft: "auto" }}/>
