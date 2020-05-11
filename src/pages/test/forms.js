@@ -144,6 +144,7 @@ function TestText() {
 }
 
 function TestBasicFields() {
+	const {t} = useTranslation()
 	const [phoneNumber, setPhoneNumber] = useState("")
 	const [date, setDate] = useState("")
 	const [emails, setEmails] = useState([
@@ -160,7 +161,25 @@ function TestBasicFields() {
 			status: Status.pending,
 		},
 	])
-
+	const [proIds, setProIds] = useState([
+		{
+			name: t("forms:labels.udaNO"),
+			value: ""
+		},
+		{
+			name: t("forms:labels.gmmqNO"),
+			value: ""
+		},{
+			name: t("forms:labels.soproqNO"),
+			value: ""
+		},{
+			name: t("forms:labels.isniNO"),
+			value: ""
+		},{
+			name: t("forms:labels.udaNO"),
+			value: ""
+		}
+	])
 	return (
 		<Column of="component">
 			<Row of="component">
@@ -207,6 +226,7 @@ function TestBasicFields() {
 			<ProIdList
 				label="Identifiants pro"
 				description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+				proIds={proIds}
 			/>
 		</Column>
 	)

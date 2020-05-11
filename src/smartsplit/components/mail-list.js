@@ -52,7 +52,7 @@ export function MailList(props) {
 	return (
 		<Label {...props}>
 			{description && <Paragraph>{description}</Paragraph>}
-			{renderList()}
+			{!!emails && renderList()}
 			<Row>
 				<Button secondary bold text={t("general:buttons.addEmail")} />
 			</Row>

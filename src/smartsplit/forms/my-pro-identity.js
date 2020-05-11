@@ -8,6 +8,7 @@ import { TextField, Dropdown, CheckBox } from "../../forms"
 import { SearchAndTag } from "../../forms/search-and-tag"
 import Button from "../../widgets/button"
 import Label from "../../forms/label"
+import { ProIdList } from "../components/pro-id-list"
 
 export default function MyProIdentity() {
 	const [t] = useTranslation()
@@ -28,18 +29,7 @@ export default function MyProIdentity() {
 					placeholder={t("forms:placeholders.search")}
 					onSearchChange={() => {}}
 				/>
-				<Label label={t("forms:labels.myProIds")}>
-					<Paragraph>{t("forms:descriptions.myProIds")}</Paragraph>
-					<Row>
-						<Column padding="component" layer="left_overground" />
-						<Column of="group">
-							<Row of="component">
-								<TextField label={t("forms:labels.socanNO")} placeholder="" />
-								<TextField label={t("forms:labels.ipiNO")} placeholder="" />
-							</Row>
-						</Column>
-					</Row>
-				</Label>
+				<ProIdList label={t("forms:labels.myProIds")} description={t("forms:descriptions.myProIds")}/>
 			</>
 		)
 	}
@@ -66,10 +56,7 @@ export default function MyProIdentity() {
 
 			{/*</Row>*/}
 
-			{/*<Platform web={Row} of="component" native={{ flex: 1 }}>*/}
-			{/*	<TextField label={t("forms:labels.artistiNO")} placeholder="" />*/}
-			{/*	<TextField label={t("forms:labels.ipnNO")} placeholder="" />*/}
-			{/*</Platform>*/}
+
 
 			{/*<Platform web={Row} of="component" native={{ flex: 1 }}>*/}
 			{/*	<TextField label={t("forms:labels.udaNO")} placeholder="" />*/}
