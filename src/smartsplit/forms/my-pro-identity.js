@@ -9,6 +9,7 @@ import { SearchAndTag } from "../../forms/search-and-tag"
 import Button from "../../widgets/button"
 import Label from "../../forms/label"
 import { ProIdList } from "../components/pro-id-list"
+import { DateField } from "../../forms/date"
 
 export default function MyProIdentity() {
 	const [t] = useTranslation()
@@ -30,6 +31,7 @@ export default function MyProIdentity() {
 					onSearchChange={() => {}}
 				/>
 				<ProIdList label={t("forms:labels.myProIds")} description={t("forms:descriptions.myProIds")}/>
+				<DateField label={t("forms:labels.myBirthday")} placeholder={t("forms:placeholders.date")}/>
 			</>
 		)
 	}

@@ -11,7 +11,7 @@ export const general = {
 
 	checkbox: {
 		stayConnected: "Rester connecté",
-		makePublic: "Make these professional identity numbers public",
+		makePublic: "Make public my professional identifiers listed above",
 	},
 
 	buttons: {
@@ -123,7 +123,7 @@ export const forms = {
 		gmmqNO: "GMMQ Member #",
 		soproqNO: "SOPROQ Member #",
 		isniNO: "ISNI #",
-		birthday: "Date de naissance",
+		myBirthday: "My birthday",
 		uri: "URI",
 		participation: "My participation to entities",
 		myProIds: "My professional identifiers",
@@ -156,6 +156,7 @@ export const forms = {
 		organisations:
 			"Search among the corporate entities, compagnies, societies...",
 		delete: "delete or Delete",
+		date: "DD-MM-YYYY"
 	},
 
 	undertexts: {

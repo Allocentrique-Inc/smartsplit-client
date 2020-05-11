@@ -8,10 +8,11 @@ import AddIcon from "../../../assets/svg/green-plus-circle.svg"
 import { Metrics } from "../../theme"
 import { TextField } from "../../forms"
 import { Platform } from "../../platform"
+import CheckBox from "../../forms/checkbox"
 
 export function ProIdList(props) {
 	const { t } = useTranslation()
-	const { proIds, description } = props
+	const { proIds, description, shareIds } = props
 
 	function renderList() {
 		const lastId = proIds.length % 2 === 1 ? proIds.pop() : null
@@ -53,6 +54,7 @@ export function ProIdList(props) {
 								text={t("general:buttons.addProId")}
 							/>
 						</Row>
+						<CheckBox label={t("general:checkbox.makePublic")}/>
 					</Column>
 				</Row>
 			</Column>
