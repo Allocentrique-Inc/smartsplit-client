@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { Image } from "react-native"
 import {
+	Form,
+	FormSubmit,
+	useForm,
 	LabelText,
 	TextField,
 	PasswordField,
@@ -11,6 +14,8 @@ import {
 	RadioGroupButton,
 	Dropdown,
 	Select,
+	PhoneNumberField,
+	DateField,
 	useImagePicker,
 } from "../../forms"
 import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
@@ -20,13 +25,12 @@ import Button from "../../widgets/button"
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
 import AuthModal from "../auth/modal"
 import { SearchAndTag } from "../../forms/search-and-tag"
-import { PhoneNumberField } from "../../forms/phone-number"
-import { DateField } from "../../forms/date"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
 import { Status } from "../../utils/enums"
 import { MailList } from "../../smartsplit/components/mail-list"
 import { ProIdList } from "../../smartsplit/components/pro-id-list"
+import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 
 export default function FormsTest() {
 	return (
@@ -34,6 +38,7 @@ export default function FormsTest() {
 			<TestText />
 			<TestBasicFields />
 			<TestFilesAndImages />
+			<TestTooltips />
 			<TestBasicDropdowns />
 
 			<Row of="component">
@@ -130,6 +135,10 @@ function TestText() {
 				Cette page a pour but de démontrer les différentes composantes de
 				formulaire et mise en page utilisées dans les formulaires à travers le
 				site
+				<TooltipIcon
+					text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+				ullamcorper elit et tortor consequat dignissim vehicula id tortor."
+				/>
 			</Paragraph>
 
 			<Paragraph>
@@ -181,31 +190,42 @@ function TestBasicFields() {
 		}
 	])
 	return (
-		<Column of="component">
-			<Row of="component">
-				<TextField
-					label="Prénom"
-					label_hint="Optionnel"
-					defaultValue="Testing"
-					placeholder="prénom"
+		<Form
+			values={{ firstName: "John", lastName: "Doe" }}
+			onSubmit={(values) => alert("Submit " + JSON.stringify(values, null, 4))}
+		>
+			<Column of="component">
+				<Row of="component">
+					<TextField
+						name="firstName"
+						label="Prénom"
+						label_hint="Optionnel"
+						placeholder="prénom"
+					/>
+
+					<TextField
+						name="lastName"
+						label="Nom"
+						placeholder="nom"
+						tooltip="Cet nom sera utilisé pour la production des documents légaux, et doit donc correspondre à votre vrai nom."
+					/>
+				</Row>
+
+				<PasswordField
+					name="password"
+					label="Mot de passe"
+					undertext="Lettres et caractères spéciaux"
+					placeholder="correct horse battery staple"
 				/>
 
-				<TextField label="Nom" defaultValue="Test" placeholder="nom" />
-			</Row>
-
-			<PasswordField
-				label="Mot de passe"
-				undertext="Lettres et caractères spéciaux"
-				placeholder="correct horse battery staple"
-			/>
-
-			<TextField
-				label="Adresse courriel"
-				label_hint="Requis"
-				undertext="Entrez votre adresse courriel ici."
-				defaultValue="test@smartsplit.org"
-				placeholder="courriel"
-			/>
+				<TextField
+					name="email"
+					label="Adresse courriel"
+					label_hint="Requis"
+					undertext="Entrez votre adresse courriel ici."
+					defaultValue="test@smartsplit.org"
+					placeholder="courriel"
+				/>
 			<PhoneNumberField
 				value={phoneNumber}
 				onChangeText={setPhoneNumber}
@@ -228,7 +248,13 @@ function TestBasicFields() {
 				description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
 				proIds={proIds}
 			/>
+				<Row align="right">
+					<FormSubmit>
+						{(submit) => <Button text="Soumettre" onClick={submit} />}
+					</FormSubmit>
+				</Row>
 		</Column>
+		</Form>
 	)
 }
 
@@ -347,5 +373,53 @@ function TestFilesAndImages(props) {
 				)}
 			</Row>
 		</Column>
+	)
+}
+
+function TestTooltips() {
+	const [showTooltip, setShowTooltip] = useState(false)
+	const tooltipAnchorRef = React.createRef()
+	const [arrowMode, setArrowMode] = useState(0)
+
+	const MODES = [
+		"bottom-center",
+		"bottom-left",
+		"left-bottom",
+		"left-center",
+		"left-top",
+		"top-left",
+		"top-center",
+		"top-right",
+		"right-top",
+		"right-center",
+		"right-bottom",
+		"bottom-right",
+	]
+
+	useEffect(() => {
+		if (!showTooltip) return
+		const timer = setTimeout(() => setArrowMode(arrowMode + 1), 1000)
+		return () => clearTimeout(timer)
+	}, [showTooltip, arrowMode])
+
+	return (
+		<Row of="component">
+			<Button
+				text="Tooltip"
+				onClick={() => setShowTooltip(!showTooltip)}
+				viewRef={tooltipAnchorRef}
+			/>
+
+			<Tooltip
+				arrow={MODES[arrowMode % MODES.length]}
+				width={300}
+				relativeTo={tooltipAnchorRef}
+				visible={showTooltip}
+				onDismiss={setShowTooltip}
+				text="Cette page a pour but de démontrer les différentes composantes de
+				formulaire et mise en page utilisées dans les formulaires à travers le
+				site"
+			/>
+		</Row>
 	)
 }
