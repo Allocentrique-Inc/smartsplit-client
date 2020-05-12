@@ -47,6 +47,7 @@ export default function MyIdentity() {
 				{/* <SearchAndTag
 					label={t("forms:labels.organisations")}
 					placeholder={t("forms:placeholders.organisations")}
+					tooltip={t("tooltips.organisations")}
 				/> */}
 
 				<Heading level="5">{t("identifiers:title")}</Heading>
@@ -108,7 +109,9 @@ export default function MyIdentity() {
 					label={t("general:checkbox.makePublic")}
 					onChange={setCheckBox}
 					checked={checkBox}
+					tooltip={t("tooltips:makePublic")}
 				/>
+
 				<Row of="component">
 					<Button
 						secondary

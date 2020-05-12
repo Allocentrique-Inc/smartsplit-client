@@ -74,6 +74,7 @@ export default function MySecurity() {
 					/>
 				)}
 				<Heading level="4">{t("general:auth")}</Heading>
+				<Paragraph>{t("general:coming")}</Paragraph>
 			</Column>
 		</ScrollView>
 	)

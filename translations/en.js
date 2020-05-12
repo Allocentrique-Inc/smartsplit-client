@@ -4,6 +4,7 @@ export const general = {
 	or: "or",
 	sendEmailConfirm: "Renvoyer le courriel de validation",
 	auth: "Two factor authentification",
+	coming: "Coming up...",
 
 	alerts: {
 		connected: "Connected!",
@@ -346,22 +347,108 @@ export const identifiers = {
 		"[Empty State] Here you  can   add your professional identifiers related to the Collective Management Organisations, the Unions, the Sectoral Foundations for which you are a member.",
 }
 
+export const managingSocieties = {
+	titles: {
+		socan: "SOCAN - Broadcast of musical works",
+		socanDR: "SOCAN DR - Reproduction of musical works",
+		spacq: "SPACQ",
+		apem: "APEM - Sectoral representation of publishers",
+		adisq: "ADISQ - Sectoral representation of publishers",
+		soproq: "SOPROQ - Neighboring rights of producers",
+		artisti: "ARTISTI - Neighboring rights of pêrformers",
+		uda: "UDA - Union of singers and choristers",
+		gmmq: "GMMQ - Union of musicians and instrumentalists",
+		socan: "SOCAN - Performance rights of musical works",
+		socanRR: "SOCAN RR - Reproduction rights of musical works",
+		cmrra: "CMRRA - Reproduction rights of musical works",
+		sac: "SAC - Creators' sectoral association",
+		cmpa: "CMPA - Publishers' sectoral association",
+		ReSound: "Re:Sound - Sound recording owners' neighbour rights",
+		connect: "Connect - Sound recording owners' neighbour rights",
+		cima: "CIMA - Sound recording owners' sectoral association",
+		ReSoundBis: "Re:Sound - Performers' neighbour rights",
+		actraRacs: "ACTRA RACS - Performers' neighbour rights",
+		mroc: "MROC - Performers' neighbour rights",
+		actra: "ACTRA - Vocalists' professional union",
+		cfm: "CFM - Musicians' professional union",
+	},
+
+	subTitles: {
+		socan: "Society of Composers, Authors and Music Publishers of Canada",
+		ipi: "Interested Parties Information Code",
+		artisti:
+			"Société de gestion collective de l'Union des artistes (UDA) pour la rémunération des droits voisins des artistes interprètes (chanteurs et musiciens)",
+		ipn: "International Performer Number",
+		uda: "Union des artistes",
+		gmmq: "Guilde des musiciens et des musiciennes du Québec",
+		soproq:
+			"Société de gestion collective des droits des producteurs de phonogrammes et vidéogrammes du Québec",
+		isni: "International Standard Name Identifier",
+		spacq: "Société professionnelle des auteurs et des compositeurs du Québec",
+		apem: "Association des professionnels de l'édition musicale",
+		adisq:
+			"Association québécoise de l'industrie du disque, du spectacle et de la vidéo",
+		cmrra: "Canadian Musical Reproduction Rights Agency",
+		sac: "Songwriters Association of Canada",
+		cmpa: "Music Publisher Canada",
+		ReSound: "Music Licensing Company",
+		connect: "Music Licensing (formerly known as the AVLA)",
+		cima: "Canadian Independent Music Association",
+		actra: "Alliance of Canadian Cinema, Television and Radio Artists",
+		actraRacs: "ACTRA Recording Artists' Collecting Society",
+		mroc: "Musicians' Rights Organization Canada",
+		cfm: "Canadian Federation of Musicians",
+	},
+}
+
 export const tooltips = {
-	name:
-		"This name will be used for the production of legal documents and has to match your real name.",
+	firstName:
+		"Your first name(s), as you can read it on your passport or driver's license.",
+	lastName:
+		"Your last name, as you can read it on your passport or driver's license.",
+	artistName:
+		'Your artist name or "aka" (also known as). Example: David Bowie is the artist name of David Robert Jones.',
+	participation:
+		"If you are a member of a group or collaborator of an artist or artistic project, indicate it here.",
+	organisations:
+		"If you founded a company or society (like a publishing company or a label), indicate it here.",
 	stayConnected:
 		"This installs s specific cookie in your browser to allow you coming back with this device without having to reconnect.",
-	socan: "Society of Composers, Authors and Music Publishers of Canada",
-	ipi: "Intersted Parties Information Code",
-	artisti: "Société de gestion collective de l'Union des artistes",
-	ipn: "International Performer Number",
+	socan:
+		"Society of Composers, Authors and Music Publishers of Canada (formerly SODRAC)",
+	socanRR: "Society of Composers, Authors and Music Publishers of Canada",
+	ipi:
+		"IPI (Interested Parties Information) is the unique international identification number for songwriters and publishers [learn more]",
+	artisti:
+		"Société de gestion collective de l'Union des artistes (UDA) pour la rémunération des droits voisins des artistes interprètes (chanteurs et musiciens)",
+	ipn:
+		"The IPN (International Performer Number) is a unique identifier for performers such as singers or musicians  [learn more]",
 	uda: "Union des artistes",
 	gmmq: "Guilde des musiciens et des musiciennes du Québec",
 	soproq:
 		"Société de gestion collective des droits des producteurs de phonogrammes et vidéogrammes du Québec",
-	isni: "International Standard Name Identifier",
-	uri: "Uniform Resource Identifier",
+	isni:
+		"The ISNI (International Standard Name Identifier) is a unique identifier standardized and administered by the International Standard Organization (ISO) [learn more]",
+	uri:
+		"The URI (Uniform Resource Identifier) is a permanent and exclusive web address defining a physical or abstract object [learn more]",
+	spacq: "Société professionnelle des auteurs et des compositeurs du Québec",
+	apem: "Association des professionnels de l'édition musicale",
+	adisq:
+		"Association québécoise de l'industrie du disque, du spectacle et de la vidéo",
+	cmrra: "Canadian Musical Reproduction Rights Agency",
+	sac: "Songwriters Association of Canada",
+	cmpa: "Music Publisher Canada",
+	ReSound:
+		"Music Licensing Company (formerly known as Neighbouring Rights Collective of Canada)",
+	connect: "Music Licensing (formerly known as the AVLA)",
+	cima: "Canadian Independent Music Association",
+	actra: "Alliance of Canadian Cinema, Television and Radio Artists",
+	actraRacs: "ACTRA Recording Artists' Collecting Society",
+	mroc: "Musicians' Rights Organization Canada",
+	cfm: "Canadian Federation of Musicians (formerly referred to as AFM Canada)",
 	onGoing: "Waiting for  a confirmation",
+	makePublic:
+		"If you are comfortable making public your various membership numbers, IPI and IPN, just check this box [learn more]",
 }
 
 export const widgets = {

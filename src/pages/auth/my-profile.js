@@ -35,6 +35,7 @@ export default function MyProfile() {
 					<TextField
 						label={t("forms:labels.myFirstName")}
 						placeholder={t("forms:placeholders.usualFirstName")}
+						tooltip={t("tooltips:firstName")}
 						undertext={
 							<>
 								<Text small>{t("forms:undertexts.example")}</Text>
@@ -47,7 +48,7 @@ export default function MyProfile() {
 					<TextField
 						label={t("forms:labels.myLastName")}
 						placeholder={t("forms:placeholders.usualLastName")}
-						tooltip={t("tooltips:name")}
+						tooltip={t("tooltips:lastName")}
 						undertext={
 							<>
 								<Text small>{t("forms:undertexts.example")}</Text>
@@ -62,6 +63,7 @@ export default function MyProfile() {
 				<TextField
 					//label={t("forms:labels.artistName") + t("forms:labels.optional")}
 					label={t("forms:labels.myArtistName")}
+					tooltip={t("tooltips:artistName")}
 					label_hint={<Text secondary>{t("forms:labels.optional")}</Text>}
 					placeholder=""
 					undertext={
@@ -84,6 +86,7 @@ export default function MyProfile() {
 				{/* 	<SearchAndTag
 				label={t("forms:labels.participation")}
 				placeholder={t("forms:placeholders.search")}
+				tooltip={t("tooltips:participation")}
 			/> */}
 			</Column>
 		</ScrollView>

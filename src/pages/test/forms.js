@@ -320,7 +320,7 @@ function TestFilesAndImages(props) {
 
 function TestTooltips() {
 	const [showTooltip, setShowTooltip] = useState(false)
-	const tooltipAnchorRef = React.createRef()
+	const tooltipAnchorRef = React.createRef() //passé à une vue
 	const [arrowMode, setArrowMode] = useState(0)
 
 	const MODES = [
@@ -353,10 +353,10 @@ function TestTooltips() {
 			/>
 
 			<Tooltip
-				arrow={MODES[arrowMode % MODES.length]}
+				arrow={MODES[arrowMode % MODES.length]} //position de la flèche
 				width={300}
-				relativeTo={tooltipAnchorRef}
-				visible={showTooltip}
+				relativeTo={tooltipAnchorRef} //Faut que ce soit ref à quel élément attaché, var qui permet au tooltip d'Acceder à autre composante
+				visible={showTooltip} //COmme modale
 				onDismiss={setShowTooltip}
 				text="Cette page a pour but de démontrer les différentes composantes de
 				formulaire et mise en page utilisées dans les formulaires à travers le
