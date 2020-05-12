@@ -12,7 +12,7 @@ import { ProIdList } from "../components/pro-id-list"
 import { DateField } from "../../forms/date"
 
 export default function MyProIdentity() {
-	const [t] = useTranslation()
+	const { t } = useTranslation()
 	return (
 		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:identity")}</Heading>}
