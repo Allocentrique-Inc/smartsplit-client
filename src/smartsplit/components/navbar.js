@@ -3,7 +3,6 @@ import { TouchableWithoutFeedback } from "react-native"
 import { Column, Row } from "../../layout"
 import ArrowLeft from "../../svg/arrow-left"
 import { View } from "react-native"
-import Button from "../../widgets/button"
 import { Text } from "react-native-web"
 
 const defaultStyle = {
@@ -56,7 +55,8 @@ export function Navbar(props) {
 			>
 				{title}
 			</Row>
-			<Button tertiary text="Sauvegarder" style={{ marginLeft: "auto" }} />
+
+			<View style={{ marginLeft: "auto" }}>{actions}</View>
 		</Row>
 	)
 }

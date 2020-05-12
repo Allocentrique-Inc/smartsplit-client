@@ -5,7 +5,7 @@ import { Platform } from "../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
-import { TextField, Dropdown, CheckBox } from "../../forms"
+import { TextField, Select, CheckBox } from "../../forms"
 import Button from "../../widgets/button"
 import ConfirmPhoneModal from "../../pages/dashboard/confirm-phone"
 import { PhoneNumberField } from "../../forms/phone-number"
@@ -35,11 +35,18 @@ export default function MyAccount() {
 			<TextField label={t("forms:labels.civicAddress")} />
 			{Platform.web && (
 				<>
-					<Dropdown
-						label={t("forms:labels.dropdowns.language")}
-						noFocusToggle
-						style={{ width: "50%" }}
-					/>
+					<Row of="component">
+						<Select
+							name="locale"
+							label={t("forms:labels.dropdowns.language")}
+							options={[
+								{ key: "fr", value: "Français" },
+								{ key: "en", value: "English" },
+							]}
+						/>
+						<Flex />
+					</Row>
+
 					<Row of="component" valign="bottom">
 						<PhoneNumberField label={t("forms:labels.phone")} />
 						<Button secondary bold text={t("general:buttons.validNo")} />

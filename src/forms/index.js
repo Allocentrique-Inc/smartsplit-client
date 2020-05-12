@@ -204,7 +204,7 @@ export function useFormField(name) {
 export function wrapSimpleField(component, valueProp, onChangeProp) {
 	return function (props) {
 		const { name, error, children, ...nextProps } = props
-		const form = useFormField(name)
+		const form = name && useFormField(name)
 
 		nextProps.error = error
 
