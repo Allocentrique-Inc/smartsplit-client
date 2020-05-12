@@ -13,8 +13,8 @@ import { Text } from "../text"
 import { Overlay } from "./scrollable"
 import { Colors, Metrics } from "../theme"
 
-import ArrowDown from "../../assets/svg/arrow-down"
-import ArrowUp from "../../assets/svg/arrow-up"
+import ArrowDown from "../svg/arrow-down"
+import ArrowUp from "../svg/arrow-up"
 import Search from "../../assets/svg/search.svg"
 
 /**

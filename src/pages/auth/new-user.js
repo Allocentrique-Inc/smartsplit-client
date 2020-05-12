@@ -11,7 +11,7 @@ import Scrollable from "../../widgets/scrollable"
 import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
 import { Metrics, Colors } from "../../theme"
 import UserAvatar from "../../smartsplit/user/avatar"
-import PenIcon from "../../../assets/svg/pen"
+import PenIcon from "../../svg/pen"
 import { Redirect } from "react-router"
 
 import { notEmptyValidator } from "../../../helpers/validators"

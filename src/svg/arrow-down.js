@@ -1,8 +1,8 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
-import { Colors } from "../../src/theme"
+import { Colors } from "../theme"
 
-export default function (props) {
+export default function ArrowDown(props) {
 	const color = props.color || Colors.tertiary
 
 	return (
@@ -14,7 +14,7 @@ export default function (props) {
 			xmlns="http://www.w3.org/2000/svg"
 		>
 			<Path
-				d="M9 18L15 12L9 6"
+				d="M6 9L12 15L18 9"
 				stroke={color}
 				strokeWidth="2"
 				strokeLinecap="round"

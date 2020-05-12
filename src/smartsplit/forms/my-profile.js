@@ -7,7 +7,7 @@ import { Heading, Text } from "../../text"
 import { TextField } from "../../forms"
 import { SearchAndTag } from "../../forms/search-and-tag"
 import UserAvatar from "../user/avatar"
-import PenIcon from "../../../assets/svg/pen"
+import PenIcon from "../../svg/pen"
 
 export default function MyProfile() {
 	const { t } = useTranslation()

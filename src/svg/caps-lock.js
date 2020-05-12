@@ -1,6 +1,6 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
-import { Colors } from "../../src/theme"
+import { Colors } from "../theme"
 
 export default function CapsLock(props) {
 	const color = props.color || Colors.tertiary

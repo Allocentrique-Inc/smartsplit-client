@@ -3,9 +3,9 @@ import { Switch, Route, Redirect } from "react-router"
 import DashboardLayout from "../../layout/dashboard"
 import Scrollable from "../../widgets/scrollable"
 
-import MusicNoteIcon from "../../../assets/svg/music-note"
-import UserCardIcon from "../../../assets/svg/user-card"
-import UsersIcon from "../../../assets/svg/users"
+import MusicNoteIcon from "../../svg/music-note"
+import UserCardIcon from "../../svg/user-card"
+import UsersIcon from "../../svg/users"
 
 import MyWorksPage from "./my-works"
 import SettingsPage from "./settings"
