@@ -15,29 +15,36 @@ export default function MyProIdentity() {
 	const [t] = useTranslation()
 
 	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
-		false
+		false,
 	)
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
 	const [checkBox, setCheckBox] = useState(false)
-	function renderNativeVersion() {}
+
+	function renderNativeVersion() {
+	}
+
 	function renderWebVersion() {
 		return (
 			<>
-				<Heading level="2">{t("settings:identity")}</Heading>
-				<SearchAndTag
-					label={t("forms:labels.participation")}
-					placeholder={t("forms:placeholders.search")}
-					onSearchChange={() => {}}
-				/>
-				<ProIdList label={t("forms:labels.myProIds")} description={t("forms:descriptions.myProIds")}/>
-				<DateField label={t("forms:labels.myBirthday")} placeholder={t("forms:placeholders.date")}/>
+
 			</>
 		)
 	}
+
 	return (
 		<Column of="group">
-			{Platform.web && renderWebVersion()}
+			{Platform.web && <Heading level="2">{t("settings:identity")}</Heading>}
+			<SearchAndTag
+				label={t("forms:labels.participation")}
+				placeholder={t("forms:placeholders.search")}
+				onSearchChange={() => {
+				}}
+			/>
+			<ProIdList label={t("forms:labels.myProIds")} description={t("forms:descriptions.myProIds")}/>
+			<DateField label={t("forms:labels.myBirthday")} placeholder={t("forms:placeholders.date")}/>
+			<TextField label={t("forms:labels.isniNO")} placeholder="1234 1234 1234 1234"/>
+			<TextField label={t("forms:labels.myUri")}  placeholder={t("forms:placeholders.myUri")}/>
 			{/*{Platform.OS === "web" && (*/}
 			{/*	<>*/}
 			{/*		<Row of="component">*/}
@@ -57,7 +64,6 @@ export default function MyProIdentity() {
 			{/*<Row of="component" wrap>*/}
 
 			{/*</Row>*/}
-
 
 
 			{/*<Platform web={Row} of="component" native={{ flex: 1 }}>*/}

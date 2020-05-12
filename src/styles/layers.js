@@ -37,8 +37,8 @@ export default StyleSheet.create({
 		...Platform.select({
 			web: {
 				boxShadow: `inset 2px 0px 0px ${Colors.stroke}`,
-			}
-		})
+			},
+		}),
 	},
 
 	underground: {

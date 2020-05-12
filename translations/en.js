@@ -122,9 +122,10 @@ export const forms = {
 		udaNO: "UDA Member #",
 		gmmqNO: "GMMQ Member #",
 		soproqNO: "SOPROQ Member #",
-		isniNO: "ISNI #",
+		isniNO: "My ISNI",
 		myBirthday: "My birthday",
 		uri: "URI",
+		myUri: "My URI",
 		participation: "My participation to entities",
 		myProIds: "My professional identifiers",
 		phone: "Téléphone mobile",
@@ -156,7 +157,8 @@ export const forms = {
 		organisations:
 			"Search among the corporate entities, compagnies, societies...",
 		delete: "delete or Delete",
-		date: "DD-MM-YYYY"
+		date: "DD-MM-YYYY",
+		myUri: "https://www.my-website.example"
 	},
 
 	undertexts: {

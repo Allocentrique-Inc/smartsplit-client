@@ -125,6 +125,7 @@ export const forms = {
 		isniNO: "Mon ISNI",
 		myBirthday: "Ma date de naissance",
 		uri: "URI",
+		myUri: "Mon URI",
 		participation: "Mes participations à des entités",
 		myProIds: "Mes identifiants professionels",
 		phone: "Téléphone mobile",
@@ -156,8 +157,8 @@ export const forms = {
 		organisations:
 			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
 		delete: "détruire, Détruire ou detruire",
-		date: "JJ-MM-AAAA"
-
+		date: "JJ-MM-AAAA",
+		myUri: "https://www.mon-site-web.exemple"
 	},
 
 	undertexts: {
