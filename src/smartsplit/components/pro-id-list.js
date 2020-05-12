@@ -20,18 +20,22 @@ export function ProIdList(props) {
 		for (let i = 0; i < proIds.length; i += 2) {
 			rows.push(
 				<Platform web={Row} native={Column} of="component" key={i}>
-					<TextField label={proIds[i].name} value={proIds[i].value}/>
-					<TextField label={proIds[i + 1].name} value={proIds[i + 1].value}/>
-				</Platform>)
+					<TextField label={proIds[i].name} value={proIds[i].value} />
+					<TextField label={proIds[i + 1].name} value={proIds[i + 1].value} />
+				</Platform>
+			)
 		}
 		if (!!lastId) {
 			rows.push(
 				<Column
 					of="component"
-					style={Platform.web ? {width: "50%", paddingRight: Metrics.spacing.inside} : null}>
-					<TextField
-						label={lastId.name}
-						value={lastId.value}/>
+					style={
+						Platform.web
+							? { width: "50%", paddingRight: Metrics.spacing.inside }
+							: null
+					}
+				>
+					<TextField label={lastId.name} value={lastId.value} />
 				</Column>
 			)
 		}
@@ -42,19 +46,19 @@ export function ProIdList(props) {
 		<Label {...props}>
 			<Column of="component">
 				{description && <Paragraph>{description}</Paragraph>}
-				<Row >
-					<Column padding="component" layer="left_overground"/>
+				<Row>
+					<Column padding="component" layer="left_overground" />
 					<Column of="group">
 						{proIds && renderList()}
 						<Row>
 							<Button
 								secondaryWithIcon
 								bold
-								icon={<AddIcon/>}
+								icon={<AddIcon />}
 								text={t("general:buttons.addProId")}
 							/>
 						</Row>
-						<CheckBox label={t("general:checkbox.makePublic")}/>
+						<CheckBox label={t("general:checkbox.makePublic")} />
 					</Column>
 				</Row>
 			</Column>

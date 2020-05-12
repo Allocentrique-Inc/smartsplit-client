@@ -153,7 +153,7 @@ function TestText() {
 }
 
 function TestBasicFields() {
-	const {t} = useTranslation()
+	const { t } = useTranslation()
 	const [phoneNumber, setPhoneNumber] = useState("")
 	const [date, setDate] = useState("")
 	const [emails, setEmails] = useState([
@@ -173,21 +173,24 @@ function TestBasicFields() {
 	const [proIds, setProIds] = useState([
 		{
 			name: t("forms:labels.udaNO"),
-			value: ""
+			value: "",
 		},
 		{
 			name: t("forms:labels.gmmqNO"),
-			value: ""
-		},{
+			value: "",
+		},
+		{
 			name: t("forms:labels.soproqNO"),
-			value: ""
-		},{
+			value: "",
+		},
+		{
 			name: t("forms:labels.isniNO"),
-			value: ""
-		},{
+			value: "",
+		},
+		{
 			name: t("forms:labels.udaNO"),
-			value: ""
-		}
+			value: "",
+		},
 	])
 	return (
 		<Form
@@ -226,34 +229,34 @@ function TestBasicFields() {
 					defaultValue="test@smartsplit.org"
 					placeholder="courriel"
 				/>
-			<PhoneNumberField
-				value={phoneNumber}
-				onChangeText={setPhoneNumber}
-				label="Numéro de téléphone"
-				label_hint="Optionnel"
-				placeholder="Numero de tel"
-			/>
-			<DateField
-				value={date}
-				onChangeText={setDate}
-				label="Date de naissance"
-			/>
-			<MailList
-				label="Courriels"
-				emails={emails}
-				description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-			/>
-			<ProIdList
-				label="Identifiants pro"
-				description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-				proIds={proIds}
-			/>
+				<PhoneNumberField
+					value={phoneNumber}
+					onChangeText={setPhoneNumber}
+					label="Numéro de téléphone"
+					label_hint="Optionnel"
+					placeholder="Numero de tel"
+				/>
+				<DateField
+					value={date}
+					onChangeText={setDate}
+					label="Date de naissance"
+				/>
+				<MailList
+					label="Courriels"
+					emails={emails}
+					description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+				/>
+				<ProIdList
+					label="Identifiants pro"
+					description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+					proIds={proIds}
+				/>
 				<Row align="right">
 					<FormSubmit>
 						{(submit) => <Button text="Soumettre" onClick={submit} />}
 					</FormSubmit>
 				</Row>
-		</Column>
+			</Column>
 		</Form>
 	)
 }
