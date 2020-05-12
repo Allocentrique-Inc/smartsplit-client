@@ -13,7 +13,7 @@ import UserActivateAccount from "./pages/user/activate"
 import TestRedux from "./pages/test/TestReduxContainer"
 import AccessControl from "./widgets/AccessControl"
 
-import SettingsPage from "./pages/dashboard/settings" //Test
+import SettingsPage from "./pages/user/settings"
 
 export default function Main(props) {
 	return (
@@ -55,6 +55,10 @@ export function MainRouter(props) {
 				<AccessControl redirectToLogin>
 					<DashboardPage />
 				</AccessControl>
+			</Route>
+
+			<Route path="/user/settings">
+				<SettingsPage />
 			</Route>
 
 			<Route path="/test/forms" exact>

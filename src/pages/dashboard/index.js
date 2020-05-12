@@ -8,7 +8,6 @@ import UserCardIcon from "../../svg/user-card"
 import UsersIcon from "../../svg/users"
 
 import MyWorksPage from "./my-works"
-import SettingsPage from "./settings"
 import MyCollaboratorsPage from "./my-collaborators"
 import ChangePasswordPage from "./change-password"
 import NewEmailModal from "./new-email"
@@ -26,7 +25,7 @@ const MENU = [
 	},
 	{
 		text: "menu:profile",
-		to: "/dashboard/settings/settings",
+		to: "/user/settings",
 		icon: UserCardIcon,
 	},
 	{
@@ -65,20 +64,6 @@ export function DashboardRoutes(props) {
 
 			<Route path="/dashboard/my-works" exact>
 				<MyWorksPage />
-			</Route>
-
-			<Route path="/dashboard/account/settings" exact>
-				<SubScreenLayout
-					title={
-						<>
-							<UserAvatar />
-							<Text bold>Paramètres</Text>
-						</>
-					}
-					onBack={() => {}}
-				>
-					<SettingsPage />
-				</SubScreenLayout>
 			</Route>
 
 			<Route path="/dashboard/my-collaborators" exact>

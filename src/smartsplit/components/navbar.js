@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { TouchableWithoutFeedback } from "react-native"
 import { Column, Row } from "../../layout"
 import ArrowLeft from "../../svg/arrow-left"
 import { View } from "react-native"
@@ -10,6 +11,7 @@ const defaultStyle = {
 	width: "100%",
 	flex: 1,
 }
+
 const getCenteredStyle = (width) => {
 	return {
 		maxWidth: 944,
@@ -20,9 +22,11 @@ const getCenteredStyle = (width) => {
 		marginLeft: -width / 2,
 	}
 }
+
 export function Navbar(props) {
 	const [style, setStyle] = useState(defaultStyle)
 	const { title, onBack, actions } = props
+
 	function handleOnLayout(e) {
 		const layout = e.nativeEvent.layout
 		if (layout.width === 944) {
@@ -39,9 +43,11 @@ export function Navbar(props) {
 			layer="overground_moderate"
 			valign="center"
 		>
-			<View>
-				<ArrowLeft />
-			</View>
+			<TouchableWithoutFeedback onPress={onBack}>
+				<View>
+					<ArrowLeft />
+				</View>
+			</TouchableWithoutFeedback>
 			<Row
 				of="component"
 				valign="center"

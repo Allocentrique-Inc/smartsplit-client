@@ -17,7 +17,7 @@ export default function SubScreenLayout(props) {
 
 	return (
 		<>
-			<Navbar title={title} />
+			<Navbar title={title} onBack={onBack} />
 			<Scrollable>
 				<Column
 					align="center"
