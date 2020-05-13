@@ -6,7 +6,7 @@ import { Row, Column, Group, Flex, Hairline } from "../../layout"
 import { CheckBox } from "../../forms"
 import { Text, Link, Heading } from "../../text"
 import DashboardNavbarNative from "../../layout/subscreen"
-import { Table } from "../../widgets/table"
+import { Table, TableRow } from "../../widgets/table"
 
 export function NotificationColumn(props) {
 	const { header, checkbox } = props
@@ -67,7 +67,6 @@ export function RenderRow(props) {
 export default function MyNotifications(props) {
 	const [t] = useTranslation()
 	const { interations, admin, connexion, blog, promo, promoPartner } = props
-	const head = ["Type", "Courriel", "Mobile", "Texto"]
 	const body = [
 		[
 			"toto",
@@ -122,9 +121,13 @@ export default function MyNotifications(props) {
 	// ]
 
 	return (
-		<Table head={head.map(title => <Text bold>{title}</Text>)}
-		       body={body}
-		/>
+		<Table>
+			<TableRow>
+				<Text>"Type"</Text>
+				<Text>"Courriel"</Text>
+				<Text> "Mobile"</Text>
+			</TableRow>
+		</Table>
 
 		// <Platform web={Group} of="group" native={Column} of="component">
 		// 	{Platform.native && (
