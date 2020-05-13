@@ -19,7 +19,15 @@ export default function SubScreenLayout(props) {
 		<>
 			<Navbar title={title} onBack={onBack} actions={actions} />
 			<Scrollable>
-				<Column align="center" style={{ padding: Metrics.spacing.medium }}>
+				<Column
+					align="center"
+					style={{
+						paddingLeft: Metrics.spacing.medium,
+						paddingRight: Metrics.spacing.medium,
+						paddingTop: Metrics.spacing.section,
+						paddingBottom: Metrics.spacing.section,
+					}}
+				>
 					<Column
 						style={{
 							maxWidth: Metrics.maxContentWidth,

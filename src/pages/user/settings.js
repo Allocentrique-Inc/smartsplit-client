@@ -1,5 +1,6 @@
 import React from "react"
 import { useHistory } from "react-router"
+import { useSelector, useDispatch } from "react-redux"
 import { Column, Hairline } from "../../layout"
 import { Text } from "../../text"
 import { Form, useForm } from "../../forms"
@@ -40,18 +41,32 @@ const settingsDefaultValues = {
 	lastName: "Doe",
 	artistName: "Example",
 	locale: "fr",
+	mobilePhone: "",
+	birthdate: "1969-01-01",
+	isni: "",
+	uri: "https://github.com/iptoki",
 }
 
 export function SettingsForm({ children }) {
 	const history = useHistory()
+	const user = useSelector((s) => s.auth.data.user)
+	const dispatch = useDispatch()
+	console.log(user)
 
 	function handleSubmit(values) {
 		console.log("Save form", values)
+		dispatch({
+			type: "LOGIN_UPDATE_USER",
+			payload: { ...user, ...values },
+		})
 		history.push("/dashboard/")
 	}
 
 	return (
-		<Form values={{ ...settingsDefaultValues }} onSubmit={handleSubmit}>
+		<Form
+			values={{ ...settingsDefaultValues, ...user }}
+			onSubmit={handleSubmit}
+		>
 			{children}
 		</Form>
 	)

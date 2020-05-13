@@ -10,7 +10,7 @@ export function PhoneNumberField(props) {
 	const { t } = useTranslation()
 
 	function handleOnBlur() {
-		const parsedPhone = parsePhoneNumberFromString(value, "CA")
+		const parsedPhone = parsePhoneNumberFromString(value || "", "CA")
 		setError(parsedPhone ? null : t("errors:invalidPhoneNumber"))
 		setIsValid(!!parsedPhone)
 		onChangeText(parsedPhone ? parsedPhone.number : "")

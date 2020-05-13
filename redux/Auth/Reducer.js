@@ -40,6 +40,15 @@ export default function (state = INITIAL_STATE, action) {
 				...newState,
 			}
 
+		case "LOGIN_UPDATE_USER":
+			return {
+				...state,
+				data: {
+					...state.data,
+					user: action.payload,
+				},
+			}
+
 		case "LOGOUT_USER":
 			newState.isReturning = true
 			return { ...state, ...INITIAL_STATE, ...newState }

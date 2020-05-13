@@ -4,20 +4,25 @@ import { View } from "react-native"
 import { Platform } from "../../platform"
 import { Row, Column } from "../../layout"
 import { Heading, Text } from "../../text"
-import { TextField } from "../../forms"
+import { TextField, useFormField } from "../../forms"
 import { SearchAndTag } from "../../forms/search-and-tag"
 import UserAvatar from "../user/avatar"
 import PenIcon from "../../svg/pen"
 
 export default function MyProfile() {
 	const { t } = useTranslation()
+	const firstName = useFormField("firstName")
+	const lastName = useFormField("lastName")
+	const initials =
+		firstName.value.toUpperCase().charAt(0) +
+		lastName.value.toUpperCase().charAt(0)
 
 	return (
 		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:profile")}</Heading>}
 
 			<Row align="left">
-				<UserAvatar size="huge" />
+				<UserAvatar size="huge" initials={initials} />
 				<View style={{ alignSelf: "center", marginLeft: 19 }}>
 					<PenIcon />
 				</View>

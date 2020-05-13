@@ -5,10 +5,9 @@ import { Platform } from "../../platform"
 import { Group, Hairline, Flex, Row, Column } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
-import { TextField, Select, CheckBox } from "../../forms"
+import { TextField, Select, CheckBox, PhoneNumberField } from "../../forms"
 import Button from "../../widgets/button"
 import ConfirmPhoneModal from "../../pages/dashboard/confirm-phone"
-import { PhoneNumberField } from "../../forms/phone-number"
 import { MailList } from "../components/mail-list"
 import { Status } from "../../utils/enums"
 
@@ -48,7 +47,10 @@ export default function MyAccount() {
 					</Row>
 
 					<Row of="component" valign="bottom">
-						<PhoneNumberField label={t("forms:labels.phone")} />
+						<PhoneNumberField
+							name="mobilePhone"
+							label={t("forms:labels.phone")}
+						/>
 						<Button secondary bold text={t("general:buttons.validNo")} />
 					</Row>
 				</>
