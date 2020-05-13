@@ -49,9 +49,9 @@ const settingsDefaultValues = {
 
 export function SettingsForm({ children }) {
 	const history = useHistory()
-	const user = useSelector((s) => s.auth.data.user)
+	// const user = useSelector((s) => s.auth.data.user)
 	const dispatch = useDispatch()
-	console.log(user)
+	// console.log(user)
 
 	function handleSubmit(values) {
 		console.log("Save form", values)
@@ -64,7 +64,7 @@ export function SettingsForm({ children }) {
 
 	return (
 		<Form
-			values={{ ...settingsDefaultValues, ...user }}
+			values={{ ...settingsDefaultValues }}
 			onSubmit={handleSubmit}
 		>
 			{children}

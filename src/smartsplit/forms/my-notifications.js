@@ -70,33 +70,56 @@ export default function MyNotifications(props) {
 	const head = ["Type", "Courriel", "Mobile", "Texto"]
 	const body = [
 		[
-			<Column>
-				<Text>Interactions générales</Text>
-				<Text secondary>Proposition et suivi davants droit</Text>
-			</Column>,
-			<CheckBox/>,
-			<CheckBox/>,
-			<CheckBox/>
+			"toto",
+			"tata",
+			"titi",
+			"tutu"
+		],[
+			"toto",
+			"tata",
+			"titi",
+			"tutu"
+		],[
+			"toto",
+			"tata",
+			"titi",
+			"tutu"
+		],[
+			"toto",
+			"tata",
+			"titi",
+			"tutu"
 		],
-		[
-			<Column>
-				<Text>Messages administratifs</Text>
-				<Text secondary>Mises à jours, reçus, paiements</Text>
-			</Column>,
-			<CheckBox/>,
-			<CheckBox/>,
-			<CheckBox/>
-		],
-		[
-			<Column>
-				<Text>Interactions générales</Text>
-				<Text secondary>Proposition et suivi davants droit</Text>
-			</Column>,
-			<CheckBox/>,
-			<CheckBox/>,
-			<CheckBox/>
-		]
 	]
+	// const body = [
+	// 	[
+	// 		<Column>
+	// 			<Text>Interactions générales</Text>
+	// 			<Text secondary>Proposition et suivi davants droit</Text>
+	// 		</Column>,
+	// 		<CheckBox/>,
+	// 		<CheckBox/>,
+	// 		<CheckBox/>
+	// 	],
+	// 	[
+	// 		<Column>
+	// 			<Text>Messages administratifs</Text>
+	// 			<Text secondary>Mises à jours, reçus, paiements</Text>
+	// 		</Column>,
+	// 		<CheckBox/>,
+	// 		<CheckBox/>,
+	// 		<CheckBox/>
+	// 	],
+	// 	[
+	// 		<Column>
+	// 			<Text>Interactions générales</Text>
+	// 			<Text secondary>Proposition et suivi davants droit</Text>
+	// 		</Column>,
+	// 		<CheckBox/>,
+	// 		<CheckBox/>,
+	// 		<CheckBox/>
+	// 	]
+	// ]
 
 	return (
 		<Table head={head.map(title => <Text bold>{title}</Text>)}

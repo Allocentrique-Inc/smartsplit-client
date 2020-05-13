@@ -20,11 +20,10 @@ export function Table(props) {
 	} = props
 	const flex = proportions ? proportions : Array(head.length).fill("auto")
 	function renderRow(row, index = 0) {
+		console.log("renderrow")
 		return <Row key={index} style={[TableStyle.row, rowStyle]}>
 			{row.map((Item, index) =>
-				typeof Item === "string" ?
-					<Text key={index} style={{flex: flex[index]}}>{Item}</Text>
-					:  <Item style={{flex: flex[index]}} />)}
+					<Text key={index} style={{flex: flex[index]}}>{Item}</Text>)}
 		</Row>
 	}
 
