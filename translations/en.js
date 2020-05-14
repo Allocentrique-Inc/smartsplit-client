@@ -35,6 +35,7 @@ export const general = {
 		passwordChange: "Change the password",
 		validNo: "Validate this number",
 		confirmNO: "Confirm",
+		checkPhone: "Validate phone number",
 		addEmail: "Add an Email",
 		addProId: "Add a professional identifier",
 		deleteAccount: "Cancel this settings",
@@ -251,13 +252,15 @@ export const settings = {
 	tab: {
 		type: "Type",
 		email: "Email",
+		byEmail: "By e-mail",
 		mobile: "Mobile",
+		push: "Push",
 		sms: "Text",
+		bySms: "By text",
 
 		interactions: {
 			title: "General interactions",
 			subTitle: "Proposals and follow-ups",
-			confirmNO: "Confirm the number",
 		},
 
 		administration: {

@@ -63,10 +63,7 @@ export function SettingsForm({ children }) {
 	}
 
 	return (
-		<Form
-			values={{ ...settingsDefaultValues }}
-			onSubmit={handleSubmit}
-		>
+		<Form values={{ ...settingsDefaultValues }} onSubmit={handleSubmit}>
 			{children}
 		</Form>
 	)

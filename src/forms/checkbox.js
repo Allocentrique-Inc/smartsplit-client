@@ -8,7 +8,7 @@ import { Colors, Metrics } from "../theme"
 import FormStyles from "../styles/forms"
 
 export default function CheckBox(props) {
-	const { children, label, checked, disabled, onChange } = props
+	const { children, center, label, checked, disabled, onChange } = props
 	const [checkedState, setCheckedState] = useState(checked)
 	const actualState = onChange ? checked : checkedState
 
@@ -25,7 +25,7 @@ export default function CheckBox(props) {
 			hitSlop={Metrics.hitSlop}
 			accessibilityRole="checkbox"
 		>
-			<Row of="inside">
+			<Row of="inside" valign={center ? "center" : ""}>
 				<Check disabled={disabled} style={FormStyles.checkbox_svg} />
 				{inside}
 			</Row>

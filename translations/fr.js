@@ -34,6 +34,7 @@ export const general = {
 		add: "Ajouter",
 		passwordChange: "Changer le mot de passe",
 		validNo: "Valider ce numéro",
+		checkPhone: "Valider le numéro",
 		confirmNO: "Valider",
 		addEmail: "Ajouter un courriel",
 		addProId: "Ajouter un identifiant",
@@ -251,13 +252,15 @@ export const settings = {
 	tab: {
 		type: "Type",
 		email: "Courriel",
+		byEmail: "Par courriel",
 		mobile: "Mobile",
+		push: "Push",
 		sms: "Texto",
+		bySms: "Par texto",
 
 		interactions: {
 			title: "Interactions générales",
 			subTitle: "Propositions et suivis d'avants droit",
-			confirmNO: "Confirmer le numéro",
 		},
 
 		administration: {
