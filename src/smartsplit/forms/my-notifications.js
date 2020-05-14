@@ -121,8 +121,17 @@ export default function MyNotifications(props) {
 	// ]
 
 	return (
-		<Table>
+		<Table proportions={[1, 1, 1]}>
+			<TableRow header>
+				<Text bold>Type</Text>
+				<Text bold>Courriel</Text>
+				<Text bold>Mobile</Text>
+			</TableRow>
 			<TableRow>
+				<CheckBox/>
+				<CheckBox/>
+				<CheckBox/>
+			</TableRow><TableRow>
 				<Text>"Type"</Text>
 				<Text>"Courriel"</Text>
 				<Text> "Mobile"</Text>
