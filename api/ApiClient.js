@@ -21,3 +21,29 @@ axiosClient.interceptors.response.use(
 		}
 	}
 )
+
+export const client = axiosClient
+
+export function createCrudClient(endpoint) {
+	async function create(data) {
+		return await client.post(endpoint, data)
+	}
+
+	async function read(id) {
+		return await client.get(`${endpoint}/${id}`)
+	}
+
+	async function replace(id, data) {
+		return await client.put(`${endpoint}/${id}`, data)
+	}
+
+	async function update(id, data) {
+		return await client.patch(`${endpoint}/${id}`, data)
+	}
+
+	async function destroy(id) {
+		return await client.delete(`${endpoint}/${id}`)
+	}
+
+	return { create, read, replace, update, destroy }
+}
