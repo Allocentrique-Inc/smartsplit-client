@@ -59,16 +59,14 @@ export function SettingsForm({ children }) {
 		phoneNumber: phone ? phone.number : "",
 	}
 
-	function handleSubmit(values) {
+	async function handleSubmit(values) {
 		const diff = objdiff(formValues, values)
 
 		if (Object.keys(diff).length > 0) {
-			user.update(diff).then(() => {
-				history.push("/dashboard/")
-			})
-		} else {
-			history.push("/dashboard/")
+			await user.update(diff)
 		}
+
+		history.push("/dashboard/")
 	}
 
 	return (
