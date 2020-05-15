@@ -1,5 +1,6 @@
 import * as UsersAPI from "../../api/Users"
 import { saveAuth } from "../../helpers/storageAuth"
+import { createCRUDActions } from "../api"
 
 export function registerUser_request() {
 	return {
@@ -178,3 +179,5 @@ export function updateUser(details) {
 		}
 	}
 }
+
+export default createCRUDActions(UsersAPI.default, "USER_SETSTATE")

@@ -1,3 +1,5 @@
+import { entityReducer } from "../api"
+
 const INITIAL_STATE = {
 	registerUser: {
 		data: null,
@@ -30,6 +32,10 @@ export default function (state = INITIAL_STATE, action) {
 	let newState = {}
 
 	switch (action.type) {
+		case "USER_SETSTATE":
+			entityReducer(state, newState, action)
+			break
+
 		case "REGISTER_USER_RESET":
 			newState.registerUser = INITIAL_STATE.registerUser
 

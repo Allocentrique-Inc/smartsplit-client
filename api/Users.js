@@ -1,4 +1,4 @@
-import { axiosClient } from "./ApiClient"
+import { axiosClient, createCrudClient } from "./ApiClient"
 
 export function registerUser(data, axiosConfig = {}) {
 	return axiosClient.request({
@@ -44,3 +44,5 @@ export function updateUser(details, axiosConfig = {}) {
 		...axiosConfig,
 	})
 }
+
+export default createCrudClient("/users")
