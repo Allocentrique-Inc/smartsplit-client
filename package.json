@@ -21,6 +21,7 @@
 		"libphonenumber-js": "^1.7.50",
 		"metro-config": "^0.58.0",
 		"moment": "^2.24.0",
+		"object-diff": "^0.0.4",
 		"react": "16.9.0",
 		"react-dom": "16.9.0",
 		"react-i18next": "^11.3.4",
@@ -34,6 +35,7 @@
 		"react-router-dom": "^5.1.2",
 		"redux": "^4.0.5",
 		"redux-thunk": "^2.3.0",
+		"shallowequal": "^1.1.0",
 		"zxcvbn": "^4.4.2"
 	},
 	"devDependencies": {

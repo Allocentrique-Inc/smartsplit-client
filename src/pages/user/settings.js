@@ -1,6 +1,7 @@
 import React from "react"
 import { useHistory } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
+import objdiff from "object-diff"
 import { Column, Hairline } from "../../layout"
 import { Text } from "../../text"
 import { Form, useForm } from "../../forms"
@@ -12,6 +13,7 @@ import MyAccount from "../../smartsplit/forms/my-account"
 import SubScreenLayout from "../../layout/subscreen"
 import UserAvatar from "../../smartsplit/user/avatar"
 import Button from "../../widgets/button"
+import { useSessionUser } from "../../../redux/Users/hooks"
 
 const ProfileMenu = [
 	{
@@ -41,7 +43,6 @@ const settingsDefaultValues = {
 	lastName: "Doe",
 	artistName: "Example",
 	locale: "fr",
-	mobilePhone: "",
 	birthdate: "1969-01-01",
 	isni: "",
 	uri: "https://github.com/iptoki",
@@ -49,21 +50,29 @@ const settingsDefaultValues = {
 
 export function SettingsForm({ children }) {
 	const history = useHistory()
-	// const user = useSelector((s) => s.auth.data.user)
-	const dispatch = useDispatch()
-	// console.log(user)
+	const user = useSessionUser()
+
+	const phone = user.data && user.data.mobilePhone
+	const formValues = {
+		...settingsDefaultValues,
+		...user.data,
+		phoneNumber: phone ? phone.number : "",
+	}
 
 	function handleSubmit(values) {
-		console.log("Save form", values)
-		dispatch({
-			type: "LOGIN_UPDATE_USER",
-			payload: { ...user, ...values },
-		})
-		history.push("/dashboard/")
+		const diff = objdiff(formValues, values)
+
+		if (Object.keys(diff).length > 0) {
+			user.update(diff).then(() => {
+				history.push("/dashboard/")
+			})
+		} else {
+			history.push("/dashboard/")
+		}
 	}
 
 	return (
-		<Form values={{ ...settingsDefaultValues }} onSubmit={handleSubmit}>
+		<Form key={user.data} values={formValues} onSubmit={handleSubmit}>
 			{children}
 		</Form>
 	)
@@ -81,6 +90,7 @@ export default function SettingsPage() {
 export function SettingsPageFull() {
 	const history = useHistory()
 	const form = useForm()
+	const user = useSessionUser()
 
 	return (
 		<SubScreenLayout
@@ -88,6 +98,7 @@ export function SettingsPageFull() {
 				<>
 					<UserAvatar size="medium" />
 					<Text bold>Paramètres</Text>
+					{user.state !== "ready" && <Text>(chargement en cours...)</Text>}
 				</>
 			}
 			onBack={() => history.goBack()}

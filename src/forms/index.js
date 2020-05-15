@@ -46,6 +46,12 @@ export class Form extends React.PureComponent {
 		}
 	}
 
+	updateValues(values) {
+		for (let key in values) {
+			this.getField(key).value = values[key]
+		}
+	}
+
 	getField(name) {
 		if (this.form.fields[name]) {
 			return this.form.fields[name]

@@ -48,7 +48,7 @@ export default function MyAccount() {
 
 					<Row of="component" valign="bottom">
 						<PhoneNumberField
-							name="mobilePhone"
+							name="phoneNumber"
 							label={t("forms:labels.phone")}
 						/>
 						<Button secondary bold text={t("general:buttons.validNo")} />
