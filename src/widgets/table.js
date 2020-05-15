@@ -37,7 +37,7 @@ export function TableRow(props) {
 		]
 	}
 
-	let newChildren = []
+	const newChildren = []
 	forEachChildren(children, (child, index) => {
 		newChildren.push(
 			<View style={[TableStyle.cell_regular, getCellStyle(index)]}>
@@ -45,14 +45,20 @@ export function TableRow(props) {
 			</View>
 		)
 	})
-	return <Row style={header ? null : TableStyle.row_regular}>{newChildren}</Row>
+	return React.createElement(
+		Row,
+		{ style: header ? null : TableStyle.row_regular },
+		...newChildren
+	)
 }
 
 export function Table(props) {
 	const { proportions, rowStyle, children, ...nextProps } = props
-	let newChildren = []
+	const newChildren = []
+
 	forEachChildren(children, (child) => {
 		newChildren.push(React.cloneElement(child, { proportions: proportions }))
 	})
-	return <Column {...nextProps}>{newChildren}</Column>
+
+	return React.createElement(Column, nextProps, ...newChildren)
 }
