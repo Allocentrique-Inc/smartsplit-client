@@ -1,9 +1,24 @@
 import React from "react"
 import { Column } from "../layout"
-import { Heading } from "../text"
+import { StyleSheet } from "react-native"
 import Scrollable from "../widgets/scrollable"
 import { Navbar } from "../smartsplit/components/navbar"
 import { Metrics } from "../theme"
+
+const LayoutStyle = StyleSheet.create({
+	outer_container: {
+		paddingLeft: Metrics.spacing.medium,
+		paddingRight: Metrics.spacing.medium,
+		paddingTop: Metrics.spacing.section,
+		paddingBottom: Metrics.spacing.section,
+	},
+
+	inner_container: {
+		maxWidth: Metrics.maxContentWidth,
+		width: "100%",
+		flex: 1,
+	},
+})
 
 export default function SubScreenLayout(props) {
 	const { title, onBack, actions, children } = props
@@ -12,24 +27,8 @@ export default function SubScreenLayout(props) {
 		<>
 			<Navbar title={title} onBack={onBack} actions={actions} />
 			<Scrollable>
-				<Column
-					align="center"
-					style={{
-						paddingLeft: Metrics.spacing.medium,
-						paddingRight: Metrics.spacing.medium,
-						paddingTop: Metrics.spacing.section,
-						paddingBottom: Metrics.spacing.section,
-					}}
-				>
-					<Column
-						style={{
-							maxWidth: Metrics.maxContentWidth,
-							width: "100%",
-							flex: 1,
-						}}
-					>
-						{children}
-					</Column>
+				<Column align="center" style={LayoutStyle.outer_container}>
+					<Column style={LayoutStyle.inner_container}>{children}</Column>
 				</Column>
 			</Scrollable>
 		</>

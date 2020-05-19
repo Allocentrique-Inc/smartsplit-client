@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Image } from "react-native"
+import { Image, TouchableWithoutFeedback, View } from "react-native"
 import {
 	Form,
 	FormSubmit,
-	useForm,
 	LabelText,
 	TextField,
 	PasswordField,
@@ -18,15 +17,7 @@ import {
 	DateField,
 	useImagePicker,
 } from "../../forms"
-import {
-	Section,
-	Group,
-	Column,
-	Row,
-	Hairline,
-	Layer,
-	NoSpacer,
-} from "../../layout"
+import { Section, Column, Row, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
 
@@ -39,6 +30,14 @@ import { Status } from "../../utils/enums"
 import { MailList } from "../../smartsplit/components/mail-list"
 import { ProIdList } from "../../smartsplit/components/pro-id-list"
 import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
+
+import {
+	AdminList,
+	AdminListItem,
+} from "../../smartsplit/components/admin-list"
+import Pen from "../../svg/pen"
+import Trash from "../../svg/trash"
+import { Colors } from "../../theme"
 
 export default function FormsTest() {
 	return (
@@ -145,10 +144,10 @@ function TestText() {
 				Cette page a pour but de démontrer les différentes composantes de
 				formulaire et mise en page utilisées dans les formulaires à travers le
 				site
-				<TooltipIcon
-					text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-				ullamcorper elit et tortor consequat dignissim vehicula id tortor."
-				/>
+				{/*<TooltipIcon*/}
+				{/*	text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum*/}
+				{/*ullamcorper elit et tortor consequat dignissim vehicula id tortor."*/}
+				{/*/>*/}
 			</Paragraph>
 
 			<Paragraph>
@@ -272,35 +271,123 @@ function TestBasicFields() {
 }
 
 function TestBasicDropdowns() {
+	const { t } = useTranslation()
 	return (
-		<Row of="component">
-			<Dropdown
-				label="Dropdown simple"
-				placeholder="Sélectionnez..."
-				style={{ flex: 1 }}
-				noFocusToggle
-			>
-				<Column of="component" layer="overground_moderate" padding="component">
-					<Heading level="4">Un dropdown simple</Heading>
-					<Paragraph>
-						Ce dropdown ne gère aucun état ou sélection: on est libre d'y mettre
-						ce qu'on veut à l'intérieur. Pour un dropdown de sélection, ou
-						autocomplete, voir: Select, AutocompleteField.
-					</Paragraph>
-				</Column>
-			</Dropdown>
+		<>
+			<Row of="component">
+				<Dropdown
+					label="Dropdown simple"
+					placeholder="Sélectionnez..."
+					style={{ flex: 1 }}
+					noFocusToggle
+				>
+					<Column
+						of="component"
+						layer="overground_moderate"
+						padding="component"
+					>
+						<Heading level="4">Un dropdown simple</Heading>
+						<Paragraph>
+							Ce dropdown ne gère aucun état ou sélection: on est libre d'y
+							mettre ce qu'on veut à l'intérieur. Pour un dropdown de sélection,
+							ou autocomplete, voir: Select, AutocompleteField.
+						</Paragraph>
+					</Column>
+				</Dropdown>
 
-			<Select
-				label="Champ de sélection"
-				placeholder="Sélectionnez..."
-				style={{ flex: 1 }}
-				options={[
-					{ key: "A", value: "Option A" },
-					{ key: "B", value: "Option B" },
-					{ key: "C", value: "Option C" },
-				]}
-			/>
-		</Row>
+				<Select
+					label="Champ de sélection"
+					placeholder="Sélectionnez..."
+					style={{ flex: 1 }}
+					options={[
+						{ key: "A", value: "Option A" },
+						{ key: "B", value: "Option B" },
+						{ key: "C", value: "Option C" },
+					]}
+				/>
+			</Row>
+			<AdminList
+				title={
+					<Column>
+						<Text bold>Super titre de liste</Text>
+						<Text secondary small>
+							Mouain, faut pas exagérer quand même.
+						</Text>
+					</Column>
+				}
+			>
+				<AdminListItem key={0} content="Piano" pending />
+				<AdminListItem key={1} content="Accordeon" />
+				<AdminListItem
+					key={2}
+					content={
+						<Column>
+							<Text bold>Le ouarkalélé</Text>
+							<Text small secondary>
+								Petite description
+							</Text>
+						</Column>
+					}
+				/>
+				<AdminListItem key={3} content="Whatever" />
+				<AdminListItem key={4} content="With custom action">
+					<TouchableWithoutFeedback>
+						<View>
+							<Pen />
+						</View>
+					</TouchableWithoutFeedback>
+					<Button
+						dangerWithIcon
+						icon={<Trash color={Colors.error} />}
+						text={t("general:buttons.toRefuse")}
+					/>
+				</AdminListItem>
+				<AdminListItem
+					hideBullet
+					list
+					key={5}
+					content={
+						<AdminList
+							title={
+								<Column>
+									<Text bold>Super titre de sous-liste</Text>
+									<Text secondary small>
+										Mouain, faut pas exagérer quand même.
+									</Text>
+								</Column>
+							}
+						>
+							<AdminListItem key={0} content="Piano" pending />
+							<AdminListItem key={1} content="Accordeon" />
+							<AdminListItem
+								key={2}
+								content={
+									<>
+										<Text bold>Le ouarkalélé</Text>
+										<Text small secondary>
+											Petite description
+										</Text>
+									</>
+								}
+							/>
+							<AdminListItem key={3} content="Whatever" />
+							<AdminListItem key={4} content="With custom action">
+								<TouchableWithoutFeedback>
+									<View>
+										<Pen />
+									</View>
+								</TouchableWithoutFeedback>
+								<Button
+									dangerWithIcon
+									icon={<Trash color={Colors.error} />}
+									text={t("general:buttons.toRefuse")}
+								/>
+							</AdminListItem>
+						</AdminList>
+					}
+				/>
+			</AdminList>
+		</>
 	)
 }
 

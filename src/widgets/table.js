@@ -7,6 +7,11 @@ export const TableStyle = StyleSheet.create({
 	row_regular: {
 		...Platform.select({
 			web: { boxShadow: `inset 0px 1px 0px ${Colors.stroke}` },
+			default: {
+				borderTopWidth: 1,
+				borderTopColor: Colors.stroke,
+				borderStyle: "solid",
+			},
 		}),
 	},
 	cell_regular: {
@@ -40,7 +45,7 @@ export function TableRow(props) {
 	const newChildren = []
 	forEachChildren(children, (child, index) => {
 		newChildren.push(
-			<View style={[TableStyle.cell_regular, getCellStyle(index)]}>
+			<View key={index} style={[TableStyle.cell_regular, getCellStyle(index)]}>
 				{child}
 			</View>
 		)

@@ -50,7 +50,9 @@ const MENU = [
 export default function DashboardPage(props) {
 	return (
 		<DashboardLayout menuItems={MENU}>
-			<DashboardRoutes />
+			<Scrollable>
+				<DashboardRoutes />
+			</Scrollable>
 		</DashboardLayout>
 	)
 }
