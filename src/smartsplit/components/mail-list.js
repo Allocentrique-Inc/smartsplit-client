@@ -1,13 +1,14 @@
 import React from "react"
 import { View } from "react-native"
 import { Column, Flex, Row, Spacer } from "../../layout"
-import CheckMark from "../../../assets/svg/green-check-mark.svg"
 import MoreHorizontal from "../../../assets/svg/more-horizontal.svg"
+import CheckMark from "../../svg/check-mark"
 import { Status } from "../../utils/enums"
 import { Link, Paragraph, Text } from "../../text"
 import Label from "../../forms/label"
 import Button from "../../widgets/button"
 import { useTranslation } from "react-i18next"
+import { Colors } from "../../theme"
 
 export function MailList(props) {
 	const { t } = useTranslation()
@@ -22,7 +23,7 @@ export function MailList(props) {
 			<Column of="none">
 				{emails.map((email, index) => (
 					<Row padding="small" of="component" valign="center" key={index}>
-						{isMailChecked(email) && <CheckMark />}
+						{isMailChecked(email) && <CheckMark color={Colors.action} />}
 						{email.status === Status.pending && <MoreHorizontal />}
 						<Column of="none">
 							<Text>{email.email}</Text>

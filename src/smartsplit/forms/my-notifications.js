@@ -1,11 +1,9 @@
 import React from "react"
-import { View } from "react-native"
 import { useTranslation } from "react-i18next"
 import { Platform } from "../../platform"
-import { Row, Column, Group, Flex, Hairline, Spacer } from "../../layout"
+import { Column, Spacer } from "../../layout"
 import { CheckBox } from "../../forms"
-import { Text, Link, Heading } from "../../text"
-import DashboardNavbarNative from "../../layout/subscreen"
+import { Text, Heading } from "../../text"
 import { Table, TableRow } from "../../widgets/table"
 
 export default function MyNotifications() {

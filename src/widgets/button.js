@@ -124,9 +124,11 @@ export function Button({
 	tertiary,
 	bold,
 	disabled,
+	deactivate,
 	error,
 	megaError,
 	danger,
+	dangerWithIcon,
 	onClick,
 	style,
 	children,
@@ -173,6 +175,10 @@ export function Button({
 		addFrame("frame_secondary")
 		addText("text_error")
 		textStyle.push(TypographyStyles.text["bold"])
+	} else if (dangerWithIcon) {
+		addFrame("frame_secondary_with_icon")
+		addText("text_error")
+		textStyle.push(TypographyStyles.text["bold"])
 	} else {
 		addFrame("frame_primary")
 		addText("text_primary")
@@ -202,7 +208,7 @@ export function Button({
 	}
 
 	return (
-		<TouchableWithoutFeedback onPress={handleClick}>
+		<TouchableWithoutFeedback onPress={handleClick} disabled={deactivate}>
 			{content}
 		</TouchableWithoutFeedback>
 	)

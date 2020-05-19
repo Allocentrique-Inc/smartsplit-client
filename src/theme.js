@@ -67,6 +67,7 @@ export const Colors = {
 	tertiary: "#8DA0B2",
 	stroke: "#DCDFE1",
 	inactive: "#8DA0B3",
+	alert_warning: "#A55108",
 
 	secondaries: {
 		purple: "#BCBBF2",
