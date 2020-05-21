@@ -1,3 +1,5 @@
+import React from "react"
+
 export const general = {
 	forgotPassword: "Mot de passe oublié ?",
 	noAccount: "Je n'ai pas de compte",
@@ -11,7 +13,8 @@ export const general = {
 
 	checkbox: {
 		stayConnected: "Rester connecté",
-		makePublic: "Rendre publics mes identifiants professionnels énumérés ci-dessus",
+		makePublic:
+			"Rendre publics mes identifiants professionnels énumérés ci-dessus",
 	},
 
 	buttons: {
@@ -74,8 +77,7 @@ export const errors = {
 		"Ce compte n'a pas encore été activé. Vérifie tes courriels, ou essaie de t'inscrire à nouveau !",
 	noUser:
 		"Aucun utilisateur n'a été trouvé avec cette adresse courriel. Peut-être avez-vous utilisé une autre addresse ?",
-	invalidDate:
-		"Date invalide",
+	invalidDate: "Date invalide",
 	invalidPhoneNumber: "Numéro de téléphone invalide",
 	password: {
 		weak: "Mot de passe faible",
@@ -143,8 +145,10 @@ export const forms = {
 	},
 
 	descriptions: {
-		myEmails: "Centralise ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t’inviter.",
-		myProIds: "Ici, tu peux ajouter tes identifiants professionnels en lien avec les Sociétés de gestion collectives, les Syndicats et les Associations sectorielles pour lesquelles tu es membre."
+		myEmails:
+			"Centralise ici les différents courriels avec lesquels tes collaborateurs seraient susceptibles de t’inviter.",
+		myProIds:
+			"Ici, tu peux ajouter tes identifiants professionnels en lien avec les Sociétés de gestion collectives, les Syndicats et les Associations sectorielles pour lesquelles tu es membre.",
 	},
 
 	placeholders: {
@@ -162,16 +166,29 @@ export const forms = {
 			"Rechercher parmi les entités corporatives, entreprises, sociétés...",
 		delete: "détruire, Détruire ou detruire",
 		date: "JJ-MM-AAAA",
-		myUri: "https://www.mon-site-web.exemple"
+		myUri: "https://www.mon-site-web.exemple",
 	},
 
 	undertexts: {
-		firstName: "Exemple: <i>Madonna Louise</i>",
-		lastName: "Exemple: <i>Ciccone</i>",
-		artistName: "Par exemple, <i>Madonna</i> est le nom d'artiste de <i>Madonna Louise Ciccone</i>.",
+		firstName: () => (
+			<>
+				Exemple: <i>Madonna Louise</i>
+			</>
+		),
+		lastName: () => (
+			<>
+				Exemple: <i>Ciccone</i>
+			</>
+		),
+		artistName: () => (
+			<>
+				Par exemple, <i>Madonna</i> est le nom d'artiste de{" "}
+				<i>Madonna Louise Ciccone</i>.
+			</>
+		),
 		mainEmail: "Courriel principal",
 		setAsMain: "Définir comme principal",
-		resendConfirmEmail: "Renvoyer le courriel de confirmation"
+		resendConfirmEmail: "Renvoyer le courriel de confirmation",
 	},
 }
 
@@ -309,4 +326,10 @@ export const confirmNO = {
 	title: "Valider ton numéro de téléphone",
 	codeSent: "Un code t'a été envoyé par message texte.",
 	enterNO: "Entre le code de vérification",
+}
+
+export const widgets = {
+	pictureCrop: {
+		title: "Recadre ta photo",
+	},
 }

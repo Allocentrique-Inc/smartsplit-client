@@ -1,11 +1,8 @@
 import React from "react"
 import { Text as TextView, TouchableWithoutFeedback } from "react-native"
+import { mapChildren } from "./layout"
 import TypographyStyles from "./styles/typography"
 import MetricsStyles from "./styles/metrics"
-
-// Note: Il est important qu'il n'y ait pas d'espacement entre les tags, tel que
-// <TextView>{props.children}</TextView>. Sinon l'espace est rendu, et il y a des
-// espaces supplémentaires à l'affichage.
 
 export function Text(props) {
 	const {
@@ -48,10 +45,81 @@ export function Text(props) {
 
 	if (style) styles.push(style)
 
-	return (
-		<TextView style={styles} {...nextProps}>
-			{props.children}
-		</TextView>
+	function extendText(child, xprops) {
+		return React.createElement(
+			Text,
+			{ ...props, ...child.props, numberOfLines: undefined, ...xprops },
+			child.props.children
+		)
+	}
+
+	function formatChild(child) {
+		if (typeof child === "function") {
+			return mapChildren(child(), formatChild)
+		}
+
+		if (Array.isArray(child)) {
+			return child.map(formatChild)
+		}
+
+		let xprops = null
+
+		switch (typeof child === "object" && child.type) {
+			case Text:
+				return extendText(child, {})
+
+			case "b":
+			case "bold":
+				return extendText(child, { bold: !bold })
+
+			case "heavy":
+				return extendText(child, { heavy: !heavy })
+
+			case "i":
+			case "italic":
+				return extendText(child, { italic: !italic })
+
+			case "small":
+				return extendText(child, { small: true, medium: false })
+
+			case "medium":
+				return extendText(child, { small: false, medium: true })
+
+			case "primary":
+			case "secondary":
+			case "tertiary":
+			case "reversed":
+				xprops = {
+					primary: false,
+					secondary: false,
+					tertiary: false,
+					reversed: false,
+				}
+
+				xprops[child.type] = true
+				return extendText(child, xprops)
+
+			case "link":
+			case "action":
+			case "error":
+				xprops = {
+					link: false,
+					action: false,
+					error: false,
+				}
+
+				xprops[child.type] = true
+				return extendText(child, xprops)
+
+			default:
+				return child
+		}
+	}
+
+	return React.createElement(
+		TextView,
+		{ style: styles, ...nextProps },
+		...mapChildren(props.children, formatChild)
 	)
 }
 

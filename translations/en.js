@@ -1,3 +1,5 @@
+import React from "react"
+
 export const general = {
 	forgotPassword: "Forgot password?",
 	noAccount: "I don't have an settings",
@@ -67,14 +69,12 @@ export const errors = {
 	samePasswords: "Both passwords must be identical",
 	invalidToken:
 		"The reset token is no longer valid or has expired. Please make a new password request.",
-	invalidLogin:
-		"Invalid email or password. Please try again.",
+	invalidLogin: "Invalid email or password. Please try again.",
 	inactiveAccount:
 		"This settings has yet not being activated. Please check your emails, or try to subscribe again!",
 	noUser:
 		"No user was found with this email address. You might have used another address ?",
-	invalidDate:
-		"Date is invalid",
+	invalidDate: "Date is invalid",
 	invalidPhoneNumber: "Phone number is invalid",
 	password: {
 		weak: "Weak password",
@@ -142,8 +142,10 @@ export const forms = {
 	},
 
 	descriptions: {
-		myEmails: "Gather here your mail addresses with which your collaborators might invite you..",
-		myProIds: "Here, you can add your professional identifiers in connection with the collective management companies, the Unions and the sectoral Associations for which you are a member."
+		myEmails:
+			"Gather here your mail addresses with which your collaborators might invite you..",
+		myProIds:
+			"Here, you can add your professional identifiers in connection with the collective management companies, the Unions and the sectoral Associations for which you are a member.",
 	},
 
 	placeholders: {
@@ -161,13 +163,26 @@ export const forms = {
 			"Search among the corporate entities, compagnies, societies...",
 		delete: "delete or Delete",
 		date: "DD-MM-YYYY",
-		myUri: "https://www.my-website.example"
+		myUri: "https://www.my-website.example",
 	},
 
 	undertexts: {
-		firstName: "Example: <i>Madonna Louise</i>",
-		lastName: "Example: <i>Ciccone</i>",
-		artistName: "For example, <i>Madonna</i> is the artist name of <i>Madonna Louise Ciccone</i>.",
+		firstName: () => (
+			<>
+				Example: <i>Madonna Louise</i>
+			</>
+		),
+		lastName: () => (
+			<>
+				Example: <i>Ciccone</i>
+			</>
+		),
+		artistName: () => (
+			<>
+				For example, <i>Madonna</i> is the artist name of{" "}
+				<i>Madonna Louise Ciccone</i>.
+			</>
+		),
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
@@ -308,4 +323,10 @@ export const confirmNO = {
 	title: "Confirm your phone number",
 	codeSent: "A code was sent to you my text message.",
 	enterNO: "Enter the verification code",
+}
+
+export const widgets = {
+	pictureCrop: {
+		title: "Crop Picture",
+	},
 }

@@ -4,7 +4,7 @@ import { Svg, Path } from "react-native-svg"
 import { Layer } from "../layout"
 import { Overlay } from "../portals"
 import { Text } from "../text"
-import { Colors } from "../theme"
+import { Colors, Metrics } from "../theme"
 import HelpCircleFull from "../svg/help-circle-full"
 
 const ARROW_SIZE = 10
@@ -236,10 +236,12 @@ export function TooltipIcon({
 	children,
 	icon,
 	width = 300,
+	size = "xsmall",
 	...nextProps
 }) {
 	const [tooltipVisible, setTooltipVisible] = useState(false)
 	const iconRef = useRef(null)
+	const viewSize = Metrics.size[size]
 
 	return (
 		<>
@@ -255,7 +257,9 @@ export function TooltipIcon({
 				onFocus={() => setTooltipVisible(true)}
 				onBlur={() => setTooltipVisible(false)}
 			>
-				<View ref={iconRef}>{icon || <HelpCircleFull size="xsmall" />}</View>
+				<View ref={iconRef} style={{ width: viewSize, height: viewSize }}>
+					{icon || <HelpCircleFull size="xsmall" />}
+				</View>
 			</TouchableWithoutFeedback>
 		</>
 	)

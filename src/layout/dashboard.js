@@ -14,6 +14,7 @@ import LayerStyles from "../styles/layers"
 import MetricsStyles from "../styles/metrics"
 import { Colors, Metrics } from "../theme"
 import { CheckBox } from "../forms"
+import Button from "../widgets/button"
 
 import LogoSmartSplitMenu from "../svg/logo-smart-split-menu"
 import LinkIcon from "../svg/link"
@@ -134,7 +135,12 @@ export function ProfileBar(props) {
 }
 
 export function Dashboard(props) {
+	const history = useHistory()
 	const [showSidebar, setSidebar] = useState(true)
+
+	function logout() {
+		history.push("/auth/logout")
+	}
 
 	return (
 		<Column style={DashboardStyles.main}>
@@ -149,14 +155,13 @@ export function Dashboard(props) {
 
 				<Column style={DashboardStyles.main_column}>
 					<ProfileBar>
-						<LogoArrowLeft />
 						<CheckBox
 							label="Menu"
 							checked={showSidebar}
 							onChange={setSidebar}
 						/>
-						<Flex />
-						<LogoAddSquare style={Metrics.size.small} />
+						<Flex>{props.topBar}</Flex>
+						<Button text="Déconnexion" onClick={logout} />
 					</ProfileBar>
 					{props.children}
 				</Column>
