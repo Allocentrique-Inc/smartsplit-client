@@ -324,3 +324,9 @@ export const confirmNO = {
 	codeSent: "Un code t'a été envoyé par message texte.",
 	enterNO: "Entre le code de vérification",
 }
+
+export const widgets = {
+	pictureCrop: {
+		title: "Recadre ta photo",
+	},
+}

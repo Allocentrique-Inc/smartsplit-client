@@ -46,6 +46,7 @@ const settingsDefaultValues = {
 	birthdate: "1969-01-01",
 	isni: "",
 	uri: "https://github.com/iptoki",
+	avatarUrl: null,
 }
 
 export function SettingsForm({ children }) {

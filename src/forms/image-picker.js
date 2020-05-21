@@ -5,7 +5,14 @@ export default function useImagePicker() {
 	const [image, setImage] = useState(null)
 	const [imageError, setImageError] = useState(null)
 
-	function pickImage() {
+	function pickImage(imageOverride = undefined) {
+		// Forcer la sélection d'image (pour reset)
+		if (imageOverride !== undefined) {
+			setImage(imageOverride)
+			setImageError(null)
+			return
+		}
+
 		ImagePicker.launchImageLibraryAsync({
 			allowsEditing: true,
 			aspect: [1, 1],

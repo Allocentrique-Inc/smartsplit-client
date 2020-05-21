@@ -322,3 +322,9 @@ export const confirmNO = {
 	codeSent: "A code was sent to you my text message.",
 	enterNO: "Enter the verification code",
 }
+
+export const widgets = {
+	pictureCrop: {
+		title: "Crop Picture",
+	},
+}

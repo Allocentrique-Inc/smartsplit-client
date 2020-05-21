@@ -1,5 +1,5 @@
 import React from "react"
-import { View } from "react-native"
+import { View, Image } from "react-native"
 import UserStyles from "./styles"
 import { Text } from "../../text"
 
@@ -13,9 +13,13 @@ export default function UserAvatar(props) {
 
 	return (
 		<View style={[UserStyles.avatar_container, sizeStyle]}>
-			<Text small={small} bold secondary>
-				{props.initials}
-			</Text>
+			{props.picture ? (
+				<Image source={props.picture} style={sizeStyle} />
+			) : (
+				<Text small={small} bold secondary>
+					{props.initials}
+				</Text>
+			)}
 		</View>
 	)
 }
