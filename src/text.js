@@ -55,7 +55,6 @@ export function Text(props) {
 
 	function formatChild(child) {
 		if (typeof child === "function") {
-			console.log("childfn", mapChildren(child(), formatChild))
 			return mapChildren(child(), formatChild)
 		}
 
