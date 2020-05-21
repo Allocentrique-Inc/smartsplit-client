@@ -60,14 +60,24 @@ export function forEachChildren(children, cb) {
 	let index = 0
 
 	function processChildren(children) {
-		React.Children.forEach(children, (child) => {
-			if (!child) return
-			if (child.type === React.Fragment) processChildren(child.props.children)
-			else cb(child, index++)
-		})
+		if (typeof children !== "object") {
+			cb(children, index++)
+		} else if (Array.isArray(children)) {
+			children.forEach((e) => cb(e, index++))
+		} else if (children.type === React.Fragment) {
+			processChildren(children.props.children)
+		} else {
+			cb(children, index++)
+		}
 	}
 
 	processChildren(children)
+}
+
+export function mapChildren(children, fn) {
+	const newChilds = []
+	forEachChildren(children, (child) => newChilds.push(fn(child)))
+	return newChilds
 }
 
 export function Layer(props) {
