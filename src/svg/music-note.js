@@ -1,8 +1,9 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
+import { Colors } from "../theme"
 
 export default function MusicNoteIcon(props) {
-	const color = props.color || "#8DA0B3"
+	const color = props.color || Colors.tertiary
 
 	return (
 		<Svg

@@ -58,6 +58,13 @@ export const menu = {
 	reduxTests: "Redux Test",
 }
 
+export const adminMenu = {
+	listManagement: "Gestion des listes",
+	businessSettings: "Paramètres d'affaires",
+	adminManagement: "Gestion des administrateurs",
+	myIncomes: "Mes revenus"
+}
+
 export const test = {
 	title: "Test des formulaires",
 }
