@@ -328,7 +328,7 @@ export default function RegisterPage(props) {
 								<CheckBox
 									checked={stayLoggedIn}
 									onChange={setStayLoggedIn}
-									label={t("general:checkbox")}
+									label={t("general:checkbox.stayConnected")}
 								/>
 								<Flex />
 							</>
