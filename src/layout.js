@@ -31,7 +31,10 @@ function composeView(props, ...stylesheets) {
 
 		forEachChildren(children, (child) => {
 			newChildren.push(child)
-			newChildren.push(<SpacerImpl of={of} />)
+
+			if (typeof child === "object" && child.type !== NoSpacer) {
+				newChildren.push(<SpacerImpl of={of} />)
+			}
 		})
 
 		newChildren.pop()
@@ -80,6 +83,10 @@ export function mapChildren(children, fn) {
 	const newChilds = []
 	forEachChildren(children, (child) => newChilds.push(fn(child)))
 	return newChilds
+}
+
+export function NoSpacer({ children }) {
+	return children
 }
 
 export function Layer(props) {

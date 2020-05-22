@@ -18,7 +18,15 @@ import {
 	DateField,
 	useImagePicker,
 } from "../../forms"
-import { Section, Group, Column, Row, Hairline, Layer } from "../../layout"
+import {
+	Section,
+	Group,
+	Column,
+	Row,
+	Hairline,
+	Layer,
+	NoSpacer,
+} from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
 
@@ -106,11 +114,13 @@ function TestText() {
 
 	return (
 		<Column of="component">
-			<AuthModal
-				visible={showAuthModal}
-				onCancel={() => setShowAuthModal(false)}
-				onSuccess={() => setShowAuthModal(false)}
-			/>
+			<NoSpacer>
+				<AuthModal
+					visible={showAuthModal}
+					onCancel={() => setShowAuthModal(false)}
+					onSuccess={() => setShowAuthModal(false)}
+				/>
+			</NoSpacer>
 
 			<Heading level="1">{t("test:title")}</Heading>
 
@@ -338,15 +348,17 @@ function TestFilesAndImages(props) {
 
 	return (
 		<Column of="component">
-			<PictureCropModal
-				visible={showCrop}
-				image={image}
-				onRequestClose={() => setShowCrop(false)}
-				onSaveImage={(image) => {
-					setShowCrop(false)
-					setCroppedImage(image)
-				}}
-			/>
+			<NoSpacer>
+				<PictureCropModal
+					visible={showCrop}
+					image={image}
+					onRequestClose={() => setShowCrop(false)}
+					onSaveImage={(image) => {
+						setShowCrop(false)
+						setCroppedImage(image)
+					}}
+				/>
+			</NoSpacer>
 
 			<Row of="component">
 				<Button text="Sélectionner image" onClick={selectImage} />
