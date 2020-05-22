@@ -50,7 +50,9 @@ const MENU = [
 export default function DashboardPage(props) {
 	return (
 		<DashboardLayout menuItems={MENU}>
-			<DashboardRoutes />
+			<Scrollable>
+				<DashboardRoutes />
+			</Scrollable>
 		</DashboardLayout>
 	)
 }
@@ -79,17 +81,7 @@ export function DashboardRoutes(props) {
 			</Route>
 
 			<Route path="/dashboard/test/forms" exact>
-				<SubScreenLayout
-					title={
-						<>
-							<UserAvatar />
-							<Text bold>Test des formulaires</Text>
-						</>
-					}
-					onBack={() => {}}
-				>
-					<FormsTest />
-				</SubScreenLayout>
+				<FormsTest />
 			</Route>
 		</Switch>
 	)
