@@ -27,7 +27,7 @@ const ListStyle = StyleSheet.create({
 		paddingTop: Metrics.spacing.component,
 		paddingRight: Metrics.spacing.component,
 		paddingBottom: Metrics.spacing.component,
-		paddingLeft: 0,
+		paddingLeft: Metrics.spacing.component,
 	},
 	empty_frame: {
 		...Platform.select({
