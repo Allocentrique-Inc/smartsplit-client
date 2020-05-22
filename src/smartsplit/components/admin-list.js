@@ -4,8 +4,8 @@ import {
 	CollapsableList,
 } from "../../widgets/collapsable-list"
 import { forEachChildren, Row } from "../../layout"
-import ArrowDown from "../../svg/arrow-down"
-import ArrowUp from "../../svg/arrow-up"
+import ChevronDown from "../../svg/chevron-down"
+import ChevronRight from "../../svg/chevron-right"
 import Bullet from "../../../assets/svg/dot.svg"
 import { StyleSheet } from "react-native"
 import { Text } from "../../text"
@@ -159,10 +159,10 @@ export function AdminList(props) {
 			title={renderTitle()}
 			onExpand={(value) => handleExpand(value)}
 			expanded={expanded}
-			icon={expanded ? <ArrowUp /> : <ArrowDown />}
+			icon={expanded ? <ChevronDown/> : <ChevronRight/> }
 			onMouseEnterTitle={() => setCurrentFocus(-1)}
 			onMouseLeaveTitle={() => setCurrentFocus(null)}
-			onPressTitle={() => setCurrentFocus(expanded ? null : -1)}
+			onPressTitle={() => setCurrentFocus((expanded && currentFocus !== -1) ? null : -1)}
 			animate
 		>
 			{newChildren}

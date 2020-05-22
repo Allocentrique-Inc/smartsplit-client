@@ -10,8 +10,8 @@ import { Flex, Row } from "../layout"
 import { Text } from "../text"
 import { Overlay } from "./scrollable"
 
-import ArrowDown from "../svg/arrow-down"
-import ArrowUp from "../svg/arrow-up"
+import ChevronDown from "../svg/chevron-down"
+import ArrowUp from "../svg/chevron-up"
 import Search from "../../assets/svg/search.svg"
 
 /**
@@ -72,7 +72,7 @@ export class Dropdown extends React.Component {
 	getIcon = () => {
 		if (this.props.search) {
 			return Search
-		} else return this.state.open ? ArrowUp : ArrowDown
+		} else return this.state.open ? ArrowUp : ChevronDown
 	}
 
 	getPlaceholder = () => {

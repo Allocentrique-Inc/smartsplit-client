@@ -2,7 +2,7 @@ import React from "react"
 import { Svg, Path } from "react-native-svg"
 import { Colors } from "../theme"
 
-export default function ArrowDown(props) {
+export default function ChevronDown(props) {
 	const color = props.color || Colors.tertiary
 
 	return (
