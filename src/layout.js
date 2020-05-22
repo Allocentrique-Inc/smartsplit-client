@@ -31,7 +31,10 @@ function composeView(props, ...stylesheets) {
 
 		forEachChildren(children, (child) => {
 			newChildren.push(child)
-			newChildren.push(<SpacerImpl of={of} />)
+
+			if (typeof child === "object" && child.type !== NoSpacer) {
+				newChildren.push(<SpacerImpl of={of} />)
+			}
 		})
 
 		newChildren.pop()
@@ -60,10 +63,12 @@ export function forEachChildren(children, cb) {
 	let index = 0
 
 	function processChildren(children) {
-		if (typeof children !== "object") {
+		if (!children) {
+			return
+		} else if (typeof children !== "object") {
 			cb(children, index++)
 		} else if (Array.isArray(children)) {
-			children.forEach((e) => cb(e, index++))
+			children.forEach(processChildren)
 		} else if (children.type === React.Fragment) {
 			processChildren(children.props.children)
 		} else {
@@ -78,6 +83,10 @@ export function mapChildren(children, fn) {
 	const newChilds = []
 	forEachChildren(children, (child) => newChilds.push(fn(child)))
 	return newChilds
+}
+
+export function NoSpacer({ children }) {
+	return children
 }
 
 export function Layer(props) {

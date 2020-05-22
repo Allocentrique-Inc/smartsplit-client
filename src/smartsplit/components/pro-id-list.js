@@ -26,6 +26,7 @@ export function ProIdList(props) {
 				</Platform>
 			)
 		}
+
 		if (!!lastId) {
 			rows.push(
 				<Column
@@ -41,7 +42,8 @@ export function ProIdList(props) {
 				</Column>
 			)
 		}
-		return rows
+
+		return React.createElement(React.Fragment, {}, ...rows)
 	}
 
 	return (

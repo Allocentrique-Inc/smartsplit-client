@@ -95,7 +95,7 @@ export function SettingsPageFull() {
 		<SubScreenLayout
 			title={
 				<>
-					<UserAvatar size="medium" />
+					<UserAvatar user={user.data} size="medium" />
 					<Text bold>Paramètres</Text>
 					{user.state !== "ready" && <Text>(chargement en cours...)</Text>}
 				</>
