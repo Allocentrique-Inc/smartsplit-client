@@ -1,6 +1,6 @@
 import React from "react"
 import { Text as TextView, TouchableWithoutFeedback } from "react-native"
-import { mapChildren } from "./layout"
+import { mapChildren } from "./utils/react"
 import TypographyStyles from "./styles/typography"
 import MetricsStyles from "./styles/metrics"
 

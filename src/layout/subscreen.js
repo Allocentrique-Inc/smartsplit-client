@@ -1,15 +1,8 @@
-import React, { useRef } from "react"
-import { useTranslation } from "react-i18next"
-import { useHistory } from "react-router-dom"
-import { View, BackHandler } from "react-native"
-import { Platform } from "../platform"
-import { Flex, Row, Hairline, Column, Group, Spacer } from "../layout"
+import React from "react"
+import { Column } from "../layout"
 import { Heading } from "../text"
-import Button from "../widgets/button"
-import ArrowLeft from "../svg/arrow-left"
 import Scrollable from "../widgets/scrollable"
 import { Navbar } from "../smartsplit/components/navbar"
-import { AvatarIcon } from "./dashboard"
 import { Metrics } from "../theme"
 
 export default function SubScreenLayout(props) {
