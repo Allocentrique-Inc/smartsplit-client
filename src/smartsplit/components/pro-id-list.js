@@ -17,14 +17,16 @@ export function ProIdList(props) {
 	function renderList() {
 		const lastId = proIds.length % 2 === 1 ? proIds.pop() : null
 		const rows = []
+
 		for (let i = 0; i < proIds.length; i += 2) {
 			rows.push(
-				<Platform web={Row} native={Column} of="component" key={i}>
+				<Platform web={Row} native={Column} of="component">
 					<TextField label={proIds[i].name} value={proIds[i].value} />
 					<TextField label={proIds[i + 1].name} value={proIds[i + 1].value} />
 				</Platform>
 			)
 		}
+
 		if (!!lastId) {
 			rows.push(
 				<Column
@@ -39,7 +41,8 @@ export function ProIdList(props) {
 				</Column>
 			)
 		}
-		return rows
+
+		return React.createElement(React.Fragment, {}, ...rows)
 	}
 
 	return (
