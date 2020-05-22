@@ -60,10 +60,12 @@ export function forEachChildren(children, cb) {
 	let index = 0
 
 	function processChildren(children) {
-		if (typeof children !== "object") {
+		if (!children) {
+			return
+		} else if (typeof children !== "object") {
 			cb(children, index++)
 		} else if (Array.isArray(children)) {
-			children.forEach((e) => cb(e, index++))
+			children.forEach(processChildren)
 		} else if (children.type === React.Fragment) {
 			processChildren(children.props.children)
 		} else {

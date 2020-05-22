@@ -49,13 +49,17 @@ export function Text(props) {
 		return React.createElement(
 			Text,
 			{ ...props, ...child.props, numberOfLines: undefined, ...xprops },
-			child.props.children
+			...child.props.children
 		)
 	}
 
 	function formatChild(child) {
 		if (typeof child === "function") {
-			return mapChildren(child(), formatChild)
+			return React.createElement(
+				React.Fragment,
+				{},
+				...formatChild(mapChildren(child(), formatChild))
+			)
 		}
 
 		if (Array.isArray(child)) {
