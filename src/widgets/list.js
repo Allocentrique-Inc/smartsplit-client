@@ -70,7 +70,25 @@ const DefaultAnimationConfig = {
 	},
 }
 
-export function CollapsableItem(props) {
+export function List(props) {
+	const { title, children, style } = props
+	return (
+		<Column style={[ListStyle.list_container, style]}>
+			{title && (
+				<Column key={-1} style={ListStyle.list_head}>
+					{typeof title === "string" ? (
+						<Text bold>{title}</Text>
+					) : (
+						<View>{title}</View>
+					)}
+				</Column>
+			)}
+			{children}
+		</Column>
+	)
+}
+
+export function ListItem(props) {
 	const { children, key, style, list, ...nextProps } = props
 	return (
 		<Row
@@ -119,10 +137,11 @@ export function CollapsableList(props) {
 		if (!!animate) {
 			LayoutAnimation.configureNext(animationConfig)
 		}
-		nextProps.onExpand(!expanded)
+		onExpand(!expanded)
 		setExpanded(!expanded)
 		onPressTitle()
 	}
+
 	return (
 		<Row style={{ flex: 1 }}>
 			{icon && (

@@ -2,7 +2,7 @@ import React from "react"
 import { useHistory } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import objdiff from "object-diff"
-import { Column, Hairline } from "../../layout"
+import { Column, Hairline, Spacer } from "../../layout"
 import { Text } from "../../text"
 import { Form, useForm } from "../../forms"
 import MyProfile from "../../smartsplit/forms/my-profile"
@@ -14,6 +14,7 @@ import SubScreenLayout from "../../layout/subscreen"
 import UserAvatar from "../../smartsplit/user/avatar"
 import Button from "../../widgets/button"
 import { useSessionUser } from "../../../redux/Users/hooks"
+import { Metrics } from "../../theme"
 
 const ProfileMenu = [
 	{
@@ -48,6 +49,7 @@ const settingsDefaultValues = {
 	uri: "https://github.com/iptoki",
 	avatarUrl: null,
 }
+
 
 export function SettingsForm({ children }) {
 	const history = useHistory()
@@ -105,7 +107,10 @@ export function SettingsPageFull() {
 				<Button tertiary text="Sauvegarder" onClick={() => form.submit()} />
 			}
 		>
-			<Column of="section">
+			<Column of="section" style={{
+				paddingTop: Metrics.spacing.large,
+				paddingBottom: Metrics.spacing.large
+			}}>
 				<MyProfile />
 				<Hairline />
 				<MyAccount />

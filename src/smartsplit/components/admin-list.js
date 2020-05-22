@@ -1,8 +1,5 @@
 import React, { useState } from "react"
-import {
-	CollapsableItem,
-	CollapsableList,
-} from "../../widgets/collapsable-list"
+import { ListItem, CollapsableList } from "../../widgets/list"
 import { forEachChildren, Row } from "../../layout"
 import ChevronDown from "../../svg/chevron-down"
 import ChevronRight from "../../svg/chevron-right"
@@ -89,7 +86,7 @@ export function AdminListItem(props) {
 	}
 
 	return (
-		<CollapsableItem
+		<ListItem
 			list={list}
 			{...nextProps}
 			style={pending ? AdminListStyle.frame_pending : null}
@@ -109,7 +106,7 @@ export function AdminListItem(props) {
 					{!list && renderMenu()}
 				</>
 			)}
-		</CollapsableItem>
+		</ListItem>
 	)
 }
 
@@ -159,10 +156,12 @@ export function AdminList(props) {
 			title={renderTitle()}
 			onExpand={(value) => handleExpand(value)}
 			expanded={expanded}
-			icon={expanded ? <ChevronDown/> : <ChevronRight/> }
+			icon={expanded ? <ChevronDown /> : <ChevronRight />}
 			onMouseEnterTitle={() => setCurrentFocus(-1)}
 			onMouseLeaveTitle={() => setCurrentFocus(null)}
-			onPressTitle={() => setCurrentFocus((expanded && currentFocus !== -1) ? null : -1)}
+			onPressTitle={() =>
+				setCurrentFocus(expanded && currentFocus !== -1 ? null : -1)
+			}
 			animate
 		>
 			{newChildren}

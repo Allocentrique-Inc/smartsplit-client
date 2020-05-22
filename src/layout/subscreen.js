@@ -10,8 +10,6 @@ const LayoutStyle = StyleSheet.create({
 	outer_container: {
 		paddingLeft: Metrics.spacing.medium,
 		paddingRight: Metrics.spacing.medium,
-		paddingTop: Metrics.spacing.section,
-		paddingBottom: Metrics.spacing.section,
 	},
 
 	inner_container: {

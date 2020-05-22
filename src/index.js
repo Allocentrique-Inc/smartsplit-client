@@ -30,8 +30,7 @@ export function MainRouter(props) {
 	return (
 		<Switch>
 			<Route path="/" exact>
-				<Redirect to="/dashboard/account/settings" />
-				<SettingsPage />
+				<Redirect to="/admin/list-management" />
 			</Route>
 
 			<Route path="/auth/">
