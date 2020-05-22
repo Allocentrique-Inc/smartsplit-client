@@ -3,15 +3,12 @@ import {
 	Platform,
 	findNodeHandle,
 	View,
-	TextInput,
-	StyleSheet,
 	TouchableWithoutFeedback,
 } from "react-native"
 
 import { Flex, Row } from "../layout"
 import { Text } from "../text"
 import { Overlay } from "./scrollable"
-import { Colors, Metrics } from "../theme"
 
 import ArrowDown from "../svg/arrow-down"
 import ArrowUp from "../svg/arrow-up"
