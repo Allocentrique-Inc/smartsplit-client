@@ -14,6 +14,7 @@ import TestRedux from "./pages/test/TestReduxContainer"
 import AccessControl from "./widgets/AccessControl"
 
 import SettingsPage from "./pages/user/settings"
+import AdminPage from "./pages/admin"
 
 export default function Main(props) {
 	return (
@@ -48,6 +49,12 @@ export function MainRouter(props) {
 			<Route path="/document/copyright" exact>
 				<AccessControl redirectToLogin>
 					<CopyrightShare />
+				</AccessControl>
+			</Route>
+
+			<Route path="/admin">
+				<AccessControl redirectToLogin>
+					<AdminPage />
 				</AccessControl>
 			</Route>
 
