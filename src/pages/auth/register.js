@@ -91,9 +91,7 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 					<Button text={t("general:buttons.accept")} onClick={onAgree} />
 				</>
 			}
-		>
-			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}></Group>
-		</DialogModal>
+		></DialogModal>
 	)
 }
 

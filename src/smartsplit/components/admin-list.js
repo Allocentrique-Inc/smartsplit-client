@@ -1,8 +1,5 @@
 import React, { useState } from "react"
-import {
-	CollapsableItem,
-	CollapsableList,
-} from "../../widgets/collapsable-list"
+import List, { ListItem, CollapsableList } from "../../widgets/list"
 import { forEachChildren, Row } from "../../layout"
 import ChevronDown from "../../svg/chevron-down"
 import ChevronRight from "../../svg/chevron-right"
@@ -13,34 +10,19 @@ import { Colors } from "../../theme"
 import { TouchableWithoutFeedback, View } from "react-native"
 import { Platform } from "../../platform"
 import Hourglass from "../../svg/hourglass"
-import { AdminListMenu, DefaultMenu, PendingMenu } from "./admin-list-menus"
+import {
+	AdminListMenu,
+	DefaultMenu,
+	PendingMenu,
+	SimpleMenu,
+} from "./admin-list-menus"
+import UUID from "uuidjs"
 
 export const AdminListStyle = StyleSheet.create({
 	frame_pending: {
 		backgroundColor: Colors.background.underground,
 	},
 })
-
-function getTitle(children) {
-	let title
-	if (typeof children === "object") {
-		title = []
-		if (Array.isArray(children)) {
-			title = children.map((element, index) =>
-				React.cloneElement(element, { key: index })
-			)
-		} else {
-			forEachChildren(children, (child, index) =>
-				title.push(React.cloneElement(child, { key: index }))
-			)
-		}
-	} else if (typeof children === "string") {
-		title = <Text>{children}</Text>
-	} else {
-		title = children
-	}
-	return title
-}
 
 export function AdminListItem(props) {
 	const {
@@ -53,45 +35,48 @@ export function AdminListItem(props) {
 		onRefuse,
 		focus,
 		hideBullet,
-		list,
+		contentIsList,
+		contextualMenu,
 		...nextProps
 	} = props
-	const content = getTitle(nextProps.content)
+	const content =
+		typeof nextProps.content === "string" ? (
+			<Text>{nextProps.content}</Text>
+		) : (
+			nextProps.content
+		)
 
 	function renderMenu() {
-		return (
-			<>
-				{children && (
-					<AdminListMenu disabled={!focus}>{children}</AdminListMenu>
-				)}
-				{!children &&
-					(pending ? (
-						<PendingMenu
-							disabled={!focus}
-							onAccept={onAccept}
-							onRefuse={onRefuse}
-							onModify={onModify}
-						/>
-					) : (
-						<DefaultMenu
-							disabled={!focus}
-							onAdd={onAdd}
-							onDelete={onDelete}
-							onModify={onModify}
-						/>
-					))}
-			</>
-		)
+		const menuProps = {
+			disabled: !focus,
+			onAdd: onAdd,
+			onDelete: onDelete,
+			onModify: onModify,
+		}
+		let menu = <DefaultMenu {...menuProps} />
+		if (contextualMenu === "simple") {
+			menu = <SimpleMenu {...menuProps} />
+		} else if (pending) {
+			menu = <PendingMenu {...menuProps} />
+		} else if (typeof contextualMenu === "object" && !!contextualMenu) {
+			let menuChildren = []
+			forEachChildren(contextualMenu, (child) =>
+				menuChildren.push(React.cloneElement(child, { disabled: !focus }))
+			)
+			menu = <AdminListMenu disabled={!focus}>{menuChildren}</AdminListMenu>
+		}
+
+		return menu
 	}
 
 	return (
-		<CollapsableItem
-			list={list}
+		<ListItem
+			contentIsList={contentIsList}
 			{...nextProps}
 			style={pending ? AdminListStyle.frame_pending : null}
 		>
-			{list && content}
-			{!list && (
+			{contentIsList && content}
+			{!contentIsList && (
 				<>
 					<Row of="component" valign="center">
 						{!hideBullet &&
@@ -102,32 +87,36 @@ export function AdminListItem(props) {
 							))}
 						{content}
 					</Row>
-					{!list && renderMenu()}
+					{renderMenu()}
 				</>
 			)}
-		</CollapsableItem>
+		</ListItem>
 	)
 }
 
 export function AdminList(props) {
-	const { children, ...nextProps } = props
-	const title = getTitle(nextProps.title)
+	const { children, collapsable, ...nextProps } = props
+	const title =
+		typeof nextProps.title === "string" ? <Text>{title}</Text> : nextProps.title
 	const [currentFocus, setCurrentFocus] = useState(null)
+	const [listHeadId, setListHeadId] = useState(UUID.generate())
 	let newChildren = []
-	forEachChildren(children, (child, index) => {
+	forEachChildren(children, (child) => {
 		newChildren.push(
 			Platform.web ? (
 				React.cloneElement(child, {
-					focus: index === currentFocus,
-					onMouseEnter: () => setCurrentFocus(index),
+					focus: child.key === currentFocus,
+					onMouseEnter: () => setCurrentFocus(child.key),
 					onMouseLeave: () => setCurrentFocus(null),
 				})
 			) : (
 				<TouchableWithoutFeedback
-					onPress={() => setCurrentFocus(index !== currentFocus ? index : null)}
-					key={index}
+					onPress={() =>
+						setCurrentFocus(child.key !== currentFocus ? child.key : null)
+					}
+					key={child.key}
 				>
-					{React.cloneElement(child, { focus: index === currentFocus })}
+					{React.cloneElement(child, { focus: child.key === currentFocus })}
 				</TouchableWithoutFeedback>
 			)
 		)
@@ -145,25 +134,29 @@ export function AdminList(props) {
 		return (
 			<Row align="spread">
 				{title}
-				<DefaultMenu disabled={currentFocus !== -1} />
+				<DefaultMenu disabled={currentFocus !== listHeadId} />
 			</Row>
 		)
 	}
 
-	return (
+	return collapsable ? (
 		<CollapsableList
-			title={renderTitle()}
+			title={title && renderTitle()}
 			onExpand={(value) => handleExpand(value)}
 			expanded={expanded}
 			icon={expanded ? <ChevronDown /> : <ChevronRight />}
-			onMouseEnterTitle={() => setCurrentFocus(-1)}
+			onMouseEnterTitle={() => setCurrentFocus(listHeadId)}
 			onMouseLeaveTitle={() => setCurrentFocus(null)}
 			onPressTitle={() =>
-				setCurrentFocus(expanded && currentFocus !== -1 ? null : -1)
+				setCurrentFocus(
+					expanded && currentFocus !== listHeadId ? null : listHeadId
+				)
 			}
 			animate
 		>
 			{newChildren}
 		</CollapsableList>
+	) : (
+		<List title={title && renderTitle()}>{newChildren}</List>
 	)
 }

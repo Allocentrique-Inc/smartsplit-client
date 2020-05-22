@@ -35,6 +35,7 @@
 		"redux": "^4.0.5",
 		"redux-thunk": "^2.3.0",
 		"shallowequal": "^1.1.0",
+		"uuidjs": "^4.2.5",
 		"zxcvbn": "^4.4.2"
 	},
 	"devDependencies": {

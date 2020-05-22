@@ -36,8 +36,25 @@ export function AdminListMenu(props) {
 	)
 }
 
+export function SimpleMenu(props) {
+	const { disabled, onModify, onDelete } = props
+	return (
+		<AdminListMenu disabled={disabled}>
+			<TouchableWithoutFeedback onPress={onModify} disabled={disabled}>
+				<View>
+					<Pen />
+				</View>
+			</TouchableWithoutFeedback>
+			<TouchableWithoutFeedback onPress={onDelete} disabled={disabled}>
+				<View>
+					<Trash />
+				</View>
+			</TouchableWithoutFeedback>
+		</AdminListMenu>
+	)
+}
+
 export function DefaultMenu(props) {
-	const { t } = useTranslation()
 	const { disabled, onAdd, onModify, onDelete } = props
 	return (
 		<AdminListMenu disabled={disabled}>
