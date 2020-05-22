@@ -162,7 +162,7 @@ export function AdminList(props) {
 			icon={expanded ? <ArrowUp /> : <ArrowDown />}
 			onMouseEnterTitle={() => setCurrentFocus(-1)}
 			onMouseLeaveTitle={() => setCurrentFocus(null)}
-			onPressTitle={() => setCurrentFocus(expanded ? null: -1)}
+			onPressTitle={() => setCurrentFocus(expanded ? null : -1)}
 			animate
 		>
 			{newChildren}
