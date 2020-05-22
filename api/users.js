@@ -1,4 +1,4 @@
-import { client, createCrudClient } from "./ApiClient"
+import { client, createCrudClient } from "./api-client"
 
 export function registerUser(data) {
 	return client.request({

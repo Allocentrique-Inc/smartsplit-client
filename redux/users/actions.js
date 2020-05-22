@@ -1,4 +1,4 @@
-import * as UsersAPI from "../../api/Users"
+import * as UsersAPI from "../../api/users"
 import { login, setLogin } from "../auth/actions"
 import { createCRUDActions } from "../api"
 

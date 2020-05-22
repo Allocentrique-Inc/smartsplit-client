@@ -17,6 +17,8 @@ export const general = {
 			"Rendre publics mes identifiants professionnels énumérés ci-dessus",
 	},
 
+	changeOf: "Modification de",
+
 	buttons: {
 		connect: "Me connecter",
 		cancel: "Annuler",
@@ -66,6 +68,11 @@ export const adminMenu = {
 	businessSettings: "Paramètres d'affaires",
 	adminManagement: "Gestion des administrateurs",
 	myIncomes: "Mes revenus",
+}
+
+export const adminLists = {
+	"content-languages": "Langues du contenu",
+	"digital-distributors": "Distributeurs numériques"
 }
 
 export const test = {

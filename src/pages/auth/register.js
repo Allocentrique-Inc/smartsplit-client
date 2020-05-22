@@ -92,7 +92,7 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 				</>
 			}
 		>
-			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}></Group>
+			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}/>
 		</DialogModal>
 	)
 }

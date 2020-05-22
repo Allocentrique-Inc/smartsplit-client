@@ -16,6 +16,8 @@ export const general = {
 		makePublic: "Make public my professional identifiers listed above",
 	},
 
+	changeOf: "Change of",
+
 	buttons: {
 		connect: "Connect",
 		cancel: "Cancel",
@@ -65,6 +67,11 @@ export const adminMenu = {
 	businessSettings: "Business settings",
 	adminManagement: "Administrator management",
 	myIncomes: "My incomes",
+}
+
+export const adminLists = {
+	"content-languages": "Content languages",
+	"digital-distributors": "Digital distributors"
 }
 
 export const test = {
