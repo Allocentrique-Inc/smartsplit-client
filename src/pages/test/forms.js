@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { Image } from "react-native"
+import { Image, View, TouchableWithoutFeedback } from "react-native"
 import {
 	Form,
 	FormSubmit,
@@ -18,11 +18,7 @@ import {
 	DateField,
 	useImagePicker,
 } from "../../forms"
-import {
-	Section, Column,
-	Row,
-	NoSpacer,
-} from "../../layout"
+import { Section, Column, Row, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
 
@@ -278,37 +274,123 @@ function TestBasicFields() {
 function TestBasicDropdowns() {
 	const { t } = useTranslation()
 	return (
-		<Row of="component">
-			<Dropdown
-				label="Dropdown simple"
-				placeholder="Sélectionnez..."
-				style={{ flex: 1 }}
-				noFocusToggle
-			>
-				<Column of="component" layer="overground_moderate" padding="component">
-					<Heading level="4">Un dropdown simple</Heading>
-					<Paragraph>
-						Ce dropdown ne gère aucun état ou sélection: on est libre d'y mettre
-						ce qu'on veut à l'intérieur. Pour un dropdown de sélection, ou
-						autocomplete, voir: Select, AutocompleteField.
-					</Paragraph>
-				</Column>
-			</Dropdown>
+		<>
+			<Row of="component">
+				<Dropdown
+					label="Dropdown simple"
+					placeholder="Sélectionnez..."
+					style={{ flex: 1 }}
+					noFocusToggle
+				>
+					<Column
+						of="component"
+						layer="overground_moderate"
+						padding="component"
+					>
+						<Heading level="4">Un dropdown simple</Heading>
+						<Paragraph>
+							Ce dropdown ne gère aucun état ou sélection: on est libre d'y
+							mettre ce qu'on veut à l'intérieur. Pour un dropdown de sélection,
+							ou autocomplete, voir: Select, AutocompleteField.
+						</Paragraph>
+					</Column>
+				</Dropdown>
 
-			<Select
-				label="Champ de sélection"
-				placeholder="Sélectionnez..."
-				style={{ flex: 1 }}
-				options={[
-					{ key: "A", value: "Option A" },
-					{ key: "B", value: "Option B" },
-					{ key: "C", value: "Option C" },
-				]}
-			/>
-		</Row>
+				<Select
+					label="Champ de sélection"
+					placeholder="Sélectionnez..."
+					style={{ flex: 1 }}
+					options={[
+						{ key: "A", value: "Option A" },
+						{ key: "B", value: "Option B" },
+						{ key: "C", value: "Option C" },
+					]}
+				/>
+			</Row>
+			<AdminList
+				title={
+					<Column>
+						<Text bold>Super titre de liste</Text>
+						<Text secondary small>
+							Mouain, faut pas exagérer quand même.
+						</Text>
+					</Column>
+				}
+			>
+				<AdminListItem key={0} content="Piano" pending />
+				<AdminListItem key={1} content="Accordeon" />
+				<AdminListItem
+					key={2}
+					content={
+						<Column>
+							<Text bold>Le ouarkalélé</Text>
+							<Text small secondary>
+								Petite description
+							</Text>
+						</Column>
+					}
+				/>
+				<AdminListItem key={3} content="Whatever" />
+				<AdminListItem key={4} content="With custom action">
+					<TouchableWithoutFeedback>
+						<View>
+							<Pen />
+						</View>
+					</TouchableWithoutFeedback>
+					<Button
+						dangerWithIcon
+						icon={<Trash color={Colors.error} />}
+						text={t("general:buttons.toRefuse")}
+					/>
+				</AdminListItem>
+				<AdminListItem
+					hideBullet
+					list
+					key={5}
+					content={
+						<AdminList
+							title={
+								<Column>
+									<Text bold>Super titre de sous-liste</Text>
+									<Text secondary small>
+										Mouain, faut pas exagérer quand même.
+									</Text>
+								</Column>
+							}
+						>
+							<AdminListItem key={0} content="Piano" pending />
+							<AdminListItem key={1} content="Accordeon" />
+							<AdminListItem
+								key={2}
+								content={
+									<>
+										<Text bold>Le ouarkalélé</Text>
+										<Text small secondary>
+											Petite description
+										</Text>
+									</>
+								}
+							/>
+							<AdminListItem key={3} content="Whatever" />
+							<AdminListItem key={4} content="With custom action">
+								<TouchableWithoutFeedback>
+									<View>
+										<Pen />
+									</View>
+								</TouchableWithoutFeedback>
+								<Button
+									dangerWithIcon
+									icon={<Trash color={Colors.error} />}
+									text={t("general:buttons.toRefuse")}
+								/>
+							</AdminListItem>
+						</AdminList>
+					}
+				/>
+			</AdminList>
+		</>
 	)
 }
-
 function TestCheckboxes() {
 	const [testCheckBox1, setTestCheckBox1] = useState(false)
 
