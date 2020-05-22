@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import { useTranslation } from "react-i18next"
 import { View } from "react-native"
 import { Platform } from "../../platform"
@@ -14,7 +14,19 @@ import { PictureCropModal } from "../../widgets/picture-crop"
 export default function MyProfile() {
 	const { t } = useTranslation()
 
+	const avatar = useFormField("avatar")
 	const avatarUrl = useFormField("avatarUrl")
+
+	const avatarImg = useMemo(() => {
+		if (avatar.value) {
+			return { uri: "data:image/jpeg;base64," + avatar.value }
+		} else if (avatarUrl.value) {
+			return { uri: avatarUrl.value }
+		} else {
+			return null
+		}
+	}, [avatarUrl.value, avatar.value])
+
 	const [newPicture, selectNewPicture, newPictureError] = useImagePicker()
 	const firstName = useFormField("firstName")
 	const lastName = useFormField("lastName")
@@ -24,9 +36,13 @@ export default function MyProfile() {
 
 	const [showPictureCrop, setShowPictureCrop] = useState(false)
 
+	function setAvatar(image) {
+		avatar.value = image.split(",", 2)[1]
+	}
+
 	Platform.native &&
 		useEffect(() => {
-			if (newPicture) avatarUrl.value = newPicture
+			if (newPicture) setAvatar(newPicture)
 		}, [newPicture])
 
 	return (
@@ -34,14 +50,14 @@ export default function MyProfile() {
 			{Platform.web && <Heading level="2">{t("settings:profile")}</Heading>}
 
 			<Row of="component" align="left" valign="center">
-				<UserAvatar size="huge" picture={avatarUrl.value} initials={initials} />
+				<UserAvatar size="huge" picture={avatarImg} initials={initials} />
 				<Button icon={<PenIcon />} onClick={selectNewPicture} />
 				<PictureCropModal
 					visible={!!newPicture}
 					image={newPicture}
 					onRequestClose={() => selectNewPicture(null)}
 					onSaveImage={(image) => {
-						avatarUrl.value = image
+						setAvatar(image)
 						selectNewPicture(null)
 					}}
 				/>
