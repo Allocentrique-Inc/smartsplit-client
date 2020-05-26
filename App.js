@@ -4,20 +4,16 @@ import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
 import thunk from "redux-thunk"
 import rootReducer from "./redux/rootReducer"
+import { connectToRedux as connectApiToRedux } from "./api/ApiClient"
 import { MemoryRouter } from "react-router"
 import { BrowserRouter } from "react-router-dom"
 import * as Font from "expo-font"
-import {
-	loadAuthFromStorage,
-	loadIsReturningFromStorage,
-} from "./helpers/storageAuth"
 
 import i18n from "./translations"
 import Main from "./src"
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
-loadAuthFromStorage(store).catch((e) => console.error(e))
-loadIsReturningFromStorage(store).catch((e) => console.error(e))
+connectApiToRedux(store)
 
 const RouterImpl = Platform.select({
 	android: MemoryRouter,

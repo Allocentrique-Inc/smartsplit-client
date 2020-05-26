@@ -1,5 +1,5 @@
 import * as UsersAPI from "../../api/Users"
-import { saveAuth } from "../../helpers/storageAuth"
+import { login } from "../auth/actions"
 import { createCRUDActions } from "../api"
 
 export function registerUser_request() {
@@ -104,11 +104,12 @@ export function resetPassword(passwordDetails) {
 		try {
 			const response = await UsersAPI.passwordReset(passwordDetails)
 			if (response.data && response.data.accessToken) {
-				saveAuth(response.data)
-				dispatch({
-					type: "LOGIN_USER_SUCCESS",
-					payload: response.data,
-				})
+				dispatch(
+					setLogin(
+						response.data.accessToken,
+						response.data.user && response.data.user_id
+					)
+				)
 			}
 			dispatch(resetPassword_success(response.data))
 		} catch (error) {
@@ -177,6 +178,16 @@ export function updateUser(details) {
 			if (error.data) dispatch(updateUser_error(error.data))
 			else dispatch(updateUser_error(error))
 		}
+	}
+}
+
+export function setUser(user_id, data) {
+	return {
+		type: "USER_SETSTATE",
+		id: user_id,
+		data: data,
+		error: null,
+		state: "ready",
 	}
 }
 

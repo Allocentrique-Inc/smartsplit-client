@@ -17,7 +17,7 @@ import {
 import zxcvbn from "zxcvbn"
 import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 import { connect } from "react-redux"
-import * as UserActions from "../../../redux/Users/Actions"
+import * as UserActions from "../../../redux/users/actions"
 
 export const ChangePasswordModal = connect(
 	function mapStateToProps({ users }) {

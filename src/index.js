@@ -1,5 +1,7 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Route, Redirect, Switch } from "react-router"
+import { useDispatch, useSelector } from "react-redux"
+import { initializeFromStorage as initializeAuthFromStorage } from "../redux/auth/actions"
 
 import { Overlay as GlobalOverlay } from "./portals"
 import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
@@ -10,14 +12,20 @@ import FormsTest from "./pages/test/forms"
 import CopyrightShare from "./pages/document/copyright"
 import UserActivateAccount from "./pages/user/activate"
 
-import TestRedux from "./pages/test/TestReduxContainer"
 import AccessControl from "./widgets/AccessControl"
 
 import SettingsPage from "./pages/user/settings"
 import AdminPage from "./pages/admin"
 
 export default function Main(props) {
-	return (
+	const dispatch = useDispatch()
+	const isLoggedIn = useSelector((state) => state.auth && state.auth.isLoggedIn)
+
+	useEffect(() => {
+		dispatch(initializeAuthFromStorage())
+	}, [dispatch])
+
+	return isLoggedIn === null ? null : (
 		<ScrollOverlay.ProviderContainer>
 			<GlobalOverlay.ProviderContainer>
 				<MainRouter {...props} />
@@ -74,12 +82,6 @@ export function MainRouter(props) {
 						<FormsTest />
 					</Scrollable>
 				</AccessControl>
-			</Route>
-
-			<Route path="/test/reduxTest" exact>
-				<Scrollable>
-					<TestRedux />
-				</Scrollable>
 			</Route>
 		</Switch>
 	)

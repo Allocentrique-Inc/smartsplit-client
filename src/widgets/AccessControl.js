@@ -22,8 +22,7 @@ function AccessControl({
 
 export default connect(function (state) {
 	return {
-		isAuthenticated:
-			state.auth.isLoggedIn && state.auth.data && state.auth.data.accessToken,
-		isReturning: state.auth && state.auth.isReturning,
+		isAuthenticated: state.auth.isLoggedIn,
+		isReturning: state.auth.isReturning,
 	}
 })(AccessControl)

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { connect } from "react-redux"
-import { resetPassword } from "../../../redux/Users/Actions"
+import { resetPassword } from "../../../redux/users/actions"
 import { useHistory } from "react-router"
 import AuthLayout from "./layout"
 import Button from "../../widgets/button"

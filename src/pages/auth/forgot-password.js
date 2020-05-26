@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { connect } from "react-redux"
-import * as UserActions from "../../../redux/Users/Actions"
+import * as UserActions from "../../../redux/users/actions"
 import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router-dom"
 import { Group, Column, Row, Flex } from "../../layout"

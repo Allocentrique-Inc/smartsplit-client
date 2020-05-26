@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { connect } from "react-redux"
-import * as AuthActions from "../../../redux/Auth/Actions"
+import { useDispatch, useSelector } from "react-redux"
+import { login } from "../../../redux/auth/actions"
 import { Redirect, useHistory } from "react-router"
 import Button from "../../widgets/button"
 import { Group, Row, Column, Flex } from "../../layout"
@@ -10,7 +10,6 @@ import { TextField, PasswordField } from "../../forms"
 import AuthLayout from "./layout"
 import { CheckBox } from "../../forms"
 import { Platform } from "../../platform"
-import useDebounce from "../../../helpers/useDebounce"
 
 import { notEmptyValidator, emailValidator } from "../../../helpers/validators"
 
@@ -19,21 +18,8 @@ export const LoginErrorCodes = {
 	auth_account_inactive: "errors:inactiveAccount",
 }
 
-export const LoginForm = connect(
-	function ({ auth }) {
-		return { auth }
-	},
-	function (dispatch) {
-		return {
-			login: function (details, rememberMe) {
-				dispatch(AuthActions.loginUser(details, rememberMe))
-			},
-		}
-	}
-)(function (props) {
+export function LoginForm(props) {
 	const {
-		auth,
-		login,
 		stayLoggedIn,
 		showForgotPassword,
 		setFormState,
@@ -42,9 +28,11 @@ export const LoginForm = connect(
 	} = props
 
 	const [t] = useTranslation()
+	const auth = useSelector((state) => state && state.auth)
+	const dispatch = useDispatch()
 
-	if (!auth.isLoading && auth.data && auth.data.accessToken) {
-		onSuccess && onSuccess(auth.data.user)
+	if (!auth.isLoading && auth.accessToken) {
+		onSuccess && setImmediate(() => onSuccess(auth.user_id))
 	}
 
 	const [email, setEmail] = useState("")
@@ -68,12 +56,14 @@ export const LoginForm = connect(
 		setPassword("")
 	}, [auth.isLoggedIn])
 
-	const handleLogin = () => login({ email, password }, stayLoggedIn)
+	const handleLogin = useCallback(() => {
+		dispatch(login(email, password, stayLoggedIn))
+	}, [email, password, stayLoggedIn, dispatch])
 
 	setFormState &&
 		useEffect(() => {
 			setFormState({ canSubmit, submit: handleLogin })
-		}, [setFormState, canSubmit, email, password, stayLoggedIn])
+		}, [setFormState, canSubmit, email, password, stayLoggedIn, handleLogin])
 
 	return (
 		<Column of="group">
@@ -101,7 +91,7 @@ export const LoginForm = connect(
 			{children}
 		</Column>
 	)
-})
+}
 
 export default function LoginPage({ showRegister }) {
 	const [t] = useTranslation()

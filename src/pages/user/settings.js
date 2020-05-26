@@ -13,7 +13,8 @@ import MyAccount from "../../smartsplit/forms/my-account"
 import SubScreenLayout from "../../layout/subscreen"
 import UserAvatar from "../../smartsplit/user/avatar"
 import Button from "../../widgets/button"
-import { useSessionUser } from "../../../redux/Users/hooks"
+import AccessControl from "../../widgets/AccessControl"
+import { useAuthUser } from "../../../redux/auth/hooks"
 
 const ProfileMenu = [
 	{
@@ -51,7 +52,7 @@ const settingsDefaultValues = {
 
 export function SettingsForm({ children }) {
 	const history = useHistory()
-	const user = useSessionUser()
+	const user = useAuthUser()
 
 	const phone = user.data && user.data.mobilePhone
 	const formValues = {
@@ -79,17 +80,19 @@ export function SettingsForm({ children }) {
 
 export default function SettingsPage() {
 	return (
-		<SettingsForm>
-			<SettingsPageFull />
-			{/* Switch entre web/mobile ici, utiliser un <Router> */}
-		</SettingsForm>
+		<AccessControl redirectToLogin>
+			<SettingsForm>
+				<SettingsPageFull />
+				{/* Switch entre web/mobile ici, utiliser un <Router> */}
+			</SettingsForm>
+		</AccessControl>
 	)
 }
 
 export function SettingsPageFull() {
 	const history = useHistory()
 	const form = useForm()
-	const user = useSessionUser()
+	const user = useAuthUser()
 
 	return (
 		<SubScreenLayout

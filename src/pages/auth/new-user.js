@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { connect } from "react-redux"
+import * as UserActions from "../../../redux/users/actions"
 import { useTranslation } from "react-i18next"
 import { View, ScrollView } from "react-native"
 import { Platform } from "../../platform"
@@ -16,7 +18,14 @@ import { Redirect } from "react-router"
 
 import { notEmptyValidator } from "../../../helpers/validators"
 
-export default function NewUser({ state, updateUser, user, ...props }) {
+export default connect(
+	({ users, auth }) => ({ state: users.updateUser, user: auth.data.user }),
+	(dispatch) => ({
+		updateUser: function (details) {
+			dispatch(UserActions.updateUser(details))
+		},
+	})
+)(function NewUser({ state, updateUser, user, ...props }) {
 	let history = useHistory()
 
 	const [t, i18n] = useTranslation()
@@ -149,4 +158,4 @@ export default function NewUser({ state, updateUser, user, ...props }) {
 			</ScrollView>
 		</>
 	)
-}
+})

@@ -12,7 +12,6 @@ import MyCollaboratorsPage from "./my-collaborators"
 import ChangePasswordPage from "./change-password"
 import NewEmailModal from "./new-email"
 import FormsTest from "../test/forms"
-import TestRedux from "../test/TestRedux"
 import SubScreenLayout from "../../layout/subscreen"
 import UserAvatar from "../../smartsplit/user/avatar"
 import { Text } from "../../text"
@@ -40,10 +39,6 @@ const MENU = [
 	{
 		text: "menu:testsFormsPage",
 		to: "/test/forms",
-	},
-	{
-		text: "menu:reduxTests",
-		to: "/test/reduxTest",
 	},
 ]
 
