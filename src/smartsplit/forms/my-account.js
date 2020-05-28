@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { ScrollView } from "react-native"
 import { Platform } from "../../platform"
-import { Group, Hairline, Flex, Row, Column } from "../../layout"
+import { Group, Hairline, Flex, Row, Column, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
 import { TextField, Select, CheckBox, PhoneNumberField } from "../../forms"
@@ -13,6 +13,7 @@ import { Status } from "../../utils/enums"
 
 export default function MyAccount() {
 	const { t, i18n } = useTranslation()
+	const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
 	const emails = [
 		{
 			email: "main@iptoki.com",
@@ -34,6 +35,12 @@ export default function MyAccount() {
 
 	return (
 		<Column of="group">
+			<NoSpacer>
+				<ConfirmPhoneModal
+					visible={confirmPhoneModal}
+					onRequestClose={() => setConfirmPhoneModal(false)}
+				/>
+			</NoSpacer>
 			{Platform.web && <Heading level="2">{t("settings:settings")}</Heading>}
 			<TextField label={t("forms:labels.civicAddress")} />
 			{Platform.web && (
@@ -56,7 +63,12 @@ export default function MyAccount() {
 							name="phoneNumber"
 							label={t("forms:labels.phone")}
 						/>
-						<Button secondary bold text={t("general:buttons.validNo")} />
+						<Button
+							secondary
+							bold
+							text={t("general:buttons.validNo")}
+							onClick={() => setConfirmPhoneModal(true)}
+						/>
 					</Row>
 				</>
 			)}

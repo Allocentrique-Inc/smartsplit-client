@@ -9,11 +9,13 @@ import { Text, Paragraph } from "../../text"
 
 export default function ConfirmPhoneModal(props) {
 	const [t] = useTranslation()
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-	const [canSubmit, setCanSubmit] = useState(false)
+	const [verificationCode, setVerificationCode] = useState("")
 
-	const handleSubmit = () => {
-		if (!canSubmit) return false
+	const handleSubmit = props.onRequestClose
+	const canSubmit = verificationCode !== ""
+
+	function onVerificationCodeChanged(code) {
+		setVerificationCode(code.replace(/[^0-9]/, ""))
 	}
 
 	return (
@@ -27,15 +29,11 @@ export default function ConfirmPhoneModal(props) {
 						text={t("general:buttons.cancel")}
 						tertiary
 						onClick={props.onRequestClose}
-						size={buttonSize}
-						style={Platform.OS !== "web" && { flex: 1 }}
 					/>
 					<Button
 						text={t("general:buttons.confirmNO")}
 						disabled={!canSubmit}
 						onClick={handleSubmit}
-						size={buttonSize}
-						style={Platform.OS !== "web" && { flex: 1 }}
 					/>
 				</>
 			}
@@ -47,9 +45,8 @@ export default function ConfirmPhoneModal(props) {
 				<Paragraph>{t("confirmNO:codeSent")}</Paragraph>
 				<TextField
 					label={t("confirmNO:enterNO")}
-					placeholder=""
-					onChangeText={setCanSubmit}
-					//value={verificationCode}
+					onChangeText={onVerificationCodeChanged}
+					value={verificationCode}
 				/>
 			</Group>
 		</DialogModal>
