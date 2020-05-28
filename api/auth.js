@@ -1,13 +1,16 @@
 import { client } from "./ApiClient"
 
-export function login(email, password, expire = "2 hours") {
-	return client.request({
+export async function login(email, password, expire = "2 hours") {
+	const response = await client.request({
 		url: "/auth/login",
 		method: "post",
 		data: { email, password, expire },
 	})
+
+	return response.data
 }
 
-export function refresh() {
-	return client.get("/auth/refresh")
+export async function refresh() {
+	const response = await client.get("/auth/refresh")
+	return response.data
 }

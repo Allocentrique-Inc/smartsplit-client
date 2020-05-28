@@ -90,6 +90,7 @@ export const errors = {
 		emailTaken: "This email is already used. ",
 		forgotEmail: "Did you forget your password?",
 	},
+	invalidCurrentPassword: "Current password is incorrect. Please try again.",
 }
 
 export const publicNavbarWeb = {

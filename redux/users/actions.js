@@ -1,5 +1,5 @@
 import * as UsersAPI from "../../api/Users"
-import { login } from "../auth/actions"
+import { login, setLogin } from "../auth/actions"
 import { createCRUDActions } from "../api"
 
 export function registerUser_request() {
@@ -77,44 +77,21 @@ export function forgotPassword(user) {
 	}
 }
 
-export function resetPassword_request() {
-	return {
-		type: "RESET_PASSWORD_REQUEST",
-	}
-}
-
-export function resetPassword_success(data) {
-	return {
-		type: "RESET_PASSWORD_SUCCESS",
-		payload: data,
-	}
-}
-
-export function resetPassword_error(err) {
-	return {
-		type: "RESET_PASSWORD_ERROR",
-		payload: err,
-	}
-}
-
 export function resetPassword(passwordDetails) {
 	return async function (dispatch) {
-		dispatch(resetPassword_request())
+		dispatch({ type: "RESET_PASSWORD_REQUEST" })
 
 		try {
-			const response = await UsersAPI.passwordReset(passwordDetails)
-			if (response.data && response.data.accessToken) {
-				dispatch(
-					setLogin(
-						response.data.accessToken,
-						response.data.user && response.data.user_id
-					)
+			const response = (await UsersAPI.passwordReset(passwordDetails)).data
+			dispatch(
+				setLogin(
+					response.accessToken,
+					(response.user && response.user.user_id) || response.user_id
 				)
-			}
-			dispatch(resetPassword_success(response.data))
+			)
+			dispatch({ type: "RESET_PASSWORD_SUCCESS", payload: response })
 		} catch (error) {
-			if (error.data) dispatch(resetPassword_error(error.data))
-			else dispatch(resetPassword_error(error))
+			dispatch({ type: "RESET_PASSWORD_ERROR", payload: error })
 		}
 	}
 }

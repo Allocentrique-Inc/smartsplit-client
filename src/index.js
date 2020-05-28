@@ -22,7 +22,7 @@ export default function Main(props) {
 	const isLoggedIn = useSelector((state) => state.auth && state.auth.isLoggedIn)
 
 	useEffect(() => {
-		dispatch(initializeAuthFromStorage())
+		dispatch(initializeAuthFromStorage(true))
 	}, [dispatch])
 
 	return isLoggedIn === null ? null : (

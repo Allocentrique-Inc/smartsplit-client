@@ -92,6 +92,7 @@ export const errors = {
 		emailTaken: "Ce courriel est déjà utilisé. ",
 		forgotEmail: "As-tu oublié ton mot de passe ?",
 	},
+	invalidCurrentPassword: "Mot de passe actuel incorrect. Veuillez réessayer.",
 }
 
 export const publicNavbarWeb = {

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { View } from "react-native"
 import { Platform } from "../../platform"
-import { Group, Hairline, Flex, Row, Column } from "../../layout"
+import { Group, Hairline, Flex, Row, Column, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
 import { TextField, Dropdown } from "../../forms"
@@ -14,28 +14,46 @@ import Label from "../../forms/label"
 
 export default function MySecurity() {
 	const [t] = useTranslation()
+	const [changePasswordOpen, setChangePasswordOpen] = useState(false)
+	const [deleteAccountOpen, setDeleteAccountOpen] = useState(false)
 
-	const [changePasswordModalOpened, setChangePasswordModalOpened] = useState(
-		false
-	)
-
-	const [deleteAccountModalOpened, setDeleteAccountModalOpened] = useState(
-		false
-	)
+	console.log(changePasswordOpen, deleteAccountOpen)
 
 	return (
 		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:security")}</Heading>}
+
 			<Label label={t("settings:password")}>
 				<Row>
-					<Button secondary bold text={t("general:buttons.passwordChange")} />
+					<Button
+						secondary
+						bold
+						text={t("general:buttons.passwordChange")}
+						onClick={() => setChangePasswordOpen(true)}
+					/>
 				</Row>
 			</Label>
+
 			<Label label={t("settings:delete")}>
 				<Row>
-					<Button danger text={t("general:buttons.deleteAccount")} />
+					<Button
+						danger
+						text={t("general:buttons.deleteAccount")}
+						onClick={() => setDeleteAccountOpen(true)}
+					/>
 				</Row>
 			</Label>
+
+			<NoSpacer>
+				<ChangePasswordModal
+					visible={changePasswordOpen}
+					onRequestClose={() => setChangePasswordOpen(false)}
+				/>
+				<DeleteAccountModal
+					visible={deleteAccountOpen}
+					onRequestClose={() => setDeleteAccountOpen(false)}
+				/>
+			</NoSpacer>
 		</Column>
 		// <Platform web={Group} of="group" native={Column} of="component">
 		// 	{Platform.native && (

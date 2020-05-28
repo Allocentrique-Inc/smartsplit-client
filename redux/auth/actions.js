@@ -3,7 +3,7 @@ import { AsyncStorage } from "react-native"
 import { Platform } from "react-native"
 import { setUser } from "../users/actions"
 
-export function initializeFromStorage() {
+export function initializeFromStorage(refreshToken = false) {
 	return async function (dispatch) {
 		dispatch({ type: "AUTH_LOADING" })
 
@@ -28,6 +28,10 @@ export function initializeFromStorage() {
 
 			if (auth) {
 				dispatch(setLogin(auth.accessToken, auth.user_id))
+
+				if (refreshToken) {
+					dispatch(refresh())
+				}
 			} else {
 				dispatch(logout())
 			}
@@ -49,18 +53,14 @@ export function login(username, password, rememberMe) {
 				rememberMe ? "30 days" : "2 hours"
 			)
 
-			if (response.data && response.data.accessToken) {
-				const user = response.data.user
-				const user_id = (user && user.user_id) || response.data.user_id
+			const user = response.user
+			const user_id = (user && user.user_id) || response.user_id
 
-				if (user) {
-					dispatch(setUser(user_id, user))
-				}
-
-				dispatch(setLogin(response.data.accessToken, user_id, rememberMe))
-			} else {
-				dispatch(error({ error: "Invalid server response" }))
+			if (user) {
+				dispatch(setUser(user_id, user))
 			}
+
+			dispatch(setLogin(response.accessToken, user_id, rememberMe))
 		} catch (e) {
 			console.error("Error during login:", e)
 			dispatch(error(e))
@@ -93,8 +93,15 @@ export function error(error) {
 export function refresh() {
 	return async function (dispatch, getState) {
 		try {
-			const { accessToken, user_id } = AuthAPI.refresh()
-			dispatch(setLogin(accessToken, user_id))
+			const response = await AuthAPI.refresh()
+			const user = response.user
+			const user_id = (user && user.user_id) || response.user_id
+
+			if (user) {
+				dispatch(setUser(user_id, user))
+			}
+
+			dispatch(setLogin(response.accessToken, user_id))
 		} catch (e) {
 			// L'appel à refresh() aura déjà invalidé les logins, donc rien à gérer
 		}
