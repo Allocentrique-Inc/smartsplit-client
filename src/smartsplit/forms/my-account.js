@@ -12,7 +12,7 @@ import { MailList } from "../components/mail-list"
 import { Status } from "../../utils/enums"
 
 export default function MyAccount() {
-	const { t } = useTranslation()
+	const { t, i18n } = useTranslation()
 	const emails = [
 		{
 			email: "main@iptoki.com",
@@ -28,6 +28,10 @@ export default function MyAccount() {
 		},
 	]
 
+	function handleLanguageChange(language) {
+		i18n.changeLanguage(language)
+	}
+
 	return (
 		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:settings")}</Heading>}
@@ -42,6 +46,7 @@ export default function MyAccount() {
 								{ key: "fr", value: "Français" },
 								{ key: "en", value: "English" },
 							]}
+							onChange={handleLanguageChange}
 						/>
 						<Flex />
 					</Row>

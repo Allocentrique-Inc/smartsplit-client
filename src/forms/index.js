@@ -220,7 +220,13 @@ export function wrapSimpleField(component, valueProp, onChangeProp) {
 			}
 
 			if (!nextProps[onChangeProp]) {
-				nextProps[onChangeProp] = (value) => (form.value = value)
+				nextProps[onChangeProp] = function (value, ...args) {
+					form.value = value
+
+					if (props[onChangeProp]) {
+						props[onChangeProp](value, ...args)
+					}
+				}
 			}
 
 			if (!nextProps.error) {
