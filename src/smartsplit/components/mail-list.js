@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { View } from "react-native"
 import { Column, Flex, Row, Spacer } from "../../layout"
 import MoreHorizontal from "../../../assets/svg/more-horizontal.svg"
@@ -9,10 +9,12 @@ import Label from "../../forms/label"
 import Button from "../../widgets/button"
 import { useTranslation } from "react-i18next"
 import { Colors } from "../../theme"
+import CheckEmailModal from "../../pages/dashboard/new-email"
 
 export function MailList(props) {
 	const { t } = useTranslation()
 	const { emails, description } = props
+	const [showCheckEmail, setCheckEmail] = useState(false)
 
 	function isMailChecked(email) {
 		return email.status === Status.active || email.status === Status.main
@@ -22,7 +24,7 @@ export function MailList(props) {
 		return (
 			<Column of="none">
 				{emails.map((email, index) => (
-					<Row padding="small" of="component" valign="center" key={index}>
+					<Row padding="small" of="component" valign="center" key={email}>
 						{isMailChecked(email) && <CheckMark color={Colors.action} />}
 						{email.status === Status.pending && <MoreHorizontal />}
 						<Column of="none">
@@ -55,7 +57,17 @@ export function MailList(props) {
 			{description && <Paragraph>{description}</Paragraph>}
 			{!!emails && renderList()}
 			<Row>
-				<Button secondary bold text={t("general:buttons.addEmail")} />
+				<Button
+					secondary
+					bold
+					text={t("general:buttons.addEmail")}
+					onClick={() => setCheckEmail(true)}
+				/>
+				<CheckEmailModal
+					visible={showCheckEmail}
+					onRequestClose={() => setCheckEmail(false)}
+					email="new-email@smartsplit.org"
+				/>
 			</Row>
 		</Label>
 	)

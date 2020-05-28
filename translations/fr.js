@@ -315,6 +315,19 @@ export const settings = {
 			subTitle: "Recevoir les offres de nos partenaires",
 		},
 	},
+
+	emailVerificationModal: {
+		title: "Associe un nouveau courriel à ton compte",
+		body: (email) => (
+			<>
+				<>
+					Une demande de validation afin d'associer ton courriel <b>{email}</b>{" "}
+					à ton compte <i>Smartsplit</i> t'a été envoyée par courriel.
+				</>
+				<>Vérifie tes spams. On ne sait jamais !</>
+			</>
+		),
+	},
 }
 
 export const deletion = {
@@ -339,12 +352,4 @@ export const widgets = {
 	pictureCrop: {
 		title: "Recadre ta photo",
 	},
-}
-
-export const addEmail = {
-	title: "Associe un nouveau courriel à ton compte",
-	paragraph: "Une demande de validation afin d'associer ton adresse",
-	paragraph2: "à ton compte",
-	paragraph3: "t'a été envoyé par courriel.",
-	checkEmail: "Vérifie tes spams. On ne sait jamais !",
 }

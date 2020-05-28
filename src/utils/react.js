@@ -25,3 +25,15 @@ export function mapChildren(children, fn) {
 	forEachChildren(children, (child) => newChilds.push(fn(child)))
 	return newChilds
 }
+
+export function mapFragmentChildren(fragment, fn) {
+	return React.createElement(React.Fragment, {}, ...mapChildren(fragment, fn))
+}
+
+export function mapFragment(fragment, fn) {
+	return React.createElement(
+		React.Fragment,
+		{},
+		...fragment.props.children.map(fn)
+	)
+}

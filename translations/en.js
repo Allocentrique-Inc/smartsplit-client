@@ -313,6 +313,16 @@ export const settings = {
 			subTitle: "Get our partners' offers",
 		},
 	},
+
+	emailVerificationSent: (email) => (
+		<>
+			<>
+				Une demande de validation afin d'associer ton courriel <b>{email}</b> à
+				ton compte <i>Smartsplit</i> t'a été envoyée par courriel.
+			</>
+			<>Vérifie tes spams. On ne sait jamais !</>
+		</>
+	),
 }
 
 export const deletion = {
@@ -337,12 +347,4 @@ export const widgets = {
 	pictureCrop: {
 		title: "Crop Picture",
 	},
-}
-
-export const addEmail = {
-	title: "Link a new email to your account",
-	paragraph: "A validation request to link your address",
-	paragraph2: "to your account",
-	paragraph3: "was sent by email.",
-	checkEmail: "Check your spams. You never know!",
 }

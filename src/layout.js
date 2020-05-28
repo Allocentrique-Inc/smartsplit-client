@@ -37,7 +37,10 @@ function composeView(props, ...stylesheets) {
 			}
 		})
 
-		if (newChildren[newChildren.length - 1].type === SpacerImpl) {
+		if (
+			newChildren.length &&
+			newChildren[newChildren.length - 1].type === SpacerImpl
+		) {
 			newChildren.pop()
 		}
 	}
