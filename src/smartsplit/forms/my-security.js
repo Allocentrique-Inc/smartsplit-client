@@ -17,8 +17,6 @@ export default function MySecurity() {
 	const [changePasswordOpen, setChangePasswordOpen] = useState(false)
 	const [deleteAccountOpen, setDeleteAccountOpen] = useState(false)
 
-	console.log(changePasswordOpen, deleteAccountOpen)
-
 	return (
 		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:security")}</Heading>}

@@ -1,6 +1,7 @@
 import React from "react"
 import { useHistory } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
+import { useTranslation } from "react-i18next"
 import objdiff from "object-diff"
 import { Column, Hairline } from "../../layout"
 import { Text } from "../../text"
@@ -11,33 +12,11 @@ import MyProIdentity from "../../smartsplit/forms/my-pro-identity"
 import MySecurity from "../../smartsplit/forms/my-security"
 import MyAccount from "../../smartsplit/forms/my-account"
 import SubScreenLayout from "../../layout/subscreen"
+import MultisectionLayout from "../../layout/multi-section"
 import UserAvatar from "../../smartsplit/user/avatar"
 import Button from "../../widgets/button"
 import AccessControl from "../../widgets/AccessControl"
 import { useAuthUser } from "../../../redux/auth/hooks"
-
-const ProfileMenu = [
-	{
-		text: "dashboardHeader:profile",
-		to: "/dashboard/my-profile",
-	},
-	{
-		text: "dashboardHeader:settings",
-		to: "/dashboard/my-settings",
-	},
-	{
-		text: "dashboardHeader:identity",
-		to: "/dashboard/my-identity",
-	},
-	{
-		text: "dashboardHeader:notifications",
-		to: "/dashboard/my-notifications",
-	},
-	{
-		text: "profile:menu.security",
-		to: "/dashboard/my-security",
-	},
-]
 
 const settingsDefaultValues = {
 	firstName: "John",
@@ -90,6 +69,7 @@ export default function SettingsPage() {
 }
 
 export function SettingsPageFull() {
+	const { t } = useTranslation()
 	const history = useHistory()
 	const form = useForm()
 	const user = useAuthUser()
@@ -108,17 +88,25 @@ export function SettingsPageFull() {
 				<Button tertiary text="Sauvegarder" onClick={() => form.submit()} />
 			}
 		>
-			<Column of="section">
-				<MyProfile />
-				<Hairline />
-				<MyAccount />
-				<Hairline />
-				<MyProIdentity />
-				<Hairline />
-				<MyNotifications />
-				<Hairline />
-				<MySecurity />
-			</Column>
+			<MultisectionLayout>
+				<MyProfile url="/user/settings/profile" title={t("settings:profile")} />
+				<MyAccount
+					url="/user/settings/account"
+					title={t("settings:settings")}
+				/>
+				<MyProIdentity
+					url="/user/settings/professional-identity"
+					title={t("settings:identity")}
+				/>
+				<MyNotifications
+					url="/user/settings/notifications"
+					title={t("settings:notifications")}
+				/>
+				<MySecurity
+					url="/user/settings/security"
+					title={t("settings:security")}
+				/>
+			</MultisectionLayout>
 		</SubScreenLayout>
 	)
 }
