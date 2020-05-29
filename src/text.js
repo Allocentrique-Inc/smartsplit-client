@@ -1,6 +1,6 @@
 import React from "react"
 import { Text as TextView, TouchableWithoutFeedback } from "react-native"
-import { mapChildren } from "./utils/react"
+import { mapChildren, mapFragmentChildren } from "./utils/react"
 import TypographyStyles from "./styles/typography"
 import MetricsStyles from "./styles/metrics"
 
@@ -58,12 +58,8 @@ export function Text(props) {
 			return React.createElement(
 				React.Fragment,
 				{},
-				formatChild(mapChildren(child(), formatChild))
+				formatChild(mapFragmentChildren(child(), formatChild))
 			)
-		}
-
-		if (Array.isArray(child)) {
-			return child.map(formatChild)
 		}
 
 		let xprops = null
@@ -71,6 +67,9 @@ export function Text(props) {
 		switch (typeof child === "object" && child.type) {
 			case Text:
 				return extendText(child, {})
+
+			case React.Fragment:
+				return mapFragmentChildren(child, formatChild)
 
 			case "b":
 			case "bold":
@@ -116,7 +115,11 @@ export function Text(props) {
 				return extendText(child, xprops)
 
 			default:
-				return child
+				if (Array.isArray(child)) {
+					return child.map(formatChild)
+				} else {
+					return child
+				}
 		}
 	}
 
