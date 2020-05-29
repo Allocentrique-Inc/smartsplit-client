@@ -22,7 +22,11 @@ export function forEachChildren(children, cb) {
 
 export function mapChildren(children, fn) {
 	const newChilds = []
-	forEachChildren(children, (child) => newChilds.push(fn(child)))
+
+	forEachChildren(children, function (child, index) {
+		newChilds.push(fn(child, index))
+	})
+
 	return newChilds
 }
 
