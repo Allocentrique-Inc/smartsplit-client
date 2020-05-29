@@ -24,7 +24,7 @@ export function MailList(props) {
 		return (
 			<Column of="none">
 				{emails.map((email, index) => (
-					<Row padding="small" of="component" valign="center" key={email}>
+					<Row padding="small" of="component" valign="center" key={email.email}>
 						{isMailChecked(email) && <CheckMark color={Colors.action} />}
 						{email.status === Status.pending && <MoreHorizontal />}
 						<Column of="none">
