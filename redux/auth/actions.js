@@ -15,8 +15,10 @@ export function initializeFromStorage(refreshToken = false) {
 				console.error("Error getting user is returning state from storage:", e)
 			)
 
+		let auth = null
+
 		try {
-			let auth = await AsyncStorage.getItem("auth")
+			auth = await AsyncStorage.getItem("auth")
 
 			if (!auth && Platform.OS === "web" && window.sessionStorage) {
 				auth = window.sessionStorage.getItem("auth")
@@ -25,19 +27,20 @@ export function initializeFromStorage(refreshToken = false) {
 			if (auth) {
 				auth = JSON.parse(auth)
 			}
-
-			if (auth) {
-				dispatch(setLogin(auth.accessToken, auth.user_id))
-
-				if (refreshToken) {
-					dispatch(refresh())
-				}
-			} else {
-				dispatch(logout())
-			}
 		} catch (e) {
 			dispatch(logout())
 			dispatch(error(e))
+			return
+		}
+
+		if (auth) {
+			dispatch(setLogin(auth.accessToken, auth.user_id))
+
+			if (refreshToken) {
+				dispatch(refresh())
+			}
+		} else {
+			dispatch(logout())
 		}
 	}
 }
