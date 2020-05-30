@@ -32,11 +32,13 @@ export default function Label(props) {
 	} = props
 
 	const ChildComponent = component
-	const inputComponent = ChildComponent ? (
-		<ChildComponent {...childProps} style={childStyle} error={error} />
-	) : (
-		children
-	)
+	const inputComponent = component
+		? React.createElement(
+				component,
+				{ ...childProps, style: childStyle, error },
+				children
+		  )
+		: children
 
 	return (
 		<Column of="inside" style={[FormStyles.label_wrap, style]}>
