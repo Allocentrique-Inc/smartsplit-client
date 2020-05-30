@@ -36,7 +36,7 @@ export function PhoneNumberField(props) {
 			keyboardType="phone-pad"
 			textContentType="telephoneNumber"
 			autocompletetype="tel"
-			value={isValid ? toDisplayNumber(value) : value}
+			value={isValid ? toDisplayNumber(value) : value || ""}
 			error={error || props.error}
 			onChangeText={onChangeText}
 			onFocus={handleOnFocus}
