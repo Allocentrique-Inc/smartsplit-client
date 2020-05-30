@@ -4,13 +4,14 @@ import Label from "./label"
 import Frame, { useFrameFocus } from "./frame"
 import FormStyles from "../styles/forms"
 
-function FramedTextField(props) {
-	const { error, ...inputProps } = props
+function FramedTextField({ error, before, after, layout, ...inputProps }) {
 	const focused = useFrameFocus(false, inputProps)
 
 	return (
-		<Frame focused={focused.value} error={error}>
+		<Frame {...layout} focused={focused.value} error={error}>
+			{before}
 			<BasicTextField {...inputProps} {...focused.props} />
+			{after}
 		</Frame>
 	)
 }

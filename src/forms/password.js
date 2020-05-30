@@ -1,18 +1,15 @@
 import React, { useState } from "react"
-import { View, TextInput, TouchableWithoutFeedback } from "react-native"
+import { View, TouchableWithoutFeedback } from "react-native"
 
 import { Row } from "../layout"
-import FormStyles from "../styles/forms"
-import Label from "./label"
-import Frame, { useFrameFocus } from "./frame"
+import TextField from "./text"
 import EyeIcon from "../svg/eye"
 import CapsLockIcon from "../svg/caps-lock"
 import { Metrics } from "../theme"
 import { Platform } from "../platform"
 
-function FramedPasswordField(props) {
-	const { error, ...inputProps } = props
-	const focused = useFrameFocus()
+export default function PasswordField(props) {
+	const { onKeyUp } = props
 	const [reveal, setReveal] = useState(false)
 	const [capsLockEnabled, setCapsLockEnabled] = useState(false)
 
@@ -22,35 +19,32 @@ function FramedPasswordField(props) {
 		setReveal(!reveal)
 	}
 
-	const keyUpHandler = (event) => {
+	const keyUpHandler = (event, ...args) => {
 		setCapsLockEnabled(event.getModifierState("CapsLock"))
+		onKeyUp && onKeyUp(event, ...args)
 	}
 
 	return (
-		<Frame as={Row} of="inside" focused={focused.value} error={error}>
-			<TextInput
-				{...inputProps}
-				style={FormStyles.input_text}
-				secureTextEntry={!reveal}
-				{...focused.props}
-				onKeyUp={Platform.web ? keyUpHandler : null}
-			/>
+		<TextField
+			{...props}
+			layout={{ as: Row, of: "inside" }}
+			secureTextEntry={!reveal}
+			onKeyUp={Platform.web ? keyUpHandler : onKeyUp}
+			after={
+				<>
+					<View>{capsLockEnabled && <CapsLockIcon />}</View>
 
-			<View>{capsLockEnabled && <CapsLockIcon />}</View>
-
-			<TouchableWithoutFeedback
-				hitSlop={Metrics.hitSlop}
-				onPress={toggleRevealPassword}
-				accessibilityRole="button"
-			>
-				<View>
-					<EyeIcon blocked={reveal} />
-				</View>
-			</TouchableWithoutFeedback>
-		</Frame>
+					<TouchableWithoutFeedback
+						hitSlop={Metrics.hitSlop}
+						onPress={toggleRevealPassword}
+						accessibilityRole="button"
+					>
+						<View>
+							<EyeIcon blocked={reveal} />
+						</View>
+					</TouchableWithoutFeedback>
+				</>
+			}
+		/>
 	)
-}
-
-export default function PasswordField(props) {
-	return <Label {...props} component={FramedPasswordField} />
 }
