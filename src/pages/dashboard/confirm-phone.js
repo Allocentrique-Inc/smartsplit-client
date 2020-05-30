@@ -6,29 +6,54 @@ import Button from "../../widgets/button"
 import { Section, Column, Row, Group, Flex } from "../../layout"
 import { TextField } from "../../forms"
 import { Text, Paragraph } from "../../text"
+import { verifyPhone } from "../../../api/Users"
 
-export default function ConfirmPhoneModal(props) {
+export default function ConfirmPhoneModal({
+	visible,
+	onRequestClose,
+	user_id,
+}) {
 	const [t] = useTranslation()
 	const [verificationCode, setVerificationCode] = useState("")
+	const [isLoading, setIsLoading] = useState(false)
+	const [error, setError] = useState(null)
 
-	const handleSubmit = props.onRequestClose
-	const canSubmit = verificationCode !== ""
+	const canSubmit = verificationCode !== "" && !isLoading
 
 	function onVerificationCodeChanged(code) {
 		setVerificationCode(code.replace(/[^0-9]/, ""))
 	}
 
+	function handleSubmit() {
+		setIsLoading(true)
+
+		verifyPhone(verificationCode)
+			.then(function () {
+				setVerificationCode("")
+				setIsLoading(false)
+				onRequestClose && onRequestClose()
+			})
+			.catch(function (e) {
+				setIsLoading(false)
+				setError(
+					e.code === "user_invalid_verification_code"
+						? t("confirmNO:invalidCode")
+						: e.message
+				)
+			})
+	}
+
 	return (
 		<DialogModal
-			visible={props.visible}
-			onRequestClose={props.onRequestClose}
+			visible={visible}
+			onRequestClose={onRequestClose}
 			title={t("confirmNO:title")}
 			buttons={
 				<>
 					<Button
 						text={t("general:buttons.cancel")}
 						tertiary
-						onClick={props.onRequestClose}
+						onClick={onRequestClose}
 					/>
 					<Button
 						text={t("general:buttons.confirmNO")}
@@ -47,6 +72,7 @@ export default function ConfirmPhoneModal(props) {
 					label={t("confirmNO:enterNO")}
 					onChangeText={onVerificationCodeChanged}
 					value={verificationCode}
+					error={error}
 				/>
 			</Group>
 		</DialogModal>

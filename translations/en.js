@@ -341,6 +341,8 @@ export const confirmNO = {
 	title: "Confirm your phone number",
 	codeSent: "A code was sent to you my text message.",
 	enterNO: "Enter the verification code",
+	invalidCode:
+		"The entered code is not valid. Make sure you are using the last one received!",
 }
 
 export const widgets = {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
 import { useTranslation } from "react-i18next"
 import { ScrollView } from "react-native"
 import { Platform } from "../../platform"
@@ -10,10 +11,11 @@ import Button from "../../widgets/button"
 import ConfirmPhoneModal from "../../pages/dashboard/confirm-phone"
 import { MailList } from "../components/mail-list"
 import { Status } from "../../utils/enums"
+import { useAuthUser } from "../../../redux/auth/hooks"
+import Label from "../../forms/label"
 
 export default function MyAccount() {
 	const { t, i18n } = useTranslation()
-	const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
 	const emails = [
 		{
 			email: "main@iptoki.com",
@@ -35,12 +37,6 @@ export default function MyAccount() {
 
 	return (
 		<Column of="group">
-			<NoSpacer>
-				<ConfirmPhoneModal
-					visible={confirmPhoneModal}
-					onRequestClose={() => setConfirmPhoneModal(false)}
-				/>
-			</NoSpacer>
 			{Platform.web && <Heading level="2">{t("settings:settings")}</Heading>}
 			<TextField label={t("forms:labels.civicAddress")} />
 			{Platform.web && (
@@ -58,18 +54,7 @@ export default function MyAccount() {
 						<Flex />
 					</Row>
 
-					<Row of="component" valign="bottom">
-						<PhoneNumberField
-							name="phoneNumber"
-							label={t("forms:labels.phone")}
-						/>
-						<Button
-							secondary
-							bold
-							text={t("general:buttons.validNo")}
-							onClick={() => setConfirmPhoneModal(true)}
-						/>
-					</Row>
+					<MobilePhoneRow />
 				</>
 			)}
 
@@ -80,5 +65,63 @@ export default function MyAccount() {
 				description={t("forms:descriptions.myEmails")}
 			/>
 		</Column>
+	)
+}
+
+export function MobilePhoneRow() {
+	const { t, i18n } = useTranslation()
+	const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
+
+	const dispatch = useDispatch()
+	const user = useAuthUser()
+	const mobilePhone = (user.data && user.data.mobilePhone) || {}
+	const [inputNumber, setInputNumber] = useState(mobilePhone.number || "")
+	const [error, setError] = useState(null)
+
+	const hasChanged = (mobilePhone.number || "") !== inputNumber
+
+	function savePhoneNumber() {
+		if (hasChanged || mobilePhone.status === "unverified") {
+			user
+				.update({ phoneNumber: inputNumber })
+				.then(() => setConfirmPhoneModal(true))
+				.catch((e) => setError(e.message))
+		}
+	}
+
+	function onConfirmClose() {
+		setConfirmPhoneModal(false)
+		dispatch(user.read())
+	}
+
+	return (
+		<Label
+			label={t("forms:labels.phone")}
+			component={Row}
+			of="component"
+			error={error}
+		>
+			<PhoneNumberField
+				status={!hasChanged && mobilePhone.status}
+				onChangeText={setInputNumber}
+				value={inputNumber}
+			/>
+
+			<Row flex={1}>
+				{(hasChanged || mobilePhone.status === "unverified") && (
+					<Button
+						secondary
+						bold
+						text={t("general:buttons.validNo")}
+						onClick={savePhoneNumber}
+					/>
+				)}
+
+				<ConfirmPhoneModal
+					visible={confirmPhoneModal}
+					onRequestClose={onConfirmClose}
+				/>
+			</Row>
+		</Label>
 	)
 }

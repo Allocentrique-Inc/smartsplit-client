@@ -33,11 +33,9 @@ export function SettingsForm({ children }) {
 	const history = useHistory()
 	const user = useAuthUser()
 
-	const phone = user.data && user.data.mobilePhone
 	const formValues = {
 		...settingsDefaultValues,
 		...user.data,
-		phoneNumber: phone ? phone.number : "",
 	}
 
 	async function handleSubmit(values) {
