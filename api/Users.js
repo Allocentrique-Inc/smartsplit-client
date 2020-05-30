@@ -41,4 +41,12 @@ export function updateUser(details) {
 	})
 }
 
+export async function verifyPhone(verificationCode) {
+	const res = await client.post(`/users/verify-mobile-phone`, {
+		verificationCode,
+	})
+
+	return res.data
+}
+
 export default createCrudClient("/users")

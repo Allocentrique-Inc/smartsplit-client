@@ -28,6 +28,8 @@ export function createCRUDActions(ApiEntity, actionType) {
 				state: finishedState,
 				data: result.data,
 			})
+
+			return result
 		} catch (error) {
 			dispatch({
 				type: actionType,
@@ -35,6 +37,8 @@ export function createCRUDActions(ApiEntity, actionType) {
 				error: error,
 				state: "error",
 			})
+
+			throw error
 		}
 	}
 
