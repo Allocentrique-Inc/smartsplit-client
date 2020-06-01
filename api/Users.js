@@ -2,7 +2,7 @@ import { client, createCrudClient } from "./ApiClient"
 
 export function registerUser(data) {
 	return client.request({
-		url: "/users",
+		url: "/users/",
 		method: "post",
 		data,
 	})
