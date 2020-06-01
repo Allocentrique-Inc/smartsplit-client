@@ -25,11 +25,13 @@ export function passwordReset(data) {
 }
 
 export function activateAccount(token) {
-	return client.request({
+	const result = await client.request({
 		url: "/users/activate",
 		method: "post",
 		data: { token },
 	})
+	
+	return result.data
 }
 
 export function updateUser(details) {

@@ -108,18 +108,18 @@ export function activateAccount(token) {
 
 		try {
 			const response = await UsersAPI.activateAccount(token)
+			const user = response.user
 
-			if (response.data && response.data.accessToken) {
-				saveAuth(response.data)
-				dispatch({
-					type: "LOGIN_USER_SUCCESS",
-					payload: response.data,
-				})
-			}
+			dispatch(
+				setLogin(
+					response.accessToken,
+					(user && user.user_id) || response.user_id
+				)
+			)
 
 			dispatch({
 				type: "ACTIVATE_SUCCESS",
-				payload: response.data,
+				payload: response,
 			})
 		} catch (error) {
 			dispatch({
