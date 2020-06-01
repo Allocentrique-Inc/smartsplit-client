@@ -14,7 +14,7 @@ export default function PublicPageLayout({
 	const Component = as || Column
 	const nextStyle =
 		Platform.OS === "web"
-			? { maxWidth: 464, alignSelf: "center", ...style }
+			? { maxWidth: 528, alignSelf: "center", ...style }
 			: style
 
 	return (

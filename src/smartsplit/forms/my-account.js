@@ -14,7 +14,7 @@ import { Status } from "../../utils/enums"
 import { useAuthUser } from "../../../redux/auth/hooks"
 import Label from "../../forms/label"
 
-export default function MyAccount() {
+export default function MyAccount({ title }) {
 	const { t, i18n } = useTranslation()
 	const emails = [
 		{
@@ -37,7 +37,7 @@ export default function MyAccount() {
 
 	return (
 		<Column of="group">
-			{Platform.web && <Heading level="2">{t("settings:settings")}</Heading>}
+			{title && <Heading level="2">{title}</Heading>}
 			<TextField label={t("forms:labels.civicAddress")} />
 			{Platform.web && (
 				<>

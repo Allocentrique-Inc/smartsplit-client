@@ -26,7 +26,7 @@ export class Form extends React.PureComponent {
 		super(props)
 
 		this.form = {
-			submit: this.handleSubmit.bind(this),
+			submit: this.submit.bind(this),
 			fields: {},
 			field: this.getField.bind(this),
 		}
@@ -132,7 +132,7 @@ export class Form extends React.PureComponent {
 		return field
 	}
 
-	handleSubmit() {
+	submit() {
 		const values = {}
 
 		for (let key in this.form.fields) {

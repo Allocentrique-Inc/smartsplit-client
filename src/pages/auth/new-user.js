@@ -1,161 +1,93 @@
-import React, { useState, useEffect } from "react"
-import { connect } from "react-redux"
-import * as UserActions from "../../../redux/users/actions"
+import React, { useState, useRef } from "react"
 import { useTranslation } from "react-i18next"
-import { View, ScrollView } from "react-native"
 import { Platform } from "../../platform"
 import { Text, Heading, Paragraph } from "../../text"
 import { useHistory } from "react-router-dom"
-import { Group, Row, Column, Flex, Section } from "../../layout"
-import { TextField } from "../../forms"
+import { Row, Column, Flex } from "../../layout"
+import { Form, useForm } from "../../forms"
 import Button from "../../widgets/button"
-import Scrollable from "../../widgets/scrollable"
-import PublicNavBarWeb from "../../smartsplit/public/navbar-web"
-import { Metrics, Colors } from "../../theme"
-import UserAvatar from "../../smartsplit/user/avatar"
-import PenIcon from "../../svg/pen"
-import { Redirect } from "react-router"
+import { useAuthUser } from "../../../redux/auth/hooks"
+import PublicPageLayout from "../../layout/public-page"
+import MyProfile from "../../smartsplit/forms/my-profile"
 
-import { notEmptyValidator } from "../../../helpers/validators"
+export default function NewUser() {
+	const history = useHistory()
+	const { t, i18n } = useTranslation()
+	const user = useAuthUser()
+	const [error, setError] = useState(null)
+	const formRef = useRef()
 
-export default connect(
-	({ users, auth }) => ({ state: users.updateUser, user: auth.data.user }),
-	(dispatch) => ({
-		updateUser: function (details) {
-			dispatch(UserActions.updateUser(details))
-		},
-	})
-)(function NewUser({ state, updateUser, user, ...props }) {
-	let history = useHistory()
-
-	const [t, i18n] = useTranslation()
-
-	const [firstName, setFirstName] = useState("")
-	const [lastName, setLastName] = useState("")
-	const initials = (firstName[0] || "") + (lastName[0] || "")
-
-	const buttonSize = Platform.OS === "web" ? "medium" : "large"
-
-	const NameFields = Platform.OS === "web" ? Row : Column
-
-	const [hasSubmitted, setHasSubmitted] = useState(false)
-	const submitSuccess = !state.isLoading && !state.error && state.data
-	const canSubmit =
-		notEmptyValidator(firstName) &&
-		notEmptyValidator(lastName) &&
-		!state.isLoading
-
-	const handleSubmit = () => {
-		if (!canSubmit) return false
-		updateUser({
-			user_id: user.user_id,
-			firstName,
-			lastName,
-			locale: user.locale,
-		})
+	const initialValues = {
+		firstName: "",
+		lastName: "",
+		artistName: "",
+		avatarUrl: null,
+		...user.data,
 	}
 
-	if (submitSuccess) return <Redirect to="/" />
+	const currentLanguage = i18n.language === "en" ? "Français" : "English"
+
+	function switchLanguage() {
+		i18n.changeLanguage(i18n.language === "en" ? "fr" : "en")
+	}
+
+	const buttonSize = Platform.web ? "medium" : "large"
+
+	function handleSubmit(values) {
+		user
+			.update({ ...values, locale: i18n.language })
+			.then(nextStep)
+			.catch((e) => {
+				console.error("Error saving user", e)
+				setError(e)
+			})
+	}
+
+	function nextStep() {
+		history.replace("/")
+	}
+
+	function submitForm() {
+		formRef.current.submit()
+	}
 
 	return (
-		<>
-			<ScrollView>
-				{Platform.OS === "web" && (
-					<PublicNavBarWeb>
-						{Platform.OS === "web" && (
-							<>
-								<Button
-									tertiary
-									text={t("general:buttons.nextStep")}
-									onClick={() => history.push("/")}
-								/>
-								<Button secondary text={t("publicNavbarWeb:language")} />
-							</>
-						)}
-					</PublicNavBarWeb>
-				)}
-
-				<Group
-					of={Platform.OS === "web" ? "group" : "component"}
-					style={
-						Platform.OS === "web" && { maxWidth: 464, alignSelf: "center" }
-					}
-				>
-					<Heading level="1">{t("newUser:title")}</Heading>
-					<Column of="section">
-						<Paragraph>{t("newUser:subTitle")}</Paragraph>
-
-						<Row>
-							<UserAvatar size="huge" />
-							<View style={{ margin: 50 }}>
-								<PenIcon />
-							</View>
-						</Row>
-					</Column>
-
-					<NameFields of="group">
-						<TextField
-							label={t("forms:labels.myLegalFirstName")}
-							placeholder={t("forms:placeholders.usualFirstName")}
-							undertext={
-								<Text italic small>
-									Madonna Louise
-								</Text>
-							}
-							value={firstName}
-							onChangeText={setFirstName}
-						/>
-
-						<TextField
-							label={t("forms:labels.myLegalLastName")}
-							placeholder={t("forms:placeholders.usualLastName")}
-							undertext={
-								<Text italic small>
-									Ciccone
-								</Text>
-							}
-							value={lastName}
-							onChangeText={setLastName}
-						/>
-					</NameFields>
-
-					<TextField
-						label={t("forms:labels.artistName")}
-						label_hint={<Text secondary>{t("forms:labels.optional")}</Text>}
-						placeholder=""
-						undertext={
-							<>
-								<Text small>{t("forms:undertexts.artistNameExample")}</Text>
-								<Text italic small>
-									{" "}
-									Jay-Z
-								</Text>
-								<Text small> {t("forms:undertexts.artistNameExample3")}</Text>
-								<Text italic small>
-									{" "}
-									Shawn Corey Carter
-								</Text>
-								.
-							</>
-						}
+		<PublicPageLayout
+			of="group"
+			navigation={
+				<>
+					<Button
+						tertiary
+						text={t("general:buttons.nextStep")}
+						onClick={nextStep}
 					/>
 
-					<Row align="right">
-						<Button
-							text={t("general:buttons.go")}
-							style={Platform.OS !== "web" && { flex: 1 }}
-							size={buttonSize}
-							disabled={!canSubmit}
-							onClick={handleSubmit}
-						/>
-					</Row>
-					{Platform.OS !== "web" && (
-						<Row>
-							<Button tertiary text={t("general:buttons.nextStep")} />
-						</Row>
-					)}
-				</Group>
-			</ScrollView>
-		</>
+					<Button secondary text={currentLanguage} onClick={switchLanguage} />
+				</>
+			}
+		>
+			<Column of="component">
+				<Heading level="1">{t("newUser:title")}</Heading>
+				<Paragraph>{t("newUser:subTitle")}</Paragraph>
+			</Column>
+			<Form
+				key={user.data}
+				ref={formRef}
+				values={initialValues}
+				onSubmit={handleSubmit}
+			>
+				<MyProfile />
+			</Form>
+			{error && <Text error>{error.message}</Text>}
+			<Row align="right">
+				<Button
+					text={t("general:buttons.go")}
+					style={Platform.OS !== "web" && { flex: 1 }}
+					size={buttonSize}
+					disabled={user.state !== "ready"}
+					onClick={submitForm}
+				/>
+			</Row>
+		</PublicPageLayout>
 	)
-})
+}

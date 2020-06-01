@@ -19,9 +19,9 @@ import AccessControl from "../../widgets/AccessControl"
 import { useAuthUser } from "../../../redux/auth/hooks"
 
 const settingsDefaultValues = {
-	firstName: "John",
-	lastName: "Doe",
-	artistName: "Example",
+	firstName: "",
+	lastName: "",
+	artistName: "",
 	locale: "fr",
 	birthdate: "1969-01-01",
 	isni: "",

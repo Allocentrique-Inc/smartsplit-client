@@ -24,13 +24,13 @@ export function passwordReset(data) {
 	})
 }
 
-export function activateAccount(token) {
+export async function activateAccount(token) {
 	const result = await client.request({
 		url: "/users/activate",
 		method: "post",
 		data: { token },
 	})
-	
+
 	return result.data
 }
 

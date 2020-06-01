@@ -11,7 +11,7 @@ import PenIcon from "../../svg/pen"
 import Button from "../../widgets/button"
 import { PictureCropModal } from "../../widgets/picture-crop"
 
-export default function MyProfile() {
+export default function MyProfile({ title }) {
 	const { t } = useTranslation()
 
 	const avatar = useFormField("avatar")
@@ -47,8 +47,7 @@ export default function MyProfile() {
 
 	return (
 		<Column of="group">
-			{Platform.web && <Heading level="2">{t("settings:profile")}</Heading>}
-
+			{title && <Heading level="2">{title}</Heading>}
 			<Row of="component" align="left" valign="center">
 				<UserAvatar size="huge" picture={avatarImg} initials={initials} />
 				<Button icon={<PenIcon />} onClick={selectNewPicture} />
