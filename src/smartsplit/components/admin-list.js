@@ -16,10 +16,6 @@ import Hourglass from "../../svg/hourglass"
 import { AdminListMenu, DefaultMenu, PendingMenu } from "./admin-list-menus"
 
 export const AdminListStyle = StyleSheet.create({
-	menu_container: {
-		flex: 1,
-		justifyContent: "flex-end",
-	},
 	frame_pending: {
 		backgroundColor: Colors.background.underground,
 	},
@@ -159,10 +155,12 @@ export function AdminList(props) {
 			title={renderTitle()}
 			onExpand={(value) => handleExpand(value)}
 			expanded={expanded}
-			icon={expanded ? <ChevronDown/> : <ChevronRight/> }
+			icon={expanded ? <ChevronDown /> : <ChevronRight />}
 			onMouseEnterTitle={() => setCurrentFocus(-1)}
 			onMouseLeaveTitle={() => setCurrentFocus(null)}
-			onPressTitle={() => setCurrentFocus((expanded && currentFocus !== -1) ? null : -1)}
+			onPressTitle={() =>
+				setCurrentFocus(expanded && currentFocus !== -1 ? null : -1)
+			}
 			animate
 		>
 			{newChildren}

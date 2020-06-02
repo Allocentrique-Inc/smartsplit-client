@@ -1,7 +1,7 @@
 import * as AuthAPI from "../../api/auth"
 import { AsyncStorage } from "react-native"
 import { Platform } from "react-native"
-import { setUser } from "../users/actions"
+// import { setUser } from "../users/actions"
 
 export function initializeFromStorage(refreshToken = false) {
 	return async function (dispatch) {
@@ -120,4 +120,15 @@ export function logout() {
 	)
 
 	return { type: "AUTH_LOGOUT" }
+}
+
+// Fix temporaire pour la boucle d'import
+function setUser(user_id, data) {
+	return {
+		type: "USER_SETSTATE",
+		id: user_id,
+		data: data,
+		error: null,
+		state: "ready",
+	}
 }

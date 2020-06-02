@@ -1,14 +1,20 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { Row } from "../../layout"
-import { TouchableWithoutFeedback, View } from "react-native"
+import { TouchableWithoutFeedback, View, StyleSheet } from "react-native"
 import Trash from "../../svg/trash"
 import Pen from "../../svg/pen"
 import PlusCircle from "../../svg/plus-circle"
 import Button from "../../widgets/button"
 import { Colors } from "../../theme"
 import CheckMark from "../../svg/check-mark"
-import { AdminListStyle } from "./admin-list"
+
+export const Styles = StyleSheet.create({
+	menu_container: {
+		flex: 1,
+		justifyContent: "flex-end",
+	},
+})
 
 export function AdminListMenu(props) {
 	const { children, disabled, ...nextProps } = props
@@ -18,7 +24,7 @@ export function AdminListMenu(props) {
 			valign="center"
 			wrap
 			style={[
-				AdminListStyle.menu_container,
+				Styles.menu_container,
 				{
 					opacity: disabled ? 0 : 1,
 				},
