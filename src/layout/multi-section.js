@@ -109,9 +109,9 @@ export const Styles = StyleSheet.create({
 	menuPanel: {
 		width: 224,
 		marginRight: 96,
-		position: "sticky",
 		top: Metrics.spacing.section,
 		alignSelf: "flex-start",
+		...Platform.select({ web: { position: "sticky" } }),
 	},
 
 	menuItem: {
