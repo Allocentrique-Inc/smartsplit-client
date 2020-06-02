@@ -1,28 +1,39 @@
 import { Platform } from "react-native"
 import i18n from "i18next"
 import { initReactI18next } from "react-i18next"
-import BrowserLanguageDetector from "i18next-browser-languagedetector"
-import NativeLanguageDetector from "i18next-react-native-language-detector"
+import { locales as deviceLocales } from "expo-localization"
 import moment from "moment"
 
 import * as english from "./en"
 import * as french from "./fr"
 
+export const validLanguages = ["en", "fr"]
+export const defaultLocale = "fr"
+
+export function getDeviceLocale() {
+	let locale = defaultLocale
+
+	for (let lang of deviceLocales) {
+		lang = lang.replace(/[_-].*$/, "")
+
+		if (validLanguages.includes(lang)) {
+			locale = lang
+			break
+		}
+	}
+
+	return locale
+}
+
 const translations = i18n
-	.use(
-		Platform.select({
-			web: BrowserLanguageDetector,
-			ios: NativeLanguageDetector,
-			android: NativeLanguageDetector,
-		})
-	)
 	.use(initReactI18next)
 	.on("languageChanged", function (language) {
 		moment.locale(language)
 	})
 	.init({
-		fallbackLng: "fr",
-		whitelist: ["en", "fr"],
+		lng: getDeviceLocale(),
+		fallbackLng: defaultLocale,
+		whitelist: validLanguages,
 		resources: {
 			en: english,
 			fr: french,
