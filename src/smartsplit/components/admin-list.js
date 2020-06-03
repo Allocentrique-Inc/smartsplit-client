@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import {
-	CollapsableItem,
+	ListItem,
 	CollapsableList,
-} from "../../widgets/collapsable-list"
+} from "../../widgets/list"
 import { forEachChildren, Row } from "../../layout"
 import ChevronDown from "../../svg/chevron-down"
 import ChevronRight from "../../svg/chevron-right"
@@ -85,7 +85,7 @@ export function AdminListItem(props) {
 	}
 
 	return (
-		<CollapsableItem
+		<ListItem
 			list={list}
 			{...nextProps}
 			style={pending ? AdminListStyle.frame_pending : null}
@@ -105,7 +105,7 @@ export function AdminListItem(props) {
 					{!list && renderMenu()}
 				</>
 			)}
-		</CollapsableItem>
+		</ListItem>
 	)
 }
 
