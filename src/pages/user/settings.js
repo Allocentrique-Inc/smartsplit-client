@@ -134,10 +134,14 @@ export function SettingsMenu() {
 			<Row of="component" padding="component" valign="center">
 				<UserAvatar user={user.data} initials="XX" size="medium" />
 				<Column>
-					<Heading level={1}>{user.data.artistName}</Heading>
-					<Text>
-						{user.data.firstName} {user.data.lastName}
-					</Text>
+					{user.data.artistName && (
+						<Heading level={1}>{user.data.artistName}</Heading>
+					)}
+					{(user.data.firstName || user.data.lastName) && (
+						<Text>
+							{user.data.firstName} {user.data.lastName}
+						</Text>
+					)}
 				</Column>
 			</Row>
 			<Hairline />
@@ -231,7 +235,7 @@ export function MobileAccount({ tab }) {
 			</Tab>
 			<Tab
 				key="identity"
-				title={t("settings:proIdentity")}
+				title={t("settings:identity")}
 				default={tab === "identity"}
 			>
 				<MyProIdentity />
@@ -286,7 +290,7 @@ export default function SettingsRouter() {
 
 							<MobileRoute
 								path="/user/settings/notifications"
-								title={t("menu:profile")}
+								title={t("settings:preferences")}
 							>
 								<Hairline />
 								<Column padding="group">
