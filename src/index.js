@@ -14,7 +14,7 @@ import UserActivateAccount from "./pages/user/activate"
 
 import AccessControl from "./widgets/AccessControl"
 
-import SettingsPage from "./pages/user/settings"
+import UserSettings from "./pages/user/settings"
 import AdminPage from "./pages/admin"
 
 export default function Main(props) {
@@ -38,8 +38,7 @@ export function MainRouter(props) {
 	return (
 		<Switch>
 			<Route path="/" exact>
-				<Redirect to="/dashboard/account/settings" />
-				<SettingsPage />
+				<Redirect to="/dashboard/" />
 			</Route>
 
 			<Route path="/auth/">
@@ -73,7 +72,7 @@ export function MainRouter(props) {
 			</Route>
 
 			<Route path="/user/settings">
-				<SettingsPage />
+				<UserSettings />
 			</Route>
 
 			<Route path="/test/forms" exact>

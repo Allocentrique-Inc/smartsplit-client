@@ -84,8 +84,8 @@ export function TabBar(props) {
 	})
 
 	return (
-		<Column>
-			<Row>
+		<Column style={props.style}>
+			<Row style={props.barStyle}>
 				{children}
 				<View
 					style={[TabStyles.tab, TabStyles.spacer, TabStyles.spacer_fill]}

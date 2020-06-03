@@ -1,10 +1,11 @@
 import React from "react"
-import { useHistory } from "react-router"
+import { TouchableWithoutFeedback } from "react-native"
+import { Route, Redirect, Switch, useHistory } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import { useTranslation } from "react-i18next"
 import objdiff from "object-diff"
-import { Column, Hairline } from "../../layout"
-import { Text } from "../../text"
+import { Column, Row, Hairline } from "../../layout"
+import { Heading, Text } from "../../text"
 import { Form, useForm } from "../../forms"
 import MyProfile from "../../smartsplit/forms/my-profile"
 import MyNotifications from "../../smartsplit/forms/my-notifications"
@@ -16,7 +17,16 @@ import MultisectionLayout from "../../layout/multi-section"
 import UserAvatar from "../../smartsplit/user/avatar"
 import Button from "../../widgets/button"
 import AccessControl from "../../widgets/AccessControl"
-import { useAuthUser } from "../../../redux/auth/hooks"
+import { useAuthUser, useAuthStatus } from "../../../redux/auth/hooks"
+import { Platform } from "../../platform"
+import { MobileMenu } from "../dashboard"
+import { TabBar, Tab } from "../../widgets/tabs"
+import { Metrics } from "../../theme"
+
+import UsersIcon from "../../svg/user"
+import UserCardIcon from "../../svg/user-card"
+import SettingsIcon from "../../svg/settings"
+import LogoutIcon from "../../svg/logout"
 
 const settingsDefaultValues = {
 	firstName: "",
@@ -29,7 +39,7 @@ const settingsDefaultValues = {
 	avatarUrl: null,
 }
 
-export function SettingsForm({ children }) {
+export function SettingsForm({ redirectOnSave, children }) {
 	const history = useHistory()
 	const user = useAuthUser()
 
@@ -45,7 +55,7 @@ export function SettingsForm({ children }) {
 			await user.update(diff)
 		}
 
-		history.push("/dashboard/")
+		history.push(redirectOnSave || "/dashboard/")
 	}
 
 	return (
@@ -55,14 +65,12 @@ export function SettingsForm({ children }) {
 	)
 }
 
-export default function SettingsPage() {
+export function SettingsPage() {
 	return (
-		<AccessControl redirectToLogin>
-			<SettingsForm>
-				<SettingsPageFull />
-				{/* Switch entre web/mobile ici, utiliser un <Router> */}
-			</SettingsForm>
-		</AccessControl>
+		<SettingsForm>
+			<SettingsPageFull />
+			{/* Switch entre web/mobile ici, utiliser un <Router> */}
+		</SettingsForm>
 	)
 }
 
@@ -83,9 +91,17 @@ export function SettingsPageFull() {
 			}
 			onBack={() => history.goBack()}
 			actions={
-				<Button tertiary text="Sauvegarder" onClick={() => form.submit()} />
+				<Button
+					tertiary
+					text={t("general:buttons.save")}
+					onClick={() => form.submit()}
+				/>
 			}
 		>
+			<Route path="/user/settings/" exact>
+				<Redirect to="/user/settings/profile" />
+			</Route>
+
 			<MultisectionLayout>
 				<MyProfile url="/user/settings/profile" title={t("settings:profile")} />
 				<MyAccount
@@ -106,5 +122,188 @@ export function SettingsPageFull() {
 				/>
 			</MultisectionLayout>
 		</SubScreenLayout>
+	)
+}
+
+export function SettingsMenu() {
+	const { t } = useTranslation()
+	const user = useAuthUser()
+
+	return (
+		<Column>
+			<Row of="component" padding="component" valign="center">
+				<UserAvatar user={user.data} initials="XX" size="medium" />
+				<Column>
+					<Heading level={1}>{user.data.artistName}</Heading>
+					<Text>
+						{user.data.firstName} {user.data.lastName}
+					</Text>
+				</Column>
+			</Row>
+			<Hairline />
+			<Column of="group" padding="group">
+				<SettingsMenuItem
+					to="/user/settings/profile"
+					icon={<UsersIcon />}
+					text={t("menu:profile")}
+				/>
+
+				<SettingsMenuItem
+					to="/user/settings/account"
+					icon={<UserCardIcon />}
+					text={t("menu:account")}
+				/>
+
+				<SettingsMenuItem
+					to="/user/settings/notifications"
+					icon={<SettingsIcon />}
+					text={t("settings:preferences")}
+				/>
+
+				<SettingsMenuItem
+					to="/auth/logout"
+					icon={<LogoutIcon />}
+					text={t("menu:logout")}
+				/>
+			</Column>
+		</Column>
+	)
+}
+
+export function SettingsMenuItem({ to, icon, text }) {
+	const history = useHistory()
+
+	function activate() {
+		history.push(to)
+	}
+
+	return (
+		<TouchableWithoutFeedback onPress={activate} accessibilityRole="button">
+			<Row of="component">
+				{icon}
+				<Text>{text}</Text>
+			</Row>
+		</TouchableWithoutFeedback>
+	)
+}
+
+export function MobileRoute({ path, title, children }) {
+	const { t } = useTranslation()
+	const history = useHistory()
+	const form = useForm()
+
+	return (
+		<Route path={path}>
+			<SubScreenLayout
+				title={<Text bold>{title}</Text>}
+				onBack={() => history.push("/user/settings")}
+				actions={
+					<Button
+						tertiary
+						text={t("general:buttons.save")}
+						onClick={() => form.submit()}
+					/>
+				}
+			>
+				{children}
+			</SubScreenLayout>
+		</Route>
+	)
+}
+
+export function MobileAccount({ tab }) {
+	const { t } = useTranslation()
+	return (
+		<TabBar
+			style={{
+				paddingLeft: Metrics.spacing.component,
+				paddingRight: Metrics.spacing.component,
+			}}
+			barStyle={{ marginBottom: Metrics.spacing.group }}
+		>
+			<Tab
+				key="account"
+				title={t("settings:accountInfo")}
+				default={tab === "account"}
+			>
+				<MyAccount />
+				<MySecurity />
+			</Tab>
+			<Tab
+				key="identity"
+				title={t("settings:proIdentity")}
+				default={tab === "identity"}
+			>
+				<MyProIdentity />
+			</Tab>
+		</TabBar>
+	)
+}
+
+export default function SettingsRouter() {
+	const { t } = useTranslation()
+
+	if (useAuthStatus() === false) {
+		const history = useHistory()
+		history.push("/auth/login")
+	}
+
+	return (
+		<SettingsForm>
+			{Platform.web ? (
+				<SettingsPage />
+			) : (
+				<MobileMenu>
+					<SettingsForm redirectOnSave="/user/settings/">
+						<Switch>
+							<Route path="/user/settings/" exact>
+								<SettingsMenu />
+							</Route>
+
+							<MobileRoute
+								path="/user/settings/profile"
+								title={t("menu:profile")}
+							>
+								<Hairline />
+								<Column padding="group">
+									<MyProfile />
+								</Column>
+							</MobileRoute>
+
+							<MobileRoute
+								path="/user/settings/account"
+								title={t("menu:account")}
+							>
+								<MobileAccount tab="account" />
+							</MobileRoute>
+
+							<MobileRoute
+								path="/user/settings/professional-identity"
+								title={t("menu:account")}
+							>
+								<MobileAccount tab="identity" />
+							</MobileRoute>
+
+							<MobileRoute
+								path="/user/settings/notifications"
+								title={t("menu:profile")}
+							>
+								<Hairline />
+								<Column padding="group">
+									<MyNotifications />
+								</Column>
+							</MobileRoute>
+
+							<MobileRoute
+								path="/user/settings/security"
+								title={t("menu:account")}
+							>
+								<MobileAccount tab="account" />
+							</MobileRoute>
+						</Switch>
+					</SettingsForm>
+				</MobileMenu>
+			)}
+		</SettingsForm>
 	)
 }

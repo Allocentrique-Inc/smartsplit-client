@@ -36,7 +36,7 @@ export default function MultisectionLayout({ children }) {
 		<Row flex={1}>
 			<Column style={Styles.menuPanel}>{menuItems}</Column>
 
-			<Column of="none" spacer={Spacer} flex={1}>
+			<Column of="none" spacer={Spacer} flex={1} style={Styles.body}>
 				{bodyItems}
 			</Column>
 		</Row>
@@ -127,5 +127,9 @@ export const Styles = StyleSheet.create({
 	menuItemActive: {
 		borderLeftColor: Colors.action,
 		backgroundColor: Colors.background.underground,
+	},
+
+	body: {
+		paddingTop: Metrics.spacing.section,
 	},
 })

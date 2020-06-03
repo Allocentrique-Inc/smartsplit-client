@@ -18,14 +18,6 @@ import Button from "../widgets/button"
 
 import LogoSmartSplitMenu from "../svg/logo-smart-split-menu"
 import LinkIcon from "../svg/link"
-import LogoArrowLeft from "../svg/arrow-left"
-import LogoAddSquare from "../svg/add-square"
-
-import UserAvatar from "../smartsplit/user/avatar"
-import LogoNotification from "../svg/notifications"
-import MusicNoteIcon from "../svg/music-note"
-import UsersIcon from "../svg/users"
-import SubScreenLayout from "./subscreen"
 
 export const DashboardStyles = StyleSheet.create({
 	main: {
@@ -67,20 +59,6 @@ export const DashboardStyles = StyleSheet.create({
 	profileBar: {
 		height: Metrics.size.xlarge,
 		alignItems: "center",
-	},
-
-	menubar: {
-		alignSelf: "stretch",
-		justifyContent: "space-evenly",
-		alignItems: "center",
-		borderTopWidth: 1,
-		borderTopColor: Colors.stroke,
-		height: Metrics.size.large,
-		...Platform.select({
-			web: {
-				boxShadow: "0px 10px 10px 10px #888888",
-			},
-		}),
 	},
 })
 
@@ -166,64 +144,8 @@ export function Dashboard(props) {
 					{props.children}
 				</Column>
 			</Row>
-
-			<MenuBar />
 		</Column>
 	)
-}
-
-// Flex: toujours dans colonne (en vertical)
-
-export function MenuBar(props) {
-	return (
-		<Row style={DashboardStyles.menubar}>
-			<MenuBarItem
-				to="/dashboard/my-works"
-				icon={MusicNoteIcon}
-				key="/dashboard/my-works"
-			/>
-
-			<MenuBarItem
-				to="/dashboard/notifications"
-				icon={LogoNotification}
-				key="/dashboard/notifications"
-			/>
-
-			<MenuBarItem
-				to="/dashboard/my-collaborators"
-				icon={UsersIcon}
-				key="/dashboard/my-collaborators"
-			/>
-
-			<MenuBarItem
-				to="/dashboard/my-profile"
-				icon={AvatarIcon}
-				key="/dashboard/my-profile"
-			/>
-		</Row>
-	)
-}
-
-export function MenuBarItem(props) {
-	const Icon = props.icon
-	const active = useRouteMatch(props.to)
-	const history = useHistory()
-
-	function activate() {
-		history.push(props.to)
-	}
-
-	return (
-		<TouchableWithoutFeedback onPress={activate} accessibilityRole="button">
-			<View>
-				<Icon color={active ? Colors.action : Colors.inactive} />
-			</View>
-		</TouchableWithoutFeedback>
-	)
-}
-
-export function AvatarIcon(props) {
-	return <UserAvatar initials="XX" size="small" />
 }
 
 export default Dashboard

@@ -56,8 +56,6 @@ export function PhoneNumberField(props) {
 		}
 	}, [value, currentValue])
 
-	console.log("error is", error)
-
 	return (
 		<TextField
 			keyboardType="phone-pad"

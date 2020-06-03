@@ -58,6 +58,7 @@ export const menu = {
 	testsForms: "Tests Formulaires",
 	testsFormsPage: "Formulaires pleine page",
 	reduxTests: "Redux Test",
+	logout: "Déconnexion",
 }
 
 export const adminMenu = {

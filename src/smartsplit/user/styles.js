@@ -7,6 +7,11 @@ const UserStyles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center",
 	},
+
+	avatar_border: {
+		borderWidth: 2,
+		borderColor: Colors.stroke,
+	},
 })
 
 UserStyles.avatar_size = {}
