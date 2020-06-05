@@ -16,6 +16,7 @@ import AccessControl from "./widgets/AccessControl"
 
 import UserSettings from "./pages/user/settings"
 import AdminPage from "./pages/admin"
+import WorkpiecesRouter from "./pages/workpieces"
 
 export default function Main(props) {
 	const dispatch = useDispatch()
@@ -53,12 +54,6 @@ export function MainRouter(props) {
 
 			<Route path="/user/change-password/:token" exact component={AuthPages} />
 
-			<Route path="/document/copyright" exact>
-				<AccessControl redirectToLogin>
-					<CopyrightShare />
-				</AccessControl>
-			</Route>
-
 			<Route path="/admin">
 				<AccessControl redirectToLogin>
 					<AdminPage />
@@ -81,6 +76,10 @@ export function MainRouter(props) {
 						<FormsTest />
 					</Scrollable>
 				</AccessControl>
+			</Route>
+
+			<Route path="/workpieces">
+				<WorkpiecesRouter />
 			</Route>
 		</Switch>
 	)

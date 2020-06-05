@@ -10,7 +10,6 @@ export const Styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "stretch",
 		height: Metrics.size.medium / 4,
-		width: 128,
 	},
 
 	progress: {
@@ -34,7 +33,7 @@ export default function ProgressBar(props) {
 	}
 
 	return (
-		<View style={[Styles.bar, { height }]}>
+		<View style={[Styles.bar, { height }, props.style]}>
 			<View style={[Styles.progress, barStyles]} />
 		</View>
 	)

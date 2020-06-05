@@ -8,6 +8,13 @@ for (let [key, value] of Object.entries(Metrics.spacing)) {
 	}
 }
 
+const Margin = {}
+for (let [key, value] of Object.entries(Metrics.spacing)) {
+	Margin[key] = {
+		margin: value,
+	}
+}
+
 const Padding = {}
 for (let [key, value] of Object.entries(Metrics.spacing)) {
 	Padding[key] = {
@@ -32,6 +39,7 @@ for (let [key, value] of Object.entries(Metrics.size)) {
 
 const MetricsStyles = {
 	components: StyleSheet.create(Components),
+	margin: StyleSheet.create(Margin),
 	padding: StyleSheet.create(Padding),
 	spacing: StyleSheet.create(Spacings),
 	sizes: StyleSheet.create(Sizes),

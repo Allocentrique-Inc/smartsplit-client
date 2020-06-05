@@ -38,6 +38,7 @@ export const Metrics = {
 		small: 24,
 		xsmall: 16,
 		tiny: 8,
+		xtiny: 4,
 	},
 
 	// Courbature des bordures */
