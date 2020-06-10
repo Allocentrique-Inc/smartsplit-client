@@ -11,6 +11,7 @@
 	"dependencies": {
 		"@svgr/webpack": "^5.3.0",
 		"axios": "^0.19.2",
+		"deep-equal": "^2.0.3",
 		"expo": "^37.0.0",
 		"expo-cli": "^3.13.1",
 		"expo-font": "~8.1.0",

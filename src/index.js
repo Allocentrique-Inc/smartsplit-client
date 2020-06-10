@@ -1,5 +1,6 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useMemo } from "react"
 import { Route, Redirect, Switch } from "react-router"
+import { StoreProvider, createAppStore } from "./appstate"
 import { useDispatch, useSelector } from "react-redux"
 import { initializeFromStorage as initializeAuthFromStorage } from "../redux/auth/actions"
 
@@ -21,17 +22,20 @@ import WorkpiecesRouter from "./pages/workpieces"
 export default function Main(props) {
 	const dispatch = useDispatch()
 	const isLoggedIn = useSelector((state) => state.auth && state.auth.isLoggedIn)
+	const store = useMemo(() => createAppStore(), [])
 
 	useEffect(() => {
 		dispatch(initializeAuthFromStorage(true))
 	}, [dispatch])
 
 	return isLoggedIn === null ? null : (
-		<ScrollOverlay.ProviderContainer>
-			<GlobalOverlay.ProviderContainer>
-				<MainRouter {...props} />
-			</GlobalOverlay.ProviderContainer>
-		</ScrollOverlay.ProviderContainer>
+		<StoreProvider value={store}>
+			<ScrollOverlay.ProviderContainer>
+				<GlobalOverlay.ProviderContainer>
+					<MainRouter {...props} />
+				</GlobalOverlay.ProviderContainer>
+			</ScrollOverlay.ProviderContainer>
+		</StoreProvider>
 	)
 }
 
@@ -71,11 +75,9 @@ export function MainRouter(props) {
 			</Route>
 
 			<Route path="/test/forms" exact>
-				<AccessControl redirectToLogin>
-					<Scrollable>
-						<FormsTest />
-					</Scrollable>
-				</AccessControl>
+				<Scrollable>
+					<FormsTest />
+				</Scrollable>
 			</Route>
 
 			<Route path="/workpieces">

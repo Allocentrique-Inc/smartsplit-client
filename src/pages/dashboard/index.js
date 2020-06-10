@@ -19,6 +19,7 @@ import SubScreenLayout from "../../layout/subscreen"
 import UserAvatar from "../../smartsplit/user/avatar"
 import { Text } from "../../text"
 import { useAuthUser } from "../../../redux/auth/hooks"
+import StoreTestPage from "../test/store"
 
 const MENU_WEB = [
 	{
@@ -44,6 +45,7 @@ const MENU_WEB = [
 		text: "menu:testsFormsPage",
 		to: "/test/forms",
 	},
+	{ text: "State Store", to: "/dashboard/test/store" },
 ]
 
 const MENU_MOBILE = [
@@ -123,6 +125,10 @@ export function DashboardRoutes(props) {
 
 			<Route path="/dashboard/test/forms" exact>
 				<FormsTest />
+			</Route>
+
+			<Route path="/dashboard/test/store" exact>
+				<StoreTestPage />
 			</Route>
 		</Switch>
 	)
