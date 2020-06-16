@@ -11,7 +11,7 @@ import UsersIcon from "../../svg/users"
 import LogoNotification from "../../svg/notifications"
 
 import MyWorksPage from "./my-works"
-import MyCollaboratorsPage from "./my-collaborators"
+import CollaboratorsPage from "./collaborators"
 import ChangePasswordPage from "./change-password"
 import NewEmailModal from "./new-email"
 import SubScreenLayout from "../../layout/subscreen"
@@ -97,7 +97,7 @@ export function DashboardRoutes(props) {
 			</Route>
 
 			<Route path="/dashboard/my-collaborators" exact>
-				<MyCollaboratorsPage />
+				<CollaboratorsPage />
 			</Route>
 
 			<Route path="/dashboard/change-password" exact>

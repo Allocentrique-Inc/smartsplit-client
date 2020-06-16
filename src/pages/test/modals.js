@@ -1,30 +1,38 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Platform } from "../../platform"
-import { Group, Flex, Row, Column } from "../../layout"
+import { Group, Flex, Row, Column, Section } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
 
-import InviteModal from "../../smartsplit/rightholders/invite-modal"
+import EditModal from "../../smartsplit/rightholders/edit-modal"
+import { AuthModalTestPage } from "../auth/modals"
+import { AddCollaboratorModal } from "../dashboard/collaborators"
+import { DeclareIdentityModal } from "../auth/modals"
 
-export default function TestsModals() {
+export default function ModalTests() {
 	const [t] = useTranslation()
 
-	const [inviteNewUserOpen, setInviteNewUserOpen] = useState(false)
-	const [sendSplitModalOpen, setSendSplitModalOpen] = useState(false)
+	const [modal1, setModal1] = useState(false)
+	const [modal2, setModal2] = useState(false)
+	const [modal, setModal] = useState(false)
 
 	return (
 		<Group of="group">
-			{Platform.web && <Heading level="2">Tests des modales</Heading>}
+			<Heading level="2">Tests des modales</Heading>
+			<Row of="group" wrap>
+				<Button text="AddCollabArtist" onClick={() => setModal1(true)} />
 
-			<Button
-				text="Invite New User"
-				onClick={() => setInviteNewUserOpen(true)}
+				<Button text="DeclareIdentity" onClick={() => setModal2(true)} />
+			</Row>
+
+			<AddCollaboratorModal
+				visible={modal1}
+				onRequestClose={() => setModal1(false)}
 			/>
-
-			<InviteModal
-				visible={inviteNewUserOpen}
-				onRequestClose={() => setInviteNewUserOpen(false)}
+			<DeclareIdentityModal
+				visible={modal2}
+				onRequestClose={() => setModal2(false)}
 			/>
 
 			{/* <Row>

@@ -25,6 +25,7 @@ const FormStyles = StyleSheet.create({
 	},
 
 	input_text: {
+		height: "100%",
 		flex: 1,
 		...Platform.select({
 			web: {

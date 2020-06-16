@@ -13,8 +13,7 @@ export const general = {
 
 	checkbox: {
 		stayConnected: "Rester connecté",
-		makePublic:
-			"Rendre publics mes identifiants professionnels énumérés ci-dessus",
+		makePublic: "Rendre publics mes identifiants professionnels énumérés ci-dessus",
 		author: "Auteur",
 		composer: "Compositeur",
 		mixer: "Arrangeur",
@@ -153,12 +152,12 @@ export const forms = {
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
 		groups: "Groupes",
-
 		dropdowns: {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
 		},
+		defaultRoles: "Rôle(s) par défaut"
 	},
 
 	descriptions: {
@@ -184,7 +183,7 @@ export const forms = {
 		delete: "détruire, Détruire ou detruire",
 		date: "JJ-MM-AAAA",
 		myUri: "https://www.mon-site-web.exemple",
-		groupSearch: "Research among groups...",
+		groupSearch: "Rechercher parmi les groupes...",
 	},
 
 	undertexts: {
@@ -207,8 +206,29 @@ export const forms = {
 		mainEmail: "Courriel principal",
 		setAsMain: "Définir comme principal",
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
+		defaultRoles: "Ces rôles pourront toujours être modifiés plus tard."
 	},
-	createCollaborator: "Créer un nouveau collaborateur",
+	addCollabArtist: "[Ajouter/Modifier] un artiste collaborateur",
+	options: {
+		defaultRoles: [
+			{
+				displayValue: "Auteur",
+				value: "author"
+			},
+			{
+				displayValue: "Compositeur",
+				value: "compositor"
+			},
+			{
+				displayValue: "Arrangeur",
+				value: "arranger"
+			},
+			{
+				displayValue: "Interprète",
+				value: "interpreter"
+			}
+		]
+	}
 }
 
 export const login = {
@@ -279,7 +299,7 @@ export const settings = {
 	profile: "Profil",
 	identity: "Identité professionnelle",
 	accountInfo: "Informations du compte",
-	proIdentity: "Professionnal identity",
+	proIdentity: "Identité professionelle",
 	notifications: "Notifications",
 	security: "Sécurité",
 	deconnect: "Déconnecté",
@@ -379,22 +399,14 @@ export const admin = {
 		adminManagement: "Gestion des administrateurs",
 		myIncomes: "Mes revenus",
 	},
-
 	entityTypes: {
 		"content-languages": "Langues du contenu",
 		"digital-distributors": "Distributeurs numériques",
 	},
-
 	entityCreation: "Création d'une entité",
 	delete: "Supprimer",
 	edit: "Modifier",
-	confirmEntityDeletion: "Attention, l'entité suivante va être supprimée.",
-}
-
-export const newUserInvite = {
-	title: "[Ajouter/Modifier] un artiste collaborateur",
-	checkbox: "Default Role(s)",
-	checkboxUndertext: "Ces rôles pourront toujours être modifiés plus tard.",
+	confirmEntityDeletion: "Attention, l'entité va être supprimée.",
 }
 
 export const workpieces = {
@@ -414,4 +426,34 @@ export const workpieces = {
 			desc: "Associe dès aujourd’hui ton enregistrement sonore à ses ayant droits et laisse des traces indélébiles de ça sur une blockchain."
 		},
 	}
+}
+
+export const split = {
+	send: {
+		title: "Envoyer le partage de droits",
+		paragraph:
+			"Pour finaliser ce partage, tu dois inviter tes collaborateurs à valider le tout. Indique les adresses courriels auxquels envoyer ta proposition de partage.",
+		email: "Entrer l'adresse courriel",
+	},
+}
+
+export const identity = {
+	title: "Déclaration d'identité",
+	Ideclare: (firstName, lastName) => (
+		<>
+			<b>
+				Je déclare être réellement {firstName} {lastName}
+			</b>
+			. Je comprends que le fait de me faire passer pour quelqu'un d'autre
+			constituerait une faute grave passible de poursuites judiciaires.
+		</>
+	),
+	Iaccept: (workPiece) => (
+		<>
+			<b>J'accepte ces partages de droits</b> intervenus entre moi-même et tout
+			collaborateur. Cela représente l'entente souhaitées. Je comprends que ces
+			pourcentages s'appliqueront désormais à tout partage de revenus en lien
+			avec {workPiece}.
+		</>
+	),
 }

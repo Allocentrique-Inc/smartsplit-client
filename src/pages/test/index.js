@@ -5,9 +5,9 @@ import DashboardLayout from "../../layout/dashboard"
 import Scrollable from "../../widgets/scrollable"
 
 import FormsTest from "./forms"
-import WidgetTest from "./widgets"
+import WidgetTests from "./widgets"
 import StoreTestPage from "./store"
-import LilaTest from "./lila"
+import ModalTests from "./modals"
 
 export default function TestDashboard() {
 	return (
@@ -19,7 +19,7 @@ export default function TestDashboard() {
 					text: "menu:testsForms",
 					to: "/test/forms",
 				},
-				{ text: "Lila", to: "/test/lila" },
+				{ text: "Modals", to: "/test/modals" },
 				{ text: "Widgets", to: "/test/widgets" },
 				{
 					text: "Admin",
@@ -49,12 +49,12 @@ export function TestRoutes() {
 				<FormsTest />
 			</Route>
 
-			<Route path="/test/lila" exact>
-				<LilaTest />
+			<Route path="/test/modals" exact>
+				<ModalTests />
 			</Route>
 
 			<Route path="/test/widgets" exact>
-				<WidgetTest />
+				<WidgetTests />
 			</Route>
 		</Switch>
 	)

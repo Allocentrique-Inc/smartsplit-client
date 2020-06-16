@@ -2,7 +2,11 @@ import React, { useState, useEffect, useContext } from "react"
 import { LabelText } from "./label"
 import _TextField from "./text"
 import _PasswordField from "./password"
-import _CheckBox from "./checkbox"
+import {
+	CheckBox as _CheckBox,
+	CheckBoxGroup as _CheckBoxGroup,
+	CheckBoxGroupButton,
+} from "./checkbox"
 import {
 	RadioButton as _RadioButton,
 	RadioGroup as _RadioGroup,
@@ -15,8 +19,16 @@ import { PhoneNumberField as _PhoneNumberField } from "./phone-number"
 import { DateField as _DateField } from "./date"
 import _FileField from "./file"
 import useImagePicker from "./image-picker"
+import _SearchAndTag from "./search-and-tag"
 
-export { LabelText, RadioGroupButton, Dropdown, TextDropdown, useImagePicker }
+export {
+	LabelText,
+	RadioGroupButton,
+	Dropdown,
+	TextDropdown,
+	useImagePicker,
+	CheckBoxGroupButton,
+}
 
 export const FormContext = React.createContext()
 
@@ -290,6 +302,39 @@ export function wrapSimpleField(component, valueProp, onChangeProp) {
 	}
 }
 
+export function wrapMultipleChoiceField(component) {
+	return ({ name, error, onSelect, onUnselect, children, ...nextProps }) => {
+		const formField = name && useFormField(name)
+		nextProps.error = error
+
+		const selection = formField ? formField.value : null
+		if (formField) {
+			onSelect = onSelect
+				? onSelect
+				: (value) => {
+						if (!selection.includes(value)) {
+							selection.push(value)
+							formField.value = [...selection]
+						}
+				  }
+			onUnselect = onUnselect
+				? onUnselect
+				: (value) => {
+						selection.splice(selection.indexOf(value), 1)
+						formField.value = [...selection]
+				  }
+			if (!nextProps.error) {
+				nextProps.error = formField.error
+			}
+		}
+		return React.createElement(
+			component,
+			{ selection, onSelect, onUnselect, ...nextProps },
+			children
+		)
+	}
+}
+
 export function FormSubmit({ children }) {
 	const form = useContext(FormContext)
 	return children(form.submit.bind(form))
@@ -317,3 +362,6 @@ export const PhoneNumberField = wrapSimpleField(
 )
 export const DateField = wrapSimpleField(_DateField, "value", "onChangeText")
 export const FileField = wrapSimpleField(_FileField, "file", "onFileChange")
+
+export const SearchAndTag = wrapMultipleChoiceField(_SearchAndTag)
+export const CheckBoxGroup = wrapMultipleChoiceField(_CheckBoxGroup)

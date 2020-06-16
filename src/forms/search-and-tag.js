@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Column, Row } from "../layout"
 import { View, StyleSheet } from "react-native"
 import { Text } from "../text"
@@ -18,11 +18,12 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export function SearchAndTag({ selectedItems, onUnselect, ...nextProps }) {
-	function renderSelectedItems() {
+export default function SearchAndTag({ selection, onUnselect, ...nextProps }) {
+	const [search, setSearch] = useState("")
+	const renderSelectedItems = () => {
 		return (
 			<Row wrap style={Styles.tagContainer}>
-				{selectedItems.map((item) => (
+				{selection.map((item) => (
 					<Tag
 						dismissible
 						key={item}
@@ -39,11 +40,15 @@ export function SearchAndTag({ selectedItems, onUnselect, ...nextProps }) {
 			</Row>
 		)
 	}
-
 	return (
 		<Column of="component">
-			<Autocomplete icon={Search} {...nextProps} />
-			{selectedItems && selectedItems.length > 0 && renderSelectedItems()}
+			<Autocomplete
+				icon={Search}
+				search={search}
+				onSearchChange={setSearch}
+				{...nextProps}
+			/>
+			{selection && selection.length > 0 && renderSelectedItems()}
 		</Column>
 	)
 }

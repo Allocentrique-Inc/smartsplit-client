@@ -20,7 +20,6 @@ export default function MySecurity() {
 	return (
 		<Column of="group">
 			{Platform.web && <Heading level="2">{t("settings:security")}</Heading>}
-
 			<Label label={t("settings:password")}>
 				<Row>
 					<Button
@@ -31,7 +30,6 @@ export default function MySecurity() {
 					/>
 				</Row>
 			</Label>
-
 			<Label label={t("settings:delete")}>
 				<Row>
 					<Button
@@ -41,7 +39,6 @@ export default function MySecurity() {
 					/>
 				</Row>
 			</Label>
-
 			<NoSpacer>
 				<ChangePasswordModal
 					visible={changePasswordOpen}

@@ -17,12 +17,12 @@ function FramedTextField({ error, before, after, layout, ...inputProps }) {
 }
 
 export function BasicTextField(props) {
-	const { viewRef, ...nextProps } = props
+	const { viewRef, style, ...nextProps } = props
 
 	return (
 		<TextInput
 			{...nextProps}
-			style={[FormStyles.input_text, props.style]}
+			style={[FormStyles.input_text, style]}
 			ref={viewRef}
 		/>
 	)

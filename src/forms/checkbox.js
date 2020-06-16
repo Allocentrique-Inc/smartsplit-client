@@ -2,12 +2,105 @@ import React, { useState } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { Svg, Rect, Path } from "react-native-svg"
 
-import { Row } from "../layout"
+import { Column, Row } from "../layout"
 import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
 import FormStyles from "../styles/forms"
 
-export default function CheckBox(props) {
+const CheckBoxContext = React.createContext({})
+CheckBoxContext.displayName = "CheckBoxGroupContext"
+const UNDERTEXT_DEFAULT_LINES = 1
+
+export function CheckBoxGroup({
+	label,
+	error,
+	undertext,
+	undertext_lines,
+	disabled,
+	selection,
+	onSelect,
+	onUnselect,
+	children,
+	...nextProps
+}) {
+	const [selectionState, setSelectionState] = useState([])
+	const actualSelection = onSelect ? selection : selectionState
+	const addToSelection = (value) => {
+		if (selectionState.includes(value)) return
+		actualSelection.push(value)
+		setSelectionState([...actualSelection])
+	}
+	const removeFromSelection = (value) => {
+		actualSelection.splice(actualSelection.indexOf(value), 1)
+		setSelectionState([...actualSelection])
+	}
+	const context = {
+		selection: actualSelection,
+		disabled,
+		onSelect: (value) => {
+			if (!disabled) (onSelect || addToSelection)(value)
+		},
+		onUnselect: (value) => {
+			if (!disabled) (onUnselect || removeFromSelection)(value)
+		},
+	}
+
+	const wrapError =
+		error &&
+		(typeof error === "string" ||
+			(typeof error === "object" && error.type === React.Fragment))
+
+	return (
+		<CheckBoxContext.Provider value={context}>
+			<Column of="component" {...nextProps}>
+				{label && (
+					<Text bold style={FormStyles.label} numberOfLines={1}>
+						{label}
+					</Text>
+				)}
+				{children}
+				{wrapError && (
+					<Text error small>
+						{error}
+					</Text>
+				)}
+				{undertext && (
+					<Text
+						small
+						style={FormStyles.undertext}
+						numberOfLines={undertext_lines || UNDERTEXT_DEFAULT_LINES}
+					>
+						{undertext}
+					</Text>
+				)}
+			</Column>
+		</CheckBoxContext.Provider>
+	)
+}
+
+export function CheckBoxGroupButton({ value, children, ...nextProps }) {
+	return (
+		<CheckBoxContext.Consumer>
+			{({ selection, disabled, onSelect, onUnselect }) => (
+				<Row>
+					<CheckBox
+						{...nextProps}
+						disabled={disabled}
+						checked={selection.includes(value)}
+						onChange={(checked) => {
+							if (checked) onSelect(value)
+							else onUnselect(value)
+						}}
+					>
+						{children}
+					</CheckBox>
+				</Row>
+			)}
+		</CheckBoxContext.Consumer>
+	)
+}
+
+export function CheckBox(props) {
 	const { children, center, label, checked, disabled, onChange } = props
 	const [checkedState, setCheckedState] = useState(checked)
 	const actualState = onChange ? checked : checkedState
