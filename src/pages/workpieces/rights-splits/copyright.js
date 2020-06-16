@@ -1,231 +1,184 @@
-import React, { useEffect, useReducer } from "react"
-import { useHistory } from "react-router"
-import { useStorePath, useSubpath } from "../../../appstate/react"
-import { useCurrentWorkpiece } from "../context"
-import { Column, Row, Flex, Hairline } from "../../../layout"
+import React, { useState, useEffect } from "react"
+import { View } from "react-native"
+import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import Layout from "../layout"
-import Button from "../../../widgets/button"
-import ProgressBar from "../../../widgets/progress-bar"
-import { CheckBox, RadioGroup, RadioGroupButton } from "../../../forms"
-import UserAvatar from "../../../smartsplit/user/avatar"
-import Help from "../../../svg/help-circle-full"
+import { Colors, Metrics } from "../../../theme"
+import ShareCard from "../../../smartsplit/components/share-card"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
-import SplitChart from "../../../smartsplit/components/split-chart"
+import SplitChart, {
+	DualSplitChart,
+} from "../../../smartsplit/components/split-chart"
 import CircledC from "../../../svg/circled-c"
-import { Colors } from "../../../theme"
-import XIcon from "../../../svg/x"
+import {
+	CheckBoxGroup,
+	CheckBoxGroupButton,
+	RadioGroup,
+	RadioGroupButton,
+} from "../../../forms"
+import { useTranslation } from "react-i18next"
+import { observer } from "mobx-react"
+import { useCurrentWorkpiece, useRightSplit } from "../context"
 
-export default function CopyrightPage() {
-	const history = useHistory()
-	const workpiece = useCurrentWorkpiece()
-
-	const rightsSplits = useSubpath(workpiece, "rightsSplits")
-	const workpieceSplitsChanged = useSubpath(rightsSplits, "$hasChanged")
-	const workpieceSplitsError = useSubpath(rightsSplits, "$error")
-
-	async function saveAndQuit() {
-		try {
-			await rightsSplits.save()
-			history.push(`/workpieces/${workpiece.id}`)
-		} catch (error) {
-			console.error("Error saving rights splits", error)
-		}
-	}
-
-	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
-	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
-	}
-
-	return (
-		<Layout
-			workpiece={workpiece}
-			path={["Partage de droits", "Droits d'auteur"]}
-			actions={
-				<Button
-					tertiary
-					text="Sauvegarder et fermer"
-					onClick={saveAndQuit}
-					disabled={!workpieceSplitsChanged}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button secondary text="Retour" onClick={navigateToSummary} />
-						<Flex />
-						<Button
-							primary
-							text="Continuer"
-							onClick={navigateToInterpretation}
-						/>
-					</Row>
-					<Row flex={1}>
-						{workpieceSplitsError && (
-							<Text error>{workpieceSplitsError.message}</Text>
-						)}
-					</Row>
-				</>
-			}
-		>
-			<CopyrightForm />
-		</Layout>
-	)
-}
-
-export function CopyrightForm() {
-	const [, rerender] = useReducer((n) => n + 1, 0)
-	const splits = useCurrentWorkpiece("rightsSplits", "copyright")
-	const shares = useCurrentWorkpiece("rightsSplits", "copyright", "allShares")
-
-	function addCollaborator(rightHolder_id) {
-		splits.addRightHolder(rightHolder_id, {
-			shares: 1,
-		})
-	}
-
+export default observer(() => {
+	const [chartSize, setChartSize] = useState(0)
+	const split = useRightSplit("copyright")
+	console.log(useCurrentWorkpiece(), useRightSplit("copyright"))
+	const shares = split.allShares
+	const [mode, setMode] = useState("equal")
+	const { t } = useTranslation()
+	console.log(split)
 	const shareColors = Object.values(Colors.secondaries)
 
 	function colorByIndex(index) {
 		return shareColors[index % shareColors.length]
 	}
 
-	let chartData = shares.map((share, i) => ({
-		key: share.rightHolder,
-		name: share.rightHolder,
-		share: share.shares,
-		color: colorByIndex(i),
-	}))
-
-	console.log("chart", chartData)
+	function sharesToData(shares) {
+		return shares.map((share, i) => ({
+			key: share.rightHolder,
+			name: share.rightHolder,
+			share: share.shares,
+			color: colorByIndex(i),
+		}))
+	}
+	function addShareHolder(id) {
+		if (split.hasOwnProperty(id)) return
+		split.addRightHolder(id, {
+			shares: 1,
+		})
+	}
+	const chartProps = {
+		size: chartSize,
+		logo: CircledC,
+	}
+	useEffect(() => {
+		switch (mode) {
+			case "roles":
+				chartProps.dataRight = sharesToData(
+					shares.filter(
+						(share) =>
+							share.roles.includes("composer") || share.roles.includes("mixer") || share.roles.includes("adapter"),
+					),
+				)
+				chartProps.dataLeft = sharesToData(
+					shares.filter(
+						(share) =>
+							share.roles.includes("author"),
+					),
+				)
+				chartProps.titleLeft = t("rightSplits:lyrics")
+				chartProps.titleRight = t("rightSplits:music")
+				break
+			case "equal":
+				split.updateShares(shares.map(share => {
+					share.roles = [...share.roles,
+						!share.roles.includes("author") && "author",
+						!share.roles.includes("compositor") && "compositor"]
+				}))
+				chartProps.data = sharesToData(shares)
+				break
+			case "manual": {
+				chartProps.data = sharesToData(shares)
+			}
+		}
+	}, [mode])
 
 	const totalShares = shares
 		.map((share) => share.shares)
 		.reduce((a, n) => a + n, 0)
 
-	/*useEffect(() => {
-		const unsubscribes = shares.map((share) => share.subscribe(rerender))
-		return function () {
-			unsubscribes.forEach((unsub) => unsub())
-		}
-	}, [shares])*/
-
 	return (
 		<Row>
-			<Column of="group" flex={1}>
-				<Column of="component">
-					<Text action>(c) DROITS D'AUTEUR</Text>
-					<Heading level={1}>Qui a inventé cette pièce musicale</Heading>
-					<Paragraph>
-						Sépare ici le droit d’auteur entre les créateurs, c’est à dire les
-						auteurs des <b>paroles</b>, les compositeurs et les arrangeurs de la{" "}
-						<b>musique</b>. Il est d’usage de partager le droit d’auteur
-						équitablement. Mais tu peux faire autrement.
-					</Paragraph>
-				</Column>
-
-				<RadioGroup>
-					<Column of="component">
-						<RadioGroupButton value="equal" label="Partager de façon égale" />
-						<RadioGroupButton
-							value="by-roles"
-							label="Partager selon les rôles"
-						/>
-						<RadioGroupButton value="manual" label="Gérer manuellement" />
-					</Column>
-				</RadioGroup>
-
-				<Column of="component">
-					{shares.map((share, i) => (
-						<Card
-							key={share.rightHolder}
-							share={share}
-							color={colorByIndex(i)}
-							removeSelf={() => splits.removeRightHolder(share.rightHolder)}
-							sharePercent={
-								share.shares > 0 ? (100 * share.shares) / totalShares : 0
-							}
-						/>
-					))}
-
-					<AddCollaboratorDropdown onSelect={addCollaborator} />
-				</Column>
-			</Column>
-			<Column flex={1} align="center">
-				<SplitChart data={chartData} logo={CircledC} />
-			</Column>
-		</Row>
-	)
-}
-
-export function Card({ share, color, sharePercent, removeSelf }) {
-	useStorePath("users").fetch(share.rightHolder)
-	const user = useStorePath("users", share.rightHolder, "data") || {}
-	const authUser = useStorePath("auth", "user")
-
-	function addShareUnit() {
-		share.set({ shares: share.shares + 1 })
-	}
-
-	function removeShareUnit() {
-		const next = share.shares - 1
-		share.set({ shares: next > 0 ? next : 0 })
-	}
-
-	return (
-		<Row
-			layer="underground"
-			of="component"
-			padding="component"
-			style={{ borderWidth: 1, borderColor: color }}
-		>
-			<Column>
-				<UserAvatar user={user} size="small" />
-				<Flex />
-				<Help />
-			</Column>
-			<Column of="component" flex={1}>
-				<Row of="component">
-					<Flex>
-						<Text bold>
-							{user.artistName || user.firstName + " " + user.lastName}
-							{user.user_id === authUser.id && <b> (toi)</b>}
+			<Column of="section" flex={1}>
+				<Column of="group">
+					<Row of="component">
+						<CircledC size={Metrics.size.small} color={Colors.action}/>
+						<Text action bold>
+							{t("rightSplits:titles.copyright").toUpperCase()}
 						</Text>
-					</Flex>
-					<Button icon={<XIcon />} small onClick={removeSelf} />
-				</Row>
-				<Hairline />
-				<Row>
-					<Flex flex={1}>
-						<CheckBox label="Auteur" />
-					</Flex>
-					<Flex flex={1}>
-						<CheckBox label="Compositeur" />
-					</Flex>
-				</Row>
-				<Row>
-					<Flex flex={1}>
-						<CheckBox label="Adaptateur" />
-					</Flex>
-					<Flex flex={1}>
-						<CheckBox label="Arrangeur" />
-					</Flex>
-				</Row>
-				<Row valign="center" of="component">
-					<Button small text="-" onClick={removeShareUnit} />
-					<ProgressBar
-						size="xsmall"
-						progress={sharePercent}
-						style={{ flex: 1 }}
-					/>
-					<Text bold>{Math.round(sharePercent)}%</Text>
-					<Button small text="+" onClick={addShareUnit} />
-				</Row>
+					</Row>
+					<Column of="component">
+						<Heading level={1}>{t("rightSplits:headers.copyright")}</Heading>
+						<Paragraph>{t("rightSplits:paragraphs.copyright")()}</Paragraph>
+					</Column>
+				</Column>
+				<Column of="group">
+					<RadioGroup value={mode} onChange={setMode}>
+						<Column of="component">
+							<RadioGroupButton
+								value="equal"
+								label={t("rightSplits:radios.equal")}
+							/>
+							<RadioGroupButton
+								value="roles"
+								label={t("rightSplits:radios.roles")}
+							/>
+							<RadioGroupButton
+								value="manual"
+								label={t("rightSplits:radios.manual")}
+							/>
+						</Column>
+					</RadioGroup>
+					<Column of="component">
+						{shares.map((share, i) => (
+							<ShareCard
+								key={share.rightHolder}
+								rightHolderId={share.rightHolder}
+								color={colorByIndex(i)}
+								sharePercent={
+									share.shares > 0 ? (100 * share.shares) / totalShares : 0
+								}
+								onClose={() => split.removeRightHolder(share.rightHolder)}
+							>
+								<CheckBoxGroup
+									selection={share.roles}
+									onChange={(roles) => share.setData("roles", roles)}
+								>
+									<Row>
+										<Column flex={1} of="component">
+											<CheckBoxGroupButton
+												value="author"
+												label={t("roles:author")}
+												disabled={mode === "equal"}
+											/>
+											<CheckBoxGroupButton
+												value="adapter"
+												label={t("roles:adapter")}
+											/>
+										</Column>
+										<Column flex={1} of="component">
+											<CheckBoxGroupButton
+												value="composer"
+												label={t("roles:composer")}
+												disabled={mode === "equal"}
+											/>
+											<CheckBoxGroupButton
+												value="mixer"
+												label={t("roles:mixer")}
+											/>
+										</Column>
+									</Row>
+								</CheckBoxGroup>
+							</ShareCard>
+						))}
+						<AddCollaboratorDropdown onSelect={addShareHolder}/>
+					</Column>
+				</Column>
+			</Column>
+			<View
+				style={{
+					width: 3 * Metrics.spacing.group,
+					height: 3 * Metrics.spacing.group,
+				}}
+			/>
+			<Column
+				flex={1}
+				align="center"
+				onLayout={(e) => setChartSize(e.nativeEvent.layout.width)}
+			>
+				{mode === "roles" && <DualSplitChart {...chartProps} />}
+				{mode !== "roles" && <SplitChart {...chartProps} />}
 			</Column>
 		</Row>
 	)
-}
+})

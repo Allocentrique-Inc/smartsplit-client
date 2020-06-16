@@ -1,6 +1,6 @@
 import React from "react"
 import { Switch, Route, Redirect, useHistory } from "react-router"
-import DashboardLayout from "../../layout/dashboard"
+import DashboardLayout from "../../layouts/dashboard"
 import Tool from "../../svg/tool"
 import Money from "../../svg/money"
 import ListManagement from "./list-management"

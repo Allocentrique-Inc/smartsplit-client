@@ -28,6 +28,7 @@ export default function AddCollaboratorDropdown(props) {
 		<>
 			<Autocomplete
 				icon={PlusCircle}
+				placeholder={t("rightSplits:dropdowns.addCollab")}
 				{...props}
 				onSearchChange={setTerms}
 				searchResults={results.map((rh) => (

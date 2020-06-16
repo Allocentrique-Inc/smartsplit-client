@@ -9,7 +9,6 @@ import {
 	useParams,
 } from "react-router"
 import { StyleSheet, View } from "react-native"
-import { useStorePath } from "../../appstate/react"
 import { WorkpieceContext, useCurrentWorkpiece } from "./context"
 import RightsSplitsForm from "./rights-splits"
 import ProtectWork from "./protect"
@@ -26,11 +25,12 @@ import { Tab, TabBar } from "../../widgets/tabs"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
 import { ProtectYourWork, ShareYourCopyright } from "./cards"
+import { useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
 
-export default function WorkpiecesRouter() {
+export default observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
-
 	return (
 		<WorkpieceContext.Provider value={workpiece}>
 			<Switch>
@@ -39,9 +39,9 @@ export default function WorkpiecesRouter() {
 					exact
 					component={WorkpiecePage}
 				/>
-				<Route path="/workpieces/:workpiece_id/rights-splits">
-					<RightsSplitsForm />
-				</Route>
+				<Route path="/workpieces/:workpiece_id/rights-splits" exact component={RightsSplitsForm}/>
+
+				<Route path="/workpieces/:workpiece_id/rights-splits/:split_type" component={RightsSplitsForm}/>
 
 				<Route path="/workpieces/:workpiece_id/protect">
 					<ProtectWork />
@@ -49,7 +49,7 @@ export default function WorkpiecesRouter() {
 			</Switch>
 		</WorkpieceContext.Provider>
 	)
-}
+})
 
 export const demoPiece = {
 	title: "Titre de la pièce",
@@ -155,7 +155,7 @@ export function WorkpiecePage() {
 
 function InfoBar() {
 	const { t } = useTranslation()
-	const workpiece = { ...stubWorkpiece, ...useCurrentWorkpiece("data") }
+	const workpiece = stubWorkpiece
 
 	return (
 		<Row

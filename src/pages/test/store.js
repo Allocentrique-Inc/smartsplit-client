@@ -6,6 +6,9 @@ import { TextField } from "../../forms"
 import Button from "../../widgets/button"
 
 import { useRightHolderSearch } from "../../appstate/react/right-holders"
+import { useStores } from "../../mobX"
+import { toJS } from "mobx"
+
 
 export default function StoreTestPage() {
 	return (
@@ -23,29 +26,29 @@ export default function StoreTestPage() {
 }
 
 function StoreDump() {
-	const store = useStore()
+	const stores = useStores()
 	const [version, refresh] = useReducer((n) => n + 1, 0)
-
-	useEffect(() => {
-		const timeout = setTimeout(() => refresh(), 1500)
-		return function () {
-			clearTimeout(timeout)
-		}
-	}, [version])
+	console.log(toJS(stores.users))
+	// useEffect(() => {
+	// 	const timeout = setTimeout(() => refresh(), 1500)
+	// 	return function () {
+	// 		clearTimeout(timeout)
+	// 	}
+	// }, [version])
 
 	function dumpToConsole() {
-		console.log("State Store:", store)
-		window.store = store
+		console.log("State Store:", stores)
+		window.stores = stores
 	}
 
 	function debug() {
-		const debugStore = store
+		const debugStore = stores
 		debugger
 	}
 
 	return (
 		<Column of="component">
-			<Heading level={3}>Déboguage du store</Heading>
+			<Heading level={3}>Déboguage du stores</Heading>
 			<Row of="component">
 				<Button text="Rafraichir" onClick={refresh} />
 				<Flex />
@@ -54,7 +57,7 @@ function StoreDump() {
 			</Row>
 
 			<Text style={{ fontFamily: "monospace" }}>
-				{JSON.stringify(store, null, 4)}
+				{toJS(stores.workpieces).toString()}
 			</Text>
 		</Column>
 	)

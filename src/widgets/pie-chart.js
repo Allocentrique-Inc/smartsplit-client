@@ -1,14 +1,16 @@
 import React from "react"
-import Svg, { G, Path } from "react-native-svg"
+import Svg, { Circle, G, Path } from "react-native-svg"
 import {
 	degreesToRadians,
 	lightenDarkenColor,
 	rotatePoint,
 } from "../utils/utils"
+
 export function usePieChartSlices(data, maxRange, clockwise, size) {
 	const angleRange = maxRange ? maxRange : 360
 	const shareAngle =
-		(clockwise ? -1 : 1) * degreesToRadians(angleRange / getShareTotal(data))
+		(clockwise ? 1 : -1) * degreesToRadians(angleRange / getShareTotal(data))
+	console.log(clockwise, shareAngle)
 	const center = {
 		x: size / 2,
 		y: size / 2,
@@ -39,12 +41,10 @@ export function usePieChartSlices(data, maxRange, clockwise, size) {
 	})
 }
 
-export function getShareTotal(data) {
-	let total = 0
-	for (let dataPoint of data) {
-		total += dataPoint.share
-	}
-	return total
+export function getShareTotal(shares) {
+	return shares
+		.map((shareholder) => shareholder.share)
+		.reduce((a, n) => a + n, 0)
 }
 
 export function PieChart(props) {
@@ -80,14 +80,21 @@ function PieChartSlice(props) {
 		focus,
 		...nextProps
 	} = props
-	const data = `M${center.x},${center.y} L${start.x},${
-		start.y
-	} A${radius},${radius} ${rotation ? rotation : 0} ${
-		Math.abs(angle) > Math.PI ? 1 : 0
-	},${clockwise ? 0 : 1} ${end.x - 0.001},${end.y} z`
-	return (
+	return Math.abs(angle) === 2 * Math.PI ? (
+		<Circle
+			cx={center.x}
+			cy={center.y}
+			r={radius}
+			fill={focus ? lightenDarkenColor(color, 10) : color}
+			{...nextProps}
+		/>
+	) : (
 		<Path
-			d={data}
+			d={`M${center.x},${center.y} L${start.x},${
+				start.y
+			} A${radius},${radius} ${rotation ? rotation : 0} ${
+				Math.abs(angle) > Math.PI ? 1 : 0
+			},${clockwise ? 1 : 0} ${end.x},${end.y} z`}
 			fill={focus ? lightenDarkenColor(color, 10) : color}
 			stroke="white"
 			strokeWidth="1"

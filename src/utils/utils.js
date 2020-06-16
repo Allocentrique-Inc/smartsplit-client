@@ -1,5 +1,6 @@
 import React from "react"
 import { Text } from "../text"
+import { Metrics } from "../theme"
 
 export const Origin = {
 	x: 0,
@@ -7,7 +8,7 @@ export const Origin = {
 }
 
 export function degreesToRadians(angle) {
-	return -(angle * Math.PI) / 180
+	return (angle * Math.PI) / 180
 }
 
 export function vectorOf(a, b, scalar) {
@@ -33,8 +34,8 @@ export function translatePoint(from, vector, scalar) {
 
 export function rotateCenteredPoint(from, angle) {
 	return {
-		x: from.x * Math.cos(angle) + from.y * Math.sin(angle),
-		y: -from.x * Math.sin(angle) + from.y * Math.cos(angle),
+		x: from.x * Math.cos(angle) - from.y * Math.sin(angle),
+		y: from.x * Math.sin(angle) + from.y * Math.cos(angle),
 	}
 }
 
@@ -67,8 +68,8 @@ export function lightenDarkenColor(color, amount) {
 	return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16)
 }
 
-export function formatPercentage(percent) {
-	return percent ? `${percent.toFixed(2)} %` : ""
+export function formatPercentage(percent, digits = 2) {
+	return percent ? `${percent.toFixed(digits)} %` : ""
 }
 
 export function highlightMatchedStrings(str, pattern) {
@@ -86,4 +87,14 @@ export function highlightMatchedStrings(str, pattern) {
 			}
 		})
 		.reduce((a, b) => a.concat(b))
+}
+
+export function getSize(size, defaultSize) {
+	return typeof size === "string" ? Metrics.size[size] : size || defaultSize
+}
+
+export function getFullName(user) {
+	return `${user.firstName && user.firstName}${
+		user.lastName && ` ${user.lastName}`
+	}`
 }

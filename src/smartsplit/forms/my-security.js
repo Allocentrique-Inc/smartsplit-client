@@ -9,7 +9,7 @@ import { TextField, Dropdown } from "../../forms"
 import Button from "../../widgets/button"
 import ChangePasswordModal from "../../pages/dashboard/change-password"
 import DeleteAccountModal from "../../pages/dashboard/delete-account"
-import DashboardNavbarNative from "../../layout/subscreen"
+import DashboardNavbarNative from "../../layouts/subscreen"
 import Label from "../../forms/label"
 
 export default function MySecurity() {

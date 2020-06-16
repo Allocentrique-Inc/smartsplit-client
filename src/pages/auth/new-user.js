@@ -7,8 +7,8 @@ import { Row, Column, Flex } from "../../layout"
 import { Form, useForm } from "../../forms"
 import Button from "../../widgets/button"
 import { useStorePath } from "../../appstate/react"
+import PublicPageLayout from "../../layouts/public-page"
 import { useStorePath as useMobxStorePath } from "../../mobX"
-import PublicPageLayout from "../../layout/public-page"
 import MyProfile from "../../smartsplit/forms/my-profile"
 
 export default function NewUser() {

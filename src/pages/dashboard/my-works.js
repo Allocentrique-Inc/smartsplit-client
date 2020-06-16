@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router"
 import { Platform, View, StyleSheet } from "react-native"
-import { useStorePath } from "../../appstate/react"
 import { observer } from "mobx-react"
-import { useStorePath as useMobxStorePath, useStores } from "../../mobX"
+import { useStorePath, useStores } from "../../mobX"
 import { Row, Column, Group, Flex, Hairline } from "../../layout"
 import { Heading } from "../../text"
 import { TabBar, Tab } from "../../widgets/tabs"
@@ -61,21 +60,21 @@ export default function MyWorksPage() {
 
 export const MyWorksTab = observer(function (props) {
 	const workpieces = useStorePath("workpieces")
-	const user = useMobxStorePath("auth", "user")
-
-	useEffect(() => {
-		workpieces
-			.fetchForUser(user)
-			.catch((e) =>
-				console.error("Failed to refresh workpieces for user", user, e)
-			)
-	}, [user, workpieces])
+	// const user = useStorePath("auth", "user")
+	//
+	// useEffect(() => {
+	// 	workpieces
+	// 		.fetchForUser(user)
+	// 		.catch((e) =>
+	// 			console.error("Failed to refresh workpieces for user", user, e)
+	// 		)
+	// }, [user, workpieces])
 
 	return (
 		<Column of="none" spacer={Hairline}>
-			{workpieces.ownedByUser(user).map((wp) => (
+			{workpieces && workpieces.all.map(wp =>
 				<MediaWorkRow workpiece={wp} key={wp.id} />
-			))}
+			)}
 		</Column>
 	)
 })
