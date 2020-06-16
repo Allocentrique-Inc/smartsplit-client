@@ -1,5 +1,4 @@
 import * as UsersAPI from "../../api/Users"
-import { login, setLogin } from "../auth/actions"
 import { createCRUDActions } from "../api"
 
 export function registerUser_request() {

@@ -18,8 +18,8 @@ import FormsTest from "../test/forms"
 import SubScreenLayout from "../../layout/subscreen"
 import UserAvatar from "../../smartsplit/user/avatar"
 import { Text } from "../../text"
-import { useAuthUser } from "../../../redux/auth/hooks"
 import StoreTestPage from "../test/store"
+import { useStorePath } from "../../appstate/react"
 
 const MENU_WEB = [
 	{
@@ -69,7 +69,7 @@ const MENU_MOBILE = [
 		icon: function AvatarIcon({ color }) {
 			return (
 				<UserAvatar
-					user={useAuthUser().data}
+					user={useStorePath("auth", "user", "data")}
 					initials="XX"
 					size="small"
 					border={color}

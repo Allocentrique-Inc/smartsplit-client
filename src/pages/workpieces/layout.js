@@ -8,7 +8,7 @@ import Cover from "../../smartsplit/media/cover"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ArrowRight from "../../svg/arrow-right"
 import ChevronDown from "../../svg/chevron-down"
-import { useAuthUser } from "../../../redux/auth/hooks"
+import { useStorePath } from "../../appstate/react"
 import { Metrics } from "../../theme"
 
 export default function WorkpieceLayout({
@@ -72,6 +72,6 @@ function PathSpacer({ of }) {
 }
 
 function UserIcon() {
-	const user = useAuthUser()
+	const user = useStorePath("auth", "user")
 	return <UserAvatar size="small" user={user.data} />
 }

@@ -1,16 +1,15 @@
 import React, { useEffect } from "react"
 import { useHistory } from "react-router"
-import { useDispatch } from "react-redux"
-import { logout } from "../../../redux/auth/actions"
+import { useStorePath } from "../../appstate/react"
 
 export default function Logout() {
+	const auth = useStorePath("auth")
 	const history = useHistory()
-	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch(logout())
+		auth.logout()
 		history.push("/auth/login")
-	}, [dispatch, history])
+	}, [auth, history])
 
 	return null
 }

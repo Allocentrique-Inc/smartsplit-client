@@ -15,6 +15,7 @@ web-report/
 
 # WebStorm
 .idea
+.vscode
 
 # Config
 /config.js

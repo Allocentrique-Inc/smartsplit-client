@@ -16,14 +16,10 @@ import {
 } from "../auth/register"
 import zxcvbn from "zxcvbn"
 import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
-import { useDispatch, useSelector } from "react-redux"
 import { resetPassword } from "../../../redux/users/actions"
 
 export default function ChangePasswordModal(props) {
-	const dispatch = useDispatch()
-	const { isLoading, data, error } = useSelector(
-		(state) => state.users.passwordReset
-	)
+	const { isLoading, data, error } = {} // FIXME: without redux
 
 	const [t] = useTranslation()
 	const [currentPassword, setCurrentPassword] = useState("")

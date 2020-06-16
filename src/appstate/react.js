@@ -53,20 +53,43 @@ export function useStorePath(...path) {
 }
 
 export function useSubpath(current, ...path) {
+	const [, update] = useReducer((n) => n + 1, 0)
+	const unsubscribes = []
+
+	function watchPath(observable, key) {
+		const value = observable[key]
+
+		unsubscribes.push(
+			observable.subscribe(() => {
+				if (observable[key] !== value) {
+					update()
+				}
+			})
+		)
+	}
+
 	for (let branch of path) {
-		if (
-			typeof current[branch] !== "function" &&
-			typeof current[branch] !== "object"
-		) {
+		// If we try to dig into something that's not an object, abort
+		if (typeof current !== "function" && typeof current !== "object") {
 			return undefined
 		}
 
-		current = current[branch]
-
 		if (current instanceof Observable) {
-			current.use()
+			watchPath(current, branch)
 		}
+
+		current = current[branch]
 	}
+
+	useEffect(() => {
+		if (current instanceof Observable) {
+			unsubscribes.push(current.subscribe(() => update()))
+		}
+
+		return function () {
+			unsubscribes.forEach((unsubscribe) => unsubscribe())
+		}
+	})
 
 	return current
 }

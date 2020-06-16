@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo } from "react"
 import { AsyncStorage } from "react-native"
 import { useTranslation } from "react-i18next"
-import { connect } from "react-redux"
-import * as UserActions from "../../../redux/users/actions"
+import { useStorePath } from "../../appstate/react"
 import { View } from "react-native"
 import { useHistory } from "react-router-dom"
 import Button from "../../widgets/button"
@@ -97,23 +96,8 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 	)
 }
 
-export const RegisterForm = connect(
-	function mapStateToProps({ users }) {
-		return {
-			users,
-		}
-	},
-	function mapDispatchToProps(dispatch) {
-		return {
-			registerUser: function (details) {
-				dispatch(UserActions.registerUser(details))
-			},
-		}
-	}
-)(function (props) {
+export const RegisterForm = function (props) {
 	const {
-		users,
-		registerUser,
 		showForgotPassword,
 		showLogin,
 		onSuccess,
@@ -122,7 +106,8 @@ export const RegisterForm = connect(
 	} = props
 
 	const [t] = useTranslation()
-	const registration = users.registerUser
+	const users = useStorePath("users")
+	const registration = useMemo(() => users.create(), [users])
 
 	const [showTerms, setShowTerms] = useState(false)
 	const [showCheckMails, setShowCheckMails] = useState(false)
@@ -296,7 +281,7 @@ export const RegisterForm = connect(
 			</Column>
 		</>
 	)
-})
+}
 
 export default function RegisterPage(props) {
 	const [t] = useTranslation()

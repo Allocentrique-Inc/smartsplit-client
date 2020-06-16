@@ -1,6 +1,6 @@
 import { Observable } from "../store"
 
-export default class Test extends Observable {
+export class Test extends Observable {
 	constructor() {
 		super()
 		this.value = 0

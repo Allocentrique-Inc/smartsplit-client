@@ -6,14 +6,14 @@ import { useHistory } from "react-router-dom"
 import { Row, Column, Flex } from "../../layout"
 import { Form, useForm } from "../../forms"
 import Button from "../../widgets/button"
-import { useAuthUser } from "../../../redux/auth/hooks"
+import { useStorePath } from "../../appstate/react"
 import PublicPageLayout from "../../layout/public-page"
 import MyProfile from "../../smartsplit/forms/my-profile"
 
 export default function NewUser() {
 	const history = useHistory()
 	const { t, i18n } = useTranslation()
-	const user = useAuthUser()
+	const user = useStorePath("auth", "user")
 	const [error, setError] = useState(null)
 	const formRef = useRef()
 

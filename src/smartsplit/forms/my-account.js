@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useStorePath } from "../../appstate/react"
 import { useTranslation } from "react-i18next"
 import { ScrollView } from "react-native"
 import { Platform } from "../../platform"
@@ -11,7 +11,6 @@ import Button from "../../widgets/button"
 import ConfirmPhoneModal from "../../pages/dashboard/confirm-phone"
 import { MailList } from "../components/mail-list"
 import { Status } from "../../utils/enums"
-import { useAuthUser } from "../../../redux/auth/hooks"
 import Label from "../../forms/label"
 
 export default function MyAccount({ title }) {
@@ -72,8 +71,7 @@ export function MobilePhoneRow() {
 	const { t, i18n } = useTranslation()
 	const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
 
-	const dispatch = useDispatch()
-	const user = useAuthUser()
+	const user = useStorePath("auth", "user")
 	const mobilePhone = (user.data && user.data.mobilePhone) || {}
 	const [inputNumber, setInputNumber] = useState(mobilePhone.number || "")
 	const [error, setError] = useState(null)
@@ -91,7 +89,7 @@ export function MobilePhoneRow() {
 
 	function onConfirmClose() {
 		setConfirmPhoneModal(false)
-		dispatch(user.read())
+		user.read()
 	}
 
 	return (

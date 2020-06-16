@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo } from "react"
 import { Route, Redirect, Switch } from "react-router"
 import { StoreProvider, createAppStore } from "./appstate"
-import { useDispatch, useSelector } from "react-redux"
-import { initializeFromStorage as initializeAuthFromStorage } from "../redux/auth/actions"
+import { setGlobalAccessToken, setGlobalErrorHandler } from "../api/ApiClient"
 
 import { Overlay as GlobalOverlay } from "./portals"
 import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
@@ -20,13 +19,20 @@ import AdminPage from "./pages/admin"
 import WorkpiecesRouter from "./pages/workpieces"
 
 export default function Main(props) {
-	const dispatch = useDispatch()
-	const isLoggedIn = useSelector((state) => state.auth && state.auth.isLoggedIn)
 	const store = useMemo(() => createAppStore(), [])
+	const isLoggedIn = store.auth.use().isLoggedIn
 
 	useEffect(() => {
-		dispatch(initializeAuthFromStorage(true))
-	}, [dispatch])
+		setGlobalErrorHandler((e) => store.auth.logout(e))
+
+		return store.auth.subscribe(() => {
+			setGlobalAccessToken(store.auth.accessToken)
+		})
+	}, [store])
+
+	useEffect(() => {
+		store.auth.initializeFromStorage(true)
+	}, [])
 
 	return isLoggedIn === null ? null : (
 		<StoreProvider value={store}>

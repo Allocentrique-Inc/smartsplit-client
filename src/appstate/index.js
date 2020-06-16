@@ -1,13 +1,13 @@
 import { Store } from "./store"
 import { StoreProvider, injectReactHooks } from "./react"
 
-import { User, UserList } from "./models/users"
-import Test from "./models/test"
+import * as models from "./models"
 
 export function createAppStore() {
 	const store = new Store(injectReactHooks)
-	Object.assign(store, store.bindClasses({ User, UserList, Test }))
+	Object.assign(store, store.bindClasses(models))
 
+	store.auth = new store.Authentication()
 	store.users = new store.UserList()
 	store.test = new store.Test()
 

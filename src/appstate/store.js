@@ -77,4 +77,12 @@ export class Observable {
 			this.subscriptions[k](...args)
 		}
 	}
+
+	set(data) {
+		for (let k in data) {
+			this[k] = data[k]
+		}
+
+		this.notify("set", data)
+	}
 }

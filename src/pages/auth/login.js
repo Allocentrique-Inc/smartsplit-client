@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react"
 import { useTranslation } from "react-i18next"
-import { useDispatch, useSelector } from "react-redux"
-import { login } from "../../../redux/auth/actions"
+import { useStorePath } from "../../appstate/react"
 import { Redirect, useHistory } from "react-router"
 import Button from "../../widgets/button"
 import { Group, Row, Column, Flex } from "../../layout"
@@ -28,8 +27,7 @@ export function LoginForm(props) {
 	} = props
 
 	const [t] = useTranslation()
-	const auth = useSelector((state) => state && state.auth)
-	const dispatch = useDispatch()
+	const auth = useStorePath("auth")
 
 	if (!auth.isLoading && auth.accessToken) {
 		onSuccess && setImmediate(() => onSuccess(auth.user_id))
@@ -57,8 +55,8 @@ export function LoginForm(props) {
 	}, [auth.isLoggedIn])
 
 	const handleLogin = useCallback(() => {
-		dispatch(login(email, password, stayLoggedIn))
-	}, [email, password, stayLoggedIn, dispatch])
+		auth.login(email, password, stayLoggedIn)
+	}, [email, password, stayLoggedIn, auth])
 
 	setFormState &&
 		useEffect(() => {

@@ -1,9 +1,7 @@
 import axios from "axios"
 import { API_BASE_URL } from "../config"
-import { watch } from "../redux/utils"
 
-let unsubscribeRedux = () => {}
-let dispatch = () => {}
+let globalErrorHandler = () => {}
 
 export const client = axios.create({
 	baseURL: API_BASE_URL,
@@ -16,7 +14,7 @@ client.interceptors.response.use(
 	function (error) {
 		// Si c'est une erreur 401, il s'agit d'une erreur d'autorisation
 		if (error.response && error.response.status === 401) {
-			dispatch({ type: "AUTH_LOGOUT", error: error.response.data })
+			globalErrorHandler(error.response.data)
 		}
 
 		// Si on a un response, et qu'elle contient du data, alors on utilise le data comme erreur
@@ -32,17 +30,16 @@ client.interceptors.response.use(
 	}
 )
 
-export function connectToRedux(store) {
-	unsubscribeRedux()
-	unsubscribeRedux = watch(
-		store,
-		(state) => state.auth && state.auth.accessToken,
-		(accessToken) => {
-			client.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
-		}
-	)
+export function setGlobalErrorHandler(handler) {
+	globalErrorHandler = handler
+}
 
-	dispatch = store.dispatch.bind(store)
+export function setGlobalAccessToken(accessToken) {
+	if (accessToken) {
+		client.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
+	} else {
+		delete client.defaults.headers.common["Authorization"]
+	}
 }
 
 export function createCrudClient(endpoint) {

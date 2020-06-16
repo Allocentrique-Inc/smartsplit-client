@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import { useDispatch } from "react-redux"
 import { Platform } from "../../platform"
 import { DialogModal } from "../../widgets/modal"
 import Button from "../../widgets/button"
@@ -8,16 +7,16 @@ import { Column, Row, Group, Flex } from "../../layout"
 import { TextField } from "../../forms"
 import { Text, Heading, Paragraph } from "../../text"
 import { Colors } from "../../theme"
-import { useAuthUser } from "../../../redux/auth/hooks"
-import { logout } from "../../../redux/auth/actions"
+import { useStorePath } from "../../appstate/react"
 
 export default function DeleteAccountModal(props) {
 	const [t] = useTranslation()
-	const dispatch = useDispatch()
 	const [isDeleting, setIsDeleting] = useState(false)
 	const [confirmDelete, setConfirmDelete] = useState("")
 	const [error, setError] = useState(null)
-	const user = useAuthUser()
+
+	const auth = useStorePath("auth")
+	const user = useStorePath("auth", "user")
 
 	const canSubmit =
 		!isDeleting &&
@@ -32,7 +31,7 @@ export default function DeleteAccountModal(props) {
 		user
 			.destroy()
 			.then(function () {
-				dispatch(logout())
+				auth.logout()
 				onRequestClose()
 			})
 			.catch(function (e) {

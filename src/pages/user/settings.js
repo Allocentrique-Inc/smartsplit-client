@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { Route, Redirect, Switch, useHistory } from "react-router"
-import { useSelector, useDispatch } from "react-redux"
+import { useStorePath } from "../../appstate/react"
 import { useTranslation } from "react-i18next"
 import objdiff from "object-diff"
 import { Column, Row, Hairline } from "../../layout"
@@ -17,7 +17,6 @@ import MultisectionLayout from "../../layout/multi-section"
 import UserAvatar from "../../smartsplit/user/avatar"
 import Button from "../../widgets/button"
 import AccessControl from "../../widgets/AccessControl"
-import { useAuthUser, useAuthStatus } from "../../../redux/auth/hooks"
 import { Platform } from "../../platform"
 import { MobileMenu } from "../dashboard"
 import { TabBar, Tab } from "../../widgets/tabs"
@@ -41,7 +40,13 @@ const settingsDefaultValues = {
 
 export function SettingsForm({ redirectOnSave, children }) {
 	const history = useHistory()
-	const user = useAuthUser()
+	const user = useStorePath("auth", "user")
+
+	useEffect(() => {
+		if (user.state === "undefined") {
+			user.read()
+		}
+	}, [user])
 
 	const formValues = {
 		...settingsDefaultValues,
@@ -58,8 +63,14 @@ export function SettingsForm({ redirectOnSave, children }) {
 		history.push(redirectOnSave || "/dashboard/")
 	}
 
+	console.log("user data is", user.state, user.data)
+
 	return (
-		<Form key={user.data} values={formValues} onSubmit={handleSubmit}>
+		<Form
+			key={user.state === "ready"}
+			values={formValues}
+			onSubmit={handleSubmit}
+		>
 			{children}
 		</Form>
 	)
@@ -78,7 +89,7 @@ export function SettingsPageFull() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const form = useForm()
-	const user = useAuthUser()
+	const user = useStorePath("auth", "user")
 
 	return (
 		<SubScreenLayout
@@ -127,7 +138,7 @@ export function SettingsPageFull() {
 
 export function SettingsMenu() {
 	const { t } = useTranslation()
-	const user = useAuthUser()
+	const user = useStorePath("auth", "users")
 
 	return (
 		<Column>
@@ -247,9 +258,10 @@ export function MobileAccount({ tab }) {
 export default function SettingsRouter() {
 	const { t } = useTranslation()
 
-	if (useAuthStatus() === false) {
+	if (useStorePath("auth", "isLoggedIn") === false) {
 		const history = useHistory()
 		history.push("/auth/login")
+		return null
 	}
 
 	return (
