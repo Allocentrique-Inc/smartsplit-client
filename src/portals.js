@@ -80,23 +80,33 @@ class PortalProvider extends React.PureComponent {
 }
 
 class PortalEntrance extends React.PureComponent {
+	UNSAFE_componentWillMount() {
+		this.context.addComponent(this)
+	}
+
+	componentDidUpdate() {
+		this.context.renderComponent(this)
+	}
+
 	componentWillUnmount() {
 		this.context.removeComponent(this)
 	}
 
 	render() {
-		this.context.addComponent(this)
 		return null
 	}
 }
 
 class PortalExit extends React.PureComponent {
+	UNSAFE_componentWillMount() {
+		this.context.setExit(this)
+	}
+
 	componentWillUnmount() {
 		this.context.unsetExit(this)
 	}
 
 	render() {
-		this.context.setExit(this)
 		return React.createElement(
 			React.Fragment,
 			null,
