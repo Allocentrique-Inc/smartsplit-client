@@ -1,4 +1,4 @@
-import * as UsersAPI from "../../api/Users"
+import * as UsersAPI from "../../api/users"
 import { createCRUDActions } from "../api"
 
 export function registerUser_request() {

@@ -17,6 +17,11 @@ export const general = {
 			"Rendre publics mes identifiants professionnels énumérés ci-dessus",
 	},
 
+	languages: {
+		fr: "Français",
+		en: "Anglais"
+	},
+
 	buttons: {
 		connect: "Me connecter",
 		cancel: "Annuler",
@@ -38,7 +43,7 @@ export const general = {
 		passwordChange: "Changer le mot de passe",
 		validNo: "Valider ce numéro",
 		checkPhone: "Valider le numéro",
-		confirmNO: "Valider",
+		confirm: "Confirmer",
 		addEmail: "Ajouter un courriel",
 		addProId: "Ajouter un identifiant",
 		deleteAccount: "Détruire ce compte",
@@ -61,12 +66,7 @@ export const menu = {
 	logout: "Déconnexion",
 }
 
-export const adminMenu = {
-	listManagement: "Gestion des listes",
-	businessSettings: "Paramètres d'affaires",
-	adminManagement: "Gestion des administrateurs",
-	myIncomes: "Mes revenus",
-}
+
 
 export const test = {
 	title: "Test des formulaires",
@@ -94,6 +94,9 @@ export const errors = {
 		forgotEmail: "As-tu oublié ton mot de passe ?",
 	},
 	invalidCurrentPassword: "Mot de passe actuel incorrect. Veuillez réessayer.",
+	listNotFound: "Liste introuvable",
+	entityNotFound: "Élement de la liste introuvable",
+	entityConflict: "ID déjà utilisé",
 }
 
 export const publicNavbarWeb = {
@@ -355,4 +358,27 @@ export const widgets = {
 	pictureCrop: {
 		title: "Recadre ta photo",
 	},
+}
+
+export const admin = {
+	menu : {
+		listManagement: "Gestion des listes",
+		businessSettings: "Paramètres d'affaires",
+		adminManagement: "Gestion des administrateurs",
+		myIncomes: "Mes revenus",
+	},
+
+	entityTypes : {
+		"content-languages": "Langues du contenu",
+		"digital-distributors": "Distributeurs numériques"
+	},
+
+	entityCreation: "Création d'une entité",
+	delete: "Supprimer",
+	edit: "Modifier",
+	confirmEntityDeletion: "Attention, l'entité suivante va être supprimée.",
+
+	entityAttributes: {
+		name: "Nom"
+	}
 }

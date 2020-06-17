@@ -46,6 +46,10 @@ const MENU_WEB = [
 		to: "/test/forms",
 	},
 	{ text: "State Store", to: "/dashboard/test/store" },
+	{
+		text: "admin",
+		to: "/admin",
+	},
 ]
 
 const MENU_MOBILE = [
@@ -76,6 +80,12 @@ const MENU_MOBILE = [
 				/>
 			)
 		},
+	},
+
+	{
+		icon: UsersIcon,
+
+		to: "/admin",
 	},
 ]
 

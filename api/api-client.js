@@ -44,7 +44,7 @@ export function setGlobalAccessToken(accessToken) {
 
 export function createCrudClient(endpoint) {
 	async function create(data) {
-		return await client.post(endpoint, data)
+		return await client.post(`${endpoint}/`, data)
 	}
 
 	async function read(id) {

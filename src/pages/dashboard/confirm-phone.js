@@ -6,7 +6,7 @@ import Button from "../../widgets/button"
 import { Section, Column, Row, Group, Flex } from "../../layout"
 import { TextField } from "../../forms"
 import { Text, Paragraph } from "../../text"
-import { verifyPhone } from "../../../api/Users"
+import { verifyPhone } from "../../../api/users"
 
 export default function ConfirmPhoneModal({
 	visible,
@@ -56,7 +56,7 @@ export default function ConfirmPhoneModal({
 						onClick={onRequestClose}
 					/>
 					<Button
-						text={t("general:buttons.confirmNO")}
+						text={t("general:buttons.confirm")}
 						disabled={!canSubmit}
 						onClick={handleSubmit}
 					/>

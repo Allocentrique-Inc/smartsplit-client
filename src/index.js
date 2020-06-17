@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react"
 import { Route, Redirect, Switch } from "react-router"
 import { StoreProvider, createAppStore } from "./appstate"
 import { useSubpath } from "./appstate/react"
-import { setGlobalAccessToken, setGlobalErrorHandler } from "../api/ApiClient"
+import { setGlobalAccessToken, setGlobalErrorHandler } from "../api/api-client"
 
 import { Overlay as GlobalOverlay } from "./portals"
 import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
@@ -18,6 +18,14 @@ import AccessControl from "./widgets/AccessControl"
 import UserSettings from "./pages/user/settings"
 import AdminPage from "./pages/admin"
 import WorkpiecesRouter from "./pages/workpieces"
+
+// TMP keep redux for now
+import { Provider } from "react-redux"
+import { createStore, applyMiddleware } from "redux"
+import thunk from "redux-thunk"
+import rootReducer from "../redux/root-reducer"
+const reduxStore = createStore(rootReducer, applyMiddleware(thunk))
+// /TMP
 
 export default function Main(props) {
 	const store = useMemo(() => createAppStore(), [])
@@ -36,13 +44,15 @@ export default function Main(props) {
 	}, [])
 
 	return isLoggedIn === null ? null : (
-		<StoreProvider value={store}>
-			<ScrollOverlay.ProviderContainer>
-				<GlobalOverlay.ProviderContainer>
-					<MainRouter {...props} />
-				</GlobalOverlay.ProviderContainer>
-			</ScrollOverlay.ProviderContainer>
-		</StoreProvider>
+		<Provider store={reduxStore}>
+			<StoreProvider value={store}>
+				<ScrollOverlay.ProviderContainer>
+					<GlobalOverlay.ProviderContainer>
+						<MainRouter {...props} />
+					</GlobalOverlay.ProviderContainer>
+				</ScrollOverlay.ProviderContainer>
+			</StoreProvider>
+		</Provider>
 	)
 }
 

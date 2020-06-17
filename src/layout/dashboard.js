@@ -7,7 +7,7 @@ import {
 } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useRouteMatch, useHistory } from "react-router"
-import { Row, Column, Flex } from "../layout"
+import { Row, Column, Flex, Spacer } from "../layout"
 import { Text } from "../text"
 
 import LayerStyles from "../styles/layers"
@@ -114,6 +114,7 @@ export function ProfileBar(props) {
 
 export function Dashboard(props) {
 	const history = useHistory()
+	const { i18n } = useTranslation()
 	const [showSidebar, setSidebar] = useState(true)
 
 	function logout() {
@@ -139,6 +140,19 @@ export function Dashboard(props) {
 							onChange={setSidebar}
 						/>
 						<Flex>{props.topBar}</Flex>
+						<Button
+							text="Français"
+							primary={i18n.language === "fr"}
+							disabled={i18n.language === "fr"}
+							onClick={() => i18n.changeLanguage("fr")}
+						/>
+						<Button
+							text="English"
+							primary={i18n.language === "en"}
+							disabled={i18n.language === "en"}
+							onClick={() => i18n.changeLanguage("en")}
+						/>
+						<Spacer of="component" />
 						<Button text="Déconnexion" onClick={logout} />
 					</ProfileBar>
 					{props.children}

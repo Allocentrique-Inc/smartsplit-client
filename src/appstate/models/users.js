@@ -1,6 +1,6 @@
 import { Observable } from "../store"
 import { createCrudObservable } from "../utils/api"
-import UsersCrudAPI from "../../../api/Users"
+import UsersCrudAPI from "../../../api/users"
 
 export class UserList extends Observable {
 	constructor() {

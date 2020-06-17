@@ -1,5 +1,6 @@
-import { useEffect } from "react"
+import { useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import UUID from "uuidjs"
 
 export function createCRUDActions(ApiEntity, actionType) {
 	async function doApiCall(
@@ -69,8 +70,9 @@ export function entityReducer(prevState, newState, action) {
 	}
 }
 
-export function useApiRedux(actions, store, id, initData) {
+export function useApiRedux(actions, store, entityId, initData) {
 	const dispatch = useDispatch()
+	const id = useState(entityId || UUID.generate())[0]
 	const data = useSelector((state) => state[store][id]) || {
 		id: id,
 		data: initData || {},

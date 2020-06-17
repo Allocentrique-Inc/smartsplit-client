@@ -16,6 +16,11 @@ export const general = {
 		makePublic: "Make public my professional identifiers listed above",
 	},
 
+	languages: {
+		fr: "French",
+		en: "English"
+	},
+
 	buttons: {
 		connect: "Connect",
 		cancel: "Cancel",
@@ -36,7 +41,7 @@ export const general = {
 		add: "Add",
 		passwordChange: "Change the password",
 		validNo: "Validate this number",
-		confirmNO: "Confirm",
+		confirm: "Confirm",
 		checkPhone: "Validate phone number",
 		addEmail: "Add an Email",
 		addProId: "Add a professional identifier",
@@ -58,13 +63,6 @@ export const menu = {
 	testsFormsPage: "Full Page Forms",
 	reduxTests: "Redux Tests",
 	logout: "Log out",
-}
-
-export const adminMenu = {
-	listManagement: "List management",
-	businessSettings: "Business settings",
-	adminManagement: "Administrator management",
-	myIncomes: "My incomes",
 }
 
 export const test = {
@@ -92,6 +90,9 @@ export const errors = {
 		forgotEmail: "Did you forget your password?",
 	},
 	invalidCurrentPassword: "Current password is incorrect. Please try again.",
+	listNotFound: "List not found",
+	entityNotFound: "List entity not found",
+	entityConflict: "A list entity with this ID already exists",
 }
 
 export const publicNavbarWeb = {
@@ -350,4 +351,29 @@ export const widgets = {
 	pictureCrop: {
 		title: "Crop Picture",
 	},
+}
+
+export const admin = {
+	menu : {
+		listManagement: "List management",
+		businessSettings: "Business settings",
+		adminManagement: "Administrator management",
+		myIncomes: "My incomes",
+	},
+
+	entityTypes : {
+		"content-languages": "Content languages",
+		"digital-distributors": "Digital distributors"
+	},
+
+	entityCreation: "Entity creation",
+	delete: "Delete",
+	edit: "Edit",
+	confirmEntityDeletion: "Beware, the entity will be deleted.",
+
+	entities: {
+		"content-languages": {
+			name: "Content language"
+		}
+	}
 }
