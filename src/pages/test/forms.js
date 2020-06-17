@@ -109,7 +109,7 @@ function TestSearchAndTag() {
 
 function TestText() {
 	const [t, i18n] = useTranslation()
-	const [showAuthModal, setShowAuthModal] = useState(false)
+	const [showAuthModal, setShowAuthModal] = useState(true)
 
 	return (
 		<Column of="component">
