@@ -12,7 +12,7 @@ export class Authentication extends Observable {
 		this.isLoggedIn = null
 		this.isReturning = null
 		this.accessToken = null
-		this.user_id
+		this.user_id = null
 
 		Object.defineProperty(this, "user", {
 			enumerable: false,
@@ -77,6 +77,7 @@ export class Authentication extends Observable {
 
 	async refresh() {
 		try {
+			this.set({ isLoading: true, error: null })
 			const response = await AuthAPI.refresh()
 			this._setLoginFromAPI(response)
 		} catch (e) {

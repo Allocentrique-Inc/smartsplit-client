@@ -22,7 +22,6 @@ import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
 
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
-import AuthModal from "../auth/modal"
 import { SearchAndTag } from "../../forms/search-and-tag"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
@@ -109,18 +108,9 @@ function TestSearchAndTag() {
 
 function TestText() {
 	const [t, i18n] = useTranslation()
-	const [showAuthModal, setShowAuthModal] = useState(true)
 
 	return (
 		<Column of="component">
-			<NoSpacer>
-				<AuthModal
-					visible={showAuthModal}
-					onCancel={() => setShowAuthModal(false)}
-					onSuccess={() => setShowAuthModal(false)}
-				/>
-			</NoSpacer>
-
 			<Heading level="1">{t("test:title")}</Heading>
 
 			<Row of="component">
@@ -136,8 +126,6 @@ function TestText() {
 					disabled={i18n.language === "en"}
 					onClick={() => i18n.changeLanguage("en")}
 				/>
-
-				<Button text="Auth Dialog" onClick={() => setShowAuthModal(true)} />
 			</Row>
 
 			<Paragraph>

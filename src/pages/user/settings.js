@@ -40,10 +40,11 @@ const settingsDefaultValues = {
 
 export function SettingsForm({ redirectOnSave, children }) {
 	const history = useHistory()
+	const auth = useStorePath("auth")
 	const user = useStorePath("auth", "user")
 
 	useEffect(() => {
-		if (user.state === "undefined") {
+		if (!auth.isLoading && user.state === "undefined") {
 			user.read()
 		}
 	}, [user])
@@ -63,14 +64,8 @@ export function SettingsForm({ redirectOnSave, children }) {
 		history.push(redirectOnSave || "/dashboard/")
 	}
 
-	console.log("user data is", user.state, user.data)
-
 	return (
-		<Form
-			key={user.state === "ready"}
-			values={formValues}
-			onSubmit={handleSubmit}
-		>
+		<Form values={formValues} onSubmit={handleSubmit}>
 			{children}
 		</Form>
 	)
@@ -89,17 +84,10 @@ export function SettingsPageFull() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const form = useForm()
-	const user = useStorePath("auth", "user")
 
 	return (
 		<SubScreenLayout
-			title={
-				<>
-					<UserAvatar user={user.data} size="medium" />
-					<Text bold>Paramètres</Text>
-					{user.state !== "ready" && <Text>(chargement en cours...)</Text>}
-				</>
-			}
+			title={<SettingsPageTitle />}
 			onBack={() => history.goBack()}
 			actions={
 				<Button
@@ -133,6 +121,18 @@ export function SettingsPageFull() {
 				/>
 			</MultisectionLayout>
 		</SubScreenLayout>
+	)
+}
+
+export function SettingsPageTitle() {
+	const user = useStorePath("auth", "user")
+
+	return (
+		<Row of="component" valign="center">
+			<UserAvatar user={user.data} size="medium" />
+			<Text bold>Paramètres</Text>
+			{user.state !== "ready" && <Text>(chargement en cours...)</Text>}
+		</Row>
 	)
 }
 
@@ -264,62 +264,49 @@ export default function SettingsRouter() {
 		return null
 	}
 
-	return (
-		<SettingsForm>
-			{Platform.web ? (
-				<SettingsPage />
-			) : (
-				<MobileMenu>
-					<SettingsForm redirectOnSave="/user/settings/">
-						<Switch>
-							<Route path="/user/settings/" exact>
-								<SettingsMenu />
-							</Route>
+	return Platform.web ? (
+		<SettingsPage />
+	) : (
+		<MobileMenu>
+			<SettingsForm redirectOnSave="/user/settings/">
+				<Switch>
+					<Route path="/user/settings/" exact>
+						<SettingsMenu />
+					</Route>
 
-							<MobileRoute
-								path="/user/settings/profile"
-								title={t("menu:profile")}
-							>
-								<Hairline />
-								<Column padding="group">
-									<MyProfile />
-								</Column>
-							</MobileRoute>
+					<MobileRoute path="/user/settings/profile" title={t("menu:profile")}>
+						<Hairline />
+						<Column padding="group">
+							<MyProfile />
+						</Column>
+					</MobileRoute>
 
-							<MobileRoute
-								path="/user/settings/account"
-								title={t("menu:account")}
-							>
-								<MobileAccount tab="account" />
-							</MobileRoute>
+					<MobileRoute path="/user/settings/account" title={t("menu:account")}>
+						<MobileAccount tab="account" />
+					</MobileRoute>
 
-							<MobileRoute
-								path="/user/settings/professional-identity"
-								title={t("menu:account")}
-							>
-								<MobileAccount tab="identity" />
-							</MobileRoute>
+					<MobileRoute
+						path="/user/settings/professional-identity"
+						title={t("menu:account")}
+					>
+						<MobileAccount tab="identity" />
+					</MobileRoute>
 
-							<MobileRoute
-								path="/user/settings/notifications"
-								title={t("settings:preferences")}
-							>
-								<Hairline />
-								<Column padding="group">
-									<MyNotifications />
-								</Column>
-							</MobileRoute>
+					<MobileRoute
+						path="/user/settings/notifications"
+						title={t("settings:preferences")}
+					>
+						<Hairline />
+						<Column padding="group">
+							<MyNotifications />
+						</Column>
+					</MobileRoute>
 
-							<MobileRoute
-								path="/user/settings/security"
-								title={t("menu:account")}
-							>
-								<MobileAccount tab="account" />
-							</MobileRoute>
-						</Switch>
-					</SettingsForm>
-				</MobileMenu>
-			)}
-		</SettingsForm>
+					<MobileRoute path="/user/settings/security" title={t("menu:account")}>
+						<MobileAccount tab="account" />
+					</MobileRoute>
+				</Switch>
+			</SettingsForm>
+		</MobileMenu>
 	)
 }

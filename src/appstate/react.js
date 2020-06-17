@@ -57,11 +57,12 @@ export function useSubpath(current, ...path) {
 	const unsubscribes = []
 
 	function watchPath(observable, key) {
-		const value = observable[key]
+		let value = observable[key]
 
 		unsubscribes.push(
 			observable.subscribe(() => {
 				if (observable[key] !== value) {
+					value = observable[key]
 					update()
 				}
 			})
@@ -89,7 +90,7 @@ export function useSubpath(current, ...path) {
 		return function () {
 			unsubscribes.forEach((unsubscribe) => unsubscribe())
 		}
-	})
+	}, [])
 
 	return current
 }

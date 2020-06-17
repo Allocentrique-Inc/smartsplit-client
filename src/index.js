@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from "react"
 import { Route, Redirect, Switch } from "react-router"
 import { StoreProvider, createAppStore } from "./appstate"
+import { useSubpath } from "./appstate/react"
 import { setGlobalAccessToken, setGlobalErrorHandler } from "../api/ApiClient"
 
 import { Overlay as GlobalOverlay } from "./portals"
@@ -20,7 +21,7 @@ import WorkpiecesRouter from "./pages/workpieces"
 
 export default function Main(props) {
 	const store = useMemo(() => createAppStore(), [])
-	const isLoggedIn = store.auth.use().isLoggedIn
+	const isLoggedIn = useSubpath(store, "auth", "isLoggedIn")
 
 	useEffect(() => {
 		setGlobalErrorHandler((e) => store.auth.logout(e))

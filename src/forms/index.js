@@ -103,6 +103,13 @@ export class Form extends React.PureComponent {
 				},
 			},
 
+			formValue: {
+				enumerable: true,
+				configurable: false,
+				writable: true,
+				value: value,
+			},
+
 			error: {
 				enumerable: true,
 				configurable: false,
@@ -130,6 +137,25 @@ export class Form extends React.PureComponent {
 
 		this.form.fields[name] = field
 		return field
+	}
+
+	UNSAFE_componentWillUpdate(nextProps) {
+		if (nextProps.values === this.props.values) return
+
+		const values = nextProps.values
+
+		for (let name in nextProps.values) {
+			let field = this.form.fields[name]
+			let value = values[name]
+
+			if (field) {
+				if (field.formValue !== value) {
+					field.value = field.formValue = value
+				}
+			} else {
+				this.newField(name, value)
+			}
+		}
 	}
 
 	submit() {
