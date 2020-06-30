@@ -14,6 +14,10 @@ export const general = {
 	checkbox: {
 		stayConnected: "Rester connecté",
 		makePublic: "Make public my professional identifiers listed above",
+		author: "Author",
+		composer: "Composer",
+		mixer: "Mixer",
+		performer: "Performer",
 	},
 
 	languages: {
@@ -144,6 +148,7 @@ export const forms = {
 		myProIds: "My professional identifiers",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
+		groups: "Groups",
 
 		dropdowns: {
 			language: "Langue",
@@ -175,6 +180,7 @@ export const forms = {
 		delete: "delete or Delete",
 		date: "DD-MM-YYYY",
 		myUri: "https://www.my-website.example",
+		groupSearch: "Rechercher parmi les groupes...",
 	},
 
 	undertexts: {
@@ -197,6 +203,7 @@ export const forms = {
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
+		artistName: "If not applicable, we will desplay the full name.",
 	},
 }
 
@@ -380,4 +387,10 @@ export const admin = {
 			name: "Content language",
 		},
 	},
+}
+
+export const newUserInvite = {
+	title: "[Add/Modify] an Artist Collaborator",
+	checkboxTitle: "Rôle(s) par défaut",
+	checkboxUndertext: "These roles can always be modified later.",
 }
