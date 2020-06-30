@@ -19,7 +19,7 @@ export const general = {
 
 	languages: {
 		fr: "Français",
-		en: "Anglais"
+		en: "Anglais",
 	},
 
 	buttons: {
@@ -65,8 +65,6 @@ export const menu = {
 	reduxTests: "Redux Test",
 	logout: "Déconnexion",
 }
-
-
 
 export const test = {
 	title: "Test des formulaires",
@@ -227,11 +225,15 @@ export const register = {
 
 	conditions: {
 		title: "Termes et conditions",
-		paragraph: "J'ai lu et j'accepte les ",
-		paragraph2: "Termes et conditions d'utilisation ",
-		paragraph3: "et la ",
-		paragraph4: "Politique sur la vie privée ",
-		paragraph5: "de Smartsplit",
+		paragraph: (showTerms, showPrivacy) => (
+			<>
+				J'ai lu et j'accepte les
+				<link onClick={showTerms}> Termes et conditions d'utilisation </link>
+				et la
+				<link onClick={showPrivacy}> Politique sur la vie privée </link>
+				de Smartsplit
+			</>
+		),
 	},
 }
 
@@ -361,16 +363,16 @@ export const widgets = {
 }
 
 export const admin = {
-	menu : {
+	menu: {
 		listManagement: "Gestion des listes",
 		businessSettings: "Paramètres d'affaires",
 		adminManagement: "Gestion des administrateurs",
 		myIncomes: "Mes revenus",
 	},
 
-	entityTypes : {
+	entityTypes: {
 		"content-languages": "Langues du contenu",
-		"digital-distributors": "Distributeurs numériques"
+		"digital-distributors": "Distributeurs numériques",
 	},
 
 	entityCreation: "Création d'une entité",
@@ -379,6 +381,6 @@ export const admin = {
 	confirmEntityDeletion: "Attention, l'entité suivante va être supprimée.",
 
 	entityAttributes: {
-		name: "Nom"
-	}
+		name: "Nom",
+	},
 }

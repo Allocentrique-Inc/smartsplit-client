@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Column, Row, Group, Flex, Hairline } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
@@ -151,9 +151,14 @@ export function LoginModal(props) {
 
 export function RegisterModal(props) {
 	const { artistName, onRequestClose, onCancel, onSuccess } = props
-	const [formState, setFormState] = useState({})
-
 	const [t] = useTranslation()
+
+	const form = useRef()
+	const [canSubmit, setCanSubmit] = useState(false)
+
+	function handleSubmit() {
+		form.current.submit()
+	}
 
 	return (
 		<>
@@ -166,7 +171,11 @@ export function RegisterModal(props) {
 						<Paragraph>{t("register:toVote.subTitle")}</Paragraph>
 					</Column>
 
-					<RegisterForm setFormState={setFormState} {...props} />
+					<RegisterForm
+						{...props}
+						onSubmittable={setCanSubmit}
+						formRef={form}
+					/>
 				</Column>
 			</Scrollable>
 
@@ -181,8 +190,8 @@ export function RegisterModal(props) {
 				<Button
 					primary
 					text={t("general:buttons.registerVote")}
-					disabled={!formState.canSubmit}
-					onClick={formState.submit}
+					disabled={!canSubmit}
+					onClick={handleSubmit}
 				/>
 			</Row>
 		</>

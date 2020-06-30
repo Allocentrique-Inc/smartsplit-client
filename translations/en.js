@@ -18,7 +18,7 @@ export const general = {
 
 	languages: {
 		fr: "French",
-		en: "English"
+		en: "English",
 	},
 
 	buttons: {
@@ -223,11 +223,14 @@ export const register = {
 
 	conditions: {
 		title: "Terms and conditions",
-		paragraph: "I have read and accept the ",
-		paragraph2: "Terms and Conditions of use ",
-		paragraph3: "as well as Smartsplit's ",
-		paragraph4: "Private Life Policy",
-		paragraph5: "",
+		paragraph: (showTerms, showPrivacy) => (
+			<>
+				I have read and accept the
+				<link onClick={showTerms}> Terms and Conditions of use </link>
+				as well as Smartsplit's
+				<link onClick={showPrivacy}> Private Life Policy </link>
+			</>
+		),
 	},
 }
 
@@ -354,16 +357,16 @@ export const widgets = {
 }
 
 export const admin = {
-	menu : {
+	menu: {
 		listManagement: "List management",
 		businessSettings: "Business settings",
 		adminManagement: "Administrator management",
 		myIncomes: "My incomes",
 	},
 
-	entityTypes : {
+	entityTypes: {
 		"content-languages": "Content languages",
-		"digital-distributors": "Digital distributors"
+		"digital-distributors": "Digital distributors",
 	},
 
 	entityCreation: "Entity creation",
@@ -373,7 +376,7 @@ export const admin = {
 
 	entities: {
 		"content-languages": {
-			name: "Content language"
-		}
-	}
+			name: "Content language",
+		},
+	},
 }

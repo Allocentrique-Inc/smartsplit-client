@@ -1,11 +1,13 @@
 import { client, createCrudClient } from "./api-client"
 
-export function registerUser(data) {
-	return client.request({
+export async function registerUser(data) {
+	const result = await client.request({
 		url: "/users/",
 		method: "post",
 		data,
 	})
+
+	return result.data
 }
 
 export function forgotPassword(data) {
