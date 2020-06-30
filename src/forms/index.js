@@ -34,8 +34,6 @@ export class Form extends React.PureComponent {
 		if (props.values) this.setValues(props.values)
 
 		// strict
-		// onChange
-		// onSubmit
 	}
 
 	setValues(values) {
@@ -68,21 +66,26 @@ export class Form extends React.PureComponent {
 		return this.newField(name)
 	}
 
+	getFields() {
+		return this.form.fields
+	}
+
 	newField(name, value, error) {
 		const field = Object.create(null)
 		const listeners = []
 
-		function notifyListeners() {
+		const notifyListeners = () => {
 			listeners.forEach((l) => l(value, error))
+			this._notifyChange(name, value)
 		}
 
-		function addListener(fn) {
+		const addListener = (fn) => {
 			if (listeners.indexOf(fn) < 0) {
 				listeners.push(fn)
 			}
 		}
 
-		function removeListener(fn) {
+		const removeListener = (fn) => {
 			const index = listeners.indexOf(fn) < 0
 
 			if (index >= 0) {
@@ -139,6 +142,16 @@ export class Form extends React.PureComponent {
 		return field
 	}
 
+	getValues() {
+		const values = {}
+
+		for (let key in this.form.fields) {
+			values[key] = this.form.fields[key].value
+		}
+
+		return values
+	}
+
 	UNSAFE_componentWillUpdate(nextProps) {
 		if (nextProps.values === this.props.values) return
 
@@ -158,14 +171,24 @@ export class Form extends React.PureComponent {
 		}
 	}
 
-	submit() {
-		const values = {}
-
-		for (let key in this.form.fields) {
-			values[key] = this.form.fields[key].value
+	_notifyChange(key, value) {
+		if (this.props.onChange) {
+			this.props.onChange(this.getValues())
 		}
+	}
 
-		this.props.onSubmit(values)
+	submit() {
+		this.props.onSubmit(this.getValues())
+	}
+
+	reset() {
+		this.setValues(this.props.values || {})
+	}
+
+	clearErrors() {
+		for (let k in this.form.fields) {
+			this.form.fields[k].error = null
+		}
 	}
 
 	render() {
@@ -267,6 +290,11 @@ export function wrapSimpleField(component, valueProp, onChangeProp) {
 export function FormSubmit({ children }) {
 	const form = useContext(FormContext)
 	return children(form.submit.bind(form))
+}
+
+export function FormValue({ name }) {
+	const field = useFormField(name)
+	return children(field.value)
 }
 
 export const TextField = wrapSimpleField(_TextField, "value", "onChangeText")
