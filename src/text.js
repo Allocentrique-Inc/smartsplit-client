@@ -103,6 +103,12 @@ export function Text(props) {
 				return extendText(child, xprops)
 
 			case "link":
+				return (
+					<Link {...props} {...child.props}>
+						{child.props.children}
+					</Link>
+				)
+
 			case "action":
 			case "error":
 				xprops = {
