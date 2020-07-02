@@ -3,22 +3,7 @@ import { Platform } from "react-native"
 import { DialogModal } from "../../widgets/modal"
 import { useTranslation } from "react-i18next"
 import { Group, Column, Row } from "../../layout"
-import {
-	Form,
-	FormSubmit,
-	LabelText,
-	TextField,
-	CheckBox,
-	PasswordField,
-	RadioButton,
-	RadioGroup,
-	RadioGroupButton,
-	Dropdown,
-	Select,
-	PhoneNumberField,
-	DateField,
-	useImagePicker,
-} from "../../forms"
+import { Form, LabelText, TextField, CheckBox } from "../../forms"
 import { Text } from "../../text"
 import Button from "../../widgets/button"
 import { SearchAndTag } from "../../forms/search-and-tag"
@@ -27,15 +12,7 @@ import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 export default function InviteNewUserModal(props) {
 	const [t] = useTranslation()
 
-	const {
-		users,
-		firstName,
-		lastName,
-		artistName,
-		email,
-		workPiece,
-		workTitle,
-	} = props
+	const { firstName, lastName, artistName, email, groups } = props
 
 	const [search, setSearch] = useState("")
 	const [selected, setSelected] = useState([])
@@ -82,6 +59,7 @@ export default function InviteNewUserModal(props) {
 						<TextField
 							value={artistName}
 							label={t("forms:labels.artistName")}
+							abel_hint={t("forms:labels.optional")}
 							undertext={t("forms:undertexts.artistName")}
 						/>
 
