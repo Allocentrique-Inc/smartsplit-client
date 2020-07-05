@@ -233,7 +233,10 @@ export function RegisterForm(props) {
 		>
 			<CheckEmailModal
 				visible={showCheckMails}
-				onRequestClose={() => showLogin}
+				onRequestClose={() => {
+					setShowCheckMails(false)
+					showLogin()
+				}}
 			/>
 
 			<TermsConditionsModal
