@@ -138,7 +138,7 @@ export function SettingsPageTitle() {
 
 export function SettingsMenu() {
 	const { t } = useTranslation()
-	const user = useStorePath("auth", "users")
+	const user = useStorePath("auth", "user")
 
 	return (
 		<Column>
