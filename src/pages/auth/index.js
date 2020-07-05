@@ -10,6 +10,7 @@ import ForgotPassword from "./forgot-password"
 import PasswordReset from "./password-reset"
 import CheckEmailPage from "./check-email"
 import AccessControl from "../../widgets/AccessControl"
+import { AuthModalTestPage } from "./modal"
 
 export default function AuthPages() {
 	return (
@@ -42,6 +43,10 @@ export default function AuthPages() {
 				<AccessControl redirectToLogin>
 					<NewUser />
 				</AccessControl>
+			</Route>
+
+			<Route path="/auth/test-modal" exact>
+				<AuthModalTestPage />
 			</Route>
 
 			<Route

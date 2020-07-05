@@ -263,3 +263,7 @@ export function ForgotPasswordSentModal(props) {
 		</>
 	)
 }
+
+export function AuthModalTestPage() {
+	return <AuthModal visible={true} />
+}
