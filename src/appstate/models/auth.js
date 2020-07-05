@@ -1,6 +1,7 @@
 import { Observable } from "../store"
 import { Platform, AsyncStorage } from "react-native"
 import * as AuthAPI from "../../../api/auth"
+import { activateAccount } from "../../../api/users"
 
 export class Authentication extends Observable {
 	constructor() {
@@ -136,5 +137,18 @@ export class Authentication extends Observable {
 		AsyncStorage.removeItem("auth").catch((e) =>
 			console.error("Error clearing auth data:", e)
 		)
+	}
+
+	async activateAccountAndLogin(token) {
+		let stayLoggedIn = false
+
+		try {
+			stayLoggedIn = !!(await AsyncStorage.getItem("register:stayLoggedInNext"))
+		} catch (e) {
+			console.error("Failed getting stay logged in status after activation", e)
+		}
+
+		const result = await activateAccount(token)
+		this._setLoginFromAPI(result, stayLoggedIn)
 	}
 }

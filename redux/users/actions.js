@@ -58,31 +58,3 @@ export function resetPassword(passwordDetails) {
 		}
 	}
 }
-
-export function activateAccount(token) {
-	return async function (dispatch) {
-		dispatch({ type: "ACTIVATE_REQUEST" })
-
-		try {
-			const response = await UsersAPI.activateAccount(token)
-			const user = response.user
-
-			dispatch(
-				setLogin(
-					response.accessToken,
-					(user && user.user_id) || response.user_id
-				)
-			)
-
-			dispatch({
-				type: "ACTIVATE_SUCCESS",
-				payload: response,
-			})
-		} catch (error) {
-			dispatch({
-				type: "ACTIVATE_ERROR",
-				payload: error.data || error,
-			})
-		}
-	}
-}

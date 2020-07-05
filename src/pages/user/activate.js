@@ -1,67 +1,43 @@
 import React, { useState, useEffect } from "react"
-import { AsyncStorage } from "react-native"
-import { connect } from "react-redux"
-import { activateAccount } from "../../../redux/users/actions"
-import { Redirect } from "react-router"
+import { useStorePath } from "../../appstate/react"
+import { useHistory, useRouteMatch } from "react-router"
 import PublicPageLayout from "../../layout/public-page"
-import { Group } from "../../layout"
-import { Heading, Paragraph } from "../../text"
+import { Group, Column } from "../../layout"
+import { Heading, Paragraph, Text } from "../../text"
 
-export function ActivateAccount({ users, match, activateAccount }) {
+export default function ActivateAccount() {
+	const match = useRouteMatch()
+	const history = useHistory()
+
 	const token = match.params.token
-	const [stayLoggedIn, setStayLoggedIn] = useState(null)
+	const auth = useStorePath("auth")
 
-	useEffect(function () {
-		AsyncStorage.getItem("register:stayLoggedInNext")
-			.then((flag) => setStayLoggedIn(!!flag))
-			.catch((e) =>
-				console.error(
-					"Failed getting stay logged in status after activation",
-					e
-				)
-			)
-	}, [])
+	const [error, setError] = useState(null)
 
-	if (
-		stayLoggedIn !== null &&
-		!users.activation.isLoading &&
-		!users.activation.data &&
-		users.activation.error === null
-	) {
-		activateAccount(token)
-		AsyncStorage.removeItem("register:stayLoggedInNext")
-	}
-
-	if (users.activation.error === false) return <Redirect to="/auth/new-user" />
+	useEffect(() => {
+		auth
+			.activateAccountAndLogin(token)
+			.then(() => history.push("/auth/new-user"))
+			.catch((e) => setError(e))
+	}, [token, auth])
 
 	return (
 		<PublicPageLayout>
 			<Group of="group">
 				<Heading level={1}>Activation de votre compte...</Heading>
-				{users.activation.isLoading && (
+				{error === null ? (
 					<Paragraph>
 						Veuillez patienter pendant que nous activons votre compte...
 					</Paragraph>
-				)}
-
-				{users.activation.error && (
-					<>
+				) : (
+					<Column of="component">
 						<Paragraph>
 							Une erreur est survenue lors de l'activation de votre compte.
 						</Paragraph>
-						<Paragraph>{users.activation.error.message}</Paragraph>
-					</>
+						<Text error>{error.message}</Text>
+					</Column>
 				)}
 			</Group>
 		</PublicPageLayout>
 	)
 }
-
-export default connect(
-	({ users }) => ({ users }),
-	(dispatch) => ({
-		activateAccount: function (token) {
-			dispatch(activateAccount(token))
-		},
-	})
-)(ActivateAccount)

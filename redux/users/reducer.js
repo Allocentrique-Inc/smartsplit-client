@@ -9,11 +9,6 @@ const INITIAL_STATE = {
 		error: null,
 		isLoading: false,
 	},
-	activation: {
-		data: null,
-		error: null,
-		isLoading: false,
-	},
 }
 
 export default function (state = INITIAL_STATE, action) {
@@ -80,33 +75,6 @@ export default function (state = INITIAL_STATE, action) {
 			}
 
 			if (action.payload) newState.passwordReset.error = action.payload
-
-			break
-
-		case "ACTIVATE_REQUEST":
-			newState.activation = {
-				data: null,
-				isLoading: true,
-				error: null,
-			}
-
-			break
-
-		case "ACTIVATE_ERROR":
-			newState.activation = {
-				data: null,
-				isLoading: false,
-				error: action.payload,
-			}
-
-			break
-
-		case "ACTIVATE_SUCCESS":
-			newState.activation = {
-				data: action.payload,
-				isLoading: false,
-				error: false,
-			}
 
 			break
 
