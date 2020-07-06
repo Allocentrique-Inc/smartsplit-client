@@ -1,9 +1,4 @@
 const INITIAL_STATE = {
-	forgotPassword: {
-		data: null,
-		error: null,
-		isLoading: false,
-	},
 	passwordReset: {
 		data: null,
 		error: null,
@@ -15,38 +10,6 @@ export default function (state = INITIAL_STATE, action) {
 	let newState = {}
 
 	switch (action.type) {
-		case "FORGOT_PASSWORD_REQUEST":
-			newState.forgotPassword = {
-				...state.forgotPassword,
-				data: null,
-				isLoading: true,
-				error: null,
-			}
-
-			break
-
-		case "FORGOT_PASSWORD_SUCCESS":
-			newState.forgotPassword = {
-				...state.forgotPassword,
-				error: null,
-				isLoading: false,
-			}
-
-			if (action.payload) newState.forgotPassword.data = action.payload
-			else newState.forgotPassword.data = { message: "Success" }
-
-			break
-
-		case "FORGOT_PASSWORD_ERROR":
-			newState.forgotPassword = {
-				...state.forgotPassword,
-				isLoading: false,
-			}
-
-			if (action.payload) newState.forgotPassword.error = action.payload
-
-			break
-
 		case "RESET_PASSWORD_REQUEST":
 			newState.passwordReset = {
 				...state.passwordReset,

@@ -10,11 +10,11 @@ export async function registerUser(data) {
 	return result.data
 }
 
-export function forgotPassword(data) {
+export function forgotPassword(email) {
 	return client.request({
 		url: "/users/request-password-reset",
 		method: "post",
-		data,
+		data: { email },
 	})
 }
 
