@@ -1,7 +1,11 @@
 import { Observable } from "../store"
 import { Platform, AsyncStorage } from "react-native"
 import * as AuthAPI from "../../../api/auth"
-import { activateAccount } from "../../../api/users"
+import {
+	activateAccount,
+	resetPassword,
+	changePassword,
+} from "../../../api/users"
 
 export class Authentication extends Observable {
 	constructor() {
@@ -12,6 +16,7 @@ export class Authentication extends Observable {
 
 		this.isLoggedIn = null
 		this.isReturning = null
+		this.isAuthStored = false
 		this.accessToken = null
 		this.user_id = null
 
@@ -86,7 +91,7 @@ export class Authentication extends Observable {
 		}
 	}
 
-	_setLoginFromAPI(response, rememberMe) {
+	_setLoginFromAPI(response, rememberMe = undefined) {
 		const user = response.user
 		const user_id = (user && user.user_id) || response.user_id
 
@@ -97,7 +102,8 @@ export class Authentication extends Observable {
 		}
 	}
 
-	setLogin(accessToken, user_id, store = false) {
+	setLogin(accessToken, user_id, store = undefined) {
+		store = store === undefined ? this.isAuthStored : !!store
 		const storeData = JSON.stringify({ accessToken, user_id })
 
 		AsyncStorage.setItem("isReturning", "1").catch((e) =>
@@ -114,6 +120,7 @@ export class Authentication extends Observable {
 
 		this.set({
 			isLoading: false,
+			isAuthStored: store,
 			error: null,
 			isLoggedIn: true,
 			isReturning: true,
@@ -150,5 +157,15 @@ export class Authentication extends Observable {
 
 		const result = await activateAccount(token)
 		this._setLoginFromAPI(result, stayLoggedIn)
+	}
+
+	async changePassword(currentPassword, newPassword) {
+		const result = await changePassword(currentPassword, newPassword)
+		this._setLoginFromAPI(result)
+	}
+
+	async resetPasswordAndLogin(token, password) {
+		const result = await resetPassword(token, password)
+		this._setLoginFromAPI(result)
 	}
 }

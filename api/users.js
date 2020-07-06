@@ -18,12 +18,24 @@ export function forgotPassword(email) {
 	})
 }
 
-export function passwordReset(data) {
-	return client.request({
+export async function resetPassword(token, password) {
+	const result = await client.request({
 		url: "/users/change-password",
 		method: "post",
-		data,
+		data: { token, password },
 	})
+
+	return result.data
+}
+
+export async function changePassword(currentPassword, password) {
+	const result = await client.request({
+		url: "/users/change-password",
+		method: "post",
+		data: { currentPassword, password },
+	})
+
+	return result.data
 }
 
 export async function activateAccount(token) {

@@ -42,6 +42,8 @@ export class Form extends React.PureComponent {
 		for (let key in values) {
 			this.form.fields[key] = this.newField(key, values[key])
 		}
+
+		this._notifyChange()
 	}
 
 	updateValues(values) {
@@ -173,12 +175,12 @@ export class Form extends React.PureComponent {
 
 	_notifyChange(key, value) {
 		if (this.props.onChange) {
-			this.props.onChange(this.getValues())
+			this.props.onChange.call(this, this.getValues())
 		}
 	}
 
 	submit() {
-		this.props.onSubmit(this.getValues())
+		this.props.onSubmit.call(this, this.getValues())
 	}
 
 	reset() {
