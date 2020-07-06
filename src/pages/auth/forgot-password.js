@@ -34,11 +34,11 @@ export function ForgotPasswordForm({ setFormState, onSuccess }) {
 			.then(onSuccess)
 			.catch((e) => setError(e))
 			.finally(() => setIsLoading(false))
-	})
+	}, [email])
 
 	useEffect(() => {
 		setFormState({ canSubmit, submit: handleSubmit })
-	}, [canSubmit])
+	}, [canSubmit, handleSubmit])
 
 	return (
 		<Column of="group">
