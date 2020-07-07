@@ -61,7 +61,8 @@ export const menu = {
 	collaborators: "My Collaborators",
 	testsForms: "Tests Forms",
 	testsFormsPage: "Full Page Forms",
-	reduxTests: "Redux Tests",
+	tests: "Tests",
+	dashboard: "Dashboard",
 	logout: "Log out",
 }
 

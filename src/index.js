@@ -9,7 +9,7 @@ import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
 
 import AuthPages from "./pages/auth"
 import DashboardPage from "./pages/dashboard"
-import FormsTest from "./pages/test/forms"
+import TestDashboard from "./pages/test"
 import CopyrightShare from "./pages/document/copyright"
 import UserActivateAccount from "./pages/user/activate"
 
@@ -91,10 +91,8 @@ export function MainRouter(props) {
 				<UserSettings />
 			</Route>
 
-			<Route path="/test/forms" exact>
-				<Scrollable>
-					<FormsTest />
-				</Scrollable>
+			<Route path="/test/">
+				<TestDashboard />
 			</Route>
 
 			<Route path="/workpieces">

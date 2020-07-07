@@ -1,4 +1,5 @@
 import React from "react"
+import { useStorePath } from "../../appstate/react"
 import { View, Image } from "react-native"
 import UserStyles from "./styles"
 import { Text } from "../../text"
@@ -36,4 +37,9 @@ export default function UserAvatar({ size, user, picture, border, initials }) {
 			)}
 		</View>
 	)
+}
+
+export function CurrentUserAvatar(props) {
+	const user = useStorePath("auth", "user", "data")
+	return <UserAvatar user={user} {...props} />
 }

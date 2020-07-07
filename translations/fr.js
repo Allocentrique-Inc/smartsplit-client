@@ -62,7 +62,8 @@ export const menu = {
 	collaborators: "Mes collaborateurs",
 	testsForms: "Tests Formulaires",
 	testsFormsPage: "Formulaires pleine page",
-	reduxTests: "Redux Test",
+	tests: "Tests",
+	dashboard: "Tableau de bord",
 	logout: "Déconnexion",
 }
 
