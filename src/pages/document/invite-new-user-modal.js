@@ -33,27 +33,24 @@ export default function InviteNewUserModal(props) {
 				</>
 			}
 		>
-			<Group
-				style={Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }}
+			<Form
+				values={{ firstName } + { lastName }}
+				onSubmit={(values) =>
+					alert("Submit " + JSON.stringify(values, null, 4))
+				}
 			>
-				<Form
+				<Group
 					of="group"
-					values={{ firstName } + { lastName }}
-					onSubmit={(values) =>
-						alert("Submit " + JSON.stringify(values, null, 4))
+					style={
+						Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }
 					}
 				>
-					<Row of="component">
-						<TextField
-							name="firstName"
-							label={t("forms:labels.legalFirstName")}
-						/>
+					<TextField
+						name="firstName"
+						label={t("forms:labels.legalFirstName")}
+					/>
 
-						<TextField
-							name="lastName"
-							label={t("forms:labels.legalLastName")}
-						/>
-					</Row>
+					<TextField name="lastName" label={t("forms:labels.legalLastName")} />
 
 					<TextField
 						name="artistName"
@@ -104,8 +101,8 @@ export default function InviteNewUserModal(props) {
 							{t("newUserInvite:checkboxUndertext")}
 						</Text>
 					</Column>
-				</Form>
-			</Group>
+				</Group>
+			</Form>
 		</DialogModal>
 	)
 }
