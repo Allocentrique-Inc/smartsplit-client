@@ -34,59 +34,57 @@ export default function InviteNewUserModal(props) {
 			}
 		>
 			<Group
-				of="group"
 				style={Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }}
 			>
 				<Form
+					of="group"
 					values={{ firstName } + { lastName }}
 					onSubmit={(values) =>
 						alert("Submit " + JSON.stringify(values, null, 4))
 					}
 				>
-					<Column of="group">
-						<Row of="component">
-							<TextField
-								value={firstName}
-								label={t("forms:labels.legalFirstName")}
-							/>
-
-							<TextField
-								value={lastName}
-								label={t("forms:labels.legalLastName")}
-							/>
-						</Row>
+					<Row of="component">
+						<TextField
+							name="firstName"
+							label={t("forms:labels.legalFirstName")}
+						/>
 
 						<TextField
-							value={artistName}
-							label={t("forms:labels.artistName")}
-							abel_hint={t("forms:labels.optional")}
-							undertext={t("forms:undertexts.artistName")}
+							name="lastName"
+							label={t("forms:labels.legalLastName")}
 						/>
+					</Row>
 
-						<TextField value={email} label={t("forms:labels.email")} />
+					<TextField
+						name="artistName"
+						label={t("forms:labels.artistName")}
+						label_hint={t("forms:labels.optional")}
+						undertext={t("forms:undertexts.artistName")}
+					/>
 
-						<SearchAndTag
-							label={t("forms:labels.groups")}
-							searchResults={props.searchResults}
-							searchInput={search}
-							onSearchChange={setSearch}
-							selectedItems={selected}
-							onSelect={(selection) => setSelected([...selected, selection])}
-							onUnselect={(selection) =>
-								setSelected(selected.filter((i) => i !== selection))
-							}
-							placeholder={t("forms:placeholders.groupSearch")}
-						/>
+					<TextField email="email" label={t("forms:labels.email")} />
 
+					<SearchAndTag
+						label={t("forms:labels.groups")}
+						searchResults={props.searchResults}
+						searchInput={search}
+						onSearchChange={setSearch}
+						selectedItems={selected}
+						onSelect={(selection) => setSelected([...selected, selection])}
+						onUnselect={(selection) =>
+							setSelected(selected.filter((i) => i !== selection))
+						}
+						placeholder={t("forms:placeholders.groupSearch")}
+					/>
+					<Column of="component">
 						<LabelText>{t("newUserInvite:checkbox")} </LabelText>
 
-						<Row>
-							<CheckBox
-								value="author"
-								label={t("general:checkbox.author")}
-								tooltip=""
-							/>
-						</Row>
+						<CheckBox
+							value="author"
+							label={t("general:checkbox.author")}
+							tooltip=""
+						/>
+
 						<CheckBox
 							value="composer"
 							label={t("general:checkbox.composer")}

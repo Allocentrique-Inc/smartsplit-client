@@ -12,14 +12,10 @@ import DeleteAccountModal from "../../pages/dashboard/delete-account"
 import DashboardNavbarNative from "../../layout/subscreen"
 import Label from "../../forms/label"
 
-import InviteNewUserModal from "../../pages/document/invite-new-user-modal"
-
 export default function MySecurity() {
 	const [t] = useTranslation()
 	const [changePasswordOpen, setChangePasswordOpen] = useState(false)
 	const [deleteAccountOpen, setDeleteAccountOpen] = useState(false)
-
-	const [inviteNewUserOpen, setInviteNewUserOpen] = useState(false)
 
 	return (
 		<Column of="group">
@@ -56,18 +52,6 @@ export default function MySecurity() {
 					onRequestClose={() => setDeleteAccountOpen(false)}
 				/>
 			</NoSpacer>
-
-			<Row>
-				<Button
-					text="Test New User Invite"
-					onClick={() => setInviteNewUserOpen(true)}
-				/>
-			</Row>
-
-			<InviteNewUserModal
-				visible={inviteNewUserOpen}
-				onRequestClose={() => setInviteNewUserOpen(false)}
-			/>
 		</Column>
 		// <Platform web={Group} of="group" native={Column} of="component">
 		// 	{Platform.native && (
