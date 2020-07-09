@@ -203,7 +203,7 @@ export function Tooltip({
 	return (
 		<View
 			{...viewProps}
-			style={[viewProps.style, { padding: size, opacity: layout.init ? 1 : 0 }]}
+			style={[viewProps.style, { padding: size * 2, opacity: layout.init ? 1 : 0 }]}
 			onLayout={handleLayout}
 			pointerEvents={interactive ? "auto" : "none"}
 		>
@@ -220,7 +220,7 @@ export function Tooltip({
 				<Path stroke={backgroundColor} fill={backgroundColor} d={path} />
 			</Svg>
 
-			<View style={{ flex: 1, alignItems: "stretch" }}>
+			<View style={{ flex: 1, alignItems: "stretch"}}>
 				{children || (
 					<Layer padding="component">
 						<Text>{text}</Text>

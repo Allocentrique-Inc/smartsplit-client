@@ -74,7 +74,6 @@ export default function SplitChart(props) {
 	}
 
 	return (
-		<>
 			<View>
 				<Overlay.ProviderContainer>
 					<PieChart size={size}>
@@ -110,7 +109,6 @@ export default function SplitChart(props) {
 					</PopoverTooltip>
 				</Overlay.ProviderContainer>
 			</View>
-		</>
 	)
 }
 
