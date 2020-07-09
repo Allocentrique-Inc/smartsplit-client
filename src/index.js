@@ -18,6 +18,7 @@ import AccessControl from "./widgets/AccessControl"
 import UserSettings from "./pages/user/settings"
 import AdminPage from "./pages/admin"
 import WorkpiecesRouter from "./pages/workpieces"
+import TestsModals from "./pages/test/tests"
 
 // TMP keep redux for now
 import { Provider } from "react-redux"
@@ -97,6 +98,10 @@ export function MainRouter(props) {
 
 			<Route path="/workpieces">
 				<WorkpiecesRouter />
+			</Route>
+
+			<Route path="/tests">
+				<TestsModals />
 			</Route>
 		</Switch>
 	)

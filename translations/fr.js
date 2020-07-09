@@ -15,6 +15,10 @@ export const general = {
 		stayConnected: "Rester connecté",
 		makePublic:
 			"Rendre publics mes identifiants professionnels énumérés ci-dessus",
+		author: "Auteur",
+		composer: "Compositeur",
+		mixer: "Arrangeur",
+		performer: "Interprète",
 	},
 
 	languages: {
@@ -146,6 +150,7 @@ export const forms = {
 		myProIds: "Mes identifiants professionels",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
+		groups: "Groupes",
 
 		dropdowns: {
 			language: "Langue",
@@ -177,6 +182,7 @@ export const forms = {
 		delete: "détruire, Détruire ou detruire",
 		date: "JJ-MM-AAAA",
 		myUri: "https://www.mon-site-web.exemple",
+		groupSearch: "Research among groups...",
 	},
 
 	undertexts: {
@@ -199,6 +205,7 @@ export const forms = {
 		mainEmail: "Courriel principal",
 		setAsMain: "Définir comme principal",
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
+		artistName: "Si non applicable, nous affichons son nom complet.",
 	},
 }
 
@@ -384,4 +391,10 @@ export const admin = {
 	entityAttributes: {
 		name: "Nom",
 	},
+}
+
+export const newUserInvite = {
+	title: "[Ajouter/Modifier] un artiste collaborateur",
+	checkbox: "Default Role(s)",
+	checkboxUndertext: "Ces rôles pourront toujours être modifiés plus tard.",
 }
