@@ -89,11 +89,14 @@ export default function List(props) {
 }
 
 export function ListItem(props) {
-	const { children, style, list, ...nextProps } = props
+	const { children, style, contentIsList, ...nextProps } = props
 	return (
 		<Row
 			of="component"
-			style={[list ? ListStyle.empty_frame : ListStyle.item_frame, style]}
+			style={[
+				contentIsList ? ListStyle.empty_frame : ListStyle.item_frame,
+				style,
+			]}
 			{...nextProps}
 		>
 			{typeof children === "string" ? <Text>{children}</Text> : children}

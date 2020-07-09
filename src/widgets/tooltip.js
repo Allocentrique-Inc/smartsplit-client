@@ -6,6 +6,7 @@ import { Overlay } from "../portals"
 import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
 import HelpCircleFull from "../svg/help-circle-full"
+import { Platform } from "../platform"
 
 const ARROW_SIZE = 10
 
@@ -30,9 +31,9 @@ export default function RelativeTooltip({
 
 	return (
 		<PopoverTooltip
-			x={rel.x + rel.width / 2}
-			y={rel.y + rel.height / 2}
 			{...nextProps}
+			x={rel.x + rel.width / 2 + (nextProps.dx || 0)}
+			y={rel.y + rel.height / 2 + (nextProps.dy || 0)}
 		>
 			{children}
 		</PopoverTooltip>
@@ -113,8 +114,10 @@ export function PopoverTooltip({
 export function Tooltip({
 	arrow = "bottom-center",
 	text,
+	interactive = true,
 	children,
 	viewProps = {},
+	backgroundColor = Colors.background.ground,
 }) {
 	const [layout, setLayout] = useState({ width: 20, height: 20, init: false })
 
@@ -202,6 +205,7 @@ export function Tooltip({
 			{...viewProps}
 			style={[viewProps.style, { padding: size, opacity: layout.init ? 1 : 0 }]}
 			onLayout={handleLayout}
+			pointerEvents={interactive ? "auto" : "none"}
 		>
 			<Svg
 				style={{
@@ -213,11 +217,7 @@ export function Tooltip({
 				}}
 				viewBox={viewBox}
 			>
-				<Path
-					stroke={Colors.stroke}
-					fill={Colors.background.underground}
-					d={path}
-				/>
+				<Path stroke={backgroundColor} fill={backgroundColor} d={path} />
 			</Svg>
 
 			<View style={{ flex: 1, alignItems: "stretch" }}>

@@ -6,7 +6,6 @@ export const Styles = StyleSheet.create({
 	bar: {
 		borderRadius: Metrics.borderRadius.forms,
 		backgroundColor: Colors.stroke,
-		height: Metrics.spacing.small,
 		flexDirection: "row",
 		alignItems: "stretch",
 		height: Metrics.size.medium / 4,

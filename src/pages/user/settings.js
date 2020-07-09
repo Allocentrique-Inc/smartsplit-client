@@ -180,6 +180,12 @@ export function SettingsMenu() {
 					icon={<LogoutIcon />}
 					text={t("menu:logout")}
 				/>
+
+				<SettingsMenuItem
+					to="/test/"
+					icon={<SettingsIcon />}
+					text={t("menu:tests")}
+				/>
 			</Column>
 		</Column>
 	)

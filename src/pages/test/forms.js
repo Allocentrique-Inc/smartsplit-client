@@ -258,94 +258,6 @@ function TestBasicFields() {
 	)
 }
 
-export function TestAdminList() {
-	const { t } = useTranslation()
-	return (
-		<AdminList
-			collapsable
-			title={
-				<Column>
-					<Text bold>Super titre de liste</Text>
-					<Text secondary small>
-						Mouain, faut pas exagérer quand même.
-					</Text>
-				</Column>
-			}
-		>
-			<AdminListItem key={0} content="Piano" pending />
-			<AdminListItem key={1} content="Accordeon" />
-			<AdminListItem
-				key={2}
-				content={
-					<Column>
-						<Text bold>Le ouarkalélé</Text>
-						<Text small secondary>
-							Petite description
-						</Text>
-					</Column>
-				}
-			/>
-			<AdminListItem key={3} content="Whatever" />
-			<AdminListItem key={4} content="With custom action">
-				<TouchableWithoutFeedback>
-					<View>
-						<Pen />
-					</View>
-				</TouchableWithoutFeedback>
-				<Button
-					dangerWithIcon
-					icon={<Trash color={Colors.error} />}
-					text={t("general:buttons.toRefuse")}
-				/>
-			</AdminListItem>
-			<AdminListItem
-				hideBullet
-				list
-				key={5}
-				content={
-					<AdminList
-						collapsable
-						title={
-							<Column>
-								<Text bold>Super titre de sous-liste</Text>
-								<Text secondary small>
-									Mouain, faut pas exagérer quand même.
-								</Text>
-							</Column>
-						}
-					>
-						<AdminListItem key={0} content="Piano" pending />
-						<AdminListItem key={1} content="Accordeon" />
-						<AdminListItem
-							key={2}
-							content={
-								<>
-									<Text bold>Le ouarkalélé</Text>
-									<Text small secondary>
-										Petite description
-									</Text>
-								</>
-							}
-						/>
-						<AdminListItem key={3} content="Whatever" />
-						<AdminListItem key={4} content="With custom action">
-							<TouchableWithoutFeedback>
-								<View>
-									<Pen />
-								</View>
-							</TouchableWithoutFeedback>
-							<Button
-								dangerWithIcon
-								icon={<Trash color={Colors.error} />}
-								text={t("general:buttons.toRefuse")}
-							/>
-						</AdminListItem>
-					</AdminList>
-				}
-			/>
-		</AdminList>
-	)
-}
 function TestBasicDropdowns() {
 	const { t } = useTranslation()
 	return (
@@ -382,7 +294,6 @@ function TestBasicDropdowns() {
 					]}
 				/>
 			</Row>
-			<TestAdminList />
 		</>
 	)
 }
