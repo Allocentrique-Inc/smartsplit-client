@@ -39,12 +39,14 @@ export class Authentication extends Observable {
 			)
 
 		let auth = null
+		let isStored = true
 
 		try {
 			auth = await AsyncStorage.getItem("auth")
 
 			if (!auth && Platform.OS === "web" && window.sessionStorage) {
 				auth = window.sessionStorage.getItem("auth")
+				isStored = false
 			}
 
 			if (auth) {
@@ -56,7 +58,7 @@ export class Authentication extends Observable {
 		}
 
 		if (auth) {
-			this.setLogin(auth.accessToken, auth.user_id)
+			this.setLogin(auth.accessToken, auth.user_id, isStored)
 
 			if (refreshToken) this.refresh()
 		} else {
