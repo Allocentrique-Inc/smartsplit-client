@@ -1,10 +1,4 @@
-import React, {
-	useState,
-	useEffect,
-	useRef,
-	useLayoutEffect,
-	useCallback,
-} from "react"
+import React, { useState, useEffect, useLayoutEffect, useCallback } from "react"
 import { View, StyleSheet } from "react-native"
 import CopyrightIcon from "../../svg/copyright"
 import {
@@ -22,6 +16,7 @@ import {
 } from "../../utils/utils"
 import { useFocusGroup } from "../../utils/hooks"
 import { useDispatch } from "react-redux"
+import { Overlay } from "../../portals"
 import RelativeTooltip, { PopoverTooltip } from "../../widgets/tooltip"
 import { Text } from "../../text"
 
@@ -63,25 +58,8 @@ export default function SplitChart(props) {
 		handleBlur
 	)
 	const [tooltipData, setTooltipData] = useState(TooltipInitialState)
-	const viewRef = useRef()
-	const [absChartCenter, setAbsChartCenter] = useState(chartCenter)
-	const [centerVectors, setCenterVectors] = useState(null)
-	const relToAbsVect = vectorOf(chartCenter, absChartCenter)
-	useEffect(() => {
-		viewRef.current.measure((x, y, width, height, pageX, pageY) =>
-			setAbsChartCenter({
-				x: chartCenter.x + pageX,
-				y: chartCenter.y + pageY,
-			})
-		)
-		setCenterVectors(
-			generateSharecenterVectors(slices, relToAbsVect, absChartCenter)
-		)
-	}, [viewRef])
+	const centerVectors = generateSharecenterVectors(slices, chartCenter)
 
-	const onLayout = useCallback((event) => {
-		console.log("layout effect")
-	}, [])
 	function handleFocus(key) {
 		const shareHolder = shareHolders.get(key)
 		setTooltipData({
@@ -97,44 +75,46 @@ export default function SplitChart(props) {
 
 	return (
 		<>
-			<View ref={viewRef}>
-				<PieChart size={size}>
-					{Array.from(slices)}
-					<Circle
-						cx={chartCenter.x}
-						cy={chartCenter.y}
-						r={size / 4}
-						fill={Colors.primary_reversed}
-					/>
-					<G
-						translate={`${copyrightIconVector.x} ${copyrightIconVector.y}`}
-						scale={scale}
+			<View>
+				<Overlay.ProviderContainer>
+					<PieChart size={size}>
+						{Array.from(slices)}
+						<Circle
+							cx={chartCenter.x}
+							cy={chartCenter.y}
+							r={size / 4}
+							fill={Colors.primary_reversed}
+						/>
+						<G
+							translate={`${copyrightIconVector.x} ${copyrightIconVector.y}`}
+							scale={scale}
+						>
+							<CopyrightIcon />
+						</G>
+					</PieChart>
+
+					<PopoverTooltip
+						arrow="bottom-center"
+						interactive={false}
+						visible={!!currentFocus}
+						x={tooltipData.vector.x + chartCenter.x}
+						y={tooltipData.vector.y + chartCenter.y}
+						width={200}
+						height={100}
+						backgroundColor={Colors.background.underground_reversed}
 					>
-						<CopyrightIcon />
-					</G>
-				</PieChart>
+						<Text reversed bold>
+							{tooltipData.name}
+						</Text>
+						<Text reversed>{formatPercentage(tooltipData.percent)}</Text>
+					</PopoverTooltip>
+				</Overlay.ProviderContainer>
 			</View>
-			<RelativeTooltip
-				relativeTo={viewRef}
-				arrow="bottom-center"
-				interactive={false}
-				visible={!!currentFocus}
-				dx={tooltipData.vector.x}
-				dy={tooltipData.vector.y}
-				width={200}
-				height={100}
-				backgroundColor={Colors.background.underground_reversed}
-			>
-				<Text reversed bold>
-					{tooltipData.name}
-				</Text>
-				<Text reversed>{formatPercentage(tooltipData.percent)}</Text>
-			</RelativeTooltip>
 		</>
 	)
 }
 
-function generateSharecenterVectors(slices, relToAbsVect, absChartCenter) {
+function generateSharecenterVectors(slices, absChartCenter) {
 	const centers = new Map()
 	slices.forEach((slice, key) => {
 		const sliceProps = slice.props
@@ -143,8 +123,7 @@ function generateSharecenterVectors(slices, relToAbsVect, absChartCenter) {
 			sliceProps.center,
 			sliceProps.angle / 2
 		)
-		const absArcCenter = translatePoint(relArcCenter, relToAbsVect)
-		centers.set(key, vectorOf(absChartCenter, absArcCenter, 3 / 4))
+		centers.set(key, vectorOf(absChartCenter, relArcCenter, 3 / 4))
 	})
 	return centers
 }
