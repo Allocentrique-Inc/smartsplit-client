@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux"
 import { Overlay } from "../../portals"
 import RelativeTooltip, { PopoverTooltip } from "../../widgets/tooltip"
 import { Text } from "../../text"
+import { Column } from "../../layout"
 
 const TooltipStyles = StyleSheet.create({
 	frame: {
@@ -74,41 +75,43 @@ export default function SplitChart(props) {
 	}
 
 	return (
-			<View>
-				<Overlay.ProviderContainer>
-					<PieChart size={size}>
-						{Array.from(slices)}
-						<Circle
-							cx={chartCenter.x}
-							cy={chartCenter.y}
-							r={size / 4}
-							fill={Colors.primary_reversed}
-						/>
-						<G
-							translate={`${copyrightIconVector.x} ${copyrightIconVector.y}`}
-							scale={scale}
-						>
-							<CopyrightIcon />
-						</G>
-					</PieChart>
-
-					<PopoverTooltip
-						arrow="bottom-center"
-						interactive={false}
-						visible={!!currentFocus}
-						x={tooltipData.vector.x + chartCenter.x}
-						y={tooltipData.vector.y + chartCenter.y}
-						width={200}
-						height={100}
-						backgroundColor={Colors.background.underground_reversed}
+		<View>
+			<Overlay.ProviderContainer>
+				<PieChart size={size}>
+					{Array.from(slices)}
+					<Circle
+						cx={chartCenter.x}
+						cy={chartCenter.y}
+						r={size / 4}
+						fill={Colors.primary_reversed}
+					/>
+					<G
+						translate={`${copyrightIconVector.x} ${copyrightIconVector.y}`}
+						scale={scale}
 					>
+						<CopyrightIcon />
+					</G>
+				</PieChart>
+
+				<PopoverTooltip
+					arrow="bottom-center"
+					interactive={false}
+					visible={!!currentFocus}
+					x={tooltipData.vector.x + chartCenter.x}
+					y={tooltipData.vector.y + chartCenter.y}
+					width={200}
+					height={100}
+					backgroundColor={Colors.background.underground_reversed}
+				>
+					<Column of="tiny" style={{ padding: Metrics.spacing.inside }}>
 						<Text reversed bold>
 							{tooltipData.name}
 						</Text>
 						<Text reversed>{formatPercentage(tooltipData.percent)}</Text>
-					</PopoverTooltip>
-				</Overlay.ProviderContainer>
-			</View>
+					</Column>
+				</PopoverTooltip>
+			</Overlay.ProviderContainer>
+		</View>
 	)
 }
 
