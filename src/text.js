@@ -164,6 +164,14 @@ export function Heading(props) {
 
 export function Paragraph(props) {
 	return (
-		<TextView style={[TypographyStyles.text.base]}>{props.children}</TextView>
+		<TextView
+			style={[
+				TypographyStyles.text.base,
+				TypographyStyles.text.medium,
+				props.style,
+			]}
+		>
+			{props.children}
+		</TextView>
 	)
 }
