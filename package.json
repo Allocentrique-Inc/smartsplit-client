@@ -14,6 +14,8 @@
 		"deep-equal": "^2.0.3",
 		"expo": "^38.0.0",
 		"expo-cli": "^3.13.1",
+		"expo-document-picker": "~8.2.1",
+		"expo-file-system": "~9.0.1",
 		"expo-font": "~8.2.1",
 		"expo-image-picker": "~8.3.0",
 		"expo-localization": "~8.2.1",

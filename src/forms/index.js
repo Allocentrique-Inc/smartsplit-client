@@ -13,6 +13,7 @@ import TextDropdown from "./text-dropdown"
 import _Select from "./select"
 import { PhoneNumberField as _PhoneNumberField } from "./phone-number"
 import { DateField as _DateField } from "./date"
+import _FileField from "./file"
 import useImagePicker from "./image-picker"
 
 export { LabelText, RadioGroupButton, Dropdown, TextDropdown, useImagePicker }
@@ -315,3 +316,4 @@ export const PhoneNumberField = wrapSimpleField(
 	"onChangeText"
 )
 export const DateField = wrapSimpleField(_DateField, "value", "onChangeText")
+export const FileField = wrapSimpleField(_FileField, "file", "onFileChange")
