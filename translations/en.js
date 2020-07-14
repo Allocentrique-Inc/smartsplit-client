@@ -51,6 +51,7 @@ export const general = {
 		toAccept: "Accept",
 		toRefuse: "Refuse",
 		continue: "Continue",
+		back: "Back",
 		saveClose: "Save and Close",
 	},
 }
@@ -391,6 +392,11 @@ export const rightSplits = {
 				<b>COPYRIGHT</b>
 			</>
 		),
+		performance: () => (
+			<>
+				<b>PERFORMANCE</b>
+			</>
+		),
 	},
 	headers: {
 		whoInvent: "Who invented this musical piece?",
@@ -398,11 +404,20 @@ export const rightSplits = {
 	},
 
 	paragraphs: {
-		separate: () => (
+		copyright: () => (
 			<>
 				Seperate here the copyright between creators, i.e. the authors of{" "}
 				<b>lyrics</b>, the composers and the mixers of <b>music</b>. It is
 				common to share the copyright fairly. But you can do otherwise.
+			</>
+		),
+		performance: () => (
+			<>
+				Seperate here the <b>neigbor right</b> between <b>performers</b>,
+				whether musicians or singers. <i>Group</i> members share this right with
+				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
+				while the remaining 20% is split among <i>featured artists</i>, if
+				applicable.
 			</>
 		),
 	},
@@ -416,10 +431,16 @@ export const rightSplits = {
 	dropdowns: {
 		addCollab: "Add a collaborator...",
 		removeCollab: "Remove this collaborator",
+		status: "Select a status",
 	},
 
 	toi: "(you)",
-	error: "You need to select at least one role for this rightholder.",
+	more: "Learn more",
+
+	errors: {
+		status: "You need to select a status for this right holder.",
+		role: "You need to select at least one role for this rightholder.",
+	},
 
 	tooltips: {
 		equal:
@@ -436,4 +457,6 @@ export const roles = {
 	composer: "Composer",
 	adapter: "Adapter",
 	mixer: "Mixer",
+	singer: "Singer",
+	musician: "Musician",
 }

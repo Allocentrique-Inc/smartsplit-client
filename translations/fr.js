@@ -52,6 +52,7 @@ export const general = {
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
 		continue: "Continue",
+		back: "Retour",
 		saveClose: "Sauvegarder et continuer",
 	},
 }
@@ -394,6 +395,11 @@ export const rightSplits = {
 				<b>DROITS D'AUTEUR</b>
 			</>
 		),
+		performance: () => (
+			<>
+				<b>INTERPRÉTATION</b>
+			</>
+		),
 	},
 	headers: {
 		whoInvent: "Qui a inventé cette pièce musicale ?",
@@ -401,12 +407,21 @@ export const rightSplits = {
 	},
 
 	paragraphs: {
-		separate: () => (
+		copyright: () => (
 			<>
 				Sépare ici le droit d’auteur entre les créateurs, c’est à dire les
 				auteurs des <b>paroles</b>, les compositeurs et les arrangeurs de la{" "}
 				<b>musique</b>. Il est d’usage de partager le droit d’auteur
 				équitablement. Mais tu peux faire autrement.
+			</>
+		),
+		performance: () => (
+			<>
+				On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
+				autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}
+				se partagent ce droit à parts égales. Les <i>artistes principaux</i> et{" "}
+				<i>artistes invités</i> se partagent 30%, tantdis que les 20% restant
+				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
 			</>
 		),
 	},
@@ -420,10 +435,17 @@ export const rightSplits = {
 	dropdown: {
 		addCollab: "Ajouter un collaborateur...",
 		removeCollab: "Retirer ce collaborateur",
+		status: "Sélectionner un status",
 	},
 
 	toi: "(toi)",
 	error: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
+	more: "En savoir plus",
+
+	errors: {
+		status: "Tu dois sélectionner un status pour cet ayant droit.",
+		role: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
+	},
 
 	tooltips: {
 		equal:
@@ -440,4 +462,6 @@ export const roles = {
 	composer: "Compositeur",
 	adapter: "Adaptateur",
 	mixer: "Arrangeur",
+	singer: "Chanteur",
+	musician: "Musicien",
 }

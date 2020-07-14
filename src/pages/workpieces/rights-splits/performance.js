@@ -10,16 +10,18 @@ import {
 	RadioGroup,
 	RadioGroupButton,
 	TextField,
+	Dropdown,
 } from "../../../forms"
 import ArtistSelectDropdown from "../../../smartsplit/artist/select"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import Help from "../../../svg/help-circle-full"
-import CopyrightIcon from "../../../svg/copyright.js"
+import StarIcon from "../../../svg/star.js"
 import ChevronDown from "../../../svg/chevron-down.js"
 import PlusCircle from "../../../svg/plus-circle.js"
 import { Colors } from "../../../theme"
 import { TooltipIcon } from "../../../widgets/tooltip"
 import { getExampleNumber } from "libphonenumber-js"
+import { ProIdList } from "../../../smartsplit/components/pro-id-list"
 
 export default function PerformancePage({ workpiece }) {
 	const [t] = useTranslation()
@@ -27,7 +29,7 @@ export default function PerformancePage({ workpiece }) {
 		<Layout
 			workpiece={workpiece}
 			path={[t("rightSplits:navbar.rightSplits"), t("rightSplits:navbar.page")]}
-			progress={33.33}
+			progress={50}
 			actions={<Button tertiary text={t("general:buttons.saveClose")} />}
 			formNav={
 				<>
@@ -53,12 +55,15 @@ export function PerformanceForm() {
 			<Column of="group" flex={1}>
 				<Column of="component">
 					<Text action>
-						<CopyrightIcon color={Colors.action} />
+						<StarIcon color={Colors.action} />
 						<Row padding="tiny" />
-						{t("rightSplits:titles.copyright")}
+						{t("rightSplits:titles.performance")}
 					</Text>
-					<Heading level={1}>{t("rightSplits:headers.whoInvent")}</Heading>
-					{/* <Paragraph>{t("rightSplits:paragraphs.separate")()}</Paragraph> */}
+					<Heading level={1}>{t("rightSplits:headers.whoPlay")}</Heading>
+					<Paragraph>{t("rightSplits:paragraphs.performance")()}</Paragraph>
+					<Text action bold>
+						{t("rightSplits:more")}
+					</Text>
 				</Column>
 				<RadioGroup>
 					<Column of="component">
@@ -93,6 +98,7 @@ export function PerformanceForm() {
 					<Card />
 					<Card />
 					<Card />
+					<Card />
 					<TextField
 						placeholder={t("rightSplits:dropdown.addCollab")}
 						before={
@@ -114,7 +120,7 @@ export function PerformanceForm() {
 
 export function Card() {
 	const [t] = useTranslation()
-	const hasError = t("rightSplits:error")
+	const hasError = t("rightSplits:errors.status")
 
 	return (
 		<Row layer="underground" of="component" padding="component">
@@ -128,30 +134,33 @@ export function Card() {
 					Inscience <b>{t("rightSplits:toi")}</b>
 				</Text>
 				<Hairline />
-				<Row>
-					<Flex flex={1}>
-						<CheckBox label={t("roles:author")} id="author" error={hasError} />
-					</Flex>
-					<Flex flex={1}>
-						<CheckBox
-							label={t("roles:composer")}
-							id="composer"
-							error={hasError}
-						/>
-					</Flex>
-				</Row>
-				<Row>
-					<Flex flex={1}>
-						<CheckBox
-							label={t("roles:adapter")}
-							id="adapter"
-							error={hasError}
-						/>
-					</Flex>
-					<Flex flex={1}>
-						<CheckBox label={t("roles:mixer")} id="mixer" error={hasError} />
-					</Flex>
-				</Row>
+				<Dropdown
+					placeholder={t("rightSplits:dropdowns.status")}
+					style={{ flex: 1 }}
+					noFocusToggle
+					error={hasError}
+				></Dropdown>
+				<Column padding="component" layer="left_overground">
+					<Row>
+						<Flex flex={1}>
+							<CheckBox
+								label={t("roles:singer")}
+								id="singer"
+								error={hasError}
+							/>
+						</Flex>
+					</Row>
+					<Row of="component" />
+					<Row>
+						<Flex flex={1}>
+							<CheckBox
+								label={t("roles:musician")}
+								id="musician"
+								error={hasError}
+							/>
+						</Flex>
+					</Row>
+				</Column>
 				<Row valign="center" of="component">
 					<ProgressBar size="xsmall" progress={33} style={{ flex: 1 }} />
 					<Text bold>33%</Text>
