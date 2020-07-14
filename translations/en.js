@@ -50,6 +50,8 @@ export const general = {
 		delete: "Delete this settings",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
+		continue: "Continue",
+		saveClose: "Save and Close",
 	},
 }
 
@@ -392,6 +394,7 @@ export const rightSplits = {
 	},
 	headers: {
 		whoInvent: "Who invented this musical piece?",
+		whoPlay: "Who played on the audio recording?",
 	},
 
 	paragraphs: {

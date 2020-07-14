@@ -51,6 +51,8 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
+		continue: "Continue",
+		saveClose: "Sauvegarder et continuer",
 	},
 }
 
@@ -380,6 +382,7 @@ export const admin = {
 		name: "Nom",
 	},
 }
+
 export const rightSplits = {
 	navbar: {
 		rightSplits: "Partage des droits",
@@ -394,6 +397,7 @@ export const rightSplits = {
 	},
 	headers: {
 		whoInvent: "Qui a inventé cette pièce musicale ?",
+		whoPlay: "Qui a joué sur l'enregistrement sonore ?",
 	},
 
 	paragraphs: {
