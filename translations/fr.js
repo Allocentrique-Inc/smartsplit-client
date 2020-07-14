@@ -19,7 +19,7 @@ export const general = {
 
 	languages: {
 		fr: "Français",
-		en: "Anglais"
+		en: "Anglais",
 	},
 
 	buttons: {
@@ -38,7 +38,7 @@ export const general = {
 		save: "Sauvegarder",
 		send: "Envoyer",
 		nextStep: "Passer cette étape",
-		go: "C'est parti !",
+		go: "C'est pxarti !",
 		add: "Ajouter",
 		passwordChange: "Changer le mot de passe",
 		validNo: "Valider ce numéro",
@@ -65,8 +65,6 @@ export const menu = {
 	reduxTests: "Redux Test",
 	logout: "Déconnexion",
 }
-
-
 
 export const test = {
 	title: "Test des formulaires",
@@ -361,16 +359,16 @@ export const widgets = {
 }
 
 export const admin = {
-	menu : {
+	menu: {
 		listManagement: "Gestion des listes",
 		businessSettings: "Paramètres d'affaires",
 		adminManagement: "Gestion des administrateurs",
 		myIncomes: "Mes revenus",
 	},
 
-	entityTypes : {
+	entityTypes: {
 		"content-languages": "Langues du contenu",
-		"digital-distributors": "Distributeurs numériques"
+		"digital-distributors": "Distributeurs numériques",
 	},
 
 	entityCreation: "Création d'une entité",
@@ -379,6 +377,63 @@ export const admin = {
 	confirmEntityDeletion: "Attention, l'entité suivante va être supprimée.",
 
 	entityAttributes: {
-		name: "Nom"
-	}
+		name: "Nom",
+	},
+}
+export const rightSplits = {
+	navbar: {
+		rightSplits: "Partage des droits",
+		page: "Nom de la page",
+	},
+	titles: {
+		copyright: () => (
+			<>
+				<b>DROITS D'AUTEUR</b>
+			</>
+		),
+	},
+	headers: {
+		whoInvent: "Qui a inventé cette pièce musicale ?",
+	},
+
+	paragraphs: {
+		separate: () => (
+			<>
+				Sépare ici le droit d’auteur entre les créateurs, c’est à dire les
+				auteurs des <b>paroles</b>, les compositeurs et les arrangeurs de la{" "}
+				<b>musique</b>. Il est d’usage de partager le droit d’auteur
+				équitablement. Mais tu peux faire autrement.
+			</>
+		),
+	},
+
+	checkboxes: {
+		equal: "Partager de façon égale",
+		roles: "Partager selon les rôles",
+		manual: "Gérer manuellement",
+	},
+
+	dropdown: {
+		addCollab: "Ajouter un collaborateur...",
+		removeCollab: "Retirer ce collaborateur",
+	},
+
+	toi: "(toi)",
+	error: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
+
+	tooltips: {
+		equal:
+			"Divise le droit d'auteur par le nombre de personnes et attribue le rôle  « Auteur-Compositeur » par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus se mettent à rentrer. ;)",
+		role:
+			"Divise le droit d'auteur en deux : 50% va à ceux qui ont composé la musique. Cette dernière partie « musique » est à son tour divisé par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple: Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
+		manual:
+			"Te laisse déterminer le pourcentage et les rôles pour chaque collaborateurs. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas.",
+	},
+}
+
+export const roles = {
+	author: "Auteur",
+	composer: "Compositeur",
+	adapter: "Adaptateur",
+	mixer: "Arrangeur",
 }
