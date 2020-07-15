@@ -9,41 +9,6 @@ export function deepNotEqual(a, b) {
 	return !deepEqual(a, b, { strict: true })
 }
 
-export const injectReactHooks = {
-	useSelector(selector, dependencies = []) {
-		return this.useTransition(selector, deepNotEqual, dependencies)
-	},
-
-	useTransition(select, compare, dependencies = []) {
-		let selected = select(this)
-		const [, update] = useReducer((n) => n + 1, 0)
-
-		useEffect(() => {
-			return this.subscribe(() => {
-				let next = select(this)
-
-				if (compare(selected, next)) {
-					update()
-				}
-
-				selected = next
-			})
-		}, dependencies)
-
-		return selected
-	},
-
-	use(dependencies = []) {
-		const [, update] = useReducer((n) => n + 1, 0)
-
-		useEffect(() => {
-			return this.subscribe(() => update())
-		}, dependencies)
-
-		return this
-	},
-}
-
 export function useStore() {
 	return useContext(Context)
 }

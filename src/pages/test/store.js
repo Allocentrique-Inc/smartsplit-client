@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo } from "react"
+import React, { useReducer, useMemo, useEffect } from "react"
 import { useStore, useStorePath } from "../../appstate/react"
 import { Column, Row, Flex, Spacer, NoSpacer } from "../../layout"
 import { Text, Heading } from "../../text"
@@ -36,10 +36,18 @@ function Incrementor() {
 
 function StoreDump() {
 	const store = useStore()
-	const [, refresh] = useReducer((n) => n + 1, 0)
+	const [version, refresh] = useReducer((n) => n + 1, 0)
+
+	useEffect(() => {
+		const timeout = setTimeout(() => refresh(), 1500)
+		return function () {
+			clearTimeout(timeout)
+		}
+	}, [version])
 
 	function dumpToConsole() {
 		console.log("State Store:", store)
+		window.store = store
 	}
 
 	function debug() {

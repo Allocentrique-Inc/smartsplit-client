@@ -8,7 +8,7 @@ import {
 } from "../../../api/users"
 
 export class Authentication extends Observable {
-	constructor() {
+	constructor(users) {
 		super()
 
 		this.isLoading = false
@@ -23,7 +23,7 @@ export class Authentication extends Observable {
 		Object.defineProperty(this, "user", {
 			enumerable: false,
 			configurable: false,
-			get: () => this.user_id && this.store.users.get(this.user_id),
+			get: () => this.user_id && users.get(this.user_id),
 		})
 	}
 
