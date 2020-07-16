@@ -52,63 +52,39 @@ export function RecordingForm() {
 	return (
 		<Row>
 			<Column of="group" flex={1}>
-				<Column of="component">
-					<Text action>
-						<RecordIcon color={Colors.action} />
-						<Row padding="tiny" />
-						{t("rightSplits:titles.performance")}
-					</Text>
-					<Heading level={1}>{t("rightSplits:headers.whoPlay")}</Heading>
-					<Paragraph>{t("rightSplits:paragraphs.performance")()}</Paragraph>
-					<Text link bold>
-						{t("rightSplits:more")}
-					</Text>
-				</Column>
-				<RadioGroup>
-					<Column of="component">
-						<Row>
-							<RadioGroupButton
-								value="equal"
-								label={t("rightSplits:checkboxes.equal")}
-								tooltip=""
-							/>
-							<TooltipIcon text={t("rightSplits:tooltips.equal")} />
-						</Row>
-						<Row>
-							<RadioGroupButton
-								value="by-roles"
-								label={t("rightSplits:checkboxes.roles")}
-								tooltip=""
-							/>
-							<TooltipIcon text={t("rightSplits:tooltips.equal")} />
-						</Row>
-						<Row>
-							<RadioGroupButton
-								value="manual"
-								label={t("rightSplits:checkboxes.manual")}
-								tooltip=""
-							/>
-							<TooltipIcon text={t("rightSplits:tooltips.equal")} />
-						</Row>
-					</Column>
-				</RadioGroup>
+				<Text action>
+					<RecordIcon color={Colors.action} />
 
-				<Column of="component">
-					<Card />
-					<Card />
-					<Card />
-					<Card />
-					<TextField
-						placeholder={t("rightSplits:dropdown.addCollab")}
-						before={
-							<>
-								<PlusCircle />
-								<Row padding="tiny" />
-							</>
-						}
-						after={<ChevronDown />}
-					/>
-				</Column>
+					<Row padding="tiny" />
+					{t("rightSplits:titles.record")}
+				</Text>
+				<Heading level={1}>{t("rightSplits:headers.whoOwn")}</Heading>
+
+				<Paragraph>{t("rightSplits:paragraphs.record")()}</Paragraph>
+				<Row padding="group" />
+				<TextField
+					placeholder={t("rightSplits:dropdown.addLabel")}
+					before={
+						<>
+							<PlusCircle color={Colors.action} />
+							<Row padding="tiny" />
+						</>
+					}
+					after={<ChevronDown />}
+				/>
+				<Hairline />
+				<Card />
+				<Card />
+				<TextField
+					placeholder={t("rightSplits:dropdown.addCollab")}
+					before={
+						<>
+							<PlusCircle />
+							<Row padding="tiny" />
+						</>
+					}
+					after={<ChevronDown />}
+				/>
 			</Column>
 			<Column flex={1} align="center">
 				<Pie />
@@ -139,35 +115,8 @@ export function Card() {
 					noFocusToggle
 					error={hasError}
 				/>
-				<Column
-					layer="left_overground"
-					of="inside"
-					style={{
-						borderLeftWidth: 1,
-						borderLeftColor: Colors.stroke,
-						paddingLeft: Metrics.spacing.component,
-					}}
-				>
-					<Row>
-						<Flex flex={1}>
-							<CheckBox
-								label={t("roles:singer")}
-								id="singer"
-								error={hasError}
-							/>
-						</Flex>
-					</Row>
-					<Row />
-					<Row>
-						<Flex flex={1}>
-							<CheckBox
-								label={t("roles:musician")}
-								id="musician"
-								error={hasError}
-							/>
-						</Flex>
-					</Row>
-				</Column>
+				<Row />
+
 				<Row valign="center" of="component">
 					<ProgressBar size="xsmall" progress={33} style={{ flex: 1 }} />
 					<Text bold>33%</Text>

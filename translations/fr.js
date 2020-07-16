@@ -411,10 +411,16 @@ export const rightSplits = {
 				<b>INTERPRÉTATION</b>
 			</>
 		),
+		record: () => (
+			<>
+				<b>ENREGISTREMENT SONORE</b>
+			</>
+		),
 	},
 	headers: {
 		whoInvent: "Qui a inventé cette pièce musicale ?",
 		whoPlay: "Qui a joué sur l'enregistrement sonore ?",
+		whoOwn: "Qui possède l'enregistrement sonore ?",
 	},
 
 	paragraphs: {
@@ -435,6 +441,16 @@ export const rightSplits = {
 				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
 			</>
 		),
+		record: () => (
+			<>
+				On sépare ici le <b>droit voisin</b> des <b>producteurs</b>, c'est à
+				dire ceux qui ont investi leur temps et/ou leur argent pour enregistrer
+				et finaliser le produit afin d'être commercialisé.
+				<br />
+				Il est d'usage de partager ce droit en parts égales ou au prorata de
+				l'investissement.
+			</>
+		),
 	},
 
 	checkboxes: {
@@ -445,12 +461,12 @@ export const rightSplits = {
 
 	dropdown: {
 		addCollab: "Ajouter un collaborateur...",
+		addLabel: "Ajouter un label...",
 		removeCollab: "Retirer ce collaborateur",
 		status: "Sélectionner un status",
 	},
 
 	toi: "(toi)",
-	error: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
 	more: "En savoir plus",
 
 	errors: {

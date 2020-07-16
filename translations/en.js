@@ -407,10 +407,17 @@ export const rightSplits = {
 				<b>PERFORMANCE</b>
 			</>
 		),
+
+		record: () => (
+			<>
+				<b>AUDIO RECORDING</b>
+			</>
+		),
 	},
 	headers: {
 		whoInvent: "Who invented this musical piece?",
 		whoPlay: "Who played on the audio recording?",
+		whoOwn: "Who owns the audio recording?",
 	},
 
 	paragraphs: {
@@ -430,6 +437,16 @@ export const rightSplits = {
 				applicable.
 			</>
 		),
+		record: () => (
+			<>
+				Seperate here the <b>neighbor right</b> of <b>producers</b>, i.e. those
+				who invested their time and/or their money to record and finalize the
+				product to be commercialized.
+				<br />
+				It is common pratice to share this right in equal parts or in pro rata
+				of the investment.
+			</>
+		),
 	},
 
 	checkboxes: {
@@ -440,6 +457,7 @@ export const rightSplits = {
 
 	dropdowns: {
 		addCollab: "Add a collaborator...",
+		addLabel: "Add a label...",
 		removeCollab: "Remove this collaborator",
 		status: "Select a status",
 	},
