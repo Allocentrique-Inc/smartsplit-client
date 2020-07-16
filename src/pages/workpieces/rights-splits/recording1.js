@@ -14,7 +14,7 @@ import {
 } from "../../../forms"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import Help from "../../../svg/help-circle-full"
-//import StarIcon from "../../../svg/star.js"
+import RecordIcon from "../../../svg/record.js"
 import ChevronDown from "../../../svg/chevron-down.js"
 import PlusCircle from "../../../svg/plus-circle.js"
 import { Colors, Metrics } from "../../../theme"
@@ -54,7 +54,7 @@ export function RecordingForm() {
 			<Column of="group" flex={1}>
 				<Column of="component">
 					<Text action>
-						{/* <StarIcon color={Colors.action} /> */}
+						<RecordIcon color={Colors.action} />
 						<Row padding="tiny" />
 						{t("rightSplits:titles.performance")}
 					</Text>
