@@ -13,6 +13,7 @@ import { Overlay } from "./scrollable"
 import ChevronDown from "../svg/chevron-down"
 import ArrowUp from "../svg/chevron-up"
 import Search from "../../assets/svg/search.svg"
+import { Metrics, Colors } from "../theme"
 
 /**
  * Un menu dropdown simple: un placeholder, une flèche. Lorsqu'on clique dessus, son contenu (children) est alors affiché dans un dropdown en dessous de l'élément.
