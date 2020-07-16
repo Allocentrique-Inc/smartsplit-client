@@ -55,6 +55,8 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
+		back: "Retour",
+		saveClose: "Sauvegarder et continuer",
 	},
 }
 
