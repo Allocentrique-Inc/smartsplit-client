@@ -103,6 +103,12 @@ export function Text(props) {
 				return extendText(child, xprops)
 
 			case "link":
+				return (
+					<Link {...props} {...child.props}>
+						{child.props.children}
+					</Link>
+				)
+
 			case "action":
 			case "error":
 				xprops = {
@@ -158,6 +164,14 @@ export function Heading(props) {
 
 export function Paragraph(props) {
 	return (
-		<TextView style={[TypographyStyles.text.base]}>{props.children}</TextView>
+		<TextView
+			style={[
+				TypographyStyles.text.base,
+				TypographyStyles.text.medium,
+				props.style,
+			]}
+		>
+			{props.children}
+		</TextView>
 	)
 }

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { connect } from "react-redux"
-import * as UserActions from "../../../redux/users/actions"
+import React, { useState, useEffect, useCallback } from "react"
+import { forgotPassword } from "../../../api/users"
 import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router-dom"
 import { Group, Column, Row, Flex } from "../../layout"
@@ -12,49 +11,34 @@ import AuthLayout from "./layout"
 import { notEmptyValidator } from "../../../helpers/validators"
 import { Platform } from "../../platform"
 
-export const ForgotPasswordForm = connect(
-	({ users }) => ({ users }),
-	(dispatch) => ({
-		forgotPassword: (details) => dispatch(UserActions.forgotPassword(details)),
-	})
-)(function ({ users, forgotPassword, setFormState, onSuccess }) {
-	const [t] = useTranslation()
-	const history = useHistory()
-	const state = users.forgotPassword
+export function ForgotPasswordForm({ setFormState, onSuccess }) {
+	const { t } = useTranslation()
 
 	const [email, setEmail] = useState("")
-	const [hasSubmitted, setHasSubmitted] = useState(false)
+	const [error, setError] = useState(null)
+	const [isLoading, setIsLoading] = useState(false)
 
 	const validEmail = notEmptyValidator(email)
-	const canSubmit = !hasSubmitted && !state.isLoading && validEmail
+	const canSubmit = validEmail && !isLoading
 
 	const errorMessage =
-		state.error &&
-		(state.error.code === "user_not_found"
+		error &&
+		(error.code === "user_not_found"
 			? t("errors:noUser")
-			: state.error.message)
+			: error.error || error.message)
 
-	const handleSubmit = () => {
-		setHasSubmitted(true)
-		forgotPassword({ email })
-	}
+	const handleSubmit = useCallback(() => {
+		setIsLoading(true)
 
-	// Réinitialiser le formulaire après envoi, et rediriger l'utilisateur
-	useEffect(() => {
-		if (!state.isLoading && state.data && hasSubmitted) {
-			setEmail("")
-			onSuccess && onSuccess(state.data)
-		}
-	}, [state.isLoading, state.data, hasSubmitted])
-
-	// Reset le `hasSubmitted` lorsque le chargement se termine
-	useEffect(() => {
-		if (!state.isLoading) setHasSubmitted(false)
-	}, [state.isLoading])
+		forgotPassword(email)
+			.then(onSuccess)
+			.catch((e) => setError(e))
+			.finally(() => setIsLoading(false))
+	}, [email])
 
 	useEffect(() => {
 		setFormState({ canSubmit, submit: handleSubmit })
-	}, [canSubmit])
+	}, [canSubmit, handleSubmit])
 
 	return (
 		<Column of="group">
@@ -69,7 +53,7 @@ export const ForgotPasswordForm = connect(
 			{errorMessage && <Text error>{errorMessage}</Text>}
 		</Column>
 	)
-})
+}
 
 export function ForgotPasswordPageContents(props) {
 	const { showRegister, showLogin } = props

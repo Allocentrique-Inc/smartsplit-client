@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { connect } from "react-redux"
-import { resetPassword } from "../../../redux/users/actions"
-import { useHistory } from "react-router"
+import { useStorePath } from "../../appstate/react"
+import { useHistory, useRouteMatch } from "react-router"
 import AuthLayout from "./layout"
 import Button from "../../widgets/button"
 import ProgressBar from "../../widgets/progress-bar"
@@ -18,64 +17,61 @@ import { Platform } from "../../platform"
 import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 import zxcvbn from "zxcvbn"
 
-export const PasswordResetErrors = {
-	user_invalid_reset_token:
-		"Le jeton de réinitialisation n'est plus valide, ou a expiré. Veuillez effectuer une nouvelle demande de réinitialisation de mot de passe.",
+function getErrorDisplay(t, error) {
+	switch (error.code) {
+		case "user_invalid_reset_token":
+			return t("errors:invalidToken")
+		default:
+			return error.error || error.message
+	}
 }
 
-export const ChangePasswordForm = connect(
-	({ users }) => ({ state: users.passwordReset }),
-	(dispatch) => ({
-		resetPassword: function (token) {
-			dispatch(resetPassword(token))
-		},
-	})
-)(function ({ state, resetPassword, match }) {
-	const [t] = useTranslation()
+export function ChangePasswordForm() {
+	const { t } = useTranslation()
 
+	const match = useRouteMatch()
 	const history = useHistory()
 	const token = match.params.token
+	const auth = useStorePath("auth")
+
+	const [isLoading, setIsLoading] = useState(false)
+	const [error, setError] = useState(null)
 
 	const [password, setPassword] = useState("")
 	const [passwordRepeat, setPasswordRepeat] = useState("")
 	const [errorPassword, setErrorPassword] = useState(null)
 	const [errorPasswordRepeat, setErrorPasswordRepeat] = useState(null)
-	const [hasSubmitted, setHasSubmitted] = useState(false)
+
 	const score = zxcvbn(password).score
 
 	const canSubmit =
-		!state.isLoading &&
+		!isLoading &&
 		notEmptyValidator(password) &&
 		notEmptyValidator(passwordRepeat)
 
 	const buttonSize = Platform.web ? "medium" : "large"
 
-	const errorMessage =
-		!state.isLoading &&
-		state.error &&
-		(PasswordResetErrors[state.error.code] || state.error.message)
+	const errorMessage = !isLoading && error && getErrorDisplay(t, error)
 
 	const handleSubmit = () => {
 		const validPassword = score > 1
 		const validPasswordRepeat = sameValidator(password, passwordRepeat)
 
 		setErrorPassword(validPassword ? null : t("errors:strengthPassword"))
-		setErrorPasswordRepeat(validPasswordRepeat ? null : t("errors:sameEmails"))
+		setErrorPasswordRepeat(
+			validPasswordRepeat ? null : t("errors:samePasswords")
+		)
+		setError(null)
 
 		if (validPassword && validPasswordRepeat) {
-			resetPassword({ token, password })
-			setHasSubmitted(true)
+			setIsLoading(true)
+			auth
+				.resetPasswordAndLogin(token, password)
+				.then(() => history.push("/"))
+				.catch((e) => setError(e))
+				.finally(() => setIsLoading(false))
 		}
 	}
-
-	useEffect(() => {
-		if (hasSubmitted && !state.isLoading && state.data) {
-			history.push("/")
-			setPassword("")
-			setPasswordRepeat("")
-			setHasSubmitted(false)
-		}
-	}, [hasSubmitted, state.isLoading, state.data])
 
 	return (
 		<Column of="group">
@@ -125,7 +121,7 @@ export const ChangePasswordForm = connect(
 			</Platform>
 		</Column>
 	)
-})
+}
 
 export default function ChangePasswordPage(props) {
 	const history = useHistory()

@@ -138,7 +138,7 @@ export function SettingsPageTitle() {
 
 export function SettingsMenu() {
 	const { t } = useTranslation()
-	const user = useStorePath("auth", "users")
+	const user = useStorePath("auth", "user")
 
 	return (
 		<Column>
@@ -179,6 +179,12 @@ export function SettingsMenu() {
 					to="/auth/logout"
 					icon={<LogoutIcon />}
 					text={t("menu:logout")}
+				/>
+
+				<SettingsMenuItem
+					to="/test/"
+					icon={<SettingsIcon />}
+					text={t("menu:tests")}
 				/>
 			</Column>
 		</Column>

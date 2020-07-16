@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import List, { ListItem, CollapsableList } from "../../widgets/list"
-import { forEachChildren, Row } from "../../layout"
+import { Row } from "../../layout"
 import ChevronDown from "../../svg/chevron-down"
 import ChevronRight from "../../svg/chevron-right"
 import Bullet from "../../../assets/svg/dot.svg"
@@ -17,6 +17,8 @@ import {
 	SimpleMenu,
 } from "./admin-list-menus"
 import UUID from "uuidjs"
+import { forEachChildren } from "../../utils/react"
+import { useFocusGroup } from "../../utils/hooks"
 
 export const AdminListStyle = StyleSheet.create({
 	frame_pending: {
@@ -98,29 +100,9 @@ export function AdminList(props) {
 	const { children, collapsable, ...nextProps } = props
 	const title =
 		typeof nextProps.title === "string" ? <Text>{title}</Text> : nextProps.title
-	const [currentFocus, setCurrentFocus] = useState(null)
-	const [listHeadId, setListHeadId] = useState(UUID.generate())
-	let newChildren = []
-	forEachChildren(children, (child) => {
-		newChildren.push(
-			Platform.web ? (
-				React.cloneElement(child, {
-					focus: child.key === currentFocus,
-					onMouseEnter: () => setCurrentFocus(child.key),
-					onMouseLeave: () => setCurrentFocus(null),
-				})
-			) : (
-				<TouchableWithoutFeedback
-					onPress={() =>
-						setCurrentFocus(child.key !== currentFocus ? child.key : null)
-					}
-					key={child.key}
-				>
-					{React.cloneElement(child, { focus: child.key === currentFocus })}
-				</TouchableWithoutFeedback>
-			)
-		)
-	})
+	const [newChildren, currentFocus, setCurrentFocus] = useFocusGroup(children)
+	const listHeadId = useState(UUID.generate())[0]
+
 	const [expanded, setExpanded] = useState(false)
 
 	function handleExpand(expanded) {

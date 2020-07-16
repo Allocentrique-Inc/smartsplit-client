@@ -40,6 +40,11 @@ export default function Label(props) {
 		  )
 		: children
 
+	const wrapError =
+		error &&
+		(typeof error === "string" ||
+			(typeof error === "object" && error.type === React.Fragment))
+
 	return (
 		<Column of="inside" style={[FormStyles.label_wrap, style]}>
 			{(label || label_hint) && (
@@ -53,13 +58,11 @@ export default function Label(props) {
 
 			{inputComponent}
 
-			{typeof error === "string" ? (
+			{wrapError ? (
 				<Text error small>
 					{error}
 				</Text>
-			) : (
-				error
-			)}
+			) : null}
 
 			{undertext && (
 				<Text

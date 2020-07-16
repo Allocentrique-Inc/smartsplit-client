@@ -1,9 +1,14 @@
 import { Observable } from "../store"
 import { Platform, AsyncStorage } from "react-native"
 import * as AuthAPI from "../../../api/auth"
+import {
+	activateAccount,
+	resetPassword,
+	changePassword,
+} from "../../../api/users"
 
 export class Authentication extends Observable {
-	constructor() {
+	constructor(users) {
 		super()
 
 		this.isLoading = false
@@ -11,13 +16,14 @@ export class Authentication extends Observable {
 
 		this.isLoggedIn = null
 		this.isReturning = null
+		this.isAuthStored = false
 		this.accessToken = null
 		this.user_id = null
 
 		Object.defineProperty(this, "user", {
 			enumerable: false,
 			configurable: false,
-			get: () => this.user_id && this.store.users.get(this.user_id),
+			get: () => this.user_id && users.get(this.user_id),
 		})
 	}
 
@@ -33,12 +39,14 @@ export class Authentication extends Observable {
 			)
 
 		let auth = null
+		let isStored = true
 
 		try {
 			auth = await AsyncStorage.getItem("auth")
 
 			if (!auth && Platform.OS === "web" && window.sessionStorage) {
 				auth = window.sessionStorage.getItem("auth")
+				isStored = false
 			}
 
 			if (auth) {
@@ -50,7 +58,7 @@ export class Authentication extends Observable {
 		}
 
 		if (auth) {
-			this.setLogin(auth.accessToken, auth.user_id)
+			this.setLogin(auth.accessToken, auth.user_id, isStored)
 
 			if (refreshToken) this.refresh()
 		} else {
@@ -85,7 +93,7 @@ export class Authentication extends Observable {
 		}
 	}
 
-	_setLoginFromAPI(response, rememberMe) {
+	_setLoginFromAPI(response, rememberMe = undefined) {
 		const user = response.user
 		const user_id = (user && user.user_id) || response.user_id
 
@@ -96,7 +104,8 @@ export class Authentication extends Observable {
 		}
 	}
 
-	setLogin(accessToken, user_id, store = false) {
+	setLogin(accessToken, user_id, store = undefined) {
+		store = store === undefined ? this.isAuthStored : !!store
 		const storeData = JSON.stringify({ accessToken, user_id })
 
 		AsyncStorage.setItem("isReturning", "1").catch((e) =>
@@ -113,6 +122,7 @@ export class Authentication extends Observable {
 
 		this.set({
 			isLoading: false,
+			isAuthStored: store,
 			error: null,
 			isLoggedIn: true,
 			isReturning: true,
@@ -136,5 +146,28 @@ export class Authentication extends Observable {
 		AsyncStorage.removeItem("auth").catch((e) =>
 			console.error("Error clearing auth data:", e)
 		)
+	}
+
+	async activateAccountAndLogin(token) {
+		let stayLoggedIn = false
+
+		try {
+			stayLoggedIn = !!(await AsyncStorage.getItem("register:stayLoggedInNext"))
+		} catch (e) {
+			console.error("Failed getting stay logged in status after activation", e)
+		}
+
+		const result = await activateAccount(token)
+		this._setLoginFromAPI(result, stayLoggedIn)
+	}
+
+	async changePassword(currentPassword, newPassword) {
+		const result = await changePassword(currentPassword, newPassword)
+		this._setLoginFromAPI(result)
+	}
+
+	async resetPasswordAndLogin(token, password) {
+		const result = await resetPassword(token, password)
+		this._setLoginFromAPI(result)
 	}
 }

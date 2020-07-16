@@ -44,23 +44,28 @@ export function setGlobalAccessToken(accessToken) {
 
 export function createCrudClient(endpoint) {
 	async function create(data) {
-		return await client.post(`${endpoint}/`, data)
+		const result = await client.post(`${endpoint}/`, data)
+		return result.data
 	}
 
 	async function read(id) {
-		return await client.get(`${endpoint}/${id}`)
+		const result = await client.get(`${endpoint}/${id}`)
+		return result.data
 	}
 
 	async function replace(id, data) {
-		return await client.put(`${endpoint}/${id}`, data)
+		const result = await client.put(`${endpoint}/${id}`, data)
+		return result.data
 	}
 
 	async function update(id, data) {
-		return await client.patch(`${endpoint}/${id}`, data)
+		const result = await client.patch(`${endpoint}/${id}`, data)
+		return result.data
 	}
 
 	async function destroy(id) {
-		return await client.delete(`${endpoint}/${id}`)
+		const result = await client.delete(`${endpoint}/${id}`)
+		return result.data
 	}
 
 	return { create, read, replace, update, destroy }

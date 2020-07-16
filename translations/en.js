@@ -2,7 +2,7 @@ import React from "react"
 
 export const general = {
 	forgotPassword: "Forgot password?",
-	noAccount: "I don't have an settings",
+	noAccount: "I don't have an account",
 	or: "or",
 	auth: "Two factor authentification",
 
@@ -14,6 +14,10 @@ export const general = {
 	checkbox: {
 		stayConnected: "Rester connecté",
 		makePublic: "Make public my professional identifiers listed above",
+		author: "Author",
+		composer: "Composer",
+		mixer: "Mixer",
+		performer: "Performer",
 	},
 
 	languages: {
@@ -25,13 +29,13 @@ export const general = {
 		connect: "Connect",
 		cancel: "Cancel",
 		connectVote: "Connect and vote",
-		registerVote: "Create my settings an vote",
+		registerVote: "Create my account and vote",
 		facebook: "Connect with Facebook",
 		google: "Connect with Google",
 		accept: "I accept",
 		comprendo: "Understood",
-		createAccount: "Create my settings",
-		haveAccount: "I already have an settings",
+		createAccount: "Create my account",
+		haveAccount: "I already have an account",
 		reset: "Reset",
 		backHome: "Go back to the homepage",
 		save: "Save",
@@ -45,9 +49,9 @@ export const general = {
 		checkPhone: "Validate phone number",
 		addEmail: "Add an Email",
 		addProId: "Add a professional identifier",
-		deleteAccount: "Cancel this settings",
+		deleteAccount: "Delete this account",
 		addUsername: "Add a username",
-		delete: "Delete this settings",
+		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
 		continue: "Continue",
@@ -64,7 +68,8 @@ export const menu = {
 	collaborators: "My Collaborators",
 	testsForms: "Tests Forms",
 	testsFormsPage: "Full Page Forms",
-	reduxTests: "Redux Tests",
+	tests: "Tests",
+	dashboard: "Dashboard",
 	logout: "Log out",
 }
 
@@ -80,7 +85,7 @@ export const errors = {
 		"The reset token is no longer valid or has expired. Please make a new password request.",
 	invalidLogin: "Invalid email or password. Please try again.",
 	inactiveAccount:
-		"This settings has yet not being activated. Please check your emails, or try to subscribe again!",
+		"This account has yet not being activated. Please check your emails, or try to subscribe again!",
 	noUser:
 		"No user was found with this email address. You might have used another address ?",
 	invalidDate: "Date is invalid",
@@ -99,19 +104,19 @@ export const errors = {
 }
 
 export const publicNavbarWeb = {
-	noAccount: "No settings?",
-	createAccount: "Create an settings",
+	noAccount: "No account?",
+	createAccount: "Create an account",
 	yesAccount: "Already a member?",
 	openAccount: "Open a session",
 	language: "Français",
 	noMember: "Not yet a member?",
-	createMyAccount: "Create my settings",
+	createMyAccount: "Create my account",
 }
 
 export const forms = {
 	labels: {
 		myEmail: "My email",
-		myEmails: "My emails linked to this settings",
+		myEmails: "My emails linked to this account",
 		password: "Password",
 		enterEmail: "Enter your email",
 		choosePassword: "Choose your password",
@@ -146,6 +151,7 @@ export const forms = {
 		myProIds: "My professional identifiers",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
+		groups: "Groups",
 
 		dropdowns: {
 			language: "Langue",
@@ -177,6 +183,7 @@ export const forms = {
 		delete: "delete or Delete",
 		date: "DD-MM-YYYY",
 		myUri: "https://www.my-website.example",
+		groupSearch: "Search among groups...",
 	},
 
 	undertexts: {
@@ -199,11 +206,12 @@ export const forms = {
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
+		artistName: "If not applicable, we will desplay the full name.",
 	},
 }
 
 export const login = {
-	title: "Login to your Smartsplit settings.",
+	title: "Login to your Smartsplit account.",
 	subTitle: "Enter your information below.",
 
 	toVote: {
@@ -219,32 +227,35 @@ export const register = {
 		"You  are one click away from documenting your music and share your rights with your contributors.",
 
 	toVote: {
-		title: "create an settings to confirm your decision.",
+		title: "create an account to confirm your decision.",
 		subTitle:
 			"You are about to sign an important contract with your collaborators, so we need you to confirm your indentity.",
 	},
 
 	conditions: {
 		title: "Terms and conditions",
-		paragraph: "I have read and accept the ",
-		paragraph2: "Terms and Conditions of use ",
-		paragraph3: "as well as Smartsplit's ",
-		paragraph4: "Private Life Policy",
-		paragraph5: "",
+		paragraph: (showTerms, showPrivacy) => (
+			<>
+				I have read and accept the
+				<link onClick={showTerms}> Terms and Conditions of use </link>
+				as well as Smartsplit's
+				<link onClick={showPrivacy}> Private Life Policy </link>
+			</>
+		),
 	},
 }
 
 export const passwordIssues = {
 	checkEmail: "Check your emails",
 	validate:
-		"A message including an settings validation link was emailed to you.\nDoucle check your spam. We never know!",
+		"A message including a validation link was emailed to you.\nDoucle check your spam. We never know!",
 	reset: "Reset your password.",
 	emailSent: "Email sent.",
 	resetParagraph:
 		"An email was sent or will be sent shortly. It includes a link to reset your password.",
 	change: "Change the password",
 	enterEmail:
-		"Enter the email address associated to your settings to get the reset link.",
+		"Enter the email address associated to your account to get the reset link.",
 	changePassword: "Change the password",
 }
 
@@ -271,7 +282,7 @@ export const settings = {
 	security: "Security",
 	deconnect: "Disconnect",
 	password: "Password",
-	associateEmails: "Emails associated to this settings",
+	associateEmails: "Emails associated to this account",
 	delete: "Cancellation",
 
 	subTitles: {
@@ -331,14 +342,14 @@ export const settings = {
 }
 
 export const deletion = {
-	destroy: "Delete the settings",
+	destroy: "Delete the account",
 	warningTitle: "Please note, this operation is irreversible.",
 	warningSubTitle:
-		"In order to delete this settings, you need to confirm your intention.",
+		"In order to delete this account, you need to confirm your intention.",
 	writeDelete:
 		'Write the word "delete" below, in order to confirm your intention:',
 	confirm:
-		'By clicking on "confirm" below, your settings will be deleted and you will be ejected from the system.',
+		'By clicking on "confirm" below, your account will be deleted and you will be ejected from the system.',
 	deleteWord: "delete",
 }
 
@@ -459,4 +470,10 @@ export const roles = {
 	mixer: "Mixer",
 	singer: "Singer",
 	musician: "Musician",
+
+export const newUserInvite = {
+	title: "[Add/Modify] a Collaborating Artist",
+	checkboxTitle: "Rôle(s) par défaut",
+	checkboxUndertext: "These roles can always be modified later.",
+
 }

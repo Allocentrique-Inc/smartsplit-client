@@ -1,27 +1,41 @@
 import { client, createCrudClient } from "./api-client"
 
-export function registerUser(data) {
-	return client.request({
+export async function registerUser(data) {
+	const result = await client.request({
 		url: "/users/",
 		method: "post",
 		data,
 	})
+
+	return result.data
 }
 
-export function forgotPassword(data) {
+export function forgotPassword(email) {
 	return client.request({
 		url: "/users/request-password-reset",
 		method: "post",
-		data,
+		data: { email },
 	})
 }
 
-export function passwordReset(data) {
-	return client.request({
+export async function resetPassword(token, password) {
+	const result = await client.request({
 		url: "/users/change-password",
 		method: "post",
-		data,
+		data: { token, password },
 	})
+
+	return result.data
+}
+
+export async function changePassword(currentPassword, password) {
+	const result = await client.request({
+		url: "/users/change-password",
+		method: "post",
+		data: { currentPassword, password },
+	})
+
+	return result.data
 }
 
 export async function activateAccount(token) {

@@ -14,12 +14,9 @@ import MyWorksPage from "./my-works"
 import MyCollaboratorsPage from "./my-collaborators"
 import ChangePasswordPage from "./change-password"
 import NewEmailModal from "./new-email"
-import FormsTest from "../test/forms"
 import SubScreenLayout from "../../layout/subscreen"
-import UserAvatar from "../../smartsplit/user/avatar"
+import { CurrentUserAvatar } from "../../smartsplit/user/avatar"
 import { Text } from "../../text"
-import StoreTestPage from "../test/store"
-import { useStorePath } from "../../appstate/react"
 
 const MENU_WEB = [
 	{
@@ -38,17 +35,8 @@ const MENU_WEB = [
 		icon: UsersIcon,
 	},
 	{
-		text: "menu:testsForms",
-		to: "/dashboard/test/forms",
-	},
-	{
-		text: "menu:testsFormsPage",
-		to: "/test/forms",
-	},
-	{ text: "State Store", to: "/dashboard/test/store" },
-	{
-		text: "admin",
-		to: "/admin",
+		text: "menu:tests",
+		to: "/test",
 	},
 ]
 
@@ -71,21 +59,8 @@ const MENU_MOBILE = [
 	{
 		to: "/user/settings",
 		icon: function AvatarIcon({ color }) {
-			return (
-				<UserAvatar
-					user={useStorePath("auth", "user", "data")}
-					initials="XX"
-					size="small"
-					border={color}
-				/>
-			)
+			return <CurrentUserAvatar initials="XX" size="small" border={color} />
 		},
-	},
-
-	{
-		icon: UsersIcon,
-
-		to: "/admin",
 	},
 ]
 
@@ -131,14 +106,6 @@ export function DashboardRoutes(props) {
 
 			<Route path="/dashboard/new-email" exact>
 				<NewEmailModal />
-			</Route>
-
-			<Route path="/dashboard/test/forms" exact>
-				<FormsTest />
-			</Route>
-
-			<Route path="/dashboard/test/store" exact>
-				<StoreTestPage />
 			</Route>
 		</Switch>
 	)

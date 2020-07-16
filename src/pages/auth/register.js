@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useMemo } from "react"
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import { AsyncStorage } from "react-native"
 import { useTranslation } from "react-i18next"
-import { useStorePath } from "../../appstate/react"
 import { View } from "react-native"
 import { useHistory } from "react-router-dom"
 import Button from "../../widgets/button"
@@ -9,7 +8,13 @@ import Scrollable from "../../widgets/scrollable"
 import { Platform, Web, Native } from "../../platform"
 import { DialogModal } from "../../widgets/modal"
 import { TextDivider, Section, Column, Row, Group, Flex } from "../../layout"
-import { TextField, PasswordField, CheckBox } from "../../forms"
+import {
+	Form,
+	useFormField,
+	TextField,
+	PasswordField,
+	CheckBox,
+} from "../../forms"
 import { Heading, Paragraph, Text, Link } from "../../text"
 import AuthLayout from "./layout"
 import ProgressBar from "../../widgets/progress-bar"
@@ -23,6 +28,7 @@ import {
 	acceptablePasswordValidator,
 } from "../../../helpers/validators"
 import { CheckEmailModal } from "./check-email"
+import { registerUser } from "../../../api/users"
 
 export function passwordBarColor(score) {
 	switch (score) {
@@ -90,120 +96,164 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 					<Button text={t("general:buttons.accept")} onClick={onAgree} />
 				</>
 			}
-		></DialogModal>
+		/>
 	)
 }
 
-export const RegisterForm = function (props) {
+export function PasswordFieldWithScoreBar(props) {
+	const { t } = useTranslation()
+	const field = useFormField(props.name)
+	const score = zxcvbn(field.value).score
+
+	return (
+		<Column of="inside">
+			<PasswordField {...props} />
+			<Row style={{ alignItems: "center" }}>
+				<Text secondary small style={{ flex: 3 }}>
+					{t(passwordStrengthIndicator(score))}
+				</Text>
+				<Flex />
+				<ProgressBar
+					size="tiny"
+					style={{ flex: 1 }}
+					color={passwordBarColor(score)}
+					progress={passwordProgress(score)}
+				/>
+			</Row>
+		</Column>
+	)
+}
+
+const registerFormValues = {
+	agreeTerms: false,
+	email: "",
+	password: "",
+	passwordRepeat: "",
+}
+
+export function RegisterForm(props) {
 	const {
 		showForgotPassword,
 		showLogin,
 		onSuccess,
-		setFormState,
 		stayLoggedIn,
+		onSubmittable,
+		formRef,
 	} = props
 
-	const [t] = useTranslation()
-	const users = useStorePath("users")
-	const registration = useMemo(() => users.create(), [users])
+	const { t, i18n } = useTranslation()
+	const form = formRef || useRef()
 
 	const [showTerms, setShowTerms] = useState(false)
 	const [showCheckMails, setShowCheckMails] = useState(false)
+	const [isLoading, setIsLoading] = useState(false)
+	const [errorMessage, setErrorMessage] = useState(null)
 
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
-	const [passwordRepeat, setPasswordRepeat] = useState("")
-	const [agreeTerms, setAgreeTerms] = useState(false)
+	const handleChange = useCallback(
+		({ email, password, passwordRepeat, agreeTerms }) => {
+			if (!onSubmittable) return
 
-	const [errorEmail, setErrorEmail] = useState(null)
-	const [errorPassword, setErrorPassword] = useState(null)
-	const [errorPasswordRepeat, setErrorPasswordRepeat] = useState(null)
-
-	const score = zxcvbn(password).score
-
-	const validEmail = notEmptyValidator(email)
-	const validPassword = acceptablePasswordValidator(password)
-	const validPasswordRepeat = sameValidator(password, passwordRepeat)
-
-	const canSubmit =
-		!registration.isLoading &&
-		notEmptyValidator(email) &&
-		notEmptyValidator(password) &&
-		notEmptyValidator(passwordRepeat) &&
-		agreeTerms
-
-	const error = !registration.isLoading && registration.error
-	const errorCode = error && error.code
-
-	const errorEmailUsed = errorCode === "user_conflict" && (
-		<Text small error>
-			{t("errors:password.emailTaken")}
-			<Link small error bold onClick={showForgotPassword}>
-				{t("errors:password.forgotEmail")}
-			</Link>
-		</Text>
+			onSubmittable(
+				notEmptyValidator(email) &&
+					notEmptyValidator(password) &&
+					notEmptyValidator(passwordRepeat) &&
+					agreeTerms
+			)
+		}
 	)
 
-	const errorMessage = !errorEmailUsed && error && error.message
+	const handleSubmit = useCallback(async () => {
+		const {
+			email,
+			password,
+			passwordRepeat,
+			agreeTerms,
+		} = form.current.getFields()
 
-	function resetForm() {
-		setEmail("")
-		setPassword("")
-		setPasswordRepeat("")
-		setAgreeTerms(false)
-	}
+		let hasError = false
+		form.current.clearErrors()
 
-	function handleRegister() {
-		setErrorEmail(validEmail ? null : t("errors:enterEmail"))
-		setErrorPassword(validPassword ? null : t("errors:strengthPassword"))
-		setErrorPasswordRepeat(
-			validPasswordRepeat ? null : t("errors:samePasswords")
-		)
+		if (!notEmptyValidator(email.value)) {
+			hasError = email.error = t("errors:enterEmail")
+		}
 
-		if (canSubmit && validEmail && validPassword && validPasswordRepeat) {
-			registerUser({ email, password, locale: "fr" })
+		if (!acceptablePasswordValidator(password.value)) {
+			hasError = password.error = t("errors:strengthPassword")
+		}
+
+		if (!sameValidator(password.value, passwordRepeat.value)) {
+			hasError = passwordRepeat.error = t("errors:samePasswords")
+		}
+
+		if (hasError) return
+
+		try {
+			setIsLoading(true)
+			onSubmittable(false)
+
+			await registerUser({
+				email: email.value,
+				password: password.value,
+				locale: i18n.currentLanguage,
+			})
+
+			setShowCheckMails(true)
 
 			if (stayLoggedIn)
 				AsyncStorage.setItem("register:stayLoggedInNext", true).catch((e) =>
 					console.error("Failed to store stayLoggedInNext", e)
 				)
+
+			form.current.reset()
+		} catch (error) {
+			if (error.code === "user_conflict") {
+				email.error = (
+					<>
+						{t("errors:password.emailTaken")}
+						<link error bold onClick={showForgotPassword}>
+							{t("errors:password.forgotEmail")}
+						</link>
+					</>
+				)
+			} else {
+				setErrorMessage(error.message)
+				onSubmittable(true)
+			}
+		} finally {
+			setIsLoading(false)
 		}
-	}
-
-	setFormState &&
-		useEffect(() => {
-			setFormState({
-				canSubmit,
-				submit: handleRegister,
-			})
-		}, [setFormState, canSubmit, email, password, passwordRepeat, stayLoggedIn])
-
-	useEffect(() => {
-		setShowCheckMails(!!registration.data && canSubmit)
-	}, [canSubmit, email, password, passwordRepeat])
+	}, [form, stayLoggedIn, i18n, t])
 
 	return (
-		<>
+		<Form
+			ref={form}
+			onChange={handleChange}
+			onSubmit={handleSubmit}
+			values={registerFormValues}
+		>
 			<CheckEmailModal
 				visible={showCheckMails}
-				onRequestClose={() => resetForm()}
+				onRequestClose={() => {
+					setShowCheckMails(false)
+					showLogin()
+				}}
 			/>
 
 			<TermsConditionsModal
 				visible={showTerms}
 				onRequestClose={() => setShowTerms(false)}
 				onAgree={() => {
-					setAgreeTerms(true)
+					form.current.updateValues({ agreeTerms: true })
 					setShowTerms(false)
 				}}
 				onCancel={() => {
-					setAgreeTerms(false)
+					form.current.updateValues({ agreeTerms: false })
 					setShowTerms(false)
 				}}
 			/>
 
 			<Column as={Group} of={Platform.OS === "web" ? "group" : "component"}>
-				<Column of="inside">
+				{/*<Column of="inside">
 					<Button
 						style={{ backgroundColor: "#4267B2" }}
 						icon={<FacebookIcon />}
@@ -217,76 +267,55 @@ export const RegisterForm = function (props) {
 					/>
 				</Column>
 
-				<TextDivider text={t("general:or")} />
+				<TextDivider text={t("general:or")} />*/}
 
 				<Column of="group">
 					<TextField
-						value={email}
+						name="email"
 						label={t("forms:labels.enterEmail")}
 						placeholder={t("forms:placeholders.emailExample")}
-						onChangeText={setEmail}
-						error={errorEmailUsed}
 					/>
 
-					<Column of="inside">
-						<PasswordField
-							value={password}
-							onChangeText={setPassword}
-							label={t("forms:labels.choosePassword")}
-							placeholder={t("forms:placeholders.noCharacters")}
-							error={errorPassword}
-						/>
-
-						<Row style={{ alignItems: "center" }}>
-							<Text secondary small style={{ flex: 3 }}>
-								{t(passwordStrengthIndicator(score))}
-							</Text>
-							<Flex />
-							<ProgressBar
-								size="tiny"
-								style={{ flex: 1 }}
-								color={passwordBarColor(score)}
-								progress={passwordProgress(score)}
-							/>
-						</Row>
-					</Column>
+					<PasswordFieldWithScoreBar
+						name="password"
+						label={t("forms:labels.choosePassword")}
+						placeholder={t("forms:placeholders.noCharacters")}
+					/>
 
 					<PasswordField
-						value={passwordRepeat}
+						name="passwordRepeat"
 						placeholder={t("forms:labels.repeatPassword")}
-						onChangeText={setPasswordRepeat}
-						error={errorPasswordRepeat}
 					/>
 
-					<CheckBox onChange={setAgreeTerms} checked={agreeTerms}>
+					<CheckBox name="agreeTerms">
 						<Text>
-							{t("register:conditions.paragraph")}
-							<Link link onClick={() => setShowTerms(true)}>
-								{" "}
-								{t("register:conditions.paragraph2")}{" "}
-							</Link>
-							{t("register:conditions.paragraph3")}
-							<Link link onClick={() => setShowTerms(true)}>
-								{" "}
-								{t("register:conditions.paragraph4")}{" "}
-							</Link>
-							{t("register:conditions.paragraph5")}
+							{t("register:conditions.paragraph")(
+								() => setShowTerms(true),
+								() => setShowTerms(true)
+							)}
 						</Text>
 					</CheckBox>
 
 					{errorMessage && <Text error>{errorMessage}</Text>}
 				</Column>
 			</Column>
-		</>
+		</Form>
 	)
 }
 
 export default function RegisterPage(props) {
 	const [t] = useTranslation()
 	const history = useHistory()
-	const [formState, setFormState] = useState({})
+
+	const form = useRef()
+	const [canSubmit, setCanSubmit] = useState(false)
 	const [stayLoggedIn, setStayLoggedIn] = useState(false)
+
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
+
+	function submit() {
+		form.current.submit()
+	}
 
 	return (
 		<AuthLayout>
@@ -300,9 +329,10 @@ export default function RegisterPage(props) {
 
 					<RegisterForm
 						{...layoutProps}
-						setFormState={setFormState}
 						onSuccess={layoutProps.showLogin}
 						stayLoggedIn={stayLoggedIn}
+						onSubmittable={setCanSubmit}
+						formRef={form}
 					/>
 
 					<Platform web={Row} native={Column} of="group">
@@ -319,8 +349,8 @@ export default function RegisterPage(props) {
 
 						<Button
 							text={t("general:buttons.createAccount")}
-							onClick={formState.submit}
-							disabled={!formState.canSubmit}
+							onClick={submit}
+							disabled={!canSubmit}
 							size={buttonSize}
 						/>
 

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useRef } from "react"
 import { useTranslation } from "react-i18next"
-import { TouchableOpacity, Platform } from "react-native"
+import { Platform } from "react-native"
+import { useStorePath } from "../../appstate/react"
 import { DialogModal } from "../../widgets/modal"
-import { Modal } from "../../widgets/modal"
 import Button from "../../widgets/button"
-import { Section, Column, Row, Group, Flex } from "../../layout"
-import { TextField, PasswordField, CheckBox } from "../../forms"
+import { Column, Group, Flex } from "../../layout"
+import { Form, FormSubmit, PasswordField } from "../../forms"
+import { PasswordFieldWithScoreBar } from "../auth/register" // FIXME: mettre ça à une place qui fait plus de sens
 import { Text } from "../../text"
 import ProgressBar from "../../widgets/progress-bar"
-import Scrollable from "../../widgets/scrollable"
 import {
 	passwordBarColor,
 	passwordProgress,
@@ -16,20 +16,26 @@ import {
 } from "../auth/register"
 import zxcvbn from "zxcvbn"
 import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
-import { resetPassword } from "../../../redux/users/actions"
 
-export default function ChangePasswordModal(props) {
-	const { isLoading, data, error } = {} // FIXME: without redux
+export default function ChangePasswordModal({ visible, onRequestClose }) {
+	const { t } = useTranslation()
 
-	const [t] = useTranslation()
-	const [currentPassword, setCurrentPassword] = useState("")
+	const form = useRef()
+	const auth = useStorePath("auth")
+	const [isLoading, setIsLoading] = useState(false)
+	const [isValid, setIsValid] = useState(false)
+	const [error, setError] = useState(null)
+
+	const canSubmit = !isLoading && isValid
+
+	/*const [currentPassword, setCurrentPassword] = useState("")
 	const [newPassword, setNewPassword] = useState("")
 	const [newPasswordRepeat, setNewPasswordRepeat] = useState("")
 	const [newPasswordRepeatError, setNewPasswordRepeatError] = useState(null)
 
 	const score = zxcvbn(newPassword).score
 
-	const canSubmit =
+	const canSubmit = !isLoading && isValid
 		!isLoading && currentPassword && newPassword && newPasswordRepeat
 
 	const handleSubmit = () => {
@@ -51,74 +57,105 @@ export default function ChangePasswordModal(props) {
 		error &&
 		error.code === "user_invalid_current_password" &&
 		t("errors:invalidCurrentPassword")
-	const errorMessage = error && !currentPasswordError && error.message
+	const errorMessage = error && !currentPasswordError && error.message*/
 
-	useEffect(() => {
-		if (data && props.onRequestClose) {
-			props.onRequestClose()
+	function close() {
+		form.current.reset()
+		onRequestClose()
+	}
+
+	function handleFormChange({
+		currentPassword,
+		newPassword,
+		newPasswordRepeat,
+	}) {
+		setIsValid(
+			notEmptyValidator(currentPassword) &&
+				notEmptyValidator(newPassword) &&
+				notEmptyValidator(newPasswordRepeat)
+		)
+	}
+
+	function handleFormSubmit() {
+		const fields = form.current.getFields()
+		form.current.clearErrors()
+		setError(null)
+
+		if (
+			!sameValidator(fields.newPassword.value, fields.newPasswordRepeat.value)
+		) {
+			fields.newPasswordRepeat.error = t("errors:samePasswords")
+			return
 		}
-	}, [data, props.onRequestClose])
+
+		setIsLoading(true)
+
+		auth
+			.changePassword(fields.currentPassword.value, fields.newPassword.value)
+			.then(() => {
+				form.current.reset()
+				close()
+			})
+			.catch((e) => {
+				if (e.code === "user_invalid_current_password") {
+					fields.currentPassword.error = t("errors:invalidCurrentPassword")
+				} else {
+					setError(e)
+				}
+			})
+			.finally(() => setIsLoading(false))
+	}
 
 	return (
 		<DialogModal
-			visible={props.visible}
-			onRequestClose={props.onRequestClose}
+			visible={visible}
+			onRequestClose={close}
 			title={t("passwordIssues:changePassword")}
 			buttons={
 				<>
-					<Button
-						text={t("general:buttons.cancel")}
-						tertiary
-						onClick={props.onRequestClose}
-					/>
+					<Button text={t("general:buttons.cancel")} tertiary onClick={close} />
 					<Button
 						text={t("general:buttons.save")}
 						disabled={!canSubmit}
-						onClick={handleSubmit}
+						onClick={() => form.current.submit()}
 					/>
 				</>
 			}
 		>
-			<Group
-				of="group"
-				style={Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }}
+			<Form
+				ref={form}
+				values={{
+					currentPassword: "",
+					newPassword: "",
+					newPasswordRepeat: "",
+				}}
+				onChange={handleFormChange}
+				onSubmit={handleFormSubmit}
 			>
-				<PasswordField
-					value={currentPassword} //pour avoir toujours valeur mot de passe, reçoit valeur password
-					onChangeText={setCurrentPassword} // quand changement mot de passe modifie valeur mise à jour
-					label={t("forms:labels.currentPassword")}
-					error={currentPasswordError}
-				/>
-
-				<Column of="inside">
+				<Group
+					of="group"
+					style={
+						Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }
+					}
+				>
 					<PasswordField
-						value={newPassword}
-						onChangeText={setNewPassword}
+						name="currentPassword"
+						label={t("forms:labels.currentPassword")}
+					/>
+
+					<PasswordFieldWithScoreBar
+						name="newPassword"
 						label={t("forms:labels.newPassword")}
 					/>
 
-					<Row>
-						<Text secondary small>
-							{t(passwordStrengthIndicator(score))}
-						</Text>
-						<Flex />
-						<ProgressBar
-							size="tiny"
-							color={passwordBarColor(score)}
-							progress={passwordProgress(score)}
-						/>
-					</Row>
-				</Column>
+					<PasswordField
+						name="newPasswordRepeat"
+						label={t("forms:labels.repeatPassword")}
+					/>
 
-				<PasswordField
-					value={newPasswordRepeat} //pour avoir toujours valeur mot de passe, reçoit valeur password
-					onChangeText={setNewPasswordRepeat} // quand changement mot de passe modifie valeur mise à jour
-					label={t("forms:labels.repeatPassword")}
-					error={newPasswordRepeatError}
-				/>
-
-				{errorMessage && <Text error>{errorMessage}</Text>}
-			</Group>
+					{error && <Text error>{error.error || error.message}</Text>}
+				</Group>
+			</Form>
 		</DialogModal>
 	)
 }

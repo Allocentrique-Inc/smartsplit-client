@@ -15,6 +15,10 @@ export const general = {
 		stayConnected: "Rester connecté",
 		makePublic:
 			"Rendre publics mes identifiants professionnels énumérés ci-dessus",
+		author: "Auteur",
+		composer: "Compositeur",
+		mixer: "Arrangeur",
+		performer: "Interprète",
 	},
 
 	languages: {
@@ -65,7 +69,8 @@ export const menu = {
 	collaborators: "Mes collaborateurs",
 	testsForms: "Tests Formulaires",
 	testsFormsPage: "Formulaires pleine page",
-	reduxTests: "Redux Test",
+	tests: "Tests",
+	dashboard: "Tableau de bord",
 	logout: "Déconnexion",
 }
 
@@ -148,6 +153,7 @@ export const forms = {
 		myProIds: "Mes identifiants professionels",
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
+		groups: "Groupes",
 
 		dropdowns: {
 			language: "Langue",
@@ -179,6 +185,7 @@ export const forms = {
 		delete: "détruire, Détruire ou detruire",
 		date: "JJ-MM-AAAA",
 		myUri: "https://www.mon-site-web.exemple",
+		groupSearch: "Research among groups...",
 	},
 
 	undertexts: {
@@ -201,6 +208,7 @@ export const forms = {
 		mainEmail: "Courriel principal",
 		setAsMain: "Définir comme principal",
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
+		artistName: "Si non applicable, nous affichons son nom complet.",
 	},
 }
 
@@ -228,11 +236,15 @@ export const register = {
 
 	conditions: {
 		title: "Termes et conditions",
-		paragraph: "J'ai lu et j'accepte les ",
-		paragraph2: "Termes et conditions d'utilisation ",
-		paragraph3: "et la ",
-		paragraph4: "Politique sur la vie privée ",
-		paragraph5: "de Smartsplit",
+		paragraph: (showTerms, showPrivacy) => (
+			<>
+				J'ai lu et j'accepte les
+				<link onClick={showTerms}> Termes et conditions d'utilisation </link>
+				et la
+				<link onClick={showPrivacy}> Politique sur la vie privée </link>
+				de Smartsplit
+			</>
+		),
 	},
 }
 
@@ -464,4 +476,9 @@ export const roles = {
 	mixer: "Arrangeur",
 	singer: "Chanteur",
 	musician: "Musicien",
+
+export const newUserInvite = {
+	title: "[Ajouter/Modifier] un artiste collaborateur",
+	checkbox: "Default Role(s)",
+	checkboxUndertext: "Ces rôles pourront toujours être modifiés plus tard.",
 }
