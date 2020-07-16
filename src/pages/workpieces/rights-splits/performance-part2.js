@@ -22,7 +22,7 @@ import { TooltipIcon } from "../../../widgets/tooltip"
 import { getExampleNumber } from "libphonenumber-js"
 import { ProIdList } from "../../../smartsplit/components/pro-id-list"
 
-export default function PerformancePage({ workpiece }) {
+export default function PerformancePagePart2({ workpiece }) {
 	const [t] = useTranslation()
 	return (
 		<Layout
@@ -41,12 +41,12 @@ export default function PerformancePage({ workpiece }) {
 				</>
 			}
 		>
-			<PerformanceForm />
+			<PerformanceFormPart2 />
 		</Layout>
 	)
 }
 
-export function PerformanceForm() {
+export function PerformanceFormPart2() {
 	const [t] = useTranslation()
 
 	return (

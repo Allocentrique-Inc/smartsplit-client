@@ -14,6 +14,7 @@ const FormStyles = StyleSheet.create({
 		borderWidth: 1,
 		flexDirection: "row",
 		alignItems: "center",
+		backgroundColor: Colors.background.ground,
 	},
 
 	frame_focused: {
