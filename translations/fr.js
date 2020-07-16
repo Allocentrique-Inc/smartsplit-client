@@ -464,6 +464,7 @@ export const rightSplits = {
 		addLabel: "Ajouter un label...",
 		removeCollab: "Retirer ce collaborateur",
 		status: "Sélectionner un status",
+		function: "Sélectionner une fonction...",
 	},
 
 	toi: "(toi)",
@@ -472,6 +473,8 @@ export const rightSplits = {
 	errors: {
 		status: "Tu dois sélectionner un status pour cet ayant droit.",
 		role: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
+		function:
+			"Tu dois sélectionner au moins une fonction pour cet ayant droit.",
 	},
 
 	tooltips: {

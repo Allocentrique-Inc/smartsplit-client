@@ -95,7 +95,7 @@ export function RecordingForm() {
 
 export function Card() {
 	const [t] = useTranslation()
-	const hasError = t("rightSplits:errors.status")
+	const hasError = t("rightSplits:errors.function")
 
 	return (
 		<Row layer="underground" of="component" padding="component">
@@ -110,7 +110,7 @@ export function Card() {
 				</Text>
 				<Hairline />
 				<Dropdown
-					placeholder={t("rightSplits:dropdowns.status")}
+					placeholder={t("rightSplits:dropdowns.function")}
 					style={{ flex: 1 }}
 					noFocusToggle
 					error={hasError}
