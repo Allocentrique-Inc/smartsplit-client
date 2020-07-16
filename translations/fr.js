@@ -393,6 +393,88 @@ export const admin = {
 	},
 }
 
+export const rightSplits = {
+	navbar: {
+		rightSplits: "Partage des droits",
+		page: "Nom de la page",
+	},
+	titles: {
+		copyright: () => (
+			<>
+				<b>DROITS D'AUTEUR</b>
+			</>
+		),
+		performance: () => (
+			<>
+				<b>INTERPRÉTATION</b>
+			</>
+		),
+	},
+	headers: {
+		whoInvent: "Qui a inventé cette pièce musicale ?",
+		whoPlay: "Qui a joué sur l'enregistrement sonore ?",
+	},
+
+	paragraphs: {
+		copyright: () => (
+			<>
+				Sépare ici le droit d’auteur entre les créateurs, c’est à dire les
+				auteurs des <b>paroles</b>, les compositeurs et les arrangeurs de la{" "}
+				<b>musique</b>. Il est d’usage de partager le droit d’auteur
+				équitablement. Mais tu peux faire autrement.
+			</>
+		),
+		performance: () => (
+			<>
+				On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
+				autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}
+				se partagent ce droit à parts égales. Les <i>artistes principaux</i> et{" "}
+				<i>artistes invités</i> se partagent 30%, tantdis que les 20% restant
+				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
+			</>
+		),
+	},
+
+	checkboxes: {
+		equal: "Partager de façon égale",
+		roles: "Partager selon les rôles",
+		manual: "Gérer manuellement",
+	},
+
+	dropdown: {
+		addCollab: "Ajouter un collaborateur...",
+		removeCollab: "Retirer ce collaborateur",
+		status: "Sélectionner un status",
+	},
+
+	toi: "(toi)",
+	error: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
+	more: "En savoir plus",
+
+	errors: {
+		status: "Tu dois sélectionner un status pour cet ayant droit.",
+		role: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
+	},
+
+	tooltips: {
+		equal:
+			"Divise le droit d'auteur par le nombre de personnes et attribue le rôle  « Auteur-Compositeur » par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus se mettent à rentrer. ;)",
+		role:
+			"Divise le droit d'auteur en deux : 50% va à ceux qui ont composé la musique. Cette dernière partie « musique » est à son tour divisé par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple: Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
+		manual:
+			"Te laisse déterminer le pourcentage et les rôles pour chaque collaborateurs. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas.",
+	},
+}
+
+export const roles = {
+	author: "Auteur",
+	composer: "Compositeur",
+	adapter: "Adaptateur",
+	mixer: "Arrangeur",
+	singer: "Chanteur",
+	musician: "Musicien",
+}
+
 export const newUserInvite = {
 	title: "[Ajouter/Modifier] un artiste collaborateur",
 	checkbox: "Default Role(s)",

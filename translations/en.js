@@ -389,6 +389,86 @@ export const admin = {
 	},
 }
 
+export const rightSplits = {
+	navbar: {
+		rightSplits: "Right Splits",
+		page: "Page Name",
+	},
+	titles: {
+		copyright: () => (
+			<>
+				<b>COPYRIGHT</b>
+			</>
+		),
+		performance: () => (
+			<>
+				<b>PERFORMANCE</b>
+			</>
+		),
+	},
+	headers: {
+		whoInvent: "Who invented this musical piece?",
+		whoPlay: "Who played on the audio recording?",
+	},
+
+	paragraphs: {
+		copyright: () => (
+			<>
+				Seperate here the copyright between creators, i.e. the authors of{" "}
+				<b>lyrics</b>, the composers and the mixers of <b>music</b>. It is
+				common to share the copyright fairly. But you can do otherwise.
+			</>
+		),
+		performance: () => (
+			<>
+				Seperate here the <b>neigbor right</b> between <b>performers</b>,
+				whether musicians or singers. <i>Group</i> members share this right with
+				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
+				while the remaining 20% is split among <i>featured artists</i>, if
+				applicable.
+			</>
+		),
+	},
+
+	checkboxes: {
+		equal: "Split evenly",
+		roles: "Split according to roles",
+		manual: "Manage manually",
+	},
+
+	dropdowns: {
+		addCollab: "Add a collaborator...",
+		removeCollab: "Remove this collaborator",
+		status: "Select a status",
+	},
+
+	toi: "(you)",
+	more: "Learn more",
+
+	errors: {
+		status: "You need to select a status for this right holder.",
+		role: "You need to select at least one role for this rightholder.",
+	},
+
+	tooltips: {
+		equal:
+			'Divide the copyright by the number of people and assigns the role "Author-Composer" by default to everyone. This way of spliting copyright avoids many arguments between creators, particularly when money starts to come in. ;)',
+		role:
+			'Divide the copyright by two: 50% goes to those who composed music. This last "music" part is then divided by the number of selected roles and the collaborators get a pourcentage according to their implication. For exemple: Alice only composes, whereas Bob composes AND arranges music. So Alice has 1/3 and Bob 2/3 of music.',
+		manual:
+			"Lets you determine the pourcentage and the roles for every collaborators. To fix a pourcentage to a collaborator, you can use the lock.",
+	},
+}
+
+export const roles = {
+	author: "Author",
+	composer: "Composer",
+	adapter: "Adapter",
+	mixer: "Mixer",
+	singer: "Singer",
+	musician: "Musician",
+}
+
 export const newUserInvite = {
 	title: "[Add/Modify] a Collaborating Artist",
 	checkboxTitle: "Rôle(s) par défaut",
