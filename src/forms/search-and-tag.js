@@ -1,16 +1,11 @@
 import React from "react"
-import TextDropdown from "./text-dropdown"
-import { Column, Layer, Row } from "../layout"
-import {
-	View,
-	ScrollView,
-	StyleSheet,
-	TouchableWithoutFeedback,
-} from "react-native"
-import FormStyles from "../styles/forms"
+import { Column, Row } from "../layout"
+import { View, StyleSheet } from "react-native"
 import { Text } from "../text"
 import { Metrics } from "../theme"
 import { Tag } from "../widgets/tag"
+import Autocomplete from "./autocomplete"
+import Search from "../../assets/svg/search.svg"
 
 const SearchAndTagStyle = StyleSheet.create({
 	tag_container: {
@@ -19,34 +14,7 @@ const SearchAndTagStyle = StyleSheet.create({
 	},
 })
 
-export function SearchAndTag(props) {
-	const {
-		onSelect,
-		searchResults,
-		selectedItems,
-		onUnselect,
-		searchInput,
-		onSearchChange,
-		...nextProps
-	} = props
-
-	function renderSearchResults() {
-		return (
-			<ScrollView style={FormStyles.select_scroll}>
-				{searchResults.map((result) => (
-					<TouchableWithoutFeedback
-						key={result}
-						onPress={() => onSelect(result)}
-					>
-						<Layer padding="inside">
-							{typeof result === "string" ? <Text>{result}</Text> : result}
-						</Layer>
-					</TouchableWithoutFeedback>
-				))}
-			</ScrollView>
-		)
-	}
-
+export function SearchAndTag({ selectedItems, onUnselect, ...nextProps }) {
 	function renderSelectedItems() {
 		return (
 			<Row of="none" wrap style={SearchAndTagStyle.tag_container}>
@@ -62,23 +30,9 @@ export function SearchAndTag(props) {
 			</Row>
 		)
 	}
-
 	return (
 		<Column of="component">
-			<Row of="none">
-				<TextDropdown
-					search
-					leftIcon
-					onBlur={() => onSearchChange("")}
-					value={searchInput}
-					onChangeText={(text) => onSearchChange(text)}
-					{...nextProps}
-				>
-					{searchResults && (
-						<Layer layer="overground_moderate">{renderSearchResults()}</Layer>
-					)}
-				</TextDropdown>
-			</Row>
+			<Autocomplete icon={Search} {...nextProps} />
 			{selectedItems && selectedItems.length > 0 && renderSelectedItems()}
 		</Column>
 	)

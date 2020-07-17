@@ -1,3 +1,6 @@
+import React from "react"
+import { Text } from "../text"
+
 export const Origin = {
 	x: 0,
 	y: 0,
@@ -66,4 +69,18 @@ export function lightenDarkenColor(color, amount) {
 
 export function formatPercentage(percent) {
 	return percent ? `${percent.toFixed(2)} %` : ""
+}
+
+export function highlightMatchedStrings(str, pattern) {
+	const regExp = new RegExp(pattern, "gi")
+	const splits = str.split(regExp)
+	return [...splits]
+		.map((el, index) => {
+			if (index < splits.length - 1) {
+				return [el, <b>{pattern}</b>]
+			} else if (el !== "") {
+				return [el]
+			}
+		})
+		.reduce((a, b) => a.concat(b))
 }

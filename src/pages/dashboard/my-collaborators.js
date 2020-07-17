@@ -72,11 +72,6 @@ export function AddCollaboratorModal(props) {
 					<Button text="C'est parti !" />
 				</>
 			}
-		>
-			<Group
-				of="group"
-				style={{ width: 375, maxWidth: 560, alignSelf: "center" }}
-			></Group>
-		</DialogModal>
+		></DialogModal>
 	)
 }

@@ -37,6 +37,7 @@ import {
 import Pen from "../../svg/pen"
 import Trash from "../../svg/trash"
 import { Colors } from "../../theme"
+import AddCollaboratorDropdown from "../../smartsplit/components/add-collaborator-dropdown"
 
 export default function FormsTest() {
 	return (
@@ -71,16 +72,10 @@ export default function FormsTest() {
 }
 
 function TestSearchAndTag() {
-	const searchResults = [
-		"Lorem",
-		"Ipsum",
-		"Dolor",
-		"Rammstein",
-		"Blutengel",
-		"Machinae Supremacy",
-	]
+	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
 
-	const [search, setSearch] = useState("")
+	const [search1, setSearch1] = useState("")
+	const [search2, setSearch2] = useState("")
 	const [selected, setSelected] = useState([
 		"Lorem",
 		"Ipsum",
@@ -91,18 +86,28 @@ function TestSearchAndTag() {
 	])
 
 	return (
-		<SearchAndTag
-			label="Search and tag"
-			searchResults={searchResults}
-			searchInput={search}
-			onSearchChange={setSearch}
-			selectedItems={selected}
-			onSelect={(selection) => setSelected([...selected, selection])}
-			onUnselect={(selection) =>
-				setSelected(selected.filter((i) => i !== selection))
-			}
-			placeholder="Cherche pour tag"
-		/>
+		<Column of="component">
+			<SearchAndTag
+				label="Search and tag"
+				searchResults={searchResults}
+				searchInput={search1}
+				onSearchChange={setSearch1}
+				selectedItems={selected}
+				onSelect={(selection) => setSelected([...selected, selection])}
+				onUnselect={(selection) =>
+					setSelected(selected.filter((i) => i !== selection))
+				}
+				placeholder="Cherche pour tag"
+			/>
+			<AddCollaboratorDropdown
+				label="Add a collaborator"
+				searchResults={searchResults}
+				searchInput={search2}
+				onSearchChange={setSearch2}
+				onSelect={(selection) => console.log(selection)}
+				placeholder="Ajouter un collaborateur..."
+			/>
+		</Column>
 	)
 }
 

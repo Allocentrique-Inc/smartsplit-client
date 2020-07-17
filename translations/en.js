@@ -203,8 +203,8 @@ export const forms = {
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
-		artistName: "If not applicable, we will desplay the full name.",
 	},
+	createCollaborator: "Create a new collaborator"
 }
 
 export const login = {

@@ -7,9 +7,8 @@ import { Form, LabelText, TextField, CheckBox } from "../../forms"
 import { Text } from "../../text"
 import Button from "../../widgets/button"
 import { SearchAndTag } from "../../forms/search-and-tag"
-import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 
-export default function InviteNewUserModal(props) {
+export default function InviteModal(props) {
 	const [t] = useTranslation()
 
 	const { firstName, lastName, artistName, email, groups } = props

@@ -3,12 +3,9 @@ import { useTranslation } from "react-i18next"
 import { Platform } from "../../platform"
 import { Group, Flex, Row, Column } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
-import { TextField } from "../../forms"
 import Button from "../../widgets/button"
-import Label from "../../forms/label"
 
-import InviteNewUserModal from "../document/invite-new-user-modal"
-//import SendSplitModal from "../../pages/document/send-split-modal"
+import InviteModal from "../../smartsplit/rightholders/invite-modal"
 
 export default function TestsModals() {
 	const [t] = useTranslation()
@@ -25,7 +22,7 @@ export default function TestsModals() {
 				onClick={() => setInviteNewUserOpen(true)}
 			/>
 
-			<InviteNewUserModal
+			<InviteModal
 				visible={inviteNewUserOpen}
 				onRequestClose={() => setInviteNewUserOpen(false)}
 			/>

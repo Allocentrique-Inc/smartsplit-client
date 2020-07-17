@@ -205,8 +205,8 @@ export const forms = {
 		mainEmail: "Courriel principal",
 		setAsMain: "Définir comme principal",
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
-		artistName: "Si non applicable, nous affichons son nom complet.",
 	},
+	createCollaborator: "Créer un nouveau collaborateur"
 }
 
 export const login = {

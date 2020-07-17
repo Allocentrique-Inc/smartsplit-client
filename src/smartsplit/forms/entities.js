@@ -113,7 +113,7 @@ function toEntityData(initData, diff, entityType) {
 }
 
 export const EntityForm = forwardRef((props, ref) => {
-	const { entityId, entityType, onSubmit, mode, children } = props
+	const { entityId, entityType, onSubmit, mode } = props
 	const entity = useEntity(
 		entityId,
 		entityId ? null : getEmptyEntity(entityType)
