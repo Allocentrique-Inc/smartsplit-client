@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { mapFragment } from "../../../utils/react"
 import { Column, Row, Flex, Hairline } from "../../../layout"
@@ -6,24 +6,20 @@ import { Text, Heading, Paragraph } from "../../../text"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
 import ProgressBar from "../../../widgets/progress-bar"
-import {
-	CheckBox,
-	RadioGroup,
-	RadioGroupButton,
-	TextField,
-	Dropdown,
-} from "../../../forms"
+import { CheckBox, TextField, Dropdown } from "../../../forms"
 import UserAvatar from "../../../smartsplit/user/avatar"
-import Help from "../../../svg/help-circle-full"
 import RecordIcon from "../../../svg/record.js"
 import ChevronDown from "../../../svg/chevron-down.js"
 import PlusCircle from "../../../svg/plus-circle.js"
+import LockIcon from "../../../svg/lock.js"
+import UnlockIcon from "../../../svg/unlock.js"
+import HistoryIcon from "../../../svg/history.js"
 import { Colors, Metrics } from "../../../theme"
-import { TooltipIcon } from "../../../widgets/tooltip"
 import { getExampleNumber } from "libphonenumber-js"
 import { ProIdList } from "../../../smartsplit/components/pro-id-list"
+import DropdownList from "../../../smartsplit/components/dropdown-list"
 
-export default function RecordingPage({ workpiece }) {
+export default function RecordingPagePart2({ workpiece }) {
 	const [t] = useTranslation()
 	return (
 		<Layout
@@ -42,12 +38,12 @@ export default function RecordingPage({ workpiece }) {
 				</>
 			}
 		>
-			<RecordingForm />
+			<RecordingFormPart2 />
 		</Layout>
 	)
 }
 
-export function RecordingForm() {
+export function RecordingFormPart2() {
 	const [t] = useTranslation()
 
 	return (
@@ -64,21 +60,12 @@ export function RecordingForm() {
 				{mapFragment(t("rightSplits:paragraphs.body")(), (p) => (
 					<Text>{p}</Text>
 				))}
-
 				<Row padding="group" />
-				<TextField
-					placeholder={t("rightSplits:dropdown.addLabel")}
-					before={
-						<>
-							<PlusCircle color={Colors.action} />
-							<Row padding="tiny" />
-						</>
-					}
-					after={<ChevronDown />}
-				/>
+
+				<Card />
 				<Hairline />
-				<Card />
-				<Card />
+				<Card2 />
+				<Card2 />
 				<TextField
 					placeholder={t("rightSplits:dropdown.addCollab")}
 					before={
@@ -99,14 +86,14 @@ export function RecordingForm() {
 
 export function Card() {
 	const [t] = useTranslation()
-	const hasError = t("rightSplits:errors.function")
-
+	const hasError = t("rightSplits:errors.option")
+	const renew = t("rightSplits:dropdown.duration.renew")
 	return (
 		<Row layer="underground" of="component" padding="component">
 			<Column>
 				<UserAvatar initials="XX" size="small" />
 				<Flex />
-				<Help />
+				<LockIcon />
 			</Column>
 			<Column of="component" flex={1}>
 				<Text bold>
@@ -114,11 +101,134 @@ export function Card() {
 				</Text>
 				<Hairline />
 				<Dropdown
-					placeholder={t("rightSplits:dropdowns.function")}
+					placeholder={
+						<DropdownList title={t("rightSplits:dropdowns.agreement")} />
+					}
 					style={{ flex: 1 }}
 					noFocusToggle
 					error={hasError}
-				/>
+				>
+					<Column of="inside" layer="overground_moderate" padding="component">
+						<DropdownList
+							icon={<HistoryIcon />}
+							duration={t("rightSplits:dropdown.duration.oneYear")}
+							renew={renew}
+						/>
+						<DropdownList
+							icon={<HistoryIcon />}
+							duration={t("rightSplits:dropdown.duration.twoYears")}
+							renew={renew}
+						/>
+						<DropdownList
+							icon={<HistoryIcon />}
+							duration={t("rightSplits:dropdown.duration.threeYears")}
+							renew={renew}
+						/>
+						<DropdownList
+							icon={<HistoryIcon />}
+							duration={t("rightSplits:dropdown.duration.fourYears")}
+							renew={renew}
+						/>
+						<DropdownList
+							icon={<HistoryIcon />}
+							duration={t("rightSplits:dropdown.duration.fiveYears")}
+							renew={renew}
+						/>
+					</Column>
+				</Dropdown>
+				<Text bold>{t("rightSplits:notify")}</Text>
+				<Row>
+					<Flex flex={1}>
+						<CheckBox label={t("rightSplits:checkboxes.email")} />
+					</Flex>
+					<Flex flex={1}>
+						<CheckBox label={t("rightSplits:checkboxes.txt")} />
+					</Flex>
+				</Row>
+				<Row />
+
+				<Row valign="center" of="component">
+					<ProgressBar size="xsmall" progress={33} style={{ flex: 1 }} />
+					<Text bold>33%</Text>
+				</Row>
+			</Column>
+		</Row>
+	)
+}
+
+export function Card2(props) {
+	const [t] = useTranslation()
+	const hasError = t("rightSplits:errors.function")
+	const [role, setRole] = useState(null)
+	const [roleDefinition, setRoleDefinition] = useState(null)
+
+	return (
+		<Row layer="underground" of="component" padding="component">
+			<Column>
+				<UserAvatar initials="XX" size="small" />
+				<Flex />
+				<UnlockIcon />
+			</Column>
+			<Column of="component" flex={1}>
+				<Text bold>
+					Inscience <b>{t("rightSplits:toi")}</b>
+				</Text>
+				<Hairline />
+				<Dropdown
+					placeholder={
+						<DropdownList title={t("rightSplits:dropdown.function")} />
+					}
+					style={{ flex: 1 }}
+					noFocusToggle
+					error={hasError}
+				>
+					<Column of="inside" layer="overground_moderate" padding="component">
+						<DropdownList
+							role={t("rightSplits:dropdown.collaboratorsRecording.producer")}
+							roleDefinition={t(
+								"rightSplits:dropdown.collaboratorsRecording.producerDefinition"
+							)}
+						/>
+						<DropdownList
+							role={t(
+								"rightSplits:dropdown.collaboratorsRecording.autoProducer"
+							)}
+							roleDefinition={t(
+								"rightSplits:dropdown.collaboratorsRecording.autoProducerDefinition"
+							)}
+						/>
+						<DropdownList
+							role={t(
+								"rightSplits:dropdown.collaboratorsRecording.directorProducer"
+							)}
+							roleDefinition={t(
+								"rightSplits:dropdown.collaboratorsRecording.directorProducerDefinition"
+							)}
+						/>
+						<DropdownList
+							role={t(
+								"rightSplits:dropdown.collaboratorsRecording.techProducer"
+							)}
+							roleDefinition={t(
+								"rightSplits:dropdown.collaboratorsRecording.techProducerDefinition"
+							)}
+						/>
+						<DropdownList
+							role={t("rightSplits:dropdown.collaboratorsRecording.studio")}
+							roleDefinition={t(
+								"rightSplits:dropdown.collaboratorsRecording.studioDefinition"
+							)}
+						/>
+						<DropdownList
+							role={t(
+								"rightSplits:dropdown.collaboratorsRecording.illustratorDesigner"
+							)}
+							roleDefinition={t(
+								"rightSplits:dropdown.collaboratorsRecording.illustratorDesignerDefinition"
+							)}
+						/>
+					</Column>
+				</Dropdown>
 				<Row />
 
 				<Row valign="center" of="component">

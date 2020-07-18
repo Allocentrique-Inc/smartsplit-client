@@ -1,5 +1,7 @@
 import React from "react"
+import { TouchableWithoutFeedback } from "react-native"
 import Dropdown from "../widgets/dropdown"
+import { Layer } from "../layout"
 import Label from "./label"
 import Frame from "./frame"
 import { Metrics } from "../theme"
