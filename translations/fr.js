@@ -473,7 +473,7 @@ export const rightSplits = {
 		function: "Sélectionner une fonction...",
 		agreement: "Durée de l'entente...",
 		remove: "Retirer ce partage",
-		collaboratorsPerformance: {
+		status: {
 			artist: "Artiste principal",
 			artistDefinition: "Aussi appelé  « Artiste vedette ou  « Artiste solo ».",
 			artistInvited: () => (

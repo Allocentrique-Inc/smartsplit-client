@@ -467,7 +467,7 @@ export const rightSplits = {
 		function: "Select a function...",
 		agreement: "Duration of the agreement...",
 		remove: "Remove this split",
-		collaboratorsPerformance: {
+		status: {
 			artist: "Main artist",
 			artistDefinition: 'Also called "Starred Artist" or "Solo Artist"',
 			artistInvited: () => (
