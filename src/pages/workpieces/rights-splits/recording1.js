@@ -1,6 +1,7 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { mapFragment } from "../../../utils/react"
+import { View, StyleSheet } from "react-native"
 import { Column, Row, Flex, Hairline } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import Layout from "../layout"
