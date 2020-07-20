@@ -475,7 +475,8 @@ export const rightSplits = {
 		remove: "Retirer ce partage",
 		status: {
 			artist: "Artiste principal",
-			artistDefinition: "Aussi appelé  « Artiste vedette ou  « Artiste solo ».",
+			artistDefinition:
+				"Aussi appelé  « Artiste vedette » ou  « Artiste solo ».",
 			artistInvited: () => (
 				<>
 					Artiste invité (<i>featuring</i>)

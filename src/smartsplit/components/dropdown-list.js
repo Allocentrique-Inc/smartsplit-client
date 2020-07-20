@@ -23,9 +23,7 @@ export default function DropdownList(props) {
 				<Text secondary small>
 					{roleDefinition}
 				</Text>
-				<Row>
-					<Text>{duration}</Text>
-				</Row>
+				<Text>{duration}</Text>
 				<Text secondary small>
 					{renew}
 				</Text>

@@ -445,7 +445,7 @@ export const rightSplits = {
 				product to be commercialized.
 				{"\n"}
 				{"\n"}
-				It is common pratice to share this right in equal parts or in pro rata
+				It is common pratice to share this right in equal parts or in pro bono
 				of the investment.
 			</>
 		),
