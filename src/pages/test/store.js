@@ -1,8 +1,11 @@
-import React, { useReducer, useMemo, useEffect } from "react"
+import React, { useState, useReducer, useMemo, useEffect } from "react"
 import { useStore, useStorePath } from "../../appstate/react"
 import { Column, Row, Flex, Spacer, NoSpacer } from "../../layout"
 import { Text, Heading } from "../../text"
+import { TextField } from "../../forms"
 import Button from "../../widgets/button"
+
+import { useRightHolderSearch } from "../../appstate/react/right-holders"
 
 export default function StoreTestPage() {
 	return (
@@ -12,24 +15,9 @@ export default function StoreTestPage() {
 				<Spacer of="group" />
 			</NoSpacer>
 
-			<Incrementor />
 			<StoreDump />
-		</Column>
-	)
-}
-
-function Incrementor() {
-	const counter = useStorePath("test")
-
-	return (
-		<Column of="component">
-			<Heading level={3}>Test incrémentation</Heading>
-
-			<Row of="component">
-				<Text>Value: {counter.value}</Text>
-				<Flex />
-				<Button text="Incrémenter" onClick={counter.increment} />
-			</Row>
+			<RightHolders />
+			<Incrementor />
 		</Column>
 	)
 }
@@ -68,6 +56,39 @@ function StoreDump() {
 			<Text style={{ fontFamily: "monospace" }}>
 				{JSON.stringify(store, null, 4)}
 			</Text>
+		</Column>
+	)
+}
+
+function RightHolders() {
+	const [terms, setTerms] = useState("")
+	const results = useRightHolderSearch(terms)
+
+	return (
+		<Column of="component">
+			<Heading level={3}>Recherche des ayant-droits</Heading>
+			<TextField value={terms} onChangeText={setTerms} />
+			{results.map((rh) => (
+				<Text key={rh.rightHolder_id}>
+					{rh.firstName} {rh.lastName} ({rh.artistName})
+				</Text>
+			))}
+		</Column>
+	)
+}
+
+function Incrementor() {
+	const counter = useStorePath("test")
+
+	return (
+		<Column of="component">
+			<Heading level={3}>Test incrémentation</Heading>
+
+			<Row of="component">
+				<Text>Value: {counter.value}</Text>
+				<Flex />
+				<Button text="Incrémenter" onClick={counter.increment} />
+			</Row>
 		</Column>
 	)
 }

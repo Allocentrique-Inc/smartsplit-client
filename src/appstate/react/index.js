@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useContext } from "react"
-import { Observable } from "./store"
+import { Observable } from "../store"
 import deepEqual from "deep-equal"
 
 const Context = React.createContext()
