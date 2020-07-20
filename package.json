@@ -27,7 +27,7 @@
 		"react": "16.11.0",
 		"react-dom": "16.11.0",
 		"react-i18next": "^11.3.4",
-		"react-native": "https://github.com/expo/react-native/archive/sdk-38.0.0.tar.gz",
+		"react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
 		"react-native-locale-detector": "^1.0.1",
 		"react-native-svg": "12.1.0",
 		"react-native-svg-transformer": "^0.14.3",
