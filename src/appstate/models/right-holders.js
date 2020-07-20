@@ -4,15 +4,20 @@ import { searchRightHolders } from "../../../api/right-holders"
 export class RightHolders extends Observable {
 	constructor() {
 		super()
-		this.rightHolders = {}
-		this.version = 0
+
+		Object.defineProperty(this, "version", {
+			enumerable: false,
+			configurable: false,
+			writable: true,
+			value: 0,
+		})
 	}
 
 	async doSearch(terms) {
 		const results = await searchRightHolders(terms)
 
 		for (let rh of results) {
-			this.rightHolders[rh.rightHolder_id] = rh
+			this[rh.rightHolder_id] = rh
 		}
 
 		this.version++
@@ -24,7 +29,7 @@ export class RightHolders extends Observable {
 		terms = terms.split(" ").map((term) => new RegExp(term, "i"))
 		const output = []
 
-		return Object.values(this.rightHolders)
+		return Object.values(this)
 			.map((rh) => {
 				rh = { data: rh, score: 0 }
 
