@@ -30,9 +30,9 @@ export class RightHolders extends Observable {
 
 				for (let term of terms) {
 					rh.score +=
-						scoreTerm(rh.data.artistName, term) * 1.5 +
-						scoreTerm(rh.data.firstName, term) * 1.2 +
-						scoreTerm(rh.data.lastName, term) * 1.0
+						scoreTerm(rh.data.artistName || "", term) * 1.5 +
+						scoreTerm(rh.data.firstName || "", term) * 1.2 +
+						scoreTerm(rh.data.lastName || "", term) * 1.0
 				}
 
 				return rh
