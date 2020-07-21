@@ -1,21 +1,18 @@
 import { useEffect, useMemo } from "react"
 import { useStorePath } from "."
 
-export const SEARCH_DELAY = 1000
-export const SEARCH_MIN_CHARS = 2
-
-export function useRightHolderSearch(terms) {
+export function useRightHolderSearch(terms, searchDelay = 1000, minChars = 2) {
 	const rightHolders = useStorePath("rightHolders")
 	let hasSearched = false
 
 	function doSearch() {
-		if (hasSearched || terms.length < SEARCH_MIN_CHARS) return
+		if (hasSearched || terms.length < minChars) return
 		hasSearched = true
 		rightHolders.doSearch(terms)
 	}
 
 	useEffect(() => {
-		const timeout = setTimeout(doSearch, SEARCH_DELAY)
+		const timeout = setTimeout(doSearch, searchDelay)
 		return () => {
 			clearTimeout(timeout)
 		}
@@ -23,7 +20,7 @@ export function useRightHolderSearch(terms) {
 
 	useEffect(() => {
 		doSearch()
-	}, [terms.length > SEARCH_MIN_CHARS])
+	}, [terms.length > minChars])
 
 	return useMemo(
 		function () {
