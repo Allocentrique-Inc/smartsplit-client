@@ -136,9 +136,10 @@ export function AdminList(props) {
 			}
 			animate
 		>
-			{newChildren}
+			{Array.from(newChildren.values())}
 		</CollapsableList>
 	) : (
-		<List title={title && renderTitle()}>{newChildren}</List>
-	)
+		<List title={title && renderTitle()}>
+			{Array.from(newChildren.values())}
+		</List>	)
 }

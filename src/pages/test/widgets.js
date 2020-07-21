@@ -18,7 +18,7 @@ import SplitChart, {
 
 export default function WidgetTest() {
 	return (
-		<Column of="group" align="center">
+		<Column of="group">
 			<PieChartTests />
 			<AdminListTest />
 		</Column>
@@ -77,7 +77,7 @@ function PieChartTests() {
 		},
 	]
 	return (
-		<Column of="group">
+		<Column of="group" align="center">
 			<PieChart data={data} size={512} />
 			<SplitChart data={data} />
 			<DualSplitChart
