@@ -6,6 +6,7 @@ export default function SplitSummary({ workpiece }) {
 	return (
 		<Section>
 			<h2>Valider le split de {workpiece}</h2>
+			xoxox
 		</Section>
 	)
 }
