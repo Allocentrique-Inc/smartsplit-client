@@ -389,6 +389,31 @@ export const admin = {
 	},
 }
 
+export const summary = {
+	validate: (workpiece) => <>Valider le split de {workpiece}</>,
+	create: (user) => <>Crée par {user}</>,
+	update: () => <>Mis à jour il y a</>,
+	artistName: (artistName) => <>Créee par {artistName}</>,
+	version: "Version 1",
+
+	sections: {
+		copyright: "Droits d'auteur",
+		performance: "Interprétation",
+		recording: "Enregistrement sonore",
+		confidentiality: "Confidentialité",
+	},
+
+	voteStatus: {
+		onHold: "En attente de décision",
+		approved: "Approuvé",
+		onGoing: "En attente d'envoi",
+	},
+
+	public: (artistName) => (
+		<>{artistName} veut rendre ce partage de droits public</>
+	),
+}
+
 export const newUserInvite = {
 	title: "[Add/Modify] a Collaborating Artist",
 	checkboxTitle: "Rôle(s) par défaut",
