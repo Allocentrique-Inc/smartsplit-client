@@ -31,7 +31,6 @@ import { MailList } from "../../smartsplit/components/mail-list"
 import { ProIdList } from "../../smartsplit/components/pro-id-list"
 import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 import { Colors } from "../../theme"
-
 import AddCollaboratorDropdown from "../../smartsplit/components/add-collaborator-dropdown"
 
 export default function FormsTest() {

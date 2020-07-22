@@ -6,24 +6,32 @@ import Scrollable from "../widgets/scrollable"
 import { Navbar } from "../smartsplit/components/navbar"
 import { Metrics } from "../theme"
 
-const LayoutStyle = StyleSheet.create({
-	inner_container: {
+const Styles = StyleSheet.create({
+	innerContainer: {
 		maxWidth: Metrics.maxContentWidth,
 		width: "100%",
 		flex: 1,
 		alignSelf: "center",
+		paddingRight: Metrics.spacing.small,
+	},
+	outerContainer: {
+		height: "100%",
 	},
 })
 
-export default function SubScreenLayout(props) {
-	const { title, onBack, actions, children } = props
-
+export default function SubScreenLayout({
+	title,
+	onBack,
+	actions,
+	style,
+	children,
+}) {
 	return (
-		<>
+		<Column style={[Styles.outerContainer, style]}>
 			<Navbar title={title} onBack={onBack} actions={actions} />
 			<Scrollable>
-				<Column style={LayoutStyle.inner_container}>{children}</Column>
+				<Column style={Styles.innerContainer}>{children}</Column>
 			</Scrollable>
-		</>
+		</Column>
 	)
 }

@@ -6,7 +6,7 @@ import { Column, Row } from "../../layout"
 import { Text } from "../../text"
 import { Button } from "../../widgets/button"
 import ProgressBar from "../../widgets/progress-bar"
-import Cover from "../media/cover"
+import AlbumArt from "../media/albumArt"
 import WorkStyles from "./styles"
 
 import OverflowMenuIcon from "../../svg/overflow-menu"
@@ -14,14 +14,12 @@ import OverflowMenuIcon from "../../svg/overflow-menu"
 export default function MediaWorkRow(props) {
 	const history = useHistory()
 	const dateRel = moment(props.creationDate).fromNow()
-
 	function navigateToSummary() {
 		history.push("/workpieces/" + props.workpiece_id)
 	}
-
 	return (
 		<View style={[WorkStyles.dashboard_row, props.style]}>
-			<Cover style={WorkStyles.dashboard_row_cover} />
+			<AlbumArt style={WorkStyles.dashboard_row_cover} />
 
 			<Column style={WorkStyles.dashboard_row_title}>
 				<Row of="tiny" style={{ alignItems: "center" }}>

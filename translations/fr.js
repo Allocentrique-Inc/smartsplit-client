@@ -55,6 +55,7 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
+		toConsult: "Consulter"
 	},
 }
 
@@ -387,14 +388,25 @@ export const admin = {
 	delete: "Supprimer",
 	edit: "Modifier",
 	confirmEntityDeletion: "Attention, l'entité suivante va être supprimée.",
-
-	entityAttributes: {
-		name: "Nom",
-	},
 }
 
 export const newUserInvite = {
 	title: "[Ajouter/Modifier] un artiste collaborateur",
 	checkbox: "Default Role(s)",
 	checkboxUndertext: "Ces rôles pourront toujours être modifiés plus tard.",
+}
+
+export const workpieces = {
+	original: "Pièce originale",
+	remake: "Reprise",
+	addedBy: "Ajoutée par",
+	updated: (time) => `Mis à jour il y a ${time}`,
+	tasks: "Tâches",
+	files: "Fichiers",
+	cards: {
+		shareYourCopyright: {
+			title: "Partage tes droits",
+			desc: "Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
+		}
+	}
 }

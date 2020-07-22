@@ -25,6 +25,7 @@ export default function TestDashboard() {
 					text: "Admin",
 					to: "/admin",
 				},
+				{ text: "Workpiece summary", to: "/workpiece" },
 			]}
 		>
 			<Scrollable>

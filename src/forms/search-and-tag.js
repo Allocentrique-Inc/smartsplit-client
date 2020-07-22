@@ -7,19 +7,28 @@ import { Tag } from "../widgets/tag"
 import Autocomplete from "./autocomplete"
 import Search from "../../assets/svg/search.svg"
 
-const SearchAndTagStyle = StyleSheet.create({
-	tag_container: {
-		paddingRight: -Metrics.size.small,
-		paddingBottom: -Metrics.size.small,
+const Styles = StyleSheet.create({
+	tag: {
+		marginRight: Metrics.spacing.small,
+		marginBottom: Metrics.spacing.small,
+	},
+	tagContainer: {
+		marginRight: -Metrics.spacing.small,
+		marginBottom: -Metrics.spacing.small,
 	},
 })
 
 export function SearchAndTag({ selectedItems, onUnselect, ...nextProps }) {
 	function renderSelectedItems() {
 		return (
-			<Row of="none" wrap style={SearchAndTagStyle.tag_container}>
+			<Row wrap style={Styles.tagContainer}>
 				{selectedItems.map((item) => (
-					<Tag dismissible key={item} onClick={() => onUnselect(item)}>
+					<Tag
+						dismissible
+						key={item}
+						onClick={() => onUnselect(item)}
+						style={Styles.tag}
+					>
 						{typeof item === "string" ? (
 							<Text>{item}</Text>
 						) : (
@@ -30,6 +39,7 @@ export function SearchAndTag({ selectedItems, onUnselect, ...nextProps }) {
 			</Row>
 		)
 	}
+
 	return (
 		<Column of="component">
 			<Autocomplete icon={Search} {...nextProps} />

@@ -141,5 +141,6 @@ export function AdminList(props) {
 	) : (
 		<List title={title && renderTitle()}>
 			{Array.from(newChildren.values())}
-		</List>	)
+		</List>
+	)
 }
