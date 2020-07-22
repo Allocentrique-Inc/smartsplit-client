@@ -1,6 +1,7 @@
 import React from "react"
+import { Switch, Route } from "react-router"
 import CopyrightPage from "./copyright"
-import SplitSummary from "../../document/split-summary"
+import SplitSummary from "./summary"
 
 export default function (props) {
 	return (
@@ -9,7 +10,7 @@ export default function (props) {
 				<CopyrightPage {...props} />
 			</Route>
 
-			<Route path="/split-summary">
+			<Route path="/workpieces/summary">
 				<SplitSummary />
 			</Route>
 		</Switch>

@@ -58,6 +58,28 @@ export default function WorkpieceLayout({
 	)
 }
 
+export function SummaryLayout(props) {
+	const { buttons, children } = props
+	return (
+		<Column flex={1}>
+			<Scrollable flex={1}>
+				<Column
+					of="group"
+					margin="section"
+					style={{ maxWidth: 432, alignSelf: "left" }}
+				>
+					{children}
+				</Column>
+			</Scrollable>
+			<Hairline />
+
+			<Row padding="component" align="center">
+				<Row style={{ maxWidth: 944, flex: 1 }}>{buttons}</Row>
+			</Row>
+		</Column>
+	)
+}
+
 function PathSpacer({ of }) {
 	return (
 		<View
