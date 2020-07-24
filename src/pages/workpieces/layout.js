@@ -1,5 +1,6 @@
 import React from "react"
 import { View } from "react-native"
+import { useSubpath } from "../../appstate/react"
 import { Column, Row, Spacer, Flex, Hairline } from "../../layout"
 import Scrollable from "../../widgets/scrollable"
 import { Text } from "../../text"
@@ -12,7 +13,7 @@ import { useStorePath } from "../../appstate/react"
 import { Metrics } from "../../theme"
 
 export default function WorkpieceLayout({
-	workpiece = {},
+	workpiece,
 	path = [],
 	actions,
 	progress = 0,
@@ -23,7 +24,7 @@ export default function WorkpieceLayout({
 		<Column flex={1}>
 			<Row of="component" padding="component" valign="center">
 				<Cover />
-				<Text bold>{workpiece.title}</Text>
+				<Text bold>{useSubpath(workpiece, "data", "title")}</Text>
 				<Spacer size="section" />
 				{React.createElement(
 					Row,

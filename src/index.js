@@ -31,6 +31,8 @@ export default function Main(props) {
 	const store = useMemo(() => createAppStore(), [])
 	const isLoggedIn = useSubpath(store, "auth", "isLoggedIn")
 
+	setGlobalAccessToken(store.auth.accessToken)
+
 	useEffect(() => {
 		setGlobalErrorHandler((e) => store.auth.logout(e))
 

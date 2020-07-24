@@ -1,5 +1,6 @@
 import React, { useRef } from "react"
 import { useHistory } from "react-router"
+import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 
 import { Row, Column, Flex, Hairline } from "../../../layout"
@@ -7,7 +8,8 @@ import { Form, RadioGroup, RadioGroupButton, FileField } from "../../../forms"
 import { Heading, Paragraph, Text } from "../../../text"
 import Button from "../../../widgets/button"
 
-export default function ProtectWork({ workpiece }) {
+export default function ProtectWork() {
+	const workpiece = useCurrentWorkpiece()
 	const history = useHistory()
 	const form = useRef()
 

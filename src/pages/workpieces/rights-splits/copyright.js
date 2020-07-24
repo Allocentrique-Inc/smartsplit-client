@@ -1,4 +1,6 @@
 import React from "react"
+import { useHistory } from "react-router"
+import { useCurrentWorkpiece } from "../context"
 import { Column, Row, Flex, Hairline } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import Layout from "../layout"
@@ -8,13 +10,21 @@ import { CheckBox, RadioGroup, RadioGroupButton } from "../../../forms"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import Help from "../../../svg/help-circle-full"
 
-export default function CopyrightPage({ workpiece }) {
+export default function CopyrightPage() {
+	const history = useHistory()
+	const workpiece = useCurrentWorkpiece()
+
+	function saveAndQuit() {
+		history.push("/dashboard/")
+	}
+
 	return (
 		<Layout
 			workpiece={workpiece}
-			title="[Nom de la pièce musicale]"
-			path={["Partage de droits", "Nom de la page"]}
-			actions={<Button tertiary text="Sauvegarder et fermer" />}
+			path={["Partage de droits", "Droits d'auteur"]}
+			actions={
+				<Button tertiary text="Sauvegarder et fermer" onClick={saveAndQuit} />
+			}
 			formNav={
 				<>
 					<Row flex={1}>
