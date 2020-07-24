@@ -2,11 +2,11 @@ import { Observable } from "../store"
 import { createCrudObservable, createEntityListObservable } from "../utils/api"
 import UsersCrudAPI from "../../../api/users"
 
-const UserObservable = createCrudObservable(UsersCrudAPI)
+const UserObservable = createCrudObservable(UsersCrudAPI, "user_id")
 
 export class User extends UserObservable {
-	constructor(id, initData = null) {
-		super(id, initData)
+	constructor(id, initData = null, initState = null) {
+		super(id, initData, (initState = null))
 	}
 
 	setData(data) {
@@ -14,6 +14,6 @@ export class User extends UserObservable {
 	}
 }
 
-const UserListObservable = createEntityListObservable(User, "User")
+const UserListObservable = createEntityListObservable(User, "user_id")
 
 export class UserList extends UserListObservable {}

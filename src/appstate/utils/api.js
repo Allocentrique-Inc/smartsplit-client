@@ -1,13 +1,13 @@
 import { Observable } from "../store"
 
-export function createCrudObservable(EntityApi) {
+export function createCrudObservable(EntityApi, idField = "id") {
 	class CrudApiObservable extends Observable {
-		constructor(id, initData = null) {
+		constructor(id, initData = null, initState = null) {
 			super()
 
 			this.id = id
 			this.data = initData || {}
-			this.state = id ? "undefined" : "new"
+			this.state = initState || (id ? "undefined" : "new")
 			this.error = null
 		}
 
@@ -46,7 +46,7 @@ export function createCrudObservable(EntityApi) {
 				this.set({
 					state: finishedState,
 					data: { ...this.data, ...result_data },
-					id: result_data.workpiece_id || this.data.workpiece_id || this.id,
+					id: result_data[idField] || this.data[idField] || this.id,
 				})
 
 				return result_data
@@ -83,7 +83,7 @@ export function createCrudObservable(EntityApi) {
 	return CrudApiObservable
 }
 
-export function createEntityListObservable(Entity) {
+export function createEntityListObservable(Entity, idField = "id") {
 	return class extends Observable {
 		constructor() {
 			super()
@@ -92,6 +92,7 @@ export function createEntityListObservable(Entity) {
 		get(id, initData = null) {
 			if (!this[id]) {
 				this[id] = new Entity(id, initData)
+				this.notify("add", [this[id]])
 			}
 
 			return this[id]
@@ -101,6 +102,7 @@ export function createEntityListObservable(Entity) {
 			if (!this[id]) {
 				this[id] = new Entity(id, initData)
 				this[id].read()
+				this.notify("add", [this[id]])
 			}
 
 			return this[id]
@@ -124,6 +126,7 @@ export function createEntityListObservable(Entity) {
 				}
 
 				this[model.id] = model
+				this.notify("add", [model])
 				unsubscribe()
 			})
 
