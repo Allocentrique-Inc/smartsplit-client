@@ -19,11 +19,13 @@ export const ModalStyles = StyleSheet.create({
 		top: 0,
 		right: 0,
 		bottom: 0,
+		flexDirection: "row",
 	},
 
 	container: {
 		maxWidth: "90%",
 		maxHeight: "90%",
+		flex: 1,
 	},
 
 	forceScroll: {
@@ -35,7 +37,7 @@ export const ModalStyles = StyleSheet.create({
 		maxWidth: 624,
 		minWidth: 280,
 		borderRadius: Metrics.borderRadius.modals,
-		maxHeight: "100%",
+		maxHeight: "90%",
 	},
 
 	header: {
@@ -59,7 +61,7 @@ export const ModalStyles = StyleSheet.create({
 
 export class Modal extends React.PureComponent {
 	render() {
-		const { layer, children, ...nextProps } = this.props
+		const { layer, children, size, ...nextProps } = this.props
 
 		return (
 			<Overlay {...nextProps}>
@@ -75,6 +77,7 @@ export class Modal extends React.PureComponent {
 							LayerStyles[layer || "modal"],
 							MetricsStyles.components.group,
 							ModalStyles.container,
+							ModalStyles[size || "medium"],
 						]}
 					>
 						{children}
@@ -86,11 +89,11 @@ export class Modal extends React.PureComponent {
 }
 
 export function DialogModal(props) {
-	const { title, buttons, size, children, ...nextProps } = props
+	const { title, buttons, children, ...nextProps } = props
 
 	return (
 		<Modal {...nextProps}>
-			<Column style={[ModalStyles[size || "medium"], ModalStyles.sizeLimits]}>
+			<Column>
 				<Row
 					of="component"
 					layer="overground_moderate"
