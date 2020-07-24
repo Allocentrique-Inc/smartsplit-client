@@ -1,6 +1,7 @@
 import React from "react"
 import moment from "moment"
 import { View } from "react-native"
+import { useHistory } from "react-router"
 import { Column, Row } from "../../layout"
 import { Text } from "../../text"
 import { Button } from "../../widgets/button"
@@ -11,7 +12,12 @@ import WorkStyles from "./styles"
 import OverflowMenuIcon from "../../svg/overflow-menu"
 
 export default function MediaWorkRow(props) {
+	const history = useHistory()
 	const dateRel = moment(props.creationDate).fromNow()
+
+	function navigateToSummary() {
+		history.push("/workpieces/" + props.workpiece_id)
+	}
 
 	return (
 		<View style={[WorkStyles.dashboard_row, props.style]}>
@@ -39,7 +45,7 @@ export default function MediaWorkRow(props) {
 				<ProgressBar size="tiny" progress={props.progress} />
 			</Column>
 
-			<Button secondary text="Continuer" onClick={() => Alert.alert("Test!")} />
+			<Button secondary text="Continuer" onClick={navigateToSummary} />
 			<Button icon={<OverflowMenuIcon />} />
 		</View>
 	)

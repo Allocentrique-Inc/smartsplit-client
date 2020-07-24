@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router"
 import { Platform, View, StyleSheet } from "react-native"
+import { useStorePath } from "../../appstate/react"
 
 import { Row, Column, Group, Flex, Hairline } from "../../layout"
 import { Heading } from "../../text"
@@ -58,14 +59,22 @@ export default function MyWorksPage() {
 }
 
 export function MyWorksTab(props) {
+	const workpieces = useStorePath("workpieces")
+	const user = useStorePath("auth", "user")
+
+	useEffect(() => {
+		workpieces
+			.fetchForUser(user)
+			.catch((e) =>
+				console.error("Failed to refresh workpieces for user", user, e)
+			)
+	}, [user, workpieces])
+
 	return (
 		<Column of="none" spacer={Hairline}>
-			{demo1}
-			{demo2}
-			{demo3}
-			{demo1}
-			{demo2}
-			{demo3}
+			{workpieces.ownedByUser(user).map((wp) => (
+				<MediaWorkRow {...wp.data} key={wp.id} />
+			))}
 		</Column>
 	)
 }

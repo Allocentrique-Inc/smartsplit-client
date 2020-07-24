@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router"
+import { useStorePath } from "../../appstate/react"
 import ACRCloudModal from "./acrcloud-modal"
 import { DialogModal } from "../../widgets/modal"
 import { Button } from "../../widgets/button"
@@ -16,41 +17,62 @@ import RightHolderTag from "../rightholders/tag"
 
 export default function CreateWorkModal(props) {
 	const history = useHistory()
+	const workpieces = useStorePath("workpieces")
+
 	const [acrModal, setAcrModal] = useState(false)
 	const [workName, setWorkName] = useState("")
 	const [workType, setWorkType] = useState(null)
 	const [workOriginalArtist, setWorkOriginalArtist] = useState("")
+
+	const [isSaving, setIsSaving] = useState(false)
+	const [error, setError] = useState(null)
 
 	const workArtistLabel =
 		workType === "remix" || workType === "cover"
 			? `${workName} (${workOriginalArtist}), remixé par`
 			: `${workName}, par`
 
-	function next() {
-		setAcrModal(true)
+	async function next() {
+		setIsSaving(true)
+		const wp = workpieces.create({ title: workName })
+
+		try {
+			await wp.save()
+			history.push("/workpieces/" + wp.id)
+		} catch (e) {
+			console.error("Failed to save workpiece:", e)
+			setError(e.message)
+		} finally {
+			setIsSaving(false)
+		}
 	}
 
 	return (
 		<DialogModal
 			key="create-work"
+			size="medium"
 			visible={props.visible}
 			onRequestClose={props.onRequestClose}
 			title="Créer une pièce musicale"
 			buttons={
 				<>
 					<Button tertiary text="Annuler" onClick={props.onRequestClose} />
-					<Button text="C'est parti!" onClick={next} />
+					<Button
+						text="C'est parti!"
+						onClick={next}
+						disabled={!workName.length || isSaving}
+					/>
 				</>
 			}
 		>
-			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}>
+			<Group of="group">
 				<TextField
 					value={workName}
 					onChangeText={setWorkName}
 					label="Titre de la pièce musicale"
 					undertext="Ne pas include de « featuring » dans le titre"
 				/>
-
+				{/*
 				<RadioGroup
 					label="Cette oeuvre est..."
 					value={workType}
@@ -93,14 +115,16 @@ export default function CreateWorkModal(props) {
 							<RightHolderTag name="Alex A" initials="AA" />
 						</Row>
 					</Column>
-				)}
+				)}*/}
+
+				{error && <Text error>{error}</Text>}
 			</Group>
 
-			<ACRCloudModal
+			{/*<ACRCloudModal
 				visible={acrModal}
 				onRequestClose={() => setAcrModal(false)}
 				onValidate={() => setAcrModal(false)}
-			/>
+			/>*/}
 		</DialogModal>
 	)
 }
