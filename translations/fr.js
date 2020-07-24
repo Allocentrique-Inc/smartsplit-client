@@ -206,7 +206,7 @@ export const forms = {
 		setAsMain: "Définir comme principal",
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
 	},
-	createCollaborator: "Créer un nouveau collaborateur"
+	createCollaborator: "Créer un nouveau collaborateur",
 }
 
 export const login = {
@@ -266,8 +266,8 @@ export const newUser = {
 
 export const dashboard = {
 	title: "Mes pièces musicales",
-	shared: "Mes ajouts",
-	added: "Partagées avec moi",
+	shared: "Partagées avec moi",
+	added: "Mes ajouts",
 }
 
 export const settings = {
