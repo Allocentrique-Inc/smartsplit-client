@@ -54,7 +54,8 @@ export const general = {
 		addUsername: "Ajouter un identifiant",
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
-		toRefuse: "Refuser",
+		toDecline: "Refuser",
+		send: "Envoyer mon vote",
 	},
 }
 
@@ -554,6 +555,7 @@ export const roles = {
 export const summary = {
 	validate: (workpiece) => <>Valider le split de {workpiece}</>,
 	create: (user) => <>Crée par {user}</>,
+	pieceCreate: "Créee par",
 	update: () => <>Mis à jour il y a</>,
 	artistName: (artistName) => <>Créee par {artistName}</>,
 	version: "Version 1",
@@ -566,14 +568,15 @@ export const summary = {
 	},
 
 	voteStatus: {
-		onHold: "En attente de décision",
+		pending: "En attente de décision",
 		approved: "Approuvé",
 		onGoing: "En attente d'envoi",
 	},
 
 	public: (artistName) => (
-		<>{artistName} veut rendre ce partage de droits public</>
+		<>{artistName} veut rendre ce partage de droits public </>
 	),
+	requiredVote: "vote requis",
 }
 
 export const newUserInvite = {

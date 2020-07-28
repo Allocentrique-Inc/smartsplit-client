@@ -59,24 +59,27 @@ export default function WorkpieceLayout({
 }
 
 export function SummaryLayout(props) {
-	const { buttons, children } = props
+	const { buttons, children, vote } = props
 	return (
-		<Column flex={1}>
+		<>
 			<Scrollable flex={1}>
-				<Column
-					of="group"
-					margin="section"
-					style={{ maxWidth: 432, alignSelf: "left" }}
-				>
-					{children}
+				<Column flex={1} of="group" margin="section">
+					<Column style={{ maxWidth: 880, alignSelf: "center" }}>
+						{children}
+					</Column>
 				</Column>
 			</Scrollable>
 			<Hairline />
-
-			<Row padding="component" align="center">
-				<Row style={{ maxWidth: 944, flex: 1 }}>{buttons}</Row>
-			</Row>
-		</Column>
+			<Column>
+				<Row padding="component" align="center">
+					<Row style={{ maxWidth: 880, flex: 1 }}>
+						{vote}
+						<Flex />
+						{buttons}
+					</Row>
+				</Row>
+			</Column>
+		</>
 	)
 }
 

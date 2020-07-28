@@ -1,410 +1,347 @@
-import React from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { SummaryLayout } from "../layout"
-import {
-	Section,
-	Group,
-	Hairline,
-	Flex,
-	Row,
-	Column,
-	Spacer,
-} from "../../../layout"
+import { Hairline, Flex, Row, Column, Spacer } from "../../../layout"
 import { Text, Heading } from "../../../text"
 import Button from "../../../widgets/button"
+import { DualSplitChart } from "../../../smartsplit/components/split-chart"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import EyeIcon from "../../../svg/eye"
 import Help from "../../../svg/help-circle-full"
+import { Colors } from "../../../theme"
 
-export default function SplitSummary({ user, workpiece, artistName }) {
+const SummaryContainer = {
+	borderColor: Colors.stroke,
+	border: "1px solid",
+	borderRadius: "4px",
+	width: "auto",
+	display: "block",
+	width: "944px",
+}
+
+export default function SplitSummary({ workpiece }) {
 	const [t] = useTranslation()
 	return (
 		<SummaryLayout
+			vote={
+				<Text secondary normal>
+					3/3 {t("summary:requiredVote")}
+				</Text>
+			}
 			buttons={
 				<>
-					<Button primary text="Envoyer mon vote" />
+					<Button primary text={t("general:buttons.send")} />
 				</>
 			}
 		>
-			<Column of="group">
-				<Column of="tiny">
-					<Heading level="2">Valider le split de {workpiece}</Heading>
-					<Text secondary normal>
-						Crée par {user} · Mis à jour il y a
-					</Text>
-					<Spacer of="section" />
+			<Column of="tiny">
+				<Heading level="2">
+					{t("summary:validate")} {workpiece}
+				</Heading>
+				<Text secondary normal>
+					{t("summary:create")} · {t("summary:update")}
+				</Text>
+				<Spacer of="section" />
 
-					<Heading level="5">Version 1</Heading>
-					<Text secondary normal>
-						Créee par {artistName}
-					</Text>
+				<Heading level="5">Version 1</Heading>
+				<Text secondary normal>
+					{t("summary:pieceCreate")}
+				</Text>
+				<Spacer of="group" />
+
+				<Column style={SummaryContainer}>
+					<Row flex={1}>
+						<Column>
+							<CopyrightSection />
+							<PerformanceSection />
+							<RecordingSection />
+							<ConfidentialitySection />
+						</Column>
+						<Column>{/* <DualSplitChart /> */}</Column>
+					</Row>
 				</Column>
-				<CopyrightSection />
-				<PerformanceSection />
-				<RecordingSection />
-				<ConfidentialitySection />
 			</Column>
 		</SummaryLayout>
 	)
 }
 
-export function CopyrightSection() {
-	return (
-		<Column of="component" padding="group">
-			<Heading level="5">Droits d'auteur</Heading>
-			<Hairline />
+export function SplitRightHolderRow(props) {
+	const [t] = useTranslation()
+	const { header, rightHolder, roles, splitPercent, showVoting } = props
+	const voteStatusTranslation = {
+		pending: t("summary:voteStatus.pending"),
+		approved: t("summary:voteStatus.approved"),
+		onGoing: t("summary:voteStatus.onGoing"),
+	}
 
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text normal>Quest Love</Text>
+	return (
+		<>
+			<Column of="inside">
+				<Heading level="5">{header}</Heading>
+				<Hairline />
+
+				<Row of="component" flex={1}>
+					<Column>
+						<UserAvatar size="small" user={rightHolder} />
 						<Flex />
-						<Text bold>88,8%</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text secondary normal>
-							En attente de décision
+					</Column>
+					<Column of="component" flex={1}>
+						<Row of="component">
+							{showVoting === true ? (
+								<Text normal>{rightHolder.artistName}</Text>
+							) : (
+								<Text secondary normal>
+									{rightHolder.artistName}
+								</Text>
+							)}
 							<Flex />
-						</Text>
-					</Row>
-					<Row>
-						<Button danger text="Refuser" />
-						<Flex />
-						<Button primary bold text="Accepté" />
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							Inscience
-						</Text>
-						<Flex />
-						<Text bold secondary>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text bold action>
-							Approuvé
+							{showVoting === true ? (
+								<Text bold>{splitPercent}%</Text>
+							) : (
+								<Text bold secondary>
+									{splitPercent}%
+								</Text>
+							)}
+							{/* <Text bold={showVoting}>{splitPercent}</Text> */}
+						</Row>
+						<Row of="component" flex={1}>
+							<Text secondary normal>
+								{roles.join(", ")}
+							</Text>
 							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							Erykah Badu
-						</Text>
-						<Flex />
-						<Text bold secondary>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text secondary normal>
-							En attente d'envoi
-							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							J-Zone
-						</Text>
-						<Flex />
-						<Text bold secondary>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text secondary normal>
-							En attente d'envoi
-							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							Ringo Starr
-						</Text>
-						<Flex />
-						<Text bold secondary>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text secondary normal>
-							En attente d'envoi
-							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
+
+							{props.voteStatus === "approved" ? (
+								<Text bold action>
+									{voteStatusTranslation[props.voteStatus]}
+								</Text>
+							) : (
+								<Text secondary normal>
+									{voteStatusTranslation[props.voteStatus]}
+								</Text>
+							)}
+						</Row>
+						<Row of="component">{props.buttons}</Row>
+					</Column>
+				</Row>
+			</Column>
+		</>
+	)
+}
+
+export function CopyrightSection() {
+	const [t] = useTranslation()
+
+	return (
+		<Column padding="group">
+			<SplitRightHolderRow
+				header={t("summary:sections.copyright")}
+				rightHolder={{
+					avatarUrl: "#",
+					artistName: "Quest Love",
+				}}
+				roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+				vote="accepted"
+				showVoting={true}
+				voteStatus="pending"
+				splitPercent={88.8}
+				buttons={
+					<>
+						<Button
+							style={{ flex: 1 }}
+							danger
+							text={t("general:buttons.toDecline")}
+							onVoteReject={() => alert("reject")}
+						/>
+
+						<Button
+							style={{ flex: 1 }}
+							primary
+							bold
+							text={t("general:buttons.toAccept")}
+							onVoteAccept={() => alert("accept")}
+						/>
+					</>
+				}
+			/>
+
+			<SplitRightHolderRow
+				rightHolder={{
+					avatarUrl: "#",
+					artistName: "Inscience",
+				}}
+				roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+				vote="accepted"
+				voteStatus="approved"
+				splitPercent={88.8}
+			/>
+
+			<SplitRightHolderRow
+				rightHolder={{
+					avatarUrl: "#",
+					artistName: "Erykah Badu",
+				}}
+				roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+				vote="accepted"
+				voteStatus="onGoing"
+				splitPercent={88.8}
+			/>
+
+			<SplitRightHolderRow
+				rightHolder={{
+					avatarUrl: "#",
+					artistName: "J-Zone",
+				}}
+				roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+				vote="accepted"
+				voteStatus="onGoing"
+				splitPercent={88.8}
+			/>
+
+			<SplitRightHolderRow
+				rightHolder={{
+					avatarUrl: "#",
+					artistName: "Ringo Starr",
+				}}
+				roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+				vote="accepted"
+				voteStatus="onGoing"
+				splitPercent={88.8}
+			/>
 		</Column>
 	)
 }
 
 export function PerformanceSection() {
+	const [t] = useTranslation()
 	return (
-		<Column of="component" padding="group">
-			<Heading level="5">Interprétation</Heading>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							Inscience
-						</Text>
-						<Flex />
-						<Text bold normal>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text action bold>
-							Approuvé
-							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							Erykah Badu
-						</Text>
-						<Flex />
-						<Text bold normal>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text secondary normal>
-							En attente d'envoi
-							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							J-Zone
-						</Text>
-						<Flex />
-						<Text bold snormal>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text secondary normal>
-							En attente d'envoi
-							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
+		<Column padding="group">
+			<SplitRightHolderRow
+				header={t("summary:sections.performance")}
+				rightHolder={{
+					avatarUrl: "#",
+					artistName: "Inscience",
+				}}
+				roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+				vote="accepted"
+				voteStatus="approved"
+				splitPercent={88.8}
+			/>
+
+			<SplitRightHolderRow
+				rightHolder={{
+					avatarUrl: "#",
+					artistName: "Erykah Badu",
+				}}
+				roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+				vote="accepted"
+				voteStatus="onGoing"
+				splitPercent={88.8}
+			/>
+
+			<SplitRightHolderRow
+				rightHolder={{
+					avatarUrl: "#",
+					artistName: "J-Zone",
+				}}
+				roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+				vote="accepted"
+				voteStatus="onGoing"
+				splitPercent={88.8}
+			/>
 		</Column>
 	)
 }
 
 export function RecordingSection() {
+	const [t] = useTranslation()
 	return (
-		<Column of="component" padding="group">
-			<Heading level="5">Enregistrement sonore</Heading>
-			<Hairline />
+		<>
+			<Column padding="group">
+				<SplitRightHolderRow
+					header={t("summary:sections.recording")}
+					rightHolder={{
+						avatarUrl: "#",
+						artistName: "Quest Love",
+					}}
+					roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+					vote="accepted"
+					showVoting={true}
+					voteStatus="pending"
+					splitPercent={88.8}
+					buttons={
+						<>
+							<Button
+								style={{ flex: 1 }}
+								danger
+								text={t("general:buttons.toDecline")}
+								onVoteReject={() => alert("reject")}
+							/>
 
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text normal>Quest Love</Text>
-						<Flex />
-						<Text bold>88,8%</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text secondary normal>
-							En attente de décision
-							<Flex />
-						</Text>
-					</Row>
-					<Row>
-						<Button danger text="Refuser" />
-						<Flex />
-						<Button primary bold text="Accepté" />
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							Inscience
-						</Text>
-						<Flex />
-						<Text bold secondary>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text bold action>
-							Approuvé
-							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<UserAvatar size="small" />
-					<Flex />
-				</Column>
-				<Column flex={1}>
-					<Row>
-						<Text secondary normal>
-							Sunday Sauuce Records
-						</Text>
-						<Flex />
-						<Text bold secondary>
-							88,8%
-						</Text>
-					</Row>
-					<Row>
-						<Text secondary normal>
-							Auteur, Compositeur, Arrangeur
-						</Text>
-						<Flex />
-						<Text secondary normal>
-							En attente d'envoi
-							<Flex />
-						</Text>
-					</Row>
-				</Column>
-			</Row>
-			<Hairline />
-		</Column>
+							<Button
+								style={{ flex: 1 }}
+								primary
+								bold
+								text={t("general:buttons.toAccept")}
+								onVoteAccept={() => alert("accept")}
+							/>
+						</>
+					}
+				/>
+
+				<SplitRightHolderRow
+					rightHolder={{
+						avatarUrl: "#",
+						artistName: "Inscience",
+					}}
+					roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+					vote="accepted"
+					voteStatus="approved"
+					splitPercent={88.8}
+				/>
+
+				<SplitRightHolderRow
+					rightHolder={{
+						avatarUrl: "#",
+						artistName: "Sunday Sauuce Records",
+					}}
+					roles={[t("roles:author"), t("roles:composer"), t("roles:mixer")]}
+					vote="accepted"
+					voteStatus="onGoing"
+					splitPercent={88.8}
+				/>
+			</Column>
+		</>
 	)
 }
 
 export function ConfidentialitySection() {
+	const [t] = useTranslation()
 	return (
 		<Column of="component" padding="group">
-			<Heading level="5">Confidentialité</Heading>
+			<Heading level="5">{t("summary:sections.confidentiality")}</Heading>
 			<Hairline />
-
 			<Row of="component">
 				<Column>
 					<EyeIcon />
 				</Column>
-				<Column>
-					<Text normal>Inscience veut rendre ce partage de droits public</Text>
-					<Row>
-						<Button danger text="Refuser" />
-						<Flex />
-						<Button primary bold text="Accepté" />
+				<Column of="component" flex={1}>
+					<Row valign="center">
+						<Text normal>{t("summary:public")}</Text>
+						<Help size="xsmall" />
 					</Row>
-				</Column>
-				<Column>
-					<Help />
+					<Row of="component">
+						<Button
+							style={{ flex: 1 }}
+							danger
+							text={t("general:buttons.toDecline")}
+						/>
+						<Button
+							style={{ flex: 1 }}
+							primary
+							bold
+							text={t("general:buttons.toAccept")}
+						/>
+					</Row>
 				</Column>
 			</Row>
 		</Column>
