@@ -82,13 +82,21 @@ export class WorkpieceFileList extends Observable {
 	}
 
 	_updateAll(files) {
+		const added = []
+
 		files.forEach((file) => {
 			if (file.file_id in this) {
 				this[file.file_id].set({ data: file })
 			} else {
-				this[file.file_id] = new WorkpieceFile(this.workpiece, file, "ready")
+				const wp = new WorkpieceFile(this.workpiece, file, "ready")
+				this[file.file_id] = wp
+				added.push(wp)
 			}
 		})
+
+		if (added.length > 0) {
+			this.notify("add", added)
+		}
 	}
 
 	$all() {
@@ -110,6 +118,7 @@ export class WorkpieceFileList extends Observable {
 
 		const wpf = new WorkpieceFile(this.workpiece, upload, "ready")
 		this[upload.file_id] = wpf
+		this.notify("add", [wpf])
 
 		return wpf
 	}
