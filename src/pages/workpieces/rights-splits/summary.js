@@ -1,13 +1,14 @@
-import React, { useState } from "react"
+import React from "react"
 import { useTranslation } from "react-i18next"
-import { SummaryLayout } from "../layout"
-import { Hairline, Flex, Row, Column, Spacer } from "../../../layout"
+import {
+	SummaryLayout,
+	SplitRightHolderRow,
+	ConfidentialityRow,
+} from "../summary-layout"
+import { Row, Column, Spacer } from "../../../layout"
 import { Text, Heading } from "../../../text"
 import Button from "../../../widgets/button"
 import { DualSplitChart } from "../../../smartsplit/components/split-chart"
-import UserAvatar from "../../../smartsplit/user/avatar"
-import EyeIcon from "../../../svg/eye"
-import Help from "../../../svg/help-circle-full"
 import { Colors } from "../../../theme"
 
 const SummaryContainer = {
@@ -65,69 +66,6 @@ export default function SplitSummary({ workpiece }) {
 	)
 }
 
-export function SplitRightHolderRow(props) {
-	const [t] = useTranslation()
-	const { header, rightHolder, roles, splitPercent, showVoting } = props
-	const voteStatusTranslation = {
-		pending: t("summary:voteStatus.pending"),
-		approved: t("summary:voteStatus.approved"),
-		onGoing: t("summary:voteStatus.onGoing"),
-	}
-
-	return (
-		<>
-			<Column of="inside">
-				<Heading level="5">{header}</Heading>
-				<Hairline />
-
-				<Row of="component" flex={1}>
-					<Column>
-						<UserAvatar size="small" user={rightHolder} />
-						<Flex />
-					</Column>
-					<Column of="component" flex={1}>
-						<Row of="component">
-							{showVoting === true ? (
-								<Text normal>{rightHolder.artistName}</Text>
-							) : (
-								<Text secondary normal>
-									{rightHolder.artistName}
-								</Text>
-							)}
-							<Flex />
-							{showVoting === true ? (
-								<Text bold>{splitPercent}%</Text>
-							) : (
-								<Text bold secondary>
-									{splitPercent}%
-								</Text>
-							)}
-							{/* <Text bold={showVoting}>{splitPercent}</Text> */}
-						</Row>
-						<Row of="component" flex={1}>
-							<Text secondary normal>
-								{roles.join(", ")}
-							</Text>
-							<Flex />
-
-							{props.voteStatus === "approved" ? (
-								<Text bold action>
-									{voteStatusTranslation[props.voteStatus]}
-								</Text>
-							) : (
-								<Text secondary normal>
-									{voteStatusTranslation[props.voteStatus]}
-								</Text>
-							)}
-						</Row>
-						<Row of="component">{props.buttons}</Row>
-					</Column>
-				</Row>
-			</Column>
-		</>
-	)
-}
-
 export function CopyrightSection() {
 	const [t] = useTranslation()
 
@@ -149,7 +87,7 @@ export function CopyrightSection() {
 						<Button
 							style={{ flex: 1 }}
 							danger
-							text={t("general:buttons.toDecline")}
+							text={t("general:buttons.toRefuse")}
 							onVoteReject={() => alert("reject")}
 						/>
 
@@ -273,7 +211,7 @@ export function RecordingSection() {
 							<Button
 								style={{ flex: 1 }}
 								danger
-								text={t("general:buttons.toDecline")}
+								text={t("general:buttons.toRefuse")}
 								onVoteReject={() => alert("reject")}
 							/>
 
@@ -318,32 +256,28 @@ export function ConfidentialitySection() {
 	const [t] = useTranslation()
 	return (
 		<Column of="component" padding="group">
-			<Heading level="5">{t("summary:sections.confidentiality")}</Heading>
-			<Hairline />
-			<Row of="component">
-				<Column>
-					<EyeIcon />
-				</Column>
-				<Column of="component" flex={1}>
-					<Row valign="center">
-						<Text normal>{t("summary:public")}</Text>
-						<Help size="xsmall" />
-					</Row>
-					<Row of="component">
+			<ConfidentialityRow
+				header={t("summary:sections.confidentiality")}
+				text={t("summary:public")}
+				buttons={
+					<>
 						<Button
 							style={{ flex: 1 }}
 							danger
-							text={t("general:buttons.toDecline")}
+							text={t("general:buttons.toRefuse")}
+							onVoteReject={() => alert("reject")}
 						/>
+
 						<Button
 							style={{ flex: 1 }}
 							primary
 							bold
 							text={t("general:buttons.toAccept")}
+							onVoteAccept={() => alert("accept")}
 						/>
-					</Row>
-				</Column>
-			</Row>
+					</>
+				}
+			/>
 		</Column>
 	)
 }

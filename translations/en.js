@@ -53,7 +53,7 @@ export const general = {
 		addUsername: "Add a username",
 		delete: "Delete this account",
 		toAccept: "Accept",
-		toDecline: "Decline",
+		toRefuse: "Decline",
 		send: "Send my vote",
 	},
 }

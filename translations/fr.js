@@ -54,7 +54,7 @@ export const general = {
 		addUsername: "Ajouter un identifiant",
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
-		toDecline: "Refuser",
+		toRefuse: "Refuser",
 		send: "Envoyer mon vote",
 	},
 }
