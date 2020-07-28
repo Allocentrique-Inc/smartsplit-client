@@ -33,7 +33,7 @@ export default function MyCollaboratorsPage() {
 				</Row>
 
 				<TabBar>
-					<Tab key="tab1" title="Atistes" default>
+					<Tab key="tab1" title="Artistes" default>
 						<Column of="none" spacer={Hairline}></Column>
 					</Tab>
 					<Tab key="tab2" title="Groupes de musique">
