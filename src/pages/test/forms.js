@@ -16,6 +16,7 @@ import {
 	PhoneNumberField,
 	DateField,
 	useImagePicker,
+	FileField,
 } from "../../forms"
 import { Section, Column, Row, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
@@ -29,14 +30,8 @@ import { Status } from "../../utils/enums"
 import { MailList } from "../../smartsplit/components/mail-list"
 import { ProIdList } from "../../smartsplit/components/pro-id-list"
 import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
-
-import {
-	AdminList,
-	AdminListItem,
-} from "../../smartsplit/components/admin-list"
-import Pen from "../../svg/pen"
-import Trash from "../../svg/trash"
 import { Colors } from "../../theme"
+
 import AddCollaboratorDropdown from "../../smartsplit/components/add-collaborator-dropdown"
 
 export default function FormsTest() {
@@ -47,26 +42,8 @@ export default function FormsTest() {
 			<TestFilesAndImages />
 			<TestTooltips />
 			<TestBasicDropdowns />
-
-			<Row of="component">
-				<ArtistSelectDropdown
-					label="Sélectionne ton groupe"
-					placeholder="Artiste ou groupe"
-					artists={{
-						1: "Céline Dion",
-						2: "Katy Perry",
-						3: "David Guetta",
-						4: "M4SONIC",
-						5: "Eminem",
-						6: "Scandroid",
-						7: "DJ Test",
-						8: "Mister Valaire",
-					}}
-				/>
-			</Row>
-
-			<TestCheckboxes />
 			<TestSearchAndTag />
+			<TestCheckboxes />
 		</Section>
 	)
 }
@@ -86,7 +63,7 @@ function TestSearchAndTag() {
 	])
 
 	return (
-		<Column of="component">
+		<Row of="component">
 			<SearchAndTag
 				label="Search and tag"
 				searchResults={searchResults}
@@ -107,7 +84,7 @@ function TestSearchAndTag() {
 				onSelect={(selection) => console.log(selection)}
 				placeholder="Ajouter un collaborateur..."
 			/>
-		</Column>
+		</Row>
 	)
 }
 
@@ -158,42 +135,14 @@ function TestBasicFields() {
 	const { t } = useTranslation()
 	const [phoneNumber, setPhoneNumber] = useState("")
 	const [date, setDate] = useState("")
-	const [emails, setEmails] = useState([
-		{
-			email: "main@iptoki.com",
-			status: Status.main,
-		},
-		{
-			email: "active@iptoki.com",
-			status: Status.active,
-		},
-		{
-			email: "pending@iptoki.com",
-			status: Status.pending,
-		},
-	])
-	const [proIds, setProIds] = useState([
-		{
-			name: t("forms:labels.udaNO"),
-			value: "",
-		},
-		{
-			name: t("forms:labels.gmmqNO"),
-			value: "",
-		},
-		{
-			name: t("forms:labels.soproqNO"),
-			value: "",
-		},
-		{
-			name: t("forms:labels.isniNO"),
-			value: "",
-		},
-		{
-			name: t("forms:labels.udaNO"),
-			value: "",
-		},
-	])
+	const [file, setFile] = useState(null)
+
+	function onFileSelect(file) {
+		window.selectedFile = file
+		console.log("File input: ", file)
+		setFile(file)
+	}
+
 	return (
 		<Form
 			values={{ firstName: "John", lastName: "Doe" }}
@@ -231,28 +180,30 @@ function TestBasicFields() {
 					defaultValue="test@smartsplit.org"
 					placeholder="courriel"
 				/>
-				<PhoneNumberField
-					value={phoneNumber}
-					onChangeText={setPhoneNumber}
-					label="Numéro de téléphone"
-					label_hint="Optionnel"
-					placeholder="Numero de tel"
-				/>
-				<DateField
-					value={date}
-					onChangeText={setDate}
-					label="Date de naissance"
-				/>
-				<MailList
-					label="Courriels"
-					emails={emails}
-					description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-				/>
-				<ProIdList
-					label="Identifiants pro"
-					description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-					proIds={proIds}
-				/>
+
+				<Row of="component">
+					<PhoneNumberField
+						value={phoneNumber}
+						onChangeText={setPhoneNumber}
+						label="Numéro de téléphone"
+						label_hint="Optionnel"
+						placeholder="Numero de tel"
+					/>
+					<DateField
+						value={date}
+						onChangeText={setDate}
+						label="Date de naissance"
+					/>
+				</Row>
+
+				<Row of="component">
+					<FileField
+						label="Envoie ta toune"
+						file={file}
+						onFileChange={onFileSelect}
+					/>
+				</Row>
+
 				<Row align="right">
 					<FormSubmit>
 						{(submit) => <Button text="Soumettre" onClick={submit} />}
@@ -297,6 +248,21 @@ function TestBasicDropdowns() {
 						{ key: "B", value: "Option B" },
 						{ key: "C", value: "Option C" },
 					]}
+				/>
+
+				<ArtistSelectDropdown
+					label="Sélectionne ton groupe"
+					placeholder="Artiste ou groupe"
+					artists={{
+						1: "Céline Dion",
+						2: "Katy Perry",
+						3: "David Guetta",
+						4: "M4SONIC",
+						5: "Eminem",
+						6: "Scandroid",
+						7: "DJ Test",
+						8: "Mister Valaire",
+					}}
 				/>
 			</Row>
 		</>

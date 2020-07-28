@@ -33,7 +33,6 @@ export function BasicFileField({ file, onFileChange }) {
 		const file = await getDocumentAsync({ copyToCacheDirectory: false })
 
 		if (file.type === "success") {
-			console.log("File selected", file)
 			setSelectedFile(file)
 		}
 	}
