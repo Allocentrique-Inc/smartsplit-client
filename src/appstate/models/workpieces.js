@@ -4,6 +4,7 @@ import WorkpiecesCrudAPI, {
 	listForUser,
 	uploadFileToWorkpiece,
 } from "../../../api/workpieces"
+import { splitDataUri } from "../../utils/uri"
 
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
@@ -114,32 +115,14 @@ export class WorkpieceFileList extends Observable {
 	}
 
 	async uploadUri(metadata, fileUri) {
-		if (typeof fileUri !== "string") {
-			throw new Error("Invalid URI provided: not a string")
-		}
-
-		if (fileUri.indexOf("data:") !== 0) {
-			throw new Error("Invalid URI provided: does not start with `data:`")
-		}
-
-		const comma_index = fileUri.indexOf(",")
-
-		if (comma_index < 0) {
-			throw new Error("Invalid URI provided: does not have a comma delimiter")
-		}
-
-		const [mimeType, format] = fileUri.substr(5, comma_index - 5).split(";")
-
-		if (format !== "base64") {
-			throw new Error("Unsupported URI provided: not in base64 format")
-		}
+		const { contentType, encodedData } = splitDataUri(fileUri)
 
 		return await this.uploadBase64(
 			{
-				mimeType,
+				mimeType: contentType,
 				...metadata,
 			},
-			fileUri.substr(comma_index + 1)
+			encodedData
 		)
 	}
 }
