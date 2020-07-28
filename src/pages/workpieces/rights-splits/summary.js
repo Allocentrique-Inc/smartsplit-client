@@ -15,7 +15,6 @@ const SummaryContainer = {
 	borderColor: Colors.stroke,
 	border: "1px solid",
 	borderRadius: "4px",
-	width: "auto",
 	display: "block",
 	width: "944px",
 }
