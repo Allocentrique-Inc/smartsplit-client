@@ -27,7 +27,11 @@ export class Workpiece extends WorkpieceObservable {
 	set(props) {
 		if (props.data) {
 			const { files, ...data } = props.data
-			this.files._updateAll(files)
+
+			if (files) {
+				this.files._updateAll(files)
+			}
+
 			props.data = data
 		}
 
@@ -52,7 +56,17 @@ export class WorkpieceList extends ListObservable {
 		this.notify(
 			"add",
 			workpieces.map((wp) => {
-				this[wp.workpiece_id] = wp = new Workpiece(wp.workpiece_id, wp, "ready")
+				if (wp.workpiece_id in this) {
+					this[wp.workpiece_id].setData(wp)
+					wp = this[wp.workpiece_id]
+				} else {
+					this[wp.workpiece_id] = wp = new Workpiece(
+						wp.workpiece_id,
+						wp,
+						"ready"
+					)
+				}
+
 				return wp
 			})
 		)
