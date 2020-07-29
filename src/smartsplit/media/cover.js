@@ -9,7 +9,7 @@ export default function Cover(props, { size }) {
 		size in Metrics.size ? Metrics.size[size] : Metrics.size.medium
 
 	return (
-		<View style={[MetricsStyles.cover, props.style, sizeStyle]}>
+		<View style={sizeStyle}>
 			<ImageIcon color={Colors.stroke} />
 		</View>
 	)

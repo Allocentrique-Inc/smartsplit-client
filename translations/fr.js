@@ -55,6 +55,7 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
+		access: "Demander l'accès en écriture",
 	},
 }
 
@@ -397,4 +398,9 @@ export const newUserInvite = {
 	title: "[Ajouter/Modifier] un artiste collaborateur",
 	checkbox: "Default Role(s)",
 	checkboxUndertext: "Ces rôles pourront toujours être modifiés plus tard.",
+}
+
+export const workpieceSheet = {
+	by: " Par ",
+	update: "Mis à jour il y a ",
 }

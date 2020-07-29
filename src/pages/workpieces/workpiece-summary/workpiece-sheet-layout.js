@@ -5,16 +5,18 @@ import { useSubpath } from "../../../appstate/react"
 import { useStorePath } from "../../../appstate/react"
 import { Row, Flex, Hairline, Spacer, Column } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
+import Button from "../../../widgets/button"
 import Cover from "../../../smartsplit/media/cover"
 import LogoSmartSplit from "../../../svg/logo-smartsplit"
 import UserAvatar from "../../../smartsplit/user/avatar"
 import ChevronDown from "../../../svg/chevron-down"
 import ArrowRight from "../../../svg/arrow-right"
+import PenIcon from "../../../svg/pen"
 import Scrollable from "../../../widgets/scrollable"
 import { Metrics, Colors } from "../../../theme"
 import MetricsStyles from "../../../styles/metrics"
 
-export function SheetNavbar(props) {
+export function SheetNavbar() {
 	return (
 		<Row
 			valign="center"
@@ -38,6 +40,7 @@ const TagStyle = StyleSheet.create({
 		marginRight: 0,
 		backgroundColor: Colors.background.hell,
 		padding: Metrics.spacing.tiny,
+		marginRight: Metrics.spacing.small,
 		borderRadius: Metrics.borderRadius.forms,
 	},
 })
@@ -67,7 +70,12 @@ export function SheetHeader(props) {
 	} = props
 
 	return (
-		<Column of="component" padding="component" valign="center" flex={1}>
+		<Column
+			of="component"
+			padding="component"
+			valign="center"
+			style={{ width: 944, maxWidth: "100%" }}
+		>
 			<Row of="component" spacer={PathSpacer} valign="center">
 				<Text bold>{artistName}</Text>
 				<Text bold>{albumTitle}</Text>
@@ -81,15 +89,15 @@ export function SheetHeader(props) {
 					<Cover style={MetricsStyles.spacing["huge"]} />
 				</Column>
 
-				<Column of="component">
+				<Column of="component" flex={1}>
 					<Heading level={1}>
 						{songTitle} ({tag})
 					</Heading>
-					<Row>
+					<Row valign="center">
 						<Text small style={TagStyle.frame}>
 							{tag}
 						</Text>
-						<Text normal secondary>
+						<Text normal secondary padding="small">
 							{" "}
 							Par{" "}
 						</Text>
@@ -103,8 +111,27 @@ export function SheetHeader(props) {
 						<Text action bold>
 							{featuredArtist}
 						</Text>
+						<Flex />
+
+						<Button
+							small
+							secondaryWithIcon
+							bold
+							icon={
+								<PenIcon
+									color={Colors.action}
+									style={MetricsStyles.spacing["xtiny"]}
+								/>
+							}
+							text="Demander l'accès en écriture"
+						/>
 					</Row>
 					<Hairline />
+					<Row>
+						<Text secondary small>
+							Mis à jour il y a
+						</Text>
+					</Row>
 				</Column>
 			</Row>
 		</Column>

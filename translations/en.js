@@ -54,6 +54,7 @@ export const general = {
 		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
+		access: "Ask writing access",
 	},
 }
 
@@ -204,7 +205,7 @@ export const forms = {
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
 	},
-	createCollaborator: "Create a new collaborator"
+	createCollaborator: "Create a new collaborator",
 }
 
 export const login = {
@@ -393,4 +394,9 @@ export const newUserInvite = {
 	title: "[Add/Modify] a Collaborating Artist",
 	checkboxTitle: "Rôle(s) par défaut",
 	checkboxUndertext: "These roles can always be modified later.",
+}
+
+export const workpieceSheet = {
+	by: " By ",
+	update: "Updated ",
 }
