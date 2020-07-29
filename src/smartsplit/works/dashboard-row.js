@@ -2,6 +2,7 @@ import React from "react"
 import moment from "moment"
 import { View } from "react-native"
 import { useHistory } from "react-router"
+import { useSubpath } from "../../appstate/react"
 import { Column, Row } from "../../layout"
 import { Text } from "../../text"
 import { Button } from "../../widgets/button"
@@ -13,18 +14,21 @@ import OverflowMenuIcon from "../../svg/overflow-menu"
 
 export default function MediaWorkRow(props) {
 	const history = useHistory()
-	const dateRel = moment(props.creationDate).fromNow()
+	const data = useSubpath(props.workpiece, "data")
+
+	const dateRel = moment(data.creationDate).fromNow()
 	function navigateToSummary() {
-		history.push("/workpieces/" + props.workpiece_id)
+		history.push("/workpieces/" + data.workpiece_id)
 	}
+
 	return (
 		<View style={[WorkStyles.dashboard_row, props.style]}>
 			<AlbumArt style={WorkStyles.dashboard_row_cover} />
 
 			<Column style={WorkStyles.dashboard_row_title}>
 				<Row of="tiny" style={{ alignItems: "center" }}>
-					<Text heavy>{props.title}</Text>
-					<Text small>par {props.artist}</Text>
+					<Text heavy>{data.title}</Text>
+					<Text small>par {data.artist}</Text>
 				</Row>
 				<Text secondary small>
 					Modifié {dateRel} - Partagée avec ( ) ( ) ( )
