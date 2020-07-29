@@ -1,6 +1,6 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { View } from "react-native"
+import { View, StyleSheet } from "react-native"
 import { useSubpath } from "../../../appstate/react"
 import { useStorePath } from "../../../appstate/react"
 import { Row, Flex, Hairline, Spacer, Column } from "../../../layout"
@@ -11,7 +11,7 @@ import UserAvatar from "../../../smartsplit/user/avatar"
 import ChevronDown from "../../../svg/chevron-down"
 import ArrowRight from "../../../svg/arrow-right"
 import Scrollable from "../../../widgets/scrollable"
-import { Metrics } from "../../../theme"
+import { Metrics, Colors } from "../../../theme"
 import MetricsStyles from "../../../styles/metrics"
 
 export function SheetNavbar(props) {
@@ -33,6 +33,15 @@ export function SheetNavbar(props) {
 	)
 }
 
+const TagStyle = StyleSheet.create({
+	frame: {
+		marginRight: 0,
+		backgroundColor: Colors.background.hell,
+		padding: Metrics.spacing.tiny,
+		borderRadius: Metrics.borderRadius.forms,
+	},
+})
+
 function PathSpacer({ of }) {
 	return (
 		<View
@@ -47,23 +56,56 @@ function PathSpacer({ of }) {
 }
 
 export function SheetHeader(props) {
-	const { songTitle, artistName, albumTitle, workpiece, path = [] } = props
+	const {
+		songTitle,
+		artistName,
+		featuredArtist,
+		albumTitle,
+		workpiece,
+		path = [],
+		tag,
+	} = props
+
 	return (
-		<Column flex={1}>
-			<Row of="component" padding="component" valign="center">
-				<Row>
-					<Cover style={MetricsStyles.spacing["huge"]}>
-						{" "}
-						<Heading level={1}>{artistName} </Heading>{" "}
-					</Cover>
-				</Row>
-				<Row of="component" spacer={PathSpacer} valign="center">
-					<Text bold>{artistName}</Text>
-					<Text bold>{albumTitle}</Text>
-					<Text secondary bold>
-						{songTitle}
-					</Text>
-				</Row>
+		<Column of="component" padding="component" valign="center" flex={1}>
+			<Row of="component" spacer={PathSpacer} valign="center">
+				<Text bold>{artistName}</Text>
+				<Text bold>{albumTitle}</Text>
+				<Text secondary bold>
+					{songTitle} ({tag})
+				</Text>
+			</Row>
+
+			<Row valign="center">
+				<Column>
+					<Cover style={MetricsStyles.spacing["huge"]} />
+				</Column>
+
+				<Column of="component">
+					<Heading level={1}>
+						{songTitle} ({tag})
+					</Heading>
+					<Row>
+						<Text small style={TagStyle.frame}>
+							{tag}
+						</Text>
+						<Text normal secondary>
+							{" "}
+							Par{" "}
+						</Text>
+						<Text action bold>
+							{artistName}{" "}
+						</Text>
+						<Text normal secondary>
+							feat.{" "}
+						</Text>
+
+						<Text action bold>
+							{featuredArtist}
+						</Text>
+					</Row>
+					<Hairline />
+				</Column>
 			</Row>
 		</Column>
 	)
