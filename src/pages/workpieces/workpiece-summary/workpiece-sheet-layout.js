@@ -51,7 +51,12 @@ export function SheetHeader(props) {
 	return (
 		<Column flex={1}>
 			<Row of="component" padding="component" valign="center">
-				<Cover style={MetricsStyles.spacing["huge"]} />
+				<Row>
+					<Cover style={MetricsStyles.spacing["huge"]}>
+						{" "}
+						<Heading level={1}>{artistName} </Heading>{" "}
+					</Cover>
+				</Row>
 				<Row of="component" spacer={PathSpacer} valign="center">
 					<Text bold>{artistName}</Text>
 					<Text bold>{albumTitle}</Text>
