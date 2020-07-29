@@ -55,7 +55,8 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
-		toConsult: "Consulter"
+		toConsult: "Consulter",
+		toBegin: "Commencer",
 	},
 }
 
@@ -407,6 +408,10 @@ export const workpieces = {
 		shareYourCopyright: {
 			title: "Partage tes droits",
 			desc: "Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
-		}
+		},
+		protectYourWork: {
+			title: "Protège ton oeuvre",
+			desc: "Associe dès aujourd’hui ton enregistrement sonore à ses ayant droits et laisse des traces indélébiles de ça sur une blockchain."
+		},
 	}
 }

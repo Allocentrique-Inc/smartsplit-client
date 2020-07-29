@@ -25,7 +25,7 @@ import { useTranslation } from "react-i18next"
 import { Tab, TabBar } from "../../widgets/tabs"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
-import { ShareYourCopyright } from "./cards"
+import { ProtectYourWork, ShareYourCopyright } from "./cards"
 
 export default function WorkpiecesRouter() {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -141,6 +141,7 @@ export function WorkpiecePage() {
 							<Column style={Styles.innerContainer}>
 								<Row wrap style={Styles.cardContainer}>
 									<ShareYourCopyright />
+									<ProtectYourWork />
 								</Row>
 							</Column>
 						</Column>

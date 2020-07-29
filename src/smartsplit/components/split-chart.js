@@ -8,16 +8,10 @@ import {
 } from "../../widgets/pie-chart"
 import Svg, { Circle, G, Line, Text as TextSvg } from "react-native-svg"
 import { Colors, Metrics } from "../../theme"
-import {
-	formatPercentage,
-	rotatePoint,
-	translatePoint,
-	vectorOf,
-} from "../../utils/utils"
+import { formatPercentage, rotatePoint, vectorOf } from "../../utils/utils"
 import { useFocusGroup } from "../../utils/hooks"
-import { useDispatch } from "react-redux"
 import { Overlay } from "../../portals"
-import RelativeTooltip, { PopoverTooltip } from "../../widgets/tooltip"
+import { PopoverTooltip } from "../../widgets/tooltip"
 import { Text } from "../../text"
 import { Column } from "../../layout"
 
