@@ -1,4 +1,5 @@
 import React from "react"
+import { useHistory } from "react-router"
 import { Column, Row } from "../../layout"
 import SplitLogo from "../../../assets/svg/split.svg"
 import { Heading, Text } from "../../text"
@@ -6,6 +7,7 @@ import { useTranslation } from "react-i18next"
 import { Metrics } from "../../theme"
 import Card from "../../widgets/card"
 import Button from "../../widgets/button"
+import { useCurrentWorkpiece } from "./context"
 
 const cardStyle = {
 	marginRight: Metrics.spacing.medium,
@@ -18,6 +20,14 @@ const cardStyle = {
 
 export function ShareYourCopyright() {
 	const { t } = useTranslation()
+	const history = useHistory()
+
+	const workpiece_id = useCurrentWorkpiece("id")
+
+	function navigateToRightSplits() {
+		history.push(`/workpieces/${workpiece_id}/rights-splits`)
+	}
+
 	return (
 		<Card style={cardStyle}>
 			<Column of="group">
@@ -29,7 +39,12 @@ export function ShareYourCopyright() {
 					<Text tertiary>{t("workpieces:cards.shareYourCopyright.desc")}</Text>
 				</Column>
 				<Row>
-					<Button secondary bold text={t("general:buttons.toConsult")} />
+					<Button
+						secondary
+						bold
+						text={t("general:buttons.toConsult")}
+						onClick={navigateToRightSplits}
+					/>
 				</Row>
 			</Column>
 		</Card>

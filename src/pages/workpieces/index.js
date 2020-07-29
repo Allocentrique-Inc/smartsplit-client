@@ -10,7 +10,7 @@ import {
 } from "react-router"
 import { StyleSheet, View } from "react-native"
 import { useStorePath } from "../../appstate/react"
-import { WorkpieceContext } from "./context"
+import { WorkpieceContext, useCurrentWorkpiece } from "./context"
 import RightsSplitsForm from "./rights-splits"
 import ProtectWork from "./protect"
 import { Column, Row, Spacer } from "../../layout"
@@ -37,7 +37,7 @@ export default function WorkpiecesRouter() {
 				<Route
 					path="/workpieces/:workpiece_id"
 					exact
-					component={DefaultRoute}
+					component={WorkpiecePage}
 				/>
 				<Route path="/workpieces/:workpiece_id/rights-splits">
 					<RightsSplitsForm />
@@ -49,15 +49,6 @@ export default function WorkpiecesRouter() {
 			</Switch>
 		</WorkpieceContext.Provider>
 	)
-}
-
-export function DefaultRoute() {
-	const redirect = generatePath(
-		"/workpieces/:workpiece_id/rights-splits",
-		useParams()
-	)
-
-	return <Redirect to={redirect} />
 }
 
 export const demoPiece = {
@@ -163,6 +154,8 @@ export function WorkpiecePage() {
 
 function InfoBar() {
 	const { t } = useTranslation()
+	const workpiece = { ...stubWorkpiece, ...useCurrentWorkpiece("data") }
+
 	return (
 		<Row
 			of="group"
@@ -172,7 +165,7 @@ function InfoBar() {
 			<AlbumArt style={Styles.albumArt} />
 			<Column of="component">
 				<Row of="component" valign="center">
-					<Heading level={2}>{stubWorkpiece.title}</Heading>
+					<Heading level={2}>{workpiece.title}</Heading>
 					<TouchableWithoutFeedback>
 						<View>
 							<PenIcon />

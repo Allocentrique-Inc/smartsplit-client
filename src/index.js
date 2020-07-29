@@ -17,7 +17,7 @@ import AccessControl from "./widgets/AccessControl"
 
 import UserSettings from "./pages/user/settings"
 import AdminPage from "./pages/admin"
-import WorkpiecesRouter, { WorkpiecePage } from "./pages/workpieces"
+import WorkpiecesRouter from "./pages/workpieces"
 
 // TMP keep redux for now
 import { Provider } from "react-redux"
@@ -97,9 +97,9 @@ export function MainRouter() {
 				<TestDashboard />
 			</Route>
 
-			<Route path="/workpiece">
+			<Route path="/workpieces">
 				<AccessControl redirectToLogin>
-					<WorkpiecePage />
+					<WorkpiecesRouter />
 				</AccessControl>
 			</Route>
 		</Switch>
