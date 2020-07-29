@@ -28,15 +28,17 @@ const styles = StyleSheet.create({
 	},
 })
 
+function useNavigation(workpieceId, path) {
+	const history = useHistory()
+	return () => {
+		history.push(`/workpieces/${workpieceId}/${path}`)
+	}
+}
+
 export function ShareYourCopyright() {
 	const { t } = useTranslation()
-	const history = useHistory()
-
-	const workpiece_id = useCurrentWorkpiece("id")
-
-	function navigateToRightSplits() {
-		history.push(`/workpieces/${workpiece_id}/rights-splits`)
-	}
+	const workpieceId = useCurrentWorkpiece("id")
+	const toNextPage = useNavigation(workpieceId, "rights-splits")
 
 	return (
 		<Card style={styles.card}>
@@ -53,7 +55,7 @@ export function ShareYourCopyright() {
 						secondary
 						bold
 						text={t("general:buttons.toConsult")}
-						onClick={navigateToRightSplits}
+						onClick={toNextPage}
 					/>
 				</Row>
 			</Column>
@@ -63,6 +65,8 @@ export function ShareYourCopyright() {
 
 export function ProtectYourWork() {
 	const { t } = useTranslation()
+	const workpieceId = useCurrentWorkpiece("id")
+	const toNextPage = useNavigation(workpieceId, "protect")
 
 	return (
 		<Card style={styles.card}>
@@ -75,7 +79,12 @@ export function ProtectYourWork() {
 					<Text tertiary>{t("workpieces:cards.protectYourWork.desc")}</Text>
 				</Column>
 				<Row style={styles.buttonContainer}>
-					<Button secondary bold text={t("general:buttons.toBegin")} />
+					<Button
+						secondary
+						bold
+						text={t("general:buttons.toBegin")}
+						onClick={toNextPage}
+					/>
 				</Row>
 			</Column>
 		</Card>
