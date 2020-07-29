@@ -39,7 +39,7 @@ export class Workpiece extends WorkpieceObservable {
 	}
 
 	setData(data) {
-		this.set({ data })
+		this.set({ data: { ...this.data, ...data } })
 	}
 }
 

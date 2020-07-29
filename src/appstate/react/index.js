@@ -55,7 +55,7 @@ export function useSubpath(current, ...path) {
 		return function () {
 			unsubscribes.forEach((unsubscribe) => unsubscribe())
 		}
-	}, [])
+	})
 
 	return current
 }

@@ -39,4 +39,9 @@ export class Observable {
 
 		this.notify("set", data)
 	}
+
+	setData(data) {
+		Object.assign(this.data, data)
+		this.notify("set", { data })
+	}
 }
