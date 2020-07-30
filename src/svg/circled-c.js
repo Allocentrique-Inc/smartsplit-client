@@ -2,7 +2,7 @@ import React from "react"
 import { Svg, Path } from "react-native-svg"
 import { Colors } from "../theme"
 
-export default function CopyrightIcon(props) {
+export default function CircledC(props) {
 	const color = props.color || Colors.stroke
 	return (
 		<Svg

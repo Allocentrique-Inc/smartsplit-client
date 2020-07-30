@@ -3,7 +3,7 @@ import { Heading, Paragraph, Text } from "../../text"
 import { Group, Hairline, Flex, Row, Column } from "../../layout"
 import { Colors, Metrics } from "../../theme"
 import { Dropdown } from "../../widgets/dropdown"
-import CopyrightIcon from "../../svg/copyright"
+import CircledC from "../../svg/circled-c"
 import LogoutIcon from "../../svg/logout"
 import AlbumArt from "../../smartsplit/media/albumArt"
 
@@ -24,7 +24,7 @@ export default function CopyrightShare(props) {
 			<Hairline />
 
 			<Row>
-				<CopyrightIcon size={Metrics.size.medium} />
+				<CircledC size={Metrics.size.medium} />
 				<Text action heavy>
 					CRÉATION
 				</Text>

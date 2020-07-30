@@ -15,6 +15,9 @@ import { Colors } from "../../theme"
 import SplitChart, {
 	DualSplitChart,
 } from "../../smartsplit/components/split-chart"
+import CircledC from "../../svg/circled-c"
+import CircledP from "../../svg/circled-p"
+import CircledStar from "../../svg/circled-star"
 
 export default function WidgetTest() {
 	return (
@@ -79,12 +82,14 @@ function PieChartTests() {
 	return (
 		<Column of="group" align="center">
 			<PieChart data={data} size={512} />
-			<SplitChart data={data} />
+			<SplitChart data={data} logo={CircledP} />
+			<SplitChart data={data} logo={CircledC} />
 			<DualSplitChart
 				dataRight={data}
 				dataLeft={data}
 				titleLeft="paroles"
 				titleRight="musique"
+				logo={CircledStar}
 			/>
 		</Column>
 	)
