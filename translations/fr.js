@@ -57,6 +57,7 @@ export const general = {
 		toRefuse: "Refuser",
 		access: "Demander l'accès en écriture",
 	},
+	update: () => <>Mis à jour il y a </>,
 }
 
 export const menu = {

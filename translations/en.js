@@ -56,6 +56,7 @@ export const general = {
 		toRefuse: "Refuse",
 		access: "Ask writing access",
 	},
+	update: () => <>Updated ago</>,
 }
 
 export const menu = {

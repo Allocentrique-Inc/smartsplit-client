@@ -59,6 +59,7 @@ function PathSpacer({ of }) {
 }
 
 export function SheetHeader(props) {
+	const [t] = useTranslation()
 	const {
 		songTitle,
 		artistName,
@@ -98,8 +99,7 @@ export function SheetHeader(props) {
 							{tag}
 						</Text>
 						<Text normal secondary padding="small">
-							{" "}
-							Par{" "}
+							{t("workpieceSheet:by")}
 						</Text>
 						<Text action bold>
 							{artistName}{" "}
@@ -123,13 +123,13 @@ export function SheetHeader(props) {
 									style={MetricsStyles.spacing["xtiny"]}
 								/>
 							}
-							text="Demander l'accès en écriture"
+							text={t("general:buttons.access")}
 						/>
 					</Row>
 					<Hairline />
 					<Row>
 						<Text secondary small>
-							Mis à jour il y a
+							{t("general:update")}
 						</Text>
 					</Row>
 				</Column>
@@ -137,6 +137,53 @@ export function SheetHeader(props) {
 		</Column>
 	)
 }
-export default function WorkpieceSheetLayout() {
-	return <></>
+export function WorkpieceSheetSections(props) {
+	const {
+		categoryLine,
+		creationDateLine,
+		creationDate,
+		authorsLine,
+		authors,
+		composersLine,
+		composers,
+		mixersLine,
+		mixers,
+		editorsLine,
+		editors,
+	} = props
+	return (
+		<Row>
+			<Column of="group" flex={1} padding="group">
+				<Heading level={3}>{categoryLine}</Heading>
+				<Row>
+					<Text secondary>{creationDateLine}</Text>
+					<Text normal>{creationDate}</Text>
+				</Row>
+				<Row>
+					<Text secondary>{authorsLine}</Text>
+					<Text action bold>
+						{authors}
+					</Text>
+				</Row>
+				<Row>
+					<Text secondary>{composersLine}</Text>
+					<Text action bold>
+						{composers}
+					</Text>
+				</Row>
+				<Row>
+					<Text secondary>{mixersLine}</Text>
+					<Text action bold>
+						{mixers}
+					</Text>
+				</Row>
+				<Row>
+					<Text secondary>{editorsLine}</Text>
+					<Text action bold>
+						{editors}
+					</Text>
+				</Row>
+			</Column>
+		</Row>
+	)
 }

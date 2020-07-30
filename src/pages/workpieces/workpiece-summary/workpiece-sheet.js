@@ -2,12 +2,17 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import { Row, Flex, Hairline, Spacer, Column } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import { SheetNavbar, SheetHeader } from "./workpiece-sheet-layout"
+import {
+	SheetNavbar,
+	SheetHeader,
+	WorkpieceSheetSections,
+} from "./workpiece-sheet-layout"
 import { useCurrentWorkpiece } from "../context"
 
 export default function WorkpieceSheet(props) {
 	const [t] = useTranslation()
 	const workpiece = useCurrentWorkpiece()
+	const creationDate = "Date de création"
 
 	return (
 		<>
@@ -27,6 +32,14 @@ export default function WorkpieceSheet(props) {
 					</Row>
 				</Column>
 			</Row>
+			<WorkpieceSheetSections
+				categoryLine={props.date}
+				creationDateLine={props.creationDate}
+				authorsLine={props.authors}
+				composersLine={props.composers}
+				mixersLine={props.mixers}
+				editorsLine={props.editors}
+			/>
 		</>
 	)
 }
