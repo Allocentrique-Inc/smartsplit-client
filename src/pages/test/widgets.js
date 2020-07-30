@@ -81,7 +81,7 @@ function PieChartTests() {
 	]
 	return (
 		<Column of="group" align="center">
-			<PieChart data={data} size={512} />
+			{/*<PieChart data={data} size={512} />*/}
 			<SplitChart data={data} logo={CircledP} />
 			<SplitChart data={data} logo={CircledC} />
 			<DualSplitChart

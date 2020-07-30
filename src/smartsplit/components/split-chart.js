@@ -28,7 +28,7 @@ export default function SplitChart({ data, logo }) {
 	return (
 		<TooltipWrapper visible={!!currentFocus}>
 			<PieChart size={size}>
-				{Array.from(slices)}
+				{Array.from(slices.values())}
 				{Logo}
 			</PieChart>
 		</TooltipWrapper>
@@ -81,7 +81,7 @@ export function DualSplitChart(props) {
 				>
 					<G>
 						<PieChart size={chartSize} maxRange={180}>
-							{Array.from(leftSlices)}
+							{Array.from(leftSlices.values())}
 						</PieChart>
 					</G>
 					<Line
@@ -94,7 +94,7 @@ export function DualSplitChart(props) {
 					/>
 					<G translate={`${Metrics.spacing.large} 0`}>
 						<PieChart size={chartSize} maxRange={180}>
-							{Array.from(rightSlices)}
+							{Array.from(rightSlices.values())}
 						</PieChart>
 					</G>
 					{Logo}
