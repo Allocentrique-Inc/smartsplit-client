@@ -92,7 +92,7 @@ export function DualSplitChart(props) {
 						stroke={Colors.stroke}
 						strokeWidth={1}
 					/>
-					<G translate={`${Metrics.spacing.large} 0`}>
+					<G x={Metrics.spacing.large}>
 						<PieChart size={chartSize} maxRange={180}>
 							{Array.from(rightSlices.values())}
 						</PieChart>
@@ -121,15 +121,6 @@ export function DualSplitChart(props) {
 	)
 }
 
-const TooltipInitialState = {
-	vector: {
-		x: null,
-		y: null,
-	},
-	percent: null,
-	name: null,
-}
-
 function useCenterLogo(size, center, Logo) {
 	if (!Logo) return null
 
@@ -148,11 +139,20 @@ function useCenterLogo(size, center, Logo) {
 				r={size / 4}
 				fill={Colors.primary_reversed}
 			/>
-			<G translate={`${logoVector.x} ${logoVector.y}`} scale={scale}>
+			<G x={logoVector.x} y={logoVector.y} scale={scale}>
 				<Logo />
 			</G>
 		</>
 	)
+}
+
+const TooltipInitialState = {
+	vector: {
+		x: null,
+		y: null,
+	},
+	percent: null,
+	name: null,
 }
 
 function useTooltips(data, slices, center) {
