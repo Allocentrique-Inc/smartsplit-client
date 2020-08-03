@@ -113,7 +113,7 @@ export class WorkpieceFileList extends Observable {
 		}
 	}
 
-	$all() {
+	get $all() {
 		return Object.values(this)
 	}
 
