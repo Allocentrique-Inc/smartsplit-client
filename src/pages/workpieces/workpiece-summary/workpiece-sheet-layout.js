@@ -12,7 +12,14 @@ import UserAvatar from "../../../smartsplit/user/avatar"
 import ChevronDown from "../../../svg/chevron-down"
 import ArrowRight from "../../../svg/arrow-right"
 import PenIcon from "../../../svg/pen"
-import Scrollable from "../../../widgets/scrollable"
+import AmazonIcon from "../../../svg/workpieces/amazon"
+import GooglePlayIcon from "../../../svg/workpieces/google-play"
+import ITunesIcon from "../../../svg/workpieces/itunes"
+import SoundcloudIcon from "../../../svg/workpieces/soundcloud"
+import SpotifyIcon from "../../../svg/workpieces/spotify"
+import YoutubeIcon from "../../../svg/workpieces/youtube"
+import UnlockDownloadIcon from "../../../svg/workpieces/unlock-download"
+import LockDownloadIcon from "../../../svg/workpieces/lock-download"
 import { Metrics, Colors } from "../../../theme"
 import MetricsStyles from "../../../styles/metrics"
 
@@ -137,53 +144,124 @@ export function SheetHeader(props) {
 		</Column>
 	)
 }
-export function WorkpieceSheetSections(props) {
-	const {
-		categoryLine,
-		creationDateLine,
-		creationDate,
-		authorsLine,
-		authors,
-		composersLine,
-		composers,
-		mixersLine,
-		mixers,
-		editorsLine,
-		editors,
-	} = props
+export function CreationSection(props) {
+	const { category, creationDate, authors, composers, mixers, editors } = props
+
+	const CommaSpacer = () => <Text secondary>{", "}</Text>
+
 	return (
-		<Row>
-			<Column of="group" flex={1} padding="group">
-				<Heading level={3}>{categoryLine}</Heading>
-				<Row>
-					<Text secondary>{creationDateLine}</Text>
+		<Column of="group" flex={7}>
+			<Heading level={3}>{category}</Heading>
+			<Row>
+				<Column of="group" padding="inside" flex={5}>
+					<Text secondary>Date de création</Text>
+					<Text secondary>Auteurs (paroles)</Text>
+					<Text secondary>Compositeurs (musique)</Text>
+					<Text secondary>Arrangeurs (musique)</Text>
+					<Text secondary>Éditeurs</Text>
+				</Column>
+				<Column of="group" padding="inside" flex={9}>
 					<Text normal>{creationDate}</Text>
-				</Row>
-				<Row>
-					<Text secondary>{authorsLine}</Text>
-					<Text action bold>
-						{authors}
-					</Text>
-				</Row>
-				<Row>
-					<Text secondary>{composersLine}</Text>
-					<Text action bold>
-						{composers}
-					</Text>
-				</Row>
-				<Row>
-					<Text secondary>{mixersLine}</Text>
-					<Text action bold>
-						{mixers}
-					</Text>
-				</Row>
-				<Row>
-					<Text secondary>{editorsLine}</Text>
-					<Text action bold>
-						{editors}
-					</Text>
-				</Row>
-			</Column>
-		</Row>
+					<Row of="none" spacer={CommaSpacer}>
+						{authors.map((author) => (
+							<Text action bold>
+								{author}
+							</Text>
+						))}
+					</Row>
+					<Row of="none" spacer={CommaSpacer}>
+						{composers.map((composer) => (
+							<Text action bold>
+								{composer}
+							</Text>
+						))}
+					</Row>
+
+					<Row of="none" spacer={CommaSpacer}>
+						{mixers.map((mixer) => (
+							<Text action bold>
+								{mixer}
+							</Text>
+						))}
+					</Row>
+					<Row of="none" spacer={CommaSpacer}>
+						{editors.map((editor) => (
+							<Text action bold>
+								{editor}
+							</Text>
+						))}
+					</Row>
+				</Column>
+			</Row>
+		</Column>
+	)
+}
+
+export function GeneralInfoSection(props) {
+	const { length, bmp, genres, styles, influences } = props
+	return (
+		<Column of="group">
+			<Heading level={4}>{props.category}</Heading>
+			<Row>
+				<Column of="group" padding="inside" flex={1}>
+					<Text secondary>Durée</Text>
+					<Text secondary>BMP</Text>
+					<Text secondary>Genre</Text>
+					<Text secondary>Styles</Text>
+					<Text secondary>Influences</Text>
+				</Column>
+				<Column of="group" padding="inside" flex={2}>
+					<Text normal>{length}</Text>
+					<Text normal>{bmp}</Text>
+					<Text normal>{genres}</Text>
+					<Text normal>{styles}</Text>
+					<Text normal>{influences}</Text>
+				</Column>
+			</Row>
+		</Column>
+	)
+}
+
+export function ListeningSection(props) {
+	return (
+		<Column of="group">
+			<Heading level={4}>{props.category}</Heading>
+			<Row of="inside" valign="center">
+				<ITunesIcon />
+				<YoutubeIcon />
+				<AmazonIcon />
+				<GooglePlayIcon />
+				<SoundcloudIcon />
+				<SpotifyIcon />
+			</Row>
+		</Column>
+	)
+}
+
+export function DownloadsSection(props) {
+	const { downloadType, action } = props
+	const copyLink = "Copier le lien"
+	return (
+		<Column of="group">
+			<Heading level={4}>{props.category}</Heading>
+			<Row>
+				<UnlockDownloadIcon />
+				<Column>
+					<Text secondary>{downloadType}</Text>
+					<Row>
+						<Text bold action>
+							{action}
+						</Text>
+						<Text secondary bold>
+							·
+						</Text>
+						<Text bold action>
+							{copyLink}
+						</Text>
+					</Row>
+				</Column>
+			</Row>
+			<LockDownloadIcon />
+		</Column>
 	)
 }
