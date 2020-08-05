@@ -29,7 +29,12 @@ export function SplitUserEmailRow(props) {
 	)
 }
 
-export default function SendSplitModal(props) {
+export default function SendSplitModal({
+	visible,
+	onRequestClose,
+	onSubmit,
+	users,
+}) {
 	const [email] = useState("")
 
 	const validEmail = notEmptyValidator(email)
@@ -40,35 +45,28 @@ export default function SendSplitModal(props) {
 
 	return (
 		<DialogModal
-			visible={props.visible}
-			onRequestClose={props.onRequestClose}
+			visible={visible}
+			onRequestClose={onRequestClose}
 			title={t("split:send.title")}
 			buttons={
 				<>
 					<Button
 						text={t("general:buttons.cancel")}
 						tertiary
-						onClick={props.onRequestClose}
+						onClick={onRequestClose}
 					/>
 					<Button
 						text={t("general:buttons.send")}
 						disabled={!canSubmit}
-						onClick={props.onSubmit}
+						onClick={onSubmit}
 					/>
 				</>
 			}
 		>
-			<Group
-				of="group"
-				style={Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }}
-			>
+			<Group of="group">
 				<Paragraph>{t("split:send.paragraph")}</Paragraph>
 
-				{props.users.map((user) => (
-					<Row of="component">
-						<SplitUserEmailRow user={user} />
-					</Row>
-				))}
+				{users && users.map((user) => <SplitUserEmailRow user={user} />)}
 			</Group>
 		</DialogModal>
 	)

@@ -9,12 +9,14 @@ import EditModal from "../../smartsplit/rightholders/edit-modal"
 import { AuthModalTestPage } from "../auth/modals"
 import { AddCollaboratorModal } from "../dashboard/collaborators"
 import { DeclareIdentityModal } from "../auth/modals"
+import SendSplitModal from "../document/send-split-modal"
 
 export default function ModalTests() {
 	const [t] = useTranslation()
 
 	const [modal1, setModal1] = useState(false)
 	const [modal2, setModal2] = useState(false)
+	const [modal3, setModal3] = useState(false)
 	const [modal, setModal] = useState(false)
 
 	return (
@@ -22,8 +24,8 @@ export default function ModalTests() {
 			<Heading level="2">Tests des modales</Heading>
 			<Row of="group" wrap>
 				<Button text="AddCollabArtist" onClick={() => setModal1(true)} />
-
 				<Button text="DeclareIdentity" onClick={() => setModal2(true)} />
+				<Button text="SendSplit" onClick={() => setModal3(true)} />
 			</Row>
 
 			<AddCollaboratorModal
@@ -33,6 +35,10 @@ export default function ModalTests() {
 			<DeclareIdentityModal
 				visible={modal2}
 				onRequestClose={() => setModal2(false)}
+			/>
+			<SendSplitModal
+				visible={modal3}
+				onRequestClose={() => setModal3(false)}
 			/>
 
 			{/* <Row>
