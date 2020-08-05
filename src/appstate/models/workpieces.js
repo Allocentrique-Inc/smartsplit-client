@@ -22,6 +22,17 @@ export class Workpiece extends WorkpieceObservable {
 			writable: false,
 			value: new WorkpieceFileList(this, files),
 		})
+
+		Object.defineProperty(this, "rightsSplits", {
+			enumerable: true,
+			configurable: false,
+			writable: false,
+			value: Object.freeze({
+				copyright: new CopyrightSplit(),
+				interpretation: new InterpretationSplit(),
+				recording: new RecordingSplit(),
+			}),
+		})
 	}
 
 	set(props) {
@@ -168,5 +179,60 @@ export class WorkpieceFile extends Observable {
 	set(props) {
 		Object.assign(this, props)
 		this.notify("set", props)
+	}
+}
+
+export class RightSplit extends Observable {
+	constructor(shares) {
+		super()
+	}
+
+	removeRightHolder(rightHolder_id) {
+		if (rightHolder_id in this) {
+			const share = this[rightHolder_id]
+			delete this[rightHolder_id]
+			this.notify("remove", share)
+		}
+	}
+
+	addRightHolder(rightHolder_id, share = {}) {
+		if (rightHolder_id in this) {
+			throw new Error("Cannot add share: this user already has a share")
+		}
+
+		const newShare = (this[rightHolder_id] = new SplitShare(
+			rightHolder_id,
+			share
+		))
+		this.notify("add", newShare)
+	}
+
+	addShare(share) {
+		return this.addRightHolder(share.rightHolder, share)
+	}
+
+	removeShare(share) {
+		return this.removeRightHolder(share.rightHolder)
+	}
+
+	get allShares() {
+		return Object.values(this)
+	}
+}
+
+export class CopyrightSplit extends RightSplit {}
+export class InterpretationSplit extends RightSplit {}
+export class RecordingSplit extends RightSplit {}
+
+export class SplitShare extends Observable {
+	constructor(rightHolder_id, data) {
+		super()
+
+		this.shares = 1
+		this.roles = []
+		this.comment = ""
+		this.vote = "undecided"
+		Object.assign(this, data)
+		this.rightHolder = rightHolder_id
 	}
 }
