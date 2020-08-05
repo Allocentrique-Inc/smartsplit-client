@@ -19,7 +19,7 @@ import CircledC from "../../svg/circled-c"
 import CircledP from "../../svg/circled-p"
 import CircledStar from "../../svg/circled-star"
 
-export default function WidgetTest() {
+export default function WidgetTests() {
 	return (
 		<Column of="group">
 			<PieChartTests />

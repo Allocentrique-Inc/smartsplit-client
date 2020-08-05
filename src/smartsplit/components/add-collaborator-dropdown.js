@@ -6,7 +6,8 @@ import { Row } from "../../layout"
 import { Text } from "../../text"
 import { Colors } from "../../theme"
 import { useTranslation } from "react-i18next"
-import InviteModal from "../rightholders/invite-modal"
+import EditModal from "../rightholders/edit-modal"
+import { AddCollaboratorModal } from "../../pages/dashboard/collaborators"
 
 import { useRightHolderSearch } from "../../appstate/react/right-holders"
 
@@ -47,7 +48,7 @@ export default function AddCollaboratorDropdown(props) {
 					</Row>
 				</TouchableWithoutFeedback>
 			</Autocomplete>
-			<InviteModal
+			<AddCollaboratorModal
 				visible={inviteModal}
 				onRequestClose={() => setInviteModal(false)}
 			/>

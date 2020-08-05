@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next"
 import { Column, Row, Group, Flex, Hairline } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
-import Modal from "../../widgets/modal"
+import Modal, { DialogModal } from "../../widgets/modal"
 import Scrollable from "../../widgets/scrollable"
 import Pager from "../../widgets/pager"
 
@@ -13,6 +13,8 @@ import XIcon from "../../svg/x"
 import { LoginForm } from "./login"
 import { RegisterForm } from "./register"
 import { ForgotPasswordForm } from "./forgot-password"
+import { Platform } from "react-native"
+import { CheckBox } from "../../forms"
 
 export const MODAL_WIDTH = 624
 
@@ -266,4 +268,43 @@ export function ForgotPasswordSentModal(props) {
 
 export function AuthModalTestPage() {
 	return <AuthModal visible={true} />
+}
+
+export function DeclareIdentityModal(props) {
+	const { t } = useTranslation()
+	const [agreeTerms1, setAgreeTerms1] = useState(false)
+	const [agreeTerms2, setAgreeTerms2] = useState(false)
+	const canSubmit = agreeTerms1 && agreeTerms2
+
+	return (
+		<DialogModal
+			visible={props.visible}
+			onRequestClose={props.onRequestClose}
+			title={t("identity:title")}
+			buttons={
+				<>
+					<Button
+						text={t("general:buttons.cancel")}
+						tertiary
+						onClick={props.onRequestClose}
+					/>
+					<Button
+						text={t("general:buttons.toAccept")}
+						disabled={!canSubmit}
+						onClick={props.onSubmit}
+					/>
+				</>
+			}
+		>
+			<Group of="component">
+				<CheckBox onChange={setAgreeTerms1} checked={agreeTerms1}>
+					<Text>{t("identity:Ideclare")(props.firstName, props.lastName)}</Text>
+				</CheckBox>
+
+				<CheckBox onChange={setAgreeTerms2} checked={agreeTerms2}>
+					<Text>{t("identity:Iaccept")}</Text>
+				</CheckBox>
+			</Group>
+		</DialogModal>
+	)
 }

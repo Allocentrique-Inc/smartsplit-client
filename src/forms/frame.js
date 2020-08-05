@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, cloneElement } from "react"
 import { View, StyleSheet } from "react-native"
 import FormStyles from "../styles/forms"
-import MetricsStyles from "../styles/metrics"
+import { mapChildren } from "../utils/react"
+import { Metrics } from "../theme"
 
 export default function Frame(props) {
 	const { as, focused, error, style, children, viewRef, ...nextProps } = props
@@ -15,7 +16,6 @@ export default function Frame(props) {
 	]
 
 	if (viewRef) nextProps.ref = viewRef
-
 	return (
 		<Container style={combinedStyles} {...nextProps}>
 			{children}

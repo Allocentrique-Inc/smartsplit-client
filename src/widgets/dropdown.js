@@ -169,7 +169,6 @@ class DropdownRow extends React.PureComponent {
 
 	render() {
 		const Icon = this.props.icon
-
 		const focusToggle = this.props.noFocusToggle
 			? {}
 			: {
@@ -188,7 +187,7 @@ class DropdownRow extends React.PureComponent {
 				onPress={pressToggle}
 				{...focusToggle}
 			>
-				<Row of="inside">
+				<Row of="inside" valign="center">
 					{this.props.leftIcon && <Icon />}
 					{this.props.placeholder}
 					{!this.props.leftIcon && <Icon />}

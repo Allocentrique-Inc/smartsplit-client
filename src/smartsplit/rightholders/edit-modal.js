@@ -8,14 +8,14 @@ import { Text } from "../../text"
 import Button from "../../widgets/button"
 import { SearchAndTag } from "../../forms/search-and-tag"
 
-export default function InviteModal(props) {
+export default function EditModal(props) {
 	const [t] = useTranslation()
 
 	const { firstName, lastName, artistName, email, groups } = props
 
 	const [search, setSearch] = useState("")
 	const [selected, setSelected] = useState([])
-
+	console.log({ firstName, lastName, artistName, email, groups })
 	return (
 		<DialogModal
 			visible={props.visible}
@@ -33,17 +33,12 @@ export default function InviteModal(props) {
 			}
 		>
 			<Form
-				values={{ firstName } + { lastName }}
+				values={{ firstName, lastName, artistName, email, groups }}
 				onSubmit={(values) =>
 					alert("Submit " + JSON.stringify(values, null, 4))
 				}
 			>
-				<Group
-					of="group"
-					style={
-						Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }
-					}
-				>
+				<Column of="group" padding="group">
 					<TextField
 						name="firstName"
 						label={t("forms:labels.legalFirstName")}
@@ -100,7 +95,7 @@ export default function InviteModal(props) {
 							{t("newUserInvite:checkboxUndertext")}
 						</Text>
 					</Column>
-				</Group>
+				</Column>
 			</Form>
 		</DialogModal>
 	)

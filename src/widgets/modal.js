@@ -11,6 +11,7 @@ import LayerStyles from "../styles/layers"
 import MetricsStyles from "../styles/metrics"
 import { Metrics } from "../theme"
 import XIcon from "../svg/x"
+import { MODAL_WIDTH } from "../pages/auth/modals"
 
 export const ModalStyles = StyleSheet.create({
 	background: {
@@ -93,7 +94,7 @@ export function DialogModal(props) {
 
 	return (
 		<Modal {...nextProps}>
-			<Column>
+			<Column style={{ maxWidth: MODAL_WIDTH, flex: 1 }}>
 				<Row
 					of="component"
 					layer="overground_moderate"

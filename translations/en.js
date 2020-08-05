@@ -151,12 +151,12 @@ export const forms = {
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
 		groups: "Groups",
-
 		dropdowns: {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
 		},
+		defaultRoles: "Default Role(s)"
 	},
 
 	descriptions: {
@@ -205,8 +205,29 @@ export const forms = {
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
+		defaultRoles: "These roles can always be changed later."
 	},
-	createCollaborator: "Create a new collaborator"
+	addCollabArtist: "[Add/Modify] a collaborating artist",
+	options: {
+		defaultRoles: [
+			{
+				displayValue: "Author",
+				value: "author"
+			},
+			{
+				displayValue: "Compositor",
+				value: "compositor"
+			},
+			{
+				displayValue: "Arranger",
+				value: "arranger"
+			},
+			{
+				displayValue: "Interpreter",
+				value: "interpreter"
+			}
+		]
+	}
 }
 
 export const login = {
@@ -247,7 +268,7 @@ export const register = {
 export const passwordIssues = {
 	checkEmail: "Check your emails",
 	validate:
-		"A message including a validation link was emailed to you.\nDoucle check your spam. We never know!",
+		"A message including a validation link was emailed to you. Double check your spam. We never know!",
 	reset: "Reset your password.",
 	emailSent: "Email sent.",
 	resetParagraph:
@@ -385,12 +406,6 @@ export const admin = {
 	confirmEntityDeletion: "Beware, the entity will be deleted.",
 }
 
-export const newUserInvite = {
-	title: "[Add/Modify] a Collaborating Artist",
-	checkboxTitle: "Rôle(s) par défaut",
-	checkboxUndertext: "These roles can always be modified later.",
-}
-
 export const workpieces = {
 	original: "Original piece",
 	remake: "Remake",
@@ -408,4 +423,32 @@ export const workpieces = {
 			desc: "Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain."
 		},
 	}
+}
+
+export const split = {
+	send: "Send the rights split",
+	paragraph:
+		"To finalize this split, you need to invite your collaborator to validate the whole thing. Mention the email addresses to whom send your split proposition.",
+	email: "Enter the email address",
+}
+
+export const identity = {
+	title: "Identity Declaration",
+	Ideclare: (firstName, lastName) => (
+		<>
+			<b>
+				I declare to be truly {firstName} {lastName}
+			</b>
+			. I understand that pretending to be someone else would constitute a
+			serious violation liable to prosecution.
+		</>
+	),
+	Iaccept: (workPiece) => (
+		<>
+			<b>I accept this right splits</b> intervened between myself and any
+			collaborator. This represents the desired agreement. I understand that
+			these percentages will now apply to any revenue split related to
+			{workPiece}.
+		</>
+	),
 }
