@@ -397,7 +397,65 @@ export const newUserInvite = {
 	checkboxUndertext: "These roles can always be modified later.",
 }
 
+export const instruments = {
+	electricGuitar: "Electric Guitar",
+	flute: "recorder",
+	electricBass: "Bass",
+}
+
 export const workpieceSheet = {
 	by: " By ",
 	update: "Updated ",
+	creation: {
+		header: "Creation",
+		date: "Creation Date",
+		authors: "Authors (lyrics)",
+		composers: "Composers (music)",
+		mixers: "Mixers (music)",
+		editors: "Editors",
+	},
+	performance: {
+		header: "Performance",
+		starring: "Starring",
+		singer: "Singer",
+		solo: "Soloist",
+		musician: "Musician",
+	},
+	recording: {
+		header: "Audio Recording",
+		title: "Track Title",
+		director: "Director",
+		recordTech: "Recording Technicians",
+		mix: "Mixing",
+		master: "Mastering",
+		prod: "Production",
+		studio: "Recording Studio",
+	},
+	listening: {
+		header: "Listen",
+	},
+	release: {
+		header: "Release",
+		date: "Release Date",
+		format: "Product Format",
+		title: "Product Title",
+	},
+	general: {
+		header: "General Informations",
+		length: "Length",
+	},
+	downloads: {
+		header: "Downloads",
+		visual: "Work Visual",
+		audio: "Audio File",
+		tablature: "Partition/Tablature",
+		midi: "MIDI File",
+		download: "Download",
+		link: "Copy the link",
+		access: "Ask access",
+	},
+	lyrics: {
+		header: "Lyrics",
+		check: "See the lyrics",
+	},
 }

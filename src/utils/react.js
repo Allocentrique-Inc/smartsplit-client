@@ -41,3 +41,13 @@ export function mapFragment(fragment, fn) {
 		...fragment.props.children.map(fn)
 	)
 }
+
+export function joinElements(elements, spacer) {
+	const output = []
+	elements.forEach((element, index) => {
+		output.push(element)
+		output.push(React.cloneElement(spacer, { key: "spacer-" + index }))
+	})
+	output.pop()
+	return output
+}

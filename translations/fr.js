@@ -401,7 +401,65 @@ export const newUserInvite = {
 	checkboxUndertext: "Ces rôles pourront toujours être modifiés plus tard.",
 }
 
+export const instruments = {
+	electricGuitar: "Guitare électrique",
+	flute: "Flute à bec",
+	electricBass: "Basse",
+}
+
 export const workpieceSheet = {
 	by: " Par ",
 	update: "Mis à jour il y a ",
+	creation: {
+		header: "Création",
+		date: "Date de création",
+		authors: "Auteurs (paroles)",
+		composers: "Compositeurs (musique)",
+		mixers: "Arrangeurs (musique)",
+		editors: "Editeurs",
+	},
+	performance: {
+		header: "Interprétation",
+		starring: "Artiste vedette",
+		singer: "Chanteur",
+		solo: "Soliste",
+		musician: "Musicien",
+	},
+	recording: {
+		header: "Enregistrement sonore",
+		title: "Titre de la piste",
+		director: "Réalisateur",
+		recordTech: "Tech. en enregistrement",
+		mix: "Mixage",
+		master: "Mastering",
+		prod: "Production",
+		studio: "Studio d'enregisgtrment",
+	},
+	release: {
+		header: "Sortie",
+		date: "Date de sortie",
+		format: "Format du  produit",
+		title: "Titre du produit",
+	},
+	listening: {
+		header: "Écouter",
+	},
+	general: {
+		header: "Informations générales",
+		length: "Durée",
+	},
+	downloads: {
+		header: "Téléchargements",
+		visual: "Visuel de l'œuvre",
+		audio: "Fichier audio",
+		tablature: "Partition/Tablature",
+		midi: "Fichier MIDI",
+		download: "Télécharger",
+		link: "Copier le lien",
+		access: "Demander l'accès",
+	},
+	lyrics: {
+		header: "Paroles",
+		check: "Voir les paroles",
+	},
 }
