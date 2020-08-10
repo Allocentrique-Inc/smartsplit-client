@@ -166,7 +166,7 @@ export function Card({ share, color, sharePercent, removeSelf }) {
 							{user.user_id === authUser.id && <b> (toi)</b>}
 						</Text>
 					</Flex>
-					<Button icon={<XIcon />} onClick={removeSelf} />
+					<Button icon={<XIcon />} small onClick={removeSelf} />
 				</Row>
 				<Hairline />
 				<Row>
