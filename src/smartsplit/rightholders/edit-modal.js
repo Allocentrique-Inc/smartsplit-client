@@ -6,7 +6,7 @@ import { Group, Column, Row } from "../../layout"
 import { Form, LabelText, TextField, CheckBox } from "../../forms"
 import { Text } from "../../text"
 import Button from "../../widgets/button"
-import { SearchAndTag } from "../../forms/search-and-tag"
+import SearchAndTag from "../../forms/search-and-tag"
 
 export default function EditModal(props) {
 	const [t] = useTranslation()
