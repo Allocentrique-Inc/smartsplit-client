@@ -6,7 +6,7 @@ import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import Copyright from "../../../../svg/copyright"
+import CopyrightIcon from "../../../svg/copyright"
 
 export default function Creation() {
 	const history = useHistory()
@@ -56,7 +56,9 @@ export function CreationForm() {
 		<Row>
 			<Column of="group" flex={1}>
 				<Column of="component">
-					<Copyright />
+					<Text action bold valign="center">
+						<CopyrightIcon /> CRÉATION
+					</Text>
 					<Heading level={1}>Qui a inventé cette pièce musicale</Heading>
 					<Paragraph>
 						Sépare ici le droit d’auteur entre les créateurs, c’est à dire les
