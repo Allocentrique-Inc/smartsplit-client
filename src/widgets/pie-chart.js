@@ -84,7 +84,7 @@ function PieChartSlice(props) {
 		start.y
 	} A${radius},${radius} ${rotation ? rotation : 0} ${
 		Math.abs(angle) > Math.PI ? 1 : 0
-	},${clockwise ? 0 : 1} ${end.x},${end.y} z`
+	},${clockwise ? 0 : 1} ${end.x - 0.001},${end.y} z`
 	return (
 		<Path
 			d={data}
