@@ -113,7 +113,7 @@ export function WorkpiecePage() {
 	return (
 		<Column style={Styles.outerContainer}>
 			<Navbar
-				onBack={() => history.goBack()}
+				onBack={() => history.push("/dashboard/")}
 				actions={
 					<TouchableWithoutFeedback>
 						<Row of="inside" valign="center">
