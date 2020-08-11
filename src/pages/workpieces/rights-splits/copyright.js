@@ -24,6 +24,14 @@ export default function CopyrightPage() {
 		history.push("/dashboard/")
 	}
 
+	function navigateToSummary() {
+		history.push(`/workpieces/${workpiece.id}`)
+	}
+
+	function navigateToInterpretation() {
+		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+	}
+
 	return (
 		<Layout
 			workpiece={workpiece}
@@ -34,9 +42,13 @@ export default function CopyrightPage() {
 			formNav={
 				<>
 					<Row flex={1}>
-						<Button secondary text="Retour" />
+						<Button secondary text="Retour" onClick={navigateToSummary} />
 						<Flex />
-						<Button primary text="Continuer" />
+						<Button
+							primary
+							text="Continuer"
+							onClick={navigateToInterpretation}
+						/>
 					</Row>
 					<Row flex={1} />
 				</>
