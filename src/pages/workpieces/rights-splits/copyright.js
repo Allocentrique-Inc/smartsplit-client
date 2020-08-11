@@ -21,7 +21,7 @@ export default function CopyrightPage() {
 	const workpiece = useCurrentWorkpiece()
 
 	function saveAndQuit() {
-		history.push("/dashboard/")
+		history.push(`/workpieces/${workpiece.id}`)
 	}
 
 	function navigateToSummary() {
