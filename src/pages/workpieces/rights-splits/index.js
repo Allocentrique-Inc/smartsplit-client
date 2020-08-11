@@ -1,18 +1,42 @@
 import React from "react"
-import { Switch, Route } from "react-router"
+import { Switch, Route, Redirect } from "react-router"
 import CopyrightPage from "./copyright"
-import DocumentCreation from "../documentation/document-creation"
+import Creation from "../documentation/creation"
+import InterpretationPage from "./interpretation"
+import RecordingPage from "./recording"
 
 export default function (props) {
 	return (
 		<Switch>
-			<Route path="/workpieces/page1">
-				<CopyrightPage {...props} />
-			</Route>
-
-			<Route path="/documentation/document-creation">
-				<DocumentCreation />
-			</Route>
+			<Route
+				path="/workpieces/:workpiece_id/rights-splits"
+				exact
+				component={RedirectToCopyright}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/rights-splits/copyright"
+				component={CopyrightPage}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/rights-splits/interpretation"
+				component={InterpretationPage}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/rights-splits/recording"
+				component={RecordingPage}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/documentation/creation"
+				component={Creation}
+			/>
 		</Switch>
+	)
+}
+
+export function RedirectToCopyright({ match }) {
+	return (
+		<Redirect
+			to={`/workpieces/${match.params.workpiece_id}/rights-splits/copyright`}
+		/>
 	)
 }
