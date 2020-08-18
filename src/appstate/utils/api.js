@@ -61,19 +61,19 @@ export function createCrudObservable(EntityApi, idField = "id") {
 	}
 
 	genMethod("create", "creating", "ready", async function (...args) {
-		return await EntityApi.create(this.data, ...args)
+		return await EntityApi.create(...args)
 	})
 
 	genMethod("read", "loading", "ready", async function (...args) {
-		return await EntityApi.read(this.id, this.data, ...args)
+		return await EntityApi.read(this.id, ...args)
 	})
 
 	genMethod("replace", "updating", "ready", async function (...args) {
-		return await EntityApi.replace(this.id, this.data, ...args)
+		return await EntityApi.replace(this.id, ...args)
 	})
 
 	genMethod("update", "updating", "ready", async function (...args) {
-		return await EntityApi.update(this.id, this.data, ...args)
+		return await EntityApi.update(this.id, ...args)
 	})
 
 	genMethod("destroy", "destroying", "destroyed", async function (...args) {
