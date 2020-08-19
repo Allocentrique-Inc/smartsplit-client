@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from "react"
 import { useHistory } from "react-router"
-import { useStorePath } from "../../../appstate/react"
+import { useStorePath, useSubpath } from "../../../appstate/react"
 import { useCurrentWorkpiece } from "../context"
 import { Column, Row, Flex, Hairline } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
@@ -20,8 +20,17 @@ export default function CopyrightPage() {
 	const history = useHistory()
 	const workpiece = useCurrentWorkpiece()
 
-	function saveAndQuit() {
-		history.push(`/workpieces/${workpiece.id}`)
+	const rightsSplits = useSubpath(workpiece, "rightsSplits")
+	const workpieceSplitsChanged = useSubpath(rightsSplits, "$hasChanged")
+	const workpieceSplitsError = useSubpath(rightsSplits, "$error")
+
+	async function saveAndQuit() {
+		try {
+			await rightsSplits.save()
+			history.push(`/workpieces/${workpiece.id}`)
+		} catch (error) {
+			console.error("Error saving rights splits", error)
+		}
 	}
 
 	function navigateToSummary() {
@@ -37,7 +46,12 @@ export default function CopyrightPage() {
 			workpiece={workpiece}
 			path={["Partage de droits", "Droits d'auteur"]}
 			actions={
-				<Button tertiary text="Sauvegarder et fermer" onClick={saveAndQuit} />
+				<Button
+					tertiary
+					text="Sauvegarder et fermer"
+					onClick={saveAndQuit}
+					disabled={!workpieceSplitsChanged}
+				/>
 			}
 			formNav={
 				<>
@@ -50,7 +64,11 @@ export default function CopyrightPage() {
 							onClick={navigateToInterpretation}
 						/>
 					</Row>
-					<Row flex={1} />
+					<Row flex={1}>
+						{workpieceSplitsError && (
+							<Text error>{workpieceSplitsError.message}</Text>
+						)}
+					</Row>
 				</>
 			}
 		>
@@ -89,12 +107,12 @@ export function CopyrightForm() {
 		.map((share) => share.shares)
 		.reduce((a, n) => a + n, 0)
 
-	useEffect(() => {
+	/*useEffect(() => {
 		const unsubscribes = shares.map((share) => share.subscribe(rerender))
 		return function () {
 			unsubscribes.forEach((unsub) => unsub())
 		}
-	}, [shares])
+	}, [shares])*/
 
 	return (
 		<Row>

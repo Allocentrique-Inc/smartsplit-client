@@ -27,3 +27,23 @@ export async function uploadFileToWorkpiece(
 
 	return result.data
 }
+
+export async function createNewRightsSplits(workpiece_id, rightsSplits) {
+	const result = await client.request({
+		method: "post",
+		url: `/workpieces/${workpiece_id}/rightSplit`,
+		data: rightsSplits,
+	})
+
+	return result.data
+}
+
+export async function updateRightsSplits(workpiece_id, rightsSplits) {
+	const result = await client.request({
+		method: "put",
+		url: `/workpieces/${workpiece_id}/rightSplit`,
+		data: rightsSplits,
+	})
+
+	return result.data
+}
