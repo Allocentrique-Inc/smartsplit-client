@@ -1,34 +1,25 @@
+export const $subscriptions = Symbol("Subscriptions")
+
 export class Observable {
 	constructor() {
-		Object.defineProperties(this, {
-			subscriptions: {
-				configurable: false,
-				enumerable: false,
-				writable: false,
-				value: {},
-			},
-
-			subscriptionId: {
-				configurable: false,
-				enumerable: false,
-				writable: true,
-				value: 0,
-			},
-		})
+		this[$subscriptions] = {
+			subscribers: {},
+			id: 0,
+		}
 	}
 
 	subscribe(fn) {
-		const id = this.subscriptionId++
-		this.subscriptions[id] = fn
+		const id = this[$subscriptions].id++
+		this[$subscriptions].subscribers[id] = fn
 
 		return () => {
-			delete this.subscriptions[id]
+			delete this[$subscriptions].subscribers[id][id]
 		}
 	}
 
 	notify(...args) {
-		for (let k in this.subscriptions) {
-			this.subscriptions[k](...args)
+		for (let k in this[$subscriptions].subscribers) {
+			this[$subscriptions].subscribers[k](...args)
 		}
 	}
 
