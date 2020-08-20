@@ -2,13 +2,14 @@ import React from "react"
 import moment from "moment"
 import { View } from "react-native"
 import { useHistory } from "react-router"
-import { useSubpath } from "../../appstate/react"
+import { useStorePath, useSubpath } from "../../appstate/react"
 import { Column, Row } from "../../layout"
 import { Text } from "../../text"
 import { Button } from "../../widgets/button"
 import ProgressBar from "../../widgets/progress-bar"
 import AlbumArt from "../media/albumArt"
 import WorkStyles from "./styles"
+import UserAvatar from "../user/avatar"
 
 import OverflowMenuIcon from "../../svg/overflow-menu"
 
@@ -30,9 +31,12 @@ export default function MediaWorkRow(props) {
 					<Text heavy>{data.title}</Text>
 					<Text small>par {data.artist}</Text>
 				</Row>
-				<Text secondary small>
-					Modifié {dateRel} - Partagée avec ( ) ( ) ( )
-				</Text>
+				<Row>
+					<Text secondary small>
+						Modifié {dateRel} - Partagée avec{" "}
+					</Text>
+					<RightHoldersRow rightHolders={data.rightHolders} />
+				</Row>
 			</Column>
 
 			<Column of="inside" style={WorkStyles.dashboard_row_progress}>
@@ -51,4 +55,21 @@ export default function MediaWorkRow(props) {
 			<Button icon={<OverflowMenuIcon />} />
 		</View>
 	)
+}
+
+function RightHoldersRow({ rightHolders }) {
+	return (
+		<Row>
+			{rightHolders.map((rh) => (
+				<Avatar key={rh} id={rh} />
+			))}
+		</Row>
+	)
+}
+
+function Avatar({ id }) {
+	const user = useStorePath("users").fetch(id)
+	const data = useSubpath(user, "data")
+
+	return <UserAvatar user={data} size="xsmall" />
 }
