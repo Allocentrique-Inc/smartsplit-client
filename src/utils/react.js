@@ -1,4 +1,4 @@
-import React, { useReducer } from "react"
+import React, { useReducer, useEffect } from "react"
 import { batchedUpdates } from "./_react"
 
 let reactBatchUpdateQueue = []
@@ -72,9 +72,18 @@ function dispatchBatchedUpdates() {
 }
 
 export function useUpdateFunction() {
+	let mounted = true
 	const [, update] = useReducer((n) => n + 1, 0)
 
+	useEffect(function () {
+		return function () {
+			mounted = false
+		}
+	}, [])
+
 	return function () {
-		queueBatchedUpdate(update)
+		queueBatchedUpdate(function () {
+			if (mounted) update()
+		})
 	}
 }
