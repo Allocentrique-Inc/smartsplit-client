@@ -56,6 +56,7 @@ export const general = {
 		toRefuse: "Refuse",
 		toConsult: "Consult",
 		toBegin: "Begin",
+		pass: "Pass for now",
 	},
 }
 
@@ -155,8 +156,9 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			createCollaborator: "Add a collaborator",
 		},
-		defaultRoles: "Default Role(s)"
+		defaultRoles: "Default Role(s)",
 	},
 
 	descriptions: {
@@ -205,29 +207,29 @@ export const forms = {
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
-		defaultRoles: "These roles can always be changed later."
+		defaultRoles: "These roles can always be changed later.",
 	},
 	addCollabArtist: "[Add/Modify] a collaborating artist",
 	options: {
 		defaultRoles: [
 			{
 				displayValue: "Author",
-				value: "author"
+				value: "author",
 			},
 			{
 				displayValue: "Compositor",
-				value: "compositor"
+				value: "compositor",
 			},
 			{
 				displayValue: "Arranger",
-				value: "arranger"
+				value: "arranger",
 			},
 			{
 				displayValue: "Interpreter",
-				value: "interpreter"
-			}
-		]
-	}
+				value: "interpreter",
+			},
+		],
+	},
 }
 
 export const login = {
@@ -416,13 +418,15 @@ export const workpieces = {
 	cards: {
 		shareYourCopyright: {
 			title: "Share your copyright",
-			desc: "Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
+			desc:
+				"Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
 		},
 		protectYourWork: {
 			title: "Protect your work",
-			desc: "Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain."
+			desc:
+				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
 		},
-	}
+	},
 }
 
 export const split = {
@@ -451,4 +455,24 @@ export const identity = {
 			{workPiece}.
 		</>
 	),
+}
+
+export const creation = {
+	category: "CREATION",
+	title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
+	paragraph: "Here you  mention who contributed to the creation of this piece.",
+	date: "Creation Date",
+	roles: {
+		authors: "Authors",
+		authorsWho: "Who write the lyrics of this musical piece?",
+		addAuthor: "Add an author...",
+		composers: "Composers",
+		composersWho: "Who composed the music of this musical piece ?",
+		addComposer: "Add a composer...",
+		editors: "Editors",
+		editorsWho: "Who represent these authors and/or composers?",
+		addEditor: "Add an editor...",
+	},
+	iswc: "ISWC Code",
+	what: "C'est quoi un créateur ?",
 }
