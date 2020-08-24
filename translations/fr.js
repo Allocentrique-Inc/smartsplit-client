@@ -55,6 +55,9 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
+		continue: "Continuer",
+		back: "Retour",
+		saveClose: "Sauvegarder et continuer",
 		toConsult: "Consulter",
 		toBegin: "Commencer",
 		pass: "Passer pour l'instant",
@@ -463,23 +466,26 @@ export const identity = {
 	),
 }
 
-export const creation = {
-	category: "CRÉATION",
-	title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
-	paragraph:
-		"C'est ici que tu indiques qui a contribué à la création de cette pièce.",
-	date: "Date de création",
-	roles: {
-		authors: "Auteurs",
-		authorsWho: "Qui a écrit les paroles de cette pièce musicale ?",
-		addAuthor: "Ajouter un auteur...",
-		composers: "Compositeurs",
-		composersWho: "Qui a composé la musique de cette pièce musicale ?",
-		addComposer: "Ajouter un auteur...",
-		editors: "Éditeurs",
-		editorsWho: "Qui représente ces auteurs et/ou compositeurs ?",
-		addEditor: "Ajouter un éditeur...",
+export const document = {
+	help: "Help",
+	creation: {
+		category: "CRÉATION",
+		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
+		paragraph:
+			"C'est ici que tu indiques qui a contribué à la création de cette pièce.",
+		date: "Date de création",
+		roles: {
+			authors: "Auteurs",
+			authorsWho: "Qui a écrit les paroles de cette pièce musicale ?",
+			addAuthor: "Ajouter un auteur...",
+			composers: "Compositeurs",
+			composersWho: "Qui a composé la musique de cette pièce musicale ?",
+			addComposer: "Ajouter un auteur...",
+			editors: "Éditeurs",
+			editorsWho: "Qui représente ces auteurs et/ou compositeurs ?",
+			addEditor: "Ajouter un éditeur...",
+		},
+		iswc: "Code ISWC",
+		what: "C'est quoi un créateur ?",
 	},
-	iswc: "Code ISWC",
-	what: "C'est quoi un créateur ?",
 }

@@ -54,6 +54,9 @@ export const general = {
 		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
+		continue: "Continue",
+		back: "Back",
+		saveClose: "Save and Close",
 		toConsult: "Consult",
 		toBegin: "Begin",
 		pass: "Pass for now",
@@ -457,22 +460,26 @@ export const identity = {
 	),
 }
 
-export const creation = {
-	category: "CREATION",
-	title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
-	paragraph: "Here you  mention who contributed to the creation of this piece.",
-	date: "Creation Date",
-	roles: {
-		authors: "Authors",
-		authorsWho: "Who write the lyrics of this musical piece?",
-		addAuthor: "Add an author...",
-		composers: "Composers",
-		composersWho: "Who composed the music of this musical piece ?",
-		addComposer: "Add a composer...",
-		editors: "Editors",
-		editorsWho: "Who represent these authors and/or composers?",
-		addEditor: "Add an editor...",
+export const document = {
+	help: "Help",
+	creation: {
+		category: "CREATION",
+		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
+		paragraph:
+			"Here you mention who contributed to the creation of this piece.",
+		date: "Creation Date",
+		roles: {
+			authors: "Authors",
+			authorsWho: "Who write the lyrics of this musical piece?",
+			addAuthor: "Add an author...",
+			composers: "Composers",
+			composersWho: "Who composed the music of this musical piece ?",
+			addComposer: "Add a composer...",
+			editors: "Editors",
+			editorsWho: "Who represent these authors and/or composers?",
+			addEditor: "Add an editor...",
+		},
+		iswc: "ISWC Code",
+		what: "What's a creator?",
 	},
-	iswc: "ISWC Code",
-	what: "C'est quoi un créateur ?",
 }

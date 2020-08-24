@@ -34,16 +34,24 @@ export default function Creation() {
 			path={["Documenter mon œuvre", "Création"]}
 			progress={12.5}
 			actions={
-				<Button tertiary text="Sauvegarder et fermer" onClick={saveAndQuit} />
+				<Button
+					tertiary
+					text={t("general:buttons.saveClose")}
+					onClick={saveAndQuit}
+				/>
 			}
 			formNav={
 				<>
 					<Row flex={1}>
-						<Button secondary text="Retour" onClick={navigateToSummary} />
+						<Button
+							secondary
+							text={t("general:buttons.back")}
+							onClick={navigateToSummary}
+						/>
 						<Flex />
 						<Button
 							primary
-							text="Continuer"
+							text={t("general:buttons.pass")}
 							onClick={navigateToInterpretation}
 						/>
 					</Row>
@@ -68,41 +76,41 @@ export function CreationForm(props) {
 				<Column of="group">
 					<Text action bold valign="center">
 						<CopyrightIcon color={Colors.action} />
-						{t("creation:category")}
+						{t("document:creation.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("creation:title")}</Heading>
-					<Text secondary>{t("creation:paragraph")}</Text>
+					<Heading level={1}>{t("document:creation.title")}</Heading>
+					<Paragraph>{t("document:creation.paragraph")}</Paragraph>
 				</Column>
 				<Spacer of="group" />
 				<Column of="group">
 					<DateField
-						label={t("creation:date")}
+						label={t("document:creation.date")}
 						value={date}
 						onChangeText={setDate}
 						placeholder="DD-MM-YYYY"
 					/>
 					<AddCollaboratorDropdown
-						label={t("creation:roles.authors")}
-						subLabel={t("creation:roles.authorsWho")}
+						label={t("document:creation.roles.authors")}
+						subLabel={t("document:creation.roles.authorsWho")}
 						searchResults={searchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
-						placeholder={t("creation:roles.addAuthor")}
+						placeholder={t("document:creation.roles.addAuthor")}
 					/>
 					<AddCollaboratorDropdown
-						label={t("creation:roles.composers")}
-						subLabel={t("creation:roles.composersWho")}
+						label={t("document:creation.roles.composers")}
+						subLabel={t("document:creation.roles.composersWho")}
 						searchResults={searchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
-						placeholder={t("creation:roles.addComposer")}
+						placeholder={t("document:creation.roles.addComposer")}
 					/>
 					<AddCollaboratorDropdown
-						label={t("creation:roles.editors")}
-						subLabel={t("creation:roles.editorsWho")}
+						label={t("document:creation.roles.editors")}
+						subLabel={t("document:creation.roles.editorsWho")}
 						searchResults={searchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
@@ -111,7 +119,7 @@ export function CreationForm(props) {
 					/>
 					<TextField
 						name="iswc"
-						label={t("creation:iswc")}
+						label={t("document:creation.iswc")}
 						label_hint={t("forms:labels.optional")}
 						tooltip=""
 					/>
@@ -122,12 +130,12 @@ export function CreationForm(props) {
 				<Column of="component" padding="component" layer="underground">
 					<Column of="inside">
 						<Text small bold tertiary>
-							AIDE
+							{t("document:help")}
 						</Text>
 						<Hairline />
 					</Column>
 
-					<Heading level={4}>C'est quoi un créateur ?</Heading>
+					<Heading level={4}>{t("document:creation.what")}</Heading>
 
 					<Text secondary>
 						Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
