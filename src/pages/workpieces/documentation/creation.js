@@ -118,7 +118,7 @@ export function CreationForm(props) {
 						searchInput={search}
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
-						placeholder={t("creation:roles.addEditor")}
+						placeholder={t("document:creation.roles.addEditor")}
 					/>
 					<TextField
 						name="iswc"
