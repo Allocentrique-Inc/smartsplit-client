@@ -230,6 +230,10 @@ export const forms = {
 				displayValue: "Interpreter",
 				value: "interpreter",
 			},
+			{
+				displayValue: "Artist",
+				value: "Artist",
+			},
 		],
 	},
 }
@@ -496,5 +500,7 @@ export const document = {
 			addPerformer: "Add a performer...",
 		},
 		what: "What's a performer?",
+		whichPerformance: "Which type of performance?",
+		whichRole: "Which role in the musical piece?",
 	},
 }

@@ -232,6 +232,10 @@ export const forms = {
 				displayValue: "Interprète",
 				value: "interpreter",
 			},
+			{
+				displayValue: "Artiste",
+				value: "rtiste",
+			},
 		],
 	},
 }
@@ -501,6 +505,8 @@ export const document = {
 		roles: {
 			performer: "Ajouter un interprète...",
 		},
-		what: "C'est quoi un interprète ",
+		what: "C'est quoi un interprète ?",
+		whichPerformance: "Quel type d'interprétation ?",
+		whichRole: "Quel rôle dans la pièce musicale ?",
 	},
 }

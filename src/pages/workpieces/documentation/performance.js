@@ -9,7 +9,7 @@ import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors } from "../../../theme"
 import PerformancetIcon from "../../../svg/performance"
-import { DateField, TextField } from "../../../forms"
+import { DateField, TextField, Select, CheckBox } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
 export default function Performance() {
@@ -80,6 +80,7 @@ export function PerformanceForm(props) {
 				<Column of="group">
 					<Text action bold valign="center">
 						<PerformancetIcon color={Colors.action} />
+
 						{t("document:performance.category")}
 						<Row padding="tiny" />
 					</Text>
@@ -114,6 +115,38 @@ export function PerformanceForm(props) {
 						dolor sit amet.
 					</Text>
 				</Column>
+			</Column>
+		</Row>
+	)
+}
+
+export function PerformanceOptions() {
+	const { t } = useTranslation()
+	return (
+		<Row>
+			<Column padding="component" layer="left_overground" />
+			<Column of="group">
+				<Row>
+					<Text medium>{t("document:performance.whichPerformance")}</Text>
+					<Select
+						label="Champ de sélection"
+						placeholder="Sélectionnez..."
+						style={{ flex: 1 }}
+						options={[
+							{
+								key: t("forms:options.defaultRoles.displayValue"),
+								value: "artist",
+							},
+							{
+								key: t("forms:options.defaultRoles.displayValue"),
+								value: "artist",
+							},
+						]}
+					/>
+					<Text medium>{t("document:performance.whichRole")}</Text>
+					<CheckBox label="Cochez moi, cochez moi!" />
+					<CheckBox label="Cochez moi, cochez moi!" />
+				</Row>
 			</Column>
 		</Row>
 	)
