@@ -33,7 +33,7 @@ export default function Performance() {
 			workpiece={workpiece}
 			path={[
 				t("document:navbar.document"),
-				t("document:navbar.pages.creation"),
+				t("document:navbar.pages.performance"),
 			]}
 			progress={12.5}
 			actions={
