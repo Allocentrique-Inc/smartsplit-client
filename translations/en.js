@@ -461,6 +461,12 @@ export const identity = {
 }
 
 export const document = {
+	navbar: {
+		document: "Document my work",
+		pages: {
+			creation: "Creation",
+		},
+	},
 	help: "Help",
 	creation: {
 		category: "CREATION",

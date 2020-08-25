@@ -31,7 +31,10 @@ export default function Creation() {
 	return (
 		<Layout
 			workpiece={workpiece}
-			path={["Documenter mon œuvre", "Création"]}
+			path={[
+				t("document:navbar.document"),
+				t("document:navbar.pages.creation"),
+			]}
 			progress={12.5}
 			actions={
 				<Button
