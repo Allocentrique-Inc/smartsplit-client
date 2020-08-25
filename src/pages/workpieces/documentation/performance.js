@@ -28,6 +28,7 @@ export default function Performance() {
 	function navigateToInterpretation() {
 		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
 	}
+
 	return (
 		<Layout
 			workpiece={workpiece}
