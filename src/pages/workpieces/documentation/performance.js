@@ -8,7 +8,7 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors } from "../../../theme"
-//import CopyrightIcon from "../../../svg/copyright"
+import PerformancetIcon from "../../../svg/performance"
 import { DateField, TextField } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
@@ -78,7 +78,7 @@ export function PerformanceForm(props) {
 			{/* <Column of="group" flex={5}>
 				<Column of="group">
 					<Text action bold valign="center">
-						<CopyrightIcon color={Colors.action} />
+						<PerformancetIcon color={Colors.action} />
 						{t("document:creation.category")}
 						<Row padding="tiny" />
 					</Text>
