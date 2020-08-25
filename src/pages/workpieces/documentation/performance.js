@@ -80,52 +80,20 @@ export function PerformanceForm(props) {
 				<Column of="group">
 					<Text action bold valign="center">
 						<PerformancetIcon color={Colors.action} />
-						{t("document:creation.category")}
+						{t("document:performance.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("document:creation.title")}</Heading>
-					<Paragraph>{t("document:creation.paragraph")}</Paragraph>
+					<Heading level={1}>{t("document:performance.title")}</Heading>
+					<Paragraph>{t("document:performance.paragraph")}</Paragraph>
 				</Column>
 				<Spacer of="group" />
 				<Column of="group">
-					<DateField
-						label={t("document:creation.date")}
-						value={date}
-						onChangeText={setDate}
-						placeholder="DD-MM-YYYY"
-					/>
 					<AddCollaboratorDropdown
-						label={t("document:creation.roles.authors")}
-						subLabel={t("document:creation.roles.authorsWho")}
 						searchResults={searchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
-						placeholder={t("document:creation.roles.addAuthor")}
-					/>
-					<AddCollaboratorDropdown
-						label={t("document:creation.roles.composers")}
-						subLabel={t("document:creation.roles.composersWho")}
-						searchResults={searchResults}
-						searchInput={search}
-						onSearchChange={setSearch}
-						onSelect={(selection) => console.log(selection)}
-						placeholder={t("document:creation.roles.addComposer")}
-					/>
-					<AddCollaboratorDropdown
-						label={t("document:creation.roles.editors")}
-						subLabel={t("document:creation.roles.editorsWho")}
-						searchResults={searchResults}
-						searchInput={search}
-						onSearchChange={setSearch}
-						onSelect={(selection) => console.log(selection)}
-						placeholder={t("creation:roles.addEditor")}
-					/>
-					<TextField
-						name="iswc"
-						label={t("document:creation.iswc")}
-						label_hint={t("forms:labels.optional")}
-						tooltip=""
+						placeholder={t("document:performance.roles.addPerformer")}
 					/>
 				</Column>
 			</Column>
@@ -139,7 +107,7 @@ export function PerformanceForm(props) {
 						<Hairline />
 					</Column>
 
-					<Heading level={4}>{t("document:creation.what")}</Heading>
+					<Heading level={4}>{t("document:performance.what")}</Heading>
 
 					<Text secondary>
 						Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum

@@ -490,4 +490,13 @@ export const document = {
 		iswc: "Code ISWC",
 		what: "C'est quoi un créateur ?",
 	},
+	performance: {
+		category: "INTERPRÉTATION",
+		title: "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
+		paragraph: "C'est ici que tu indiques qui a joué quel intrument.",
+		roles: {
+			performer: "Ajouter un interprète...",
+		},
+		what: "C'est quoi un interprète ",
+	},
 }

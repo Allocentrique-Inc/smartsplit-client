@@ -484,4 +484,13 @@ export const document = {
 		iswc: "ISWC Code",
 		what: "What's a creator?",
 	},
+	performance: {
+		category: "PERFORMANCE",
+		title: "Who performed the musical piece on this audio recording?",
+		paragraph: "Here you mention who played which instrument.",
+		roles: {
+			addPerformer: "Add a performer...",
+		},
+		what: "What's a performer?",
+	},
 }
