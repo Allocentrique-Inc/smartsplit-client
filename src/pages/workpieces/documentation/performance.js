@@ -75,7 +75,7 @@ export function PerformanceForm(props) {
 
 	return (
 		<Row>
-			<Column of="group" flex={5}>
+			{/* <Column of="group" flex={5}>
 				<Column of="group">
 					<Text action bold valign="center">
 						<CopyrightIcon color={Colors.action} />
@@ -145,7 +145,7 @@ export function PerformanceForm(props) {
 						dolor sit amet.
 					</Text>
 				</Column>
-			</Column>
+			</Column> */}
 		</Row>
 	)
 }
