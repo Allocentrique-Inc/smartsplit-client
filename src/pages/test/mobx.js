@@ -10,32 +10,32 @@ import BaseState from "../../mobX/BaseState"
 
 export default observer(function mobx() {
 	const { t } = useTranslation()
-	const { bla, test } = useStores()
+	const { counts, test } = useStores()
 	const level1 = useStorePath("test", "deep", "level1")
-	const { count, squared, increment, decrement } = useStorePath("bla")
-	console.log(bla)
+	const { count, squared, increment, decrement } = useStorePath("counts")
+	console.log(counts)
 	return (
 		<Section of="group">
 			<Heading level="1">Tests de MobX</Heading>
 			<Heading level="2">
-				Tests de @observable et @computed de la class BLA
+				Tests de @observable et @computed de la class counts
 			</Heading>
 			<Text bold>
-				COUNT: <b>{bla.count.toString()}</b>
+				COUNT: <b>{counts.count.toString()}</b>
 			</Text>
 			<Text bold>
-				COUNT squared: <b>{bla.squared.toString()}</b>
+				COUNT squared: <b>{counts.squared.toString()}</b>
 			</Text>
 			<Row of="group" wrap>
 				<Button
 					onClick={() => {
-						bla.increment()
+						counts.increment()
 					}}
 					text={"increment"}
 				/>
 				<Button
 					onClick={() => {
-						bla.decrement()
+						counts.decrement()
 					}}
 					text={"decrement"}
 				/>
@@ -61,7 +61,7 @@ export default observer(function mobx() {
 			</Heading>
 			<Text bold>COUNT:{count.toString()}</Text>
 			<Text bold>
-				COUNT squared: <b>{bla.squared.toString()}</b>
+				COUNT squared: <b>{counts.squared.toString()}</b>
 			</Text>
 			<Row of="group" wrap>
 				<Button
@@ -86,7 +86,7 @@ export default observer(function mobx() {
 			</Text>
 			<Text bold style={{ fontFamily: "monospace" }}>
 				{`
-export default class BlaState extends BaseState {
+export default class  TestCountState extends BaseState {
  @observable
  count = 0
 
@@ -124,7 +124,7 @@ export default class BlaState extends BaseState {
 				{t("test:count")}:{count.toString()}
 			</Text>
 			<Text bold>
-				{t("test:squared")}: <b>{bla.squared.toString()}</b>
+				{t("test:squared")}: <b>{counts.squared.toString()}</b>
 			</Text>
 			<Row of="group" wrap>
 				<Button
