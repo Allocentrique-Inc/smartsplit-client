@@ -56,6 +56,10 @@ export const general = {
 		toRefuse: "Refuse",
 		toConsult: "Consult",
 		toBegin: "Begin",
+		continue: "Continue",
+		back: "Back",
+		saveClose: "Save and Close",
+		pass: "Pass for now",
 	},
 }
 
@@ -156,7 +160,7 @@ export const forms = {
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
 		},
-		defaultRoles: "Default Role(s)"
+		defaultRoles: "Default Role(s)",
 	},
 
 	descriptions: {
@@ -205,29 +209,29 @@ export const forms = {
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
-		defaultRoles: "These roles can always be changed later."
+		defaultRoles: "These roles can always be changed later.",
 	},
 	addCollabArtist: "[Add/Modify] a collaborating artist",
 	options: {
 		defaultRoles: [
 			{
 				displayValue: "Author",
-				value: "author"
+				value: "author",
 			},
 			{
 				displayValue: "Compositor",
-				value: "compositor"
+				value: "compositor",
 			},
 			{
 				displayValue: "Arranger",
-				value: "arranger"
+				value: "arranger",
 			},
 			{
 				displayValue: "Interpreter",
-				value: "interpreter"
-			}
-		]
-	}
+				value: "interpreter",
+			},
+		],
+	},
 }
 
 export const login = {
@@ -416,13 +420,15 @@ export const workpieces = {
 	cards: {
 		shareYourCopyright: {
 			title: "Share your copyright",
-			desc: "Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
+			desc:
+				"Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
 		},
 		protectYourWork: {
 			title: "Protect your work",
-			desc: "Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain."
+			desc:
+				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
 		},
-	}
+	},
 }
 
 export const split = {
@@ -451,4 +457,50 @@ export const identity = {
 			{workPiece}.
 		</>
 	),
+}
+
+export const document = {
+	navbar: {
+		document: "Document my work",
+		pages: {
+			creation: "Creation",
+			performance: "Performance",
+		},
+	},
+	help: "Help",
+	creation: {
+		category: "CREATION",
+		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
+		paragraph:
+			"Here you mention who contributed to the creation of this piece.",
+		date: "Creation Date",
+		roles: {
+			authors: "Authors",
+			authorsWho: "Who write the lyrics of this musical piece?",
+			addAuthor: "Add an author...",
+			composers: "Composers",
+			composersWho: "Who composed the music of this musical piece ?",
+			addComposer: "Add a composer...",
+			editors: "Editors",
+			editorsWho: "Who represent these authors and/or composers?",
+			addEditor: "Add an editor...",
+		},
+		iswc: "ISWC Code",
+		what: "What's a creator?",
+	},
+	performance: {
+		category: "PERFORMANCE",
+		title: "Who performed the musical piece on this audio recording?",
+		paragraph: "Here you mention who played which instrument.",
+		roles: {
+			artist: "Artist",
+			singer: "Singer",
+			musician: "Musician",
+			addPerformer: "Add a performer...",
+		},
+		what: "What's a performer?",
+		whichPerformance: "Which type of performance?",
+		whichRole: "Which role in the musical piece?",
+		addInstrument: "Add an instrument...",
+	},
 }
