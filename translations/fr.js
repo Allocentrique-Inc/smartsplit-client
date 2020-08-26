@@ -161,6 +161,8 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			addCollaborator: "Ajouter un collaborateur",
+			createCollaborator: "Créer un nouveau collaborator",
 		},
 		defaultRoles: "Rôle(s) par défaut",
 	},
