@@ -161,6 +161,8 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			addCollaborator: "Ajouter un collaborateur",
+			createCollaborator: "Créer un nouveau collaborateur",
 		},
 		defaultRoles: "Rôle(s) par défaut",
 	},
@@ -222,19 +224,23 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositeur",
-				value: "compositor",
+				value: "composor",
 			},
 			{
 				displayValue: "Arrangeur",
-				value: "arranger",
+				value: "mixer",
 			},
 			{
 				displayValue: "Interprète",
-				value: "interpreter",
+				value: "performer",
 			},
 			{
-				displayValue: "Artiste",
-				value: "rtiste",
+				displayValue: "Chanteur",
+				value: "singer",
+			},
+			{
+				displayValue: "Musicien",
+				value: "musician",
 			},
 		],
 	},
@@ -503,10 +509,14 @@ export const document = {
 		title: "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
 		paragraph: "C'est ici que tu indiques qui a joué quel intrument.",
 		roles: {
+			artist: "Artiste",
+			singer: "Chanteur",
+			musician: "Musicien",
 			performer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
 		whichPerformance: "Quel type d'interprétation ?",
 		whichRole: "Quel rôle dans la pièce musicale ?",
+		addInstrument: "Ajouter un instrument...",
 	},
 }

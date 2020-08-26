@@ -159,6 +159,8 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			addCollaborator: "Add a collaborator",
+			createCollaborator: "Create a new collaborator",
 		},
 		defaultRoles: "Default Role(s)",
 	},
@@ -220,19 +222,23 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositor",
-				value: "compositor",
+				value: "composor",
 			},
 			{
 				displayValue: "Arranger",
-				value: "arranger",
+				value: "mixer",
 			},
 			{
-				displayValue: "Interpreter",
-				value: "interpreter",
+				displayValue: "Performer",
+				value: "performer",
 			},
 			{
-				displayValue: "Artist",
-				value: "Artist",
+				displayValue: "Singer",
+				value: "singer",
+			},
+			{
+				displayValue: "Singer",
+				value: "musician",
 			},
 		],
 	},
@@ -497,10 +503,14 @@ export const document = {
 		title: "Who performed the musical piece on this audio recording?",
 		paragraph: "Here you mention who played which instrument.",
 		roles: {
+			artist: "Artist",
+			singer: "Singer",
+			musician: "Musician",
 			addPerformer: "Add a performer...",
 		},
 		what: "What's a performer?",
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
+		addInstrument: "Add an instrument...",
 	},
 }
