@@ -519,10 +519,16 @@ export const document = {
 		addMix: "Add a Mix Engineer...",
 		master: "Mastering",
 		addMaster: "Add a Mastering Engineer...",
+		production: "Production",
+		addProduction: "Add a Producer",
 	},
 	date: "Recording  Date",
 	studio: "Recording Studio",
 	searchStudio: "Search a recording studio...",
-	production: "Production",
 	isrc: "ISRC Code",
+	why: "Why share these informations?",
+	tooltips: {
+		isrc:
+			"The International Standard Work Code is a unique identification of musical works.",
+	},
 }

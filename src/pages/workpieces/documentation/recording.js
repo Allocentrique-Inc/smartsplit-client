@@ -18,6 +18,7 @@ import {
 	CheckBoxGroup,
 	Dropdown,
 	DateField,
+	TextField,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
@@ -49,7 +50,7 @@ export default function Performance() {
 			workpiece={workpiece}
 			path={[
 				t("document:navbar.document"),
-				t("document:navbar.pages.performance"),
+				t("document:navbar.pages.recording"),
 			]}
 			progress={12.5}
 			actions={
@@ -78,12 +79,12 @@ export default function Performance() {
 				</>
 			}
 		>
-			<PerformanceForm />
+			<RecordingForm />
 		</Layout>
 	)
 }
 
-export function PerformanceForm(props) {
+export function RecordingForm(props) {
 	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
 	const [search, setSearch] = useState("")
 	const [date, setDate] = useState("")
@@ -110,6 +111,7 @@ export function PerformanceForm(props) {
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
 						placeholder={t("document:recording.roles.addDirector")}
+						tooltip=""
 					/>
 					<AddCollaboratorDropdown
 						label={t("document:recording.roles.soundEngineer")}
@@ -118,6 +120,7 @@ export function PerformanceForm(props) {
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
 						placeholder={t("document:recording.roles.addSoundEngineer")}
+						tooltip=""
 					/>
 					<AddCollaboratorDropdown
 						label={t("document:recording.roles.mix")}
@@ -126,6 +129,7 @@ export function PerformanceForm(props) {
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
 						placeholder={t("document:recording.roles.addMix")}
+						tooltip=""
 					/>
 					<AddCollaboratorDropdown
 						label={t("document:recording.roles.master")}
@@ -134,15 +138,35 @@ export function PerformanceForm(props) {
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
 						placeholder={t("document:recording.roles.addMaster")}
+						tooltip=""
 					/>
 					<DateField
-						llabel={t("document:recording.date")}
+						label={t("document:recording.date")}
 						value={date}
 						onChangeText={setDate}
 						placeholder={t("forms:placeholders.date")}
+						tooltip=""
 					/>
-
-					<PerformanceOptions />
+					<TextField
+						name="studio"
+						label={t("document:recording.studio")}
+						placeholder={t("document:recording.searchStudio")}
+						tooltip=""
+					/>
+					<AddCollaboratorDropdown
+						label={t("document:recording.roles.production")}
+						searchResults={searchResults}
+						searchInput={search}
+						onSearchChange={setSearch}
+						onSelect={(selection) => console.log(selection)}
+						placeholder={t("document:recording.roles.addProduction")}
+						tooltip=""
+					/>
+					<TextField
+						name="isrc"
+						label={t("document:isrc")}
+						tooltip={t("document:tooltips.isrc")}
+					/>
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
@@ -153,7 +177,7 @@ export function PerformanceForm(props) {
 							</Text>
 							<Hairline />
 						</Column>
-						<Heading level={4}>{t("document:performance.what")}</Heading>
+						<Heading level={4}>{t("document:recording.why")}</Heading>
 						<Text secondary>
 							Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
 							dolor sit amet.
@@ -162,52 +186,5 @@ export function PerformanceForm(props) {
 				</Column>
 			</Row>
 		</>
-	)
-}
-
-export function PerformanceOptions(props) {
-	const { t } = useTranslation()
-	return (
-		<Column>
-			<Row>
-				<Column padding="component" layer="left_overground" />
-				<Column of="group" flex={5}>
-					<RadioGroup label={t("document:performance.whichPerformance")}>
-						<RadioGroupButton
-							value="singer"
-							label={t("document:performance.roles.singer")}
-						/>
-						<RadioGroupButton
-							value="musician"
-							label={t("document:performance.roles.musician")}
-						/>
-					</RadioGroup>
-					<CheckBoxGroup label={t("document:performance.whichRole")}>
-						<CheckBox label={t("document:performance.roles.singer")} />
-						<CheckBox label={t("document:performance.roles.musician")} />
-					</CheckBoxGroup>
-					<Column style={styles.dropdown}>
-						<Dropdown
-							style={{ flex: 1 }}
-							placeholder={t("document:performance.addInstrument")}
-							noFocusToggle
-						/>
-					</Column>
-				</Column>
-			</Row>
-
-			<Spacer of="section" />
-
-			<Column of="section">
-				<Hairline />
-				<AddCollaboratorDropdown
-					searchResults={props.searchResults}
-					searchInput={props.search}
-					onSearchChange={props.setSearch}
-					onSelect={(selection) => console.log(selection)}
-					placeholder={t("forms:labels.dropdowns.addCollaborator")}
-				/>
-			</Column>
-		</Column>
 	)
 }

@@ -526,11 +526,17 @@ export const document = {
 			addMix: "Ajouter un ingénieur de mixage...",
 			master: "Mastering",
 			addMaster: "Ajouter un ingénieur de mastering...",
+			production: "Production",
+			addProduction: "Ajouter un producteur",
 		},
 		date: "Date d'enregistrement",
 		studio: "Studio d'enregistrement",
 		searchStudio: "Rechercher un studio d'enregistrement...",
-		production: "Production",
 		isrc: "Code ISRC",
+		why: "Pourquoi partager ces informations ?",
+		tooltips: {
+			isrc:
+				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
+		},
 	},
 }
