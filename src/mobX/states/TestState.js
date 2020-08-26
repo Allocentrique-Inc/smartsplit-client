@@ -1,7 +1,7 @@
 import { observable, action, computed, flow as asyncAction } from "mobx"
 import BaseState from "../BaseState"
 
-class TestState extends BaseState {
+export default class TestState extends BaseState {
 	@observable
 	stuff = ["one", "two", "three", ["four", "is", "an", "array"]]
 
@@ -26,4 +26,3 @@ class TestState extends BaseState {
 		this.now = new Date(new Date().getTime() - 8640000)
 	}
 }
-export default new TestState()

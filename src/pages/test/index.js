@@ -8,13 +8,14 @@ import FormsTest from "./forms"
 import WidgetTests from "./widgets"
 import StoreTestPage from "./store"
 import ModalTests from "./modals"
-
+import MobxTests from "./mobx"
 export default function TestDashboard() {
 	return (
 		<DashboardLayout
 			menuItems={[
 				{ text: "menu:dashboard", to: "/dashboard" },
 				{ text: "State Store", to: "/test/store" },
+				{ text: "MobX Test", to: "/test/mobx" },
 				{
 					text: "menu:testsForms",
 					to: "/test/forms",
@@ -55,6 +56,10 @@ export function TestRoutes() {
 
 			<Route path="/test/widgets" exact>
 				<WidgetTests />
+			</Route>
+
+			<Route path="/test/mobx" exact>
+				<MobxTests />
 			</Route>
 		</Switch>
 	)

@@ -13,7 +13,8 @@ export const general = {
 
 	checkbox: {
 		stayConnected: "Rester connecté",
-		makePublic: "Rendre publics mes identifiants professionnels énumérés ci-dessus",
+		makePublic:
+			"Rendre publics mes identifiants professionnels énumérés ci-dessus",
 		author: "Auteur",
 		composer: "Compositeur",
 		mixer: "Arrangeur",
@@ -74,6 +75,10 @@ export const menu = {
 
 export const test = {
 	title: "Test des formulaires",
+	count: "Le total",
+	squared: "Le total au carré",
+	addOne: "Ajouter 1",
+	subOne: "Soustraire 1",
 }
 
 export const errors = {
@@ -157,7 +162,7 @@ export const forms = {
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
 		},
-		defaultRoles: "Rôle(s) par défaut"
+		defaultRoles: "Rôle(s) par défaut",
 	},
 
 	descriptions: {
@@ -206,29 +211,29 @@ export const forms = {
 		mainEmail: "Courriel principal",
 		setAsMain: "Définir comme principal",
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
-		defaultRoles: "Ces rôles pourront toujours être modifiés plus tard."
+		defaultRoles: "Ces rôles pourront toujours être modifiés plus tard.",
 	},
 	addCollabArtist: "[Ajouter/Modifier] un artiste collaborateur",
 	options: {
 		defaultRoles: [
 			{
 				displayValue: "Auteur",
-				value: "author"
+				value: "author",
 			},
 			{
 				displayValue: "Compositeur",
-				value: "compositor"
+				value: "compositor",
 			},
 			{
 				displayValue: "Arrangeur",
-				value: "arranger"
+				value: "arranger",
 			},
 			{
 				displayValue: "Interprète",
-				value: "interpreter"
-			}
-		]
-	}
+				value: "interpreter",
+			},
+		],
+	},
 }
 
 export const login = {
@@ -419,13 +424,15 @@ export const workpieces = {
 	cards: {
 		shareYourCopyright: {
 			title: "Partage tes droits",
-			desc: "Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
+			desc:
+				"Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
 		},
 		protectYourWork: {
 			title: "Protège ton oeuvre",
-			desc: "Associe dès aujourd’hui ton enregistrement sonore à ses ayant droits et laisse des traces indélébiles de ça sur une blockchain."
+			desc:
+				"Associe dès aujourd’hui ton enregistrement sonore à ses ayant droits et laisse des traces indélébiles de ça sur une blockchain.",
 		},
-	}
+	},
 }
 
 export const split = {

@@ -74,6 +74,10 @@ export const menu = {
 
 export const test = {
 	title: "Forms Testing",
+	count: "Count",
+	squared: "Squared",
+	addOne: "Add 1",
+	subOne: "Subtract 1",
 }
 
 export const errors = {
@@ -156,7 +160,7 @@ export const forms = {
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
 		},
-		defaultRoles: "Default Role(s)"
+		defaultRoles: "Default Role(s)",
 	},
 
 	descriptions: {
@@ -205,29 +209,29 @@ export const forms = {
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
-		defaultRoles: "These roles can always be changed later."
+		defaultRoles: "These roles can always be changed later.",
 	},
 	addCollabArtist: "[Add/Modify] a collaborating artist",
 	options: {
 		defaultRoles: [
 			{
 				displayValue: "Author",
-				value: "author"
+				value: "author",
 			},
 			{
 				displayValue: "Compositor",
-				value: "compositor"
+				value: "compositor",
 			},
 			{
 				displayValue: "Arranger",
-				value: "arranger"
+				value: "arranger",
 			},
 			{
 				displayValue: "Interpreter",
-				value: "interpreter"
-			}
-		]
-	}
+				value: "interpreter",
+			},
+		],
+	},
 }
 
 export const login = {
@@ -416,13 +420,15 @@ export const workpieces = {
 	cards: {
 		shareYourCopyright: {
 			title: "Share your copyright",
-			desc: "Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
+			desc:
+				"Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
 		},
 		protectYourWork: {
 			title: "Protect your work",
-			desc: "Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain."
+			desc:
+				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
 		},
-	}
+	},
 }
 
 export const split = {

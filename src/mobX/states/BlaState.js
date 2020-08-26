@@ -5,13 +5,13 @@ export default class BlaState extends BaseState {
 	@observable
 	count = 0
 
-	@action
+	@action.bound
 	increment() {
 		this.count++
 	}
 
 	@action
-	decrement() {
+	decrement = () => {
 		this.count--
 	}
 
