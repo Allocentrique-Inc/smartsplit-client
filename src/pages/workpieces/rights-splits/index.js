@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from "react-router"
 import CopyrightPage from "./copyright"
 import InterpretationPage from "./interpretation"
 import RecordingPage from "./recording"
+import Precording from "../documentation/recording"
 
 export default function (props) {
 	return (
@@ -24,6 +25,10 @@ export default function (props) {
 			<Route
 				path="/workpieces/:workpiece_id/rights-splits/recording"
 				component={RecordingPage}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/documentation/recording"
+				component={Recording}
 			/>
 		</Switch>
 	)

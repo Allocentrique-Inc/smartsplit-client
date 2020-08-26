@@ -26,6 +26,7 @@ import { Tab, TabBar } from "../../widgets/tabs"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
 import { ProtectYourWork, ShareYourCopyright } from "./cards"
+import Recording from "./documentation/recording"
 
 export default function WorkpiecesRouter() {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -45,6 +46,10 @@ export default function WorkpiecesRouter() {
 
 				<Route path="/workpieces/:workpiece_id/protect">
 					<ProtectWork />
+				</Route>
+
+				<Route path="/workpieces/:workpiece_id/documentation/recording">
+					<Recording />
 				</Route>
 			</Switch>
 		</WorkpieceContext.Provider>
