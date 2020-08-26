@@ -91,7 +91,7 @@ export function CreationForm(props) {
 						label={t("document:creation.date")}
 						value={date}
 						onChangeText={setDate}
-						placeholder="DD-MM-YYYY"
+						placeholder={t("forms:placeholders.date")}
 					/>
 					<AddCollaboratorDropdown
 						label={t("document:creation.roles.authors")}
