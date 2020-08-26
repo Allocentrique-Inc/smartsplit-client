@@ -19,6 +19,13 @@ export const general = {
 		composer: "Compositeur",
 		mixer: "Arrangeur",
 		performer: "Interprète",
+		singer: "Chanteur",
+		musician: "Musicien",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -509,10 +516,7 @@ export const document = {
 		title: "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
 		paragraph: "C'est ici que tu indiques qui a joué quel intrument.",
 		roles: {
-			artist: "Artiste",
-			singer: "Chanteur",
-			musician: "Musicien",
-			performer: "Ajouter un interprète...",
+			addPerformer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
 		whichPerformance: "Quel type d'interprétation ?",

@@ -142,16 +142,16 @@ export function PerformanceOptions(props) {
 					<RadioGroup label={t("document:performance.whichPerformance")}>
 						<RadioGroupButton
 							value="singer"
-							label={t("document:performance.roles.singer")}
+							label={t("general:radioButton.singer")}
 						/>
 						<RadioGroupButton
 							value="musician"
-							label={t("document:performance.roles.musician")}
+							label={t("general:radioButton.musician")}
 						/>
 					</RadioGroup>
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
-						<CheckBox label={t("document:performance.roles.singer")} />
-						<CheckBox label={t("document:performance.roles.musician")} />
+						<CheckBox label={t("general:checkbox.singer")} />
+						<CheckBox label={t("general:checkbox.musician")} />
 					</CheckBoxGroup>
 					<Column style={styles.dropdown}>
 						<Dropdown

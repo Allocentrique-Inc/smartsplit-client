@@ -18,6 +18,13 @@ export const general = {
 		composer: "Composer",
 		mixer: "Mixer",
 		performer: "Performer",
+		singer: "Singer",
+		musician: "Musician",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -503,10 +510,7 @@ export const document = {
 		title: "Who performed the musical piece on this audio recording?",
 		paragraph: "Here you mention who played which instrument.",
 		roles: {
-			artist: "Artist",
-			singer: "Singer",
-			musician: "Musician",
-			addPerformer: "Add a performer...",
+			addPerformer: "Ajouter un interprète...",
 		},
 		what: "What's a performer?",
 		whichPerformance: "Which type of performance?",
