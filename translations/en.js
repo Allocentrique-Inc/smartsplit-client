@@ -467,6 +467,7 @@ export const document = {
 		pages: {
 			creation: "Creation",
 			performance: "Performance",
+			recording: "Recording",
 		},
 	},
 	help: "Help",
@@ -505,4 +506,23 @@ export const document = {
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
 	},
+	category: "RECORDING",
+	title: "Who recorded the musical piece?",
+	paragraph:
+		"Here you mention who contributed to the audio recording of this piece.",
+	roles: {
+		direction: "Direction",
+		addDirector: "Add a Director...",
+		soundEngineer: "Sound Engineer",
+		addSoundEngineer: "Add a Sound Engineer...",
+		mix: "Mix",
+		addMix: "Add a Mix Engineer...",
+		master: "Mastering",
+		addMaster: "Add a Mastering Engineer...",
+	},
+	date: "Recording  Date",
+	studio: "Recording Studio",
+	searchStudio: "Search a recording studio...",
+	production: "Production",
+	isrc: "ISRC Code",
 }

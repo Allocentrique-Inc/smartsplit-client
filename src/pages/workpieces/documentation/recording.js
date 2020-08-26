@@ -9,7 +9,7 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
-//import PerformancetIcon from "../../../svg/performance"
+import RecordingIcon from "../../../svg/recording"
 import {
 	RadioGroupButton,
 	RadioButton,
@@ -17,6 +17,7 @@ import {
 	CheckBox,
 	CheckBoxGroup,
 	Dropdown,
+	DateField,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
@@ -85,6 +86,7 @@ export default function Performance() {
 export function PerformanceForm(props) {
 	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
 	const [search, setSearch] = useState("")
+	const [date, setDate] = useState("")
 	const { t } = useTranslation()
 
 	return (
@@ -92,21 +94,52 @@ export function PerformanceForm(props) {
 			<Row>
 				<Column of="group" flex={5}>
 					<Text action bold valign="center">
-						{/* <PerformancetIcon color={Colors.action} /> */}
-						{t("document:performance.category")}
+						<RecordingIcon color={Colors.action} />
+						{t("document:recording.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("document:performance.title")}</Heading>
-					<Paragraph>{t("document:performance.paragraph")}</Paragraph>
+					<Heading level={1}>{t("document:recording.title")}</Heading>
+					<Paragraph>{t("document:recording.paragraph")}</Paragraph>
 
 					<Spacer of="group" />
 
 					<AddCollaboratorDropdown
+						label={t("document:recording.roles.direction")}
 						searchResults={searchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
 						onSelect={(selection) => console.log(selection)}
-						placeholder={t("document:performance.roles.addPerformer")}
+						placeholder={t("document:recording.roles.addDirector")}
+					/>
+					<AddCollaboratorDropdown
+						label={t("document:recording.roles.soundEngineer")}
+						searchResults={searchResults}
+						searchInput={search}
+						onSearchChange={setSearch}
+						onSelect={(selection) => console.log(selection)}
+						placeholder={t("document:recording.roles.addSoundEngineer")}
+					/>
+					<AddCollaboratorDropdown
+						label={t("document:recording.roles.mix")}
+						searchResults={searchResults}
+						searchInput={search}
+						onSearchChange={setSearch}
+						onSelect={(selection) => console.log(selection)}
+						placeholder={t("document:recording.roles.addMix")}
+					/>
+					<AddCollaboratorDropdown
+						label={t("document:recording.roles.master")}
+						searchResults={searchResults}
+						searchInput={search}
+						onSearchChange={setSearch}
+						onSelect={(selection) => console.log(selection)}
+						placeholder={t("document:recording.roles.addMaster")}
+					/>
+					<DateField
+						llabel={t("document:recording.date")}
+						value={date}
+						onChangeText={setDate}
+						placeholder={t("forms:placeholders.date")}
 					/>
 
 					<PerformanceOptions />

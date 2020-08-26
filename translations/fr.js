@@ -473,6 +473,7 @@ export const document = {
 		pages: {
 			creation: "Création",
 			performance: "Interprétation",
+			recording: "Enregistrement",
 		},
 	},
 	help: "Help",
@@ -510,5 +511,26 @@ export const document = {
 		whichPerformance: "Quel type d'interprétation ?",
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
+	},
+	recording: {
+		category: "ENREGISTREMENT",
+		title: "Qui a enregistré la pièce musicale ?",
+		paragraph:
+			"Ici, tu indiques qui a contribué à l'enregistrement sonore de cette pièce.",
+		roles: {
+			direction: "Réalisation",
+			addDirector: "Ajouter un réalisateur...",
+			soundEngineer: "Preneur de son",
+			addSoundEngineer: "Ajouter un preneur de son...",
+			mix: "Mixage",
+			addMix: "Ajouter un ingénieur de mixage...",
+			master: "Mastering",
+			addMaster: "Ajouter un ingénieur de mastering...",
+		},
+		date: "Date d'enregistrement",
+		studio: "Studio d'enregistrement",
+		searchStudio: "Rechercher un studio d'enregistrement...",
+		production: "Production",
+		isrc: "Code ISRC",
 	},
 }
