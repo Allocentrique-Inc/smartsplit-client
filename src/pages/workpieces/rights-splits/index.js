@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router"
 import CopyrightPage from "./copyright"
 import InterpretationPage from "./interpretation"
 import RecordingPage from "./recording"
-import Precording from "../documentation/recording"
+import Recording from "../documentation/recording"
 
 export default function (props) {
 	return (
