@@ -134,6 +134,9 @@ export function PerformanceForm(props) {
 
 export function PerformanceOptions(props) {
 	const { t } = useTranslation()
+	const [showInstruments, setShowInstruments] = useState()
+	const { singer, musician } = props
+
 	return (
 		<Column>
 			<Row>
@@ -150,9 +153,25 @@ export function PerformanceOptions(props) {
 						/>
 					</RadioGroup>
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
-						<CheckBox label={t("general:checkbox.singer")} />
-						<CheckBox label={t("general:checkbox.musician")} />
+						<CheckBox value={singer} label={t("general:checkbox.singer")} />
+						<CheckBox
+							onChange={setShowInstruments}
+							checked={showInstruments}
+							value={musician}
+							label={t("general:checkbox.musician")}
+						/>
 					</CheckBoxGroup>
+
+					{musician && (
+						<Column style={styles.dropdown}>
+							<Dropdown
+								style={{ flex: 1 }}
+								placeholder={t("document:performance.addInstrument")}
+								noFocusToggle
+							/>
+						</Column>
+					)}
+
 					<Column style={styles.dropdown}>
 						<Dropdown
 							style={{ flex: 1 }}
