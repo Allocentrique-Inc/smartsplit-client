@@ -50,13 +50,13 @@ export const session = createSaveDecorator({
 	storage: platformSessionStorage,
 	storeName: "Smart_Split",
 	onInitialized: (store, property, value) => {
-		console.log(`@save: onIntialized ${property} =  ${value}`)
+		//console.log(`@save: onIntialized ${property} =  ${value}`)
 	},
 	onLoaded: (store, property, value) => {
-		console.log(`@save: onLoad ${property} =  ${value}`)
+		//console.log(`@save: onLoad ${property} =  ${value}`)
 	},
 	onSaved: (store, property, value) => {
-		console.log(`@save: onSave ${property} =  ${value}`)
+		//console.log(`@save: onSave ${property} =  ${value}`)
 	},
 })
 
@@ -85,12 +85,12 @@ export const save = createSaveDecorator({
 	storage: platformLocalStorage,
 	storeName: "Smart_Split",
 	onInitialized: (store, property, value) => {
-		console.log(`@save: onIntialized ${property} =  ${value}`)
+		//console.log(`@save: onIntialized ${property} =  ${value}`)
 	},
 	onLoaded: (store, property, value) => {
-		console.log(`@save: onLoad ${property} =  ${value}`)
+		//console.log(`@save: onLoad ${property} =  ${value}`)
 	},
 	onSaved: (store, property, value) => {
-		console.log(`@save: onSave ${property} =  ${value}`)
+		//console.log(`@save: onSave ${property} =  ${value}`)
 	},
 })

@@ -11,7 +11,6 @@ import {
 	resetPassword,
 	changePassword,
 } from "../../../api/users"
-import { run } from "expo-cli/build/exp"
 
 /**
  * AuthState observable class
@@ -23,7 +22,7 @@ export default class AuthState extends BaseState {
 		this.tokenChanged = reaction(
 			() => this.accessToken,
 			(token) => {
-				console.log("accessToken change reaction")
+				//console.log("accessToken change reaction")
 				setGlobalAccessToken(token)
 			}
 		)
@@ -53,8 +52,8 @@ export default class AuthState extends BaseState {
 		return Platform.OS === "web"
 	}
 	@action async init(refreshToken = false) {
-		console.log("AuthState::init called")
-		console.log(`access token is ${this.accessToken}`)
+		//console.log("AuthState::init called")
+		//console.log(`access token is ${this.accessToken}`)
 		if (this.accessToken) {
 			//setGlobalAccessToken(this.accessToken)
 			this.isReturning = true
@@ -65,40 +64,6 @@ export default class AuthState extends BaseState {
 			}
 		} else this.logout()
 	}
-	/*init = asyncAction(function* (refreshToken = false) {
-		try {
-			this.isReturning = yield AsyncStorage.getItem("isReturning")
-		} catch (e) {
-			console.error("Error getting user is returning state from storage:", e)
-		}
-
-		let auth = null
-		let isStored = true
-
-		try {
-			auth = yield AsyncStorage.getItem("auth")
-
-			if (!auth && Platform.OS === "web" && window.sessionStorage) {
-				auth = window.sessionStorage.getItem("auth")
-				isStored = false
-			}
-
-			if (auth) {
-				auth = JSON.parse(auth)
-			}
-		} catch (e) {
-			this.logout(e)
-			return
-		}
-
-		if (auth) {
-			this.setLogin(auth.accessToken, auth.user_id, isStored)
-
-			if (refreshToken) this.refresh()
-		} else {
-			this.logout()
-		}
-	})*/
 
 	@action async login(username, password, rememberMe) {
 		this.isLoading = true
@@ -162,7 +127,7 @@ export default class AuthState extends BaseState {
 	}
 
 	@action logout(error = null) {
-		console.log("logout called")
+		//console.log("logout called")
 		this.isLoading = false
 		this.isLoggedIn = false
 		this.accessToken = null

@@ -263,10 +263,10 @@ export function MobileAccount({ tab }) {
 	)
 }
 
-export default function SettingsRouter() {
+export default observer(function SettingsRouter() {
 	const { t } = useTranslation()
-
-	if (useStorePath("auth", "isLoggedIn") === false) {
+	const { auth } = useStores()
+	if (auth.isLoggedIn === false) {
 		const history = useHistory()
 		history.push("/auth/login")
 		return null
@@ -317,4 +317,4 @@ export default function SettingsRouter() {
 			</SettingsForm>
 		</MobileMenu>
 	)
-}
+})
