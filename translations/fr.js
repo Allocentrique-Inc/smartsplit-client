@@ -59,7 +59,7 @@ export const general = {
 		toBegin: "Commencer",
 		continue: "Continuer",
 		back: "Retour",
-		saveClose: "Sauvegarder et quitter",
+		saveClose: "Sauvegarder et continuer",
 		pass: "Passer pour l'instant",
 	},
 }
