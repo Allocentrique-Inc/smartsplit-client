@@ -161,6 +161,8 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			addCollaborator: "Ajouter un collaborateur",
+			createCollaborator: "Créer un nouveau collaborateur",
 		},
 		defaultRoles: "Rôle(s) par défaut",
 	},
@@ -546,6 +548,7 @@ export const document = {
 		date: "Date  de sortie",
 		dateHint: "Laisse vide si non déterminée",
 		label: "Label",
+		addLabel: "Ajouter une étiquette",
 		format: "Format du produit",
 		ep: "Titre de l'EP",
 		supports: {

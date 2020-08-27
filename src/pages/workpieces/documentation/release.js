@@ -9,7 +9,8 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
-//import PerformancetIcon from "../../../svg/performance"
+import ReleasetIcon from "../../../svg/release"
+
 import {
 	RadioGroupButton,
 	RadioButton,
@@ -17,6 +18,8 @@ import {
 	CheckBox,
 	CheckBoxGroup,
 	Dropdown,
+	DateField,
+	TextField,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
@@ -46,10 +49,7 @@ export default function Release() {
 	return (
 		<Layout
 			workpiece={workpiece}
-			path={[
-				t("document:navbar.document"),
-				t("document:navbar.pages.performance"),
-			]}
+			path={[t("document:navbar.document"), t("document:navbar.pages.release")]}
 			progress={12.5}
 			actions={
 				<Button
@@ -85,31 +85,53 @@ export default function Release() {
 export function ReleaseForm(props) {
 	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
 	const [search, setSearch] = useState("")
+	const [date, setDate] = useState("")
 	const { t } = useTranslation()
+	const { digital } = props
 
 	return (
 		<>
 			<Row>
 				<Column of="group" flex={5}>
 					<Text action bold valign="center">
-						{/* <PerformancetIcon color={Colors.action} /> */}
-						{t("document:performance.category")}
+						<ReleasetIcon />
+						{t("document:release.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("document:performance.title")}</Heading>
-					<Paragraph>{t("document:performance.paragraph")}</Paragraph>
+					<Heading level={1}>{t("document:release.title")}</Heading>
+					<Paragraph>{t("document:release.paragraph")}</Paragraph>
 
 					<Spacer of="group" />
 
-					<AddCollaboratorDropdown
-						searchResults={searchResults}
-						searchInput={search}
-						onSearchChange={setSearch}
-						onSelect={(selection) => console.log(selection)}
-						placeholder={t("document:performance.roles.addPerformer")}
+					<DateField
+						label={t("document:release.date")}
+						undertext={t("document:release.dateHint")}
+						value={date}
+						onChangeText={setDate}
+						placeholder={t("forms:placeholders.date")}
+						tooltip=""
+					/>
+					<Dropdown
+						label="Label"
+						placeholder={t("document:release.addLabel")}
+						noFocusToggle
+						tooltip=""
+					/>
+					<Dropdown
+						label={t("document:release.format")}
+						placeholder=""
+						noFocusToggle
+						tooltip=""
 					/>
 
-					<ReleaseOptions />
+					<EP />
+					<CheckBoxGroup label={t("document:release.supports.support")}>
+						<CheckBox
+							value={digital}
+							label={t("document:release.supports.digital")}
+						/>
+					</CheckBoxGroup>
+					<DigitalOptions />
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
@@ -132,68 +154,36 @@ export function ReleaseForm(props) {
 	)
 }
 
-export function ReleaseOptions(props) {
+export function EP(props) {
 	const { t } = useTranslation()
-	const [showInstruments, setShowInstruments] = useState()
-	const { singer, musician } = props
 
 	return (
 		<Column>
 			<Row>
 				<Column padding="component" layer="left_overground" />
 				<Column of="group" flex={5}>
-					<RadioGroup label={t("document:performance.whichPerformance")}>
-						<RadioGroupButton
-							value="singer"
-							label={t("general:radioButton.singer")}
-						/>
-						<RadioGroupButton
-							value="musician"
-							label={t("general:radioButton.musician")}
-						/>
-					</RadioGroup>
-					<CheckBoxGroup label={t("document:performance.whichRole")}>
-						<CheckBox value={singer} label={t("general:checkbox.singer")} />
-						<CheckBox
-							onChange={setShowInstruments}
-							checked={showInstruments}
-							value={musician}
-							label={t("general:checkbox.musician")}
-						/>
-					</CheckBoxGroup>
-
-					{musician && (
-						<Column style={styles.dropdown}>
-							<Dropdown
-								style={{ flex: 1 }}
-								placeholder={t("document:performance.addInstrument")}
-								noFocusToggle
-							/>
-						</Column>
-					)}
-
-					<Column style={styles.dropdown}>
-						<Dropdown
-							style={{ flex: 1 }}
-							placeholder={t("document:performance.addInstrument")}
-							noFocusToggle
-						/>
-					</Column>
+					<TextField label={t("document:release.ep")} name="ep" />
 				</Column>
 			</Row>
+		</Column>
+	)
+}
 
-			<Spacer of="section" />
-
-			<Column of="section">
-				<Hairline />
-				<AddCollaboratorDropdown
-					searchResults={props.searchResults}
-					searchInput={props.search}
-					onSearchChange={props.setSearch}
-					onSelect={(selection) => console.log(selection)}
-					placeholder={t("forms:labels.dropdowns.addCollaborator")}
-				/>
-			</Column>
+export function DigitalOptions() {
+	const { t } = useTranslation()
+	return (
+		<Column of="component">
+			<Dropdown
+				label={t("document:release.supports.distribution")}
+				placeholder={t("document:release.supports.addDistribution")}
+				noFocusToggle
+				tooltip=""
+			/>
+			<Dropdown
+				label={t("document:release.supports.upc")}
+				noFocusToggle
+				tooltip=""
+			/>
 		</Column>
 	)
 }
