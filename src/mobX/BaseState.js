@@ -1,24 +1,29 @@
 import { observable, action, computed, flow as asyncAction } from "mobx"
-
+import { createSaveDecorator } from "mobx-decorators"
+import { AsyncStorage, Platform } from "react-native"
 export default class BaseState {
 	root
-
 	/**
 	 * Le constructeur initialize la connection aux root store
-	 * et initialise l'hydration des valuers via Local Storage
-	 * de la plateforme
+	 * pour que chaque store puissent accèder à tous les autres
 	 *
-	 * @param rootStore l'objet de state qui contient toutes
-	 *                  les autres pour accéder aux autres branches
+	 * @param rootStore la référence au root
 	 */
 	constructor(rootStore) {
 		this.root = rootStore
-		this.loadState()
 	}
 
+	/**
+	 * override this method for initializing data from the API
+	 * @return {Promise<void>}
+	 */
 	@action
-	async loadState() {}
-
-	@action
-	async saveState() {}
+	async init(...args) {}
 }
+
+const platformStorage = Platform.OS === "web" ? sessionStorage : AsyncStorage
+
+export const save = createSaveDecorator({
+	storage: platformStorage,
+	storeName: "Smart_Split",
+})
