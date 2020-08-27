@@ -23,21 +23,25 @@ import WorkpiecesRouter from "./pages/workpieces"
 // TMP keep redux for now
 import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
+import { observer } from "mobx-react"
 import thunk from "redux-thunk"
 import rootReducer from "../redux/root-reducer"
 const reduxStore = createStore(rootReducer, applyMiddleware(thunk))
 // /TMP
 
-export default function Main(props) {
+export default observer(function Main(props) {
 	const store = useMemo(() => createAppStore(), [])
 	//const isLoggedIn = useSubpath(store, "auth", "isLoggedIn")
 	const { auth } = useStores()
-
-	setGlobalAccessToken(auth.accessToken)
-
-	useEffect(() => {
+	//console.dir(auth)
+	//setGlobalAccessToken(auth.accessToken)
+	/*useEffect(() => {
 		setGlobalErrorHandler((e) => auth.logout(e))
-	}, [auth])
+
+		/!*return store.auth.subscribe(() => {
+			setGlobalAccessToken(store.auth.accessToken)
+		})*!/
+	}, [auth])*/
 
 	/*useEffect(() => {
 		store.auth.initializeFromStorage(true)
@@ -54,7 +58,7 @@ export default function Main(props) {
 			</StoreProvider>
 		</Provider>
 	)
-}
+})
 
 export function MainRouter() {
 	return (

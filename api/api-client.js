@@ -36,8 +36,10 @@ export function setGlobalErrorHandler(handler) {
 
 export function setGlobalAccessToken(accessToken) {
 	if (accessToken) {
+		console.log("auth.accessToken is set")
 		client.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
 	} else {
+		console.log("auth.accessToken is NOT set")
 		delete client.defaults.headers.common["Authorization"]
 	}
 }

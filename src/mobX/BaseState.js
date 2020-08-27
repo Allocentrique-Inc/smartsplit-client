@@ -21,9 +21,76 @@ export default class BaseState {
 	async init(...args) {}
 }
 
-const platformStorage = Platform.OS === "web" ? sessionStorage : AsyncStorage
+const platformSessionStorage =
+	Platform.OS === "web" ? sessionStorage : AsyncStorage
+const platformLocalStorage = Platform.OS === "web" ? localStorage : AsyncStorage
 
-export const save = createSaveDecorator({
-	storage: platformStorage,
+/**
+ * Au lieu de se casser la tête à gérer le load des propriétés qui sont stockés
+ * le AsyncStorage ou sessionStorage il n'y qu'a faire
+ * import { observable } from "mobx"
+ * import {save} from "../BaseState"
+ *
+ * class ExampleState {
+ *
+ *   @save
+ *   @observable
+ *   savedObservable
+ *
+ *   @observabvle
+ *   unsavedObservable
+ *
+ * }
+ *
+ *
+ *
+ * @type {any}
+ */
+export const session = createSaveDecorator({
+	storage: platformSessionStorage,
 	storeName: "Smart_Split",
+	onInitialized: (store, property, value) => {
+		console.log(`@save: onIntialized ${property} =  ${value}`)
+	},
+	onLoaded: (store, property, value) => {
+		console.log(`@save: onLoad ${property} =  ${value}`)
+	},
+	onSaved: (store, property, value) => {
+		console.log(`@save: onSave ${property} =  ${value}`)
+	},
+})
+
+/**
+ * Pour des proopriétés que on veux stocker long terme
+ * le AsyncStorage ou localStorage il n'y qu'a faire
+ * import { observable } from "mobx"
+ * import {save} from "../BaseState"
+ *
+ * class ExampleState {
+ *
+ *   @save
+ *   @observable
+ *   savedObservable
+ *
+ *   @observabvle
+ *   unsavedObservable
+ *
+ * }
+ *
+ *
+ *
+ * @type {any}
+ */
+export const save = createSaveDecorator({
+	storage: platformLocalStorage,
+	storeName: "Smart_Split",
+	onInitialized: (store, property, value) => {
+		console.log(`@save: onIntialized ${property} =  ${value}`)
+	},
+	onLoaded: (store, property, value) => {
+		console.log(`@save: onLoad ${property} =  ${value}`)
+	},
+	onSaved: (store, property, value) => {
+		console.log(`@save: onSave ${property} =  ${value}`)
+	},
 })

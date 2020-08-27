@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Platform } from "react-native"
+import { observer } from "mobx-react"
+import { useStores } from "../../mobX"
 import { useStorePath } from "../../appstate/react"
 import { DialogModal } from "../../widgets/modal"
 import Button from "../../widgets/button"
@@ -17,11 +19,15 @@ import {
 import zxcvbn from "zxcvbn"
 import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 
-export default function ChangePasswordModal({ visible, onRequestClose }) {
+export default observer(function ChangePasswordModal({
+	visible,
+	onRequestClose,
+}) {
 	const { t } = useTranslation()
 
 	const form = useRef()
-	const auth = useStorePath("auth")
+	//const auth = useStorePath("auth")
+	const { auth } = useStores()
 	const [isLoading, setIsLoading] = useState(false)
 	const [isValid, setIsValid] = useState(false)
 	const [error, setError] = useState(null)
@@ -158,4 +164,4 @@ export default function ChangePasswordModal({ visible, onRequestClose }) {
 			</Form>
 		</DialogModal>
 	)
-}
+})

@@ -1,7 +1,11 @@
-import BaseState, { save } from "../BaseState"
-import { observable, computed, action, when } from "mobx"
+import BaseState, { save, session } from "../BaseState"
+import { observable, computed, action, when, reaction } from "mobx"
 import { Platform, AsyncStorage } from "react-native"
 import * as AuthAPI from "../../../api/auth"
+import {
+	setGlobalAccessToken,
+	setGlobalErrorHandler,
+} from "../../../api/api-client"
 import {
 	activateAccount,
 	resetPassword,
@@ -13,16 +17,31 @@ import {
  *
  */
 export default class AuthState extends BaseState {
-	@observable isLoading = true
+	constructor(root) {
+		super(root)
+		this.tokenChanged = reaction(
+			() => this.accessToken,
+			(token) => {
+				console.log("accessToken change reaction")
+				setGlobalAccessToken(token)
+			}
+		)
+		setGlobalErrorHandler((e) => this.logout(e))
+	}
+	tokenChanged
+	@observable isLoading = false
 	@observable error = null
 	@observable isLoggedIn = null
-	@observable isReturning = false
 
 	@save
 	@observable
+	isReturning = false
+
+	@session
+	@observable
 	accessToken = null
 
-	@save
+	@session
 	@observable
 	user_id = null
 
@@ -33,12 +52,17 @@ export default class AuthState extends BaseState {
 		return Platform.OS === "web"
 	}
 	@action async init(refreshToken = false) {
-		if (this.accessToken) this.isReturning = true
-		if (refreshToken) this.refresh()
-		else {
-			this.isLoggedIn = true
-			this.isLoading = false
-		}
+		console.log("AuthState::init called")
+		console.log(`access token is ${this.accessToken}`)
+		if (this.accessToken) {
+			//setGlobalAccessToken(this.accessToken)
+			this.isReturning = true
+			if (refreshToken) this.refresh()
+			else {
+				this.isLoggedIn = true
+				this.isLoading = false
+			}
+		} else this.logout()
 	}
 	/*init = asyncAction(function* (refreshToken = false) {
 		try {
@@ -86,7 +110,7 @@ export default class AuthState extends BaseState {
 				rememberMe ? "30 days" : "2 hours"
 			)
 
-			this._setLoginFromAPI(response, rememberMe)
+			this.setLoginFromAPI(response, rememberMe)
 		} catch (e) {
 			console.error("Error during login:", e)
 			this.set({ isLoading: false, error: e })
@@ -134,6 +158,7 @@ export default class AuthState extends BaseState {
 	}
 
 	@action logout(error = null) {
+		console.log("logout called")
 		this.isLoading = false
 		this.isLoggedIn = false
 		this.accessToken = null

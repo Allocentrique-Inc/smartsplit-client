@@ -9,6 +9,9 @@ import AuthState from "./states/AuthState"
  * aie accès aux autres branches
  */
 class RootStore {
+	constructor() {
+		this.init()
+	}
 	@observable initialized = false
 	counts = new TestCountState(this)
 	test = new TestState(this)
@@ -16,7 +19,7 @@ class RootStore {
 	auth = new AuthState(this)
 	async init() {
 		await this.users.init()
-		await this.auth.init()
+		await this.auth.init(true)
 		await this.test.init()
 		await this.counts.init()
 		runInAction(() => {

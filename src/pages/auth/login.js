@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react"
+import { observer } from "mobx-react"
+import { useStores, useStorePath as useMobXStorePath } from "../../mobX"
 import { useTranslation } from "react-i18next"
 import { useStorePath } from "../../appstate/react"
 import { Redirect, useHistory } from "react-router"
@@ -17,7 +19,7 @@ export const LoginErrorCodes = {
 	auth_account_inactive: "errors:inactiveAccount",
 }
 
-export function LoginForm(props) {
+export const LoginForm = observer(function (props) {
 	const {
 		stayLoggedIn,
 		showForgotPassword,
@@ -27,8 +29,8 @@ export function LoginForm(props) {
 	} = props
 
 	const [t] = useTranslation()
-	const auth = useStorePath("auth")
-
+	//const auth = useStorePath("auth")
+	const { auth } = useStores()
 	if (!auth.isLoading && auth.accessToken) {
 		onSuccess && setImmediate(() => onSuccess(auth.user_id))
 	}
@@ -89,9 +91,9 @@ export function LoginForm(props) {
 			{children}
 		</Column>
 	)
-}
+})
 
-export default function LoginPage({ showRegister }) {
+export default observer(function LoginPage({ showRegister }) {
 	const [t] = useTranslation()
 	const history = useHistory()
 	const nativeRegisterLink = showRegister
@@ -155,4 +157,4 @@ export default function LoginPage({ showRegister }) {
 			)}
 		</AuthLayout>
 	)
-}
+})
