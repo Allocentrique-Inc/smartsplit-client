@@ -1,15 +1,32 @@
 import React from "react"
-import { isObservable } from "mobx"
+import { isObservable, observable, runInAction } from "mobx"
 import TestCountState from "./states/TestCountState"
 import TestState from "./states/TestState"
-
+import UserState from "./states/UserState"
+import AuthState from "./states/AuthState"
 /**
  * L'instance de base est passé a tout les sub-stores pour que chaque store
  * aie accès aux autres branches
  */
 class RootStore {
+	constructor() {
+		this.init()
+	}
+	@observable initialized = false
 	counts = new TestCountState(this)
 	test = new TestState(this)
+	users = new UserState(this)
+	auth = new AuthState(this)
+	async init() {
+		await this.users.init()
+		await this.auth.init(true)
+		await this.test.init()
+		await this.counts.init()
+
+		runInAction(() => {
+			this.initialized = true
+		})
+	}
 }
 
 /**

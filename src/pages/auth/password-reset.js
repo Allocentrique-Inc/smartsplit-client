@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useStorePath } from "../../appstate/react"
+import { useStores, useStorePath as useMobXStorePath } from "../../mobX"
 import { useHistory, useRouteMatch } from "react-router"
 import AuthLayout from "./layout"
 import Button from "../../widgets/button"
@@ -32,7 +33,7 @@ export function ChangePasswordForm() {
 	const match = useRouteMatch()
 	const history = useHistory()
 	const token = match.params.token
-	const auth = useStorePath("auth")
+	const { auth } = useStores()
 
 	const [isLoading, setIsLoading] = useState(false)
 	const [error, setError] = useState(null)

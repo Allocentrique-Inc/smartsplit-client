@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from "react"
 import { Route, Redirect, Switch } from "react-router"
 import { StoreProvider, createAppStore } from "./appstate"
 import { useSubpath } from "./appstate/react"
+import { useStores } from "./mobX"
 import { setGlobalAccessToken, setGlobalErrorHandler } from "../api/api-client"
 
 import { Overlay as GlobalOverlay } from "./portals"
@@ -22,30 +23,31 @@ import WorkpiecesRouter from "./pages/workpieces"
 // TMP keep redux for now
 import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
+import { observer } from "mobx-react"
 import thunk from "redux-thunk"
 import rootReducer from "../redux/root-reducer"
 const reduxStore = createStore(rootReducer, applyMiddleware(thunk))
 // /TMP
 
-export default function Main(props) {
+export default observer(function Main(props) {
 	const store = useMemo(() => createAppStore(), [])
-	const isLoggedIn = useSubpath(store, "auth", "isLoggedIn")
+	//const isLoggedIn = useSubpath(store, "auth", "isLoggedIn")
+	const { auth } = useStores()
+	//console.dir(auth)
+	//setGlobalAccessToken(auth.accessToken)
+	/*useEffect(() => {
+		setGlobalErrorHandler((e) => auth.logout(e))
 
-	setGlobalAccessToken(store.auth.accessToken)
-
-	useEffect(() => {
-		setGlobalErrorHandler((e) => store.auth.logout(e))
-
-		return store.auth.subscribe(() => {
+		/!*return store.auth.subscribe(() => {
 			setGlobalAccessToken(store.auth.accessToken)
-		})
-	}, [store])
+		})*!/
+	}, [auth])*/
 
-	useEffect(() => {
+	/*useEffect(() => {
 		store.auth.initializeFromStorage(true)
-	}, [])
+	}, [])*/
 
-	return isLoggedIn === null ? null : (
+	return auth.isLoggedIn === null ? null : (
 		<Provider store={reduxStore}>
 			<StoreProvider value={store}>
 				<ScrollOverlay.ProviderContainer>
@@ -56,7 +58,7 @@ export default function Main(props) {
 			</StoreProvider>
 		</Provider>
 	)
-}
+})
 
 export function MainRouter() {
 	return (

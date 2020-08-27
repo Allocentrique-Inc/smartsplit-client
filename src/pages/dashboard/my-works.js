@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router"
 import { Platform, View, StyleSheet } from "react-native"
 import { useStorePath } from "../../appstate/react"
-
+import { observer } from "mobx-react"
+import { useStorePath as useMobxStorePath, useStores } from "../../mobX"
 import { Row, Column, Group, Flex, Hairline } from "../../layout"
 import { Heading } from "../../text"
 import { TabBar, Tab } from "../../widgets/tabs"
@@ -58,9 +59,9 @@ export default function MyWorksPage() {
 	)
 }
 
-export function MyWorksTab(props) {
+export const MyWorksTab = observer(function (props) {
 	const workpieces = useStorePath("workpieces")
-	const user = useStorePath("auth", "user")
+	const user = useMobxStorePath("auth", "user")
 
 	useEffect(() => {
 		workpieces
@@ -77,7 +78,7 @@ export function MyWorksTab(props) {
 			))}
 		</Column>
 	)
-}
+})
 
 export function SharedWithMeTab(props) {
 	return <Column of="none" spacer={Hairline}></Column>
