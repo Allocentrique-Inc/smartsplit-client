@@ -49,8 +49,9 @@ export default function Release() {
 	return (
 		<Layout
 			workpiece={workpiece}
+			title={workpiece}
 			path={[t("document:navbar.document"), t("document:navbar.pages.release")]}
-			progress={12.5}
+			progress={50}
 			actions={
 				<Button
 					tertiary
