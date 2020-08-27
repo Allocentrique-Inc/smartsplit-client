@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
-import { useStorePath } from "../../appstate/react"
+//import { useStorePath } from "../../appstate/react"
+import { useStores, useStorePath } from "../../mobX"
 import { useTranslation } from "react-i18next"
 import { ScrollView } from "react-native"
 import { Platform } from "../../platform"

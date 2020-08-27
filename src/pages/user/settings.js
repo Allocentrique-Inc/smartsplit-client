@@ -1,7 +1,8 @@
 import React, { useEffect } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { Route, Redirect, Switch, useHistory } from "react-router"
-import { useStorePath } from "../../appstate/react"
+//import { useStorePath } from "../../appstate/react"
+import { useStores, useStorePath } from "../../mobX"
 import { useTranslation } from "react-i18next"
 import objdiff from "object-diff"
 import { Column, Row, Hairline } from "../../layout"
@@ -26,6 +27,7 @@ import UsersIcon from "../../svg/user"
 import UserCardIcon from "../../svg/user-card"
 import SettingsIcon from "../../svg/settings"
 import LogoutIcon from "../../svg/logout"
+import { observer } from "mobx-react"
 
 const settingsDefaultValues = {
 	firstName: "",
@@ -38,9 +40,9 @@ const settingsDefaultValues = {
 	avatarUrl: null,
 }
 
-export function SettingsForm({ redirectOnSave, children }) {
+export const SettingsForm = observer(function ({ redirectOnSave, children }) {
 	const history = useHistory()
-	const auth = useStorePath("auth")
+	const { auth } = useStores()
 	const user = useStorePath("auth", "user")
 
 	useEffect(() => {
@@ -69,7 +71,7 @@ export function SettingsForm({ redirectOnSave, children }) {
 			{children}
 		</Form>
 	)
-}
+})
 
 export function SettingsPage() {
 	return (
@@ -124,7 +126,7 @@ export function SettingsPageFull() {
 	)
 }
 
-export function SettingsPageTitle() {
+export const SettingsPageTitle = observer(function () {
 	const user = useStorePath("auth", "user")
 
 	return (
@@ -134,9 +136,9 @@ export function SettingsPageTitle() {
 			{user.state !== "ready" && <Text>(chargement en cours...)</Text>}
 		</Row>
 	)
-}
+})
 
-export function SettingsMenu() {
+export const SettingsMenu = observer(function () {
 	const { t } = useTranslation()
 	const user = useStorePath("auth", "user")
 
@@ -189,7 +191,7 @@ export function SettingsMenu() {
 			</Column>
 		</Column>
 	)
-}
+})
 
 export function SettingsMenuItem({ to, icon, text }) {
 	const history = useHistory()

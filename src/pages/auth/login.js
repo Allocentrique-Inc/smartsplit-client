@@ -81,7 +81,7 @@ export const LoginForm = observer(function (props) {
 					value={password}
 				/>
 
-				<Link link small onClick={showForgotPassword}>
+				<Link link small onClick={showForgotPassword} style={{ width: "50%" }}>
 					{t("general:forgotPassword")}
 				</Link>
 			</Column>

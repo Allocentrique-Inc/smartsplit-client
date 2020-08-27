@@ -1,5 +1,5 @@
 import BaseState, { save, session } from "../BaseState"
-import { observable, computed, action, when, reaction } from "mobx"
+import { observable, computed, action, when, reaction, runInAction } from "mobx"
 import { Platform, AsyncStorage } from "react-native"
 import * as AuthAPI from "../../../api/auth"
 import {
@@ -11,6 +11,7 @@ import {
 	resetPassword,
 	changePassword,
 } from "../../../api/users"
+import { run } from "expo-cli/build/exp"
 
 /**
  * AuthState observable class
@@ -113,7 +114,10 @@ export default class AuthState extends BaseState {
 			this.setLoginFromAPI(response, rememberMe)
 		} catch (e) {
 			console.error("Error during login:", e)
-			this.set({ isLoading: false, error: e })
+			runInAction(() => {
+				this.isLoading = false
+				this.error = e
+			})
 		}
 	}
 

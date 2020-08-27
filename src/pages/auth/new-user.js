@@ -7,13 +7,14 @@ import { Row, Column, Flex } from "../../layout"
 import { Form, useForm } from "../../forms"
 import Button from "../../widgets/button"
 import { useStorePath } from "../../appstate/react"
+import { useStorePath as useMobxStorePath } from "../../mobX"
 import PublicPageLayout from "../../layout/public-page"
 import MyProfile from "../../smartsplit/forms/my-profile"
 
 export default function NewUser() {
 	const history = useHistory()
 	const { t, i18n } = useTranslation()
-	const user = useStorePath("auth", "user")
+	const user = useMobxStorePath("auth", "user")
 	const [error, setError] = useState(null)
 	const formRef = useRef()
 
