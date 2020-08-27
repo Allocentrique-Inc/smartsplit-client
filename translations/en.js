@@ -551,5 +551,6 @@ export const document = {
 			upc: "UPC/EAN Code",
 			physical: "Physical",
 		},
+		why: "Why share these informations?",
 	},
 }

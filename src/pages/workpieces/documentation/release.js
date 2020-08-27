@@ -87,7 +87,7 @@ export function ReleaseForm(props) {
 	const [search, setSearch] = useState("")
 	const [date, setDate] = useState("")
 	const { t } = useTranslation()
-	const { digital } = props
+	const { digital, physical } = props
 
 	return (
 		<>
@@ -132,6 +132,10 @@ export function ReleaseForm(props) {
 						/>
 					</CheckBoxGroup>
 					<DigitalOptions />
+					<CheckBox
+						value={physical}
+						label={t("document:release.supports.physical")}
+					/>
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
@@ -142,7 +146,7 @@ export function ReleaseForm(props) {
 							</Text>
 							<Hairline />
 						</Column>
-						<Heading level={4}>{t("document:performance.what")}</Heading>
+						<Heading level={4}>{t("document:release.why")}</Heading>
 						<Text secondary>
 							Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
 							dolor sit amet.
@@ -172,17 +176,19 @@ export function EP(props) {
 export function DigitalOptions() {
 	const { t } = useTranslation()
 	return (
-		<Column of="component">
+		<Column of="component" style={styles.dropdown}>
 			<Dropdown
 				label={t("document:release.supports.distribution")}
 				placeholder={t("document:release.supports.addDistribution")}
 				noFocusToggle
 				tooltip=""
+				style={{ flex: 1 }}
 			/>
 			<Dropdown
 				label={t("document:release.supports.upc")}
 				noFocusToggle
 				tooltip=""
+				style={{ flex: 1 }}
 			/>
 		</Column>
 	)
