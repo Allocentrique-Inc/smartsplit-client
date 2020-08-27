@@ -59,7 +59,7 @@ export const general = {
 		toBegin: "Commencer",
 		continue: "Continuer",
 		back: "Retour",
-		saveClose: "Sauvegarder et continuer",
+		saveClose: "Sauvegarder et fermer",
 		pass: "Passer pour l'instant",
 	},
 }
@@ -504,6 +504,7 @@ export const document = {
 			singer: "Chanteur",
 			musician: "Musicien",
 			performer: "Ajouter un interprète...",
+			release: "Sortie",
 		},
 		what: "C'est quoi un interprète ?",
 		whichPerformance: "Quel type d'interprétation ?",
@@ -535,6 +536,25 @@ export const document = {
 		tooltips: {
 			isrc:
 				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
+		},
+	},
+	release: {
+		category: "SORTIE",
+		title: "Cette pièce est-elle sortie ?",
+		paragraph:
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Date  de sortie",
+		dateHint: "Laisse vide si non déterminée",
+		label: "Label",
+		format: "Format du produit",
+		ep: "Titre de l'EP",
+		supports: {
+			support: "Support",
+			digital: "Numérique",
+			distribution: "Distribution",
+			addDistribution: "Ajouter un distributeur...",
+			upc: "Code UPC/EAN",
+			physical: "Physique",
 		},
 	},
 }

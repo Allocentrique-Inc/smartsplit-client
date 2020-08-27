@@ -466,6 +466,7 @@ export const document = {
 			creation: "Creation",
 			performance: "Performance",
 			recording: "Recording",
+			release: "Release",
 		},
 	},
 	help: "Help",
@@ -528,5 +529,24 @@ export const document = {
 	tooltips: {
 		isrc:
 			"The International Standard Work Code is a unique identification of musical works.",
+	},
+	release: {
+		category: "RELEASE",
+		title: "Was this piece released?",
+		paragraph:
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Release Date",
+		dateHint: "Leave blank if undetermined",
+		label: "Label",
+		format: "Product Format",
+		ep: "EP Title",
+		supports: {
+			support: "Support",
+			digital: "Digital",
+			distribution: "Distribution",
+			addDistribution: "Add a distributor...",
+			upc: "UPC/EAN Code",
+			physical: "Physical",
+		},
 	},
 }

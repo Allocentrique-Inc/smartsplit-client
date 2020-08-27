@@ -27,6 +27,8 @@ import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
 import { ProtectYourWork, ShareYourCopyright } from "./cards"
 
+import Release from "./documentation/release"
+
 export default function WorkpiecesRouter() {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
@@ -45,6 +47,10 @@ export default function WorkpiecesRouter() {
 
 				<Route path="/workpieces/:workpiece_id/protect">
 					<ProtectWork />
+				</Route>
+
+				<Route path="/workpieces/:workpiece_id/documentation/release">
+					<Release />
 				</Route>
 			</Switch>
 		</WorkpieceContext.Provider>

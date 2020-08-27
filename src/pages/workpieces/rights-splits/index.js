@@ -5,6 +5,8 @@ import CopyrightPage from "./copyright"
 import InterpretationPage from "./interpretation"
 import RecordingPage from "./recording"
 
+import Release from "../documentation/release"
+
 export default function (props) {
 	return (
 		<Switch>
@@ -24,6 +26,10 @@ export default function (props) {
 			<Route
 				path="/workpieces/:workpiece_id/rights-splits/recording"
 				component={RecordingPage}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/documentation/release"
+				component={Release}
 			/>
 		</Switch>
 	)
