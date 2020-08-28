@@ -5,6 +5,9 @@ export const general = {
 	noAccount: "I don't have an account",
 	or: "or",
 	auth: "Two factor authentification",
+	more: "Know more",
+	addFile: "Choose a file",
+	dropFile: "or drop your file here",
 
 	alerts: {
 		connected: "Connected!",
@@ -485,6 +488,7 @@ export const document = {
 		},
 	},
 	help: "Help",
+	why: "Why share these informations?",
 	creation: {
 		category: "CREATION",
 		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
@@ -516,5 +520,46 @@ export const document = {
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
+	},
+	files: {
+		category: "FILES",
+		title: "Which version of the work would you like to protect?",
+		paragraph: "Here you can add the files related to this musical piece.",
+		visual: {
+			title: "Work Visual",
+			paragraph:
+				"Just like an album has its cover, a song or a instrumental piece must also have a visual to represent it.",
+			format: "Upload in JPEG or PNG format",
+			undertext: "Recommended: 16000 x 1600 pixels of a resolution of 300 dpi.",
+		},
+		audio: {
+			title: "Audio File",
+			paragraph: "Here you can download your file in WAV or MP3 format.",
+			format: "Upload the file or the recorded work",
+			undertext: "MP3 or WAV accepted.",
+		},
+		other: {
+			title: "Other files on the work",
+			paragraph:
+				"Here you can add documents allowing the performance of the work, like the partition or the MIDI file.",
+			partition: "Partition or Tablature",
+			midi: "MIDI Files",
+			undertext: "Lorem Ipsum",
+		},
+		dropdown: {
+			public: "Public - Downloadable by all",
+			publicUndertext: "All users will be able to download the original file.",
+			invitation: "On invitation - Downloadable by some",
+			invitationUndertext:
+				"Users providing the unique sharable link will be able to download the original file. Practical for journalists and professionnals!",
+			private: "Private - Prevent the download",
+			privateUndertext:
+				"No one will be able to download the original image, except you.",
+		},
+		tooltip: {
+			listItem:
+				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
+		},
+		copy: "Unique sharable link copied.",
 	},
 }

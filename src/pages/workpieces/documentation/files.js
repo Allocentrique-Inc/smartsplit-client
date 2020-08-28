@@ -7,7 +7,7 @@ import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
-import { Text, Heading, Paragraph } from "../../../text"
+import { Text, Heading, Paragraph, Link } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import FilesIcon from "../../../svg/files"
 import {
@@ -17,6 +17,7 @@ import {
 	CheckBox,
 	CheckBoxGroup,
 	Dropdown,
+	FileField,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
@@ -93,23 +94,30 @@ export function FilesForm(props) {
 				<Column of="group" flex={5}>
 					<Text action bold valign="center">
 						<FilesIcon color={Colors.action} />
-						{t("document:performance.category")}
+						{t("document:files.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("document:performance.title")}</Heading>
-					<Paragraph>{t("document:performance.paragraph")}</Paragraph>
+					<Heading level={1}>{t("document:files.title")}</Heading>
+					<Paragraph>{t("document:files.paragraph")}</Paragraph>
 
-					<Spacer of="group" />
+					<Spacer of="component" />
 
-					<AddCollaboratorDropdown
-						searchResults={searchResults}
-						searchInput={search}
-						onSearchChange={setSearch}
-						onSelect={(selection) => console.log(selection)}
-						placeholder={t("document:performance.roles.addPerformer")}
-					/>
+					<Column of="component">
+						<Heading level={3}>{t("document:files.visual.title")}</Heading>
+						<Column of="inside">
+							<Paragraph>{t("document:files.visual.paragraph")}</Paragraph>
+							<Link>{t("general:more")}</Link>
 
-					<PerformanceOptions />
+							<FileField
+								name="file_upload"
+								label={t("document:files.visual.format")}
+								undertext={t("document:files.visual.undertext")}
+							/>
+						</Column>
+						<Column of="section">
+							<Hairline />
+						</Column>
+					</Column>
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
@@ -120,7 +128,7 @@ export function FilesForm(props) {
 							</Text>
 							<Hairline />
 						</Column>
-						<Heading level={4}>{t("document:performance.what")}</Heading>
+						<Heading level={4}>{t("document:why")}</Heading>
 						<Text secondary>
 							Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
 							dolor sit amet.
