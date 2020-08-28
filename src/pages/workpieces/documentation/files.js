@@ -9,7 +9,6 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph, Link } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
-import FilesIcon from "../../../svg/files"
 import {
 	RadioGroupButton,
 	RadioButton,
@@ -20,6 +19,9 @@ import {
 	FileField,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import FilesIcon from "../../../svg/files"
+import Unlock from "../../../svg/unlock"
+import Download from "../../../svg/download"
 
 const styles = StyleSheet.create({
 	dropdown: {
@@ -102,24 +104,117 @@ export function FilesForm(props) {
 
 					<Spacer of="component" />
 
+					<Heading level={3}>{t("document:files.visual.title")}</Heading>
+					<Column of="inside">
+						<Paragraph>{t("document:files.visual.paragraph")}</Paragraph>
+						<Link>{t("general:more")}</Link>
+					</Column>
 					<Column of="component">
-						<Heading level={3}>{t("document:files.visual.title")}</Heading>
-						<Column of="inside">
-							<Paragraph>{t("document:files.visual.paragraph")}</Paragraph>
-							<Link>{t("general:more")}</Link>
-
+						<Row of="component" valign="center">
 							<FileField
 								name="file_upload"
 								label={t("document:files.visual.format")}
 								undertext={t("document:files.visual.undertext")}
+								style={{ flex: 4 }}
 							/>
-						</Column>
-						<Column of="section">
-							<Hairline />
-						</Column>
+							<Dropdown
+								label={t("document:files.access")}
+								placeholder={
+									<>
+										<Download style={{ flex: 1 }} />
+									</>
+								}
+								noFocusToggle
+								tooltip=""
+								style={{ flex: 1 }}
+							/>
+						</Row>
 					</Column>
+
+					<Spacer of="component" />
+					<Hairline />
+					<Spacer of="component" />
+
+					<Column of="component">
+						<Heading level={3}>{t("document:files.audio.title")}</Heading>
+						<Paragraph>{t("document:files.audio.paragraph")}</Paragraph>
+						<Row of="component" valign="center">
+							<FileField
+								name="file_upload"
+								label={t("document:files.audio.format")}
+								undertext={t("document:files.audio.undertext")}
+								style={{ flex: 4 }}
+							/>
+							<Dropdown
+								label={t("document:files.access")}
+								placeholder={
+									<>
+										<Unlock style={{ flex: 1 }} />
+									</>
+								}
+								noFocusToggle
+								tooltip=""
+								style={{ flex: 1 }}
+							/>
+						</Row>
+					</Column>
+
+					<Spacer of="component" />
+					<Hairline />
+					<Spacer of="component" />
+
+					<Heading level={3}>{t("document:files.other.title")}</Heading>
+					<Paragraph>{t("document:files.other.paragraph")}</Paragraph>
+					<Column of="component">
+						<Row>
+							<FileField
+								name="file_upload"
+								label={t("document:files.other.formatTablature")}
+								undertext={t("document:files.other.undertext")}
+								style={{ flex: 4 }}
+							/>
+							<Dropdown
+								label={t("document:files.access")}
+								placeholder={
+									<>
+										<Unlock style={{ flex: 1 }} />
+									</>
+								}
+								noFocusToggle
+								tooltip=""
+								style={{ flex: 1 }}
+								valign="center"
+								styles={{
+									alignItems: "center",
+									alignSelf: "center",
+									align: "center",
+								}}
+							/>
+						</Row>
+					</Column>
+					<Row of="component" valign="center">
+						<FileField
+							name="file_upload"
+							label={t("document:files.other.formatMidi")}
+							undertext={t("document:files.other.undertext")}
+							style={{ flex: 4 }}
+						/>
+						<Dropdown
+							label={t("document:files.access")}
+							placeholder={
+								<>
+									<Unlock style={{ flex: 1 }} />
+								</>
+							}
+							noFocusToggle
+							tooltip=""
+							style={{ flex: 1 }}
+						/>
+					</Row>
 				</Column>
+
 				<Flex />
+
 				<Column of="group" flex={4}>
 					<Column of="component" padding="component" layer="underground">
 						<Column of="inside">

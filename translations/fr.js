@@ -551,8 +551,8 @@ export const document = {
 			title: "Autres fichiers sur l'œuvre",
 			paragraph:
 				"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
-			partition: "Partition ou tablature",
-			midi: "Fichiers MIDI",
+			formatTablature: "Partition ou tablature",
+			formatMidi: "Fichiers MIDI",
 			undertext: "Lorem Ipsum",
 		},
 		dropdown: {
@@ -570,6 +570,7 @@ export const document = {
 			listItem:
 				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
 		},
+		access: "Accès",
 		copy: "Lien de partage unique copié.",
 	},
 }
