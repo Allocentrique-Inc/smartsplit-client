@@ -9,7 +9,7 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
-import PerformancetIcon from "../../../svg/performance"
+import FilesIcon from "../../../svg/files"
 import {
 	RadioGroupButton,
 	RadioButton,
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default function Performance() {
+export default function Files() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const workpiece = useCurrentWorkpiece()
@@ -77,12 +77,12 @@ export default function Performance() {
 				</>
 			}
 		>
-			<PerformanceForm />
+			<FilesForm />
 		</Layout>
 	)
 }
 
-export function PerformanceForm(props) {
+export function FilesForm(props) {
 	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
 	const [search, setSearch] = useState("")
 	const { t } = useTranslation()
@@ -92,7 +92,7 @@ export function PerformanceForm(props) {
 			<Row>
 				<Column of="group" flex={5}>
 					<Text action bold valign="center">
-						<PerformanceIcon color={Colors.action} />
+						<FilesIcon color={Colors.action} />
 						{t("document:performance.category")}
 						<Row padding="tiny" />
 					</Text>

@@ -523,4 +523,22 @@ export const document = {
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
 	},
+	files: {
+		title: "Quelle version de l'œuvre aumerais-tu protéger ?",
+		paragraph: () => (
+			<>
+				Ici, tu envoies ton œuvre dans un encodeur informatique.
+				<br />
+				L'algorithme derrière cette page prendra ton œuvre et créera à partir
+				d'elle une empreinte numérique unique que l'on nomme un <i>hash</i>.
+			</>
+		),
+		protect: "Fichier à protéger",
+		addFile: "Ajouter un fichier",
+		chooseFile: "Choisis un fichier",
+		dropFile: "ou glissez votre fichier ici",
+		undertext: "Tous formats acceptés, 2 Mo maximum.",
+		version: "Version de travail",
+		checkbox: {},
+	},
 }
