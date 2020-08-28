@@ -473,7 +473,7 @@ export const document = {
 			creation: "Création",
 		},
 	},
-	help: "Help",
+	help: "Aide",
 	creation: {
 		category: "CRÉATION",
 		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
