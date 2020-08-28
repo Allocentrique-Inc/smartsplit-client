@@ -471,6 +471,7 @@ export const document = {
 		},
 	},
 	help: "Help",
+	why: "Why share these informations?",
 	creation: {
 		category: "CREATION",
 		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
@@ -526,7 +527,6 @@ export const document = {
 	studio: "Recording Studio",
 	searchStudio: "Search a recording studio...",
 	isrc: "ISRC Code",
-	why: "Why share these informations?",
 	tooltips: {
 		isrc:
 			"The International Standard Work Code is a unique identification of musical works.",
