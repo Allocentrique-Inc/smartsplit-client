@@ -147,7 +147,7 @@ export function ReleaseForm(props) {
 							</Text>
 							<Hairline />
 						</Column>
-						<Heading level={4}>{t("document:release.why")}</Heading>
+						<Heading level={4}>{t("document:why")}</Heading>
 						<Text secondary>
 							Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
 							dolor sit amet.
