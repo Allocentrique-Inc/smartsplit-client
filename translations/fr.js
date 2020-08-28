@@ -476,7 +476,8 @@ export const document = {
 			recording: "Enregistrement",
 		},
 	},
-	help: "Help",
+	help: "Aide",
+	why: "Pourquoi partager ces informations ?",
 	creation: {
 		category: "CRÉATION",
 		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
@@ -534,7 +535,6 @@ export const document = {
 		studio: "Studio d'enregistrement",
 		searchStudio: "Rechercher un studio d'enregistrement...",
 		isrc: "Code ISRC",
-		why: "Pourquoi partager ces informations ?",
 		tooltips: {
 			isrc:
 				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
@@ -559,6 +559,5 @@ export const document = {
 			upc: "Code UPC/EAN",
 			physical: "Physique",
 		},
-		why: "Pourquoi partager ces informations ?",
 	},
 }
