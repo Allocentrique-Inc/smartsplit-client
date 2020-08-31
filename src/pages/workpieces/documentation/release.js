@@ -20,6 +20,7 @@ import {
 	Dropdown,
 	DateField,
 	TextField,
+	Select,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
@@ -88,7 +89,8 @@ export function ReleaseForm(props) {
 	const [search, setSearch] = useState("")
 	const [date, setDate] = useState("")
 	const { t } = useTranslation()
-	const { digital, physical } = props
+	const [showDigitalOptions, setShowDigitalOptions] = useState()
+	const [showEP, setShowEP] = useState()
 
 	return (
 		<>
@@ -118,25 +120,25 @@ export function ReleaseForm(props) {
 						noFocusToggle
 						tooltip=""
 					/>
-					<Dropdown
+					<Select
 						label={t("document:release.format")}
 						placeholder=""
-						noFocusToggle
 						tooltip=""
+						options={[{ key: "EP", value: "EP" }]}
+						onChange={setShowEP}
+						checked={showEP}
 					/>
-
-					<EP />
+					{showEP && <EP />}
 					<CheckBoxGroup label={t("document:release.supports.support")}>
 						<CheckBox
-							value={digital}
+							onChange={setShowDigitalOptions}
+							checked={showDigitalOptions}
 							label={t("document:release.supports.digital")}
 						/>
 					</CheckBoxGroup>
-					<DigitalOptions />
-					<CheckBox
-						value={physical}
-						label={t("document:release.supports.physical")}
-					/>
+					{showDigitalOptions && <DigitalOptions />}
+
+					<CheckBox label={t("document:release.supports.physical")} />
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
