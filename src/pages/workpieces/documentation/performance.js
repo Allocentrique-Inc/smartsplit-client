@@ -9,7 +9,7 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
-import PerformancetIcon from "../../../svg/performance"
+import PerformanceIcon from "../../../svg/performance"
 import {
 	RadioGroupButton,
 	RadioButton,
@@ -135,7 +135,6 @@ export function PerformanceForm(props) {
 export function PerformanceOptions(props) {
 	const { t } = useTranslation()
 	const [showInstruments, setShowInstruments] = useState()
-	const { singer, musician } = props
 
 	return (
 		<Column>
@@ -153,16 +152,15 @@ export function PerformanceOptions(props) {
 						/>
 					</RadioGroup>
 					<CheckBoxGroup label={t("document:performance.whichRole")}>
-						<CheckBox value={singer} label={t("general:checkbox.singer")} />
+						<CheckBox label={t("general:checkbox.singer")} />
 						<CheckBox
 							onChange={setShowInstruments}
 							checked={showInstruments}
-							value={musician}
 							label={t("general:checkbox.musician")}
 						/>
 					</CheckBoxGroup>
 
-					{musician && (
+					{showInstruments && (
 						<Column style={styles.dropdown}>
 							<Dropdown
 								style={{ flex: 1 }}
@@ -171,14 +169,6 @@ export function PerformanceOptions(props) {
 							/>
 						</Column>
 					)}
-
-					<Column style={styles.dropdown}>
-						<Dropdown
-							style={{ flex: 1 }}
-							placeholder={t("document:performance.addInstrument")}
-							noFocusToggle
-						/>
-					</Column>
 				</Column>
 			</Row>
 

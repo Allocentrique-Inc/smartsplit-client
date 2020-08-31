@@ -110,7 +110,7 @@ export function FilesForm(props) {
 						<Link>{t("general:more")}</Link>
 					</Column>
 					<Column of="component">
-						<Row of="component" valign="center">
+						<Row of="component">
 							<FileField
 								name="file_upload"
 								label={t("document:files.visual.format")}
@@ -121,12 +121,12 @@ export function FilesForm(props) {
 								label={t("document:files.access")}
 								placeholder={
 									<>
-										<Download style={{ flex: 1 }} />
+										<Download />
+										<Flex />
 									</>
 								}
 								noFocusToggle
 								tooltip=""
-								style={{ flex: 1 }}
 							/>
 						</Row>
 					</Column>
@@ -138,7 +138,7 @@ export function FilesForm(props) {
 					<Column of="component">
 						<Heading level={3}>{t("document:files.audio.title")}</Heading>
 						<Paragraph>{t("document:files.audio.paragraph")}</Paragraph>
-						<Row of="component" valign="center">
+						<Row of="component">
 							<FileField
 								name="file_upload"
 								label={t("document:files.audio.format")}
@@ -149,12 +149,12 @@ export function FilesForm(props) {
 								label={t("document:files.access")}
 								placeholder={
 									<>
-										<Unlock style={{ flex: 1 }} />
+										<Unlock />
+										<Flex />
 									</>
 								}
 								noFocusToggle
 								tooltip=""
-								style={{ flex: 1 }}
 							/>
 						</Row>
 					</Column>
@@ -165,34 +165,26 @@ export function FilesForm(props) {
 
 					<Heading level={3}>{t("document:files.other.title")}</Heading>
 					<Paragraph>{t("document:files.other.paragraph")}</Paragraph>
-					<Column of="component">
-						<Row>
-							<FileField
-								name="file_upload"
-								label={t("document:files.other.formatTablature")}
-								undertext={t("document:files.other.undertext")}
-								style={{ flex: 4 }}
-							/>
-							<Dropdown
-								label={t("document:files.access")}
-								placeholder={
-									<>
-										<Unlock style={{ flex: 1 }} />
-									</>
-								}
-								noFocusToggle
-								tooltip=""
-								style={{ flex: 1 }}
-								valign="center"
-								styles={{
-									alignItems: "center",
-									alignSelf: "center",
-									align: "center",
-								}}
-							/>
-						</Row>
-					</Column>
-					<Row of="component" valign="center">
+					<Row of="component">
+						<FileField
+							name="file_upload"
+							label={t("document:files.other.formatTablature")}
+							undertext={t("document:files.other.undertext")}
+							style={{ flex: 4 }}
+						/>
+						<Dropdown
+							label={t("document:files.access")}
+							placeholder={
+								<>
+									<Unlock />
+									<Flex />
+								</>
+							}
+							noFocusToggle
+							tooltip=""
+						/>
+					</Row>
+					<Row of="component">
 						<FileField
 							name="file_upload"
 							label={t("document:files.other.formatMidi")}
@@ -203,12 +195,12 @@ export function FilesForm(props) {
 							label={t("document:files.access")}
 							placeholder={
 								<>
-									<Unlock style={{ flex: 1 }} />
+									<Unlock />
+									<Flex />
 								</>
 							}
 							noFocusToggle
 							tooltip=""
-							style={{ flex: 1 }}
 						/>
 					</Row>
 				</Column>
