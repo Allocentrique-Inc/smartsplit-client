@@ -57,6 +57,10 @@ export const general = {
 		toRefuse: "Refuser",
 		toConsult: "Consulter",
 		toBegin: "Commencer",
+		continue: "Continuer",
+		back: "Retour",
+		saveClose: "Sauvegarder et fermer",
+		pass: "Passer pour l'instant",
 	},
 }
 
