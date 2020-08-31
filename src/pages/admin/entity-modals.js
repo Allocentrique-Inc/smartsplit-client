@@ -62,6 +62,7 @@ export function DeleteModal(props) {
 	const { t } = useTranslation()
 	const { visible, onClose, onDelete, entityId } = props
 	const entity = useEntity(entityId)
+	console.log(entity)
 	async function handleDelete() {
 		const response = await entity.destroy()
 		onDelete(response.status === 204)

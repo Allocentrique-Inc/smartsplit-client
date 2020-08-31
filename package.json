@@ -28,6 +28,7 @@
 		"moment": "^2.24.0",
 		"object-diff": "^0.0.4",
 		"react": "16.11.0",
+		"react-dev-tools": "^0.0.1",
 		"react-dom": "16.11.0",
 		"react-i18next": "^11.3.4",
 		"react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",

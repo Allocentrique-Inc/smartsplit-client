@@ -23,6 +23,7 @@ export default function (state = INITIAL_STATE, action) {
 				isLoading: true,
 				error: null,
 			}
+			//	console.log(newState)
 			break
 
 		case "ENTITY_LIST_SUCCESS":
@@ -32,6 +33,7 @@ export default function (state = INITIAL_STATE, action) {
 				error: null,
 				isLoading: false,
 			}
+			//	console.log(newState)
 			break
 
 		case "ENTITY_LIST_ERROR":
@@ -40,10 +42,12 @@ export default function (state = INITIAL_STATE, action) {
 				isLoading: false,
 				error: action.payload,
 			}
+			//	console.log(newState)
 			break
 
 		case "ENTITY_LIST_RESET": {
 			newState.entityList = INITIAL_STATE.entityList
+			//	console.log(newState)
 			break
 		}
 
@@ -52,11 +56,14 @@ export default function (state = INITIAL_STATE, action) {
 				...state.entityList,
 				error: null,
 			}
+			//	console.log(newState)
 			break
 		}
 
 		default:
 			break
 	}
-	return { ...state, ...newState }
+	const returnvalue = { ...state, ...newState }
+	console.log(JSON.stringify(returnvalue, null, 2))
+	return returnvalue
 }

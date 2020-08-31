@@ -68,6 +68,7 @@ export function entityReducer(prevState, newState, action) {
 		state: action.state,
 		error: action.error,
 	}
+	console.log(newState)
 }
 
 export function useApiRedux(actions, store, entityId, initData) {
@@ -79,6 +80,7 @@ export function useApiRedux(actions, store, entityId, initData) {
 		state: initData ? "new" : "undefined",
 		error: null,
 	}
+	console.log(data)
 
 	const wrappedActions = {}
 
@@ -95,6 +97,6 @@ export function useApiRedux(actions, store, entityId, initData) {
 	if (data.state === "undefined") {
 		dispatch(actions.read(id))
 	}
-
+	console.log({ ...data, ...wrappedActions })
 	return { ...data, ...wrappedActions }
 }

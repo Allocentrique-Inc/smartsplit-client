@@ -4,6 +4,7 @@ import TestCountState from "./states/TestCountState"
 import TestState from "./states/TestState"
 import UserState from "./states/UserState"
 import AuthState from "./states/AuthState"
+import ContentLanguageState from "./states/ContentLanguagesState"
 /**
  * L'instance de base est passé a tout les sub-stores pour que chaque store
  * aie accès aux autres branches
@@ -17,12 +18,13 @@ class RootStore {
 	test = new TestState(this)
 	users = new UserState(this)
 	auth = new AuthState(this)
+	contentLangs = new ContentLanguageState(this)
 	async init() {
 		await this.users.init()
 		await this.auth.init(true)
 		await this.test.init()
 		await this.counts.init()
-
+		//await this.contentLangs.init()
 		runInAction(() => {
 			this.initialized = true
 		})
@@ -33,7 +35,10 @@ class RootStore {
  * le context react qui permet l'accès globale
  * @type {React.Context<RootStore>}
  */
-export const storesContext = React.createContext(new RootStore())
+
+const stores = new RootStore()
+export const storesContext = React.createContext(stores)
+window.stores = stores
 
 /**
  * Le hook principal pour accéder aux stores
