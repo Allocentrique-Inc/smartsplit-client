@@ -1,4 +1,4 @@
-import { createCrudObservable, createEntityListObservable } from "../factory"
+import { createCrudObservable, createEntityListObservable } from "../crud"
 import UsersCrudAPI from "../../../api/users"
 
 const UserObservable = createCrudObservable(UsersCrudAPI, "user_id")

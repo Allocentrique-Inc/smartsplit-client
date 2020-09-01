@@ -1,4 +1,4 @@
-import { createEntityListState } from "../factory"
+import { createEntityListState } from "../crud"
 import ContentLanguageModel from "../models/ContentLanguageModel"
 const ContentLanguageState = createEntityListState(
 	"content-languages",

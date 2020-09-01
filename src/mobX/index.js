@@ -24,7 +24,7 @@ class RootStore {
 		await this.auth.init(true)
 		await this.test.init()
 		await this.counts.init()
-		//await this.contentLangs.init()
+		await this.contentLangs.init()
 		runInAction(() => {
 			this.initialized = true
 		})

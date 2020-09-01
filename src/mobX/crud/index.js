@@ -181,7 +181,7 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 			this.isLoading = null
 		}
 		@action async init() {
-			//await this.load()
+			await this.load()
 			return true
 		}
 		@action async load() {
