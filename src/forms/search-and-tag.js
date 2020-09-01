@@ -18,7 +18,12 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function SearchAndTag({ selection, onUnselect, ...nextProps }) {
+export default function SearchAndTag({
+	selection,
+	onUnselect,
+	hideIcon,
+	...nextProps
+}) {
 	const [search, setSearch] = useState("")
 	const renderSelectedItems = () => {
 		return (
@@ -43,7 +48,7 @@ export default function SearchAndTag({ selection, onUnselect, ...nextProps }) {
 	return (
 		<Column of="component">
 			<Autocomplete
-				icon={Search}
+				icon={hideIcon ? null : Search}
 				search={search}
 				onSearchChange={setSearch}
 				{...nextProps}

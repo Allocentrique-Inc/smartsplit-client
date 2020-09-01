@@ -471,6 +471,7 @@ export const document = {
 		pages: {
 			creation: "Création",
 			performance: "Interprétation",
+			infos: "Informations générales",
 		},
 	},
 	help: "Help",
@@ -552,5 +553,15 @@ export const document = {
 		},
 		access: "Accès",
 		copy: "Lien de partage unique copié.",
+	},
+	infos: {
+		category: "INFORMATIONS GÉNÉRALES",
+		title: "Dis-nous en plus sur la pièce musicale.",
+		length: "Durée",
+		bpm: "BPM",
+		mainGenre: "Genre principal",
+		addGenre: "Ajouter un genre...",
+		secondaryGenre: "Genres secondaires",
+		genreExample: "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae.",
 	},
 }

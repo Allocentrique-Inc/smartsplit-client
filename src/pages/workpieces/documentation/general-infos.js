@@ -9,26 +9,8 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
-//import ReleasetIcon from "../../../svg/release"
-
-import {
-	RadioGroupButton,
-	RadioButton,
-	RadioGroup,
-	CheckBox,
-	CheckBoxGroup,
-	Dropdown,
-	DateField,
-	TextField,
-	Select,
-} from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
-
-const styles = StyleSheet.create({
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
-	},
-})
+import MusicNoteIcon from "../../../svg/music-note"
+import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 
 export default function GeneralInfos() {
 	const { t } = useTranslation()
@@ -51,8 +33,8 @@ export default function GeneralInfos() {
 		<Layout
 			workpiece={workpiece}
 			title={workpiece}
-			path={[t("document:navbar.document"), t("document:navbar.pages.release")]}
-			progress={50}
+			path={[t("document:navbar.document"), t("document:navbar.pages.infos")]}
+			progress={62.5}
 			actions={
 				<Button
 					tertiary
@@ -85,60 +67,71 @@ export default function GeneralInfos() {
 }
 
 export function GeneralInfosForm(props) {
-	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
+	const searchResults = ["Electrofunk", "Future Funk", "Mega Funk"]
 	const [search, setSearch] = useState("")
-	const [date, setDate] = useState("")
+	const [selected, setSelected] = useState([
+		"Electrofunk",
+		"Future Funk",
+		"Mega Funk",
+	])
 	const { t } = useTranslation()
-	const [showDigitalOptions, setShowDigitalOptions] = useState()
-	const [showEP, setShowEP] = useState()
 
 	return (
 		<>
 			<Row>
 				<Column of="group" flex={5}>
 					<Text action bold valign="center">
-						{/* <ReleasetIcon /> */}
-						{t("document:release.category")}
+						<MusicNoteIcon color={Colors.action} />
+						{t("document:infos.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("document:release.title")}</Heading>
-					<Paragraph>{t("document:release.paragraph")}</Paragraph>
+					<Heading level={1}>{t("document:infos.title")}</Heading>
 
 					<Spacer of="group" />
 
-					<DateField
-						label={t("document:release.date")}
-						undertext={t("document:release.dateHint")}
-						value={date}
-						onChangeText={setDate}
-						placeholder={t("forms:placeholders.date")}
-						tooltip=""
-					/>
+					<Row of="component">
+						<TextField
+							name="length"
+							label={t("document:infos.length")}
+							placeholder=""
+						/>
+
+						<TextField name="bpm" label="BPM" placeholder="" />
+					</Row>
+
 					<Dropdown
-						label="Label"
-						placeholder={t("document:release.addLabel")}
+						hideIcon={false}
+						label={t("document:infos.mainGenre")}
+						placeholder=""
 						noFocusToggle
 						tooltip=""
 					/>
-					<Select
-						label={t("document:release.format")}
-						placeholder=""
-						tooltip=""
-						options={[{ key: "EP", value: "EP" }]}
-						onChange={setShowEP}
-						checked={showEP}
+					<SearchAndTag
+						hideIcon={true}
+						label={t("document:infos.secondaryGenre")}
+						searchResults={searchResults}
+						search={search}
+						onSearchChange={setSearch}
+						selection={selected}
+						onSelect={(selection) => setSelected([...selected, selection])}
+						onUnselect={(selection) =>
+							setSelected(selected.filter((i) => i !== selection))
+						}
+						placeholder={t("document:infos.addGenre")}
 					/>
-					{showEP && <EP />}
-					<CheckBoxGroup label={t("document:release.supports.support")}>
-						<CheckBox
-							onChange={setShowDigitalOptions}
-							checked={showDigitalOptions}
-							label={t("document:release.supports.digital")}
-						/>
-					</CheckBoxGroup>
-					{showDigitalOptions && <DigitalOptions />}
-
-					<CheckBox label={t("document:release.supports.physical")} />
+					<SearchAndTag
+						hideIcon={true}
+						label={t("document:infos.secondaryGenre")}
+						searchResults={searchResults}
+						search={search}
+						onSearchChange={setSearch}
+						selection={selected}
+						onSelect={(selection) => setSelected([...selected, selection])}
+						onUnselect={(selection) =>
+							setSelected(selected.filter((i) => i !== selection))
+						}
+						placeholder={t("document:infos.genreExample")}
+					/>
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
@@ -158,41 +151,5 @@ export function GeneralInfosForm(props) {
 				</Column>
 			</Row>
 		</>
-	)
-}
-
-export function EP(props) {
-	const { t } = useTranslation()
-
-	return (
-		<Column>
-			<Row>
-				<Column padding="component" layer="left_overground" />
-				<Column of="group" flex={5}>
-					<TextField label={t("document:release.ep")} name="ep" />
-				</Column>
-			</Row>
-		</Column>
-	)
-}
-
-export function DigitalOptions() {
-	const { t } = useTranslation()
-	return (
-		<Column of="component" style={styles.dropdown}>
-			<Dropdown
-				label={t("document:release.supports.distribution")}
-				placeholder={t("document:release.supports.addDistribution")}
-				noFocusToggle
-				tooltip=""
-				style={{ flex: 1 }}
-			/>
-			<Dropdown
-				label={t("document:release.supports.upc")}
-				noFocusToggle
-				tooltip=""
-				style={{ flex: 1 }}
-			/>
-		</Column>
 	)
 }

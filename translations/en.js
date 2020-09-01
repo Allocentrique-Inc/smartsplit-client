@@ -59,7 +59,7 @@ export const general = {
 		continue: "Continue",
 		back: "Back",
 		saveClose: "Save and Close",
-		pass: "Passe for now",
+		pass: "Pass for now",
 	},
 }
 
@@ -465,6 +465,7 @@ export const document = {
 		pages: {
 			creation: "Creation",
 			performance: "Performance",
+			infos: "General Information",
 		},
 	},
 	help: "Help",
@@ -543,5 +544,15 @@ export const document = {
 		},
 		access: "Access",
 		copy: "Unique sharable link copied.",
+	},
+	infos: {
+		category: "GENERAL INFORMATIONS",
+		title: "Tells us more about the musical piece.",
+		length: "Length",
+		bpm: "BPM",
+		mainGenre: "Main Genre",
+		addenre: "Add a genre...",
+		secondaryGenre: "Secondary Genres",
+		genreExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
 	},
 }

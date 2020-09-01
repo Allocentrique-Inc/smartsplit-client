@@ -112,7 +112,7 @@ export class Dropdown extends React.Component {
 	}
 
 	render() {
-		const { placeholder, children, onFocus, onBlur } = {
+		const { placeholder, children, hideIcon, onFocus, onBlur } = {
 			...this.props,
 			placeholder: this.getPlaceholder(),
 		}
