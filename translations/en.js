@@ -489,6 +489,7 @@ export const document = {
 	},
 	help: "Help",
 	why: "Why share these informations?",
+	access: "Access",
 	creation: {
 		category: "CREATION",
 		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
@@ -561,7 +562,6 @@ export const document = {
 			listItem:
 				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
 		},
-		access: "Access",
 		copy: "Unique sharable link copied.",
 	},
 }

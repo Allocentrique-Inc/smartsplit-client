@@ -118,7 +118,7 @@ export function FilesForm(props) {
 								style={{ flex: 4 }}
 							/>
 							<Dropdown
-								label={t("document:files.access")}
+								label={t("document:access")}
 								placeholder={
 									<>
 										<Download />
@@ -146,7 +146,7 @@ export function FilesForm(props) {
 								style={{ flex: 4 }}
 							/>
 							<Dropdown
-								label={t("document:files.access")}
+								label={t("document:access")}
 								placeholder={
 									<>
 										<Unlock />
@@ -173,7 +173,7 @@ export function FilesForm(props) {
 							style={{ flex: 4 }}
 						/>
 						<Dropdown
-							label={t("document:files.access")}
+							label={t("document:access")}
 							placeholder={
 								<>
 									<Unlock />
@@ -192,7 +192,7 @@ export function FilesForm(props) {
 							style={{ flex: 4 }}
 						/>
 						<Dropdown
-							label={t("document:files.access")}
+							label={t("document:access")}
 							placeholder={
 								<>
 									<Unlock />

@@ -495,6 +495,7 @@ export const document = {
 	},
 	help: "Help",
 	why: "Pourquoi partage ces information ?",
+	access: "Accès",
 	creation: {
 		category: "CRÉATION",
 		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
@@ -570,7 +571,6 @@ export const document = {
 			listItem:
 				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
 		},
-		access: "Accès",
 		copy: "Lien de partage unique copié.",
 	},
 }
