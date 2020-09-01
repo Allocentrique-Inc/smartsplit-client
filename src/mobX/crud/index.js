@@ -170,6 +170,34 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 		@observable error = null
 		@observable isLoading = null
 		@observable list = {}
+		/**
+		 * the mode, such as create, edit, delete, to display the correct UI
+		 * @type {string|null}
+		 */
+		@observable mode = null
+		@action setMode(mode) {
+			this.mode = mode
+		}
+		@action clearMode() {
+			this.mode = null
+		}
+
+		/**
+		 * the current selected entity
+		 * @type {null}
+		 */
+		@observable selected = null
+		@action setSelected(id) {
+			this.selected = this.list[id]
+		}
+		@action clearSelected() {
+			this.clearMode()
+			this.selected = null
+		}
+
+		@computed get count() {
+			return Object.keys(this.list).length
+		}
 		@observable model: BaseModel = null
 		@computed get editing() {
 			return this.model !== null
@@ -206,16 +234,24 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 		}
 
 		@action async new() {
-			this.model = new this.modelClass()
+			this.model = new modelClass()
 			this.model.init()
+			this.setMode("create")
 		}
 
 		@action edit(id) {
 			if (!this.list[id]) {
 				throw Error("trying to edit an entity which does not exist")
 			}
-			this.model = new this.modelClass()
+			this.model = new modelClass()
 			this.model.init(this.list[id])
+			this.setMode("edit")
+			this.setSelected(id)
+		}
+
+		@action delete(id) {
+			this.setMode("delete")
+			this.setSelected(id)
 		}
 
 		@action cancelEdit() {
@@ -232,11 +268,15 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 						this.list[this.model["entity_id"].value] = this.model.exportData()
 						this.isLoading = false
 						this.model = null
+						this.clearSelected()
 					})
 					return true
 				} catch (e) {
-					this.error = e
-					this.isLoading = false
+					runInAction(() => {
+						this.error = e
+						this.isLoading = false
+					})
+					this.clearSelected()
 					return false
 				}
 			} else {
@@ -244,7 +284,7 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 			}
 		}
 
-		@action async delete(id) {
+		@action async doDelete(id) {
 			this.isLoading = true
 			try {
 				await CRUD.destroy(id)

@@ -9,12 +9,13 @@ import { useEntity } from "../../../redux/entities/hooks"
 import { Text } from "../../text"
 import { EntityForm } from "../../smartsplit/forms/entities"
 import { Metrics } from "../../theme"
+import { useStores } from "../../mobX"
 
 export function FormModal(props) {
 	const { t } = useTranslation()
-	const { visible, onClose, entityId, mode, ...formProps } = props
-	const formRef = useRef()
-	const entityType = useSelector((state) => state.entities.entityList.type)
+	const { type, visible, onClose, entityId, mode, model, ...formProps } = props
+	//const formRef = useRef()
+	const entityType = type
 	function getTitle() {
 		return mode === FormMode.creation
 			? t("admin:entityCreation")

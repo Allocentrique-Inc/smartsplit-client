@@ -19,7 +19,7 @@ export const EntitiesErrors = {
 
 export function EntityFields(props) {
 	const { t } = useTranslation()
-	const { entityType, mode } = props
+	const { entityType, mode, model } = props
 	switch (entityType) {
 		case "content-languages":
 			return (

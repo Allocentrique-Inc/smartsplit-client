@@ -4,7 +4,7 @@ import { Heading } from "../../text"
 import Button from "../../widgets/button"
 import { useTranslation } from "react-i18next"
 import { Metrics } from "../../theme"
-import { useEntityList } from "../../../redux/entities/hooks"
+import { usecontentLangs } from "../../../redux/entities/hooks"
 import {
 	AdminList,
 	AdminListItem,
@@ -13,13 +13,14 @@ import { SimpleMenu } from "../../smartsplit/components/admin-list-menus"
 import { DeleteModal, FormModal } from "./entity-modals"
 import { FormMode } from "../../utils/enums"
 import { useDispatch, useSelector } from "react-redux"
-import { resetEntityList } from "../../../redux/entities/actions"
+import { resetcontentLangs } from "../../../redux/entities/actions"
 import Scrollable from "../../widgets/scrollable"
-
-export default function ListPage(props) {
+import { useStores, useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
+import { toJS } from "mobx"
+const ListPage = observer((props) => {
 	const { t } = useTranslation()
-	const dispatch = useDispatch()
-	const entityList = useEntityList(props.match.params.id)
+	const entityState = useStorePath("admin", "entities", props.match.params.id)
 	const [selectedEntity, setSelectedEntity] = useState(null)
 	const [createModal, setCreateModal] = useState(false)
 	const [editModal, setEditModal] = useState(false)
@@ -29,18 +30,18 @@ export default function ListPage(props) {
 		setSelectedEntity(null)
 		setter(false)
 		if (result) {
-			dispatch(resetEntityList())
+			//dispatch(resetentityState())
 		}
 	}
 
 	function toggleCreateModal() {
-		entityList.error && dispatch({ type: "CLEAR_ENTITY_LIST_ERROR" })
+		//entityState.error && dispatch({ type: "CLEAR_ENTITY_LIST_ERROR" })
 		setSelectedEntity(null)
 		setCreateModal(!createModal)
 	}
 
 	function toggleModalWithId(entityId, setter) {
-		entityList.error && dispatch({ type: "CLEAR_ENTITY_LIST_ERROR" })
+		//	entityState.error && dispatch({ type: "CLEAR_ENTITY_LIST_ERROR" })
 		setSelectedEntity(entityId)
 		setter(!!entityId)
 	}
@@ -50,50 +51,63 @@ export default function ListPage(props) {
 			<Column of="group" padding="large">
 				<Row align="spread">
 					<Heading level={2}>
-						{t(`admin:entityTypes.${entityList.type}`)}
+						{t(`admin:entityTypes.${entityState.type}`)}
 					</Heading>
-					<Button text={t("general:buttons.add")} onClick={toggleCreateModal} />
+					<Button
+						text={t("general:buttons.add")}
+						onClick={() => {
+							entityState.new()
+						}}
+					/>
 				</Row>
-				{entityList.data && (
+				{entityState.count && (
 					<>
 						<AdminList>
-							{entityList.data.map((entity) => (
-								<AdminListItem
-									key={entity.entity_id}
-									content={entity.entity_id}
-									onModify={() =>
-										toggleModalWithId(entity.entity_id, setEditModal)
-									}
-									onDelete={() =>
-										toggleModalWithId(entity.entity_id, setDeleteModal)
-									}
-									contextualMenu="simple"
-								/>
-							))}
+							{Object.keys(entityState.list).map((key) => {
+								let entity = entityState.list[key]
+								return (
+									<AdminListItem
+										key={key}
+										content={entity.entity_id}
+										onModify={() => {
+											entityState.edit(entity.entity_id)
+										}}
+										onDelete={() => {
+											entityState.delete(entity.entity_id)
+										}}
+										contextualMenu="simple"
+									/>
+								)
+							})}
 						</AdminList>
-						{createModal && (
+						{entityState.mode === "create" && (
 							<FormModal
 								mode={FormMode.creation}
-								visible={createModal}
-								onSubmit={(result) => handleSubmit(result, setCreateModal)}
-								onClose={toggleCreateModal}
+								model={entityState.model}
+								type={entityState.type}
+								visible={entityState.mode === "create"}
+								onSubmit={(result) => entityState.save()}
+								onClose={entityState.clearSelected()}
 							/>
 						)}
-						{editModal && (
+						{entityState.mode === "edit" && (
 							<FormModal
 								mode={FormMode.edition}
-								entityId={selectedEntity}
-								visible={editModal}
-								onSubmit={(result) => handleSubmit(result, setEditModal)}
-								onClose={() => toggleModalWithId(null, setEditModal)}
+								type={entityState.type}
+								model={entityState.model}
+								entityId={entityState.selected.entity_id}
+								visible={entityState.mode === "edit"}
+								onSubmit={() => entityState.save()}
+								onClose={() => entityState.clearSelected()}
 							/>
 						)}
-						{deleteModal && (
+						{entityState.mode === "delete" && (
 							<DeleteModal
-								entityId={selectedEntity}
-								visible={deleteModal}
-								onDelete={(result) => handleSubmit(result, setDeleteModal)}
-								onClose={() => toggleModalWithId(null, setDeleteModal)}
+								entityId={entityState.selected.entity_id}
+								type={entityState.type}
+								visible={entityState.mode === "delete"}
+								onDelete={(result) => entityState.doDelete()}
+								onClose={() => entityState.clearSelected()}
 							/>
 						)}
 					</>
@@ -101,4 +115,5 @@ export default function ListPage(props) {
 			</Column>
 		</Scrollable>
 	)
-}
+})
+export default ListPage
