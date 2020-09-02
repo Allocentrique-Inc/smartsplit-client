@@ -17,7 +17,6 @@ import { observer } from "mobx-react"
 export const FormModal = observer((props) => {
 	const { t } = useTranslation()
 	const { type, visible, onClose, entityId, mode, model, ...formProps } = props
-	const entityType = type
 	const entityStore = useStorePath("admin", "entities", type)
 	function getTitle() {
 		return mode === FormMode.creation
@@ -28,7 +27,7 @@ export const FormModal = observer((props) => {
 		<DialogModal
 			visible={visible}
 			onRequestClose={() => {
-				entityStore.cancelEdit()
+				entityStore.clearSelected()
 			}}
 			title={getTitle()}
 			buttons={[
@@ -36,7 +35,7 @@ export const FormModal = observer((props) => {
 					primary
 					text={t("general:buttons.save")}
 					onClick={() => {
-						entityStore.save()
+						entityStore.submit()
 					}}
 					key="save"
 				/>,
@@ -44,7 +43,7 @@ export const FormModal = observer((props) => {
 					tertiary
 					text={t("general:buttons.cancel")}
 					onClick={() => {
-						entityStore.cancelEdit()
+						entityStore.clearSelected()
 					}}
 					key="cancel"
 				/>,
@@ -58,7 +57,7 @@ export const FormModal = observer((props) => {
 			>
 				<EntityForm
 					entityId={entityId}
-					entityType={entityType}
+					entityType={type}
 					mode={mode}
 					{...formProps}
 				/>

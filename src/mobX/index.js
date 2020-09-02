@@ -70,6 +70,6 @@ export const useStorePath = (...paths) => {
 			error = true
 		}
 	})
-	if (error) console.error("useStorePath: path was invalid")
+	//if (error) console.error("useStorePath: path was invalid")
 	return error ? null : current
 }

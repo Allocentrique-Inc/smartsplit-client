@@ -18,6 +18,15 @@ import { observer } from "mobx-react"
 const ListPage = observer((props) => {
 	const { t } = useTranslation()
 	const entityState = useStorePath("admin", "entities", props.match.params.id)
+	function submit() {
+		entityState.submit()
+	}
+	function cancel() {
+		entityState.clearSelected()
+	}
+	function doDelete() {
+		entityState.doDelete()
+	}
 	return (
 		<Scrollable>
 			<Column of="group" padding="large">
@@ -58,8 +67,8 @@ const ListPage = observer((props) => {
 								model={entityState.model}
 								type={entityState.type}
 								visible={entityState.mode === "create"}
-								onSubmit={() => entityState.submit()}
-								onClose={() => entityState.clearSelected()}
+								onSubmit={submit}
+								onClose={cancel}
 							/>
 						)}
 						{entityState.mode === "edit" && (
@@ -69,8 +78,8 @@ const ListPage = observer((props) => {
 								model={entityState.model}
 								entityId={entityState.selected.entity_id}
 								visible={entityState.mode === "edit"}
-								onSubmit={() => entityState.submit()}
-								onClose={() => entityState.clearSelected()}
+								onSubmit={submit}
+								onClose={cancel}
 							/>
 						)}
 						{entityState.mode === "delete" && (
@@ -78,10 +87,8 @@ const ListPage = observer((props) => {
 								entityId={entityState.selected.entity_id}
 								type={entityState.type}
 								visible={entityState.mode === "delete"}
-								onDelete={(result) => {
-									entityState.doDelete()
-								}}
-								onClose={() => entityState.clearSelected()}
+								onDelete={doDelete}
+								onClose={cancel}
 							/>
 						)}
 					</>
