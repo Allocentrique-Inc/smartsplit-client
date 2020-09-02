@@ -75,7 +75,7 @@ export function createCrudClient(endpoint) {
 
 export function createEntityCrud(type) {
 	async function create(data) {
-		const result = await client.post(`entities/${type}`, data)
+		const result = await client.post(`entities/${type}/`, data)
 		return result.data
 	}
 
@@ -90,12 +90,12 @@ export function createEntityCrud(type) {
 	}
 
 	async function update(id, data) {
-		const result = await client.patch(`entities/${type}/${id}`, data)
+		const result = await client.patch(`entities/${id}`, data)
 		return result.data
 	}
 
 	async function destroy(id) {
-		const result = await client.delete(`entities/${id}`)
+		const result = await client.delete(`entities/${id}/`)
 		return result.data
 	}
 

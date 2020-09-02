@@ -68,6 +68,9 @@ export default class ContentLanguageModel extends BaseModel {
 
 	@action async update(...args) {
 		let data = this.exportData(this.toJS())
-		return this.CRUD.update(data)
+		let id = data.entity_id
+		delete data.entity_id
+		console.log(data)
+		return this.CRUD.update(id, data)
 	}
 }

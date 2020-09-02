@@ -293,6 +293,7 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 				if (success) {
 					this.clearSelected()
 				}
+				await this.load()
 				return success
 			} catch (e) {
 				return false
