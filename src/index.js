@@ -4,59 +4,39 @@ import { StoreProvider, createAppStore } from "./appstate"
 import { useSubpath } from "./appstate/react"
 import { useStores } from "./mobX"
 import { setGlobalAccessToken, setGlobalErrorHandler } from "../api/api-client"
-
 import { Overlay as GlobalOverlay } from "./portals"
 import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
-
 import AuthPages from "./pages/auth"
 import DashboardPage from "./pages/dashboard"
 import TestDashboard from "./pages/test"
 import CopyrightShare from "./pages/document/copyright"
 import UserActivateAccount from "./pages/user/activate"
-
 import AccessControl from "./widgets/AccessControl"
-
 import UserSettings from "./pages/user/settings"
 import AdminPage from "./pages/admin"
 import WorkpiecesRouter from "./pages/workpieces"
-
-// TMP keep redux for now
-import { Provider } from "react-redux"
-import { createStore, applyMiddleware } from "redux"
 import { observer } from "mobx-react"
-import thunk from "redux-thunk"
-import rootReducer from "../redux/root-reducer"
-const reduxStore = createStore(rootReducer, applyMiddleware(thunk))
+// TMP keep redux for now
+// import { Provider } from "react-redux"
+// import { createStore, applyMiddleware } from "redux"
+
+// import thunk from "redux-thunk"
+// import rootReducer from "../redux/root-reducer"
+// const reduxStore = createStore(rootReducer, applyMiddleware(thunk))
 // /TMP
 
 export default observer(function Main(props) {
 	const store = useMemo(() => createAppStore(), [])
-	//const isLoggedIn = useSubpath(store, "auth", "isLoggedIn")
 	const { auth } = useStores()
-	//console.dir(auth)
-	//setGlobalAccessToken(auth.accessToken)
-	/*useEffect(() => {
-		setGlobalErrorHandler((e) => auth.logout(e))
-
-		/!*return store.auth.subscribe(() => {
-			setGlobalAccessToken(store.auth.accessToken)
-		})*!/
-	}, [auth])*/
-
-	/*useEffect(() => {
-		store.auth.initializeFromStorage(true)
-	}, [])*/
 
 	return auth.isLoggedIn === null ? null : (
-		<Provider store={reduxStore}>
-			<StoreProvider value={store}>
-				<ScrollOverlay.ProviderContainer>
-					<GlobalOverlay.ProviderContainer>
-						<MainRouter {...props} />
-					</GlobalOverlay.ProviderContainer>
-				</ScrollOverlay.ProviderContainer>
-			</StoreProvider>
-		</Provider>
+		<StoreProvider value={store}>
+			<ScrollOverlay.ProviderContainer>
+				<GlobalOverlay.ProviderContainer>
+					<MainRouter {...props} />
+				</GlobalOverlay.ProviderContainer>
+			</ScrollOverlay.ProviderContainer>
+		</StoreProvider>
 	)
 })
 

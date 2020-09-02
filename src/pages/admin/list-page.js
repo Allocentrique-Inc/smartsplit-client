@@ -12,7 +12,7 @@ import { SimpleMenu } from "../../smartsplit/components/admin-list-menus"
 import { DeleteModal, FormModal } from "./entity-modals"
 import { FormMode } from "../../utils/enums"
 import Scrollable from "../../widgets/scrollable"
-import { useStores, useStorePath } from "../../mobX"
+import { useStorePath } from "../../mobX"
 import { observer } from "mobx-react"
 
 const ListPage = observer((props) => {
@@ -59,7 +59,7 @@ const ListPage = observer((props) => {
 								type={entityState.type}
 								visible={entityState.mode === "create"}
 								onSubmit={() => entityState.submit()}
-								onClose={() => entityState.cancelEdit()}
+								onClose={() => entityState.clearSelected()}
 							/>
 						)}
 						{entityState.mode === "edit" && (
@@ -70,7 +70,7 @@ const ListPage = observer((props) => {
 								entityId={entityState.selected.entity_id}
 								visible={entityState.mode === "edit"}
 								onSubmit={() => entityState.submit()}
-								onClose={() => entityState.cancelEdit()}
+								onClose={() => entityState.clearSelected()}
 							/>
 						)}
 						{entityState.mode === "delete" && (
@@ -79,8 +79,6 @@ const ListPage = observer((props) => {
 								type={entityState.type}
 								visible={entityState.mode === "delete"}
 								onDelete={(result) => {
-									//	console.log(result)
-									//if (result)
 									entityState.doDelete()
 								}}
 								onClose={() => entityState.clearSelected()}
