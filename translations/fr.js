@@ -408,6 +408,9 @@ export const admin = {
 		"content-languages": "Langues du contenu",
 		"digital-distributors": "Distributeurs numériques",
 	},
+	entityAttributes: {
+		name: "Nom",
+	},
 	entityCreation: "Création d'une entité",
 	delete: "Supprimer",
 	edit: "Modifier",

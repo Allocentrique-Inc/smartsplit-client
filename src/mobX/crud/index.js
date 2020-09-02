@@ -5,8 +5,20 @@ import {
 	when,
 	flow as asyncAction,
 	toJS,
+	runInAction,
 } from "mobx"
 import BaseState from "../BaseState"
+import BaseModel from "../BaseModel"
+import * as EntitiesAPI from "../../../api/entities"
+import CRUD from "../../../api/entities"
+import { createEntityCrud } from "../../../api/api-client"
+
+/**
+ * refactor from Maxime's createCrudObservable
+ * @param EntityApi
+ * @param idField
+ * @return {CrudApiObservable}
+ */
 export function createCrudObservable(EntityApi, idField = "id") {
 	class CrudApiObservable {
 		@observable id
@@ -88,6 +100,13 @@ export function createCrudObservable(EntityApi, idField = "id") {
 
 	return CrudApiObservable
 }
+
+/**
+ * refactor from Maxime's createEntityListObservable
+ * @param Entity
+ * @param idField
+ * @return {{new(*): {list: {}, get(*=, *=): *, fetch(*=, *=): *, create(*=): *, addToList(*): void, root, init(...[*]): Promise<void>}, prototype: {list: {}, get(*=, *=): *, fetch(*=, *=): *, create(*=): *, addToList(*): void, root, init(...[*]): Promise<void>}}}
+ */
 export function createEntityListObservable(Entity, idField = "id") {
 	return class extends BaseState {
 		@observable list = {}
@@ -96,7 +115,6 @@ export function createEntityListObservable(Entity, idField = "id") {
 				this.list[id] = new Entity(id, initData)
 				//this.notify("add", [this[id]])
 			}
-
 			return this.list[id]
 		}
 
@@ -132,6 +150,167 @@ export function createEntityListObservable(Entity, idField = "id") {
 		}
 		@action addToList(model) {
 			this.list[model.id] = model
+		}
+	}
+}
+/**
+ * a new entity list manager that uses view models for editing
+ *
+ * Wheras other UI forms use forms in components seem to manage a lot of things in their code, this structure
+ * allows for a state that has a list, but uses an integrated view model so that the UI to add or edit an entry
+ * requires no logic in the component at all. Each view model contains fields which are defined explicitly
+ * so that the components which manage forms do not need to do any logic, this properly separates the UI from the internals of the model
+ *
+ * @param type {string} the type of entity
+ * @param modelClass {BaseModel} a model class used to as a view model
+ */
+export function createEntityListState(type: string, modelClass: BaseModel) {
+	const CRUD = createEntityCrud(type)
+	return class extends BaseState {
+		@action async init() {
+			await this.load()
+			return true
+		}
+
+		modelClass: BaseModel = modelClass
+		@observable type = type
+		@observable error = null
+		@observable isLoading = null
+		@observable list = {}
+		/**
+		 * the mode, such as create, edit, delete, to display the correct UI
+		 * @type {string|null}
+		 */
+		@observable mode = null
+		@action setMode(mode) {
+			this.mode = mode
+		}
+		@action clearMode() {
+			this.mode = null
+		}
+
+		/**
+		 * the current selected entity
+		 * @type {null}
+		 */
+		@observable selected = null
+		@action setSelected(id) {
+			this.selected = this.list[id]
+		}
+		@action clearSelected() {
+			this.clearMode()
+			this.selected = null
+			this.model = null
+		}
+
+		@computed get count() {
+			return Object.keys(this.list).length
+		}
+		@observable model: BaseModel = null
+		@computed get editing() {
+			return this.model !== null
+		}
+
+		@action clearList() {
+			this.list = {}
+			this.error = null
+			this.isLoading = null
+		}
+
+		@action async load() {
+			this.isLoading = true
+			try {
+				const response = await EntitiesAPI.listEntities(this.type)
+				response.data.forEach(
+					action((datum) => {
+						this.list[datum.entity_id] = datum
+					})
+				)
+				runInAction(() => {
+					this.isLoading = false
+					this.error = null
+				})
+			} catch (error) {
+				runInAction(() => {
+					this.error = error.data ? error.data : error
+					this.isLoading = false
+				})
+			}
+		}
+
+		@action async new() {
+			this.model = new modelClass(null, CRUD)
+			this.model.init()
+			this.setMode("create")
+		}
+
+		@action edit(id) {
+			if (!this.list[id]) {
+				throw Error("trying to edit an entity which does not exist")
+			}
+			this.model = new modelClass(null, CRUD)
+			this.model.init(this.list[id])
+			this.setMode("edit")
+			this.setSelected(id)
+		}
+
+		@action delete(id) {
+			this.setMode("delete")
+			this.setSelected(id)
+		}
+
+		@action cancelEdit() {
+			this.model = null
+			this.clearSelected()
+		}
+
+		@action async submit(): boolean {
+			// this.isLoading = true
+			// let isValid = await this.model.validate()
+			// if (isValid) {
+			// 	try {
+			// 		await this.model.save()
+			// 		runInAction(() => {
+			// 			this.list[this.model["entity_id"].value] = this.model.exportData()
+			// 			this.isLoading = false
+			// 			this.model = null
+			// 			this.clearSelected()
+			// 		})
+			// 		return true
+			// 	} catch (e) {
+			// 		runInAction(() => {
+			// 			this.error = e
+			// 			this.isLoading = false
+			// 		})
+			// 		this.clearSelected()
+			// 		return false
+			// 	}
+			// } else {
+			// 	return false
+			// }
+			try {
+				let success = await this.model.submit()
+				if (success) {
+					this.clearSelected()
+				}
+				await this.load()
+				return success
+			} catch (e) {
+				return false
+			}
+		}
+
+		@action async doDelete(id) {
+			this.isLoading = true
+			try {
+				await CRUD.destroy(id)
+				await this.load()
+			} catch (e) {
+				runInAction(() => {
+					this.error = e.message
+					this.isLoading = false
+				})
+			}
 		}
 	}
 }

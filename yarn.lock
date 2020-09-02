@@ -9732,6 +9732,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-dev-tools@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/react-dev-tools/-/react-dev-tools-0.0.1.tgz#f7cf35ad701db3c028280c632767fba6dba13ac7"
+
 react-dev-utils@10.2.1, react-dev-utils@~10.2.1:
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.2.1.tgz#f6de325ae25fa4d546d09df4bb1befdc6dd19c19"

@@ -1,9 +1,10 @@
 import React from "react"
-import { isObservable, observable, runInAction } from "mobx"
+import { isObservable, observable, reaction, runInAction, when } from "mobx"
 import TestCountState from "./states/TestCountState"
 import TestState from "./states/TestState"
 import UserState from "./states/UserState"
 import AuthState from "./states/AuthState"
+import AdminState from "./states/AdminState"
 /**
  * L'instance de base est passé a tout les sub-stores pour que chaque store
  * aie accès aux autres branches
@@ -17,15 +18,24 @@ class RootStore {
 	test = new TestState(this)
 	users = new UserState(this)
 	auth = new AuthState(this)
-	async init() {
+	admin = new AdminState(this)
+
+	async init(postLogin = false) {
 		await this.users.init()
-		await this.auth.init(true)
+		if (!postLogin) await this.auth.init(true)
 		await this.test.init()
 		await this.counts.init()
-
+		await this.admin.init()
 		runInAction(() => {
 			this.initialized = true
 		})
+
+		if (!this.auth.isLoggedIn) {
+			when(
+				() => this.auth.isLoggedIn,
+				() => this.init(true)
+			)
+		}
 	}
 }
 
@@ -33,7 +43,10 @@ class RootStore {
  * le context react qui permet l'accès globale
  * @type {React.Context<RootStore>}
  */
-export const storesContext = React.createContext(new RootStore())
+
+const stores = new RootStore()
+export const storesContext = React.createContext(stores)
+window.stores = stores
 
 /**
  * Le hook principal pour accéder aux stores
@@ -65,6 +78,6 @@ export const useStorePath = (...paths) => {
 			error = true
 		}
 	})
-	if (error) console.error("useStorePath: path was invalid")
+	//if (error) console.error("useStorePath: path was invalid")
 	return error ? null : current
 }

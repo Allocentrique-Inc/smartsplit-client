@@ -104,6 +104,8 @@ export const errors = {
 	listNotFound: "List not found",
 	entityNotFound: "List entity not found",
 	entityConflict: "A list entity with this ID already exists",
+	requiredField: "Required Field",
+	invalidName: "must contain only letters and numbers",
 }
 
 export const publicNavbarWeb = {
@@ -402,6 +404,10 @@ export const admin = {
 	entityTypes: {
 		"content-languages": "Content languages",
 		"digital-distributors": "Digital distributors",
+	},
+
+	entityAttributes: {
+		name: "Name",
 	},
 
 	entityCreation: "Entity creation",
