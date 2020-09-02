@@ -1,21 +1,24 @@
 import { useTranslation } from "react-i18next"
-import React, { useRef } from "react"
+import React from "react"
 import { DialogModal } from "../../widgets/modal"
 import Button from "../../widgets/button"
 import { Column, Group } from "../../layout"
-import { useSelector } from "react-redux"
 import { FormMode } from "../../utils/enums"
-import { useEntity } from "../../../redux/entities/hooks"
 import { Text } from "../../text"
 import { EntityForm } from "../../smartsplit/forms/entities"
 import { Metrics } from "../../theme"
-import { useStores } from "../../mobX"
+import { useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
 
-export function FormModal(props) {
+/**
+ * an observer mobx version of the FormModal
+ * @type {IReactComponent}
+ */
+export const FormModal = observer((props) => {
 	const { t } = useTranslation()
 	const { type, visible, onClose, entityId, mode, model, ...formProps } = props
-	//const formRef = useRef()
 	const entityType = type
+	const entityStore = useStorePath("admin", "entities", type)
 	function getTitle() {
 		return mode === FormMode.creation
 			? t("admin:entityCreation")
@@ -24,19 +27,25 @@ export function FormModal(props) {
 	return (
 		<DialogModal
 			visible={visible}
-			onRequestClose={onClose}
+			onRequestClose={() => {
+				entityStore.cancelEdit()
+			}}
 			title={getTitle()}
 			buttons={[
 				<Button
 					primary
 					text={t("general:buttons.save")}
-					onClick={() => formRef.current.submit()}
+					onClick={() => {
+						entityStore.save()
+					}}
 					key="save"
 				/>,
 				<Button
 					tertiary
 					text={t("general:buttons.cancel")}
-					onClick={onClose}
+					onClick={() => {
+						entityStore.cancelEdit()
+					}}
 					key="cancel"
 				/>,
 			]}
@@ -50,25 +59,21 @@ export function FormModal(props) {
 				<EntityForm
 					entityId={entityId}
 					entityType={entityType}
-					ref={formRef}
 					mode={mode}
 					{...formProps}
 				/>
 			</Column>
 		</DialogModal>
 	)
-}
+})
 
-export function DeleteModal(props) {
+/**
+ * a mobx observing component for the delete modal
+ * @type {IReactComponent}
+ */
+export const DeleteModal = observer((props) => {
 	const { t } = useTranslation()
 	const { visible, onClose, onDelete, entityId } = props
-	const entity = useEntity(entityId)
-	console.log(entity)
-	async function handleDelete() {
-		const response = await entity.destroy()
-		onDelete(response.status === 204)
-	}
-
 	return (
 		<DialogModal
 			visible={visible}
@@ -78,7 +83,7 @@ export function DeleteModal(props) {
 				<Button
 					primary
 					text={t("general:buttons.confirm")}
-					onClick={handleDelete}
+					onClick={onDelete}
 					key="confirm"
 				/>,
 				<Button
@@ -94,4 +99,4 @@ export function DeleteModal(props) {
 			</Group>
 		</DialogModal>
 	)
-}
+})

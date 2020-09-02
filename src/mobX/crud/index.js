@@ -193,6 +193,7 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 		@action clearSelected() {
 			this.clearMode()
 			this.selected = null
+			this.model = null
 		}
 
 		@computed get count() {
@@ -256,6 +257,7 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 
 		@action cancelEdit() {
 			this.model = null
+			this.clearSelected()
 		}
 
 		@action async save(): boolean {

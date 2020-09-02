@@ -195,7 +195,9 @@ export default class BaseModel {
 		this.initialized = false
 		this.initialData = obj
 		if (obj) {
+			console.log(toJS(obj))
 			obj = this.importData(obj)
+			console.log(toJS(obj))
 			this.initValue(obj)
 			Object.keys(this).forEach((key) => {
 				if (this[key] && this[key].isModel) {
@@ -407,6 +409,15 @@ export default class BaseModel {
 			return returnData
 		} else return this.toJS()
 	}
+
+	/**
+	 * prior to initializing the field values a complex json object must be converted into a flat object with key/value
+	 * pairs that correspond to the fields in the model. the dataMap propertuy must be set that maps each field key
+	 * to an array of entries correspomnding to a path down a JSON data tree
+	 *
+	 * @param data
+	 * @return {{}|*}
+	 */
 	@action importData(data): void {
 		if (this.dataMap) {
 			let flatData = {}
@@ -419,6 +430,7 @@ export default class BaseModel {
 					flatData[key] = current
 				} else flatData[key] = data[this.dataMap[key]]
 			})
+			return flatData
 		} else return data
 	}
 	@action async submit() {
