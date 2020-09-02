@@ -11,6 +11,7 @@ import BaseState from "../BaseState"
 import BaseModel from "../BaseModel"
 import * as EntitiesAPI from "../../../api/entities"
 import CRUD from "../../../api/entities"
+import { createEntityCrud } from "../../../api/api-client"
 
 /**
  * refactor from Maxime's createCrudObservable
@@ -164,6 +165,7 @@ export function createEntityListObservable(Entity, idField = "id") {
  * @param modelClass {BaseModel} a model class used to as a view model
  */
 export function createEntityListState(type: string, modelClass: BaseModel) {
+	const CRUD = createEntityCrud(type)
 	return class extends BaseState {
 		@action async init() {
 			await this.load()
@@ -237,7 +239,7 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 		}
 
 		@action async new() {
-			this.model = new modelClass()
+			this.model = new modelClass(null, CRUD)
 			this.model.init()
 			this.setMode("create")
 		}
@@ -246,7 +248,7 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 			if (!this.list[id]) {
 				throw Error("trying to edit an entity which does not exist")
 			}
-			this.model = new modelClass()
+			this.model = new modelClass(null, CRUD)
 			this.model.init(this.list[id])
 			this.setMode("edit")
 			this.setSelected(id)

@@ -1,8 +1,11 @@
 import BaseModel, { FieldType, Field } from "../BaseModel"
 import { observable, action, computed } from "mobx"
-import CRUD from "../../../api/entities"
 export default class ContentLanguageModel extends BaseModel {
 	//CRUD = createCRUD("entities")
+	constructor(parent, CRUD) {
+		super(parent)
+		this.CRUD = CRUD
+	}
 	@observable entity_id = new Field(this, "entity_id", {
 		type: FieldType.string,
 		required: true,
@@ -12,8 +15,10 @@ export default class ContentLanguageModel extends BaseModel {
 		},
 		asyncValidation: async (value) => {
 			try {
-				await CRUD.read(value)
-				return "errors:entityConflict"
+				console.log(this.isNew)
+				await this.CRUD.read(value)
+				if (this.isNew) return "errors:entityConflict"
+				else return null
 			} catch (e) {
 				return null
 			}
@@ -55,13 +60,14 @@ export default class ContentLanguageModel extends BaseModel {
 		}
 	}
 	@action async create(...args) {
-		let data = this.exportData()
+		console.log("create called")
+		let data = this.exportData(this.toJS())
 		console.log(data)
-		return CRUD.create(data)
+		return this.CRUD.create(data)
 	}
 
 	@action async update(...args) {
-		let data = this.exportData()
-		return CRUD.update(data)
+		let data = this.exportData(this.toJS())
+		return this.CRUD.update(data)
 	}
 }

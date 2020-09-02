@@ -327,10 +327,24 @@ export default class BaseModel {
 	 * @returns {Promise<*|void>}
 	 */
 	async save(...args) {
+		console.log("save called")
 		if (this.isNew) {
-			return this.create(...args)
+			console.log("attempting to create")
+			try {
+				await this.create(...args)
+				return true
+			} catch (e) {
+				this.saveError = e
+				return false
+			}
 		} else {
-			return this.update(...args)
+			console.log("attempting to update")
+			try {
+				await this.update(...args)
+			} catch (e) {
+				this.saveError = e
+				return false
+			}
 		}
 	}
 
@@ -360,8 +374,10 @@ export default class BaseModel {
 		return data
 	}
 	@action async submit() {
+		console.log("model submitted")
 		let validity = await this.validate()
 		if (validity) {
+			console.log("model is valid trying to save")
 			try {
 				return this.save()
 			} catch (e) {

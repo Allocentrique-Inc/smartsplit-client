@@ -46,7 +46,6 @@ const TextField = observer(function (props) {
 	}
 
 	const newProps = { ...props, ...addProps }
-	console.dir(newProps)
 	return <Label {...newProps} component={FramedTextField} />
 })
 export default TextField
