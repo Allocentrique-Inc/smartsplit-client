@@ -44,51 +44,15 @@ export const EntityFields = observer((props) => {
 		case "content-languages":
 			return (
 				<Column of="component">
-					{mode === FormMode.creation && (
-						<>
-							<TextField
-								name="entityId"
-								label="ID"
-								key="entityId"
-								error={model.validated && t(model.entity_id.error)}
-								onChangeText={(text) => {
-									model.entity_id.setValue(text)
-								}}
-								value={model.entity_id.value}
-							/>
-							{/*model.validated && model.entity_id.error ? (
-								<Text small error>
-									{t(model.entity_id.error)}
-								</Text>
-							) : null*/}
-						</>
-					)}
+					{mode === FormMode.creation && <TextField field={model.entity_id} />}
 					<TabBar style={{ paddingTop: Metrics.spacing.medium }}>
 						<Tab key="french" title={t("general:languages.fr")} default>
 							<Spacer of="component" />
-							<TextField
-								name="nameFr"
-								label={t(model.name_fr.label)}
-								key="nameFr"
-								error={model.validated && t(model.name_fr.error)}
-								onChangeText={(text) => {
-									model.name_fr.setValue(text)
-								}}
-								value={model.name_fr.value}
-							/>
+							<TextField field={model.name_fr} />
 						</Tab>
 						<Tab key="english" title={t("general:languages.en")}>
 							<Spacer of="component" />
-							<TextField
-								name="nameEn"
-								label={t(model.name_en.label)}
-								key="nameEn"
-								error={model.validated && t(model.name_en.error)}
-								onChangeText={(text) => {
-									model.name_en.setValue(text)
-								}}
-								value={model.name_en.value}
-							/>
+							<TextField field={model.name_en} />
 						</Tab>
 					</TabBar>
 				</Column>
