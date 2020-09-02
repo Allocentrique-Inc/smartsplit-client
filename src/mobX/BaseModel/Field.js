@@ -360,7 +360,7 @@ export default class Field {
 	 * the error message when a reauired field is empty
 	 * @type {string}
 	 */
-	requiredMessage: string = "errors.requiredField"
+	requiredMessage: string = "errors:requiredField"
 
 	/**
 	 * the name of the field. used by NxModel.fields()

@@ -45,26 +45,32 @@ export const EntityFields = observer((props) => {
 			return (
 				<Column of="component">
 					{mode === FormMode.creation && (
-						<TextField
-							name="entityId"
-							label="ID"
-							key="entityId"
-							error={model.validated && model.entity_id.error}
-							onChangeText={(text) => {
-								//console.log(e)
-								model.entity_id.setValue(text)
-							}}
-							value={model.entity_id.value}
-						/>
+						<>
+							<TextField
+								name="entityId"
+								label="ID"
+								key="entityId"
+								error={model.validated && t(model.entity_id.error)}
+								onChangeText={(text) => {
+									model.entity_id.setValue(text)
+								}}
+								value={model.entity_id.value}
+							/>
+							{/*model.validated && model.entity_id.error ? (
+								<Text small error>
+									{t(model.entity_id.error)}
+								</Text>
+							) : null*/}
+						</>
 					)}
 					<TabBar style={{ paddingTop: Metrics.spacing.medium }}>
 						<Tab key="french" title={t("general:languages.fr")} default>
 							<Spacer of="component" />
 							<TextField
 								name="nameFr"
-								label={t("admin:entityAttributes.name")}
+								label={t(model.name_fr.label)}
 								key="nameFr"
-								error={model.validated && model.entity_id.error}
+								error={model.validated && t(model.name_fr.error)}
 								onChangeText={(text) => {
 									model.name_fr.setValue(text)
 								}}
@@ -75,9 +81,12 @@ export const EntityFields = observer((props) => {
 							<Spacer of="component" />
 							<TextField
 								name="nameEn"
-								label={t("admin:entityAttributes.name")}
+								label={t(model.name_en.label)}
 								key="nameEn"
-								onChangeText={(text) => model.name_en.setValue(text)}
+								error={model.validated && t(model.name_en.error)}
+								onChangeText={(text) => {
+									model.name_en.setValue(text)
+								}}
 								value={model.name_en.value}
 							/>
 						</Tab>

@@ -7,28 +7,34 @@ export default class ContentLanguageModel extends BaseModel {
 		type: FieldType.string,
 		required: true,
 		validation: (value) => {
-			return /^[A-Za-z0-9]+$/.test(value)
+			if (/^[A-Za-z0-9]+$/.test(value)) return null
+			else return "errors:invalidName"
 		},
 		asyncValidation: async (value) => {
-			let entity = await CRUD.read(value)
-			if (entity) return "error.entityConflict"
-			else return null
+			try {
+				await CRUD.read(value)
+				return "errors:entityConflict"
+			} catch (e) {
+				return null
+			}
 		},
 	})
 	@observable name_en = new Field(this, "name_en", {
 		type: FieldType.string,
 		required: true,
+		label: "admin:entityAttributes.name",
 		validation: (value) => {
 			if (/^[A-Za-z0-9]+$/.test(value)) return null
-			else return "error.invalidName"
+			else return "errors:invalidName"
 		},
 	})
 	@observable name_fr = new Field(this, "name_fr", {
 		type: FieldType.string,
 		required: true,
+		label: "admin:entityAttributes.name",
 		validation: (value) => {
 			if (/^[A-Za-z0-9]+$/.test(value)) return null
-			else return "error.invalidName"
+			else return "errors:invalidName"
 		},
 	})
 
@@ -40,6 +46,7 @@ export default class ContentLanguageModel extends BaseModel {
 
 	@action async create(...args) {
 		let data = this.exportData()
+		console.log(data)
 		return CRUD.create(data)
 	}
 

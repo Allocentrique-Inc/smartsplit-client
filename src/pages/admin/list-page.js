@@ -18,31 +18,6 @@ import { observer } from "mobx-react"
 const ListPage = observer((props) => {
 	const { t } = useTranslation()
 	const entityState = useStorePath("admin", "entities", props.match.params.id)
-	// const [selectedEntity, setSelectedEntity] = useState(null)
-	// const [createModal, setCreateModal] = useState(false)
-	// const [editModal, setEditModal] = useState(false)
-	// const [deleteModal, setDeleteModal] = useState(false)
-
-	// function handleSubmit(result, setter) {
-	// 	setSelectedEntity(null)
-	// 	setter(false)
-	// 	if (result) {
-	// 		//dispatch(resetentityState())
-	// 	}
-	// }
-	//
-	// function toggleCreateModal() {
-	// 	//entityState.error && dispatch({ type: "CLEAR_ENTITY_LIST_ERROR" })
-	// 	setSelectedEntity(null)
-	// 	setCreateModal(!createModal)
-	// }
-	//
-	// function toggleModalWithId(entityId, setter) {
-	// 	//	entityState.error && dispatch({ type: "CLEAR_ENTITY_LIST_ERROR" })
-	// 	setSelectedEntity(entityId)
-	// 	setter(!!entityId)
-	// }
-
 	return (
 		<Scrollable>
 			<Column of="group" padding="large">
@@ -83,7 +58,7 @@ const ListPage = observer((props) => {
 								model={entityState.model}
 								type={entityState.type}
 								visible={entityState.mode === "create"}
-								onSubmit={() => entityState.save()}
+								onSubmit={() => entityState.submit()}
 								onClose={() => entityState.cancelEdit()}
 							/>
 						)}
@@ -94,7 +69,7 @@ const ListPage = observer((props) => {
 								model={entityState.model}
 								entityId={entityState.selected.entity_id}
 								visible={entityState.mode === "edit"}
-								onSubmit={() => entityState.save()}
+								onSubmit={() => entityState.submit()}
 								onClose={() => entityState.cancelEdit()}
 							/>
 						)}
@@ -104,7 +79,9 @@ const ListPage = observer((props) => {
 								type={entityState.type}
 								visible={entityState.mode === "delete"}
 								onDelete={(result) => {
-									if (result) entityState.doDelete()
+									//	console.log(result)
+									//if (result)
+									entityState.doDelete()
 								}}
 								onClose={() => entityState.clearSelected()}
 							/>

@@ -165,6 +165,11 @@ export function createEntityListObservable(Entity, idField = "id") {
  */
 export function createEntityListState(type: string, modelClass: BaseModel) {
 	return class extends BaseState {
+		@action async init() {
+			await this.load()
+			return true
+		}
+
 		modelClass: BaseModel = modelClass
 		@observable type = type
 		@observable error = null
@@ -209,10 +214,7 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 			this.error = null
 			this.isLoading = null
 		}
-		@action async init() {
-			await this.load()
-			return true
-		}
+
 		@action async load() {
 			this.isLoading = true
 			try {
@@ -260,28 +262,37 @@ export function createEntityListState(type: string, modelClass: BaseModel) {
 			this.clearSelected()
 		}
 
-		@action async save(): boolean {
-			this.isLoading = true
-			let isValid = await this.model.validate()
-			if (isValid) {
-				try {
-					await this.model.save()
-					runInAction(() => {
-						this.list[this.model["entity_id"].value] = this.model.exportData()
-						this.isLoading = false
-						this.model = null
-						this.clearSelected()
-					})
-					return true
-				} catch (e) {
-					runInAction(() => {
-						this.error = e
-						this.isLoading = false
-					})
+		@action async submit(): boolean {
+			// this.isLoading = true
+			// let isValid = await this.model.validate()
+			// if (isValid) {
+			// 	try {
+			// 		await this.model.save()
+			// 		runInAction(() => {
+			// 			this.list[this.model["entity_id"].value] = this.model.exportData()
+			// 			this.isLoading = false
+			// 			this.model = null
+			// 			this.clearSelected()
+			// 		})
+			// 		return true
+			// 	} catch (e) {
+			// 		runInAction(() => {
+			// 			this.error = e
+			// 			this.isLoading = false
+			// 		})
+			// 		this.clearSelected()
+			// 		return false
+			// 	}
+			// } else {
+			// 	return false
+			// }
+			try {
+				let success = await this.model.submit()
+				if (success) {
 					this.clearSelected()
-					return false
 				}
-			} else {
+				return success
+			} catch (e) {
 				return false
 			}
 		}

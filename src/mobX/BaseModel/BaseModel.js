@@ -381,7 +381,7 @@ export default class BaseModel {
 	 * @return {{}}
 	 */
 	@action exportData(): Object {
-		if (typeof this.dataMap !== "object") {
+		if (typeof this.dataMap === "object") {
 			let flatData = this.toJS()
 			let returnData = {}
 			Object.keys(flatData).forEach((k) => {
@@ -436,7 +436,12 @@ export default class BaseModel {
 	@action async submit() {
 		let validity = await this.validate()
 		if (validity) {
-			return this.save()
+			try {
+				return this.save()
+			} catch (e) {
+				this.saveError = e
+				return false
+			}
 		} else return false
 	}
 }
