@@ -1,5 +1,5 @@
 import React from "react"
-import { isObservable, observable, runInAction } from "mobx"
+import { isObservable, observable, reaction, runInAction, when } from "mobx"
 import TestCountState from "./states/TestCountState"
 import TestState from "./states/TestState"
 import UserState from "./states/UserState"
@@ -19,15 +19,23 @@ class RootStore {
 	users = new UserState(this)
 	auth = new AuthState(this)
 	admin = new AdminState(this)
-	async init() {
+
+	async init(postLogin = false) {
 		await this.users.init()
-		await this.auth.init(true)
+		if (!postLogin) await this.auth.init(true)
 		await this.test.init()
 		await this.counts.init()
 		await this.admin.init()
 		runInAction(() => {
 			this.initialized = true
 		})
+
+		if (!this.auth.isLoggedIn) {
+			when(
+				() => this.auth.isLoggedIn,
+				() => this.init(true)
+			)
+		}
 	}
 }
 

@@ -38,12 +38,22 @@ export default class ContentLanguageModel extends BaseModel {
 		},
 	})
 
-	dataMap = {
-		entity_id: "entity_id",
-		name_en: ["name", "en"],
-		name_fr: ["name", "fr"],
+	importData(data) {
+		return {
+			entity_id: data.entity_id,
+			name_en: data.name.en,
+			name_fr: data.name.fr,
+		}
 	}
-
+	exportData(data) {
+		return {
+			entity_id: data.entity_id,
+			name: {
+				en: data.name_en,
+				fr: data.name_fr,
+			},
+		}
+	}
 	@action async create(...args) {
 		let data = this.exportData()
 		console.log(data)

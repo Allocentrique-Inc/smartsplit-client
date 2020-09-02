@@ -343,95 +343,21 @@ export default class BaseModel {
 	}
 
 	/**
-	 * a map between the model's flat data and the structure of input/output data
-	 *
-	 * Data on the server may be represented as a branch of data, with nodes and leaves
-	 * the mapping is an object where every key of the model maps to a data path.
-	 *
-	 * for example if the fields are fname,lname,email  but the final and initial data is
-	 *
-	 * {
-	 *   name:{
-	 *     first:fname,
-	 *     last:lname
-	 *   },
-	 *   email:email
-	 * }
-	 *
-	 * the map will be as follows:
-	 *
-	 * {
-	 *   fname:["name","first"],
-	 *   lname:["name","last"],
-	 *   email:email
-	 * }
-	 *
-	 * if the default value is falsey (undefined, null, "" or 0) the object will be identical to toJS()
-	 *
-	 * @type {null}
-	 */
-	dataMap = null
-
-	/**
-	 * prior to initializing or to saving data convert flat model data into an tree structure
-	 *
-	 * if the dataMap property is not null the function will map the flat data into the structure
-	 * defined in the dataMap property
+	 * override this function to change the output format
 	 *
 	 * @return {{}}
 	 */
-	@action exportData(): Object {
-		if (typeof this.dataMap === "object") {
-			let flatData = this.toJS()
-			let returnData = {}
-			Object.keys(flatData).forEach((k) => {
-				if (typeof flatData[k] === "string") {
-					returnData[this.dataMap[k]] = flatData[k]
-				}
-				if (Array.isArray(this.dataMap[k])) {
-					let current = returnData
-					for (let i = 0; i < this.dataMap[k].length; i++) {
-						if (i === this.dataMap[k].length - 1) {
-							// is it last one -- then it is the value
-							current[this.dataMap[k][i]] = flatData[k]
-						} else {
-							// not the last path entry
-							if (current[this.dataMap[k][i]] === undefined) {
-								// the current path key does not exist, therefore set to an empty object
-								current[this.dataMap[k][i]] = {}
-							}
-							// set current to the current path entry
-							current = current[this.dataMap[k][i]]
-						}
-					}
-				}
-			})
-			return returnData
-		} else return this.toJS()
+	@action exportData(data): Object {
+		return data
 	}
 
 	/**
-	 * prior to initializing the field values a complex json object must be converted into a flat object with key/value
-	 * pairs that correspond to the fields in the model. the dataMap propertuy must be set that maps each field key
-	 * to an array of entries correspomnding to a path down a JSON data tree
-	 *
+	 * override to change the import mapping
 	 * @param data
 	 * @return {{}|*}
 	 */
-	@action importData(data): void {
-		if (this.dataMap) {
-			let flatData = {}
-			Object.keys(this.dataMap).forEach((key) => {
-				if (Array.isArray(this.dataMap[key])) {
-					let current = data
-					this.dataMap[key].forEach((path) => {
-						current = current[path]
-					})
-					flatData[key] = current
-				} else flatData[key] = data[this.dataMap[key]]
-			})
-			return flatData
-		} else return data
+	@action importData(data) {
+		return data
 	}
 	@action async submit() {
 		let validity = await this.validate()

@@ -17,6 +17,7 @@ import {
  *
  */
 export default class AuthState extends BaseState {
+	reInitializeOnAuth = false
 	constructor(root) {
 		super(root)
 		this.tokenChanged = reaction(
