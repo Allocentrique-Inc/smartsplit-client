@@ -473,6 +473,7 @@ export const document = {
 			performance: "Interprétation",
 			infos: "Informations générales",
 			lyrics: "Paroles",
+			links: "Liens  d'écoute",
 		},
 	},
 	help: "Help",
@@ -579,5 +580,12 @@ export const document = {
 		french: "Français",
 		frenchCanadian: "Français (canadien)",
 		public: "Publique - Rendre l'information publique",
+	},
+	links: {
+		category: "LIENS D'ÉCOUTE",
+		title: "La pièce musicale est-elle déjà diffusée ?",
+		paragraph:
+			"Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
+		addLink: "Coller un lien...",
 	},
 }

@@ -9,11 +9,21 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
-//import LyricsIcon from "../../../svg/lyrics"
+import LinkIcon from "../../../svg/link"
+import SpotifyIcon from "../../../svg/workpieces/spotify"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import { TextInput } from "react-native"
 
-export default function Lyrics() {
+const Styles = StyleSheet.create({
+	logo: {
+		marginRight: Metrics.spacing.logo,
+	},
+	link: {
+		marginRight: Metrics.spacing.link,
+	},
+})
+
+export default function Links() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const workpiece = useCurrentWorkpiece()
@@ -62,64 +72,37 @@ export default function Lyrics() {
 				</>
 			}
 		>
-			<LyricsForm />
+			<LinksForm />
 		</Layout>
 	)
 }
 
-const formStyle = StyleSheet.create({
-	textAreaContainer: {
-		padding: 5,
-		borderWidth: 1,
-		borderRadius: 2,
-		borderColor: Colors.stroke,
-		minHeight: 264,
-	},
-	textArea: {
-		justifyContent: "flex-start",
-	},
-})
-
-export function LyricsForm(props) {
-	const searchResults = ["Electrofunk", "Future Funk", "Mega Funk"]
-	const [search, setSearch] = useState("")
-	const [selected, setSelected] = useState(["English", "Français"])
+export function LinksForm(props) {
 	const { t } = useTranslation()
-	const [text, setText] = React.useState("")
 
 	return (
 		<>
 			<Row>
 				<Column of="group" flex={5}>
 					<Text action bold valign="center">
-						{/* <LyricsIcon /> */}
-						{t("document:infos.category")}
+						<LinkIcon />
+						{t("document:links.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("document:infos.title")}</Heading>
+					<Heading level={1}>{t("document:links.title")}</Heading>
+					<Paragraph>{t("document:links.paragraph")}</Paragraph>
 
 					<Spacer of="group" />
-					<TextInput
-						label="Email"
-						value={text}
-						multiline={true}
-						style={formStyle.textAreaContainer}
-						onChangeText={(text) => setText(text)}
-					/>
-
-					<SearchAndTag
-						hideIcon={true}
-						label={t("document:lyrics.language")}
-						searchResults={searchResults}
-						search={search}
-						onSearchChange={setSearch}
-						selection={selected}
-						onSelect={(selection) => setSelected([...selected, selection])}
-						onUnselect={(selection) =>
-							setSelected(selected.filter((i) => i !== selection))
-						}
-						placeholder={t("document:lyrics.addLanguage")}
-					/>
+					<Row valign="center">
+						<SpotifyIcon style={Styles.logo} />
+						<Text primary style={Styles.link}>
+							Spotify
+						</Text>
+						<TextField
+							name="spotify"
+							placeholder={t("document:links.addLink")}
+						/>
+					</Row>
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>

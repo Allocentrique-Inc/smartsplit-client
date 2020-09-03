@@ -467,6 +467,7 @@ export const document = {
 			performance: "Performance",
 			infos: "General Information",
 			lyrics: "Lyrics",
+			links: "Listening Links",
 		},
 	},
 	help: "Help",
@@ -570,5 +571,12 @@ export const document = {
 		french: "French",
 		frenchCanadian: "French (Canadian)",
 		public: "Public - Make the information public",
+	},
+	links: {
+		category: "LISTENING LINKS",
+		title: "Was the musical piece already broadcasted?",
+		paragraph:
+			"To increase the chances for your piece to be  discovered  and listened to, document listening links and  online purchase.",
+		addLink: "Paste a link...",
 	},
 }
