@@ -6,6 +6,7 @@ import InterpretationPage from "./interpretation"
 import RecordingPage from "./recording"
 
 import Lyrics from "../documentation/lyrics"
+import Links from "../documentation/links"
 
 export default function (props) {
 	return (
@@ -30,6 +31,10 @@ export default function (props) {
 			<Route
 				path="/workpieces/:workpiece_id/documentation/lyrics"
 				component={Lyrics}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/documentation/links"
+				component={Links}
 			/>
 		</Switch>
 	)

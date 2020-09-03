@@ -28,6 +28,7 @@ import ChevronDown from "../../svg/chevron-down"
 import { ProtectYourWork, ShareYourCopyright } from "./cards"
 
 import Lyrics from "./documentation/lyrics"
+import Links from "./documentation/links"
 
 export default function WorkpiecesRouter() {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -49,6 +50,9 @@ export default function WorkpiecesRouter() {
 				</Route>
 				<Route path="/workpieces/:workpiece_id/documentation/lyrics">
 					<Lyrics />
+				</Route>
+				<Route path="/workpieces/:workpiece_id/documentation/links">
+					<Links />
 				</Route>
 			</Switch>
 		</WorkpieceContext.Provider>

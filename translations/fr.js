@@ -477,6 +477,7 @@ export const document = {
 	},
 	help: "Help",
 	why: "Pourquoi partage ces information ?",
+	access: "Accès",
 	creation: {
 		category: "CRÉATION",
 		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
@@ -552,7 +553,6 @@ export const document = {
 			listItem:
 				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
 		},
-		access: "Accès",
 		copy: "Lien de partage unique copié.",
 	},
 	infos: {
@@ -570,9 +570,14 @@ export const document = {
 		title: (workPiece) => <>{workPiece} contient des paroles ?</>,
 		paragraph:
 			"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
+		lyrics: "Paroles",
 		undertext:
 			"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
 		language: "Langue(s)",
 		addLanguage: "Ajouter unbe langue...",
+		selected: (language) => <>Ajouter « {language} »</>,
+		french: "Français",
+		frenchCanadian: "Français (canadien)",
+		public: "Publique - Rendre l'information publique",
 	},
 }

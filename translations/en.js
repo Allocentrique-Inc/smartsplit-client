@@ -471,6 +471,7 @@ export const document = {
 	},
 	help: "Help",
 	why: "Why share these informations?",
+	access: "Access",
 	creation: {
 		category: "CREATION",
 		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
@@ -543,7 +544,6 @@ export const document = {
 			listItem:
 				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
 		},
-		access: "Access",
 		copy: "Unique sharable link copied.",
 	},
 	infos: {
@@ -561,9 +561,14 @@ export const document = {
 		title: (workPiece) => <>{workPiece} contains lyrics?</>,
 		paragraph:
 			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
+		lyrics: "Lyrics",
 		undertext:
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
 		addLanguage: "Ajouter une langue...",
+		selected: (language) => <>Add "{language}"</>,
+		french: "French",
+		frenchCanadian: "French (Canadian)",
+		public: "Public - Make the information public",
 	},
 }
