@@ -1,6 +1,6 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
-import { Colors } from "../theme"
+import { Colors } from "../../theme"
 
 export default function PlayIcon(props) {
 	const color = props.color || Colors.tertiary
