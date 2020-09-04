@@ -61,6 +61,7 @@ export const general = {
 		back: "Retour",
 		saveClose: "Sauvegarder et fermer",
 		pass: "Passer pour l'instant",
+		end: "Terminer",
 	},
 }
 

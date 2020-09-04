@@ -11,6 +11,13 @@ import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import LinkIcon from "../../../svg/link"
 import SpotifyIcon from "../../../svg/workpieces/spotify"
+import GooglePlayIcon from "../../../svg/workpieces/google-play"
+import ITunesIcon from "../../../svg/workpieces/itunes"
+import AmazonIcon from "../../../svg/workpieces/amazon"
+import YoutubeIcon from "../../../svg/workpieces/youtube"
+import SoundcloudIcon from "../../../svg/workpieces/soundcloud"
+import PandoraIcon from "../../../svg/workpieces/pandora"
+import DeezerIcon from "../../../svg/workpieces/deezer"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import { TextInput } from "react-native"
 
@@ -64,7 +71,7 @@ export default function Links() {
 						<Flex />
 						<Button
 							primary
-							text={t("general:buttons.pass")}
+							text={t("general:buttons.end")}
 							onClick={navigateToInterpretation}
 						/>
 					</Row>
@@ -93,13 +100,115 @@ export function LinksForm(props) {
 					<Paragraph>{t("document:links.paragraph")}</Paragraph>
 
 					<Spacer of="group" />
+
 					<Row valign="center">
-						<SpotifyIcon style={Styles.logo} />
-						<Text primary style={Styles.link}>
-							Spotify
-						</Text>
+						<Column flex={0.5}>
+							<SpotifyIcon />
+						</Column>
+						<Column flex={2}>
+							<Text primary>Spotify</Text>
+						</Column>
 						<TextField
+							style={{ flex: 5 }}
 							name="spotify"
+							placeholder={t("document:links.addLink")}
+						/>
+					</Row>
+
+					<Row valign="center">
+						<Column flex={0.5}>
+							<GooglePlayIcon />
+						</Column>
+						<Column flex={2}>
+							<Text primary>Google Play</Text>
+						</Column>
+						<TextField
+							style={{ flex: 5 }}
+							name="google"
+							placeholder={t("document:links.addLink")}
+						/>
+					</Row>
+					<Row valign="center">
+						<Column flex={0.5}>
+							<ITunesIcon />
+						</Column>
+						<Column flex={2}>
+							<Text primary>Apple Music</Text>
+						</Column>
+						<TextField
+							style={{ flex: 5 }}
+							name="itunes"
+							placeholder={t("document:links.addLink")}
+						/>
+					</Row>
+					<Row valign="center">
+						<Column flex={0.5}>
+							<AmazonIcon />
+						</Column>
+						<Column flex={2}>
+							<Text primary>Amazon</Text>
+						</Column>
+						<TextField
+							style={{ flex: 5 }}
+							name="amazon"
+							placeholder={t("document:links.addLink")}
+						/>
+					</Row>
+					<Row valign="center">
+						<Column flex={0.5}>
+							<YoutubeIcon style={Styles.logo} />
+						</Column>
+						<Column flex={2}>
+							<Text primary style={Styles.link}>
+								Youtube
+							</Text>
+						</Column>
+						<TextField
+							style={{ flex: 5 }}
+							name="youtube"
+							placeholder={t("document:links.addLink")}
+						/>
+					</Row>
+					<Row valign="center">
+						<Column flex={0.5}>
+							<PandoraIcon />
+						</Column>
+						<Column flex={2}>
+							<Text primary>Pandora</Text>
+						</Column>
+						<TextField
+							style={{ flex: 5 }}
+							name="pandora"
+							placeholder={t("document:links.addLink")}
+						/>
+					</Row>
+					<Row valign="center">
+						<Column flex={0.5}>
+							<SoundcloudIcon style={Styles.logo} />
+						</Column>
+						<Column flex={2}>
+							<Text primary style={Styles.link}>
+								Soundcloud
+							</Text>
+						</Column>
+						<TextField
+							style={{ flex: 5 }}
+							name="soundcloud"
+							placeholder={t("document:links.addLink")}
+						/>
+					</Row>
+					<Row valign="center">
+						<Column flex={0.5}>
+							<DeezerIcon style={Styles.logo} />
+						</Column>
+						<Column flex={2}>
+							<Text primary style={Styles.link}>
+								Deezer
+							</Text>
+						</Column>
+						<TextField
+							style={{ flex: 5 }}
+							name="soundcloud"
 							placeholder={t("document:links.addLink")}
 						/>
 					</Row>
@@ -113,7 +222,7 @@ export function LinksForm(props) {
 							</Text>
 							<Hairline />
 						</Column>
-						<Heading level={4}>{t("document:why")}</Heading>
+						<Heading level={4}>Lorem ipsum dolor sit amet </Heading>
 						<Text secondary>
 							Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
 							dolor sit amet.

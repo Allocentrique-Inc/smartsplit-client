@@ -27,10 +27,6 @@ export const Metrics = {
 		// Marge standard entre les petits éléments visuels
 		xsmall: 4,
 		tiny: 4,
-
-		//Espacements particuliers dans Documente ton œuvre - Paroles
-		logo: 17,
-		link: 69,
 	},
 
 	// Taille des widgets: boutons, images, etc.
