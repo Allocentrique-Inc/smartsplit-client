@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
-import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
+import { Column, Row, Flex, Hairline, Spacer, NoSpacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import LinkIcon from "../../../svg/link"
@@ -19,7 +19,8 @@ import SoundcloudIcon from "../../../svg/workpieces/soundcloud"
 import PandoraIcon from "../../../svg/workpieces/pandora"
 import DeezerIcon from "../../../svg/workpieces/deezer"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import { TextInput } from "react-native"
+import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import { DialogModal } from "../../../widgets/modal"
 
 const Styles = StyleSheet.create({
 	logo: {
@@ -34,6 +35,7 @@ export default function Links() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const workpiece = useCurrentWorkpiece()
+	const [endModal, setEndModal] = useState(false)
 
 	function saveAndQuit() {
 		history.push("/dashboard/")
@@ -72,7 +74,7 @@ export default function Links() {
 						<Button
 							primary
 							text={t("general:buttons.end")}
-							onClick={navigateToInterpretation}
+							onRequestClose={() => setEndModal(false)}
 						/>
 					</Row>
 					<Row flex={1} />
@@ -80,6 +82,7 @@ export default function Links() {
 			}
 		>
 			<LinksForm />
+			<EndModal visible={endModal} onRequestClose={() => setEndModal(false)} />
 		</Layout>
 	)
 }
@@ -212,6 +215,10 @@ export function LinksForm(props) {
 							placeholder={t("document:links.addLink")}
 						/>
 					</Row>
+					<AddCollaboratorDropdown
+						label="Add a collaborator"
+						placeholder="Ajouter un collaborateur..."
+					/>
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>
@@ -231,5 +238,30 @@ export function LinksForm(props) {
 				</Column>
 			</Row>
 		</>
+	)
+}
+
+export function EndModal(props) {
+	const { t } = useTranslation()
+	const submit = () => form.current.submit()
+
+	return (
+		<DialogModal
+			visible={props.visible}
+			onRequestClose={props.onRequestClose}
+			title={t("forms:addCollabArtist")}
+			buttons={
+				<>
+					<Button
+						tertiary
+						text={t("general:buttons.cancel")}
+						onClick={props.onRequestClose}
+					/>
+					<Button text={t("general:buttons.save")} onClick={submit} />
+				</>
+			}
+		>
+			<Column>Text</Column>
+		</DialogModal>
 	)
 }

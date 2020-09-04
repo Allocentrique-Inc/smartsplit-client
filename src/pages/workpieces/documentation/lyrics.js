@@ -10,7 +10,9 @@ import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import LyricsIcon from "../../../svg/lyrics"
-import { SearchAndTag, Dropdown, TextField } from "../../../forms"
+import EyeIcon from "../../../svg/eye"
+import { Dropdown, TextField } from "../../../forms"
+import AddLanguageDropdown from "../../../smartsplit/components/add-language-dropdown"
 import { TextInput } from "react-native"
 
 export default function Lyrics() {
@@ -81,10 +83,13 @@ const formStyle = StyleSheet.create({
 })
 
 export function LyricsForm(props) {
-	const searchResults = ["Electrofunk", "Future Funk", "Mega Funk"]
-	const [search, setSearch] = useState("")
-	const [selected, setSelected] = useState(["English", "Français"])
 	const { t } = useTranslation()
+	const searchResults = [
+		t("document:lyrics.frenchCanadian"),
+		t("document:lyrics.french"),
+	]
+	const [selected, setSelected] = useState(["English", "Français"])
+	const [search, setSearch] = useState("")
 	const [text, setText] = React.useState("")
 
 	return (
@@ -100,17 +105,18 @@ export function LyricsForm(props) {
 
 					<Spacer of="group" />
 					<TextInput
-						label="Email"
+						label={t("document:lyrics.lyrics")}
 						value={text}
 						multiline={true}
 						style={formStyle.textAreaContainer}
 						onChangeText={(text) => setText(text)}
 					/>
-
-					<SearchAndTag
+					<AddLanguageDropdown
 						hideIcon={true}
 						label={t("document:lyrics.language")}
-						searchResults={searchResults}
+						searchResults={searchResults.filter((v) =>
+							v ? v.toLowerCase().indexOf(search.toLowerCase()) > -1 : true
+						)}
 						search={search}
 						onSearchChange={setSearch}
 						selection={selected}
@@ -119,6 +125,19 @@ export function LyricsForm(props) {
 							setSelected(selected.filter((i) => i !== selection))
 						}
 						placeholder={t("document:lyrics.addLanguage")}
+					/>
+					<Dropdown
+						hideIcon={true}
+						label={t("document:access")}
+						placeholder={
+							<>
+								<EyeIcon />
+								{/* {t("document:lyrics.public")} */}
+								<Flex />
+							</>
+						}
+						noFocusToggle
+						tooltip=""
 					/>
 				</Column>
 				<Flex />
