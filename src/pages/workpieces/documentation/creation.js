@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router"
-import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
+import { StyleSheet } from "react-native"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
@@ -11,6 +11,16 @@ import { Colors } from "../../../theme"
 import CopyrightIcon from "../../../svg/copyright"
 import { DateField, TextField } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: "17px",
+	},
+})
 
 export default function Creation() {
 	const { t } = useTranslation()
@@ -26,7 +36,7 @@ export default function Creation() {
 	}
 
 	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+		history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 	}
 	return (
 		<Layout
@@ -69,7 +79,7 @@ export default function Creation() {
 
 export function CreationForm(props) {
 	const [date, setDate] = useState("")
-	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
+	const searchResults = []
 	const [search, setSearch] = useState("")
 	const { t } = useTranslation()
 
@@ -77,8 +87,8 @@ export function CreationForm(props) {
 		<Row>
 			<Column of="group" flex={5}>
 				<Column of="group">
-					<Text action bold valign="center">
-						<CopyrightIcon color={Colors.action} />
+					<Text action bold style={Styles.category}>
+						<CopyrightIcon color={Colors.action} style={Styles.logo} />
 						{t("document:creation.category")}
 						<Row padding="tiny" />
 					</Text>
