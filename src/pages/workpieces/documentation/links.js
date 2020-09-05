@@ -19,7 +19,7 @@ import SoundcloudIcon from "../../../svg/workpieces/soundcloud"
 import PandoraIcon from "../../../svg/workpieces/pandora"
 import DeezerIcon from "../../../svg/workpieces/deezer"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import AddPlatformDropdown from "../../../smartsplit/components/add-platform-dropdown"
 import { DialogModal } from "../../../widgets/modal"
 
 const Styles = StyleSheet.create({
@@ -74,7 +74,7 @@ export default function Links() {
 						<Button
 							primary
 							text={t("general:buttons.end")}
-							onRequestClose={() => setEndModal(false)}
+							onClick={() => setEndModal(true)}
 						/>
 					</Row>
 					<Row flex={1} />
@@ -215,10 +215,7 @@ export function LinksForm(props) {
 							placeholder={t("document:links.addLink")}
 						/>
 					</Row>
-					<AddCollaboratorDropdown
-						label="Add a collaborator"
-						placeholder="Ajouter un collaborateur..."
-					/>
+					<AddPlatformDropdown placeholder={t("document:links.addPlatform")} />
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>

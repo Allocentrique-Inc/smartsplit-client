@@ -588,5 +588,7 @@ export const document = {
 		paragraph:
 			"Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
 		addLink: "Coller un lien...",
+		createPlatform: "Add a platform",
+		addPlatform: "Ajouter une plateforme...",
 	},
 }

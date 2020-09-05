@@ -579,5 +579,7 @@ export const document = {
 		paragraph:
 			"To increase the chances for your piece to be  discovered  and listened to, document listening links and  online purchase.",
 		addLink: "Paste a link...",
+		createPlatform: "Add a platform",
+		addPlatform: "Add a platform...",
 	},
 }
