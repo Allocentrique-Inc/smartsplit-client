@@ -1,11 +1,14 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
+import { Colors } from "react-native/Libraries/NewAppScreen"
 
 export default function CopyrightIcon(props) {
-	const color = props.color || "#8DA0B3"
+	const color = props.color || Colors.tertiary
+	const { ...nextProps } = props
 
 	return (
 		<Svg
+			{...nextProps}
 			width="16"
 			height="16"
 			viewBox="0 0 16 16"
