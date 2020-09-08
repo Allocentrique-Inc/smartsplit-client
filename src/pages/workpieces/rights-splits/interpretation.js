@@ -1,11 +1,6 @@
 import React, { useState } from "react"
-import { useHistory } from "react-router"
-import { useCurrentWorkpiece } from "../context"
-import { Column, Row, Flex, Hairline } from "../../../layout"
+import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import Layout from "../layout"
-import Button from "../../../widgets/button"
-import { useRightSplit } from "../../../appstate/react/workpieces"
 import { useTranslation } from "react-i18next"
 import { Colors, Metrics } from "../../../theme"
 import CircledC from "../../../svg/circled-c"
@@ -19,68 +14,13 @@ import ShareCard from "../../../smartsplit/components/share-card"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
-import CircledP from "../../../svg/circled-p"
 import CircledStar from "../../../svg/circled-star"
+import { observer } from "mobx-react"
 
-export function InterpretationPage() {
-	const history = useHistory()
-	const workpiece = useCurrentWorkpiece()
-	const { t } = useTranslation()
 
-	function saveAndQuit() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
-	function navigateToCopyright() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/copyright`)
-	}
-
-	function navigateToRecording() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/recording`)
-	}
-
-	return (
-		<Layout
-			workpiece={workpiece}
-			path={[
-				t("rightSplits:navbar.rightSplits"),
-				t("rightSplits:titles.interpretation"),
-			]}
-			progress={(2 / 3) * 100}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveAndClose")}
-					onClick={saveAndQuit}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={navigateToCopyright}
-						/>
-						<Flex />
-						<Button
-							primary
-							text={t("general:buttons.continue")}
-							onClick={navigateToRecording}
-						/>
-					</Row>
-					<Row flex={1} />
-				</>
-			}
-		>
-			<InterpretationForm />
-		</Layout>
-	)
-}
-
-export default function InterpretationForm() {
+const InterpretationForm = observer(({split}) => {
 	const [chartSize, setChartSize] = useState(0)
-	const [splits, shares, addShareHolder] = useRightSplit("interpretation")
+	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
 	const { t } = useTranslation()
 	const shareColors = Object.values(Colors.secondaries)
@@ -88,6 +28,14 @@ export default function InterpretationForm() {
 	function colorByIndex(index) {
 		return shareColors[index % shareColors.length]
 	}
+
+	function addShareHolder(id) {
+		if (split.hasOwnProperty(id)) return
+		split.addRightHolder(id, {
+			shares: 1,
+		})
+	}
+
 
 	let chartData = shares.map((share, i) => ({
 		key: share.rightHolder,
@@ -142,7 +90,7 @@ export default function InterpretationForm() {
 								sharePercent={
 									share.shares > 0 ? (100 * share.shares) / totalShares : 0
 								}
-								onClose={() => splits.removeRightHolder(share.rightHolder)}
+								onClose={() => split.removeRightHolder(share.rightHolder)}
 							>
 								<CheckBoxGroup selection={selection} onChange={setSelection}>
 									<CheckBoxGroupButton
@@ -175,4 +123,6 @@ export default function InterpretationForm() {
 			</Column>
 		</Row>
 	)
-}
+})
+
+export default InterpretationForm

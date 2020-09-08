@@ -1,7 +1,7 @@
 import React from "react"
-import { Redirect, useRouteMatch, useParams } from "react-router"
+import { Redirect, useRouteMatch, useParams, useHistory } from "react-router"
 
-import { useStorePath } from "../../../mobX"
+import { useStorePath, useStores } from "../../../mobX"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Flex, Row } from "../../../layout"
@@ -11,7 +11,6 @@ import InterpretationForm from "./interpretation"
 import RecordingForm from "./recording"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
-import { useCurrentWorkpiece } from "../context"
 
 const splits = {
 	copyright: {
@@ -29,13 +28,23 @@ const splits = {
 }
 export default observer(() => {
 	const {t} = useTranslation()
-	const {workpiece_id, split_type} = useParams()
-	const currentSplit = split_type
-	if (!currentSplit) return (
+	const history = useHistory()
+	const { workpiece_id, split_type } = useParams()
+	if (!workpiece_id) return (
 		<Redirect
 			to={`/workpieces/${workpiece_id}/rights-splits/copyright`}
 		/>)
-	const workpiece = useCurrentWorkpiece()
+	else if (!split_type) return (
+		<Redirect
+			to={`/workpieces/${workpiece_id}/rights-splits/copyright`}
+		/>)
+	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
+
+
+
+	const {workpieces} = useStores()
+	const currentSplit = split_type
+
 	const rightsSplits = workpiece.rightsSplits
 	async function saveAndQuit() {
 		try {
@@ -49,6 +58,13 @@ export default observer(() => {
 	function navigateToSummary() {
 		history.push(`/workpieces/${workpiece.id}`)
 	}
+	function toPreviousPage() {
+		currentSplit === "copyright" &&  navigateToSummary()
+		currentSplit === "interpretation" && history.push(`/workpieces/${workpiece.id}/rights-splits/copyright`)
+		currentSplit === "recording" && history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+	}
+
+
 
 	function toNextPage() {
 		currentSplit === "copyright" &&  history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
@@ -78,13 +94,13 @@ export default observer(() => {
 						<Button
 							secondary
 							text={t("general:buttons.back")}
-							onClick={navigateToSummary}
+							onClick={toPreviousPage}
 						/>
 						<Flex/>
 						<Button
 							primary
 							text={t("general:buttons.continue")}
-							onClick={toNextPage}
+							onClick={currentSplit === "recording" ? saveAndQuit : toNextPage}
 						/>
 					</Row>
 					<Row flex={1}>
@@ -95,7 +111,7 @@ export default observer(() => {
 				</>
 			}
 		>
-			{React.createElement(splits[currentSplit].form)}
+			{!workpieces.isLoading && React.createElement(splits[currentSplit].form, {split: workpiece.rightsSplits[currentSplit]}) }
 		</Layout>
 	)
 })

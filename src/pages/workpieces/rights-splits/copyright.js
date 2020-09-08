@@ -17,16 +17,13 @@ import {
 } from "../../../forms"
 import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
-import { useCurrentWorkpiece, useRightSplit } from "../context"
 
-export default observer(() => {
+const CopyrightForm = observer(({ split }) => {
+
 	const [chartSize, setChartSize] = useState(0)
-	const split = useRightSplit("copyright")
-	console.log(useCurrentWorkpiece(), useRightSplit("copyright"))
 	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
 	const { t } = useTranslation()
-	console.log(split)
 	const shareColors = Object.values(Colors.secondaries)
 
 	function colorByIndex(index) {
@@ -41,18 +38,35 @@ export default observer(() => {
 			color: colorByIndex(i),
 		}))
 	}
+
 	function addShareHolder(id) {
 		if (split.hasOwnProperty(id)) return
 		split.addRightHolder(id, {
 			shares: 1,
 		})
 	}
-	const chartProps = {
+
+	let chartProps = {
 		size: chartSize,
 		logo: CircledC,
 	}
-	useEffect(() => {
+	// console.log("coucou", shares, shares.map(share => {
+	// 	share.roles = [...share.roles,
+	// 		!share.roles.includes("author") && "author",
+	// 		!share.roles.includes("compositor") && "compositor"]
+	// }))
+
+	function generateChartData() {
 		switch (mode) {
+			case "equal":
+				split.updateShares(shares.map(share => {
+					!share.roles.includes("author") && share.roles.push("author")
+					!share.roles.includes("compositor") && share.roles.push("compositor")
+					return share
+				}))
+				chartProps.data = sharesToData(shares)
+
+				break
 			case "roles":
 				chartProps.dataRight = sharesToData(
 					shares.filter(
@@ -69,24 +83,22 @@ export default observer(() => {
 				chartProps.titleLeft = t("rightSplits:lyrics")
 				chartProps.titleRight = t("rightSplits:music")
 				break
-			case "equal":
-				split.updateShares(shares.map(share => {
-					share.roles = [...share.roles,
-						!share.roles.includes("author") && "author",
-						!share.roles.includes("compositor") && "compositor"]
-				}))
+			case "manual":
 				chartProps.data = sharesToData(shares)
-				break
-			case "manual": {
-				chartProps.data = sharesToData(shares)
-			}
+
 		}
-	}, [mode])
+	}
+
+	generateChartData()
+
+
+	useEffect(() => generateChartData(), [mode])
 
 	const totalShares = shares
 		.map((share) => share.shares)
 		.reduce((a, n) => a + n, 0)
 
+	console.log("CHART PROPS :", chartProps)
 	return (
 		<Row>
 			<Column of="section" flex={1}>
@@ -182,3 +194,4 @@ export default observer(() => {
 		</Row>
 	)
 })
+export default CopyrightForm

@@ -1,17 +1,12 @@
 import React, { useState } from "react"
-import { useHistory } from "react-router"
-import { useCurrentWorkpiece } from "../context"
-import { Column, Row, Flex, Hairline } from "../../../layout"
+import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import Layout from "../layout"
-import Button from "../../../widgets/button"
 import { useRightSplit } from "../../../appstate/react/workpieces"
 import { useTranslation } from "react-i18next"
 import { Colors, Metrics } from "../../../theme"
 import CircledC from "../../../svg/circled-c"
 import {
-	CheckBoxGroup,
-	CheckBoxGroupButton,
+	CheckBoxGroup, CheckBoxGroupButton,
 	RadioGroup,
 	RadioGroupButton,
 } from "../../../forms"
@@ -20,66 +15,24 @@ import AddCollaboratorDropdown from "../../../smartsplit/components/add-collabor
 import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledP from "../../../svg/circled-p"
+import { observer } from "mobx-react"
 
-export function RecordingPage() {
-	const history = useHistory()
-	const workpiece = useCurrentWorkpiece()
-	const { t } = useTranslation()
-	function saveAndQuit() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
-	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
-	}
-
-	return (
-		<Layout
-			workpiece={workpiece}
-			progress={(10 / 11) * 100}
-			path={[
-				t("rightSplits:navbar.rightSplits"),
-				t("rightSplits:titles.recording"),
-			]}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveAndClose")}
-					onClick={saveAndQuit}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={navigateToInterpretation}
-						/>
-						<Flex />
-						<Button
-							text={t("general:buttons.saveAndClose")}
-							onClick={saveAndQuit}
-						/>
-					</Row>
-					<Row flex={1} />
-				</>
-			}
-		>
-			<RecordingForm />
-		</Layout>
-	)
-}
-
-export default function RecordingForm() {
+const RecordingForm  =  observer(({ split }) => {
 	const [chartSize, setChartSize] = useState(0)
-	const [splits, shares, addShareHolder] = useRightSplit("recording")
+	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
 	const { t } = useTranslation()
 	const shareColors = Object.values(Colors.secondaries)
 
 	function colorByIndex(index) {
 		return shareColors[index % shareColors.length]
+	}
+
+	function addShareHolder(id) {
+		if (split.hasOwnProperty(id)) return
+		split.addRightHolder(id, {
+			shares: 1,
+		})
 	}
 
 	let chartData = shares.map((share, i) => ({
@@ -130,8 +83,19 @@ export default function RecordingForm() {
 								sharePercent={
 									share.shares > 0 ? (100 * share.shares) / totalShares : 0
 								}
-								onClose={() => splits.removeRightHolder(share.rightHolder)}
-							></ShareCard>
+								onClose={() => split.removeRightHolder(share.rightHolder)}
+							>
+								<CheckBoxGroup selection={selection} onChange={setSelection}>
+									<CheckBoxGroupButton
+										value="author"
+										label={t("roles:singer")}
+									/>
+									<CheckBoxGroupButton
+										value="adapter"
+										label={t("roles:musician")}
+									/>
+								</CheckBoxGroup>
+							</ShareCard>
 						))}
 						<AddCollaboratorDropdown onSelect={addShareHolder} />
 					</Column>
@@ -152,4 +116,6 @@ export default function RecordingForm() {
 			</Column>
 		</Row>
 	)
-}
+})
+
+export default RecordingForm

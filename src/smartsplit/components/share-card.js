@@ -7,11 +7,13 @@ import { Text } from "../../text"
 import ProgressBar from "../../widgets/progress-bar"
 import { TouchableWithoutFeedback, View, StyleSheet } from "react-native"
 import { formatPercentage, getFullName } from "../../utils/utils"
-import DotDotDot from "../../svg/dot-dot-dot"
 import { CardStyles } from "../../widgets/card"
 import { useTranslation } from "react-i18next"
 import XIcon from "../../svg/x"
 import { useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
+import { useAuthUser, useEntity } from "../../mobX/hooks"
+import { toJS } from "mobx"
 
 const styles = StyleSheet.create({
 	frame: {
@@ -27,7 +29,7 @@ const styles = StyleSheet.create({
 		borderColor: Colors.secondaries.teal,
 	},
 })
-export default function ShareCard({
+const ShareCard = observer(({
 	rightHolderId,
 	sharePercent,
 	tip,
@@ -37,14 +39,11 @@ export default function ShareCard({
 	error,
 	onClose,
 	...nextProps
-}) {
+}) => {
 	const { t } = useTranslation()
-	const user = useStorePath("users")
-
-	const userData = user.data || {}
-	console.log(userData)
-	const authUserData = useStorePath("auth", "user", "data")
-	console.log(authUserData)
+	const user = useEntity(["users"], rightHolderId)
+	const userData = toJS(user.data) || {}
+	const authUserData = toJS(useAuthUser().data)
 	const frameStyle = [CardStyles.frame, styles.frame]
 	const addStyle = (key) => frameStyle.push(styles[key])
 	const isAuthUser = userData.user_id === authUserData.user_id
@@ -101,4 +100,6 @@ export default function ShareCard({
 			)}
 		</>
 	)
-}
+})
+
+export default ShareCard

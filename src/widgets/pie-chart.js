@@ -8,6 +8,7 @@ import {
 
 export function usePieChartSlices(data, maxRange, clockwise, size) {
 	const angleRange = maxRange ? maxRange : 360
+	console.log(data)
 	const shareAngle =
 		(clockwise ? 1 : -1) * degreesToRadians(angleRange / getShareTotal(data))
 	console.log(clockwise, shareAngle)
