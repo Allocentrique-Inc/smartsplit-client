@@ -19,6 +19,7 @@ import {
 	Dropdown,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import AddInstrumentDropdown from "../../../smartsplit/components/add-instrument-dropdown"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -169,7 +170,7 @@ export function PerformanceOptions(props) {
 
 					{showInstruments && (
 						<Column style={Styles.dropdown}>
-							<Dropdown
+							<AddInstrumentDropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
 								noFocusToggle
