@@ -12,11 +12,9 @@ import { Colors, Metrics } from "../../../theme"
 import PerformanceIcon from "../../../svg/performance"
 import {
 	RadioGroupButton,
-	RadioButton,
 	RadioGroup,
 	CheckBox,
 	CheckBoxGroup,
-	Dropdown,
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import AddInstrumentDropdown from "../../../smartsplit/components/add-instrument-dropdown"
@@ -146,7 +144,6 @@ export function PerformanceOptions(props) {
 	const searchResults = ["Guitare", "Violon"]
 	const [selected, setSelected] = useState("")
 	const [search, setSearch] = useState("")
-	const [text, setText] = React.useState("")
 
 	return (
 		<Column>

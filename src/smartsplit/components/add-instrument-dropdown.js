@@ -2,11 +2,9 @@ import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { SearchAndTag } from "../../forms"
 import Autocomplete from "../../forms/autocomplete"
-import { Tag } from "../../widgets/tag"
 import { TouchableWithoutFeedback, StyleSheet } from "react-native"
 import { Row, Column, Layer } from "../../layout"
 import { Text } from "../../text"
-import { Colors, Metrics } from "../../theme"
 import PlusCircle from "../../svg/plus-circle"
 
 export default function AddInstrumentDropdown({
@@ -40,12 +38,12 @@ export default function AddInstrumentDropdown({
 					<Row of="component" padding="inside">
 						<PlusCircle />
 						<Text bold action>
+							{/* To Do: Voir comment placer la traduction */}
 							Ajouter <Text bold>{nextProps.search}</Text> comme instrument
 						</Text>
 					</Row>
 				</TouchableWithoutFeedback>
 			)}
-			{selection && selection.length > 0 && renderSelectedItems()}
 		</Column>
 	)
 }
