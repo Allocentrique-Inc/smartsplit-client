@@ -22,7 +22,7 @@ export default function AddInstrumentDropdown({
 	return (
 		<Column of="component">
 			<Autocomplete
-				noIcon={true}
+				//noIcon={true}
 				search={instrument}
 				onSearcheChange={setInstrument}
 				onSelect={onSelect}
