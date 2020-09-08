@@ -1,11 +1,18 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { SearchAndTag } from "../../forms"
 import Autocomplete from "../../forms/autocomplete"
 import { TouchableWithoutFeedback, StyleSheet } from "react-native"
 import { Row, Column, Layer } from "../../layout"
 import { Text } from "../../text"
+import { Colors } from "../../theme"
 import PlusCircle from "../../svg/plus-circle"
+
+const Styles = StyleSheet.create({
+	actionFrame: {
+		borderTopWidth: 1,
+		borderTopColor: Colors.stroke,
+	},
+})
 
 export default function AddInstrumentDropdown({
 	selection,
@@ -18,11 +25,11 @@ export default function AddInstrumentDropdown({
 }) {
 	const { t } = useTranslation()
 	const [instrument, setInstrument] = useState("")
-	console.log(nextProps)
+
 	return (
 		<Column of="component">
 			<Autocomplete
-				//noIcon={true}
+				leftIcon={false}
 				search={instrument}
 				onSearcheChange={setInstrument}
 				onSelect={onSelect}
@@ -35,7 +42,7 @@ export default function AddInstrumentDropdown({
 						onSelect(nextProps.search)
 					}}
 				>
-					<Row of="component" padding="inside">
+					<Row of="component" padding="component" style={Styles.actionFrame}>
 						<PlusCircle />
 						<Text bold action>
 							{/* To Do: Voir comment placer la traduction */}

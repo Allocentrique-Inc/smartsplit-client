@@ -25,7 +25,7 @@ const Styles = StyleSheet.create({
 		display: "flex",
 	},
 	logo: {
-		marginRight: "17px",
+		marginRight: Metrics.spacing.component,
 	},
 	dropdown: {
 		marginLeft: Metrics.spacing.large,

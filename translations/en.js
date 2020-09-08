@@ -515,7 +515,7 @@ export const document = {
 		title: "Who performed the musical piece on this audio recording?",
 		paragraph: "Here you mention who played which instrument.",
 		roles: {
-			addPerformer: "Ajouter un interprète...",
+			addPerformer: "Add a performer...",
 		},
 		what: "What's a performer?",
 		whichPerformance: "Which type of performance?",
