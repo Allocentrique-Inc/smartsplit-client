@@ -97,12 +97,14 @@ export function CreationForm(props) {
 				</Column>
 				<Spacer of="group" />
 				<Column of="group">
+					{/* To Do: À confirmer si plus court que les autres field */}
 					<DateField
 						label={t("document:creation.date")}
 						value={date}
 						onChangeText={setDate}
 						placeholder={t("forms:placeholders.date")}
 					/>
+
 					<AddCollaboratorDropdown
 						label={t("document:creation.roles.authors")}
 						subLabel={t("document:creation.roles.authorsWho")}
