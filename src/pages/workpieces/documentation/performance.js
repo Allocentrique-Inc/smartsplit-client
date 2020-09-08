@@ -143,6 +143,10 @@ export function PerformanceForm(props) {
 export function PerformanceOptions(props) {
 	const { t } = useTranslation()
 	const [showInstruments, setShowInstruments] = useState()
+	const searchResults = ["Guitare", "Violon"]
+	const [selected, setSelected] = useState("")
+	const [search, setSearch] = useState("")
+	const [text, setText] = React.useState("")
 
 	return (
 		<Column>
@@ -173,7 +177,16 @@ export function PerformanceOptions(props) {
 							<AddInstrumentDropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
-								noFocusToggle
+								searchResults={searchResults.filter((v) =>
+									v ? v.toLowerCase().indexOf(search.toLowerCase()) > -1 : true
+								)}
+								search={search}
+								onSearchChange={setSearch}
+								selection={selected}
+								onSelect={(selection) => setSelected([...selected, selection])}
+								onUnselect={(selection) =>
+									setSelected(selected.filter((i) => i !== selection))
+								}
 							/>
 						</Column>
 					)}
