@@ -25,7 +25,7 @@ const Styles = StyleSheet.create({
 		display: "flex",
 	},
 	logo: {
-		marginRight: Metrics.spacing.component,
+		marginRight: Metrics.spacing.medium,
 	},
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
@@ -89,7 +89,7 @@ export default function Performance() {
 }
 
 export function PerformanceForm(props) {
-	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
+	const searchResults = ["Inie", "Manie", "Moe"]
 	const [search, setSearch] = useState("")
 	const { t } = useTranslation()
 
@@ -97,7 +97,7 @@ export function PerformanceForm(props) {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
+					<Text action bold style={Styles.category}>
 						<PerformanceIcon style={Styles.logo} />
 						{t("document:performance.category")}
 						<Row padding="tiny" />
