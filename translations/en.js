@@ -82,7 +82,8 @@ export const test = {
 
 export const errors = {
 	enterEmail: "Please enter your email address",
-	strengthPassword: "The password must incluse at least 8 characters",
+	invalidEmail: "Email address is invalid",
+	strengthPassword: "The password must include at least 8 characters",
 	samePasswords: "Both passwords must be identical",
 	invalidToken:
 		"The reset token is no longer valid or has expired. Please make a new password request.",
