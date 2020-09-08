@@ -20,7 +20,14 @@ import {
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: "17px",
+	},
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
 	},
@@ -40,7 +47,7 @@ export default function Performance() {
 	}
 
 	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+		history.push(`/workpieces/${workpiece.id}/documentation/recording`)
 	}
 
 	return (
@@ -92,7 +99,7 @@ export function PerformanceForm(props) {
 			<Row>
 				<Column of="group" flex={5}>
 					<Text action bold valign="center">
-						<PerformanceIcon color={Colors.action} />
+						<PerformanceIcon style={Styles.logo} />
 						{t("document:performance.category")}
 						<Row padding="tiny" />
 					</Text>
@@ -161,7 +168,7 @@ export function PerformanceOptions(props) {
 					</CheckBoxGroup>
 
 					{showInstruments && (
-						<Column style={styles.dropdown}>
+						<Column style={Styles.dropdown}>
 							<Dropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
