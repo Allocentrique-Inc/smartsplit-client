@@ -11,10 +11,13 @@ import { TextDivider, Section, Column, Row, Group, Flex } from "../../layout"
 import {
 	Form,
 	useFormField,
-	TextField,
+	/*TextField,
 	PasswordField,
-	CheckBox,
+	CheckBox,*/
 } from "../../forms"
+import TextField from "../../forms/text"
+import PasswordField from "../../forms/password"
+import { CheckBox } from "../../forms/checkbox"
 import { Heading, Paragraph, Text, Link } from "../../text"
 import AuthLayout from "./layout"
 import ProgressBar from "../../widgets/progress-bar"

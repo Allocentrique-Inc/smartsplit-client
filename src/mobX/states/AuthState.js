@@ -11,6 +11,7 @@ import {
 	resetPassword,
 	changePassword,
 } from "../../../api/users"
+import RegisterModel from "../models/RegisterModel"
 
 /**
  * AuthState observable class
@@ -45,6 +46,11 @@ export default class AuthState extends BaseState {
 	@session
 	@observable
 	user_id = null
+
+	@observable regModel: RegisterModel = null
+	@computed get isRegistering() {
+		return this.regModel !== null
+	}
 
 	@computed get user() {
 		return this.user_id && this.root.users.get(this.user_id)
@@ -148,6 +154,25 @@ export default class AuthState extends BaseState {
 		)
 		
 		*/
+	}
+
+	@action register() {
+		this.regModel = new RegisterModel()
+		this.regModel.init()
+	}
+	@action clearRegister() {
+		this.regModel = null
+	}
+
+	@action async submitRegistration() {
+		try {
+			let success = await this.regModel.submit()
+			if (success) {
+				this.clearRegister()
+				return true
+			}
+		} catch (e) {}
+		return false
 	}
 
 	async activateAccountAndLogin(token) {
