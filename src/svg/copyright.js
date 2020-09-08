@@ -1,6 +1,6 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
-import { Colors } from "react-native/Libraries/NewAppScreen"
+import { Colors } from "../theme"
 
 export default function CopyrightIcon(props) {
 	const color = props.color || Colors.tertiary
