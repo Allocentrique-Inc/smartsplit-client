@@ -2,11 +2,20 @@ import React, { useState } from "react"
 import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
 import { useStorePath } from "../../../appstate/react"
+import { View } from "react-native"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
-import { Column, Row, Flex, Hairline, Spacer, NoSpacer } from "../../../layout"
+import {
+	Column,
+	Row,
+	Flex,
+	Hairline,
+	Spacer,
+	NoSpacer,
+	Group,
+} from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import LinkIcon from "../../../svg/link"
@@ -18,6 +27,7 @@ import YoutubeIcon from "../../../svg/workpieces/youtube"
 import SoundcloudIcon from "../../../svg/workpieces/soundcloud"
 import PandoraIcon from "../../../svg/workpieces/pandora"
 import DeezerIcon from "../../../svg/workpieces/deezer"
+import HighFive from "../../../../assets/svg/high-five.svg"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import AddPlatformDropdown from "../../../smartsplit/components/add-platform-dropdown"
 import { DialogModal } from "../../../widgets/modal"
@@ -246,19 +256,21 @@ export function EndModal(props) {
 		<DialogModal
 			visible={props.visible}
 			onRequestClose={props.onRequestClose}
-			title={t("forms:addCollabArtist")}
+			title={t("document:finalModal.header")}
 			buttons={
 				<>
-					<Button
-						tertiary
-						text={t("general:buttons.cancel")}
-						onClick={props.onRequestClose}
-					/>
-					<Button text={t("general:buttons.save")} onClick={submit} />
+					<Button text={t("general:buttons.seeSummary")} onClick={submit} />
 				</>
 			}
 		>
-			<Column>Text</Column>
+			<Group of="group" style={{ maxWidth: 560, alignSelf: "center" }}>
+				{/* To Do: Heading avec var passée dans traduction s'affiche pas dans modale */}
+				<Heading level={4}>{t("document:finalModal.title")}</Heading>
+				<View style={{ alignItems: "center" }}>
+					<HighFive />
+				</View>
+				<Paragraph>{t("document:finalModal.paragraph")}</Paragraph>
+			</Group>
 		</DialogModal>
 	)
 }

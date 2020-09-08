@@ -62,6 +62,7 @@ export const general = {
 		saveClose: "Sauvegarder et fermer",
 		pass: "Passer pour l'instant",
 		end: "Terminer",
+		seeSummary: "Voir le résumé",
 	},
 }
 
@@ -590,5 +591,11 @@ export const document = {
 		addLink: "Coller un lien...",
 		createPlatform: "Add a platform",
 		addPlatform: "Ajouter une plateforme...",
+	},
+	finalModal: {
+		header: "Documentation créée !",
+		title: (workPiece) => <>{workPiece} est maintenant documentée !</>,
+		paragraph:
+			"Tu es à un clic de pouvoir publier les crédits de cette pièce sur une page web et ainsi d'augmenter ta découvrabilité dans le web des données.",
 	},
 }
