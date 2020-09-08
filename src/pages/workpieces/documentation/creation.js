@@ -7,7 +7,7 @@ import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import { Colors } from "../../../theme"
+import { Colors, Metrics } from "../../../theme"
 import CopyrightIcon from "../../../svg/copyright"
 import { DateField, TextField } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
@@ -18,7 +18,7 @@ const Styles = StyleSheet.create({
 		display: "flex",
 	},
 	logo: {
-		marginRight: "17px",
+		marginRight: Metrics.spacing.component,
 	},
 })
 
