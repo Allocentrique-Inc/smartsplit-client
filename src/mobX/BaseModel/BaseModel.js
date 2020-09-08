@@ -373,13 +373,13 @@ export default class BaseModel {
 	@action importData(data) {
 		return data
 	}
-	@action async submit() {
+	@action async submit(...args) {
 		console.log("model submitted")
 		let validity = await this.validate()
 		if (validity) {
 			console.log("model is valid trying to save")
 			try {
-				return this.save()
+				return this.save(...args)
 			} catch (e) {
 				this.saveError = e
 				return false

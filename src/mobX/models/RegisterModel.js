@@ -2,6 +2,7 @@ import BaseModel, { FieldType, Field } from "../BaseModel"
 import { observable, action, computed } from "mobx"
 import { Colors } from "../../theme"
 import zxcvbn from "zxcvbn"
+import { registerUser } from "../../../api/users"
 export default class RegisterModel extends BaseModel {
 	/// fields
 
@@ -34,6 +35,7 @@ export default class RegisterModel extends BaseModel {
 		},
 	})
 	@observable acceptTerms = new Field(this, "acceptTerms", {
+		pseudo: true,
 		validation: (v) => {
 			if (!v) return "You must accept the terms"
 		},
@@ -88,5 +90,9 @@ export default class RegisterModel extends BaseModel {
 	@computed get passwordScore() {
 		return zxcvbn(this.password.value)
 	}
-	async save(...args) {}
+	async create(lang) {
+		let data = this.toJS()
+		data.locale = lang
+		let response = await registerUser()
+	}
 }
