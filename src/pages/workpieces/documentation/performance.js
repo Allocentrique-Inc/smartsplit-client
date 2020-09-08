@@ -57,7 +57,7 @@ export default function Performance() {
 				t("document:navbar.document"),
 				t("document:navbar.pages.performance"),
 			]}
-			progress={24}
+			progress={25}
 			actions={
 				<Button
 					tertiary
