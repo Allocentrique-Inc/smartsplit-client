@@ -22,9 +22,13 @@ import {
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
-const styles = StyleSheet.create({
-	dropdown: {
-		marginLeft: Metrics.spacing.large,
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.medium,
 	},
 })
 
@@ -85,7 +89,7 @@ export default function Performance() {
 }
 
 export function RecordingForm(props) {
-	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
+	const searchResults = ["Inie", "Manie", "Moe"]
 	const [search, setSearch] = useState("")
 	const [date, setDate] = useState("")
 	const { t } = useTranslation()
@@ -94,8 +98,8 @@ export function RecordingForm(props) {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
-						<RecordingIcon color={Colors.action} />
+					<Text action bold style={Styles.category}>
+						<RecordingIcon style={Styles.logo} />
 						{t("document:recording.category")}
 						<Row padding="tiny" />
 					</Text>
