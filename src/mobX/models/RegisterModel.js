@@ -52,6 +52,8 @@ export default class RegisterModel extends BaseModel {
 	})
 	@observable acceptTerms = new Field(this, "acceptTerms", {
 		pseudo: true,
+		type: FieldType.bool,
+		required: true,
 		validation: (v) => {
 			if (!v) return "You must accept the terms"
 		},
