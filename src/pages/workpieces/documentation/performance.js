@@ -141,7 +141,7 @@ export function PerformanceForm(props) {
 export function PerformanceOptions(props) {
 	const { t } = useTranslation()
 	const [showInstruments, setShowInstruments] = useState()
-	const searchResults = ["Guitare", "Violon"]
+	const searchResults = ["Guitare électrique", "Guitare basse", "Guitare jazz"]
 	const [selected, setSelected] = useState("")
 	const [search, setSearch] = useState("")
 
@@ -174,6 +174,7 @@ export function PerformanceOptions(props) {
 							<AddInstrumentDropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
+								//To Do: charactères tapés dans le field qui match sur la liste apparaissent en gras dynamiquement
 								searchResults={searchResults.filter((v) =>
 									v ? v.toLowerCase().indexOf(search.toLowerCase()) > -1 : true
 								)}
