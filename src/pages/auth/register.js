@@ -120,7 +120,7 @@ export const PasswordFieldWithScoreBar = observer((props) => {
 			<PasswordField {...props} />
 			<Row style={{ alignItems: "center" }}>
 				<Text secondary small style={{ flex: 3 }}>
-					{model.passwordStrength}
+					{t(model.passwordStrength)}
 				</Text>
 				<Flex />
 				<ProgressBar

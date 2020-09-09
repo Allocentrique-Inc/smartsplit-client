@@ -2,7 +2,7 @@ import BaseModel, { FieldType, Field } from "../BaseModel"
 import { observable, action, computed, runInAction } from "mobx"
 import { Colors } from "../../theme"
 import zxcvbn from "zxcvbn"
-import { registerUser } from "../../../api/users"
+import { registerUser, getEmail } from "../../../api/users"
 import { getI18n } from "react-i18next"
 export default class RegisterModel extends BaseModel {
 	/// fields
@@ -22,6 +22,15 @@ export default class RegisterModel extends BaseModel {
 			)
 			if (!success) return "errors:invalidEmail"
 			return null
+		},
+		asyncValidation: async (email) => {
+			try {
+				let result = await getEmail(email)
+				console.log(result)
+				return "errors:emailExists"
+			} catch (e) {
+				return null
+			}
 		},
 	})
 	@observable password = new Field(this, "password", {
@@ -98,7 +107,8 @@ export default class RegisterModel extends BaseModel {
 		}
 	}
 	@computed get passwordScore() {
-		return zxcvbn(this.password.value)
+		console.log(`password score ${zxcvbn(this.password.value).score}`)
+		return zxcvbn(this.password.value).score
 	}
 	async create(lang) {
 		let data = this.toJS()
