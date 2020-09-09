@@ -11,7 +11,7 @@ export async function registerUser(data) {
 }
 
 export async function getEmail(email) {
-	return await client.get(`/users/email/${encodeURI(email)}`)
+	return await client.head(`/users/email/${encodeURI(email)}`)
 }
 
 export function forgotPassword(email) {

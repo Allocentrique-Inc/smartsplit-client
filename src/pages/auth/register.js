@@ -35,7 +35,7 @@ import zxcvbn from "zxcvbn"
 // } from "../../../helpers/validators"
 import { CheckEmailModal } from "./check-email"
 import { registerUser } from "../../../api/users"
-import RegisterModel from "../../mobX/models/RegisterModel"
+import RegisterModel from "../../mobX/models/auth/RegisterModel"
 import AuthState from "../../mobX/states/AuthState"
 
 // export function passwordBarColor(score) {

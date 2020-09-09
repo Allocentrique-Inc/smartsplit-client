@@ -11,7 +11,7 @@ import {
 	resetPassword,
 	changePassword,
 } from "../../../api/users"
-import RegisterModel from "../models/RegisterModel"
+import RegisterModel from "../models/auth/RegisterModel"
 import { useHistory } from "react-router"
 /**
  * AuthState observable class
