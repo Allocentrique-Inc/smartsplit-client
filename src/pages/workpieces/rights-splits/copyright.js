@@ -17,9 +17,10 @@ import {
 } from "../../../forms"
 import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
+import { useRightSplit } from "../context"
 
-const CopyrightForm = observer(({ split }) => {
-
+const CopyrightForm = observer(() => {
+	const split = useRightSplit("copyright")
 	const [chartSize, setChartSize] = useState(0)
 	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
@@ -50,11 +51,6 @@ const CopyrightForm = observer(({ split }) => {
 		size: chartSize,
 		logo: CircledC,
 	}
-	// console.log("coucou", shares, shares.map(share => {
-	// 	share.roles = [...share.roles,
-	// 		!share.roles.includes("author") && "author",
-	// 		!share.roles.includes("compositor") && "compositor"]
-	// }))
 
 	function generateChartData() {
 		switch (mode) {
@@ -97,8 +93,6 @@ const CopyrightForm = observer(({ split }) => {
 	const totalShares = shares
 		.map((share) => share.shares)
 		.reduce((a, n) => a + n, 0)
-
-	console.log("CHART PROPS :", chartProps)
 	return (
 		<Row>
 			<Column of="section" flex={1}>

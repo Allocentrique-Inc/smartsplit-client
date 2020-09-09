@@ -29,6 +29,7 @@ function StoreDump() {
 	const stores = useStores()
 	const [version, refresh] = useReducer((n) => n + 1, 0)
 	console.log(toJS(stores.users))
+	console.log(stores.auth.tokenChanged)
 	// useEffect(() => {
 	// 	const timeout = setTimeout(() => refresh(), 1500)
 	// 	return function () {

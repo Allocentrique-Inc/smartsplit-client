@@ -1,6 +1,6 @@
 import { createCrudObservable, createEntityListObservable } from "../crud"
 import WorkpiecesCrudAPI, { createNewRightsSplits, listForUser, updateRightsSplits } from "../../../api/workpieces"
-import { action, computed, decorate, observable, observe } from "mobx"
+import { action, computed, decorate, observable } from "mobx"
 
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
@@ -72,13 +72,11 @@ export default class WorkpieceState extends WorkpieceListObservable {
 	}
 }
 
-export const RightsSplits = decorate(class {
+export class RightsSplits {
 	constructor(workpiece, rightsSplits = {}) {
-		this[$workpiece] = workpiece
-		console.log("id", workpiece.id, rightsSplits)
-
+		this.$workpiece = workpiece
 		this.copyright = new CopyrightSplit(rightsSplits.copyright)
-		this.performance = new PerformanceSplit(rightsSplits.interpretation)
+		this.performance = new PerformanceSplit(rightsSplits.performance)
 		this.recording = new RecordingSplit(rightsSplits.recording)
 		Object.defineProperties(this, {
 			_state: {
@@ -99,7 +97,30 @@ export const RightsSplits = decorate(class {
 				writable: true,
 				value: null,
 			},
+			_disposers: {
+				configurable: false,
+				enumerable: false,
+				writable: true,
+				value: null
+			}
 		})
+		decorate(this, {
+			copyright: observable,
+			performance: observable,
+			recording: observable,
+			_state: observable,
+			$hasChanged: observable,
+		})
+		this._disposers = [
+			this.copyright.shareHolders.observe(this._toggleHasChanged),
+			this.copyright.shareHolders.observe(this._toggleHasChanged),
+			this.copyright.shareHolders.observe(this._toggleHasChanged)
+		]
+	}
+
+	@action _toggleHasChanged() {
+		this.$hasChanged = true
+		this._disposers.forEach(disposer => disposer())
 	}
 
 	@action _updateRightsSplits(rightsSplits) {
@@ -151,14 +172,7 @@ export const RightsSplits = decorate(class {
 			throw e
 		}
 	}
-}, {
-	copyright: observable,
-	performance: observable,
-	recording: observable,
-	_state: observable,
-	$hasChanged: observable,
-})
-
+}
 
 export class RightSplit {
 	constructor(shares) {

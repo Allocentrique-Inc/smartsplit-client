@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import { Redirect, useRouteMatch, useParams, useHistory } from "react-router"
 
 import { useStorePath, useStores } from "../../../mobX"
@@ -11,6 +11,7 @@ import PerformanceForm from "./performance"
 import RecordingForm from "./recording"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
+import { useCurrentWorkpiece } from "../context"
 
 export default observer(() => {
 	const {t} = useTranslation()
@@ -41,10 +42,9 @@ export default observer(() => {
 		<Redirect
 			to={`/workpieces/${workpiece_id}/rights-splits/copyright`}
 		/>)
-	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
-
-
-
+	useStorePath("workpieces").fetch(workpiece_id)
+	// const workpiece = useStorePath("workpieces").fetch(workpiece_id)
+	const workpiece = useCurrentWorkpiece()
 	const {workpieces} = useStores()
 	const currentSplit = split_type
 
@@ -112,7 +112,7 @@ export default observer(() => {
 				</>
 			}
 		>
-			{!workpieces.isLoading && React.createElement(splits[currentSplit].form, {split: workpiece.rightsSplits[currentSplit]}) }
+			{!workpieces.isLoading && React.createElement(splits[currentSplit].form) }
 		</Layout>
 	)
 })
