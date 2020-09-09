@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import { observer } from "mobx-react"
-import { useStorePath } from "../../mobX"
+import { useStorePath, useStores } from "../../mobX"
 import { AsyncStorage } from "react-native"
 import { useTranslation } from "react-i18next"
 import { View } from "react-native"
@@ -36,6 +36,7 @@ import zxcvbn from "zxcvbn"
 import { CheckEmailModal } from "./check-email"
 import { registerUser } from "../../../api/users"
 import RegisterModel from "../../mobX/models/RegisterModel"
+import AuthState from "../../mobX/states/AuthState"
 
 // export function passwordBarColor(score) {
 // 	switch (score) {
@@ -107,8 +108,8 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 	)
 }
 
-export function PasswordFieldWithScoreBar(props) {
-	const model: RegisterModel = props.field.model
+export const PasswordFieldWithScoreBar = observer((props) => {
+	const model: RegisterModel = useStorePath("auth", "regModel")
 	//const {model} = field;
 	const { t } = useTranslation()
 	//const field = useFormField(props.name)
@@ -119,7 +120,7 @@ export function PasswordFieldWithScoreBar(props) {
 			<PasswordField {...props} />
 			<Row style={{ alignItems: "center" }}>
 				<Text secondary small style={{ flex: 3 }}>
-					{t(model.passwordStrength)}
+					{model.passwordStrength}
 				</Text>
 				<Flex />
 				<ProgressBar
@@ -131,7 +132,7 @@ export function PasswordFieldWithScoreBar(props) {
 			</Row>
 		</Column>
 	)
-}
+})
 
 const registerFormValues = {
 	agreeTerms: false,
@@ -140,7 +141,7 @@ const registerFormValues = {
 	passwordRepeat: "",
 }
 
-export function RegisterForm(props) {
+export const RegisterForm = observer((props) => {
 	const {
 		showForgotPassword,
 		showLogin,
@@ -157,7 +158,8 @@ export function RegisterForm(props) {
 	const [showCheckMails, setShowCheckMails] = useState(false)
 	const [isLoading, setIsLoading] = useState(false)
 	const [errorMessage, setErrorMessage] = useState(null)
-
+	const { auth } = useStores()
+	const model = auth.regModel
 	const handleChange = useCallback(
 		({ email, password, passwordRepeat, agreeTerms }) => {
 			if (!onSubmittable) return
@@ -171,67 +173,67 @@ export function RegisterForm(props) {
 		}
 	)
 
-	const handleSubmit = useCallback(async () => {
-		const {
-			email,
-			password,
-			passwordRepeat,
-			agreeTerms,
-		} = form.current.getFields()
-
-		let hasError = false
-		form.current.clearErrors()
-
-		if (!notEmptyValidator(email.value)) {
-			hasError = email.error = t("errors:enterEmail")
-		}
-
-		if (!acceptablePasswordValidator(password.value)) {
-			hasError = password.error = t("errors:strengthPassword")
-		}
-
-		if (!sameValidator(password.value, passwordRepeat.value)) {
-			hasError = passwordRepeat.error = t("errors:samePasswords")
-		}
-
-		if (hasError) return
-
-		try {
-			setIsLoading(true)
-			onSubmittable(false)
-
-			await registerUser({
-				email: email.value,
-				password: password.value,
-				locale: i18n.currentLanguage,
-			})
-
-			setShowCheckMails(true)
-
-			if (stayLoggedIn)
-				AsyncStorage.setItem("register:stayLoggedInNext", true).catch((e) =>
-					console.error("Failed to store stayLoggedInNext", e)
-				)
-
-			form.current.reset()
-		} catch (error) {
-			if (error.code === "user_conflict") {
-				email.error = (
-					<>
-						{t("errors:password.emailTaken")}
-						<link error bold onClick={showForgotPassword}>
-							{t("errors:password.forgotEmail")}
-						</link>
-					</>
-				)
-			} else {
-				setErrorMessage(error.message)
-				onSubmittable(true)
-			}
-		} finally {
-			setIsLoading(false)
-		}
-	}, [form, stayLoggedIn, i18n, t])
+	// const handleSubmit = useCallback(async () => {
+	// 	const {
+	// 		email,
+	// 		password,
+	// 		passwordRepeat,
+	// 		agreeTerms,
+	// 	} = form.current.getFields()
+	//
+	// 	let hasError = false
+	// 	form.current.clearErrors()
+	//
+	// 	if (!notEmptyValidator(email.value)) {
+	// 		hasError = email.error = t("errors:enterEmail")
+	// 	}
+	//
+	// 	if (!acceptablePasswordValidator(password.value)) {
+	// 		hasError = password.error = t("errors:strengthPassword")
+	// 	}
+	//
+	// 	if (!sameValidator(password.value, passwordRepeat.value)) {
+	// 		hasError = passwordRepeat.error = t("errors:samePasswords")
+	// 	}
+	//
+	// 	if (hasError) return
+	//
+	// 	try {
+	// 		setIsLoading(true)
+	// 		onSubmittable(false)
+	//
+	// 		await registerUser({
+	// 			email: email.value,
+	// 			password: password.value,
+	// 			locale: i18n.currentLanguage,
+	// 		})
+	//
+	// 		setShowCheckMails(true)
+	//
+	// 		if (stayLoggedIn)
+	// 			AsyncStorage.setItem("register:stayLoggedInNext", true).catch((e) =>
+	// 				console.error("Failed to store stayLoggedInNext", e)
+	// 			)
+	//
+	// 		form.current.reset()
+	// 	} catch (error) {
+	// 		if (error.code === "user_conflict") {
+	// 			email.error = (
+	// 				<>
+	// 					{t("errors:password.emailTaken")}
+	// 					<link error bold onClick={showForgotPassword}>
+	// 						{t("errors:password.forgotEmail")}
+	// 					</link>
+	// 				</>
+	// 			)
+	// 		} else {
+	// 			setErrorMessage(error.message)
+	// 			onSubmittable(true)
+	// 		}
+	// 	} finally {
+	// 		setIsLoading(false)
+	// 	}
+	// }, [form, stayLoggedIn, i18n, t])
 
 	return (
 		<>
@@ -247,11 +249,11 @@ export function RegisterForm(props) {
 				visible={showTerms}
 				onRequestClose={() => setShowTerms(false)}
 				onAgree={() => {
-					form.current.updateValues({ agreeTerms: true })
+					model.acceptTerms.setValue(true)
 					setShowTerms(false)
 				}}
 				onCancel={() => {
-					form.current.updateValues({ agreeTerms: false })
+					model.acceptTerms.setValue(false)
 					setShowTerms(false)
 				}}
 			/>
@@ -271,27 +273,31 @@ export function RegisterForm(props) {
 					/>
 				</Column>
 
-				<TextDivider text={t("general:or")} />*/}
-
+				*/}
 				<Column of="group">
 					<TextField
-						name="email"
-						label={t("forms:labels.enterEmail")}
+						field={model.email}
 						placeholder={t("forms:placeholders.emailExample")}
+						autoCompleteType="off"
 					/>
 
 					<PasswordFieldWithScoreBar
-						name="password"
-						label={t("forms:labels.choosePassword")}
+						field={model.password}
 						placeholder={t("forms:placeholders.noCharacters")}
+						autoCompleteType="off"
 					/>
 
 					<PasswordField
-						name="passwordRepeat"
+						field={model.password2}
 						placeholder={t("forms:labels.repeatPassword")}
 					/>
 
-					<CheckBox name="agreeTerms">
+					<CheckBox
+						checked={model.acceptTerms.value}
+						onChange={(checked) => {
+							model.acceptTerms.setValue(checked)
+						}}
+					>
 						<Text>
 							{t("register:conditions.paragraph")(
 								() => setShowTerms(true),
@@ -300,26 +306,27 @@ export function RegisterForm(props) {
 						</Text>
 					</CheckBox>
 
-					{errorMessage && <Text error>{errorMessage}</Text>}
+					{model.saveError && <Text error>{t(model.saveError)}</Text>}
 				</Column>
 			</Column>
 		</>
 	)
-}
+})
 
-export default function RegisterPage(props) {
+const RegisterPage = observer((props) => {
 	const [t] = useTranslation()
 	const history = useHistory()
-
-	const form = useRef()
+	const auth: AuthState = useStorePath("auth")
+	const model: RegisterModel = useStorePath("auth", "regModel")
+	//const form = useRef()
 	const [canSubmit, setCanSubmit] = useState(false)
 	const [stayLoggedIn, setStayLoggedIn] = useState(false)
 
 	const buttonSize = Platform.OS === "web" ? "medium" : "large"
 
-	function submit() {
+	/*function submit() {
 		form.current.submit()
-	}
+	}*/
 
 	return (
 		<AuthLayout>
@@ -336,7 +343,6 @@ export default function RegisterPage(props) {
 						onSuccess={layoutProps.showLogin}
 						stayLoggedIn={stayLoggedIn}
 						onSubmittable={setCanSubmit}
-						formRef={form}
 					/>
 
 					<Platform web={Row} native={Column} of="group">
@@ -353,8 +359,10 @@ export default function RegisterPage(props) {
 
 						<Button
 							text={t("general:buttons.createAccount")}
-							onClick={submit}
-							disabled={!canSubmit}
+							onClick={async () => {
+								let success = await auth.submitRegistration()
+							}}
+							disabled={!model.isValid || model.busy}
 							size={buttonSize}
 						/>
 
@@ -371,4 +379,5 @@ export default function RegisterPage(props) {
 			)}
 		</AuthLayout>
 	)
-}
+})
+export default RegisterPage

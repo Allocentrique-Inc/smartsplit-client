@@ -12,12 +12,13 @@ import {
 	changePassword,
 } from "../../../api/users"
 import RegisterModel from "../models/RegisterModel"
-
+import { useHistory } from "react-router"
 /**
  * AuthState observable class
  *
  */
 export default class AuthState extends BaseState {
+	//history
 	reInitializeOnAuth = false
 	constructor(root) {
 		super(root)
@@ -48,9 +49,6 @@ export default class AuthState extends BaseState {
 	user_id = null
 
 	@observable regModel: RegisterModel = null
-	@computed get isRegistering() {
-		return this.regModel !== null
-	}
 
 	@computed get user() {
 		return this.user_id && this.root.users.get(this.user_id)
@@ -61,6 +59,9 @@ export default class AuthState extends BaseState {
 	@action async init(refreshToken = false) {
 		//console.log("AuthState::init called")
 		//console.log(`access token is ${this.accessToken}`)
+		//this.history = useHistory()
+		this.regModel = new RegisterModel()
+		this.regModel.init()
 		if (this.accessToken) {
 			//setGlobalAccessToken(this.accessToken)
 			this.isReturning = true
@@ -156,22 +157,18 @@ export default class AuthState extends BaseState {
 		*/
 	}
 
-	@action register() {
-		this.regModel = new RegisterModel()
-		this.regModel.init()
-	}
-	@action clearRegister() {
-		this.regModel = null
-	}
-
 	@action async submitRegistration() {
-		try {
-			let success = await this.regModel.submit()
-			if (success) {
-				this.clearRegister()
-				return true
-			}
-		} catch (e) {}
+		let validity = await this.regModel.validate()
+		alert(validity)
+		if (validity) {
+			try {
+				let success = await this.regModel.submit()
+				if (success) {
+					//this.clearRegister()
+					return true
+				}
+			} catch (e) {}
+		}
 		return false
 	}
 

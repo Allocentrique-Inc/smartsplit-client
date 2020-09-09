@@ -56,7 +56,7 @@ export default class BaseModel {
 	 * @private
 	 */
 	__fields = []
-
+	__submittable = []
 	/**
 	 * this is set when BaseModel.save() is called during validation and saving
 	 * @type {boolean}
@@ -140,7 +140,7 @@ export default class BaseModel {
 	 */
 	toJS(excludePrimary = false) {
 		const js = {}
-		this.fields().forEach((k) => {
+		this.__submittable.forEach((k) => {
 			if (excludePrimary && k === this.primaryKey) return
 			const value = toJS(this[k].transform(this[k].value, this))
 			if (this[k].postAlias) js[this[k].postAlias] = value
@@ -375,8 +375,8 @@ export default class BaseModel {
 	}
 	@action async submit(...args) {
 		console.log("model submitted")
-		let validity = await this.validate()
-		if (validity) {
+		await this.validate()
+		if (this.isValid) {
 			console.log("model is valid trying to save")
 			try {
 				return this.save(...args)

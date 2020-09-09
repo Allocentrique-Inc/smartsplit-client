@@ -212,7 +212,8 @@ export default class Field {
 	 */
 	constructor(model: Model, fieldName: string, options: FieldOptions) {
 		this.model = model
-		if (!options["pseudo"]) this.model.__fields.push(fieldName)
+		this.model.__fields.push(fieldName)
+		if (!options["pseudo"]) this.model.__submittable.push(fieldName)
 		this.fieldName = fieldName
 		Object.keys(options).forEach((k) => {
 			// console.log(`metaData[target][${k}][${property}] = ${options[k]}`)
@@ -550,13 +551,17 @@ export default class Field {
 	@action
 	validateSync() {
 		// first check if  required anc null or empty
+		console.log("validating " + this.fieldName)
 		this.error = null
 		/*console.log(
       this.fieldName + " required : " + (this.isRequired ? "true" : "false"),
       4,
     );*/
 		if (!this.isRequired && !this.value) return null
-		if ((this.isRequired && this.value === null) || this.value === "") {
+		if (
+			this.isRequired &&
+			(this.value === null || this.value === "" || this.value === undefined)
+		) {
 			this.error = this.requiredMessage
 			return this.requiredMessage
 		}

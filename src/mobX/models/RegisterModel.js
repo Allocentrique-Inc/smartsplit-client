@@ -1,11 +1,18 @@
 import BaseModel, { FieldType, Field } from "../BaseModel"
-import { observable, action, computed } from "mobx"
+import { observable, action, computed, runInAction } from "mobx"
 import { Colors } from "../../theme"
 import zxcvbn from "zxcvbn"
 import { registerUser } from "../../../api/users"
+import { getI18n } from "react-i18next"
 export default class RegisterModel extends BaseModel {
 	/// fields
-
+	constructor(parent) {
+		super(parent)
+		const lang = getI18n()
+		lang.on("languageChanged", () => {
+			this.locale.setValue(lang.language)
+		})
+	}
 	@observable email = new Field(this, "email", {
 		required: true,
 		requiredMessage: "errors:enterEmail",
@@ -16,16 +23,16 @@ export default class RegisterModel extends BaseModel {
 			if (!success) return "errors:invalidEmail"
 			return null
 		},
-		asyncValidation: (v) => {},
 	})
-	@observable password = new Field(this, "email", {
+	@observable password = new Field(this, "password", {
 		required: true,
 		validation: (v) => {
-			if (v.length < 8) return "errors:passwordStrength"
+			console.log("validating password")
+			if (v.length < 8) return "errors:strengthPassword"
 			return null
 		},
 	})
-	@observable password2 = new Field(this, "email", {
+	@observable password2 = new Field(this, "password2", {
 		required: true,
 		pseudo: true,
 		validation: (v) => {
@@ -39,6 +46,9 @@ export default class RegisterModel extends BaseModel {
 		validation: (v) => {
 			if (!v) return "You must accept the terms"
 		},
+	})
+	@observable locale = new Field(this, "locale", {
+		default: getI18n().language,
 	})
 
 	///computed values
@@ -93,6 +103,14 @@ export default class RegisterModel extends BaseModel {
 	async create(lang) {
 		let data = this.toJS()
 		data.locale = lang
-		let response = await registerUser()
+		try {
+			let response = await registerUser(data)
+		} catch (error) {
+			if (error.code === "user_conflict")
+				this.saveError = "errors:password.emailTaken"
+			runInAction(() => {
+				this.email.error = "errors:password.emailTaken"
+			})
+		}
 	}
 }
