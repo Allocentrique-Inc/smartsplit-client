@@ -4,6 +4,9 @@ import { registerUser, getEmail } from "../../../../api/users"
 import { getI18n } from "react-i18next"
 import PasswordModel from "./PasswordModel"
 
+/**
+ * inherits fields password and password2 form PasswordModel
+ */
 export default class RegisterModel extends PasswordModel {
 	/// fields
 	constructor(parent) {
