@@ -35,22 +35,23 @@ export default function AddInstrumentDropdown({
 				onSelect={onSelect}
 				searchResults={searchResults}
 				{...nextProps}
-			/>
-			{!searchResults.length && (
-				<TouchableWithoutFeedback
-					onPress={() => {
-						onSelect(nextProps.search)
-					}}
-				>
-					<Row of="component" padding="component" style={Styles.actionFrame}>
-						<PlusCircle />
-						<Text bold action>
-							{/* To Do: Voir comment placer la traduction */}
-							Ajouter <Text bold>{nextProps.search}</Text> comme instrument
-						</Text>
-					</Row>
-				</TouchableWithoutFeedback>
-			)}
+			>
+				{!searchResults.length && (
+					<TouchableWithoutFeedback
+						onPress={() => {
+							onSelect(nextProps.search)
+						}}
+					>
+						<Row of="component" padding="component" style={Styles.actionFrame}>
+							<PlusCircle />
+							<Text bold action>
+								{/* To Do: Voir comment placer la traduction */}
+								Ajouter <Text bold>{nextProps.search}</Text> comme instrument
+							</Text>
+						</Row>
+					</TouchableWithoutFeedback>
+				)}
+			</Autocomplete>
 		</Column>
 	)
 }
