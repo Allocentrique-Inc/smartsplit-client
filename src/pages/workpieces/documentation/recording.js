@@ -42,7 +42,7 @@ export default function Performance() {
 	}
 
 	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+		history.push(`/workpieces/${workpiece.id}/documentation/release`)
 	}
 
 	return (
