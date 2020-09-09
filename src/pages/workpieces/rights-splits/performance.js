@@ -18,7 +18,7 @@ import CircledStar from "../../../svg/circled-star"
 import { observer } from "mobx-react"
 
 
-const InterpretationForm = observer(({split}) => {
+const PerformanceForm = observer(({split}) => {
 	const [chartSize, setChartSize] = useState(0)
 	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
@@ -56,15 +56,15 @@ const InterpretationForm = observer(({split}) => {
 					<Row of="component">
 						<CircledC size={Metrics.size.small} color={Colors.action} />
 						<Text action bold>
-							{t("rightSplits:titles.interpretation").toUpperCase()}
+							{t("rightSplits:titles.performance").toUpperCase()}
 						</Text>
 					</Row>
 					<Column of="component">
 						<Heading level={1}>
-							{t("rightSplits:headers.interpretation")}
+							{t("rightSplits:headers.performance")}
 						</Heading>
 						<Paragraph>
-							{t("rightSplits:paragraphs.interpretation")()}
+							{t("rightSplits:paragraphs.performance")()}
 						</Paragraph>
 					</Column>
 				</Column>
@@ -125,4 +125,4 @@ const InterpretationForm = observer(({split}) => {
 	)
 })
 
-export default InterpretationForm
+export default PerformanceForm

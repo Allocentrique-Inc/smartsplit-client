@@ -5,7 +5,7 @@ import TestState from "./states/TestState"
 import UserState from "./states/UserState"
 import AuthState from "./states/AuthState"
 import AdminState from "./states/AdminState"
-import WorkpieceState from "./states/workpieces"
+import WorkpieceState from "./states/WorkpieceState"
 /**
  * L'instance de base est passé a tout les sub-stores pour que chaque store
  * aie accès aux autres branches

@@ -233,7 +233,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Interprète",
-				value: "interpreter",
+				value: "performer",
 			},
 		],
 	},
@@ -478,12 +478,12 @@ export const rightSplits = {
 	},
 	titles: {
 		copyright: "Droits d'auteur",
-		interpretation: "Interprétation",
+		performance: "Interprétation",
 		recording: "Enregistrement sonore",
 	},
 	headers: {
 		copyright: "Qui a inventé cette pièce musicale ?",
-		interpretation: "Qui a joué sur l'enregistrement sonore ?",
+		performance: "Qui a joué sur l'enregistrement sonore ?",
 		recording: "Qui possède l'enregistrement sonore ?",
 	},
 
@@ -496,7 +496,7 @@ export const rightSplits = {
 				équitablement. Mais tu peux faire autrement.
 			</>
 		),
-		interpretation: () => (
+		performance: () => (
 			<>
 				On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
 				autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}

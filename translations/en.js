@@ -232,8 +232,8 @@ export const forms = {
 				value: "arranger",
 			},
 			{
-				displayValue: "Interpreter",
-				value: "interpreter",
+				displayValue: "Performer",
+				value: "performer",
 			},
 		],
 	},
@@ -475,12 +475,12 @@ export const rightSplits = {
 	},
 	titles: {
 		copyright: "Copyright",
-		interpretation: "Interpretation",
+		performance: "Performance",
 		recording: "Sound recording",
 	},
 	headers: {
 		copyright: "Who invented this musical piece?",
-		interpretation: "Who played on the audio recording?",
+		performance: "Who played on the audio recording?",
 		recording: "Who owns the audio recording?",
 	},
 
@@ -492,7 +492,7 @@ export const rightSplits = {
 				common to share the copyright fairly. But you can do otherwise.
 			</>
 		),
-		interpretation: () => (
+		performance: () => (
 			<>
 				Seperate here the <b>neigbor right</b> between <b>performers</b>,
 				whether musicians or singers. <i>Group</i> members share this right with

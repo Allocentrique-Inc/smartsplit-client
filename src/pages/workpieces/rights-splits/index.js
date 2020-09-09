@@ -7,29 +7,32 @@ import Button from "../../../widgets/button"
 import { Flex, Row } from "../../../layout"
 import { Text } from "../../../text"
 import CopyrightForm from "./copyright"
-import InterpretationForm from "./interpretation"
+import PerformanceForm from "./performance"
 import RecordingForm from "./recording"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 
-const splits = {
-	copyright: {
-		form: CopyrightForm,
-		progress: 1 / 3 * 100,
-	},
-	interpretation: {
-		form: InterpretationForm,
-		progress: 2 / 3 * 100,
-	},
-	recording: {
-		form: RecordingForm,
-		progress: (10 / 11) * 100,
-	},
-}
 export default observer(() => {
 	const {t} = useTranslation()
 	const history = useHistory()
 	const { workpiece_id, split_type } = useParams()
+	const splits = {
+		copyright: {
+			form: CopyrightForm,
+			progress: 1 / 3 * 100,
+			title: t("rightSplits:titles.copyright")
+		},
+		performance: {
+			form: PerformanceForm,
+			progress: 2 / 3 * 100,
+			title: t("rightSplits:titles.performance")
+		},
+		recording: {
+			form: RecordingForm,
+			progress: (10 / 11) * 100,
+			title: t("rightSplits:titles.recording")
+		},
+	}
 	if (!workpiece_id) return (
 		<Redirect
 			to={`/workpieces/${workpiece_id}/rights-splits/copyright`}
@@ -60,15 +63,13 @@ export default observer(() => {
 	}
 	function toPreviousPage() {
 		currentSplit === "copyright" &&  navigateToSummary()
-		currentSplit === "interpretation" && history.push(`/workpieces/${workpiece.id}/rights-splits/copyright`)
-		currentSplit === "recording" && history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+		currentSplit === "performance" && history.push(`/workpieces/${workpiece.id}/rights-splits/copyright`)
+		currentSplit === "recording" && history.push(`/workpieces/${workpiece.id}/rights-splits/performance`)
 	}
 
-
-
 	function toNextPage() {
-		currentSplit === "copyright" &&  history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
-		currentSplit === "interpretation" && history.push(`/workpieces/${workpiece.id}/rights-splits/recording`)
+		currentSplit === "copyright" &&  history.push(`/workpieces/${workpiece.id}/rights-splits/performance`)
+		currentSplit === "performance" && history.push(`/workpieces/${workpiece.id}/rights-splits/recording`)
 		currentSplit === "recording" && navigateToSummary()
 	}
 
@@ -78,7 +79,7 @@ export default observer(() => {
 			progress={splits[currentSplit].progress}
 			path={[
 				t("rightSplits:navbar.rightSplits"),
-				t("rightSplits:titles.copyright"),
+				splits[currentSplit].title,
 			]}
 			actions={
 				<Button

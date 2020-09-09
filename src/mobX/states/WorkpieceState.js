@@ -16,16 +16,19 @@ export class Workpiece extends WorkpieceObservable {
 		super(id, data, initState)
 		this.rightsSplits = new RightsSplits(this, rightSplit)
 	}
+
 	@observable rightsSplits
+
 	set(props) {
 		if (props.data) {
-			const {rightSplit } = props.data
+			const { rightSplit } = props.data
 			if (rightSplit) {
 				this.rightsSplits._updateRightsSplits(rightSplit)
 			}
 		}
 
 	}
+
 	setData(data) {
 		this.set({ data: { ...this.data, ...data } })
 	}
@@ -37,6 +40,7 @@ const WorkpieceListObservable = createEntityListObservable(Workpiece, "workpiece
 export default class WorkpieceState extends WorkpieceListObservable {
 	@observable error = null
 	@observable isLoading = false
+
 	async init(userId) {
 		this.isLoading = true
 		userId && await this.fetchWorkpieceList(userId)
@@ -44,7 +48,8 @@ export default class WorkpieceState extends WorkpieceListObservable {
 	}
 
 	//Method overwrites current list atm
-	@action async fetchWorkpieceList(userId) {
+	@action
+	async fetchWorkpieceList(userId) {
 		this.isLoading = true
 		this.error = null
 		try {
@@ -61,6 +66,7 @@ export default class WorkpieceState extends WorkpieceListObservable {
 
 		}
 	}
+
 	get all() {
 		return Object.values(this.list)
 	}
@@ -70,10 +76,11 @@ export const RightsSplits = decorate(class {
 	constructor(workpiece, rightsSplits = {}) {
 		this[$workpiece] = workpiece
 		console.log("id", workpiece.id, rightsSplits)
+
 		this.copyright = new CopyrightSplit(rightsSplits.copyright)
-		this.interpretation = new InterpretationSplit(rightsSplits.interpretation)
+		this.performance = new PerformanceSplit(rightsSplits.interpretation)
 		this.recording = new RecordingSplit(rightsSplits.recording)
-			Object.defineProperties(this, {
+		Object.defineProperties(this, {
 			_state: {
 				configurable: true,
 				enumerable: false,
@@ -84,7 +91,7 @@ export const RightsSplits = decorate(class {
 				configurable: true,
 				enumerable: false,
 				writable: true,
-				value: true,
+				value: false,
 			},
 			$error: {
 				configurable: false,
@@ -93,10 +100,6 @@ export const RightsSplits = decorate(class {
 				value: null,
 			},
 		})
-		observe(this.copyright, () => this.$hasChanged = true)
-		observe(this.interpretation, () => this.$hasChanged = true)
-		observe(this.recording, () => this.$hasChanged = true)
-
 	}
 
 	@action _updateRightsSplits(rightsSplits) {
@@ -115,13 +118,14 @@ export const RightsSplits = decorate(class {
 
 		Object.keys(this).forEach(type => {
 			output[type] = this[type].allShares
-			Object.assign(output, {type: this[type].allShares})
+			Object.assign(output, { type: this[type].allShares })
 		})
 
 		return output
 	}
 
-	@action async save() {
+	@action
+	async save() {
 		if (!this.$hasChanged) return
 
 		try {
@@ -131,12 +135,12 @@ export const RightsSplits = decorate(class {
 			if (this._state === "draft") {
 				newState = await updateRightsSplits(
 					this[$workpiece].id,
-					this._exportRightsSplits()
+					this._exportRightsSplits(),
 				)
 			} else {
 				newState = await createNewRightsSplits(
 					this[$workpiece].id,
-					this._exportRightsSplits()
+					this._exportRightsSplits(),
 				)
 			}
 
@@ -149,32 +153,30 @@ export const RightsSplits = decorate(class {
 	}
 }, {
 	copyright: observable,
-	interpretation: observable,
+	performance: observable,
 	recording: observable,
 	_state: observable,
 	$hasChanged: observable,
 })
 
 
-
-
-export class RightSplit{
+export class RightSplit {
 	constructor(shares) {
 		if (shares) this.updateShares(shares)
 	}
 
-	 @observable shareHolders = new Map()
+	@observable shareHolders = new Map()
 
-	 @action removeRightHolder(id) {
+	@action removeRightHolder(id) {
 		this.shareHolders.delete(id)
 	}
 
-	 @action updateRightHolder(id, share) {
+	@action updateRightHolder(id, share) {
 		!share && this.shareHolders.get(id).reset()
 		!!share && this.shareHolders.get(id).set(share)
 	}
 
-	 @action addRightHolder(id, share = {}) {
+	@action addRightHolder(id, share = {}) {
 		if (this.shareHolders.has(id)) {
 			throw new Error("Cannot add share: this user already has a share")
 		}
@@ -210,28 +212,36 @@ export class RightSplit{
 		return Array.from(this.shareHolders.values())
 	}
 }
-export class CopyrightSplit extends RightSplit {}
-export class InterpretationSplit extends RightSplit {}
-export class RecordingSplit extends RightSplit {}
+
+export class CopyrightSplit extends RightSplit {
+}
+
+export class PerformanceSplit extends RightSplit {
+}
+
+export class RecordingSplit extends RightSplit {
+}
 
 const initShareData = {
-	shares : 1,
-	roles : [],
-	comment : "",
-	vote : "undecided",
+	shares: 1,
+	roles: [],
+	comment: "",
+	vote: "undecided",
 }
+
 export class SplitShare {
 	constructor(rightHolder_id, data) {
 		Object.assign(this, initShareData)
 		Object.assign(this, data)
 		this.rightHolder = rightHolder_id
 	}
+
 	@observable shares = initShareData.shares
 	@observable roles = initShareData.roles
 	@observable comment = initShareData.comment
 	@observable vote = initShareData.vote
-	set = share => Object.assign(this, share)
-	@action setData = (key, data)  => Object.assign(this[key], data)
+	@action set = share => Object.assign(this, share)
+	@action setData = (key, data) => Object.assign(this[key], data)
 	@action reset = () => Object.assign(this, initShareData)
 }
 
