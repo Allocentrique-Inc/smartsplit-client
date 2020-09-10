@@ -11,6 +11,7 @@ import {
 import Documentation from "./workpieceStates/Documentation"
 import RightsSplits from "./workpieceStates/RightSplits"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
+import { assignEnumProps } from "../../utils/utils"
 
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,

@@ -23,60 +23,6 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export function Creation() {
-	const { t } = useTranslation()
-	const history = useHistory()
-	const workpiece = useCurrentWorkpiece()
-
-	function saveAndQuit() {
-		history.push("/dashboard/")
-	}
-
-	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
-	function navigateToCreation() {
-		history.push(`/workpieces/${workpiece.id}/documentation/performance`)
-	}
-	return (
-		<Layout
-			workpiece={workpiece}
-			path={[
-				t("document:navbar.document"),
-				t("document:navbar.pages.creation"),
-			]}
-			progress={12.5}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveClose")}
-					onClick={saveAndQuit}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={navigateToSummary}
-						/>
-						<Flex />
-						<Button
-							primary
-							text={t("general:buttons.pass")}
-							onClick={navigateToCreation}
-						/>
-					</Row>
-					<Row flex={1} />
-				</>
-			}
-		>
-			<CreationForm />
-		</Layout>
-	)
-}
 const CreationForm = observer(() => {
 	const [date, setDate] = useState("")
 	const searchResults = []

@@ -19,7 +19,7 @@ const DocumentationPage = observer(() => {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const { workpieces } = useStores()
-	// Type représente le type de documentation à compléter : Création, Paroles etc...
+	// Type représente le type de documentation : Création, Paroles, Sortie etc...
 	const { workpiece_id, type } = useParams()
 	if (!workpiece_id) navigateToSummary()
 	else if (!type)

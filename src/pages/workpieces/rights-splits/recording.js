@@ -22,6 +22,7 @@ const RecordingForm = observer(() => {
 	const [chartSize, setChartSize] = useState(0)
 	const split = useRightSplit("recording")
 	const shares = split.allShares
+	console.log("SHARES", shares)
 	const [mode, setMode] = useState("equal")
 	const { t } = useTranslation()
 	const shareColors = Object.values(Colors.secondaries)
@@ -87,15 +88,20 @@ const RecordingForm = observer(() => {
 								}
 								onClose={() => split.removeRightHolder(share.rightHolder)}
 							>
-								<CheckBoxGroup selection={selection} onChange={setSelection}>
-									<CheckBoxGroupButton
-										value="author"
-										label={t("roles:singer")}
-									/>
-									<CheckBoxGroupButton
-										value="adapter"
-										label={t("roles:musician")}
-									/>
+								<CheckBoxGroup
+									selection={share.roles}
+									onChange={(roles) => share.setData("roles", roles)}
+								>
+									<Column>
+										<CheckBoxGroupButton
+											value="singer"
+											label={t("roles:singer")}
+										/>
+										<CheckBoxGroupButton
+											value="musician"
+											label={t("roles:musician")}
+										/>
+									</Column>
 								</CheckBoxGroup>
 							</ShareCard>
 						))}

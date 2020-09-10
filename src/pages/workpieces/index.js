@@ -27,13 +27,7 @@ import ChevronDown from "../../svg/chevron-down"
 import { DocumentYourWork, ProtectYourWork, ShareYourCopyright } from "./cards"
 import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
-import Recording from "./documentation/recording"
-import { Creation } from "./documentation/creation"
-import Performance from "./documentation/performance"
-import Files from "./documentation/files"
 import DocumentationPage from "./documentation"
-import Lyrics from "./documentation/lyrics"
-import Release from "./documentation/release"
 
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")

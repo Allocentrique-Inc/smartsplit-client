@@ -1,4 +1,10 @@
-import { observable, action, computed, flow as asyncAction } from "mobx"
+import {
+	observable,
+	action,
+	computed,
+	flow as asyncAction,
+	decorate,
+} from "mobx"
 import { createSaveDecorator } from "mobx-decorators"
 import { AsyncStorage, Platform } from "react-native"
 export default class BaseState {

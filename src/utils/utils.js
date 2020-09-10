@@ -98,3 +98,7 @@ export function getFullName(user) {
 		user.lastName && ` ${user.lastName}`
 	}`
 }
+
+export function assignEnumProps(target, source) {
+	Object.keys(target).forEach((key) => (target[key] = source[key]))
+}

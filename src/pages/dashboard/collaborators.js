@@ -16,6 +16,7 @@ import {
 	TextField,
 } from "../../forms"
 import { SearchAndTag } from "../../forms"
+import { inviteNewUser } from "../../../api/users"
 
 export default function CollaboratorsPage() {
 	const [modalOpen, setModal] = useState(false)
@@ -70,8 +71,8 @@ export default function CollaboratorsPage() {
 }
 
 const collaboratorFormValues = {
-	firstname: "",
-	lastname: "",
+	firstName: "",
+	lastName: "",
 	artistName: "",
 	email: "",
 	groups: [],
@@ -87,17 +88,28 @@ export function CollaboratorForm({
 	const { t } = useTranslation()
 	const form = formRef || useRef()
 	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
-	const handleChange = ({ firstname, lastname, artistName, email, groups }) => {
+	const handleChange = ({ firstName, lastName, artistName, email, groups }) => {
 		if (!onSubmittable) return
 		onSubmittable(
-			notEmptyValidator(firstname) &&
-				notEmptyValidator(lastname) &&
+			notEmptyValidator(firstName) &&
+				notEmptyValidator(lastName) &&
 				notEmptyValidator(artistName) &&
 				emailValidator(email) &&
 				notEmptyValidator(groups)
 		)
 	}
-	const handleSubmit = () => {}
+
+	//Pas de validation de champs car refactor de form pour bientot.
+	//De plus, le backend accepte uniquement les paramètres firstName, lastName et email
+	//pour le moment
+	const handleSubmit = async ({ firstName, lastName, email }) => {
+		try {
+			const user = await inviteNewUser({ firstName, lastName, email })
+			console.log(user)
+		} catch (e) {
+			console.log(e)
+		}
+	}
 	return (
 		<Form
 			ref={form}
@@ -108,10 +120,10 @@ export function CollaboratorForm({
 			<Column of="group">
 				<Row of="component">
 					<TextField
-						name="firstname"
+						name="firstName"
 						label={t("forms:labels.legalFirstName")}
 					/>
-					<TextField name="lastname" label={t("forms:labels.legalLastName")} />
+					<TextField name="lastName" label={t("forms:labels.legalLastName")} />
 				</Row>
 				<TextField
 					name="artistName"
