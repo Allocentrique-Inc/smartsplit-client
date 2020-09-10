@@ -664,5 +664,5 @@ export const document = {
 			language: "Langue(s)",
 			addLanguage: "Ajouter unbe langue...",
 		},
-	},
+	}
 }
