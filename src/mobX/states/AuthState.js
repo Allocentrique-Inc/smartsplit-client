@@ -167,7 +167,6 @@ export default class AuthState extends BaseState {
 
 	@action async submitRegistration() {
 		let validity = await this.regModel.validate()
-		alert(validity)
 		if (validity) {
 			try {
 				let success = await this.regModel.submit()

@@ -174,6 +174,7 @@ const RegisterPage = observer((props) => {
 							text={t("general:buttons.createAccount")}
 							onClick={async () => {
 								let success = await auth.submitRegistration()
+								if (success) layoutProps.showLogin()
 							}}
 							disabled={!model.isValid || model.busy}
 							size={buttonSize}
