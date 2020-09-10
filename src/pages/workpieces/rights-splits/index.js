@@ -10,6 +10,8 @@ import Files from "../documentation/files"
 
 import Lyrics from "../documentation/lyrics"
 
+import Release from "../documentation/release"
+
 export default function (props) {
 	return (
 		<Switch>
@@ -31,6 +33,9 @@ export default function (props) {
 				component={RecordingPage}
 			/>
 			<Route
+				path="/workpieces/:workpiece_id/documentation/release"
+				component={Release}/>
+      <Route
 				path="/workpieces/:workpiece_id/documentation/creation"
 				component={Creation}
 			/>

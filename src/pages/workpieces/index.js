@@ -33,6 +33,8 @@ import Files from "./documentation/files"
 
 import Lyrics from "./documentation/lyrics"
 
+import Release from "./documentation/release"
+
 export default function WorkpiecesRouter() {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
@@ -51,6 +53,9 @@ export default function WorkpiecesRouter() {
 				<Route path="/workpieces/:workpiece_id/protect">
 					<ProtectWork />
 				</Route>
+				<Route path="/workpieces/:workpiece_id/documentation/release">
+					<Release />
+        </Route>
 				<Route path="/workpieces/:workpiece_id/documentation/creation">
 					<Creation />
 				</Route>

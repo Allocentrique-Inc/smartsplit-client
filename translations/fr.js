@@ -237,7 +237,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositeur",
-				value: "composor",
+				value: "compooer",
 			},
 			{
 				displayValue: "Arrangeur",
@@ -245,8 +245,8 @@ export const forms = {
 			},
 			{
 				displayValue: "Interprète",
-				value: "peformer",
-			},
+				value: "performer",
+      },
 			{
 				displayValue: "Mixeur",
 				value: "mixer",
@@ -539,6 +539,7 @@ export const document = {
 			singer: "Chanteur",
 			musician: "Musicien",
 			performer: "Ajouter un interprète...",
+			release: "Sortie",
 			addPerformer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
@@ -572,6 +573,25 @@ export const document = {
 				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
 		},
 	},
+	release: {
+		category: "SORTIE",
+		title: "Cette pièce est-elle sortie ?",
+		paragraph:
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Date  de sortie",
+		dateHint: "Laisse vide si non déterminée",
+		label: "Label",
+		addLabel: "Ajouter une étiquette",
+		format: "Format du produit",
+		ep: "Titre de l'EP",
+		supports: {
+			support: "Support",
+			digital: "Numérique",
+			distribution: "Distribution",
+			addDistribution: "Ajouter un distributeur...",
+			upc: "Code UPC/EAN",
+			physical: "Physique",
+		},
 	files: {
 		category: "FILES",
 		title: "Quels fichiers veux-tu rendre accessible ?",
