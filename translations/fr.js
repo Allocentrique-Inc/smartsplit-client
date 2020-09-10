@@ -241,7 +241,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositeur",
-				value: "composor",
+				value: "compooer",
 			},
 			{
 				displayValue: "Arrangeur",
@@ -249,7 +249,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Interprète",
-				value: "peformer",
+				value: "performer",
 			},
 			{
 				displayValue: "Mixeur",
@@ -663,6 +663,8 @@ export const document = {
 		pages: {
 			creation: "Création",
 			performance: "Interprétation",
+			infos: "Informations générales",
+			lyrics: "Paroles",
 			recording: "Enregistrement",
 			lyrics: "Lyrics",
 			files: "Files",
@@ -700,6 +702,7 @@ export const document = {
 			singer: "Chanteur",
 			musician: "Musicien",
 			performer: "Ajouter un interprète...",
+			release: "Sortie",
 			addPerformer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
@@ -733,48 +736,89 @@ export const document = {
 				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
 		},
 	},
-	files: {
-		category: "FILES",
-		title: "Quels fichiers veux-tu rendre accessible ?",
+	release: {
+		category: "SORTIE",
+		title: "Cette pièce est-elle sortie ?",
 		paragraph:
-			"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
-		visual: {
-			title: "Visuel de l'œuvre",
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Date  de sortie",
+		dateHint: "Laisse vide si non déterminée",
+		label: "Label",
+		addLabel: "Ajouter une étiquette",
+		format: "Format du produit",
+		ep: "Titre de l'EP",
+		supports: {
+			support: "Support",
+			digital: "Numérique",
+			distribution: "Distribution",
+			addDistribution: "Ajouter un distributeur...",
+			upc: "Code UPC/EAN",
+			physical: "Physique",
+		},
+		files: {
+			category: "FILES",
+			title: "Quels fichiers veux-tu rendre accessible ?",
 			paragraph:
-				"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
-			format: "Téléverser en format JPEG ou PNG",
+				"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
+			visual: {
+				title: "Visuel de l'œuvre",
+				paragraph:
+					"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
+				format: "Téléverser en format JPEG ou PNG",
+				undertext:
+					"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
+			},
+			audio: {
+				title: "Fichier audio",
+				paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
+				format: "Téléverser le fichier de l'œuvre enregistrée",
+				undertext: "MP3 ou WAV acceptés.",
+			},
+			other: {
+				title: "Autres fichiers sur l'œuvre",
+				paragraph:
+					"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
+				formatTablature: "Partition ou tablature",
+				formatMidi: "Fichiers MIDI",
+				undertext: "Lorem Ipsum",
+			},
+			dropdown: {
+				public: "Publique - Téléchargeable par tous",
+				publicUndertext:
+					"Tous les utilisateurs pourront télécharger le fichier original.",
+				invitation: "Sur invitation - Téléchargeable par certains",
+				invitationUndertext:
+					"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
+				private: "Privé - Empêcher le téléchargement",
+				privateUndertext:
+					"Personne ne pourra télécharger l'image originale, sauf vous.",
+			},
+			tooltip: {
+				listItem:
+					"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
+			},
+			access: "Accès",
+			copy: "Lien de partage unique copié.",
+		},
+		infos: {
+			category: "INFORMATIONS GÉNÉRALES",
+			title: "Dis-nous en plus sur la pièce musicale.",
+			length: "Durée",
+			bpm: "BPM",
+			mainGenre: "Genre principal",
+			addGenre: "Ajouter un genre...",
+			secondaryGenre: "Genres secondaires",
+			genreExample: "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae.",
+		},
+		lyrics: {
+			category: "PAROLES",
+			title: (workPiece) => <>{workPiece} contient des paroles ?</>,
+			paragraph:
+				"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
 			undertext:
-				"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
+				"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
+			language: "Langue(s)",
+			addLanguage: "Ajouter unbe langue...",
 		},
-		audio: {
-			title: "Fichier audio",
-			paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
-			format: "Téléverser le fichier de l'œuvre enregistrée",
-			undertext: "MP3 ou WAV acceptés.",
-		},
-		other: {
-			title: "Autres fichiers sur l'œuvre",
-			paragraph:
-				"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
-			formatTablature: "Partition ou tablature",
-			formatMidi: "Fichiers MIDI",
-			undertext: "Lorem Ipsum",
-		},
-		dropdown: {
-			public: "Publique - Téléchargeable par tous",
-			publicUndertext:
-				"Tous les utilisateurs pourront télécharger le fichier original.",
-			invitation: "Sur invitation - Téléchargeable par certains",
-			invitationUndertext:
-				"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
-			private: "Privé - Empêcher le téléchargement",
-			privateUndertext:
-				"Personne ne pourra télécharger l'image originale, sauf vous.",
-		},
-		tooltip: {
-			listItem:
-				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
-		},
-		copy: "Lien de partage unique copié.",
-	},
+	}
 }

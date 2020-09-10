@@ -32,6 +32,8 @@ import { Creation } from "./documentation/creation"
 import Performance from "./documentation/performance"
 import Files from "./documentation/files"
 import DocumentationPage from "./documentation"
+import Lyrics from "./documentation/lyrics"
+import Release from "./documentation/release"
 
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")

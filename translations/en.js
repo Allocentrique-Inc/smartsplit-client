@@ -241,16 +241,12 @@ export const forms = {
 				value: "author",
 			},
 			{
-				displayValue: "Compositor",
+				displayValue: "Composor",
 				value: "composer",
 			},
 			{
 				displayValue: "Arranger",
 				value: "arranger",
-			},
-			{
-				displayValue: "Performer",
-				value: "performer",
 			},
 			{
 				displayValue: "Mixer",
@@ -656,6 +652,9 @@ export const document = {
 		pages: {
 			creation: "Creation",
 			performance: "Performance",
+			release: "Release",
+			infos: "General Information",
+			lyrics: "Lyrics",
 			recording: "Recording",
 			lyrics: "Lyrics",
 			files: "Fichiers",
@@ -663,6 +662,7 @@ export const document = {
 	},
 	help: "Help",
 	why: "Why share these informations?",
+
 	access: "Access",
 	creation: {
 		category: "CREATION",
@@ -700,29 +700,52 @@ export const document = {
 		addInstrument: "Add an instrument...",
 	},
 
-	category: "RECORDING",
-	title: "Who recorded the musical piece?",
-	paragraph:
-		"Here you mention who contributed to the audio recording of this piece.",
-	roles: {
-		direction: "Direction",
-		addDirector: "Add a Director...",
-		soundEngineer: "Sound Engineer",
-		addSoundEngineer: "Add a Sound Engineer...",
-		mix: "Mix",
-		addMix: "Add a Mix Engineer...",
-		master: "Mastering",
-		addMaster: "Add a Mastering Engineer...",
-		production: "Production",
-		addProduction: "Add a Producer",
+	recording: {
+		category: "RECORDING",
+		title: "Who recorded the musical piece?",
+		paragraph:
+			"Here you mention who contributed to the audio recording of this piece.",
+		roles: {
+			direction: "Direction",
+			addDirector: "Add a Director...",
+			soundEngineer: "Sound Engineer",
+			addSoundEngineer: "Add a Sound Engineer...",
+			mix: "Mix",
+			addMix: "Add a Mix Engineer...",
+			master: "Mastering",
+			addMaster: "Add a Mastering Engineer...",
+			production: "Production",
+			addProduction: "Add a Producer",
+		},
+		date: "Recording  Date",
+		studio: "Recording Studio",
+		searchStudio: "Search a recording studio...",
+		isrc: "ISRC Code",
+		tooltips: {
+			isrc:
+				"The International Standard Work Code is a unique identification of musical works.",
+		},
 	},
-	date: "Recording  Date",
-	studio: "Recording Studio",
-	searchStudio: "Search a recording studio...",
-	isrc: "ISRC Code",
-	tooltips: {
-		isrc:
-			"The International Standard Work Code is a unique identification of musical works.",
+
+	release: {
+		category: "RELEASE",
+		title: "Was this piece released?",
+		paragraph:
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Release Date",
+		dateHint: "Leave blank if undetermined",
+		label: "Label",
+		addLabel: "Add a label",
+		format: "Product Format",
+		ep: "EP Title",
+		supports: {
+			support: "Support",
+			digital: "Digital",
+			distribution: "Distribution",
+			addDistribution: "Add a distributor...",
+			upc: "UPC/EAN Code",
+			physical: "Physical",
+		},
 	},
 	files: {
 		category: "FILES",
@@ -764,6 +787,27 @@ export const document = {
 			listItem:
 				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
 		},
+		access: "Access",
 		copy: "Unique sharable link copied.",
+	},
+	infos: {
+		category: "GENERAL INFORMATIONS",
+		title: "Tells us more about the musical piece.",
+		length: "Length",
+		bpm: "BPM",
+		mainGenre: "Main Genre",
+		addenre: "Add a genre...",
+		secondaryGenre: "Secondary Genres",
+		genreExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
+	},
+	lyrics: {
+		category: "LYRICS",
+		title: (workPiece) => <>{workPiece} contains lyrics?</>,
+		paragraph:
+			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
+		undertext:
+			"Lyrics only. Do not include authors, composers, year of creation, etc.",
+		language: "Language(s)",
+		addLanguage: "Ajouter une langue...",
 	},
 }

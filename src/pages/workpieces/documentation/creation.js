@@ -36,7 +36,7 @@ export function Creation() {
 		history.push(`/workpieces/${workpiece.id}`)
 	}
 
-	function navigateToInterpretation() {
+	function navigateToCreation() {
 		history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 	}
 	return (
@@ -66,7 +66,7 @@ export function Creation() {
 						<Button
 							primary
 							text={t("general:buttons.pass")}
-							onClick={navigateToInterpretation}
+							onClick={navigateToCreation}
 						/>
 					</Row>
 					<Row flex={1} />

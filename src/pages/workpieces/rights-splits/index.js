@@ -141,8 +141,8 @@ export default function (props) {
 				component={RecordingPage}
 			/>
 			<Route
-				path="/workpieces/:workpiece_id/documentation/recording"
-				component={Recording}
+				path="/workpieces/:workpiece_id/documentation/release"
+				component={Release}
 			/>
 			<Route
 				path="/workpieces/:workpiece_id/documentation/creation"
@@ -153,8 +153,16 @@ export default function (props) {
 				component={Performance}
 			/>
 			<Route
+				path="/workpieces/:workpiece_id/documentation/recording"
+				component={Recording}
+			/>
+			<Route
 				path="/workpieces/:workpiece_id/documentation/files"
 				component={Files}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/documentation/lyrics"
+				component={Lyrics}
 			/>
 		</Switch>
 	)
