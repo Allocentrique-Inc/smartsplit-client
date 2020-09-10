@@ -5,7 +5,7 @@ import { Column, Row, Spacer, Flex, Hairline } from "../../layout"
 import Scrollable from "../../widgets/scrollable"
 import { Text } from "../../text"
 import ProgressBar from "../../widgets/progress-bar"
-import Cover from "../../smartsplit/media/cover"
+import AlbumArt from "../../smartsplit/media/albumArt"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ArrowRight from "../../svg/arrow-right"
 import ChevronDown from "../../svg/chevron-down"
@@ -23,7 +23,7 @@ export default function WorkpieceLayout({
 	return (
 		<Column flex={1}>
 			<Row of="component" padding="component" valign="center">
-				<Cover />
+				<AlbumArt />
 				<Text bold>{useSubpath(workpiece, "data", "title")}</Text>
 				<Spacer size="section" />
 				{React.createElement(

@@ -9,13 +9,13 @@ import { mapFragmentChildren } from "../utils/react"
 
 export default function Autocomplete({
 	onSelect,
-	searchInput,
-	onSearchChange,
+	search,
+	onSearchChange = () => {},
 	searchResults,
 	children,
 	...nextProps
 }) {
-	function renderSearchResults() {
+	const renderSearchResults = () => {
 		return (
 			<ScrollView style={FormStyles.select_scroll}>
 				{searchResults.map((result, index) => (
@@ -27,7 +27,7 @@ export default function Autocomplete({
 							{typeof result === "string" ? (
 								<Text>
 									{mapFragmentChildren(
-										highlightMatchedStrings(result, searchInput),
+										highlightMatchedStrings(result, search),
 										(child) => child
 									)}
 								</Text>
@@ -45,8 +45,8 @@ export default function Autocomplete({
 		<TextDropdown
 			leftIcon
 			onBlur={() => onSearchChange("")}
-			value={searchInput}
-			onChangeText={(text) => onSearchChange(text)}
+			value={search}
+			onChangeText={onSearchChange}
 			{...nextProps}
 		>
 			{searchResults && (

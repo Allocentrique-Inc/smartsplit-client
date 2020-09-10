@@ -58,7 +58,7 @@ export default function Main(props) {
 	)
 }
 
-export function MainRouter(props) {
+export function MainRouter() {
 	return (
 		<Switch>
 			<Route path="/" exact>
@@ -98,7 +98,9 @@ export function MainRouter(props) {
 			</Route>
 
 			<Route path="/workpieces">
-				<WorkpiecesRouter />
+				<AccessControl redirectToLogin>
+					<WorkpiecesRouter />
+				</AccessControl>
 			</Route>
 		</Switch>
 	)

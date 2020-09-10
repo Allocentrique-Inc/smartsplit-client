@@ -2,35 +2,41 @@ import React from "react"
 import moment from "moment"
 import { View } from "react-native"
 import { useHistory } from "react-router"
+import { useStorePath, useSubpath } from "../../appstate/react"
 import { Column, Row } from "../../layout"
 import { Text } from "../../text"
 import { Button } from "../../widgets/button"
 import ProgressBar from "../../widgets/progress-bar"
-import Cover from "../media/cover"
+import AlbumArt from "../media/albumArt"
 import WorkStyles from "./styles"
+import UserAvatar from "../user/avatar"
 
 import OverflowMenuIcon from "../../svg/overflow-menu"
 
 export default function MediaWorkRow(props) {
 	const history = useHistory()
-	const dateRel = moment(props.creationDate).fromNow()
+	const data = useSubpath(props.workpiece, "data")
 
+	const dateRel = moment(data.creationDate).fromNow()
 	function navigateToSummary() {
-		history.push("/workpieces/" + props.workpiece_id)
+		history.push("/workpieces/" + data.workpiece_id)
 	}
 
 	return (
 		<View style={[WorkStyles.dashboard_row, props.style]}>
-			<Cover style={WorkStyles.dashboard_row_cover} />
+			<AlbumArt style={WorkStyles.dashboard_row_cover} />
 
 			<Column style={WorkStyles.dashboard_row_title}>
 				<Row of="tiny" style={{ alignItems: "center" }}>
-					<Text heavy>{props.title}</Text>
-					<Text small>par {props.artist}</Text>
+					<Text heavy>{data.title}</Text>
+					<Text small>par {data.artist}</Text>
 				</Row>
-				<Text secondary small>
-					Modifié {dateRel} - Partagée avec ( ) ( ) ( )
-				</Text>
+				<Row>
+					<Text secondary small>
+						Modifié {dateRel} - Partagée avec{" "}
+					</Text>
+					<RightHoldersRow rightHolders={data.rightHolders} />
+				</Row>
 			</Column>
 
 			<Column of="inside" style={WorkStyles.dashboard_row_progress}>
@@ -49,4 +55,21 @@ export default function MediaWorkRow(props) {
 			<Button icon={<OverflowMenuIcon />} />
 		</View>
 	)
+}
+
+function RightHoldersRow({ rightHolders }) {
+	return (
+		<Row>
+			{rightHolders.map((rh) => (
+				<Avatar key={rh} id={rh} />
+			))}
+		</Row>
+	)
+}
+
+function Avatar({ id }) {
+	const user = useStorePath("users").fetch(id)
+	const data = useSubpath(user, "data")
+
+	return <UserAvatar user={data} size="xsmall" />
 }

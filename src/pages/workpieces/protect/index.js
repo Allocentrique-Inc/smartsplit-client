@@ -1,5 +1,6 @@
 import React, { useRef } from "react"
 import { useHistory } from "react-router"
+import { useSubpath } from "../../../appstate/react"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 
@@ -54,6 +55,10 @@ export default function ProtectWork() {
 }
 
 export function ProtectWorkForm({ workpiece }) {
+	const files = useCurrentWorkpiece("files", "$all")
+
+	console.log("files", files)
+
 	return (
 		<Column of="section" flex={6}>
 			<Column of="component">
@@ -71,18 +76,31 @@ export function ProtectWorkForm({ workpiece }) {
 
 			<Column of="component">
 				<Heading level={3}>Fichier à protéger</Heading>
-				<FileField
-					name="new-file"
-					label="Ajouter un fichier"
-					undertext="Tous formats acceptés. 250 Mo maximum."
-				/>
+
+				<RadioGroup name="file_id">
+					<Column of="inside">
+						{files.map((file) => (
+							<FileRadioButton key={file.data.file_id} file={file} />
+						))}
+
+						<RadioGroupButton>
+							<Flex>
+								<FileField
+									name="file_upload"
+									label="Ajouter un fichier"
+									undertext="Tous formats acceptés, 2 Mo maximum."
+								/>
+							</Flex>
+						</RadioGroupButton>
+					</Column>
+				</RadioGroup>
 			</Column>
 
 			<Hairline />
 
 			<Column of="component">
 				<Heading level={3}>Version de travail</Heading>
-				<RadioGroup>
+				<RadioGroup name="versionType">
 					<Column of="inside">
 						<RadioGroupButton value="idea" label="Idée" />
 						<RadioGroupButton value="demo" label="Démo" />
@@ -96,6 +114,11 @@ export function ProtectWorkForm({ workpiece }) {
 			</Column>
 		</Column>
 	)
+}
+
+function FileRadioButton({ file }) {
+	const data = useSubpath(file, "data")
+	return <RadioGroupButton value={data.file_id} label={data.name} />
 }
 
 export function ProtectWorkHelp() {

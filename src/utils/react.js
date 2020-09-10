@@ -1,4 +1,7 @@
-import React from "react"
+import React, { useReducer, useEffect } from "react"
+import { batchedUpdates } from "./_react"
+
+let reactBatchUpdateQueue = []
 
 export function forEachChildren(children, cb) {
 	let index = 0
@@ -50,4 +53,47 @@ export function joinElements(elements, spacer) {
 	})
 	output.pop()
 	return output
+}
+
+export { batchedUpdates }
+
+export function queueBatchedUpdate(callback) {
+	reactBatchUpdateQueue.push(callback)
+
+	if (reactBatchUpdateQueue.length === 1) {
+		setImmediate(dispatchBatchedUpdates)
+	}
+}
+
+function dispatchBatchedUpdates() {
+	batchedUpdates(function () {
+		// Manual loop here as the array might grow as we dispatch the events
+
+		for (let i = 0; i < reactBatchUpdateQueue.length; i++) {
+			try {
+				reactBatchUpdateQueue[i]()
+			} catch (e) {
+				console.error("Error in batched update:", e)
+			}
+		}
+
+		reactBatchUpdateQueue = []
+	})
+}
+
+export function useUpdateFunction() {
+	let mounted = true
+	const [, update] = useReducer((n) => n + 1, 0)
+
+	useEffect(function () {
+		return function () {
+			mounted = false
+		}
+	}, [])
+
+	return function () {
+		queueBatchedUpdate(function () {
+			if (mounted) update()
+		})
+	}
 }

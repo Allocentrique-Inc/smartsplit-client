@@ -5,6 +5,9 @@ export const general = {
 	noAccount: "I don't have an account",
 	or: "or",
 	auth: "Two factor authentification",
+	more: "Know more",
+	addFile: "Choose a file",
+	dropFile: "or drop your file here",
 
 	alerts: {
 		connected: "Connected!",
@@ -18,6 +21,13 @@ export const general = {
 		composer: "Composer",
 		mixer: "Mixer",
 		performer: "Performer",
+		singer: "Singer",
+		musician: "Musician",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -55,6 +65,12 @@ export const general = {
 		toAccept: "Accept",
 		toRefuse: "Refuse",
 		access: "Ask writing access",
+		continue: "Continue",
+		back: "Back",
+		saveClose: "Save and Close",
+		toConsult: "Consult",
+		toBegin: "Begin",
+		pass: "Pass for now",
 	},
 	update: () => <>Updated ago</>,
 }
@@ -151,12 +167,14 @@ export const forms = {
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
 		groups: "Groups",
-
 		dropdowns: {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			addCollaborator: "Add a collaborator",
+			createCollaborator: "Create a new collaborator",
 		},
+		defaultRoles: "Default Role(s)",
 	},
 
 	descriptions: {
@@ -205,8 +223,46 @@ export const forms = {
 		mainEmail: "Main email",
 		setAsMain: "Set as main",
 		resendConfirmEmail: "Resend confirmation email",
+		defaultRoles: "These roles can always be changed later.",
 	},
 	createCollaborator: "Create a new collaborator",
+	addCollabArtist: "[Add/Modify] a collaborating artist",
+	options: {
+		defaultRoles: [
+			{
+				displayValue: "Author",
+				value: "author",
+			},
+			{
+				displayValue: "Compositor",
+				value: "composer",
+			},
+			{
+				displayValue: "Arranger",
+				value: "arranger",
+			},
+			{
+				displayValue: "Interpreter",
+				value: "interpreter",
+			},
+			{
+				displayValue: "Mixer",
+				value: "mixer",
+			},
+			{
+				displayValue: "Performer",
+				value: "performer",
+			},
+			{
+				displayValue: "Singer",
+				value: "singer",
+			},
+			{
+				displayValue: "Musician",
+				value: "musician",
+			},
+		],
+	},
 }
 
 export const login = {
@@ -247,7 +303,7 @@ export const register = {
 export const passwordIssues = {
 	checkEmail: "Check your emails",
 	validate:
-		"A message including a validation link was emailed to you.\nDoucle check your spam. We never know!",
+		"A message including a validation link was emailed to you. Double check your spam. We never know!",
 	reset: "Reset your password.",
 	emailSent: "Email sent.",
 	resetParagraph:
@@ -383,18 +439,171 @@ export const admin = {
 	delete: "Delete",
 	edit: "Edit",
 	confirmEntityDeletion: "Beware, the entity will be deleted.",
+}
 
-	entities: {
-		"content-languages": {
-			name: "Content language",
+export const workpieces = {
+	original: "Original piece",
+	remake: "Remake",
+	addedBy: "Added by",
+	updated: (time) => `Updated ${time} ago`,
+	tasks: "Tasks",
+	files: "Files",
+	cards: {
+		shareYourCopyright: {
+			title: "Share your copyright",
+			desc:
+				"Create the shares on your rights using our guide. You'll see, it's much easier than you think :)",
+		},
+		protectYourWork: {
+			title: "Protect your work",
+			desc:
+				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
 		},
 	},
 }
 
-export const newUserInvite = {
-	title: "[Add/Modify] a Collaborating Artist",
-	checkboxTitle: "Rôle(s) par défaut",
-	checkboxUndertext: "These roles can always be modified later.",
+export const split = {
+	send: "Send the rights split",
+	paragraph:
+		"To finalize this split, you need to invite your collaborator to validate the whole thing. Mention the email addresses to whom send your split proposition.",
+	email: "Enter the email address",
+}
+
+export const identity = {
+	title: "Identity Declaration",
+	Ideclare: (firstName, lastName) => (
+		<>
+			<b>
+				I declare to be truly {firstName} {lastName}
+			</b>
+			. I understand that pretending to be someone else would constitute a
+			serious violation liable to prosecution.
+		</>
+	),
+	Iaccept: (workPiece) => (
+		<>
+			<b>I accept this right splits</b> intervened between myself and any
+			collaborator. This represents the desired agreement. I understand that
+			these percentages will now apply to any revenue split related to
+			{workPiece}.
+		</>
+	),
+}
+
+export const document = {
+	navbar: {
+		document: "Document my work",
+		pages: {
+			creation: "Creation",
+			performance: "Performance",
+			recording: "Recording",
+		},
+	},
+	help: "Help",
+	why: "Why share these informations?",
+	access: "Access",
+	creation: {
+		category: "CREATION",
+		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
+		paragraph:
+			"Here you mention who contributed to the creation of this piece.",
+		date: "Creation Date",
+		roles: {
+			authors: "Authors",
+			authorsWho: "Who write the lyrics of this musical piece?",
+			addAuthor: "Add an author...",
+			composers: "Composers",
+			composersWho: "Who composed the music of this musical piece ?",
+			addComposer: "Add a composer...",
+			editors: "Editors",
+			editorsWho: "Who represent these authors and/or composers?",
+			addEditor: "Add an editor...",
+		},
+		iswc: "ISWC Code",
+		what: "What's a creator?",
+	},
+	performance: {
+		category: "PERFORMANCE",
+		title: "Who performed the musical piece on this audio recording?",
+		paragraph: "Here you mention who played which instrument.",
+		roles: {
+			artist: "Artist",
+			singer: "Singer",
+			musician: "Musician",
+			addPerformer: "Add a performer...",
+		},
+		what: "What's a performer?",
+		whichPerformance: "Which type of performance?",
+		whichRole: "Which role in the musical piece?",
+		addInstrument: "Add an instrument...",
+	},
+
+	category: "RECORDING",
+	title: "Who recorded the musical piece?",
+	paragraph:
+		"Here you mention who contributed to the audio recording of this piece.",
+	roles: {
+		direction: "Direction",
+		addDirector: "Add a Director...",
+		soundEngineer: "Sound Engineer",
+		addSoundEngineer: "Add a Sound Engineer...",
+		mix: "Mix",
+		addMix: "Add a Mix Engineer...",
+		master: "Mastering",
+		addMaster: "Add a Mastering Engineer...",
+		production: "Production",
+		addProduction: "Add a Producer",
+	},
+	date: "Recording  Date",
+	studio: "Recording Studio",
+	searchStudio: "Search a recording studio...",
+	isrc: "ISRC Code",
+	tooltips: {
+		isrc:
+			"The International Standard Work Code is a unique identification of musical works.",
+	},
+	files: {
+		category: "FILES",
+		title: "Which version of the work would you like to protect?",
+		paragraph: "Here you can add the files related to this musical piece.",
+		visual: {
+			title: "Work Visual",
+			paragraph:
+				"Just like an album has its cover, a song or a instrumental piece must also have a visual to represent it.",
+			format: "Upload in JPEG or PNG format",
+			undertext: "Recommended: 16000 x 1600 pixels of a resolution of 300 dpi.",
+		},
+		audio: {
+			title: "Audio File",
+			paragraph: "Here you can download your file in WAV or MP3 format.",
+			format: "Upload the file or the recorded work",
+			undertext: "MP3 or WAV accepted.",
+		},
+		other: {
+			title: "Other files on the work",
+			paragraph:
+				"Here you can add documents allowing the performance of the work, like the partition or the MIDI file.",
+			formatTablature: "Partition or Tablature",
+
+			formatMidi: "MIDI Files",
+			undertext: "Lorem Ipsum",
+		},
+		dropdown: {
+			public: "Public - Downloadable by all",
+			publicUndertext: "All users will be able to download the original file.",
+			invitation: "On invitation - Downloadable by some",
+			invitationUndertext:
+				"Users providing the unique sharable link will be able to download the original file. Practical for journalists and professionnals!",
+			private: "Private - Prevent the download",
+			privateUndertext:
+				"No one will be able to download the original image, except you.",
+		},
+		tooltip: {
+			listItem:
+				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
+		},
+		copy: "Unique sharable link copied.",
+	},
 }
 
 export const instruments = {

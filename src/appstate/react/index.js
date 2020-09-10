@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useContext } from "react"
 import { Observable } from "../store"
+import { useUpdateFunction } from "../../utils/react"
 import deepEqual from "deep-equal"
 
 const Context = React.createContext()
@@ -18,7 +19,7 @@ export function useStorePath(...path) {
 }
 
 export function useSubpath(current, ...path) {
-	const [, update] = useReducer((n) => n + 1, 0)
+	const update = useUpdateFunction()
 	const unsubscribes = []
 
 	function watchPath(observable, key) {
@@ -55,7 +56,7 @@ export function useSubpath(current, ...path) {
 		return function () {
 			unsubscribes.forEach((unsubscribe) => unsubscribe())
 		}
-	}, [])
+	})
 
 	return current
 }

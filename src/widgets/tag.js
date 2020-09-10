@@ -11,8 +11,6 @@ const TagStyle = StyleSheet.create({
 		justifyContent: "center",
 		flexDirection: "row",
 		backgroundColor: Colors.background.underground,
-		marginRight: Metrics.spacing.small,
-		marginBottom: Metrics.spacing.small,
 	},
 
 	frame_medium: {

@@ -1,8 +1,9 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
+import { Colors } from "../theme"
 
-export default function ImageIcon(props) {
-	const color = props.color || "#8DA0B3"
+export default function DefaultImage(props) {
+	const color = props.color || Colors.tertiary
 
 	return (
 		<Svg

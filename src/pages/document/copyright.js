@@ -1,29 +1,17 @@
 import React from "react"
-import { View } from "react-native"
-
 import { Heading, Paragraph, Text } from "../../text"
-import TypographyStyles from "../../styles/typography"
 import { Group, Hairline, Flex, Row, Column } from "../../layout"
-import { Colors, Typography, Metrics } from "../../theme"
-import LayerStyles from "../../styles/layers"
-import MediaStyles from "../../smartsplit/media/styles"
+import { Colors, Metrics } from "../../theme"
 import { Dropdown } from "../../widgets/dropdown"
-import { TabStyles } from "../../widgets/tabs"
-import CopyrightIcon from "../../svg/copyright"
-import ImageIcon from "../../svg/image"
+import CircledC from "../../svg/circled-c"
 import LogoutIcon from "../../svg/logout"
-
-/* export const ButtonStyles = StyleSheet.create({
-
-}) */
+import AlbumArt from "../../smartsplit/media/albumArt"
 
 export default function CopyrightShare(props) {
 	return (
 		<Group of="component">
 			<Row of="component">
-				<View style={[MediaStyles.cover, props.style]} margin="medium">
-					<ImageIcon small color={Colors.stroke} />
-				</View>
+				<AlbumArt style={props.style} margin="medium" />
 				<Flex>
 					<Text>[Nom de la pièce musicale]</Text>
 					<Heading level="5" color="primary">
@@ -36,7 +24,7 @@ export default function CopyrightShare(props) {
 			<Hairline />
 
 			<Row>
-				<CopyrightIcon size={Metrics.size.medium} />
+				<CircledC size={Metrics.size.medium} />
 				<Text action heavy>
 					CRÉATION
 				</Text>

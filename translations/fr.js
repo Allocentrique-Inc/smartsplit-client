@@ -5,6 +5,9 @@ export const general = {
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
 	auth: "Authentification à deux facteurs",
+	more: "En savoir plus",
+	addFile: "Choisir un fichier",
+	dropFile: "ou glissez votre fichier ici",
 
 	alerts: {
 		connected: "Connecté !",
@@ -19,6 +22,13 @@ export const general = {
 		composer: "Compositeur",
 		mixer: "Arrangeur",
 		performer: "Interprète",
+		singer: "Chanteur",
+		musician: "Musicien",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -56,6 +66,15 @@ export const general = {
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
 		access: "Demander l'accès en écriture",
+		continue: "Continuer",
+		back: "Retour",
+		saveClose: "Sauvegarder et fermer",
+		toConsult: "Consulter",
+		toBegin: "Commencer",
+		continue: "Continuer",
+		back: "Retour",
+		saveClose: "Sauvegarder et fermer",
+		pass: "Passer pour l'instant",
 	},
 	update: () => <>Mis à jour il y a </>,
 }
@@ -153,12 +172,14 @@ export const forms = {
 		phone: "Téléphone mobile",
 		organisations: "Mes sociétés",
 		groups: "Groupes",
-
 		dropdowns: {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			addCollaborator: "Ajouter un collaborateur",
+			createCollaborator: "Créer un nouveau collaborateur",
 		},
+		defaultRoles: "Rôle(s) par défaut",
 	},
 
 	descriptions: {
@@ -184,7 +205,7 @@ export const forms = {
 		delete: "détruire, Détruire ou detruire",
 		date: "JJ-MM-AAAA",
 		myUri: "https://www.mon-site-web.exemple",
-		groupSearch: "Research among groups...",
+		groupSearch: "Rechercher parmi les groupes...",
 	},
 
 	undertexts: {
@@ -207,8 +228,45 @@ export const forms = {
 		mainEmail: "Courriel principal",
 		setAsMain: "Définir comme principal",
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
+		defaultRoles: "Ces rôles pourront toujours être modifiés plus tard.",
 	},
-	createCollaborator: "Créer un nouveau collaborateur",
+	addCollabArtist: "[Ajouter/Modifier] un artiste collaborateur",
+	options: {
+		defaultRoles: [
+			{
+				displayValue: "Auteur",
+				value: "author",
+			},
+			{
+				displayValue: "Compositeur",
+				value: "composor",
+			},
+			{
+				displayValue: "Arrangeur",
+				value: "arranger",
+			},
+			{
+				displayValue: "Interprète",
+				value: "peformer",
+			},
+			{
+				displayValue: "Mixeur",
+				value: "mixer",
+			},
+			{
+				displayValue: "Interprète",
+				value: "performer",
+			},
+			{
+				displayValue: "Chanteur",
+				value: "singer",
+			},
+			{
+				displayValue: "Musicien",
+				value: "musician",
+			},
+		],
+	},
 }
 
 export const login = {
@@ -279,7 +337,7 @@ export const settings = {
 	profile: "Profil",
 	identity: "Identité professionnelle",
 	accountInfo: "Informations du compte",
-	proIdentity: "Professionnal identity",
+	proIdentity: "Identité professionelle",
 	notifications: "Notifications",
 	security: "Sécurité",
 	deconnect: "Déconnecté",
@@ -379,26 +437,185 @@ export const admin = {
 		adminManagement: "Gestion des administrateurs",
 		myIncomes: "Mes revenus",
 	},
-
 	entityTypes: {
 		"content-languages": "Langues du contenu",
 		"digital-distributors": "Distributeurs numériques",
 	},
-
 	entityCreation: "Création d'une entité",
 	delete: "Supprimer",
 	edit: "Modifier",
-	confirmEntityDeletion: "Attention, l'entité suivante va être supprimée.",
+	confirmEntityDeletion: "Attention, l'entité va être supprimée.",
+}
 
-	entityAttributes: {
-		name: "Nom",
+export const workpieces = {
+	original: "Pièce originale",
+	remake: "Reprise",
+	addedBy: "Ajoutée par",
+	updated: (time) => `Mis à jour il y a ${time}`,
+	tasks: "Tâches",
+	files: "Fichiers",
+	cards: {
+		shareYourCopyright: {
+			title: "Partage tes droits",
+			desc:
+				"Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
+		},
+		protectYourWork: {
+			title: "Protège ton oeuvre",
+			desc:
+				"Associe dès aujourd’hui ton enregistrement sonore à ses ayant droits et laisse des traces indélébiles de ça sur une blockchain.",
+		},
 	},
 }
 
-export const newUserInvite = {
-	title: "[Ajouter/Modifier] un artiste collaborateur",
-	checkbox: "Default Role(s)",
-	checkboxUndertext: "Ces rôles pourront toujours être modifiés plus tard.",
+export const split = {
+	send: {
+		title: "Envoyer le partage de droits",
+		paragraph:
+			"Pour finaliser ce partage, tu dois inviter tes collaborateurs à valider le tout. Indique les adresses courriels auxquels envoyer ta proposition de partage.",
+		email: "Entrer l'adresse courriel",
+	},
+}
+
+export const identity = {
+	title: "Déclaration d'identité",
+	Ideclare: (firstName, lastName) => (
+		<>
+			<b>
+				Je déclare être réellement {firstName} {lastName}
+			</b>
+			. Je comprends que le fait de me faire passer pour quelqu'un d'autre
+			constituerait une faute grave passible de poursuites judiciaires.
+		</>
+	),
+	Iaccept: (workPiece) => (
+		<>
+			<b>J'accepte ces partages de droits</b> intervenus entre moi-même et tout
+			collaborateur. Cela représente l'entente souhaitées. Je comprends que ces
+			pourcentages s'appliqueront désormais à tout partage de revenus en lien
+			avec {workPiece}.
+		</>
+	),
+}
+
+export const document = {
+	navbar: {
+		document: "Documenter mon œuvre",
+		pages: {
+			creation: "Création",
+			performance: "Interprétation",
+			recording: "Enregistrement",
+		},
+	},
+	help: "Aide",
+	why: "Pourquoi partager ces informations ?",
+	access: "Accès",
+	creation: {
+		category: "CRÉATION",
+		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
+		paragraph:
+			"C'est ici que tu indiques qui a contribué à la création de cette pièce.",
+		date: "Date de création",
+		roles: {
+			authors: "Auteurs",
+			authorsWho: "Qui a écrit les paroles de cette pièce musicale ?",
+			addAuthor: "Ajouter un auteur...",
+			composers: "Compositeurs",
+			composersWho: "Qui a composé la musique de cette pièce musicale ?",
+			addComposer: "Ajouter un auteur...",
+			editors: "Éditeurs",
+			editorsWho: "Qui représente ces auteurs et/ou compositeurs ?",
+			addEditor: "Ajouter un éditeur...",
+		},
+		iswc: "Code ISWC",
+		what: "C'est quoi un créateur ?",
+	},
+	performance: {
+		category: "INTERPRÉTATION",
+		title: "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
+		paragraph: "C'est ici que tu indiques qui a joué quel intrument.",
+		roles: {
+			artist: "Artiste",
+			singer: "Chanteur",
+			musician: "Musicien",
+			performer: "Ajouter un interprète...",
+			addPerformer: "Ajouter un interprète...",
+		},
+		what: "C'est quoi un interprète ?",
+		whichPerformance: "Quel type d'interprétation ?",
+		whichRole: "Quel rôle dans la pièce musicale ?",
+		addInstrument: "Ajouter un instrument...",
+	},
+	recording: {
+		category: "ENREGISTREMENT",
+		title: "Qui a enregistré la pièce musicale ?",
+		paragraph:
+			"Ici, tu indiques qui a contribué à l'enregistrement sonore de cette pièce.",
+		roles: {
+			direction: "Réalisation",
+			addDirector: "Ajouter un réalisateur...",
+			soundEngineer: "Preneur de son",
+			addSoundEngineer: "Ajouter un preneur de son...",
+			mix: "Mixage",
+			addMix: "Ajouter un ingénieur de mixage...",
+			master: "Mastering",
+			addMaster: "Ajouter un ingénieur de mastering...",
+			production: "Production",
+			addProduction: "Ajouter un producteur",
+		},
+		date: "Date d'enregistrement",
+		studio: "Studio d'enregistrement",
+		searchStudio: "Rechercher un studio d'enregistrement...",
+		isrc: "Code ISRC",
+		tooltips: {
+			isrc:
+				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
+		},
+	},
+	files: {
+		category: "FILES",
+		title: "Quels fichiers veux-tu rendre accessible ?",
+		paragraph:
+			"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
+		visual: {
+			title: "Visuel de l'œuvre",
+			paragraph:
+				"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
+			format: "Téléverser en format JPEG ou PNG",
+			undertext:
+				"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
+		},
+		audio: {
+			title: "Fichier audio",
+			paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
+			format: "Téléverser le fichier de l'œuvre enregistrée",
+			undertext: "MP3 ou WAV acceptés.",
+		},
+		other: {
+			title: "Autres fichiers sur l'œuvre",
+			paragraph:
+				"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
+			formatTablature: "Partition ou tablature",
+			formatMidi: "Fichiers MIDI",
+			undertext: "Lorem Ipsum",
+		},
+		dropdown: {
+			public: "Publique - Téléchargeable par tous",
+			publicUndertext:
+				"Tous les utilisateurs pourront télécharger le fichier original.",
+			invitation: "Sur invitation - Téléchargeable par certains",
+			invitationUndertext:
+				"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
+			private: "Privé - Empêcher le téléchargement",
+			privateUndertext:
+				"Personne ne pourra télécharger l'image originale, sauf vous.",
+		},
+		tooltip: {
+			listItem:
+				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
+		},
+		copy: "Lien de partage unique copié.",
+	},
 }
 
 export const instruments = {

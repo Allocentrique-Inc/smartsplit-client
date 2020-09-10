@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { View } from "react-native"
 import { Column, Flex, Row, Spacer } from "../../layout"
 import MoreHorizontal from "../../../assets/svg/more-horizontal.svg"
 import CheckMark from "../../svg/check-mark"

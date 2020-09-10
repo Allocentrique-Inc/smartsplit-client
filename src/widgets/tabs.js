@@ -1,9 +1,9 @@
 import React, { useState } from "react"
-import { View, StyleSheet, Text, TouchableWithoutFeedback } from "react-native"
+import { View, StyleSheet, TouchableWithoutFeedback } from "react-native"
 import { Row, Column } from "../layout"
 import { Metrics, Colors } from "../theme"
-import MetricsStyles from "../styles/metrics"
 import TypographyStyles from "../styles/typography"
+import { Text } from "../text"
 
 export const TabStyles = StyleSheet.create({
 	tab: {
@@ -40,23 +40,26 @@ export const TabStyles = StyleSheet.create({
 })
 
 export function TabBar(props) {
-	let [currentTab, setCurrentTab] = useState(props.tab)
+	const { tab, style, barStyle, onTabChange, noBorder, children } = props
 
-	let children = []
+	let [currentTab, setCurrentTab] = useState(tab)
+
+	let newChildren = []
 	let defaultTab = null
 	let activeTab = null
 
-	if (props.tab) currentTab = props.tab
+	if (tab) currentTab = tab
 
-	React.Children.forEach(props.children, (child, index) => {
+	React.Children.forEach(children, (child, index) => {
 		child = [
 			child,
 			{
 				active: false,
 				onActivate: function () {
 					setCurrentTab(child[0].key)
-					if (props.onTabChange) props.onTabChange(child[0].key)
+					if (onTabChange) onTabChange(child[0].key)
 				},
+				noBorder: noBorder,
 			},
 		]
 
@@ -64,31 +67,40 @@ export function TabBar(props) {
 
 		if (child[0].key === currentTab) activeTab = child
 
-		children.push(child)
-		children.push([
+		newChildren.push(child)
+		newChildren.push([
 			<View
 				key={"spacer-" + index}
-				style={[TabStyles.tab, TabStyles.spacer]}
+				style={[
+					TabStyles.tab,
+					TabStyles.spacer,
+					noBorder && { borderBottomWidth: 0 },
+				]}
 			/>,
 		])
 	})
 
-	children.pop()
+	newChildren.pop()
 
 	if (!activeTab) activeTab = defaultTab
 
 	if (activeTab) activeTab[1].active = true
 
-	children = children.map((child) => {
+	newChildren = newChildren.map((child) => {
 		return child[1] ? React.cloneElement(...child) : child
 	})
 
 	return (
-		<Column style={props.style}>
-			<Row style={props.barStyle}>
-				{children}
+		<Column style={style}>
+			<Row style={barStyle}>
+				{newChildren}
 				<View
-					style={[TabStyles.tab, TabStyles.spacer, TabStyles.spacer_fill]}
+					style={[
+						TabStyles.tab,
+						noBorder && { borderBottomWidth: 0 },
+						TabStyles.spacer,
+						TabStyles.spacer_fill,
+					]}
 				/>
 			</Row>
 			{activeTab && activeTab[0].props.children}
@@ -96,19 +108,19 @@ export function TabBar(props) {
 	)
 }
 
-export function Tab(props) {
-	const tabStyles = [TabStyles.tab]
+export function Tab({ active, onActivate, title, noBorder }) {
+	const tabStyles = [TabStyles.tab, noBorder && { borderBottomWidth: 0 }]
 	const textStyles = [TypographyStyles.text.bold, TabStyles.tab_text]
 
-	if (props.active) {
+	if (active) {
 		tabStyles.push(TabStyles.tab_active)
 		textStyles.push(TabStyles.tab_text_active)
 	}
 
 	return (
-		<TouchableWithoutFeedback onPress={props.onActivate}>
-			<View style={tabStyles} onClick={props.onActivate}>
-				<Text style={textStyles}>{props.title}</Text>
+		<TouchableWithoutFeedback onPress={onActivate}>
+			<View style={tabStyles} onClick={onActivate}>
+				<Text style={textStyles}>{title}</Text>
 			</View>
 		</TouchableWithoutFeedback>
 	)

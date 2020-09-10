@@ -10,7 +10,7 @@ import ForgotPassword from "./forgot-password"
 import PasswordReset from "./password-reset"
 import CheckEmailPage from "./check-email"
 import AccessControl from "../../widgets/AccessControl"
-import { AuthModalTestPage } from "./modal"
+import { AuthModalTestPage } from "./modals"
 
 export default function AuthPages() {
 	return (

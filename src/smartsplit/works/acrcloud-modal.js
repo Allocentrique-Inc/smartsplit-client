@@ -7,7 +7,7 @@ import { Text } from "../../text"
 import PlayIcon from "../../svg/play"
 import WorkStyles from "./styles"
 
-import Cover from "../media/cover"
+import AlbumArt from "../media/albumArt"
 
 export default function ACRCloudModal(props) {
 	const [checkRights, setCheckRights] = useState(false)
@@ -108,7 +108,7 @@ function ImportMusicDataCheckbox(props) {
 export function ACRMatchLabel(props) {
 	return (
 		<Row of="component" padding="component" layer="underground">
-			<Cover />
+			<AlbumArt />
 
 			<Column flex={1}>
 				<Text small secondary>

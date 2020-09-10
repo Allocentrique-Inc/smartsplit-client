@@ -17,13 +17,15 @@ import {
 	DateField,
 	useImagePicker,
 	FileField,
+	CheckBoxGroup,
+	CheckBoxGroupButton,
 } from "../../forms"
 import { Section, Column, Row, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import Button from "../../widgets/button"
 
 import ArtistSelectDropdown from "../../smartsplit/artist/select"
-import { SearchAndTag } from "../../forms/search-and-tag"
+import SearchAndTag from "../../forms/search-and-tag"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
 import { Status } from "../../utils/enums"
@@ -31,7 +33,6 @@ import { MailList } from "../../smartsplit/components/mail-list"
 import { ProIdList } from "../../smartsplit/components/pro-id-list"
 import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 import { Colors } from "../../theme"
-
 import AddCollaboratorDropdown from "../../smartsplit/components/add-collaborator-dropdown"
 
 export default function FormsTest() {
@@ -63,13 +64,13 @@ function TestSearchAndTag() {
 	])
 
 	return (
-		<Row of="component">
+		<Column of="group">
 			<SearchAndTag
 				label="Search and tag"
 				searchResults={searchResults}
-				searchInput={search1}
+				search={search1}
 				onSearchChange={setSearch1}
-				selectedItems={selected}
+				selection={selected}
 				onSelect={(selection) => setSelected([...selected, selection])}
 				onUnselect={(selection) =>
 					setSelected(selected.filter((i) => i !== selection))
@@ -84,7 +85,7 @@ function TestSearchAndTag() {
 				onSelect={(selection) => console.log(selection)}
 				placeholder="Ajouter un collaborateur..."
 			/>
-		</Row>
+		</Column>
 	)
 }
 
@@ -272,36 +273,43 @@ function TestCheckboxes() {
 	const [testCheckBox1, setTestCheckBox1] = useState(false)
 
 	return (
-		<Row of="component">
-			<Column of="component" style={{ flex: 1 }}>
-				<RadioGroup label="Choisis une des options suivantes:">
-					<RadioGroupButton value="A" label="Option A" />
-					<RadioGroupButton value="B" label="Option B" />
-					<RadioGroupButton value="C" label="Option C" />
-				</RadioGroup>
-			</Column>
+		<Column of="group">
+			<Row of="component">
+				<Column of="component" style={{ flex: 1 }}>
+					<RadioGroup label="Choisis une des options suivantes:">
+						<RadioGroupButton value="A" label="Option A" />
+						<RadioGroupButton value="B" label="Option B" />
+						<RadioGroupButton value="C" label="Option C" />
+					</RadioGroup>
+				</Column>
 
-			<Column of="component" style={{ flex: 1 }}>
-				<LabelText>Cases à cocher seules </LabelText>
-				<CheckBox
-					label="Cochez moi, cochez moi!"
-					onChange={setTestCheckBox1}
-					checked={testCheckBox1}
-				/>
+				<Column of="component" style={{ flex: 1 }}>
+					<LabelText>Cases à cocher seules </LabelText>
+					<CheckBox
+						label="Cochez moi, cochez moi!"
+						onChange={setTestCheckBox1}
+						checked={testCheckBox1}
+					/>
 
-				<CheckBox label="Cochez moi aussi!" disabled={!testCheckBox1} />
-			</Column>
+					<CheckBox label="Cochez moi aussi!" disabled={!testCheckBox1} />
+				</Column>
 
-			<Column of="component" style={{ flex: 1 }}>
-				<LabelText>Boutons radios seuls</LabelText>
-				<RadioButton label="Sélectionnez moi!" />
+				<Column of="component" style={{ flex: 1 }}>
+					<LabelText>Boutons radios seuls</LabelText>
+					<RadioButton label="Sélectionnez moi!" />
 
-				<RadioButton
-					label="Sélectionnez moi à la place!"
-					disabled={!testCheckBox1}
-				/>
-			</Column>
-		</Row>
+					<RadioButton
+						label="Sélectionnez moi à la place!"
+						disabled={!testCheckBox1}
+					/>
+				</Column>
+			</Row>
+			<CheckBoxGroup label="Choisis ce que tu veux">
+				<CheckBoxGroupButton value="A" label="Option A" />
+				<CheckBoxGroupButton value="B" label="Option B" />
+				<CheckBoxGroupButton value="C" label="Option C" />
+			</CheckBoxGroup>
+		</Column>
 	)
 }
 

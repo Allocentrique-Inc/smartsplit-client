@@ -5,7 +5,7 @@ import { Group, Hairline, Flex, Row, Column, Spacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
 import { TextField, Dropdown, CheckBox, DateField } from "../../forms"
-import { SearchAndTag } from "../../forms/search-and-tag"
+import SearchAndTag from "../../forms/search-and-tag"
 import { ProIdList } from "../components/pro-id-list"
 
 export default function MyProIdentity() {

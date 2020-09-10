@@ -72,12 +72,15 @@ export function formatPercentage(percent) {
 }
 
 export function highlightMatchedStrings(str, pattern) {
+	if (pattern === "") return str
 	const regExp = new RegExp(pattern, "gi")
+	const matchs = str.match(regExp)
+	if (!matchs) return str
 	const splits = str.split(regExp)
 	return [...splits]
 		.map((el, index) => {
 			if (index < splits.length - 1) {
-				return [el, <b>{pattern}</b>]
+				return [el, <b>{matchs[index]}</b>]
 			} else if (el !== "") {
 				return [el]
 			}
