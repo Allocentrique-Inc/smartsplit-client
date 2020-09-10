@@ -69,9 +69,6 @@ export const general = {
 		saveClose: "Save and Close",
 		toConsult: "Consult",
 		toBegin: "Begin",
-		continue: "Continue",
-		back: "Back",
-		saveClose: "Save and Close",
 		pass: "Pass for now",
 	},
 }
@@ -561,7 +558,7 @@ export const document = {
 	tooltips: {
 		isrc:
 			"The International Standard Work Code is a unique identification of musical works.",
-  }
+	},
 	files: {
 		category: "FILES",
 		title: "Which version of the work would you like to protect?",

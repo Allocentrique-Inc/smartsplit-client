@@ -30,12 +30,13 @@ export default function (props) {
 			/>
 			<Route
 				path="/workpieces/:workpiece_id/documentation/recording"
-				component={Recording}/>
-      <Route
+				component={Recording}
+			/>
+			<Route
 				path="/workpieces/:workpiece_id/documentation/creation"
 				component={Creation}
-       />
-     <Route
+			/>
+			<Route
 				path="/workpieces/:workpiece_id/documentation/performance"
 				component={Performance}
 			/>

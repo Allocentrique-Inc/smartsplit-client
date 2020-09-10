@@ -569,7 +569,7 @@ export const document = {
 			isrc:
 				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
 		},
-  },
+	},
 	files: {
 		category: "FILES",
 		title: "Quels fichiers veux-tu rendre accessible ?",

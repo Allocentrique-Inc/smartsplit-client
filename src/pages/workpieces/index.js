@@ -51,10 +51,10 @@ export default function WorkpiecesRouter() {
 				</Route>
 				<Route path="/workpieces/:workpiece_id/documentation/recording">
 					<Recording />
-       </Route>
+				</Route>
 				<Route path="/workpieces/:workpiece_id/documentation/creation">
 					<Creation />
-        </Route>
+				</Route>
 				<Route path="/workpieces/:workpiece_id/documentation/performance">
 					<Performance />
 				</Route>
