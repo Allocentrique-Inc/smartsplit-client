@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useStorePath } from "../../appstate/react"
 import { useHistory, useRouteMatch } from "react-router"
-import PublicPageLayout from "../../layout/public-page"
+import PublicPageLayout from "../../layouts/public-page"
 import { Group, Column } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 

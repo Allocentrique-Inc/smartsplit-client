@@ -2,61 +2,43 @@ import React, { useEffect, useMemo } from "react"
 import { Route, Redirect, Switch } from "react-router"
 import { StoreProvider, createAppStore } from "./appstate"
 import { useSubpath } from "./appstate/react"
+import { useStores } from "./mobX"
 import { setGlobalAccessToken, setGlobalErrorHandler } from "../api/api-client"
-
 import { Overlay as GlobalOverlay } from "./portals"
 import { Overlay as ScrollOverlay, Scrollable } from "./widgets/scrollable"
-
 import AuthPages from "./pages/auth"
 import DashboardPage from "./pages/dashboard"
 import TestDashboard from "./pages/test"
 import CopyrightShare from "./pages/document/copyright"
 import UserActivateAccount from "./pages/user/activate"
-
 import AccessControl from "./widgets/AccessControl"
-
 import UserSettings from "./pages/user/settings"
 import AdminPage from "./pages/admin"
 import WorkpiecesRouter from "./pages/workpieces"
-
+import { observer } from "mobx-react"
 // TMP keep redux for now
-import { Provider } from "react-redux"
-import { createStore, applyMiddleware } from "redux"
-import thunk from "redux-thunk"
-import rootReducer from "../redux/root-reducer"
-const reduxStore = createStore(rootReducer, applyMiddleware(thunk))
+// import { Provider } from "react-redux"
+// import { createStore, applyMiddleware } from "redux"
+
+// import thunk from "redux-thunk"
+// import rootReducer from "../redux/root-reducer"
+// const reduxStore = createStore(rootReducer, applyMiddleware(thunk))
 // /TMP
 
-export default function Main(props) {
+export default observer(function Main(props) {
 	const store = useMemo(() => createAppStore(), [])
-	const isLoggedIn = useSubpath(store, "auth", "isLoggedIn")
+	const { auth } = useStores()
 
-	setGlobalAccessToken(store.auth.accessToken)
-
-	useEffect(() => {
-		setGlobalErrorHandler((e) => store.auth.logout(e))
-
-		return store.auth.subscribe(() => {
-			setGlobalAccessToken(store.auth.accessToken)
-		})
-	}, [store])
-
-	useEffect(() => {
-		store.auth.initializeFromStorage(true)
-	}, [])
-
-	return isLoggedIn === null ? null : (
-		<Provider store={reduxStore}>
-			<StoreProvider value={store}>
-				<ScrollOverlay.ProviderContainer>
-					<GlobalOverlay.ProviderContainer>
-						<MainRouter {...props} />
-					</GlobalOverlay.ProviderContainer>
-				</ScrollOverlay.ProviderContainer>
-			</StoreProvider>
-		</Provider>
+	return auth.isLoggedIn === null ? null : (
+		<StoreProvider value={store}>
+			<ScrollOverlay.ProviderContainer>
+				<GlobalOverlay.ProviderContainer>
+					<MainRouter {...props} />
+				</GlobalOverlay.ProviderContainer>
+			</ScrollOverlay.ProviderContainer>
+		</StoreProvider>
 	)
-}
+})
 
 export function MainRouter() {
 	return (

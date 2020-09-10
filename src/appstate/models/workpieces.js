@@ -266,14 +266,14 @@ export class RightsSplits extends Observable {
 
 		try {
 			this.set({ $hasChanged: false, $error: null })
-
+			let newState
 			if (this._state === "draft") {
-				var newState = await updateRightsSplits(
+				newState = await updateRightsSplits(
 					this[$workpiece].id,
 					this._exportRightsSplits()
 				)
 			} else {
-				var newState = await createNewRightsSplits(
+				newState = await createNewRightsSplits(
 					this[$workpiece].id,
 					this._exportRightsSplits()
 				)

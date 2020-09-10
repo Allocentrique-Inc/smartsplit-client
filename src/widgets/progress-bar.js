@@ -1,7 +1,7 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
 import { Metrics, Colors } from "../theme"
-
+import { observer } from "mobx-react"
 export const Styles = StyleSheet.create({
 	bar: {
 		borderRadius: Metrics.borderRadius.forms,
@@ -21,7 +21,7 @@ function roundProgress(progress) {
 	return Math.round(progress * 100) / 100
 }
 
-export default function ProgressBar(props) {
+const ProgressBar = observer(function (props) {
 	const progressPercent = roundProgress(props.progress) + "%"
 	const height = Metrics.size[props.size || "medium"] / 2
 	const color = props.color || Colors.action
@@ -36,4 +36,5 @@ export default function ProgressBar(props) {
 			<View style={[Styles.progress, barStyles]} />
 		</View>
 	)
-}
+})
+export default ProgressBar

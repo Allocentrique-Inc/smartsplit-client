@@ -9,7 +9,7 @@ import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
-import LyricsIcon from "../../../svg/lyrics"
+import LyricsIcon from "../../../svg/feather"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import { TextInput } from "react-native"
 

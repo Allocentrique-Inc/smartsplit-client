@@ -2,10 +2,11 @@ import React, { useState } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { Svg, Rect, Path } from "react-native-svg"
 
-import { Column, Row } from "../layout"
+import { Column, forEachChildren, Row } from "../layout"
 import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
 import FormStyles from "../styles/forms"
+import { mapChildren, mapFragmentChildren, mapLeaves } from "../utils/react"
 
 const CheckBoxContext = React.createContext({})
 CheckBoxContext.displayName = "CheckBoxGroupContext"
@@ -14,29 +15,41 @@ const UNDERTEXT_DEFAULT_LINES = 1
 export function CheckBoxGroup({
 	label,
 	error,
+	hideErrorText,
 	undertext,
 	undertext_lines,
 	disabled,
 	selection,
 	onSelect,
 	onUnselect,
+	onChange,
 	children,
 	...nextProps
 }) {
 	const [selectionState, setSelectionState] = useState([])
-	const actualSelection = onSelect ? selection : selectionState
+	const actualSelection = selection || selectionState
 	const addToSelection = (value) => {
-		if (selectionState.includes(value)) return
+		if (actualSelection.includes(value)) return
 		actualSelection.push(value)
-		setSelectionState([...actualSelection])
+		if (onChange) {
+			onChange([...actualSelection])
+		} else {
+			setSelectionState([...actualSelection])
+		}
 	}
 	const removeFromSelection = (value) => {
+		if (!actualSelection.includes(value)) return
 		actualSelection.splice(actualSelection.indexOf(value), 1)
-		setSelectionState([...actualSelection])
+		if (onChange) {
+			onChange([...actualSelection])
+		} else {
+			setSelectionState([...actualSelection])
+		}
 	}
 	const context = {
 		selection: actualSelection,
 		disabled,
+		error,
 		onSelect: (value) => {
 			if (!disabled) (onSelect || addToSelection)(value)
 		},
@@ -47,9 +60,8 @@ export function CheckBoxGroup({
 
 	const wrapError =
 		error &&
-		(typeof error === "string" ||
+		((typeof error === "string" && error.length > 0) ||
 			(typeof error === "object" && error.type === React.Fragment))
-
 	return (
 		<CheckBoxContext.Provider value={context}>
 			<Column of="component" {...nextProps}>
@@ -81,11 +93,12 @@ export function CheckBoxGroup({
 export function CheckBoxGroupButton({ value, children, ...nextProps }) {
 	return (
 		<CheckBoxContext.Consumer>
-			{({ selection, disabled, onSelect, onUnselect }) => (
+			{({ selection, disabled, error, onSelect, onUnselect }) => (
 				<Row>
 					<CheckBox
-						{...nextProps}
 						disabled={disabled}
+						{...nextProps}
+						color={error && Colors.error}
 						checked={selection.includes(value)}
 						onChange={(checked) => {
 							if (checked) onSelect(value)
@@ -101,7 +114,23 @@ export function CheckBoxGroupButton({ value, children, ...nextProps }) {
 }
 
 export function CheckBox(props) {
-	const { children, center, label, checked, disabled, onChange } = props
+	let {
+		children,
+		center,
+		label,
+		checked,
+		disabled,
+		onChange,
+		field,
+		color,
+	} = props
+	if (field) {
+		label = field.label
+		onChange = (e) => {
+			field.setValue(e.target.value)
+		}
+		checked = field.value
+	}
 	const [checkedState, setCheckedState] = useState(checked)
 	const actualState = onChange ? checked : checkedState
 
@@ -119,7 +148,11 @@ export function CheckBox(props) {
 			accessibilityRole="checkbox"
 		>
 			<Row of="inside" valign={center ? "center" : ""}>
-				<Check disabled={disabled} style={FormStyles.checkbox_svg} />
+				<Check
+					disabled={disabled}
+					style={FormStyles.checkbox_svg}
+					color={color}
+				/>
 				{inside}
 			</Row>
 		</TouchableWithoutFeedback>
@@ -127,7 +160,8 @@ export function CheckBox(props) {
 }
 
 export function CheckBoxUnchecked(props) {
-	const { disabled, ...nextProps } = props
+	const { disabled, color, ...nextProps } = props
+	const actualColor = disabled ? Colors.inactive : color || Colors.stroke
 
 	return (
 		<Svg
@@ -144,14 +178,15 @@ export function CheckBoxUnchecked(props) {
 				width="17"
 				height="17"
 				rx="1.5"
-				stroke={disabled ? Colors.inactive : Colors.stroke}
+				stroke={actualColor}
 			/>
 		</Svg>
 	)
 }
 
 export function CheckBoxChecked(props) {
-	const { disabled, ...nextProps } = props
+	const { disabled, color, ...nextProps } = props
+	const actualColor = disabled ? Colors.inactive : color || Colors.action
 
 	return (
 		<Svg
@@ -162,14 +197,7 @@ export function CheckBoxChecked(props) {
 			xmlns="http://www.w3.org/2000/svg"
 			{...nextProps}
 		>
-			<Rect
-				x="3"
-				y="3"
-				width="18"
-				height="18"
-				rx="2"
-				fill={disabled ? Colors.inactive : Colors.action}
-			/>
+			<Rect x="3" y="3" width="18" height="18" rx="2" fill={actualColor} />
 
 			<Path
 				d="M8 12.75L10.4 15L16 9"
