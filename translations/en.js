@@ -5,6 +5,9 @@ export const general = {
 	noAccount: "I don't have an account",
 	or: "or",
 	auth: "Two factor authentification",
+	more: "Know more",
+	addFile: "Choose a file",
+	dropFile: "or drop your file here",
 
 	alerts: {
 		connected: "Connected!",
@@ -18,6 +21,13 @@ export const general = {
 		composer: "Composer",
 		mixer: "Mixer",
 		performer: "Performer",
+		singer: "Singer",
+		musician: "Musician",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -54,12 +64,15 @@ export const general = {
 		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
+		continue: "Continue",
+		back: "Back",
+		saveClose: "Save and Close",
 		toConsult: "Consult",
 		toBegin: "Begin",
 		continue: "Continuer",
 		back: "Retour",
 		saveClose: "Sauvegarder et fermer",
-		pass: "Passer pour l'instant",
+		pass: "Pass for now",
 	},
 }
 
@@ -159,6 +172,8 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			addCollaborator: "Add a collaborator",
+			createCollaborator: "Create a new collaborator",
 		},
 		defaultRoles: "Default Role(s)",
 	},
@@ -220,7 +235,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositor",
-				value: "compositor",
+				value: "composer",
 			},
 			{
 				displayValue: "Arranger",
@@ -229,6 +244,22 @@ export const forms = {
 			{
 				displayValue: "Interpreter",
 				value: "interpreter",
+			},
+			{
+				displayValue: "Mixer",
+				value: "mixer",
+			},
+			{
+				displayValue: "Performer",
+				value: "performer",
+			},
+			{
+				displayValue: "Singer",
+				value: "singer",
+			},
+			{
+				displayValue: "Musician",
+				value: "musician",
 			},
 		],
 	},
@@ -467,10 +498,12 @@ export const document = {
 			performance: "Performance",
 			infos: "General Information",
 			lyrics: "Lyrics",
+			recording: "Recording",
 		},
 	},
 	help: "Help",
 	why: "Why share these informations?",
+	access: "Access",
 	creation: {
 		category: "CREATION",
 		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
@@ -496,12 +529,40 @@ export const document = {
 		title: "Who performed the musical piece on this audio recording?",
 		paragraph: "Here you mention who played which instrument.",
 		roles: {
-			addPerformer: "Ajouter un interprète...",
+			artist: "Artist",
+			singer: "Singer",
+			musician: "Musician",
+			addPerformer: "Add a performer...",
 		},
 		what: "What's a performer?",
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
+	},
+
+	category: "RECORDING",
+	title: "Who recorded the musical piece?",
+	paragraph:
+		"Here you mention who contributed to the audio recording of this piece.",
+	roles: {
+		direction: "Direction",
+		addDirector: "Add a Director...",
+		soundEngineer: "Sound Engineer",
+		addSoundEngineer: "Add a Sound Engineer...",
+		mix: "Mix",
+		addMix: "Add a Mix Engineer...",
+		master: "Mastering",
+		addMaster: "Add a Mastering Engineer...",
+		production: "Production",
+		addProduction: "Add a Producer",
+	},
+	date: "Recording  Date",
+	studio: "Recording Studio",
+	searchStudio: "Search a recording studio...",
+	isrc: "ISRC Code",
+	tooltips: {
+		isrc:
+			"The International Standard Work Code is a unique identification of musical works.",
 	},
 	files: {
 		category: "FILES",

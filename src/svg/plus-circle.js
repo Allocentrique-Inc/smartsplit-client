@@ -3,7 +3,7 @@ import { Svg, Path } from "react-native-svg"
 import { Colors } from "../theme"
 
 export default function PlusCircle(props) {
-	const color = props.color || Colors.tertiary
+	const color = props.color || Colors.action
 	return (
 		<Svg
 			width="24"
