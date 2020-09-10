@@ -13,6 +13,7 @@ import { PerformanceForm } from "./performance"
 import { RecordingForm } from "./recording"
 import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
+import { ReleaseForm } from "./release"
 
 const DocumentationPage = observer(() => {
 	const { t } = useTranslation()
@@ -23,7 +24,7 @@ const DocumentationPage = observer(() => {
 	if (!workpiece_id) navigateToSummary()
 	else if (!type)
 		return (
-			<Redirect to={`/workpieces/${workpiece_id}/documentation/creation`} />
+			<Redirect to={`/workpieces/${workpiece_id}/documentation/creation`}/>
 		)
 	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
 
@@ -48,6 +49,11 @@ const DocumentationPage = observer(() => {
 			progress: 36.5,
 			title: t("document:navbar.pages.recording"),
 		},
+		release: {
+			form: ReleaseForm,
+			progress: 50,
+			title: t("document:navbar.pages.release"),
+		},
 		lyrics: {
 			form: LyricsForm,
 			progress: 62.5,
@@ -62,37 +68,43 @@ const DocumentationPage = observer(() => {
 	function toPreviousPage() {
 		type === "creation" && navigateToSummary()
 		type === "performance" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/creation`)
-		type === "recording" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
+		history.push(`/workpieces/${workpiece.id}/documentation/creation`)
 		type === "files" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/recording`)
+		history.push(`/workpieces/${workpiece.id}/documentation/performance`)
+		type === "recording" &&
+		history.push(`/workpieces/${workpiece.id}/documentation/files`)
+		type === "release" &&
+		history.push(`/workpieces/${workpiece.id}/documentation/recording`)
 		type === "lyrics" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/files`)
+		history.push(`/workpieces/${workpiece.id}/documentation/release`)
 	}
 
 	function toNextPage() {
 		type === "creation" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
+		history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "performance" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/recording`)
-		type === "recording" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/files`)
+		history.push(`/workpieces/${workpiece.id}/documentation/files`)
 		type === "files" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
+		history.push(`/workpieces/${workpiece.id}/documentation/recording`)
+		type === "recording" &&
+		history.push(`/workpieces/${workpiece.id}/documentation/release`)
+		type === "release" &&
+		history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
 		type === "lyrics" && navigateToSummary()
+
 	}
 
 	return (
 		<Layout
 			workpiece={workpiece}
 			progress={documentations[type].progress}
-			path={[t("rightSplits:navbar.rightSplits"), documentations[type].title]}
+			path={[t("document:navbar.document"), documentations[type].title]}
 			actions={
 				<Button
 					tertiary
 					text={t("general:buttons.saveClose")}
-					onClick={() => {}}
+					onClick={() => {
+					}}
 					// disabled={!rightsSplits.$hasChanged}
 				/>
 			}
@@ -104,7 +116,7 @@ const DocumentationPage = observer(() => {
 							text={t("general:buttons.back")}
 							onClick={toPreviousPage}
 						/>
-						<Flex />
+						<Flex/>
 						<Button
 							primary
 							text={t("general:buttons.continue")}

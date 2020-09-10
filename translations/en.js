@@ -656,7 +656,7 @@ export const document = {
 			infos: "General Information",
 			lyrics: "Lyrics",
 			recording: "Recording",
-			files: "Fichiers",
+			files: "Files",
 		},
 	},
 	help: "Help",
