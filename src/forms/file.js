@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { getDocumentAsync } from "expo-document-picker"
+import { useTranslation } from "react-i18next"
 
 import { Row } from "../layout"
 import Button from "../widgets/button"
@@ -37,9 +38,11 @@ export function BasicFileField({ file, onFileChange }) {
 		}
 	}
 
+	const [t] = useTranslation()
+
 	return (
 		<Row of="inside" valign="center">
-			<Button small text="Choisis un fichier" onClick={selectFile} />
+			<Button small text={t("general:addFile")} onClick={selectFile} />
 
 			{selectedFile ? (
 				<Text small secondary>
@@ -47,7 +50,7 @@ export function BasicFileField({ file, onFileChange }) {
 				</Text>
 			) : (
 				<Text small tertiary>
-					ou glissez votre fichier ici
+					{t("general:dropFile")}
 				</Text>
 			)}
 		</Row>

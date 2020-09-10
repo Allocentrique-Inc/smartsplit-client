@@ -11,7 +11,7 @@ export default function InterpretationPage() {
 	const workpiece = useCurrentWorkpiece()
 
 	function saveAndQuit() {
-		history.push("/dashboard/")
+		history.push(`/workpieces/${workpiece.id}`)
 	}
 
 	function navigateToInterpretation() {
