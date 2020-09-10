@@ -73,7 +73,7 @@ export default class PasswordModel extends BaseModel {
 		}
 	}
 	@computed get passwordScore() {
-		console.log(`password score ${zxcvbn(this.password.value).score}`)
+		//console.log(`password score ${zxcvbn(this.password.value).score}`)
 		return zxcvbn(this.password.value).score
 	}
 }

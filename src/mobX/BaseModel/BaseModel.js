@@ -195,20 +195,20 @@ export default class BaseModel {
 		this.initialized = false
 		this.initialData = obj
 		if (obj) {
-			console.log(toJS(obj))
+			//console.log(toJS(obj))
 			obj = this.importData(obj)
-			console.log(toJS(obj))
+			//console.log(toJS(obj))
 			this.initValue(obj)
 			Object.keys(this).forEach((key) => {
 				if (this[key] && this[key].isModel) {
-					console.log(`$initializing ${key} model`)
+					//console.log(`$initializing ${key} model`)
 					this[key].init(obj[key] ? obj[key] : "")
 				}
 			})
 		} else {
 			Object.keys(this).forEach((key) => {
 				if (this[key] && this[key].isModel && key != "parent") {
-					console.log(`$initializing ${key} model`)
+					//	console.log(`$initializing ${key} model`)
 					this[key].init()
 				}
 			})
@@ -327,9 +327,9 @@ export default class BaseModel {
 	 * @returns {Promise<*|void>}
 	 */
 	async save(...args) {
-		console.log("save called")
+		//console.log("save called")
 		if (this.isNew) {
-			console.log("attempting to create")
+			//console.log("attempting to create")
 			try {
 				await this.create(...args)
 				return true
@@ -338,7 +338,7 @@ export default class BaseModel {
 				return false
 			}
 		} else {
-			console.log("attempting to update")
+			//console.log("attempting to update")
 			try {
 				await this.update(...args)
 			} catch (e) {
@@ -374,10 +374,10 @@ export default class BaseModel {
 		return data
 	}
 	@action async submit(...args) {
-		console.log("model submitted")
+		//console.log("model submitted")
 		await this.validate()
 		if (this.isValid) {
-			console.log("model is valid trying to save")
+			//console.log("model is valid trying to save")
 			try {
 				return this.save(...args)
 			} catch (e) {

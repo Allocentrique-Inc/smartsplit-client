@@ -29,7 +29,7 @@ export default class RegisterModel extends PasswordModel {
 		asyncValidation: async (email) => {
 			try {
 				let result = await getEmail(email)
-				console.log(result)
+				//console.log(result)
 				return "errors:emailTaken"
 			} catch (e) {
 				return null

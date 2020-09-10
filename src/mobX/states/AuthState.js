@@ -126,7 +126,7 @@ export default class AuthState extends BaseState {
 		when(
 			() => this.user,
 			() => {
-				console.log("computed user has changed")
+				//console.log("computed user has changed")
 				this.user.data = user
 				this.user.state = "ready"
 			}

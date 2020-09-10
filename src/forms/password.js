@@ -9,7 +9,7 @@ import { Metrics } from "../theme"
 import { Platform } from "../platform"
 import { observer } from "mobx-react"
 const PasswordField = observer((props) => {
-	console.log(props)
+	//console.log(props)
 	const { onKeyUp } = props
 	const [reveal, setReveal] = useState(false)
 	const [capsLockEnabled, setCapsLockEnabled] = useState(false)

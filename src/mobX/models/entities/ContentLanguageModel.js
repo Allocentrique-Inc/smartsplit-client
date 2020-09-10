@@ -15,7 +15,7 @@ export default class ContentLanguageModel extends BaseModel {
 		},
 		asyncValidation: async (value) => {
 			try {
-				console.log(this.isNew)
+				//console.log(this.isNew)
 				await this.CRUD.read(value)
 				if (this.isNew) return "errors:entityConflict"
 				else return null
@@ -60,9 +60,9 @@ export default class ContentLanguageModel extends BaseModel {
 		}
 	}
 	@action async create(...args) {
-		console.log("create called")
+		//console.log("create called")
 		let data = this.exportData(this.toJS())
-		console.log(data)
+		//console.log(data)
 		return this.CRUD.create(data)
 	}
 
@@ -70,7 +70,7 @@ export default class ContentLanguageModel extends BaseModel {
 		let data = this.exportData(this.toJS())
 		let id = data.entity_id
 		delete data.entity_id
-		console.log(data)
+		//console.log(data)
 		return this.CRUD.update(id, data)
 	}
 }

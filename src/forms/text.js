@@ -23,7 +23,7 @@ const FramedTextField = observer(
 export const BasicTextField = observer((props) => {
 	const { t } = useTranslation()
 	const { viewRef, style, ...nextProps } = props
-	console.log(nextProps)
+	//console.log(nextProps)
 	return (
 		<TextInput
 			{...nextProps}
@@ -41,11 +41,11 @@ const TextField = observer(function (props) {
 		addProps = {
 			label: t(field.label),
 			onChangeText: (text) => {
-				console.log(text)
+				//console.log(text)
 				field.setValue(text)
 			},
 			onChange: (e) => {
-				console.log(field + " has changed")
+				//console.log(field + " has changed")
 			},
 			error: field.model.validated && t(field.error),
 			value: field.value,
