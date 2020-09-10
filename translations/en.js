@@ -5,6 +5,9 @@ export const general = {
 	noAccount: "I don't have an account",
 	or: "or",
 	auth: "Two factor authentification",
+	more: "Know more",
+	addFile: "Choose a file",
+	dropFile: "or drop your file here",
 
 	alerts: {
 		connected: "Connected!",
@@ -18,6 +21,13 @@ export const general = {
 		composer: "Composer",
 		mixer: "Mixer",
 		performer: "Performer",
+		singer: "Singer",
+		musician: "Musician",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -54,11 +64,12 @@ export const general = {
 		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
+		continue: "Continue",
+		back: "Back",
+		saveClose: "Save and Close",
 		toConsult: "Consult",
 		toBegin: "Begin",
-		saveAndClose: "Save and close",
-		back: "Back",
-		continue: "Continue",
+		pass: "Pass for now",
 	},
 }
 
@@ -85,7 +96,8 @@ export const test = {
 
 export const errors = {
 	enterEmail: "Please enter your email address",
-	strengthPassword: "The password must incluse at least 8 characters",
+	invalidEmail: "Email address is invalid",
+	strengthPassword: "The password must include at least 8 characters",
 	samePasswords: "Both passwords must be identical",
 	invalidToken:
 		"The reset token is no longer valid or has expired. Please make a new password request.",
@@ -103,12 +115,15 @@ export const errors = {
 		emailTaken: "This email is already used. ",
 		forgotEmail: "Did you forget your password?",
 	},
+	emailTaken: "This email is already used. ",
+	forgotEmail: "Did you forget your password?",
 	invalidCurrentPassword: "Current password is incorrect. Please try again.",
 	listNotFound: "List not found",
 	entityNotFound: "List entity not found",
 	entityConflict: "A list entity with this ID already exists",
 	requiredField: "Required Field",
 	invalidName: "must contain only letters and numbers",
+	acceptTerms: "You must accept the terms",
 }
 
 export const publicNavbarWeb = {
@@ -164,6 +179,8 @@ export const forms = {
 			language: "Langue",
 			phone: "Téléphone mobile",
 			juridiction: "Juridiction",
+			addCollaborator: "Add a collaborator",
+			createCollaborator: "Create a new collaborator",
 		},
 		defaultRoles: "Default Role(s)",
 	},
@@ -225,7 +242,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositor",
-				value: "compositor",
+				value: "composer",
 			},
 			{
 				displayValue: "Arranger",
@@ -234,6 +251,22 @@ export const forms = {
 			{
 				displayValue: "Performer",
 				value: "performer",
+			},
+			{
+				displayValue: "Mixer",
+				value: "mixer",
+			},
+			{
+				displayValue: "Performer",
+				value: "performer",
+			},
+			{
+				displayValue: "Singer",
+				value: "singer",
+			},
+			{
+				displayValue: "Musician",
+				value: "musician",
 			},
 		],
 	},
@@ -615,4 +648,120 @@ export const newUserInvite = {
 	title: "[Add/Modify] a Collaborating Artist",
 	checkboxTitle: "Rôle(s) par défaut",
 	checkboxUndertext: "These roles can always be modified later.",
+}
+
+export const document = {
+	navbar: {
+		document: "Document my work",
+		pages: {
+			creation: "Creation",
+			performance: "Performance",
+			recording: "Recording",
+		},
+	},
+	help: "Help",
+	why: "Why share these informations?",
+	access: "Access",
+	creation: {
+		category: "CREATION",
+		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
+		paragraph:
+			"Here you mention who contributed to the creation of this piece.",
+		date: "Creation Date",
+		roles: {
+			authors: "Authors",
+			authorsWho: "Who write the lyrics of this musical piece?",
+			addAuthor: "Add an author...",
+			composers: "Composers",
+			composersWho: "Who composed the music of this musical piece ?",
+			addComposer: "Add a composer...",
+			editors: "Editors",
+			editorsWho: "Who represent these authors and/or composers?",
+			addEditor: "Add an editor...",
+		},
+		iswc: "ISWC Code",
+		what: "What's a creator?",
+	},
+	performance: {
+		category: "PERFORMANCE",
+		title: "Who performed the musical piece on this audio recording?",
+		paragraph: "Here you mention who played which instrument.",
+		roles: {
+			artist: "Artist",
+			singer: "Singer",
+			musician: "Musician",
+			addPerformer: "Add a performer...",
+		},
+		what: "What's a performer?",
+		whichPerformance: "Which type of performance?",
+		whichRole: "Which role in the musical piece?",
+		addInstrument: "Add an instrument...",
+	},
+
+	category: "RECORDING",
+	title: "Who recorded the musical piece?",
+	paragraph:
+		"Here you mention who contributed to the audio recording of this piece.",
+	roles: {
+		direction: "Direction",
+		addDirector: "Add a Director...",
+		soundEngineer: "Sound Engineer",
+		addSoundEngineer: "Add a Sound Engineer...",
+		mix: "Mix",
+		addMix: "Add a Mix Engineer...",
+		master: "Mastering",
+		addMaster: "Add a Mastering Engineer...",
+		production: "Production",
+		addProduction: "Add a Producer",
+	},
+	date: "Recording  Date",
+	studio: "Recording Studio",
+	searchStudio: "Search a recording studio...",
+	isrc: "ISRC Code",
+	tooltips: {
+		isrc:
+			"The International Standard Work Code is a unique identification of musical works.",
+	},
+	files: {
+		category: "FILES",
+		title: "Which version of the work would you like to protect?",
+		paragraph: "Here you can add the files related to this musical piece.",
+		visual: {
+			title: "Work Visual",
+			paragraph:
+				"Just like an album has its cover, a song or a instrumental piece must also have a visual to represent it.",
+			format: "Upload in JPEG or PNG format",
+			undertext: "Recommended: 16000 x 1600 pixels of a resolution of 300 dpi.",
+		},
+		audio: {
+			title: "Audio File",
+			paragraph: "Here you can download your file in WAV or MP3 format.",
+			format: "Upload the file or the recorded work",
+			undertext: "MP3 or WAV accepted.",
+		},
+		other: {
+			title: "Other files on the work",
+			paragraph:
+				"Here you can add documents allowing the performance of the work, like the partition or the MIDI file.",
+			formatTablature: "Partition or Tablature",
+
+			formatMidi: "MIDI Files",
+			undertext: "Lorem Ipsum",
+		},
+		dropdown: {
+			public: "Public - Downloadable by all",
+			publicUndertext: "All users will be able to download the original file.",
+			invitation: "On invitation - Downloadable by some",
+			invitationUndertext:
+				"Users providing the unique sharable link will be able to download the original file. Practical for journalists and professionnals!",
+			private: "Private - Prevent the download",
+			privateUndertext:
+				"No one will be able to download the original image, except you.",
+		},
+		tooltip: {
+			listItem:
+				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
+		},
+		copy: "Unique sharable link copied.",
+	},
 }

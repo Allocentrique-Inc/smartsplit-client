@@ -12,9 +12,9 @@ export default class Admin extends BaseState {
 		}
 	}
 	@action async init() {
-		console.log("adminState.init called")
+		//console.log("adminState.init called")
 		let promises = Object.keys(this.entities).map((key) => {
-			console.log(`adminState.entities['${key}']`)
+			//console.log(`adminState.entities['${key}']`)
 			this.entities[key].init()
 		})
 		await Promise.all(promises)

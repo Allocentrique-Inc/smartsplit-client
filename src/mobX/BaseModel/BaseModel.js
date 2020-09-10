@@ -56,7 +56,7 @@ export default class BaseModel {
 	 * @private
 	 */
 	__fields = []
-
+	__submittable = []
 	/**
 	 * this is set when BaseModel.save() is called during validation and saving
 	 * @type {boolean}
@@ -140,7 +140,7 @@ export default class BaseModel {
 	 */
 	toJS(excludePrimary = false) {
 		const js = {}
-		this.fields().forEach((k) => {
+		this.__submittable.forEach((k) => {
 			if (excludePrimary && k === this.primaryKey) return
 			const value = toJS(this[k].transform(this[k].value, this))
 			if (this[k].postAlias) js[this[k].postAlias] = value
@@ -195,20 +195,20 @@ export default class BaseModel {
 		this.initialized = false
 		this.initialData = obj
 		if (obj) {
-			console.log(toJS(obj))
+			//console.log(toJS(obj))
 			obj = this.importData(obj)
-			console.log(toJS(obj))
+			//console.log(toJS(obj))
 			this.initValue(obj)
 			Object.keys(this).forEach((key) => {
 				if (this[key] && this[key].isModel) {
-					console.log(`$initializing ${key} model`)
+					//console.log(`$initializing ${key} model`)
 					this[key].init(obj[key] ? obj[key] : "")
 				}
 			})
 		} else {
 			Object.keys(this).forEach((key) => {
 				if (this[key] && this[key].isModel && key != "parent") {
-					console.log(`$initializing ${key} model`)
+					//	console.log(`$initializing ${key} model`)
 					this[key].init()
 				}
 			})
@@ -327,9 +327,9 @@ export default class BaseModel {
 	 * @returns {Promise<*|void>}
 	 */
 	async save(...args) {
-		console.log("save called")
+		//console.log("save called")
 		if (this.isNew) {
-			console.log("attempting to create")
+			//console.log("attempting to create")
 			try {
 				await this.create(...args)
 				return true
@@ -338,7 +338,7 @@ export default class BaseModel {
 				return false
 			}
 		} else {
-			console.log("attempting to update")
+			//console.log("attempting to update")
 			try {
 				await this.update(...args)
 			} catch (e) {
@@ -373,13 +373,13 @@ export default class BaseModel {
 	@action importData(data) {
 		return data
 	}
-	@action async submit() {
-		console.log("model submitted")
-		let validity = await this.validate()
-		if (validity) {
-			console.log("model is valid trying to save")
+	@action async submit(...args) {
+		//console.log("model submitted")
+		await this.validate()
+		if (this.isValid) {
+			//console.log("model is valid trying to save")
 			try {
-				return this.save()
+				return this.save(...args)
 			} catch (e) {
 				this.saveError = e
 				return false

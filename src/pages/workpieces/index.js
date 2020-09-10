@@ -27,6 +27,10 @@ import ChevronDown from "../../svg/chevron-down"
 import { ProtectYourWork, ShareYourCopyright } from "./cards"
 import { useStorePath } from "../../mobX"
 import { observer } from "mobx-react"
+import Recording from "./documentation/recording"
+import Creation from "./documentation/creation"
+import Performance from "./documentation/performance"
+import Files from "./documentation/files"
 
 export default observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -50,6 +54,18 @@ export default observer(() => {
 
 				<Route path="/workpieces/:workpiece_id/protect">
 					<ProtectWork />
+				</Route>
+				<Route path="/workpieces/:workpiece_id/documentation/recording">
+					<Recording />
+				</Route>
+				<Route path="/workpieces/:workpiece_id/documentation/creation">
+					<Creation />
+				</Route>
+				<Route path="/workpieces/:workpiece_id/documentation/performance">
+					<Performance />
+				</Route>
+				<Route path="/workpieces/:workpiece_id/documentation/files">
+					<Files />
 				</Route>
 			</Switch>
 		</WorkpieceContext.Provider>

@@ -1,5 +1,5 @@
 import { createEntityListState } from "../../crud"
-import ContentLanguageModel from "../../models/ContentLanguageModel"
+import ContentLanguageModel from "../../models/entities/ContentLanguageModel"
 const ContentLanguageState = createEntityListState(
 	"content-languages",
 	ContentLanguageModel

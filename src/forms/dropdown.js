@@ -35,6 +35,7 @@ export default class DropdownField extends React.PureComponent {
 	render() {
 		const {
 			label,
+			subLabel,
 			label_hint,
 			undertext,
 			children,

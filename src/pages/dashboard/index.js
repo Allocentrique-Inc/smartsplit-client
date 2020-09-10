@@ -17,6 +17,7 @@ import NewEmailModal from "./new-email"
 import SubScreenLayout from "../../layouts/subscreen"
 import { CurrentUserAvatar } from "../../smartsplit/user/avatar"
 import { Text } from "../../text"
+import { observer } from "mobx-react"
 
 const MENU_WEB = [
 	{
@@ -64,7 +65,7 @@ const MENU_MOBILE = [
 	},
 ]
 
-export default function DashboardPage(props) {
+const DashboardPage = observer((props) => {
 	const Layout = Platform.web ? DashboardLayout : BottomNavbarLayout
 	const menu = Platform.web ? MENU_WEB : MENU_MOBILE
 
@@ -75,7 +76,8 @@ export default function DashboardPage(props) {
 			</Scrollable>
 		</Layout>
 	)
-}
+})
+export default DashboardPage
 
 export function MobileMenu({ children }) {
 	return (
@@ -85,7 +87,7 @@ export function MobileMenu({ children }) {
 	)
 }
 
-export function DashboardRoutes(props) {
+export const DashboardRoutes = observer((props) => {
 	return (
 		<Switch>
 			<Route path="/dashboard/" exact>
@@ -109,4 +111,4 @@ export function DashboardRoutes(props) {
 			</Route>
 		</Switch>
 	)
-}
+})
