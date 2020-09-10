@@ -47,8 +47,8 @@ export default function Release() {
 		history.push(`/workpieces/${workpiece.id}`)
 	}
 
-	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+	function navigateToFiles() {
+		history.push(`/workpieces/${workpiece.id}/rights-splits/files`)
 	}
 
 	return (
@@ -76,7 +76,7 @@ export default function Release() {
 						<Button
 							primary
 							text={t("general:buttons.pass")}
-							onClick={navigateToInterpretation}
+							onClick={navigateToFiles}
 						/>
 					</Row>
 					<Row flex={1} />
