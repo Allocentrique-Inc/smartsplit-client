@@ -19,7 +19,6 @@ import {
 	TextField,
 	Select,
 } from "../../../forms"
-import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
 const Styles = StyleSheet.create({
 	category: {
