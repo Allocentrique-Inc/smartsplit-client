@@ -24,7 +24,7 @@ const DocumentationPage = observer(() => {
 	if (!workpiece_id) navigateToSummary()
 	else if (!type)
 		return (
-			<Redirect to={`/workpieces/${workpiece_id}/documentation/creation`}/>
+			<Redirect to={`/workpieces/${workpiece_id}/documentation/creation`} />
 		)
 	const workpiece = useStorePath("workpieces").fetch(workpiece_id)
 
@@ -68,30 +68,29 @@ const DocumentationPage = observer(() => {
 	function toPreviousPage() {
 		type === "creation" && navigateToSummary()
 		type === "performance" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/creation`)
+			history.push(`/workpieces/${workpiece.id}/documentation/creation`)
 		type === "files" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/performance`)
+			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "recording" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/files`)
+			history.push(`/workpieces/${workpiece.id}/documentation/files`)
 		type === "release" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/recording`)
+			history.push(`/workpieces/${workpiece.id}/documentation/recording`)
 		type === "lyrics" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/release`)
+			history.push(`/workpieces/${workpiece.id}/documentation/release`)
 	}
 
 	function toNextPage() {
 		type === "creation" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/performance`)
+			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "performance" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/files`)
+			history.push(`/workpieces/${workpiece.id}/documentation/files`)
 		type === "files" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/recording`)
+			history.push(`/workpieces/${workpiece.id}/documentation/recording`)
 		type === "recording" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/release`)
+			history.push(`/workpieces/${workpiece.id}/documentation/release`)
 		type === "release" &&
-		history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
+			history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
 		type === "lyrics" && navigateToSummary()
-
 	}
 
 	return (
@@ -103,8 +102,7 @@ const DocumentationPage = observer(() => {
 				<Button
 					tertiary
 					text={t("general:buttons.saveClose")}
-					onClick={() => {
-					}}
+					onClick={() => {}}
 					// disabled={!rightsSplits.$hasChanged}
 				/>
 			}
@@ -116,7 +114,7 @@ const DocumentationPage = observer(() => {
 							text={t("general:buttons.back")}
 							onClick={toPreviousPage}
 						/>
-						<Flex/>
+						<Flex />
 						<Button
 							primary
 							text={t("general:buttons.continue")}
