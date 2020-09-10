@@ -227,8 +227,26 @@ export default class AuthState extends BaseState {
 	@action async doPasswordResetAndRedirect(token, history) {
 		await this.resetModel.validate()
 		if (this.resetModel.isValid) {
-			await this.resetPasswordAndLogin(token, this.resetModel.password.value)
-			history.push("/")
+			runInAction(() => (this.resetModel.busy = true))
+			try {
+				await this.resetPasswordAndLogin(token, this.resetModel.password.value)
+				runInAction(() => (this.resetModel.busy = false))
+				history.push("/")
+			} catch (e) {
+				let error
+				switch (e.code) {
+					case "user_invalid_reset_token":
+						error = "errors:invalidToken"
+						break
+					default:
+						error = e.error || e.message
+				}
+
+				runInAction(() => {
+					this.resetModel.saveError = error
+					this.resetModel.busy = false
+				})
+			}
 		}
 	}
 	async resetPasswordAndLogin(token, password) {
