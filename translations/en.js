@@ -241,16 +241,13 @@ export const forms = {
 				value: "author",
 			},
 			{
-				displayValue: "Compositor",
+				displayValue: "Composor",
 				value: "composer",
+
 			},
 			{
 				displayValue: "Arranger",
 				value: "arranger",
-			},
-			{
-				displayValue: "Interpreter",
-				value: "interpreter",
 			},
 			{
 				displayValue: "Mixer",
@@ -508,10 +505,15 @@ export const document = {
 			creation: "Creation",
 			performance: "Performance",
 			recording: "Recording",
+			release: "Release",
+			infos: "General Information",
+			lyrics: "Lyrics",
+			recording: "Recording",
 		},
 	},
 	help: "Help",
 	why: "Why share these informations?",
+
 	access: "Access",
 	creation: {
 		category: "CREATION",
@@ -547,8 +549,8 @@ export const document = {
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
-	},
-
+    },
+      recording:{
 	category: "RECORDING",
 	title: "Who recorded the musical piece?",
 	paragraph:
@@ -573,6 +575,26 @@ export const document = {
 		isrc:
 			"The International Standard Work Code is a unique identification of musical works.",
 	},
+
+	release: {
+		category: "RELEASE",
+		title: "Was this piece released?",
+		paragraph:
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Release Date",
+		dateHint: "Leave blank if undetermined",
+		label: "Label",
+		addLabel: "Add a label",
+		format: "Product Format",
+		ep: "EP Title",
+		supports: {
+			support: "Support",
+			digital: "Digital",
+			distribution: "Distribution",
+			addDistribution: "Add a distributor...",
+			upc: "UPC/EAN Code",
+			physical: "Physical",
+		},
 	files: {
 		category: "FILES",
 		title: "Which version of the work would you like to protect?",
@@ -613,6 +635,27 @@ export const document = {
 			listItem:
 				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
 		},
+		access: "Access",
 		copy: "Unique sharable link copied.",
+	},
+	infos: {
+		category: "GENERAL INFORMATIONS",
+		title: "Tells us more about the musical piece.",
+		length: "Length",
+		bpm: "BPM",
+		mainGenre: "Main Genre",
+		addenre: "Add a genre...",
+		secondaryGenre: "Secondary Genres",
+		genreExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
+	},
+	lyrics: {
+		category: "LYRICS",
+		title: (workPiece) => <>{workPiece} contains lyrics?</>,
+		paragraph:
+			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
+		undertext:
+			"Lyrics only. Do not include authors, composers, year of creation, etc.",
+		language: "Language(s)",
+		addLanguage: "Ajouter une langue...",
 	},
 }

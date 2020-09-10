@@ -241,7 +241,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositeur",
-				value: "composor",
+				value: "compooer",
 			},
 			{
 				displayValue: "Arrangeur",
@@ -249,8 +249,8 @@ export const forms = {
 			},
 			{
 				displayValue: "Interprète",
-				value: "peformer",
-			},
+				value: "performer",
+      },
 			{
 				displayValue: "Mixeur",
 				value: "mixer",
@@ -509,6 +509,8 @@ export const document = {
 		pages: {
 			creation: "Création",
 			performance: "Interprétation",
+			infos: "Informations générales",
+			lyrics: "Paroles",
 			recording: "Enregistrement",
 		},
 	},
@@ -544,6 +546,7 @@ export const document = {
 			singer: "Chanteur",
 			musician: "Musicien",
 			performer: "Ajouter un interprète...",
+			release: "Sortie",
 			addPerformer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
@@ -577,6 +580,25 @@ export const document = {
 				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
 		},
 	},
+	release: {
+		category: "SORTIE",
+		title: "Cette pièce est-elle sortie ?",
+		paragraph:
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Date  de sortie",
+		dateHint: "Laisse vide si non déterminée",
+		label: "Label",
+		addLabel: "Ajouter une étiquette",
+		format: "Format du produit",
+		ep: "Titre de l'EP",
+		supports: {
+			support: "Support",
+			digital: "Numérique",
+			distribution: "Distribution",
+			addDistribution: "Ajouter un distributeur...",
+			upc: "Code UPC/EAN",
+			physical: "Physique",
+		},
 	files: {
 		category: "FILES",
 		title: "Quels fichiers veux-tu rendre accessible ?",
@@ -619,6 +641,27 @@ export const document = {
 			listItem:
 				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
 		},
+		access: "Accès",
 		copy: "Lien de partage unique copié.",
+	},
+	infos: {
+		category: "INFORMATIONS GÉNÉRALES",
+		title: "Dis-nous en plus sur la pièce musicale.",
+		length: "Durée",
+		bpm: "BPM",
+		mainGenre: "Genre principal",
+		addGenre: "Ajouter un genre...",
+		secondaryGenre: "Genres secondaires",
+		genreExample: "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae.",
+	},
+	lyrics: {
+		category: "PAROLES",
+		title: (workPiece) => <>{workPiece} contient des paroles ?</>,
+		paragraph:
+			"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
+		undertext:
+			"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
+		language: "Langue(s)",
+		addLanguage: "Ajouter unbe langue...",
 	},
 }

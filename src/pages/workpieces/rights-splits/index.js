@@ -8,6 +8,10 @@ import Recording from "../documentation/recording"
 import Performance from "../documentation/performance"
 import Files from "../documentation/files"
 
+import Lyrics from "../documentation/lyrics"
+
+import Release from "../documentation/release"
+
 export default function (props) {
 	return (
 		<Switch>
@@ -29,10 +33,9 @@ export default function (props) {
 				component={RecordingPage}
 			/>
 			<Route
-				path="/workpieces/:workpiece_id/documentation/recording"
-				component={Recording}
-			/>
-			<Route
+				path="/workpieces/:workpiece_id/documentation/release"
+				component={Release}/>
+      <Route
 				path="/workpieces/:workpiece_id/documentation/creation"
 				component={Creation}
 			/>
@@ -41,8 +44,16 @@ export default function (props) {
 				component={Performance}
 			/>
 			<Route
+				path="/workpieces/:workpiece_id/documentation/recording"
+				component={Recording}
+			/>
+			<Route
 				path="/workpieces/:workpiece_id/documentation/files"
 				component={Files}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/documentation/lyrics"
+				component={Lyrics}
 			/>
 		</Switch>
 	)
