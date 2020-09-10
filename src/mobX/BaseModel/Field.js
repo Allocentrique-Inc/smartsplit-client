@@ -551,7 +551,7 @@ export default class Field {
 	@action
 	validateSync() {
 		// first check if  required anc null or empty
-		//console.log("validating " + this.fieldName)
+		console.log("validating " + this.fieldName)
 		this.error = null
 		/*console.log(
       this.fieldName + " required : " + (this.isRequired ? "true" : "false"),

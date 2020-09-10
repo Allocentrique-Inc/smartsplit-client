@@ -2,7 +2,7 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 import { Platform } from "react-native"
 import { observer } from "mobx-react"
-import { useStores } from "../../mobX"
+import { useStores, useStorePath } from "../../mobX"
 import { DialogModal } from "../../widgets/modal"
 import Button from "../../widgets/button"
 import { Group } from "../../layout"
@@ -10,13 +10,10 @@ import PasswordField from "../../forms/password"
 import PasswordFieldWithScoreBar from "../../forms/PasswordFieldWithScoreBar"
 import { Text } from "../../text"
 
-export default observer(function ChangePasswordModal({
-	visible,
-	onRequestClose,
-}) {
+const ChangePasswordModal = observer(({ visible, onRequestClose }) => {
 	const { t } = useTranslation()
 	const { auth } = useStores()
-	const model = auth.changePassModel
+	const model = useStorePath("auth", "changePassModel")
 	function close() {
 		onRequestClose()
 		model.init()
@@ -31,7 +28,7 @@ export default observer(function ChangePasswordModal({
 					<Button text={t("general:buttons.cancel")} tertiary onClick={close} />
 					<Button
 						text={t("general:buttons.save")}
-						disabled={!model.isValid || model.busy}
+						disabled={model.busy}
 						onClick={async () => {
 							let result = await auth.doPasswordChange()
 							if (result) close()
@@ -56,3 +53,4 @@ export default observer(function ChangePasswordModal({
 		</DialogModal>
 	)
 })
+export default ChangePasswordModal

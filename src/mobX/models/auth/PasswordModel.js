@@ -12,7 +12,7 @@ export default class PasswordModel extends BaseModel {
 	@observable password = new Field(this, "password", {
 		required: true,
 		validation: (v) => {
-			console.log("validating password")
+			//console.log("validating password")
 			if (v.length < 8) return "errors:strengthPassword"
 			return null
 		},
@@ -73,7 +73,7 @@ export default class PasswordModel extends BaseModel {
 		}
 	}
 	@computed get passwordScore() {
-		//console.log(`password score ${zxcvbn(this.password.value).score}`)
+		console.log(`password score ${zxcvbn(this.password.value).score}`)
 		return zxcvbn(this.password.value).score
 	}
 }

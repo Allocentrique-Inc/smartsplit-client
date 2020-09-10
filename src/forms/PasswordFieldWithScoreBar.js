@@ -9,8 +9,9 @@ import { Text } from "../text"
 import ProgressBar from "../widgets/progress-bar"
 
 const PasswordFieldWithScoreBar = observer((props) => {
-	const model: RegisterModel = useStorePath("auth", "regModel")
-	//const {model} = field;
+	//const model: RegisterModel = useStorePath("auth", "regModel")
+	const { field } = props
+	const { model } = field
 	const { t } = useTranslation()
 	//const field = useFormField(props.name)
 	//const score = zxcvbn(field.value).score
