@@ -5,6 +5,9 @@ export const general = {
 	noAccount: "I don't have an account",
 	or: "or",
 	auth: "Two factor authentification",
+	more: "Know more",
+	addFile: "Choose a file",
+	dropFile: "or drop your file here",
 
 	alerts: {
 		connected: "Connected!",
@@ -18,6 +21,13 @@ export const general = {
 		composer: "Composer",
 		mixer: "Mixer",
 		performer: "Performer",
+		singer: "Singer",
+		musician: "Musician",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -54,11 +64,11 @@ export const general = {
 		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
-		toConsult: "Consult",
-		toBegin: "Begin",
 		continue: "Continue",
 		back: "Back",
 		saveClose: "Save and Close",
+		toConsult: "Consult",
+		toBegin: "Begin",
 		pass: "Pass for now",
 	},
 }
@@ -221,16 +231,29 @@ export const forms = {
 				value: "author",
 			},
 			{
-				displayValue: "Compositor",
-				value: "compositor",
+				displayValue: "Composor",
+				value: "composer",
+
 			},
 			{
 				displayValue: "Arranger",
 				value: "arranger",
 			},
 			{
-				displayValue: "Interpreter",
-				value: "interpreter",
+				displayValue: "Mixer",
+				value: "mixer",
+			},
+			{
+				displayValue: "Performer",
+				value: "performer",
+			},
+			{
+				displayValue: "Singer",
+				value: "singer",
+			},
+			{
+				displayValue: "Musician",
+				value: "musician",
 			},
 		],
 	},
@@ -469,10 +492,15 @@ export const document = {
 			performance: "Performance",
 			recording: "Recording",
 			release: "Release",
+			infos: "General Information",
+			lyrics: "Lyrics",
+			recording: "Recording",
 		},
 	},
 	help: "Help",
 	why: "Why share these informations?",
+
+	access: "Access",
 	creation: {
 		category: "CREATION",
 		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
@@ -507,7 +535,8 @@ export const document = {
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
-	},
+    },
+      recording:{
 	category: "RECORDING",
 	title: "Who recorded the musical piece?",
 	paragraph:
@@ -532,6 +561,7 @@ export const document = {
 		isrc:
 			"The International Standard Work Code is a unique identification of musical works.",
 	},
+
 	release: {
 		category: "RELEASE",
 		title: "Was this piece released?",
@@ -551,5 +581,67 @@ export const document = {
 			upc: "UPC/EAN Code",
 			physical: "Physical",
 		},
+	files: {
+		category: "FILES",
+		title: "Which version of the work would you like to protect?",
+		paragraph: "Here you can add the files related to this musical piece.",
+		visual: {
+			title: "Work Visual",
+			paragraph:
+				"Just like an album has its cover, a song or a instrumental piece must also have a visual to represent it.",
+			format: "Upload in JPEG or PNG format",
+			undertext: "Recommended: 16000 x 1600 pixels of a resolution of 300 dpi.",
+		},
+		audio: {
+			title: "Audio File",
+			paragraph: "Here you can download your file in WAV or MP3 format.",
+			format: "Upload the file or the recorded work",
+			undertext: "MP3 or WAV accepted.",
+		},
+		other: {
+			title: "Other files on the work",
+			paragraph:
+				"Here you can add documents allowing the performance of the work, like the partition or the MIDI file.",
+			formatTablature: "Partition or Tablature",
+
+			formatMidi: "MIDI Files",
+			undertext: "Lorem Ipsum",
+		},
+		dropdown: {
+			public: "Public - Downloadable by all",
+			publicUndertext: "All users will be able to download the original file.",
+			invitation: "On invitation - Downloadable by some",
+			invitationUndertext:
+				"Users providing the unique sharable link will be able to download the original file. Practical for journalists and professionnals!",
+			private: "Private - Prevent the download",
+			privateUndertext:
+				"No one will be able to download the original image, except you.",
+		},
+		tooltip: {
+			listItem:
+				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
+		},
+		access: "Access",
+		copy: "Unique sharable link copied.",
+	},
+	infos: {
+		category: "GENERAL INFORMATIONS",
+		title: "Tells us more about the musical piece.",
+		length: "Length",
+		bpm: "BPM",
+		mainGenre: "Main Genre",
+		addenre: "Add a genre...",
+		secondaryGenre: "Secondary Genres",
+		genreExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
+	},
+	lyrics: {
+		category: "LYRICS",
+		title: (workPiece) => <>{workPiece} contains lyrics?</>,
+		paragraph:
+			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
+		undertext:
+			"Lyrics only. Do not include authors, composers, year of creation, etc.",
+		language: "Language(s)",
+		addLanguage: "Ajouter une langue...",
 	},
 }

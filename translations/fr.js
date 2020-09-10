@@ -5,6 +5,9 @@ export const general = {
 	noAccount: "Je n'ai pas de compte",
 	or: "ou",
 	auth: "Authentification à deux facteurs",
+	more: "En savoir plus",
+	addFile: "Choisir un fichier",
+	dropFile: "ou glissez votre fichier ici",
 
 	alerts: {
 		connected: "Connecté !",
@@ -19,6 +22,13 @@ export const general = {
 		composer: "Compositeur",
 		mixer: "Arrangeur",
 		performer: "Interprète",
+		singer: "Chanteur",
+		musician: "Musicien",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -55,6 +65,9 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
+		continue: "Continuer",
+		back: "Retour",
+		saveClose: "Sauvegarder et fermer",
 		toConsult: "Consulter",
 		toBegin: "Commencer",
 		continue: "Continuer",
@@ -224,7 +237,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositeur",
-				value: "compositor",
+				value: "compooer",
 			},
 			{
 				displayValue: "Arrangeur",
@@ -232,7 +245,23 @@ export const forms = {
 			},
 			{
 				displayValue: "Interprète",
-				value: "interpreter",
+				value: "performer",
+      },
+			{
+				displayValue: "Mixeur",
+				value: "mixer",
+			},
+			{
+				displayValue: "Interprète",
+				value: "performer",
+			},
+			{
+				displayValue: "Chanteur",
+				value: "singer",
+			},
+			{
+				displayValue: "Musicien",
+				value: "musician",
 			},
 		],
 	},
@@ -473,11 +502,14 @@ export const document = {
 		pages: {
 			creation: "Création",
 			performance: "Interprétation",
+			infos: "Informations générales",
+			lyrics: "Paroles",
 			recording: "Enregistrement",
 		},
 	},
 	help: "Aide",
 	why: "Pourquoi partager ces informations ?",
+	access: "Accès",
 	creation: {
 		category: "CRÉATION",
 		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
@@ -508,6 +540,7 @@ export const document = {
 			musician: "Musicien",
 			performer: "Ajouter un interprète...",
 			release: "Sortie",
+			addPerformer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
 		whichPerformance: "Quel type d'interprétation ?",
@@ -559,5 +592,69 @@ export const document = {
 			upc: "Code UPC/EAN",
 			physical: "Physique",
 		},
+	files: {
+		category: "FILES",
+		title: "Quels fichiers veux-tu rendre accessible ?",
+		paragraph:
+			"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
+		visual: {
+			title: "Visuel de l'œuvre",
+			paragraph:
+				"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
+			format: "Téléverser en format JPEG ou PNG",
+			undertext:
+				"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
+		},
+		audio: {
+			title: "Fichier audio",
+			paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
+			format: "Téléverser le fichier de l'œuvre enregistrée",
+			undertext: "MP3 ou WAV acceptés.",
+		},
+		other: {
+			title: "Autres fichiers sur l'œuvre",
+			paragraph:
+				"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
+			formatTablature: "Partition ou tablature",
+			formatMidi: "Fichiers MIDI",
+			undertext: "Lorem Ipsum",
+		},
+		dropdown: {
+			public: "Publique - Téléchargeable par tous",
+			publicUndertext:
+				"Tous les utilisateurs pourront télécharger le fichier original.",
+			invitation: "Sur invitation - Téléchargeable par certains",
+			invitationUndertext:
+				"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
+			private: "Privé - Empêcher le téléchargement",
+			privateUndertext:
+				"Personne ne pourra télécharger l'image originale, sauf vous.",
+		},
+		tooltip: {
+			listItem:
+				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
+		},
+		access: "Accès",
+		copy: "Lien de partage unique copié.",
+	},
+	infos: {
+		category: "INFORMATIONS GÉNÉRALES",
+		title: "Dis-nous en plus sur la pièce musicale.",
+		length: "Durée",
+		bpm: "BPM",
+		mainGenre: "Genre principal",
+		addGenre: "Ajouter un genre...",
+		secondaryGenre: "Genres secondaires",
+		genreExample: "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae.",
+	},
+	lyrics: {
+		category: "PAROLES",
+		title: (workPiece) => <>{workPiece} contient des paroles ?</>,
+		paragraph:
+			"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
+		undertext:
+			"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
+		language: "Langue(s)",
+		addLanguage: "Ajouter unbe langue...",
 	},
 }
