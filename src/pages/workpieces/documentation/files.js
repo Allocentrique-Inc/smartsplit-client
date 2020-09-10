@@ -23,7 +23,14 @@ import FilesIcon from "../../../svg/files"
 import Unlock from "../../../svg/unlock"
 import Download from "../../../svg/download"
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.medium,
+	},
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
 	},
@@ -43,7 +50,7 @@ export default function Files() {
 	}
 
 	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+		history.push(`/workpieces/${workpiece.id}/documentation/general-infos`)
 	}
 
 	return (
@@ -53,7 +60,7 @@ export default function Files() {
 				t("document:navbar.document"),
 				t("document:navbar.pages.performance"),
 			]}
-			progress={24}
+			progress={62.5}
 			actions={
 				<Button
 					tertiary
@@ -86,16 +93,14 @@ export default function Files() {
 }
 
 export function FilesForm(props) {
-	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
-	const [search, setSearch] = useState("")
 	const { t } = useTranslation()
 
 	return (
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
-						<FilesIcon color={Colors.action} />
+					<Text action bold style={Styles.category}>
+						<FilesIcon style={Styles.logo} />
 						{t("document:files.category")}
 						<Row padding="tiny" />
 					</Text>
@@ -258,7 +263,7 @@ export function PerformanceOptions(props) {
 					</CheckBoxGroup>
 
 					{musician && (
-						<Column style={styles.dropdown}>
+						<Column style={Styles.dropdown}>
 							<Dropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
@@ -267,7 +272,7 @@ export function PerformanceOptions(props) {
 						</Column>
 					)}
 
-					<Column style={styles.dropdown}>
+					<Column style={Styles.dropdown}>
 						<Dropdown
 							style={{ flex: 1 }}
 							placeholder={t("document:performance.addInstrument")}

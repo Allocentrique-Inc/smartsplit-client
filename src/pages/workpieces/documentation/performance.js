@@ -45,7 +45,7 @@ export default function Performance() {
 		history.push(`/workpieces/${workpiece.id}`)
 	}
 
-	function navigateToInterpretation() {
+	function navigateToRecording() {
 		history.push(`/workpieces/${workpiece.id}/documentation/recording`)
 	}
 
@@ -76,7 +76,7 @@ export default function Performance() {
 						<Button
 							primary
 							text={t("general:buttons.pass")}
-							onClick={navigateToInterpretation}
+							onClick={navigateToRecording}
 						/>
 					</Row>
 					<Row flex={1} />

@@ -69,9 +69,6 @@ export const general = {
 		saveClose: "Save and Close",
 		toConsult: "Consult",
 		toBegin: "Begin",
-		continue: "Continuer",
-		back: "Retour",
-		saveClose: "Sauvegarder et fermer",
 		pass: "Pass for now",
 	},
 }
