@@ -12,9 +12,6 @@ import { Colors, Metrics } from "../../../theme"
 import ReleasetIcon from "../../../svg/release"
 
 import {
-	RadioGroupButton,
-	RadioButton,
-	RadioGroup,
 	CheckBox,
 	CheckBoxGroup,
 	Dropdown,
@@ -24,7 +21,14 @@ import {
 } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.medium,
+	},
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
 	},
@@ -85,8 +89,6 @@ export default function Release() {
 }
 
 export function ReleaseForm(props) {
-	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
-	const [search, setSearch] = useState("")
 	const [date, setDate] = useState("")
 	const { t } = useTranslation()
 	const [showDigitalOptions, setShowDigitalOptions] = useState()
@@ -96,8 +98,8 @@ export function ReleaseForm(props) {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
-						<ReleasetIcon />
+					<Text action bold style={Styles.category}>
+						<ReleasetIcon style={Styles.logo} />
 						{t("document:release.category")}
 						<Row padding="tiny" />
 					</Text>
@@ -179,7 +181,7 @@ export function EP(props) {
 export function DigitalOptions() {
 	const { t } = useTranslation()
 	return (
-		<Column of="component" style={styles.dropdown}>
+		<Column of="component" style={Styles.dropdown}>
 			<Dropdown
 				label={t("document:release.supports.distribution")}
 				placeholder={t("document:release.supports.addDistribution")}
