@@ -43,7 +43,7 @@ export default function AddCollaboratorDropdown(props) {
 					<Row of="component" padding="component" style={Styles.actionFrame}>
 						<PlusCircle />
 						<Text bold action>
-							{t("forms:createCollaborator")}
+							{t("forms:labels.dropdowns.createCollaborator")}
 						</Text>
 					</Row>
 				</TouchableWithoutFeedback>
