@@ -666,7 +666,6 @@ export const document = {
 			infos: "Informations générales",
 			lyrics: "Paroles",
 			recording: "Enregistrement",
-			lyrics: "Lyrics",
 			files: "Files",
 		},
 	},
@@ -820,5 +819,5 @@ export const document = {
 			language: "Langue(s)",
 			addLanguage: "Ajouter unbe langue...",
 		},
-	}
+	},
 }
