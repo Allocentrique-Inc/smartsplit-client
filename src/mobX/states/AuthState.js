@@ -13,6 +13,8 @@ import {
 } from "../../../api/users"
 import RegisterModel from "../models/auth/RegisterModel"
 import { useHistory } from "react-router"
+import PasswordModel from "../models/auth/PasswordModel"
+import ChangePasswordModel from "../models/auth/ChangePasswordModel"
 /**
  * AuthState observable class
  *
@@ -49,6 +51,8 @@ export default class AuthState extends BaseState {
 	user_id = null
 
 	@observable regModel: RegisterModel = null
+	@observable resetModel: PasswordModel = null
+	@observable changePassModel: ChangePasswordModel = null
 
 	@computed get user() {
 		return this.user_id && this.root.users.get(this.user_id)
@@ -62,6 +66,10 @@ export default class AuthState extends BaseState {
 		//this.history = useHistory()
 		this.regModel = new RegisterModel()
 		this.regModel.init()
+		this.resetModel = new PasswordModel()
+		this.resetModel.init()
+		this.changePassModel = new ChangePasswordModel()
+		this.changePassModel.init()
 		if (this.accessToken) {
 			//setGlobalAccessToken(this.accessToken)
 			this.isReturning = true
@@ -185,6 +193,32 @@ export default class AuthState extends BaseState {
 		this.setLoginFromAPI(result, stayLoggedIn)
 	}
 
+	@action async doPasswordChange() {
+		this.changePassModel.saveError = null
+
+		await this.changePassModel.validate()
+		if (this.changePassModel.isValid) {
+			runInAction(() => (this.changePassModel.busy = true))
+			try {
+				await this.changePassword(
+					this.changePassModel.currentPassword.value,
+					this.changePassModel.password.value
+				)
+				return true
+			} catch (e) {
+				if (e.code === "user_invalid_current_password") {
+					runInAction(() => {
+						this.changePassModel.currentPassword.error =
+							"errors:invalidCurrentPassword"
+					})
+				} else {
+					this.changePassModel.saveError = e
+				}
+				runInAction(() => (this.changePassModel.busy = false))
+				return false
+			}
+		}
+	}
 	async changePassword(currentPassword, newPassword) {
 		const result = await changePassword(currentPassword, newPassword)
 		this.setLoginFromAPI(result)
@@ -193,5 +227,12 @@ export default class AuthState extends BaseState {
 	async resetPasswordAndLogin(token, password) {
 		const result = await resetPassword(token, password)
 		this.setLoginFromAPI(result)
+	}
+	async doPasswordResetAndRedirect(token, history) {
+		await this.resetModel.validate()
+		if (this.resetModel.isValid) {
+			await this.resetPasswordAndLogin(token, this.resetModel.password.value)
+			history.push("/")
+		}
 	}
 }

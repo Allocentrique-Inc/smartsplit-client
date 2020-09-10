@@ -37,6 +37,7 @@ import { CheckEmailModal } from "./check-email"
 import { registerUser } from "../../../api/users"
 import RegisterModel from "../../mobX/models/auth/RegisterModel"
 import AuthState from "../../mobX/states/AuthState"
+import PasswordFieldWithScoreBar from "../../forms/PasswordFieldWithScoreBar"
 
 // export function passwordBarColor(score) {
 // 	switch (score) {
@@ -108,32 +109,6 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 	)
 }
 
-export const PasswordFieldWithScoreBar = observer((props) => {
-	const model: RegisterModel = useStorePath("auth", "regModel")
-	//const {model} = field;
-	const { t } = useTranslation()
-	//const field = useFormField(props.name)
-	//const score = zxcvbn(field.value).score
-
-	return (
-		<Column of="inside">
-			<PasswordField {...props} />
-			<Row style={{ alignItems: "center" }}>
-				<Text secondary small style={{ flex: 3 }}>
-					{t(model.passwordStrength)}
-				</Text>
-				<Flex />
-				<ProgressBar
-					size="tiny"
-					style={{ flex: 1 }}
-					color={model.passwordBarColor}
-					progress={model.passwordProgress}
-				/>
-			</Row>
-		</Column>
-	)
-})
-
 const registerFormValues = {
 	agreeTerms: false,
 	email: "",
@@ -152,26 +127,26 @@ export const RegisterForm = observer((props) => {
 	} = props
 
 	const { t, i18n } = useTranslation()
-	const form = formRef || useRef()
+	// const form = formRef || useRef()
 
 	const [showTerms, setShowTerms] = useState(false)
 	const [showCheckMails, setShowCheckMails] = useState(false)
-	const [isLoading, setIsLoading] = useState(false)
-	const [errorMessage, setErrorMessage] = useState(null)
+	// const [isLoading, setIsLoading] = useState(false)
+	// const [errorMessage, setErrorMessage] = useState(null)
 	const { auth } = useStores()
 	const model = auth.regModel
-	const handleChange = useCallback(
-		({ email, password, passwordRepeat, agreeTerms }) => {
-			if (!onSubmittable) return
-
-			onSubmittable(
-				notEmptyValidator(email) &&
-					notEmptyValidator(password) &&
-					notEmptyValidator(passwordRepeat) &&
-					agreeTerms
-			)
-		}
-	)
+	// const handleChange = useCallback(
+	// 	({ email, password, passwordRepeat, agreeTerms }) => {
+	// 		if (!onSubmittable) return
+	//
+	// 		onSubmittable(
+	// 			notEmptyValidator(email) &&
+	// 				notEmptyValidator(password) &&
+	// 				notEmptyValidator(passwordRepeat) &&
+	// 				agreeTerms
+	// 		)
+	// 	}
+	// )
 
 	// const handleSubmit = useCallback(async () => {
 	// 	const {
