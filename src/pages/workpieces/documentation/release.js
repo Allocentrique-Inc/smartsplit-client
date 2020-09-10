@@ -48,7 +48,7 @@ export default function Release() {
 	}
 
 	function navigateToFiles() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/files`)
+		history.push(`/workpieces/${workpiece.id}/documentation/files`)
 	}
 
 	return (
