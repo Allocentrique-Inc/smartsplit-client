@@ -13,8 +13,7 @@ import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
 
-
-export default observer(() => {
+const RightsSplitsPage = observer(() => {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const { workpiece_id, split_type } = useParams()
@@ -35,15 +34,11 @@ export default observer(() => {
 			title: t("rightSplits:titles.recording"),
 		},
 	}
-	if (!workpiece_id)
-		return (
-			<Redirect to={`/workpieces/${workpiece_id}/rights-splits/copyright`} />
-		)
+	if (!workpiece_id) navigateToSummary()
 	else if (!split_type)
 		return (
 			<Redirect to={`/workpieces/${workpiece_id}/rights-splits/copyright`} />
 		)
-	useStorePath("workpieces").fetch(workpiece_id)
 	const workpiece = useCurrentWorkpiece()
 	const { workpieces } = useStores()
 	const currentSplit = split_type
@@ -117,6 +112,8 @@ export default observer(() => {
 		</Layout>
 	)
 })
+
+export default RightsSplitsPage
 /**
  * FX regarde le code de Lila, ce sont des routes pour la doc
  * est-ce-que tu peux les combiner pour que les deux marchent

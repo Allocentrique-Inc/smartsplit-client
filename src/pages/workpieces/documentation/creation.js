@@ -11,6 +11,7 @@ import { Colors, Metrics } from "../../../theme"
 import CopyrightIcon from "../../../svg/copyright"
 import { DateField, TextField } from "../../../forms"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
+import { observer } from "mobx-react"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -22,7 +23,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function Creation() {
+export function Creation() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	const workpiece = useCurrentWorkpiece()
@@ -76,8 +77,7 @@ export default function Creation() {
 		</Layout>
 	)
 }
-
-export function CreationForm(props) {
+const CreationForm = observer(() => {
 	const [date, setDate] = useState("")
 	const searchResults = []
 	const [search, setSearch] = useState("")
@@ -160,4 +160,6 @@ export function CreationForm(props) {
 			</Column>
 		</Row>
 	)
-}
+})
+
+export default CreationForm

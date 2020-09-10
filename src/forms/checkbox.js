@@ -114,8 +114,16 @@ export function CheckBoxGroupButton({ value, children, ...nextProps }) {
 }
 
 export function CheckBox(props) {
-	
-	let { children, center, label, checked, disabled, onChange, field,color } = props
+	let {
+		children,
+		center,
+		label,
+		checked,
+		disabled,
+		onChange,
+		field,
+		color,
+	} = props
 	if (field) {
 		label = field.label
 		onChange = (e) => {

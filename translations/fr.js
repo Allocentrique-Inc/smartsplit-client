@@ -664,6 +664,8 @@ export const document = {
 			creation: "Création",
 			performance: "Interprétation",
 			recording: "Enregistrement",
+			lyrics: "Lyrics",
+			files: "Files",
 		},
 	},
 	help: "Aide",

@@ -5,11 +5,10 @@ import { isObservable } from "mobx"
 
 export const WorkpieceContext = createContext({})
 
-export function useCurrentWorkpiece(...path) {
+export function useCurrentWorkpiece() {
 	return useContext(WorkpieceContext)
 }
 
 export function useRightSplit(type) {
-	// console.log(isObservable(useCurrentWorkpiece().rightsSplits))
 	return useCurrentWorkpiece().rightsSplits[type]
 }
