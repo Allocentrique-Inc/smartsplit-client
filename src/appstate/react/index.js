@@ -52,7 +52,6 @@ export function useSubpath(current, ...path) {
 		if (current instanceof Observable) {
 			unsubscribes.push(current.subscribe(() => update()))
 		}
-
 		return function () {
 			unsubscribes.forEach((unsubscribe) => unsubscribe())
 		}

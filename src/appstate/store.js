@@ -13,7 +13,7 @@ export class Observable {
 		this[$subscriptions].subscribers[id] = fn
 
 		return () => {
-			delete this[$subscriptions].subscribers[id][id]
+			delete this[$subscriptions].subscribers[id]
 		}
 	}
 
@@ -31,8 +31,8 @@ export class Observable {
 		this.notify("set", data)
 	}
 
-	setData(data) {
-		Object.assign(this.data, data)
+	setData(key, data) {
+		Object.assign(this[key], data)
 		this.notify("set", { data })
 	}
 }

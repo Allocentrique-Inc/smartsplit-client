@@ -66,7 +66,7 @@ export const general = {
 		toRefuse: "Refuse",
 		continue: "Continue",
 		back: "Back",
-		saveClose: "Save and Close",
+		saveClose: "Save and close",
 		toConsult: "Consult",
 		toBegin: "Begin",
 		pass: "Pass for now",
@@ -172,8 +172,8 @@ export const forms = {
 		myUri: "My URI",
 		participation: "My participation to entities",
 		myProIds: "My professional identifiers",
-		phone: "Téléphone mobile",
-		organisations: "Mes sociétés",
+		phone: "mobile phone",
+		organisations: "My organizations",
 		groups: "Groups",
 		dropdowns: {
 			language: "Langue",
@@ -497,6 +497,155 @@ export const identity = {
 	),
 }
 
+export const rightSplits = {
+	navbar: {
+		rightSplits: "Right Split",
+		page: "Page Name",
+	},
+	titles: {
+		copyright: "Copyright",
+		performance: "Performance",
+		recording: "Sound recording",
+	},
+	headers: {
+		copyright: "Who invented this musical piece?",
+		performance: "Who played on the audio recording?",
+		recording: "Who owns the audio recording?",
+	},
+
+	paragraphs: {
+		copyright: () => (
+			<>
+				Seperate here the copyright between creators, i.e. the authors of{" "}
+				<b>lyrics</b>, the composers and the mixers of <b>music</b>. It is
+				common to share the copyright fairly. But you can do otherwise.
+			</>
+		),
+		performance: () => (
+			<>
+				Seperate here the <b>neigbor right</b> between <b>performers</b>,
+				whether musicians or singers. <i>Group</i> members share this right with
+				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
+				while the remaining 20% is split among <i>featured artists</i>, if
+				applicable.
+			</>
+		),
+		recording: () => (
+			<>
+				Seperate here the <b>neighbor right</b> of <b>producers</b>, i.e. those
+				who invested their time and/or their money to record and finalize the
+				product to be commercialized.
+				{"\n"}
+				{"\n"}
+				It is common pratice to share this right in equal parts or in pro bono
+				of the investment.
+			</>
+		),
+	},
+
+	radios: {
+		equal: "Split evenly",
+		roles: "Split according to roles",
+		manual: "Manage manually",
+		email: "By email",
+		txt: "By SMS",
+	},
+
+	dropdowns: {
+		addCollab: "Add a collaborator...",
+		addLabel: "Add a label...",
+		removeCollab: "Remove this collaborator",
+		status: "Select a status...",
+		function: "Select a function...",
+		agreement: "Duration of the agreement...",
+		remove: "Remove this split",
+		artist: {
+			artist: "Main artist",
+			artistDefinition: 'Also called "Starred Artist" or "Solo Artist"',
+			artistInvited: () => (
+				<>
+					Starred Artist (<i>featuring</i>)
+				</>
+			),
+			artistInvitedDefinition:
+				"Artist or group member invited to collaborate on a musical piece",
+			artistMember: "Group Member",
+			artistMemberDefinition:
+				"Musician or singer taking part in the artistic entity.",
+			artistExtra: "Accompanying Artist",
+			artistExtraDefinition:
+				"Engaged performer during studio recording sessions.",
+		},
+		collaborators: {
+			producer: "Producer",
+			producerDefinition:
+				"External investor (not being the artist or member of the group).",
+			autoProducer: "Auto-producer",
+			autoProducerDefinition:
+				"Artist or group member investing in the work's recording.",
+			directorProducer: "Director-Producer",
+			directorProducerDefinition:
+				"Craftsman's investment in the direction and production of the work.",
+			techProducer: "Technician-Producer",
+			techProducerDefinition:
+				"Technician investing in the production of the work (mixer, sound engineer).",
+			studio: "Recording Studio",
+			studioDefinition:
+				"Entity investing its ressources in order to record the work, for pourcentage.",
+			illustratorDesigner: "Illustrator / Graphic Designer",
+			illustratorDesignerDefinition:
+				"Person investing in the creation of visual material related to the work (cover, vidéo).",
+		},
+		duration: {
+			oneYear: "1 year, renewable year after year",
+			twoYears: "2 years, renewable year after year",
+			threeYears: "3 years, renewable year after year",
+			fourYears: "4 years, renewable year after year",
+			fiveYears: "5 years, renewable year after year",
+			renew: "Automatically renews, unless notified 60 days prior.",
+		},
+	},
+
+	yourself: "(you)",
+	more: "Learn more",
+	notify: "Notify me one month before the deadline...",
+	music: "Music",
+	lyrics: "Lyrics",
+
+	errors: {
+		status: "You need to select a status for this right holder.",
+		role: "You need to select at least one role for this rightholder.",
+		function: "You need select a function for this rightholder.",
+		option: "You need to select an option for this rightholder.",
+	},
+
+	tooltips: {
+		equal:
+			'Divide the copyright by the number of people and assigns the role "Author-Composer" by default to everyone. This way of spliting copyright avoids many arguments between creators, particularly when money starts to come in. ;)',
+		role:
+			'Divide the copyright by two: 50% goes to those who composed music. This last "music" part is then divided by the number of selected roles and the collaborators get a pourcentage according to their implication. For exemple: Alice only composes, whereas Bob composes AND arranges music. So Alice has 1/3 and Bob 2/3 of music.',
+		manual:
+			"Lets you determine the pourcentage and the roles for every collaborators. To fix a pourcentage to a collaborator, you can use the lock.",
+		label:
+			"A general rule is that a label rarely takes more than 50% of rights and incomes on audio recording proprety.",
+	},
+}
+
+export const roles = {
+	author: "Author",
+	composer: "Composer",
+	adapter: "Adapter",
+	mixer: "Mixer",
+	singer: "Singer",
+	musician: "Musician",
+}
+
+export const newUserInvite = {
+	title: "[Add/Modify] a Collaborating Artist",
+	checkboxTitle: "Rôle(s) par défaut",
+	checkboxUndertext: "These roles can always be modified later.",
+}
+
 export const document = {
 	navbar: {
 		document: "Document my work",
@@ -507,6 +656,7 @@ export const document = {
 			infos: "General Information",
 			lyrics: "Lyrics",
 			recording: "Recording",
+			files: "Fichiers",
 		},
 	},
 	help: "Help",

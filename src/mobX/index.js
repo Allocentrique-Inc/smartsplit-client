@@ -1,10 +1,11 @@
 import React from "react"
-import { isObservable, observable, reaction, runInAction, when } from "mobx"
+import { isObservable, observable, runInAction, when } from "mobx"
 import TestCountState from "./states/TestCountState"
 import TestState from "./states/TestState"
 import UserState from "./states/UserState"
 import AuthState from "./states/AuthState"
 import AdminState from "./states/AdminState"
+import WorkpieceState from "./states/WorkpieceState"
 /**
  * L'instance de base est passé a tout les sub-stores pour que chaque store
  * aie accès aux autres branches
@@ -19,6 +20,7 @@ class RootStore {
 	users = new UserState(this)
 	auth = new AuthState(this)
 	admin = new AdminState(this)
+	workpieces = new WorkpieceState(this)
 
 	async init(postLogin = false) {
 		await this.users.init()
@@ -26,6 +28,7 @@ class RootStore {
 		await this.test.init()
 		await this.counts.init()
 		await this.admin.init()
+		await this.workpieces.init(this.auth.user_id)
 		runInAction(() => {
 			this.initialized = true
 		})

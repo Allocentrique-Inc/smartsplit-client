@@ -1,15 +1,19 @@
 import React from "react"
 import { Column } from "../layout"
 import { Colors, Metrics } from "../theme"
+import { StyleSheet } from "react-native"
 
-const cardStyle = {
-	backgroundColor: Colors.background.ground,
-	width: 304,
-	borderWidth: 1,
-	borderStyle: "solid",
-	borderColor: Colors.stroke,
-	borderRadius: Metrics.borderRadius.modals,
-}
+export const CardStyles = StyleSheet.create({
+	frame: {
+		borderRadius: Metrics.borderRadius.modals,
+	},
+	frame_neutral: {
+		backgroundColor: Colors.background.ground,
+		borderWidth: 1,
+		borderStyle: "solid",
+		borderColor: Colors.stroke,
+	},
+})
 
 export default function Card({ style, children }) {
 	return (
@@ -17,7 +21,7 @@ export default function Card({ style, children }) {
 			of="component"
 			padding="component"
 			layer="overground_moderate"
-			style={[cardStyle, style]}
+			style={[CardStyles.frame, CardStyles.frame_neutral, style]}
 		>
 			{children}
 		</Column>

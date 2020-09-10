@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
-import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"

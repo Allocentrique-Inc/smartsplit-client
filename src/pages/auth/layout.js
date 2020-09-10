@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useHistory, useRouteMatch } from "react-router"
-import PublicPageLayout from "../../layout/public-page"
+import PublicPageLayout from "../../layouts/public-page"
 import { Text } from "../../text"
 import Button from "../../widgets/button"
 

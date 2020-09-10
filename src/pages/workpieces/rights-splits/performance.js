@@ -14,13 +14,13 @@ import ShareCard from "../../../smartsplit/components/share-card"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
-import CircledP from "../../../svg/circled-p"
+import CircledStar from "../../../svg/circled-star"
 import { observer } from "mobx-react"
 import { useRightSplit } from "../context"
 
-const RecordingForm = observer(() => {
+const PerformanceForm = observer(() => {
 	const [chartSize, setChartSize] = useState(0)
-	const split = useRightSplit("recording")
+	const split = useRightSplit("performance")
 	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
 	const { t } = useTranslation()
@@ -48,6 +48,7 @@ const RecordingForm = observer(() => {
 		.map((share) => share.shares)
 		.reduce((a, n) => a + n, 0)
 
+	const [selection, setSelection] = useState([])
 	return (
 		<Row>
 			<Column of="section" flex={1}>
@@ -55,12 +56,12 @@ const RecordingForm = observer(() => {
 					<Row of="component">
 						<CircledC size={Metrics.size.small} color={Colors.action} />
 						<Text action bold>
-							{t("rightSplits:titles.recording").toUpperCase()}
+							{t("rightSplits:titles.performance").toUpperCase()}
 						</Text>
 					</Row>
 					<Column of="component">
-						<Heading level={1}>{t("rightSplits:headers.recording")}</Heading>
-						<Paragraph>{t("rightSplits:paragraphs.recording")()}</Paragraph>
+						<Heading level={1}>{t("rightSplits:headers.performance")}</Heading>
+						<Paragraph>{t("rightSplits:paragraphs.performance")()}</Paragraph>
 					</Column>
 				</Column>
 				<Column of="group">
@@ -114,10 +115,10 @@ const RecordingForm = observer(() => {
 				align="center"
 				onLayout={(e) => setChartSize(e.nativeEvent.layout.width)}
 			>
-				<SplitChart data={chartData} logo={CircledP} size={chartSize} />
+				<SplitChart data={chartData} logo={CircledStar} size={chartSize} />
 			</Column>
 		</Row>
 	)
 })
 
-export default RecordingForm
+export default PerformanceForm

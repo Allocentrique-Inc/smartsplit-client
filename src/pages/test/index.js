@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Switch, Route, Redirect } from "react-router"
-import DashboardLayout from "../../layout/dashboard"
+import DashboardLayout from "../../layouts/dashboard"
 import Scrollable from "../../widgets/scrollable"
 
 import FormsTest from "./forms"
