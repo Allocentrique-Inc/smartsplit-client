@@ -82,7 +82,8 @@ export const test = {
 
 export const errors = {
 	enterEmail: "Please enter your email address",
-	strengthPassword: "The password must incluse at least 8 characters",
+	invalidEmail: "Email address is invalid",
+	strengthPassword: "The password must include at least 8 characters",
 	samePasswords: "Both passwords must be identical",
 	invalidToken:
 		"The reset token is no longer valid or has expired. Please make a new password request.",
@@ -100,12 +101,15 @@ export const errors = {
 		emailTaken: "This email is already used. ",
 		forgotEmail: "Did you forget your password?",
 	},
+	emailTaken: "This email is already used. ",
+	forgotEmail: "Did you forget your password?",
 	invalidCurrentPassword: "Current password is incorrect. Please try again.",
 	listNotFound: "List not found",
 	entityNotFound: "List entity not found",
 	entityConflict: "A list entity with this ID already exists",
 	requiredField: "Required Field",
 	invalidName: "must contain only letters and numbers",
+	acceptTerms: "You must accept the terms",
 }
 
 export const publicNavbarWeb = {

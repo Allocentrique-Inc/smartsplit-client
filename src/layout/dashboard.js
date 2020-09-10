@@ -18,6 +18,7 @@ import Button from "../widgets/button"
 
 import LogoSmartSplitMenu from "../svg/logo-smart-split-menu"
 import LinkIcon from "../svg/link"
+import { observer } from "mobx-react"
 
 export const DashboardStyles = StyleSheet.create({
 	main: {
@@ -112,7 +113,7 @@ export function ProfileBar(props) {
 	)
 }
 
-export function Dashboard(props) {
+export const Dashboard = observer((props) => {
 	const history = useHistory()
 	const { i18n } = useTranslation()
 	const [showSidebar, setSidebar] = useState(true)
@@ -160,6 +161,6 @@ export function Dashboard(props) {
 			</Row>
 		</Column>
 	)
-}
+})
 
 export default Dashboard

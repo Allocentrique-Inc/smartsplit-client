@@ -10,6 +10,10 @@ export async function registerUser(data) {
 	return result.data
 }
 
+export async function getEmail(email) {
+	return await client.head(`/users/email/${encodeURI(email)}`)
+}
+
 export function forgotPassword(email) {
 	return client.request({
 		url: "/users/request-password-reset",

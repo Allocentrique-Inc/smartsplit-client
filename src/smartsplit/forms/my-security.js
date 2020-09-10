@@ -11,8 +11,9 @@ import ChangePasswordModal from "../../pages/dashboard/change-password"
 import DeleteAccountModal from "../../pages/dashboard/delete-account"
 import DashboardNavbarNative from "../../layout/subscreen"
 import Label from "../../forms/label"
+import { observer } from "mobx-react"
 
-export default function MySecurity() {
+const MySecurity = observer(() => {
 	const [t] = useTranslation()
 	const [changePasswordOpen, setChangePasswordOpen] = useState(false)
 	const [deleteAccountOpen, setDeleteAccountOpen] = useState(false)
@@ -102,4 +103,5 @@ export default function MySecurity() {
 		// 	<Heading level="4">{t("general:auth")}</Heading>
 		// </Platform>
 	)
-}
+})
+export default MySecurity

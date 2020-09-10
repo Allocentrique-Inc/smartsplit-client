@@ -11,12 +11,16 @@ import {
 	resetPassword,
 	changePassword,
 } from "../../../api/users"
-
+import RegisterModel from "../models/auth/RegisterModel"
+import { useHistory } from "react-router"
+import PasswordModel from "../models/auth/PasswordModel"
+import ChangePasswordModel from "../models/auth/ChangePasswordModel"
 /**
  * AuthState observable class
  *
  */
 export default class AuthState extends BaseState {
+	//history
 	reInitializeOnAuth = false
 	constructor(root) {
 		super(root)
@@ -46,6 +50,10 @@ export default class AuthState extends BaseState {
 	@observable
 	user_id = null
 
+	@observable regModel: RegisterModel = null
+	@observable resetModel: PasswordModel = null
+	@observable changePassModel: ChangePasswordModel = null
+
 	@computed get user() {
 		return this.user_id && this.root.users.get(this.user_id)
 	}
@@ -55,6 +63,13 @@ export default class AuthState extends BaseState {
 	@action async init(refreshToken = false) {
 		//console.log("AuthState::init called")
 		//console.log(`access token is ${this.accessToken}`)
+		//this.history = useHistory()
+		this.regModel = new RegisterModel()
+		this.regModel.init()
+		this.resetModel = new PasswordModel()
+		this.resetModel.init()
+		this.changePassModel = new ChangePasswordModel()
+		this.changePassModel.init()
 		if (this.accessToken) {
 			//setGlobalAccessToken(this.accessToken)
 			this.isReturning = true
@@ -111,7 +126,7 @@ export default class AuthState extends BaseState {
 		when(
 			() => this.user,
 			() => {
-				console.log("computed user has changed")
+				//console.log("computed user has changed")
 				this.user.data = user
 				this.user.state = "ready"
 			}
@@ -150,6 +165,21 @@ export default class AuthState extends BaseState {
 		*/
 	}
 
+	@action async submitRegistration() {
+		let validity = await this.regModel.validate()
+		alert(validity)
+		if (validity) {
+			try {
+				let success = await this.regModel.submit()
+				if (success) {
+					//this.clearRegister()
+					return true
+				}
+			} catch (e) {}
+		}
+		return false
+	}
+
 	async activateAccountAndLogin(token) {
 		let stayLoggedIn = false
 
@@ -163,11 +193,62 @@ export default class AuthState extends BaseState {
 		this.setLoginFromAPI(result, stayLoggedIn)
 	}
 
+	@action async doPasswordChange() {
+		this.changePassModel.saveError = null
+
+		await this.changePassModel.validate()
+		if (this.changePassModel.isValid) {
+			runInAction(() => (this.changePassModel.busy = true))
+			try {
+				await this.changePassword(
+					this.changePassModel.currentPassword.value,
+					this.changePassModel.password.value
+				)
+				return true
+			} catch (e) {
+				if (e.code === "user_invalid_current_password") {
+					runInAction(() => {
+						this.changePassModel.currentPassword.error =
+							"errors:invalidCurrentPassword"
+					})
+				} else {
+					this.changePassModel.saveError = e
+				}
+				runInAction(() => (this.changePassModel.busy = false))
+				return false
+			}
+		}
+	}
 	async changePassword(currentPassword, newPassword) {
 		const result = await changePassword(currentPassword, newPassword)
 		this.setLoginFromAPI(result)
 	}
 
+	@action async doPasswordResetAndRedirect(token, history) {
+		await this.resetModel.validate()
+		if (this.resetModel.isValid) {
+			runInAction(() => (this.resetModel.busy = true))
+			try {
+				await this.resetPasswordAndLogin(token, this.resetModel.password.value)
+				runInAction(() => (this.resetModel.busy = false))
+				history.push("/")
+			} catch (e) {
+				let error
+				switch (e.code) {
+					case "user_invalid_reset_token":
+						error = "errors:invalidToken"
+						break
+					default:
+						error = e.error || e.message
+				}
+
+				runInAction(() => {
+					this.resetModel.saveError = error
+					this.resetModel.busy = false
+				})
+			}
+		}
+	}
 	async resetPasswordAndLogin(token, password) {
 		const result = await resetPassword(token, password)
 		this.setLoginFromAPI(result)

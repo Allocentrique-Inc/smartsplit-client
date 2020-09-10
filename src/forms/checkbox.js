@@ -101,7 +101,14 @@ export function CheckBoxGroupButton({ value, children, ...nextProps }) {
 }
 
 export function CheckBox(props) {
-	const { children, center, label, checked, disabled, onChange } = props
+	let { children, center, label, checked, disabled, onChange, field } = props
+	if (field) {
+		label = field.label
+		onChange = (e) => {
+			field.setValue(e.target.value)
+		}
+		checked = field.value
+	}
 	const [checkedState, setCheckedState] = useState(checked)
 	const actualState = onChange ? checked : checkedState
 
