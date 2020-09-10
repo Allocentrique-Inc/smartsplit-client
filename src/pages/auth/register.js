@@ -10,82 +10,17 @@ import Scrollable from "../../widgets/scrollable"
 import { Platform, Web, Native } from "../../platform"
 import { DialogModal } from "../../widgets/modal"
 import { TextDivider, Section, Column, Row, Group, Flex } from "../../layout"
-/*import {
-	Form,
-	useFormField,
-	TextField,
-	PasswordField,
-	CheckBox,
-} from "../../forms"*/
 
 import TextField from "../../forms/text"
 import PasswordField from "../../forms/password"
 import { CheckBox } from "../../forms/checkbox"
 import { Heading, Paragraph, Text, Link } from "../../text"
 import AuthLayout from "./layout"
-import ProgressBar from "../../widgets/progress-bar"
-import FacebookIcon from "../../svg/facebook"
-import GoogleIcon from "../../svg/google"
-import { Metrics, Colors } from "../../theme"
-import zxcvbn from "zxcvbn"
-// import {
-// 	notEmptyValidator,
-// 	sameValidator,
-// 	acceptablePasswordValidator,
-// } from "../../../helpers/validators"
 import { CheckEmailModal } from "./check-email"
 import { registerUser } from "../../../api/users"
 import RegisterModel from "../../mobX/models/auth/RegisterModel"
 import AuthState from "../../mobX/states/AuthState"
 import PasswordFieldWithScoreBar from "../../forms/PasswordFieldWithScoreBar"
-
-// export function passwordBarColor(score) {
-// 	switch (score) {
-// 		case 0:
-// 			return Colors.progressBar.darkred
-// 		case 1:
-// 			return Colors.progressBar.orangered
-// 		case 2:
-// 			return Colors.progressBar.orange
-// 		case 3:
-// 			return Colors.progressBar.yellowgreen
-// 		case 4:
-// 			return Colors.progressBar.green
-// 		default:
-// 			return Colors.progressBar.darkred
-// 	}
-// }
-//
-// export function passwordStrengthIndicator(score) {
-// 	switch (score) {
-// 		case 0:
-// 		case 1:
-// 			return "errors:password.weak"
-// 		case 2:
-// 		case 3:
-// 			return "errors:password.average"
-// 		case 4:
-// 		default:
-// 			return "errors:password.acceptable"
-// 	}
-// }
-//
-// export function passwordProgress(score) {
-// 	switch (score) {
-// 		case 4:
-// 			return 100
-// 		case 3:
-// 			return 80
-// 		case 2:
-// 			return 50
-// 		case 1:
-// 			return 30
-// 		case 0:
-// 			return 10
-// 		default:
-// 			return 10
-// 	}
-// }
 
 export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 	const [t] = useTranslation()
@@ -107,13 +42,6 @@ export function TermsConditionsModal({ visible, onAgree, onCancel }) {
 			}
 		/>
 	)
-}
-
-const registerFormValues = {
-	agreeTerms: false,
-	email: "",
-	password: "",
-	passwordRepeat: "",
 }
 
 export const RegisterForm = observer((props) => {
