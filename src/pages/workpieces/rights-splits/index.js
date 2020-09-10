@@ -4,6 +4,7 @@ import CopyrightPage from "./copyright"
 import Creation from "../documentation/creation"
 import InterpretationPage from "./interpretation"
 import RecordingPage from "./recording"
+import Recording from "../documentation/recording"
 import Performance from "../documentation/performance"
 import Files from "../documentation/files"
 
@@ -28,6 +29,9 @@ export default function (props) {
 				component={RecordingPage}
 			/>
 			<Route
+				path="/workpieces/:workpiece_id/documentation/recording"
+				component={Recording}/>
+      <Route
 				path="/workpieces/:workpiece_id/documentation/creation"
 				component={Creation}
        />

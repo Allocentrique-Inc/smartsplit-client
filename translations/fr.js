@@ -245,7 +245,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Interprète",
-				value: "interpreter",
+				value: "peformer",
 			},
 			{
 				displayValue: "Mixeur",
@@ -502,10 +502,11 @@ export const document = {
 		pages: {
 			creation: "Création",
 			performance: "Interprétation",
+			recording: "Enregistrement",
 		},
 	},
-	help: "Help",
-	why: "Pourquoi partage ces information ?",
+	help: "Aide",
+	why: "Pourquoi partager ces informations ?",
 	access: "Accès",
 	creation: {
 		category: "CRÉATION",
@@ -532,6 +533,10 @@ export const document = {
 		title: "Qui a interprété la pièce musicale sur cet enregistrement sonore ?",
 		paragraph: "C'est ici que tu indiques qui a joué quel intrument.",
 		roles: {
+			artist: "Artiste",
+			singer: "Chanteur",
+			musician: "Musicien",
+			performer: "Ajouter un interprète...",
 			addPerformer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
@@ -539,6 +544,32 @@ export const document = {
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
 	},
+	recording: {
+		category: "ENREGISTREMENT",
+		title: "Qui a enregistré la pièce musicale ?",
+		paragraph:
+			"Ici, tu indiques qui a contribué à l'enregistrement sonore de cette pièce.",
+		roles: {
+			direction: "Réalisation",
+			addDirector: "Ajouter un réalisateur...",
+			soundEngineer: "Preneur de son",
+			addSoundEngineer: "Ajouter un preneur de son...",
+			mix: "Mixage",
+			addMix: "Ajouter un ingénieur de mixage...",
+			master: "Mastering",
+			addMaster: "Ajouter un ingénieur de mastering...",
+			production: "Production",
+			addProduction: "Ajouter un producteur",
+		},
+		date: "Date d'enregistrement",
+		studio: "Studio d'enregistrement",
+		searchStudio: "Rechercher un studio d'enregistrement...",
+		isrc: "Code ISRC",
+		tooltips: {
+			isrc:
+				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
+		},
+  },
 	files: {
 		category: "FILES",
 		title: "Quels fichiers veux-tu rendre accessible ?",

@@ -72,7 +72,7 @@ export const general = {
 		continue: "Continue",
 		back: "Back",
 		saveClose: "Save and Close",
-		pass: "Passe for now",
+		pass: "Pass for now",
 	},
 }
 
@@ -235,7 +235,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositor",
-				value: "composor",
+				value: "composer",
 			},
 			{
 				displayValue: "Arranger",
@@ -495,7 +495,8 @@ export const document = {
 		document: "Document my work",
 		pages: {
 			creation: "Creation",
-      performance: "Performance",
+			performance: "Performance",
+			recording: "Recording",
 		},
 	},
 	help: "Help",
@@ -526,6 +527,9 @@ export const document = {
 		title: "Who performed the musical piece on this audio recording?",
 		paragraph: "Here you mention who played which instrument.",
 		roles: {
+			artist: "Artist",
+			singer: "Singer",
+			musician: "Musician",
 			addPerformer: "Add a performer...",
 		},
 		what: "What's a performer?",
@@ -533,6 +537,31 @@ export const document = {
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
 	},
+
+	category: "RECORDING",
+	title: "Who recorded the musical piece?",
+	paragraph:
+		"Here you mention who contributed to the audio recording of this piece.",
+	roles: {
+		direction: "Direction",
+		addDirector: "Add a Director...",
+		soundEngineer: "Sound Engineer",
+		addSoundEngineer: "Add a Sound Engineer...",
+		mix: "Mix",
+		addMix: "Add a Mix Engineer...",
+		master: "Mastering",
+		addMaster: "Add a Mastering Engineer...",
+		production: "Production",
+		addProduction: "Add a Producer",
+	},
+	date: "Recording  Date",
+	studio: "Recording Studio",
+	searchStudio: "Search a recording studio...",
+	isrc: "ISRC Code",
+	tooltips: {
+		isrc:
+			"The International Standard Work Code is a unique identification of musical works.",
+  }
 	files: {
 		category: "FILES",
 		title: "Which version of the work would you like to protect?",
