@@ -109,6 +109,7 @@ export const errors = {
 	entityConflict: "A list entity with this ID already exists",
 	requiredField: "Required Field",
 	invalidName: "must contain only letters and numbers",
+	acceptTerms: "You must accept the terms",
 }
 
 export const publicNavbarWeb = {

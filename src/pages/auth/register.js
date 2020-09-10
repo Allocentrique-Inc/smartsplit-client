@@ -117,98 +117,13 @@ const registerFormValues = {
 }
 
 export const RegisterForm = observer((props) => {
-	const {
-		showForgotPassword,
-		showLogin,
-		onSuccess,
-		stayLoggedIn,
-		onSubmittable,
-		formRef,
-	} = props
+	const { showLogin } = props
 
 	const { t, i18n } = useTranslation()
-	// const form = formRef || useRef()
-
 	const [showTerms, setShowTerms] = useState(false)
 	const [showCheckMails, setShowCheckMails] = useState(false)
-	// const [isLoading, setIsLoading] = useState(false)
-	// const [errorMessage, setErrorMessage] = useState(null)
 	const { auth } = useStores()
 	const model = auth.regModel
-	// const handleChange = useCallback(
-	// 	({ email, password, passwordRepeat, agreeTerms }) => {
-	// 		if (!onSubmittable) return
-	//
-	// 		onSubmittable(
-	// 			notEmptyValidator(email) &&
-	// 				notEmptyValidator(password) &&
-	// 				notEmptyValidator(passwordRepeat) &&
-	// 				agreeTerms
-	// 		)
-	// 	}
-	// )
-
-	// const handleSubmit = useCallback(async () => {
-	// 	const {
-	// 		email,
-	// 		password,
-	// 		passwordRepeat,
-	// 		agreeTerms,
-	// 	} = form.current.getFields()
-	//
-	// 	let hasError = false
-	// 	form.current.clearErrors()
-	//
-	// 	if (!notEmptyValidator(email.value)) {
-	// 		hasError = email.error = t("errors:enterEmail")
-	// 	}
-	//
-	// 	if (!acceptablePasswordValidator(password.value)) {
-	// 		hasError = password.error = t("errors:strengthPassword")
-	// 	}
-	//
-	// 	if (!sameValidator(password.value, passwordRepeat.value)) {
-	// 		hasError = passwordRepeat.error = t("errors:samePasswords")
-	// 	}
-	//
-	// 	if (hasError) return
-	//
-	// 	try {
-	// 		setIsLoading(true)
-	// 		onSubmittable(false)
-	//
-	// 		await registerUser({
-	// 			email: email.value,
-	// 			password: password.value,
-	// 			locale: i18n.currentLanguage,
-	// 		})
-	//
-	// 		setShowCheckMails(true)
-	//
-	// 		if (stayLoggedIn)
-	// 			AsyncStorage.setItem("register:stayLoggedInNext", true).catch((e) =>
-	// 				console.error("Failed to store stayLoggedInNext", e)
-	// 			)
-	//
-	// 		form.current.reset()
-	// 	} catch (error) {
-	// 		if (error.code === "user_conflict") {
-	// 			email.error = (
-	// 				<>
-	// 					{t("errors:password.emailTaken")}
-	// 					<link error bold onClick={showForgotPassword}>
-	// 						{t("errors:password.forgotEmail")}
-	// 					</link>
-	// 				</>
-	// 			)
-	// 		} else {
-	// 			setErrorMessage(error.message)
-	// 			onSubmittable(true)
-	// 		}
-	// 	} finally {
-	// 		setIsLoading(false)
-	// 	}
-	// }, [form, stayLoggedIn, i18n, t])
 
 	return (
 		<>
@@ -255,13 +170,11 @@ export const RegisterForm = observer((props) => {
 						placeholder={t("forms:placeholders.emailExample")}
 						autoCompleteType="off"
 					/>
-
 					<PasswordFieldWithScoreBar
 						field={model.password}
 						placeholder={t("forms:placeholders.noCharacters")}
 						autoCompleteType="off"
 					/>
-
 					<PasswordField
 						field={model.password2}
 						placeholder={t("forms:labels.repeatPassword")}
@@ -280,7 +193,11 @@ export const RegisterForm = observer((props) => {
 							)}
 						</Text>
 					</CheckBox>
-
+					{model.validated && model.acceptTerms.error && (
+						<Text small error>
+							{t(model.acceptTerms.error)}
+						</Text>
+					)}
 					{model.saveError && <Text error>{t(model.saveError)}</Text>}
 				</Column>
 			</Column>

@@ -40,9 +40,7 @@ export default class RegisterModel extends PasswordModel {
 		pseudo: true,
 		type: FieldType.bool,
 		required: true,
-		validation: (v) => {
-			if (!v) return "You must accept the terms"
-		},
+		requiredMessage: "errors:acceptTerms",
 	})
 	@observable locale = new Field(this, "locale", {
 		default: getI18n().language,
