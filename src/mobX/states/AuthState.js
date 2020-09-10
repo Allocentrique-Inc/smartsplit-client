@@ -224,15 +224,15 @@ export default class AuthState extends BaseState {
 		this.setLoginFromAPI(result)
 	}
 
-	async resetPasswordAndLogin(token, password) {
-		const result = await resetPassword(token, password)
-		this.setLoginFromAPI(result)
-	}
-	async doPasswordResetAndRedirect(token, history) {
+	@action async doPasswordResetAndRedirect(token, history) {
 		await this.resetModel.validate()
 		if (this.resetModel.isValid) {
 			await this.resetPasswordAndLogin(token, this.resetModel.password.value)
 			history.push("/")
 		}
+	}
+	async resetPasswordAndLogin(token, password) {
+		const result = await resetPassword(token, password)
+		this.setLoginFromAPI(result)
 	}
 }
