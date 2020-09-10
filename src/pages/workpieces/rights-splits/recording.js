@@ -16,9 +16,11 @@ import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledP from "../../../svg/circled-p"
 import { observer } from "mobx-react"
+import { useRightSplit } from "../context"
 
-const RecordingForm = observer(({ split }) => {
+const RecordingForm = observer(() => {
 	const [chartSize, setChartSize] = useState(0)
+	const split = useRightSplit("recording")
 	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
 	const { t } = useTranslation()

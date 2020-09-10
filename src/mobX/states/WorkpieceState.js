@@ -122,7 +122,6 @@ export class RightsSplits {
 
 	@action _toggleHasChanged() {
 		this.$hasChanged = true
-		this._disposers.forEach((disposer) => disposer())
 	}
 
 	@action _updateRightsSplits(rightsSplits) {

@@ -16,9 +16,11 @@ import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledStar from "../../../svg/circled-star"
 import { observer } from "mobx-react"
+import { useRightSplit } from "../context"
 
-const PerformanceForm = observer(({ split }) => {
+const PerformanceForm = observer(() => {
 	const [chartSize, setChartSize] = useState(0)
+	const split = useRightSplit("performance")
 	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
 	const { t } = useTranslation()

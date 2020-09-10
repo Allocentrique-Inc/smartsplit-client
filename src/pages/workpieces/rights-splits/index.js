@@ -1,5 +1,5 @@
-import React, { useEffect } from "react"
-import { Redirect, useRouteMatch, useParams, useHistory } from "react-router"
+import React from "react"
+import { Redirect, useParams, useHistory } from "react-router"
 
 import { useStorePath, useStores } from "../../../mobX"
 import Layout from "../layout"
@@ -12,15 +12,7 @@ import RecordingForm from "./recording"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
-import React from "react"
-import { Switch, Route, Redirect } from "react-router"
-import CopyrightPage from "./copyright"
-import Creation from "../documentation/creation"
-import InterpretationPage from "./interpretation"
-import RecordingPage from "./recording"
-import Recording from "../documentation/recording"
-import Performance from "../documentation/performance"
-import Files from "../documentation/files"
+
 
 export default observer(() => {
 	const { t } = useTranslation()
@@ -93,7 +85,7 @@ export default observer(() => {
 			actions={
 				<Button
 					tertiary
-					text={t("general:buttons.saveAndClose")}
+					text={t("general:buttons.saveClose")}
 					onClick={saveAndQuit}
 					disabled={!rightsSplits.$hasChanged}
 				/>
