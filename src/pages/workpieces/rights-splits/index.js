@@ -34,8 +34,9 @@ export default function (props) {
 			/>
 			<Route
 				path="/workpieces/:workpiece_id/documentation/release"
-				component={Release}/>
-      <Route
+				component={Release}
+			/>
+			<Route
 				path="/workpieces/:workpiece_id/documentation/creation"
 				component={Creation}
 			/>
