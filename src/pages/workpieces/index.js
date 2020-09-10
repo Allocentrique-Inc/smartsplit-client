@@ -26,8 +26,10 @@ import { Tab, TabBar } from "../../widgets/tabs"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
 import { ProtectYourWork, ShareYourCopyright } from "./cards"
+import Creation from "./documentation/creation"
 import Performance from "./documentation/performance"
 import Files from "./documentation/files"
+
 
 export default function WorkpiecesRouter() {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -44,11 +46,11 @@ export default function WorkpiecesRouter() {
 				<Route path="/workpieces/:workpiece_id/rights-splits">
 					<RightsSplitsForm />
 				</Route>
-
 				<Route path="/workpieces/:workpiece_id/protect">
 					<ProtectWork />
 				</Route>
-
+				<Route path="/workpieces/:workpiece_id/documentation/creation">
+					<Creation />
 				<Route path="/workpieces/:workpiece_id/documentation/performance">
 					<Performance />
 				</Route>

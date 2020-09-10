@@ -65,6 +65,9 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
+		continue: "Continuer",
+		back: "Retour",
+		saveClose: "Sauvegarder et fermer",
 		toConsult: "Consulter",
 		toBegin: "Commencer",
 		continue: "Continuer",
@@ -238,6 +241,14 @@ export const forms = {
 			},
 			{
 				displayValue: "Arrangeur",
+				value: "arranger",
+			},
+			{
+				displayValue: "Interprète",
+				value: "interpreter",
+			},
+			{
+				displayValue: "Mixeur",
 				value: "mixer",
 			},
 			{
@@ -528,7 +539,6 @@ export const document = {
 		whichRole: "Quel rôle dans la pièce musicale ?",
 		addInstrument: "Ajouter un instrument...",
 	},
-
 	files: {
 		category: "FILES",
 		title: "Quels fichiers veux-tu rendre accessible ?",

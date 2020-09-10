@@ -64,6 +64,9 @@ export const general = {
 		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
+		continue: "Continue",
+		back: "Back",
+		saveClose: "Save and Close",
 		toConsult: "Consult",
 		toBegin: "Begin",
 		continue: "Continue",
@@ -236,6 +239,14 @@ export const forms = {
 			},
 			{
 				displayValue: "Arranger",
+				value: "arranger",
+			},
+			{
+				displayValue: "Interpreter",
+				value: "interpreter",
+			},
+			{
+				displayValue: "Mixer",
 				value: "mixer",
 			},
 			{
@@ -247,7 +258,7 @@ export const forms = {
 				value: "singer",
 			},
 			{
-				displayValue: "Singer",
+				displayValue: "Musician",
 				value: "musician",
 			},
 		],
@@ -484,7 +495,7 @@ export const document = {
 		document: "Document my work",
 		pages: {
 			creation: "Creation",
-			performance: "Performance",
+      performance: "Performance",
 		},
 	},
 	help: "Help",
