@@ -24,6 +24,13 @@ import Unlock from "../../../svg/unlock"
 import Download from "../../../svg/download"
 
 const styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.medium,
+	},
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
 	},
@@ -43,7 +50,7 @@ export default function Files() {
 	}
 
 	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
+		history.push(`/workpieces/${workpiece.id}/documentation/general-infos`)
 	}
 
 	return (
@@ -258,7 +265,7 @@ export function PerformanceOptions(props) {
 					</CheckBoxGroup>
 
 					{musician && (
-						<Column style={styles.dropdown}>
+						<Column style={Styles.dropdown}>
 							<Dropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
