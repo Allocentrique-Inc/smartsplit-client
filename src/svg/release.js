@@ -4,8 +4,11 @@ import { Colors } from "../theme"
 
 export default function ReleaseIcon(props) {
 	const color = props.color || Colors.action
+	const { ...nextProps } = props
+
 	return (
 		<Svg
+			{...nextProps}
 			width="22"
 			height="22"
 			viewBox="0 0 22 22"
