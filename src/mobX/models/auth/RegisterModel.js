@@ -20,7 +20,7 @@ export default class RegisterModel extends PasswordModel {
 		required: true,
 		requiredMessage: "errors:enterEmail",
 		validation: (v) => {
-			let success = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(
+			let success = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
 				v
 			)
 			if (!success) return "errors:invalidEmail"
@@ -28,8 +28,7 @@ export default class RegisterModel extends PasswordModel {
 		},
 		asyncValidation: async (email) => {
 			try {
-				let result = await getEmail(email)
-				//console.log(result)
+				await getEmail(email)
 				return "errors:emailTaken"
 			} catch (e) {
 				return null
@@ -45,7 +44,7 @@ export default class RegisterModel extends PasswordModel {
 	@observable locale = new Field(this, "locale", {
 		default: getI18n().language,
 	})
-	async create(lang) {
+	async create() {
 		let data = this.toJS()
 		try {
 			let response = await registerUser(data)

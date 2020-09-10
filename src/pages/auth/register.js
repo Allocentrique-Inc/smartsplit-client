@@ -96,12 +96,10 @@ export const RegisterForm = observer((props) => {
 					<TextField
 						field={model.email}
 						placeholder={t("forms:placeholders.emailExample")}
-						autoCompleteType="off"
 					/>
 					<PasswordFieldWithScoreBar
 						field={model.password}
 						placeholder={t("forms:placeholders.noCharacters")}
-						autoCompleteType="off"
 					/>
 					<PasswordField
 						field={model.password2}
@@ -158,12 +156,7 @@ const RegisterPage = observer((props) => {
 						<View />
 					</Column>
 
-					<RegisterForm
-						{...layoutProps}
-						onSuccess={layoutProps.showLogin}
-						stayLoggedIn={stayLoggedIn}
-						onSubmittable={setCanSubmit}
-					/>
+					<RegisterForm {...layoutProps} />
 
 					<Platform web={Row} native={Column} of="group">
 						{Platform.web && (
