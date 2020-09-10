@@ -233,7 +233,6 @@ export const forms = {
 			{
 				displayValue: "Composor",
 				value: "composer",
-
 			},
 			{
 				displayValue: "Arranger",
@@ -490,7 +489,6 @@ export const document = {
 		pages: {
 			creation: "Creation",
 			performance: "Performance",
-			recording: "Recording",
 			release: "Release",
 			infos: "General Information",
 			lyrics: "Lyrics",
@@ -535,31 +533,33 @@ export const document = {
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
-    },
-      recording:{
-	category: "RECORDING",
-	title: "Who recorded the musical piece?",
-	paragraph:
-		"Here you mention who contributed to the audio recording of this piece.",
-	roles: {
-		direction: "Direction",
-		addDirector: "Add a Director...",
-		soundEngineer: "Sound Engineer",
-		addSoundEngineer: "Add a Sound Engineer...",
-		mix: "Mix",
-		addMix: "Add a Mix Engineer...",
-		master: "Mastering",
-		addMaster: "Add a Mastering Engineer...",
-		production: "Production",
-		addProduction: "Add a Producer",
 	},
-	date: "Recording  Date",
-	studio: "Recording Studio",
-	searchStudio: "Search a recording studio...",
-	isrc: "ISRC Code",
-	tooltips: {
-		isrc:
-			"The International Standard Work Code is a unique identification of musical works.",
+
+	recording: {
+		category: "RECORDING",
+		title: "Who recorded the musical piece?",
+		paragraph:
+			"Here you mention who contributed to the audio recording of this piece.",
+		roles: {
+			direction: "Direction",
+			addDirector: "Add a Director...",
+			soundEngineer: "Sound Engineer",
+			addSoundEngineer: "Add a Sound Engineer...",
+			mix: "Mix",
+			addMix: "Add a Mix Engineer...",
+			master: "Mastering",
+			addMaster: "Add a Mastering Engineer...",
+			production: "Production",
+			addProduction: "Add a Producer",
+		},
+		date: "Recording  Date",
+		studio: "Recording Studio",
+		searchStudio: "Search a recording studio...",
+		isrc: "ISRC Code",
+		tooltips: {
+			isrc:
+				"The International Standard Work Code is a unique identification of musical works.",
+		},
 	},
 
 	release: {
@@ -581,6 +581,7 @@ export const document = {
 			upc: "UPC/EAN Code",
 			physical: "Physical",
 		},
+	},
 	files: {
 		category: "FILES",
 		title: "Which version of the work would you like to protect?",

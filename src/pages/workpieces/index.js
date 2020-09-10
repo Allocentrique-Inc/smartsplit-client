@@ -55,7 +55,7 @@ export default function WorkpiecesRouter() {
 				</Route>
 				<Route path="/workpieces/:workpiece_id/documentation/release">
 					<Release />
-        </Route>
+				</Route>
 				<Route path="/workpieces/:workpiece_id/documentation/creation">
 					<Creation />
 				</Route>
