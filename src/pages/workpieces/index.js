@@ -40,7 +40,13 @@ export default observer(() => {
 					component={WorkpiecePage}
 				/>
 
-				<Route path={["/workpieces/:workpiece_id/rights-splits/:split_type", "/workpieces/:workpiece_id/rights-splits", ]} component={RightsSplitsForm}/>
+				<Route
+					path={[
+						"/workpieces/:workpiece_id/rights-splits/:split_type",
+						"/workpieces/:workpiece_id/rights-splits",
+					]}
+					component={RightsSplitsForm}
+				/>
 
 				<Route path="/workpieces/:workpiece_id/protect">
 					<ProtectWork />

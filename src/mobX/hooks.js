@@ -6,7 +6,7 @@ export function useEntity(paths, entityId) {
 	return entityList ? entityList.get(entityId) : null
 }
 
-export  function useAuthUser() {
+export function useAuthUser() {
 	const auth = useStorePath("auth")
 	return auth.user
 }

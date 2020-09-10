@@ -72,9 +72,8 @@ export const MyWorksTab = observer(function (props) {
 
 	return (
 		<Column of="none" spacer={Hairline}>
-			{workpieces && workpieces.all.map(wp =>
-				<MediaWorkRow workpiece={wp} key={wp.id} />
-			)}
+			{workpieces &&
+				workpieces.all.map((wp) => <MediaWorkRow workpiece={wp} key={wp.id} />)}
 		</Column>
 	)
 })

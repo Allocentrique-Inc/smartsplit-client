@@ -9,7 +9,6 @@ import { useRightHolderSearch } from "../../appstate/react/right-holders"
 import { useStores } from "../../mobX"
 import { toJS } from "mobx"
 
-
 export default function StoreTestPage() {
 	return (
 		<Column of="section" margin="section">

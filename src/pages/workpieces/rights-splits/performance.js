@@ -17,8 +17,7 @@ import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledStar from "../../../svg/circled-star"
 import { observer } from "mobx-react"
 
-
-const PerformanceForm = observer(({split}) => {
+const PerformanceForm = observer(({ split }) => {
 	const [chartSize, setChartSize] = useState(0)
 	const shares = split.allShares
 	const [mode, setMode] = useState("equal")
@@ -35,7 +34,6 @@ const PerformanceForm = observer(({split}) => {
 			shares: 1,
 		})
 	}
-
 
 	let chartData = shares.map((share, i) => ({
 		key: share.rightHolder,
@@ -60,12 +58,8 @@ const PerformanceForm = observer(({split}) => {
 						</Text>
 					</Row>
 					<Column of="component">
-						<Heading level={1}>
-							{t("rightSplits:headers.performance")}
-						</Heading>
-						<Paragraph>
-							{t("rightSplits:paragraphs.performance")()}
-						</Paragraph>
+						<Heading level={1}>{t("rightSplits:headers.performance")}</Heading>
+						<Paragraph>{t("rightSplits:paragraphs.performance")()}</Paragraph>
 					</Column>
 				</Column>
 				<Column of="group">

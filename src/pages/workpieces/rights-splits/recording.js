@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
-import { useRightSplit } from "../../../appstate/react/workpieces"
 import { useTranslation } from "react-i18next"
 import { Colors, Metrics } from "../../../theme"
 import CircledC from "../../../svg/circled-c"
 import {
-	CheckBoxGroup, CheckBoxGroupButton,
+	CheckBoxGroup,
+	CheckBoxGroupButton,
 	RadioGroup,
 	RadioGroupButton,
 } from "../../../forms"
@@ -17,7 +17,7 @@ import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledP from "../../../svg/circled-p"
 import { observer } from "mobx-react"
 
-const RecordingForm  =  observer(({ split }) => {
+const RecordingForm = observer(({ split }) => {
 	const [chartSize, setChartSize] = useState(0)
 	const shares = split.allShares
 	const [mode, setMode] = useState("equal")

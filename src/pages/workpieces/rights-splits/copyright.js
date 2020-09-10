@@ -55,11 +55,14 @@ const CopyrightForm = observer(() => {
 	function generateChartData() {
 		switch (mode) {
 			case "equal":
-				split.updateShares(shares.map(share => {
-					!share.roles.includes("author") && share.roles.push("author")
-					!share.roles.includes("compositor") && share.roles.push("compositor")
-					return share
-				}))
+				split.updateShares(
+					shares.map((share) => {
+						!share.roles.includes("author") && share.roles.push("author")
+						!share.roles.includes("compositor") &&
+							share.roles.push("compositor")
+						return share
+					})
+				)
 				chartProps.data = sharesToData(shares)
 
 				break
@@ -67,26 +70,23 @@ const CopyrightForm = observer(() => {
 				chartProps.dataRight = sharesToData(
 					shares.filter(
 						(share) =>
-							share.roles.includes("composer") || share.roles.includes("mixer") || share.roles.includes("adapter"),
-					),
+							share.roles.includes("composer") ||
+							share.roles.includes("mixer") ||
+							share.roles.includes("adapter")
+					)
 				)
 				chartProps.dataLeft = sharesToData(
-					shares.filter(
-						(share) =>
-							share.roles.includes("author"),
-					),
+					shares.filter((share) => share.roles.includes("author"))
 				)
 				chartProps.titleLeft = t("rightSplits:lyrics")
 				chartProps.titleRight = t("rightSplits:music")
 				break
 			case "manual":
 				chartProps.data = sharesToData(shares)
-
 		}
 	}
 
 	generateChartData()
-
 
 	useEffect(() => generateChartData(), [mode])
 
@@ -98,7 +98,7 @@ const CopyrightForm = observer(() => {
 			<Column of="section" flex={1}>
 				<Column of="group">
 					<Row of="component">
-						<CircledC size={Metrics.size.small} color={Colors.action}/>
+						<CircledC size={Metrics.size.small} color={Colors.action} />
 						<Text action bold>
 							{t("rightSplits:titles.copyright").toUpperCase()}
 						</Text>
@@ -167,7 +167,7 @@ const CopyrightForm = observer(() => {
 								</CheckBoxGroup>
 							</ShareCard>
 						))}
-						<AddCollaboratorDropdown onSelect={addShareHolder}/>
+						<AddCollaboratorDropdown onSelect={addShareHolder} />
 					</Column>
 				</Column>
 			</Column>

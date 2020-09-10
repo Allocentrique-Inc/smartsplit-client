@@ -1,14 +1,17 @@
 import { createCrudObservable, createEntityListObservable } from "../crud"
-import WorkpiecesCrudAPI, { createNewRightsSplits, listForUser, updateRightsSplits } from "../../../api/workpieces"
+import WorkpiecesCrudAPI, {
+	createNewRightsSplits,
+	listForUser,
+	updateRightsSplits,
+} from "../../../api/workpieces"
 import { action, computed, decorate, observable } from "mobx"
 
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
-	"workpiece_id",
+	"workpiece_id"
 )
 
 export const $workpiece = Symbol("Workpiece")
-
 
 export class Workpiece extends WorkpieceObservable {
 	constructor(id, initData = null, initState) {
@@ -26,7 +29,6 @@ export class Workpiece extends WorkpieceObservable {
 				this.rightsSplits._updateRightsSplits(rightSplit)
 			}
 		}
-
 	}
 
 	setData(data) {
@@ -34,8 +36,10 @@ export class Workpiece extends WorkpieceObservable {
 	}
 }
 
-const WorkpieceListObservable = createEntityListObservable(Workpiece, "workpiece_id")
-
+const WorkpieceListObservable = createEntityListObservable(
+	Workpiece,
+	"workpiece_id"
+)
 
 export default class WorkpieceState extends WorkpieceListObservable {
 	@observable error = null
@@ -43,7 +47,7 @@ export default class WorkpieceState extends WorkpieceListObservable {
 
 	async init(userId) {
 		this.isLoading = true
-		userId && await this.fetchWorkpieceList(userId)
+		userId && (await this.fetchWorkpieceList(userId))
 		this.isLoading = false
 	}
 
@@ -54,16 +58,14 @@ export default class WorkpieceState extends WorkpieceListObservable {
 		this.error = null
 		try {
 			const workpieces = await listForUser(userId)
-			workpieces.forEach(wp => {
+			workpieces.forEach((wp) => {
 				this.addToList(new Workpiece(wp.workpiece_id, wp, "ready"))
 			})
 			this.isLoading = false
-
 		} catch (e) {
 			console.error("Error while fetching workpiece list:", e)
 			this.isLoading = false
 			this.error = e
-
 		}
 	}
 
@@ -101,8 +103,8 @@ export class RightsSplits {
 				configurable: false,
 				enumerable: false,
 				writable: true,
-				value: null
-			}
+				value: null,
+			},
 		})
 		decorate(this, {
 			copyright: observable,
@@ -114,18 +116,18 @@ export class RightsSplits {
 		this._disposers = [
 			this.copyright.shareHolders.observe(this._toggleHasChanged),
 			this.copyright.shareHolders.observe(this._toggleHasChanged),
-			this.copyright.shareHolders.observe(this._toggleHasChanged)
+			this.copyright.shareHolders.observe(this._toggleHasChanged),
 		]
 	}
 
 	@action _toggleHasChanged() {
 		this.$hasChanged = true
-		this._disposers.forEach(disposer => disposer())
+		this._disposers.forEach((disposer) => disposer())
 	}
 
 	@action _updateRightsSplits(rightsSplits) {
 		const { _state, ...splits } = rightsSplits
-		splits.keys().forEach(type => {
+		splits.keys().forEach((type) => {
 			if (type in this && this[type].updateShares) {
 				this[type].updateShares(splits[type])
 			}
@@ -137,7 +139,7 @@ export class RightsSplits {
 	_exportRightsSplits() {
 		const output = {}
 
-		Object.keys(this).forEach(type => {
+		Object.keys(this).forEach((type) => {
 			output[type] = this[type].allShares
 			Object.assign(output, { type: this[type].allShares })
 		})
@@ -156,12 +158,12 @@ export class RightsSplits {
 			if (this._state === "draft") {
 				newState = await updateRightsSplits(
 					this[$workpiece].id,
-					this._exportRightsSplits(),
+					this._exportRightsSplits()
 				)
 			} else {
 				newState = await createNewRightsSplits(
 					this[$workpiece].id,
-					this._exportRightsSplits(),
+					this._exportRightsSplits()
 				)
 			}
 
@@ -211,7 +213,7 @@ export class RightSplit {
 
 	@action updateShares(shares) {
 		const seenShareHolders = []
-		shares.forEach(share => {
+		shares.forEach((share) => {
 			seenShareHolders.push(share.rightHolder)
 			if (this.shareHolders.has(share.rightHolder)) {
 				this.updateShare(share)
@@ -219,7 +221,10 @@ export class RightSplit {
 				this.addShare(share)
 			}
 		})
-		this.shareHolders.forEach((value, key) => seenShareHolders.indexOf(key) < 0 && this.removeRightHolder(key))
+		this.shareHolders.forEach(
+			(value, key) =>
+				seenShareHolders.indexOf(key) < 0 && this.removeRightHolder(key)
+		)
 	}
 
 	@computed get allShares() {
@@ -227,14 +232,11 @@ export class RightSplit {
 	}
 }
 
-export class CopyrightSplit extends RightSplit {
-}
+export class CopyrightSplit extends RightSplit {}
 
-export class PerformanceSplit extends RightSplit {
-}
+export class PerformanceSplit extends RightSplit {}
 
-export class RecordingSplit extends RightSplit {
-}
+export class RecordingSplit extends RightSplit {}
 
 const initShareData = {
 	shares: 1,
@@ -254,8 +256,7 @@ export class SplitShare {
 	@observable roles = initShareData.roles
 	@observable comment = initShareData.comment
 	@observable vote = initShareData.vote
-	@action set = share => Object.assign(this, share)
+	@action set = (share) => Object.assign(this, share)
 	@action setData = (key, data) => Object.assign(this[key], data)
 	@action reset = () => Object.assign(this, initShareData)
 }
-

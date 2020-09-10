@@ -9,7 +9,6 @@ export function useCurrentWorkpiece(...path) {
 	return useContext(WorkpieceContext)
 }
 
-
 export function useRightSplit(type) {
 	// console.log(isObservable(useCurrentWorkpiece().rightsSplits))
 	return useCurrentWorkpiece().rightsSplits[type]

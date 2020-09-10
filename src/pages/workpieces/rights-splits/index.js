@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, { useEffect } from "react"
 import { Redirect, useRouteMatch, useParams, useHistory } from "react-router"
 
 import { useStorePath, useStores } from "../../../mobX"
@@ -14,38 +14,37 @@ import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
 
 export default observer(() => {
-	const {t} = useTranslation()
+	const { t } = useTranslation()
 	const history = useHistory()
 	const { workpiece_id, split_type } = useParams()
 	const splits = {
 		copyright: {
 			form: CopyrightForm,
-			progress: 1 / 3 * 100,
-			title: t("rightSplits:titles.copyright")
+			progress: (1 / 3) * 100,
+			title: t("rightSplits:titles.copyright"),
 		},
 		performance: {
 			form: PerformanceForm,
-			progress: 2 / 3 * 100,
-			title: t("rightSplits:titles.performance")
+			progress: (2 / 3) * 100,
+			title: t("rightSplits:titles.performance"),
 		},
 		recording: {
 			form: RecordingForm,
 			progress: (10 / 11) * 100,
-			title: t("rightSplits:titles.recording")
+			title: t("rightSplits:titles.recording"),
 		},
 	}
-	if (!workpiece_id) return (
-		<Redirect
-			to={`/workpieces/${workpiece_id}/rights-splits/copyright`}
-		/>)
-	else if (!split_type) return (
-		<Redirect
-			to={`/workpieces/${workpiece_id}/rights-splits/copyright`}
-		/>)
+	if (!workpiece_id)
+		return (
+			<Redirect to={`/workpieces/${workpiece_id}/rights-splits/copyright`} />
+		)
+	else if (!split_type)
+		return (
+			<Redirect to={`/workpieces/${workpiece_id}/rights-splits/copyright`} />
+		)
 	useStorePath("workpieces").fetch(workpiece_id)
-	// const workpiece = useStorePath("workpieces").fetch(workpiece_id)
 	const workpiece = useCurrentWorkpiece()
-	const {workpieces} = useStores()
+	const { workpieces } = useStores()
 	const currentSplit = split_type
 
 	const rightsSplits = workpiece.rightsSplits
@@ -62,14 +61,18 @@ export default observer(() => {
 		history.push(`/workpieces/${workpiece.id}`)
 	}
 	function toPreviousPage() {
-		currentSplit === "copyright" &&  navigateToSummary()
-		currentSplit === "performance" && history.push(`/workpieces/${workpiece.id}/rights-splits/copyright`)
-		currentSplit === "recording" && history.push(`/workpieces/${workpiece.id}/rights-splits/performance`)
+		currentSplit === "copyright" && navigateToSummary()
+		currentSplit === "performance" &&
+			history.push(`/workpieces/${workpiece.id}/rights-splits/copyright`)
+		currentSplit === "recording" &&
+			history.push(`/workpieces/${workpiece.id}/rights-splits/performance`)
 	}
 
 	function toNextPage() {
-		currentSplit === "copyright" &&  history.push(`/workpieces/${workpiece.id}/rights-splits/performance`)
-		currentSplit === "performance" && history.push(`/workpieces/${workpiece.id}/rights-splits/recording`)
+		currentSplit === "copyright" &&
+			history.push(`/workpieces/${workpiece.id}/rights-splits/performance`)
+		currentSplit === "performance" &&
+			history.push(`/workpieces/${workpiece.id}/rights-splits/recording`)
 		currentSplit === "recording" && navigateToSummary()
 	}
 
@@ -77,10 +80,7 @@ export default observer(() => {
 		<Layout
 			workpiece={workpiece}
 			progress={splits[currentSplit].progress}
-			path={[
-				t("rightSplits:navbar.rightSplits"),
-				splits[currentSplit].title,
-			]}
+			path={[t("rightSplits:navbar.rightSplits"), splits[currentSplit].title]}
 			actions={
 				<Button
 					tertiary
@@ -97,7 +97,7 @@ export default observer(() => {
 							text={t("general:buttons.back")}
 							onClick={toPreviousPage}
 						/>
-						<Flex/>
+						<Flex />
 						<Button
 							primary
 							text={t("general:buttons.continue")}
@@ -112,8 +112,7 @@ export default observer(() => {
 				</>
 			}
 		>
-			{!workpieces.isLoading && React.createElement(splits[currentSplit].form) }
+			{!workpieces.isLoading && React.createElement(splits[currentSplit].form)}
 		</Layout>
 	)
 })
-
