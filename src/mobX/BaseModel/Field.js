@@ -1,4 +1,4 @@
-import { observable, action, computed, runInAction } from "mobx"
+import { observable, action, computed, runInAction, toJS } from "mobx"
 import Model from "./BaseModel"
 
 /**
@@ -195,6 +195,21 @@ export const FieldType = {
 	 * html strings are strings but the UI will display them as richtext editors
 	 */
 	html: "string",
+
+	/**
+	 * a collection of plain objects. fields of this type have a value that is an array which can
+	 * be iterated for rendering.
+	 *
+	 * additionally the methods addItem(), removeItem(), setItem(), getItem(), clear() can be used for this type
+	 * setValue() expects an array.
+	 */
+	collection: "collection",
+
+	/**
+	 * a key value pair collection setItem(), getItem(), removeItem(), clear() are additional methods that cen be used
+	 * setValue() expects an object
+	 */
+	map: "map",
 }
 
 /**
@@ -513,6 +528,59 @@ export default class Field {
 		}
 	}
 
+	@action setItem(keyOrIndex, value) {
+		switch (this.type) {
+			case FieldType.map:
+				this.setValue({ ...this.value, key: value })
+				break
+			case FieldType.collection:
+				let newValue = [...this.value]
+				newValue[keyOrIndex] = value
+				this.setValue(newValue)
+				break
+			default:
+				throw new Error(
+					"Field.setItem can only be used by fields of type collection or map"
+				)
+		}
+		this.setValue(newValue)
+	}
+	@action getItem(keyOrIndex, value) {
+		if (this.type !== FieldType.map && this.type !== FieldType.collection)
+			throw new Error(
+				"Field.getItem can only be used by fields of type collection or map"
+			)
+		return this.value[keyOrIndex]
+	}
+	@action clearItems() {
+		switch (this.type) {
+			case FieldType.map:
+				this.setValue({})
+				break
+			case FieldType.collection:
+				this.setValue([])
+				break
+			default:
+				throw new Error(
+					"Field.clearItems can only be used by fields of type collection or map"
+				)
+		}
+	}
+	@action removeItem(keyOrIndex) {
+		switch (this.type) {
+			case FieldType.collection:
+				this.setValue([...this.value].splice(keyOrIndex, 1))
+				break
+			case FieldType.map:
+				delete this.value[keyOrIndex]
+				this.setValue({ ...this.value })
+				break
+			default:
+				throw new Error(
+					"Field.removeItem can only be used by fields of type collection or map"
+				)
+		}
+	}
 	/**
 	 * this method restores the value set by initValue
 	 * and automatically sets isDirty to false
