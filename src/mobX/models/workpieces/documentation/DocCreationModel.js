@@ -5,16 +5,19 @@ import { observable, action, computed } from "mobx"
  *
  */
 export default class DocCreationModel extends BaseModel {
-	creationDate = new Field(this, "creationDate", {
+	@observable creationDate = new Field(this, "creationDate", {
 		type: FieldType.date,
 	})
-	authors = new Field(this, "authors", {
+	@observable authors = new Field(this, "authors", {
 		type: FieldType.collection,
 	})
-	composers = new Field(this, "composers", {
+	@observable composers = new Field(this, "composers", {
 		type: FieldType.collection,
 	})
-	editors = new Field(this, "editors", {
+	@observable editors = new Field(this, "editors", {
 		type: FieldType.collection,
+	})
+	@observable ISWC = new Field(this, "ISWC", {
+		type: FieldType.string,
 	})
 }
