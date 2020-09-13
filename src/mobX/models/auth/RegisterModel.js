@@ -3,6 +3,7 @@ import { observable, action, computed, runInAction } from "mobx"
 import { registerUser, getEmail } from "../../../../api/users"
 import { getI18n } from "react-i18next"
 import PasswordModel from "./PasswordModel"
+import { emailValidator, emailUniqueValidator } from "../validators"
 
 /**
  * inherits fields password and password2 form PasswordModel
@@ -19,21 +20,8 @@ export default class RegisterModel extends PasswordModel {
 	@observable email = new Field(this, "email", {
 		required: true,
 		requiredMessage: "errors:enterEmail",
-		validation: (v) => {
-			let success = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
-				v
-			)
-			if (!success) return "errors:invalidEmail"
-			return null
-		},
-		asyncValidation: async (email) => {
-			try {
-				await getEmail(email)
-				return "errors:emailTaken"
-			} catch (e) {
-				return null
-			}
-		},
+		validation: emailValidator,
+		asyncValidation: emailUniqueValidator,
 	})
 	@observable acceptTerms = new Field(this, "acceptTerms", {
 		pseudo: true,
