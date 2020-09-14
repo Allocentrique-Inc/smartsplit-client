@@ -137,6 +137,7 @@ export function GeneralInfosForm(props) {
 						placeholder={t("document:infos.addGenre")}
 					/>
 					<SearchAndTag
+						noIcon={true}
 						hideIcon={true}
 						label={t("document:infos.influence")}
 						undertext={t("document:infos.influenceExample")}
