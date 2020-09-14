@@ -77,16 +77,16 @@ export default function GeneralInfos() {
 }
 
 export function GeneralInfosForm(props) {
-	const searchResults = ["Electrofunk", "Future Funk", "Mega Funk"]
-	const [search, setSearch] = useState("")
-	const [selected, setSelected] = useState([
+	const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
+	const [searchGenres, setSearchGenres] = useState("")
+	const [selectedGenres, setSelectedGenres] = useState([
 		"Electrofunk",
 		"Future Funk",
 		"Mega Funk",
 	])
-	const searchResults2 = ["Stromae", "Apollo Brown", "Daft Punk"]
-	const [search2, setSearch2] = useState("")
-	const [selected2, setSelected2] = useState([
+	const searchResultsInfluences = ["Stromae", "Apollo Brown", "Daft Punk"]
+	const [searchInfluences, setSearchInfluences] = useState("")
+	const [selectedInfluences, setSelectedInfluences] = useState([
 		"Stromae",
 		"Apollo Brown",
 		"Daft Punk",
@@ -124,30 +124,33 @@ export function GeneralInfosForm(props) {
 						tooltip=""
 					/>
 					<SearchAndTag
-						hideIcon={true}
+						noIcon={true}
 						label={t("document:infos.secondaryGenre")}
-						searchResults={searchResults}
-						search={search}
-						onSearchChange={setSearch}
-						selection={selected}
-						onSelect={(selection) => setSelected([...selected, selection])}
+						searchResults={searchResultsGenres}
+						search={searchGenres}
+						onSearchChange={setSearchGenres}
+						selection={selectedGenres}
+						onSelect={(selection) =>
+							setSelectedGenres([...selectedGenres, selection])
+						}
 						onUnselect={(selection) =>
-							setSelected(selected.filter((i) => i !== selection))
+							setSelected(selectedGenres.filter((i) => i !== selection))
 						}
 						placeholder={t("document:infos.addGenre")}
 					/>
 					<SearchAndTag
 						noIcon={true}
-						hideIcon={true}
 						label={t("document:infos.influence")}
 						undertext={t("document:infos.influenceExample")}
-						searchResults={searchResults2}
-						search={search2}
-						onSearchChange={setSearch2}
-						selection={selected2}
-						onSelect={(selection) => setSelected2([...selected2, selection])}
+						searchResults={searchResultsInfluences}
+						search={searchInfluences}
+						onSearchChange={setSearchInfluences}
+						selection={selectedInfluences}
+						onSelect={(selection) =>
+							setSelectedInfluences([...selectedInfluences, selection])
+						}
 						onUnselect={(selection) =>
-							setSelected2(selected2.filter((i) => i !== selection))
+							setSelected2(selectedInfluences.filter((i) => i !== selection))
 						}
 						placeholder={t("document:infos.addInfluence")}
 					/>

@@ -112,7 +112,7 @@ export class Dropdown extends React.Component {
 	}
 
 	render() {
-		const { placeholder, children, hideIcon, onFocus, onBlur } = {
+		const { placeholder, children, onFocus, onBlur, noIcon } = {
 			...this.props,
 			placeholder: this.getPlaceholder(),
 		}
@@ -126,8 +126,15 @@ export class Dropdown extends React.Component {
 					onBlur={this.handleOnBlur}
 					focused={this.state.open}
 					placeholder={placeholder}
-					icon={this.props.icon ? this.props.icon : this.getArrowIcon()}
-					leftIcon={this.props.leftIcon}
+					noIcon={noIcon}
+					icon={
+						noIcon
+							? null
+							: this.props.icon
+							? this.props.icon
+							: this.getArrowIcon()
+					}
+					leftIcon={noIcon ? null : this.props.leftIcon}
 				/>
 
 				<DropdownModal
@@ -188,9 +195,9 @@ class DropdownRow extends React.PureComponent {
 				{...focusToggle}
 			>
 				<Row of="inside" valign="center">
-					{this.props.leftIcon && <Icon />}
+					{this.props.noIcon ? null : this.props.leftIcon && <Icon />}
 					{this.props.placeholder}
-					{!this.props.leftIcon && <Icon />}
+					{this.props.noIcon ? null : !this.props.leftIcon && <Icon />}
 				</Row>
 			</TouchableWithoutFeedback>
 		)
