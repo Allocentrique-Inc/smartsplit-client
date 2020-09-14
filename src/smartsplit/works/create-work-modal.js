@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useHistory } from "react-router"
-import { useStorePath } from "../../appstate/react"
+import { useStorePath } from "../../mobX"
 import ACRCloudModal from "./acrcloud-modal"
 import { DialogModal } from "../../widgets/modal"
 import { Button } from "../../widgets/button"
@@ -14,38 +14,26 @@ import {
 
 import ArtistSelectDropdown from "../artist/select"
 import RightHolderTag from "../rightholders/tag"
+import WorkpieceModel from "../../mobX/models/workpieces/WorkpieceModel"
+import { Text } from "../../text"
 
 export default function CreateWorkModal(props) {
 	const history = useHistory()
 	const workpieces = useStorePath("workpieces")
+	const model: WorkpieceModel = useStorePath("workpieces", "model")
+	console.log(workpieces)
+	//const [acrModal, setAcrModal] = useState(false)
+	//	const [workName, setWorkName] = useState("")
+	//	const [workType, setWorkType] = useState(null)
+	///	const [workOriginalArtist, setWorkOriginalArtist] = useState("")
 
-	const [acrModal, setAcrModal] = useState(false)
-	const [workName, setWorkName] = useState("")
-	const [workType, setWorkType] = useState(null)
-	const [workOriginalArtist, setWorkOriginalArtist] = useState("")
+	//	const [isSaving, setIsSaving] = useState(false)
+	//	const [error, setError] = useState(null)
 
-	const [isSaving, setIsSaving] = useState(false)
-	const [error, setError] = useState(null)
-
-	const workArtistLabel =
-		workType === "remix" || workType === "cover"
-			? `${workName} (${workOriginalArtist}), remixé par`
-			: `${workName}, par`
-
-	async function next() {
-		setIsSaving(true)
-		const wp = workpieces.create({ title: workName })
-
-		try {
-			await wp.save()
-			history.push("/workpieces/" + wp.id)
-		} catch (e) {
-			console.error("Failed to save workpiece:", e)
-			setError(e.message)
-		} finally {
-			setIsSaving(false)
-		}
-	}
+	// const workArtistLabel =
+	// 	workType === "remix" || workType === "cover"
+	// 		? `${workName} (${workOriginalArtist}), remixé par`
+	// 		: `${workName}, par`
 
 	return (
 		<DialogModal
@@ -59,17 +47,23 @@ export default function CreateWorkModal(props) {
 					<Button tertiary text="Annuler" onClick={props.onRequestClose} />
 					<Button
 						text="C'est parti!"
-						onClick={next}
-						disabled={!workName.length || isSaving}
+						onClick={async () => {
+							let newPiece = await workpieces.submit()
+							if (newPiece) {
+								//	props.onRequestClose();
+								console.log(newPiece)
+								props.onRequestClose()
+								history.push("/workpieces/" + newPiece.workpiece_id)
+							}
+						}}
+						disabled={model.busy}
 					/>
 				</>
 			}
 		>
 			<Group of="group">
 				<TextField
-					value={workName}
-					onChangeText={setWorkName}
-					label="Titre de la pièce musicale"
+					field={model.title}
 					undertext="Ne pas include de « featuring » dans le titre"
 				/>
 				{/*
@@ -117,7 +111,7 @@ export default function CreateWorkModal(props) {
 					</Column>
 				)}*/}
 
-				{error && <Text error>{error}</Text>}
+				{model.saveError && <Text error>{model.saveError}</Text>}
 			</Group>
 
 			{/*<ACRCloudModal
