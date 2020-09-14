@@ -327,20 +327,19 @@ export default class BaseModel {
 	 * @returns {Promise<*|void>}
 	 */
 	async save(...args) {
-		//console.log("save called")
+		console.log("save called")
 		if (this.isNew) {
-			//console.log("attempting to create")
+			console.log("attempting to create")
 			try {
-				await this.create(...args)
-				return true
+				return this.create(...args)
 			} catch (e) {
 				this.saveError = e
 				return false
 			}
 		} else {
-			//console.log("attempting to update")
+			console.log("attempting to update")
 			try {
-				await this.update(...args)
+				return this.update(...args)
 			} catch (e) {
 				this.saveError = e
 				return false

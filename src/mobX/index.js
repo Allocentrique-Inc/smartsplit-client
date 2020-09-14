@@ -28,7 +28,7 @@ class RootStore {
 		await this.test.init()
 		await this.counts.init()
 		await this.admin.init()
-		await this.workpieces.init(this.auth.user_id)
+		await this.workpieces.init()
 		runInAction(() => {
 			this.initialized = true
 		})
