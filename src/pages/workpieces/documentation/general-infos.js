@@ -84,6 +84,11 @@ export function GeneralInfosForm(props) {
 		"Future Funk",
 		"Mega Funk",
 	])
+	const [selected2, setSelected2] = useState([
+		"Stromae",
+		"Apollo Brown",
+		"Daft Punk",
+	])
 	const { t } = useTranslation()
 
 	return (
@@ -131,16 +136,17 @@ export function GeneralInfosForm(props) {
 					/>
 					<SearchAndTag
 						hideIcon={true}
-						label={t("document:infos.secondaryGenre")}
+						label={t("document:infos.influence")}
+						undertext={t("document:infos.influenceExample")}
 						searchResults={searchResults}
 						search={search}
 						onSearchChange={setSearch}
-						selection={selected}
-						onSelect={(selection) => setSelected([...selected, selection])}
+						selection={selected2}
+						onSelect={(selection) => setSelected2([...selected2, selection])}
 						onUnselect={(selection) =>
-							setSelected(selected.filter((i) => i !== selection))
+							setSelected2(selected2.filter((i) => i !== selection))
 						}
-						placeholder={t("document:infos.genreExample")}
+						placeholder={t("document:infos.addInfluence")}
 					/>
 				</Column>
 				<Flex />
