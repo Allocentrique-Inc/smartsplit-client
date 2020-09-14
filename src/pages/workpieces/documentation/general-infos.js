@@ -44,7 +44,7 @@ export default function GeneralInfos() {
 			workpiece={workpiece}
 			title={workpiece}
 			path={[t("document:navbar.document"), t("document:navbar.pages.infos")]}
-			progress={62.5}
+			progress={75}
 			actions={
 				<Button
 					tertiary
@@ -84,6 +84,8 @@ export function GeneralInfosForm(props) {
 		"Future Funk",
 		"Mega Funk",
 	])
+	const searchResults2 = ["Stromae", "Apollo Brown", "Daft Punk"]
+	const [search2, setSearch2] = useState("")
 	const [selected2, setSelected2] = useState([
 		"Stromae",
 		"Apollo Brown",
@@ -138,9 +140,9 @@ export function GeneralInfosForm(props) {
 						hideIcon={true}
 						label={t("document:infos.influence")}
 						undertext={t("document:infos.influenceExample")}
-						searchResults={searchResults}
-						search={search}
-						onSearchChange={setSearch}
+						searchResults={searchResults2}
+						search={search2}
+						onSearchChange={setSearch2}
 						selection={selected2}
 						onSelect={(selection) => setSelected2([...selected2, selection])}
 						onUnselect={(selection) =>
