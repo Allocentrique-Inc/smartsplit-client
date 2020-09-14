@@ -12,6 +12,16 @@ import { Colors, Metrics } from "../../../theme"
 import MusicNoteIcon from "../../../svg/music-note"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.medium,
+	},
+})
+
 export default function GeneralInfos() {
 	const { t } = useTranslation()
 	const history = useHistory()
@@ -80,8 +90,8 @@ export function GeneralInfosForm(props) {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
-						<MusicNoteIcon color={Colors.action} />
+					<Text action bold style={Styles.category}>
+						<MusicNoteIcon color={Colors.action} style={Styles.logo} />
 						{t("document:infos.category")}
 						<Row padding="tiny" />
 					</Text>
