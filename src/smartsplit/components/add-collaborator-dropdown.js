@@ -18,13 +18,13 @@ const Styles = StyleSheet.create({
 	},
 })
 
-const AddCollaboratorDropdown = observer((props) => {
-	console.log(props)
+const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
+	// console.log(nextProps)
 	const { t } = useTranslation()
 	const { collaborators } = useStores()
 	const [search, setSearch] = useState("")
 	const results = useRightHolderSearch(search)
-	console.log(results)
+	// console.log(results)
 	return (
 		<>
 			<Autocomplete
@@ -32,7 +32,7 @@ const AddCollaboratorDropdown = observer((props) => {
 				placeholder={t("rightSplits:dropdowns.addCollab")}
 				search={search}
 				onSearchChange={setSearch}
-				{...props}
+				{...nextProps}
 				searchResults={results.map((rh) => (
 					<Row key={rh.rightHolder_id}>
 						<Text>
@@ -40,7 +40,9 @@ const AddCollaboratorDropdown = observer((props) => {
 						</Text>
 					</Row>
 				))}
-				onSelect={(result) => props.onSelect(result.key)}
+				onSelect={(result) => {
+					onSelect(result.key)
+				}}
 			>
 				<TouchableWithoutFeedback onPress={() => collaborators.new()}>
 					<Row of="component" padding="component" style={Styles.actionFrame}>
@@ -56,7 +58,7 @@ const AddCollaboratorDropdown = observer((props) => {
 				onRequestClose={() => collaborators.cancel()}
 				onAdded={(result) => {
 					console.log(result)
-					props.onSelect(result.user_id)
+					onSelect(result.user_id)
 				}}
 			/>
 		</>

@@ -10,7 +10,6 @@ import { formatPercentage, getFullName } from "../../utils/utils"
 import { CardStyles } from "../../widgets/card"
 import { useTranslation } from "react-i18next"
 import XIcon from "../../svg/x"
-import { useStorePath } from "../../mobX"
 import { observer } from "mobx-react"
 import { useAuthUser, useEntity } from "../../mobX/hooks"
 import { toJS } from "mobx"
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
 })
 const ShareCard = observer(
 	({
-		rightHolderId,
+		shareHolderId,
 		sharePercent,
 		tip,
 		children,
@@ -42,8 +41,7 @@ const ShareCard = observer(
 		...nextProps
 	}) => {
 		const { t } = useTranslation()
-		console.log(rightHolderId)
-		const user = useEntity(["users"], rightHolderId)
+		const user = useEntity(["users"], shareHolderId)
 		const userData = toJS(user.data) || {}
 		const authUserData = toJS(useAuthUser().data)
 		const frameStyle = [CardStyles.frame, styles.frame]

@@ -12,7 +12,6 @@ import {
 	changePassword,
 } from "../../../api/users"
 import RegisterModel from "../models/auth/RegisterModel"
-import { useHistory } from "react-router"
 import PasswordModel from "../models/auth/PasswordModel"
 import ChangePasswordModel from "../models/auth/ChangePasswordModel"
 /**

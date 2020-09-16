@@ -12,6 +12,8 @@ import RecordingForm from "./recording"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
+import { useSplitsPagesState } from "../../../mobX/hooks"
+import { useRightSplit } from "../context"
 
 const RightsSplitsPage = observer(() => {
 	const { t } = useTranslation()
@@ -40,6 +42,16 @@ const RightsSplitsPage = observer(() => {
 			<Redirect to={`/workpieces/${workpiece_id}/rights-splits/copyright`} />
 		)
 	const workpiece = useCurrentWorkpiece()
+
+	// TEMPORARY. Initialization of splitsPagesState shares (only copyright at the moment) with current workpiece splits
+	const split = useRightSplit("copyright")
+	const { copyright } = useSplitsPagesState()
+	copyright.init(
+		t("rightSplits:lyrics"),
+		t("rightSplits:music"),
+		split.allShares
+	)
+
 	const { workpieces } = useStores()
 	const currentSplit = split_type
 
