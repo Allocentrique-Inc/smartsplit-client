@@ -58,8 +58,8 @@ const CopyrightForm = observer(() => {
 				split.updateShares(
 					shares.map((share) => {
 						!share.roles.includes("author") && share.roles.push("author")
-						!share.roles.includes("compositor") &&
-							share.roles.push("compositor")
+						!share.roles.includes("composer") &&
+							share.roles.push("composer")
 						return share
 					})
 				)
