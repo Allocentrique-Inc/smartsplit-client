@@ -7,6 +7,7 @@ import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
 import FormStyles from "../styles/forms"
 import { mapChildren, mapFragmentChildren, mapLeaves } from "../utils/react"
+import { observer } from "mobx-react"
 
 const CheckBoxContext = React.createContext({})
 CheckBoxContext.displayName = "CheckBoxGroupContext"
@@ -113,7 +114,7 @@ export function CheckBoxGroupButton({ value, children, ...nextProps }) {
 	)
 }
 
-export function CheckBox(props) {
+export const CheckBox = observer((props) => {
 	let {
 		children,
 		center,
@@ -126,8 +127,8 @@ export function CheckBox(props) {
 	} = props
 	if (field) {
 		label = field.label
-		onChange = (e) => {
-			field.setValue(e.target.value)
+		onChange = (value) => {
+			field.setValue(value)
 		}
 		checked = field.value
 	}
@@ -157,7 +158,7 @@ export function CheckBox(props) {
 			</Row>
 		</TouchableWithoutFeedback>
 	)
-}
+})
 
 export function CheckBoxUnchecked(props) {
 	const { disabled, color, ...nextProps } = props

@@ -23,6 +23,13 @@ export default class RegisterModel extends PasswordModel {
 		validation: emailValidator,
 		asyncValidation: emailUniqueValidator,
 	})
+	/**
+	 * note a boolean field such as one handled by a checkbox
+	 * that is set to required will mean that it needs
+	 * a "true" value in order for the isValid property to be true
+	 *
+	 * @type {Field}
+	 */
 	@observable acceptTerms = new Field(this, "acceptTerms", {
 		pseudo: true,
 		type: FieldType.bool,

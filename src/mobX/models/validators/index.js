@@ -49,8 +49,8 @@ export async function emailUniqueValidator(value) {
  * @param value
  * @return {string}
  */
-export function passwordValidator(value) {
-	if (v !== this.password.value) {
+export function passwordValidator(value, model) {
+	if (value !== model.password.value) {
 		return "errors:samePasswords"
 	}
 }
