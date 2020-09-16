@@ -35,7 +35,7 @@ export default class RegisterModel extends PasswordModel {
 	async create() {
 		let data = this.toJS()
 		try {
-			let response = await registerUser(data)
+			return await registerUser(data)
 		} catch (error) {
 			if (error.code === "user_conflict")
 				this.saveError = "errors:password.emailTaken"
