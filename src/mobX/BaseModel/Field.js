@@ -543,9 +543,16 @@ export default class Field {
 					"Field.setItem can only be used by fields of type collection or map"
 				)
 		}
-		this.setValue(newValue)
 	}
-	@action getItem(keyOrIndex, value) {
+	@action push(value) {
+		if (this.type === "collection") {
+			this.value.push(value)
+		} else
+			throw new Error(
+				"Field.push can only be used by fields of type collection"
+			)
+	}
+	getItem(keyOrIndex) {
 		if (this.type !== FieldType.map && this.type !== FieldType.collection)
 			throw new Error(
 				"Field.getItem can only be used by fields of type collection or map"
@@ -563,6 +570,19 @@ export default class Field {
 			default:
 				throw new Error(
 					"Field.clearItems can only be used by fields of type collection or map"
+				)
+		}
+	}
+	includes(id) {
+		switch (this.type) {
+			case FieldType.map:
+				return this.value.has(id)
+			case FieldType.collection:
+				console.log(this.value)
+				return this.value.includes(id)
+			default:
+				throw new Error(
+					"Field.includes can only be used by fields of type collection or map"
 				)
 		}
 	}

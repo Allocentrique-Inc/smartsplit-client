@@ -18,6 +18,7 @@ import {
 import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
 import { useRightSplit } from "../context"
+import { initData } from "../../../mobX/models/workpieces/rights-splits/SplitCopyrightModel"
 
 const CopyrightForm = observer(() => {
 	const split = useRightSplit("copyright")
@@ -42,9 +43,7 @@ const CopyrightForm = observer(() => {
 
 	function addShareHolder(id) {
 		if (split.hasOwnProperty(id)) return
-		split.addRightHolder(id, {
-			shares: 1,
-		})
+		split.addRightHolder(id, initData)
 	}
 
 	let chartProps = {
@@ -58,8 +57,7 @@ const CopyrightForm = observer(() => {
 				split.updateShares(
 					shares.map((share) => {
 						!share.roles.includes("author") && share.roles.push("author")
-						!share.roles.includes("composer") &&
-							share.roles.push("composer")
+						!share.roles.includes("composer") && share.roles.push("composer")
 						return share
 					})
 				)
