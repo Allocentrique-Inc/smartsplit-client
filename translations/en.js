@@ -232,7 +232,8 @@ export const forms = {
 		resendConfirmEmail: "Resend confirmation email",
 		defaultRoles: "These roles can always be changed later.",
 	},
-	addCollabArtist: "[Add/Modify] a collaborating artist",
+	addCollabArtist: "Add a collaborating artist",
+	addContributor: "Add a contributing artist",
 	options: {
 		defaultRoles: [
 			{
@@ -811,4 +812,7 @@ export const document = {
 }
 export const collaborators = {
 	email: "Collaborator's email address",
+}
+export const contributors = {
+	add: "Add a Contributor",
 }

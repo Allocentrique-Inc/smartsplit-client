@@ -7,9 +7,9 @@ import Button from "../../widgets/button"
 
 import EditModal from "../../smartsplit/rightholders/edit-modal"
 import { AuthModalTestPage } from "../auth/modals"
-import { AddCollaboratorModal } from "../dashboard/collaborators"
 import { DeclareIdentityModal } from "../auth/modals"
 import SendSplitModal from "../document/send-split-modal"
+import { AddCollaboratorModal } from "../../smartsplit/collaborators/AddCollaboratorsModal"
 
 export default function ModalTests() {
 	const [t] = useTranslation()

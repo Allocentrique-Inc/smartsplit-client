@@ -18,7 +18,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function AddCollaboratorDropdown(props) {
+export default function AddContributorDropdown(props) {
 	const { t } = useTranslation()
 	const [inviteModal, setInviteModal] = useState(false)
 	const [terms, setTerms] = useState("")
@@ -28,7 +28,7 @@ export default function AddCollaboratorDropdown(props) {
 		<>
 			<Autocomplete
 				icon={PlusCircle}
-				placeholder={t("rightSplits:dropdowns.addCollab")}
+				placeholder={t("contributor:add")}
 				{...props}
 				onSearchChange={setTerms}
 				searchResults={results.map((rh) => (
