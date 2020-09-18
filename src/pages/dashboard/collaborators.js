@@ -9,14 +9,12 @@ import { Button, RoundButton } from "../../widgets/button"
 import LogoAddRound from "../../svg/add-round"
 import { useTranslation } from "react-i18next"
 import { emailValidator, notEmptyValidator } from "../../../helpers/validators"
-import {
-	CheckBoxGroup,
-	CheckBoxGroupButton,
-	Form,
-	TextField,
-} from "../../forms"
+import { CheckBoxGroup, CheckBoxGroupButton } from "../../forms"
+import TextField from "../../forms/text"
 import { SearchAndTag } from "../../forms"
 import { inviteNewUser } from "../../../api/users"
+import { useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
 
 export default function CollaboratorsPage() {
 	const [modalOpen, setModal] = useState(false)
@@ -70,80 +68,59 @@ export default function CollaboratorsPage() {
 	)
 }
 
-const collaboratorFormValues = {
-	firstName: "",
-	lastName: "",
-	artistName: "",
-	email: "",
-	groups: [],
-	roles: [],
-}
-
-export function CollaboratorForm({
-	onSubmittable,
-	formRef,
-	children,
-	onSuccess,
-}) {
-	const { t } = useTranslation()
-	const form = formRef || useRef()
-	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
-	const handleChange = ({ firstName, lastName, artistName, email, groups }) => {
-		if (!onSubmittable) return
-		onSubmittable(
-			notEmptyValidator(firstName) &&
-				notEmptyValidator(lastName) &&
-				notEmptyValidator(artistName) &&
-				emailValidator(email) &&
-				notEmptyValidator(groups)
-		)
-	}
-
-	//Pas de validation de champs car refactor de form pour bientot.
-	//De plus, le backend accepte uniquement les paramètres firstName, lastName et email
-	//pour le moment
-	const handleSubmit = async ({ firstName, lastName, email }) => {
-		try {
-			const user = await inviteNewUser({ firstName, lastName, email })
-			console.log(user)
-		} catch (e) {
-			console.log(e)
+export const CollaboratorForm = observer(
+	({ onSubmittable, formRef, children, onSuccess }) => {
+		const { t } = useTranslation()
+		const model = useStorePath("users", "collaborators", "model")
+		//const form = formRef || useRef()
+		const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
+		const handleChange = ({
+			firstName,
+			lastName,
+			artistName,
+			email,
+			groups,
+		}) => {
+			if (!onSubmittable) return
+			onSubmittable(
+				notEmptyValidator(firstName) &&
+					notEmptyValidator(lastName) &&
+					notEmptyValidator(artistName) &&
+					emailValidator(email) &&
+					notEmptyValidator(groups)
+			)
 		}
-	}
-	return (
-		<Form
-			ref={form}
-			onChange={handleChange}
-			onSubmit={handleSubmit}
-			values={collaboratorFormValues}
-		>
+
+		//Pas de validation de champs car refactor de form pour bientot.
+		//De plus, le backend accepte uniquement les paramètres firstName, lastName et email
+		//pour le moment
+		const handleSubmit = async ({ firstName, lastName, email }) => {
+			try {
+				const user = await inviteNewUser({ firstName, lastName, email })
+				console.log(user)
+			} catch (e) {
+				console.log(e)
+			}
+		}
+		return (
 			<Column of="group">
 				<Row of="component">
-					<TextField
-						name="firstName"
-						label={t("forms:labels.legalFirstName")}
-					/>
-					<TextField name="lastName" label={t("forms:labels.legalLastName")} />
+					<TextField field={model.firstName} />
+					<TextField field={model.lastName} />
 				</Row>
 				<TextField
-					name="artistName"
-					label={t("forms:labels.artistName")}
+					field={model.artistName}
 					label_hint={t("forms:labels.optional")}
 					undertext={t("forms:undertexts.artistName")}
 					undertext_lines={1}
 				/>
 				<TextField
-					name="email"
-					label={t("forms:labels.enterEmail")}
+					field={model.email}
 					placeholder={t("forms:placeholders.emailExample")}
 				/>
-				<SearchAndTag
-					name="groups"
-					label={t("forms:labels.groups")}
-					placeholder={t("forms:placeholders.groupSearch")}
-					searchResults={searchResults}
-				/>
+				<SearchAndTag field={model.groups} searchResults={searchResults} />
 				<CheckBoxGroup
+					field={model.defaultRoles}
 					name="roles"
 					label={t("forms:labels.defaultRoles")}
 					undertext={t("forms:undertexts.defaultRoles")}
@@ -157,14 +134,15 @@ export function CollaboratorForm({
 					))}
 				</CheckBoxGroup>
 			</Column>
-		</Form>
-	)
-}
+		)
+	}
+)
 
 export function AddCollaboratorModal(props) {
+	const model = useStorePath("users", "collaborators", "model")
 	const { t } = useTranslation()
-	const form = useRef()
-	const submit = () => form.current.submit()
+	//const form = useRef()
+	//const submit = () => form.current.submit()
 	return (
 		<DialogModal
 			visible={props.visible}
@@ -177,12 +155,17 @@ export function AddCollaboratorModal(props) {
 						text={t("general:buttons.cancel")}
 						onClick={props.onRequestClose}
 					/>
-					<Button text={t("general:buttons.save")} onClick={submit} />
+					<Button
+						text={t("general:buttons.save")}
+						onClick={() => {
+							model.submit()
+						}}
+					/>
 				</>
 			}
 		>
 			<Group>
-				<CollaboratorForm formRef={form} />
+				<CollaboratorForm />
 			</Group>
 		</DialogModal>
 	)

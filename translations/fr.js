@@ -822,3 +822,7 @@ export const document = {
 		},
 	},
 }
+
+export const collaborators = {
+	email: "L'adresse courriel du collaborateur",
+}

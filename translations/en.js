@@ -72,7 +72,6 @@ export const general = {
 		pass: "Pass for now",
 	},
 }
-
 export const menu = {
 	menu: "Menu",
 	works: "My Musical Works",
@@ -809,4 +808,7 @@ export const document = {
 		language: "Language(s)",
 		addLanguage: "Ajouter une langue...",
 	},
+}
+export const collaborators = {
+	email: "Collaborator's email address",
 }

@@ -467,6 +467,16 @@ export default class Field {
 	@action
 	initValue(v): void {
 		v = v === null || v === undefined ? "" : v
+		if (!v) {
+			switch (this.type) {
+				case FieldType.collection:
+					if (!v) v = []
+					break
+				case FieldType.map:
+					v = new Map()
+			}
+		}
+
 		this.onInit(v, this.model)
 		this.setValue(v, true)
 		this.initialValue = this.value
@@ -528,30 +538,36 @@ export default class Field {
 		}
 	}
 
-	@action setItem(keyOrIndex, value) {
-		switch (this.type) {
-			case FieldType.map:
-				this.setValue({ ...this.value, key: value })
-				break
-			case FieldType.collection:
-				let newValue = [...this.value]
-				newValue[keyOrIndex] = value
-				this.setValue(newValue)
-				break
-			default:
-				throw new Error(
-					"Field.setItem can only be used by fields of type collection or map"
-				)
-		}
-		this.setValue(newValue)
-	}
-	@action getItem(keyOrIndex, value) {
-		if (this.type !== FieldType.map && this.type !== FieldType.collection)
+	/**
+	 * set a key/value pair in fieldtypes of map
+	 *
+	 * @param key
+	 * @param value
+	 */
+	@action setItem(key, value) {
+		if (this.type !== FieldType.map)
 			throw new Error(
-				"Field.getItem can only be used by fields of type collection or map"
+				"Field.setItem can only be used by fields of type FieldType.map"
 			)
-		return this.value[keyOrIndex]
+		this.setValue({ ...this.value, key: value })
 	}
+
+	/**
+	 * get the value at a specific key (not really necessary since Field.value[key] is what is returned
+	 * @param key
+	 * @return {string}
+	 */
+	getItem(key) {
+		if (this.type !== FieldType.map)
+			throw new Error(
+				"Field.getItem can only be used by fields of type FieldType.map"
+			)
+		return this.value[key]
+	}
+
+	/**
+	 * a function to clear (empty) field types of collection or map
+	 */
 	@action clearItems() {
 		switch (this.type) {
 			case FieldType.map:
@@ -562,24 +578,52 @@ export default class Field {
 				break
 			default:
 				throw new Error(
-					"Field.clearItems can only be used by fields of type collection or map"
+					"Field.clearItems can only be used by fields of type FieldType.collection or FieldType.map"
 				)
 		}
 	}
-	@action removeItem(keyOrIndex) {
-		switch (this.type) {
-			case FieldType.collection:
-				this.setValue([...this.value].splice(keyOrIndex, 1))
-				break
-			case FieldType.map:
-				delete this.value[keyOrIndex]
-				this.setValue({ ...this.value })
-				break
-			default:
-				throw new Error(
-					"Field.removeItem can only be used by fields of type collection or map"
-				)
-		}
+
+	/**
+	 * used only by collection field types to add an item
+	 * @param item
+	 */
+	@action add(item) {
+		if (this.type !== FieldType.collection)
+			throw new Error(
+				"Field.add(item) can only be used with a field type of FieldType.collection"
+			)
+		this.setValue([...this.value, item])
+	}
+
+	/**
+	 * used only by collection field types to remove an item
+	 * @param item
+	 */
+	@action remove(item) {
+		if (this.type !== FieldType.collection)
+			throw new Error(
+				"Field.add(item) can only be used with a field type of FieldType.collection"
+			)
+		let index = this.value.indexOf(item)
+		if (index === -1) return
+		let newValue = toJS(this.value)
+		newValue.splice(index, 1)
+		this.setValue(newValue)
+	}
+
+	/**
+	 * used only by field types of map to remove a key / value pair
+	 * @param key
+	 */
+	@action removeItem(key) {
+		if (this.type !== FieldType.map)
+			throw new Error(
+				"Field.removeItem can only be used by fields of type FieldType.map"
+			)
+
+		let newValue = toJS(this.value)
+		delete newValue[key]
+		this.setValue(newValue)
 	}
 	/**
 	 * this method restores the value set by initValue
