@@ -9,7 +9,10 @@ import { useTranslation } from "react-i18next"
 import EditModal from "../rightholders/edit-modal"
 
 import { useRightHolderSearch } from "../../appstate/react/right-holders"
+import { AddContributorModal } from "../contributors/AddContributorModal"
 import { AddCollaboratorModal } from "../collaborators/AddCollaboratorsModal"
+import { observer } from "mobx-react"
+import { useStores } from "../../mobX"
 
 const Styles = StyleSheet.create({
 	actionFrame: {
@@ -18,11 +21,12 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function AddContributorDropdown(props) {
+function AddContributorDropdown(props) {
 	const { t } = useTranslation()
-	const [inviteModal, setInviteModal] = useState(false)
-	const [terms, setTerms] = useState("")
-	const results = useRightHolderSearch(terms)
+	const { contributors } = useStores()
+	//const [inviteModal, setInviteModal] = useState(false)
+	//const [terms, setTerms] = useState("")
+	//const results = useRightHolderSearch(terms)
 
 	return (
 		<>
@@ -30,29 +34,24 @@ export default function AddContributorDropdown(props) {
 				icon={PlusCircle}
 				placeholder={t("contributor:add")}
 				{...props}
-				onSearchChange={setTerms}
-				searchResults={results.map((rh) => (
-					<Row key={rh.rightHolder_id}>
-						<Text>
-							{rh.firstName} {rh.lastName}
-						</Text>
-					</Row>
-				))}
-				onSelect={(result) => props.onSelect(result.key)}
 			>
-				<TouchableWithoutFeedback onPress={() => setInviteModal(true)}>
+				<TouchableWithoutFeedback onPress={() => contributors.new()}>
 					<Row of="component" padding="component" style={Styles.actionFrame}>
 						<PlusCircle />
 						<Text bold action>
-							{t("forms:labels.dropdowns.createCollaborator")}
+							{t("forms:labels.dropdowns.createContributor")}
 						</Text>
 					</Row>
 				</TouchableWithoutFeedback>
 			</Autocomplete>
-			<AddCollaboratorModal
-				visible={inviteModal}
-				onRequestClose={() => setInviteModal(false)}
+			<AddContributorModal
+				visible={contributors.editing}
+				onRequestClose={() => contributors.cancel()}
+				onAdded={(contributor) => {
+					props.onSelect(contributor)
+				}}
 			/>
 		</>
 	)
 }
+export default observer(AddContributorDropdown)

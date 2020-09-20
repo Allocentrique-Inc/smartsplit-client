@@ -10,3 +10,7 @@ export function useAuthUser() {
 	const auth = useStorePath("auth")
 	return auth.user
 }
+
+export function useDocsModel(workpieceId, type) {
+	return useStorePath("workpieces", "list", workpieceId, "documentation", type)
+}

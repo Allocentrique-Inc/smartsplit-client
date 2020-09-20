@@ -180,6 +180,7 @@ export const forms = {
 			juridiction: "Juridiction",
 			addCollaborator: "Add a collaborator",
 			createCollaborator: "Create a new collaborator",
+			createContributor: "Create a new contributor",
 		},
 		defaultRoles: "Default Role(s)",
 	},

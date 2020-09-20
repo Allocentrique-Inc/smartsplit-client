@@ -27,7 +27,7 @@ export default class ContributorModel extends BaseModel {
 	@observable groups = new Field(this, "groups", {
 		label: "forms:labels.groups",
 		type: FieldType.collection,
-		required: true,
+		required: false,
 		requiredMessage: "Enter the name of at least one group",
 	})
 

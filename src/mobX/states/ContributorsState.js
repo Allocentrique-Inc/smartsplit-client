@@ -4,6 +4,7 @@ import {
 	action,
 	flow as asyncAction,
 	runInAction,
+	toJS,
 } from "mobx"
 import BaseState, { save } from "../BaseState"
 import ContributorModel from "../models/user/ContributorModel"
@@ -19,7 +20,10 @@ import ContributorModel from "../models/user/ContributorModel"
  *
  */
 export default class ContributorsState extends BaseState {
-	@save @observable list = {}
+	@save({ storeName: "contributors" })
+	@observable
+	list = {}
+	@observable editing = false
 	@observable model = new ContributorModel()
 	async init(...args) {
 		this.model.init()
@@ -30,6 +34,14 @@ export default class ContributorsState extends BaseState {
 			},
 			{ fireImmediately: true }
 		)
+	}
+	@action new() {
+		this.model = new ContributorModel()
+		this.model.init()
+		this.editing = true
+	}
+	@action cancel() {
+		this.editing = false
 	}
 	@action async load() {
 		this.loading = true
@@ -49,7 +61,7 @@ export default class ContributorsState extends BaseState {
 			let friend = {
 				...this.model.toJS(),
 				name: this.model.firstName.value + " " + this.model.lastName.value,
-				key: key,
+				id: key,
 			}
 			if (this.list[key]) {
 				// if the key of this contributor exists, it suggests
@@ -58,12 +70,14 @@ export default class ContributorsState extends BaseState {
 				// to offer us this selection, rather than displaying an error
 				runInAction(() => {
 					this.duplicate = friend
+					this.editing = false
 				})
 			} else this.add(key, friend)
 			return friend
 		}
 	}
 	@action add(key, person) {
-		this.list[key] = person
+		this.editing = false
+		this.list = { ...toJS(this.list), [key]: person }
 	}
 }

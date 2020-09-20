@@ -293,6 +293,15 @@ export default class Field {
 						)
 					}
 					break
+				case "type":
+					this.type = options.type
+					switch (options.type) {
+						case FieldType.map:
+						case FieldType.collection:
+							this.initValue([])
+							break
+					}
+					break
 				default:
 					runInAction(() => {
 						this[k] = options[k]
@@ -473,7 +482,8 @@ export default class Field {
 					if (!v) v = []
 					break
 				case FieldType.map:
-					v = new Map()
+					v = {}
+					break
 			}
 		}
 
@@ -549,7 +559,7 @@ export default class Field {
 			throw new Error(
 				"Field.setItem can only be used by fields of type FieldType.map"
 			)
-		this.setValue({ ...this.value, key: value })
+		this.setValue({ ...this.value, [key]: value })
 	}
 
 	/**

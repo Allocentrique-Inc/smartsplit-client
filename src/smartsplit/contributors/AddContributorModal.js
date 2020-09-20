@@ -1,6 +1,6 @@
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
-import { useStorePath } from "../../mobX"
+import { useStorePath, useStores } from "../../mobX"
 import { emailValidator, notEmptyValidator } from "../../../helpers/validators"
 import { inviteNewUser } from "../../../api/users"
 import { Column, Group, Row } from "../../layout"
@@ -49,7 +49,8 @@ export const CollaboratorForm = observer(
 )
 
 export function AddContributorModal(props) {
-	const model = useStorePath("collaborators", "model")
+	const { contributors } = useStores()
+	const model = useStorePath("contributors", "model")
 	const { t } = useTranslation()
 	//const form = useRef()
 	//const submit = () => form.current.submit()
@@ -67,8 +68,12 @@ export function AddContributorModal(props) {
 					/>
 					<Button
 						text={t("general:buttons.save")}
-						onClick={() => {
-							model.submit()
+						onClick={async () => {
+							let newContributor = await contributors.submit()
+							if (newContributor) {
+								props.onAdded(newContributor)
+								props.onRequestClose()
+							}
 						}}
 					/>
 				</>
