@@ -254,7 +254,7 @@ export default class BaseModel {
 	}
 
 	setFields(model) {
-		this.fields().forEach(field => {
+		this.fields().forEach((field) => {
 			if (this[field]) {
 				console.log(`SET VALUE ${field}`, this[field], model[field])
 				this[field].setValue(model[field].value)

@@ -574,16 +574,17 @@ export default class Field {
 			)
 		return this.value[key]
 	}
-	
+
+	/**
+	 * FX: i changed your push function because we must call setValue ultimately
+	 * to trigger validation in the forms... there may be a validator that depends
+	 * on the content of an array
+	 * @param value
+	 */
 	@action push(value) {
-		if (this.type === "collection") {
-			this.value.push(value)
-		} else
-			throw new Error(
-				"Field.push can only be used by fields of type collection"
-			)
+		this.add(value)
 	}
-	
+
 	/**
 	 * a function to clear (empty) field types of collection or map
 	 */
@@ -629,10 +630,17 @@ export default class Field {
 		newValue.splice(index, 1)
 		this.setValue(newValue)
 	}
+
+	/**
+	 * FX : note that the value property of a map type is not a real Map but just an
+	 *     observable object... If you need to really use a map we can refactor this for yout needs
+	 * @param id
+	 * @return {boolean}
+	 */
 	includes(id) {
 		switch (this.type) {
 			case FieldType.map:
-				return this.value.has(id)
+				return this.value[id] !== undefined
 			case FieldType.collection:
 				console.log(this.value)
 				return this.value.includes(id)
