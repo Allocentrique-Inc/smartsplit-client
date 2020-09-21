@@ -574,7 +574,16 @@ export default class Field {
 			)
 		return this.value[key]
 	}
-
+	
+	@action push(value) {
+		if (this.type === "collection") {
+			this.value.push(value)
+		} else
+			throw new Error(
+				"Field.push can only be used by fields of type collection"
+			)
+	}
+	
 	/**
 	 * a function to clear (empty) field types of collection or map
 	 */
@@ -619,6 +628,19 @@ export default class Field {
 		let newValue = toJS(this.value)
 		newValue.splice(index, 1)
 		this.setValue(newValue)
+	}
+	includes(id) {
+		switch (this.type) {
+			case FieldType.map:
+				return this.value.has(id)
+			case FieldType.collection:
+				console.log(this.value)
+				return this.value.includes(id)
+			default:
+				throw new Error(
+					"Field.includes can only be used by fields of type collection or map"
+				)
+		}
 	}
 
 	/**

@@ -14,7 +14,6 @@ export default class Documentation {
 	@observable files = new DocFilesModel()
 	@observable recording = new DocRecordingModel()
 	@observable release = new DocReleaseModel()
-
 	constructor(workpiece, docsData) {
 		this.workpiece = workpiece
 		console.log("intializing the creation model")
