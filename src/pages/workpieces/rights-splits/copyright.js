@@ -19,6 +19,8 @@ import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
 import { useRightSplit } from "../context"
 import { initData } from "../../../mobX/models/workpieces/rights-splits/SplitCopyrightModel"
+import { toJS } from "mobx"
+import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
 
 const CopyrightForm = observer(() => {
 	const split = useRightSplit("copyright")
@@ -27,7 +29,7 @@ const CopyrightForm = observer(() => {
 	const [mode, setMode] = useState("equal")
 	const { t } = useTranslation()
 	const shareColors = Object.values(Colors.secondaries)
-
+	const [search, setSearch] = useState("")
 	function colorByIndex(index) {
 		return shareColors[index % shareColors.length]
 	}
@@ -42,6 +44,7 @@ const CopyrightForm = observer(() => {
 	}
 
 	function addShareHolder(id) {
+		console.log(id)
 		if (split.hasOwnProperty(id)) return
 		split.addRightHolder(id, initData)
 	}
@@ -165,7 +168,12 @@ const CopyrightForm = observer(() => {
 								</CheckBoxGroup>
 							</ShareCard>
 						))}
-						<AddCollaboratorDropdown onSelect={addShareHolder} />
+						<AddCollaboratorDropdown
+							onSelect={addShareHolder}
+							label={t("document:creation.roles.authors")}
+							subLabel={t("document:creation.roles.authorsWho")}
+							placeholder={t("document:creation.roles.addAuthor")}
+						/>
 					</Column>
 				</Column>
 			</Column>

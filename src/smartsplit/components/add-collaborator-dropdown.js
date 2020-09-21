@@ -21,16 +21,20 @@ const Styles = StyleSheet.create({
 	},
 })
 
-function AddCollaboratorDropdown(props) {
+const AddCollaboratorDropdown = observer((props) => {
 	console.log(props)
 	const { t } = useTranslation()
 	const { collaborators } = useStores()
-	const results = useRightHolderSearch(props.search || "")
+	const [search, setSearch] = useState("")
+	const results = useRightHolderSearch(search)
+	console.log(results)
 	return (
 		<>
 			<Autocomplete
 				icon={PlusCircle}
 				placeholder={t("rightSplits:dropdowns.addCollab")}
+				search={search}
+				onSearchChange={setSearch}
 				{...props}
 				searchResults={results.map((rh) => (
 					<Row key={rh.rightHolder_id}>
@@ -54,10 +58,11 @@ function AddCollaboratorDropdown(props) {
 				visible={collaborators.editing}
 				onRequestClose={() => collaborators.cancel()}
 				onAdded={(result) => {
-					props.onSelect(result.key)
+					console.log(result)
+					props.onSelect(result.user_id)
 				}}
 			/>
 		</>
 	)
-}
-export default observer(AddCollaboratorDropdown)
+})
+export default AddCollaboratorDropdown

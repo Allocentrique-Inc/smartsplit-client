@@ -43,6 +43,7 @@ export default class CollaboratorsState extends BaseState {
 		if (this.model.isValid) {
 			let collab = await this.model.submit()
 			if (collab) this.add(collab.user_id, collab)
+			//await this.root.users.fetch(collab.user_id)
 			return collab
 		}
 		return false

@@ -575,14 +575,9 @@ export default class Field {
 		return this.value[key]
 	}
 
-	/**
-	 * FX: i changed your push function because we must call setValue ultimately
-	 * to trigger validation in the forms... there may be a validator that depends
-	 * on the content of an array
-	 * @param value
-	 */
 	@action push(value) {
-		this.add(value)
+		this.value.push(value)
+		this.validateSync()
 	}
 
 	/**

@@ -1,19 +1,17 @@
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useStorePath, useStores } from "../../mobX"
-import { emailValidator, notEmptyValidator } from "../../../helpers/validators"
-import { inviteNewUser } from "../../../api/users"
 import { Column, Group, Row } from "../../layout"
 import TextField from "../../forms/text"
 import { CheckBoxGroup, CheckBoxGroupButton, SearchAndTag } from "../../forms"
 import { DialogModal } from "../../widgets/modal"
 import { Button } from "../../widgets/button"
 import React from "react"
+import { Text } from "../../text"
 
 export const CollaboratorForm = observer(() => {
 	const { t } = useTranslation()
 	const model = useStorePath("collaborators", "model")
-	//const form = formRef || useRef()
 	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
 	return (
 		<Column of="group">
@@ -54,8 +52,6 @@ export function AddCollaboratorModal(props) {
 	const model = useStorePath("collaborators", "model")
 	const { collaborators } = useStores()
 	const { t } = useTranslation()
-	//const form = useRef()
-	//const submit = () => form.current.submit()
 	return (
 		<DialogModal
 			visible={props.visible}
@@ -83,6 +79,11 @@ export function AddCollaboratorModal(props) {
 		>
 			<Group>
 				<CollaboratorForm />
+				{model.saveError && (
+					<Row>
+						<Text error>{model.saveError}</Text>
+					</Row>
+				)}
 			</Group>
 		</DialogModal>
 	)

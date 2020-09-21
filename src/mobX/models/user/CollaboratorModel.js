@@ -2,7 +2,7 @@ import BaseModel, { FieldType, Field } from "../../BaseModel"
 import { observable, action, computed, runInAction } from "mobx"
 import { emailUniqueValidator, emailValidator } from "../validators"
 import ContributorModel from "./ContributorModel"
-import UsersCrudAPI from "../../../../api/users"
+import { inviteNewUser } from "../../../../api/users"
 /**
  * inherits:
  *
@@ -24,7 +24,7 @@ export default class CollaboratorModel extends ContributorModel {
 
 	async create() {
 		try {
-			return UsersCrudAPI.create(this.toJS(true))
+			return inviteNewUser(this.toJS(true))
 		} catch (e) {
 			this.saveError = e.message
 		}
