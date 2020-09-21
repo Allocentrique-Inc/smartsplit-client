@@ -2,6 +2,10 @@ import BaseModel, { FieldType, Field } from "../../BaseModel"
 import { observable, action, computed, runInAction } from "mobx"
 
 export default class ContributorModel extends BaseModel {
+	@observable id = new Field(this, "id", {
+		primary: true,
+	})
+
 	@observable firstName = new Field(this, "firstName", {
 		label: "forms:labels.legalFirstName",
 		required: true,

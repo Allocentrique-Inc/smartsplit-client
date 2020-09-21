@@ -1,9 +1,13 @@
-import { observable, reaction, action, runInAction } from "mobx"
+import { observable, reaction, action, runInAction, toJS } from "mobx"
 import BaseState, { save } from "../BaseState"
 import CollaboratorModel from "../models/user/CollaboratorModel"
 
 export default class CollaboratorsState extends BaseState {
-	@save({ storeName: "Collaborators" }) @observable list = []
+	@save({ storeName: "Collaborators" })
+	@observable
+	list = []
+
+	@observable editing = false
 	@observable model = new CollaboratorModel()
 	async init(...args) {
 		this.model.init()
@@ -23,5 +27,28 @@ export default class CollaboratorsState extends BaseState {
 			// set list
 			this.loading = false
 		})
+	}
+	@action new() {
+		this.model = new CollaboratorModel()
+		this.model.init()
+		this.editing = true
+	}
+	@action cancel() {
+		this.editing = false
+	}
+
+	@action async submit() {
+		this.duplicate = null
+		await this.model.validate()
+		if (this.model.isValid) {
+			let collab = await this.model.submit()
+			if (collab) this.add(collab.user_id, collab)
+			return collab
+		}
+		return false
+	}
+	@action add(key, person) {
+		this.editing = false
+		this.list = { ...toJS(this.list), [key]: person }
 	}
 }

@@ -8,7 +8,7 @@ import {
 } from "mobx"
 import BaseState, { save } from "../BaseState"
 import ContributorModel from "../models/user/ContributorModel"
-
+import UUID from "uuidjs"
 /**
  * this state class manages the contributor's list
  *
@@ -58,13 +58,13 @@ export default class ContributorsState extends BaseState {
 		this.duplicate = null
 		await this.model.validate()
 		if (this.model.isValid) {
-			let key = this.model.firstName.value + "_" + this.model.lastName.value
+			let id = this.model.id.value || UUID.generate()
 			let friend = {
 				...this.model.toJS(),
 				name: this.model.firstName.value + " " + this.model.lastName.value,
-				id: key,
+				id: id,
 			}
-			if (this.list[key]) {
+			if (this.list[id]) {
 				// if the key of this contributor exists, it suggests
 				// that the user has already added the contributor.
 				// In this case we set the duplicate so the UI knows
@@ -73,7 +73,7 @@ export default class ContributorsState extends BaseState {
 					this.duplicate = friend
 					this.editing = false
 				})
-			} else this.add(key, friend)
+			} else this.add(id, friend)
 			return friend
 		}
 	}

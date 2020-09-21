@@ -10,6 +10,9 @@ import EditModal from "../rightholders/edit-modal"
 
 import { useRightHolderSearch } from "../../appstate/react/right-holders"
 import { AddCollaboratorModal } from "../collaborators/AddCollaboratorsModal"
+import { useStorePath } from "../../appstate/react"
+import { useStores } from "../../mobX"
+import { observer } from "mobx-react"
 
 const Styles = StyleSheet.create({
 	actionFrame: {
@@ -18,19 +21,17 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function AddCollaboratorDropdown(props) {
+function AddCollaboratorDropdown(props) {
+	console.log(props)
 	const { t } = useTranslation()
-	const [inviteModal, setInviteModal] = useState(false)
-	const [terms, setTerms] = useState("")
-	const results = useRightHolderSearch(terms)
-
+	const { collaborators } = useStores()
+	const results = useRightHolderSearch(props.search || "")
 	return (
 		<>
 			<Autocomplete
 				icon={PlusCircle}
 				placeholder={t("rightSplits:dropdowns.addCollab")}
 				{...props}
-				onSearchChange={setTerms}
 				searchResults={results.map((rh) => (
 					<Row key={rh.rightHolder_id}>
 						<Text>
@@ -40,7 +41,7 @@ export default function AddCollaboratorDropdown(props) {
 				))}
 				onSelect={(result) => props.onSelect(result.key)}
 			>
-				<TouchableWithoutFeedback onPress={() => setInviteModal(true)}>
+				<TouchableWithoutFeedback onPress={() => collaborators.new()}>
 					<Row of="component" padding="component" style={Styles.actionFrame}>
 						<PlusCircle />
 						<Text bold action>
@@ -50,9 +51,13 @@ export default function AddCollaboratorDropdown(props) {
 				</TouchableWithoutFeedback>
 			</Autocomplete>
 			<AddCollaboratorModal
-				visible={inviteModal}
-				onRequestClose={() => setInviteModal(false)}
+				visible={collaborators.editing}
+				onRequestClose={() => collaborators.cancel()}
+				onAdded={(result) => {
+					props.onSelect(result.key)
+				}}
 			/>
 		</>
 	)
 }
+export default observer(AddCollaboratorDropdown)

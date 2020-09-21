@@ -116,17 +116,17 @@ const CreationForm = observer(() => {
 						}}
 						placeholder={t("document:creation.roles.addAuthor")}
 					/>
-					<List>
+					<Row>
 						{Object.values(model.authors.value).map((item) => (
-							<ListItem
+							<Tag
 								dismissible
 								key={item.id}
-								onClick={() => model.authors.removeItem(item.id)}
+								onClick={() => model.composers.removeItem(item.id)}
 							>
 								<Text>{item.name}</Text>
-							</ListItem>
+							</Tag>
 						))}
-					</List>
+					</Row>
 					<AddContributorDropdown
 						label={t("document:creation.roles.composers")}
 						subLabel={t("document:creation.roles.composersWho")}
