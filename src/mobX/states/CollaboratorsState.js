@@ -1,9 +1,9 @@
 import { observable, reaction, action, runInAction } from "mobx"
-import BaseState from "../BaseState"
+import BaseState, { save } from "../BaseState"
 import CollaboratorModel from "../models/user/CollaboratorModel"
 
 export default class CollaboratorsState extends BaseState {
-	@observable list = []
+	@save({ storeName: "Collaborators" }) @observable list = []
 	@observable model = new CollaboratorModel()
 	async init(...args) {
 		this.model.init()

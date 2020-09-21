@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useMemo } from "react"
 import { useHistory } from "react-router"
 import { useTranslation } from "react-i18next"
 import { StyleSheet, View } from "react-native"
@@ -7,12 +7,17 @@ import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
+import List, { ListItem } from "../../../widgets/list"
 import { Colors, Metrics } from "../../../theme"
 import CopyrightIcon from "../../../svg/copyright"
 import { DateField, TextField } from "../../../forms"
 import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
 import { observer } from "mobx-react"
-import { useDocsModel } from "../../../mobX/hooks"
+import {
+	useArtistAutocomplete,
+	useAuthUser,
+	useDocsModel,
+} from "../../../mobX/hooks"
 import { useStores } from "../../../mobX"
 import ContributorsState from "../../../mobX/states/ContributorsState"
 import ContributorModel from "../../../mobX/models/user/ContributorModel"
@@ -44,13 +49,11 @@ const CreationForm = observer(() => {
 	const model: DocCreationModel = useDocsModel(workpieceId, "creation")
 	window.creationModel = model
 	console.log(toJS(contributors.list))
-	// get an array of the contributors and filter out those that do not match
-	const searchResults = Object.values(toJS(contributors.list)).filter(
-		(contributor) => {
-			if (!search) return true
-			else return contributor.name.indexOf(search) > -1
-		}
-	)
+
+	const getResults = useArtistAutocomplete()
+
+	console.log(search)
+	const searchResults = getResults(search, 10)
 	console.log(searchResults)
 
 	// filter them further so that ones already selected in each case
@@ -69,10 +72,10 @@ const CreationForm = observer(() => {
 
 	console.log(authorSearchResults)
 	const composerSearchResults = searchResults.filter(
-		(contributor) => !!model.composers.value[contributor.id]
+		(contributor) => !model.composers.value[contributor.id]
 	)
 	const editorSearchResults = searchResults.filter(
-		(contributor) => !!model.composers.value[contributor.id]
+		(contributor) => !model.editors.value[contributor.id]
 	)
 
 	return (
@@ -99,76 +102,83 @@ const CreationForm = observer(() => {
 						placeholder={t("forms:placeholders.date")}
 					/>
 					{console.log(Object.values(model.authors.value))}
-					{/*<AddContributorDropdown
+					<AddContributorDropdown
 						label={t("document:creation.roles.authors")}
 						subLabel={t("document:creation.roles.authorsWho")}
 						searchResults={authorSearchResults}
-						searchInput={search}
+						search={search}
 						onSearchChange={setSearch}
-						onSelect={(selection) =>
+						onSelect={(selection) => {
+							console.dir(toJS(selection))
+							console.log(`the selection from add contributor dropdown was ^^`)
 							model.authors.setItem(selection.id, selection)
-						}
+							setSearch("")
+						}}
 						placeholder={t("document:creation.roles.addAuthor")}
 					/>
-
-					<Row wrap style={Styles.tagContainer}>
+					<List>
 						{Object.values(model.authors.value).map((item) => (
-							<Tag
+							<ListItem
 								dismissible
 								key={item.id}
 								onClick={() => model.authors.removeItem(item.id)}
-								style={Styles.tag}
 							>
 								<Text>{item.name}</Text>
-							</Tag>
+							</ListItem>
 						))}
-					</Row>
+					</List>
 					<AddContributorDropdown
 						label={t("document:creation.roles.composers")}
 						subLabel={t("document:creation.roles.composersWho")}
 						searchResults={composerSearchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
-						onSelect={(selection) => console.log(selection)}
+						onSelect={(selection) => {
+							console.dir(toJS(selection))
+							console.log(`the selection from add contributor dropdown was ^^`)
+							model.composers.setItem(selection.id, selection)
+							setSearch("")
+						}}
 						placeholder={t("document:creation.roles.addComposer")}
 					/>
+					{Object.values(model.composers.value).map((item) => (
+						<Row wrap style={Styles.list}>
+							<Tag
+								dismissible
+								key={item.id}
+								onClick={() => model.composers.removeItem(item.id)}
+							>
+								<Text>{item.name}</Text>
+							</Tag>
+						</Row>
+					))}
 					<AddContributorDropdown
 						label={t("document:creation.roles.editors")}
 						subLabel={t("document:creation.roles.editorsWho")}
 						searchResults={editorSearchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
-						onSelect={(selection) => console.log(selection)}
-						placeholder={t("document:creation.roles.addEditor")}
-					/>*/}
-					<AddContributorDropdown
-						label={t("document:creation.roles.authors")}
-						subLabel={t("document:creation.roles.authorsWho")}
-						searchResults={authorSearchResults}
-						searchInput={search}
-						onSearchChange={setSearch}
 						onSelect={(selection) => {
 							console.dir(toJS(selection))
 							console.log(`the selection from add contributor dropdown was ^^`)
-							model.authors.setItem(selection.id, selection)
+							model.editors.setItem(selection.id, selection)
+							setSearch("")
 						}}
-						placeholder={t("document:creation.roles.addAuthor")}
+						placeholder={t("document:creation.roles.addEditor")}
 					/>
-					<Row wrap style={Styles.tagContainer}>
-						{Object.values(model.authors.value).map((item) => (
+					{Object.values(model.editors.value).map((item) => (
+						<Row wrap style={Styles.list}>
 							<Tag
 								dismissible
 								key={item.id}
-								onClick={() => model.authors.removeItem(item.id)}
-								style={Styles.tag}
+								onClick={() => model.editors.removeItem(item.id)}
 							>
 								<Text>{item.name}</Text>
 							</Tag>
-						))}
-					</Row>
+						</Row>
+					))}
 					<TextField
-						name="iswc"
-						label={t("document:creation.iswc")}
+						field={model.ISWC}
 						label_hint={t("forms:labels.optional")}
 						tooltip=""
 					/>

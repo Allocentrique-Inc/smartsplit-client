@@ -20,9 +20,10 @@ import ContributorModel from "../models/user/ContributorModel"
  *
  */
 export default class ContributorsState extends BaseState {
-	@save({ storeName: "contributors" })
+	@save({ storeName: "Contributors" })
 	@observable
 	list = {}
+
 	@observable editing = false
 	@observable model = new ContributorModel()
 	async init(...args) {

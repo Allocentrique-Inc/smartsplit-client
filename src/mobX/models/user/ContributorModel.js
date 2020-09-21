@@ -34,7 +34,7 @@ export default class ContributorModel extends BaseModel {
 	@observable defaultRoles = new Field(this, "defaultRoles", {
 		label: "forms:labels.defaultRoles",
 		type: FieldType.collection,
-		required: true,
+		required: false,
 		requiredMessage: "Pick at least one role, please",
 	})
 }
