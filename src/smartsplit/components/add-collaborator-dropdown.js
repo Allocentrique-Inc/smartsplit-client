@@ -6,11 +6,8 @@ import { Row } from "../../layout"
 import { Text } from "../../text"
 import { Colors } from "../../theme"
 import { useTranslation } from "react-i18next"
-import EditModal from "../rightholders/edit-modal"
-
 import { useRightHolderSearch } from "../../appstate/react/right-holders"
 import { AddCollaboratorModal } from "../collaborators/AddCollaboratorsModal"
-import { useStorePath } from "../../appstate/react"
 import { useStores } from "../../mobX"
 import { observer } from "mobx-react"
 

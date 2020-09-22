@@ -23,20 +23,20 @@ const fontMap = {
 }
 
 export default class App extends React.PureComponent {
+	state = {
+		fontsReady: Platform.OS === "web",
+		translationsReady: false,
+	}
 	constructor(props) {
 		super(props)
-		this.state = {
-			fontsReady: Platform.OS === "web",
-			translationsReady: false,
-		}
 
 		Font.loadAsync(fontMap)
 			.then((o) => this.setState({ fontsReady: true }))
-			.catch((e) => console.error(e))
+			.catch((e) => console.log(e))
 
 		i18n
 			.then((o) => this.setState({ translationsReady: true }))
-			.catch((e) => console.error(e))
+			.catch((e) => console.log(e))
 	}
 
 	/*static getDerivedStateFromError(error) {
