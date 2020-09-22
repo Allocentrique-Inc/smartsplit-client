@@ -4,6 +4,7 @@ import {
 	computed,
 	flow as asyncAction,
 	decorate,
+	toJS,
 } from "mobx"
 import { createSaveDecorator } from "mobx-decorators"
 import { AsyncStorage, Platform } from "react-native"
@@ -91,12 +92,16 @@ export const save = createSaveDecorator({
 	storage: platformLocalStorage,
 	storeName: "Smart_Split",
 	onInitialized: (store, property, value) => {
-		//console.log(`@save: onIntialized ${property} =  ${value}`)
+		console.log(`@save: onIntialized ${store}.${property} =  ${value}`)
 	},
 	onLoaded: (store, property, value) => {
-		//console.log(`@save: onLoad ${property} =  ${value}`)
+		console.log(`@save: onLoad ${property} =  ${value}`)
 	},
 	onSaved: (store, property, value) => {
-		//console.log(`@save: onSave ${property} =  ${value}`)
+		console.log(`@save: onSave ${property} =  ${value}`)
+	},
+	serializer: {
+		load: (data) => JSON.parse(data),
+		save: (value) => JSON.stringify(toJS(value)),
 	},
 })

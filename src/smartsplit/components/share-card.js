@@ -42,6 +42,7 @@ const ShareCard = observer(
 		...nextProps
 	}) => {
 		const { t } = useTranslation()
+		console.log(rightHolderId)
 		const user = useEntity(["users"], rightHolderId)
 		const userData = toJS(user.data) || {}
 		const authUserData = toJS(useAuthUser().data)

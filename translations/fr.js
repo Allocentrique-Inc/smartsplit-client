@@ -180,6 +180,7 @@ export const forms = {
 			juridiction: "Juridiction",
 			addCollaborator: "Ajouter un collaborateur",
 			createCollaborator: "Créer un nouveau collaborateur",
+			createContributor: "Créer un nouveau contributeur",
 		},
 		defaultRoles: "Rôle(s) par défaut",
 	},
@@ -232,7 +233,8 @@ export const forms = {
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
 		defaultRoles: "Ces rôles pourront toujours être modifiés plus tard.",
 	},
-	addCollabArtist: "[Ajouter/Modifier] un artiste collaborateur",
+	addCollabArtist: "Ajouter un artiste collaborateur",
+	addContributor: "Ajouter un artiste contributeur",
 	options: {
 		defaultRoles: [
 			{
@@ -821,4 +823,11 @@ export const document = {
 			addLanguage: "Ajouter unbe langue...",
 		},
 	},
+}
+
+export const collaborators = {
+	email: "L'adresse courriel du collaborateur",
+}
+export const contributors = {
+	add: "Ajouter un contributeur",
 }

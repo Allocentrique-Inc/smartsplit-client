@@ -6,10 +6,13 @@ import { Row } from "../../layout"
 import { Text } from "../../text"
 import { Colors } from "../../theme"
 import { useTranslation } from "react-i18next"
+import EditModal from "../rightholders/edit-modal"
+
 import { useRightHolderSearch } from "../../appstate/react/right-holders"
+import { AddContributorModal } from "../contributors/AddContributorModal"
 import { AddCollaboratorModal } from "../collaborators/AddCollaboratorsModal"
-import { useStores } from "../../mobX"
 import { observer } from "mobx-react"
+import { useStores } from "../../mobX"
 
 const Styles = StyleSheet.create({
 	actionFrame: {
@@ -18,48 +21,37 @@ const Styles = StyleSheet.create({
 	},
 })
 
-const AddCollaboratorDropdown = observer((props) => {
-	console.log(props)
+function AddContributorDropdown(props) {
 	const { t } = useTranslation()
-	const { collaborators } = useStores()
-	const [search, setSearch] = useState("")
-	const results = useRightHolderSearch(search)
-	console.log(results)
+	const { contributors } = useStores()
+	//const [inviteModal, setInviteModal] = useState(false)
+	//const [terms, setTerms] = useState("")
+	//const results = useRightHolderSearch(terms)
+
 	return (
 		<>
 			<Autocomplete
 				icon={PlusCircle}
-				placeholder={t("rightSplits:dropdowns.addCollab")}
-				search={search}
-				onSearchChange={setSearch}
+				placeholder={t("contributor:add")}
 				{...props}
-				searchResults={results.map((rh) => (
-					<Row key={rh.rightHolder_id}>
-						<Text>
-							{rh.firstName} {rh.lastName}
-						</Text>
-					</Row>
-				))}
-				onSelect={(result) => props.onSelect(result.key)}
 			>
-				<TouchableWithoutFeedback onPress={() => collaborators.new()}>
+				<TouchableWithoutFeedback onPress={() => contributors.new()}>
 					<Row of="component" padding="component" style={Styles.actionFrame}>
 						<PlusCircle />
 						<Text bold action>
-							{t("forms:labels.dropdowns.createCollaborator")}
+							{t("forms:labels.dropdowns.createContributor")}
 						</Text>
 					</Row>
 				</TouchableWithoutFeedback>
 			</Autocomplete>
-			<AddCollaboratorModal
-				visible={collaborators.editing}
-				onRequestClose={() => collaborators.cancel()}
-				onAdded={(result) => {
-					console.log(result)
-					props.onSelect(result.user_id)
+			<AddContributorModal
+				visible={contributors.editing}
+				onRequestClose={() => contributors.cancel()}
+				onAdded={(contributor) => {
+					props.onSelect(contributor)
 				}}
 			/>
 		</>
 	)
-})
-export default AddCollaboratorDropdown
+}
+export default observer(AddContributorDropdown)

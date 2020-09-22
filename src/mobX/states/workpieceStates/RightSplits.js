@@ -4,13 +4,19 @@ import {
 	updateRightsSplits,
 } from "../../../../api/workpieces"
 import { $workpiece } from "../WorkpieceState"
+import SplitCopyrightModel from "../../models/workpieces/rights-splits/SplitCopyrightModel"
+import SplitPerformanceModel from "../../models/workpieces/rights-splits/SplitPerformanceModel"
+import SplitRecordingModel from "../../models/workpieces/rights-splits/SplitRecordingModel"
 
 export default class RightsSplits {
 	constructor(workpiece, rightsSplits = {}) {
 		this.$workpiece = workpiece
-		this.copyright = new CopyrightSplit(rightsSplits.copyright)
-		this.performance = new PerformanceSplit(rightsSplits.performance)
-		this.recording = new RecordingSplit(rightsSplits.recording)
+		this.copyright = new RightSplit(rightsSplits.copyright, SplitCopyrightModel)
+		this.performance = new RightSplit(
+			rightsSplits.performance,
+			SplitPerformanceModel
+		)
+		this.recording = new RightSplit(rightsSplits.recording, SplitRecordingModel)
 		Object.defineProperties(this, {
 			_state: {
 				configurable: true,
@@ -107,7 +113,8 @@ export default class RightsSplits {
 }
 
 export class RightSplit {
-	constructor(shares) {
+	constructor(shares, shareModel) {
+		this.shareModel = shareModel
 		if (shares) this.updateShares(shares)
 	}
 
@@ -119,14 +126,17 @@ export class RightSplit {
 
 	@action updateRightHolder(id, share) {
 		!share && this.shareHolders.get(id).reset()
-		!!share && this.shareHolders.get(id).set(share)
+		!!share && this.shareHolders.get(id).setFields(share)
 	}
 
-	@action addRightHolder(id, share = {}) {
+	@action addRightHolder(id, share = null) {
 		if (this.shareHolders.has(id)) {
 			throw new Error("Cannot add share: this user already has a share")
 		}
-		this.shareHolders.set(id, new SplitShare(id, share))
+		const newShare = new this.shareModel()
+		console.log("INIT SHARE", share)
+		newShare.init(share)
+		this.shareHolders.set(id, newShare)
 	}
 
 	addShare(share) {
@@ -160,33 +170,4 @@ export class RightSplit {
 	@computed get allShares() {
 		return Array.from(this.shareHolders.values())
 	}
-}
-
-export class CopyrightSplit extends RightSplit {}
-
-export class PerformanceSplit extends RightSplit {}
-
-export class RecordingSplit extends RightSplit {}
-
-const initShareData = {
-	shares: 1,
-	roles: [],
-	comment: "",
-	vote: "undecided",
-}
-
-export class SplitShare {
-	constructor(rightHolder_id, data) {
-		Object.assign(this, initShareData)
-		Object.assign(this, data)
-		this.rightHolder = rightHolder_id
-	}
-
-	@observable shares = initShareData.shares
-	@observable roles = initShareData.roles
-	@observable comment = initShareData.comment
-	@observable vote = initShareData.vote
-	@action set = (share) => Object.assign(this, share)
-	@action setData = (key, data) => Object.assign(this[key], data)
-	@action reset = () => Object.assign(this, initShareData)
 }
