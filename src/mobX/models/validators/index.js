@@ -50,8 +50,8 @@ export async function emailUniqueValidator(value) {
  * @return {string}
  */
 export function passwordValidator(value, model) {
-	if (value !== model.password.value) {
-		return "errors:samePasswords"
+	if (value.length < 8) {
+		return "errors:strengthPassword"
 	}
 }
 
