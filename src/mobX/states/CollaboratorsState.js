@@ -12,7 +12,7 @@ export default class CollaboratorsState extends BaseState {
 	async init(...args) {
 		this.model.init()
 		reaction(
-			() => this.root.users.user_id,
+			() => this.root.auth.user_id,
 			() => {
 				this.load()
 			},

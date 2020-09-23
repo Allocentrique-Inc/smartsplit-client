@@ -8,6 +8,7 @@ import AdminState from "./states/AdminState"
 import WorkpieceState from "./states/WorkpieceState"
 import ContributorsState from "./states/ContributorsState"
 import CollaboratorsState from "./states/CollaboratorsState"
+import SettingsState from "./states/SettingsState"
 /**
  * L'instance de base est passé a tout les sub-stores pour que chaque store
  * aie accès aux autres branches
@@ -21,6 +22,7 @@ class RootStore {
 	test = new TestState(this)
 	users = new UserState(this)
 	auth = new AuthState(this)
+	settings = new SettingsState(this)
 	admin = new AdminState(this)
 	workpieces = new WorkpieceState(this)
 	collaborators = new CollaboratorsState(this)
@@ -35,6 +37,7 @@ class RootStore {
 		await this.workpieces.init()
 		await this.collaborators.init()
 		await this.contributors.init()
+		await this.settings.init()
 		runInAction(() => {
 			this.initialized = true
 		})
