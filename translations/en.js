@@ -72,7 +72,6 @@ export const general = {
 		pass: "Pass for now",
 	},
 }
-
 export const menu = {
 	menu: "Menu",
 	works: "My Musical Works",
@@ -181,6 +180,7 @@ export const forms = {
 			juridiction: "Juridiction",
 			addCollaborator: "Add a collaborator",
 			createCollaborator: "Create a new collaborator",
+			createContributor: "Create a new contributor",
 		},
 		defaultRoles: "Default Role(s)",
 	},
@@ -233,7 +233,8 @@ export const forms = {
 		resendConfirmEmail: "Resend confirmation email",
 		defaultRoles: "These roles can always be changed later.",
 	},
-	addCollabArtist: "[Add/Modify] a collaborating artist",
+	addCollabArtist: "Add a collaborating artist",
+	addContributor: "Add a contributing artist",
 	options: {
 		defaultRoles: [
 			{
@@ -809,4 +810,10 @@ export const document = {
 		language: "Language(s)",
 		addLanguage: "Ajouter une langue...",
 	},
+}
+export const collaborators = {
+	email: "Collaborator's email address",
+}
+export const contributors = {
+	add: "Add a Contributor",
 }

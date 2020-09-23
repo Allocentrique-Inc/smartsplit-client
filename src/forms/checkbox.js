@@ -8,25 +8,40 @@ import { Colors, Metrics } from "../theme"
 import FormStyles from "../styles/forms"
 import { mapChildren, mapFragmentChildren, mapLeaves } from "../utils/react"
 import { observer } from "mobx-react"
+import { useTranslation } from "react-i18next"
 
 const CheckBoxContext = React.createContext({})
 CheckBoxContext.displayName = "CheckBoxGroupContext"
 const UNDERTEXT_DEFAULT_LINES = 1
 
-export function CheckBoxGroup({
-	label,
-	error,
-	hideErrorText,
-	undertext,
-	undertext_lines,
-	disabled,
-	selection,
-	onSelect,
-	onUnselect,
-	onChange,
-	children,
-	...nextProps
-}) {
+export const CheckBoxGroup = observer((props) => {
+	const { t } = useTranslation()
+	console.log(props)
+	let {
+		label,
+		error,
+		hideErrorText,
+		undertext,
+		undertext_lines,
+		disabled,
+		selection,
+		onSelect,
+		onUnselect,
+		onChange,
+		children,
+		field,
+		...nextProps
+	} = props
+	if (field) {
+		console.log("checkbox group passed field")
+		error = t(field.error)
+		label = t(field.label)
+		selection = field.value
+		onChange = (v) => {
+			console.log(`setting value to ${v}`)
+			field.setValue(v)
+		}
+	}
 	const [selectionState, setSelectionState] = useState([])
 	const actualSelection = selection || selectionState
 	const addToSelection = (value) => {
@@ -89,7 +104,7 @@ export function CheckBoxGroup({
 			</Column>
 		</CheckBoxContext.Provider>
 	)
-}
+})
 
 export function CheckBoxGroupButton({ value, children, ...nextProps }) {
 	return (

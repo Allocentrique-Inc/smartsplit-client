@@ -19,3 +19,6 @@ web-report/
 
 # Config
 /config.js
+
+# ESLint config (used with Sublime Text)
+/.eslintrc.js

@@ -9,13 +9,13 @@ export default class DocCreationModel extends BaseModel {
 		type: FieldType.date,
 	})
 	@observable authors = new Field(this, "authors", {
-		type: FieldType.collection,
+		type: FieldType.map,
 	})
 	@observable composers = new Field(this, "composers", {
-		type: FieldType.collection,
+		type: FieldType.map,
 	})
 	@observable editors = new Field(this, "editors", {
-		type: FieldType.collection,
+		type: FieldType.map,
 	})
 	@observable ISWC = new Field(this, "ISWC", {
 		type: FieldType.string,
