@@ -12,6 +12,11 @@ export function useAuthUser() {
 	return auth.user
 }
 
+export function useSplitsPagesState() {
+	const { splitsPages } = useStores()
+	return splitsPages
+}
+
 export function useDocsModel(workpieceId, type) {
 	return useStorePath("workpieces", "list", workpieceId, "documentation", type)
 }

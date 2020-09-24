@@ -133,29 +133,28 @@ export class RightSplit {
 		if (this.shareHolders.has(id)) {
 			throw new Error("Cannot add share: this user already has a share")
 		}
-		const newShare = new this.shareModel()
-		console.log("INIT SHARE", share)
+		const newShare = new this.shareModel(id)
 		newShare.init(share)
 		this.shareHolders.set(id, newShare)
 	}
 
 	addShare(share) {
-		return this.addRightHolder(share.rightHolder, share)
+		return this.addRightHolder(share.shareHolderId, share)
 	}
 
 	updateShare(share) {
-		return this.updateRightHolder(share.rightHolder, share)
+		return this.updateRightHolder(share.shareHolderId, share)
 	}
 
 	removeShare(share) {
-		return this.removeRightHolder(share.rightHolder)
+		return this.removeRightHolder(share.shareHolderId)
 	}
 
 	@action updateShares(shares) {
 		const seenShareHolders = []
 		shares.forEach((share) => {
-			seenShareHolders.push(share.rightHolder)
-			if (this.shareHolders.has(share.rightHolder)) {
+			seenShareHolders.push(share.shareHolderId)
+			if (this.shareHolders.has(share.shareHolderId)) {
 				this.updateShare(share)
 			} else {
 				this.addShare(share)

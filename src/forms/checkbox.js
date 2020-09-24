@@ -16,7 +16,7 @@ const UNDERTEXT_DEFAULT_LINES = 1
 
 export const CheckBoxGroup = observer((props) => {
 	const { t } = useTranslation()
-	console.log(props)
+	// console.log(props)
 	let {
 		label,
 		error,
@@ -106,28 +106,30 @@ export const CheckBoxGroup = observer((props) => {
 	)
 })
 
-export function CheckBoxGroupButton({ value, children, ...nextProps }) {
-	return (
-		<CheckBoxContext.Consumer>
-			{({ selection, disabled, error, onSelect, onUnselect }) => (
-				<Row>
-					<CheckBox
-						disabled={disabled}
-						{...nextProps}
-						color={error && Colors.error}
-						checked={selection.includes(value)}
-						onChange={(checked) => {
-							if (checked) onSelect(value)
-							else onUnselect(value)
-						}}
-					>
-						{children}
-					</CheckBox>
-				</Row>
-			)}
-		</CheckBoxContext.Consumer>
-	)
-}
+export const CheckBoxGroupButton = observer(
+	({ value, children, ...nextProps }) => {
+		return (
+			<CheckBoxContext.Consumer>
+				{({ selection, disabled, error, onSelect, onUnselect }) => (
+					<Row>
+						<CheckBox
+							disabled={disabled}
+							{...nextProps}
+							color={error && Colors.error}
+							checked={selection.includes(value)}
+							onChange={(checked) => {
+								if (checked) onSelect(value)
+								else onUnselect(value)
+							}}
+						>
+							{children}
+						</CheckBox>
+					</Row>
+				)}
+			</CheckBoxContext.Consumer>
+		)
+	}
+)
 
 export const CheckBox = observer((props) => {
 	let {

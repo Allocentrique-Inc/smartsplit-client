@@ -195,11 +195,11 @@ export default class BaseModel {
 		this.initialized = false
 		this.initialData = obj
 		if (obj) {
-			console.log("init data before import", toJS(obj))
+			// console.log("init data before import", toJS(obj))
 			obj = this.importData(obj)
-			console.log("init data after import", toJS(obj))
+			// console.log("init data after import", toJS(obj))
 			this.initValue(obj)
-			console.log("AFTER INITVALUE()", this)
+			// console.log("AFTER INITVALUE()", this)
 			Object.keys(this).forEach((key) => {
 				if (this[key] && this[key].isModel) {
 					//console.log(`$initializing ${key} model`)

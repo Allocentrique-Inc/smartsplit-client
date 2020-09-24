@@ -21,4 +21,7 @@ web-report/
 /config.js
 
 # ESLint config (used with Sublime Text)
-/.eslintrc.js
+/.eslintrc.json
+
+# yarn error log
+yarn-error.log

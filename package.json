@@ -6,7 +6,7 @@
 		"ios": "expo start --ios",
 		"web": "expo start --web",
 		"eject": "expo eject",
-		"format": "prettier --write api *.js *.json helpers redux src"
+		"format": "prettier --write api *.js *.json helpers src"
 	},
 	"dependencies": {
 		"@react-native-community/async-storage": "~1.11.0",
