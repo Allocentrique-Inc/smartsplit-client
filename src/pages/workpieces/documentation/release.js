@@ -33,60 +33,6 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function Release() {
-	const { t } = useTranslation()
-	const history = useHistory()
-	const workpiece = useCurrentWorkpiece()
-
-	function saveAndQuit() {
-		history.push("/dashboard/")
-	}
-
-	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
-	function navigateToFiles() {
-		history.push(`/workpieces/${workpiece.id}/documentation/files`)
-	}
-
-	return (
-		<Layout
-			workpiece={workpiece}
-			title={workpiece}
-			path={[t("document:navbar.document"), t("document:navbar.pages.release")]}
-			progress={50}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveClose")}
-					onClick={saveAndQuit}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={navigateToSummary}
-						/>
-						<Flex />
-						<Button
-							primary
-							text={t("general:buttons.pass")}
-							onClick={navigateToFiles}
-						/>
-					</Row>
-					<Row flex={1} />
-				</>
-			}
-		>
-			<ReleaseForm />
-		</Layout>
-	)
-}
-
 export function ReleaseForm(props) {
 	const [date, setDate] = useState("")
 	const { t } = useTranslation()

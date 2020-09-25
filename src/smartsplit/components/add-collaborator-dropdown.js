@@ -6,10 +6,10 @@ import { Row } from "../../layout"
 import { Text } from "../../text"
 import { Colors } from "../../theme"
 import { useTranslation } from "react-i18next"
-import EditModal from "../rightholders/edit-modal"
-import { AddCollaboratorModal } from "../../pages/dashboard/collaborators"
-
 import { useRightHolderSearch } from "../../appstate/react/right-holders"
+import { AddCollaboratorModal } from "../collaborators/AddCollaboratorsModal"
+import { useStores } from "../../mobX"
+import { observer } from "mobx-react"
 
 const Styles = StyleSheet.create({
 	actionFrame: {
@@ -18,19 +18,21 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function AddCollaboratorDropdown(props) {
+const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
+	// console.log(nextProps)
 	const { t } = useTranslation()
-	const [inviteModal, setInviteModal] = useState(false)
-	const [terms, setTerms] = useState("")
-	const results = useRightHolderSearch(terms)
-
+	const { collaborators } = useStores()
+	const [search, setSearch] = useState("")
+	const results = useRightHolderSearch(search)
+	// console.log(results)
 	return (
 		<>
 			<Autocomplete
 				icon={PlusCircle}
 				placeholder={t("rightSplits:dropdowns.addCollab")}
-				{...props}
-				onSearchChange={setTerms}
+				search={search}
+				onSearchChange={setSearch}
+				{...nextProps}
 				searchResults={results.map((rh) => (
 					<Row key={rh.rightHolder_id}>
 						<Text>
@@ -38,9 +40,11 @@ export default function AddCollaboratorDropdown(props) {
 						</Text>
 					</Row>
 				))}
-				onSelect={(result) => props.onSelect(result.key)}
+				onSelect={(result) => {
+					onSelect(result.key)
+				}}
 			>
-				<TouchableWithoutFeedback onPress={() => setInviteModal(true)}>
+				<TouchableWithoutFeedback onPress={() => collaborators.new()}>
 					<Row of="component" padding="component" style={Styles.actionFrame}>
 						<PlusCircle />
 						<Text bold action>
@@ -50,9 +54,14 @@ export default function AddCollaboratorDropdown(props) {
 				</TouchableWithoutFeedback>
 			</Autocomplete>
 			<AddCollaboratorModal
-				visible={inviteModal}
-				onRequestClose={() => setInviteModal(false)}
+				visible={collaborators.editing}
+				onRequestClose={() => collaborators.cancel()}
+				onAdded={(result) => {
+					console.log(result)
+					onSelect(result.user_id)
+				}}
 			/>
 		</>
 	)
-}
+})
+export default AddCollaboratorDropdown

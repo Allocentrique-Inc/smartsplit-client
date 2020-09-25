@@ -69,4 +69,14 @@ export async function verifyPhone(verificationCode) {
 	return res.data
 }
 
+export async function inviteNewUser(data) {
+	const result = await client.request({
+		url: "/users/invite-new-user",
+		method: "post",
+		data,
+	})
+
+	return result.data
+}
+
 export default createCrudClient("/users")

@@ -25,15 +25,9 @@ import { Tab, TabBar } from "../../widgets/tabs"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
 import { DocumentYourWork, ProtectYourWork, ShareYourCopyright } from "./cards"
-import { useStorePath } from "../../mobX"
+import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
-import Recording from "./documentation/recording"
-import { Creation } from "./documentation/creation"
-import Performance from "./documentation/performance"
-import Files from "./documentation/files"
 import DocumentationPage from "./documentation"
-import Lyrics from "./documentation/lyrics"
-import Release from "./documentation/release"
 
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
@@ -142,6 +136,7 @@ const stubWorkpiece = {
 export function WorkpiecePage() {
 	const history = useHistory()
 	const { t } = useTranslation()
+
 	return (
 		<Column style={Styles.outerContainer}>
 			<Navbar
@@ -188,8 +183,12 @@ export function WorkpiecePage() {
 
 function InfoBar() {
 	const { t } = useTranslation()
-	const workpiece = stubWorkpiece
 
+	const { workpiece_id, type } = useParams()
+	console.log(workpiece_id)
+	const { workpieces } = useStores()
+	const workpiece = workpieces.list[workpiece_id].data
+	console.log(workpiece)
 	return (
 		<Row
 			of="group"

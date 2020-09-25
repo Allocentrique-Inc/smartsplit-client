@@ -1,4 +1,4 @@
-import { observable, action, computed, runInAction } from "mobx"
+import { observable, action, computed, runInAction, toJS } from "mobx"
 import Model from "./BaseModel"
 
 /**
@@ -195,6 +195,21 @@ export const FieldType = {
 	 * html strings are strings but the UI will display them as richtext editors
 	 */
 	html: "string",
+
+	/**
+	 * a collection of plain objects. fields of this type have a value that is an array which can
+	 * be iterated for rendering.
+	 *
+	 * additionally the methods addItem(), removeItem(), setItem(), getItem(), clear() can be used for this type
+	 * setValue() expects an array.
+	 */
+	collection: "collection",
+
+	/**
+	 * a key value pair collection setItem(), getItem(), removeItem(), clear() are additional methods that cen be used
+	 * setValue() expects an object
+	 */
+	map: "map",
 }
 
 /**
@@ -276,6 +291,15 @@ export default class Field {
 						throw new Error(
 							"Field constructor options: required must be either a function that returns a boolean, or a boolean literal"
 						)
+					}
+					break
+				case "type":
+					this.type = options.type
+					switch (options.type) {
+						case FieldType.map:
+						case FieldType.collection:
+							this.initValue([])
+							break
 					}
 					break
 				default:
@@ -452,6 +476,17 @@ export default class Field {
 	@action
 	initValue(v): void {
 		v = v === null || v === undefined ? "" : v
+		if (!v) {
+			switch (this.type) {
+				case FieldType.collection:
+					if (!v) v = []
+					break
+				case FieldType.map:
+					v = {}
+					break
+			}
+		}
+
 		this.onInit(v, this.model)
 		this.setValue(v, true)
 		this.initialValue = this.value
@@ -513,6 +548,126 @@ export default class Field {
 		}
 	}
 
+	/**
+	 * set a key/value pair in fieldtypes of map
+	 *
+	 * @param key
+	 * @param value
+	 */
+	@action setItem(key, value) {
+		if (this.type !== FieldType.map)
+			throw new Error(
+				"Field.setItem can only be used by fields of type FieldType.map"
+			)
+		this.setValue({ ...this.value, [key]: value })
+	}
+
+	/**
+	 * Add a new item at the end of a collection
+	 * @param value
+	 */
+	@action push(value) {
+		if (this.type === "collection") {
+			this.value.push(value)
+			this.validateSync()
+		} else
+			throw new Error(
+				"Field.push can only be used by fields of type collection"
+			)
+	}
+
+	/**
+	 * get the value at a specific key (not really necessary since Field.value[key] is what is returned
+	 * @param key
+	 * @return {string}
+	 */
+	getItem(key) {
+		if (this.type !== FieldType.map)
+			throw new Error(
+				"Field.getItem can only be used by fields of type FieldType.map"
+			)
+		return this.value[key]
+	}
+
+	/**
+	 * a function to clear (empty) field types of collection or map
+	 */
+	@action clearItems() {
+		switch (this.type) {
+			case FieldType.map:
+				this.setValue({})
+				break
+			case FieldType.collection:
+				this.setValue([])
+				break
+			default:
+				throw new Error(
+					"Field.clearItems can only be used by fields of type FieldType.collection or FieldType.map"
+				)
+		}
+	}
+
+	/**
+	 * used only by collection field types to add an item
+	 * @param item
+	 */
+	@action add(item) {
+		console.log("ADDIN", item)
+		if (this.type !== FieldType.collection)
+			throw new Error(
+				"Field.add(item) can only be used with a field type of FieldType.collection"
+			)
+		this.value.push(item)
+		// this.setValue([...this.value, item])
+	}
+
+	/**
+	 * used only by collection field types to remove an item
+	 * @param item
+	 */
+	@action remove(item) {
+		if (this.type !== FieldType.collection)
+			throw new Error(
+				"Field.add(item) can only be used with a field type of FieldType.collection"
+			)
+		let index = this.value.indexOf(item)
+		if (index === -1) return
+		let newValue = toJS(this.value)
+		newValue.splice(index, 1)
+		this.setValue(newValue)
+	}
+
+	/**
+	 * @param id
+	 * @return {boolean}
+	 */
+	includes(id) {
+		switch (this.type) {
+			case FieldType.map:
+				return this.value[id] !== undefined
+			case FieldType.collection:
+				return this.value.includes(id)
+			default:
+				throw new Error(
+					"Field.includes can only be used by fields of type collection or map"
+				)
+		}
+	}
+
+	/**
+	 * used only by field types of map to remove a key / value pair
+	 * @param key
+	 */
+	@action removeItem(key) {
+		if (this.type !== FieldType.map)
+			throw new Error(
+				"Field.removeItem can only be used by fields of type FieldType.map"
+			)
+		console.log(toJS(this.value))
+		let newValue = toJS(this.value)
+		delete newValue[key]
+		this.setValue(newValue)
+	}
 	/**
 	 * this method restores the value set by initValue
 	 * and automatically sets isDirty to false

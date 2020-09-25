@@ -7,25 +7,41 @@ import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
 import FormStyles from "../styles/forms"
 import { mapChildren, mapFragmentChildren, mapLeaves } from "../utils/react"
+import { observer } from "mobx-react"
+import { useTranslation } from "react-i18next"
 
 const CheckBoxContext = React.createContext({})
 CheckBoxContext.displayName = "CheckBoxGroupContext"
 const UNDERTEXT_DEFAULT_LINES = 1
 
-export function CheckBoxGroup({
-	label,
-	error,
-	hideErrorText,
-	undertext,
-	undertext_lines,
-	disabled,
-	selection,
-	onSelect,
-	onUnselect,
-	onChange,
-	children,
-	...nextProps
-}) {
+export const CheckBoxGroup = observer((props) => {
+	const { t } = useTranslation()
+	// console.log(props)
+	let {
+		label,
+		error,
+		hideErrorText,
+		undertext,
+		undertext_lines,
+		disabled,
+		selection,
+		onSelect,
+		onUnselect,
+		onChange,
+		children,
+		field,
+		...nextProps
+	} = props
+	if (field) {
+		console.log("checkbox group passed field")
+		error = t(field.error)
+		label = t(field.label)
+		selection = field.value
+		onChange = (v) => {
+			console.log(`setting value to ${v}`)
+			field.setValue(v)
+		}
+	}
 	const [selectionState, setSelectionState] = useState([])
 	const actualSelection = selection || selectionState
 	const addToSelection = (value) => {
@@ -88,32 +104,34 @@ export function CheckBoxGroup({
 			</Column>
 		</CheckBoxContext.Provider>
 	)
-}
+})
 
-export function CheckBoxGroupButton({ value, children, ...nextProps }) {
-	return (
-		<CheckBoxContext.Consumer>
-			{({ selection, disabled, error, onSelect, onUnselect }) => (
-				<Row>
-					<CheckBox
-						disabled={disabled}
-						{...nextProps}
-						color={error && Colors.error}
-						checked={selection.includes(value)}
-						onChange={(checked) => {
-							if (checked) onSelect(value)
-							else onUnselect(value)
-						}}
-					>
-						{children}
-					</CheckBox>
-				</Row>
-			)}
-		</CheckBoxContext.Consumer>
-	)
-}
+export const CheckBoxGroupButton = observer(
+	({ value, children, ...nextProps }) => {
+		return (
+			<CheckBoxContext.Consumer>
+				{({ selection, disabled, error, onSelect, onUnselect }) => (
+					<Row>
+						<CheckBox
+							disabled={disabled}
+							{...nextProps}
+							color={error && Colors.error}
+							checked={selection.includes(value)}
+							onChange={(checked) => {
+								if (checked) onSelect(value)
+								else onUnselect(value)
+							}}
+						>
+							{children}
+						</CheckBox>
+					</Row>
+				)}
+			</CheckBoxContext.Consumer>
+		)
+	}
+)
 
-export function CheckBox(props) {
+export const CheckBox = observer((props) => {
 	let {
 		children,
 		center,
@@ -126,8 +144,8 @@ export function CheckBox(props) {
 	} = props
 	if (field) {
 		label = field.label
-		onChange = (e) => {
-			field.setValue(e.target.value)
+		onChange = (value) => {
+			field.setValue(value)
 		}
 		checked = field.value
 	}
@@ -157,7 +175,7 @@ export function CheckBox(props) {
 			</Row>
 		</TouchableWithoutFeedback>
 	)
-}
+})
 
 export function CheckBoxUnchecked(props) {
 	const { disabled, color, ...nextProps } = props

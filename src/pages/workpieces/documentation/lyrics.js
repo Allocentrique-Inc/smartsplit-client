@@ -13,60 +13,6 @@ import LyricsIcon from "../../../svg/feather"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import { TextInput } from "react-native"
 
-export default function Lyrics() {
-	const { t } = useTranslation()
-	const history = useHistory()
-	const workpiece = useCurrentWorkpiece()
-
-	function saveAndQuit() {
-		history.push("/dashboard/")
-	}
-
-	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
-	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
-	}
-
-	return (
-		<Layout
-			workpiece={workpiece}
-			title={workpiece}
-			path={[t("document:navbar.document"), t("document:navbar.pages.lyrics")]}
-			progress={62.5}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveClose")}
-					onClick={saveAndQuit}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={navigateToSummary}
-						/>
-						<Flex />
-						<Button
-							primary
-							text={t("general:buttons.pass")}
-							onClick={navigateToInterpretation}
-						/>
-					</Row>
-					<Row flex={1} />
-				</>
-			}
-		>
-			<LyricsForm />
-		</Layout>
-	)
-}
-
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
 		padding: 5,

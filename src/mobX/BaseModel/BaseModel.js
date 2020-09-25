@@ -195,10 +195,11 @@ export default class BaseModel {
 		this.initialized = false
 		this.initialData = obj
 		if (obj) {
-			//console.log(toJS(obj))
+			// console.log("init data before import", toJS(obj))
 			obj = this.importData(obj)
-			//console.log(toJS(obj))
+			// console.log("init data after import", toJS(obj))
 			this.initValue(obj)
+			// console.log("AFTER INITVALUE()", this)
 			Object.keys(this).forEach((key) => {
 				if (this[key] && this[key].isModel) {
 					//console.log(`$initializing ${key} model`)
@@ -250,6 +251,15 @@ export default class BaseModel {
 	setValue(key, value) {
 		this[key].setValue(value)
 		// this.isDirty = Object.values(this.dirty).reduce((p, c) => (p || c))
+	}
+
+	setFields(model) {
+		this.fields().forEach((field) => {
+			if (this[field]) {
+				console.log(`SET VALUE ${field}`, this[field], model[field])
+				this[field].setValue(model[field].value)
+			}
+		})
 	}
 
 	/**
@@ -327,20 +337,19 @@ export default class BaseModel {
 	 * @returns {Promise<*|void>}
 	 */
 	async save(...args) {
-		//console.log("save called")
+		console.log("save called")
 		if (this.isNew) {
-			//console.log("attempting to create")
+			console.log("attempting to create")
 			try {
-				await this.create(...args)
-				return true
+				return this.create(...args)
 			} catch (e) {
 				this.saveError = e
 				return false
 			}
 		} else {
-			//console.log("attempting to update")
+			console.log("attempting to update")
 			try {
-				await this.update(...args)
+				return this.update(...args)
 			} catch (e) {
 				this.saveError = e
 				return false

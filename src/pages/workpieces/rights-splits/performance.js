@@ -48,7 +48,6 @@ const PerformanceForm = observer(() => {
 		.map((share) => share.shares)
 		.reduce((a, n) => a + n, 0)
 
-	const [selection, setSelection] = useState([])
 	return (
 		<Row>
 			<Column of="section" flex={1}>
@@ -88,7 +87,10 @@ const PerformanceForm = observer(() => {
 								}
 								onClose={() => split.removeRightHolder(share.rightHolder)}
 							>
-								<CheckBoxGroup selection={selection} onChange={setSelection}>
+								<CheckBoxGroup
+									selection={share.roles}
+									onChange={(roles) => share.setData("roles", roles)}
+								>
 									<CheckBoxGroupButton
 										value="author"
 										label={t("roles:singer")}

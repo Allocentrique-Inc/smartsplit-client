@@ -1,7 +1,7 @@
 import React from "react"
 import { Redirect, useParams, useHistory } from "react-router"
 
-import { useStorePath, useStores } from "../../../mobX"
+import { useStores } from "../../../mobX"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Flex, Row } from "../../../layout"
@@ -12,6 +12,8 @@ import RecordingForm from "./recording"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
+import { useSplitsPagesState } from "../../../mobX/hooks"
+import { useRightSplit } from "../context"
 
 const RightsSplitsPage = observer(() => {
 	const { t } = useTranslation()
@@ -40,6 +42,16 @@ const RightsSplitsPage = observer(() => {
 			<Redirect to={`/workpieces/${workpiece_id}/rights-splits/copyright`} />
 		)
 	const workpiece = useCurrentWorkpiece()
+
+	// TEMPORARY. Initialization of splitsPagesState shares (only copyright at the moment) with current workpiece splits
+	const split = useRightSplit("copyright")
+	const { copyright } = useSplitsPagesState()
+	copyright.init(
+		t("rightSplits:lyrics"),
+		t("rightSplits:music"),
+		split.allShares
+	)
+
 	const { workpieces } = useStores()
 	const currentSplit = split_type
 
@@ -114,65 +126,3 @@ const RightsSplitsPage = observer(() => {
 })
 
 export default RightsSplitsPage
-/**
- * FX regarde le code de Lila, ce sont des routes pour la doc
- * est-ce-que tu peux les combiner pour que les deux marchent
- */
-
-/*
-export default function (props) {
-	return (
-		<Switch>
-			<Route
-				path="/workpieces/:workpiece_id/rights-splits"
-				exact
-				component={RedirectToCopyright}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/rights-splits/copyright"
-				component={CopyrightPage}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/rights-splits/interpretation"
-				component={InterpretationPage}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/rights-splits/recording"
-				component={RecordingPage}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/documentation/release"
-				component={Release}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/documentation/creation"
-				component={Creation}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/documentation/performance"
-				component={Performance}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/documentation/recording"
-				component={Recording}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/documentation/files"
-				component={Files}
-			/>
-			<Route
-				path="/workpieces/:workpiece_id/documentation/lyrics"
-				component={Lyrics}
-			/>
-		</Switch>
-	)
-}
-
-export function RedirectToCopyright({ match }) {
-	return (
-		<Redirect
-			to={`/workpieces/${match.params.workpiece_id}/rights-splits/copyright`}
-		/>
-	)
-}
- */

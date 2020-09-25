@@ -2,6 +2,7 @@ import BaseModel, { FieldType, Field } from "../../BaseModel"
 import { observable, action, computed, runInAction } from "mobx"
 import { Colors } from "../../../theme"
 import zxcvbn from "zxcvbn"
+import { passwordValidator, samePasswordValidator } from "../validators"
 
 /**
  * base class for auth models -- any model that is used fro setting a password
@@ -11,20 +12,12 @@ export default class PasswordModel extends BaseModel {
 	/// fields
 	@observable password = new Field(this, "password", {
 		required: true,
-		validation: (v) => {
-			//console.log("validating password")
-			if (v.length < 8) return "errors:strengthPassword"
-			return null
-		},
+		validation: passwordValidator,
 	})
 	@observable password2 = new Field(this, "password2", {
 		required: true,
 		pseudo: true,
-		validation: (v) => {
-			if (v !== this.password.value) {
-				return "errors:samePasswords"
-			}
-		},
+		validation: samePasswordValidator,
 	})
 	///computed values
 	@computed get passwordStrength() {

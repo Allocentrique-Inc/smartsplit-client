@@ -106,12 +106,7 @@ export const RegisterForm = observer((props) => {
 						placeholder={t("forms:labels.repeatPassword")}
 					/>
 
-					<CheckBox
-						checked={model.acceptTerms.value}
-						onChange={(checked) => {
-							model.acceptTerms.setValue(checked)
-						}}
-					>
+					<CheckBox field={model.acceptTerms}>
 						<Text>
 							{t("register:conditions.paragraph")(
 								() => setShowTerms(true),
