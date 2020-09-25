@@ -85,13 +85,22 @@ const CreationForm = observer(() => {
 
 	const authorSearchResults = searchResults.filter((contributor) => {
 		console.log(typeof toJS(model.authors.value))
-		if (model.authors.value[contributor.user_id]) {
-			console.log(`${contributor.user_id} is already in model.author`)
-			return false
-		} else {
-			console.log(`no ${contributor.user_id} is not in model.author`)
-			return true
-		}
+		if (contributor.user_id)
+			if (model.authors.value[contributor.user_id]) {
+				console.log(`${contributor.user_id} is already in model.author`)
+				return false
+			} else {
+				console.log(`no ${contributor.user_id} is not in model.author`)
+				return true
+			}
+		if (contributor.id)
+			if (model.authors.value[contributor.id]) {
+				console.log(`${contributor.id} is already in model.author`)
+				return false
+			} else {
+				console.log(`no ${contributor.id} is not in model.author`)
+				return true
+			}
 	})
 
 	console.log(authorSearchResults)
@@ -135,14 +144,19 @@ const CreationForm = observer(() => {
 						onSelect={(selection) => {
 							console.dir(toJS(selection))
 							console.log(`the selection from add contributor dropdown was ^^`)
-							model.authors.setItem(selection.id, selection)
+							model.authors.setItem(selection.user_id, selection)
 							setSearch("")
 						}}
 						placeholder={t("document:creation.roles.addAuthor")}
 					/>
 
 					{Object.values(model.authors.value).map((item) => (
-						<Row padding="component" of="component" style={frameStyle}>
+						<Row
+							padding="component"
+							of="component"
+							style={frameStyle}
+							key={item.id || item.user_id}
+						>
 							<Column valign="spread" align="center">
 								<UserAvatar size="small" user={item} />
 							</Column>
