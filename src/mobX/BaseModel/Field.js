@@ -663,7 +663,7 @@ export default class Field {
 			throw new Error(
 				"Field.removeItem can only be used by fields of type FieldType.map"
 			)
-
+		console.log(toJS(this.value))
 		let newValue = toJS(this.value)
 		delete newValue[key]
 		this.setValue(newValue)
