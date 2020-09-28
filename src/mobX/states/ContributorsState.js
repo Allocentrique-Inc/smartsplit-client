@@ -29,7 +29,7 @@ export default class ContributorsState extends BaseState {
 	async init(...args) {
 		this.model.init()
 		reaction(
-			() => this.root.auth.user_id,
+			() => this.root.users.user_id,
 			() => {
 				this.load()
 			},

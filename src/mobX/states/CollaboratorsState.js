@@ -12,7 +12,7 @@ export default class CollaboratorsState extends BaseState {
 	async init(...args) {
 		this.model.init()
 		reaction(
-			() => this.root.auth.user_id,
+			() => this.root.users.user_id,
 			() => {
 				this.load()
 			},
@@ -21,7 +21,7 @@ export default class CollaboratorsState extends BaseState {
 	}
 	@action async load() {
 		this.loading = true
-		console.log("user_id changed")
+		// console.log("user_id changed")
 		// await api call to load and
 		runInAction(() => {
 			// set list

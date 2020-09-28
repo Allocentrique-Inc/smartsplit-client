@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import { View } from "react-native"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
@@ -19,79 +19,21 @@ import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
 import { useRightSplit } from "../context"
 import { initData } from "../../../mobX/models/workpieces/rights-splits/SplitCopyrightModel"
-import { toJS } from "mobx"
-import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
-
+import { useSplitsPagesState } from "../../../mobX/hooks"
+import { colorByIndex } from "../../../mobX/states/SplitsPagesState"
 const CopyrightForm = observer(() => {
 	const split = useRightSplit("copyright")
-	const [chartSize, setChartSize] = useState(0)
-	const shares = split.allShares
-	const [mode, setMode] = useState("equal")
+	const { copyright } = useSplitsPagesState()
+	const { shares, mode, sharesValues } = copyright
 	const { t } = useTranslation()
-	const shareColors = Object.values(Colors.secondaries)
-	const [search, setSearch] = useState("")
-	function colorByIndex(index) {
-		return shareColors[index % shareColors.length]
-	}
-
-	function sharesToData(shares) {
-		return shares.map((share, i) => ({
-			key: share.rightHolder,
-			name: share.rightHolder,
-			share: share.shares,
-			color: colorByIndex(i),
-		}))
-	}
 
 	function addShareHolder(id) {
-		console.log(id)
-		if (split.hasOwnProperty(id)) return
-		split.addRightHolder(id, initData)
-	}
-
-	let chartProps = {
-		size: chartSize,
-		logo: CircledC,
-	}
-
-	function generateChartData() {
-		switch (mode) {
-			case "equal":
-				split.updateShares(
-					shares.map((share) => {
-						!share.roles.includes("author") && share.roles.push("author")
-						!share.roles.includes("composer") && share.roles.push("composer")
-						return share
-					})
-				)
-				chartProps.data = sharesToData(shares)
-
-				break
-			case "roles":
-				chartProps.dataRight = sharesToData(
-					shares.filter(
-						(share) =>
-							share.roles.includes("composer") ||
-							share.roles.includes("mixer") ||
-							share.roles.includes("adapter")
-					)
-				)
-				chartProps.dataLeft = sharesToData(
-					shares.filter((share) => share.roles.includes("author"))
-				)
-				chartProps.titleLeft = t("rightSplits:lyrics")
-				chartProps.titleRight = t("rightSplits:music")
-				break
-			case "manual":
-				chartProps.data = sharesToData(shares)
+		if (id && !split.hasOwnProperty(id)) {
+			split.addRightHolder(id, initData)
 		}
 	}
 
-	generateChartData()
-
-	useEffect(() => generateChartData(), [mode])
-
-	const totalShares = shares
+	const totalShares = sharesValues
 		.map((share) => share.shares)
 		.reduce((a, n) => a + n, 0)
 	return (
@@ -110,7 +52,10 @@ const CopyrightForm = observer(() => {
 					</Column>
 				</Column>
 				<Column of="group">
-					<RadioGroup value={mode} onChange={setMode}>
+					<RadioGroup
+						value={mode}
+						onChange={(mode) => copyright.setValue("mode", mode)}
+					>
 						<Column of="component">
 							<RadioGroupButton
 								value="equal"
@@ -127,19 +72,19 @@ const CopyrightForm = observer(() => {
 						</Column>
 					</RadioGroup>
 					<Column of="component">
-						{shares.map((share, i) => (
+						{sharesValues.map((share, i) => (
 							<ShareCard
-								key={share.rightHolder}
-								rightHolderId={share.rightHolder}
+								key={share.shareHolderId}
+								shareHolderId={share.shareHolderId}
 								color={colorByIndex(i)}
 								sharePercent={
 									share.shares > 0 ? (100 * share.shares) / totalShares : 0
 								}
-								onClose={() => split.removeRightHolder(share.rightHolder)}
+								onClose={() => split.removeRightHolder(share.shareHolderId)}
 							>
 								<CheckBoxGroup
 									selection={share.roles}
-									onChange={(roles) => share.setData("roles", roles)}
+									onChange={(roles) => shares[i].setValue("roles", roles)}
 								>
 									<Row>
 										<Column flex={1} of="component">
@@ -186,10 +131,16 @@ const CopyrightForm = observer(() => {
 			<Column
 				flex={1}
 				align="center"
-				onLayout={(e) => setChartSize(e.nativeEvent.layout.width)}
+				onLayout={(e) =>
+					copyright.setValue("chartSize", e.nativeEvent.layout.width)
+				}
 			>
-				{mode === "roles" && <DualSplitChart {...chartProps} />}
-				{mode !== "roles" && <SplitChart {...chartProps} />}
+				{shares.length > 0 && mode === "roles" && (
+					<DualSplitChart {...copyright.chartProps} />
+				)}
+				{shares.length > 0 && mode !== "roles" && (
+					<SplitChart {...copyright.chartProps} />
+				)}
 			</Column>
 		</Row>
 	)

@@ -38,6 +38,16 @@ export default function Autocomplete({
 										(child) => child
 									)}
 								</Text>
+							) : result.firstName ? (
+								<Text>
+									{mapFragmentChildren(
+										highlightMatchedStrings(
+											result.firstName + " " + result.lastName,
+											search
+										),
+										(child) => child
+									)}
+								</Text>
 							) : (
 								result
 							)}

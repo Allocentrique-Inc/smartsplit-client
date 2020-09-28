@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useLayoutEffect, useCallback } from "react"
-import { View, StyleSheet } from "react-native"
+import React, { useState } from "react"
+import { View } from "react-native"
+import { observer } from "mobx-react"
 import {
 	getShareTotal,
 	PieChart,
@@ -14,11 +15,7 @@ import { PopoverTooltip } from "../../widgets/tooltip"
 import { Text } from "../../text"
 import { Column } from "../../layout"
 
-export default function SplitChart({
-	data,
-	logo,
-	size = 4 * Metrics.size.huge,
-}) {
+const SplitChart = observer(({ data, logo, size = 4 * Metrics.size.huge }) => {
 	const chartCenter = { x: size / 2, y: size / 2 }
 	const preSlices = usePieChartSlices(data, null, true, size)
 	const [TooltipWrapper, handlers] = useTooltips(data, preSlices, chartCenter)
@@ -35,7 +32,7 @@ export default function SplitChart({
 			</PieChart>
 		</TooltipWrapper>
 	)
-}
+})
 
 export function DualSplitChart({
 	dataLeft,
@@ -235,3 +232,5 @@ function TitleText(props) {
 		</TextSvg>
 	)
 }
+
+export default SplitChart

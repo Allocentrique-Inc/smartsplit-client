@@ -8,10 +8,9 @@ import {
 	reaction,
 	runInAction,
 } from "mobx"
-import Documentation from "./workpieceStates/Documentation"
-import RightsSplits from "./workpieceStates/RightSplits"
+import Documentation from "./WorkpieceStates/Documentation"
+import RightsSplits from "./WorkpieceStates/RightsSplits"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
-import { assignEnumProps } from "../../utils/utils"
 
 const WorkpieceObservable = createCrudObservable(
 	WorkpiecesCrudAPI,
@@ -94,7 +93,6 @@ export default class WorkpieceState extends WorkpieceListObservable {
 		reaction(
 			() => this.root.auth.user_id,
 			(userId) => {
-				console.log(userId)
 				this.fetchWorkpieceList(userId)
 			},
 			{ fireImmediately: true }

@@ -12,6 +12,11 @@ export function useAuthUser() {
 	return auth.user
 }
 
+export function useSplitsPagesState() {
+	const { splitsPages } = useStores()
+	return splitsPages
+}
+
 export function useDocsModel(workpieceId, type) {
 	return useStorePath("workpieces", "list", workpieceId, "documentation", type)
 }
@@ -30,7 +35,12 @@ export function useDocsModel(workpieceId, type) {
  */
 export function useArtistAutocomplete(): (string, number) => [] {
 	const { collaborators, contributors, users } = useStores()
-
+	const collabList = JSON.parse(JSON.stringify(toJS(collaborators.list)))
+	console.log(collabList)
+	const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
+	console.log(contribList)
+	const usersList = JSON.parse(JSON.stringify(toJS(users.list)))
+	console.log(usersList)
 	function exists(arr: Array, name) {
 		let _exists = false
 		arr.forEach((el) => {
@@ -41,17 +51,16 @@ export function useArtistAutocomplete(): (string, number) => [] {
 
 	return (search: string, max: number = 10) => {
 		let returnList = []
+		if (!search) return returnList
 		console.log(search)
 		///
 		/// first get collaborators that match
 		///
-		let filteredCollabs = Object.values(toJS(collaborators.list)).filter(
-			(collab) => {
-				if (!search) return true
-				let name = collab.firstName + " " + collab.lastName
-				return name.indexOf(search) > -1
-			}
-		)
+		let filteredCollabs = Object.values(toJS(collabList)).filter((collab) => {
+			//if (!search) return true
+			let name = collab.firstName + " " + collab.lastName
+			return name.indexOf(search) > -1
+		})
 
 		returnList = filteredCollabs
 		if (returnList.length === max) return returnList
@@ -60,7 +69,7 @@ export function useArtistAutocomplete(): (string, number) => [] {
 		///
 		/// next get contributors that match
 		///
-		let filteredContribs = Object.values(toJS(contributors.list)).filter(
+		let filteredContribs = Object.values(toJS(contribList)).filter(
 			(contrib) => {
 				let name = contrib.firstName + " " + contrib.lastName
 				if (exists(returnList, name)) return false
@@ -81,7 +90,7 @@ export function useArtistAutocomplete(): (string, number) => [] {
 		/// finally add matching users
 		///
 
-		let filteredUsers = Object.values(toJS(users.list))
+		let filteredUsers = Object.values(toJS(usersList))
 			.map((user) => user.data)
 			.filter((user) => {
 				if (!user.lastName && !user.firstName) return false

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react"
 import { useHistory } from "react-router"
 import { useTranslation } from "react-i18next"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
@@ -24,7 +24,10 @@ import ContributorModel from "../../../mobX/models/user/ContributorModel"
 import DocCreationModel from "../../../mobX/models/workpieces/documentation/DocCreationModel"
 import { Tag } from "../../../widgets/tag"
 import { toJS } from "mobx"
-
+import { CardStyles } from "../../../widgets/card"
+import UserAvatar from "../../../smartsplit/user/avatar"
+import HelpCircleFull from "../../../svg/help-circle-full"
+import XIcon from "../../../svg/x"
 const Styles = StyleSheet.create({
 	category: {
 		alignItems: "center",
@@ -33,8 +36,29 @@ const Styles = StyleSheet.create({
 	logo: {
 		marginRight: Metrics.spacing.component,
 	},
+	frame: {
+		backgroundColor: Colors.background.underground,
+	},
+	frame_error: {
+		borderWidth: 1,
+		borderColor: Colors.error,
+		borderStyle: "solid",
+	},
+	frame_yourself: {
+		borderWidth: 1,
+		borderColor: Colors.secondaries.teal,
+	},
 })
-
+const frameStyle = [CardStyles.frame, Styles.frame]
+/*	<Tag
+								dismissible
+								key={item.id}
+								onClick={() => model.authors.removeItem(item.id)}
+							>
+								<Text>
+									{item.name ? item.name : item.firstName + " " + item.lastName}
+								</Text>
+							</Tag>*/
 const CreationForm = observer(() => {
 	const [date, setDate] = useState("")
 
@@ -61,13 +85,22 @@ const CreationForm = observer(() => {
 
 	const authorSearchResults = searchResults.filter((contributor) => {
 		console.log(typeof toJS(model.authors.value))
-		if (model.authors.value[contributor.id]) {
-			console.log(`${contributor.id} is already in model.author`)
-			return false
-		} else {
-			console.log(`no ${contributor.id} is not in model.author`)
-			return true
-		}
+		if (contributor.user_id)
+			if (model.authors.value[contributor.user_id]) {
+				console.log(`${contributor.user_id} is already in model.author`)
+				return false
+			} else {
+				console.log(`no ${contributor.user_id} is not in model.author`)
+				return true
+			}
+		if (contributor.id)
+			if (model.authors.value[contributor.id]) {
+				console.log(`${contributor.id} is already in model.author`)
+				return false
+			} else {
+				console.log(`no ${contributor.id} is not in model.author`)
+				return true
+			}
 	})
 
 	console.log(authorSearchResults)
@@ -111,22 +144,39 @@ const CreationForm = observer(() => {
 						onSelect={(selection) => {
 							console.dir(toJS(selection))
 							console.log(`the selection from add contributor dropdown was ^^`)
-							model.authors.setItem(selection.id, selection)
+							model.authors.setItem(selection.user_id, selection)
 							setSearch("")
 						}}
 						placeholder={t("document:creation.roles.addAuthor")}
 					/>
-					<Row>
-						{Object.values(model.authors.value).map((item) => (
-							<Tag
-								dismissible
-								key={item.id}
-								onClick={() => model.composers.removeItem(item.id)}
-							>
-								<Text>{item.name}</Text>
-							</Tag>
-						))}
-					</Row>
+
+					{Object.values(model.authors.value).map((item) => (
+						<Row
+							padding="component"
+							of="component"
+							style={frameStyle}
+							key={item.id || item.user_id}
+						>
+							<Column valign="spread" align="center">
+								<UserAvatar size="small" user={item} />
+							</Column>
+							<Column flex={1} of="component">
+								<Text bold>
+									{item.name ? item.name : item.firstName + " " + item.lastName}
+								</Text>
+							</Column>
+							<Column>
+								<TouchableWithoutFeedback
+									onPress={() => model.authors.removeItem(item.id)}
+								>
+									<View>
+										<XIcon />
+									</View>
+								</TouchableWithoutFeedback>
+							</Column>
+						</Row>
+					))}
+
 					<AddContributorDropdown
 						label={t("document:creation.roles.composers")}
 						subLabel={t("document:creation.roles.composersWho")}

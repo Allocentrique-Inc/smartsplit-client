@@ -563,6 +563,20 @@ export default class Field {
 	}
 
 	/**
+	 * Add a new item at the end of a collection
+	 * @param value
+	 */
+	@action push(value) {
+		if (this.type === "collection") {
+			this.value.push(value)
+			this.validateSync()
+		} else
+			throw new Error(
+				"Field.push can only be used by fields of type collection"
+			)
+	}
+
+	/**
 	 * get the value at a specific key (not really necessary since Field.value[key] is what is returned
 	 * @param key
 	 * @return {string}
@@ -573,11 +587,6 @@ export default class Field {
 				"Field.getItem can only be used by fields of type FieldType.map"
 			)
 		return this.value[key]
-	}
-
-	@action push(value) {
-		this.value.push(value)
-		this.validateSync()
 	}
 
 	/**
@@ -603,11 +612,13 @@ export default class Field {
 	 * @param item
 	 */
 	@action add(item) {
+		console.log("ADDIN", item)
 		if (this.type !== FieldType.collection)
 			throw new Error(
 				"Field.add(item) can only be used with a field type of FieldType.collection"
 			)
-		this.setValue([...this.value, item])
+		this.value.push(item)
+		// this.setValue([...this.value, item])
 	}
 
 	/**
@@ -627,8 +638,6 @@ export default class Field {
 	}
 
 	/**
-	 * FX : note that the value property of a map type is not a real Map but just an
-	 *     observable object... If you need to really use a map we can refactor this for yout needs
 	 * @param id
 	 * @return {boolean}
 	 */
@@ -637,7 +646,6 @@ export default class Field {
 			case FieldType.map:
 				return this.value[id] !== undefined
 			case FieldType.collection:
-				console.log(this.value)
 				return this.value.includes(id)
 			default:
 				throw new Error(
@@ -655,7 +663,7 @@ export default class Field {
 			throw new Error(
 				"Field.removeItem can only be used by fields of type FieldType.map"
 			)
-
+		console.log(toJS(this.value))
 		let newValue = toJS(this.value)
 		delete newValue[key]
 		this.setValue(newValue)
