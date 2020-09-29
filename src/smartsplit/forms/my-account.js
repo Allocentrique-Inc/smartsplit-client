@@ -13,24 +13,12 @@ import ConfirmPhoneModal from "../../pages/dashboard/confirm-phone"
 import { MailList } from "../components/mail-list"
 import { Status } from "../../utils/enums"
 import Label from "../../forms/label"
+import { observer } from "mobx-react"
 
-export default function MyAccount({ title }) {
+export default observer(function MyAccount({ title }) {
 	const { t, i18n } = useTranslation()
-	const emails = [
-		{
-			email: "main@iptoki.com",
-			status: Status.main,
-		},
-		{
-			email: "active@iptoki.com",
-			status: Status.active,
-		},
-		{
-			email: "pending@iptoki.com",
-			status: Status.pending,
-		},
-	]
-
+	const emails = useStorePath("settings", "emails", "list")
+	console.log(emails)
 	function handleLanguageChange(language) {
 		i18n.changeLanguage(language)
 	}
@@ -66,7 +54,7 @@ export default function MyAccount({ title }) {
 			/>
 		</Column>
 	)
-}
+})
 
 export function MobilePhoneRow() {
 	const { t, i18n } = useTranslation()
