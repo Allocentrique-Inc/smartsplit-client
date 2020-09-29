@@ -1,14 +1,61 @@
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { Platform } from "../../platform"
+import { Platform, Web } from "../../platform"
 import { Column, Spacer } from "../../layout"
 import { CheckBox } from "../../forms"
 import { Text, Heading } from "../../text"
 import { Table, TableRow } from "../../widgets/table"
-
-export default function MyNotifications() {
+import { useStorePath } from "../../mobX"
+const WebNotificationCheckBoxes = observer((props) => {
+	const { field, title, subtitle, phoneValidated } = props
+	return (
+		<TableRow>
+			<Column>
+				<Text>{title}</Text>
+				<Text small secondary>
+					{subtitle}
+				</Text>
+			</Column>
+			{field.ui.email ? (
+				<CheckBox
+					checked={(field.value & 1) === 1}
+					onChange={(checked) => {
+						field.setValue(checked ? field.value | 1 : field.value & 6)
+					}}
+				/>
+			) : (
+				<Spacer />
+			)}
+			{field.ui.mobile ? (
+				<CheckBox
+					checked={(field.value & 2) === 2}
+					onChange={(checked) => {
+						field.setValue(checked ? field.value | 2 : field.value & 5)
+					}}
+				/>
+			) : (
+				<Spacer />
+			)}
+			{field.ui.sms ? (
+				phoneValidated ? (
+					<CheckBox
+						checked={(field.value & 4) === 4}
+						onChange={(checked) => {
+							field.setValue(checked ? field.value | 4 : field.value & 3)
+						}}
+					/>
+				) : (
+					<Text action>{t("general:buttons.checkPhone")}</Text>
+				)
+			) : (
+				<Spacer />
+			)}
+		</TableRow>
+	)
+})
+export default observer(function MyNotifications() {
 	const [t] = useTranslation()
-
+	const model = useStorePath("settings", "notifications")
 	function renderNotificationLabel(name, description) {
 		return (
 			<Column>
@@ -32,25 +79,33 @@ export default function MyNotifications() {
 							<Text bold>{t("settings:tab.mobile")}</Text>
 							<Text bold>{t("settings:tab.sms")}</Text>
 						</TableRow>
-						<TableRow>
-							{renderNotificationLabel(
-								t("settings:tab.interactions.title"),
-								t("settings:tab.interactions.subTitle")
-							)}
-							<CheckBox />
-							<CheckBox />
-							<Text action>{t("general:buttons.checkPhone")}</Text>
-						</TableRow>
-						<TableRow>
-							{renderNotificationLabel(
-								t("settings:tab.administration.title"),
-								t("settings:tab.administration.subTitle")
-							)}
-							<CheckBox />
-							<CheckBox />
-							<CheckBox />
-						</TableRow>
-						<TableRow>
+						<WebNotificationCheckBoxes
+							title={t("settings:tab.interactions.title")}
+							subtitle={"settings:tab.interactions.subTitle"}
+							field={model.general}
+						/>
+						<WebNotificationCheckBoxes
+							title={t("settings:tab.connexion.title")}
+							subtitle={"settings:tab.connexion.subTitle"}
+							field={model.general}
+						/>
+						<WebNotificationCheckBoxes
+							title={t("settings:tab.blog.title")}
+							subtitle={"settings:tab.blog.subTitle"}
+							field={model.blog}
+						/>
+						<WebNotificationCheckBoxes
+							title={t("settings:tab.promos.title")}
+							subtitle={"settings:tab.promos.subTitle"}
+							field={model.promos}
+						/>
+						<WebNotificationCheckBoxes
+							title={t("settings:tab.promoPartner.title")}
+							subtitle={"settings:tab.promoPartner.subTitle"}
+							field={model.promoPartner}
+						/>
+
+						{/*<TableRow>
 							{renderNotificationLabel(
 								t("settings:tab.connexion.title"),
 								t("settings:tab.connexion.subTitle")
@@ -85,7 +140,7 @@ export default function MyNotifications() {
 							<CheckBox />
 							<CheckBox />
 							<Spacer />
-						</TableRow>
+						</TableRow>*/}
 					</Table>
 				</>
 			)}
@@ -184,4 +239,4 @@ export default function MyNotifications() {
 			)}
 		</Column>
 	)
-}
+})
