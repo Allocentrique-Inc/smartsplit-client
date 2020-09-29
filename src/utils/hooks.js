@@ -47,3 +47,18 @@ export function useDimensions() {
 	}, [ref.current])
 	return [ref, dimensions]
 }
+
+export function useInterpolator([min0, max0], [min1, max1]) {
+	const range0 = max0 - min0
+	const range1 = max1 - min1
+
+	function fromRange0To1(value) {
+		return ((value - min0) * range1) / range0 + min1
+	}
+
+	function fromRange1To0(value) {
+		return ((value - min1) * range0) / range1 + min0
+	}
+
+	return [fromRange0To1, fromRange1To0]
+}
