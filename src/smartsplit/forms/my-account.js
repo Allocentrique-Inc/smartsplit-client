@@ -61,16 +61,16 @@ export function MobilePhoneRow() {
 	const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
 
 	const user = useStorePath("auth", "user")
-	const mobilePhone = (user.data && user.data.mobilePhone) || {}
-	const [inputNumber, setInputNumber] = useState(mobilePhone.number || "")
+	//const mobilePhone = (user.data && user.data.mobilePhone) || {}
+	//	const [inputNumber, setInputNumber] = useState(mobilePhone.number || "")
 	const [error, setError] = useState(null)
 
-	const hasChanged = (mobilePhone.number || "") !== inputNumber
-
+	//	const hasChanged = (mobilePhone.number || "") !== inputNumber
+	const model = useStorePath("settings", "profile", "mobilePhone")
 	function savePhoneNumber() {
-		if (hasChanged || mobilePhone.status === "unverified") {
+		if (model.number.isDirty || model.status.value === "unverified") {
 			user
-				.update({ phoneNumber: inputNumber })
+				.update({ phoneNumber: model.number.value })
 				.then(() => setConfirmPhoneModal(true))
 				.catch((e) => setError(e.message))
 		}
@@ -89,13 +89,13 @@ export function MobilePhoneRow() {
 			error={error}
 		>
 			<PhoneNumberField
-				status={!hasChanged && mobilePhone.status}
-				onChangeText={setInputNumber}
-				value={inputNumber}
+				status={model.number.isPristine && model.status.value}
+				onChangeText={(v) => model.number.setValue(v)}
+				value={model.number.value}
 			/>
 
 			<Row flex={1}>
-				{(hasChanged || mobilePhone.status === "unverified") && (
+				{(model.number.isDirty || model.status.value === "unverified") && (
 					<Button
 						secondary
 						bold

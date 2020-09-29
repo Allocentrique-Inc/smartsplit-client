@@ -3,40 +3,38 @@ import { observable, action, computed, runInAction } from "mobx"
 import { NotificationValidator } from "../validators"
 
 export default class NotificationsModel extends BaseModel {
-	@observable general = new Field(this, "general", {
-		type: FieldType.int,
+	@observable general_interactions = new Field(this, "general_interactions", {
+		type: FieldType.set,
 		validation: NotificationValidator,
-		ui: { email: true, mobile: true, sms: true },
+		ui: { email: true, push: true, sms: true },
 	})
-	@observable admin = new Field(this, "admin", {
-		type: FieldType.int,
+	@observable administrative_messages = new Field(
+		this,
+		"administrative_messages",
+		{
+			type: FieldType.set,
+			validation: NotificationValidator,
+			ui: { email: true, push: true, sms: true },
+		}
+	)
+	@observable account_login = new Field(this, "account_login", {
+		type: FieldType.set,
 		validation: NotificationValidator,
-		ui: { email: true, mobile: true, sms: true },
+		ui: { email: true, push: true, sms: false },
 	})
-	@observable logins = new Field(this, "logins", {
-		type: FieldType.int,
+	@observable smartsplit_blog = new Field(this, "smartsplit_blog", {
+		type: FieldType.set,
 		validation: NotificationValidator,
-		ui: { email: true, mobile: true, sms: true },
+		ui: { email: true, push: true, sms: false },
 	})
-	@observable blog = new Field(this, "articles", {
-		type: FieldType.int,
+	@observable smartsplit_promotions = new Field(this, "smartsplit_promotions", {
+		type: FieldType.set,
 		validation: NotificationValidator,
-		ui: { email: true, mobile: true, sms: false },
+		ui: { email: true, push: true, sms: false },
 	})
-	@observable promos = new Field(this, "promotions", {
-		type: FieldType.int,
+	@observable partner_promotions = new Field(this, "partner_promotions", {
+		type: FieldType.set,
 		validation: NotificationValidator,
-		ui: { email: true, mobile: true, sms: false },
+		ui: { email: true, push: true, sms: false },
 	})
-	@observable promoPartners = new Field(this, "partners", {
-		type: FieldType.int,
-		validation: NotificationValidator,
-		ui: { email: true, mobile: true, sms: false },
-	})
-}
-
-const NotificationType = {
-	email: "1",
-	mobile: "2",
-	sms: "4",
 }

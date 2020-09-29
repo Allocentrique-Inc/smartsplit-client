@@ -10,10 +10,11 @@ import UserAvatar from "../user/avatar"
 import PenIcon from "../../svg/pen"
 import Button from "../../widgets/button"
 import { PictureCropModal } from "../../widgets/picture-crop"
-
-export default function MyProfile({ title }) {
+import { useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
+export default observer(function MyProfile({ title }) {
 	const { t } = useTranslation()
-
+	const model = useStorePath("settings", "profile")
 	const avatar = useFormField("avatar")
 	const avatarUrl = useFormField("avatarUrl")
 
@@ -28,11 +29,11 @@ export default function MyProfile({ title }) {
 	}, [avatarUrl.value, avatar.value])
 
 	const [newPicture, selectNewPicture, newPictureError] = useImagePicker()
-	const firstName = useFormField("firstName")
-	const lastName = useFormField("lastName")
+	//const firstName = useFormField("firstName")
+	//const lastName = useFormField("lastName")
 	const initials =
-		firstName.value.toUpperCase().charAt(0) +
-		lastName.value.toUpperCase().charAt(0)
+		model.firstName.value.toUpperCase().charAt(0) +
+		model.lastName.value.toUpperCase().charAt(0)
 
 	const [showPictureCrop, setShowPictureCrop] = useState(false)
 
@@ -64,21 +65,18 @@ export default function MyProfile({ title }) {
 
 			<Row of="component">
 				<TextField
-					name="firstName"
-					label={t("forms:labels.usualFirstName")}
+					field={model.firstName}
 					undertext={t("forms:undertexts.firstName")}
 				/>
 
 				<TextField
-					name="lastName"
-					label={t("forms:labels.usualLastName")}
+					field={model.lastName}
 					undertext={t("forms:undertexts.lastName")}
 				/>
 			</Row>
 
 			<TextField
-				name="artistName"
-				label={t("forms:labels.artistName")}
+				field={model.artistName}
 				label_hint={t("forms:labels.optional")}
 				undertext={t("forms:undertexts.artistName")}
 			/>
@@ -90,4 +88,4 @@ export default function MyProfile({ title }) {
 			/>
 		</Column>
 	)
-}
+})

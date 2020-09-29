@@ -6,56 +6,69 @@ import { CheckBox } from "../../forms"
 import { Text, Heading } from "../../text"
 import { Table, TableRow } from "../../widgets/table"
 import { useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
+import NotificationsModel from "../../mobX/models/settings/NotificationsModel"
 const WebNotificationCheckBoxes = observer((props) => {
-	const { field, title, subtitle, phoneValidated } = props
+	const [t] = useTranslation()
+	const { field, title, subtitle } = props
+	const phoneValidated =
+		useStorePath("settings", "profile", "mobilePhone", "status").value ===
+		"verified"
+	if (!field) return null
 	return (
-		<TableRow>
-			<Column>
-				<Text>{title}</Text>
-				<Text small secondary>
-					{subtitle}
-				</Text>
-			</Column>
-			{field.ui.email ? (
-				<CheckBox
-					checked={(field.value & 1) === 1}
-					onChange={(checked) => {
-						field.setValue(checked ? field.value | 1 : field.value & 6)
-					}}
-				/>
-			) : (
-				<Spacer />
-			)}
-			{field.ui.mobile ? (
-				<CheckBox
-					checked={(field.value & 2) === 2}
-					onChange={(checked) => {
-						field.setValue(checked ? field.value | 2 : field.value & 5)
-					}}
-				/>
-			) : (
-				<Spacer />
-			)}
-			{field.ui.sms ? (
-				phoneValidated ? (
+		<Table proportions={[2, 1, 1, 1]}>
+			<TableRow>
+				<Column>
+					<Text>{title}</Text>
+					<Text small secondary>
+						{subtitle}
+					</Text>
+				</Column>
+				{field.ui.email ? (
 					<CheckBox
-						checked={(field.value & 4) === 4}
+						checked={field.has("email")}
 						onChange={(checked) => {
-							field.setValue(checked ? field.value | 4 : field.value & 3)
+							checked ? field.add("email") : field.remove("email")
 						}}
 					/>
 				) : (
-					<Text action>{t("general:buttons.checkPhone")}</Text>
-				)
-			) : (
-				<Spacer />
-			)}
-		</TableRow>
+					<Spacer />
+				)}
+				{field.ui.push ? (
+					<CheckBox
+						checked={field.has("push")}
+						onChange={(checked) => {
+							checked ? field.add("push") : field.remove("push")
+						}}
+					/>
+				) : (
+					<Spacer />
+				)}
+				{field.ui.sms ? (
+					phoneValidated ? (
+						<CheckBox
+							checked={field.has("sms")}
+							onChange={(checked) => {
+								checked ? field.add("sms") : field.remove("sms")
+							}}
+						/>
+					) : (
+						<Text action>{t("general:buttons.checkPhone")}</Text>
+					)
+				) : (
+					<Spacer />
+				)}
+			</TableRow>
+		</Table>
 	)
 })
 export default observer(function MyNotifications() {
 	const [t] = useTranslation()
-	const model = useStorePath("settings", "notifications")
+	const model: NotificationsModel = useStorePath(
+		"settings",
+		"profile",
+		"notifications"
+	)
 	function renderNotificationLabel(name, description) {
 		return (
 			<Column>
@@ -66,7 +79,7 @@ export default observer(function MyNotifications() {
 			</Column>
 		)
 	}
-
+	if (!model) return null
 	return (
 		<Column of={Platform.web ? "group" : "component"}>
 			<Heading level="2">{t("settings:notifications")}</Heading>
@@ -79,33 +92,39 @@ export default observer(function MyNotifications() {
 							<Text bold>{t("settings:tab.mobile")}</Text>
 							<Text bold>{t("settings:tab.sms")}</Text>
 						</TableRow>
-						<WebNotificationCheckBoxes
-							title={t("settings:tab.interactions.title")}
-							subtitle={"settings:tab.interactions.subTitle"}
-							field={model.general}
-						/>
-						<WebNotificationCheckBoxes
-							title={t("settings:tab.connexion.title")}
-							subtitle={"settings:tab.connexion.subTitle"}
-							field={model.general}
-						/>
-						<WebNotificationCheckBoxes
-							title={t("settings:tab.blog.title")}
-							subtitle={"settings:tab.blog.subTitle"}
-							field={model.blog}
-						/>
-						<WebNotificationCheckBoxes
-							title={t("settings:tab.promos.title")}
-							subtitle={"settings:tab.promos.subTitle"}
-							field={model.promos}
-						/>
-						<WebNotificationCheckBoxes
-							title={t("settings:tab.promoPartner.title")}
-							subtitle={"settings:tab.promoPartner.subTitle"}
-							field={model.promoPartner}
-						/>
+					</Table>
+					<WebNotificationCheckBoxes
+						title={t("settings:tab.interactions.title")}
+						subtitle={"settings:tab.interactions.subTitle"}
+						field={model.general_interactions}
+					/>
+					<WebNotificationCheckBoxes
+						title={t("settings:tab.administration.title")}
+						subtitle={"settings:tab.administration.subTitle"}
+						field={model.administrative_messages}
+					/>
+					<WebNotificationCheckBoxes
+						title={t("settings:tab.connexion.title")}
+						subtitle={"settings:tab.connexion.subTitle"}
+						field={model.account_login}
+					/>
+					<WebNotificationCheckBoxes
+						title={t("settings:tab.blog.title")}
+						subtitle={"settings:tab.blog.subTitle"}
+						field={model.smartsplit_blog}
+					/>
+					<WebNotificationCheckBoxes
+						title={t("settings:tab.promos.title")}
+						subtitle={"settings:tab.promos.subTitle"}
+						field={model.smartsplit_promotions}
+					/>
+					<WebNotificationCheckBoxes
+						title={t("settings:tab.promoPartner.title")}
+						subtitle={"settings:tab.promoPartner.subTitle"}
+						field={model.partner_promotions}
+					/>
 
-						{/*<TableRow>
+					{/*<TableRow>
 							{renderNotificationLabel(
 								t("settings:tab.connexion.title"),
 								t("settings:tab.connexion.subTitle")
@@ -141,7 +160,6 @@ export default observer(function MyNotifications() {
 							<CheckBox />
 							<Spacer />
 						</TableRow>*/}
-					</Table>
 				</>
 			)}
 			{Platform.native && (

@@ -1,11 +1,18 @@
 import BaseState, { save, session } from "../BaseState"
-import { observable, computed, action, when, reaction, runInAction } from "mobx"
+import {
+	observable,
+	computed,
+	action,
+	when,
+	reaction,
+	runInAction,
+	toJS,
+} from "mobx"
 import EmailState from "./settingsStates/EmailState"
 import ProfileModel from "../models/settings/ProfileModel"
 import NotificationsModel from "../models/settings/NotificationsModel"
 export default class SettingsState extends BaseState {
 	@observable emails
-	@observable phones
 	constructor(root) {
 		super(root)
 		this.emails = new EmailState(root)
@@ -13,8 +20,25 @@ export default class SettingsState extends BaseState {
 		this.profile = new ProfileModel()
 	}
 	async init(...args) {
+		this.notifications.init()
+		this.profile.init()
+		reaction(
+			() => this.root.auth.user_id,
+			(userId) => {
+				this.load(userId)
+			},
+			{ fireImmediately: true }
+		)
 		return this.emails.init()
 	}
+
 	@observable profile: ProfileModel
-	@observable notifications: NotificationsModel
+
+	@action load(userId) {
+		if (!userId) return
+		let user = this.root.auth.user
+		console.log(toJS(user))
+		this.profile.init(toJS(user.data))
+		console.log(this.profile.toJS())
+	}
 }

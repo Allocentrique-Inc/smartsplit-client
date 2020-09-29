@@ -1,15 +1,20 @@
 import BaseModel, { FieldType, Field } from "../../BaseModel"
 import { observable, action, computed, runInAction } from "mobx"
-
+import NotificationsModel from "./NotificationsModel"
+import PhoneModel from "./PhoneModel"
 export default class ProfileModel extends BaseModel {
+	@observable user_id = new Field(this, "user_id", {
+		type: FieldType.string,
+		primary: true,
+	})
 	@observable firstName = new Field(this, "firstName", {
-		label: "forms:labels.legalFirstName",
+		label: "forms:labels.usualFirstName",
 		required: true,
 		type: FieldType.string,
 	})
 
 	@observable lastName = new Field(this, "lastName", {
-		label: "forms:labels.legalLastName",
+		label: "forms:labels.usualLastName",
 		required: true,
 		type: FieldType.string,
 	})
@@ -42,6 +47,10 @@ export default class ProfileModel extends BaseModel {
 	@observable URI = new Field(this, "URI", {
 		type: FieldType.string,
 	})
+
+	@observable notifications = new NotificationsModel(this)
+
+	@observable mobilePhone = new PhoneModel(this)
 }
 
 export const IdentifierTypes = {

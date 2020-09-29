@@ -210,6 +210,11 @@ export const FieldType = {
 	 * setValue() expects an object
 	 */
 	map: "map",
+
+	/**
+	 * like collection but with only unique values
+	 */
+	set: "set",
 }
 
 /**
@@ -297,8 +302,13 @@ export default class Field {
 					this.type = options.type
 					switch (options.type) {
 						case FieldType.map:
+							this.initValue({})
+							break
 						case FieldType.collection:
 							this.initValue([])
+							break
+						case FieldType.set:
+							this.initValue(new Set())
 							break
 					}
 					break
@@ -484,6 +494,8 @@ export default class Field {
 				case FieldType.map:
 					v = {}
 					break
+				case FieldType.set:
+					v = new Set()
 			}
 		}
 
@@ -502,7 +514,13 @@ export default class Field {
 		newValue = newValue === null || newValue === undefined ? "" : newValue
 		if (this.isReadonly && !setReadOnlyField) return
 		runInAction(() => {
-			this.value = this.format(newValue, this.model)
+			switch (this.type) {
+				case FieldType.set:
+					this.value = new Set(newValue)
+					break
+				default:
+					this.value = this.format(newValue, this.model)
+			}
 		})
 		this.onSet(this.value, this.model)
 
@@ -608,16 +626,24 @@ export default class Field {
 	}
 
 	/**
-	 * used only by collection field types to add an item
+	 * used only by collection / set field types to add an item
 	 * @param item
 	 */
 	@action add(item) {
-		console.log("ADDIN", item)
-		if (this.type !== FieldType.collection)
-			throw new Error(
-				"Field.add(item) can only be used with a field type of FieldType.collection"
-			)
-		this.value.push(item)
+		switch (this.type) {
+			case FieldType.collection:
+				this.value.push(item)
+				break
+			case FieldType.set:
+				this.value.add(item)
+				this.validateSync()
+				break
+			default:
+				throw new Error(
+					"Field.add(item) can only be used with a field type of FieldType of collection or set"
+				)
+		}
+
 		// this.setValue([...this.value, item])
 	}
 
@@ -626,15 +652,23 @@ export default class Field {
 	 * @param item
 	 */
 	@action remove(item) {
-		if (this.type !== FieldType.collection)
-			throw new Error(
-				"Field.add(item) can only be used with a field type of FieldType.collection"
-			)
-		let index = this.value.indexOf(item)
-		if (index === -1) return
-		let newValue = toJS(this.value)
-		newValue.splice(index, 1)
-		this.setValue(newValue)
+		switch (this.type) {
+			case FieldType.collection:
+				let index = this.value.indexOf(item)
+				if (index === -1) return
+				let newValue = toJS(this.value)
+				newValue.splice(index, 1)
+				this.setValue(newValue)
+				break
+			case FieldType.set:
+				this.value.delete(item)
+				this.validateSync()
+				break
+			default:
+				throw new Error(
+					"Field.add(item) can only be used with a field type of FieldType = collection or set"
+				)
+		}
 	}
 
 	/**
@@ -652,6 +686,18 @@ export default class Field {
 					"Field.includes can only be used by fields of type collection or map"
 				)
 		}
+	}
+
+	/**
+	 * used only in set field types
+	 * @param item
+	 */
+	has(item) {
+		if (this.type !== FieldType.set)
+			throw new Error("has can only be used with field types of 'set'")
+		//console.log(this.value)
+		//console.log(typeof this.value)
+		return this.value.has(item)
 	}
 
 	/**
