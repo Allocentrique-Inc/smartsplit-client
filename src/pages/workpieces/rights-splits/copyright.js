@@ -24,38 +24,49 @@ import { colorByIndex } from "../../../mobX/states/SplitsPagesState"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import Slider from "../../../widgets/slider"
-
+import { runInAction } from "mobx"
+import PercentageInput from "../../../forms/percentage"
+import { percentageValidator } from "../../../../helpers/validators"
 const CopyrightForm = observer(() => {
-	const split = useRightSplit("copyright")
-	const { copyright } = useSplitsPagesState()
-	const { shares, mode, sharesPercents, chartProps } = copyright
+	const copyrightSplit = useRightSplit("copyright")
+	const pageState = useSplitsPagesState().copyright
+	const { sharesData, sharesTotal } = pageState
 	const { t } = useTranslation()
+
 	function addShareHolder(id) {
-		if (id && !split.shareHolders.has(id)) {
-			split.addRightHolder(id, initData)
+		if (id && !copyrightSplit.shareHolders.has(id)) {
+			copyrightSplit.addRightHolder(id, initData)
 		}
 	}
 
+	//FOR TESTING PURPOSE
+	React.useEffect(() => {
+		addShareHolder("235556b5-3bbb-4c90-9411-4468d873969b")
+		addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	}, [])
+
 	function renderShareCards() {
-		return shares.map((share, i) => (
+		return sharesData.map((share, i) => (
 			<ShareCard
-				key={share.shareHolderId}
-				shareHolderId={share.shareHolderId}
+				key={share.id}
+				shareHolderId={share.id}
 				color={colorByIndex(i)}
-				sharePercent={sharesPercents.get(share.shareHolderId)}
-				onClose={() => split.removeRightHolder(share.shareHolderId)}
-				manual={mode === "manual"}
+				sharePercent={share.percent}
+				onClose={() => copyrightSplit.removeRightHolder(share.id)}
+				manual={copyrightSplit.mode === "manual"}
 			>
 				<CheckBoxGroup
-					selection={share.roles.value}
-					onChange={(roles) => shares[i].setValue("roles", roles)}
+					selection={share.roles}
+					onChange={(roles) =>
+						copyrightSplit.updateShareField(share.id, "roles", roles)
+					}
 				>
 					<Row>
 						<Column flex={1} of="component">
 							<CheckBoxGroupButton
 								value="author"
 								label={t("roles:author")}
-								disabled={mode === "equal"}
+								disabled={copyrightSplit.mode === "equal"}
 							/>
 							<CheckBoxGroupButton value="adapter" label={t("roles:adapter")} />
 						</Column>
@@ -63,39 +74,46 @@ const CopyrightForm = observer(() => {
 							<CheckBoxGroupButton
 								value="composer"
 								label={t("roles:composer")}
-								disabled={mode === "equal"}
+								disabled={copyrightSplit.mode === "equal"}
 							/>
 							<CheckBoxGroupButton value="mixer" label={t("roles:mixer")} />
 						</Column>
 					</Row>
 				</CheckBoxGroup>
 				<Row of="component" valign="center">
-					{mode === "manual" && (
+					{copyrightSplit.mode === "manual" && (
 						<>
 							<Slider
 								min={0}
-								max={100}
+								max={sharesTotal}
 								color={colorByIndex(i)}
 								step={0.01}
-								value={sharesPercents.get(share.shareHolderId)}
-								onChange={(value) => share.setValue("shares", value)}
+								value={share.shares}
+								onChange={(value) =>
+									copyrightSplit.updateShare(share.id, value)
+								}
 							/>
-							<Text bold>
-								{formatPercentage(sharesPercents.get(share.shareHolderId), 2)}
-							</Text>
+							<PercentageInput
+								value={share.percent}
+								digits={2}
+								onChange={(percentage) =>
+									copyrightSplit.updateShare(
+										share.id,
+										(percentage * sharesTotal) / 100
+									)
+								}
+							/>
 						</>
 					)}
-					{mode !== "manual" && (
+					{copyrightSplit.mode !== "manual" && (
 						<>
 							<ProgressBar
-								progress={sharesPercents.get(share.shareHolderId)}
+								progress={share.percent}
 								size="xsmall"
 								style={{ flex: 1 }}
 								color={colorByIndex(i)}
 							/>
-							<Text bold>
-								{formatPercentage(sharesPercents.get(share.shareHolderId), 2)}
-							</Text>
+							<Text bold>{formatPercentage(share.percent)}</Text>
 						</>
 					)}
 				</Row>
@@ -120,8 +138,8 @@ const CopyrightForm = observer(() => {
 				</Column>
 				<Column of="group">
 					<RadioGroup
-						value={mode}
-						onChange={(mode) => copyright.setValue("mode", mode)}
+						value={copyrightSplit.mode}
+						onChange={(mode) => runInAction(() => (copyrightSplit.mode = mode))}
 					>
 						<Column of="component">
 							<RadioGroupButton
@@ -159,14 +177,14 @@ const CopyrightForm = observer(() => {
 				flex={1}
 				align="center"
 				onLayout={(e) =>
-					copyright.setValue("chartSize", e.nativeEvent.layout.width)
+					runInAction(() => (pageState.chartSize = e.nativeEvent.layout.width))
 				}
 			>
-				{shares.length > 0 && mode === "roles" && (
-					<DualSplitChart {...chartProps} />
+				{sharesData.length > 0 && copyrightSplit.mode === "roles" && (
+					<DualSplitChart {...pageState.genChartProps(copyrightSplit.mode)} />
 				)}
-				{shares.length > 0 && mode !== "roles" && (
-					<SplitChart {...chartProps} />
+				{sharesData.length > 0 && copyrightSplit.mode !== "roles" && (
+					<SplitChart {...pageState.genChartProps(copyrightSplit.mode)} />
 				)}
 			</Column>
 		</Row>
