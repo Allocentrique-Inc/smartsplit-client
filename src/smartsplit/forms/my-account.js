@@ -7,16 +7,19 @@ import { Platform } from "../../platform"
 import { Group, Hairline, Flex, Row, Column, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
-import { TextField, Select, CheckBox, PhoneNumberField } from "../../forms"
+import { TextField, Select, CheckBox } from "../../forms"
+import { PhoneNumberField } from "../../forms/phone-number"
 import Button from "../../widgets/button"
 import ConfirmPhoneModal from "../../pages/dashboard/confirm-phone"
 import { MailList } from "../components/mail-list"
 import { Status } from "../../utils/enums"
 import Label from "../../forms/label"
 import { observer } from "mobx-react"
+import { toJS } from "mobx"
 
 export default observer(function MyAccount({ title }) {
 	const { t, i18n } = useTranslation()
+	const model = useStorePath("settings", "profile")
 	const emails = useStorePath("settings", "emails", "list")
 	console.log(emails)
 	function handleLanguageChange(language) {
@@ -31,13 +34,16 @@ export default observer(function MyAccount({ title }) {
 				<>
 					<Row of="component">
 						<Select
-							name="locale"
-							label={t("forms:labels.dropdowns.language")}
+							value={model.locale.value}
+							label={t(model.locale.label)}
 							options={[
 								{ key: "fr", value: "Français" },
 								{ key: "en", value: "English" },
 							]}
-							onChange={handleLanguageChange}
+							onChange={(lang) => {
+								model.locale.setValue(lang)
+								handleLanguageChange(lang)
+							}}
 						/>
 						<Flex />
 					</Row>
@@ -56,7 +62,7 @@ export default observer(function MyAccount({ title }) {
 	)
 })
 
-export function MobilePhoneRow() {
+export const MobilePhoneRow = observer(() => {
 	const { t, i18n } = useTranslation()
 	const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
 
@@ -67,6 +73,7 @@ export function MobilePhoneRow() {
 
 	//	const hasChanged = (mobilePhone.number || "") !== inputNumber
 	const model = useStorePath("settings", "profile", "mobilePhone")
+	console.log(toJS(model))
 	function savePhoneNumber() {
 		if (model.number.isDirty || model.status.value === "unverified") {
 			user
@@ -93,7 +100,7 @@ export function MobilePhoneRow() {
 				onChangeText={(v) => model.number.setValue(v)}
 				value={model.number.value}
 			/>
-
+			<Text>{model.number.value}</Text>
 			<Row flex={1}>
 				{(model.number.isDirty || model.status.value === "unverified") && (
 					<Button
@@ -111,4 +118,4 @@ export function MobilePhoneRow() {
 			</Row>
 		</Label>
 	)
-}
+})

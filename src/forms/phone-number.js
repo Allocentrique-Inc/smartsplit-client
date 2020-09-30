@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next"
 import MoreHorizontal from "../../assets/svg/more-horizontal.svg"
 import CheckMark from "../svg/check-mark"
 import { Colors } from "../theme"
-
+import { observer } from "mobx-react"
 export const StatusIcon = {
 	unverified: <MoreHorizontal />,
 	pending: <MoreHorizontal />,
@@ -14,9 +14,9 @@ export const StatusIcon = {
 	verified: <CheckMark color={Colors.action} />,
 }
 
-export function PhoneNumberField(props) {
+export const PhoneNumberField = observer((props) => {
 	const { value, onChangeText, status, after, ...nextProps } = props
-
+	console.log(`value in Phone number field is ${toDisplayNumber(value)}`)
 	const { t } = useTranslation()
 
 	const [currentValue, setCurrentValue] = useState(value || "")
@@ -74,7 +74,7 @@ export function PhoneNumberField(props) {
 			}
 		/>
 	)
-}
+})
 
 export function toInternational(number) {
 	if (!number) return

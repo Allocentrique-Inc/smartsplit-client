@@ -175,9 +175,9 @@ export const forms = {
 		organisations: "My organizations",
 		groups: "Groups",
 		dropdowns: {
-			language: "Langue",
-			phone: "Téléphone mobile",
-			juridiction: "Juridiction",
+			language: "Language",
+			phone: "Mobile Phone",
+			juridiction: "Jurisdiction",
 			addCollaborator: "Add a collaborator",
 			createCollaborator: "Create a new collaborator",
 			createContributor: "Create a new contributor",

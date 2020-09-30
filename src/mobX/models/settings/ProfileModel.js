@@ -25,11 +25,18 @@ export default class ProfileModel extends BaseModel {
 		type: FieldType.string,
 	})
 
+	@observable locale = new Field(this, "locale", {
+		label: "forms:labels.dropdowns.language",
+		required: true,
+		type: FieldType.string,
+	})
+
 	@observable address = new Field(this, "address", {
 		type: FieldType.string,
 	})
 
 	@observable birthDate = new Field(this, "birthDate", {
+		label: "forms:labels.myBirthday",
 		type: FieldType.date,
 	})
 
@@ -41,10 +48,12 @@ export default class ProfileModel extends BaseModel {
 	})
 
 	@observable ISNI = new Field(this, "ISNI", {
+		label: "forms:labels.isniNO",
 		type: FieldType.string,
 	})
 
 	@observable URI = new Field(this, "URI", {
+		label: "forms:labels.myUri",
 		type: FieldType.string,
 	})
 
