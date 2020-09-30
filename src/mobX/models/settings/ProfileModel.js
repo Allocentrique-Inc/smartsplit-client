@@ -2,6 +2,7 @@ import BaseModel, { FieldType, Field } from "../../BaseModel"
 import { observable, action, computed, runInAction } from "mobx"
 import NotificationsModel from "./NotificationsModel"
 import PhoneModel from "./PhoneModel"
+import { updateUser } from "../../../../api/users"
 export default class ProfileModel extends BaseModel {
 	@observable user_id = new Field(this, "user_id", {
 		type: FieldType.string,
@@ -9,13 +10,13 @@ export default class ProfileModel extends BaseModel {
 	})
 	@observable firstName = new Field(this, "firstName", {
 		label: "forms:labels.usualFirstName",
-		required: true,
+
 		type: FieldType.string,
 	})
 
 	@observable lastName = new Field(this, "lastName", {
 		label: "forms:labels.usualLastName",
-		required: true,
+
 		type: FieldType.string,
 	})
 
@@ -27,7 +28,7 @@ export default class ProfileModel extends BaseModel {
 
 	@observable locale = new Field(this, "locale", {
 		label: "forms:labels.dropdowns.language",
-		required: true,
+
 		type: FieldType.string,
 	})
 
@@ -41,18 +42,22 @@ export default class ProfileModel extends BaseModel {
 	})
 
 	@observable companies = new Field(this, "companies", {
+		pseudo: true,
 		type: FieldType.collection,
 	})
 	@observable identifiers = new Field(this, "identifiers", {
+		pseudo: true,
 		type: FieldType.map,
 	})
 
 	@observable ISNI = new Field(this, "ISNI", {
+		pseudo: true,
 		label: "forms:labels.isniNO",
 		type: FieldType.string,
 	})
 
 	@observable URI = new Field(this, "URI", {
+		pseudo: true,
 		label: "forms:labels.myUri",
 		type: FieldType.string,
 	})
@@ -60,6 +65,22 @@ export default class ProfileModel extends BaseModel {
 	@observable notifications = new NotificationsModel(this)
 
 	@observable mobilePhone = new PhoneModel(this)
+
+	/**
+	 * this model never creates uses
+	 */
+	@action async save(...args) {
+		await this.validate()
+		console.log(this.toJS())
+		if (this.isValid) {
+			console.log("profile model is valid! woohoo! party on the server!")
+			try {
+				return updateUser(this.toJS())
+			} catch (e) {
+				this.saveError = e.message
+			}
+		}
+	}
 }
 
 export const IdentifierTypes = {

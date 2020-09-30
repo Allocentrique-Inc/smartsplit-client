@@ -19,10 +19,10 @@ declare interface FieldOptions {
 	/**
 	 * marks a field as primary.
 	 *
-	 * NxModel.primaryKey will be set to this field.
-	 * NxModel.save will either 'create' or 'modify'
+	 * Model.primaryKey will be set to this field.
+	 * Model.save will either 'create' or 'modify'
 	 * if the field's value > 0 'modify' will be used
-	 * @see NxModel.save
+	 * @see Model.save
 	 */
 	primary?: boolean;
 
@@ -38,10 +38,10 @@ declare interface FieldOptions {
 	 * argument of the model instance for multiple
 	 * field checking
 	 *
-	 * @param {NxModel} model the instance of the model
+	 * @param {Model} model the instance of the model
 	 * @returns {boolean} true if the field is required
 	 */
-	required?: boolean | ((model: NxModel) => boolean);
+	required?: boolean | ((model: Model) => boolean);
 
 	/**
 	 * the error message to display if the field is empty and required
@@ -56,19 +56,19 @@ declare interface FieldOptions {
 	 * most common use for asynchronous validation
 	 *
 	 * @param {*} value the value of the field
-	 * @param {NxModel} model the instance of the model
+	 * @param {Model} model the instance of the model
 	 * @returns {Promise<null|string>} a promise that resolves to null or an error message lang key
 	 */
-	unique?: (value: any, model: NxModel) => Promise<null | string>;
+	unique?: (value: any, model: Model) => Promise<null | string>;
 
 	/**
 	 * an asynchronous validation method that returns a promise
 	 *
 	 * @param {*} value the value of the field
-	 * @param {NxModel} model the instance of the model
+	 * @param {Model} model the instance of the model
 	 * @returns {Promise<null|string>} a promise that resolves to null or an error message lang key
 	 */
-	asyncValidation?: (value: any, model?: NxModel) => Promise<null | string>;
+	asyncValidation?: (value: any, model?: Model) => Promise<null | string>;
 
 	/**
 	 * set this to true to peform Async validation as well as synchronous validation when the field
@@ -83,10 +83,10 @@ declare interface FieldOptions {
 	 * to be able to use other field values in the validation
 	 *
 	 * @param {*} value the value of the field
-	 * @param {NxModel} model the instance of the model
+	 * @param {Model} model the instance of the model
 	 * @returns {null|string} null means the field is valid, the string is the error message. it should be a lang key
 	 */
-	validation?: (value: any, model: NxModel) => null | string;
+	validation?: (value: any, model: Model) => null | string;
 
 	/**
 	 * use this property for fields marked as readonly only
@@ -94,7 +94,7 @@ declare interface FieldOptions {
 	 * for default values use the 'default' property
 	 * value can either be a static value or a function that returns the value
 	 */
-	value?: any | ((model: NxModel) => any);
+	value?: any | ((model: Model) => any);
 
 	/**
 	 * the initial value of a field that is NOT readonly
@@ -123,10 +123,20 @@ declare interface FieldOptions {
 	 * @see FieldOptions.format
 	 *
 	 * @param {*} value the value of the field
-	 * @param {NxModel} model the instance of the model
+	 * @param {Model} model the instance of the model
 	 * @returns {*} the transformed value
 	 */
-	transform?: (value: any, model: NxModel) => any;
+	transform?: (value: any, model: Model) => any;
+	/**
+	 * a function to format the input every time it is set
+	 *
+	 * the value changes as one types and is formatted directly in the field
+	 *
+	 * @param {*} value the value of the field
+	 * @param {Model} model the instance of the model
+	 * @returns {*} the formatted value
+	 */
+	format?: (value: any, model: Model) => any;
 
 	/**
 	 * the help text associated with the field
@@ -142,17 +152,17 @@ declare interface FieldOptions {
 	 * a function executed every time the field's setValue(v) function is executed
 	 *
 	 * @param {*} value the value of the field
-	 * @param {NxModel} model the instance of the model
+	 * @param {Model} model the instance of the model
 	 */
-	onSet?: (value: any, model: NxModel) => {};
+	onSet?: (value: any, model: Model) => {};
 
 	/**
 	 * a function executed only when the values of the model are initialized
 	 *
 	 * @param {*} value the value of the field
-	 * @param {NxModel} model the instance of the model
+	 * @param {Model} model the instance of the model
 	 */
-	onInit?: (value: any, model: NxModel) => {};
+	onInit?: (value: any, model: Model) => {};
 }
 
 export const FieldType = {
@@ -218,7 +228,7 @@ export const FieldType = {
 }
 
 /**
- * A class that is used within models that derive from NxModel
+ * A class that is used within models that derive from Model
  * to define properties as fields that we ultimately want to
  * post to the API
  *
@@ -226,7 +236,7 @@ export const FieldType = {
 export default class Field {
 	/**
 	 *
-	 * @param {NxModel} model pass 'this' to the constructor fo the Field
+	 * @param {Model} model pass 'this' to the constructor fo the Field
 	 * @param {string} fieldName must be identical to the property that is being defined
 	 * @param {FieldOptions} options the meta data of the field
 	 */
@@ -324,7 +334,7 @@ export default class Field {
 
 	/**
 	 * a reference to the parent model
-	 * @type {NxModel}
+	 * @type {Model}
 	 */
 	model: Model = null
 
@@ -398,7 +408,7 @@ export default class Field {
 	requiredMessage: string = "errors:requiredField"
 
 	/**
-	 * the name of the field. used by NxModel.fields()
+	 * the name of the field. used by Model.fields()
 	 * @type {string}
 	 */
 	fieldName: string
@@ -429,16 +439,16 @@ export default class Field {
 
 	/**
 	 * the function that determines if a field is required
-	 * @param model {NxModel}
+	 * @param model {Model}
 	 * @return {boolean}
 	 */
-	requiredFunction: (model: NxModel) => boolean = (model) => false
+	requiredFunction: (model: Model) => boolean = (model) => false
 
 	/**
 	 * the validation function set by FieldOptions.validation
 	 * @return {null|string}
 	 */
-	validator: (value: any, model: NxModel) => undefined | null | string = (
+	validator: (value: any, model: Model) => undefined | null | string = (
 		value,
 		model
 	) => null
@@ -449,7 +459,7 @@ export default class Field {
 	 * @param value
 	 * @return {*}
 	 */
-	transform: (value: any, model?: NxModel) => any = (value) => value
+	transform: (value: any, model?: Model) => any = (value) => value
 
 	/**
 	 * a function that changes the value or formats the value each time setValue(v) is called
@@ -457,20 +467,20 @@ export default class Field {
 	 * @param value
 	 * @return {*}
 	 */
-	format: (model?: NxModel) => any = (value) => value
+	format: (model?: Model) => any = (value) => value
 
 	/**
 	 * an event handler called when the value is set. this is executed with the new value produced
 	 * by format(v,model). tyoically this event handler is used to set other field values
 	 * @param value
 	 */
-	onSet: (model?: NxModel) => any = (value) => {}
+	onSet: (model?: Model) => any = (value) => {}
 
 	/**
 	 * an event handler called when the value is initialized.
 	 * @param value
 	 */
-	onInit: (model?: NxModel) => any = (value) => {}
+	onInit: (model?: Model) => any = (value) => {}
 
 	/**
 	 * method to initialize the value.
@@ -827,7 +837,7 @@ export default class Field {
 	 * @param model
 	 * @return {Promise<null>}
 	 */
-	asyncValidator: (value: string, model: NxModel) => Promise<string> = async (
+	asyncValidator: (value: string, model: Model) => Promise<string> = async (
 		value,
 		model
 	) => null

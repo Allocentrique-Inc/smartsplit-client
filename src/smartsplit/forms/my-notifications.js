@@ -96,7 +96,7 @@ export default observer(function MyNotifications() {
 					<WebNotificationCheckBoxes
 						title={t("settings:tab.interactions.title")}
 						subtitle={"settings:tab.interactions.subTitle"}
-						field={model.general_interactions}
+						field={model.general_interations}
 					/>
 					<WebNotificationCheckBoxes
 						title={t("settings:tab.administration.title")}

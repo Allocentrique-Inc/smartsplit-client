@@ -49,6 +49,14 @@ export default class BaseModel {
 	}
 
 	/**
+	 * used when a child model's submit property is different than GET property
+	 *
+	 * the property in the JS object output for submitting will use the postAlias if set
+	 * @type {null}
+	 */
+	postAlias = null
+
+	/**
 	 * a list fields populated by individual Field constructors which add themselves to this
 	 * array when the model is constructed. value is accessed by function BaseModel.fields()
 	 *
@@ -156,7 +164,8 @@ export default class BaseModel {
 			Object.keys(this).forEach((k) => {
 				console.dir(this[k])
 				if (this[k] && typeof this[k] === "object" && this[k].isModel) {
-					js[k] = this[k].toJS()
+					let key = this[k].postAlias ? this[k].postAlias : k
+					js[key] = this[k].toJS()
 				}
 			})
 		return js

@@ -41,4 +41,9 @@ export default class SettingsState extends BaseState {
 		this.profile.init(toJS(user.data))
 		console.log(this.profile.toJS())
 	}
+
+	@action async saveProfile() {
+		console.log("saving profile")
+		await this.profile.save()
+	}
 }

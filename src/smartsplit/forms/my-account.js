@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import MoreHorizontal from "../../../assets/svg/more-horizontal.svg"
+import CheckMark from "../../svg/check-mark"
 //import { useStorePath } from "../../appstate/react"
 import { useStores, useStorePath } from "../../mobX"
 import { useTranslation } from "react-i18next"
@@ -23,7 +25,11 @@ export default observer(function MyAccount({ title }) {
 	const emails = useStorePath("settings", "emails", "list")
 	console.log(emails)
 	function handleLanguageChange(language) {
-		i18n.changeLanguage(language)
+		try {
+			i18n.changeLanguage(language)
+		} catch (e) {
+			console.error(e)
+		}
 	}
 
 	return (
@@ -34,7 +40,9 @@ export default observer(function MyAccount({ title }) {
 				<>
 					<Row of="component">
 						<Select
+							initialValue={model.locale.value}
 							value={model.locale.value}
+							placeholder={model.locale.value === "en" ? "English" : "Français"}
 							label={t(model.locale.label)}
 							options={[
 								{ key: "fr", value: "Français" },
@@ -95,14 +103,29 @@ export const MobilePhoneRow = observer(() => {
 			of="component"
 			error={error}
 		>
-			<PhoneNumberField
+			{/*<PhoneNumberField
 				status={model.number.isPristine && model.status.value}
 				onChangeText={(v) => model.number.setValue(v)}
 				value={model.number.value}
+			/>*/}
+			<TextField
+				field={model.number}
+				onKeyPress={(e) => {
+					if (e.key === "Escape") {
+						model.number.reset()
+						e.target.blur()
+					}
+				}}
+				after={
+					model.numberChanged ? (
+						<MoreHorizontal />
+					) : (
+						<CheckMark color={Colors.action} />
+					)
+				}
 			/>
-			<Text>{model.number.value}</Text>
 			<Row flex={1}>
-				{(model.number.isDirty || model.status.value === "unverified") && (
+				{model.numberChanged && (
 					<Button
 						secondary
 						bold

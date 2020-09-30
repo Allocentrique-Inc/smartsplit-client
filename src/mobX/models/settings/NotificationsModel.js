@@ -3,7 +3,7 @@ import { observable, action, computed, runInAction } from "mobx"
 import { NotificationValidator } from "../validators"
 
 export default class NotificationsModel extends BaseModel {
-	@observable general_interactions = new Field(this, "general_interactions", {
+	@observable general_interations = new Field(this, "general_interations", {
 		type: FieldType.set,
 		validation: NotificationValidator,
 		ui: { email: true, push: true, sms: true },
