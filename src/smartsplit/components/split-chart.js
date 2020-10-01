@@ -164,7 +164,6 @@ function useTooltips(data, slices, center) {
 	const [tooltipData, setTooltipData] = useState(TooltipInitialState)
 	const centerVectors = generateShareCenterVectors(slices, center)
 	function handleFocus(key) {
-		console.log(data)
 		const shareHolder = data.filter((shareHolder) => shareHolder.key === key)[0]
 		setTooltipData({
 			vector: centerVectors.get(key),

@@ -1,17 +1,16 @@
-import React, { useRef, useState, useLayoutEffect } from "react"
+import React, { useRef, useState } from "react"
 import ProgressBar from "./progress-bar"
 import { Colors, Metrics } from "../theme"
 import {
 	View,
 	StyleSheet,
 	PanResponder,
-	Animated,
 	TouchableWithoutFeedback,
 } from "react-native"
-import { observable, observe } from "mobx"
+import { observable, reaction } from "mobx"
 import { observer } from "mobx-react"
 import { assignEnumProps, capValueWithinRange } from "../utils/utils"
-import { useInterpolator } from "../utils/hooks"
+import { useInterpolators } from "../utils/hooks"
 
 const Styles = StyleSheet.create({
 	handleContainer: {
@@ -31,7 +30,7 @@ const Styles = StyleSheet.create({
 	},
 
 	touchBarContainer: {
-		width: "100%",
+		flex: 1,
 		paddingTop: Metrics.spacing.small,
 		paddingBottom: Metrics.spacing.small,
 		cursor: "pointer",
@@ -54,9 +53,10 @@ const Slider = observer(
 		min = 0,
 		max = 100,
 		value,
-		onChange = () => {},
+		onChange,
 		disabled,
 		color,
+		step,
 		vertical,
 	}) => {
 		const [barLayout] = useState(() =>
@@ -67,10 +67,27 @@ const Slider = observer(
 				heigth: 0,
 			})
 		)
-		let [valueToDp, dpToValue] = useInterpolator(
+		let [valueToDp, dpToValue] = useInterpolators(
 			[min, max],
 			[0, vertical ? barLayout.height : barLayout.width]
 		)
+		let dpStep = step ? valueToDp(step) : 1
+
+		// Update interpolators and dpStep bar layout change
+		reaction(
+			() => {
+				return { ...barLayout }
+			},
+			() => {
+				;[valueToDp, dpToValue] = useInterpolators(
+					[min, max],
+					[0, vertical ? barLayout.height : barLayout.width]
+				)
+
+				dpStep = step ? valueToDp(step) : 1
+			}
+		)
+
 		const [touchOffset] = useState(() => observable.box(0))
 		const containerRef = useRef(null)
 		const [handlePosition] = useState(() => observable.box(0))
@@ -86,14 +103,6 @@ const Slider = observer(
 		function onBarLayout() {
 			containerRef.current.measure((fx, fy, width, height, px, py) => {
 				assignEnumProps(barLayout, { px, py, width, height })
-				valueToDp = useInterpolator(
-					[min, max],
-					[0, vertical ? barLayout.height : barLayout.width]
-				)[0]
-				dpToValue = useInterpolator(
-					[min, max],
-					[0, vertical ? barLayout.height : barLayout.width]
-				)[0]
 				if (value && value > 0) handlePosition.set(valueToDp(value))
 			})
 		}
@@ -107,18 +116,20 @@ const Slider = observer(
 		}
 
 		function onHandleMove(gestureState) {
-			const distance =
-				(vertical ? gestureState.dy : gestureState.dx) + touchOffset.get()
-			handlePosition.set(
-				capValueWithinRange(distance, [
-					0,
-					vertical ? barLayout.height : barLayout.width,
-				])
+			const position = capValueWithinRange(
+				(vertical ? gestureState.dy : gestureState.dx) + touchOffset.get(),
+				[0, vertical ? barLayout.height : barLayout.width]
 			)
+			handlePosition.set(position)
+
+			// Trigger onChange only when accumulated distance is
+			// around a multiple of dpStep
+			if (Math.abs(gestureState.dx % dpStep) < 0.05) {
+				onChange(dpToValue(position))
+			}
 		}
 
 		function onTouchRelease() {
-			onChange(dpToValue(handlePosition.get()))
 			touchOffset.set(0)
 		}
 
@@ -129,6 +140,7 @@ const Slider = observer(
 					? e.nativeEvent.pageY - barLayout.py
 					: e.nativeEvent.pageX - barLayout.px
 			)
+			onChange(dpToValue(handlePosition.get()))
 		}
 
 		return (

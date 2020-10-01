@@ -86,7 +86,7 @@ export function SettingsPageFull() {
 	const { t } = useTranslation()
 	const history = useHistory()
 	//const form = useForm()
-  const settings = useStorePath('settings')
+	const settings = useStorePath("settings")
 	return (
 		<SubScreenLayout
 			title={<SettingsPageTitle />}
@@ -95,9 +95,9 @@ export function SettingsPageFull() {
 				<Button
 					tertiary
 					text={t("general:buttons.save")}
-					onClick={async() => {
+					onClick={async () => {
 						//console.log('saving the profile data')
-          await settings.saveProfile()
+						await settings.saveProfile()
 					}}
 				/>
 			}

@@ -48,7 +48,7 @@ export function useDimensions() {
 	return [ref, dimensions]
 }
 
-export function useInterpolator([min0, max0], [min1, max1]) {
+export function useInterpolators([min0, max0], [min1, max1]) {
 	const range0 = max0 - min0
 	const range1 = max1 - min1
 

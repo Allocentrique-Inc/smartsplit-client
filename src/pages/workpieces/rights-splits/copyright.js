@@ -21,21 +21,88 @@ import { useRightSplit } from "../context"
 import { initData } from "../../../mobX/models/workpieces/rights-splits/SplitCopyrightModel"
 import { useSplitsPagesState } from "../../../mobX/hooks"
 import { colorByIndex } from "../../../mobX/states/SplitsPagesState"
+import ProgressBar from "../../../widgets/progress-bar"
+import { formatPercentage } from "../../../utils/utils"
+import Slider from "../../../widgets/slider"
+
 const CopyrightForm = observer(() => {
 	const split = useRightSplit("copyright")
 	const { copyright } = useSplitsPagesState()
-	const { shares, mode, sharesValues } = copyright
+	const { shares, mode, sharesPercents, chartProps } = copyright
 	const { t } = useTranslation()
-
 	function addShareHolder(id) {
-		if (id && !split.hasOwnProperty(id)) {
+		if (id && !split.shareHolders.has(id)) {
 			split.addRightHolder(id, initData)
 		}
 	}
 
-	const totalShares = sharesValues
-		.map((share) => share.shares)
-		.reduce((a, n) => a + n, 0)
+	function renderShareCards() {
+		return shares.map((share, i) => (
+			<ShareCard
+				key={share.shareHolderId}
+				shareHolderId={share.shareHolderId}
+				color={colorByIndex(i)}
+				sharePercent={sharesPercents.get(share.shareHolderId)}
+				onClose={() => split.removeRightHolder(share.shareHolderId)}
+				manual={mode === "manual"}
+			>
+				<CheckBoxGroup
+					selection={share.roles.value}
+					onChange={(roles) => shares[i].setValue("roles", roles)}
+				>
+					<Row>
+						<Column flex={1} of="component">
+							<CheckBoxGroupButton
+								value="author"
+								label={t("roles:author")}
+								disabled={mode === "equal"}
+							/>
+							<CheckBoxGroupButton value="adapter" label={t("roles:adapter")} />
+						</Column>
+						<Column flex={1} of="component">
+							<CheckBoxGroupButton
+								value="composer"
+								label={t("roles:composer")}
+								disabled={mode === "equal"}
+							/>
+							<CheckBoxGroupButton value="mixer" label={t("roles:mixer")} />
+						</Column>
+					</Row>
+				</CheckBoxGroup>
+				<Row of="component" valign="center">
+					{mode === "manual" && (
+						<>
+							<Slider
+								min={0}
+								max={100}
+								color={colorByIndex(i)}
+								step={0.01}
+								value={sharesPercents.get(share.shareHolderId)}
+								onChange={(value) => share.setValue("shares", value)}
+							/>
+							<Text bold>
+								{formatPercentage(sharesPercents.get(share.shareHolderId), 2)}
+							</Text>
+						</>
+					)}
+					{mode !== "manual" && (
+						<>
+							<ProgressBar
+								progress={sharesPercents.get(share.shareHolderId)}
+								size="xsmall"
+								style={{ flex: 1 }}
+								color={colorByIndex(i)}
+							/>
+							<Text bold>
+								{formatPercentage(sharesPercents.get(share.shareHolderId), 2)}
+							</Text>
+						</>
+					)}
+				</Row>
+			</ShareCard>
+		))
+	}
+
 	return (
 		<Row>
 			<Column of="section" flex={1}>
@@ -72,47 +139,7 @@ const CopyrightForm = observer(() => {
 						</Column>
 					</RadioGroup>
 					<Column of="component">
-						{sharesValues.map((share, i) => (
-							<ShareCard
-								key={share.shareHolderId}
-								shareHolderId={share.shareHolderId}
-								color={colorByIndex(i)}
-								sharePercent={
-									share.shares > 0 ? (100 * share.shares) / totalShares : 0
-								}
-								onClose={() => split.removeRightHolder(share.shareHolderId)}
-							>
-								<CheckBoxGroup
-									selection={share.roles}
-									onChange={(roles) => shares[i].setValue("roles", roles)}
-								>
-									<Row>
-										<Column flex={1} of="component">
-											<CheckBoxGroupButton
-												value="author"
-												label={t("roles:author")}
-												disabled={mode === "equal"}
-											/>
-											<CheckBoxGroupButton
-												value="adapter"
-												label={t("roles:adapter")}
-											/>
-										</Column>
-										<Column flex={1} of="component">
-											<CheckBoxGroupButton
-												value="composer"
-												label={t("roles:composer")}
-												disabled={mode === "equal"}
-											/>
-											<CheckBoxGroupButton
-												value="mixer"
-												label={t("roles:mixer")}
-											/>
-										</Column>
-									</Row>
-								</CheckBoxGroup>
-							</ShareCard>
-						))}
+						{renderShareCards()}
 						<AddCollaboratorDropdown
 							onSelect={addShareHolder}
 							label={t("document:creation.roles.authors")}
@@ -136,10 +163,10 @@ const CopyrightForm = observer(() => {
 				}
 			>
 				{shares.length > 0 && mode === "roles" && (
-					<DualSplitChart {...copyright.chartProps} />
+					<DualSplitChart {...chartProps} />
 				)}
 				{shares.length > 0 && mode !== "roles" && (
-					<SplitChart {...copyright.chartProps} />
+					<SplitChart {...chartProps} />
 				)}
 			</Column>
 		</Row>

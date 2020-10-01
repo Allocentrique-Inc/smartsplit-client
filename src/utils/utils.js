@@ -1,5 +1,4 @@
 import React from "react"
-import { Text } from "../text"
 import { Metrics } from "../theme"
 
 export const Origin = {
@@ -81,7 +80,7 @@ export function highlightMatchedStrings(str, pattern) {
 	return [...splits]
 		.map((el, index) => {
 			if (index < splits.length - 1) {
-				return [el, <b>{matchs[index]}</b>]
+				return [el, <b key={index}>{matchs[index]}</b>]
 			} else if (el !== "") {
 				return [el]
 			}

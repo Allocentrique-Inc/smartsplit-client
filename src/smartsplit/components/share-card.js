@@ -1,12 +1,10 @@
 import React from "react"
 import { Column, Hairline, Row, Spacer } from "../../layout"
 import { Colors } from "../../theme"
-import HelpCircleFull from "../../svg/help-circle-full"
 import UserAvatar from "../user/avatar"
 import { Text } from "../../text"
-import ProgressBar from "../../widgets/progress-bar"
 import { TouchableWithoutFeedback, View, StyleSheet } from "react-native"
-import { formatPercentage, getFullName } from "../../utils/utils"
+import { getFullName } from "../../utils/utils"
 import { CardStyles } from "../../widgets/card"
 import { useTranslation } from "react-i18next"
 import XIcon from "../../svg/x"
@@ -31,13 +29,11 @@ const styles = StyleSheet.create({
 const ShareCard = observer(
 	({
 		shareHolderId,
-		sharePercent,
-		tip,
 		children,
 		actions,
-		color,
 		error,
 		onClose,
+		bottomAction,
 		...nextProps
 	}) => {
 		const { t } = useTranslation()
@@ -50,7 +46,6 @@ const ShareCard = observer(
 
 		isAuthUser && addStyle("frame_yourself")
 		error && addStyle("frame_error")
-		color = color || Colors.action
 		return (
 			<>
 				<Row
@@ -61,11 +56,7 @@ const ShareCard = observer(
 				>
 					<Column valign="spread" align="center">
 						<UserAvatar size="small" user={userData} />
-						<TouchableWithoutFeedback>
-							<View>
-								<HelpCircleFull />
-							</View>
-						</TouchableWithoutFeedback>
+						{bottomAction}
 					</Column>
 					<Column flex={1} of="component">
 						<Row align="spread">
@@ -86,15 +77,6 @@ const ShareCard = observer(
 						</Row>
 						<Hairline />
 						{children}
-						<Row of="component" valign="center">
-							<ProgressBar
-								progress={sharePercent}
-								size="xsmall"
-								style={{ flex: 1 }}
-								color={color}
-							/>
-							<Text bold>{formatPercentage(sharePercent, 1)}</Text>
-						</Row>
 					</Column>
 				</Row>
 				<Spacer of="inside" />

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { TouchableWithoutFeedback } from "react-native"
 import { Svg, Rect, Path } from "react-native-svg"
 
-import { Column, forEachChildren, Row } from "../layout"
+import { Column, Row } from "../layout"
 import { Text } from "../text"
 import { Colors, Metrics } from "../theme"
 import FormStyles from "../styles/forms"
