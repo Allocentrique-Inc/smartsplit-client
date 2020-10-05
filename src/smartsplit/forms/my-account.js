@@ -13,7 +13,7 @@ import { TextField, Select, CheckBox } from "../../forms"
 import { PhoneNumberField } from "../../forms/phone-number"
 import Button from "../../widgets/button"
 import ConfirmPhoneModal from "../../pages/dashboard/confirm-phone"
-import { MailList } from "../components/mail-list"
+import { EmailManager } from "../components/EmailManager"
 import { Status } from "../../utils/enums"
 import Label from "../../forms/label"
 import { observer } from "mobx-react"
@@ -61,11 +61,7 @@ export default observer(function MyAccount({ title }) {
 			)}
 
 			{Platform.native && <PhoneNumberField label={t("forms:labels.phone")} />}
-			<MailList
-				label={t("forms:labels.myEmails")}
-				emails={emails}
-				description={t("forms:descriptions.myEmails")}
-			/>
+			<EmailManager />
 		</Column>
 	)
 })

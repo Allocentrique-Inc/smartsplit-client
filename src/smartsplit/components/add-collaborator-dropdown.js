@@ -54,7 +54,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 				</TouchableWithoutFeedback>
 			</Autocomplete>
 			<AddCollaboratorModal
-				visible={collaborators.editing}
+				visible={collaborators.adding}
 				onRequestClose={() => collaborators.cancel()}
 				onAdded={(result) => {
 					console.log(result)

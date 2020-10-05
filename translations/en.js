@@ -96,6 +96,7 @@ export const test = {
 export const errors = {
 	enterEmail: "Please enter your email address",
 	invalidEmail: "Email address is invalid",
+	emailAlreadyYours: "Email is already yours",
 	strengthPassword: "The password must include at least 8 characters",
 	samePasswords: "Both passwords must be identical",
 	invalidToken:
@@ -387,6 +388,18 @@ export const settings = {
 			title: "Partners' promotions",
 			subTitle: "Get our partners' offers",
 		},
+	},
+	emailVerificationModal: {
+		title: "Add a new email address to your account",
+		body: (email) => (
+			<>
+				<>
+					We've sent you an email to <b>{email}</b> to validate the address and
+					add it to your <i>Smartsplit</i> account.
+				</>
+				<>If you do not receive an email, please check your spam !</>
+			</>
+		),
 	},
 
 	emailVerificationSent: (email) => (

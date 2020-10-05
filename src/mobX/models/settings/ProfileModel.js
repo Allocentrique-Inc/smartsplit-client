@@ -3,6 +3,7 @@ import { observable, action, computed, runInAction } from "mobx"
 import NotificationsModel from "./NotificationsModel"
 import PhoneModel from "./PhoneModel"
 import { updateUser } from "../../../../api/users"
+import ProfessionalIdentityModel from "./ProfessionalIdentityModel"
 export default class ProfileModel extends BaseModel {
 	@observable user_id = new Field(this, "user_id", {
 		type: FieldType.string,
@@ -65,6 +66,8 @@ export default class ProfileModel extends BaseModel {
 	@observable notifications = new NotificationsModel(this)
 
 	@observable mobilePhone = new PhoneModel(this)
+
+	@observable professional_identity = new ProfessionalIdentityModel(this)
 
 	/**
 	 * this model never creates uses
