@@ -45,5 +45,7 @@ export default class SettingsState extends BaseState {
 	@action async saveProfile() {
 		//console.log("saving profile")
 		await this.profile.save()
+		await this.root.auth.user.read()
+		this.load(this.root.auth.user_id)
 	}
 }

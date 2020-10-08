@@ -65,7 +65,7 @@ export default function NewUser() {
 					size={buttonSize}
 					onClick={async () => {
 						let profile = await settings.saveProfile()
-						history.replace("/")
+						history.push("/")
 					}}
 				/>
 			</Row>

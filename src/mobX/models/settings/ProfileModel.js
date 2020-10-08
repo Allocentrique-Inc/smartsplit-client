@@ -6,10 +6,14 @@ import { updateUser } from "../../../../api/users"
 import ProfessionalIdentityModel from "./ProfessionalIdentityModel"
 export default class ProfileModel extends BaseModel {
 	@observable avatar = new Field(this, "avatar", {
-		pseudo: true,
 		type: FieldType.string,
 	})
+	/**
+	 * avatar URL is used only for display purposes
+	 * @type {Field}
+	 */
 	@observable avatarUrl = new Field(this, "avatarUrl", {
+		pseudo: true,
 		type: FieldType.string,
 	})
 	@observable user_id = new Field(this, "user_id", {
