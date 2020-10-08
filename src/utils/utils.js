@@ -102,3 +102,9 @@ export function getFullName(user) {
 export function assignEnumProps(target, source) {
 	Object.keys(target).forEach((key) => (target[key] = source[key]))
 }
+
+export function capValueWithinRange(value: number, range: number[]) {
+	if (value < range[0]) return range[0]
+	if (value > range[1]) return range[1]
+	return value
+}

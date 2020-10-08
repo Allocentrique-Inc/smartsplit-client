@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Column, Row, Section, Spacer } from "../../layout"
 import { PieChart } from "../../widgets/pie-chart"
+import Slider from "../../widgets/slider"
 import { useTranslation } from "react-i18next"
 import {
 	AdminList,
@@ -23,10 +24,13 @@ import { CheckBoxGroup, CheckBoxGroupButton } from "../../forms/checkbox"
 
 export default function WidgetTests() {
 	return (
-		<Column of="group">
+		<Column of="group" padding="large">
 			<PieChartTests />
 			<AdminListTest />
 			{/*<ShareCardTest />*/}
+			<Row style={{ width: 300 }}>
+				<Slider value={40} />
+			</Row>
 		</Column>
 	)
 }
@@ -109,10 +113,10 @@ function PieChartTests() {
 	const simpleData = data.slice(0, 4)
 	return (
 		<Column of="group" align="center">
-			<PieChart data={simpleData} size={512} />
-			<PieChart data={simpleData} size={512} clockwise />
-			<SplitChart data={data} logo={CircledP} />
-			<SplitChart data={data} logo={CircledC} />
+			{/*<PieChart data={simpleData} size={512} />*/}
+			{/*<PieChart data={simpleData} size={512} clockwise />*/}
+			{/*<SplitChart data={data} logo={CircledP} />*/}
+			{/*<SplitChart data={data} logo={CircledC} />*/}
 			<DualSplitChart
 				dataRight={data}
 				dataLeft={data}
