@@ -12,11 +12,12 @@ import Button from "../../widgets/button"
 import { PictureCropModal } from "../../widgets/picture-crop"
 import { useStorePath } from "../../mobX"
 import { observer } from "mobx-react"
+import ProfileModel from "../../mobX/models/settings/ProfileModel"
 export default observer(function MyProfile({ title }) {
 	const { t } = useTranslation()
-	const model = useStorePath("settings", "profile")
-	const avatar = useFormField("avatar")
-	const avatarUrl = useFormField("avatarUrl")
+	const model: ProfileModel = useStorePath("settings", "profile")
+	const avatar = model.avatar
+	const avatarUrl = model.avatarUrl
 
 	const avatarImg = useMemo(() => {
 		if (avatar.value) {
@@ -38,7 +39,7 @@ export default observer(function MyProfile({ title }) {
 	const [showPictureCrop, setShowPictureCrop] = useState(false)
 
 	function setAvatar(image) {
-		avatar.value = image.split(",", 2)[1]
+		avatar.setValue(image.split(",", 2)[1])
 	}
 
 	Platform.native &&

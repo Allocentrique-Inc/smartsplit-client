@@ -5,6 +5,13 @@ import PhoneModel from "./PhoneModel"
 import { updateUser } from "../../../../api/users"
 import ProfessionalIdentityModel from "./ProfessionalIdentityModel"
 export default class ProfileModel extends BaseModel {
+	@observable avatar = new Field(this, "avatar", {
+		pseudo: true,
+		type: FieldType.string,
+	})
+	@observable avatarUrl = new Field(this, "avatarUrl", {
+		type: FieldType.string,
+	})
 	@observable user_id = new Field(this, "user_id", {
 		type: FieldType.string,
 		primary: true,
@@ -74,9 +81,9 @@ export default class ProfileModel extends BaseModel {
 	 */
 	@action async save(...args) {
 		await this.validate()
-		console.log(this.toJS())
+		//console.log(this.toJS())
 		if (this.isValid) {
-			console.log("profile model is valid! woohoo! party on the server!")
+			//console.log("profile model is valid! woohoo! party on the server!")
 			try {
 				return updateUser(this.toJS())
 			} catch (e) {

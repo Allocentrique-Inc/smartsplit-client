@@ -185,10 +185,10 @@ function InfoBar() {
 	const { t } = useTranslation()
 
 	const { workpiece_id, type } = useParams()
-	console.log(workpiece_id)
+	//console.log(workpiece_id)
 	const { workpieces } = useStores()
 	const workpiece = workpieces.list[workpiece_id].data
-	console.log(workpiece)
+	//console.log(workpiece)
 	return (
 		<Row
 			of="group"

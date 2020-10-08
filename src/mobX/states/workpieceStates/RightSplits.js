@@ -134,7 +134,7 @@ export class RightSplit {
 			throw new Error("Cannot add share: this user already has a share")
 		}
 		const newShare = new this.shareModel()
-		console.log("INIT SHARE", share)
+		//console.log("INIT SHARE", share)
 		newShare.init(share)
 		this.shareHolders.set(id, newShare)
 	}

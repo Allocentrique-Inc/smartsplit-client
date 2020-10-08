@@ -19,7 +19,7 @@ export default class PhoneNumberState extends BaseState {
 	@action async load(userId) {
 		if (!userId) return
 		this.loading = true
-		console.log("EmailState user_id changed")
+		//console.log("EmailState user_id changed")
 		try {
 			// let list = await getEmails(userId)
 			runInAction(() => {
@@ -27,7 +27,7 @@ export default class PhoneNumberState extends BaseState {
 				this.loading = false
 			})
 		} catch (e) {
-			console.log(e)
+			//console.log(e)
 			runInAction(() => {
 				this.loading = false
 			})

@@ -33,12 +33,12 @@ export const CheckBoxGroup = observer((props) => {
 		...nextProps
 	} = props
 	if (field) {
-		console.log("checkbox group passed field")
+		//console.log("checkbox group passed field")
 		error = t(field.error)
 		label = t(field.label)
 		selection = field.value
 		onChange = (v) => {
-			console.log(`setting value to ${v}`)
+			//console.log(`setting value to ${v}`)
 			field.setValue(v)
 		}
 	}

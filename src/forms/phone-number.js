@@ -16,7 +16,7 @@ export const StatusIcon = {
 
 export const PhoneNumberField = observer((props) => {
 	let { value, onChangeText, status, after, ...nextProps } = props
-	console.log(`value in Phone number field is ${toDisplayNumber(value)}`)
+	//console.log(`value in Phone number field is ${toDisplayNumber(value)}`)
 	const { t } = useTranslation()
 
 	const [currentValue, setCurrentValue] = useState(value || "")

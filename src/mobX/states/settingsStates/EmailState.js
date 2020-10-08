@@ -7,6 +7,7 @@ export default class EmailState extends BaseState {
 	list = []
 
 	@observable adding = false
+	@observable added = false
 	@observable model: EmailModel = new EmailModel(null, [])
 	async init(...args) {
 		//this.model.init()
@@ -19,30 +20,34 @@ export default class EmailState extends BaseState {
 		)
 	}
 	@action new() {
-		console.log("new email dialog")
+		//console.log("new email dialog")
 		this.adding = true
 		this.model = new EmailModel(null, this.list)
 		this.model.init()
 	}
 	@action cancel() {
 		this.adding = false
+		this.added = false
 		this.model.reset()
+	}
+	@action complete() {
+		this.cancel()
 	}
 	@action async submit() {
 		await this.model.validate()
 		if (this.model.isValid) {
 			try {
 				let response = await addEmail(this.root.auth.user_id, this.model.toJS())
-				console.log(response)
+				//console.log(response)
 			} catch (e) {
-				console.log(e)
+				//console.log(e)
 			}
 		}
 	}
 	@action async load(userId) {
 		if (!userId) return
 		this.loading = true
-		console.log("EmailState user_id changed")
+		//console.log("EmailState user_id changed")
 		try {
 			let list = await getEmails(userId)
 			runInAction(() => {
@@ -51,7 +56,7 @@ export default class EmailState extends BaseState {
 				this.loading = false
 			})
 		} catch (e) {
-			console.log(e)
+			//console.log(e)
 			runInAction(() => {
 				this.loading = false
 			})

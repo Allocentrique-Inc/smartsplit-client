@@ -16,7 +16,7 @@ export default class Documentation {
 	@observable release = new DocReleaseModel()
 	constructor(workpiece, docsData) {
 		this.workpiece = workpiece
-		console.log("intializing the creation model")
+		//console.log("intializing the creation model")
 		this.creation.init()
 		this.performance.init()
 		this.lyrics.init()

@@ -37,13 +37,13 @@ export default class SettingsState extends BaseState {
 	@action load(userId) {
 		if (!userId) return
 		let user = this.root.auth.user
-		console.log(toJS(user))
+		//console.log(toJS(user))
 		this.profile.init(toJS(user.data))
-		console.log(this.profile.toJS())
+		//console.log(this.profile.toJS())
 	}
 
 	@action async saveProfile() {
-		console.log("saving profile")
+		//console.log("saving profile")
 		await this.profile.save()
 	}
 }

@@ -21,7 +21,7 @@ export default function CreateWorkModal(props) {
 	const history = useHistory()
 	const workpieces = useStorePath("workpieces")
 	const model: WorkpieceModel = useStorePath("workpieces", "model")
-	console.log(workpieces)
+	//console.log(workpieces)
 	//const [acrModal, setAcrModal] = useState(false)
 	//	const [workName, setWorkName] = useState("")
 	//	const [workType, setWorkType] = useState(null)
@@ -51,7 +51,7 @@ export default function CreateWorkModal(props) {
 							let newPiece = await workpieces.submit()
 							if (newPiece) {
 								//	props.onRequestClose();
-								console.log(newPiece)
+								//console.log(newPiece)
 								props.onRequestClose()
 								history.push("/workpieces/" + newPiece.workpiece_id)
 							}

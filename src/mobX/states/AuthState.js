@@ -41,6 +41,30 @@ export default class AuthState extends BaseState {
 	@observable
 	isReturning = false
 
+	@save
+	@observable
+	ignoreNewUser = false
+
+	@computed get goToNewUser() {
+		if (this.accessToken) {
+			console.log("logged in")
+			if (
+				this.user.data.firstName ||
+				this.user.data.lastName ||
+				this.user.artistName
+			) {
+				console.log("has a name")
+				return false
+			}
+
+			return !this.ignoreNewUser
+		}
+		return false
+	}
+	@action skipIntro() {
+		this.ignoreNewUser = true
+	}
+
 	@session
 	@observable
 	accessToken = null

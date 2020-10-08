@@ -36,11 +36,11 @@ export function useDocsModel(workpieceId, type) {
 export function useArtistAutocomplete(): (string, number) => [] {
 	const { collaborators, contributors, users } = useStores()
 	const collabList = JSON.parse(JSON.stringify(toJS(collaborators.list)))
-	console.log(collabList)
+	//console.log(collabList)
 	const contribList = JSON.parse(JSON.stringify(toJS(contributors.list)))
-	console.log(contribList)
+	//console.log(contribList)
 	const usersList = JSON.parse(JSON.stringify(toJS(users.list)))
-	console.log(usersList)
+	//console.log(usersList)
 	function exists(arr: Array, name) {
 		let _exists = false
 		arr.forEach((el) => {
@@ -52,7 +52,7 @@ export function useArtistAutocomplete(): (string, number) => [] {
 	return (search: string, max: number = 10) => {
 		let returnList = []
 		if (!search) return returnList
-		console.log(search)
+		//console.log(search)
 		///
 		/// first get collaborators that match
 		///
@@ -64,7 +64,7 @@ export function useArtistAutocomplete(): (string, number) => [] {
 
 		returnList = filteredCollabs
 		if (returnList.length === max) return returnList
-		console.log(returnList)
+		//console.log(returnList)
 
 		///
 		/// next get contributors that match
@@ -79,7 +79,7 @@ export function useArtistAutocomplete(): (string, number) => [] {
 		)
 
 		returnList = returnList.concat(filteredContribs)
-		console.log(returnList)
+		//console.log(returnList)
 		if (returnList.length >= max) return returnList.splice(0, max)
 
 		///

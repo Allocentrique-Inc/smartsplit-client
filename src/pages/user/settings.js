@@ -96,7 +96,7 @@ export function SettingsPageFull() {
 					tertiary
 					text={t("general:buttons.save")}
 					onClick={async() => {
-						console.log('saving the profile data')
+						//console.log('saving the profile data')
           await settings.saveProfile()
 					}}
 				/>

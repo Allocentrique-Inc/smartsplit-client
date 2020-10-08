@@ -391,15 +391,8 @@ export const settings = {
 	},
 	emailVerificationModal: {
 		title: "Add a new email address to your account",
-		body: (email) => (
-			<>
-				<>
-					We've sent you an email to <b>{email}</b> to validate the address and
-					add it to your <i>Smartsplit</i> account.
-				</>
-				<>If you do not receive an email, please check your spam !</>
-			</>
-		),
+		sent:
+			"We've sent you an email to validate the address. Please check your inbox.",
 	},
 
 	emailVerificationSent: (email) => (

@@ -162,7 +162,7 @@ export default class BaseModel {
 
 		if (this.children.length)
 			Object.keys(this).forEach((k) => {
-				console.dir(this[k])
+				//console.dir(this[k])
 				if (this[k] && typeof this[k] === "object" && this[k].isModel) {
 					let key = this[k].postAlias ? this[k].postAlias : k
 					js[key] = this[k].toJS()
@@ -278,7 +278,7 @@ export default class BaseModel {
 	setFields(model) {
 		this.fields().forEach((field) => {
 			if (this[field]) {
-				console.log(`SET VALUE ${field}`, this[field], model[field])
+				//console.log(`SET VALUE ${field}`, this[field], model[field])
 				this[field].setValue(model[field].value)
 			}
 		})
@@ -359,9 +359,9 @@ export default class BaseModel {
 	 * @returns {Promise<*|void>}
 	 */
 	async save(...args) {
-		console.log("save called")
+		//console.log("save called")
 		if (this.isNew) {
-			console.log("attempting to create")
+			//console.log("attempting to create")
 			try {
 				return this.create(...args)
 			} catch (e) {
@@ -369,7 +369,7 @@ export default class BaseModel {
 				return false
 			}
 		} else {
-			console.log("attempting to update")
+			//console.log("attempting to update")
 			try {
 				return this.update(...args)
 			} catch (e) {

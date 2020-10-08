@@ -132,7 +132,7 @@ export class Authentication extends Observable {
 	}
 
 	logout(error = null) {
-		console.log("old-logout being called")
+		//console.log("old-logout being called")
 		this.set({
 			isLoading: false,
 			isLoggedIn: false,

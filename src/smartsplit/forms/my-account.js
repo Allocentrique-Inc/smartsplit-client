@@ -23,7 +23,7 @@ export default observer(function MyAccount({ title }) {
 	const { t, i18n } = useTranslation()
 	const model = useStorePath("settings", "profile")
 	const emails = useStorePath("settings", "emails", "list")
-	console.log(emails)
+	//console.log(emails)
 	function handleLanguageChange(language) {
 		try {
 			i18n.changeLanguage(language)
@@ -77,7 +77,7 @@ export const MobilePhoneRow = observer(() => {
 
 	//	const hasChanged = (mobilePhone.number || "") !== inputNumber
 	const model = useStorePath("settings", "profile", "mobilePhone")
-	console.log(toJS(model))
+	//console.log(toJS(model))
 	function savePhoneNumber() {
 		if (model.number.isDirty || model.status.value === "unverified") {
 			user
