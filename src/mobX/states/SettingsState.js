@@ -35,10 +35,18 @@ export default class SettingsState extends BaseState {
 	@observable profile: ProfileModel
 
 	@action load(userId) {
-		if (!userId) return
-		let user = this.root.auth.user
-		//console.log(toJS(user))
-		this.profile.init(toJS(user.data))
+		if (userId) {
+			let user = this.root.auth.user
+			let data = toJS(user.data)
+			try {
+				if (!data.lastName && data.firstName === data.email.split("@")[0])
+					data.firstName = ""
+			} catch {}
+			console.log(data)
+			this.profile.init(data)
+		} else {
+			this.profile.init()
+		}
 		//console.log(this.profile.toJS())
 	}
 

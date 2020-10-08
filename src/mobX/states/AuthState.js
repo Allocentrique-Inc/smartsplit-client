@@ -21,6 +21,7 @@ import ChangePasswordModel from "../models/auth/ChangePasswordModel"
 export default class AuthState extends BaseState {
 	//history
 	reInitializeOnAuth = false
+
 	constructor(root) {
 		super(root)
 		this.tokenChanged = reaction(
@@ -32,7 +33,9 @@ export default class AuthState extends BaseState {
 		)
 		setGlobalErrorHandler((e) => this.logout(e))
 	}
+
 	tokenChanged
+
 	@observable isLoading = false
 	@observable error = null
 	@observable isLoggedIn = null
@@ -53,8 +56,12 @@ export default class AuthState extends BaseState {
 				this.user.data.lastName ||
 				this.user.artistName
 			) {
-				console.log("has a name")
-				return false
+				if (
+					!this.user.data.lastName &&
+					this.user.data.firstName === this.user.data.email.split("@")[0]
+				)
+					return !this.ignoreNewUser
+				else return false
 			}
 
 			return !this.ignoreNewUser

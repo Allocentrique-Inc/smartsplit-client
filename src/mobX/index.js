@@ -1,5 +1,5 @@
 import React from "react"
-import { isObservable, observable, runInAction, when } from "mobx"
+import { isObservable, observable, runInAction, when, toJS } from "mobx"
 import TestCountState from "./states/TestCountState"
 import TestState from "./states/TestState"
 import UserState from "./states/UserState"
@@ -60,6 +60,7 @@ class RootStore {
 const stores = new RootStore()
 export const storesContext = React.createContext(stores)
 window.stores = stores
+window.toJS = toJS
 
 /**
  * Le hook principal pour accéder aux stores

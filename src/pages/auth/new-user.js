@@ -32,7 +32,7 @@ export default function NewUser() {
 
 	function skipStep() {
 		auth.skipIntro()
-		history.replace("/")
+		history.push("/dashboard/")
 	}
 
 	return (
