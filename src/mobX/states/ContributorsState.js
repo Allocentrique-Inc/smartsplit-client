@@ -46,7 +46,7 @@ export default class ContributorsState extends BaseState {
 	}
 	@action async load() {
 		this.loading = true
-		console.log("user_id changed")
+		//console.log("user_id changed")
 		// await api call to load and
 		runInAction(() => {
 			// set list

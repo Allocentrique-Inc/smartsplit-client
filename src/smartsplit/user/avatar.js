@@ -4,15 +4,23 @@ import { View, Image } from "react-native"
 import UserStyles from "./styles"
 import { Text } from "../../text"
 
-export default function UserAvatar({ size, user, picture, border, initials }) {
+export default function UserAvatar({
+	size,
+	user,
+	picture,
+	border,
+	initials,
+	field,
+}) {
 	const sizeStyle =
 		size in UserStyles.avatar_size
 			? UserStyles.avatar_size[size]
 			: UserStyles.avatar_size.medium
 
 	const small = ["small", "xsmall", "tiny"].includes(size)
-
-	if (user) {
+	if (field) {
+		picture = { uri: field.value }
+	} else if (user) {
 		if (!picture) {
 			picture = { uri: user.avatarUrl }
 		} else if (!initials && user) {

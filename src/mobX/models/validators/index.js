@@ -68,3 +68,23 @@ export function samePasswordValidator(value, model) {
 		return "errors:samePasswords"
 	}
 }
+
+/**
+ * bitwise combination value :
+ *  1 2 4 (BIT)
+ *  -------------------
+ *  0 0 0 none                  = 0
+ *  1 0 0 email only            = 1
+ *  0 1 0 mobile only           = 2
+ *  1 1 0 email + mobile        = 3
+ *  0 0 1 sms only              = 4
+ *  1 0 1 email + sms           = 5
+ *  0 1 1 mobile + sms          = 6
+ *  1 1 1 email, mobile + sms   = 7
+ 
+ * @return {string || null}
+ */
+export function NotificationValidator(v) {
+	if (v > 7 || v < 0) return "invalid_notification_setting"
+	else return null
+}

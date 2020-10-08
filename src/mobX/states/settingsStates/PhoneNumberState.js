@@ -1,7 +1,6 @@
 import { observable, reaction, action, runInAction, toJS } from "mobx"
 import BaseState, { save } from "../../BaseState"
-import { getEmails } from "../../../../api/enails"
-export default class EmailState extends BaseState {
+export default class PhoneNumberState extends BaseState {
 	@observable
 	list = []
 
@@ -20,15 +19,15 @@ export default class EmailState extends BaseState {
 	@action async load(userId) {
 		if (!userId) return
 		this.loading = true
-		console.log("EmailState user_id changed")
+		//console.log("EmailState user_id changed")
 		try {
-			let list = await getEmails(userId)
+			// let list = await getEmails(userId)
 			runInAction(() => {
-				this.list = list.data
+				//this.list = list.data
 				this.loading = false
 			})
 		} catch (e) {
-			console.log(e)
+			//console.log(e)
 			runInAction(() => {
 				this.loading = false
 			})

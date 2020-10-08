@@ -16,9 +16,25 @@ const formats = [
 
 export function DateField(props) {
 	const [isValid, setIsValid] = useState(false)
-	const { value, onChangeText, placeholder, ...nextProps } = props
-	const [error, setError] = useState(null)
+
+	let {
+		fieldError,
+		field,
+		label,
+		value,
+		onChangeText,
+		placeholder,
+		...nextProps
+	} = props
 	const { t } = useTranslation()
+	if (field) {
+		onChangeText = (v) => {
+			field.setValue(v)
+		}
+		fieldError = field.model.validated && field.error
+		label = t(field.label)
+	}
+	const [error, setError] = useState(null)
 
 	function handleOnBlur() {
 		const parsedDate = moment(value, formats)
@@ -46,11 +62,12 @@ export function DateField(props) {
 		<TextField
 			keyboardType="phone-pad"
 			value={isValid ? toDisplayDate(value) : value}
-			error={error || props.error}
+			error={error || fieldError}
 			onChangeText={onChangeText}
 			onFocus={handleOnFocus}
 			onBlur={handleOnBlur}
 			placeholder={placeholder ? placeholder : defaultPlaceholder}
+			label={label}
 			{...nextProps}
 		/>
 	)

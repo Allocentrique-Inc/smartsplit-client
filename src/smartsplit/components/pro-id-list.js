@@ -51,7 +51,7 @@ export function ProIdList(props) {
 			<Column of="component">
 				{description && <Paragraph>{description}</Paragraph>}
 				<Row>
-					<Column padding="component" layer="left_overground" />
+					{/*<Column padding="component" layer="left_overground" />*/}
 					<Column of="group">
 						{proIds && renderList()}
 						<Row>

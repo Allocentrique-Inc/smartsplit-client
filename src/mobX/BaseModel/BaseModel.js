@@ -49,6 +49,14 @@ export default class BaseModel {
 	}
 
 	/**
+	 * used when a child model's submit property is different than GET property
+	 *
+	 * the property in the JS object output for submitting will use the postAlias if set
+	 * @type {null}
+	 */
+	postAlias = null
+
+	/**
 	 * a list fields populated by individual Field constructors which add themselves to this
 	 * array when the model is constructed. value is accessed by function BaseModel.fields()
 	 *
@@ -139,13 +147,27 @@ export default class BaseModel {
 	 * @returns {{}}
 	 */
 	toJS(excludePrimary = false) {
+		// this is our return object
 		const js = {}
+
+		//now we add all our fields
 		this.__submittable.forEach((k) => {
 			if (excludePrimary && k === this.primaryKey) return
 			const value = toJS(this[k].transform(this[k].value, this))
 			if (this[k].postAlias) js[this[k].postAlias] = value
 			else js[k] = toJS(this[k].transform(this[k].value, this))
 		})
+
+		//additionally any properties that are models
+
+		if (this.children.length)
+			Object.keys(this).forEach((k) => {
+				//console.dir(this[k])
+				if (this[k] && typeof this[k] === "object" && this[k].isModel) {
+					let key = this[k].postAlias ? this[k].postAlias : k
+					js[key] = this[k].toJS()
+				}
+			})
 		return js
 	}
 
@@ -256,7 +278,7 @@ export default class BaseModel {
 	setFields(model) {
 		this.fields().forEach((field) => {
 			if (this[field]) {
-				console.log(`SET VALUE ${field}`, this[field], model[field])
+				//console.log(`SET VALUE ${field}`, this[field], model[field])
 				this[field].setValue(model[field].value)
 			}
 		})
@@ -337,9 +359,9 @@ export default class BaseModel {
 	 * @returns {Promise<*|void>}
 	 */
 	async save(...args) {
-		console.log("save called")
+		//console.log("save called")
 		if (this.isNew) {
-			console.log("attempting to create")
+			//console.log("attempting to create")
 			try {
 				return this.create(...args)
 			} catch (e) {
@@ -347,7 +369,7 @@ export default class BaseModel {
 				return false
 			}
 		} else {
-			console.log("attempting to update")
+			//console.log("attempting to update")
 			try {
 				return this.update(...args)
 			} catch (e) {

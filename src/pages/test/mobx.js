@@ -13,7 +13,7 @@ export default observer(function mobx() {
 	const { counts, test } = useStores()
 	const level1 = useStorePath("test", "deep", "level1")
 	const { count, squared, increment, decrement } = useStorePath("counts")
-	console.log(counts)
+	//console.log(counts)
 	return (
 		<Section of="group">
 			<Heading level="1">Tests de MobX</Heading>
