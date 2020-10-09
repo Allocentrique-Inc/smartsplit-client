@@ -1,5 +1,5 @@
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View } from "react-native"
 import MetricsStyles from "./styles/metrics"
 import LayoutStyles from "./styles/layout"
 import LayerStyles from "./styles/layers"

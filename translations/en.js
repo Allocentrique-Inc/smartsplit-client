@@ -96,6 +96,7 @@ export const test = {
 export const errors = {
 	enterEmail: "Please enter your email address",
 	invalidEmail: "Email address is invalid",
+	emailAlreadyYours: "Email is already yours",
 	strengthPassword: "The password must include at least 8 characters",
 	samePasswords: "Both passwords must be identical",
 	invalidToken:
@@ -175,9 +176,9 @@ export const forms = {
 		organisations: "My organizations",
 		groups: "Groups",
 		dropdowns: {
-			language: "Langue",
-			phone: "Téléphone mobile",
-			juridiction: "Juridiction",
+			language: "Language",
+			phone: "Mobile Phone",
+			juridiction: "Jurisdiction",
 			addCollaborator: "Add a collaborator",
 			createCollaborator: "Create a new collaborator",
 			createContributor: "Create a new contributor",
@@ -387,6 +388,11 @@ export const settings = {
 			title: "Partners' promotions",
 			subTitle: "Get our partners' offers",
 		},
+	},
+	emailVerificationModal: {
+		title: "Add a new email address to your account",
+		sent:
+			"We've sent you an email to validate the address. Please check your inbox.",
 	},
 
 	emailVerificationSent: (email) => (

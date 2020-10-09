@@ -1,35 +1,61 @@
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { Group } from "../../layout"
+import { Column, Group } from "../../layout"
 import { DialogModal } from "../../widgets/modal"
 import { mapFragment } from "../../utils/react"
-import { Text } from "../../text"
+import { Paragraph, Text } from "../../text"
 import { Button } from "../../widgets/button"
-
-export default function NewEmailModal(props) {
+import EmailState from "../../mobX/states/settingsStates/EmailState"
+import EmailModel from "../../mobX/models/settings/EmailModel"
+import TextField from "../../forms/text"
+import { useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
+export default observer(function NewEmailModal(props) {
 	const { t } = useTranslation()
-
+	const emailState: EmailState = useStorePath("settings", "emails")
+	const model: EmailModel = useStorePath("settings", "emails", "model")
+	//console.log(model)
 	return (
 		<DialogModal
-			visible={props.visible}
-			onRequestClose={props.onRequestClose}
+			visible={emailState.adding}
+			onRequestClose={() => {
+				emailState.cancel()
+			}}
 			title={t("settings:emailVerificationModal.title")}
 			buttons={
-				<Button
-					primary
-					text={t("general:buttons.comprendo")}
-					onClick={props.onRequestClose}
-				/>
+				emailState.added ? (
+					<>
+						<Button
+							primary
+							text={t("general:buttons.comprendo")}
+							onClick={() => emailState.complete()}
+						/>
+					</>
+				) : (
+					<>
+						<Button
+							primary
+							text={t("general:buttons.cancel")}
+							onClick={() => emailState.cancel()}
+						/>
+						<Button
+							primary
+							text={t("general:buttons.add")}
+							onClick={() => emailState.submit()}
+						/>
+					</>
+				)
 			}
 		>
 			<Group>
-				{mapFragment(
-					t("settings:emailVerificationModal.body")(props.email),
-					(p) => (
-						<Text>{p}</Text>
-					)
-				)}
+				<Column of="group">
+					{emailState.added ? (
+						<Paragraph>{t("settings:emailVerificationModal.sent")}</Paragraph>
+					) : (
+						<TextField field={model.email} />
+					)}
+				</Column>
 			</Group>
 		</DialogModal>
 	)
-}
+})

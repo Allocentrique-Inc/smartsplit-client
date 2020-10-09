@@ -72,38 +72,38 @@ const CreationForm = observer(() => {
 	const { contributors } = useStores()
 	const model: DocCreationModel = useDocsModel(workpieceId, "creation")
 	window.creationModel = model
-	console.log(toJS(contributors.list))
+	//console.log(toJS(contributors.list))
 
 	const getResults = useArtistAutocomplete()
 
-	console.log(search)
+	//console.log(search)
 	const searchResults = getResults(search, 10)
-	console.log(searchResults)
+	//console.log(searchResults)
 
 	// filter them further so that ones already selected in each case
 	// do not appear again
 
 	const authorSearchResults = searchResults.filter((contributor) => {
-		console.log(typeof toJS(model.authors.value))
+		//console.log(typeof toJS(model.authors.value))
 		if (contributor.user_id)
 			if (model.authors.value[contributor.user_id]) {
-				console.log(`${contributor.user_id} is already in model.author`)
+				//console.log(`${contributor.user_id} is already in model.author`)
 				return false
 			} else {
-				console.log(`no ${contributor.user_id} is not in model.author`)
+				//console.log(`no ${contributor.user_id} is not in model.author`)
 				return true
 			}
 		if (contributor.id)
 			if (model.authors.value[contributor.id]) {
-				console.log(`${contributor.id} is already in model.author`)
+				//console.log(`${contributor.id} is already in model.author`)
 				return false
 			} else {
-				console.log(`no ${contributor.id} is not in model.author`)
+				//console.log(`no ${contributor.id} is not in model.author`)
 				return true
 			}
 	})
 
-	console.log(authorSearchResults)
+	//console.log(authorSearchResults)
 	const composerSearchResults = searchResults.filter(
 		(contributor) => !model.composers.value[contributor.id]
 	)
@@ -185,7 +185,7 @@ const CreationForm = observer(() => {
 						onSearchChange={setSearch}
 						onSelect={(selection) => {
 							console.dir(toJS(selection))
-							console.log(`the selection from add contributor dropdown was ^^`)
+							//console.log(`the selection from add contributor dropdown was ^^`)
 							model.composers.setItem(selection.id, selection)
 							setSearch("")
 						}}
@@ -210,7 +210,7 @@ const CreationForm = observer(() => {
 						onSearchChange={setSearch}
 						onSelect={(selection) => {
 							console.dir(toJS(selection))
-							console.log(`the selection from add contributor dropdown was ^^`)
+							//console.log(`the selection from add contributor dropdown was ^^`)
 							model.editors.setItem(selection.id, selection)
 							setSearch("")
 						}}

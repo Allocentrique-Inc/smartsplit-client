@@ -20,11 +20,11 @@ export default function LockIcon(props) {
 				strokeLinejoin="round"
 			/>
 			<Path
-				d="M7 11V7.00003C6.99876 5.76008 7.45828 4.5639 8.28938 3.6437C9.12047 2.7235 10.2638 2.14493 11.4975 2.02032C12.7312 1.89571 13.9671 2.23393 14.9655 2.96934"
+				d="M7 11V7C7 5.67392 7.52678 4.40215 8.46447 3.46447C9.40215 2.52678 10.6739 2 12 2C13.3261 2 14.5979 2.52678 15.5355 3.46447C16.4732 4.40215 17 5.67392 17 7V11"
 				stroke={color}
 				strokeWidth="2"
 				strokeLinecap="round"
-				strokeLinejoin="round"
+				stroke-linejoin="round"
 			/>
 		</Svg>
 	)

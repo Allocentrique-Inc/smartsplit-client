@@ -24,7 +24,7 @@ export default function useImagePicker() {
 				else setImage(result)
 			})
 			.catch((error) => {
-				console.log("Error selecting picture:", error)
+				//console.log("Error selecting picture:", error)
 				setImageError(error)
 			})
 	}

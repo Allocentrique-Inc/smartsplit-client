@@ -1,5 +1,4 @@
 import React from "react"
-import { Text } from "../text"
 import { Metrics } from "../theme"
 
 export const Origin = {
@@ -81,7 +80,7 @@ export function highlightMatchedStrings(str, pattern) {
 	return [...splits]
 		.map((el, index) => {
 			if (index < splits.length - 1) {
-				return [el, <b>{matchs[index]}</b>]
+				return [el, <b key={index}>{matchs[index]}</b>]
 			} else if (el !== "") {
 				return [el]
 			}
@@ -101,4 +100,10 @@ export function getFullName(user) {
 
 export function assignEnumProps(target, source) {
 	Object.keys(target).forEach((key) => (target[key] = source[key]))
+}
+
+export function capValueWithinRange(value: number, range: number[]) {
+	if (value < range[0]) return range[0]
+	if (value > range[1]) return range[1]
+	return value
 }

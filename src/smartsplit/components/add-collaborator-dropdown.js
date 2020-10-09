@@ -57,7 +57,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 				visible={collaborators.editing}
 				onRequestClose={() => collaborators.cancel()}
 				onAdded={(result) => {
-					console.log(result)
+					//console.log(result)
 					onSelect(result.user_id)
 				}}
 			/>

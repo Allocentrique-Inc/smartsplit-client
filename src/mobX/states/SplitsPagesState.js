@@ -14,7 +14,7 @@ class CopyrightState {
 		this.shares = shares
 
 		/**
-		 * reaction that perform roles checking upon
+		 * reaction that performs roles checking upon
 		 * mode change to or from equal
 		 */
 		reaction(
@@ -30,7 +30,7 @@ class CopyrightState {
 		)
 
 		/**
-		 * Reaction that reset this.equalModeInitiated when
+		 * Reaction that resets this.equalModeInitiated when
 		 * adding or removing a shareholder
 		 */
 		reaction(
@@ -58,8 +58,33 @@ class CopyrightState {
 		})
 	}
 
-	@computed get sharesValues() {
-		return this.shares.map((share) => share.toJS())
+	@action updateShare(index, value) {
+		const diff = value - this.shares[index].toJS().shares
+		console.log("DIFFF", diff)
+		this.shares.forEach((share, i) => {
+			if (i === index) {
+				share.setValue(value)
+			} else {
+				share.setValue(share.toJS().shares - diff)
+			}
+		})
+	}
+
+	@computed get sharesPercents() {
+		return new Map(
+			this.shares.map((share) => [
+				share.shareHolderId,
+				share.shares.value > 0
+					? (100 * share.shares.value) / this.sharesTotal
+					: 0,
+			])
+		)
+	}
+
+	@computed get sharesTotal() {
+		return this.shares
+			.map((share) => share.toJS().shares)
+			.reduce((a, n) => a + n, 0)
 	}
 
 	@computed get chartProps() {

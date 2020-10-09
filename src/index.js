@@ -41,10 +41,15 @@ export default observer(function Main(props) {
 })
 
 export function MainRouter() {
+	const { auth } = useStores()
 	return (
 		<Switch>
 			<Route path="/" exact>
-				<Redirect to="/dashboard/" />
+				{auth.goToNewUser ? (
+					<Redirect to={"/auth/new-user"} />
+				) : (
+					<Redirect to="/dashboard/" />
+				)}
 			</Route>
 
 			<Route path="/auth/">

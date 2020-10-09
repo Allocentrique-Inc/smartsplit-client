@@ -45,7 +45,7 @@ function AddContributorDropdown(props) {
 				</TouchableWithoutFeedback>
 			</Autocomplete>
 			<AddContributorModal
-				visible={contributors.editing}
+				visible={contributors.adding}
 				onRequestClose={() => contributors.cancel()}
 				onAdded={(contributor) => {
 					props.onSelect(contributor)
