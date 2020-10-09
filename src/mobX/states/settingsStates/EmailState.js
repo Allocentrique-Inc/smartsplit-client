@@ -38,8 +38,12 @@ export default class EmailState extends BaseState {
 		if (this.model.isValid) {
 			try {
 				let response = await addEmail(this.root.auth.user_id, this.model.toJS())
+				await this.load(this.root.auth.user_id);
+				this.complete();
 				//console.log(response)
 			} catch (e) {
+        await this.load(this.root.auth.user_id);
+        this.complete();
 				//console.log(e)
 			}
 		}
