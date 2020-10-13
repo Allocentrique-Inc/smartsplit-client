@@ -1,37 +1,35 @@
 import React, { useState, useEffect } from "react"
-import { useStorePath } from "../../appstate/react"
+import MoreHorizontal from "../../../assets/svg/more-horizontal.svg"
+import CheckMark from "../../svg/check-mark"
+//import { useStorePath } from "../../appstate/react"
+import { useStores, useStorePath } from "../../mobX"
 import { useTranslation } from "react-i18next"
 import { ScrollView } from "react-native"
 import { Platform } from "../../platform"
 import { Group, Hairline, Flex, Row, Column, NoSpacer } from "../../layout"
 import { Heading, Paragraph, Text } from "../../text"
 import { Colors } from "../../theme"
-import { TextField, Select, CheckBox, PhoneNumberField } from "../../forms"
+import { TextField, Select, CheckBox } from "../../forms"
+import { PhoneNumberField } from "../../forms/phone-number"
 import Button from "../../widgets/button"
 import ConfirmPhoneModal from "../../pages/dashboard/confirm-phone"
-import { MailList } from "../components/mail-list"
+import { EmailManager } from "../components/EmailManager"
 import { Status } from "../../utils/enums"
 import Label from "../../forms/label"
+import { observer } from "mobx-react"
+import { toJS } from "mobx"
 
-export default function MyAccount({ title }) {
+export default observer(function MyAccount({ title }) {
 	const { t, i18n } = useTranslation()
-	const emails = [
-		{
-			email: "main@iptoki.com",
-			status: Status.main,
-		},
-		{
-			email: "active@iptoki.com",
-			status: Status.active,
-		},
-		{
-			email: "pending@iptoki.com",
-			status: Status.pending,
-		},
-	]
-
+	const model = useStorePath("settings", "profile")
+	const emails = useStorePath("settings", "emails", "list")
+	//console.log(emails)
 	function handleLanguageChange(language) {
-		i18n.changeLanguage(language)
+		try {
+			i18n.changeLanguage(language)
+		} catch (e) {
+			console.error(e)
+		}
 	}
 
 	return (
@@ -42,13 +40,18 @@ export default function MyAccount({ title }) {
 				<>
 					<Row of="component">
 						<Select
-							name="locale"
-							label={t("forms:labels.dropdowns.language")}
+							initialValue={model.locale.value}
+							value={model.locale.value}
+							placeholder={model.locale.value === "en" ? "English" : "Français"}
+							label={t(model.locale.label)}
 							options={[
 								{ key: "fr", value: "Français" },
 								{ key: "en", value: "English" },
 							]}
-							onChange={handleLanguageChange}
+							onChange={(lang) => {
+								model.locale.setValue(lang)
+								handleLanguageChange(lang)
+							}}
 						/>
 						<Flex />
 					</Row>
@@ -58,30 +61,27 @@ export default function MyAccount({ title }) {
 			)}
 
 			{Platform.native && <PhoneNumberField label={t("forms:labels.phone")} />}
-			<MailList
-				label={t("forms:labels.myEmails")}
-				emails={emails}
-				description={t("forms:descriptions.myEmails")}
-			/>
+			<EmailManager />
 		</Column>
 	)
-}
+})
 
-export function MobilePhoneRow() {
+export const MobilePhoneRow = observer(() => {
 	const { t, i18n } = useTranslation()
 	const [confirmPhoneModal, setConfirmPhoneModal] = useState(false)
 
 	const user = useStorePath("auth", "user")
-	const mobilePhone = (user.data && user.data.mobilePhone) || {}
-	const [inputNumber, setInputNumber] = useState(mobilePhone.number || "")
+	//const mobilePhone = (user.data && user.data.mobilePhone) || {}
+	//	const [inputNumber, setInputNumber] = useState(mobilePhone.number || "")
 	const [error, setError] = useState(null)
 
-	const hasChanged = (mobilePhone.number || "") !== inputNumber
-
+	//	const hasChanged = (mobilePhone.number || "") !== inputNumber
+	const model = useStorePath("settings", "profile", "mobilePhone")
+	//console.log(toJS(model))
 	function savePhoneNumber() {
-		if (hasChanged || mobilePhone.status === "unverified") {
+		if (model.number.isDirty || model.status.value === "unverified") {
 			user
-				.update({ phoneNumber: inputNumber })
+				.update({ phoneNumber: model.number.value })
 				.then(() => setConfirmPhoneModal(true))
 				.catch((e) => setError(e.message))
 		}
@@ -99,14 +99,29 @@ export function MobilePhoneRow() {
 			of="component"
 			error={error}
 		>
-			<PhoneNumberField
-				status={!hasChanged && mobilePhone.status}
-				onChangeText={setInputNumber}
-				value={inputNumber}
+			{/*<PhoneNumberField
+				status={model.number.isPristine && model.status.value}
+				onChangeText={(v) => model.number.setValue(v)}
+				value={model.number.value}
+			/>*/}
+			<TextField
+				field={model.number}
+				onKeyPress={(e) => {
+					if (e.key === "Escape") {
+						model.number.reset()
+						e.target.blur()
+					}
+				}}
+				after={
+					model.numberChanged ? (
+						<MoreHorizontal />
+					) : (
+						<CheckMark color={Colors.action} />
+					)
+				}
 			/>
-
 			<Row flex={1}>
-				{(hasChanged || mobilePhone.status === "unverified") && (
+				{model.numberChanged && (
 					<Button
 						secondary
 						bold
@@ -122,4 +137,4 @@ export function MobilePhoneRow() {
 			</Row>
 		</Label>
 	)
-}
+})

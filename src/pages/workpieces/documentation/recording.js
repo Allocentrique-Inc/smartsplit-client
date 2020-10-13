@@ -32,62 +32,6 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function Performance() {
-	const { t } = useTranslation()
-	const history = useHistory()
-	const workpiece = useCurrentWorkpiece()
-
-	function saveAndQuit() {
-		history.push("/dashboard/")
-	}
-
-	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
-	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/documentation/release`)
-	}
-
-	return (
-		<Layout
-			workpiece={workpiece}
-			path={[
-				t("document:navbar.document"),
-				t("document:navbar.pages.recording"),
-			]}
-			progress={36.5}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveClose")}
-					onClick={saveAndQuit}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={navigateToSummary}
-						/>
-						<Flex />
-						<Button
-							primary
-							text={t("general:buttons.pass")}
-							onClick={navigateToInterpretation}
-						/>
-					</Row>
-					<Row flex={1} />
-				</>
-			}
-		>
-			<RecordingForm />
-		</Layout>
-	)
-}
-
 export function RecordingForm(props) {
 	const searchResults = ["Inie", "Manie", "Moe"]
 	const [search, setSearch] = useState("")

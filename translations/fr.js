@@ -71,9 +71,6 @@ export const general = {
 		saveClose: "Sauvegarder et fermer",
 		toConsult: "Consulter",
 		toBegin: "Commencer",
-		continue: "Continuer",
-		back: "Retour",
-		saveClose: "Sauvegarder et fermer",
 		pass: "Passer pour l'instant",
 	},
 	update: () => <>Mis à jour il y a </>,
@@ -94,6 +91,10 @@ export const menu = {
 
 export const test = {
 	title: "Test des formulaires",
+	count: "Le total",
+	squared: "Le total au carré",
+	addOne: "Ajouter 1",
+	subOne: "Soustraire 1",
 }
 
 export const errors = {
@@ -117,10 +118,13 @@ export const errors = {
 		emailTaken: "Ce courriel est déjà utilisé. ",
 		forgotEmail: "As-tu oublié ton mot de passe ?",
 	},
+	emailTaken: "Ce courriel est déjà utilisé. ",
+	forgotEmail: "As-tu oublié ton mot de passe ?",
 	invalidCurrentPassword: "Mot de passe actuel incorrect. Veuillez réessayer.",
 	listNotFound: "Liste introuvable",
 	entityNotFound: "Élement de la liste introuvable",
 	entityConflict: "ID déjà utilisé",
+	acceptTerms: "Vous devez accepter les conditions",
 }
 
 export const publicNavbarWeb = {
@@ -178,6 +182,7 @@ export const forms = {
 			juridiction: "Juridiction",
 			addCollaborator: "Ajouter un collaborateur",
 			createCollaborator: "Créer un nouveau collaborateur",
+			createContributor: "Créer un nouveau contributeur",
 		},
 		defaultRoles: "Rôle(s) par défaut",
 	},
@@ -230,7 +235,8 @@ export const forms = {
 		resendConfirmEmail: "Renvoyer le courriel de confirmation",
 		defaultRoles: "Ces rôles pourront toujours être modifiés plus tard.",
 	},
-	addCollabArtist: "[Ajouter/Modifier] un artiste collaborateur",
+	addCollabArtist: "Ajouter un artiste collaborateur",
+	addContributor: "Ajouter un artiste contributeur",
 	options: {
 		defaultRoles: [
 			{
@@ -239,7 +245,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Compositeur",
-				value: "composor",
+				value: "compooer",
 			},
 			{
 				displayValue: "Arrangeur",
@@ -247,7 +253,7 @@ export const forms = {
 			},
 			{
 				displayValue: "Interprète",
-				value: "peformer",
+				value: "performer",
 			},
 			{
 				displayValue: "Mixeur",
@@ -441,6 +447,9 @@ export const admin = {
 		"content-languages": "Langues du contenu",
 		"digital-distributors": "Distributeurs numériques",
 	},
+	entityAttributes: {
+		name: "Nom",
+	},
 	entityCreation: "Création d'une entité",
 	delete: "Supprimer",
 	edit: "Modifier",
@@ -498,13 +507,171 @@ export const identity = {
 	),
 }
 
+export const rightSplits = {
+	navbar: {
+		rightSplits: "Partage des droits",
+		page: "Nom de la page",
+	},
+	titles: {
+		copyright: "Droits d'auteur",
+		performance: "Interprétation",
+		recording: "Enregistrement sonore",
+	},
+	headers: {
+		copyright: "Qui a inventé cette pièce musicale ?",
+		performance: "Qui a joué sur l'enregistrement sonore ?",
+		recording: "Qui possède l'enregistrement sonore ?",
+	},
+
+	paragraphs: {
+		copyright: () => (
+			<>
+				Sépare ici le droit d’auteur entre les créateurs, c’est à dire les
+				auteurs des <b>paroles</b>, les compositeurs et les arrangeurs de la{" "}
+				<b>musique</b>. Il est d’usage de partager le droit d’auteur
+				équitablement. Mais tu peux faire autrement.
+			</>
+		),
+		performance: () => (
+			<>
+				On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
+				autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}
+				se partagent ce droit à parts égales. Les <i>artistes principaux</i> et{" "}
+				<i>artistes invités</i> se partagent 30%, tantdis que les 20% restant
+				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
+			</>
+		),
+		recording: () => (
+			<>
+				<>
+					On sépare ici le <b>droit voisin</b> des <b>producteurs</b>, c'est à
+					dire ceux qui ont investi leur temps et/ou leur argent pour
+					enregistrer et finaliser le produit afin d'être commercialisé.
+				</>
+				<>
+					Il est d'usage de partager ce droit en parts égales ou au prorata de
+					l'investissement.
+				</>
+			</>
+		),
+	},
+
+	radios: {
+		equal: "Partager de façon égale",
+		roles: "Partager selon les rôles",
+		manual: "Gérer manuellement",
+		email: "Par courriel",
+		txt: "Par texto",
+	},
+
+	dropdowns: {
+		addCollab: "Ajouter un collaborateur...",
+		addLabel: "Ajouter un label...",
+		removeCollab: "Retirer ce collaborateur",
+		status: "Sélectionner un status...",
+		function: "Sélectionner une fonction...",
+		agreement: "Durée de l'entente...",
+		remove: "Retirer ce partage",
+		artist: {
+			artist: "Artiste principal",
+			artistDefinition:
+				"Aussi appelé  « Artiste vedette » ou  « Artiste solo ».",
+			artistInvited: () => (
+				<>
+					Artiste invité (<i>featuring</i>)
+				</>
+			),
+			artistInvitedDefinition:
+				"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale.",
+			artistMember: "Membre du groupe",
+			artistMemberDefinition:
+				"Musicien ou chanteur prenant part à l'entité artistique.",
+			artistExtra: "Artiste accompagnateur",
+			artistExtraDefinition:
+				"Interprète engagé pendant les sessions d'enregistrement studio.",
+		},
+		collaboratorsRecording: {
+			producer: "Producteur",
+			producerDefinition:
+				"Investisseur externe (n'étant pas l'artiste ni membre du groupe).",
+			autoProducer: "Auto-producteur",
+			autoProducerDefinition:
+				"Artiste ou membre du groupe s'investissant dans l'enregistrement de la pièce.",
+			directorProducer: "Réalisateur-producteur",
+			directorProducerDefinition:
+				"Artisan s'investissant dans la réalisation et la production de la pièce.",
+			techProducer: "Technicien-producteur",
+			techProducerDefinition:
+				"Technicien s'investissant dans la production de la pièce (mixeur, preneur de son).",
+			studio: "Studio d'enregistrement",
+			studioDefinition:
+				"Entité investissant ses ressources afin d'enregistrer la pièce, contre pourcentage.",
+			illustratorDesigner: "Illustrateur / Graphiste",
+			illustratorDesignerDefinition:
+				"Personne s'investissant dans la création de matériel visuel lié à la pièce (pochette, vidéo).",
+		},
+		duration: {
+			oneYear: "1 an, puis renouvelable d'année en année",
+			twoYears: "2 ans, puis renouvelable d'année en année",
+			threeYears: "3 ans, puis renouvelable d'année en année",
+			fourYears: "4 ans, puis renouvelable d'année en année",
+			fiveYears: "5 ans, puis renouvelable d'année en année",
+			renew:
+				"Se renouvelle automatiquement, sauf avis signifié 60 jours avant.",
+		},
+	},
+
+	yourself: "(toi)",
+	more: "En savoir plus",
+	notify: "Me notifier un mois avant l'échéance...",
+	music: "Musique",
+	lyrics: "Paroles",
+
+	errors: {
+		status: "Tu dois sélectionner un status pour cet ayant droits.",
+		role: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
+		function: "Tu dois sélectionner une fonction pour cet ayant droits.",
+		option: "Tu dois sélectionner une option pour cet ayant droits.",
+	},
+
+	tooltips: {
+		equal:
+			"Divise le droit d'auteur par le nombre de personnes et attribue le rôle  « Auteur-Compositeur » par défaut à tous. Cette manière de partager le droit d'auteur évite beaucoup de chicanes entre les créateurs, particulièrement lorsque les revenus se mettent à rentrer. ;)",
+		role:
+			"Divise le droit d'auteur en deux : 50% va à ceux qui ont composé la musique. Cette dernière partie « musique » est à son tour divisé par le nombre de rôles sélectionnés et les collaborateurs obtiennent un pourcentage selon leur implication. Par exemple: Alice compose uniquement la musique, tandis que Bob compose ET arrange la musique. Ainsi, Alice a 1/3 et Bob a 2/3 de la musique.",
+		manual:
+			"Te laisse déterminer le pourcentage et les rôles pour chaque collaborateurs. Pour figer un pourcentage à un collaborateur, tu peux utiliser le cadenas.",
+		label:
+			"Règle générale, un label prend rarement plus de 50% des droits et revenus en lien avec la propriété de l'enregistrement sonore.",
+	},
+}
+
+export const roles = {
+	author: "Auteur",
+	composer: "Compositeur",
+	adapter: "Adaptateur",
+	mixer: "Arrangeur",
+	singer: "Chanteur",
+	musician: "Musicien",
+}
+
+export const newUserInvite = {
+	title: "[Ajouter/Modifier] un artiste collaborateur",
+	checkbox: "Default Role(s)",
+	checkboxUndertext: "Ces rôles pourront toujours être modifiés plus tard.",
+}
+
 export const document = {
 	navbar: {
 		document: "Documenter mon œuvre",
 		pages: {
 			creation: "Création",
 			performance: "Interprétation",
+			infos: "Informations générales",
+			lyrics: "Paroles",
 			recording: "Enregistrement",
+			files: "Fichiers",
+			release: "Sortie",
 		},
 	},
 	help: "Aide",
@@ -539,6 +706,7 @@ export const document = {
 			singer: "Chanteur",
 			musician: "Musicien",
 			performer: "Ajouter un interprète...",
+			release: "Sortie",
 			addPerformer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
@@ -572,49 +740,90 @@ export const document = {
 				"L'international Standard Work Code est un code unique d'identification des œuvres musicales.",
 		},
 	},
-	files: {
-		category: "FILES",
-		title: "Quels fichiers veux-tu rendre accessible ?",
+	release: {
+		category: "SORTIE",
+		title: "Cette pièce est-elle sortie ?",
 		paragraph:
-			"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
-		visual: {
-			title: "Visuel de l'œuvre",
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Date  de sortie",
+		dateHint: "Laisse vide si non déterminée",
+		label: "Label",
+		addLabel: "Ajouter une étiquette",
+		format: "Format du produit",
+		ep: "Titre de l'EP",
+		supports: {
+			support: "Support",
+			digital: "Numérique",
+			distribution: "Distribution",
+			addDistribution: "Ajouter un distributeur...",
+			upc: "Code UPC/EAN",
+			physical: "Physique",
+		},
+		files: {
+			category: "FILES",
+			title: "Quels fichiers veux-tu rendre accessible ?",
 			paragraph:
-				"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
-			format: "Téléverser en format JPEG ou PNG",
+				"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
+			visual: {
+				title: "Visuel de l'œuvre",
+				paragraph:
+					"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
+				format: "Téléverser en format JPEG ou PNG",
+				undertext:
+					"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
+			},
+			audio: {
+				title: "Fichier audio",
+				paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
+				format: "Téléverser le fichier de l'œuvre enregistrée",
+				undertext: "MP3 ou WAV acceptés.",
+			},
+			other: {
+				title: "Autres fichiers sur l'œuvre",
+				paragraph:
+					"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
+				formatTablature: "Partition ou tablature",
+				formatMidi: "Fichiers MIDI",
+				undertext: "Lorem Ipsum",
+			},
+			dropdown: {
+				public: "Publique - Téléchargeable par tous",
+				publicUndertext:
+					"Tous les utilisateurs pourront télécharger le fichier original.",
+				invitation: "Sur invitation - Téléchargeable par certains",
+				invitationUndertext:
+					"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
+				private: "Privé - Empêcher le téléchargement",
+				privateUndertext:
+					"Personne ne pourra télécharger l'image originale, sauf vous.",
+			},
+			tooltip: {
+				listItem:
+					"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
+			},
+			access: "Accès",
+			copy: "Lien de partage unique copié.",
+		},
+		infos: {
+			category: "INFORMATIONS GÉNÉRALES",
+			title: "Dis-nous en plus sur la pièce musicale.",
+			length: "Durée",
+			bpm: "BPM",
+			mainGenre: "Genre principal",
+			addGenre: "Ajouter un genre...",
+			secondaryGenre: "Genres secondaires",
+			genreExample: "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae.",
+		},
+		lyrics: {
+			category: "PAROLES",
+			title: (workPiece) => <>{workPiece} contient des paroles ?</>,
+			paragraph:
+				"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
 			undertext:
-				"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
+				"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
+			language: "Langue(s)",
+			addLanguage: "Ajouter unbe langue...",
 		},
-		audio: {
-			title: "Fichier audio",
-			paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
-			format: "Téléverser le fichier de l'œuvre enregistrée",
-			undertext: "MP3 ou WAV acceptés.",
-		},
-		other: {
-			title: "Autres fichiers sur l'œuvre",
-			paragraph:
-				"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
-			formatTablature: "Partition ou tablature",
-			formatMidi: "Fichiers MIDI",
-			undertext: "Lorem Ipsum",
-		},
-		dropdown: {
-			public: "Publique - Téléchargeable par tous",
-			publicUndertext:
-				"Tous les utilisateurs pourront télécharger le fichier original.",
-			invitation: "Sur invitation - Téléchargeable par certains",
-			invitationUndertext:
-				"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
-			private: "Privé - Empêcher le téléchargement",
-			privateUndertext:
-				"Personne ne pourra télécharger l'image originale, sauf vous.",
-		},
-		tooltip: {
-			listItem:
-				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
-		},
-		copy: "Lien de partage unique copié.",
 	},
 }
 
@@ -679,4 +888,10 @@ export const workpieceSheet = {
 		header: "Paroles",
 		check: "Voir les paroles",
 	},
+}
+export const collaborators = {
+	email: "L'adresse courriel du collaborateur",
+}
+export const contributors = {
+	add: "Ajouter un contributeur",
 }

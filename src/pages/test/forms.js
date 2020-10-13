@@ -29,7 +29,7 @@ import SearchAndTag from "../../forms/search-and-tag"
 
 import { PictureCropModal } from "../../widgets/picture-crop"
 import { Status } from "../../utils/enums"
-import { MailList } from "../../smartsplit/components/mail-list"
+import { MailList } from "../../smartsplit/components/EmailManager"
 import { ProIdList } from "../../smartsplit/components/pro-id-list"
 import Tooltip, { TooltipIcon } from "../../widgets/tooltip"
 import { Colors } from "../../theme"

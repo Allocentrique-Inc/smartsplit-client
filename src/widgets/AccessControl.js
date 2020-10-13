@@ -1,11 +1,13 @@
 import React from "react"
 import { Text } from "../text"
-import { useStorePath } from "../appstate/react"
+import { observer } from "mobx-react"
+//import { useStorePath } from "../appstate/react"
+import { useStores } from "../mobX"
 import { useHistory } from "react-router"
 
-export default function AccessControl({ children, redirectToLogin }) {
+export default observer(function AccessControl({ children, redirectToLogin }) {
 	const history = useHistory()
-	const auth = useStorePath("auth")
+	const { auth } = useStores()
 
 	if (auth.isLoggedIn === true) {
 		return children
@@ -16,4 +18,4 @@ export default function AccessControl({ children, redirectToLogin }) {
 
 		return <Text error>Access to this location requires to be logged in</Text>
 	}
-}
+})

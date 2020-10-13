@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { StyleSheet } from "react-native"
 import { useHistory } from "react-router"
-import { useStorePath } from "../../../appstate/react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
@@ -23,79 +22,28 @@ import FilesIcon from "../../../svg/files"
 import Unlock from "../../../svg/unlock"
 import Download from "../../../svg/download"
 
-const styles = StyleSheet.create({
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.medium,
+	},
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
 	},
 })
 
-export default function Files() {
-	const { t } = useTranslation()
-	const history = useHistory()
-	const workpiece = useCurrentWorkpiece()
-
-	function saveAndQuit() {
-		history.push("/dashboard/")
-	}
-
-	function navigateToSummary() {
-		history.push(`/workpieces/${workpiece.id}`)
-	}
-
-	function navigateToInterpretation() {
-		history.push(`/workpieces/${workpiece.id}/rights-splits/interpretation`)
-	}
-
-	return (
-		<Layout
-			workpiece={workpiece}
-			path={[
-				t("document:navbar.document"),
-				t("document:navbar.pages.performance"),
-			]}
-			progress={24}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveClose")}
-					onClick={saveAndQuit}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={navigateToSummary}
-						/>
-						<Flex />
-						<Button
-							primary
-							text={t("general:buttons.pass")}
-							onClick={navigateToInterpretation}
-						/>
-					</Row>
-					<Row flex={1} />
-				</>
-			}
-		>
-			<FilesForm />
-		</Layout>
-	)
-}
-
 export function FilesForm(props) {
-	const searchResults = ["Aut", "Chose", "Comme", "Resultat"]
-	const [search, setSearch] = useState("")
 	const { t } = useTranslation()
 
 	return (
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
-						<FilesIcon color={Colors.action} />
+					<Text action bold style={Styles.category}>
+						<FilesIcon style={Styles.logo} />
 						{t("document:files.category")}
 						<Row padding="tiny" />
 					</Text>
@@ -258,7 +206,7 @@ export function PerformanceOptions(props) {
 					</CheckBoxGroup>
 
 					{musician && (
-						<Column style={styles.dropdown}>
+						<Column style={Styles.dropdown}>
 							<Dropdown
 								style={{ flex: 1 }}
 								placeholder={t("document:performance.addInstrument")}
@@ -267,7 +215,7 @@ export function PerformanceOptions(props) {
 						</Column>
 					)}
 
-					<Column style={styles.dropdown}>
+					<Column style={Styles.dropdown}>
 						<Dropdown
 							style={{ flex: 1 }}
 							placeholder={t("document:performance.addInstrument")}

@@ -1,111 +1,23 @@
-import React, { useState, useRef } from "react"
+import React from "react"
 import { useTranslation } from "react-i18next"
 import { Platform } from "react-native"
-import { useStorePath } from "../../appstate/react"
+import { observer } from "mobx-react"
+import { useStores, useStorePath } from "../../mobX"
 import { DialogModal } from "../../widgets/modal"
 import Button from "../../widgets/button"
-import { Column, Group, Flex } from "../../layout"
-import { Form, FormSubmit, PasswordField } from "../../forms"
-import { PasswordFieldWithScoreBar } from "../auth/register" // FIXME: mettre ça à une place qui fait plus de sens
+import { Group } from "../../layout"
+import PasswordField from "../../forms/password"
+import PasswordFieldWithScoreBar from "../../forms/PasswordFieldWithScoreBar"
 import { Text } from "../../text"
-import ProgressBar from "../../widgets/progress-bar"
-import {
-	passwordBarColor,
-	passwordProgress,
-	passwordStrengthIndicator,
-} from "../auth/register"
-import zxcvbn from "zxcvbn"
-import { notEmptyValidator, sameValidator } from "../../../helpers/validators"
 
-export default function ChangePasswordModal({ visible, onRequestClose }) {
+const ChangePasswordModal = observer(({ visible, onRequestClose }) => {
 	const { t } = useTranslation()
-
-	const form = useRef()
-	const auth = useStorePath("auth")
-	const [isLoading, setIsLoading] = useState(false)
-	const [isValid, setIsValid] = useState(false)
-	const [error, setError] = useState(null)
-
-	const canSubmit = !isLoading && isValid
-
-	/*const [currentPassword, setCurrentPassword] = useState("")
-	const [newPassword, setNewPassword] = useState("")
-	const [newPasswordRepeat, setNewPasswordRepeat] = useState("")
-	const [newPasswordRepeatError, setNewPasswordRepeatError] = useState(null)
-
-	const score = zxcvbn(newPassword).score
-
-	const canSubmit = !isLoading && isValid
-		!isLoading && currentPassword && newPassword && newPasswordRepeat
-
-	const handleSubmit = () => {
-		if (newPassword !== newPasswordRepeat) {
-			setNewPasswordRepeatError(t("errors:samePasswords"))
-		} else {
-			setNewPasswordRepeatError(null)
-
-			dispatch(
-				resetPassword({
-					currentPassword: currentPassword,
-					password: newPassword,
-				})
-			)
-		}
-	}
-
-	const currentPasswordError =
-		error &&
-		error.code === "user_invalid_current_password" &&
-		t("errors:invalidCurrentPassword")
-	const errorMessage = error && !currentPasswordError && error.message*/
-
+	const { auth } = useStores()
+	const model = useStorePath("auth", "changePassModel")
 	function close() {
-		form.current.reset()
 		onRequestClose()
+		model.init()
 	}
-
-	function handleFormChange({
-		currentPassword,
-		newPassword,
-		newPasswordRepeat,
-	}) {
-		setIsValid(
-			notEmptyValidator(currentPassword) &&
-				notEmptyValidator(newPassword) &&
-				notEmptyValidator(newPasswordRepeat)
-		)
-	}
-
-	function handleFormSubmit() {
-		const fields = form.current.getFields()
-		form.current.clearErrors()
-		setError(null)
-
-		if (
-			!sameValidator(fields.newPassword.value, fields.newPasswordRepeat.value)
-		) {
-			fields.newPasswordRepeat.error = t("errors:samePasswords")
-			return
-		}
-
-		setIsLoading(true)
-
-		auth
-			.changePassword(fields.currentPassword.value, fields.newPassword.value)
-			.then(() => {
-				form.current.reset()
-				close()
-			})
-			.catch((e) => {
-				if (e.code === "user_invalid_current_password") {
-					fields.currentPassword.error = t("errors:invalidCurrentPassword")
-				} else {
-					setError(e)
-				}
-			})
-			.finally(() => setIsLoading(false))
-	}
-
 	return (
 		<DialogModal
 			visible={visible}
@@ -116,46 +28,29 @@ export default function ChangePasswordModal({ visible, onRequestClose }) {
 					<Button text={t("general:buttons.cancel")} tertiary onClick={close} />
 					<Button
 						text={t("general:buttons.save")}
-						disabled={!canSubmit}
-						onClick={() => form.current.submit()}
+						disabled={model.busy}
+						onClick={async () => {
+							let result = await auth.doPasswordChange()
+							if (result) close()
+						}}
 					/>
 				</>
 			}
 		>
-			<Form
-				ref={form}
-				values={{
-					currentPassword: "",
-					newPassword: "",
-					newPasswordRepeat: "",
-				}}
-				onChange={handleFormChange}
-				onSubmit={handleFormSubmit}
+			<Group
+				of="group"
+				style={Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }}
 			>
-				<Group
-					of="group"
-					style={
-						Platform.OS === "web" && { minWidth: 560, alignSelf: "center" }
-					}
-				>
-					<PasswordField
-						name="currentPassword"
-						label={t("forms:labels.currentPassword")}
-					/>
-
-					<PasswordFieldWithScoreBar
-						name="newPassword"
-						label={t("forms:labels.newPassword")}
-					/>
-
-					<PasswordField
-						name="newPasswordRepeat"
-						label={t("forms:labels.repeatPassword")}
-					/>
-
-					{error && <Text error>{error.error || error.message}</Text>}
-				</Group>
-			</Form>
+				<PasswordField field={model.currentPassword} />
+				<PasswordFieldWithScoreBar field={model.password} />
+				<PasswordField field={model.password2} />
+				{model.saveError && (
+					<Text error>
+						{model.saveError?.error || model.saveError?.message}
+					</Text>
+				)}
+			</Group>
 		</DialogModal>
 	)
-}
+})
+export default ChangePasswordModal

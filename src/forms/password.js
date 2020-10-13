@@ -7,8 +7,9 @@ import EyeIcon from "../svg/eye"
 import CapsLockIcon from "../svg/caps-lock"
 import { Metrics } from "../theme"
 import { Platform } from "../platform"
-
-export default function PasswordField(props) {
+import { observer } from "mobx-react"
+const PasswordField = observer((props) => {
+	//console.log(props)
 	const { onKeyUp } = props
 	const [reveal, setReveal] = useState(false)
 	const [capsLockEnabled, setCapsLockEnabled] = useState(false)
@@ -47,4 +48,5 @@ export default function PasswordField(props) {
 			}
 		/>
 	)
-}
+})
+export default PasswordField

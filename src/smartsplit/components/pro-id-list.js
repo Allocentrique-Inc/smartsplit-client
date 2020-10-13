@@ -7,7 +7,7 @@ import Button from "../../widgets/button"
 import { Colors, Metrics } from "../../theme"
 import { TextField } from "../../forms"
 import { Platform } from "../../platform"
-import { CheckBox } from "../../forms/checkbox"
+import { CheckBox } from "../../forms"
 import PlusCircle from "../../svg/plus-circle"
 
 export function ProIdList(props) {
@@ -51,7 +51,7 @@ export function ProIdList(props) {
 			<Column of="component">
 				{description && <Paragraph>{description}</Paragraph>}
 				<Row>
-					<Column padding="component" layer="left_overground" />
+					{/*<Column padding="component" layer="left_overground" />*/}
 					<Column of="group">
 						{proIds && renderList()}
 						<Row>

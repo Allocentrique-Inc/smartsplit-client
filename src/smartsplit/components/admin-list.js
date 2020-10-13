@@ -19,6 +19,7 @@ import {
 import UUID from "uuidjs"
 import { forEachChildren } from "../../utils/react"
 import { useFocusGroup } from "../../utils/hooks"
+import { observer } from "mobx-react"
 
 export const AdminListStyle = StyleSheet.create({
 	frame_pending: {
@@ -26,7 +27,7 @@ export const AdminListStyle = StyleSheet.create({
 	},
 })
 
-export function AdminListItem(props) {
+export const AdminListItem = observer((props) => {
 	const {
 		children,
 		pending,
@@ -94,9 +95,9 @@ export function AdminListItem(props) {
 			)}
 		</ListItem>
 	)
-}
+})
 
-export function AdminList(props) {
+export const AdminList = observer((props) => {
 	const { children, collapsable, ...nextProps } = props
 	const title =
 		typeof nextProps.title === "string" ? <Text>{title}</Text> : nextProps.title
@@ -143,4 +144,4 @@ export function AdminList(props) {
 			{Array.from(newChildren.values())}
 		</List>
 	)
-}
+})

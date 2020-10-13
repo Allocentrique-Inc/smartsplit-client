@@ -1,6 +1,6 @@
 # Gestionnaire d'état de Smartsplit "App State"
 
-Le fondement principal du gestionnaire d'état, est que tous les objets ne doivent être obtenu _que_ par le store lui-même. Cela permets aux classes observables de faire l'entretien nécessaire pour garder trace de tous les objets créés.
+Le fondement principal du gestionnaire d'état est que tous les objets ne doivent être obtenu _que_ par le store lui-même. Cela permet aux classes observables de faire l'entretien nécessaire pour garder trace de tous les objets créés.
 
 Par exemple: les utilisateurs. Pour créer un utilisateur, il faut passer par `store.users.create()`, qui va retourner un objet `User`. Celui-là est lié au `UserList` depuis lequel `create()` a été créé, ce qui fait que lorsque l'utilisateur sera enregistré, il sera automatiquement ajouté à `store.users`. Le résultat est que l'état du système est toujours consistante.
 

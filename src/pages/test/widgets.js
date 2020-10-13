@@ -1,6 +1,7 @@
-import React from "react"
-import { Column, Section, Spacer } from "../../layout"
+import React, { useState } from "react"
+import { Column, Row, Section, Spacer } from "../../layout"
 import { PieChart } from "../../widgets/pie-chart"
+import Slider from "../../widgets/slider"
 import { useTranslation } from "react-i18next"
 import {
 	AdminList,
@@ -18,13 +19,43 @@ import SplitChart, {
 import CircledC from "../../svg/circled-c"
 import CircledP from "../../svg/circled-p"
 import CircledStar from "../../svg/circled-star"
+import ShareCard from "../../smartsplit/components/share-card"
+import { CheckBoxGroup, CheckBoxGroupButton } from "../../forms/checkbox"
 
 export default function WidgetTests() {
 	return (
-		<Column of="group">
+		<Column of="group" padding="large">
 			<PieChartTests />
 			<AdminListTest />
+			{/*<ShareCardTest />*/}
+			<Row style={{ width: 300 }}>
+				<Slider value={40} />
+			</Row>
 		</Column>
+	)
+}
+
+function ShareCardTest() {
+	const [selection, setSelection] = useState([])
+	return (
+		<ShareCard
+			name="Patrick Sébastien"
+			share={33}
+			error="Tu as oublié le grand Patrick"
+		>
+			<CheckBoxGroup selection={selection} onChange={setSelection} error>
+				<Row>
+					<Column flex={1} of="component">
+						<CheckBoxGroupButton value="A" label="Option A" />
+						<CheckBoxGroupButton value="B" label="Option B" />
+					</Column>
+					<Column flex={1} of="component">
+						<CheckBoxGroupButton value="C" label="Option C" />
+						<CheckBoxGroupButton value="D" label="Option D" />
+					</Column>
+				</Row>
+			</CheckBoxGroup>
+		</ShareCard>
 	)
 }
 
@@ -79,11 +110,13 @@ function PieChartTests() {
 			color: Colors.secondaries.yellow,
 		},
 	]
+	const simpleData = data.slice(0, 4)
 	return (
 		<Column of="group" align="center">
-			{/*<PieChart data={data} size={512} />*/}
-			<SplitChart data={data} logo={CircledP} />
-			<SplitChart data={data} logo={CircledC} />
+			{/*<PieChart data={simpleData} size={512} />*/}
+			{/*<PieChart data={simpleData} size={512} clockwise />*/}
+			{/*<SplitChart data={data} logo={CircledP} />*/}
+			{/*<SplitChart data={data} logo={CircledC} />*/}
 			<DualSplitChart
 				dataRight={data}
 				dataLeft={data}

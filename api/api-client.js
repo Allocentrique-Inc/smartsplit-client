@@ -36,8 +36,10 @@ export function setGlobalErrorHandler(handler) {
 
 export function setGlobalAccessToken(accessToken) {
 	if (accessToken) {
+		console.log("auth.accessToken is set")
 		client.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`
 	} else {
+		console.log("auth.accessToken is NOT set")
 		delete client.defaults.headers.common["Authorization"]
 	}
 }
@@ -65,6 +67,35 @@ export function createCrudClient(endpoint) {
 
 	async function destroy(id) {
 		const result = await client.delete(`${endpoint}/${id}`)
+		return result.data
+	}
+
+	return { create, read, replace, update, destroy }
+}
+
+export function createEntityCrud(type) {
+	async function create(data) {
+		const result = await client.post(`entities/${type}/`, data)
+		return result.data
+	}
+
+	async function read(id) {
+		const result = await client.get(`entities/${id}`)
+		return result.data
+	}
+
+	async function replace(id, data) {
+		const result = await client.put(`entities/${id}`, data)
+		return result.data
+	}
+
+	async function update(id, data) {
+		const result = await client.patch(`entities/${id}`, data)
+		return result.data
+	}
+
+	async function destroy(id) {
+		const result = await client.delete(`entities/${id}/`)
 		return result.data
 	}
 

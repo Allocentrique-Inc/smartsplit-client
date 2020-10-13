@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useLayoutEffect } from "react"
 import { forEachChildren } from "./react"
 import { Platform } from "../platform"
 import { TouchableWithoutFeedback } from "react-native"
@@ -35,4 +35,30 @@ export function useFocusGroup(nodes, onFocus, onBlur) {
 		)
 	})
 	return [newNodes, currentFocus, setCurrentFocus]
+}
+
+export function useDimensions() {
+	const ref = useRef()
+	const [dimensions, setDimensions] = useState({})
+	useLayoutEffect(() => {
+		ref.current.measure((x, y, width, height) =>
+			setDimensions({ x, y, width, height })
+		)
+	}, [ref.current])
+	return [ref, dimensions]
+}
+
+export function useInterpolators([min0, max0], [min1, max1]) {
+	const range0 = max0 - min0
+	const range1 = max1 - min1
+
+	function fromRange0To1(value) {
+		return ((value - min0) * range1) / range0 + min1
+	}
+
+	function fromRange1To0(value) {
+		return ((value - min1) * range0) / range1 + min0
+	}
+
+	return [fromRange0To1, fromRange1To0]
 }
