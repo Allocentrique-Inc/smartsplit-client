@@ -89,7 +89,10 @@ export const ProIdList = observer((props) => {
 					</Column>
 				</Row>
 			</Column>
-			<AddProIdModal visible={modalVisible} />
+			<AddProIdModal
+				visible={modalVisible}
+				onRequestClose={() => setModalVisible(false)}
+			/>
 		</Label>
 	)
 })
