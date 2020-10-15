@@ -1,10 +1,57 @@
 import BaseModel, { FieldType, Field } from "../../BaseModel"
 import { observable, action, computed, runInAction } from "mobx"
 export default class ProfessionalIdentityModel extends BaseModel {
-	@observable socan = new Field(this, "socan", { type: FieldType.string })
-	@observable sodrac = new Field(this, "sodrac", { type: FieldType.string })
-	@observable soproq = new Field(this, "soproq", { type: FieldType.string })
-	@observable resound = new Field(this, "resound", { type: FieldType.string })
-	@observable artisti = new Field(this, "artisti", { type: FieldType.string })
+	@observable ids = new Field(this, "ids", {
+		type: FieldType.collection,
+		default: [
+			{ name: "socan", value: "111111111" },
+			{ name: "sodec", value: "111111111" },
+			{ name: "artisti", value: "111111111" },
+		],
+	})
 	@observable public = new Field(this, "public", { type: FieldType.boolean })
+}
+
+export const ProIds = [
+	"socan",
+	"socandr",
+	"spacq",
+	"apem",
+	"soproq",
+	"adisq",
+	"artisti",
+	"uda",
+	"gmmq",
+	"cmrra",
+	"sac",
+	"cmpa",
+	"re_sound",
+	"connect",
+	"cima",
+	"actra racs",
+	"mroc",
+	"actra",
+	"cfm",
+]
+
+export const ProIdIcons = {
+	socan: "c",
+	socandr: "c",
+	spacq: "c",
+	apem: "c",
+	soproq: "p",
+	adisq: "p",
+	artisti: "star",
+	uda: "star",
+	gmmq: "star",
+	cmrra: "c",
+	sac: "c",
+	cmpa: "c",
+	re_sound: "star",
+	connect: "p",
+	cima: "p",
+	actraracs: "star",
+	mroc: "star",
+	actra: "star",
+	cfm: "star",
 }

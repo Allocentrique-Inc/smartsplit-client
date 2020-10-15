@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import Label from "../../forms/label"
 import { Paragraph } from "../../text"
@@ -9,25 +9,44 @@ import { TextField } from "../../forms"
 import { Platform } from "../../platform"
 import { CheckBox } from "../../forms"
 import PlusCircle from "../../svg/plus-circle"
+import { observer } from "mobx-react"
+import { useStorePath } from "../../mobX"
+import AddProIdModal from "../user/AddProIdModal"
 
-export function ProIdList(props) {
+export const ProIdList = observer((props) => {
 	const { t } = useTranslation()
-	const { proIds, description } = props
-
+	const { description } = props
+	const model = useStorePath("settings", "profile", "identifiers")
+	const [modalVisible, setModalVisible] = useState(false)
+	const ids = model.ids
+	const proIds = ids.value
+	console.log(toJS(proIds))
 	function renderList() {
-		const lastId = proIds.length % 2 === 1 ? proIds.pop() : null
+		const lastProId = proIds.length % 2 === 1 ? proIds.pop() : null
 		const rows = []
 		let i = 0
 		for (; i < proIds.length; i += 2) {
 			rows.push(
 				<Platform web={Row} native={Column} of="component" key={i}>
-					<TextField label={proIds[i].name} value={proIds[i].value} />
-					<TextField label={proIds[i + 1].name} value={proIds[i + 1].value} />
+					<TextField
+						label={proIds[i].name}
+						value={proIds[i].value}
+						onChange={(v) => {
+							ids.setItem(i, { name: proIds[i].name, value: v })
+						}}
+					/>
+					<TextField
+						label={proIds[i + 1].name}
+						value={proIds[i + 1].value}
+						onChange={(v) => {
+							ids.setItem(i, { name: proIds[i + 1].name, value: v })
+						}}
+					/>
 				</Platform>
 			)
 		}
 
-		if (!!lastId) {
+		if (!!lastProId) {
 			rows.push(
 				<Column
 					of="component"
@@ -38,7 +57,7 @@ export function ProIdList(props) {
 							: null
 					}
 				>
-					<TextField label={lastId.name} value={lastId.value} />
+					<TextField label={lastProId.name} value={lastProId.value} />
 				</Column>
 			)
 		}
@@ -60,12 +79,17 @@ export function ProIdList(props) {
 								bold
 								icon={<PlusCircle color={Colors.action} />}
 								text={t("general:buttons.addProId")}
+								onClick={() => setModalVisible(true)}
 							/>
 						</Row>
-						<CheckBox label={t("general:checkbox.makePublic")} />
+						<CheckBox
+							label={t("general:checkbox.makePublic")}
+							field={model.public}
+						/>
 					</Column>
 				</Row>
 			</Column>
+			<AddProIdModal visible={modalVisible} />
 		</Label>
 	)
-}
+})
