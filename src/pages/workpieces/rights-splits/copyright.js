@@ -20,13 +20,12 @@ import { observer } from "mobx-react"
 import { useRightSplit } from "../context"
 import { initData } from "../../../mobX/models/workpieces/rights-splits/SplitCopyrightModel"
 import { useSplitsPagesState } from "../../../mobX/hooks"
-import { colorByIndex } from "../../../mobX/states/SplitsPagesState"
+import { colorByIndex } from "../../../mobX/states/UIStates/SplitsPagesState"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import Slider from "../../../widgets/slider"
 import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
-import { percentageValidator } from "../../../../helpers/validators"
 const CopyrightForm = observer(() => {
 	const copyrightSplit = useRightSplit("copyright")
 	const pageState = useSplitsPagesState().copyright

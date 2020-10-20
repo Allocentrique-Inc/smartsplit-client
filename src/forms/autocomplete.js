@@ -1,6 +1,6 @@
 import React from "react"
 import TextDropdown from "./text-dropdown"
-import { Layer, Row } from "../layout"
+import { Layer } from "../layout"
 import { ScrollView, TouchableWithoutFeedback } from "react-native"
 import FormStyles from "../styles/forms"
 import { Text } from "../text"

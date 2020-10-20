@@ -8,7 +8,7 @@ import AdminState from "./states/AdminState"
 import WorkpieceState from "./states/WorkpieceState"
 import ContributorsState from "./states/ContributorsState"
 import CollaboratorsState from "./states/CollaboratorsState"
-import SplitsPagesState from "./states/SplitsPagesState"
+import SplitsPagesState from "./states/UIStates/SplitsPagesState"
 import SettingsState from "./states/SettingsState"
 /**
  * L'instance de base est passé a tout les sub-stores pour que chaque store

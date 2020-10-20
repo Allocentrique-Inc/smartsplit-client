@@ -24,4 +24,5 @@ yarn-error.log
 
 # Config files used with sublime-text
 /.eslintrc.js
+.eslintrc.json
 *.sublime-*
