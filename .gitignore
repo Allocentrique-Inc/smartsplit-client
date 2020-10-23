@@ -16,7 +16,6 @@ web-report/
 # WebStorm
 .idea
 .vscode
-
 # Config
 /config.js
 
@@ -24,5 +23,5 @@ web-report/
 yarn-error.log
 
 # Config files used with sublime-text
-/.eslintrc.json
+/.eslintrc.js
 *.sublime-*
