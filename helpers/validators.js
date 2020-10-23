@@ -19,3 +19,9 @@ export function emailValidator(str) {
 export function acceptablePasswordValidator(str) {
 	return str.trim().length >= 8
 }
+
+export function percentageValidator(str) {
+	return /^(0*100{1,1}\.?((?<=\.)0*)?%?$)|(^0*\d{0,2}\.?((?<=\.)\d*)?%?)$/g.test(
+		str
+	)
+}

@@ -21,7 +21,6 @@ const FramedTextField = observer(
 )
 
 export const BasicTextField = observer((props) => {
-	const { t } = useTranslation()
 	const { viewRef, style, ...nextProps } = props
 	//console.log(nextProps)
 	return (
