@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import ProgressBar from "./progress-bar"
 import { Colors, Metrics } from "../theme"
 import {
@@ -17,6 +17,7 @@ const Styles = StyleSheet.create({
 		position: "absolute",
 		top: Metrics.spacing.xsmall,
 		left: -Metrics.spacing.small,
+		cursor: "pointer",
 	},
 
 	handle: {
@@ -26,7 +27,6 @@ const Styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 50,
 		borderColor: Colors.stroke,
-		cursor: "pointer",
 	},
 
 	touchBarContainer: {
@@ -67,13 +67,32 @@ const Slider = observer(
 				heigth: 0,
 			})
 		)
+
 		let [valueToDp, dpToValue] = useInterpolators(
 			[min, max],
 			[0, vertical ? barLayout.height : barLayout.width]
 		)
 		let dpStep = step ? valueToDp(step) : 1
 
-		// Update interpolators and dpStep bar layout change
+		useEffect(() => {
+			const position = capValueWithinRange(valueToDp(value), [
+				0,
+				vertical ? barLayout.height : barLayout.width,
+			])
+			handlePosition.set(position)
+		}, [value])
+
+		reaction(
+			() => value,
+			() => {
+				const position = capValueWithinRange(valueToDp(value), [
+					0,
+					vertical ? barLayout.height : barLayout.width,
+				])
+				handlePosition.set(position)
+			}
+		)
+		// Update interpolators and dpStep on bar layout change
 		reaction(
 			() => {
 				return { ...barLayout }
@@ -83,7 +102,6 @@ const Slider = observer(
 					[min, max],
 					[0, vertical ? barLayout.height : barLayout.width]
 				)
-
 				dpStep = step ? valueToDp(step) : 1
 			}
 		)
@@ -124,7 +142,7 @@ const Slider = observer(
 
 			// Trigger onChange only when accumulated distance is
 			// around a multiple of dpStep
-			if (Math.abs(gestureState.dx % dpStep) < 0.05) {
+			if (Math.abs(gestureState.dx % dpStep) < 0.1) {
 				onChange(dpToValue(position))
 			}
 		}
@@ -153,7 +171,7 @@ const Slider = observer(
 					>
 						<ProgressBar
 							size="xsmall"
-							progress={dpToValue(handlePosition.get())}
+							progress={(dpToValue(handlePosition.get()) / max) * 100}
 							barStyle={Styles.bar}
 							style={Styles.barContainer}
 							color={color}

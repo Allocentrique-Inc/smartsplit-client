@@ -1,22 +1,22 @@
-import { action, computed, decorate, observable } from "mobx"
+import { action, decorate, observable } from "mobx"
 import {
 	createNewRightsSplits,
 	updateRightsSplits,
 } from "../../../../api/workpieces"
 import { $workpiece } from "../WorkpieceState"
-import SplitCopyrightModel from "../../models/workpieces/rights-splits/SplitCopyrightModel"
 import SplitPerformanceModel from "../../models/workpieces/rights-splits/SplitPerformanceModel"
 import SplitRecordingModel from "../../models/workpieces/rights-splits/SplitRecordingModel"
+import SplitState, { CopyrightSplit } from "./SplitStates"
 
 export default class RightsSplits {
 	constructor(workpiece, rightsSplits = {}) {
 		this.$workpiece = workpiece
-		this.copyright = new RightSplit(rightsSplits.copyright, SplitCopyrightModel)
-		this.performance = new RightSplit(
+		this.copyright = new CopyrightSplit(rightsSplits.copyright)
+		this.performance = new SplitState(
 			rightsSplits.performance,
 			SplitPerformanceModel
 		)
-		this.recording = new RightSplit(rightsSplits.recording, SplitRecordingModel)
+		this.recording = new SplitState(rightsSplits.recording, SplitRecordingModel)
 		Object.defineProperties(this, {
 			_state: {
 				configurable: true,
@@ -109,64 +109,5 @@ export default class RightsSplits {
 			this.$error = e
 			throw e
 		}
-	}
-}
-
-export class RightSplit {
-	constructor(shares, shareModel) {
-		this.shareModel = shareModel
-		if (shares) this.updateShares(shares)
-	}
-
-	@observable shareHolders = new Map()
-
-	@action removeRightHolder(id) {
-		this.shareHolders.delete(id)
-	}
-
-	@action updateRightHolder(id, share) {
-		!share && this.shareHolders.get(id).reset()
-		!!share && this.shareHolders.get(id).setFields(share)
-	}
-
-	@action addRightHolder(id, share = null) {
-		if (this.shareHolders.has(id)) {
-			throw new Error("Cannot add share: this user already has a share")
-		}
-		const newShare = new this.shareModel(id)
-		newShare.init(share)
-		this.shareHolders.set(id, newShare)
-	}
-
-	addShare(share) {
-		return this.addRightHolder(share.shareHolderId, share)
-	}
-
-	updateShare(share) {
-		return this.updateRightHolder(share.shareHolderId, share)
-	}
-
-	removeShare(share) {
-		return this.removeRightHolder(share.shareHolderId)
-	}
-
-	@action updateShares(shares) {
-		const seenShareHolders = []
-		shares.forEach((share) => {
-			seenShareHolders.push(share.shareHolderId)
-			if (this.shareHolders.has(share.shareHolderId)) {
-				this.updateShare(share)
-			} else {
-				this.addShare(share)
-			}
-		})
-		this.shareHolders.forEach(
-			(value, key) =>
-				seenShareHolders.indexOf(key) < 0 && this.removeRightHolder(key)
-		)
-	}
-
-	@computed get allShares() {
-		return Array.from(this.shareHolders.values())
 	}
 }

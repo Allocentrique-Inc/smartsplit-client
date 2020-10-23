@@ -49,7 +49,7 @@ const RightsSplitsPage = observer(() => {
 	copyright.init(
 		t("rightSplits:lyrics"),
 		t("rightSplits:music"),
-		split.allShares
+		split.sharesValues
 	)
 
 	const { workpieces } = useStores()
