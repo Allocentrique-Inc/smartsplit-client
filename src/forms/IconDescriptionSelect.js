@@ -1,7 +1,7 @@
 import React from "react"
 import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import Dropdown from "./dropdown"
-import { Column, Hairline, Row } from "../layout"
+import { Column, Hairline, Row, Spacer } from "../layout"
 import { Text } from "../text"
 import FormStyles from "../styles/forms"
 import { observer } from "mobx-react"
@@ -54,7 +54,7 @@ export function IconDescriptionSelectItem(props) {
 		icon,
 		name,
 		description,
-		action,
+		title,
 	} = props
 	const { t } = useTranslation()
 	function handleSelect() {
@@ -71,12 +71,17 @@ export function IconDescriptionSelectItem(props) {
 			>
 				<Row>
 					<Column>{icon}</Column>
+					<Column>
+						<Spacer of={"small"} />
+					</Column>
 					<Column flex={1}>
 						<Row>
-							<Text>{`${name} - ${action}`}</Text>
+							<Text>{`${name} - ${title}`}</Text>
 						</Row>
 						<Row>
-							<Text secondary>{description}</Text>
+							<Text tertiary small>
+								{description}
+							</Text>
 						</Row>
 					</Column>
 				</Row>

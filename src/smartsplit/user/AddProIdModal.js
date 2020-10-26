@@ -15,6 +15,7 @@ import CircledP from "../../svg/circled-p"
 import CircledStar from "../../svg/circled-star"
 import { Metrics } from "../../theme"
 import { toJS } from "mobx"
+import { Text } from "../../text"
 /**
  * Modal to select Professional Id from a list.
  */
@@ -70,6 +71,11 @@ export default observer(function AddProIdModal(props) {
 						icon: icons[ProIdIcons[org]],
 					}))}
 					value={selected}
+					placeholder={
+						selected
+							? t(`copyrightOrgs:name.${selected}`)
+							: t("copyrightOrgs:select")
+					}
 					onChange={(v) => {
 						setSelected(v)
 					}}

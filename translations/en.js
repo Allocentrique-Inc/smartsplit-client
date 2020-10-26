@@ -824,7 +824,8 @@ export const contributors = {
 	add: "Add a Contributor",
 }
 export const copyrightOrgs = {
-	names: {
+	select: "Select A Professional Organisation",
+	name: {
 		socan: "Socan",
 		socandr: "Socan DR",
 		spacq: "SPACQ",
@@ -871,7 +872,7 @@ export const copyrightOrgs = {
 		cfm:
 			"Canadian Federation of Musicians (formerly referred to as AFM Canada)",
 	},
-	actions: {
+	action: {
 		socan: "Performance rights of musical works",
 		socandr: "Reproduction rights of musical works",
 		spacq: "Nomenclature",
