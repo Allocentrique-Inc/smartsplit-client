@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import Dropdown from "./dropdown"
 import { Column, Hairline, Row, Spacer } from "../layout"
@@ -18,12 +18,22 @@ export default observer(function IconDescriptionDropdown(props) {
 		children,
 		...nextProps
 	} = props
+	const [open, setOpen] = useState(false)
 	return (
-		<Dropdown {...nextProps} placeholder={placeholder}>
+		<Dropdown
+			{...nextProps}
+			placeholder={placeholder}
+			onFocus={() => setOpen(true)}
+			onBlur={() => setOpen(false)}
+			open={open}
+		>
 			<ScrollView style={FormStyles.select_scroll}>
 				<IconDescriptionSelectMenu
 					options={options}
-					onChange={onChange}
+					onChange={(v) => {
+						onChange(v)
+						setOpen(false)
+					}}
 					value={value}
 				/>
 			</ScrollView>
