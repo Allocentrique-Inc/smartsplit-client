@@ -12,58 +12,60 @@ import PlusCircle from "../../svg/plus-circle"
 import { observer } from "mobx-react"
 import { useStorePath } from "../../mobX"
 import AddProIdModal from "../user/AddProIdModal"
+import ProfessionalIdentityModel from "../../mobX/models/settings/ProfessionalIdentityModel"
+const IdFields = observer((props) => {
+	const model: ProfessionalIdentityModel = props.model
+	const ids = toJS(model.ids.value)
+	const lastProId = ids.length % 2 === 1 ? ids.pop() : null
+	const rows = []
+	let i = 0
+	for (; i < ids.length; i += 2) {
+		rows.push(
+			<Platform web={Row} native={Column} of="component" key={i} flex>
+				<TextField
+					label={ids[i].name}
+					value={ids[i].value}
+					onChange={(v) => {
+						ids.setItem(i, { name: ids[i].name, value: v })
+					}}
+				/>
+				<TextField
+					label={ids[i + 1].name}
+					value={ids[i + 1].value}
+					onChange={(v) => {
+						ids.setItem(i, { name: ids[i + 1].name, value: v })
+					}}
+				/>
+			</Platform>
+		)
+	}
 
+	if (!!lastProId) {
+		rows.push(
+			<Column
+				of="component"
+				key={i + 1}
+				style={
+					Platform.web
+						? { width: "50%", paddingRight: Metrics.spacing.inside }
+						: null
+				}
+			>
+				<TextField label={lastProId.name} value={lastProId.value} />
+			</Column>
+		)
+	}
+
+	return React.createElement(React.Fragment, {}, ...rows)
+})
 export const ProIdList = observer((props) => {
 	const { t } = useTranslation()
 	const { description } = props
-	const model = useStorePath("settings", "profile", "identifiers")
+	const model = useStorePath("settings", "profile", "professional_identity")
 	const [modalVisible, setModalVisible] = useState(false)
 	const ids = model.ids
 	const proIds = ids.value
 	console.log(toJS(proIds))
-	function renderList() {
-		const lastProId = proIds.length % 2 === 1 ? proIds.pop() : null
-		const rows = []
-		let i = 0
-		for (; i < proIds.length; i += 2) {
-			rows.push(
-				<Platform web={Row} native={Column} of="component" key={i}>
-					<TextField
-						label={proIds[i].name}
-						value={proIds[i].value}
-						onChange={(v) => {
-							ids.setItem(i, { name: proIds[i].name, value: v })
-						}}
-					/>
-					<TextField
-						label={proIds[i + 1].name}
-						value={proIds[i + 1].value}
-						onChange={(v) => {
-							ids.setItem(i, { name: proIds[i + 1].name, value: v })
-						}}
-					/>
-				</Platform>
-			)
-		}
-
-		if (!!lastProId) {
-			rows.push(
-				<Column
-					of="component"
-					key={i + 1}
-					style={
-						Platform.web
-							? { width: "50%", paddingRight: Metrics.spacing.inside }
-							: null
-					}
-				>
-					<TextField label={lastProId.name} value={lastProId.value} />
-				</Column>
-			)
-		}
-
-		return React.createElement(React.Fragment, {}, ...rows)
-	}
 
 	return (
 		<Label {...props}>
@@ -72,7 +74,7 @@ export const ProIdList = observer((props) => {
 				<Row>
 					{/*<Column padding="component" layer="left_overground" />*/}
 					<Column of="group">
-						{proIds && renderList()}
+						{proIds && <IdFields model={model} />}
 						<Row>
 							<Button
 								secondaryWithIcon

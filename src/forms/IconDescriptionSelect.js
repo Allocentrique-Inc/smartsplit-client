@@ -75,12 +75,12 @@ export function IconDescriptionSelectItem(props) {
 		<TouchableWithoutFeedback onPress={handleSelect}>
 			<View
 				style={[
-					FormStyles.select_item,
+					FormStyles.select_item_complex,
 					selected && FormStyles.select_item_selected,
 				]}
 			>
 				<Row>
-					<Column>{icon}</Column>
+					<Column valign="center">{icon}</Column>
 					<Column>
 						<Spacer of={"small"} />
 					</Column>
@@ -97,5 +97,27 @@ export function IconDescriptionSelectItem(props) {
 				</Row>
 			</View>
 		</TouchableWithoutFeedback>
+	)
+}
+
+export function IconDescriptionItem(props) {
+	const { icon, name, description, title } = props
+	return (
+		<Row flex={1} style={{ padding: Metrics.spacing.inside }}>
+			<Column valign="center">{icon}</Column>
+			<Column>
+				<Spacer of={"small"} />
+			</Column>
+			<Column flex={1}>
+				<Row>
+					<Text>{`${name} - ${title}`}</Text>
+				</Row>
+				<Row>
+					<Text tertiary small>
+						{description}
+					</Text>
+				</Row>
+			</Column>
+		</Row>
 	)
 }
