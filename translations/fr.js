@@ -816,13 +816,17 @@ export const document = {
 		},
 		lyrics: {
 			category: "PAROLES",
+			label: "Paroles",
 			title: (workPiece) => <>{workPiece} contient des paroles ?</>,
 			paragraph:
 				"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
 			undertext:
 				"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
 			language: "Langue(s)",
-			addLanguage: "Ajouter unbe langue...",
+			addLanguage: "Ajouter une langue...",
+			dropdown: {
+				public: "Public - Rendre l'information publique",
+			},
 		},
 	},
 }

@@ -10,19 +10,37 @@ import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import LyricsIcon from "../../../svg/feather"
+import EyeIcon from "../../../svg/eye"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import { TextInput } from "react-native"
 
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
-		padding: 5,
+		/* 		padding: 5,
 		borderWidth: 1,
-		borderRadius: 2,
+		borderRadius: 2, */
 		borderColor: Colors.stroke,
 		minHeight: 264,
+		resize: "vertical",
+		/* 		"&::-webkitResizer": {
+			background: Colors.stroke,
+		}, */
 	},
 	textArea: {
 		justifyContent: "flex-start",
+	},
+})
+
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.medium,
+	},
+	dropdown: {
+		marginLeft: Metrics.spacing.large,
 	},
 })
 
@@ -37,21 +55,32 @@ export function LyricsForm(props) {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
-						<LyricsIcon />
+					<Text action bold style={Styles.category}>
+						<LyricsIcon style={Styles.logo} />
 						{t("document:infos.category")}
 						<Row padding="tiny" />
 					</Text>
 					<Heading level={1}>{t("document:infos.title")}</Heading>
 
 					<Spacer of="group" />
-					<TextInput
-						label="Email"
+
+					<TextField
+						label={t("document:lyrics.label")}
+						value={text}
+						//multiline={true}
+						style={formStyle.textAreaContainer}
+						onChangeText={(text) => setText(text)}
+						undertext={t("document:release.lyrics.undertext")}
+					/>
+
+					{/* 					<TextInput
+						label="Text"
 						value={text}
 						multiline={true}
 						style={formStyle.textAreaContainer}
 						onChangeText={(text) => setText(text)}
-					/>
+						undertext={t("document:release.lyrics.undertext")}
+					/> */}
 
 					<SearchAndTag
 						hideIcon={true}
@@ -65,6 +94,18 @@ export function LyricsForm(props) {
 							setSelected(selected.filter((i) => i !== selection))
 						}
 						placeholder={t("document:lyrics.addLanguage")}
+					/>
+					<Dropdown
+						label={t("document:access")}
+						placeholder={
+							<>
+								{/* {t("document:lyrics.propdown.public")} */}
+								<EyeIcon />
+								<Flex />
+							</>
+						}
+						noFocusToggle
+						tooltip=""
 					/>
 				</Column>
 				<Flex />

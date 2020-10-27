@@ -802,7 +802,7 @@ export const document = {
 	},
 	infos: {
 		category: "GENERAL INFORMATIONS",
-		title: "Tells us more about the musical piece.",
+		title: "Tell us more about the musical piece.",
 		length: "Length",
 		bpm: "BPM",
 		mainGenre: "Main Genre",
@@ -812,6 +812,7 @@ export const document = {
 	},
 	lyrics: {
 		category: "LYRICS",
+		label: "Lyrics",
 		title: (workPiece) => <>{workPiece} contains lyrics?</>,
 		paragraph:
 			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
@@ -819,6 +820,9 @@ export const document = {
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
 		addLanguage: "Ajouter une langue...",
+		dropdown: {
+			public: "Public - Make the information public",
+		},
 	},
 }
 export const collaborators = {
