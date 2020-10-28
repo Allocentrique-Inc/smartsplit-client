@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Column, Row } from "../layout"
 import { View, StyleSheet } from "react-native"
 import { Text } from "../text"
-import { Metrics } from "../theme"
+import { Metrics, Colors, Typography } from "../theme"
 import { Tag } from "../widgets/tag"
 import Autocomplete from "./autocomplete"
 import Search from "../../assets/svg/search.svg"
@@ -15,6 +15,8 @@ const Styles = StyleSheet.create({
 	tag: {
 		marginRight: Metrics.spacing.small,
 		marginBottom: Metrics.spacing.small,
+		color: Colors.action,
+		fontWeight: Typography.Weight.bold,
 	},
 	tagContainer: {
 		marginRight: -Metrics.spacing.small,

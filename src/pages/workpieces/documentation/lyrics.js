@@ -16,15 +16,19 @@ import { TextInput } from "react-native"
 
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
-		/* 		padding: 5,
+		padding: 5,
 		borderWidth: 1,
-		borderRadius: 2, */
+		borderRadius: 2,
 		borderColor: Colors.stroke,
 		minHeight: 264,
 		resize: "vertical",
-		/* 		"&::-webkitResizer": {
+		//Was not able to style the grabber of the text area:
+		"&::-webkitResizer": {
 			background: Colors.stroke,
-		}, */
+			border: Colors.stroke,
+			boxShadow: Colors.stroke,
+			outline: Colors.stroke,
+		},
 	},
 	textArea: {
 		justifyContent: "flex-start",
@@ -45,7 +49,7 @@ const Styles = StyleSheet.create({
 })
 
 export function LyricsForm(props) {
-	const searchResults = ["Electrofunk", "Future Funk", "Mega Funk"]
+	const searchResults = ["English", "Français"]
 	const [search, setSearch] = useState("")
 	const [selected, setSelected] = useState(["English", "Français"])
 	const { t } = useTranslation()
@@ -64,17 +68,9 @@ export function LyricsForm(props) {
 
 					<Spacer of="group" />
 
+					{/* Was not able to style TextField:					
 					<TextField
 						label={t("document:lyrics.label")}
-						value={text}
-						//multiline={true}
-						style={formStyle.textAreaContainer}
-						onChangeText={(text) => setText(text)}
-						undertext={t("document:release.lyrics.undertext")}
-					/>
-
-					{/* 					<TextInput
-						label="Text"
 						value={text}
 						multiline={true}
 						style={formStyle.textAreaContainer}
@@ -82,7 +78,22 @@ export function LyricsForm(props) {
 						undertext={t("document:release.lyrics.undertext")}
 					/> */}
 
+					<Column of="tiny">
+						<TextInput
+							label={t("document:lyrics.label")}
+							value={text}
+							multiline={true}
+							style={formStyle.textAreaContainer}
+							onChangeText={(text) => setText(text)}
+							undertext={t("document:release.lyrics.undertext")}
+						/>
+						<Text secondary small>
+							{t("document:release.lyrics.undertext")}
+						</Text>
+					</Column>
+
 					<SearchAndTag
+						icon="none"
 						hideIcon={true}
 						label={t("document:lyrics.language")}
 						searchResults={searchResults}
@@ -99,8 +110,8 @@ export function LyricsForm(props) {
 						label={t("document:access")}
 						placeholder={
 							<>
-								{/* {t("document:lyrics.propdown.public")} */}
 								<EyeIcon />
+								<Text>{t("document:lyrics.dropdown.public")}</Text>
 								<Flex />
 							</>
 						}
