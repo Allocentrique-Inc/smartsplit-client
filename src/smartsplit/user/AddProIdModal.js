@@ -53,6 +53,7 @@ export default observer(function AddProIdModal(props) {
 							if (!toJS(model.ids.value).find((v) => v.name === selected)) {
 								model.ids.add({ name: selected, value: "" })
 							}
+							setSelected(false)
 							onRequestClose()
 						}}
 					/>

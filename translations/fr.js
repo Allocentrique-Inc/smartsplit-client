@@ -833,6 +833,7 @@ export const contributors = {
 }
 export const copyrightOrgs = {
 	select: "Sélectionnez un organisme",
+	public: "Rendre publique mes identifiants énumérés ci-dessus",
 	name: {
 		socan: "Socan",
 		socandr: "Socan DR",

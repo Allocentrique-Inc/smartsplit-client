@@ -824,6 +824,7 @@ export const contributors = {
 	add: "Add a Contributor",
 }
 export const copyrightOrgs = {
+	public: "Make public my professional identifiers",
 	select: "Select A Professional Organisation",
 	name: {
 		socan: "Socan",

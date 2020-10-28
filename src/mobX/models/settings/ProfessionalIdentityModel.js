@@ -9,7 +9,10 @@ export default class ProfessionalIdentityModel extends BaseModel {
 			{ name: "artisti", value: "111111111" },
 		],
 	})
-	@observable public = new Field(this, "public", { type: FieldType.boolean })
+	@observable public = new Field(this, "public", {
+		type: FieldType.boolean,
+		label: "copyrightOrgs:public",
+	})
 	toJS() {
 		let v = super.toJS()
 		console.log(`professional id model to js = ${JSON.stringify(v, null, 2)}`)
