@@ -9,9 +9,8 @@ import {
 	useParams,
 } from "react-router"
 import { StyleSheet, View } from "react-native"
-import { useStorePath } from "../../appstate/react"
 import { WorkpieceContext, useCurrentWorkpiece } from "./context"
-import RightsSplitsForm from "./rights-splits"
+import RightsSplitsPage from "./rights-splits"
 import ProtectWork from "./protect"
 import { Column, Row, Spacer } from "../../layout"
 import { Colors, Metrics } from "../../theme"
@@ -25,15 +24,14 @@ import { useTranslation } from "react-i18next"
 import { Tab, TabBar } from "../../widgets/tabs"
 import UserAvatar from "../../smartsplit/user/avatar"
 import ChevronDown from "../../svg/chevron-down"
-import { ProtectYourWork, ShareYourCopyright } from "./cards"
+import { DocumentYourWork, ProtectYourWork, ShareYourCopyright } from "./cards"
+import { useStorePath, useStores } from "../../mobX"
+import { observer } from "mobx-react"
+import DocumentationPage from "./documentation"
 
-import Lyrics from "./documentation/lyrics"
-import Links from "./documentation/links"
-
-export default function WorkpiecesRouter() {
+const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
-
 	return (
 		<WorkpieceContext.Provider value={workpiece}>
 			<Switch>
@@ -42,22 +40,42 @@ export default function WorkpiecesRouter() {
 					exact
 					component={WorkpiecePage}
 				/>
-				<Route path="/workpieces/:workpiece_id/rights-splits">
-					<RightsSplitsForm />
-				</Route>
+
+				<Route
+					path={[
+						"/workpieces/:workpiece_id/rights-splits/:split_type",
+						"/workpieces/:workpiece_id/rights-splits",
+					]}
+					component={RightsSplitsPage}
+				/>
+				<Route
+					path={[
+						"/workpieces/:workpiece_id/documentation/:type",
+						"/workpieces/:workpiece_id/documentation",
+					]}
+					component={DocumentationPage}
+				/>
+
 				<Route path="/workpieces/:workpiece_id/protect">
 					<ProtectWork />
 				</Route>
-				<Route path="/workpieces/:workpiece_id/documentation/lyrics">
-					<Lyrics />
-				</Route>
-				<Route path="/workpieces/:workpiece_id/documentation/links">
-					<Links />
-				</Route>
+
+				{/*<Route path="/workpieces/:workpiece_id/documentation/recording">*/}
+				{/*	<Recording />*/}
+				{/*</Route>*/}
+				{/*<Route path="/workpieces/:workpiece_id/documentation/creation">*/}
+				{/*	<Creation />*/}
+				{/*</Route>*/}
+				{/*<Route path="/workpieces/:workpiece_id/documentation/performance">*/}
+				{/*	<Performance />*/}
+				{/*</Route>*/}
+				{/*<Route path="/workpieces/:workpiece_id/documentation/files">*/}
+				{/*	<Files />*/}
+				{/*</Route>*/}
 			</Switch>
 		</WorkpieceContext.Provider>
 	)
-}
+})
 
 export const demoPiece = {
 	title: "Titre de la pièce",
@@ -118,6 +136,7 @@ const stubWorkpiece = {
 export function WorkpiecePage() {
 	const history = useHistory()
 	const { t } = useTranslation()
+
 	return (
 		<Column style={Styles.outerContainer}>
 			<Navbar
@@ -150,6 +169,7 @@ export function WorkpiecePage() {
 								<Row wrap style={Styles.cardContainer}>
 									<ShareYourCopyright />
 									<ProtectYourWork />
+									<DocumentYourWork />
 								</Row>
 							</Column>
 						</Column>
@@ -163,8 +183,12 @@ export function WorkpiecePage() {
 
 function InfoBar() {
 	const { t } = useTranslation()
-	const workpiece = { ...stubWorkpiece, ...useCurrentWorkpiece("data") }
 
+	const { workpiece_id, type } = useParams()
+	//console.log(workpiece_id)
+	const { workpieces } = useStores()
+	const workpiece = workpieces.list[workpiece_id].data
+	//console.log(workpiece)
 	return (
 		<Row
 			of="group"
@@ -207,3 +231,5 @@ function InfoBar() {
 		</Row>
 	)
 }
+
+export default WorkpiecesRouter
