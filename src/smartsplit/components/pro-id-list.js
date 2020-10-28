@@ -47,11 +47,11 @@ const IdFields = observer((props) => {
 		<Column flex={1}>
 			{rows.map((columns, i) => (
 				<React.Fragment key={"pidrow" + i}>
-					<Spacer of={"component"} />
+					{i > 0 ? <Spacer of={"component"} /> : null}
 					<Row flex={1}>{columns}</Row>
 				</React.Fragment>
 			))}
-			<Spacer of={"component"} />
+			{rows.length > 0 ? <Spacer of={"component"} /> : null}
 		</Column>
 	)
 })
@@ -70,7 +70,7 @@ export const ProIdList = observer((props) => {
 			)}
 			<Column
 				of="component"
-				padding={model.ids.value.length ? "component" : "tiny"}
+				padding={model.ids.value.length ? "component" : 0}
 				style={{
 					borderLeftStyle: "solid",
 					borderLeftColor: model.ids.value.length ? "#cccccc" : "#fffff",

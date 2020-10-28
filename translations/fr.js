@@ -137,6 +137,9 @@ export const publicNavbarWeb = {
 
 export const forms = {
 	labels: {
+		firstName: "Prénom",
+		middleName: "Second prénom",
+		lastName: "Nom",
 		myEmail: "Mon courriel",
 		myEmails: "Mes courriels liés à ce compte",
 		password: "Mot de passe",

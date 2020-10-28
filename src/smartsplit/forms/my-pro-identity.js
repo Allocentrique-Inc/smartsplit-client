@@ -13,12 +13,12 @@ export default function MyProIdentity() {
 	const [t] = useTranslation()
 	const model = useStorePath("settings", "profile")
 	return (
-		<Column of="group">
+		<Column of="group" flex={1}>
 			{Platform.web && <Heading level="2">{t("settings:identity")}</Heading>}
-			<Row>
+			<Row flex={1}>
 				<SearchAndTag
-					label={t("forms:labels.participation")}
-					placeholder={t("forms:placeholders.search")}
+					label={t("forms:labels.organisations")}
+					placeholder={t("forms:placeholders.organisations")}
 					onSearchChange={() => {}}
 				/>
 			</Row>

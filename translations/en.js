@@ -138,6 +138,9 @@ export const publicNavbarWeb = {
 
 export const forms = {
 	labels: {
+		firstName: "First Name",
+		middleName: "Middle Name",
+		lastName: "Last Name",
 		myEmail: "My email",
 		myEmails: "My emails linked to this account",
 		password: "Password",
@@ -201,7 +204,7 @@ export const forms = {
 		usualLastName: "Usual Last Name",
 		firstName: "First Name",
 		middleName: "Middle Name",
-		lastName: "Name",
+		lastName: "Last Name",
 		artistName: "Artist Name",
 		search: "Search among groups, artists or organisations...",
 		organisations:

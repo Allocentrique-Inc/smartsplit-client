@@ -21,13 +21,13 @@ export default class ProfileModel extends BaseModel {
 		primary: true,
 	})
 	@observable firstName = new Field(this, "firstName", {
-		label: "forms:labels.usualFirstName",
+		label: "forms:labels.firstName",
 
 		type: FieldType.string,
 	})
 
 	@observable lastName = new Field(this, "lastName", {
-		label: "forms:labels.usualLastName",
+		label: "forms:labels.lastName",
 
 		type: FieldType.string,
 	})
