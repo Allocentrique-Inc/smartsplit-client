@@ -23,10 +23,7 @@ export default function MyProIdentity() {
 				/>
 			</Row>
 			<Row>
-				<ProIdList
-					label={t("forms:labels.myProIds")}
-					description={t("forms:descriptions.myProIds")}
-				/>
+				<ProIdList />
 			</Row>
 			<DateField
 				field={model.birthDate}

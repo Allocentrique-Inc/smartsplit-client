@@ -44,15 +44,7 @@ const IdFields = observer((props) => {
 		)
 
 	return (
-		<Column
-			padding="component"
-			style={{
-				borderLeftStyle: "solid",
-				borderLeftColor: "#cccccc",
-				borderLeftWidth: 2,
-			}}
-			flex={1}
-		>
+		<Column flex={1}>
 			{rows.map((columns, i) => (
 				<React.Fragment key={"pidrow" + i}>
 					<Spacer of={"component"} />
@@ -65,7 +57,6 @@ const IdFields = observer((props) => {
 })
 export const ProIdList = observer((props) => {
 	const { t } = useTranslation()
-	const { description } = props
 	const model = useStorePath("settings", "profile", "professional_identity")
 	const [modalVisible, setModalVisible] = useState(false)
 	const ids = model.ids
@@ -73,10 +64,19 @@ export const ProIdList = observer((props) => {
 	console.log(toJS(proIds))
 
 	return (
-		<Label {...props}>
-			<Column of="component">
-				{description && <Paragraph>{description}</Paragraph>}
-
+		<Label label={t("forms:labels.myProIds")}>
+			{model.ids.value.length === 0 && (
+				<Paragraph>{t("forms:descriptions.myProIds")}</Paragraph>
+			)}
+			<Column
+				of="component"
+				padding={model.ids.value.length ? "component" : "tiny"}
+				style={{
+					borderLeftStyle: "solid",
+					borderLeftColor: model.ids.value.length ? "#cccccc" : "#fffff",
+					borderLeftWidth: model.ids.value.length ? 2 : 0,
+				}}
+			>
 				{/*<Column padding="component" layer="left_overground" />*/}
 
 				{proIds && (
