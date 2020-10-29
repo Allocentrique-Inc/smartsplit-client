@@ -61,10 +61,10 @@ export function LyricsForm(props) {
 				<Column of="group" flex={5}>
 					<Text action bold style={Styles.category}>
 						<LyricsIcon style={Styles.logo} />
-						{t("document:infos.category")}
+						{t("document:lyrics.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("document:infos.title")}</Heading>
+					<Heading level={1}>{t("document:lyrics.title")}</Heading>
 
 					<Spacer of="group" />
 
