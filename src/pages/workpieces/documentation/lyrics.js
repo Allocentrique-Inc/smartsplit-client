@@ -16,13 +16,15 @@ import { TextInput } from "react-native"
 
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
-		/* 		padding: 5,
+		/* 		
+		padding: 5,
 		borderWidth: 1,
 		borderRadius: 2, */
 		borderColor: Colors.stroke,
 		minHeight: 264,
 		resize: "vertical",
-		/* 		"&::-webkitResizer": {
+		/* 		
+			"&::-webkitResizer": {
 			background: Colors.stroke,
 		}, */
 	},

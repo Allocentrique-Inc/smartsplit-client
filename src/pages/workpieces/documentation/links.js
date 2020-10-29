@@ -33,6 +33,10 @@ import AddPlatformDropdown from "../../../smartsplit/components/add-platform-dro
 import { DialogModal } from "../../../widgets/modal"
 
 const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
 	logo: {
 		marginRight: Metrics.spacing.logo,
 	},
@@ -104,8 +108,8 @@ export function LinksForm(props) {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
-						<LinkIcon />
+					<Text action bold style={Styles.category}>
+						<LinkIcon style={Styles.logo} />
 						{t("document:links.category")}
 						<Row padding="tiny" />
 					</Text>
