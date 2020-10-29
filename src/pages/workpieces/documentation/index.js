@@ -8,12 +8,13 @@ import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Flex, Row } from "../../../layout"
 import { Text } from "../../../text"
-import CreationForm from "./creation"
+import { CreationForm } from "./creation"
 import { PerformanceForm } from "./performance"
 import { RecordingForm } from "./recording"
 import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
 import { ReleaseForm } from "./release"
+import { GeneralInfosForm } from "./general-infos"
 
 const DocumentationPage = observer(() => {
 	const { t } = useTranslation()
