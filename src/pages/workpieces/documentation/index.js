@@ -55,6 +55,11 @@ const DocumentationPage = observer(() => {
 			progress: 62.5,
 			title: t("document:navbar.pages.files"),
 		},
+		infos: {
+			form: GeneralInfosForm,
+			progress: 75,
+			title: t("document:navbar.pages.infos"),
+		},
 		lyrics: {
 			form: LyricsForm,
 			progress: 87.5,
