@@ -15,7 +15,6 @@ import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
 import { ReleaseForm } from "./release"
 import { LinksForm } from "./links"
-import { GeneralInfosForm } from "./infos"
 
 const DocumentationPage = observer(() => {
 	const { t } = useTranslation()
@@ -55,11 +54,6 @@ const DocumentationPage = observer(() => {
 			form: FilesForm,
 			progress: 62.5,
 			title: t("document:navbar.pages.files"),
-		},
-		infos: {
-			form: GeneralInfosForm,
-			progress: 75,
-			title: t("document:navbar.pages.infos"),
 		},
 		lyrics: {
 			form: LyricsForm,
