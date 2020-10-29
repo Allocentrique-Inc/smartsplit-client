@@ -304,27 +304,27 @@ export function wrapSimpleField(component, valueProp, onChangeProp) {
 
 export function wrapMultipleChoiceField(component) {
 	return ({ name, error, onSelect, onUnselect, children, ...nextProps }) => {
-		const formField = name && useFormField(name)
+		const form = name && useFormField(name)
 		nextProps.error = error
 
-		const selection = formField ? formField.value : null
-		if (formField) {
+		const selection = form ? form.value : null
+		if (form && name) {
 			onSelect = onSelect
 				? onSelect
 				: (value) => {
 						if (!selection.includes(value)) {
 							selection.push(value)
-							formField.value = [...selection]
+							form.value = [...selection]
 						}
 				  }
 			onUnselect = onUnselect
 				? onUnselect
 				: (value) => {
 						selection.splice(selection.indexOf(value), 1)
-						formField.value = [...selection]
+						form.value = [...selection]
 				  }
 			if (!nextProps.error) {
-				nextProps.error = formField.error
+				nextProps.error = form.error
 			}
 		}
 		return React.createElement(

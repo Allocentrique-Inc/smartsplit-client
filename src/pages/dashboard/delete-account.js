@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { observer } from "mobx-react"
+import { useStores, useStorePath as useMobXStorePath } from "../../mobX"
 import { useTranslation } from "react-i18next"
 import { Platform } from "../../platform"
 import { DialogModal } from "../../widgets/modal"
@@ -15,8 +17,8 @@ export default function DeleteAccountModal(props) {
 	const [confirmDelete, setConfirmDelete] = useState("")
 	const [error, setError] = useState(null)
 
-	const auth = useStorePath("auth")
-	const user = useStorePath("auth", "user")
+	const { auth } = useStores()
+	const user = useMobXStorePath("auth", "user")
 
 	const canSubmit =
 		!isDeleting &&

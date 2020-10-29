@@ -5,6 +5,9 @@ export const general = {
 	noAccount: "I don't have an account",
 	or: "or",
 	auth: "Two factor authentification",
+	more: "Know more",
+	addFile: "Choose a file",
+	dropFile: "or drop your file here",
 
 	alerts: {
 		connected: "Connected!",
@@ -18,6 +21,13 @@ export const general = {
 		composer: "Composer",
 		mixer: "Mixer",
 		performer: "Performer",
+		singer: "Singer",
+		musician: "Musician",
+	},
+
+	radioButton: {
+		singer: "Singer",
+		musician: "Musician",
 	},
 
 	languages: {
@@ -54,6 +64,9 @@ export const general = {
 		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
+		continue: "Continue",
+		back: "Back",
+		saveClose: "Save and close",
 		toConsult: "Consult",
 		toBegin: "Begin",
 		continue: "Continuer",
@@ -62,9 +75,9 @@ export const general = {
 		pass: "Pass for now",
 		end: "Finish",
 		seeSummary: "Se the summary",
+		pass: "Pass for now",
 	},
 }
-
 export const menu = {
 	menu: "Menu",
 	works: "My Musical Works",
@@ -80,11 +93,17 @@ export const menu = {
 
 export const test = {
 	title: "Forms Testing",
+	count: "Count",
+	squared: "Squared",
+	addOne: "Add 1",
+	subOne: "Subtract 1",
 }
 
 export const errors = {
 	enterEmail: "Please enter your email address",
-	strengthPassword: "The password must incluse at least 8 characters",
+	invalidEmail: "Email address is invalid",
+	emailAlreadyYours: "Email is already yours",
+	strengthPassword: "The password must include at least 8 characters",
 	samePasswords: "Both passwords must be identical",
 	invalidToken:
 		"The reset token is no longer valid or has expired. Please make a new password request.",
@@ -102,10 +121,15 @@ export const errors = {
 		emailTaken: "This email is already used. ",
 		forgotEmail: "Did you forget your password?",
 	},
+	emailTaken: "This email is already used. ",
+	forgotEmail: "Did you forget your password?",
 	invalidCurrentPassword: "Current password is incorrect. Please try again.",
 	listNotFound: "List not found",
 	entityNotFound: "List entity not found",
 	entityConflict: "A list entity with this ID already exists",
+	requiredField: "Required Field",
+	invalidName: "must contain only letters and numbers",
+	acceptTerms: "You must accept the terms",
 }
 
 export const publicNavbarWeb = {
@@ -154,13 +178,16 @@ export const forms = {
 		myUri: "My URI",
 		participation: "My participation to entities",
 		myProIds: "My professional identifiers",
-		phone: "Téléphone mobile",
-		organisations: "Mes sociétés",
+		phone: "mobile phone",
+		organisations: "My organizations",
 		groups: "Groups",
 		dropdowns: {
-			language: "Langue",
-			phone: "Téléphone mobile",
-			juridiction: "Juridiction",
+			language: "Language",
+			phone: "Mobile Phone",
+			juridiction: "Jurisdiction",
+			addCollaborator: "Add a collaborator",
+			createCollaborator: "Create a new collaborator",
+			createContributor: "Create a new contributor",
 		},
 		defaultRoles: "Default Role(s)",
 	},
@@ -213,7 +240,8 @@ export const forms = {
 		resendConfirmEmail: "Resend confirmation email",
 		defaultRoles: "These roles can always be changed later.",
 	},
-	addCollabArtist: "[Add/Modify] a collaborating artist",
+	addCollabArtist: "Add a collaborating artist",
+	addContributor: "Add a contributing artist",
 	options: {
 		defaultRoles: [
 			{
@@ -221,16 +249,28 @@ export const forms = {
 				value: "author",
 			},
 			{
-				displayValue: "Compositor",
-				value: "compositor",
+				displayValue: "Composor",
+				value: "composer",
 			},
 			{
 				displayValue: "Arranger",
 				value: "arranger",
 			},
 			{
-				displayValue: "Interpreter",
-				value: "interpreter",
+				displayValue: "Mixer",
+				value: "mixer",
+			},
+			{
+				displayValue: "Performer",
+				value: "performer",
+			},
+			{
+				displayValue: "Singer",
+				value: "singer",
+			},
+			{
+				displayValue: "Musician",
+				value: "musician",
 			},
 		],
 	},
@@ -355,6 +395,11 @@ export const settings = {
 			subTitle: "Get our partners' offers",
 		},
 	},
+	emailVerificationModal: {
+		title: "Add a new email address to your account",
+		sent:
+			"We've sent you an email to validate the address. Please check your inbox.",
+	},
 
 	emailVerificationSent: (email) => (
 		<>
@@ -404,6 +449,10 @@ export const admin = {
 	entityTypes: {
 		"content-languages": "Content languages",
 		"digital-distributors": "Digital distributors",
+	},
+
+	entityAttributes: {
+		name: "Name",
 	},
 
 	entityCreation: "Entity creation",
@@ -461,15 +510,167 @@ export const identity = {
 	),
 }
 
+export const rightSplits = {
+	navbar: {
+		rightSplits: "Right Split",
+		page: "Page Name",
+	},
+	titles: {
+		copyright: "Copyright",
+		performance: "Performance",
+		recording: "Sound recording",
+	},
+	headers: {
+		copyright: "Who invented this musical piece?",
+		performance: "Who played on the audio recording?",
+		recording: "Who owns the audio recording?",
+	},
+
+	paragraphs: {
+		copyright: () => (
+			<>
+				Seperate here the copyright between creators, i.e. the authors of{" "}
+				<b>lyrics</b>, the composers and the mixers of <b>music</b>. It is
+				common to share the copyright fairly. But you can do otherwise.
+			</>
+		),
+		performance: () => (
+			<>
+				Seperate here the <b>neigbor right</b> between <b>performers</b>,
+				whether musicians or singers. <i>Group</i> members share this right with
+				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
+				while the remaining 20% is split among <i>featured artists</i>, if
+				applicable.
+			</>
+		),
+		recording: () => (
+			<>
+				Seperate here the <b>neighbor right</b> of <b>producers</b>, i.e. those
+				who invested their time and/or their money to record and finalize the
+				product to be commercialized.
+				{"\n"}
+				{"\n"}
+				It is common pratice to share this right in equal parts or in pro bono
+				of the investment.
+			</>
+		),
+	},
+
+	radios: {
+		equal: "Split evenly",
+		roles: "Split according to roles",
+		manual: "Manage manually",
+		email: "By email",
+		txt: "By SMS",
+	},
+
+	dropdowns: {
+		addCollab: "Add a collaborator...",
+		addLabel: "Add a label...",
+		removeCollab: "Remove this collaborator",
+		status: "Select a status...",
+		function: "Select a function...",
+		agreement: "Duration of the agreement...",
+		remove: "Remove this split",
+		artist: {
+			artist: "Main artist",
+			artistDefinition: 'Also called "Starred Artist" or "Solo Artist"',
+			artistInvited: () => (
+				<>
+					Starred Artist (<i>featuring</i>)
+				</>
+			),
+			artistInvitedDefinition:
+				"Artist or group member invited to collaborate on a musical piece",
+			artistMember: "Group Member",
+			artistMemberDefinition:
+				"Musician or singer taking part in the artistic entity.",
+			artistExtra: "Accompanying Artist",
+			artistExtraDefinition:
+				"Engaged performer during studio recording sessions.",
+		},
+		collaborators: {
+			producer: "Producer",
+			producerDefinition:
+				"External investor (not being the artist or member of the group).",
+			autoProducer: "Auto-producer",
+			autoProducerDefinition:
+				"Artist or group member investing in the work's recording.",
+			directorProducer: "Director-Producer",
+			directorProducerDefinition:
+				"Craftsman's investment in the direction and production of the work.",
+			techProducer: "Technician-Producer",
+			techProducerDefinition:
+				"Technician investing in the production of the work (mixer, sound engineer).",
+			studio: "Recording Studio",
+			studioDefinition:
+				"Entity investing its ressources in order to record the work, for pourcentage.",
+			illustratorDesigner: "Illustrator / Graphic Designer",
+			illustratorDesignerDefinition:
+				"Person investing in the creation of visual material related to the work (cover, vidéo).",
+		},
+		duration: {
+			oneYear: "1 year, renewable year after year",
+			twoYears: "2 years, renewable year after year",
+			threeYears: "3 years, renewable year after year",
+			fourYears: "4 years, renewable year after year",
+			fiveYears: "5 years, renewable year after year",
+			renew: "Automatically renews, unless notified 60 days prior.",
+		},
+	},
+
+	yourself: "(you)",
+	more: "Learn more",
+	notify: "Notify me one month before the deadline...",
+	music: "Music",
+	lyrics: "Lyrics",
+
+	errors: {
+		status: "You need to select a status for this right holder.",
+		role: "You need to select at least one role for this rightholder.",
+		function: "You need select a function for this rightholder.",
+		option: "You need to select an option for this rightholder.",
+	},
+
+	tooltips: {
+		equal:
+			'Divide the copyright by the number of people and assigns the role "Author-Composer" by default to everyone. This way of spliting copyright avoids many arguments between creators, particularly when money starts to come in. ;)',
+		role:
+			'Divide the copyright by two: 50% goes to those who composed music. This last "music" part is then divided by the number of selected roles and the collaborators get a pourcentage according to their implication. For exemple: Alice only composes, whereas Bob composes AND arranges music. So Alice has 1/3 and Bob 2/3 of music.',
+		manual:
+			"Lets you determine the pourcentage and the roles for every collaborators. To fix a pourcentage to a collaborator, you can use the lock.",
+		label:
+			"A general rule is that a label rarely takes more than 50% of rights and incomes on audio recording proprety.",
+	},
+}
+
+export const roles = {
+	author: "Author",
+	composer: "Composer",
+	adapter: "Adapter",
+	mixer: "Mixer",
+	singer: "Singer",
+	musician: "Musician",
+}
+
+export const newUserInvite = {
+	title: "[Add/Modify] a Collaborating Artist",
+	checkboxTitle: "Rôle(s) par défaut",
+	checkboxUndertext: "These roles can always be modified later.",
+}
+
 export const document = {
 	navbar: {
 		document: "Document my work",
 		pages: {
 			creation: "Creation",
 			performance: "Performance",
+			release: "Release",
 			infos: "General Information",
 			lyrics: "Lyrics",
 			links: "Listening Links",
+			recording: "Recording",
+			files: "Files",
 		},
 	},
 	help: "Help",
@@ -500,12 +701,63 @@ export const document = {
 		title: "Who performed the musical piece on this audio recording?",
 		paragraph: "Here you mention who played which instrument.",
 		roles: {
-			addPerformer: "Ajouter un interprète...",
+			artist: "Artist",
+			singer: "Singer",
+			musician: "Musician",
+			addPerformer: "Add a performer...",
 		},
 		what: "What's a performer?",
 		whichPerformance: "Which type of performance?",
 		whichRole: "Which role in the musical piece?",
 		addInstrument: "Add an instrument...",
+	},
+
+	recording: {
+		category: "RECORDING",
+		title: "Who recorded the musical piece?",
+		paragraph:
+			"Here you mention who contributed to the audio recording of this piece.",
+		roles: {
+			direction: "Direction",
+			addDirector: "Add a Director...",
+			soundEngineer: "Sound Engineer",
+			addSoundEngineer: "Add a Sound Engineer...",
+			mix: "Mix",
+			addMix: "Add a Mix Engineer...",
+			master: "Mastering",
+			addMaster: "Add a Mastering Engineer...",
+			production: "Production",
+			addProduction: "Add a Producer",
+		},
+		date: "Recording  Date",
+		studio: "Recording Studio",
+		searchStudio: "Search a recording studio...",
+		isrc: "ISRC Code",
+		tooltips: {
+			isrc:
+				"The International Standard Work Code is a unique identification of musical works.",
+		},
+	},
+
+	release: {
+		category: "RELEASE",
+		title: "Was this piece released?",
+		paragraph:
+			"Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet.",
+		date: "Release Date",
+		dateHint: "Leave blank if undetermined",
+		label: "Label",
+		addLabel: "Add a label",
+		format: "Product Format",
+		ep: "EP Title",
+		supports: {
+			support: "Support",
+			digital: "Digital",
+			distribution: "Distribution",
+			addDistribution: "Add a distributor...",
+			upc: "UPC/EAN Code",
+			physical: "Physical",
+		},
 	},
 	files: {
 		category: "FILES",
@@ -588,5 +840,81 @@ export const document = {
 		title: (workPiece) => <>{workPiece} is now documented!</>,
 		paragraph:
 			"You are one click away from publishing the credits of this piece on a web page and therefore increase the discoverability on these data on the web.",
+	},
+}
+export const collaborators = {
+	email: "Collaborator's email address",
+}
+export const contributors = {
+	add: "Add a Contributor",
+}
+export const copyrightOrgs = {
+	names: {
+		socan: "Socan",
+		socandr: "Socan DR",
+		spacq: "SPACQ",
+		apem: "APEM",
+		soproq: "SOPROQ",
+		adisq: "ADISQ",
+		artisti: "Artisti",
+		uda: "UDA",
+		gmmq: "GMMQ",
+		cmrra: "CMRRA",
+		sac: "SAC",
+		cmpa: "CMPA",
+		re_sound: "Re:Sound",
+		connect: "Connect",
+		cima: "CIMA",
+		actraracs: "ACTRA RACS",
+		mroc: "MROC",
+		actra: "ACTRA",
+		cfm: "CFM",
+	},
+	description: {
+		socan: "Society of Composers, Authors and Music Publishers of Canada",
+		socandr: "Society of Composers, Authors and Music Publishers of Canada",
+		spacq: "Société professionnelle des auteurs et des compositeurs du Québec",
+		apem: "Association des professionnels de l'édition musicale",
+		soproq:
+			"Société de gestion collective des droits des producteurs de phonogrammes et vidéogrammes du Québec",
+		adisq:
+			"Association québécoise de l'industrie du disque, du spectacle et de la vidéo",
+		artisti:
+			"Société de gestion collective de l'Union des artistes (UDA) pour la rémunération des droits voisins des artistes interprètes (chanteurs et musiciens)",
+		uda: "Union des artistes",
+		gmmq: "Guilde des musiciens et des musiciennes du Québec",
+		cmrra: "Canadian Musical Reproduction Rights Agency",
+		sac: "Songwriters Association of Canada",
+		cmpa: "Music Publisher Canada",
+		re_sound:
+			"Music Licensing Company (formerly known as Neighbouring Rights Collective of Canada)",
+		connect: "Connect Music Licensing (formerly known as the AVLA)",
+		cima: "Canadian Independent Music Association",
+		actraracs: "ACTRA Recording Artists' Collecting Society",
+		mroc: "Musicians' Rights Organization Canada",
+		actra: "Alliance of Canadian Cinema, Television and Radio Artists",
+		cfm:
+			"Canadian Federation of Musicians (formerly referred to as AFM Canada)",
+	},
+	actions: {
+		socan: "Performance rights of musical works",
+		socandr: "Reproduction rights of musical works",
+		spacq: "Nomenclature",
+		apem: "Sectoral representation of publishers",
+		soproq: "Neighboring rights of producers",
+		adisq: "Sectoral representation of producers",
+		artisti: "Neighboring rights of performers",
+		uda: "Union of singers and choristers",
+		gmmq: "Union of musicians and instrumentalists",
+		cmrra: "Reproduction rights of musical works",
+		sac: "Creators' sectoral association",
+		cmpa: "Publishers' sectoral association",
+		re_sound: "Sound recording owners' neighbour rights",
+		connect: "Sound recording owners' neighbour rights",
+		cima: "Sound recording owners' sectoral association",
+		actraracs: "Performers' neighbour rights",
+		mroc: "Performers' neighbour rights",
+		actra: "Vocalists' professional union",
+		cfm: "Musicians' professional union",
 	},
 }

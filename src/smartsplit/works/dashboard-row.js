@@ -2,7 +2,6 @@ import React from "react"
 import moment from "moment"
 import { View } from "react-native"
 import { useHistory } from "react-router"
-import { useStorePath, useSubpath } from "../../appstate/react"
 import { Column, Row } from "../../layout"
 import { Text } from "../../text"
 import { Button } from "../../widgets/button"
@@ -12,10 +11,12 @@ import WorkStyles from "./styles"
 import UserAvatar from "../user/avatar"
 
 import OverflowMenuIcon from "../../svg/overflow-menu"
+import { useStorePath } from "../../mobX"
+import { observer } from "mobx-react"
 
 export default function MediaWorkRow(props) {
 	const history = useHistory()
-	const data = useSubpath(props.workpiece, "data")
+	const data = props.workpiece.data
 
 	const dateRel = moment(data.creationDate).fromNow()
 	function navigateToSummary() {
@@ -67,9 +68,7 @@ function RightHoldersRow({ rightHolders }) {
 	)
 }
 
-function Avatar({ id }) {
+const Avatar = observer(({ id }) => {
 	const user = useStorePath("users").fetch(id)
-	const data = useSubpath(user, "data")
-
-	return <UserAvatar user={data} size="xsmall" />
-}
+	return <UserAvatar user={user.data} size="xsmall" />
+})

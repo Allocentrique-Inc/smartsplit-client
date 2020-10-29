@@ -10,9 +10,11 @@ import { Metrics } from "../../theme"
 import Card from "../../widgets/card"
 import Button from "../../widgets/button"
 import { useCurrentWorkpiece } from "./context"
+import { observer } from "mobx-react"
 
 const styles = StyleSheet.create({
 	card: {
+		width: 304,
 		marginRight: Metrics.spacing.medium,
 		marginBottom: Metrics.spacing.medium,
 		paddingTop: Metrics.spacing.large,
@@ -35,9 +37,9 @@ function useNavigation(workpieceId, path) {
 	}
 }
 
-export function ShareYourCopyright() {
+export const ShareYourCopyright = observer(() => {
 	const { t } = useTranslation()
-	const workpieceId = useCurrentWorkpiece("id")
+	const workpieceId = useCurrentWorkpiece().id
 	const toNextPage = useNavigation(workpieceId, "rights-splits")
 
 	return (
@@ -61,7 +63,7 @@ export function ShareYourCopyright() {
 			</Column>
 		</Card>
 	)
-}
+})
 
 export function ProtectYourWork() {
 	const { t } = useTranslation()
@@ -77,6 +79,31 @@ export function ProtectYourWork() {
 						{t("workpieces:cards.protectYourWork.title")}
 					</Heading>
 					<Text tertiary>{t("workpieces:cards.protectYourWork.desc")}</Text>
+				</Column>
+				<Row style={styles.buttonContainer}>
+					<Button
+						secondary
+						bold
+						text={t("general:buttons.toBegin")}
+						onClick={toNextPage}
+					/>
+				</Row>
+			</Column>
+		</Card>
+	)
+}
+
+export function DocumentYourWork() {
+	const { t } = useTranslation()
+	const workpieceId = useCurrentWorkpiece().id
+	const toNextPage = useNavigation(workpieceId, "documentation")
+
+	return (
+		<Card style={styles.card}>
+			<Column of="group" style={styles.innerContainer}>
+				<ProtectionLogo />
+				<Column of="inside">
+					<Heading level={4}>{t("document:navbar.document")}</Heading>
 				</Column>
 				<Row style={styles.buttonContainer}>
 					<Button

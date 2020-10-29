@@ -1,8 +1,8 @@
 import React from "react"
 import { Switch, Route, Redirect } from "react-router"
 import { Platform } from "../../platform"
-import DashboardLayout from "../../layout/dashboard"
-import BottomNavbarLayout from "../../layout/bottom-navbar"
+import DashboardLayout from "../../layouts/dashboard"
+import BottomNavbarLayout from "../../layouts/bottom-navbar"
 import Scrollable from "../../widgets/scrollable"
 
 import MusicNoteIcon from "../../svg/music-note"
@@ -14,9 +14,10 @@ import MyWorksPage from "./my-works"
 import CollaboratorsPage from "./collaborators"
 import ChangePasswordPage from "./change-password"
 import NewEmailModal from "./new-email"
-import SubScreenLayout from "../../layout/subscreen"
+import SubScreenLayout from "../../layouts/subscreen"
 import { CurrentUserAvatar } from "../../smartsplit/user/avatar"
 import { Text } from "../../text"
+import { observer } from "mobx-react"
 
 const MENU_WEB = [
 	{
@@ -64,7 +65,7 @@ const MENU_MOBILE = [
 	},
 ]
 
-export default function DashboardPage(props) {
+const DashboardPage = observer((props) => {
 	const Layout = Platform.web ? DashboardLayout : BottomNavbarLayout
 	const menu = Platform.web ? MENU_WEB : MENU_MOBILE
 
@@ -75,7 +76,8 @@ export default function DashboardPage(props) {
 			</Scrollable>
 		</Layout>
 	)
-}
+})
+export default DashboardPage
 
 export function MobileMenu({ children }) {
 	return (
@@ -85,7 +87,7 @@ export function MobileMenu({ children }) {
 	)
 }
 
-export function DashboardRoutes(props) {
+export const DashboardRoutes = observer((props) => {
 	return (
 		<Switch>
 			<Route path="/dashboard/" exact>
@@ -109,4 +111,4 @@ export function DashboardRoutes(props) {
 			</Route>
 		</Switch>
 	)
-}
+})

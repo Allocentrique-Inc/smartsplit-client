@@ -10,6 +10,10 @@ export async function registerUser(data) {
 	return result.data
 }
 
+export async function getEmail(email) {
+	return await client.head(`/users/email/${encodeURI(email)}`)
+}
+
 export function forgotPassword(email) {
 	return client.request({
 		url: "/users/request-password-reset",
@@ -63,6 +67,16 @@ export async function verifyPhone(verificationCode) {
 	})
 
 	return res.data
+}
+
+export async function inviteNewUser(data) {
+	const result = await client.request({
+		url: "/users/invite-new-user",
+		method: "post",
+		data,
+	})
+
+	return result.data
 }
 
 export default createCrudClient("/users")
