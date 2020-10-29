@@ -39,14 +39,9 @@ const DocumentationPage = observer(() => {
 			progress: 25,
 			title: t("document:navbar.pages.performance"),
 		},
-		files: {
-			form: FilesForm,
-			progress: 24,
-			title: t("document:navbar.pages.files"),
-		},
 		recording: {
 			form: RecordingForm,
-			progress: 36.5,
+			progress: 37.5,
 			title: t("document:navbar.pages.recording"),
 		},
 		release: {
@@ -54,10 +49,25 @@ const DocumentationPage = observer(() => {
 			progress: 50,
 			title: t("document:navbar.pages.release"),
 		},
+		files: {
+			form: FilesForm,
+			progress: 62.5,
+			title: t("document:navbar.pages.files"),
+		},
+		infos: {
+			form: GeneralInfosForm,
+			progress: 75,
+			title: t("document:navbar.pages.infos"),
+		},
 		lyrics: {
 			form: LyricsForm,
-			progress: 62.5,
+			progress: 87.5,
 			title: t("document:navbar.pages.lyrics"),
+		},
+		links: {
+			form: LinksForm,
+			progress: 100,
+			title: t("document:navbar.pages.links"),
 		},
 	}
 
