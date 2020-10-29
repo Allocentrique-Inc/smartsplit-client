@@ -15,6 +15,7 @@ import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
 import { ReleaseForm } from "./release"
 import { LinksForm } from "./links"
+import { GeneralInfosForm } from "./infos"
 
 const DocumentationPage = observer(() => {
 	const { t } = useTranslation()
