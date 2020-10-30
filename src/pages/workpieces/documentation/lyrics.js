@@ -16,17 +16,19 @@ import { TextInput } from "react-native"
 
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
-		/* 	To Do:	
 		padding: 5,
 		borderWidth: 1,
-		borderRadius: 2, */
+		borderRadius: 2,
 		borderColor: Colors.stroke,
 		minHeight: 264,
 		resize: "vertical",
-		/* 		
-			"&::-webkitResizer": {
+		//To Do: Was not able to style the grabber of the text area:
+		"&::-webkitResizer": {
 			background: Colors.stroke,
-		}, */
+			border: Colors.stroke,
+			boxShadow: Colors.stroke,
+			outline: Colors.stroke,
+		},
 	},
 	textArea: {
 		justifyContent: "flex-start",
