@@ -22,7 +22,7 @@ const formStyle = StyleSheet.create({
 		borderColor: Colors.stroke,
 		minHeight: 264,
 		resize: "vertical",
-		//Was not able to style the grabber of the text area:
+		//To Do: Was not able to style the grabber of the text area:
 		"&::-webkitResizer": {
 			background: Colors.stroke,
 			border: Colors.stroke,
@@ -64,11 +64,12 @@ export function LyricsForm(props) {
 						{t("document:lyrics.category")}
 						<Row padding="tiny" />
 					</Text>
+					{/* To Do: Title does not appear because of {workpiece} object in translations */}
 					<Heading level={1}>{t("document:lyrics.title")}</Heading>
 
 					<Spacer of="group" />
 
-					{/* Was not able to style TextField:					
+					{/* To Do? Was not able to style TextField:					
 					<TextField
 						label={t("document:lyrics.label")}
 						value={text}
