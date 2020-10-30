@@ -16,7 +16,7 @@ import { TextInput } from "react-native"
 
 const formStyle = StyleSheet.create({
 	textAreaContainer: {
-		/* 		
+		/* 	To Do:	
 		padding: 5,
 		borderWidth: 1,
 		borderRadius: 2, */
@@ -75,7 +75,8 @@ export function LyricsForm(props) {
 						undertext={t("document:release.lyrics.undertext")}
 					/>
 
-					{/* 					<TextInput
+					{/* To Do?
+						<TextInput
 						label="Text"
 						value={text}
 						multiline={true}
