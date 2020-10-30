@@ -14,6 +14,7 @@ import { RecordingForm } from "./recording"
 import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
 import { ReleaseForm } from "./release"
+import { LinksForm } from "./links"
 
 const DocumentationPage = observer(() => {
 	const { t } = useTranslation()
@@ -39,14 +40,9 @@ const DocumentationPage = observer(() => {
 			progress: 25,
 			title: t("document:navbar.pages.performance"),
 		},
-		files: {
-			form: FilesForm,
-			progress: 24,
-			title: t("document:navbar.pages.files"),
-		},
 		recording: {
 			form: RecordingForm,
-			progress: 36.5,
+			progress: 37.5,
 			title: t("document:navbar.pages.recording"),
 		},
 		release: {
@@ -54,10 +50,20 @@ const DocumentationPage = observer(() => {
 			progress: 50,
 			title: t("document:navbar.pages.release"),
 		},
+		files: {
+			form: FilesForm,
+			progress: 62.5,
+			title: t("document:navbar.pages.files"),
+		},
 		lyrics: {
 			form: LyricsForm,
-			progress: 62.5,
+			progress: 87.5,
 			title: t("document:navbar.pages.lyrics"),
+		},
+		links: {
+			form: LinksForm,
+			progress: 100,
+			title: t("document:navbar.pages.links"),
 		},
 	}
 
