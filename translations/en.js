@@ -666,6 +666,7 @@ export const document = {
 			release: "Release",
 			infos: "General Information",
 			lyrics: "Lyrics",
+			links: "Listening Links",
 			recording: "Recording",
 			files: "Files",
 		},

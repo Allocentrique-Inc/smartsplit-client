@@ -669,6 +669,7 @@ export const document = {
 			performance: "Interprétation",
 			infos: "Informations générales",
 			lyrics: "Paroles",
+			links: "Liens d'écoute",
 			recording: "Enregistrement",
 			files: "Fichiers",
 			release: "Sortie",
