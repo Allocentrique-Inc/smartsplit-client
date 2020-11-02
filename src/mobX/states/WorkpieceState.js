@@ -8,7 +8,7 @@ import {
 	reaction,
 	runInAction,
 } from "mobx"
-import Documentation from "./WorkpieceStates/Documentation"
+import Documentation from "./WorkpieceStates/DocumentationState"
 import RightsSplits from "./WorkpieceStates/RightsSplits"
 import WorkpieceModel from "../models/workpieces/WorkpieceModel"
 

@@ -13,6 +13,7 @@ import { Metrics } from "../theme"
 import XIcon from "../svg/x"
 import { MODAL_WIDTH } from "../pages/auth/modals"
 import { observer } from "mobx-react"
+import UnScrollable from "./unscrollable"
 
 export const ModalStyles = StyleSheet.create({
 	background: {
@@ -92,7 +93,7 @@ export class Modal extends React.PureComponent {
 }
 
 export const DialogModal = observer((props) => {
-	const { title, buttons, children, ...nextProps } = props
+	const { title, buttons, children, noScroll, ...nextProps } = props
 
 	return (
 		<Modal {...nextProps}>
@@ -117,7 +118,11 @@ export const DialogModal = observer((props) => {
 					/>
 				</Row>
 
-				<Scrollable>{children}</Scrollable>
+				{noScroll ? (
+					<UnScrollable>{children}</UnScrollable>
+				) : (
+					<Scrollable>{children}</Scrollable>
+				)}
 
 				<Row
 					align="right"

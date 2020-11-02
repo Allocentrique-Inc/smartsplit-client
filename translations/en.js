@@ -70,6 +70,12 @@ export const general = {
 		saveClose: "Save and close",
 		toConsult: "Consult",
 		toBegin: "Begin",
+		continue: "Continuer",
+		back: "Retour",
+		saveClose: "Save and Close",
+		pass: "Pass for now",
+		end: "Finish",
+		seeSummary: "Se the summary",
 		pass: "Pass for now",
 	},
 	update: () => <>Updated ago</>,
@@ -673,7 +679,6 @@ export const document = {
 	},
 	help: "Help",
 	why: "Why share these informations?",
-
 	access: "Access",
 	creation: {
 		category: "CREATION",
@@ -798,7 +803,6 @@ export const document = {
 			listItem:
 				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
 		},
-		access: "Access",
 		copy: "Unique sharable link copied.",
 	},
 	infos: {
@@ -817,6 +821,7 @@ export const document = {
 		title: (workPiece) => <>{workPiece} contains lyrics?</>,
 		paragraph:
 			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
+		lyrics: "Lyrics",
 		undertext:
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
@@ -824,6 +829,9 @@ export const document = {
 		dropdown: {
 			public: "Public - Make the information public",
 		},
+		selected: (language) => <>Add "{language}"</>,
+		french: "French",
+		frenchCanadian: "French (Canadian)",
 	},
 	links: {
 		category: "LISTENING LINKS",
@@ -833,6 +841,12 @@ export const document = {
 		addLink: "Paste a link...",
 		createPlatform: "Add a platform",
 		addPlatform: "Add a platform...",
+	},
+	finalModal: {
+		header: "Documentation created!",
+		title: (workPiece) => <>{workPiece} is now documented!</>,
+		paragraph:
+			"You are one click away from publishing the credits of this piece on a web page and therefore increase the discoverability on these data on the web.",
 	},
 }
 export const collaborators = {
@@ -902,5 +916,75 @@ export const workpieceSheet = {
 	lyrics: {
 		header: "Lyrics",
 		check: "See the lyrics",
+	},
+}
+export const copyrightOrgs = {
+	names: {
+		socan: "Socan",
+		socandr: "Socan DR",
+		spacq: "SPACQ",
+		apem: "APEM",
+		soproq: "SOPROQ",
+		adisq: "ADISQ",
+		artisti: "Artisti",
+		uda: "UDA",
+		gmmq: "GMMQ",
+		cmrra: "CMRRA",
+		sac: "SAC",
+		cmpa: "CMPA",
+		re_sound: "Re:Sound",
+		connect: "Connect",
+		cima: "CIMA",
+		actraracs: "ACTRA RACS",
+		mroc: "MROC",
+		actra: "ACTRA",
+		cfm: "CFM",
+	},
+	description: {
+		socan: "Society of Composers, Authors and Music Publishers of Canada",
+		socandr: "Society of Composers, Authors and Music Publishers of Canada",
+		spacq: "Société professionnelle des auteurs et des compositeurs du Québec",
+		apem: "Association des professionnels de l'édition musicale",
+		soproq:
+			"Société de gestion collective des droits des producteurs de phonogrammes et vidéogrammes du Québec",
+		adisq:
+			"Association québécoise de l'industrie du disque, du spectacle et de la vidéo",
+		artisti:
+			"Société de gestion collective de l'Union des artistes (UDA) pour la rémunération des droits voisins des artistes interprètes (chanteurs et musiciens)",
+		uda: "Union des artistes",
+		gmmq: "Guilde des musiciens et des musiciennes du Québec",
+		cmrra: "Canadian Musical Reproduction Rights Agency",
+		sac: "Songwriters Association of Canada",
+		cmpa: "Music Publisher Canada",
+		re_sound:
+			"Music Licensing Company (formerly known as Neighbouring Rights Collective of Canada)",
+		connect: "Connect Music Licensing (formerly known as the AVLA)",
+		cima: "Canadian Independent Music Association",
+		actraracs: "ACTRA Recording Artists' Collecting Society",
+		mroc: "Musicians' Rights Organization Canada",
+		actra: "Alliance of Canadian Cinema, Television and Radio Artists",
+		cfm:
+			"Canadian Federation of Musicians (formerly referred to as AFM Canada)",
+	},
+	actions: {
+		socan: "Performance rights of musical works",
+		socandr: "Reproduction rights of musical works",
+		spacq: "Nomenclature",
+		apem: "Sectoral representation of publishers",
+		soproq: "Neighboring rights of producers",
+		adisq: "Sectoral representation of producers",
+		artisti: "Neighboring rights of performers",
+		uda: "Union of singers and choristers",
+		gmmq: "Union of musicians and instrumentalists",
+		cmrra: "Reproduction rights of musical works",
+		sac: "Creators' sectoral association",
+		cmpa: "Publishers' sectoral association",
+		re_sound: "Sound recording owners' neighbour rights",
+		connect: "Sound recording owners' neighbour rights",
+		cima: "Sound recording owners' sectoral association",
+		actraracs: "Performers' neighbour rights",
+		mroc: "Performers' neighbour rights",
+		actra: "Vocalists' professional union",
+		cfm: "Musicians' professional union",
 	},
 }

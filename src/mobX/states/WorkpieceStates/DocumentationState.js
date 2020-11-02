@@ -24,4 +24,5 @@ export default class Documentation {
 		this.recording.init()
 		this.release.init()
 	}
+	// small change
 }

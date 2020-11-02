@@ -583,11 +583,21 @@ export default class Field {
 	 * @param value
 	 */
 	@action setItem(key, value) {
-		if (this.type !== FieldType.map)
-			throw new Error(
-				"Field.setItem can only be used by fields of type FieldType.map"
-			)
-		this.setValue({ ...this.value, [key]: value })
+		if (this.type !== FieldType.map || this.type)
+			switch (this.type) {
+				case FieldType.map:
+					this.setValue({ ...this.value, [key]: value })
+					break
+				case FieldType.collection:
+					let newValue = toJS(this.value)
+					newValue[key] = value
+					this.setValue(newValue)
+					break
+				default:
+					throw new Error(
+						"Field.setItem can only be used by fields of type FieldType.map"
+					)
+			}
 	}
 
 	/**

@@ -57,10 +57,7 @@ export default class ProfileModel extends BaseModel {
 		pseudo: true,
 		type: FieldType.collection,
 	})
-	@observable identifiers = new Field(this, "identifiers", {
-		pseudo: true,
-		type: FieldType.map,
-	})
+	@observable identifiers = new ProfessionalIdentityModel(this)
 
 	@observable ISNI = new Field(this, "ISNI", {
 		pseudo: true,
