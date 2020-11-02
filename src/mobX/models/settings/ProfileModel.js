@@ -45,6 +45,7 @@ export default class ProfileModel extends BaseModel {
 	})
 
 	@observable address = new Field(this, "address", {
+		label: "forms:labels.civicAddress",
 		type: FieldType.string,
 	})
 
@@ -53,19 +54,18 @@ export default class ProfileModel extends BaseModel {
 		type: FieldType.date,
 	})
 
-	@observable companies = new Field(this, "companies", {
-		pseudo: true,
+	@observable organisations = new Field(this, "organisations", {
 		type: FieldType.collection,
 	})
 	@observable identifiers = new ProfessionalIdentityModel(this)
 
-	@observable ISNI = new Field(this, "ISNI", {
+	@observable isni = new Field(this, "isni", {
 		pseudo: true,
 		label: "forms:labels.isniNO",
 		type: FieldType.string,
 	})
 
-	@observable URI = new Field(this, "URI", {
+	@observable uri = new Field(this, "uri", {
 		pseudo: true,
 		label: "forms:labels.myUri",
 		type: FieldType.string,

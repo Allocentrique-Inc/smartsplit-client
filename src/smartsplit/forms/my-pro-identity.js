@@ -25,11 +25,8 @@ export default function MyProIdentity() {
 			<Row>
 				<ProIdList />
 			</Row>
-			<DateField
-				field={model.birthDate}
-				placeholder={t("forms:placeholders.date")}
-			/>
-			<TextField field={model.ISNI} placeholder="1234 1234 1234 1234" />
+			<TextField field={model.birthDate} placeholder={"YYYY-MM-DD"} />
+			<TextField field={model.isni} placeholder="1234 1234 1234 1234" />
 			<TextField
 				field={model.URI}
 				placeholder={t("forms:placeholders.myUri")}

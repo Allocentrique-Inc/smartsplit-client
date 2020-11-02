@@ -25,7 +25,7 @@ export const EmailManager = observer(() => {
 			<Paragraph>{t("forms:descriptions.myEmails")}</Paragraph>
 			{!!emails && (
 				<Column of="none">
-					{emails.list.map((email) => (
+					{/*emails.list.map((email) => (
 						<Row
 							padding="small"
 							of="component"
@@ -57,10 +57,11 @@ export const EmailManager = observer(() => {
 								)}
 							</Column>
 						</Row>
-					))}
+					))*/}
 				</Column>
 			)}
 			<Row>
+				<Spacer of={"component"} />
 				<Button
 					secondary
 					bold
