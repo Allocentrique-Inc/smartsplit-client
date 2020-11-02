@@ -38,7 +38,7 @@ const Styles = StyleSheet.create({
 		display: "flex",
 	},
 	logo: {
-		marginRight: Metrics.spacing.logo,
+		marginRight: Metrics.spacing.medium,
 	},
 	link: {
 		marginRight: Metrics.spacing.link,
@@ -64,40 +64,10 @@ export default function Links() {
 	}
 
 	return (
-		<Layout
-			workpiece={workpiece}
-			title={workpiece}
-			path={[t("document:navbar.document"), t("document:navbar.pages.lyrics")]}
-			progress={62.5}
-			actions={
-				<Button
-					tertiary
-					text={t("general:buttons.saveClose")}
-					onClick={saveAndQuit}
-				/>
-			}
-			formNav={
-				<>
-					<Row flex={1}>
-						<Button
-							secondary
-							text={t("general:buttons.back")}
-							onClick={navigateToSummary}
-						/>
-						<Flex />
-						<Button
-							primary
-							text={t("general:buttons.end")}
-							onClick={() => setEndModal(true)}
-						/>
-					</Row>
-					<Row flex={1} />
-				</>
-			}
-		>
+		<>
 			<LinksForm />
 			<EndModal visible={endModal} onRequestClose={() => setEndModal(false)} />
-		</Layout>
+		</>
 	)
 }
 

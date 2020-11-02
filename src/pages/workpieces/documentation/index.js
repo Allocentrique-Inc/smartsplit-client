@@ -6,7 +6,7 @@ import { useStorePath, useStores } from "../../../mobX"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
-import { Flex, Row } from "../../../layout"
+import { Flex, Row, Column } from "../../../layout"
 import { Text } from "../../../text"
 import CreationForm from "./creation"
 import { PerformanceForm } from "./performance"
@@ -114,7 +114,7 @@ const DocumentationPage = observer(() => {
 			}
 			formNav={
 				<>
-					<Row flex={1}>
+					<Row style={{ maxWidth: 464 }} flex={1}>
 						<Button
 							secondary
 							text={t("general:buttons.back")}
