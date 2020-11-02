@@ -1,4 +1,4 @@
-/* import React from "react"
+import React from "react"
 import {
 	Switch,
 	Route,
@@ -29,9 +29,7 @@ import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
 
-import GeneralInfos from "./documentation/general-infos"
-
-export default function WorkpiecesRouter() {
+const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
 	return (
@@ -62,13 +60,22 @@ export default function WorkpiecesRouter() {
 					<ProtectWork />
 				</Route>
 
-				<Route path="/workpieces/:workpiece_id/documentation/general-infos">
-					<GeneralInfos />
-				</Route>
+				{/*<Route path="/workpieces/:workpiece_id/documentation/recording">*/}
+				{/*	<Recording />*/}
+				{/*</Route>*/}
+				{/*<Route path="/workpieces/:workpiece_id/documentation/creation">*/}
+				{/*	<Creation />*/}
+				{/*</Route>*/}
+				{/*<Route path="/workpieces/:workpiece_id/documentation/performance">*/}
+				{/*	<Performance />*/}
+				{/*</Route>*/}
+				{/*<Route path="/workpieces/:workpiece_id/documentation/files">*/}
+				{/*	<Files />*/}
+				{/*</Route>*/}
 			</Switch>
 		</WorkpieceContext.Provider>
 	)
-}
+})
 
 export const demoPiece = {
 	title: "Titre de la pièce",
@@ -225,4 +232,4 @@ function InfoBar() {
 	)
 }
 
-export default WorkpiecesRouter */
+export default WorkpiecesRouter

@@ -1,8 +1,8 @@
-/* import React, { useState } from "react"
+import React, { useState } from "react"
 import { Column, Row } from "../layout"
 import { View, StyleSheet } from "react-native"
 import { Text } from "../text"
-import { Metrics, Colors, Typography } from "../theme"
+import { Metrics } from "../theme"
 import { Tag } from "../widgets/tag"
 import Autocomplete from "./autocomplete"
 import Search from "../../assets/svg/search.svg"
@@ -15,8 +15,6 @@ const Styles = StyleSheet.create({
 	tag: {
 		marginRight: Metrics.spacing.small,
 		marginBottom: Metrics.spacing.small,
-		color: Colors.action,
-		fontWeight: Typography.Weight.bold,
 	},
 	tagContainer: {
 		marginRight: -Metrics.spacing.small,
@@ -24,7 +22,6 @@ const Styles = StyleSheet.create({
 	},
 })
 
-<<<<<<< HEAD
 const SearchAndTag = observer((props) => {
 	const { t } = useTranslation()
 	let {
@@ -53,14 +50,6 @@ const SearchAndTag = observer((props) => {
 			//field.setValue([...field.value])
 		})
 	}
-=======
-export default function SearchAndTag({
-	selection,
-	onUnselect,
-	hideIcon,
-	...nextProps
-}) {
->>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 	const [search, setSearch] = useState("")
 	const renderSelectedItems = () => {
 		return (
@@ -85,13 +74,9 @@ export default function SearchAndTag({
 	return (
 		<Column of="component">
 			<Autocomplete
-<<<<<<< HEAD
 				label={label}
 				error={error}
 				icon={Search}
-=======
-				icon={hideIcon ? null : Search}
->>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 				search={search}
 				onSelect={onSelect}
 				onSearchChange={setSearch}
@@ -101,4 +86,4 @@ export default function SearchAndTag({
 		</Column>
 	)
 })
-export default SearchAndTag */
+export default SearchAndTag

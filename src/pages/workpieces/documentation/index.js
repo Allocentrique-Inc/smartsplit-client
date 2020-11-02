@@ -1,4 +1,4 @@
-/* import React from "react"
+import React from "react"
 import { useTranslation } from "react-i18next"
 import { Redirect, useHistory, useParams } from "react-router"
 import { observer } from "mobx-react"
@@ -6,25 +6,16 @@ import { useStorePath, useStores } from "../../../mobX"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
-<<<<<<< HEAD
 import { Flex, Row, Column } from "../../../layout"
-import { Text } from "../../../text"
 import CreationForm from "./creation"
-=======
-import { Flex, Row } from "../../../layout"
 import { Text } from "../../../text"
-import { CreationForm } from "./creation"
->>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 import { PerformanceForm } from "./performance"
 import { RecordingForm } from "./recording"
 import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
 import { ReleaseForm } from "./release"
-<<<<<<< HEAD
 import { LinksForm } from "./links"
-=======
 import { GeneralInfosForm } from "./general-infos"
->>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 
 const DocumentationPage = observer(() => {
 	const { t } = useTranslation()
@@ -65,14 +56,11 @@ const DocumentationPage = observer(() => {
 			progress: 62.5,
 			title: t("document:navbar.pages.files"),
 		},
-<<<<<<< HEAD
-=======
 		infos: {
 			form: GeneralInfosForm,
 			progress: 75,
 			title: t("document:navbar.pages.infos"),
 		},
->>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 		lyrics: {
 			form: LyricsForm,
 			progress: 87.5,
@@ -131,12 +119,8 @@ const DocumentationPage = observer(() => {
 				/>
 			}
 			formNav={
-				<>
-<<<<<<< HEAD
-					<Row style={{ maxWidth: 464 }} flex={1}>
-=======
+				<Row style={{ maxWidth: 464 }} flex={1}>
 					<Row flex={1}>
->>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 						<Button
 							secondary
 							text={t("general:buttons.back")}
@@ -149,7 +133,7 @@ const DocumentationPage = observer(() => {
 							onClick={toNextPage}
 						/>
 					</Row>
-				</>
+				</Row>
 			}
 		>
 			{!workpieces.isLoading && React.createElement(documentations[type].form)}
@@ -157,4 +141,4 @@ const DocumentationPage = observer(() => {
 	)
 })
 
-export default DocumentationPage */
+export default DocumentationPage
