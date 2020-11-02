@@ -1,6 +1,7 @@
-import React from "react"
+/* import React from "react"
 import { Redirect, useParams, useHistory } from "react-router"
 
+<<<<<<< HEAD
 import { useStores } from "../../../mobX"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
@@ -50,6 +51,38 @@ const RightsSplitsPage = observer(() => {
 		t("rightSplits:lyrics"),
 		t("rightSplits:music"),
 		split.sharesValues
+=======
+import CopyrightPage from "./copyright"
+import InterpretationPage from "./interpretation"
+import RecordingPage from "./recording"
+import GeneralInfos from "../documentation/general-infos"
+
+export default function (props) {
+	return (
+		<Switch>
+			<Route
+				path="/workpieces/:workpiece_id/rights-splits"
+				exact
+				component={RedirectToCopyright}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/rights-splits/copyright"
+				component={CopyrightPage}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/rights-splits/interpretation"
+				component={InterpretationPage}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/rights-splits/recording"
+				component={RecordingPage}
+			/>
+			<Route
+				path="/workpieces/:workpiece_id/documentation/general-infos"
+				component={GeneralInfos}
+			/>
+		</Switch>
+>>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 	)
 
 	const { workpieces } = useStores()
@@ -125,4 +158,4 @@ const RightsSplitsPage = observer(() => {
 	)
 })
 
-export default RightsSplitsPage
+export default RightsSplitsPage */

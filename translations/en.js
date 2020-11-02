@@ -253,7 +253,7 @@ export const forms = {
 				value: "author",
 			},
 			{
-				displayValue: "Composor",
+				displayValue: "Composer",
 				value: "composer",
 			},
 			{
@@ -275,6 +275,10 @@ export const forms = {
 			{
 				displayValue: "Musician",
 				value: "musician",
+			},
+			{
+				displayValue: "Interpreter",
+				value: "performer",
 			},
 		],
 	},
@@ -803,6 +807,7 @@ export const document = {
 			listItem:
 				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
 		},
+		access: "Access",
 		copy: "Unique sharable link copied.",
 	},
 	infos: {
@@ -986,5 +991,15 @@ export const copyrightOrgs = {
 		mroc: "Performers' neighbour rights",
 		actra: "Vocalists' professional union",
 		cfm: "Musicians' professional union",
+		title: "Tells us more about the musical piece.",
+		length: "Length",
+		bpm: "BPM",
+		mainGenre: "Main Genre",
+		secondaryGenre: "Secondary Genres",
+		addenre: "Add a genre...",
+		influence: "Influences",
+		addInfluence: "Add an influence...",
+		influenceExample:
+			"Example: Les Beatles, Dr Dre, Mozart, Jacques brel, Stromae.",
 	},
 }

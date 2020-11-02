@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+/* import React, { useState } from "react"
 import { Column, Row } from "../layout"
 import { View, StyleSheet } from "react-native"
 import { Text } from "../text"
@@ -24,6 +24,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
+<<<<<<< HEAD
 const SearchAndTag = observer((props) => {
 	const { t } = useTranslation()
 	let {
@@ -52,6 +53,14 @@ const SearchAndTag = observer((props) => {
 			//field.setValue([...field.value])
 		})
 	}
+=======
+export default function SearchAndTag({
+	selection,
+	onUnselect,
+	hideIcon,
+	...nextProps
+}) {
+>>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 	const [search, setSearch] = useState("")
 	const renderSelectedItems = () => {
 		return (
@@ -76,9 +85,13 @@ const SearchAndTag = observer((props) => {
 	return (
 		<Column of="component">
 			<Autocomplete
+<<<<<<< HEAD
 				label={label}
 				error={error}
 				icon={Search}
+=======
+				icon={hideIcon ? null : Search}
+>>>>>>> feature/844-documente-ton-oeuvre-/infos-generales
 				search={search}
 				onSelect={onSelect}
 				onSearchChange={setSearch}
@@ -88,4 +101,4 @@ const SearchAndTag = observer((props) => {
 		</Column>
 	)
 })
-export default SearchAndTag
+export default SearchAndTag */
