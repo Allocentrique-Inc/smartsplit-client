@@ -761,9 +761,11 @@ export const document = {
 		length: "Length",
 		bpm: "BPM",
 		mainGenre: "Main Genre",
-		addenre: "Add a genre...",
+		addGenre: "Add a genre...",
 		secondaryGenre: "Secondary Genres",
-		genreExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
+		influence: "Influences",
+		addInfluence: "Add an influence...",
+		influenceExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
 	},
 	lyrics: {
 		category: "LYRICS",

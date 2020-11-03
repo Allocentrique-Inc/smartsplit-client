@@ -98,7 +98,9 @@ export function LyricsForm(props) {
 						icon="none"
 						hideIcon={true}
 						label={t("document:lyrics.language")}
-						searchResults={searchResults}
+						searchResults={searchResults.filter(
+							(g) => g.toLowerCase().indexOf(search.toLowerCase()) > -1
+						)}
 						search={search}
 						onSearchChange={setSearch}
 						selection={selected}
