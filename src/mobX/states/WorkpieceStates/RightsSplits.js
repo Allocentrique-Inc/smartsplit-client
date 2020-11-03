@@ -4,19 +4,17 @@ import {
 	updateRightsSplits,
 } from "../../../../api/workpieces"
 import { $workpiece } from "../WorkpieceState"
-import SplitPerformanceModel from "../../models/workpieces/rights-splits/SplitPerformanceModel"
-import SplitRecordingModel from "../../models/workpieces/rights-splits/SplitRecordingModel"
-import SplitState, { CopyrightSplit } from "./SplitStates"
+import { CopyrightSplit, PerformanceSplit, RecordingSplit } from "./SplitStates"
 
+/**
+ *	Class managing the 3 splits (copyright, performance, recording)
+ **/
 export default class RightsSplits {
 	constructor(workpiece, rightsSplits = {}) {
 		this.$workpiece = workpiece
 		this.copyright = new CopyrightSplit(rightsSplits.copyright)
-		this.performance = new SplitState(
-			rightsSplits.performance,
-			SplitPerformanceModel
-		)
-		this.recording = new SplitState(rightsSplits.recording, SplitRecordingModel)
+		this.performance = new PerformanceSplit(rightsSplits.performance)
+		this.recording = new RecordingSplit(rightsSplits.performance)
 		Object.defineProperties(this, {
 			_state: {
 				configurable: true,
@@ -50,15 +48,19 @@ export default class RightsSplits {
 			_state: observable,
 			$hasChanged: observable,
 		})
+
+		// Observe splits shareholders and set hasChanged to
+		// true on first change
 		this._disposers = [
 			this.copyright.shareHolders.observe(this._toggleHasChanged),
-			this.copyright.shareHolders.observe(this._toggleHasChanged),
-			this.copyright.shareHolders.observe(this._toggleHasChanged),
+			// this.performance.shareHolders.observe(this._toggleHasChanged),
+			// this.recording.shareHolders.observe(this._toggleHasChanged),
 		]
 	}
 
 	@action _toggleHasChanged() {
 		this.$hasChanged = true
+		//TODO: dispose of the observers
 	}
 
 	@action _updateRightsSplits(rightsSplits) {

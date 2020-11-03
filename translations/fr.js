@@ -65,21 +65,13 @@ export const general = {
 		delete: "Détruire ce compte",
 		toAccept: "Accepter",
 		toRefuse: "Refuser",
-		access: "Demander l'accès en écriture",
 		continue: "Continuer",
 		back: "Retour",
 		saveClose: "Sauvegarder et fermer",
 		toConsult: "Consulter",
 		toBegin: "Commencer",
 		pass: "Passer pour l'instant",
-		end: "Terminer",
-		seeSummary: "Voir le résumé",
-		continue: "Continuer",
-		back: "Retour",
-		saveClose: "Sauvegarder et fermer",
-		pass: "Passer pour l'instant",
 	},
-	update: () => <>Mis à jour il y a </>,
 }
 
 export const menu = {
@@ -243,46 +235,6 @@ export const forms = {
 	},
 	addCollabArtist: "Ajouter un artiste collaborateur",
 	addContributor: "Ajouter un artiste contributeur",
-	options: {
-		defaultRoles: [
-			{
-				displayValue: "Auteur",
-				value: "author",
-			},
-			{
-				displayValue: "Compositeur",
-				value: "composer",
-			},
-			{
-				displayValue: "Arrangeur",
-				value: "arranger",
-			},
-			{
-				displayValue: "Interprète",
-				value: "performer",
-			},
-			{
-				displayValue: "Mixeur",
-				value: "mixer",
-			},
-			{
-				displayValue: "Interprète",
-				value: "performer",
-			},
-			{
-				displayValue: "Chanteur",
-				value: "singer",
-			},
-			{
-				displayValue: "Musicien",
-				value: "musician",
-			},
-			{
-				displayValue: "Interprète",
-				value: "performer",
-			},
-		],
-	},
 }
 
 export const login = {
@@ -517,24 +469,15 @@ export const identity = {
 	),
 }
 
-export const rightSplits = {
+export const rightsSplits = {
 	navbar: {
 		rightSplits: "Partage des droits",
 		page: "Nom de la page",
 	},
-	titles: {
-		copyright: "Droits d'auteur",
-		performance: "Interprétation",
-		recording: "Enregistrement sonore",
-	},
-	headers: {
-		copyright: "Qui a inventé cette pièce musicale ?",
-		performance: "Qui a joué sur l'enregistrement sonore ?",
-		recording: "Qui possède l'enregistrement sonore ?",
-	},
-
-	paragraphs: {
-		copyright: () => (
+	copyright: {
+		title: "Droits d'auteur",
+		header: "Qui a inventé cette pièce musicale ?",
+		description: () => (
 			<>
 				Sépare ici le droit d’auteur entre les créateurs, c’est à dire les
 				auteurs des <b>paroles</b>, les compositeurs et les arrangeurs de la{" "}
@@ -542,7 +485,11 @@ export const rightSplits = {
 				équitablement. Mais tu peux faire autrement.
 			</>
 		),
-		performance: () => (
+	},
+	performance: {
+		title: "Interprétation",
+		header: "Qui a joué sur l'enregistrement sonore ?",
+		description: () => (
 			<>
 				On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
 				autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}
@@ -551,7 +498,28 @@ export const rightSplits = {
 				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
 			</>
 		),
-		recording: () => (
+		artistStatuses: {
+			principal: "Artiste principal",
+			featured: "Artiste invité",
+			bandMember: "Membre du groupe",
+			session: "Artiste accompagnateur",
+		},
+		artistStatusDef: {
+			principal: "Aussi appelé  « Artiste vedette » ou  « Artiste solo ».",
+			featured: () => (
+				<>
+					Artiste invité (<i>featuring</i>)
+				</>
+			),
+			member: "Musicien ou chanteur prenant part à l'entité artistique.",
+			session:
+				"Interprète engagé pendant les sessions d'enregistrement studio.",
+		},
+	},
+	recording: {
+		title: "Enregistrement sonore",
+		header: "Qui possède l'enregistrement sonore ?",
+		description: () => (
 			<>
 				<>
 					On sépare ici le <b>droit voisin</b> des <b>producteurs</b>, c'est à
@@ -573,33 +541,28 @@ export const rightSplits = {
 		email: "Par courriel",
 		txt: "Par texto",
 	},
+	yourself: "(toi)",
+	more: "En savoir plus",
+	notify: "Me notifier un mois avant l'échéance...",
+	music: "Musique",
+	lyrics: "Paroles",
+	addCollab: "Ajouter un collaborateur...",
+	addLabel: "Ajouter un label...",
+	removeCollab: "Retirer ce collaborateur",
+	status: "Sélectionner un status...",
+	function: "Sélectionner une fonction...",
+	agreement: "Durée de l'entente...",
+	remove: "Retirer ce partage",
+	roles: {
+		author: "Auteur",
+		composer: "Compositeur",
+		adapter: "Adaptateur",
+		mixer: "Arrangeur",
+		singer: "Chanteur",
+		musician: "Musicien",
+	},
 
 	dropdowns: {
-		addCollab: "Ajouter un collaborateur...",
-		addLabel: "Ajouter un label...",
-		removeCollab: "Retirer ce collaborateur",
-		status: "Sélectionner un status...",
-		function: "Sélectionner une fonction...",
-		agreement: "Durée de l'entente...",
-		remove: "Retirer ce partage",
-		artist: {
-			artist: "Artiste principal",
-			artistDefinition:
-				"Aussi appelé  « Artiste vedette » ou  « Artiste solo ».",
-			artistInvited: () => (
-				<>
-					Artiste invité (<i>featuring</i>)
-				</>
-			),
-			artistInvitedDefinition:
-				"Artiste ou membre d'un groupe invité à collaborer sur une pièce musicale.",
-			artistMember: "Membre du groupe",
-			artistMemberDefinition:
-				"Musicien ou chanteur prenant part à l'entité artistique.",
-			artistExtra: "Artiste accompagnateur",
-			artistExtraDefinition:
-				"Interprète engagé pendant les sessions d'enregistrement studio.",
-		},
 		collaboratorsRecording: {
 			producer: "Producteur",
 			producerDefinition:
@@ -631,12 +594,6 @@ export const rightSplits = {
 		},
 	},
 
-	yourself: "(toi)",
-	more: "En savoir plus",
-	notify: "Me notifier un mois avant l'échéance...",
-	music: "Musique",
-	lyrics: "Paroles",
-
 	errors: {
 		status: "Tu dois sélectionner un status pour cet ayant droits.",
 		role: "Tu dois sélectionner au moins un rôle pour cet ayant droits.",
@@ -656,15 +613,6 @@ export const rightSplits = {
 	},
 }
 
-export const roles = {
-	author: "Auteur",
-	composer: "Compositeur",
-	adapter: "Adaptateur",
-	mixer: "Arrangeur",
-	singer: "Chanteur",
-	musician: "Musicien",
-}
-
 export const newUserInvite = {
 	title: "[Ajouter/Modifier] un artiste collaborateur",
 	checkbox: "Default Role(s)",
@@ -679,16 +627,11 @@ export const document = {
 			performance: "Interprétation",
 			infos: "Informations générales",
 			lyrics: "Paroles",
-			links: "Liens d'écoute",
 			recording: "Enregistrement",
 			files: "Fichiers",
 			release: "Sortie",
-			links: "Liens d'écoute",
 		},
 	},
-	recording: "Enregistrement",
-	files: "Fichiers",
-	release: "Sortie",
 	help: "Aide",
 	why: "Pourquoi partager ces informations ?",
 	access: "Accès",
@@ -720,6 +663,8 @@ export const document = {
 			artist: "Artiste",
 			singer: "Chanteur",
 			musician: "Musicien",
+			performer: "Ajouter un interprète...",
+			release: "Sortie",
 			addPerformer: "Ajouter un interprète...",
 		},
 		what: "C'est quoi un interprète ?",
@@ -772,219 +717,74 @@ export const document = {
 			upc: "Code UPC/EAN",
 			physical: "Physique",
 		},
-	},
-	files: {
-		category: "FILES",
-		title: "Quels fichiers veux-tu rendre accessible ?",
-		paragraph:
-			"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
-		visual: {
-			title: "Visuel de l'œuvre",
+		files: {
+			category: "FILES",
+			title: "Quels fichiers veux-tu rendre accessible ?",
 			paragraph:
-				"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
-			format: "Téléverser en format JPEG ou PNG",
+				"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
+			visual: {
+				title: "Visuel de l'œuvre",
+				paragraph:
+					"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
+				format: "Téléverser en format JPEG ou PNG",
+				undertext:
+					"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
+			},
+			audio: {
+				title: "Fichier audio",
+				paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
+				format: "Téléverser le fichier de l'œuvre enregistrée",
+				undertext: "MP3 ou WAV acceptés.",
+			},
+			other: {
+				title: "Autres fichiers sur l'œuvre",
+				paragraph:
+					"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
+				formatTablature: "Partition ou tablature",
+				formatMidi: "Fichiers MIDI",
+				undertext: "Lorem Ipsum",
+			},
+			dropdown: {
+				public: "Publique - Téléchargeable par tous",
+				publicUndertext:
+					"Tous les utilisateurs pourront télécharger le fichier original.",
+				invitation: "Sur invitation - Téléchargeable par certains",
+				invitationUndertext:
+					"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
+				private: "Privé - Empêcher le téléchargement",
+				privateUndertext:
+					"Personne ne pourra télécharger l'image originale, sauf vous.",
+			},
+			tooltip: {
+				listItem:
+					"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
+			},
+			access: "Accès",
+			copy: "Lien de partage unique copié.",
+		},
+		infos: {
+			category: "INFORMATIONS GÉNÉRALES",
+			title: "Dis-nous en plus sur la pièce musicale.",
+			length: "Durée",
+			bpm: "BPM",
+			mainGenre: "Genre principal",
+			addGenre: "Ajouter un genre...",
+			secondaryGenre: "Genres secondaires",
+			genreExample: "Exemple : Les Beatles, Dr Dre, Mozart, Brel, Stromae.",
+		},
+		lyrics: {
+			category: "PAROLES",
+			title: (workPiece) => <>{workPiece} contient des paroles ?</>,
+			paragraph:
+				"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
 			undertext:
-				"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
+				"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
+			language: "Langue(s)",
+			addLanguage: "Ajouter unbe langue...",
 		},
-		audio: {
-			title: "Fichier audio",
-			paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
-			format: "Téléverser le fichier de l'œuvre enregistrée",
-			undertext: "MP3 ou WAV acceptés.",
-		},
-		other: {
-			title: "Autres fichiers sur l'œuvre",
-			paragraph:
-				"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
-			formatTablature: "Partition ou tablature",
-			formatMidi: "Fichiers MIDI",
-			undertext: "Lorem Ipsum",
-		},
-		dropdown: {
-			public: "Publique - Téléchargeable par tous",
-			publicUndertext:
-				"Tous les utilisateurs pourront télécharger le fichier original.",
-			invitation: "Sur invitation - Téléchargeable par certains",
-			invitationUndertext:
-				"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
-			private: "Privé - Empêcher le téléchargement",
-			privateUndertext:
-				"Personne ne pourra télécharger l'image originale, sauf vous.",
-		},
-		tooltip: {
-			listItem:
-				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
-		},
-		access: "Accès",
-		copy: "Lien de partage unique copié.",
-	},
-	lyrics: {
-		category: "PAROLES",
-		label: "Paroles",
-		title: (workPiece) => <>{workPiece} contient des paroles ?</>,
-		paragraph:
-			"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
-		undertext:
-			"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
-		language: "Langue(s)",
-		addLanguage: "Ajouter une langue...",
-		dropdown: {
-			public: "Public - Rendre l'information publique",
-		},
-	},
-
-	files: {
-		category: "FILES",
-		title: "Quels fichiers veux-tu rendre accessible ?",
-		paragraph:
-			"Ici, tu peux ajouter les fichiers relatifs à cette pièce musicale.",
-		visual: {
-			title: "Visuel de l'œuvre",
-			paragraph:
-				"Comme l'album a sa pochette, une chanson ou une pièce instrumentale doit aussi avoir un visuel pour la représenter.",
-			format: "Téléverser en format JPEG ou PNG",
-			undertext:
-				"Recommandé : 16000 x 1600 pixels d'une résolution de 300 dpi.",
-		},
-		audio: {
-			title: "Fichier audio",
-			paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
-			format: "Téléverser le fichier de l'œuvre enregistrée",
-			undertext: "MP3 ou WAV acceptés.",
-		},
-		other: {
-			title: "Autres fichiers sur l'œuvre",
-			paragraph:
-				"Ici, tu peux ajouter des documents permettant l'interprétation de l'œuvre, comme la partition ou le fichier MIDI.",
-			formatTablature: "Partition ou tablature",
-			formatMidi: "Fichiers MIDI",
-			undertext: "Lorem Ipsum",
-		},
-		dropdown: {
-			public: "Publique - Téléchargeable par tous",
-			publicUndertext:
-				"Tous les utilisateurs pourront télécharger le fichier original.",
-			invitation: "Sur invitation - Téléchargeable par certains",
-			invitationUndertext:
-				"Les utilisateurs disposant du lien de partage unique pourront télécharger le fichier original. Pratique pour les journalistes et les professionnels !",
-			private: "Privé - Empêcher le téléchargement",
-			privateUndertext:
-				"Personne ne pourra télécharger l'image originale, sauf vous.",
-		},
-		tooltip: {
-			listItem:
-				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
-		},
-		access: "Accès",
-		copy: "Lien de partage unique copié.",
-	},
-	infos: {
-		category: "INFORMATIONS GÉNÉRALES",
-		title: "Dis-nous en plus sur la pièce musicale.",
-		length: "Durée",
-		bpm: "BPM",
-		mainGenre: "Genre principal",
-		addGenre: "Ajouter un genre...",
-		secondaryGenre: "Genres secondaires",
-		influence: "Influences",
-		addInfluence: "Ajouter ubne influence...",
-		influenceExample:
-			"Exemple : Les Beatles, Dr Dre, Mozart, Jacques Brel, Stromae.",
-	},
-	lyrics: {
-		category: "PAROLES",
-		title: (workPiece) => <>{workPiece} contient des paroles ?</>,
-		paragraph:
-			"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
-		lyrics: "Paroles",
-		undertext:
-			"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
-		language: "Langue(s)",
-		addLanguage: "Ajouter unbe langue...",
-		selected: (language) => <>Ajouter « {language} »</>,
-		french: "Français",
-		frenchCanadian: "Français (canadien)",
-		public: "Publique - Rendre l'information publique",
-	},
-	links: {
-		category: "LIENS D'ÉCOUTE",
-		title: "La pièce musicale est-elle déjà diffusée ?",
-		paragraph:
-			"Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
-		addLink: "Coller un lien...",
-		createPlatform: "Add a platform",
-		addPlatform: "Ajouter une plateforme...",
-	},
-	finalModal: {
-		header: "Documentation créée !",
-		title: (workPiece) => <>{workPiece} est maintenant documentée !</>,
-		paragraph:
-			"Tu es à un clic de pouvoir publier les crédits de cette pièce sur une page web et ainsi d'augmenter ta découvrabilité dans le web des données.",
 	},
 }
 
-export const instruments = {
-	electricGuitar: "Guitare électrique",
-	flute: "Flute à bec",
-	electricBass: "Basse",
-}
-
-export const workpieceSheet = {
-	by: " Par ",
-	update: "Mis à jour il y a ",
-	creation: {
-		header: "Création",
-		date: "Date de création",
-		authors: "Auteurs (paroles)",
-		composers: "Compositeurs (musique)",
-		mixers: "Arrangeurs (musique)",
-		editors: "Editeurs",
-	},
-	performance: {
-		header: "Interprétation",
-		starring: "Artiste vedette",
-		singer: "Chanteur",
-		solo: "Soliste",
-		musician: "Musicien",
-	},
-	recording: {
-		header: "Enregistrement sonore",
-		title: "Titre de la piste",
-		director: "Réalisateur",
-		recordTech: "Tech. en enregistrement",
-		mix: "Mixage",
-		master: "Mastering",
-		prod: "Production",
-		studio: "Studio d'enregisgtrment",
-	},
-	release: {
-		header: "Sortie",
-		date: "Date de sortie",
-		format: "Format du  produit",
-		title: "Titre du produit",
-	},
-	listening: {
-		header: "Écouter",
-	},
-	general: {
-		header: "Informations générales",
-		length: "Durée",
-	},
-	downloads: {
-		header: "Téléchargements",
-		visual: "Visuel de l'œuvre",
-		audio: "Fichier audio",
-		tablature: "Partition/Tablature",
-		midi: "Fichier MIDI",
-		download: "Télécharger",
-		link: "Copier le lien",
-		access: "Demander l'accès",
-	},
-	lyrics: {
-		header: "Paroles",
-		check: "Voir les paroles",
-	},
-}
 export const collaborators = {
 	email: "L'adresse courriel du collaborateur",
 }

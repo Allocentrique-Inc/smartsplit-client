@@ -64,21 +64,13 @@ export const general = {
 		delete: "Delete this account",
 		toAccept: "Accept",
 		toRefuse: "Refuse",
-		access: "Ask writing access",
 		continue: "Continue",
 		back: "Back",
 		saveClose: "Save and close",
 		toConsult: "Consult",
 		toBegin: "Begin",
-		continue: "Continuer",
-		back: "Retour",
-		saveClose: "Save and Close",
-		pass: "Pass for now",
-		end: "Finish",
-		seeSummary: "See the summary",
 		pass: "Pass for now",
 	},
-	update: () => <>Updated ago</>,
 }
 export const menu = {
 	menu: "Menu",
@@ -242,46 +234,8 @@ export const forms = {
 		resendConfirmEmail: "Resend confirmation email",
 		defaultRoles: "These roles can always be changed later.",
 	},
-	createCollaborator: "Create a new collaborator",
-	addCollabArtist: "[Add/Modify] a collaborating artist",
 	addCollabArtist: "Add a collaborating artist",
 	addContributor: "Add a contributing artist",
-	options: {
-		defaultRoles: [
-			{
-				displayValue: "Author",
-				value: "author",
-			},
-			{
-				displayValue: "Composer",
-				value: "composer",
-			},
-			{
-				displayValue: "Arranger",
-				value: "arranger",
-			},
-			{
-				displayValue: "Mixer",
-				value: "mixer",
-			},
-			{
-				displayValue: "Performer",
-				value: "performer",
-			},
-			{
-				displayValue: "Singer",
-				value: "singer",
-			},
-			{
-				displayValue: "Musician",
-				value: "musician",
-			},
-			{
-				displayValue: "Interpreter",
-				value: "performer",
-			},
-		],
-	},
 }
 
 export const login = {
@@ -518,40 +472,52 @@ export const identity = {
 	),
 }
 
-export const rightSplits = {
+export const rightsSplits = {
 	navbar: {
 		rightSplits: "Right Split",
 		page: "Page Name",
 	},
-	titles: {
-		copyright: "Copyright",
-		performance: "Performance",
-		recording: "Sound recording",
-	},
-	headers: {
-		copyright: "Who invented this musical piece?",
-		performance: "Who played on the audio recording?",
-		recording: "Who owns the audio recording?",
-	},
-
-	paragraphs: {
-		copyright: () => (
+	copyright: {
+		title: "Copyright",
+		header: "Who invented this musical piece ?",
+		description: () => (
 			<>
 				Seperate here the copyright between creators, i.e. the authors of{" "}
 				<b>lyrics</b>, the composers and the mixers of <b>music</b>. It is
 				common to share the copyright fairly. But you can do otherwise.
 			</>
 		),
-		performance: () => (
+	},
+	performance: {
+		title: "Performance",
+		header: "Who played on the audio recording?",
+		description: () => (
 			<>
-				Seperate here the <b>neigbor right</b> between <b>performers</b>,
+				Seperate here the <b>neighbor right</b> between <b>performers</b>,
 				whether musicians or singers. <i>Group</i> members share this right with
 				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
 				while the remaining 20% is split among <i>featured artists</i>, if
 				applicable.
 			</>
 		),
-		recording: () => (
+		artistStatuses: {
+			principal: "Artiste principal",
+			featured: "Artiste invité",
+			bandMember: "Membre du groupe",
+			session: "Artiste accompagnateur",
+		},
+		artistStatusDef: {
+			principal: 'Also called "Starred Artist" or "Solo Artist"',
+			featured:
+				"Artist or group member invited to collaborate on a musical piece",
+			bandMember: "Musician or singer taking part in the artistic entity.",
+			session: "Accompanying Artist",
+		},
+	},
+	recording: {
+		title: "Sound recording",
+		header: "Who owns the audio recording ?",
+		description: () => (
 			<>
 				Seperate here the <b>neighbor right</b> of <b>producers</b>, i.e. those
 				who invested their time and/or their money to record and finalize the
@@ -563,7 +529,6 @@ export const rightSplits = {
 			</>
 		),
 	},
-
 	radios: {
 		equal: "Split evenly",
 		roles: "Split according to roles",
@@ -571,32 +536,27 @@ export const rightSplits = {
 		email: "By email",
 		txt: "By SMS",
 	},
-
+	yourself: "(you)",
+	more: "Learn more",
+	notify: "Notify me one month before the deadline...",
+	music: "Music",
+	lyrics: "Lyrics",
+	addCollab: "Add a collaborator...",
+	addLabel: "Add a label...",
+	removeCollab: "Remove this collaborator",
+	status: "Select a status...",
+	function: "Select a function...",
+	agreement: "Duration of the agreement...",
+	remove: "Remove this split",
+	roles: {
+		author: "Author",
+		composer: "Composer",
+		adapter: "Adapter",
+		mixer: "Mixer",
+		singer: "Singer",
+		musician: "Musician",
+	},
 	dropdowns: {
-		addCollab: "Add a collaborator...",
-		addLabel: "Add a label...",
-		removeCollab: "Remove this collaborator",
-		status: "Select a status...",
-		function: "Select a function...",
-		agreement: "Duration of the agreement...",
-		remove: "Remove this split",
-		artist: {
-			artist: "Main artist",
-			artistDefinition: 'Also called "Starred Artist" or "Solo Artist"',
-			artistInvited: () => (
-				<>
-					Starred Artist (<i>featuring</i>)
-				</>
-			),
-			artistInvitedDefinition:
-				"Artist or group member invited to collaborate on a musical piece",
-			artistMember: "Group Member",
-			artistMemberDefinition:
-				"Musician or singer taking part in the artistic entity.",
-			artistExtra: "Accompanying Artist",
-			artistExtraDefinition:
-				"Engaged performer during studio recording sessions.",
-		},
 		collaborators: {
 			producer: "Producer",
 			producerDefinition:
@@ -627,12 +587,6 @@ export const rightSplits = {
 		},
 	},
 
-	yourself: "(you)",
-	more: "Learn more",
-	notify: "Notify me one month before the deadline...",
-	music: "Music",
-	lyrics: "Lyrics",
-
 	errors: {
 		status: "You need to select a status for this right holder.",
 		role: "You need to select at least one role for this rightholder.",
@@ -652,15 +606,6 @@ export const rightSplits = {
 	},
 }
 
-export const roles = {
-	author: "Author",
-	composer: "Composer",
-	adapter: "Adapter",
-	mixer: "Mixer",
-	singer: "Singer",
-	musician: "Musician",
-}
-
 export const newUserInvite = {
 	title: "[Add/Modify] a Collaborating Artist",
 	checkboxTitle: "Rôle(s) par défaut",
@@ -676,13 +621,13 @@ export const document = {
 			release: "Release",
 			infos: "General Information",
 			lyrics: "Lyrics",
-			links: "Listening Links",
 			recording: "Recording",
 			files: "Files",
 		},
 	},
 	help: "Help",
 	why: "Why share these informations?",
+
 	access: "Access",
 	creation: {
 		category: "CREATION",
@@ -812,49 +757,23 @@ export const document = {
 	},
 	infos: {
 		category: "GENERAL INFORMATIONS",
-		title: "Tell us more about the musical piece.",
+		title: "Tells us more about the musical piece.",
 		length: "Length",
 		bpm: "BPM",
 		mainGenre: "Main Genre",
-		addGenre: "Add a genre...",
+		addenre: "Add a genre...",
 		secondaryGenre: "Secondary Genres",
-		influence: "Influences",
-		addInfluence: "Add an influence...",
-		influenceExample:
-			"Example: The Beatles, Dr Dre, Mozart, Jacques Brel, Stromae.",
+		genreExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
 	},
 	lyrics: {
 		category: "LYRICS",
-		label: "Lyrics",
 		title: (workPiece) => <>{workPiece} contains lyrics?</>,
 		paragraph:
 			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
-		lyrics: "Lyrics",
 		undertext:
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
 		addLanguage: "Ajouter une langue...",
-		dropdown: {
-			public: "Public - Make the information public",
-		},
-		selected: (language) => <>Add "{language}"</>,
-		french: "French",
-		frenchCanadian: "French (Canadian)",
-	},
-	links: {
-		category: "LISTENING LINKS",
-		title: "Was the musical piece already broadcasted?",
-		paragraph:
-			"To increase the chances for your piece to be  discovered  and listened to, document listening links and  online purchase.",
-		addLink: "Paste a link...",
-		createPlatform: "Add a platform",
-		addPlatform: "Add a platform...",
-	},
-	finalModal: {
-		header: "Documentation created!",
-		title: (workPiece) => <>{workPiece} is now documented!</>,
-		paragraph:
-			"You are one click away from publishing the credits of this piece on a web page and therefore increase the discoverability on these data on the web.",
 	},
 }
 export const collaborators = {
@@ -862,69 +781,6 @@ export const collaborators = {
 }
 export const contributors = {
 	add: "Add a Contributor",
-}
-
-export const instruments = {
-	electricGuitar: "Electric Guitar",
-	flute: "recorder",
-	electricBass: "Bass",
-}
-
-export const workpieceSheet = {
-	by: " By ",
-	update: "Updated ",
-	creation: {
-		header: "Creation",
-		date: "Creation Date",
-		authors: "Authors (lyrics)",
-		composers: "Composers (music)",
-		mixers: "Mixers (music)",
-		editors: "Editors",
-	},
-	performance: {
-		header: "Performance",
-		starring: "Starring",
-		singer: "Singer",
-		solo: "Soloist",
-		musician: "Musician",
-	},
-	recording: {
-		header: "Audio Recording",
-		title: "Track Title",
-		director: "Director",
-		recordTech: "Recording Technicians",
-		mix: "Mixing",
-		master: "Mastering",
-		prod: "Production",
-		studio: "Recording Studio",
-	},
-	listening: {
-		header: "Listen",
-	},
-	release: {
-		header: "Release",
-		date: "Release Date",
-		format: "Product Format",
-		title: "Product Title",
-	},
-	general: {
-		header: "General Informations",
-		length: "Length",
-	},
-	downloads: {
-		header: "Downloads",
-		visual: "Work Visual",
-		audio: "Audio File",
-		tablature: "Partition/Tablature",
-		midi: "MIDI File",
-		download: "Download",
-		link: "Copy the link",
-		access: "Ask access",
-	},
-	lyrics: {
-		header: "Lyrics",
-		check: "See the lyrics",
-	},
 }
 export const copyrightOrgs = {
 	names: {
