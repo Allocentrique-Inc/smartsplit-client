@@ -11,3 +11,13 @@ export async function addEmail(userId, data) {
 		data,
 	})
 }
+
+export async function setEmailAsPrimary(userId, email) {
+	return await client.request({
+		url: `/users/${userId}/emails/primary`,
+		method: "post",
+		data: {
+			email: email,
+		},
+	})
+}

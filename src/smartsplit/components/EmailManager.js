@@ -23,53 +23,62 @@ export const EmailManager = observer(() => {
 	return (
 		<Label label={t("forms:labels.myEmails")}>
 			<Paragraph>{t("forms:descriptions.myEmails")}</Paragraph>
-			{!!emails && (
-				<Column of="none">
-					{/*emails.list.map((email) => (
-						<Row
-							padding="small"
-							of="component"
-							valign="center"
-							key={email.email}
-						>
-							{isMailChecked(email) ? (
-								<CheckMark color={Colors.action} />
-							) : (
-								<MoreHorizontal />
-							)}
-							<Column of="none">
-								<Text>{email.email}</Text>
-
-								{email.status === Status.active && (
-									<Link small action onClick={() => {}}>
-										{t("forms:undertexts.setAsMain")}
-									</Link>
-								)}
-
-								{email.status === Status.pending && (
-									<Link small action onClick={() => {}}>
-										{t("forms:undertexts.resendConfirmEmail")}
-									</Link>
-								)}
-
-								{email.status === Status.main && (
-									<Text small>{t("forms:undertexts.mainEmail")}</Text>
-								)}
-							</Column>
-						</Row>
-					))*/}
-				</Column>
-			)}
 			<Row>
-				<Spacer of={"component"} />
-				<Button
-					secondary
-					bold
-					text={t("general:buttons.addEmail")}
-					onClick={() => emails.new()}
-				/>
-				<NewEmailModal />
+				{!!emails && (
+					<Column of="none">
+						{emails.list.map((email) => (
+							<Row
+								padding="small"
+								of="component"
+								valign="center"
+								key={email.email}
+							>
+								{isMailChecked(email) ? (
+									<CheckMark color={Colors.action} />
+								) : (
+									<MoreHorizontal />
+								)}
+								<Column of="none">
+									<Text>{email.email}</Text>
+
+									{email.status === Status.active && (
+										<Link
+											small
+											action
+											onClick={() => {
+												emails.setAsMain(email.email)
+											}}
+										>
+											{t("forms:undertexts.setAsMain")}
+										</Link>
+									)}
+
+									{email.status === Status.pending && (
+										<Link small action onClick={() => {}}>
+											{t("forms:undertexts.resendConfirmEmail")}
+										</Link>
+									)}
+
+									{email.status === Status.main && (
+										<Text small>{t("forms:undertexts.mainEmail")}</Text>
+									)}
+								</Column>
+							</Row>
+						))}
+					</Column>
+				)}
 			</Row>
+			<Row>
+				<Column>
+					<Button
+						secondary
+						bold
+						text={t("general:buttons.addEmail")}
+						onClick={() => emails.new()}
+					/>
+				</Column>
+			</Row>
+			<NewEmailModal />
 		</Label>
 	)
 })

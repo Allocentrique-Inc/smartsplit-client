@@ -17,9 +17,8 @@ export default function MyProIdentity() {
 			{Platform.web && <Heading level="2">{t("settings:identity")}</Heading>}
 			<Row flex={1}>
 				<SearchAndTag
-					label={t("forms:labels.organisations")}
+					field={model.organisations}
 					placeholder={t("forms:placeholders.organisations")}
-					onSearchChange={() => {}}
 				/>
 			</Row>
 			<Row>

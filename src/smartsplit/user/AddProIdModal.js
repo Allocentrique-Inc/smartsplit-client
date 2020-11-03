@@ -72,7 +72,7 @@ export default observer(function AddProIdModal(props) {
 						description: t(`copyrightOrgs:description.${org}`),
 						title: t(`copyrightOrgs:action.${org}`),
 						icon: icons[ProIdIcons[org]],
-					}))}
+					})).filter((v) => !model.hasId(v.key))}
 					value={selected}
 					placeholder={
 						selected ? (

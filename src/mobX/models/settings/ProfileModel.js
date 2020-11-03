@@ -56,6 +56,7 @@ export default class ProfileModel extends BaseModel {
 
 	@observable organisations = new Field(this, "organisations", {
 		type: FieldType.collection,
+		label: "forms:labels.organisations",
 	})
 	@observable identifiers = new ProfessionalIdentityModel(this)
 

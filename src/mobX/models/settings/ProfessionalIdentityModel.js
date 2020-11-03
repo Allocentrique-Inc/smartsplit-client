@@ -9,6 +9,9 @@ export default class ProfessionalIdentityModel extends BaseModel {
 			{ name: "artisti", value: "111111111" },
 		],
 	})
+	hasId(org) {
+		return !!toJS(this.ids.value).find((entry) => entry.name === org)
+	}
 	@observable public = new Field(this, "public", {
 		type: FieldType.boolean,
 		label: "copyrightOrgs:public",

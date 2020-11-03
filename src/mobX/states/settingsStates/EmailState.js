@@ -1,6 +1,6 @@
 import { observable, reaction, action, runInAction, toJS } from "mobx"
 import BaseState, { save } from "../../BaseState"
-import { addEmail, getEmails } from "../../../../api/enails"
+import { addEmail, getEmails, setEmailAsPrimary } from "../../../../api/enails"
 import EmailModel from "../../models/settings/EmailModel"
 export default class EmailState extends BaseState {
 	@observable
@@ -46,6 +46,14 @@ export default class EmailState extends BaseState {
 				this.complete()
 				//console.log(e)
 			}
+		}
+	}
+	@action async setAsMain(email) {
+		try {
+			await setEmailAsPrimary(this.root.auth.user_id, email)
+			await this.load(this.root.auth.user_id)
+		} catch (e) {
+			console.error(e)
 		}
 	}
 	@action async load(userId) {
