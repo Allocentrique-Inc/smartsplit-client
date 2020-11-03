@@ -1,14 +1,14 @@
 import SplitState from "./SplitState"
-import SplitCopyrightModel from "../../../models/workpieces/rights-splits/SplitCopyrightModel"
+import CopyrightSplitModel from "../../../models/workpieces/rights-splits/CopyrightSplitModel"
 import { action, observable, reaction } from "mobx"
 
 /**
- *	Domain state derived from SplitState.
+ *	Copyright split domain state derived from SplitState.
  *	Contains manual mode middleware logic
  **/
 export default class CopyrightSplit extends SplitState {
 	constructor(shares) {
-		super(shares, SplitCopyrightModel)
+		super(shares, CopyrightSplitModel)
 		/**
 		 * reaction that performs roles checking upon
 		 * mode change to or from "equal"
@@ -72,7 +72,7 @@ export default class CopyrightSplit extends SplitState {
 			//	difference (value - shareholder shares)
 			//	Difference is equally subtracted to other shares as
 			//	much as the current smallest share > 0, and so on
-			//	until difference <= 0
+			//	until difference = 0
 			let toSplit = diff
 			while (toSplit > 0) {
 				// 1. Filter shares equal to 0

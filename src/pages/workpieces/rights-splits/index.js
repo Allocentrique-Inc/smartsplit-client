@@ -6,36 +6,23 @@ import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Flex, Row } from "../../../layout"
 import { Text } from "../../../text"
-import CopyrightForm from "./copyright"
-import PerformanceForm from "./performance"
-import RecordingForm from "./recording"
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
 import { useSplitsPagesState } from "../../../mobX/hooks"
-import { useRightSplit } from "../context"
+import { useRightsSplits } from "../context"
 
+/**
+*	Split forms wrapper
+*	- Manages navigation between the forms pages
+*	- Shows global information like the progress bar or the page title
+*	- Initializes the split UI states with the splits of the current workpiece
+**/
 const RightsSplitsPage = observer(() => {
-	const { t } = useTranslation()
+	const { t } = useTranslation("rightsSplits")
 	const history = useHistory()
 	const { workpiece_id, split_type } = useParams()
-	const splits = {
-		copyright: {
-			form: CopyrightForm,
-			progress: (1 / 3) * 100,
-			title: t("rightSplits:titles.copyright"),
-		},
-		performance: {
-			form: PerformanceForm,
-			progress: (2 / 3) * 100,
-			title: t("rightSplits:titles.performance"),
-		},
-		recording: {
-			form: RecordingForm,
-			progress: (10 / 11) * 100,
-			title: t("rightSplits:titles.recording"),
-		},
-	}
+
 	if (!workpiece_id) navigateToSummary()
 	else if (!split_type)
 		return (
@@ -43,18 +30,25 @@ const RightsSplitsPage = observer(() => {
 		)
 	const workpiece = useCurrentWorkpiece()
 
-	// TEMPORARY. Initialization of splitsPagesState shares (only copyright at the moment) with current workpiece splits
-	const split = useRightSplit("copyright")
-	const { copyright } = useSplitsPagesState()
-	copyright.init(
-		t("rightSplits:lyrics"),
-		t("rightSplits:music"),
-		split.sharesValues
+	// Initialization of split UI States with current workpiece splits
+	const splits = useRightsSplits()
+	const splitUIStates = useSplitsPagesState()
+	splitUIStates.copyright.init(
+		t("copyright.title"),
+		t("lyrics"),
+		t("music"),
+		splits.copyright.sharesValues
 	)
+	splitUIStates.performance.init(
+		t("performance.title"), 
+		splits.performance.sharesValues
+	)
+
 
 	const { workpieces } = useStores()
 	const currentSplit = split_type
 
+	//TODO: refactor rights splits saving
 	const rightsSplits = workpiece.rightsSplits
 	async function saveAndQuit() {
 		try {
@@ -87,8 +81,8 @@ const RightsSplitsPage = observer(() => {
 	return (
 		<Layout
 			workpiece={workpiece}
-			progress={splits[currentSplit].progress}
-			path={[t("rightSplits:navbar.rightSplits"), splits[currentSplit].title]}
+			progress={splitUIStates[currentSplit].progress}
+			path={[t("navbar.rightSplits"), splitUIStates[currentSplit].pageTitle]}
 			actions={
 				<Button
 					tertiary
@@ -120,7 +114,7 @@ const RightsSplitsPage = observer(() => {
 				</>
 			}
 		>
-			{!workpieces.isLoading && React.createElement(splits[currentSplit].form)}
+			{!workpieces.isLoading && React.createElement(splitUIStates[currentSplit].form)}
 		</Layout>
 	)
 })

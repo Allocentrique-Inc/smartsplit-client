@@ -36,6 +36,10 @@ export default class SplitState {
 		this.shareHolders.set(id, newShare)
 	}
 
+	/**
+	*	Allows you to update the value of one of the observable Fields of a
+	*	a shareholder directly from the UI
+	**/
 	@action updateShareField(id, field, value) {
 		if (!this.shareHolders.get(id)) {
 			return
@@ -44,9 +48,8 @@ export default class SplitState {
 	}
 
 	/**
-	 *	Populate this.shareHolders Map with the Array<Share> argument
+	 *	Populate this.shareHolders Map with the Array<ShareModel> argument
 	 **/
-
 	@action initShareHolders(shares) {
 		shares.forEach((share) => {
 			this.addShare(share)

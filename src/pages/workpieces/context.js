@@ -6,6 +6,6 @@ export function useCurrentWorkpiece() {
 	return useContext(WorkpieceContext)
 }
 
-export function useRightSplit(type) {
-	return useCurrentWorkpiece().rightsSplits[type]
+export function useRightsSplits(type) {
+	return type ? useCurrentWorkpiece().rightsSplits[type] : useCurrentWorkpiece().rightsSplits
 }
