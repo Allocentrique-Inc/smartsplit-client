@@ -1,5 +1,5 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
-import { observable, action, computed } from "mobx"
+import { observable } from "mobx"
 export default class SplitRecordingModel extends BaseModel {
 	@observable shares = new Field(this, "shares", { type: FieldType.float })
 	@observable role = new Field(this, "role", { type: FieldType.string })

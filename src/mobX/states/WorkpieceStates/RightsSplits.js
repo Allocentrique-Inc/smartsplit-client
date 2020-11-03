@@ -8,6 +8,9 @@ import SplitPerformanceModel from "../../models/workpieces/rights-splits/SplitPe
 import SplitRecordingModel from "../../models/workpieces/rights-splits/SplitRecordingModel"
 import SplitState, { CopyrightSplit } from "./SplitStates"
 
+/**
+ *	Class managing the 3 splits (copyright, performance, recording)
+ **/
 export default class RightsSplits {
 	constructor(workpiece, rightsSplits = {}) {
 		this.$workpiece = workpiece
@@ -50,15 +53,19 @@ export default class RightsSplits {
 			_state: observable,
 			$hasChanged: observable,
 		})
+
+		// Observe splits shareholders and set hasChanged to
+		// true on first change
 		this._disposers = [
 			this.copyright.shareHolders.observe(this._toggleHasChanged),
-			this.copyright.shareHolders.observe(this._toggleHasChanged),
-			this.copyright.shareHolders.observe(this._toggleHasChanged),
+			// this.performance.shareHolders.observe(this._toggleHasChanged),
+			// this.recording.shareHolders.observe(this._toggleHasChanged),
 		]
 	}
 
 	@action _toggleHasChanged() {
 		this.$hasChanged = true
+		//TODO: dispose of the observers
 	}
 
 	@action _updateRightsSplits(rightsSplits) {

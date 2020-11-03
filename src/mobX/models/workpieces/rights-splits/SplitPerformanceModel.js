@@ -1,5 +1,5 @@
 import BaseModel, { FieldType, Field } from "../../../BaseModel"
-import { observable, action, computed } from "mobx"
+import { observable } from "mobx"
 export default class SplitPerformanceModel extends BaseModel {
 	@observable shares = new Field(this, "shares", { type: FieldType.float })
 	@observable status = new Field(this, "status", { type: FieldType.string })

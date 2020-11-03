@@ -1,14 +1,17 @@
-import BaseState from "../BaseState"
-import { observable, computed, action } from "mobx"
-import { Colors } from "../../theme"
-import CircledC from "../../svg/circled-c"
+import BaseState from "../../BaseState"
+import { observable, computed, action, reaction } from "mobx"
+import { Colors } from "../../../theme"
+import CircledC from "../../../svg/circled-c"
 
 export default class SplitsPagesState extends BaseState {
 	copyright = new CopyrightState()
 }
-
+/**
+ *  Copyright form page UI state
+ **/
 class CopyrightState {
 	@action init(titleLeft, titleRight, shares) {
+		// Titles of Dual pie chart halfs
 		this.titleLeft = titleLeft
 		this.titleRight = titleRight
 		this.shares = shares
@@ -22,6 +25,10 @@ class CopyrightState {
 		return this.shares.map((share) => share.shares).reduce((a, n) => a + n, 0)
 	}
 
+	/**
+	 *	Computed array of data objects to be
+	 *	used by the UI
+	 **/
 	@computed get sharesData() {
 		return this.shares.map((share) => {
 			return {
