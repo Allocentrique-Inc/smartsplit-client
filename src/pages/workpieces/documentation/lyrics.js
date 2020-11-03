@@ -67,6 +67,7 @@ export function LyricsForm(props) {
 					{/* To Do: Title does not appear because of {workpiece} object in translations */}
 					{/* <Heading level={1}>{t("document:lyrics.title")}</Heading> */}
 					<Heading level={1}>To Do: Fix Title in t()</Heading>
+					<Paragraph>{t("document:lyrics.paragraph")}</Paragraph>
 
 					<Spacer of="group" />
 
@@ -77,7 +78,7 @@ export function LyricsForm(props) {
 						multiline={true}
 						style={formStyle.textAreaContainer}
 						onChangeText={(text) => setText(text)}
-						undertext={t("document:release.lyrics.undertext")}
+						undertext={t("document:lyrics.undertext")}
 					/> */}
 
 					<Column of="tiny">
@@ -87,10 +88,9 @@ export function LyricsForm(props) {
 							multiline={true}
 							style={formStyle.textAreaContainer}
 							onChangeText={(text) => setText(text)}
-							undertext={t("document:release.lyrics.undertext")}
 						/>
 						<Text secondary small>
-							{t("document:release.lyrics.undertext")}
+							{t("document:lyrics.undertext")}
 						</Text>
 					</Column>
 

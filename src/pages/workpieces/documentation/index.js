@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Redirect, useHistory, useParams } from "react-router"
 import { observer } from "mobx-react"
@@ -14,11 +14,12 @@ import { RecordingForm } from "./recording"
 import { LyricsForm } from "./lyrics"
 import { FilesForm } from "./files"
 import { ReleaseForm } from "./release"
-import { LinksForm } from "./links"
+import Links from "./links"
 import { GeneralInfosForm } from "./general-infos"
 
 const DocumentationPage = observer(() => {
 	const { t } = useTranslation()
+	const [endModal, setEndModal] = useState(false)
 	const history = useHistory()
 	const { workpieces } = useStores()
 	// Type représente le type de documentation : Création, Paroles, Sortie etc...
@@ -67,7 +68,7 @@ const DocumentationPage = observer(() => {
 			title: t("document:navbar.pages.lyrics"),
 		},
 		links: {
-			form: LinksForm,
+			form: Links,
 			progress: 100,
 			title: t("document:navbar.pages.links"),
 		},
@@ -81,28 +82,36 @@ const DocumentationPage = observer(() => {
 		type === "creation" && navigateToSummary()
 		type === "performance" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/creation`)
-		type === "files" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "recording" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/files`)
+			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "release" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/recording`)
+			history.push(`/workpieces/${workpiece.id}/documentation/release`)
+		type === "infos" &&
+			history.push(`/workpieces/${workpiece.id}/documentation/files`)
 		type === "lyrics" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/release`)
+		type === "links" &&
+			history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
 	}
 
 	function toNextPage() {
 		type === "creation" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/performance`)
 		type === "performance" &&
-			history.push(`/workpieces/${workpiece.id}/documentation/files`)
-		type === "files" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/recording`)
 		type === "recording" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/release`)
 		type === "release" &&
+			history.push(`/workpieces/${workpiece.id}/documentation/files`)
+		type === "files" &&
+			history.push(`/workpieces/${workpiece.id}/documentation/infos`)
+		type === "infos" &&
 			history.push(`/workpieces/${workpiece.id}/documentation/lyrics`)
-		type === "lyrics" && navigateToSummary()
+		type === "lyrics" &&
+			history.push(`/workpieces/${workpiece.id}/documentation/links`)
+		if (type === "links") {
+			setEndModal(true)
+		}
 	}
 
 	return (
@@ -129,14 +138,22 @@ const DocumentationPage = observer(() => {
 						<Flex />
 						<Button
 							primary
-							text={t("general:buttons.continue")}
+							text={
+								type === "links" ? "Terminer" : t("general:buttons.continue")
+							}
 							onClick={toNextPage}
 						/>
 					</Row>
 				</Row>
 			}
 		>
-			{!workpieces.isLoading && React.createElement(documentations[type].form)}
+			{!workpieces.isLoading &&
+				React.createElement(documentations[type].form, {
+					modalVisible: endModal,
+					closeModal: () => {
+						setEndModal(false)
+					},
+				})}
 		</Layout>
 	)
 })

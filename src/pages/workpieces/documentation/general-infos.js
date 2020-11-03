@@ -11,6 +11,8 @@ import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import MusicNoteIcon from "../../../svg/music-note"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
+import AddGenreDropdown from "../../../smartsplit/components/add-genre-dropdown"
+import AddInfluenceDropdown from "../../../smartsplit/components/add-influence-dropdown"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -19,6 +21,9 @@ const Styles = StyleSheet.create({
 	},
 	logo: {
 		marginRight: Metrics.spacing.medium,
+	},
+	dropdown: {
+		marginLeft: Metrics.spacing.large,
 	},
 })
 
@@ -77,6 +82,13 @@ export default function GeneralInfos() {
 }
 
 export function GeneralInfosForm(props) {
+	const { t } = useTranslation()
+
+	/* const [showGenre, setShowGenre] = useState()
+ 	const searchResults = ["Electro Funk", "Future Funk", "Mega Funk"]
+	const [selected, setSelected] = useState("")
+	const [search, setSearch] = useState("") */
+
 	const searchResultsGenres = ["Electrofunk", "Future Funk", "Mega Funk"]
 	const [searchGenres, setSearchGenres] = useState("")
 	const [selectedGenres, setSelectedGenres] = useState([
@@ -84,6 +96,7 @@ export function GeneralInfosForm(props) {
 		"Future Funk",
 		"Mega Funk",
 	])
+
 	const searchResultsInfluences = ["Stromae", "Apollo Brown", "Daft Punk"]
 	const [searchInfluences, setSearchInfluences] = useState("")
 	const [selectedInfluences, setSelectedInfluences] = useState([
@@ -91,7 +104,6 @@ export function GeneralInfosForm(props) {
 		"Apollo Brown",
 		"Daft Punk",
 	])
-	const { t } = useTranslation()
 
 	return (
 		<>
@@ -123,7 +135,8 @@ export function GeneralInfosForm(props) {
 						noFocusToggle
 						tooltip=""
 					/>
-					<SearchAndTag
+
+					{/* <SearchAndTag
 						noIcon={true}
 						label={t("document:infos.secondaryGenre")}
 						searchResults={searchResultsGenres}
@@ -137,8 +150,9 @@ export function GeneralInfosForm(props) {
 							setSelected(selectedGenres.filter((i) => i !== selection))
 						}
 						placeholder={t("document:infos.addGenre")}
-					/>
-					<SearchAndTag
+					/> */}
+
+					{/* <SearchAndTag
 						noIcon={true}
 						label={t("document:infos.influence")}
 						undertext={t("document:infos.influenceExample")}
@@ -153,6 +167,49 @@ export function GeneralInfosForm(props) {
 							setSelected2(selectedInfluences.filter((i) => i !== selection))
 						}
 						placeholder={t("document:infos.addInfluence")}
+					/> */}
+
+					{/* ToDo: Tags missing + Make it one component */}
+					<AddGenreDropdown
+						style={{ flex: 1 }}
+						noIcon={true}
+						placeholder={t("document:infos.addGenre")}
+						searchResults={searchResultsGenres.filter((v) =>
+							v
+								? v.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+								: true
+						)}
+						search={searchGenres}
+						onSearchChange={setSearchGenres}
+						selection={selectedGenres}
+						onSelect={(selection) =>
+							setSelectedGenres([...selectedGenres, selection])
+						}
+						onUnselect={(selection) =>
+							setSelectedGenres(selectedGenres.filter((i) => i !== selection))
+						}
+					/>
+
+					<AddInfluenceDropdown
+						style={{ flex: 1 }}
+						noIcon={true}
+						placeholder={t("document:infos.addInfluence")}
+						searchResults={searchResultsInfluences.filter((v) =>
+							v
+								? v.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
+								: true
+						)}
+						search={searchInfluences}
+						onSearchChange={setSearchInfluences}
+						selection={selectedInfluences}
+						onSelect={(selection) =>
+							setSelectedInfluenbces([...selectedInfluences, selection])
+						}
+						onUnselect={(selection) =>
+							setSelectedInfluences(
+								selectedInfluences.filter((i) => i !== selection)
+							)
+						}
 					/>
 				</Column>
 				<Flex />

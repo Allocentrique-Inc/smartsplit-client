@@ -14,7 +14,7 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function AddInstrumentDropdown({
+export default function AddInfluenceDropdown({
 	selection,
 	onUnselect,
 	onSelectionChange,
@@ -24,14 +24,14 @@ export default function AddInstrumentDropdown({
 	...nextProps
 }) {
 	const { t } = useTranslation()
-	const [instrument, setInstrument] = useState("")
+	const [influence, setInfluence] = useState("")
 
 	return (
 		<Column of="component">
 			<Autocomplete
 				leftIcon={false}
-				search={instrument}
-				onSearcheChange={setInstrument}
+				search={influence}
+				onSearcheChange={setInfluence}
 				onSelect={onSelect}
 				searchResults={searchResults}
 				{...nextProps}
@@ -45,8 +45,8 @@ export default function AddInstrumentDropdown({
 						<Row of="component" padding="component" style={Styles.actionFrame}>
 							<PlusCircle />
 							<Text bold action>
-								{/* To Do: Voir comment placer la traduction avec l'instrument entre guillemets */}
-								Ajouter <Text bold>{nextProps.search}</Text> comme instrument
+								{/* To Do: Voir comment placer la traduction avec props entre guillemets */}
+								Ajouter <Text bold>{nextProps.search}</Text>
 							</Text>
 						</Row>
 					</TouchableWithoutFeedback>

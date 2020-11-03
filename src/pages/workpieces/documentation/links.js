@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { StyleSheet } from "react-native"
-import { useHistory } from "react-router"
+import { useHistory, useParams } from "react-router"
 import { useStorePath } from "../../../appstate/react"
 import { View } from "react-native"
 import { useTranslation } from "react-i18next"
@@ -31,7 +31,7 @@ import HighFive from "../../../../assets/svg/high-five.svg"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import AddPlatformDropdown from "../../../smartsplit/components/add-platform-dropdown"
 import { DialogModal } from "../../../widgets/modal"
-
+import { observer } from "mobx-react"
 const Styles = StyleSheet.create({
 	category: {
 		alignItems: "center",
@@ -45,11 +45,12 @@ const Styles = StyleSheet.create({
 	},
 })
 
-export default function Links() {
+export default observer(function Links(props) {
+	const { modalVisible, closeModal } = props
 	const { t } = useTranslation()
 	const history = useHistory()
 	const workpiece = useCurrentWorkpiece()
-	const [endModal, setEndModal] = useState(false)
+	//console.log(modalVisible)
 
 	function saveAndQuit() {
 		history.push("/dashboard/")
@@ -66,10 +67,10 @@ export default function Links() {
 	return (
 		<>
 			<LinksForm />
-			<EndModal visible={endModal} onRequestClose={() => setEndModal(false)} />
+			<EndModal visible={modalVisible} onRequestClose={closeModal} />
 		</>
 	)
-}
+})
 
 export function LinksForm(props) {
 	const { t } = useTranslation()
@@ -224,7 +225,11 @@ export function LinksForm(props) {
 
 export function EndModal(props) {
 	const { t } = useTranslation()
-	const submit = () => form.current.submit()
+	const history = useHistory()
+	const { workpiece_id } = useParams()
+	function navigateToSummary() {
+		history.push(`/workpieces/${workpiece_id}`)
+	}
 
 	return (
 		<DialogModal
@@ -233,7 +238,10 @@ export function EndModal(props) {
 			title={t("document:finalModal.header")}
 			buttons={
 				<>
-					<Button text={t("general:buttons.seeSummary")} onClick={submit} />
+					<Button
+						text={t("general:buttons.seeSummary")}
+						onClick={navigateToSummary}
+					/>
 				</>
 			}
 		>
