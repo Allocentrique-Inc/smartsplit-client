@@ -11,10 +11,5 @@ export default class PerformanceSplit extends SplitState {
 		super(shares, PerformanceSplitModel)
 	}
 	@observable mode = "equal"
-	statusValues = [
-		"principal",
-		"featured",
-		"bandMember",
-		"session"
-	]
+	statusValues = ["principal", "featured", "bandMember", "session"]
 }

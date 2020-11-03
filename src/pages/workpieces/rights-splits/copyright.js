@@ -140,24 +140,15 @@ const CopyrightForm = observer(() => {
 						onChange={(mode) => runInAction(() => (copyrightSplit.mode = mode))}
 					>
 						<Column of="component">
-							<RadioGroupButton
-								value="equal"
-								label={t("radios.equal")}
-							/>
-							<RadioGroupButton
-								value="roles"
-								label={t("radios.roles")}
-							/>
-							<RadioGroupButton
-								value="manual"
-								label={t("radios.manual")}
-							/>
+							<RadioGroupButton value="equal" label={t("radios.equal")} />
+							<RadioGroupButton value="roles" label={t("radios.roles")} />
+							<RadioGroupButton value="manual" label={t("radios.manual")} />
 						</Column>
 					</RadioGroup>
 					<Column of="component">
 						{renderShareCards()}
 						<AddCollaboratorDropdown
-							onSelect={addShareHolder}		
+							onSelect={addShareHolder}
 							placeholder={t("addCollab")}
 						/>
 					</Column>

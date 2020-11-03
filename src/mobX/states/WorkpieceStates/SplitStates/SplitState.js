@@ -37,9 +37,9 @@ export default class SplitState {
 	}
 
 	/**
-	*	Allows you to update the value of one of the observable Fields of a
-	*	a shareholder directly from the UI
-	**/
+	 *	Allows you to update the value of one of the observable Fields of a
+	 *	a shareholder directly from the UI
+	 **/
 	@action updateShareField(id, field, value) {
 		if (!this.shareHolders.get(id)) {
 			return

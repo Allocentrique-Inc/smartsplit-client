@@ -1,6 +1,6 @@
 import { observable } from "mobx"
 import RightSplitModel from "./RightSplitModel"
-import { Field, FieldType } from "../../../BaseModel";
+import { Field, FieldType } from "../../../BaseModel"
 
 export default class CopyrightSplitModel extends RightSplitModel {
 	@observable shares = new Field(this, "shares", { type: FieldType.float })
@@ -10,9 +10,9 @@ export default class CopyrightSplitModel extends RightSplitModel {
 }
 
 /**
-*	Data object to initialize a model instance with default 
-*	values
-**/
+ *	Data object to initialize a model instance with default
+ *	values
+ **/
 export const initData = {
 	shares: 1,
 	roles: [],

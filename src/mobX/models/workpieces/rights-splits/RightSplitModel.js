@@ -1,9 +1,8 @@
 import BaseModel from "../../../BaseModel"
 
-
 /**
-*	Specialized base model class for the 3 right splits
-**/
+ *	Specialized base model class for the 3 right splits
+ **/
 export default class RightSplitModel extends BaseModel {
 	constructor(id) {
 		super()

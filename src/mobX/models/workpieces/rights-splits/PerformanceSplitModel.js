@@ -10,11 +10,10 @@ export default class PerformanceSplitModel extends RightSplitModel {
 	@observable vote = new Field(this, "vote", { type: FieldType.string })
 }
 
-
 /**
-*	Data object to initialize a model instance with default 
-*	values
-**/
+ *	Data object to initialize a model instance with default
+ *	values
+ **/
 export const initData = {
 	shares: 1,
 	roles: [],

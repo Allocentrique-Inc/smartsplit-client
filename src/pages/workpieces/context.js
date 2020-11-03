@@ -7,5 +7,7 @@ export function useCurrentWorkpiece() {
 }
 
 export function useRightsSplits(type) {
-	return type ? useCurrentWorkpiece().rightsSplits[type] : useCurrentWorkpiece().rightsSplits
+	return type
+		? useCurrentWorkpiece().rightsSplits[type]
+		: useCurrentWorkpiece().rightsSplits
 }

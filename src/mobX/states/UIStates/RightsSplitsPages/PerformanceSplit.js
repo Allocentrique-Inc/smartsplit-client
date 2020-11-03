@@ -1,7 +1,7 @@
 import CircledStar from "../../../../svg/circled-star"
 import { computed } from "mobx"
-import SplitPageState from "./SplitPageState";
-import PerformanceForm from "../../../../pages/workpieces/rights-splits/performance";
+import SplitPageState from "./SplitPageState"
+import PerformanceForm from "../../../../pages/workpieces/rights-splits/performance"
 
 /**
  *  Performance form page UI state
@@ -10,7 +10,7 @@ export default class PerformanceSplit extends SplitPageState {
 	constructor() {
 		super(CircledStar)
 	}
-	progress = 2 / 3 * 100
+	progress = (2 / 3) * 100
 	form = PerformanceForm
 	@computed get sharesData() {
 		return this.shares.map((share) => {

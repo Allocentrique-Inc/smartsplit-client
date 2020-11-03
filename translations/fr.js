@@ -474,7 +474,7 @@ export const rightsSplits = {
 		rightSplits: "Partage des droits",
 		page: "Nom de la page",
 	},
-	copyright : {
+	copyright: {
 		title: "Droits d'auteur",
 		header: "Qui a inventé cette pièce musicale ?",
 		description: () => (
@@ -484,38 +484,39 @@ export const rightsSplits = {
 				<b>musique</b>. Il est d’usage de partager le droit d’auteur
 				équitablement. Mais tu peux faire autrement.
 			</>
-		) 
+		),
 	},
-	performance : {
+	performance: {
 		title: "Interprétation",
 		header: "Qui a joué sur l'enregistrement sonore ?",
 		description: () => (
 			<>
-			On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
-			autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}
-			se partagent ce droit à parts égales. Les <i>artistes principaux</i> et{" "}
-			<i>artistes invités</i> se partagent 30%, tantdis que les 20% restant
-			est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
+				On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
+				autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}
+				se partagent ce droit à parts égales. Les <i>artistes principaux</i> et{" "}
+				<i>artistes invités</i> se partagent 30%, tantdis que les 20% restant
+				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
 			</>
-			),
-		artistStatuses:{
+		),
+		artistStatuses: {
 			principal: "Artiste principal",
 			featured: "Artiste invité",
 			bandMember: "Membre du groupe",
-			session: "Artiste accompagnateur"
+			session: "Artiste accompagnateur",
 		},
 		artistStatusDef: {
 			principal: "Aussi appelé  « Artiste vedette » ou  « Artiste solo ».",
 			featured: () => (
 				<>
-				Artiste invité (<i>featuring</i>)
+					Artiste invité (<i>featuring</i>)
 				</>
 			),
 			member: "Musicien ou chanteur prenant part à l'entité artistique.",
-			session: "Interprète engagé pendant les sessions d'enregistrement studio."
-		}
+			session:
+				"Interprète engagé pendant les sessions d'enregistrement studio.",
+		},
 	},
-	recording : {
+	recording: {
 		title: "Enregistrement sonore",
 		header: "Qui possède l'enregistrement sonore ?",
 		description: () => (
@@ -530,9 +531,8 @@ export const rightsSplits = {
 					l'investissement.
 				</>
 			</>
-		) 
+		),
 	},
-	
 
 	radios: {
 		equal: "Partager de façon égale",
@@ -612,8 +612,6 @@ export const rightsSplits = {
 			"Règle générale, un label prend rarement plus de 50% des droits et revenus en lien avec la propriété de l'enregistrement sonore.",
 	},
 }
-
-
 
 export const newUserInvite = {
 	title: "[Ajouter/Modifier] un artiste collaborateur",

@@ -13,11 +13,11 @@ import { useSplitsPagesState } from "../../../mobX/hooks"
 import { useRightsSplits } from "../context"
 
 /**
-*	Split forms wrapper
-*	- Manages navigation between the forms pages
-*	- Shows global information like the progress bar or the page title
-*	- Initializes the split UI states with the splits of the current workpiece
-**/
+ *	Split forms wrapper
+ *	- Manages navigation between the forms pages
+ *	- Shows global information like the progress bar or the page title
+ *	- Initializes the split UI states with the splits of the current workpiece
+ **/
 const RightsSplitsPage = observer(() => {
 	const { t } = useTranslation("rightsSplits")
 	const history = useHistory()
@@ -40,10 +40,9 @@ const RightsSplitsPage = observer(() => {
 		splits.copyright.sharesValues
 	)
 	splitUIStates.performance.init(
-		t("performance.title"), 
+		t("performance.title"),
 		splits.performance.sharesValues
 	)
-
 
 	const { workpieces } = useStores()
 	const currentSplit = split_type
@@ -114,7 +113,8 @@ const RightsSplitsPage = observer(() => {
 				</>
 			}
 		>
-			{!workpieces.isLoading && React.createElement(splitUIStates[currentSplit].form)}
+			{!workpieces.isLoading &&
+				React.createElement(splitUIStates[currentSplit].form)}
 		</Layout>
 	)
 })

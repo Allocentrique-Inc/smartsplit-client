@@ -1,23 +1,22 @@
 import { action, computed } from "mobx"
 import CircledC from "../../../../svg/circled-c"
 import SplitPageState from "./SplitPageState"
-import CopyrightForm from "../../../../pages/workpieces/rights-splits/copyright";
+import CopyrightForm from "../../../../pages/workpieces/rights-splits/copyright"
 
 /**
  *  Copyright form page UI state
  **/
 export default class CopyrightSplit extends SplitPageState {
-
 	constructor() {
 		super(CircledC)
 	}
 
-	progress = 1 / 3 * 100
+	progress = (1 / 3) * 100
 	form = CopyrightForm
 	/**
-	*	Action to initialize the ui state. Shares are an array
-	*	of shareholders stripped values from their observables
-	**/
+	 *	Action to initialize the ui state. Shares are an array
+	 *	of shareholders stripped values from their observables
+	 **/
 	@action init(pageTitle, titleLeft, titleRight, shares) {
 		super.init(pageTitle, shares)
 		// Titles of Dual pie chart halfs

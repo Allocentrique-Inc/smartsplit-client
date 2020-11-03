@@ -477,7 +477,7 @@ export const rightsSplits = {
 		rightSplits: "Right Split",
 		page: "Page Name",
 	},
-	copyright : {
+	copyright: {
 		title: "Copyright",
 		header: "Who invented this musical piece ?",
 		description: () => (
@@ -486,9 +486,9 @@ export const rightsSplits = {
 				<b>lyrics</b>, the composers and the mixers of <b>music</b>. It is
 				common to share the copyright fairly. But you can do otherwise.
 			</>
-		)
+		),
 	},
-	performance : {
+	performance: {
 		title: "Performance",
 		header: "Who played on the audio recording?",
 		description: () => (
@@ -500,21 +500,21 @@ export const rightsSplits = {
 				applicable.
 			</>
 		),
-		artistStatuses:{
+		artistStatuses: {
 			principal: "Artiste principal",
 			featured: "Artiste invité",
 			bandMember: "Membre du groupe",
-			session: "Artiste accompagnateur"
+			session: "Artiste accompagnateur",
 		},
 		artistStatusDef: {
 			principal: 'Also called "Starred Artist" or "Solo Artist"',
-			featured: "Artist or group member invited to collaborate on a musical piece",
-			bandMember:
-				"Musician or singer taking part in the artistic entity.",
+			featured:
+				"Artist or group member invited to collaborate on a musical piece",
+			bandMember: "Musician or singer taking part in the artistic entity.",
 			session: "Accompanying Artist",
 		},
 	},
-	recording : {
+	recording: {
 		title: "Sound recording",
 		header: "Who owns the audio recording ?",
 		description: () => (
@@ -527,7 +527,7 @@ export const rightsSplits = {
 				It is common pratice to share this right in equal parts or in pro bono
 				of the investment.
 			</>
-		)
+		),
 	},
 	radios: {
 		equal: "Split evenly",
@@ -586,7 +586,6 @@ export const rightsSplits = {
 			renew: "Automatically renews, unless notified 60 days prior.",
 		},
 	},
-
 
 	errors: {
 		status: "You need to select a status for this right holder.",

@@ -13,12 +13,8 @@ export default class RightsSplits {
 	constructor(workpiece, rightsSplits = {}) {
 		this.$workpiece = workpiece
 		this.copyright = new CopyrightSplit(rightsSplits.copyright)
-		this.performance = new PerformanceSplit(
-			rightsSplits.performance,
-		)
-		this.recording = new RecordingSplit(
-			rightsSplits.performance,
-		)
+		this.performance = new PerformanceSplit(rightsSplits.performance)
+		this.recording = new RecordingSplit(rightsSplits.performance)
 		Object.defineProperties(this, {
 			_state: {
 				configurable: true,

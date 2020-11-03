@@ -4,9 +4,7 @@ import { Text, Heading, Paragraph } from "../../../text"
 import { useTranslation } from "react-i18next"
 import { Colors, Metrics } from "../../../theme"
 import CircledStar from "../../../svg/circled-star"
-import {
-	CheckBoxGroup,
-	CheckBoxGroupButton, Select } from "../../../forms"
+import { CheckBoxGroup, CheckBoxGroupButton, Select } from "../../../forms"
 import ShareCard from "../../../smartsplit/components/share-card"
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import { View } from "react-native"
@@ -14,9 +12,9 @@ import SplitChart from "../../../smartsplit/components/split-chart"
 import { observer } from "mobx-react"
 import { useRightsSplits } from "../context"
 import { useSplitsPagesState } from "../../../mobX/hooks"
-import { initData } from "../../../mobX/models/workpieces/rights-splits/PerformanceSplitModel";
-import ProgressBar from "../../../widgets/progress-bar";
-import { formatPercentage } from "../../../utils/utils";
+import { initData } from "../../../mobX/models/workpieces/rights-splits/PerformanceSplitModel"
+import ProgressBar from "../../../widgets/progress-bar"
+import { formatPercentage } from "../../../utils/utils"
 
 const PerformanceForm = observer(() => {
 	const performanceSplit = useRightsSplits("performance")
@@ -36,13 +34,15 @@ const PerformanceForm = observer(() => {
 		addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
 	}, [])
 	function genSelectOptions() {
-		return performanceSplit.statusValues.map(status => {
+		return performanceSplit.statusValues.map((status) => {
 			return {
 				key: status,
-				value: <>
-					<Text>{t(`performance.artistStatuses.${status}`)}</Text>
-					<Text secondary>{t(`performance.artistStatusDef.${status}`)}</Text>
-				</>
+				value: (
+					<>
+						<Text>{t(`performance.artistStatuses.${status}`)}</Text>
+						<Text secondary>{t(`performance.artistStatusDef.${status}`)}</Text>
+					</>
+				),
 			}
 		})
 	}
@@ -54,12 +54,14 @@ const PerformanceForm = observer(() => {
 				color={pageState.colorByIndex(i)}
 				sharePercent={share.percent}
 				onClose={() => performanceSplit.removeRightHolder(share.id)}
-			>	
+			>
 				<Select
 					placeholder={t("status")}
 					options={genSelectOptions()}
 					value={share.status}
-					onChange={value => performanceSplit.updateShareField(share.id, "status", value)}
+					onChange={(value) =>
+						performanceSplit.updateShareField(share.id, "status", value)
+					}
 				/>
 				<CheckBoxGroup
 					selection={share.roles}
@@ -68,27 +70,22 @@ const PerformanceForm = observer(() => {
 					}
 				>
 					<Column of="component">
-						<CheckBoxGroupButton
-							value="singer"
-							label={t("roles.singer")}
-							
-						/>
+						<CheckBoxGroupButton value="singer" label={t("roles.singer")} />
 						<CheckBoxGroupButton value="musician" label={t("roles.musician")} />
 					</Column>
 				</CheckBoxGroup>
 				<Row of="component" valign="center">
 					<ProgressBar
-								progress={share.percent}
-								size="xsmall"
-								style={{ flex: 1 }}
-								color={pageState.colorByIndex(i)}
-							/>
+						progress={share.percent}
+						size="xsmall"
+						style={{ flex: 1 }}
+						color={pageState.colorByIndex(i)}
+					/>
 					<Text bold>{formatPercentage(share.percent)}</Text>
 				</Row>
 			</ShareCard>
 		))
 	}
-
 
 	return (
 		<Row>
@@ -106,12 +103,12 @@ const PerformanceForm = observer(() => {
 					</Column>
 				</Column>
 				<Column of="component">
-						{renderShareCards()}
-						<AddCollaboratorDropdown
-							onSelect={addShareHolder}		
-							placeholder={t("addCollab")}
-						/>
-					</Column>
+					{renderShareCards()}
+					<AddCollaboratorDropdown
+						onSelect={addShareHolder}
+						placeholder={t("addCollab")}
+					/>
+				</Column>
 			</Column>
 			<View
 				style={{
