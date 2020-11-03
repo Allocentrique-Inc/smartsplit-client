@@ -1,13 +1,17 @@
 import SplitState from "./SplitState"
-import SplitCopyrightModel from "../../../models/workpieces/rights-splits/SplitCopyrightModel"
+import CopyrightSplitModel from "../../../models/workpieces/rights-splits/CopyrightSplitModel"
 import { action, observable, reaction } from "mobx"
 
+/**
+ *	Copyright split domain state derived from SplitState.
+ *	Contains manual mode middleware logic
+ **/
 export default class CopyrightSplit extends SplitState {
 	constructor(shares) {
-		super(shares, SplitCopyrightModel)
+		super(shares, CopyrightSplitModel)
 		/**
 		 * reaction that performs roles checking upon
-		 * mode change to or from equal
+		 * mode change to or from "equal"
 		 */
 		reaction(
 			() => this.mode,
@@ -54,38 +58,42 @@ export default class CopyrightSplit extends SplitState {
 		// console.log("UPDATE SHARE", this.shareHolders.get(id))
 
 		const diff = value - this.shareHolders.get(id).shares.value
-
 		// Select other candidate shares
 		const sortedShares = [...this.shareHolders.values()]
 			.filter((share) => share.shareHolderId !== id)
 			.sort((a, b) => a.shares.value - b.shares.value)
-		// console.log("SORTED SHARES", sortedShares)
+
+		// If diff < 0, we subtract a portion from the shareholder and then
+		// splitting it between other shareholders
 		if (diff < 0) {
 			this.applyDiffToShares(-diff / sortedShares.length, sortedShares)
 		} else {
-			let leftovers = diff
-			while (leftovers > 0) {
+			//	Algorithm to split as equally as possible the
+			//	difference (value - shareholder shares)
+			//	Difference is equally subtracted to other shares as
+			//	much as the current smallest share > 0, and so on
+			//	until difference = 0
+			let toSplit = diff
+			while (toSplit > 0) {
 				// 1. Filter shares equal to 0
 				const shares = sortedShares.filter((share) => share.shares.value > 0)
-				// console.log("SMALLEST SHARE", sortedShares[0])
 
 				// 2. Select smallest non-zero share
 				let smallestShare
 				try {
 					smallestShare = shares[0].toJS()
 				} catch (e) {
-					console.error("what the fuck", e, shares, this.allShares)
+					console.error("Error with smallest share", e, shares, this.allShares)
 				}
 
-				// console.log("SMALLEST JS SHARE", smallestShare)
+				// 3. Try an equal split of toSplit
+				toSplit = toSplit - shares.length * smallestShare.shares
 
-				// 3. Try an equal split of leftovers
-				leftovers = leftovers - shares.length * smallestShare.shares
-				if (leftovers > 0) {
+				if (toSplit > 0) {
 					this.applyDiffToShares(-smallestShare.shares, shares)
 				} else {
 					this.applyDiffToShares(
-						-(smallestShare.shares + leftovers) / shares.length,
+						-(smallestShare.shares + toSplit / shares.length),
 						shares
 					)
 				}
@@ -93,6 +101,5 @@ export default class CopyrightSplit extends SplitState {
 		}
 
 		this.shareHolders.get(id).setValue("shares", value)
-		// console.log("SHARES OVER MY FRIEND", sortedShares)
 	}
 }

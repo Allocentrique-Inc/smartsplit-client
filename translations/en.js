@@ -239,38 +239,6 @@ export const forms = {
 	},
 	addCollabArtist: "Add a collaborating artist",
 	addContributor: "Add a contributing artist",
-	options: {
-		defaultRoles: [
-			{
-				displayValue: "Author",
-				value: "author",
-			},
-			{
-				displayValue: "Composor",
-				value: "composer",
-			},
-			{
-				displayValue: "Arranger",
-				value: "arranger",
-			},
-			{
-				displayValue: "Mixer",
-				value: "mixer",
-			},
-			{
-				displayValue: "Performer",
-				value: "performer",
-			},
-			{
-				displayValue: "Singer",
-				value: "singer",
-			},
-			{
-				displayValue: "Musician",
-				value: "musician",
-			},
-		],
-	},
 }
 
 export const login = {
@@ -507,40 +475,52 @@ export const identity = {
 	),
 }
 
-export const rightSplits = {
+export const rightsSplits = {
 	navbar: {
 		rightSplits: "Right Split",
 		page: "Page Name",
 	},
-	titles: {
-		copyright: "Copyright",
-		performance: "Performance",
-		recording: "Sound recording",
-	},
-	headers: {
-		copyright: "Who invented this musical piece?",
-		performance: "Who played on the audio recording?",
-		recording: "Who owns the audio recording?",
-	},
-
-	paragraphs: {
-		copyright: () => (
+	copyright: {
+		title: "Copyright",
+		header: "Who invented this musical piece ?",
+		description: () => (
 			<>
 				Seperate here the copyright between creators, i.e. the authors of{" "}
 				<b>lyrics</b>, the composers and the mixers of <b>music</b>. It is
 				common to share the copyright fairly. But you can do otherwise.
 			</>
 		),
-		performance: () => (
+	},
+	performance: {
+		title: "Performance",
+		header: "Who played on the audio recording?",
+		description: () => (
 			<>
-				Seperate here the <b>neigbor right</b> between <b>performers</b>,
+				Seperate here the <b>neighbor right</b> between <b>performers</b>,
 				whether musicians or singers. <i>Group</i> members share this right with
 				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
 				while the remaining 20% is split among <i>featured artists</i>, if
 				applicable.
 			</>
 		),
-		recording: () => (
+		artistStatuses: {
+			principal: "Artiste principal",
+			featured: "Artiste invité",
+			bandMember: "Membre du groupe",
+			session: "Artiste accompagnateur",
+		},
+		artistStatusDef: {
+			principal: 'Also called "Starred Artist" or "Solo Artist"',
+			featured:
+				"Artist or group member invited to collaborate on a musical piece",
+			bandMember: "Musician or singer taking part in the artistic entity.",
+			session: "Accompanying Artist",
+		},
+	},
+	recording: {
+		title: "Sound recording",
+		header: "Who owns the audio recording ?",
+		description: () => (
 			<>
 				Seperate here the <b>neighbor right</b> of <b>producers</b>, i.e. those
 				who invested their time and/or their money to record and finalize the
@@ -552,7 +532,6 @@ export const rightSplits = {
 			</>
 		),
 	},
-
 	radios: {
 		equal: "Split evenly",
 		roles: "Split according to roles",
@@ -560,32 +539,27 @@ export const rightSplits = {
 		email: "By email",
 		txt: "By SMS",
 	},
-
+	yourself: "(you)",
+	more: "Learn more",
+	notify: "Notify me one month before the deadline...",
+	music: "Music",
+	lyrics: "Lyrics",
+	addCollab: "Add a collaborator...",
+	addLabel: "Add a label...",
+	removeCollab: "Remove this collaborator",
+	status: "Select a status...",
+	function: "Select a function...",
+	agreement: "Duration of the agreement...",
+	remove: "Remove this split",
+	roles: {
+		author: "Author",
+		composer: "Composer",
+		adapter: "Adapter",
+		mixer: "Mixer",
+		singer: "Singer",
+		musician: "Musician",
+	},
 	dropdowns: {
-		addCollab: "Add a collaborator...",
-		addLabel: "Add a label...",
-		removeCollab: "Remove this collaborator",
-		status: "Select a status...",
-		function: "Select a function...",
-		agreement: "Duration of the agreement...",
-		remove: "Remove this split",
-		artist: {
-			artist: "Main artist",
-			artistDefinition: 'Also called "Starred Artist" or "Solo Artist"',
-			artistInvited: () => (
-				<>
-					Starred Artist (<i>featuring</i>)
-				</>
-			),
-			artistInvitedDefinition:
-				"Artist or group member invited to collaborate on a musical piece",
-			artistMember: "Group Member",
-			artistMemberDefinition:
-				"Musician or singer taking part in the artistic entity.",
-			artistExtra: "Accompanying Artist",
-			artistExtraDefinition:
-				"Engaged performer during studio recording sessions.",
-		},
 		collaborators: {
 			producer: "Producer",
 			producerDefinition:
@@ -616,12 +590,6 @@ export const rightSplits = {
 		},
 	},
 
-	yourself: "(you)",
-	more: "Learn more",
-	notify: "Notify me one month before the deadline...",
-	music: "Music",
-	lyrics: "Lyrics",
-
 	errors: {
 		status: "You need to select a status for this right holder.",
 		role: "You need to select at least one role for this rightholder.",
@@ -639,15 +607,6 @@ export const rightSplits = {
 		label:
 			"A general rule is that a label rarely takes more than 50% of rights and incomes on audio recording proprety.",
 	},
-}
-
-export const roles = {
-	author: "Author",
-	composer: "Composer",
-	adapter: "Adapter",
-	mixer: "Mixer",
-	singer: "Singer",
-	musician: "Musician",
 }
 
 export const newUserInvite = {
