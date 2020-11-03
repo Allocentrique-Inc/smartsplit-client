@@ -136,10 +136,12 @@ export function GeneralInfosForm(props) {
 						tooltip=""
 					/>
 
-					{/* <SearchAndTag
+					<SearchAndTag
 						noIcon={true}
 						label={t("document:infos.secondaryGenre")}
-						searchResults={searchResultsGenres}
+						searchResults={searchResultsGenres.filter(
+							(g) => g.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+						)}
 						search={searchGenres}
 						onSearchChange={setSearchGenres}
 						selection={selectedGenres}
@@ -150,7 +152,7 @@ export function GeneralInfosForm(props) {
 							setSelected(selectedGenres.filter((i) => i !== selection))
 						}
 						placeholder={t("document:infos.addGenre")}
-					/> */}
+					/>
 
 					{/* <SearchAndTag
 						noIcon={true}
@@ -170,7 +172,7 @@ export function GeneralInfosForm(props) {
 					/> */}
 
 					{/* ToDo: Tags missing + Make it one component as well as AddLanguageDropdown */}
-					<AddGenreDropdown
+					{/* <AddGenreDropdown
 						style={{ flex: 1 }}
 						noIcon={true}
 						placeholder={t("document:infos.addGenre")}
@@ -188,7 +190,7 @@ export function GeneralInfosForm(props) {
 						onUnselect={(selection) =>
 							setSelectedGenres(selectedGenres.filter((i) => i !== selection))
 						}
-					/>
+					/> */}
 
 					<AddInfluenceDropdown
 						style={{ flex: 1 }}
