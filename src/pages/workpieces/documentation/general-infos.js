@@ -169,7 +169,7 @@ export function GeneralInfosForm(props) {
 						placeholder={t("document:infos.addInfluence")}
 					/> */}
 
-					{/* ToDo: Tags missing + Make it one component as well as AddInstrumentDropdown */}
+					{/* ToDo: Tags missing + Make it one component as well as AddLanguageDropdown */}
 					<AddGenreDropdown
 						style={{ flex: 1 }}
 						noIcon={true}
