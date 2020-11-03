@@ -3,10 +3,12 @@ import { Path, Svg } from "react-native-svg"
 import React from "react"
 
 export default function Feather(props) {
-	const color = props.color || Colors.tertiary
+	const color = props.color || Colors.action
+	const { ...nextProps } = props
 
 	return (
 		<Svg
+			{...nextProps}
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"
