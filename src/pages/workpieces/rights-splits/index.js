@@ -10,7 +10,6 @@ import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
 import { useCurrentWorkpiece } from "../context"
 import { useSplitsPagesState } from "../../../mobX/hooks"
-import { useRightsSplits } from "../context"
 
 /**
  *	Split forms wrapper
@@ -30,18 +29,18 @@ const RightsSplitsPage = observer(() => {
 		)
 	const workpiece = useCurrentWorkpiece()
 
-	// Initialization of split UI States with current workpiece splits
-	const splits = useRightsSplits()
+	// Loading translation to UIStates. Surely there is
+	// a better way to do that :-)
 	const splitUIStates = useSplitsPagesState()
 	splitUIStates.copyright.init(
+		workpiece.rightsSplits.copyright,
 		t("copyright.title"),
 		t("lyrics"),
-		t("music"),
-		splits.copyright.sharesValues
+		t("music")
 	)
 	splitUIStates.performance.init(
-		t("performance.title"),
-		splits.performance.sharesValues
+		workpiece.rightsSplits.performance,
+		t("performance.title")
 	)
 
 	const { workpieces } = useStores()

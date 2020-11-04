@@ -15,9 +15,9 @@ export default class PerformanceSplitModel extends RightSplitModel {
  *	values
  **/
 export const initData = {
-	shares: 1,
+	shares: 0,
 	roles: [],
-	status: "",
+	status: null,
 	comment: "",
 	vote: "undecided",
 }

@@ -19,29 +19,28 @@ import { useTranslation } from "react-i18next"
 import { observer } from "mobx-react"
 import { useRightsSplits } from "../context"
 import { initData } from "../../../mobX/models/workpieces/rights-splits/CopyrightSplitModel"
-import { useSplitsPagesState } from "../../../mobX/hooks"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import Slider from "../../../widgets/slider"
 import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
+import { useSplitsPagesState } from "../../../mobX/hooks"
+
 const CopyrightForm = observer(() => {
 	const copyrightSplit = useRightsSplits("copyright")
-	const pageState = useSplitsPagesState().copyright
+	const pageState = useSplitsPagesState("copyright")
 	const { sharesData, sharesTotal } = pageState
 	const { t } = useTranslation("rightsSplits")
-
 	function addShareHolder(id) {
 		if (id && !copyrightSplit.shareHolders.has(id)) {
 			copyrightSplit.addRightHolder(id, initData)
 		}
 	}
-
 	//FOR TESTING PURPOSE
-	React.useEffect(() => {
-		addShareHolder("235556b5-3bbb-4c90-9411-4468d873969b")
-		addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
-	}, [])
+	// React.useEffect(() => {
+	// 	addShareHolder("235556b5-3bbb-4c90-9411-4468d873969b")
+	// 	addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	// }, [])
 
 	function renderShareCards() {
 		return sharesData.map((share, i) => (
