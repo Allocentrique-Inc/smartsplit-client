@@ -776,6 +776,9 @@ export const document = {
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
 		addLanguage: "Ajouter une langue...",
+		dropdown: {
+			public: "Public - Make the information public",
+		},
 	},
 }
 export const collaborators = {

@@ -784,6 +784,9 @@ export const document = {
 			"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
 		language: "Langue(s)",
 		addLanguage: "Ajouter unbe langue...",
+		dropdown: {
+			public: "Public - Rendre l'information publique",
+		},
 	},
 }
 
