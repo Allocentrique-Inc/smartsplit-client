@@ -29,6 +29,8 @@ export const CollaboratorForm = observer(
 					undertext_lines={1}
 				/>
 				<SearchAndTag field={model.groups} searchResults={searchResults} />
+
+				{/* ToDo: Fix Add Collaborator modal 			
 				<CheckBoxGroup
 					field={model.defaultRoles}
 					name="roles"
@@ -42,7 +44,7 @@ export const CollaboratorForm = observer(
 							label={role.displayValue}
 						/>
 					))}
-				</CheckBoxGroup>
+				</CheckBoxGroup> */}
 			</Column>
 		)
 	}
@@ -55,6 +57,7 @@ export function AddContributorModal(props) {
 	//const form = useRef()
 	//const submit = () => form.current.submit()
 	return (
+		// Make dropdown like z-index
 		<DialogModal
 			visible={props.visible}
 			onRequestClose={props.onRequestClose}
