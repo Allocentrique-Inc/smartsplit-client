@@ -20,7 +20,10 @@ import {
 import AddCollaboratorDropdown from "../../../smartsplit/components/add-collaborator-dropdown"
 import FilesIcon from "../../../svg/files"
 import Unlock from "../../../svg/unlock"
+import LockIcon from "../../../svg/lock"
 import Download from "../../../svg/download"
+import UnlockDownload from "../../../svg/unlock-download"
+import ImageIcon from "../../../svg/image"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -37,6 +40,7 @@ const Styles = StyleSheet.create({
 
 export function FilesForm(props) {
 	const { t } = useTranslation()
+	const workpiece = useCurrentWorkpiece()
 
 	return (
 		<>
@@ -65,18 +69,56 @@ export function FilesForm(props) {
 								undertext={t("document:files.visual.undertext")}
 								style={{ flex: 4 }}
 							/>
-							<Dropdown
-								label={t("document:access")}
-								placeholder={
-									<>
-										<Download />
-										<Flex />
-									</>
-								}
-								noFocusToggle
-								tooltip=""
-							/>
+							<ImageIcon style={{ backgroundColor: "#D7D7D7" }} />
 						</Row>
+						<Dropdown
+							label={t("document:access")}
+							/* 	placeholder={
+								<>
+									<UnlockDownload />
+									<Text>
+										{t("document:files.dropdownDownloads.invitation")}
+									</Text>
+									<Flex />
+								</>
+							} */
+							noFocusToggle
+							tooltip=""
+						>
+							{/* Ajuster padding */}
+							<Column of="tiny" layer="overground_moderate">
+								<Row of="component">
+									<Download />
+									<Text>{t("document:files.dropdownDownloads.public")}</Text>
+								</Row>
+								<Row of="component" padding="component">
+									<Text secondary small>
+										{t("document:files.dropdownDownloads.publicUndertext")}
+									</Text>
+								</Row>
+
+								<Row of="component">
+									<UnlockDownload />
+									<Text>
+										{t("document:files.dropdownDownloads.invitation")}
+									</Text>
+								</Row>
+								<Row of="component">
+									<Text secondary small>
+										{t("document:files.dropdownDownloads.invitationUndertext")}
+									</Text>
+								</Row>
+								<Row of="component">
+									<LockIcon />
+									<Text>{t("document:files.dropdownDownloads.private")}</Text>
+								</Row>
+								<Row of="component">
+									<Text secondary small>
+										{t("document:files.dropdownDownloads.privateUndertext")}
+									</Text>
+								</Row>
+							</Column>
+						</Dropdown>
 					</Column>
 
 					<Spacer of="component" />
@@ -86,25 +128,73 @@ export function FilesForm(props) {
 					<Column of="component">
 						<Heading level={3}>{t("document:files.audio.title")}</Heading>
 						<Paragraph>{t("document:files.audio.paragraph")}</Paragraph>
+						<RadioGroup label={t("document:files.audio.subTitle")}>
+							<RadioGroupButton
+								value={workpiece.id}
+								label="LoveYouBabyMasterv1.wav"
+							/>
+							<RadioGroupButton
+								value={workpiece.id}
+								label="LoveYouBabyMasterv1.wav"
+							/>
+							<RadioGroupButton
+								value="add"
+								label={<Text bold>{t("document:files.audio.addFile")}</Text>}
+								style={{ fontWeight: "bold" }}
+							/>
+						</RadioGroup>
 						<Row of="component">
+							<Column flex={0.1} />
 							<FileField
 								name="file_upload"
-								label={t("document:files.audio.format")}
 								undertext={t("document:files.audio.undertext")}
 								style={{ flex: 4 }}
 							/>
-							<Dropdown
-								label={t("document:access")}
-								placeholder={
-									<>
-										<Unlock />
-										<Flex />
-									</>
-								}
-								noFocusToggle
-								tooltip=""
-							/>
 						</Row>
+						<Dropdown
+							label={t("document:access")}
+							/* 	placeholder={
+								<>
+									<UnlockDownload />
+									<Text>
+										{t("document:files.dropdownDownloads.invitation")}
+									</Text>
+									<Flex />
+								</>
+							} */
+							noFocusToggle
+							tooltip=""
+						>
+							<Column of="tiny" layer="overground_moderate" padding="component">
+								<Row of="component">
+									<Download />
+									<Text>{t("document:files.dropdownAccess.public")}</Text>
+								</Row>
+								<Row of="component">
+									<Text secondary small>
+										{t("document:files.dropdownAccess.publicUndertext")}
+									</Text>
+								</Row>
+								<Row of="component">
+									<UnlockDownload />
+									<Text>{t("document:files.dropdownAccess.invitation")}</Text>
+								</Row>
+								<Row of="component">
+									<Text secondary small>
+										{t("document:files.dropdownAccess.invitationUndertext")}
+									</Text>
+								</Row>
+								<Row of="component">
+									<LockIcon />
+									<Text>{t("document:files.dropdownAccess.private")}</Text>
+								</Row>
+								<Row of="component">
+									<Text secondary small>
+										{t("document:files.dropdownAccess.privateUndertext")}
+									</Text>
+								</Row>
+							</Column>
+						</Dropdown>
 					</Column>
 
 					<Spacer of="component" />
@@ -119,18 +209,35 @@ export function FilesForm(props) {
 							label={t("document:files.other.formatTablature")}
 							undertext={t("document:files.other.undertext")}
 							style={{ flex: 4 }}
+							tooltip=""
 						/>
 						<Dropdown
 							label={t("document:access")}
-							placeholder={
+							/* 	placeholder={
 								<>
-									<Unlock />
+									<UnlockDownload />
 									<Flex />
 								</>
-							}
+							} */
 							noFocusToggle
 							tooltip=""
-						/>
+						>
+							<Column
+								of="component"
+								layer="overground_moderate"
+								padding="component"
+							>
+								<Row of="component">
+									<Download />
+								</Row>
+								<Row of="component">
+									<UnlockDownload />
+								</Row>
+								<Row of="component">
+									<LockIcon />
+								</Row>
+							</Column>
+						</Dropdown>
 					</Row>
 					<Row of="component">
 						<FileField
@@ -138,18 +245,35 @@ export function FilesForm(props) {
 							label={t("document:files.other.formatMidi")}
 							undertext={t("document:files.other.undertext")}
 							style={{ flex: 4 }}
+							tooltip=""
 						/>
 						<Dropdown
 							label={t("document:access")}
-							placeholder={
+							/* 	placeholder={
 								<>
-									<Unlock />
+									<UnlockDownload />
 									<Flex />
 								</>
-							}
+							} */
 							noFocusToggle
 							tooltip=""
-						/>
+						>
+							<Column
+								of="component"
+								layer="overground_moderate"
+								padding="component"
+							>
+								<Row of="component">
+									<Download />
+								</Row>
+								<Row of="component">
+									<UnlockDownload />
+								</Row>
+								<Row of="component">
+									<LockIcon />
+								</Row>
+							</Column>
+						</Dropdown>
 					</Row>
 				</Column>
 
@@ -234,7 +358,7 @@ export function PerformanceOptions(props) {
 					searchInput={props.search}
 					onSearchChange={props.setSearch}
 					onSelect={(selection) => console.log(selection)}
-					placeholder={t("forms:labels.dropdowns.addCollaborator")}
+					placeholder={t("forms:labels.dropdownsDownloads.addCollaborator")}
 				/>
 			</Column>
 		</Column>

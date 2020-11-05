@@ -71,6 +71,7 @@ export const general = {
 		toConsult: "Consulter",
 		toBegin: "Commencer",
 		pass: "Passer pour l'instant",
+		end: "Terminer",
 	},
 }
 
@@ -733,9 +734,11 @@ export const document = {
 		},
 		audio: {
 			title: "Fichier audio",
-			paragraph: "Ici, tu peux télécharger ta pièce en format WAV ou MP3.",
-			format: "Téléverser le fichier de l'œuvre enregistrée",
+			subTitle: "Choisir un fichier à rendre accessible",
+			paragraph:
+				"Ici, tu peux rendre accessible ta pièce en format WAV ou MP3.",
 			undertext: "MP3 ou WAV acceptés.",
+			addFile: "Ajouter un fichier",
 		},
 		other: {
 			title: "Autres fichiers sur l'œuvre",
@@ -745,7 +748,7 @@ export const document = {
 			formatMidi: "Fichiers MIDI",
 			undertext: "Lorem Ipsum",
 		},
-		dropdown: {
+		dropdownDownloads: {
 			public: "Publique - Téléchargeable par tous",
 			publicUndertext:
 				"Tous les utilisateurs pourront télécharger le fichier original.",
@@ -756,12 +759,25 @@ export const document = {
 			privateUndertext:
 				"Personne ne pourra télécharger l'image originale, sauf vous.",
 		},
+		dropdownAccess: {
+			public: "Publique - Rendre l'information visible de tous",
+			publicUndertext:
+				"Tous les utilisateurs pourront avoir accès à cette information",
+			invitation: "Sur invitation - Visible par certains",
+			invitationUndertext:
+				"Seuls les  utilisateurs disposant du lien de partage unique auront accès à l'information. Pratique pour les journalistes !",
+			private: "Privé - Rendre l'information privé",
+			privateUndertext:
+				"Personne, à part vous et les collaborateurs du projet, n'aura accès à l'information.",
+		},
 		tooltip: {
 			listItem:
 				"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload",
 		},
 		access: "Accès",
 		copy: "Lien de partage unique copié.",
+		note:
+			"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload. Sinon simplement mettre le formulaire.",
 	},
 	infos: {
 		category: "INFORMATIONS GÉNÉRALES",
