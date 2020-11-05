@@ -61,13 +61,11 @@ export default class ProfileModel extends BaseModel {
 	@observable identifiers = new ProfessionalIdentityModel(this)
 
 	@observable isni = new Field(this, "isni", {
-		pseudo: true,
 		label: "forms:labels.isniNO",
 		type: FieldType.string,
 	})
 
 	@observable uri = new Field(this, "uri", {
-		pseudo: true,
 		label: "forms:labels.myUri",
 		type: FieldType.string,
 	})
