@@ -5,7 +5,7 @@ import DocLyricsModel from "../../models/workpieces/documentation/DocLyricsModel
 import DocRecordingModel from "../../models/workpieces/documentation/DocRecordingModel"
 import DocFilesModel from "../../models/workpieces/documentation/DocFilesModel"
 import DocReleaseModel from "../../models/workpieces/documentation/DocReleaseModel"
-
+import DocInfosModel from "../../models/workpieces/documentation/DocInfosModel"
 export default class Documentation {
 	workpiece
 	@observable creation = new DocCreationModel()
@@ -14,6 +14,7 @@ export default class Documentation {
 	@observable files = new DocFilesModel()
 	@observable recording = new DocRecordingModel()
 	@observable release = new DocReleaseModel()
+	@observable infos = new DocInfosModel()
 	constructor(workpiece, docsData) {
 		this.workpiece = workpiece
 		console.log("intializing the creation model")
