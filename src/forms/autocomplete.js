@@ -62,6 +62,8 @@ export default function Autocomplete({
 							</Layer>
 						</TouchableWithoutFeedback>
 					))
+				) : children ? (
+					children
 				) : (
 					<TouchableWithoutFeedback
 						onPress={() => {
@@ -90,10 +92,7 @@ export default function Autocomplete({
 			{...nextProps}
 		>
 			{searchResults && (
-				<Layer layer="overground_moderate">
-					{renderSearchResults()}
-					{children}
-				</Layer>
+				<Layer layer="overground_moderate">{renderSearchResults()}</Layer>
 			)}
 		</TextDropdown>
 	)
