@@ -136,10 +136,12 @@ export function GeneralInfosForm(props) {
 						tooltip=""
 					/>
 
-					{/* <SearchAndTag
+					<SearchAndTag
 						noIcon={true}
 						label={t("document:infos.secondaryGenre")}
-						searchResults={searchResultsGenres}
+						searchResults={searchResultsGenres.filter(
+							(g) => g.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+						)}
 						search={searchGenres}
 						onSearchChange={setSearchGenres}
 						selection={selectedGenres}
@@ -150,13 +152,16 @@ export function GeneralInfosForm(props) {
 							setSelected(selectedGenres.filter((i) => i !== selection))
 						}
 						placeholder={t("document:infos.addGenre")}
-					/> */}
+					/>
 
-					{/* <SearchAndTag
+					<SearchAndTag
 						noIcon={true}
 						label={t("document:infos.influence")}
 						undertext={t("document:infos.influenceExample")}
-						searchResults={searchResultsInfluences}
+						searchResults={searchResultsInfluences.filter(
+							(g) =>
+								g.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
+						)}
 						search={searchInfluences}
 						onSearchChange={setSearchInfluences}
 						selection={selectedInfluences}
@@ -167,10 +172,9 @@ export function GeneralInfosForm(props) {
 							setSelected2(selectedInfluences.filter((i) => i !== selection))
 						}
 						placeholder={t("document:infos.addInfluence")}
-					/> */}
+					/>
 
-					{/* ToDo: Tags missing + Make it one component as well as AddInstrumentDropdown */}
-					<AddGenreDropdown
+					{/* <AddGenreDropdown
 						style={{ flex: 1 }}
 						noIcon={true}
 						placeholder={t("document:infos.addGenre")}
@@ -188,9 +192,9 @@ export function GeneralInfosForm(props) {
 						onUnselect={(selection) =>
 							setSelectedGenres(selectedGenres.filter((i) => i !== selection))
 						}
-					/>
+					/> */}
 
-					<AddInfluenceDropdown
+					{/* <AddInfluenceDropdown
 						style={{ flex: 1 }}
 						noIcon={true}
 						placeholder={t("document:infos.addInfluence")}
@@ -210,7 +214,7 @@ export function GeneralInfosForm(props) {
 								selectedInfluences.filter((i) => i !== selection)
 							)
 						}
-					/>
+					/> */}
 				</Column>
 				<Flex />
 				<Column of="group" flex={4}>

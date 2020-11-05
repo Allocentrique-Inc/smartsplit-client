@@ -139,7 +139,12 @@ const DocumentationPage = observer(() => {
 						<Button
 							primary
 							text={
-								type === "links" ? "Terminer" : t("general:buttons.continue")
+								(type === "links"
+									? t("general:buttons.end")
+									: t("general:buttons.continue"),
+								type === "files"
+									? t("general:buttons.pass")
+									: t("general:buttons.continue"))
 							}
 							onClick={toNextPage}
 						/>

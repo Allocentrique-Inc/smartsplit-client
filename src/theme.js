@@ -32,6 +32,7 @@ export const Metrics = {
 	// Taille des widgets: boutons, images, etc.
 	size: {
 		huge: 128, // Notamment pour l'avatar
+		cover: 100, //Album Cover de documentation > Fichiers
 		xlarge: 72,
 		large: 56,
 		medium: 40,

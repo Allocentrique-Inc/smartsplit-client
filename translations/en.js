@@ -70,6 +70,7 @@ export const general = {
 		toConsult: "Consult",
 		toBegin: "Begin",
 		pass: "Pass for now",
+		end: "Finish",
 	},
 }
 export const menu = {
@@ -441,6 +442,11 @@ export const workpieces = {
 			desc:
 				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
 		},
+		documentYourWork: {
+			title: "Document your work",
+			desc:
+				"Make your work totally discoverable to the eyes of search engines for an increased audience.",
+		},
 	},
 }
 
@@ -725,9 +731,11 @@ export const document = {
 		},
 		audio: {
 			title: "Audio File",
-			paragraph: "Here you can download your file in WAV or MP3 format.",
-			format: "Upload the file or the recorded work",
+			subTitle: "Choose a file to make accessible",
+			paragraph:
+				"Here, you can make your piece accessibile in WAV ou MP3 format.",
 			undertext: "MP3 or WAV accepted.",
+			addFile: "Add a file",
 		},
 		other: {
 			title: "Other files on the work",
@@ -738,7 +746,7 @@ export const document = {
 			formatMidi: "MIDI Files",
 			undertext: "Lorem Ipsum",
 		},
-		dropdown: {
+		dropdownDownloads: {
 			public: "Public - Downloadable by all",
 			publicUndertext: "All users will be able to download the original file.",
 			invitation: "On invitation - Downloadable by some",
@@ -748,12 +756,24 @@ export const document = {
 			privateUndertext:
 				"No one will be able to download the original image, except you.",
 		},
+		dropdownAccess: {
+			public: "Public - Make the information visible for all",
+			publicUndertext: "All users can have access to this information",
+			invitation: "On invitation - Visible for some",
+			invitationUndertext:
+				"Only users with the unique sharable link will have access to the information. Practical for reporters!",
+			private: "Private -  Make the information private",
+			privateUndertext:
+				"No one, except you and the project's collaborators will have access to the information.",
+		},
 		tooltip: {
 			listItem:
 				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
 		},
 		access: "Access",
 		copy: "Unique sharable link copied.",
+		note:
+			"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload. Sinon simplement mettre le formulaire.",
 	},
 	infos: {
 		category: "GENERAL INFORMATIONS",
@@ -761,9 +781,11 @@ export const document = {
 		length: "Length",
 		bpm: "BPM",
 		mainGenre: "Main Genre",
-		addenre: "Add a genre...",
+		addGenre: "Add a genre...",
 		secondaryGenre: "Secondary Genres",
-		genreExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
+		influence: "Influences",
+		addInfluence: "Add an influence...",
+		influenceExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
 	},
 	lyrics: {
 		category: "LYRICS",
@@ -774,6 +796,9 @@ export const document = {
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
 		addLanguage: "Ajouter une langue...",
+		dropdown: {
+			public: "Public - Make the information public",
+		},
 	},
 }
 export const collaborators = {

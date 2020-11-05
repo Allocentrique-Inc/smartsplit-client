@@ -4,6 +4,7 @@ import { useHistory } from "react-router"
 import { Column, Row } from "../../layout"
 import SplitLogo from "../../../assets/svg/split.svg"
 import ProtectionLogo from "../../../assets/svg/protection.svg"
+import DocumentLogo from "../../../assets/svg/document.svg"
 import { Heading, Text } from "../../text"
 import { useTranslation } from "react-i18next"
 import { Metrics } from "../../theme"
@@ -101,9 +102,12 @@ export function DocumentYourWork() {
 	return (
 		<Card style={styles.card}>
 			<Column of="group" style={styles.innerContainer}>
-				<ProtectionLogo />
+				<DocumentLogo />
 				<Column of="inside">
-					<Heading level={4}>{t("document:navbar.document")}</Heading>
+					<Heading level={4}>
+						{t("workpieces:cards.documentYourWork.title")}
+					</Heading>
+					<Text tertiary>{t("workpieces:cards.documentYourWork.desc")}</Text>
 				</Column>
 				<Row style={styles.buttonContainer}>
 					<Button

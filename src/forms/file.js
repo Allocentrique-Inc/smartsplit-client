@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { getDocumentAsync } from "expo-document-picker"
 import { useTranslation } from "react-i18next"
+import { StyleSheet } from "react-native"
 
 import { Row } from "../layout"
 import Button from "../widgets/button"
@@ -8,6 +9,9 @@ import { Text } from "../text"
 
 import Label from "./label"
 import Frame from "./frame"
+import FormStyles from "../styles/forms"
+
+import { Colors } from "../theme"
 
 export default function FileField({ children, ...nextProps }) {
 	return (
@@ -19,7 +23,7 @@ export default function FileField({ children, ...nextProps }) {
 
 export function FramedFileField({ error, children, ...nextProps }) {
 	return (
-		<Frame error={error}>
+		<Frame error={error} style={FormStyles.filefieldFrame}>
 			<BasicFileField {...nextProps}>{children}</BasicFileField>
 		</Frame>
 	)
