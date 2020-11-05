@@ -1,12 +1,19 @@
 import React from "react"
 import TextDropdown from "./text-dropdown"
-import { Layer } from "../layout"
-import { ScrollView, TouchableWithoutFeedback } from "react-native"
+import { Layer, Row } from "../layout"
+import { ScrollView, TouchableWithoutFeedback, StyleSheet } from "react-native"
 import FormStyles from "../styles/forms"
 import { Text } from "../text"
 import { highlightMatchedStrings } from "../utils/utils"
 import { mapFragmentChildren } from "../utils/react"
-
+import PlusCircle from "../svg/plus-circle"
+import { Colors } from "../theme"
+const Styles = StyleSheet.create({
+	actionFrame: {
+		borderTopWidth: 1,
+		borderTopColor: Colors.stroke,
+	},
+})
 export default function Autocomplete({
 	onSelect,
 	search,
@@ -18,42 +25,58 @@ export default function Autocomplete({
 	const renderSearchResults = () => {
 		return (
 			<ScrollView style={FormStyles.select_scroll}>
-				{searchResults.map((result, index) => (
+				{searchResults.length ? (
+					searchResults.map((result, index) => (
+						<TouchableWithoutFeedback
+							key={index}
+							onPress={() => onSelect(result)}
+						>
+							<Layer padding="inside">
+								{typeof result === "string" ? (
+									<Text>
+										{mapFragmentChildren(
+											highlightMatchedStrings(result, search),
+											(child) => child
+										)}
+									</Text>
+								) : result.name ? (
+									<Text>
+										{mapFragmentChildren(
+											highlightMatchedStrings(result.name, search),
+											(child) => child
+										)}
+									</Text>
+								) : result.firstName ? (
+									<Text>
+										{mapFragmentChildren(
+											highlightMatchedStrings(
+												result.firstName + " " + result.lastName,
+												search
+											),
+											(child) => child
+										)}
+									</Text>
+								) : (
+									result
+								)}
+							</Layer>
+						</TouchableWithoutFeedback>
+					))
+				) : (
 					<TouchableWithoutFeedback
-						key={index}
-						onPress={() => onSelect(result)}
+						onPress={() => {
+							onSelect(search)
+						}}
 					>
-						<Layer padding="inside">
-							{typeof result === "string" ? (
-								<Text>
-									{mapFragmentChildren(
-										highlightMatchedStrings(result, search),
-										(child) => child
-									)}
-								</Text>
-							) : result.name ? (
-								<Text>
-									{mapFragmentChildren(
-										highlightMatchedStrings(result.name, search),
-										(child) => child
-									)}
-								</Text>
-							) : result.firstName ? (
-								<Text>
-									{mapFragmentChildren(
-										highlightMatchedStrings(
-											result.firstName + " " + result.lastName,
-											search
-										),
-										(child) => child
-									)}
-								</Text>
-							) : (
-								result
-							)}
-						</Layer>
+						<Row of="component" padding="component" style={Styles.actionFrame}>
+							<PlusCircle />
+							<Text bold action>
+								{/* To Do: Voir comment placer la traduction avec props entre guillemets */}
+								Ajouter <Text bold>{search}</Text>
+							</Text>
+						</Row>
 					</TouchableWithoutFeedback>
-				))}
+				)}
 			</ScrollView>
 		)
 	}

@@ -112,8 +112,8 @@ export function RecordingForm(props) {
 					/>
 					<TextField
 						name="isrc"
-						label={t("document:isrc")}
-						tooltip={t("document:tooltips.isrc")}
+						label={t("document:recording.isrc")}
+						tooltip={t("document:recording.tooltips.isrc")}
 					/>
 				</Column>
 				<Flex />

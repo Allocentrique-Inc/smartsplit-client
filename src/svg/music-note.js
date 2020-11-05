@@ -4,9 +4,11 @@ import { Colors } from "../theme"
 
 export default function MusicNoteIcon(props) {
 	const color = props.color || Colors.tertiary
+	const { ...nextProps } = props
 
 	return (
 		<Svg
+			{...nextProps}
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"

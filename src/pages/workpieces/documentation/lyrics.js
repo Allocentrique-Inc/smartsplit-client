@@ -10,6 +10,7 @@ import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import LyricsIcon from "../../../svg/feather"
+import EyeIcon from "../../../svg/eye"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
 import { TextInput } from "react-native"
 
@@ -20,14 +21,35 @@ const formStyle = StyleSheet.create({
 		borderRadius: 2,
 		borderColor: Colors.stroke,
 		minHeight: 264,
+		resize: "vertical",
+		//To Do: Was not able to style the grabber of the text area:
+		"&::-webkitResizer": {
+			background: Colors.stroke,
+			border: Colors.stroke,
+			boxShadow: Colors.stroke,
+			outline: Colors.stroke,
+		},
 	},
 	textArea: {
 		justifyContent: "flex-start",
 	},
 })
 
+const Styles = StyleSheet.create({
+	category: {
+		alignItems: "center",
+		display: "flex",
+	},
+	logo: {
+		marginRight: Metrics.spacing.medium,
+	},
+	dropdown: {
+		marginLeft: Metrics.spacing.large,
+	},
+})
+
 export function LyricsForm(props) {
-	const searchResults = ["Electrofunk", "Future Funk", "Mega Funk"]
+	const searchResults = ["English", "Français"]
 	const [search, setSearch] = useState("")
 	const [selected, setSelected] = useState(["English", "Français"])
 	const { t } = useTranslation()
@@ -37,26 +59,48 @@ export function LyricsForm(props) {
 		<>
 			<Row>
 				<Column of="group" flex={5}>
-					<Text action bold valign="center">
-						<LyricsIcon />
-						{t("document:infos.category")}
+					<Text action bold style={Styles.category}>
+						<LyricsIcon style={Styles.logo} />
+						{t("document:lyrics.category")}
 						<Row padding="tiny" />
 					</Text>
-					<Heading level={1}>{t("document:infos.title")}</Heading>
+					{/* To Do: Title does not appear because of {workpiece} object in translations */}
+					{/* <Heading level={1}>{t("document:lyrics.title")}</Heading> */}
+					<Heading level={1}>To Do: Fix Title in t()</Heading>
+					<Paragraph>{t("document:lyrics.paragraph")}</Paragraph>
 
 					<Spacer of="group" />
-					<TextInput
-						label="Email"
+
+					{/* To Do? Was not able to style TextField:					
+					<TextField
+						label={t("document:lyrics.label")}
 						value={text}
 						multiline={true}
 						style={formStyle.textAreaContainer}
 						onChangeText={(text) => setText(text)}
-					/>
+						undertext={t("document:lyrics.undertext")}
+					/> */}
+
+					<Column of="tiny">
+						<TextInput
+							label={t("document:lyrics.label")}
+							value={text}
+							multiline={true}
+							style={formStyle.textAreaContainer}
+							onChangeText={(text) => setText(text)}
+						/>
+						<Text secondary small>
+							{t("document:lyrics.undertext")}
+						</Text>
+					</Column>
 
 					<SearchAndTag
+						icon="none"
 						hideIcon={true}
 						label={t("document:lyrics.language")}
-						searchResults={searchResults}
+						searchResults={searchResults.filter(
+							(g) => g.toLowerCase().indexOf(search.toLowerCase()) > -1
+						)}
 						search={search}
 						onSearchChange={setSearch}
 						selection={selected}
@@ -65,6 +109,18 @@ export function LyricsForm(props) {
 							setSelected(selected.filter((i) => i !== selection))
 						}
 						placeholder={t("document:lyrics.addLanguage")}
+					/>
+					<Dropdown
+						label={t("document:access")}
+						placeholder={
+							<>
+								<EyeIcon />
+								<Text>{t("document:lyrics.dropdown.public")}</Text>
+								<Flex />
+							</>
+						}
+						noFocusToggle
+						tooltip=""
 					/>
 				</Column>
 				<Flex />

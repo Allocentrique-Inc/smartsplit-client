@@ -24,6 +24,7 @@ export default class ContributorsState extends BaseState {
 	@observable
 	list = {}
 
+	@observable adding = false
 	@observable editing = false
 	@observable model = new ContributorModel()
 	async init(...args) {
@@ -39,9 +40,10 @@ export default class ContributorsState extends BaseState {
 	@action new() {
 		this.model = new ContributorModel()
 		this.model.init()
-		this.editing = true
+		this.adding = true
 	}
 	@action cancel() {
+		this.adding = false
 		this.editing = false
 	}
 	@action async load() {
