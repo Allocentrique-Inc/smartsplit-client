@@ -433,9 +433,14 @@ export const workpieces = {
 				"Crée les partages sur tes droits à l’aide de notre guide. Tu vas voir, c’est beaucoup plus simple que tu ne le crois :)",
 		},
 		protectYourWork: {
-			title: "Protège ton oeuvre",
+			title: "Protège ton œuvre",
 			desc:
 				"Associe dès aujourd’hui ton enregistrement sonore à ses ayant droits et laisse des traces indélébiles de ça sur une blockchain.",
+		},
+		documentYourWork: {
+			title: "Documente ton œuvre",
+			desc:
+				"Rends totalement découvrable ton œuvre aux yeux des moteurs de recherche pour augmenter ton auditoire.",
 		},
 	},
 }

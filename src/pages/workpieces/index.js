@@ -167,9 +167,9 @@ export function WorkpiecePage() {
 						>
 							<Column style={Styles.innerContainer}>
 								<Row wrap style={Styles.cardContainer}>
+									<DocumentYourWork />
 									<ShareYourCopyright />
 									<ProtectYourWork />
-									<DocumentYourWork />
 								</Row>
 							</Column>
 						</Column>

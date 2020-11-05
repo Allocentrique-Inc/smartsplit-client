@@ -442,6 +442,11 @@ export const workpieces = {
 			desc:
 				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
 		},
+		documentYourWork: {
+			title: "Document your work",
+			desc:
+				"Make your work totally discoverable to the eyes of search engines for an increased audience.",
+		},
 	},
 }
 
