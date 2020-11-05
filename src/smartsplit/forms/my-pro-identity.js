@@ -27,7 +27,7 @@ export default function MyProIdentity() {
 			<TextField field={model.birthDate} placeholder={"YYYY-MM-DD"} />
 			<TextField field={model.isni} placeholder="1234 1234 1234 1234" />
 			<TextField
-				field={model.URI}
+				field={model.uri}
 				placeholder={t("forms:placeholders.myUri")}
 			/>
 		</Column>
