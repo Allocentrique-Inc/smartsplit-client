@@ -23,7 +23,7 @@ import Unlock from "../../../svg/unlock"
 import LockIcon from "../../../svg/lock"
 import Download from "../../../svg/download"
 import UnlockDownload from "../../../svg/unlock-download"
-import ImageIcon from "../../../svg/image"
+import AlbumArt from "../../../smartsplit/media/albumArt"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -35,6 +35,10 @@ const Styles = StyleSheet.create({
 	},
 	dropdown: {
 		marginLeft: Metrics.spacing.large,
+	},
+	cover: {
+		width: Metrics.size.cover,
+		height: Metrics.size.cover,
 	},
 })
 
@@ -63,13 +67,17 @@ export function FilesForm(props) {
 					</Column>
 					<Column of="component">
 						<Row of="component">
-							<FileField
-								name="file_upload"
-								label={t("document:files.visual.format")}
-								undertext={t("document:files.visual.undertext")}
-								style={{ flex: 4 }}
-							/>
-							<ImageIcon style={{ backgroundColor: "#D7D7D7" }} />
+							<Column>
+								<FileField
+									name="file_upload"
+									label={t("document:files.visual.format")}
+									undertext={t("document:files.visual.undertext")}
+									style={{ flex: 4 }}
+								/>
+							</Column>
+							<Column>
+								<AlbumArt style={[Styles.albumArt, Styles.cover]} />
+							</Column>
 						</Row>
 						<Dropdown
 							label={t("document:access")}
@@ -85,37 +93,57 @@ export function FilesForm(props) {
 							noFocusToggle
 							tooltip=""
 						>
-							{/* Ajuster padding */}
 							<Column of="tiny" layer="overground_moderate">
 								<Row of="component">
-									<Download />
-									<Text>{t("document:files.dropdownDownloads.public")}</Text>
-								</Row>
-								<Row of="component" padding="component">
-									<Text secondary small>
-										{t("document:files.dropdownDownloads.publicUndertext")}
-									</Text>
-								</Row>
-
-								<Row of="component">
-									<UnlockDownload />
-									<Text>
-										{t("document:files.dropdownDownloads.invitation")}
-									</Text>
-								</Row>
-								<Row of="component">
-									<Text secondary small>
-										{t("document:files.dropdownDownloads.invitationUndertext")}
-									</Text>
+									<Column padding="tiny">
+										<Download />
+									</Column>
+									<Column padding="tiny">
+										<Row>
+											<Text>
+												{t("document:files.dropdownDownloads.public")}
+											</Text>
+										</Row>
+										<Row>
+											<Text secondary small>
+												{t("document:files.dropdownDownloads.publicUndertext")}
+											</Text>
+										</Row>
+									</Column>
 								</Row>
 								<Row of="component">
-									<LockIcon />
-									<Text>{t("document:files.dropdownDownloads.private")}</Text>
+									<Column padding="tiny">
+										<UnlockDownload />
+									</Column>
+									<Column padding="tiny">
+										<Row>
+											<Text>
+												{t("document:files.dropdownDownloads.public")}
+											</Text>
+										</Row>
+										<Row>
+											<Text secondary small>
+												{t("document:files.dropdownDownloads.publicUndertext")}
+											</Text>
+										</Row>
+									</Column>
 								</Row>
 								<Row of="component">
-									<Text secondary small>
-										{t("document:files.dropdownDownloads.privateUndertext")}
-									</Text>
+									<Column padding="tiny">
+										<LockIcon />
+									</Column>
+									<Column padding="tiny">
+										<Row>
+											<Text>
+												{t("document:files.dropdownDownloads.private")}
+											</Text>
+										</Row>
+										<Row>
+											<Text secondary small>
+												{t("document:files.dropdownDownloads.privateUndertext")}
+											</Text>
+										</Row>
+									</Column>
 								</Row>
 							</Column>
 						</Dropdown>
@@ -165,33 +193,52 @@ export function FilesForm(props) {
 							noFocusToggle
 							tooltip=""
 						>
-							<Column of="tiny" layer="overground_moderate" padding="component">
+							<Column of="tiny" layer="overground_moderate">
 								<Row of="component">
-									<Download />
-									<Text>{t("document:files.dropdownAccess.public")}</Text>
+									<Column padding="tiny">
+										<Download />
+									</Column>
+									<Column padding="tiny">
+										<Row>
+											<Text>{t("document:files.dropdownAccess.public")}</Text>
+										</Row>
+										<Row>
+											<Text secondary small>
+												{t("document:files.dropdownAccess.publicUndertext")}
+											</Text>
+										</Row>
+									</Column>
 								</Row>
 								<Row of="component">
-									<Text secondary small>
-										{t("document:files.dropdownAccess.publicUndertext")}
-									</Text>
+									<Column padding="tiny">
+										<UnlockDownload />
+									</Column>
+									<Column padding="tiny">
+										<Row>
+											<Text>{t("document:files.dropdownAccess.public")}</Text>
+										</Row>
+										<Row>
+											<Text secondary small>
+												{t("document:files.dropdownAccess.publicUndertext")}
+											</Text>
+										</Row>
+									</Column>
 								</Row>
 								<Row of="component">
-									<UnlockDownload />
-									<Text>{t("document:files.dropdownAccess.invitation")}</Text>
-								</Row>
-								<Row of="component">
-									<Text secondary small>
-										{t("document:files.dropdownAccess.invitationUndertext")}
-									</Text>
-								</Row>
-								<Row of="component">
-									<LockIcon />
-									<Text>{t("document:files.dropdownAccess.private")}</Text>
-								</Row>
-								<Row of="component">
-									<Text secondary small>
-										{t("document:files.dropdownAccess.privateUndertext")}
-									</Text>
+									<Column padding="tiny">
+										<LockIcon />
+									</Column>
+									<Column padding="tiny">
+										<Row>
+											<Text>{t("document:files.dropdownAccess.private")}</Text>
+										</Row>
+										<Row>
+											{/* ToDo: Ce texte dépasse du dropdown */}
+											<Text secondary small>
+												{t("document:files.dropdownAccess.privateUndertext")}
+											</Text>
+										</Row>
+									</Column>
 								</Row>
 							</Column>
 						</Dropdown>
