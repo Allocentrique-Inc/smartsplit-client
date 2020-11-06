@@ -501,16 +501,20 @@ export const rightsSplits = {
 			<>
 				Seperate here the <b>neighbor right</b> between <b>performers</b>,
 				whether musicians or singers. <i>Group</i> members share this right with
-				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
+				equal splits. <i>Main artists</i> and <i>guest artists</i> share 80%,
 				while the remaining 20% is split among <i>featured artists</i>, if
 				applicable.
 			</>
 		),
 		artistStatuses: {
-			principal: "Artiste principal",
-			featured: "Artiste invité",
-			bandMember: "Membre du groupe",
-			session: "Artiste accompagnateur",
+			principal: "Main artist",
+			featured: () => (
+				<>
+					Starred Artist (<i>featuring</i>)
+				</>
+			),
+			bandMember: "Band member",
+			session: "Accompanying artist",
 		},
 		artistStatusDef: {
 			principal: 'Also called "Starred Artist" or "Solo Artist"',
