@@ -2,7 +2,11 @@ import React from "react"
 import { ScrollView } from "react-native"
 import { createPortal } from "../portals"
 
-const OverlayPortal = createPortal("ScrollableOverlay")
+/**
+ * seems like this and overlay should be in a separate file
+ * @type {{Context, Provider, Entrance, Exit, ExitProvider}}
+ */
+export const OverlayPortal = createPortal("ScrollableOverlay")
 export class Overlay extends React.PureComponent {
 	static Context = OverlayPortal.Context
 	static Portal = OverlayPortal.Entrance

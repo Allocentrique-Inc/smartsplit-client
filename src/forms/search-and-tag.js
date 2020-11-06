@@ -73,7 +73,7 @@ const SearchAndTag = observer((props) => {
 		)
 	}
 	return (
-		<Column of="component">
+		<Column of="component" flex={1}>
 			<Autocomplete
 				label={label}
 				error={error}

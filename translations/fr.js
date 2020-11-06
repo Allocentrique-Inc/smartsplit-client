@@ -138,6 +138,9 @@ export const publicNavbarWeb = {
 
 export const forms = {
 	labels: {
+		firstName: "Prénom",
+		middleName: "Second prénom",
+		lastName: "Nom",
 		myEmail: "Mon courriel",
 		myEmails: "Mes courriels liés à ce compte",
 		password: "Mot de passe",
@@ -818,7 +821,9 @@ export const contributors = {
 	add: "Ajouter un contributeur",
 }
 export const copyrightOrgs = {
-	names: {
+	select: "Sélectionnez un organisme",
+	public: "Rendre publique mes identifiants énumérés ci-dessus",
+	name: {
 		socan: "Socan",
 		socandr: "Socan DR",
 		spacq: "SPACQ",
@@ -865,7 +870,7 @@ export const copyrightOrgs = {
 		cfm:
 			"Canadian Federation of Musicians (formerly referred to as AFM Canada)",
 	},
-	actions: {
+	action: {
 		socan: "Performance rights of musical works",
 		socandr: "Reproduction rights of musical works",
 		spacq: "Nomenclature",

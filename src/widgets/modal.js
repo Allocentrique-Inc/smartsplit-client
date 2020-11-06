@@ -59,6 +59,7 @@ export const ModalStyles = StyleSheet.create({
 	buttonBar: {
 		borderBottomLeftRadius: Metrics.borderRadius.modals,
 		borderBottomRightRadius: Metrics.borderRadius.modals,
+		zIndex: -1,
 	},
 })
 

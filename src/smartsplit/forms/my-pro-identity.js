@@ -13,28 +13,21 @@ export default function MyProIdentity() {
 	const [t] = useTranslation()
 	const model = useStorePath("settings", "profile")
 	return (
-		<Column of="group">
+		<Column of="group" flex={1}>
 			{Platform.web && <Heading level="2">{t("settings:identity")}</Heading>}
-			<Row>
+			<Row flex={1}>
 				<SearchAndTag
-					label={t("forms:labels.participation")}
-					placeholder={t("forms:placeholders.search")}
-					onSearchChange={() => {}}
+					field={model.organisations}
+					placeholder={t("forms:placeholders.organisations")}
 				/>
 			</Row>
 			<Row>
-				<ProIdList
-					label={t("forms:labels.myProIds")}
-					description={t("forms:descriptions.myProIds")}
-				/>
+				<ProIdList />
 			</Row>
-			<DateField
-				field={model.birthDate}
-				placeholder={t("forms:placeholders.date")}
-			/>
-			<TextField field={model.ISNI} placeholder="1234 1234 1234 1234" />
+			<TextField field={model.birthDate} placeholder={"YYYY-MM-DD"} />
+			<TextField field={model.isni} placeholder="1234 1234 1234 1234" />
 			<TextField
-				field={model.URI}
+				field={model.uri}
 				placeholder={t("forms:placeholders.myUri")}
 			/>
 		</Column>
