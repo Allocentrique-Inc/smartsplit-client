@@ -17,8 +17,8 @@ export default class CopyrightSplit extends SplitPageState {
 	 *	Action to initialize the ui state. Shares are an array
 	 *	of shareholders stripped values from their observables
 	 **/
-	@action init(pageTitle, titleLeft, titleRight, shares) {
-		super.init(pageTitle, shares)
+	@action init(domainState, pageTitle, titleLeft, titleRight) {
+		super.init(domainState, pageTitle)
 		// Titles of Dual pie chart halfs
 		this.titleLeft = titleLeft
 		this.titleRight = titleRight

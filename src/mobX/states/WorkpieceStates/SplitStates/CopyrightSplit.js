@@ -12,7 +12,7 @@ export default class CopyrightSplit extends SplitState {
 		/**
 		 * reaction that performs roles checking upon
 		 * mode change to or from "equal"
-		 */
+		 **/
 		reaction(
 			() => this.mode,
 			(mode) => {
@@ -83,7 +83,7 @@ export default class CopyrightSplit extends SplitState {
 				try {
 					smallestShare = shares[0].toJS()
 				} catch (e) {
-					console.error("Error with smallest share", e, shares, this.allShares)
+					console.error("Error with smallest share", e, shares)
 				}
 
 				// 3. Try an equal split of toSplit

@@ -28,10 +28,10 @@ import { DocumentYourWork, ProtectYourWork, ShareYourCopyright } from "./cards"
 import { useStorePath, useStores } from "../../mobX"
 import { observer } from "mobx-react"
 import DocumentationPage from "./documentation"
-
 const WorkpiecesRouter = observer(() => {
 	const match = useRouteMatch("/workpieces/:workpiece_id")
 	const workpiece = useStorePath("workpieces").fetch(match.params.workpiece_id)
+
 	return (
 		<WorkpieceContext.Provider value={workpiece}>
 			<Switch>

@@ -503,7 +503,7 @@ export const rightsSplits = {
 				On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
 				autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}
 				se partagent ce droit à parts égales. Les <i>artistes principaux</i> et{" "}
-				<i>artistes invités</i> se partagent 30%, tantdis que les 20% restant
+				<i>artistes invités</i> se partagent 80%, tantdis que les 20% restant
 				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
 			</>
 		),
