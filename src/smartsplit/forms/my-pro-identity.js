@@ -12,6 +12,7 @@ import { useStorePath } from "../../mobX"
 export default function MyProIdentity() {
 	const [t] = useTranslation()
 	const model = useStorePath("settings", "profile")
+	const [searchOrgs, setSearchOrgs] = useState("")
 	return (
 		<Column of="group" flex={1}>
 			{Platform.web && <Heading level="2">{t("settings:identity")}</Heading>}
@@ -19,6 +20,9 @@ export default function MyProIdentity() {
 				<SearchAndTag
 					field={model.organisations}
 					placeholder={t("forms:placeholders.organisations")}
+					search={searchOrgs}
+					onSearchChange={setSearchOrgs}
+					searchResults={[]}
 				/>
 			</Row>
 			<Row>
