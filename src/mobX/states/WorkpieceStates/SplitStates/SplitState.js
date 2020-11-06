@@ -1,12 +1,22 @@
 import { action, computed, observable } from "mobx"
 
+/**
+ *	Base class for domain state managing share holders
+ **/
 export default class SplitState {
 	constructor(shares, shareModel) {
 		this.shareModel = shareModel
-		if (shares) this.initShares(shares)
+		if (shares) this.initShareHolders(shares)
 	}
 
 	@observable shareHolders = new Map()
+
+	/**
+	 * 	@return: Array<{Field.value}>
+	 **/
+	@computed get sharesValues() {
+		return [...this.shareHolders.values()].map((share) => share.toJS())
+	}
 
 	@action removeRightHolder(id) {
 		this.shareHolders.delete(id)
@@ -26,18 +36,10 @@ export default class SplitState {
 		this.shareHolders.set(id, newShare)
 	}
 
-	addShare(share) {
-		return this.addRightHolder(share.shareHolderId, share)
-	}
-
-	updateShare(share) {
-		return this.updateRightHolder(share.shareHolderId, share)
-	}
-
-	removeShare(share) {
-		return this.removeRightHolder(share.shareHolderId)
-	}
-
+	/**
+	 *	Allows you to update the value of one of the observable Fields of a
+	 *	a shareholder directly from the UI
+	 **/
 	@action updateShareField(id, field, value) {
 		if (!this.shareHolders.get(id)) {
 			return
@@ -45,20 +47,26 @@ export default class SplitState {
 		this.shareHolders.get(id).setValue(field, value)
 	}
 
-	@action initShares(shares) {
-		const seenShareHolders = []
+	/**
+	 *	Populate this.shareHolders Map with the Array<ShareModel> argument
+	 **/
+	@action initShareHolders(shares) {
 		shares.forEach((share) => {
-			seenShareHolders.push(share.shareHolderId)
-			if (this.shareHolders.has(share.shareHolderId)) {
-				this.updateShare(share)
-			} else {
-				this.addShare(share)
-			}
+			this.addShare(share)
 		})
-		this.shareHolders.forEach(
-			(value, key) =>
-				seenShareHolders.indexOf(key) < 0 && this.removeRightHolder(key)
-		)
+		// const seenShareHolders = []
+		// shares.forEach((share) => {
+		// 	seenShareHolders.push(share.shareHolderId)
+		// 	if (this.shareHolders.has(share.shareHolderId)) {
+		// 		this.updateShare(share)
+		// 	} else {
+		// 		this.addShare(share)
+		// 	}
+		// })
+		// this.shareHolders.forEach(
+		// 	(value, key) =>
+		// 		seenShareHolders.indexOf(key) < 0 && this.removeRightHolder(key)
+		// )
 	}
 
 	/**
@@ -77,10 +85,28 @@ export default class SplitState {
 	}
 
 	/**
-	 * Computed array that contains
-	 * the shares values
-	 */
-	@computed get sharesValues() {
-		return [...this.shareHolders.values()].map((share) => share.toJS())
+	 *	Update all shares if no shares array are provided.
+	 *	args:
+	 *	- Array<ShareValues>: ShareValues must
+	 *	be an object with a valid shareHolderId key
+	 *	- value: Value to update shares with. Default
+	 *	to 1
+	 **/
+	@action setShares(shares = this.sharesValues, value = 1) {
+		shares.forEach((share) => {
+			this.shareHolders.get(share.shareHolderId).setValue("shares", value)
+		})
+	}
+
+	addShare(share) {
+		return this.addRightHolder(share.shareHolderId, share)
+	}
+
+	updateShare(share) {
+		return this.updateRightHolder(share.shareHolderId, share)
+	}
+
+	removeShare(share) {
+		return this.removeRightHolder(share.shareHolderId)
 	}
 }

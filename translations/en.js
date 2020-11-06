@@ -70,6 +70,7 @@ export const general = {
 		toConsult: "Consult",
 		toBegin: "Begin",
 		pass: "Pass for now",
+		end: "Finish",
 	},
 }
 export const menu = {
@@ -138,6 +139,9 @@ export const publicNavbarWeb = {
 
 export const forms = {
 	labels: {
+		firstName: "First Name",
+		middleName: "Middle Name",
+		lastName: "Last Name",
 		myEmail: "My email",
 		myEmails: "My emails linked to this account",
 		password: "Password",
@@ -201,7 +205,7 @@ export const forms = {
 		usualLastName: "Usual Last Name",
 		firstName: "First Name",
 		middleName: "Middle Name",
-		lastName: "Name",
+		lastName: "Last Name",
 		artistName: "Artist Name",
 		search: "Search among groups, artists or organisations...",
 		organisations:
@@ -236,38 +240,6 @@ export const forms = {
 	},
 	addCollabArtist: "Add a collaborating artist",
 	addContributor: "Add a contributing artist",
-	options: {
-		defaultRoles: [
-			{
-				displayValue: "Author",
-				value: "author",
-			},
-			{
-				displayValue: "Composor",
-				value: "composer",
-			},
-			{
-				displayValue: "Arranger",
-				value: "arranger",
-			},
-			{
-				displayValue: "Mixer",
-				value: "mixer",
-			},
-			{
-				displayValue: "Performer",
-				value: "performer",
-			},
-			{
-				displayValue: "Singer",
-				value: "singer",
-			},
-			{
-				displayValue: "Musician",
-				value: "musician",
-			},
-		],
-	},
 }
 
 export const login = {
@@ -473,6 +445,11 @@ export const workpieces = {
 			desc:
 				"Associate your sound recording with its rights holders today and leave indelible traces of that on a blockchain.",
 		},
+		documentYourWork: {
+			title: "Document your work",
+			desc:
+				"Make your work totally discoverable to the eyes of search engines for an increased audience.",
+		},
 	},
 }
 
@@ -504,40 +481,56 @@ export const identity = {
 	),
 }
 
-export const rightSplits = {
+export const rightsSplits = {
 	navbar: {
 		rightSplits: "Right Split",
 		page: "Page Name",
 	},
-	titles: {
-		copyright: "Copyright",
-		performance: "Performance",
-		recording: "Sound recording",
-	},
-	headers: {
-		copyright: "Who invented this musical piece?",
-		performance: "Who played on the audio recording?",
-		recording: "Who owns the audio recording?",
-	},
-
-	paragraphs: {
-		copyright: () => (
+	copyright: {
+		title: "Copyright",
+		header: "Who invented this musical piece ?",
+		description: () => (
 			<>
 				Seperate here the copyright between creators, i.e. the authors of{" "}
 				<b>lyrics</b>, the composers and the mixers of <b>music</b>. It is
 				common to share the copyright fairly. But you can do otherwise.
 			</>
 		),
-		performance: () => (
+	},
+	performance: {
+		title: "Performance",
+		header: "Who played on the audio recording?",
+		description: () => (
 			<>
-				Seperate here the <b>neigbor right</b> between <b>performers</b>,
+				Seperate here the <b>neighbor right</b> between <b>performers</b>,
 				whether musicians or singers. <i>Group</i> members share this right with
-				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
+				equal splits. <i>Main artists</i> and <i>guest artists</i> share 80%,
 				while the remaining 20% is split among <i>featured artists</i>, if
 				applicable.
 			</>
 		),
-		recording: () => (
+		artistStatuses: {
+			principal: "Main artist",
+			featured: () => (
+				<>
+					Starred Artist (<i>featuring</i>)
+				</>
+			),
+			bandMember: "Band member",
+			session: "Accompanying artist",
+		},
+		artistStatusDef: {
+			principal: 'Also called "Starred Artist" or "Solo Artist"',
+			featured:
+				"Artist or group member invited to collaborate on a musical piece",
+			bandMember: "Musician or singer taking part in the artistic entity.",
+			session: "Accompanying Artist",
+		},
+	},
+	recording: {
+		title: "Sound recording",
+		header: "Who owns the audio recording ?",
+		description: () => (
 			<>
 				Seperate here the <b>neighbor right</b> of <b>producers</b>, i.e. those
 				who invested their time and/or their money to record and finalize the
@@ -549,7 +542,6 @@ export const rightSplits = {
 			</>
 		),
 	},
-
 	radios: {
 		equal: "Split evenly",
 		roles: "Split according to roles",
@@ -557,32 +549,27 @@ export const rightSplits = {
 		email: "By email",
 		txt: "By SMS",
 	},
-
+	yourself: "(you)",
+	more: "Learn more",
+	notify: "Notify me one month before the deadline...",
+	music: "Music",
+	lyrics: "Lyrics",
+	addCollab: "Add a collaborator...",
+	addLabel: "Add a label...",
+	removeCollab: "Remove this collaborator",
+	status: "Select a status...",
+	function: "Select a function...",
+	agreement: "Duration of the agreement...",
+	remove: "Remove this split",
+	roles: {
+		author: "Author",
+		composer: "Composer",
+		adapter: "Adapter",
+		mixer: "Mixer",
+		singer: "Singer",
+		musician: "Musician",
+	},
 	dropdowns: {
-		addCollab: "Add a collaborator...",
-		addLabel: "Add a label...",
-		removeCollab: "Remove this collaborator",
-		status: "Select a status...",
-		function: "Select a function...",
-		agreement: "Duration of the agreement...",
-		remove: "Remove this split",
-		artist: {
-			artist: "Main artist",
-			artistDefinition: 'Also called "Starred Artist" or "Solo Artist"',
-			artistInvited: () => (
-				<>
-					Starred Artist (<i>featuring</i>)
-				</>
-			),
-			artistInvitedDefinition:
-				"Artist or group member invited to collaborate on a musical piece",
-			artistMember: "Group Member",
-			artistMemberDefinition:
-				"Musician or singer taking part in the artistic entity.",
-			artistExtra: "Accompanying Artist",
-			artistExtraDefinition:
-				"Engaged performer during studio recording sessions.",
-		},
 		collaborators: {
 			producer: "Producer",
 			producerDefinition:
@@ -613,12 +600,6 @@ export const rightSplits = {
 		},
 	},
 
-	yourself: "(you)",
-	more: "Learn more",
-	notify: "Notify me one month before the deadline...",
-	music: "Music",
-	lyrics: "Lyrics",
-
 	errors: {
 		status: "You need to select a status for this right holder.",
 		role: "You need to select at least one role for this rightholder.",
@@ -636,15 +617,6 @@ export const rightSplits = {
 		label:
 			"A general rule is that a label rarely takes more than 50% of rights and incomes on audio recording proprety.",
 	},
-}
-
-export const roles = {
-	author: "Author",
-	composer: "Composer",
-	adapter: "Adapter",
-	mixer: "Mixer",
-	singer: "Singer",
-	musician: "Musician",
 }
 
 export const newUserInvite = {
@@ -766,9 +738,11 @@ export const document = {
 		},
 		audio: {
 			title: "Audio File",
-			paragraph: "Here you can download your file in WAV or MP3 format.",
-			format: "Upload the file or the recorded work",
+			subTitle: "Choose a file to make accessible",
+			paragraph:
+				"Here, you can make your piece accessibile in WAV ou MP3 format.",
 			undertext: "MP3 or WAV accepted.",
+			addFile: "Add a file",
 		},
 		other: {
 			title: "Other files on the work",
@@ -779,7 +753,7 @@ export const document = {
 			formatMidi: "MIDI Files",
 			undertext: "Lorem Ipsum",
 		},
-		dropdown: {
+		dropdownDownloads: {
 			public: "Public - Downloadable by all",
 			publicUndertext: "All users will be able to download the original file.",
 			invitation: "On invitation - Downloadable by some",
@@ -789,12 +763,24 @@ export const document = {
 			privateUndertext:
 				"No one will be able to download the original image, except you.",
 		},
+		dropdownAccess: {
+			public: "Public - Make the information visible for all",
+			publicUndertext: "All users can have access to this information",
+			invitation: "On invitation - Visible for some",
+			invitationUndertext:
+				"Only users with the unique sharable link will have access to the information. Practical for reporters!",
+			private: "Private -  Make the information private",
+			privateUndertext:
+				"No one, except you and the project's collaborators will have access to the information.",
+		},
 		tooltip: {
 			listItem:
 				"If the file was already added, put a list item with the corresponding file rather than a form-upload.",
 		},
 		access: "Access",
 		copy: "Unique sharable link copied.",
+		note:
+			"Si le fichier a déjà été ajouté, mettre un list item avec le fichier correspondant plutôt qu'un form-upload. Sinon simplement mettre le formulaire.",
 	},
 	infos: {
 		category: "GENERAL INFORMATIONS",
@@ -802,9 +788,11 @@ export const document = {
 		length: "Length",
 		bpm: "BPM",
 		mainGenre: "Main Genre",
-		addenre: "Add a genre...",
+		addGenre: "Add a genre...",
 		secondaryGenre: "Secondary Genres",
-		genreExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
+		influence: "Influences",
+		addInfluence: "Add an influence...",
+		influenceExample: "Example: The Beatles, Dr Dre, Mozart, Brel, Stromae.",
 	},
 	lyrics: {
 		category: "LYRICS",
@@ -815,6 +803,9 @@ export const document = {
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
 		addLanguage: "Ajouter une langue...",
+		dropdown: {
+			public: "Public - Make the information public",
+		},
 	},
 }
 export const collaborators = {
@@ -824,7 +815,9 @@ export const contributors = {
 	add: "Add a Contributor",
 }
 export const copyrightOrgs = {
-	names: {
+	public: "Make public my professional identifiers",
+	select: "Select A Professional Organisation",
+	name: {
 		socan: "Socan",
 		socandr: "Socan DR",
 		spacq: "SPACQ",
@@ -871,7 +864,7 @@ export const copyrightOrgs = {
 		cfm:
 			"Canadian Federation of Musicians (formerly referred to as AFM Canada)",
 	},
-	actions: {
+	action: {
 		socan: "Performance rights of musical works",
 		socandr: "Reproduction rights of musical works",
 		spacq: "Nomenclature",

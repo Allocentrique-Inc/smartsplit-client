@@ -142,7 +142,7 @@ const Slider = observer(
 
 			// Trigger onChange only when accumulated distance is
 			// around a multiple of dpStep
-			if (Math.abs(gestureState.dx % dpStep) < 0.1) {
+			if (Math.abs(gestureState.dx % dpStep) < 0.5) {
 				onChange(dpToValue(position))
 			}
 		}

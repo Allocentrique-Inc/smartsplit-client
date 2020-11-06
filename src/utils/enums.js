@@ -1,7 +1,7 @@
 export const Status = {
 	pending: "pending",
 	active: "active",
-	main: "main",
+	main: "primary",
 }
 
 export const FormMode = {

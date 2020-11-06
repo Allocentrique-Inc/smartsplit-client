@@ -45,7 +45,7 @@ export default function AddInstrumentDropdown({
 						<Row of="component" padding="component" style={Styles.actionFrame}>
 							<PlusCircle />
 							<Text bold action>
-								{/* To Do: Voir comment placer la traduction */}
+								{/* To Do: Voir comment placer la traduction avec l'instrument entre guillemets */}
 								Ajouter <Text bold>{nextProps.search}</Text> comme instrument
 							</Text>
 						</Row>

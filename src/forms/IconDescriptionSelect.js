@@ -1,7 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import Dropdown from "./dropdown"
-import { Column, Hairline, Row } from "../layout"
+import { Column, Hairline, Row, Spacer } from "../layout"
 import { Text } from "../text"
 import FormStyles from "../styles/forms"
 import { observer } from "mobx-react"
@@ -18,12 +18,22 @@ export default observer(function IconDescriptionDropdown(props) {
 		children,
 		...nextProps
 	} = props
+	const [open, setOpen] = useState(false)
 	return (
-		<Dropdown {...nextProps} placeholder={placeholder}>
+		<Dropdown
+			{...nextProps}
+			placeholder={placeholder}
+			onFocus={() => setOpen(true)}
+			onBlur={() => setOpen(false)}
+			open={open}
+		>
 			<ScrollView style={FormStyles.select_scroll}>
 				<IconDescriptionSelectMenu
 					options={options}
-					onChange={onChange}
+					onChange={(v) => {
+						onChange(v)
+						setOpen(false)
+					}}
 					value={value}
 				/>
 			</ScrollView>
@@ -54,7 +64,7 @@ export function IconDescriptionSelectItem(props) {
 		icon,
 		name,
 		description,
-		action,
+		title,
 	} = props
 	const { t } = useTranslation()
 	function handleSelect() {
@@ -65,22 +75,49 @@ export function IconDescriptionSelectItem(props) {
 		<TouchableWithoutFeedback onPress={handleSelect}>
 			<View
 				style={[
-					FormStyles.select_item,
+					FormStyles.select_item_complex,
 					selected && FormStyles.select_item_selected,
 				]}
 			>
 				<Row>
-					<Column>{icon}</Column>
+					<Column valign="center">{icon}</Column>
+					<Column>
+						<Spacer of={"small"} />
+					</Column>
 					<Column flex={1}>
 						<Row>
-							<Text>{`${name} - ${action}`}</Text>
+							<Text>{`${name} - ${title}`}</Text>
 						</Row>
 						<Row>
-							<Text secondary>{description}</Text>
+							<Text tertiary small>
+								{description}
+							</Text>
 						</Row>
 					</Column>
 				</Row>
 			</View>
 		</TouchableWithoutFeedback>
+	)
+}
+
+export function IconDescriptionItem(props) {
+	const { icon, name, description, title } = props
+	return (
+		<Row flex={1} style={{ padding: Metrics.spacing.inside }}>
+			<Column valign="center">{icon}</Column>
+			<Column>
+				<Spacer of={"small"} />
+			</Column>
+			<Column flex={1}>
+				<Row>
+					<Text>{`${name} - ${title}`}</Text>
+				</Row>
+				<Row>
+					<Text tertiary small>
+						{description}
+					</Text>
+				</Row>
+			</Column>
+		</Row>
 	)
 }

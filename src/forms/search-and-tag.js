@@ -52,6 +52,7 @@ const SearchAndTag = observer((props) => {
 	}
 	const [search, setSearch] = useState("")
 	const renderSelectedItems = () => {
+		//ToDo: Si n'entre rien dans le champ ne pas ajouter de tag en cliquant sur Ajouter
 		return (
 			<Row wrap style={Styles.tagContainer}>
 				{selection.map((item) => (
@@ -72,7 +73,7 @@ const SearchAndTag = observer((props) => {
 		)
 	}
 	return (
-		<Column of="component">
+		<Column of="component" flex={1}>
 			<Autocomplete
 				label={label}
 				error={error}

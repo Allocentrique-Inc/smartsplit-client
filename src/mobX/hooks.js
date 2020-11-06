@@ -12,9 +12,9 @@ export function useAuthUser() {
 	return auth.user
 }
 
-export function useSplitsPagesState() {
+export function useSplitsPagesState(type) {
 	const { splitsPages } = useStores()
-	return splitsPages
+	return type ? splitsPages[type] : splitsPages
 }
 
 export function useDocsModel(workpieceId, type) {

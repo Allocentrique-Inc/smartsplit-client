@@ -13,12 +13,12 @@ import { PictureCropModal } from "../../widgets/picture-crop"
 import { useStorePath } from "../../mobX"
 import { observer } from "mobx-react"
 import ProfileModel from "../../mobX/models/settings/ProfileModel"
+import bandsList from "../../data/bands"
 export default observer(function MyProfile({ title }) {
 	const { t } = useTranslation()
 	const model: ProfileModel = useStorePath("settings", "profile")
 	const avatar = model.avatar
 	const avatarUrl = model.avatarUrl
-
 	const avatarImg = useMemo(() => {
 		if (avatar.value) {
 			return { uri: "data:image/jpeg;base64," + avatar.value }
@@ -28,6 +28,7 @@ export default observer(function MyProfile({ title }) {
 			return null
 		}
 	}, [avatarUrl.value, avatar.value])
+	const [search, setSearch] = useState("")
 
 	const [newPicture, selectNewPicture, newPictureError] = useImagePicker()
 	//const firstName = useFormField("firstName")
@@ -83,9 +84,13 @@ export default observer(function MyProfile({ title }) {
 			/>
 
 			<SearchAndTag
-				label={t("forms:labels.participation")}
+				field={model.projects}
 				placeholder={t("forms:placeholders.search")}
-				onSearchChange={() => {}}
+				searchResults={[...bandsList]
+					.filter((g) => g.toLowerCase().indexOf(search.toLowerCase()) > -1)
+					.splice(0, 10)}
+				search={search}
+				onSearchChange={setSearch}
 			/>
 		</Column>
 	)

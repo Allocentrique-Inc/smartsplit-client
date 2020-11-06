@@ -1,10 +1,28 @@
 import React from "react"
 import { View, ScrollView, TouchableWithoutFeedback } from "react-native"
 import Dropdown from "./dropdown"
-import { Column, Hairline } from "../layout"
+import { Column } from "../layout"
 import { Text } from "../text"
 import FormStyles from "../styles/forms"
 
+/**
+ *	Select form input component. Let user make a choice in props.options
+ *	props: {
+ *		value
+ *		onChange
+ *		placeholder
+ *		initialValue
+ *		options: Array<{
+ *					- key: the actual string used as the select input value
+ *					- value: displayed value associated with the key when Select's dropdown
+ *					is opened
+ *					- displayValue (optional): situational property useful when
+ *					value is a component we don't want to use as Select's placeholder.
+ *					Can be a string or a component
+ *				}>
+ *		children
+ *	}
+ **/
 export default class Select extends React.PureComponent {
 	static defaultProps = {
 		options: [],
@@ -29,9 +47,14 @@ export default class Select extends React.PureComponent {
 			(o) => o.key === selectedValue
 		)
 
-		const value = selectedOption ? selectedOption.value : this.props.placeholder
+		let value
+		if (!!selectedOption && !!selectedOption.displayValue) {
+			value = selectedOption.displayValue
+		} else {
+			value = selectedOption ? selectedOption.value : this.props.placeholder
+		}
 
-		if (typeof value === "string")
+		if (typeof value === "string" || typeof value === "function")
 			return <Text style={{ flex: 1 }}>{value}</Text>
 		else return value
 	}
@@ -100,7 +123,7 @@ export function SelectItem(props) {
 					selected && FormStyles.select_item_selected,
 				]}
 			>
-				{typeof value === "string" ? <Text>{value}</Text> : { value }}
+				{typeof value === "string" ? <Text>{value}</Text> : value}
 			</View>
 		</TouchableWithoutFeedback>
 	)

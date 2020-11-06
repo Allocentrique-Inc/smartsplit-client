@@ -6,6 +6,17 @@ const FormStyles = StyleSheet.create({
 		flex: 1,
 	},
 
+	filefieldFrame: {
+		padding: Metrics.spacing.inside,
+		height: Metrics.size.medium,
+		borderStyle: "dashed",
+		borderColor: Colors.stroke,
+		borderRadius: Metrics.borderRadius.forms,
+		borderWidth: 1,
+		flexDirection: "row",
+		alignItems: "center",
+	},
+
 	frame: {
 		padding: Metrics.spacing.inside,
 		height: Metrics.size.medium,
@@ -55,6 +66,12 @@ const FormStyles = StyleSheet.create({
 
 	select_item: {
 		padding: Metrics.spacing.inside,
+		borderColor: Colors.stroke,
+		borderTopWidth: 1,
+	},
+
+	select_item_complex: {
+		padding: Metrics.spacing.tiny,
 		borderColor: Colors.stroke,
 		borderTopWidth: 1,
 	},

@@ -1,11 +1,14 @@
 import React from "react"
 import { Svg, Path } from "react-native-svg"
+import { Colors } from "../theme"
 
 export default function LinkIcon(props) {
-	const color = props.color || "#8DA0B3"
+	const color = props.color || Colors.action
+	const { ...nextProps } = props
 
 	return (
 		<Svg
+			{...nextProps}
 			width="24"
 			height="24"
 			viewBox="0 0 24 24"

@@ -1,5 +1,5 @@
 import BaseModel, { FieldType, Field } from "../../BaseModel"
-import { observable, action, computed } from "mobx"
+import { observable } from "mobx"
 import WorkpieceAPI from "../../../../api/workpieces"
 export default class WorkpieceModel extends BaseModel {
 	@observable workpiece_id = new Field(this, "workpiece_id", {

@@ -21,13 +21,13 @@ export default class ProfileModel extends BaseModel {
 		primary: true,
 	})
 	@observable firstName = new Field(this, "firstName", {
-		label: "forms:labels.usualFirstName",
+		label: "forms:labels.firstName",
 
 		type: FieldType.string,
 	})
 
 	@observable lastName = new Field(this, "lastName", {
-		label: "forms:labels.usualLastName",
+		label: "forms:labels.lastName",
 
 		type: FieldType.string,
 	})
@@ -45,6 +45,7 @@ export default class ProfileModel extends BaseModel {
 	})
 
 	@observable address = new Field(this, "address", {
+		label: "forms:labels.civicAddress",
 		type: FieldType.string,
 	})
 
@@ -52,21 +53,22 @@ export default class ProfileModel extends BaseModel {
 		label: "forms:labels.myBirthday",
 		type: FieldType.date,
 	})
-
-	@observable companies = new Field(this, "companies", {
-		pseudo: true,
+	@observable projects = new Field(this, "projects", {
 		type: FieldType.collection,
+		label: "forms:labels.organisations",
+	})
+	@observable organisations = new Field(this, "organisations", {
+		type: FieldType.collection,
+		label: "forms:labels.organisations",
 	})
 	@observable identifiers = new ProfessionalIdentityModel(this)
 
-	@observable ISNI = new Field(this, "ISNI", {
-		pseudo: true,
+	@observable isni = new Field(this, "isni", {
 		label: "forms:labels.isniNO",
 		type: FieldType.string,
 	})
 
-	@observable URI = new Field(this, "URI", {
-		pseudo: true,
+	@observable uri = new Field(this, "uri", {
 		label: "forms:labels.myUri",
 		type: FieldType.string,
 	})

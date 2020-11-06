@@ -33,6 +33,7 @@ export function DateField(props) {
 		}
 		fieldError = field.model.validated && field.error
 		label = t(field.label)
+		value = field.value
 	}
 	const [error, setError] = useState(null)
 

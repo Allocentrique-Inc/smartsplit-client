@@ -132,6 +132,7 @@ export const CheckBoxGroupButton = observer(
 )
 
 export const CheckBox = observer((props) => {
+	const { t } = useTranslation()
 	let {
 		children,
 		center,
@@ -143,7 +144,7 @@ export const CheckBox = observer((props) => {
 		color,
 	} = props
 	if (field) {
-		label = field.label
+		label = t(field.label)
 		onChange = (value) => {
 			field.setValue(value)
 		}

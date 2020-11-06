@@ -10,7 +10,7 @@ import { Text, Heading, Paragraph } from "../../../text"
 import List, { ListItem } from "../../../widgets/list"
 import { Colors, Metrics } from "../../../theme"
 import CopyrightIcon from "../../../svg/copyright"
-import { DateField, TextField } from "../../../forms"
+import { DateField, TextField, SearchAndTag } from "../../../forms"
 import AddContributorDropdown from "../../../smartsplit/components/AddContributorDropdown"
 import { observer } from "mobx-react"
 import {
@@ -110,6 +110,7 @@ const CreationForm = observer(() => {
 	const editorSearchResults = searchResults.filter(
 		(contributor) => !model.editors.value[contributor.id]
 	)
+	const [selected, setSelected] = useState(["Inscience", "Quest Love"])
 
 	return (
 		<Row>
@@ -134,7 +135,8 @@ const CreationForm = observer(() => {
 						}}
 						placeholder={t("forms:placeholders.date")}
 					/>
-					{console.log(Object.values(model.authors.value))}
+					{/* {console.log(Object.values(model.authors.value))} */}
+
 					<AddContributorDropdown
 						label={t("document:creation.roles.authors")}
 						subLabel={t("document:creation.roles.authorsWho")}
@@ -143,7 +145,7 @@ const CreationForm = observer(() => {
 						onSearchChange={setSearch}
 						onSelect={(selection) => {
 							console.dir(toJS(selection))
-							console.log(`the selection from add contributor dropdown was ^^`)
+							//console.log(`the selection from add contributor dropdown was ^^`)
 							model.authors.setItem(selection.user_id, selection)
 							setSearch("")
 						}}

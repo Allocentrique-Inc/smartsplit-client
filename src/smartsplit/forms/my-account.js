@@ -35,7 +35,7 @@ export default observer(function MyAccount({ title }) {
 	return (
 		<Column of="group">
 			{title && <Heading level="2">{title}</Heading>}
-			<TextField label={t("forms:labels.civicAddress")} />
+			<TextField field={model.address} />
 			{Platform.web && (
 				<>
 					<Row of="component">
