@@ -8,7 +8,7 @@ import { TextField, Dropdown, CheckBox, DateField } from "../../forms"
 import SearchAndTag from "../../forms/search-and-tag"
 import { ProIdList } from "../components/pro-id-list"
 import { useStorePath } from "../../mobX"
-
+import companiesList from "../../data/companies"
 export default function MyProIdentity() {
 	const [t] = useTranslation()
 	const model = useStorePath("settings", "profile")
@@ -22,7 +22,9 @@ export default function MyProIdentity() {
 					placeholder={t("forms:placeholders.organisations")}
 					search={searchOrgs}
 					onSearchChange={setSearchOrgs}
-					searchResults={[]}
+					searchResults={[...companiesList]
+						.filter((c) => c.toLowerCase().indexOf(searchOrgs) > -1)
+						.splice(0, 10)}
 				/>
 			</Row>
 			<Row>
