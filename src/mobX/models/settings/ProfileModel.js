@@ -53,7 +53,10 @@ export default class ProfileModel extends BaseModel {
 		label: "forms:labels.myBirthday",
 		type: FieldType.date,
 	})
-
+	@observable projects = new Field(this, "projects", {
+		type: FieldType.collection,
+		label: "forms:labels.organisations",
+	})
 	@observable organisations = new Field(this, "organisations", {
 		type: FieldType.collection,
 		label: "forms:labels.organisations",
