@@ -130,7 +130,7 @@ export function SettingsPageFull() {
 
 export const SettingsPageTitle = observer(function () {
 	const user = useStorePath("auth", "user")
-  const {t} = useTranslation()
+	const { t } = useTranslation()
 	return (
 		<Row of="component" valign="center">
 			<UserAvatar user={user.data} size="medium" />
