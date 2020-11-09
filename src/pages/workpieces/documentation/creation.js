@@ -169,13 +169,14 @@ const CreationForm = observer(() => {
 						onSelect={(selection) => {
 							console.dir(toJS(selection))
 							//console.log(`the selection from add contributor dropdown was ^^`)
-							model.authors.setItem(selection.user_id, selection)
+							if (!model.authors.includes(selection))
+								model.authors.add(selection)
 							setSearch("")
 						}}
 						placeholder={t("document:creation.roles.addAuthor")}
 					/>
 
-					{Object.values(model.authors.value).map((item) => (
+					{model.authors.value.map((item) => (
 						<Row
 							padding="component"
 							of="component"
@@ -192,7 +193,7 @@ const CreationForm = observer(() => {
 							</Column>
 							<Column>
 								<TouchableWithoutFeedback
-									onPress={() => model.authors.removeItem(item.id)}
+									onPress={() => model.authors.remove(item)}
 								>
 									<View>
 										<XIcon />

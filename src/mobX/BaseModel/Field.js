@@ -668,7 +668,24 @@ export default class Field {
 	}
 
 	/**
-	 * used only by collection field types to remove an item
+	 *
+	 * @param args
+	 * @return {*}
+	 */
+	map(...args) {
+		switch (this.type) {
+			case FieldType.collection:
+				return this.value.map(args)
+			case FieldType.set:
+				return Array.from(this.value.values()).map(args)
+			default:
+				throw new Error(
+					"Field.map can only be used with a field type of FieldType = collection or set"
+				)
+		}
+	}
+	/**
+	 * used only by set or collection field types to remove an item
 	 * @param item
 	 */
 	@action remove(item) {
