@@ -639,6 +639,7 @@ export const document = {
 			recording: "Enregistrement",
 			files: "Fichiers",
 			release: "Sortie",
+			links: "Liens d'écoute",
 		},
 	},
 	help: "Aide",
@@ -811,6 +812,15 @@ export const document = {
 		dropdown: {
 			public: "Public - Rendre l'information publique",
 		},
+	},
+	links: {
+		category: "LIENS D'ÉCOUTE",
+		title: "La pièce musicale est-elle déjà diffusée ?",
+		paragraph:
+			"Pour augmenter les chances que ta pièce soit découverte et écoutée, documente ses liens d'écoute et de vente en ligne.",
+		addLink: "Coller un lien...",
+		createPlatform: "Add a platform",
+		addPlatform: "Ajouter une plateforme...",
 	},
 }
 
