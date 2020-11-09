@@ -1,9 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { useTranslation } from "react-i18next"
 import { Colors, Metrics } from "../../../theme"
-import CircledC from "../../../svg/circled-c"
 import {
 	CheckBoxGroup,
 	CheckBoxGroupButton,
@@ -16,96 +15,140 @@ import { View } from "react-native"
 import SplitChart from "../../../smartsplit/components/split-chart"
 import CircledP from "../../../svg/circled-p"
 import { observer } from "mobx-react"
-import { useRightSplit } from "../context"
+import { useRightsSplits } from "../context"
+import { useSplitsPagesState } from "../../../mobX/hooks"
+import { initData } from "../../../mobX/models/workpieces/rights-splits/RecordingSplitModel"
+import Slider from "../../../widgets/slider"
+import { PercentageInput } from "../../../forms/percentage"
+import ProgressBar from "../../../widgets/progress-bar"
+import { formatPercentage } from "../../../utils/utils"
+import { runInAction } from "mobx"
 
 const RecordingForm = observer(() => {
-	const [chartSize, setChartSize] = useState(0)
-	const split = useRightSplit("recording")
-	const shares = split.allShares
-	console.log("SHARES", shares)
-	const [mode, setMode] = useState("equal")
-	const { t } = useTranslation()
-	const shareColors = Object.values(Colors.secondaries)
-
-	function colorByIndex(index) {
-		return shareColors[index % shareColors.length]
-	}
+	const recordingSplit = useRightsSplits("recording")
+	const pageState = useSplitsPagesState("copyright")
+	const { sharesData, sharesTotal } = pageState
+	const { t } = useTranslation("rightsSplits")
 
 	function addShareHolder(id) {
-		if (split.hasOwnProperty(id)) return
-		split.addRightHolder(id, {
-			shares: 1,
-		})
+		if (id && !recordingSplit.shareHolders.has(id)) {
+			recordingSplit.addRightHolder(id, initData)
+		}
 	}
 
-	let chartData = shares.map((share, i) => ({
-		key: share.rightHolder,
-		name: share.rightHolder,
-		share: share.shares,
-		color: colorByIndex(i),
-	}))
+	//FOR TESTING PURPOSE
+	// React.useEffect(() => {
+	// 	addShareHolder("235556b5-3bbb-4c90-9411-4468d873969b")
+	// 	addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	// }, [])
 
-	const totalShares = shares
-		.map((share) => share.shares)
-		.reduce((a, n) => a + n, 0)
+	function renderShareCards() {
+		return sharesData.map((share, i) => (
+			<ShareCard
+				key={share.id}
+				shareHolderId={share.id}
+				color={pageState.colorByIndex(i)}
+				sharePercent={share.percent}
+				onClose={() => recordingSplit.removeRightHolder(share.id)}
+				manual={recordingSplit.mode === "manual"}
+			>
+				<CheckBoxGroup
+					selection={share.roles}
+					onChange={(roles) =>
+						recordingSplit.updateShareField(share.id, "roles", roles)
+					}
+				>
+					<Row>
+						<Column flex={1} of="component">
+							<CheckBoxGroupButton
+								value="author"
+								label={t("roles.author")}
+								disabled={recordingSplit.mode === "equal"}
+							/>
+							<CheckBoxGroupButton value="adapter" label={t("roles.adapter")} />
+						</Column>
+						<Column flex={1} of="component">
+							<CheckBoxGroupButton
+								value="composer"
+								label={t("roles.composer")}
+								disabled={recordingSplit.mode === "equal"}
+							/>
+							<CheckBoxGroupButton value="mixer" label={t("roles.mixer")} />
+						</Column>
+					</Row>
+				</CheckBoxGroup>
+				<Row of="component" valign="center">
+					{recordingSplit.mode === "manual" && (
+						<>
+							<Slider
+								min={0}
+								max={sharesTotal}
+								color={pageState.colorByIndex(i)}
+								step={0.01}
+								value={share.shares}
+								onChange={(value) =>
+									recordingSplit.updateShare(share.id, value)
+								}
+							/>
+							<PercentageInput
+								value={share.percent}
+								digits={2}
+								onChange={(percentage) =>
+									recordingSplit.updateShare(
+										share.id,
+										(percentage * sharesTotal) / 100
+									)
+								}
+							/>
+						</>
+					)}
+					{recordingSplit.mode !== "manual" && (
+						<>
+							<ProgressBar
+								progress={share.percent}
+								size="xsmall"
+								style={{ flex: 1 }}
+								color={pageState.colorByIndex(i)}
+							/>
+							<Text bold>{formatPercentage(share.percent)}</Text>
+						</>
+					)}
+				</Row>
+			</ShareCard>
+		))
+	}
 
 	return (
 		<Row>
 			<Column of="section" flex={1}>
 				<Column of="group">
 					<Row of="component">
-						<CircledC size={Metrics.size.small} color={Colors.action} />
+						<CircledP size={Metrics.size.small} color={Colors.action} />
 						<Text action bold>
-							{t("rightSplits:titles.recording").toUpperCase()}
+							{t("recording.title").toUpperCase()}
 						</Text>
 					</Row>
 					<Column of="component">
-						<Heading level={1}>{t("rightSplits:headers.recording")}</Heading>
-						<Paragraph>{t("rightSplits:paragraphs.recording")()}</Paragraph>
+						<Heading level={1}>{t("recording.header")}</Heading>
+						<Paragraph>{t("recording.description")()}</Paragraph>
 					</Column>
 				</Column>
 				<Column of="group">
-					<RadioGroup value={mode} onChange={setMode}>
+					<RadioGroup
+						value={recordingSplit.mode}
+						onChange={(mode) => runInAction(() => (recordingSplit.mode = mode))}
+					>
 						<Column of="component">
-							<RadioGroupButton
-								value="equal"
-								label={t("rightSplits:radios.equal")}
-							/>
-							<RadioGroupButton
-								value="manual"
-								label={t("rightSplits:radios.manual")}
-							/>
+							<RadioGroupButton value="equal" label={t("radios.equal")} />
+							<RadioGroupButton value="manual" label={t("radios.manual")} />
 						</Column>
 					</RadioGroup>
 					<Column of="component">
-						{shares.map((share, i) => (
-							<ShareCard
-								key={share.rightHolder}
-								rightHolderId={share.rightHolder}
-								color={colorByIndex(i)}
-								sharePercent={
-									share.shares > 0 ? (100 * share.shares) / totalShares : 0
-								}
-								onClose={() => split.removeRightHolder(share.rightHolder)}
-							>
-								<CheckBoxGroup
-									selection={share.roles}
-									onChange={(roles) => share.setData("roles", roles)}
-								>
-									<Column>
-										<CheckBoxGroupButton
-											value="singer"
-											label={t("roles:singer")}
-										/>
-										<CheckBoxGroupButton
-											value="musician"
-											label={t("roles:musician")}
-										/>
-									</Column>
-								</CheckBoxGroup>
-							</ShareCard>
-						))}
-						<AddCollaboratorDropdown onSelect={addShareHolder} />
+						{renderShareCards()}
+						<AddCollaboratorDropdown
+							onSelect={addShareHolder}
+							placeholder={t("addCollab")}
+						/>
 					</Column>
 				</Column>
 			</Column>
@@ -118,9 +161,11 @@ const RecordingForm = observer(() => {
 			<Column
 				flex={1}
 				align="center"
-				onLayout={(e) => setChartSize(e.nativeEvent.layout.width)}
+				onLayout={(e) =>
+					runInAction(() => (pageState.chartSize = e.nativeEvent.layout.width))
+				}
 			>
-				<SplitChart data={chartData} logo={CircledP} size={chartSize} />
+				<SplitChart {...pageState.genChartProps()} />
 			</Column>
 		</Row>
 	)
