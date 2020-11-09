@@ -83,7 +83,29 @@ const CreationForm = observer(() => {
 	// filter them further so that ones already selected in each case
 	// do not appear again
 
-	const authorSearchResults = searchResults.filter((contributor) => {
+	const fakeSearchResults = [
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb",
+			firstName: "Willy",
+			lastName: "Nilly",
+			artistName: "Willy the Poo",
+			avatarUrl:
+				"https://apiv2-dev.smartsplit.org/v1/users/09a082f1-41a7-4e09-8ee3-e5e0fdad8bbb/avatar",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbc",
+			firstName: "Will",
+			lastName: "Nill",
+			artistName: "Chill Bill",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbd",
+			firstName: "Lila",
+			lastName: "Ait",
+			artistName: "Lady Lila",
+		},
+	]
+	/*	const authorSearchResults = searchResults.filter((contributor) => {
 		//console.log(typeof toJS(model.authors.value))
 		if (contributor.user_id)
 			if (model.authors.value[contributor.user_id]) {
@@ -101,7 +123,8 @@ const CreationForm = observer(() => {
 				//console.log(`no ${contributor.id} is not in model.author`)
 				return true
 			}
-	})
+	})*/
+	const authorSearchResults = fakeSearchResults
 
 	//console.log(authorSearchResults)
 	const composerSearchResults = searchResults.filter(
