@@ -1,11 +1,13 @@
 import { observer } from "mobx-react"
 import { useTranslation } from "react-i18next"
-import { useStorePath, useStores } from "../../mobX"
-import { Column, Group, Row } from "../../layout"
+import { useStorePath } from "../../mobX"
+import { Group } from "../../layout"
 import { DialogModal } from "../../widgets/modal"
 import { Button } from "../../widgets/button"
 import React, { useState } from "react"
-import IconDescriptionSelect from "../../forms/IconDescriptionSelect"
+import IconDescriptionSelect, {
+	IconDescriptionItem,
+} from "../../forms/IconDescriptionSelect"
 import {
 	ProIds,
 	ProIdIcons,
@@ -20,7 +22,7 @@ import { toJS } from "mobx"
  */
 export default observer(function AddProIdModal(props) {
 	const { onRequestClose } = props
-	const model = useStorePath("settings", "profile", "identifiers")
+	const model = useStorePath("settings", "profile", "professional_identity")
 	console.dir(toJS(model.ids.value).find)
 	const [selected, setSelected] = useState()
 	const { t } = useTranslation()
@@ -44,12 +46,14 @@ export default observer(function AddProIdModal(props) {
 					/>
 					<Button
 						text={t("general:buttons.add")}
+						disabled={!selected}
 						onClick={() => {
 							//check to see if it has already been added and if not add it
 							// value is an array of {name:"org", value:"id"} check and see if selected
 							if (!toJS(model.ids.value).find((v) => v.name === selected)) {
 								model.ids.add({ name: selected, value: "" })
 							}
+							setSelected(false)
 							onRequestClose()
 						}}
 					/>
@@ -68,8 +72,20 @@ export default observer(function AddProIdModal(props) {
 						description: t(`copyrightOrgs:description.${org}`),
 						title: t(`copyrightOrgs:action.${org}`),
 						icon: icons[ProIdIcons[org]],
-					}))}
+					})).filter((v) => !model.hasId(v.key))}
 					value={selected}
+					placeholder={
+						selected ? (
+							<IconDescriptionItem
+								icon={icons[ProIdIcons[selected]]}
+								title={t(`copyrightOrgs:action.${selected}`)}
+								name={t(`copyrightOrgs:name.${selected}`)}
+								description={t(`copyrightOrgs:description.${selected}`)}
+							/>
+						) : (
+							t("copyrightOrgs:select")
+						)
+					}
 					onChange={(v) => {
 						setSelected(v)
 					}}

@@ -8,33 +8,32 @@ import { TextField, Dropdown, CheckBox, DateField } from "../../forms"
 import SearchAndTag from "../../forms/search-and-tag"
 import { ProIdList } from "../components/pro-id-list"
 import { useStorePath } from "../../mobX"
-
+import companiesList from "../../data/companies"
 export default function MyProIdentity() {
 	const [t] = useTranslation()
 	const model = useStorePath("settings", "profile")
+	const [searchOrgs, setSearchOrgs] = useState("")
 	return (
-		<Column of="group">
+		<Column of="group" flex={1}>
 			{Platform.web && <Heading level="2">{t("settings:identity")}</Heading>}
-			<Row>
+			<Row flex={1}>
 				<SearchAndTag
-					label={t("forms:labels.participation")}
-					placeholder={t("forms:placeholders.search")}
-					onSearchChange={() => {}}
+					field={model.organisations}
+					placeholder={t("forms:placeholders.organisations")}
+					search={searchOrgs}
+					onSearchChange={setSearchOrgs}
+					searchResults={[...companiesList]
+						.filter((c) => c.toLowerCase().indexOf(searchOrgs) > -1)
+						.splice(0, 10)}
 				/>
 			</Row>
 			<Row>
-				<ProIdList
-					label={t("forms:labels.myProIds")}
-					description={t("forms:descriptions.myProIds")}
-				/>
+				<ProIdList />
 			</Row>
-			<DateField
-				field={model.birthDate}
-				placeholder={t("forms:placeholders.date")}
-			/>
-			<TextField field={model.ISNI} placeholder="1234 1234 1234 1234" />
+			<TextField field={model.birthDate} placeholder={"YYYY-MM-DD"} />
+			<TextField field={model.isni} placeholder="1234 1234 1234 1234" />
 			<TextField
-				field={model.URI}
+				field={model.uri}
 				placeholder={t("forms:placeholders.myUri")}
 			/>
 		</Column>

@@ -1,24 +1,7 @@
 import React from "react"
 import { View } from "react-native"
-import { createPortal } from "../portals"
-const OverlayPortal = createPortal("ScrollableOverlay")
-export class Overlay extends React.PureComponent {
-	static Context = OverlayPortal.Context
-	static Portal = OverlayPortal.Entrance
-	static Container = OverlayPortal.Exit
-	static Provider = OverlayPortal.Provider
-	static ProviderContainer = OverlayPortal.ExitProvider
+import { OverlayPortal } from "./scrollable"
 
-	render() {
-		if (this.props.render === false) return null
-
-		return (
-			<OverlayPortal.Entrance>
-				{this.props.visible !== false && this.props.children}
-			</OverlayPortal.Entrance>
-		)
-	}
-}
 export function UnScrollable(props) {
 	const { children, style, ...nextProps } = props
 	const containerRef = React.createRef()

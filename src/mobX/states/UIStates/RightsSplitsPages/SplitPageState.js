@@ -6,30 +6,21 @@ import { Colors } from "../../../../theme"
  *	states derive from it
  **/
 export default class SplitPageState {
-	/**
-	 *	Action to initialize the ui state. Shares are an array
-	 *	of shareholders stripped values from their observables
-	 *	Split page states can't be initialized upon RootStore
-	 *	creation like other stores because a workpiece has not
-	 *	been selected yet by the user
-	 **/
-	@action init(pageTitle, shares) {
-		this.shares = shares
+	@action init(domainState, pageTitle) {
+		this.domainState = domainState
 		this.pageTitle = pageTitle
 	}
 
 	constructor(logo) {
 		this.logo = logo
 	}
-
+	@observable domainState
 	pageTitle
 	progress
 	logo
 	@observable chartSize = 0
-	@observable shares
-
-	@computed get sharesTotal() {
-		return this.shares.map((share) => share.shares).reduce((a, n) => a + n, 0)
+	@computed get shares() {
+		return this.domainState.sharesValues
 	}
 
 	shareColors = Object.values(Colors.secondaries)
@@ -38,8 +29,9 @@ export default class SplitPageState {
 		return this.shareColors[index % this.shareColors.length]
 	}
 
-	sharesToChartData() {
-		return this.shares.map((share, i) => ({
+	sharesToChartData(shares = null) {
+		shares = shares ? shares : this.shares
+		return shares.map((share, i) => ({
 			key: share.shareHolderId,
 			name: share.shareHolderId,
 			share: share.shares,
@@ -47,11 +39,15 @@ export default class SplitPageState {
 		}))
 	}
 
-	genChartProps() {
+	genChartProps(shares = null) {
 		return {
-			data: this.sharesToChartData(),
+			data: this.sharesToChartData(shares),
 			size: this.chartSize,
 			logo: this.logo,
 		}
+	}
+
+	@computed get sharesTotal() {
+		return this.shares.length
 	}
 }

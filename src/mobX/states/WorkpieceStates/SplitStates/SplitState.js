@@ -12,7 +12,7 @@ export default class SplitState {
 	@observable shareHolders = new Map()
 
 	/**
-	 * @return: Array<{Field.value}>
+	 * 	@return: Array<{Field.value}>
 	 **/
 	@computed get sharesValues() {
 		return [...this.shareHolders.values()].map((share) => share.toJS())
@@ -83,6 +83,21 @@ export default class SplitState {
 			}
 		})
 	}
+
+	/**
+	 *	Update all shares if no shares array are provided.
+	 *	args:
+	 *	- Array<ShareValues>: ShareValues must
+	 *	be an object with a valid shareHolderId key
+	 *	- value: Value to update shares with. Default
+	 *	to 1
+	 **/
+	@action setShares(shares = this.sharesValues, value = 1) {
+		shares.forEach((share) => {
+			this.shareHolders.get(share.shareHolderId).setValue("shares", value)
+		})
+	}
+
 	addShare(share) {
 		return this.addRightHolder(share.shareHolderId, share)
 	}

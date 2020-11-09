@@ -12,6 +12,7 @@ import { Overlay } from "./scrollable"
 
 import ChevronDown from "../svg/chevron-down"
 import ArrowUp from "../svg/chevron-up"
+import { Colors } from "../theme"
 
 /**
  * Un menu dropdown simple: un placeholder, une flèche. Lorsqu'on clique dessus, son contenu (children) est alors affiché dans un dropdown en dessous de l'élément.
@@ -118,7 +119,11 @@ export class Dropdown extends React.Component {
 		}
 
 		return (
-			<View ref={this.frame} onLayout={this.onLayout} style={{ flex: 1 }}>
+			<View
+				ref={this.frame}
+				onLayout={this.onLayout}
+				style={[{ flex: 1 }, this.props.style]}
+			>
 				<DropdownRow
 					noFocusToggle={this.props.noFocusToggle}
 					noPressToggle={this.props.noPressToggle}

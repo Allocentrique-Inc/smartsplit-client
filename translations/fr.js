@@ -138,6 +138,9 @@ export const publicNavbarWeb = {
 
 export const forms = {
 	labels: {
+		firstName: "Prénom",
+		middleName: "Second prénom",
+		lastName: "Nom",
 		myEmail: "Mon courriel",
 		myEmails: "Mes courriels liés à ce compte",
 		password: "Mot de passe",
@@ -500,7 +503,7 @@ export const rightsSplits = {
 				On sépare ici le <b>droit</b> voisin entre les <b>interprètes</b>,
 				autant les musiciens que les chanteurs. Les membres d'un <i>groupe</i>{" "}
 				se partagent ce droit à parts égales. Les <i>artistes principaux</i> et{" "}
-				<i>artistes invités</i> se partagent 30%, tantdis que les 20% restant
+				<i>artistes invités</i> se partagent 80%, tantdis que les 20% restant
 				est partagé parmi les <i>artistes accompagnateurts</i>, le cas échéant.
 			</>
 		),
@@ -828,7 +831,9 @@ export const contributors = {
 	add: "Ajouter un contributeur",
 }
 export const copyrightOrgs = {
-	names: {
+	select: "Sélectionnez un organisme",
+	public: "Rendre publique mes identifiants énumérés ci-dessus",
+	name: {
 		socan: "Socan",
 		socandr: "Socan DR",
 		spacq: "SPACQ",
@@ -875,7 +880,7 @@ export const copyrightOrgs = {
 		cfm:
 			"Canadian Federation of Musicians (formerly referred to as AFM Canada)",
 	},
-	actions: {
+	action: {
 		socan: "Performance rights of musical works",
 		socandr: "Reproduction rights of musical works",
 		spacq: "Nomenclature",

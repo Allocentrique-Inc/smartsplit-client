@@ -139,6 +139,9 @@ export const publicNavbarWeb = {
 
 export const forms = {
 	labels: {
+		firstName: "First Name",
+		middleName: "Middle Name",
+		lastName: "Last Name",
 		myEmail: "My email",
 		myEmails: "My emails linked to this account",
 		password: "Password",
@@ -202,7 +205,7 @@ export const forms = {
 		usualLastName: "Usual Last Name",
 		firstName: "First Name",
 		middleName: "Middle Name",
-		lastName: "Name",
+		lastName: "Last Name",
 		artistName: "Artist Name",
 		search: "Search among groups, artists or organisations...",
 		organisations:
@@ -501,16 +504,20 @@ export const rightsSplits = {
 			<>
 				Seperate here the <b>neighbor right</b> between <b>performers</b>,
 				whether musicians or singers. <i>Group</i> members share this right with
-				equal splits. <i>Main artists</i> and <i>guest artists</i> share 30%,
+				equal splits. <i>Main artists</i> and <i>guest artists</i> share 80%,
 				while the remaining 20% is split among <i>featured artists</i>, if
 				applicable.
 			</>
 		),
 		artistStatuses: {
-			principal: "Artiste principal",
-			featured: "Artiste invité",
-			bandMember: "Membre du groupe",
-			session: "Artiste accompagnateur",
+			principal: "Main artist",
+			featured: () => (
+				<>
+					Starred Artist (<i>featuring</i>)
+				</>
+			),
+			bandMember: "Band member",
+			session: "Accompanying artist",
 		},
 		artistStatusDef: {
 			principal: 'Also called "Starred Artist" or "Solo Artist"',
@@ -818,7 +825,9 @@ export const contributors = {
 	add: "Add a Contributor",
 }
 export const copyrightOrgs = {
-	names: {
+	public: "Make public my professional identifiers",
+	select: "Select A Professional Organisation",
+	name: {
 		socan: "Socan",
 		socandr: "Socan DR",
 		spacq: "SPACQ",
@@ -865,7 +874,7 @@ export const copyrightOrgs = {
 		cfm:
 			"Canadian Federation of Musicians (formerly referred to as AFM Canada)",
 	},
-	actions: {
+	action: {
 		socan: "Performance rights of musical works",
 		socandr: "Reproduction rights of musical works",
 		spacq: "Nomenclature",

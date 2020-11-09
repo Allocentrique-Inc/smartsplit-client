@@ -9,7 +9,24 @@ export default class ProfessionalIdentityModel extends BaseModel {
 			{ name: "artisti", value: "111111111" },
 		],
 	})
-	@observable public = new Field(this, "public", { type: FieldType.boolean })
+	hasId(org) {
+		return !!toJS(this.ids.value).find((entry) => entry.name === org)
+	}
+	@observable public = new Field(this, "public", {
+		type: FieldType.boolean,
+		label: "copyrightOrgs:public",
+	})
+	toJS() {
+		let v = super.toJS()
+		console.log(`professional id model to js = ${JSON.stringify(v, null, 2)}`)
+		let cleanedIds = []
+		v.ids.forEach((entry) => {
+			if (entry.value !== "") cleanedIds.push({ ...entry })
+		})
+		console.log(cleanedIds)
+		v.ids = cleanedIds
+		return v
+	}
 }
 
 export const ProIds = [

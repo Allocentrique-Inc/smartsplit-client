@@ -14,13 +14,23 @@ export default class PerformanceSplit extends SplitPageState {
 	form = PerformanceForm
 	@computed get sharesData() {
 		return this.shares.map((share) => {
+			const sharesQty =
+				this.domainState.majorShares.length +
+				this.domainState.minorShares.length
 			return {
 				id: share.shareHolderId,
 				shares: share.shares,
 				roles: share.roles,
 				status: share.status,
-				percent: share.shares > 0 ? (100 * share.shares) / this.sharesTotal : 0,
+				percent: share.shares > 0 ? (100 * share.shares) / sharesQty : 0,
 			}
 		})
+	}
+
+	genChartProps() {
+		return super.genChartProps([
+			...this.domainState.majorShares,
+			...this.domainState.minorShares,
+		])
 	}
 }

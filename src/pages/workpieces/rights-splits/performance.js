@@ -15,10 +15,22 @@ import { useSplitsPagesState } from "../../../mobX/hooks"
 import { initData } from "../../../mobX/models/workpieces/rights-splits/PerformanceSplitModel"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
+import { StyleSheet } from "react-native"
+import { runInAction } from "mobx"
+
+const Styles = StyleSheet.create({
+	checkboxesContainer: {
+		borderLeftWidth: 2,
+		borderLeftColor: Colors.stroke,
+		paddingLeft: Metrics.spacing.component,
+	},
+	selectFrame: {
+		backgroundColor: Colors.primary_reversed,
+	},
+})
 
 const PerformanceForm = observer(() => {
 	const performanceSplit = useRightsSplits("performance")
-	console.log("PERFORMANCE SPLIT", performanceSplit)
 	const pageState = useSplitsPagesState().performance
 	const { t } = useTranslation("rightsSplits")
 
@@ -29,10 +41,10 @@ const PerformanceForm = observer(() => {
 	}
 
 	//FOR TESTING PURPOSE
-	React.useEffect(() => {
-		addShareHolder("235556b5-3bbb-4c90-9411-4468d873969b")
-		addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
-	}, [])
+	// React.useEffect(() => {
+	// 	addShareHolder("235556b5-3bbb-4c90-9411-4468d873969b")
+	// 	addShareHolder("c84d5b32-25ee-48df-9651-4584b4b78f28")
+	// }, [])
 	function genSelectOptions() {
 		return performanceSplit.statusValues.map((status) => {
 			return {
@@ -43,6 +55,7 @@ const PerformanceForm = observer(() => {
 						<Text secondary>{t(`performance.artistStatusDef.${status}`)}</Text>
 					</>
 				),
+				displayValue: t(`performance.artistStatuses.${status}`),
 			}
 		})
 	}
@@ -59,9 +72,8 @@ const PerformanceForm = observer(() => {
 					placeholder={t("status")}
 					options={genSelectOptions()}
 					value={share.status}
-					onChange={(value) =>
-						performanceSplit.updateShareField(share.id, "status", value)
-					}
+					onChange={(value) => performanceSplit.setShareStatus(share.id, value)}
+					style={Styles.selectFrame}
 				/>
 				<CheckBoxGroup
 					selection={share.roles}
@@ -69,10 +81,15 @@ const PerformanceForm = observer(() => {
 						performanceSplit.updateShareField(share.id, "roles", roles)
 					}
 				>
-					<Column of="component">
-						<CheckBoxGroupButton value="singer" label={t("roles.singer")} />
-						<CheckBoxGroupButton value="musician" label={t("roles.musician")} />
-					</Column>
+					<Row style={Styles.checkboxesContainer}>
+						<Column of="component">
+							<CheckBoxGroupButton value="singer" label={t("roles.singer")} />
+							<CheckBoxGroupButton
+								value="musician"
+								label={t("roles.musician")}
+							/>
+						</Column>
+					</Row>
 				</CheckBoxGroup>
 				<Row of="component" valign="center">
 					<ProgressBar
@@ -119,9 +136,11 @@ const PerformanceForm = observer(() => {
 			<Column
 				flex={1}
 				align="center"
-				onLayout={(e) => (pageState.chartSize = e.nativeEvent.layout.width)}
+				onLayout={(e) =>
+					runInAction(() => (pageState.chartSize = e.nativeEvent.layout.width))
+				}
 			>
-				<SplitChart {...pageState.genChartProps()} />
+				{performanceSplit.mode && <SplitChart {...pageState.genChartProps()} />}
 			</Column>
 		</Row>
 	)
