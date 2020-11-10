@@ -1,6 +1,6 @@
 import React from "react"
 import TextDropdown from "./text-dropdown"
-import { Layer, Row } from "../layout"
+import { Column, Layer, Row } from "../layout"
 import { ScrollView, TouchableWithoutFeedback, StyleSheet } from "react-native"
 import FormStyles from "../styles/forms"
 import { Text } from "../text"
@@ -8,6 +8,7 @@ import { highlightMatchedStrings } from "../utils/utils"
 import { mapFragmentChildren } from "../utils/react"
 import PlusCircle from "../svg/plus-circle"
 import { Colors } from "../theme"
+import UserAvatar from "../smartsplit/user/avatar"
 const Styles = StyleSheet.create({
 	actionFrame: {
 		borderTopWidth: 1,
@@ -21,48 +22,76 @@ export default function Autocomplete({
 	onSearchChange = () => {},
 	searchResults,
 	children,
+	withAvatar,
 	...nextProps
 }) {
 	const renderSearchResults = () => {
 		return (
-			<ScrollView style={FormStyles.select_scroll}>
-				{searchResults.length &&
-					searchResults.map((result, index) => (
-						<TouchableWithoutFeedback
-							key={index}
-							onPress={() => onSelect(result)}
-						>
-							<Layer padding="inside">
-								{typeof result === "string" ? (
-									<Text>
-										{mapFragmentChildren(
-											highlightMatchedStrings(result, search),
-											(child) => child
-										)}
-									</Text>
-								) : result.name ? (
-									<Text>
-										{mapFragmentChildren(
-											highlightMatchedStrings(result.name, search),
-											(child) => child
-										)}
-									</Text>
-								) : result.firstName ? (
-									<Text>
-										{mapFragmentChildren(
-											highlightMatchedStrings(
-												result.firstName + " " + result.lastName,
-												search
-											),
-											(child) => child
-										)}
-									</Text>
-								) : (
-									result
-								)}
-							</Layer>
-						</TouchableWithoutFeedback>
-					))}
+			<>
+				<ScrollView style={FormStyles.select_scroll}>
+					{searchResults.length &&
+						searchResults.map((result, index) => (
+							<TouchableWithoutFeedback
+								key={index}
+								onPress={() => onSelect(result)}
+							>
+								<Layer padding="inside">
+									{typeof result === "string" ? (
+										<Text>
+											{mapFragmentChildren(
+												highlightMatchedStrings(result, search),
+												(child) => child
+											)}
+										</Text>
+									) : withAvatar ? (
+										<Row key={result.id || result.user_id} padding={"none"}>
+											<Column valign="center" align="center" padding={"tiny"}>
+												<UserAvatar size="small" user={result} />
+											</Column>
+											<Column flex={1} padding="tiny">
+												<Text bold>
+													{highlightMatchedStrings(
+														result.name
+															? result.name
+															: result.artistName
+															? result.artistName
+															: item.firstName + " " + item.lastName,
+														search
+													)}
+												</Text>
+											</Column>
+										</Row>
+									) : result.name ? (
+										<Text>
+											{mapFragmentChildren(
+												highlightMatchedStrings(result.name, search),
+												(child) => child
+											)}
+										</Text>
+									) : result.artistName ? (
+										<Text>
+											{mapFragmentChildren(
+												highlightMatchedStrings(result.artistName, search),
+												(child) => child
+											)}
+										</Text>
+									) : result.firstName ? (
+										<Text>
+											{mapFragmentChildren(
+												highlightMatchedStrings(
+													result.firstName + " " + result.lastName,
+													search
+												),
+												(child) => child
+											)}
+										</Text>
+									) : (
+										result
+									)}
+								</Layer>
+							</TouchableWithoutFeedback>
+						))}
+				</ScrollView>
 				{(alwaysShowAdd || !searchResults.length) && children}
 				{!children && (alwaysShowAdd || !searchResults.length) && (
 					<TouchableWithoutFeedback
@@ -79,7 +108,7 @@ export default function Autocomplete({
 						</Row>
 					</TouchableWithoutFeedback>
 				)}
-			</ScrollView>
+			</>
 		)
 	}
 

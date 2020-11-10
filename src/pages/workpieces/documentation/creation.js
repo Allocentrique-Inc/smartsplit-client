@@ -104,6 +104,18 @@ const CreationForm = observer(() => {
 			lastName: "Ait",
 			artistName: "Lady Lila",
 		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbc",
+			firstName: "Wes",
+			lastName: "Johnson",
+			artistName: "'Fat-Fuck' Frank",
+		},
+		{
+			user_id: "09a082f1-41a7-4e09-8ee3-e5e0fdad8bbd",
+			firstName: "Harris Glen",
+			lastName: "Milstead",
+			artistName: "Divine",
+		},
 	]
 	/*	const authorSearchResults = searchResults.filter((contributor) => {
 		//console.log(typeof toJS(model.authors.value))

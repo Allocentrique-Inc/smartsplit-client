@@ -33,6 +33,7 @@ function AddContributorDropdown(props) {
 			<Autocomplete
 				icon={PlusCircle}
 				placeholder={t("contributor:add")}
+				withAvatar
 				{...props}
 			>
 				<TouchableWithoutFeedback onPress={() => contributors.new()}>
