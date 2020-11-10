@@ -51,11 +51,7 @@ export default function Autocomplete({
 											<Column flex={1} padding="tiny">
 												<Text bold>
 													{highlightMatchedStrings(
-														result.name
-															? result.name
-															: result.artistName
-															? result.artistName
-															: item.firstName + " " + item.lastName,
+														`${result.firstName} ${result.lastName} (${result.artistName})`,
 														search
 													)}
 												</Text>
@@ -68,18 +64,11 @@ export default function Autocomplete({
 												(child) => child
 											)}
 										</Text>
-									) : result.artistName ? (
-										<Text>
-											{mapFragmentChildren(
-												highlightMatchedStrings(result.artistName, search),
-												(child) => child
-											)}
-										</Text>
 									) : result.firstName ? (
 										<Text>
 											{mapFragmentChildren(
 												highlightMatchedStrings(
-													result.firstName + " " + result.lastName,
+													`${result.firstName} ${result.lastName} (${result.artistName})`,
 													search
 												),
 												(child) => child
