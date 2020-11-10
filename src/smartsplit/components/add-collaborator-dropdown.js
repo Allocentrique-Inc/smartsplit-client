@@ -29,7 +29,7 @@ const AddCollaboratorDropdown = observer(({ onSelect, ...nextProps }) => {
 		<>
 			<Autocomplete
 				icon={PlusCircle}
-				placeholder={t("rightSplits:dropdowns.addCollab")}
+				placeholder={t("forms:labels.dropdowns.addCollaborator")}
 				search={search}
 				onSearchChange={setSearch}
 				{...nextProps}

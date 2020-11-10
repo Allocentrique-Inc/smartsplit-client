@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { useTranslation } from "react-i18next"
@@ -23,12 +23,18 @@ import { PercentageInput } from "../../../forms/percentage"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
 import { runInAction } from "mobx"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
 
 const RecordingForm = observer(() => {
 	const recordingSplit = useRightsSplits("recording")
 	const pageState = useSplitsPagesState("copyright")
 	const { sharesData, sharesTotal } = pageState
 	const { t } = useTranslation("rightsSplits")
+	const [styles, setStyles] = useState({})
+
+	useEffect(() => {
+		setStyles(pageState.getStyles(window.outerWidth))
+	}, [window.outerWidth])
 
 	function addShareHolder(id) {
 		if (id && !recordingSplit.shareHolders.has(id)) {
@@ -119,7 +125,11 @@ const RecordingForm = observer(() => {
 	}
 
 	return (
-		<Row>
+		<Row
+			onLayout={(e) =>
+				(pageState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
+			}
+		>
 			<Column of="section" flex={1}>
 				<Column of="group">
 					<Row of="component">
@@ -152,20 +162,11 @@ const RecordingForm = observer(() => {
 					</Column>
 				</Column>
 			</Column>
-			<View
-				style={{
-					width: 3 * Metrics.spacing.group,
-					height: 3 * Metrics.spacing.group,
-				}}
-			/>
-			<Column
-				flex={1}
-				align="center"
-				onLayout={(e) =>
-					runInAction(() => (pageState.chartSize = e.nativeEvent.layout.width))
-				}
-			>
-				<SplitChart {...pageState.genChartProps()} />
+			<View style={styles.spacer} />
+			<Column>
+				<View style={styles.chart}>
+					<SplitChart {...pageState.genChartProps()} />
+				</View>
 			</Column>
 		</Row>
 	)
