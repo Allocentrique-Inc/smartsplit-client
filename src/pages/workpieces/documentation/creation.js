@@ -170,14 +170,18 @@ const CreationForm = observer(() => {
 							onSelect={(selection) => {
 								console.dir(toJS(selection))
 								//console.log(`the selection from add contributor dropdown was ^^`)
-								if (!model.authors.includes(selection))
+								if (
+									!model.authors.array.filter(
+										(v) => v.user_id === selection.user_id
+									).length
+								)
 									model.authors.add(selection)
 								setSearch("")
 							}}
 							placeholder={t("document:creation.roles.addAuthor")}
 						/>
 
-						{model.authors.value.map((item) => (
+						{model.authors.array.map((item) => (
 							<Row
 								of="component"
 								padding="tiny"
