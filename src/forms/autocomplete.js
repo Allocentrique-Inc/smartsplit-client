@@ -17,6 +17,7 @@ const Styles = StyleSheet.create({
 export default function Autocomplete({
 	onSelect,
 	search,
+	alwaysShowAdd,
 	onSearchChange = () => {},
 	searchResults,
 	children,
@@ -25,7 +26,7 @@ export default function Autocomplete({
 	const renderSearchResults = () => {
 		return (
 			<ScrollView style={FormStyles.select_scroll}>
-				{searchResults.length ? (
+				{searchResults.length &&
 					searchResults.map((result, index) => (
 						<TouchableWithoutFeedback
 							key={index}
@@ -61,10 +62,9 @@ export default function Autocomplete({
 								)}
 							</Layer>
 						</TouchableWithoutFeedback>
-					))
-				) : children ? (
-					children
-				) : (
+					))}
+				{(alwaysShowAdd || !searchResults.length) && children}
+				{!children && (alwaysShowAdd || !searchResults.length) && (
 					<TouchableWithoutFeedback
 						onPress={() => {
 							onSelect(search)

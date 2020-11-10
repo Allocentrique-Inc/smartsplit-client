@@ -134,7 +134,6 @@ const CreationForm = observer(() => {
 		(contributor) => !model.editors.value[contributor.id]
 	)
 	const [selected, setSelected] = useState(["Inscience", "Quest Love"])
-
 	return (
 		<Row>
 			<Column of="group" flex={5}>
@@ -160,48 +159,53 @@ const CreationForm = observer(() => {
 					/>
 					{/* {console.log(Object.values(model.authors.value))} */}
 
-					<AddContributorDropdown
-						label={t("document:creation.roles.authors")}
-						subLabel={t("document:creation.roles.authorsWho")}
-						searchResults={authorSearchResults}
-						search={search}
-						onSearchChange={setSearch}
-						onSelect={(selection) => {
-							console.dir(toJS(selection))
-							//console.log(`the selection from add contributor dropdown was ^^`)
-							if (!model.authors.includes(selection))
-								model.authors.add(selection)
-							setSearch("")
-						}}
-						placeholder={t("document:creation.roles.addAuthor")}
-					/>
+					<Column of="tiny">
+						<AddContributorDropdown
+							label={t("document:creation.roles.authors")}
+							subLabel={t("document:creation.roles.authorsWho")}
+							searchResults={authorSearchResults}
+							search={search}
+							onSearchChange={setSearch}
+							alwaysShowAdd
+							onSelect={(selection) => {
+								console.dir(toJS(selection))
+								//console.log(`the selection from add contributor dropdown was ^^`)
+								if (!model.authors.includes(selection))
+									model.authors.add(selection)
+								setSearch("")
+							}}
+							placeholder={t("document:creation.roles.addAuthor")}
+						/>
 
-					{model.authors.value.map((item) => (
-						<Row
-							padding="component"
-							of="component"
-							style={frameStyle}
-							key={item.id || item.user_id}
-						>
-							<Column valign="spread" align="center">
-								<UserAvatar size="small" user={item} />
-							</Column>
-							<Column flex={1} of="component">
-								<Text bold>
-									{item.name ? item.name : item.firstName + " " + item.lastName}
-								</Text>
-							</Column>
-							<Column>
-								<TouchableWithoutFeedback
-									onPress={() => model.authors.remove(item)}
-								>
-									<View>
-										<XIcon />
-									</View>
-								</TouchableWithoutFeedback>
-							</Column>
-						</Row>
-					))}
+						{model.authors.value.map((item) => (
+							<Row
+								of="component"
+								padding="tiny"
+								style={frameStyle}
+								key={item.id || item.user_id}
+							>
+								<Column valign="spread" align="center" padding="tiny">
+									<UserAvatar size="small" user={item} />
+								</Column>
+								<Column flex={1} padding="tiny">
+									<Text bold>
+										{item.name
+											? item.name
+											: item.firstName + " " + item.lastName}
+									</Text>
+								</Column>
+								<Column padding="tiny">
+									<TouchableWithoutFeedback
+										onPress={() => model.authors.remove(item)}
+									>
+										<View>
+											<XIcon />
+										</View>
+									</TouchableWithoutFeedback>
+								</Column>
+							</Row>
+						))}
+					</Column>
 
 					<AddContributorDropdown
 						label={t("document:creation.roles.composers")}
