@@ -204,7 +204,7 @@ const CreationForm = observer(() => {
 									<UserAvatar size="small" user={item} />
 								</Column>
 								<Column flex={1} padding="tiny">
-									<Text bold>
+									<Text bold size="tiny">
 										{item.name
 											? item.name
 											: item.firstName + " " + item.lastName}

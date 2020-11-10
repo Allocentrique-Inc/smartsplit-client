@@ -147,6 +147,10 @@ export const Typography = {
 	},
 
 	text: {
+		tiny: {
+			size: 8,
+			height: 8,
+		},
 		small: {
 			size: 12,
 			height: 16,
