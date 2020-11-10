@@ -12,12 +12,12 @@ export default class DocCreationModel extends BaseModel {
 		type: FieldType.set,
 	})
 	@observable composers = new Field(this, "composers", {
-		type: FieldType.collection,
+		type: FieldType.set,
 	})
-	@observable editors = new Field(this, "editors", {
-		type: FieldType.collection,
+	@observable publishers = new Field(this, "publishers", {
+		type: FieldType.set,
 	})
-	@observable ISWC = new Field(this, "ISWC", {
+	@observable iswc = new Field(this, "iswc", {
 		type: FieldType.string,
 	})
 }

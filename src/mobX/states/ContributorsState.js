@@ -58,7 +58,7 @@ export default class ContributorsState extends BaseState {
 	@observable duplicate = null
 	@action async submit() {
 		this.duplicate = null
-		await this.model.validate()
+		let errors = await this.model.validate()
 		if (this.model.isValid) {
 			let id = this.model.id.value || UUID.generate()
 			let friend = {
@@ -77,6 +77,10 @@ export default class ContributorsState extends BaseState {
 				})
 			} else this.add(id, friend)
 			return friend
+		} else {
+			this.model
+				.fields()
+				.map((f) => console.log(`${f} : ${this.model[f].isValid}`))
 		}
 	}
 	@action add(key, person) {

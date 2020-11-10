@@ -297,7 +297,7 @@ const CreationForm = observer(() => {
 							}}
 							placeholder={t("document:creation.roles.addEditor")}
 						/>
-						{model.editors.array.map((item) => (
+						{model.publishers.array.map((item) => (
 							<Row
 								of="component"
 								padding="tiny"
@@ -327,7 +327,7 @@ const CreationForm = observer(() => {
 						))}
 					</Column>
 					<TextField
-						field={model.ISWC}
+						field={model.iswc}
 						label_hint={t("forms:labels.optional")}
 						tooltip=""
 					/>

@@ -10,7 +10,7 @@ import { DialogModal } from "../../widgets/modal"
 import { Button } from "../../widgets/button"
 import React from "react"
 
-export const CollaboratorForm = observer(
+export const ContributorForm = observer(
 	({ onSubmittable, formRef, children, onSuccess }) => {
 		const { t } = useTranslation()
 		const model = useStorePath("contributors", "model")
@@ -83,7 +83,7 @@ export function AddContributorModal(props) {
 			}
 		>
 			<Group>
-				<CollaboratorForm />
+				<ContributorForm />
 			</Group>
 		</DialogModal>
 	)
