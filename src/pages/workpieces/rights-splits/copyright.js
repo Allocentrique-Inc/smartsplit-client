@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { View } from "react-native"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
@@ -25,12 +25,19 @@ import Slider from "../../../widgets/slider"
 import { runInAction } from "mobx"
 import PercentageInput from "../../../forms/percentage"
 import { useSplitsPagesState } from "../../../mobX/hooks"
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
 
 const CopyrightForm = observer(() => {
 	const copyrightSplit = useRightsSplits("copyright")
 	const pageState = useSplitsPagesState("copyright")
 	const { sharesData, sharesTotal } = pageState
 	const { t } = useTranslation("rightsSplits")
+	const [styles, setStyles] = useState({})
+
+	useEffect(() => {
+		setStyles(pageState.getStyles(window.outerWidth))
+	}, [window.outerWidth])
+
 	function addShareHolder(id) {
 		if (id && !copyrightSplit.shareHolders.has(id)) {
 			copyrightSplit.addRightHolder(id, initData)
@@ -119,7 +126,11 @@ const CopyrightForm = observer(() => {
 	}
 
 	return (
-		<Row>
+		<Row
+			onLayout={(e) =>
+				(pageState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
+			}
+		>
 			<Column of="section" flex={1}>
 				<Column of="group">
 					<Row of="component">
@@ -153,24 +164,19 @@ const CopyrightForm = observer(() => {
 					</Column>
 				</Column>
 			</Column>
-			<View
-				style={{
-					width: 3 * Metrics.spacing.group,
-					height: 3 * Metrics.spacing.group,
-				}}
-			/>
-			<Column
-				flex={1}
-				align="center"
-				onLayout={(e) =>
-					runInAction(() => (pageState.chartSize = e.nativeEvent.layout.width))
-				}
-			>
-				{sharesData.length > 0 && copyrightSplit.mode === "roles" && (
-					<DualSplitChart {...pageState.genChartProps(copyrightSplit.mode)} />
-				)}
-				{sharesData.length > 0 && copyrightSplit.mode !== "roles" && (
-					<SplitChart {...pageState.genChartProps(copyrightSplit.mode)} />
+			<View style={styles.spacer} />
+			<Column>
+				{sharesData.length > 0 && (
+					<View style={styles.chart}>
+						{copyrightSplit.mode === "roles" && (
+							<DualSplitChart
+								{...pageState.genChartProps(copyrightSplit.mode)}
+							/>
+						)}
+						{copyrightSplit.mode !== "roles" && (
+							<SplitChart {...pageState.genChartProps(copyrightSplit.mode)} />
+						)}
+					</View>
 				)}
 			</Column>
 		</Row>

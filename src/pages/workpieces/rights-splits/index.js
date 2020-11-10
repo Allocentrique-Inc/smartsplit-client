@@ -43,6 +43,11 @@ const RightsSplitsPage = observer(() => {
 		t("performance.title")
 	)
 
+	splitUIStates.recording.init(
+		workpiece.rightsSplits.recording,
+		t("recording.title")
+	)
+
 	const { workpieces } = useStores()
 	const currentSplit = split_type
 

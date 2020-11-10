@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Column, Row } from "../../../layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { useTranslation } from "react-i18next"
@@ -15,24 +15,18 @@ import { useSplitsPagesState } from "../../../mobX/hooks"
 import { initData } from "../../../mobX/models/workpieces/rights-splits/PerformanceSplitModel"
 import ProgressBar from "../../../widgets/progress-bar"
 import { formatPercentage } from "../../../utils/utils"
-import { StyleSheet } from "react-native"
 import { runInAction } from "mobx"
-
-const Styles = StyleSheet.create({
-	checkboxesContainer: {
-		borderLeftWidth: 2,
-		borderLeftColor: Colors.stroke,
-		paddingLeft: Metrics.spacing.component,
-	},
-	selectFrame: {
-		backgroundColor: Colors.primary_reversed,
-	},
-})
+import { CHART_WINDOW_RATIO } from "../../../mobX/states/UIStates/RightsSplitsPages/SplitPageState"
 
 const PerformanceForm = observer(() => {
 	const performanceSplit = useRightsSplits("performance")
 	const pageState = useSplitsPagesState().performance
 	const { t } = useTranslation("rightsSplits")
+	const [styles, setStyles] = useState({})
+
+	useEffect(() => {
+		setStyles(pageState.getStyles(window.outerWidth))
+	}, [window.outerWidth])
 
 	function addShareHolder(id) {
 		if (id && !performanceSplit.shareHolders.has(id)) {
@@ -73,7 +67,7 @@ const PerformanceForm = observer(() => {
 					options={genSelectOptions()}
 					value={share.status}
 					onChange={(value) => performanceSplit.setShareStatus(share.id, value)}
-					style={Styles.selectFrame}
+					style={styles.selectFrame}
 				/>
 				<CheckBoxGroup
 					selection={share.roles}
@@ -81,7 +75,7 @@ const PerformanceForm = observer(() => {
 						performanceSplit.updateShareField(share.id, "roles", roles)
 					}
 				>
-					<Row style={Styles.checkboxesContainer}>
+					<Row style={styles.checkboxesContainer}>
 						<Column of="component">
 							<CheckBoxGroupButton value="singer" label={t("roles.singer")} />
 							<CheckBoxGroupButton
@@ -105,7 +99,11 @@ const PerformanceForm = observer(() => {
 	}
 
 	return (
-		<Row>
+		<Row
+			onLayout={(e) =>
+				(pageState.chartSize = e.nativeEvent.layout.width * CHART_WINDOW_RATIO)
+			}
+		>
 			<Column of="section" flex={1}>
 				<Column of="group">
 					<Row of="component">
@@ -127,20 +125,13 @@ const PerformanceForm = observer(() => {
 					/>
 				</Column>
 			</Column>
-			<View
-				style={{
-					width: 3 * Metrics.spacing.group,
-					height: 3 * Metrics.spacing.group,
-				}}
-			/>
-			<Column
-				flex={1}
-				align="center"
-				onLayout={(e) =>
-					runInAction(() => (pageState.chartSize = e.nativeEvent.layout.width))
-				}
-			>
-				{performanceSplit.mode && <SplitChart {...pageState.genChartProps()} />}
+			<View style={styles.spacer} />
+			<Column>
+				{performanceSplit.mode && (
+					<View style={styles.chart}>
+						<SplitChart {...pageState.genChartProps()} />
+					</View>
+				)}
 			</Column>
 		</Row>
 	)
