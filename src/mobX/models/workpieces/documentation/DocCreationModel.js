@@ -18,6 +18,7 @@ export default class DocCreationModel extends BaseModel {
 		type: FieldType.set,
 	})
 	@observable iswc = new Field(this, "iswc", {
+		label: "document:creation.iswc",
 		type: FieldType.string,
 	})
 }

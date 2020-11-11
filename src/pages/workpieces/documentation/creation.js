@@ -288,11 +288,11 @@ const CreationForm = observer(() => {
 								console.dir(toJS(selection))
 								//console.log(`the selection from add contributor dropdown was ^^`)
 								if (
-									!model.editors.array.filter(
+									!model.publishers.array.filter(
 										(v) => v.user_id === selection.user_id
 									).length
 								)
-									model.editors.add(selection)
+									model.publishers.add(selection)
 								setSearch("")
 							}}
 							placeholder={t("document:creation.roles.addEditor")}

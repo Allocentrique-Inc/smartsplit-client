@@ -195,7 +195,16 @@ export const forms = {
 		myProIds:
 			"Ici, tu peux ajouter tes identifiants professionnels en lien avec les Sociétés de gestion collectives, les Syndicats et les Associations sectorielles pour lesquelles tu es membre.",
 	},
-
+	options: {
+		defaultRoles: [
+			{ label: "Auteur", value: "author" },
+			{ label: "Compositeur", value: "composer" },
+			{ label: "Arrangeur", value: "arranger" },
+			{ label: "Mixeur", value: "mixer" },
+			{ label: "Chanteur", value: "singer" },
+			{ label: "Musicien", value: "musician" },
+		],
+	},
 	placeholders: {
 		emailExample: "nom@example.com",
 		noCharacters: "8 caractères minimum",
