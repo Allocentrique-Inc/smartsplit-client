@@ -2,6 +2,7 @@ import React, { useState, useMemo } from "react"
 import { useHistory } from "react-router"
 import { useTranslation } from "react-i18next"
 import { StyleSheet, TouchableWithoutFeedback, View } from "react-native"
+import UserTag from "../../../smartsplit/user/UserTag"
 import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
@@ -151,187 +152,133 @@ const CreationForm = observer(() => {
 	return (
 		<Row>
 			<Column of="group" flex={5}>
-				<Column of="group">
-					<Text action bold style={Styles.category}>
-						<CopyrightIcon color={Colors.action} style={Styles.logo} />
-						{t("document:creation.category")}
-						<Row padding="tiny" />
-					</Text>
-					<Heading level={1}>{t("document:creation.title")}</Heading>
-					<Paragraph>{t("document:creation.paragraph")}</Paragraph>
-				</Column>
+				<Text action bold style={Styles.category}>
+					<CopyrightIcon color={Colors.action} style={Styles.logo} />
+					{t("document:creation.category")}
+					<Row padding="tiny" />
+				</Text>
+				<Heading level={1}>{t("document:creation.title")}</Heading>
+				<Paragraph>{t("document:creation.paragraph")}</Paragraph>
+
 				<Spacer of="group" />
-				<Column of="group">
-					{/* To Do: À confirmer si plus court que les autres field */}
-					<DateField
-						label={t("document:creation.date")}
-						value={model.creationDate.value}
-						onChangeText={(v) => {
-							model.creationDate.setValue(v)
+
+				{/* To Do: À confirmer si plus court que les autres field */}
+				<DateField
+					label={t("document:creation.date")}
+					value={model.creationDate.value}
+					onChangeText={(v) => {
+						model.creationDate.setValue(v)
+					}}
+					placeholder={t("forms:placeholders.date")}
+				/>
+				{/* {console.log(Object.values(model.authors.value))} */}
+
+				<Column of="tiny">
+					<AddContributorDropdown
+						label={t("document:creation.roles.authors")}
+						subLabel={t("document:creation.roles.authorsWho")}
+						searchResults={authorSearchResults}
+						search={search}
+						onSearchChange={setSearch}
+						alwaysShowAdd
+						onSelect={(selection) => {
+							console.dir(toJS(selection))
+							//console.log(`the selection from add contributor dropdown was ^^`)
+							if (
+								!model.authors.array.filter(
+									(v) => v.user_id === selection.user_id
+								).length
+							)
+								model.authors.add(selection)
+							setSearch("")
 						}}
-						placeholder={t("forms:placeholders.date")}
+						placeholder={t("document:creation.roles.addAuthor")}
 					/>
-					{/* {console.log(Object.values(model.authors.value))} */}
 
-					<Column of="tiny">
-						<AddContributorDropdown
-							label={t("document:creation.roles.authors")}
-							subLabel={t("document:creation.roles.authorsWho")}
-							searchResults={authorSearchResults}
-							search={search}
-							onSearchChange={setSearch}
-							alwaysShowAdd
-							onSelect={(selection) => {
-								console.dir(toJS(selection))
-								//console.log(`the selection from add contributor dropdown was ^^`)
-								if (
-									!model.authors.array.filter(
-										(v) => v.user_id === selection.user_id
-									).length
-								)
-									model.authors.add(selection)
-								setSearch("")
-							}}
-							placeholder={t("document:creation.roles.addAuthor")}
-						/>
-
-						{model.authors.array.map((item) => (
-							<Row
-								of="component"
-								padding="tiny"
-								style={frameStyle}
-								key={item.id || item.user_id}
-							>
-								<Column valign="spread" align="center" padding="tiny">
-									<UserAvatar size="small" user={item} />
-								</Column>
-								<Column flex={1} padding="tiny">
-									<Text bold size="tiny">
-										{item.name
-											? item.name
-											: item.firstName + " " + item.lastName}
-									</Text>
-								</Column>
-								<Column padding="tiny">
-									<TouchableWithoutFeedback
-										onPress={() => model.authors.remove(item)}
-									>
-										<View>
-											<XIcon />
-										</View>
-									</TouchableWithoutFeedback>
-								</Column>
-							</Row>
-						))}
-					</Column>
-
-					<Column of="tiny">
-						<AddContributorDropdown
-							label={t("document:creation.roles.composers")}
-							subLabel={t("document:creation.roles.composersWho")}
-							searchResults={composerSearchResults}
-							searchInput={search}
-							onSearchChange={setSearch}
-							alwaysShowAdd
-							onSelect={(selection) => {
-								console.dir(toJS(selection))
-								//console.log(`the selection from add contributor dropdown was ^^`)
-								if (
-									!model.composers.array.filter(
-										(v) => v.user_id === selection.user_id
-									).length
-								)
-									model.composers.add(selection)
-								setSearch("")
-							}}
-							placeholder={t("document:creation.roles.addComposer")}
-						/>
-						{model.composers.array.map((item) => (
-							<Row
-								of="component"
-								padding="tiny"
-								style={frameStyle}
-								key={item.id || item.user_id}
-							>
-								<Column valign="spread" align="center" padding="tiny">
-									<UserAvatar size="small" user={item} />
-								</Column>
-								<Column flex={1} padding="tiny">
-									<Text bold size="tiny">
-										{item.name
-											? item.name
-											: item.firstName + " " + item.lastName}
-									</Text>
-								</Column>
-								<Column padding="tiny">
-									<TouchableWithoutFeedback
-										onPress={() => model.composers.remove(item)}
-									>
-										<View>
-											<XIcon />
-										</View>
-									</TouchableWithoutFeedback>
-								</Column>
-							</Row>
-						))}
-					</Column>
-
-					<Column of="tiny">
-						<AddContributorDropdown
-							label={t("document:creation.roles.editors")}
-							subLabel={t("document:creation.roles.editorsWho")}
-							searchResults={editorSearchResults}
-							searchInput={search}
-							onSearchChange={setSearch}
-							alwaysShowAdd
-							onSelect={(selection) => {
-								console.dir(toJS(selection))
-								//console.log(`the selection from add contributor dropdown was ^^`)
-								if (
-									!model.editors.array.filter(
-										(v) => v.user_id === selection.user_id
-									).length
-								)
-									model.editors.add(selection)
-								setSearch("")
-							}}
-							placeholder={t("document:creation.roles.addEditor")}
-						/>
-						{model.publishers.array.map((item) => (
-							<Row
-								of="component"
-								padding="tiny"
-								style={frameStyle}
-								key={item.id || item.user_id}
-							>
-								<Column valign="spread" align="center" padding="tiny">
-									<UserAvatar size="small" user={item} />
-								</Column>
-								<Column flex={1} padding="tiny">
-									<Text bold size="tiny">
-										{item.name
-											? item.name
-											: item.firstName + " " + item.lastName}
-									</Text>
-								</Column>
-								<Column padding="tiny">
-									<TouchableWithoutFeedback
-										onPress={() => model.editors.remove(item)}
-									>
-										<View>
-											<XIcon />
-										</View>
-									</TouchableWithoutFeedback>
-								</Column>
-							</Row>
-						))}
-					</Column>
-					<TextField
-						field={model.iswc}
-						label_hint={t("forms:labels.optional")}
-						tooltip=""
-					/>
+					{model.authors.array.map((user) => (
+						<UserTag user={user} field={model.authors} />
+					))}
 				</Column>
+
+				<Column of="tiny">
+					<AddContributorDropdown
+						label={t("document:creation.roles.composers")}
+						subLabel={t("document:creation.roles.composersWho")}
+						searchResults={composerSearchResults}
+						searchInput={search}
+						onSearchChange={setSearch}
+						alwaysShowAdd
+						onSelect={(selection) => {
+							console.dir(toJS(selection))
+							//console.log(`the selection from add contributor dropdown was ^^`)
+							if (
+								!model.composers.array.filter(
+									(v) => v.user_id === selection.user_id
+								).length
+							)
+								model.composers.add(selection)
+							setSearch("")
+						}}
+						placeholder={t("document:creation.roles.addComposer")}
+					/>
+					{model.composers.array.map((user) => (
+						<UserTag user={user} field={model.composers} />
+					))}
+				</Column>
+
+				<Column of="tiny">
+					<AddContributorDropdown
+						label={t("document:creation.roles.editors")}
+						subLabel={t("document:creation.roles.editorsWho")}
+						searchResults={editorSearchResults}
+						searchInput={search}
+						onSearchChange={setSearch}
+						alwaysShowAdd
+						onSelect={(selection) => {
+							console.dir(toJS(selection))
+							//console.log(`the selection from add contributor dropdown was ^^`)
+							if (
+								!model.editors.array.filter(
+									(v) => v.user_id === selection.user_id
+								).length
+							)
+								model.editors.add(selection)
+							setSearch("")
+						}}
+						placeholder={t("document:creation.roles.addEditor")}
+					/>
+					{model.publishers.array.map((item) => (
+						<Row
+							of="component"
+							padding="tiny"
+							style={frameStyle}
+							key={item.id || item.user_id}
+						>
+							<Column valign="spread" align="center" padding="tiny">
+								<UserAvatar size="small" user={item} />
+							</Column>
+							<Column flex={1} padding="tiny">
+								<Text bold size="tiny">
+									{item.name ? item.name : item.firstName + " " + item.lastName}
+								</Text>
+							</Column>
+							<Column padding="tiny">
+								<TouchableWithoutFeedback
+									onPress={() => model.editors.remove(item)}
+								>
+									<View>
+										<XIcon />
+									</View>
+								</TouchableWithoutFeedback>
+							</Column>
+						</Row>
+					))}
+				</Column>
+				<TextField
+					field={model.iswc}
+					label_hint={t("forms:labels.optional")}
+					tooltip=""
+				/>
 			</Column>
 			<Flex />
 			<Column of="group" flex={4}>
