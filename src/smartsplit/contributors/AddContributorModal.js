@@ -30,10 +30,8 @@ export const ContributorForm = observer(
 				/>
 				<SearchAndTag field={model.groups} searchResults={searchResults} />
 
-				{/* ToDo: Fix Add Collaborator modal 			
 				<CheckBoxGroup
 					field={model.defaultRoles}
-					name="roles"
 					label={t("forms:labels.defaultRoles")}
 					undertext={t("forms:undertexts.defaultRoles")}
 				>
@@ -41,10 +39,10 @@ export const ContributorForm = observer(
 						<CheckBoxGroupButton
 							value={role.value}
 							key={role.value}
-							label={role.displayValue}
+							label={role.label}
 						/>
 					))}
-				</CheckBoxGroup> */}
+				</CheckBoxGroup>
 			</Column>
 		)
 	}

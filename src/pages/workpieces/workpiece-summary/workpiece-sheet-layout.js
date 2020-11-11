@@ -213,7 +213,7 @@ export function CreationSection(props) {
 				</Row>
 				<Row>
 					<Text secondary style={{ flex: 5 }}>
-						{t("workpieceSheet:creation.editors")}
+						{t("workpieceSheet:creation.publishers")}
 					</Text>
 					<Row of="none" style={{ flex: 9 }}>
 						<Text>

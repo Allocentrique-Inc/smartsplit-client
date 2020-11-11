@@ -195,7 +195,16 @@ export const forms = {
 		myProIds:
 			"Ici, tu peux ajouter tes identifiants professionnels en lien avec les Sociétés de gestion collectives, les Syndicats et les Associations sectorielles pour lesquelles tu es membre.",
 	},
-
+	options: {
+		defaultRoles: [
+			{ label: "Auteur", value: "author" },
+			{ label: "Compositeur", value: "composer" },
+			{ label: "Arrangeur", value: "arranger" },
+			{ label: "Mixeur", value: "mixer" },
+			{ label: "Chanteur", value: "singer" },
+			{ label: "Musicien", value: "musician" },
+		],
+	},
 	placeholders: {
 		emailExample: "nom@example.com",
 		noCharacters: "8 caractères minimum",
@@ -658,9 +667,9 @@ export const document = {
 			composers: "Compositeurs",
 			composersWho: "Qui a composé la musique de cette pièce musicale ?",
 			addComposer: "Ajouter un auteur...",
-			editors: "Éditeurs",
-			editorsWho: "Qui représente ces auteurs et/ou compositeurs ?",
-			addEditor: "Ajouter un éditeur...",
+			publishers: "Éditeurs",
+			publishersWho: "Qui représente ces auteurs et/ou compositeurs ?",
+			addPublisher: "Ajouter un éditeur...",
 		},
 		iswc: "Code ISWC",
 		what: "C'est quoi un créateur ?",

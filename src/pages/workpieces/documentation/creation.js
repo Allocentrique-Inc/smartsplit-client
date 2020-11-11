@@ -139,14 +139,14 @@ const CreationForm = observer(() => {
 	})*/
 	const authorSearchResults = fakeSearchResults
 	const composerSearchResults = fakeSearchResults
-	const editorSearchResults = fakeSearchResults
+	const publisherSearchResults = fakeSearchResults
 
 	//console.log(authorSearchResults)
 	/* 	const composerSearchResults = searchResults.filter(
 		(contributor) => !model.composers.value[contributor.id]
 	)
-	const editorSearchResults = searchResults.filter(
-		(contributor) => !model.editors.value[contributor.id]
+	const publisherSearchResults = searchResults.filter(
+		(contributor) => !model.publishers.value[contributor.id]
 	) */
 	const [selected, setSelected] = useState(["Inscience", "Quest Love"])
 	return (
@@ -228,9 +228,9 @@ const CreationForm = observer(() => {
 
 				<Column of="tiny">
 					<AddContributorDropdown
-						label={t("document:creation.roles.editors")}
-						subLabel={t("document:creation.roles.editorsWho")}
-						searchResults={editorSearchResults}
+						label={t("document:creation.roles.publishers")}
+						subLabel={t("document:creation.roles.publishersWho")}
+						searchResults={publisherSearchResults}
 						searchInput={search}
 						onSearchChange={setSearch}
 						alwaysShowAdd
@@ -238,40 +238,17 @@ const CreationForm = observer(() => {
 							console.dir(toJS(selection))
 							//console.log(`the selection from add contributor dropdown was ^^`)
 							if (
-								!model.editors.array.filter(
+								!model.publishers.array.filter(
 									(v) => v.user_id === selection.user_id
 								).length
 							)
-								model.editors.add(selection)
+								model.publishers.add(selection)
 							setSearch("")
 						}}
-						placeholder={t("document:creation.roles.addEditor")}
+						placeholder={t("document:creation.roles.addPublisher")}
 					/>
-					{model.publishers.array.map((item) => (
-						<Row
-							of="component"
-							padding="tiny"
-							style={frameStyle}
-							key={item.id || item.user_id}
-						>
-							<Column valign="spread" align="center" padding="tiny">
-								<UserAvatar size="small" user={item} />
-							</Column>
-							<Column flex={1} padding="tiny">
-								<Text bold size="tiny">
-									{item.name ? item.name : item.firstName + " " + item.lastName}
-								</Text>
-							</Column>
-							<Column padding="tiny">
-								<TouchableWithoutFeedback
-									onPress={() => model.editors.remove(item)}
-								>
-									<View>
-										<XIcon />
-									</View>
-								</TouchableWithoutFeedback>
-							</Column>
-						</Row>
+					{model.publishers.array.map((user) => (
+						<UserTag user={user} field={model.publishers} />
 					))}
 				</Column>
 				<TextField
