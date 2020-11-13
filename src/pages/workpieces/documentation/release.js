@@ -40,71 +40,69 @@ export function ReleaseForm(props) {
 	const [showEP, setShowEP] = useState()
 
 	return (
-		<>
-			<Row>
-				<Column of="group" flex={5}>
-					<Text action bold style={Styles.category}>
-						<ReleasetIcon style={Styles.logo} />
-						{t("document:release.category")}
-						<Row padding="tiny" />
-					</Text>
-					<Heading level={1}>{t("document:release.title")}</Heading>
-					<Paragraph>{t("document:release.paragraph")}</Paragraph>
+		<Row>
+			<Column of="group" flex={5}>
+				<Text action bold style={Styles.category}>
+					<ReleasetIcon style={Styles.logo} />
+					{t("document:release.category")}
+					<Row padding="tiny" />
+				</Text>
+				<Heading level={1}>{t("document:release.title")}</Heading>
+				<Paragraph>{t("document:release.paragraph")}</Paragraph>
 
-					<Spacer of="group" />
+				<Spacer of="group" />
 
-					<DateField
-						label={t("document:release.date")}
-						undertext={t("document:release.dateHint")}
-						value={date}
-						onChangeText={setDate}
-						placeholder={t("forms:placeholders.date")}
-						tooltip=""
+				<DateField
+					label={t("document:release.date")}
+					undertext={t("document:release.dateHint")}
+					value={date}
+					onChangeText={setDate}
+					placeholder={t("forms:placeholders.date")}
+					tooltip=""
+				/>
+				<Dropdown
+					label="Label"
+					placeholder={t("document:release.addLabel")}
+					noFocusToggle
+					tooltip=""
+				/>
+				<Select
+					label={t("document:release.format")}
+					placeholder=""
+					tooltip=""
+					options={[{ key: "EP", value: "EP" }]}
+					onChange={setShowEP}
+					checked={showEP}
+				/>
+				{showEP && <EP />}
+				<CheckBoxGroup label={t("document:release.supports.support")}>
+					<CheckBox
+						onChange={setShowDigitalOptions}
+						checked={showDigitalOptions}
+						label={t("document:release.supports.digital")}
 					/>
-					<Dropdown
-						label="Label"
-						placeholder={t("document:release.addLabel")}
-						noFocusToggle
-						tooltip=""
-					/>
-					<Select
-						label={t("document:release.format")}
-						placeholder=""
-						tooltip=""
-						options={[{ key: "EP", value: "EP" }]}
-						onChange={setShowEP}
-						checked={showEP}
-					/>
-					{showEP && <EP />}
-					<CheckBoxGroup label={t("document:release.supports.support")}>
-						<CheckBox
-							onChange={setShowDigitalOptions}
-							checked={showDigitalOptions}
-							label={t("document:release.supports.digital")}
-						/>
-					</CheckBoxGroup>
-					{showDigitalOptions && <DigitalOptions />}
+				</CheckBoxGroup>
+				{showDigitalOptions && <DigitalOptions />}
 
-					<CheckBox label={t("document:release.supports.physical")} />
-				</Column>
-				<Flex />
-				<Column of="group" flex={4}>
-					<Column of="component" padding="component" layer="underground">
-						<Column of="inside">
-							<Text small bold tertiary>
-								{t("document:help")}
-							</Text>
-							<Hairline />
-						</Column>
-						<Heading level={4}>{t("document:why")}</Heading>
-						<Text secondary>
-							Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-							dolor sit amet.
+				<CheckBox label={t("document:release.supports.physical")} />
+			</Column>
+			<Flex />
+			<Column of="group" flex={4}>
+				<Column of="component" padding="component" layer="underground">
+					<Column of="inside">
+						<Text small bold tertiary>
+							{t("document:help")}
 						</Text>
+						<Hairline />
 					</Column>
+					<Heading level={4}>{t("document:why")}</Heading>
+					<Text secondary>
+						Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+						dolor sit amet.
+					</Text>
 				</Column>
-			</Row>
-		</>
+			</Column>
+		</Row>
 	)
 }
 

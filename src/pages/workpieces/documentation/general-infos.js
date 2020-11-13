@@ -7,6 +7,7 @@ import { useCurrentWorkpiece } from "../context"
 import Layout from "../layout"
 import Button from "../../../widgets/button"
 import { Column, Row, Flex, Hairline, Spacer } from "../../../layout"
+import LayoutStyles from "../../../styles/layout"
 import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import MusicNoteIcon from "../../../svg/music-note"
@@ -106,75 +107,84 @@ export function GeneralInfosForm(props) {
 	])
 
 	return (
-		<>
-			<Row>
-				<Column of="group" flex={5}>
-					<Text action bold style={Styles.category}>
-						<MusicNoteIcon color={Colors.action} style={Styles.logo} />
-						{t("document:infos.category")}
-						<Row padding="tiny" />
-					</Text>
-					<Heading level={1}>{t("document:infos.title")}</Heading>
+		<Row>
+			<Column of="group" flex={5}>
+				<Text action bold style={Styles.category}>
+					<MusicNoteIcon color={Colors.action} style={Styles.logo} />
+					{t("document:infos.category")}
+					<Row padding="tiny" />
+				</Text>
+				<Heading level={1}>{t("document:infos.title")}</Heading>
 
-					<Spacer of="group" />
+				<Spacer of="group" />
 
-					<Row of="component">
-						<TextField
-							name="length"
-							label={t("document:infos.length")}
-							placeholder=""
-						/>
-
-						<TextField name="bpm" label="BPM" placeholder="" />
-					</Row>
-
-					<Dropdown
-						hideIcon={false}
-						label={t("document:infos.mainGenre")}
+				<Row of="component">
+					<TextField
+						name="length"
+						label={t("document:infos.length")}
 						placeholder=""
-						noFocusToggle
-						tooltip=""
 					/>
 
-					<SearchAndTag
-						noIcon={true}
-						label={t("document:infos.secondaryGenre")}
-						searchResults={searchResultsGenres.filter(
-							(g) => g.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
-						)}
-						search={searchGenres}
-						onSearchChange={setSearchGenres}
-						selection={selectedGenres}
-						onSelect={(selection) =>
-							setSelectedGenres([...selectedGenres, selection])
-						}
-						onUnselect={(selection) =>
-							setSelected(selectedGenres.filter((i) => i !== selection))
-						}
-						placeholder={t("document:infos.addGenre")}
-					/>
+					<TextField name="bpm" label="BPM" placeholder="" />
+				</Row>
 
-					<SearchAndTag
-						noIcon={true}
-						label={t("document:infos.influence")}
-						undertext={t("document:infos.influenceExample")}
-						searchResults={searchResultsInfluences.filter(
-							(g) =>
-								g.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
-						)}
-						search={searchInfluences}
-						onSearchChange={setSearchInfluences}
-						selection={selectedInfluences}
-						onSelect={(selection) =>
-							setSelectedInfluences([...selectedInfluences, selection])
-						}
-						onUnselect={(selection) =>
-							setSelected2(selectedInfluences.filter((i) => i !== selection))
-						}
-						placeholder={t("document:infos.addInfluence")}
-					/>
+				<Dropdown
+					hideIcon={false}
+					label={t("document:infos.mainGenre")}
+					placeholder=""
+					noFocusToggle
+					tooltip=""
+				/>
 
-					{/* <AddGenreDropdown
+				<SearchAndTag
+					style={{ flex: "auto" }}
+					noIcon={true}
+					label={t("document:infos.secondaryGenre")}
+					searchResults={searchResultsGenres.filter(
+						(g) => g.toLowerCase().indexOf(searchGenres.toLowerCase()) > -1
+					)}
+					search={searchGenres}
+					onSearchChange={setSearchGenres}
+					selection={selectedGenres}
+					onSelect={(selection) =>
+						setSelectedGenres([...selectedGenres, selection])
+					}
+					onUnselect={(selection) =>
+						setSelectedGenres(selectedGenres.filter((i) => i !== selection))
+					}
+					placeholder={t("document:infos.addGenre")}
+				/>
+
+				{/* Solution temporaire */}
+				<Flex />
+				<Flex />
+				<Flex />
+				<Flex />
+				<Flex />
+				<Flex />
+
+				<SearchAndTag
+					style={{ flex: "auto" }}
+					noIcon={true}
+					label={t("document:infos.influence")}
+					undertext={t("document:infos.influenceExample")}
+					searchResults={searchResultsInfluences.filter(
+						(g) => g.toLowerCase().indexOf(searchInfluences.toLowerCase()) > -1
+					)}
+					search={searchInfluences}
+					onSearchChange={setSearchInfluences}
+					selection={selectedInfluences}
+					onSelect={(selection) =>
+						setSelectedInfluences([...selectedInfluences, selection])
+					}
+					onUnselect={(selection) =>
+						setSelectedInfluences(
+							selectedInfluences.filter((i) => i !== selection)
+						)
+					}
+					placeholder={t("document:infos.addInfluence")}
+				/>
+				{/* <AddGenreDropdown
 						style={{ flex: 1 }}
 						noIcon={true}
 						placeholder={t("document:infos.addGenre")}
@@ -194,7 +204,7 @@ export function GeneralInfosForm(props) {
 						}
 					/> */}
 
-					{/* <AddInfluenceDropdown
+				{/* <AddInfluenceDropdown
 						style={{ flex: 1 }}
 						noIcon={true}
 						placeholder={t("document:infos.addInfluence")}
@@ -215,24 +225,23 @@ export function GeneralInfosForm(props) {
 							)
 						}
 					/> */}
-				</Column>
-				<Flex />
-				<Column of="group" flex={4}>
-					<Column of="component" padding="component" layer="underground">
-						<Column of="inside">
-							<Text small bold tertiary>
-								{t("document:help")}
-							</Text>
-							<Hairline />
-						</Column>
-						<Heading level={4}>{t("document:why")}</Heading>
-						<Text secondary>
-							Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
-							dolor sit amet.
+			</Column>
+			<Flex />
+			<Column of="group" flex={4}>
+				<Column of="component" padding="component" layer="underground">
+					<Column of="inside">
+						<Text small bold tertiary>
+							{t("document:help")}
 						</Text>
+						<Hairline />
 					</Column>
+					<Heading level={4}>{t("document:why")}</Heading>
+					<Text secondary>
+						Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum
+						dolor sit amet.
+					</Text>
 				</Column>
-			</Row>
-		</>
+			</Column>
+		</Row>
 	)
 }
