@@ -2,7 +2,7 @@ import BaseModel, { FieldType, Field } from "../../BaseModel"
 import { observable, action, computed, runInAction } from "mobx"
 
 export default class ContributorModel extends BaseModel {
-	@observable id = new Field(this, "id", {
+	@observable user_id = new Field(this, "user_id", {
 		primary: true,
 	})
 

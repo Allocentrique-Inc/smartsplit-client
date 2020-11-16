@@ -1,14 +1,9 @@
-import {
-	observable,
-	reaction,
-	action,
-	flow as asyncAction,
-	runInAction,
-	toJS,
-} from "mobx"
+import { observable, reaction, action, runInAction, toJS } from "mobx"
 import BaseState, { save } from "../BaseState"
 import ContributorModel from "../models/user/ContributorModel"
-import UUID from "uuidjs"
+import ContributorsApi from "../../../api/contributors"
+import CollaboratorsApi from "../../../api/collaborators"
+import CollaboratorModel from "../models/user/CollaboratorModel"
 /**
  * this state class manages the contributor's list
  *
@@ -20,36 +15,52 @@ import UUID from "uuidjs"
  *
  */
 export default class ContributorsState extends BaseState {
-	@save({ storeName: "Contributors" })
+	modelType = ContributorModel
+	apiType = ContributorsApi
+	type = "contributor"
+	api
 	@observable
-	list = {}
+	list = []
 
 	@observable adding = false
 	@observable editing = false
 	@observable model = new ContributorModel()
+	constructor(root) {
+		super(root)
+	}
 	async init(...args) {
 		this.model.init()
 		reaction(
-			() => this.root.users.user_id,
+			() => this.root.auth.user_id,
 			() => {
-				this.load()
+				console.log(this.root.auth.user_id)
+				if (this.root.auth.user_id) {
+					this.api = new this.apiType(this.root.auth.user_id)
+					return this.load()
+				}
 			},
 			{ fireImmediately: true }
 		)
 	}
 	@action new() {
-		this.model = new ContributorModel()
+		this.model = new this.modelType()
 		this.model.init()
 		this.adding = true
 	}
 	@action cancel() {
 		this.adding = false
-		this.editing = false
 	}
-	@action async load() {
+	async load() {
 		this.loading = true
-		//console.log("user_id changed")
-		// await api call to load and
+		try {
+			const list = await this.api.list()
+			console.log(list)
+			runInAction(() => {
+				this.list = list
+			})
+		} catch (e) {
+			console.log(e)
+		}
 		runInAction(() => {
 			// set list
 			this.loading = false
@@ -58,26 +69,16 @@ export default class ContributorsState extends BaseState {
 	@observable duplicate = null
 	@action async submit() {
 		this.duplicate = null
-		let errors = await this.model.validate()
+		await this.model.validate()
 		if (this.model.isValid) {
-			let id = this.model.id.value || UUID.generate()
-			let friend = {
-				...this.model.toJS(),
-				name: this.model.firstName.value + " " + this.model.lastName.value,
-				id: id,
+			try {
+				await this.api.create(this.model.toJS())
+				return this.load()
+			} catch (e) {
+				console.error(e)
 			}
-			if (this.list[id]) {
-				// if the key of this contributor exists, it suggests
-				// that the user has already added the contributor.
-				// In this case we set the duplicate so the UI knows
-				// to offer us this selection, rather than displaying an error
-				runInAction(() => {
-					this.duplicate = friend
-					this.editing = false
-				})
-			} else this.add(id, friend)
-			return friend
 		} else {
+			console.log(`${this.type} model is not valid`)
 			this.model
 				.fields()
 				.map((f) => console.log(`${f} : ${this.model[f].isValid}`))
