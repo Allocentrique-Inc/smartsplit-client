@@ -59,7 +59,7 @@ function composeView(props, ...stylesheets) {
 				MetricsStyles.margin[margin || ""],
 				MetricsStyles.padding[padding || ""],
 				typeof flex === "number"
-					? { flex, flexBasis: "auto" }
+					? { flex, flexBasis: 0 }
 					: { flexBasis: "auto" },
 				MetricsStyles.sizes[size || ""],
 			],

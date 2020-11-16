@@ -42,7 +42,7 @@ export default function WorkpieceLayout({
 				style={{ alignSelf: "stretch" }}
 			/>
 
-			<Scrollable flex={1}>
+			<Scrollable>
 				<Column
 					of="group"
 					margin="section"
