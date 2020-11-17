@@ -54,6 +54,7 @@ export function LyricsForm(props) {
 	const [selected, setSelected] = useState(["English", "Français"])
 	const { t } = useTranslation()
 	const [text, setText] = React.useState("")
+	const workpiece = useCurrentWorkpiece()
 
 	return (
 		<>
@@ -64,9 +65,9 @@ export function LyricsForm(props) {
 						{t("document:lyrics.category")}
 						<Row padding="tiny" />
 					</Text>
-					{/* To Do: Title does not appear because of {workpiece} object in translations */}
-					{/* <Heading level={1}>{t("document:lyrics.title")}</Heading> */}
-					<Heading level={1}>To Do: Fix Title in t()</Heading>
+					<Heading level={1}>
+						{t("document:lyrics.title", { workpiece: workpiece.data.title })}
+					</Heading>
 					<Paragraph>{t("document:lyrics.paragraph")}</Paragraph>
 
 					<Spacer of="group" />

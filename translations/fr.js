@@ -72,6 +72,7 @@ export const general = {
 		toBegin: "Commencer",
 		pass: "Passer pour l'instant",
 		end: "Terminer",
+		seeSummary: "Voir le résumé",
 	},
 }
 
@@ -477,12 +478,12 @@ export const identity = {
 			constituerait une faute grave passible de poursuites judiciaires.
 		</>
 	),
-	Iaccept: (workPiece) => (
+	Iaccept: (workpiece) => (
 		<>
 			<b>J'accepte ces partages de droits</b> intervenus entre moi-même et tout
 			collaborateur. Cela représente l'entente souhaitées. Je comprends que ces
 			pourcentages s'appliqueront désormais à tout partage de revenus en lien
-			avec {workPiece}.
+			avec {workpiece}.
 		</>
 	),
 }
@@ -656,7 +657,7 @@ export const document = {
 	access: "Accès",
 	creation: {
 		category: "CRÉATION",
-		title: (workPiece) => <>Qui a participé à la création de {workPiece} ?</>,
+		title: "Qui a participé à la création de {{workpiece}} ?",
 		paragraph:
 			"C'est ici que tu indiques qui a contribué à la création de cette pièce.",
 		date: "Date de création",
@@ -811,13 +812,13 @@ export const document = {
 	},
 	lyrics: {
 		category: "PAROLES",
-		title: (workPiece) => <>{workPiece} contient des paroles ?</>,
+		title: "{{workpiece}} contient des paroles ?",
 		paragraph:
 			"Les mots dans une chanson sont d'excellentes données descriptives sur l'œuvre qui augmentent sa découvrabilité et les chances d'élargir ton auditoire.",
 		undertext:
 			"Paroles seulement. Ne pas inclure les auteurs, compositeurs, année de création, etc.",
 		language: "Langue(s)",
-		addLanguage: "Ajouter unbe langue...",
+		addLanguage: "Ajouter une langue...",
 		dropdown: {
 			public: "Public - Rendre l'information publique",
 		},
@@ -830,6 +831,12 @@ export const document = {
 		addLink: "Coller un lien...",
 		createPlatform: "Add a platform",
 		addPlatform: "Ajouter une plateforme...",
+	},
+	finalModal: {
+		header: "Documentation créee !",
+		title: "{{workpiece}} est maintenant documentée !",
+		paragraph:
+			"Tu es à un clic de pouvoir publier les crédits de cette pièce sur une page web et ainsi d’augmenter ta découvrabilité dans le web des données.",
 	},
 }
 

@@ -69,7 +69,11 @@ const CreationForm = observer(() => {
 	const { t } = useTranslation()
 
 	//Pour info genre dropdown use this
-	const workpieceId = useCurrentWorkpiece().id
+	const workpiece = useCurrentWorkpiece()
+	//console.log(workpiece)
+	const workpieceId = workpiece.id
+	//const workpieceName = workpiece.data.title
+	//console.log(workpieceName)
 	// grab the contributors
 	const { contributors } = useStores()
 	//Also this with "infos"
@@ -161,7 +165,9 @@ const CreationForm = observer(() => {
 					{t("document:creation.category")}
 					<Row padding="tiny" />
 				</Text>
-				<Heading level={1}>{t("document:creation.title")}</Heading>
+				<Heading level={1}>
+					{t("document:creation.title", { workpiece: workpiece.data.title })}
+				</Heading>
 				<Paragraph>{t("document:creation.paragraph")}</Paragraph>
 
 				<Spacer of="group" />

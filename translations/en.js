@@ -71,6 +71,7 @@ export const general = {
 		toBegin: "Begin",
 		pass: "Pass for now",
 		end: "Finish",
+		seeSummary: "See the Summary",
 	},
 }
 export const menu = {
@@ -480,12 +481,12 @@ export const identity = {
 			serious violation liable to prosecution.
 		</>
 	),
-	Iaccept: (workPiece) => (
+	Iaccept: (workpiece) => (
 		<>
 			<b>I accept this right splits</b> intervened between myself and any
 			collaborator. This represents the desired agreement. I understand that
 			these percentages will now apply to any revenue split related to
-			{workPiece}.
+			{workpiece}.
 		</>
 	),
 }
@@ -654,7 +655,7 @@ export const document = {
 	access: "Access",
 	creation: {
 		category: "CREATION",
-		title: (workPiece) => <>Who participated in the creation of {workPiece}?</>,
+		title: "Who participated in the creation of {{workpiece}}?",
 		paragraph:
 			"Here you mention who contributed to the creation of this piece.",
 		date: "Creation Date",
@@ -806,13 +807,13 @@ export const document = {
 	},
 	lyrics: {
 		category: "LYRICS",
-		title: (workPiece) => <>{workPiece} contains lyrics?</>,
+		title: "{{workpiece}} contains lyrics?",
 		paragraph:
 			"Words in a song are excellent descriptive data on the work that increases its discoverability and the chances to expand your audience.",
 		undertext:
 			"Lyrics only. Do not include authors, composers, year of creation, etc.",
 		language: "Language(s)",
-		addLanguage: "Ajouter une langue...",
+		addLanguage: "Add a language...",
 		dropdown: {
 			public: "Public - Make the information public",
 		},
@@ -825,6 +826,12 @@ export const document = {
 		addLink: "Paste a link...",
 		createPlatform: "Add a platform",
 		addPlatform: "Add a platform...",
+	},
+	finalModal: {
+		header: "Documentation created!",
+		title: "{{workpiece}} is now documented!",
+		paragraph:
+			"You are one click away being able to publish the credits of this piece on a webpage and therefore increase your discoverability in data web.",
 	},
 }
 export const collaborators = {

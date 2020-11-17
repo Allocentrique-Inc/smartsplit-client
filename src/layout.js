@@ -58,9 +58,7 @@ function composeView(props, ...stylesheets) {
 				LayerStyles[layer || ""],
 				MetricsStyles.margin[margin || ""],
 				MetricsStyles.padding[padding || ""],
-				typeof flex === "number"
-					? { flex, flexBasis: 0 }
-					: { flexBasis: "auto" },
+				typeof flex === "number" ? { flex } : {},
 				MetricsStyles.sizes[size || ""],
 			],
 		},

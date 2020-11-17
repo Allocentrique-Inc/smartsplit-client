@@ -12,8 +12,8 @@ import { Text, Heading, Paragraph } from "../../../text"
 import { Colors, Metrics } from "../../../theme"
 import MusicNoteIcon from "../../../svg/music-note"
 import { SearchAndTag, Dropdown, TextField } from "../../../forms"
-import AddGenreDropdown from "../../../smartsplit/components/add-genre-dropdown"
 import AddInfluenceDropdown from "../../../smartsplit/components/add-influence-dropdown"
+import AddGenreDropdown from "../../../smartsplit/components/AddGenreDropdown"
 
 const Styles = StyleSheet.create({
 	category: {
@@ -98,6 +98,23 @@ export function GeneralInfosForm(props) {
 		"Mega Funk",
 	])
 
+	const fakeSearchResults = [
+		{
+			id: "123",
+			name: "Electrofunk",
+		},
+		{
+			id: "1234",
+			name: "Future Funk",
+		},
+		{
+			id: "12345",
+			name: "Mega Funk",
+		},
+	]
+
+	const genreResults = fakeSearchResults
+
 	const searchResultsInfluences = ["Stromae", "Apollo Brown", "Daft Punk"]
 	const [searchInfluences, setSearchInfluences] = useState("")
 	const [selectedInfluences, setSelectedInfluences] = useState([
@@ -128,16 +145,20 @@ export function GeneralInfosForm(props) {
 					<TextField name="bpm" label="BPM" placeholder="" />
 				</Row>
 
-				<Dropdown
+				{/* Main Genres */}
+
+				{/* This results in a bug, working on it */}
+				{/* <AddGenreDropdown
 					hideIcon={false}
 					label={t("document:infos.mainGenre")}
+					genres={genreResults}
 					placeholder=""
 					noFocusToggle
 					tooltip=""
-				/>
+				/> */}
 
+				{/* Secondary Genres */}
 				<SearchAndTag
-					style={{ flex: "auto" }}
 					noIcon={true}
 					label={t("document:infos.secondaryGenre")}
 					searchResults={searchResultsGenres.filter(
@@ -155,16 +176,7 @@ export function GeneralInfosForm(props) {
 					placeholder={t("document:infos.addGenre")}
 				/>
 
-				{/* Solution temporaire */}
-				<Flex />
-				<Flex />
-				<Flex />
-				<Flex />
-				<Flex />
-				<Flex />
-
 				<SearchAndTag
-					style={{ flex: "auto" }}
 					noIcon={true}
 					label={t("document:infos.influence")}
 					undertext={t("document:infos.influenceExample")}
