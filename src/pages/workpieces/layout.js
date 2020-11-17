@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useRef, useLayoutEffect } from "react"
 import { View } from "react-native"
 import { Column, Row, Spacer, Flex, Hairline } from "../../layout"
 import Scrollable from "../../widgets/scrollable"
@@ -20,6 +20,10 @@ export default function WorkpieceLayout({
 	formNav,
 	children,
 }) {
+	const scrollRef = useRef()
+	useLayoutEffect(() => {
+		console.log(scrollRef)
+	}, [scrollRef])
 	return (
 		<Column flex={1}>
 			<Row of="component" padding="component" valign="center">
@@ -42,7 +46,7 @@ export default function WorkpieceLayout({
 				style={{ alignSelf: "stretch" }}
 			/>
 
-			<Scrollable>
+			<Scrollable autoScrollToTop>
 				<Column
 					of="group"
 					margin="section"
