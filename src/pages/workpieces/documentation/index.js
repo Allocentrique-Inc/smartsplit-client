@@ -116,19 +116,8 @@ const DocumentationPage = observer(() => {
 		}
 	}
 
-	//This results in a bug when clicking Begin from dashboard
-	/* 	const [isLoading, setIsLoading] = useState(true)
-	let resultsRef = useRef()
-
-		useEffect(() => {
-		if (resultsRef.current) {
-			window.scrollTo(0, 1)
-		}
-	}, [isLoading])  */
-
 	return (
 		<Layout
-			//resultsRef={resultsRef}
 			workpiece={workpiece}
 			progress={documentations[type].progress}
 			path={[t("document:navbar.document"), documentations[type].title]}
