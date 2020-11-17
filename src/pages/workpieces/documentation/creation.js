@@ -68,11 +68,14 @@ const CreationForm = observer(() => {
 
 	const { t } = useTranslation()
 
+	//Pour info genre dropdown use this
 	const workpieceId = useCurrentWorkpiece().id
 	// grab the contributors
 	const { contributors } = useStores()
+	//Also this with "infos"
 	const model: DocCreationModel = useDocsModel(workpieceId, "creation")
-	window.creationModel = model
+	//To debug:
+	//window.creationModel = model
 	//console.log(toJS(contributors.list))
 
 	const getResults = useArtistAutocomplete()
@@ -149,6 +152,7 @@ const CreationForm = observer(() => {
 		(contributor) => !model.publishers.value[contributor.id]
 	) */
 	const [selected, setSelected] = useState(["Inscience", "Quest Love"])
+
 	return (
 		<Row>
 			<Column of="group" flex={5}>

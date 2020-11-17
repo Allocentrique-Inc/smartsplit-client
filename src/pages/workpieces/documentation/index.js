@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { useTranslation } from "react-i18next"
 import { Redirect, useHistory, useParams } from "react-router"
 import { observer } from "mobx-react"
@@ -116,8 +116,19 @@ const DocumentationPage = observer(() => {
 		}
 	}
 
+	//This results in a bug when clicking Begin from dashboard
+	const [isLoading, setIsLoading] = useState(true)
+	let resultsRef = useRef()
+
+	useEffect(() => {
+		if (resultsRef.current) {
+			window.scrollTo(0, 1)
+		}
+	}, [isLoading])
+
 	return (
 		<Layout
+			ref={resultsRef}
 			workpiece={workpiece}
 			progress={documentations[type].progress}
 			path={[t("document:navbar.document"), documentations[type].title]}
@@ -132,12 +143,14 @@ const DocumentationPage = observer(() => {
 			formNav={
 				<Row style={{ maxWidth: 464 }} flex={1}>
 					<Button
+						resultsRef={resultsRef}
 						secondary
 						text={t("general:buttons.back")}
 						onClick={toPreviousPage}
 					/>
 					<Flex />
 					<Button
+						//resultsRef={resultsRef}
 						primary
 						text={
 							(type === "links"
